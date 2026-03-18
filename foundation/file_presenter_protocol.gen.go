@@ -34,8 +34,6 @@ type NSFilePresenter interface {
 	ObservedPresentedItemUbiquityAttributes() INSSet
 }
 
-
-
 // NSFilePresenterObject wraps an existing Objective-C object that conforms to the NSFilePresenter protocol.
 type NSFilePresenterObject struct {
 	objectivec.Object
@@ -44,8 +42,6 @@ func (o NSFilePresenterObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSFilePresenterObjectFromID constructs a [NSFilePresenterObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSFilePresenterObjectFromID(id objc.ID) NSFilePresenterObject {
@@ -53,9 +49,6 @@ func NSFilePresenterObjectFromID(id objc.ID) NSFilePresenterObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The URL of the presented file or directory.
 //
@@ -538,18 +531,4 @@ func (o NSFilePresenterObject) AccommodatePresentedItemEvictionWithCompletionHan
 	
 	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedItemEvictionWithCompletionHandler:"), completionHandler)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

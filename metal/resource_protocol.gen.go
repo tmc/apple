@@ -86,8 +86,6 @@ type MTLResource interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLResourceObject wraps an existing Objective-C object that conforms to the MTLResource protocol.
 type MTLResourceObject struct {
 	objectivec.Object
@@ -96,8 +94,6 @@ func (o MTLResourceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLResourceObjectFromID constructs a [MTLResourceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLResourceObjectFromID(id objc.ID) MTLResourceObject {
@@ -105,9 +101,6 @@ func MTLResourceObjectFromID(id objc.ID) MTLResourceObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device object that created the resource.
 //
@@ -311,30 +304,7 @@ func (o MTLResourceObject) SetOwnerWithIdentity(task_id_token objectivec.IObject
 	return rv
 	}
 
-
-
-
-
-
 func (o MTLResourceObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

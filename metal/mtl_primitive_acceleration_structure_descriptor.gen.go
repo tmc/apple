@@ -36,12 +36,6 @@ func (mc MTLPrimitiveAccelerationStructureDescriptorClass) Alloc() MTLPrimitiveA
 	return rv
 }
 
-
-
-
-
-
-
 // A description of an acceleration structure that contains geometry
 // primitives.
 //
@@ -83,10 +77,6 @@ func MTLPrimitiveAccelerationStructureDescriptorFromID(id objc.ID) MTLPrimitiveA
 }
 // NOTE: MTLPrimitiveAccelerationStructureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLPrimitiveAccelerationStructureDescriptor] class.
 //
@@ -137,10 +127,6 @@ type IMTLPrimitiveAccelerationStructureDescriptor interface {
 	SetMotionEndBorderMode(value MTLMotionBorderMode)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p MTLPrimitiveAccelerationStructureDescriptor) Init() MTLPrimitiveAccelerationStructureDescriptor {
 	rv := objc.Send[MTLPrimitiveAccelerationStructureDescriptor](p.ID, objc.Sel("init"))
@@ -160,19 +146,6 @@ func NewMTLPrimitiveAccelerationStructureDescriptor() MTLPrimitiveAccelerationSt
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a new primitive descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLPrimitiveAccelerationStructureDescriptor/descriptor
@@ -180,13 +153,6 @@ func (_MTLPrimitiveAccelerationStructureDescriptorClass MTLPrimitiveAcceleration
 	rv := objc.Send[objc.ID](objc.ID(_MTLPrimitiveAccelerationStructureDescriptorClass.class), objc.Sel("descriptor"))
 	return MTLPrimitiveAccelerationStructureDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // An array that contains the individual pieces of geometry that compose the
 // acceleration structure.
@@ -217,8 +183,6 @@ func (p MTLPrimitiveAccelerationStructureDescriptor) SetGeometryDescriptors(valu
 	objc.Send[struct{}](p.ID, objc.Sel("setGeometryDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The number of keyframes in the geometry data.
 //
 // # Discussion
@@ -237,8 +201,6 @@ func (p MTLPrimitiveAccelerationStructureDescriptor) SetMotionKeyframeCount(valu
 	objc.Send[struct{}](p.ID, objc.Sel("setMotionKeyframeCount:"), value)
 }
 
-
-
 // The start time for the range of motion that the keyframe data describes.
 //
 // # Discussion
@@ -253,8 +215,6 @@ func (p MTLPrimitiveAccelerationStructureDescriptor) MotionStartTime() float32 {
 func (p MTLPrimitiveAccelerationStructureDescriptor) SetMotionStartTime(value float32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMotionStartTime:"), value)
 }
-
-
 
 // The end time for the range of motion that the keyframe data describes.
 //
@@ -271,8 +231,6 @@ func (p MTLPrimitiveAccelerationStructureDescriptor) SetMotionEndTime(value floa
 	objc.Send[struct{}](p.ID, objc.Sel("setMotionEndTime:"), value)
 }
 
-
-
 // The mode to use when handling timestamps before the start time.
 //
 // # Discussion
@@ -288,8 +246,6 @@ func (p MTLPrimitiveAccelerationStructureDescriptor) SetMotionStartBorderMode(va
 	objc.Send[struct{}](p.ID, objc.Sel("setMotionStartBorderMode:"), value)
 }
 
-
-
 // The mode to use when handling timestamps after the end time.
 //
 // # Discussion
@@ -304,27 +260,4 @@ func (p MTLPrimitiveAccelerationStructureDescriptor) MotionEndBorderMode() MTLMo
 func (p MTLPrimitiveAccelerationStructureDescriptor) SetMotionEndBorderMode(value MTLMotionBorderMode) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMotionEndBorderMode:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

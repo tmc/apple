@@ -27,15 +27,3 @@ rv := objc.Send[objc.ID](s.ID, objc.Sel("sr_sensorForDeletionRecordsFromSensor")
 return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-

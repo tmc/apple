@@ -41,12 +41,6 @@ func (vc VNImageRequestHandlerClass) Alloc() VNImageRequestHandler {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that processes one or more image-analysis request pertaining to a
 // single image.
 //
@@ -87,14 +81,10 @@ type VNImageRequestHandler struct {
 // An object that processes one or more image-analysis request pertaining to a
 // single image.
 func VNImageRequestHandlerFromID(id objc.ID) VNImageRequestHandler {
-	return VNImageRequestHandler{objectivec.Object{id}}
+	return VNImageRequestHandler{objectivec.Object{ID: id}}
 }
 // NOTE: VNImageRequestHandler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNImageRequestHandler] class.
 //
@@ -159,10 +149,6 @@ type IVNImageRequestHandler interface {
 	PerformRequestsError(requests []VNRequest) (bool, error)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i VNImageRequestHandler) Init() VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("init"))
@@ -182,11 +168,6 @@ func NewVNImageRequestHandler() VNImageRequestHandler {
 	return rv
 }
 
-
-
-
-
-
 // Creates a handler to be used for performing requests on Core Graphics
 // images.
 //
@@ -204,7 +185,6 @@ func NewImageRequestHandlerWithCGImageOptions(image coregraphics.CGImageRef, opt
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGImage:options:"), image, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a handler to be used for performing requests on a Core Graphics
 // image with known orientation.
@@ -227,7 +207,6 @@ func NewImageRequestHandlerWithCGImageOrientationOptions(image coregraphics.CGIm
 	return VNImageRequestHandlerFromID(rv)
 }
 
-
 // Creates a handler to use for performing requests on Core Image image data.
 //
 // image: A [CIImage] containing the image to be used for performing the requests.
@@ -247,7 +226,6 @@ func NewImageRequestHandlerWithCIImageOptions(image objectivec.IObject, options 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:options:"), image, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a handler to be used for performing requests on Core Image image
 // data of a known orientation.
@@ -270,7 +248,6 @@ func NewImageRequestHandlerWithCIImageOrientationOptions(image objectivec.IObjec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:orientation:options:"), image, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a request handler that performs requests on an image in a sample
 // buffer that contains depth data.
@@ -301,7 +278,6 @@ func NewImageRequestHandlerWithCMSampleBufferDepthDataOrientationOptions(sampleB
 	return VNImageRequestHandlerFromID(rv)
 }
 
-
 // Creates a request handler that performs requests on an image contained
 // within a sample buffer.
 //
@@ -324,7 +300,6 @@ func NewImageRequestHandlerWithCMSampleBufferOptions(sampleBuffer objectivec.IOb
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCMSampleBuffer:options:"), sampleBuffer, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a request handler that performs requests on an image of a specified
 // orientation contained within a sample buffer.
@@ -352,7 +327,6 @@ func NewImageRequestHandlerWithCMSampleBufferOrientationOptions(sampleBuffer obj
 	return VNImageRequestHandlerFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:depthData:orientation:options:)
 // depthData is a [avfoundation.AVDepthData].
@@ -362,7 +336,6 @@ func NewImageRequestHandlerWithCVPixelBufferDepthDataOrientationOptions(pixelBuf
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:depthData:orientation:options:"), pixelBuffer, depthData, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a handler for performing requests on a Core Video pixel buffer.
 //
@@ -377,7 +350,6 @@ func NewImageRequestHandlerWithCVPixelBufferOptions(pixelBuffer corevideo.CVImag
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:options:"), pixelBuffer, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a handler for performing requests on a Core Video pixel buffer of a
 // known orientation.
@@ -396,7 +368,6 @@ func NewImageRequestHandlerWithCVPixelBufferOrientationOptions(pixelBuffer corev
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a handler to use for performing requests on an image in a data
 // object.
@@ -419,7 +390,6 @@ func NewImageRequestHandlerWithDataOptions(imageData foundation.INSData, options
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:"), imageData, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a handler to use for performing requests on an image of known
 // orientation.
@@ -446,7 +416,6 @@ func NewImageRequestHandlerWithDataOrientationOptions(imageData foundation.INSDa
 	return VNImageRequestHandlerFromID(rv)
 }
 
-
 // Creates a handler to be used for performing requests on an image at the
 // specified URL.
 //
@@ -465,7 +434,6 @@ func NewImageRequestHandlerWithURLOptions(imageURL foundation.INSURL, options fo
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), imageURL, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
 
 // Creates a handler to be used for performing requests on an image with known
 // orientation, at the specified URL.
@@ -488,12 +456,6 @@ func NewImageRequestHandlerWithURLOrientationOptions(imageURL foundation.INSURL,
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:orientation:options:"), imageURL, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a handler to be used for performing requests on Core Graphics
 // images.
@@ -797,7 +759,7 @@ func (i VNImageRequestHandler) InitWithURLOrientationOptions(imageURL foundation
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/perform(_:)
 func (i VNImageRequestHandler) PerformRequestsError(requests []VNRequest) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](i.ID, objc.Sel("performRequests:error:"), objectivec.IObjectSliceToNSArray(requests), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -809,35 +771,4 @@ func (i VNImageRequestHandler) PerformRequestsError(requests []VNRequest) (bool,
 	return rv, nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

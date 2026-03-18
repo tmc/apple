@@ -121,10 +121,10 @@ type IGTShaderProfilerStreamDataProcessor interface {
 	WaitUntilFinished()
 	WaitUntilShaderProfilerFinished()
 	WaitUntilTimelineFinished()
-	Delegate() unsafe.Pointer
-	SetDelegate(value unsafe.Pointer)
-	IsaPrinter() unsafe.Pointer
-	SetIsaPrinter(value unsafe.Pointer)
+	Delegate() objectivec.IObject
+	SetDelegate(value objectivec.IObject)
+	IsaPrinter() objectivec.IObject
+	SetIsaPrinter(value objectivec.IObject)
 	MioData() unsafe.Pointer
 	ProcessAPSCostData() bool
 	ProcessBatchIDFilteringData(data objectivec.IObject)
@@ -273,20 +273,20 @@ func (g GTShaderProfilerStreamDataProcessor) StreamData() IGTShaderProfilerStrea
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/delegate
-func (g GTShaderProfilerStreamDataProcessor) Delegate() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("delegate"))
-	return rv
+func (g GTShaderProfilerStreamDataProcessor) Delegate() objectivec.IObject {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("delegate"))
+	return objectivec.Object{ID: rv}
 }
-func (g GTShaderProfilerStreamDataProcessor) SetDelegate(value unsafe.Pointer) {
+func (g GTShaderProfilerStreamDataProcessor) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/isaPrinter
-func (g GTShaderProfilerStreamDataProcessor) IsaPrinter() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("isaPrinter"))
-	return rv
+func (g GTShaderProfilerStreamDataProcessor) IsaPrinter() objectivec.IObject {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaPrinter"))
+	return objectivec.Object{ID: rv}
 }
-func (g GTShaderProfilerStreamDataProcessor) SetIsaPrinter(value unsafe.Pointer) {
+func (g GTShaderProfilerStreamDataProcessor) SetIsaPrinter(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
 

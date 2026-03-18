@@ -36,12 +36,6 @@ func (mc MTLStitchedLibraryDescriptorClass) Alloc() MTLStitchedLibraryDescriptor
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a new library of procedurally generated functions.
 //
 // # Overview
@@ -84,14 +78,10 @@ type MTLStitchedLibraryDescriptor struct {
 //
 // A description of a new library of procedurally generated functions.
 func MTLStitchedLibraryDescriptorFromID(id objc.ID) MTLStitchedLibraryDescriptor {
-	return MTLStitchedLibraryDescriptor{objectivec.Object{id}}
+	return MTLStitchedLibraryDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLStitchedLibraryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLStitchedLibraryDescriptor] class.
 //
@@ -130,10 +120,6 @@ type IMTLStitchedLibraryDescriptor interface {
 	SetOptions(value MTLStitchedLibraryOptions)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MTLStitchedLibraryDescriptor) Init() MTLStitchedLibraryDescriptor {
 	rv := objc.Send[MTLStitchedLibraryDescriptor](s.ID, objc.Sel("init"))
@@ -152,26 +138,6 @@ func NewMTLStitchedLibraryDescriptor() MTLStitchedLibraryDescriptor {
 	rv := objc.Send[MTLStitchedLibraryDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The list of functions for creating the stitched library.
 //
@@ -193,8 +159,6 @@ func (s MTLStitchedLibraryDescriptor) SetFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The function graphs that define the new stitched library’s functions.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStitchedLibraryDescriptor/functionGraphs
@@ -208,8 +172,6 @@ func (s MTLStitchedLibraryDescriptor) SetFunctionGraphs(value []MTLFunctionStitc
 	objc.Send[struct{}](s.ID, objc.Sel("setFunctionGraphs:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLStitchedLibraryDescriptor/binaryArchives
 func (s MTLStitchedLibraryDescriptor) BinaryArchives() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("binaryArchives"))
@@ -221,8 +183,6 @@ func (s MTLStitchedLibraryDescriptor) SetBinaryArchives(value []objectivec.IObje
 	objc.Send[struct{}](s.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLStitchedLibraryDescriptor/options
 func (s MTLStitchedLibraryDescriptor) Options() MTLStitchedLibraryOptions {
 	rv := objc.Send[MTLStitchedLibraryOptions](s.ID, objc.Sel("options"))
@@ -231,27 +191,4 @@ func (s MTLStitchedLibraryDescriptor) Options() MTLStitchedLibraryOptions {
 func (s MTLStitchedLibraryDescriptor) SetOptions(value MTLStitchedLibraryOptions) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOptions:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (vc VZVirtioGraphicsDeviceClass) Alloc() VZVirtioGraphicsDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // A Virtio graphics device.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsDevice
@@ -57,20 +51,12 @@ func VZVirtioGraphicsDeviceFromID(id objc.ID) VZVirtioGraphicsDevice {
 // NOTE: VZVirtioGraphicsDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioGraphicsDevice] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsDevice
 type IVZVirtioGraphicsDevice interface {
 	IVZGraphicsDevice
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioGraphicsDevice) Init() VZVirtioGraphicsDevice {
@@ -90,44 +76,4 @@ func NewVZVirtioGraphicsDevice() VZVirtioGraphicsDevice {
 	rv := objc.Send[VZVirtioGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

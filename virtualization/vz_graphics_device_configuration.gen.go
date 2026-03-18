@@ -36,12 +36,6 @@ func (vc VZGraphicsDeviceConfigurationClass) Alloc() VZGraphicsDeviceConfigurati
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a graphics device configuration.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDeviceConfiguration
@@ -53,14 +47,10 @@ type VZGraphicsDeviceConfiguration struct {
 //
 // The base class for a graphics device configuration.
 func VZGraphicsDeviceConfigurationFromID(id objc.ID) VZGraphicsDeviceConfiguration {
-	return VZGraphicsDeviceConfiguration{objectivec.Object{id}}
+	return VZGraphicsDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZGraphicsDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZGraphicsDeviceConfiguration] class.
 //
@@ -68,10 +58,6 @@ func VZGraphicsDeviceConfigurationFromID(id objc.ID) VZGraphicsDeviceConfigurati
 type IVZGraphicsDeviceConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g VZGraphicsDeviceConfiguration) Init() VZGraphicsDeviceConfiguration {
@@ -91,45 +77,4 @@ func NewVZGraphicsDeviceConfiguration() VZGraphicsDeviceConfiguration {
 	rv := objc.Send[VZGraphicsDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

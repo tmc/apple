@@ -37,12 +37,6 @@ func (mc MTLAttributeClass) Alloc() MTLAttribute {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that describes an attribute defined in the stage-in argument for
 // a shader.
 //
@@ -65,14 +59,10 @@ type MTLAttribute struct {
 // An object that describes an attribute defined in the stage-in argument for
 // a shader.
 func MTLAttributeFromID(id objc.ID) MTLAttribute {
-	return MTLAttribute{objectivec.Object{id}}
+	return MTLAttribute{objectivec.Object{ID: id}}
 }
 // NOTE: MTLAttribute adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLAttribute] class.
 //
@@ -105,10 +95,6 @@ type IMTLAttribute interface {
 	PatchData() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MTLAttribute) Init() MTLAttribute {
 	rv := objc.Send[MTLAttribute](a.ID, objc.Sel("init"))
@@ -128,26 +114,6 @@ func NewMTLAttribute() MTLAttribute {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The name of the attribute.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/name
@@ -155,8 +121,6 @@ func (a MTLAttribute) Name() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The index of the attribute, as declared in Metal shader source code.
 //
@@ -166,8 +130,6 @@ func (a MTLAttribute) AttributeIndex() uint {
 	return rv
 }
 
-
-
 // The data type for the attribute, as declared in Metal shader source code.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/attributeType
@@ -176,8 +138,6 @@ func (a MTLAttribute) AttributeType() MTLDataType {
 	return MTLDataType(rv)
 }
 
-
-
 // A Boolean value that indicates whether the attribute is active.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttribute/isActive
@@ -185,8 +145,6 @@ func (a MTLAttribute) Active() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isActive"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the attribute represents control
 // point data.
@@ -197,8 +155,6 @@ func (a MTLAttribute) PatchControlPointData() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the attribute represents
 // tessellation patch data.
 //
@@ -207,26 +163,4 @@ func (a MTLAttribute) PatchData() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPatchData"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

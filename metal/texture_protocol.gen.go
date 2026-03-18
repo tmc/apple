@@ -214,8 +214,6 @@ type MTLTexture interface {
 	NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSwizzle(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange, swizzle MTLTextureSwizzleChannels) MTLTexture
 }
 
-
-
 // MTLTextureObject wraps an existing Objective-C object that conforms to the MTLTexture protocol.
 type MTLTextureObject struct {
 	objectivec.Object
@@ -224,8 +222,6 @@ func (o MTLTextureObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLTextureObjectFromID constructs a [MTLTextureObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLTextureObjectFromID(id objc.ID) MTLTextureObject {
@@ -233,9 +229,6 @@ func MTLTextureObjectFromID(id objc.ID) MTLTextureObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Copies pixel data into a section of a texture slice.
 //
@@ -1169,86 +1162,7 @@ func (o MTLTextureObject) SetOwnerWithIdentity(task_id_token objectivec.IObject)
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 func (o MTLTextureObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

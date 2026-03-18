@@ -37,12 +37,6 @@ func (vc VNRecognizedPointClass) Alloc() VNRecognizedPoint {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a normalized point in an image, along with an
 // identifier label and a confidence value.
 //
@@ -65,10 +59,6 @@ func VNRecognizedPointFromID(id objc.ID) VNRecognizedPoint {
 // NOTE: VNRecognizedPoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNRecognizedPoint] class.
 //
 // # Inspecting a Point
@@ -83,13 +73,7 @@ type IVNRecognizedPoint interface {
 
 	// The point’s identifier label.
 	Identifier() VNRecognizedPointKey
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r VNRecognizedPoint) Init() VNRecognizedPoint {
@@ -110,11 +94,6 @@ func NewVNRecognizedPoint() VNRecognizedPoint {
 	return rv
 }
 
-
-
-
-
-
 // Creates a point object from the specified Core Graphics point.
 //
 // location: The Core Graphics point.
@@ -125,7 +104,6 @@ func NewRecognizedPointWithLocation(location corefoundation.CGPoint) VNRecognize
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:"), location)
 	return VNRecognizedPointFromID(rv)
 }
-
 
 // Creates a point object with the specified coordinates.
 //
@@ -140,26 +118,6 @@ func NewRecognizedPointWithXY(x float64, y float64) VNRecognizedPoint {
 	return VNRecognizedPointFromID(rv)
 }
 
-
-
-
-
-
-func (r VNRecognizedPoint) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The point’s identifier label.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPoint/identifier
@@ -167,29 +125,4 @@ func (r VNRecognizedPoint) Identifier() VNRecognizedPointKey {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("identifier"))
 	return VNRecognizedPointKey(foundation.NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

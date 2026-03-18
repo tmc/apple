@@ -36,12 +36,6 @@ func (vc VZVirtioSocketDeviceClass) Alloc() VZVirtioSocketDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // A device that manages port-based connections between the guest system and
 // the host computer.
 //
@@ -84,10 +78,6 @@ func VZVirtioSocketDeviceFromID(id objc.ID) VZVirtioSocketDevice {
 // NOTE: VZVirtioSocketDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioSocketDevice] class.
 //
 // # Configuring Port Listeners
@@ -116,10 +106,6 @@ type IVZVirtioSocketDevice interface {
 	ConnectToPortCompletionHandler(port uint32, completionHandler VirtioSocketConnectionErrorHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioSocketDevice) Init() VZVirtioSocketDevice {
 	rv := objc.Send[VZVirtioSocketDevice](v.ID, objc.Sel("init"))
@@ -138,15 +124,6 @@ func NewVZVirtioSocketDevice() VZVirtioSocketDevice {
 	rv := objc.Send[VZVirtioSocketDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Configures an object to monitor the specified port for new connections.
 //
@@ -192,36 +169,10 @@ func (v VZVirtioSocketDevice) RemoveSocketListenerForPort(port uint32) {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/connect(toPort:)
 func (v VZVirtioSocketDevice) ConnectToPortCompletionHandler(port uint32, completionHandler VirtioSocketConnectionErrorHandler) {
-		_block1, _cleanup1 := NewVirtioSocketConnectionErrorBlock(completionHandler)
+_block1, _cleanup1 := NewVirtioSocketConnectionErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](v.ID, objc.Sel("connectToPort:completionHandler:"), port, _block1)
+	objc.Send[objc.ID](v.ID, objc.Sel("connectToPort:completionHandler:"), port, _block1)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ConnectToPort is a synchronous wrapper around [VZVirtioSocketDevice.ConnectToPortCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -241,9 +192,4 @@ func (v VZVirtioSocketDevice) ConnectToPort(ctx context.Context, port uint32) (*
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

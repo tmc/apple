@@ -37,12 +37,6 @@ func (mc MTLComputePipelineDescriptorClass) Alloc() MTLComputePipelineDescriptor
 	return rv
 }
 
-
-
-
-
-
-
 // An instance describing the desired GPU state for a kernel call in a compute
 // pass.
 //
@@ -122,14 +116,10 @@ type MTLComputePipelineDescriptor struct {
 // An instance describing the desired GPU state for a kernel call in a compute
 // pass.
 func MTLComputePipelineDescriptorFromID(id objc.ID) MTLComputePipelineDescriptor {
-	return MTLComputePipelineDescriptor{objectivec.Object{id}}
+	return MTLComputePipelineDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLComputePipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLComputePipelineDescriptor] class.
 //
@@ -274,10 +264,6 @@ type IMTLComputePipelineDescriptor interface {
 	SetRequiredThreadsPerThreadgroup(value MTLSize)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MTLComputePipelineDescriptor) Init() MTLComputePipelineDescriptor {
 	rv := objc.Send[MTLComputePipelineDescriptor](c.ID, objc.Sel("init"))
@@ -297,32 +283,12 @@ func NewMTLComputePipelineDescriptor() MTLComputePipelineDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Resets all compute pipeline descriptor properties to their default values.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineDescriptor/reset()
 func (c MTLComputePipelineDescriptor) Reset() {
 	objc.Send[objc.ID](c.ID, objc.Sel("reset"))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The compute kernel the pipeline calls.
 //
@@ -338,8 +304,6 @@ func (c MTLComputePipelineDescriptor) ComputeFunction() MTLFunction {
 func (c MTLComputePipelineDescriptor) SetComputeFunction(value MTLFunction) {
 	objc.Send[struct{}](c.ID, objc.Sel("setComputeFunction:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the threadgroup size is always a
 // multiple of the thread execution width.
@@ -360,8 +324,6 @@ func (c MTLComputePipelineDescriptor) ThreadGroupSizeIsMultipleOfThreadExecution
 func (c MTLComputePipelineDescriptor) SetThreadGroupSizeIsMultipleOfThreadExecutionWidth(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setThreadGroupSizeIsMultipleOfThreadExecutionWidth:"), value)
 }
-
-
 
 // A property that limits the number of threads you can dispatch in a
 // threadgroup for the compute function.
@@ -398,8 +360,6 @@ func (c MTLComputePipelineDescriptor) SetMaxTotalThreadsPerThreadgroup(value uin
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxTotalThreadsPerThreadgroup:"), value)
 }
 
-
-
 // The maximum call stack depth for indirect function calls in compute
 // shaders.
 //
@@ -422,8 +382,6 @@ func (c MTLComputePipelineDescriptor) SetMaxCallStackDepth(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxCallStackDepth:"), value)
 }
 
-
-
 // The organization of input and output data for the next kernel call.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineDescriptor/stageInputDescriptor
@@ -434,8 +392,6 @@ func (c MTLComputePipelineDescriptor) StageInputDescriptor() IMTLStageInputOutpu
 func (c MTLComputePipelineDescriptor) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStageInputDescriptor:"), value)
 }
-
-
 
 // The buffer mutability options to apply to the next kernel call.
 //
@@ -457,8 +413,6 @@ func (c MTLComputePipelineDescriptor) Buffers() IMTLPipelineBufferDescriptorArra
 	return MTLPipelineBufferDescriptorArrayFromID(objc.ID(rv))
 }
 
-
-
 // A string that identifies the instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineDescriptor/label
@@ -469,8 +423,6 @@ func (c MTLComputePipelineDescriptor) Label() string {
 func (c MTLComputePipelineDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
 
 // A Boolean value that indicates whether you can encode commands that
 // reference the pipeline state object into an indirect command buffer.
@@ -483,8 +435,6 @@ func (c MTLComputePipelineDescriptor) SupportIndirectCommandBuffers() bool {
 func (c MTLComputePipelineDescriptor) SetSupportIndirectCommandBuffers(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSupportIndirectCommandBuffers:"), value)
 }
-
-
 
 // A value that enables or disables shader validation for the pipeline.
 //
@@ -503,8 +453,6 @@ func (c MTLComputePipelineDescriptor) SetShaderValidation(value MTLShaderValidat
 	objc.Send[struct{}](c.ID, objc.Sel("setShaderValidation:"), value)
 }
 
-
-
 // The dynamic libraries that contain precompiled shader functions you want to
 // link.
 //
@@ -519,8 +467,6 @@ func (c MTLComputePipelineDescriptor) SetPreloadedLibraries(value []objectivec.I
 	objc.Send[struct{}](c.ID, objc.Sel("setPreloadedLibraries:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The functions with available function pointers for the next kernel call.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineDescriptor/linkedFunctions
@@ -531,8 +477,6 @@ func (c MTLComputePipelineDescriptor) LinkedFunctions() IMTLLinkedFunctions {
 func (c MTLComputePipelineDescriptor) SetLinkedFunctions(value IMTLLinkedFunctions) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLinkedFunctions:"), value)
 }
-
-
 
 // A Boolean value that indicates whether you can use the pipeline to create
 // new pipelines by adding binary functions to its callable functions list.
@@ -545,8 +489,6 @@ func (c MTLComputePipelineDescriptor) SupportAddingBinaryFunctions() bool {
 func (c MTLComputePipelineDescriptor) SetSupportAddingBinaryFunctions(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSupportAddingBinaryFunctions:"), value)
 }
-
-
 
 // The binary archives that contain any precompiled shader functions to link.
 //
@@ -573,8 +515,6 @@ func (c MTLComputePipelineDescriptor) SetBinaryArchives(value []objectivec.IObje
 	objc.Send[struct{}](c.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 //
 // # Discussion
 // 
@@ -592,27 +532,4 @@ func (c MTLComputePipelineDescriptor) RequiredThreadsPerThreadgroup() MTLSize {
 func (c MTLComputePipelineDescriptor) SetRequiredThreadsPerThreadgroup(value MTLSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRequiredThreadsPerThreadgroup:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

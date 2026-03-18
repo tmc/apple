@@ -38,12 +38,6 @@ func (vc VNFeaturePrintObservationClass) Alloc() VNFeaturePrintObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that provides the recognized feature print.
 //
 // # Fetching Feature Print Data
@@ -72,10 +66,6 @@ func VNFeaturePrintObservationFromID(id objc.ID) VNFeaturePrintObservation {
 }
 // NOTE: VNFeaturePrintObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNFeaturePrintObservation] class.
 //
@@ -112,13 +102,7 @@ type IVNFeaturePrintObservation interface {
 
 	// Computes the distance between two feature print observations.
 	ComputeDistanceToFeaturePrintObservationError(featurePrint VNFeaturePrintObservation) (float32, error)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f VNFeaturePrintObservation) Init() VNFeaturePrintObservation {
@@ -138,15 +122,6 @@ func NewVNFeaturePrintObservation() VNFeaturePrintObservation {
 	rv := objc.Send[VNFeaturePrintObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Computes the distance between two feature print observations.
 //
@@ -172,20 +147,6 @@ func (f VNFeaturePrintObservation) ComputeDistanceToFeaturePrintObservationError
 	}
 	return outDistance, nil
 }
-func (f VNFeaturePrintObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The feature print data.
 //
@@ -200,8 +161,6 @@ func (f VNFeaturePrintObservation) Data() foundation.INSData {
 	return foundation.NSDataFromID(objc.ID(rv))
 }
 
-
-
 // The total number of elements in the data.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/elementCount
@@ -210,8 +169,6 @@ func (f VNFeaturePrintObservation) ElementCount() uint {
 	return rv
 }
 
-
-
 // The type of each element in the data.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/elementType
@@ -219,30 +176,4 @@ func (f VNFeaturePrintObservation) ElementType() VNElementType {
 	rv := objc.Send[VNElementType](f.ID, objc.Sel("elementType"))
 	return VNElementType(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -14,8 +14,6 @@ type readableTypeIdentifiersForItemProvider interface {
 	objectivec.IObject
 }
 
-
-
 // readableTypeIdentifiersForItemProviderObject wraps an existing Objective-C object that conforms to the readableTypeIdentifiersForItemProvider protocol.
 type readableTypeIdentifiersForItemProviderObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o readableTypeIdentifiersForItemProviderObject) BaseObject() objectivec.Ob
 	return o.Object
 }
 
-
-
 // readableTypeIdentifiersForItemProviderObjectFromID constructs a [readableTypeIdentifiersForItemProviderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func readableTypeIdentifiersForItemProviderObjectFromID(id objc.ID) readableTypeIdentifiersForItemProviderObject {
@@ -33,13 +29,4 @@ func readableTypeIdentifiersForItemProviderObjectFromID(id objc.ID) readableType
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

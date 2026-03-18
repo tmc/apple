@@ -36,12 +36,6 @@ func (nc NSKeyValueSharedObserversSnapshotClass) Alloc() NSKeyValueSharedObserve
 	return rv
 }
 
-
-
-
-
-
-
 // A collection of key-value observations which may be registered with
 // multiple observable objects. Create using `-[NSKeyValueSharedObservers
 // snapshot]`
@@ -57,14 +51,10 @@ type NSKeyValueSharedObserversSnapshot struct {
 // multiple observable objects. Create using `-[NSKeyValueSharedObservers
 // snapshot]`
 func NSKeyValueSharedObserversSnapshotFromID(id objc.ID) NSKeyValueSharedObserversSnapshot {
-	return NSKeyValueSharedObserversSnapshot{objectivec.Object{id}}
+	return NSKeyValueSharedObserversSnapshot{objectivec.Object{ID: id}}
 }
 // NOTE: NSKeyValueSharedObserversSnapshot adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSKeyValueSharedObserversSnapshot] class.
 //
@@ -72,10 +62,6 @@ func NSKeyValueSharedObserversSnapshotFromID(id objc.ID) NSKeyValueSharedObserve
 type INSKeyValueSharedObserversSnapshot interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (k NSKeyValueSharedObserversSnapshot) Init() NSKeyValueSharedObserversSnapshot {
@@ -95,44 +81,4 @@ func NewNSKeyValueSharedObserversSnapshot() NSKeyValueSharedObserversSnapshot {
 	rv := objc.Send[NSKeyValueSharedObserversSnapshot](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

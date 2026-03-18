@@ -37,12 +37,6 @@ func (vc VNFaceLandmarksClass) Alloc() VNFaceLandmarks {
 	return rv
 }
 
-
-
-
-
-
-
 // The abstract superclass for containers of face landmark information.
 //
 // # Overview
@@ -63,14 +57,10 @@ type VNFaceLandmarks struct {
 //
 // The abstract superclass for containers of face landmark information.
 func VNFaceLandmarksFromID(id objc.ID) VNFaceLandmarks {
-	return VNFaceLandmarks{objectivec.Object{id}}
+	return VNFaceLandmarks{objectivec.Object{ID: id}}
 }
 // NOTE: VNFaceLandmarks adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNFaceLandmarks] class.
 //
@@ -94,10 +84,6 @@ type IVNFaceLandmarks interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f VNFaceLandmarks) Init() VNFaceLandmarks {
 	rv := objc.Send[VNFaceLandmarks](f.ID, objc.Sel("init"))
@@ -117,28 +103,9 @@ func NewVNFaceLandmarks() VNFaceLandmarks {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (f VNFaceLandmarks) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A confidence estimate for the detected landmarks.
 //
@@ -153,8 +120,6 @@ func (f VNFaceLandmarks) Confidence() VNConfidence {
 	return VNConfidence(rv)
 }
 
-
-
 // The facial features of the detected face.
 //
 // See: https://developer.apple.com/documentation/vision/vnfaceobservation/landmarks
@@ -166,8 +131,6 @@ func (f VNFaceLandmarks) SetLandmarks(value IVNFaceLandmarks2D) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
 }
 
-
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -177,34 +140,6 @@ func (f VNFaceLandmarks) RequestRevision() uint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for VNRequestRevisionProviding
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

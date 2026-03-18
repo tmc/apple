@@ -40,12 +40,6 @@ func (nc NSStringClass) Alloc() NSString {
 	return rv
 }
 
-
-
-
-
-
-
 // A static, plain-text Unicode string object.
 //
 // # Overview
@@ -387,7 +381,6 @@ func (nc NSStringClass) Alloc() NSString {
 //   - [NSString.InitWithBytesNoCopyLengthEncodingDeallocator]
 //   - [NSString.InitWithCStringEncoding]
 //   - [NSString.InitWithCharactersNoCopyLengthDeallocator]
-//   - [NSString.InitWithCoder]
 //   - [NSString.InitWithContentsOfURLEncodingError]
 //   - [NSString.InitWithContentsOfURLUsedEncodingError]
 //   - [NSString.InitWithUTF8String]
@@ -411,14 +404,10 @@ type NSString struct {
 //
 // A static, plain-text Unicode string object.
 func NSStringFromID(id objc.ID) NSString {
-	return NSString{objectivec.Object{id}}
+	return NSString{objectivec.Object{ID: id}}
 }
 // NOTE: NSString adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSString] class.
 //
@@ -622,7 +611,6 @@ func NSStringFromID(id objc.ID) NSString {
 //   - [INSString.InitWithBytesNoCopyLengthEncodingDeallocator]
 //   - [INSString.InitWithCStringEncoding]
 //   - [INSString.InitWithCharactersNoCopyLengthDeallocator]
-//   - [INSString.InitWithCoder]
 //   - [INSString.InitWithContentsOfURLEncodingError]
 //   - [INSString.InitWithContentsOfURLUsedEncodingError]
 //   - [INSString.InitWithUTF8String]
@@ -640,10 +628,12 @@ func NSStringFromID(id objc.ID) NSString {
 // See: https://developer.apple.com/documentation/Foundation/NSString
 type INSString interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 	NSItemProviderReading
 	NSItemProviderWriting
 	NSMutableCopying
+	NSSecureCoding
 
 	// Topic: Creating and Initializing Strings
 
@@ -652,9 +642,9 @@ type INSString interface {
 	// Returns an initialized [NSString] object that contains a given number of bytes from a given buffer of bytes interpreted in a given encoding, and optionally frees the buffer.
 	InitWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, len_ uint, encoding uint, freeBuffer bool) NSString
 	// Returns an initialized [NSString] object that contains a given number of characters from a given C array of UTF-16 code units.
-	InitWithCharactersLength(characters uint16, length uint) NSString
+	InitWithCharactersLength(characters unsafe.Pointer, length uint) NSString
 	// Returns an initialized [NSString] object that contains a given number of characters from a given C array of UTF-16 code units.
-	InitWithCharactersNoCopyLengthFreeWhenDone(characters uint16, length uint, freeBuffer bool) NSString
+	InitWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSString
 	// Returns an [NSString] object initialized by copying the characters from another given string.
 	InitWithString(aString string) NSString
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted without any localization.
@@ -669,7 +659,7 @@ type INSString interface {
 	// Returns an [NSString] object initialized by reading data from the file at a given path using a given encoding.
 	InitWithContentsOfFileEncodingError(path string, enc uint) (NSString, error)
 	// Returns an [NSString] object initialized by reading data from the file at a given path and returns by reference the encoding used to interpret the characters.
-	InitWithContentsOfFileUsedEncodingError(path string, enc uint) (NSString, error)
+	InitWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSString, error)
 
 	// Topic: Getting a String’s Length
 
@@ -685,9 +675,9 @@ type INSString interface {
 	// Returns the character at a given UTF-16 code unit index.
 	CharacterAtIndex(index uint) Unichar
 	// Copies characters from a given range in the receiver into a given buffer.
-	GetCharactersRange(buffer uint16, range_ NSRange)
+	GetCharactersRange(buffer unsafe.Pointer, range_ NSRange)
 	// Gets a given range of characters as bytes in a specified encoding.
-	GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, usedBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) bool
+	GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding NSStringEncoding, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool)
 
 	// Topic: Getting C Strings
 
@@ -814,9 +804,9 @@ type INSString interface {
 	// Finds and returns the range of the first occurrence of a given string within the string by performing a case and diacritic insensitive, locale-aware search.
 	LocalizedStandardRangeOfString(str string) NSRange
 	// Enumerates all the lines in the string.
-	EnumerateLinesUsingBlock(block bool)
+	EnumerateLinesUsingBlock(block unsafe.Pointer)
 	// Enumerates the substrings of the specified type in the specified range of the string.
-	EnumerateSubstringsInRangeOptionsUsingBlock(range_ NSRange, opts NSStringEnumerationOptions, block bool)
+	EnumerateSubstringsInRangeOptionsUsingBlock(range_ NSRange, opts NSStringEnumerationOptions, block unsafe.Pointer)
 
 	// Topic: Replacing Substrings
 
@@ -835,11 +825,11 @@ type INSString interface {
 	// Topic: Determining Line and Paragraph Ranges
 
 	// Returns by reference the beginning of the first line and the end of the last line touched by the given range.
-	GetLineStartEndContentsEndForRange(startPtr uint, lineEndPtr uint, contentsEndPtr uint, range_ NSRange)
+	GetLineStartEndContentsEndForRange(startPtr unsafe.Pointer, lineEndPtr unsafe.Pointer, contentsEndPtr unsafe.Pointer, range_ NSRange)
 	// Returns the range of characters representing the line or lines containing a given range.
 	LineRangeForRange(range_ NSRange) NSRange
 	// Returns by reference the beginning of the first paragraph and the end of the last paragraph touched by the given range.
-	GetParagraphStartEndContentsEndForRange(startPtr uint, parEndPtr uint, contentsEndPtr uint, range_ NSRange)
+	GetParagraphStartEndContentsEndForRange(startPtr unsafe.Pointer, parEndPtr unsafe.Pointer, contentsEndPtr unsafe.Pointer, range_ NSRange)
 	// Returns the range of characters representing the paragraph or paragraphs containing a given range.
 	ParagraphRangeForRange(range_ NSRange) NSRange
 
@@ -953,7 +943,7 @@ type INSString interface {
 	// Topic: Deprecated
 
 	// Copies all characters from the receiver into a given buffer.
-	GetCharacters(buffer uint16)
+	GetCharacters(buffer unsafe.Pointer)
 	// Draws the receiver with the specified options and other display characteristics of the given attributes, within the specified rectangle in the current graphics context.
 	DrawWithRectOptionsAttributes(rect corefoundation.CGRect, options NSStringDrawingOptions, attributes INSDictionary)
 	// Calculates and returns the bounding rect for the receiver drawn using the given options and display characteristics, within the specified rectangle in the current graphics context.
@@ -961,12 +951,11 @@ type INSString interface {
 
 	// Topic: Initializers
 
-	InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator uint) NSString
+	InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSString
 	InitWithCStringEncoding(nullTerminatedCString []byte, encoding uint) NSString
-	InitWithCharactersNoCopyLengthDeallocator(chars uint16, len_ uint, deallocator uint) NSString
-	InitWithCoder(coder INSCoder) NSString
+	InitWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSString
 	InitWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, error)
-	InitWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString, error)
+	InitWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error)
 	InitWithUTF8String(nullTerminatedCString []byte) NSString
 
 	// Topic: Instance Properties
@@ -980,8 +969,6 @@ type INSString interface {
 	StringByAppendingPathComponentConformingToType(partialName string, contentType objectivec.IObject) string
 	StringByAppendingPathExtensionForType(contentType objectivec.IObject) string
 
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted.
 	InitWithFormat(format string) NSString
 	// Returns an [NSString] object initialized by using a given format string as a template into which the remaining argument values are substituted according to given locale.
@@ -993,10 +980,6 @@ type INSString interface {
 	// Returns a string made by appending to the receiver a string constructed from a given format string and the following arguments.
 	StringByAppendingFormat(format string) string
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSString) Init() NSString {
@@ -1016,11 +999,6 @@ func NewNSString() NSString {
 	rv := objc.Send[NSString](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an initialized [NSString] object containing a given number of bytes
 // from a given buffer of bytes interpreted in a given encoding.
@@ -1047,15 +1025,13 @@ func NewStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSString {
 	return NSStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func NewStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator uint) NSString {
+func NewStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, deallocator)
 	return NSStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // bytes from a given buffer of bytes interpreted in a given encoding, and
@@ -1096,7 +1072,6 @@ func NewStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, le
 	return NSStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:)
 func NewStringWithCString(bytes []byte) NSString {
@@ -1104,7 +1079,6 @@ func NewStringWithCString(bytes []byte) NSString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.SliceData(bytes)))
 	return NSStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
@@ -1114,7 +1088,6 @@ func NewStringWithCStringEncoding(nullTerminatedCString []byte, encoding uint) N
 	return NSStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:length:)
 func NewStringWithCStringLength(bytes []byte, length uint) NSString {
@@ -1123,7 +1096,6 @@ func NewStringWithCStringLength(bytes []byte, length uint) NSString {
 	return NSStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cStringNoCopy:length:freeWhenDone:)
 func NewStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length uint, freeBuffer bool) NSString {
@@ -1131,7 +1103,6 @@ func NewStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length uint, fre
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), unsafe.Pointer(unsafe.SliceData(bytes)), length, freeBuffer)
 	return NSStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // characters from a given C array of UTF-16 code units.
@@ -1147,21 +1118,19 @@ func NewStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length uint, fre
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func NewStringWithCharactersLength(characters uint16, length uint) NSString {
+func NewStringWithCharactersLength(characters unsafe.Pointer, length uint) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return NSStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:deallocator:)
-func NewStringWithCharactersNoCopyLengthDeallocator(chars uint16, len_ uint, deallocator uint) NSString {
+func NewStringWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:deallocator:"), chars, len_, deallocator)
 	return NSStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // characters from a given C array of UTF-16 code units.
@@ -1192,12 +1161,11 @@ func NewStringWithCharactersNoCopyLengthDeallocator(chars uint16, len_ uint, dea
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func NewStringWithCharactersNoCopyLengthFreeWhenDone(characters uint16, length uint, freeBuffer bool) NSString {
+func NewStringWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSString {
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return NSStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(coder:)
@@ -1206,7 +1174,6 @@ func NewStringWithCoder(coder INSCoder) NSString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSStringFromID(rv)
 }
-
 
 // Initializes the receiver, a newly allocated [NSString] object, by reading
 // data from the file named by `path`.
@@ -1226,7 +1193,6 @@ func NewStringWithContentsOfFile(path string) NSString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), objc.String(path))
 	return NSStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by reading data from the file at a
 // given path using a given encoding.
@@ -1257,7 +1223,6 @@ func NewStringWithContentsOfFileEncodingError(path string, enc uint) (NSString, 
 	return NSStringFromID(rv), nil
 }
 
-
 // Returns an [NSString] object initialized by reading data from the file at a
 // given path and returns by reference the encoding used to interpret the
 // characters.
@@ -1277,7 +1242,7 @@ func NewStringWithContentsOfFileEncodingError(path string, enc uint) (NSString, 
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func NewStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSString, error) {
+func NewStringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSString, error) {
 	var errorPtr objc.ID
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
@@ -1288,7 +1253,6 @@ func NewStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSStri
 	return NSStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:)
 func NewStringWithContentsOfURL(url INSURL) NSString {
@@ -1296,7 +1260,6 @@ func NewStringWithContentsOfURL(url INSURL) NSString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return NSStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:encoding:)
@@ -1311,10 +1274,9 @@ func NewStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, er
 	return NSStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func NewStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString, error) {
+func NewStringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error) {
 	var errorPtr objc.ID
 	instance := getNSStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -1324,7 +1286,6 @@ func NewStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString
 	}
 	return NSStringFromID(rv), nil
 }
-
 
 // Returns an [NSString] object initialized by converting given data into
 // UTF-16 code units using a given encoding.
@@ -1349,7 +1310,6 @@ func NewStringWithDataEncoding(data INSData, encoding uint) NSString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:encoding:"), data, encoding)
 	return NSStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted.
@@ -1383,7 +1343,6 @@ func NewStringWithFormat(format string) NSString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:"), objc.String(format))
 	return NSStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted without
@@ -1421,7 +1380,6 @@ func NewStringWithFormatArguments(format string, argList unsafe.Pointer) NSStrin
 	return NSStringFromID(rv)
 }
 
-
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted
 // according to given locale.
@@ -1453,7 +1411,6 @@ func NewStringWithFormatLocale(format string, locale objectivec.IObject) NSStrin
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:locale:"), objc.String(format), locale)
 	return NSStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted
@@ -1501,7 +1458,6 @@ func NewStringWithFormatLocaleArguments(format string, locale objectivec.IObject
 	return NSStringFromID(rv)
 }
 
-
 // Returns an [NSString] object initialized by copying the characters from
 // another given string.
 //
@@ -1519,7 +1475,6 @@ func NewStringWithString(aString string) NSString {
 	return NSStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
 func NewStringWithUTF8String(nullTerminatedCString []byte) NSString {
@@ -1527,7 +1482,6 @@ func NewStringWithUTF8String(nullTerminatedCString []byte) NSString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
 	return NSStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
@@ -1542,7 +1496,6 @@ func NewStringWithValidatedFormatValidFormatSpecifiersArgumentsError(format stri
 	return NSStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:error:
 func NewStringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
@@ -1555,7 +1508,6 @@ func NewStringWithValidatedFormatValidFormatSpecifiersError(format string, valid
 	}
 	return NSStringFromID(rv), nil
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
@@ -1570,7 +1522,6 @@ func NewStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(forma
 	return NSStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:error:
 func NewStringWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSString, error) {
@@ -1583,12 +1534,6 @@ func NewStringWithValidatedFormatValidFormatSpecifiersLocaleError(format string,
 	}
 	return NSStringFromID(rv), nil
 }
-
-
-
-
-
-
 
 // Returns an initialized [NSString] object containing a given number of bytes
 // from a given buffer of bytes interpreted in a given encoding.
@@ -1666,7 +1611,7 @@ func (s NSString) InitWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Poi
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func (s NSString) InitWithCharactersLength(characters uint16, length uint) NSString {
+func (s NSString) InitWithCharactersLength(characters unsafe.Pointer, length uint) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return rv
 }
@@ -1700,7 +1645,7 @@ func (s NSString) InitWithCharactersLength(characters uint16, length uint) NSStr
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func (s NSString) InitWithCharactersNoCopyLengthFreeWhenDone(characters uint16, length uint, freeBuffer bool) NSString {
+func (s NSString) InitWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return rv
 }
@@ -1843,7 +1788,7 @@ func (s NSString) InitWithDataEncoding(data INSData, encoding uint) NSString {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:encoding:)
 func (s NSString) InitWithContentsOfFileEncodingError(path string, enc uint) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithContentsOfFile:encoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1872,8 +1817,8 @@ func (s NSString) InitWithContentsOfFileEncodingError(path string, enc uint) (NS
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func (s NSString) InitWithContentsOfFileUsedEncodingError(path string, enc uint) (NSString, error) {
-			var errorPtr objc.ID
+func (s NSString) InitWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSString, error) {
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1978,7 +1923,7 @@ func (s NSString) CharacterAtIndex(index uint) Unichar {
 // correctly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getCharacters(_:range:)
-func (s NSString) GetCharactersRange(buffer uint16, range_ NSRange) {
+func (s NSString) GetCharactersRange(buffer unsafe.Pointer, range_ NSRange) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getCharacters:range:"), buffer, range_)
 }
 
@@ -2015,9 +1960,10 @@ func (s NSString) GetCharactersRange(buffer uint16, range_ NSRange) {
 // the conversion isn’t possible due to the chosen encoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getBytes(_:maxLength:usedLength:encoding:options:range:remaining:)
-func (s NSString) GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, usedBufferCount uint, encoding uint, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("getBytes:maxLength:usedLength:encoding:options:range:remainingRange:"), buffer, maxBufferCount, usedBufferCount, encoding, options, range_, leftover)
-	return rv
+func (s NSString) GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(buffer unsafe.Pointer, maxBufferCount uint, encoding NSStringEncoding, options NSStringEncodingConversionOptions, range_ NSRange, leftover NSRangePointer) (uint, bool) {
+	var usedBufferCount uint
+	rv := objc.Send[bool](s.ID, objc.Sel("getBytes:maxLength:usedLength:encoding:options:range:remainingRange:"), buffer, maxBufferCount, unsafe.Pointer(&usedBufferCount), encoding, options, range_, leftover)
+	return usedBufferCount, rv
 }
 
 // Returns a representation of the string as a C string using a given
@@ -3150,7 +3096,7 @@ func (s NSString) LocalizedStandardRangeOfString(str string) NSRange {
 // otherwise.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/enumerateLines(_:)
-func (s NSString) EnumerateLinesUsingBlock(block bool) {
+func (s NSString) EnumerateLinesUsingBlock(block unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateLinesUsingBlock:"), block)
 }
 
@@ -3196,7 +3142,7 @@ func (s NSString) EnumerateLinesUsingBlock(block bool) {
 // “HelloWorld”.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/enumerateSubstrings(in:options:using:)
-func (s NSString) EnumerateSubstringsInRangeOptionsUsingBlock(range_ NSRange, opts NSStringEnumerationOptions, block bool) {
+func (s NSString) EnumerateSubstringsInRangeOptionsUsingBlock(range_ NSRange, opts NSStringEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateSubstringsInRange:options:usingBlock:"), range_, opts, block)
 }
 
@@ -3342,7 +3288,7 @@ func (s NSString) CommonPrefixWithStringOptions(str string, mask NSStringCompare
 // execution.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getLineStart(_:end:contentsEnd:for:)
-func (s NSString) GetLineStartEndContentsEndForRange(startPtr uint, lineEndPtr uint, contentsEndPtr uint, range_ NSRange) {
+func (s NSString) GetLineStartEndContentsEndForRange(startPtr unsafe.Pointer, lineEndPtr unsafe.Pointer, contentsEndPtr unsafe.Pointer, range_ NSRange) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getLineStart:end:contentsEnd:forRange:"), startPtr, lineEndPtr, contentsEndPtr, range_)
 }
 
@@ -3395,7 +3341,7 @@ func (s NSString) LineRangeForRange(range_ NSRange) NSRange {
 // method to construct the ranges for paragraphs.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getParagraphStart(_:end:contentsEnd:for:)
-func (s NSString) GetParagraphStartEndContentsEndForRange(startPtr uint, parEndPtr uint, contentsEndPtr uint, range_ NSRange) {
+func (s NSString) GetParagraphStartEndContentsEndForRange(startPtr unsafe.Pointer, parEndPtr unsafe.Pointer, contentsEndPtr unsafe.Pointer, range_ NSRange) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getParagraphStart:end:contentsEnd:forRange:"), startPtr, parEndPtr, contentsEndPtr, range_)
 }
 
@@ -3511,7 +3457,7 @@ func (s NSString) RangeOfComposedCharacterSequencesForRange(range_ NSRange) NSRa
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/write(toFile:atomically:encoding:)
 func (s NSString) WriteToFileAtomicallyEncodingError(path string, useAuxiliaryFile bool, enc uint) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("writeToFile:atomically:encoding:error:"), objc.String(path), useAuxiliaryFile, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -3566,7 +3512,7 @@ func (s NSString) WriteToFileAtomicallyEncodingError(path string, useAuxiliaryFi
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/write(to:atomically:encoding:)
 func (s NSString) WriteToURLAtomicallyEncodingError(url INSURL, useAuxiliaryFile bool, enc uint) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("writeToURL:atomically:encoding:error:"), url, useAuxiliaryFile, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4162,7 +4108,7 @@ func (s NSString) StringByAddingPercentEncodingWithAllowedCharacters(allowedChar
 // receiver as the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getCharacters(_:)
-func (s NSString) GetCharacters(buffer uint16) {
+func (s NSString) GetCharacters(buffer unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("getCharacters:"), buffer)
 }
 
@@ -4240,7 +4186,7 @@ func (s NSString) BoundingRectWithSizeOptionsAttributes(size corefoundation.CGSi
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func (s NSString) InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator uint) NSString {
+func (s NSString) InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, deallocator)
 	return rv
 }
@@ -4254,7 +4200,7 @@ func (s NSString) InitWithCStringEncoding(nullTerminatedCString []byte, encoding
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:deallocator:)
-func (s NSString) InitWithCharactersNoCopyLengthDeallocator(chars uint16, len_ uint, deallocator uint) NSString {
+func (s NSString) InitWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSString {
 	rv := objc.Send[NSString](s.ID, objc.Sel("initWithCharactersNoCopy:length:deallocator:"), chars, len_, deallocator)
 	return rv
 }
@@ -4269,7 +4215,7 @@ func (s NSString) InitWithCoder(coder INSCoder) NSString {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:encoding:)
 func (s NSString) InitWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithContentsOfURL:encoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4281,8 +4227,8 @@ func (s NSString) InitWithContentsOfURLEncodingError(url INSURL, enc uint) (NSSt
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func (s NSString) InitWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString, error) {
-			var errorPtr objc.ID
+func (s NSString) InitWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error) {
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4388,7 +4334,7 @@ func (s NSString) InitWithFormatLocale(format string, locale objectivec.IObject)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
 func (s NSString) InitWithValidatedFormatValidFormatSpecifiersArgumentsError(format string, validFormatSpecifiers string, argList unsafe.Pointer) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), argList, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4401,7 +4347,7 @@ func (s NSString) InitWithValidatedFormatValidFormatSpecifiersArgumentsError(for
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:error:
 func (s NSString) InitWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4414,7 +4360,7 @@ func (s NSString) InitWithValidatedFormatValidFormatSpecifiersError(format strin
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
 func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format string, validFormatSpecifiers string, locale objectivec.IObject, argList unsafe.Pointer) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, argList, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4427,7 +4373,7 @@ func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleArgumentsErr
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:error:
 func (s NSString) InitWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4469,9 +4415,9 @@ func (s NSString) ItemProviderVisibilityForRepresentationWithTypeIdentifier(type
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (s NSString) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-		_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
+_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](s.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
 
@@ -4498,10 +4444,6 @@ func (s NSString) StringByAppendingFormat(format string) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("stringByAppendingFormat:"), objc.String(format))
 	return NSStringFromID(rv).String()
 }
-
-
-
-
 
 // Returns a localized string intended for display in a notification alert.
 //
@@ -4560,7 +4502,7 @@ func (_NSStringClass NSStringClass) LocalizedUserNotificationStringForKeyArgumen
 // determined.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringEncoding(for:encodingOptions:convertedString:usedLossyConversion:)
-func (_NSStringClass NSStringClass) StringEncodingForDataEncodingOptionsConvertedStringUsedLossyConversion(data INSData, opts INSDictionary, string_ string, usedLossyConversion bool) NSStringEncoding {
+func (_NSStringClass NSStringClass) StringEncodingForDataEncodingOptionsConvertedStringUsedLossyConversion(data INSData, opts INSDictionary, string_ string, usedLossyConversion unsafe.Pointer) NSStringEncoding {
 	rv := objc.Send[NSStringEncoding](objc.ID(_NSStringClass.class), objc.Sel("stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:"), data, opts, objc.String(string_), usedLossyConversion)
 	return NSStringEncoding(rv)
 }
@@ -4677,7 +4619,7 @@ func (_NSStringClass NSStringClass) LocalizedStringWithFormat(format string) NSS
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/localizedStringWithValidatedFormat:validFormatSpecifiers:error:
 func (_NSStringClass NSStringClass) LocalizedStringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("localizedStringWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4699,7 +4641,7 @@ func (_NSStringClass NSStringClass) LocalizedStringWithValidatedFormatValidForma
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderReading/object(withItemProviderData:typeIdentifier:)
 func (_NSStringClass NSStringClass) ObjectWithItemProviderDataTypeIdentifierError(data INSData, typeIdentifier string) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("objectWithItemProviderData:typeIdentifier:error:"), data, objc.String(typeIdentifier), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4741,7 +4683,7 @@ func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString []byte, en
 // first) from `chars`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithCharacters:length:
-func (_NSStringClass NSStringClass) StringWithCharactersLength(characters uint16, length uint) NSString {
+func (_NSStringClass NSStringClass) StringWithCharactersLength(characters unsafe.Pointer, length uint) NSString {
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCharacters:length:"), characters, length)
 	return NSStringFromID(rv)
 }
@@ -4766,7 +4708,7 @@ func (_NSStringClass NSStringClass) StringWithCharactersLength(characters uint16
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfFile:encoding:error:
 func (_NSStringClass NSStringClass) StringWithContentsOfFileEncodingError(path string, enc uint) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfFile:encoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4799,8 +4741,8 @@ func (_NSStringClass NSStringClass) StringWithContentsOfFileEncodingError(path s
 // This method attempts to determine the encoding of the file at `path`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfFile:usedEncoding:error:
-func (_NSStringClass NSStringClass) StringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSString, error) {
-			var errorPtr objc.ID
+func (_NSStringClass NSStringClass) StringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSString, error) {
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4813,7 +4755,7 @@ func (_NSStringClass NSStringClass) StringWithContentsOfFileUsedEncodingError(pa
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfURL:encoding:error:
 func (_NSStringClass NSStringClass) StringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfURL:encoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4825,8 +4767,8 @@ func (_NSStringClass NSStringClass) StringWithContentsOfURLEncodingError(url INS
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithContentsOfURL:usedEncoding:error:
-func (_NSStringClass NSStringClass) StringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSString, error) {
-			var errorPtr objc.ID
+func (_NSStringClass NSStringClass) StringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error) {
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4892,7 +4834,7 @@ func (_NSStringClass NSStringClass) StringWithUTF8String(nullTerminatedCString [
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithValidatedFormat:validFormatSpecifiers:error:
 func (_NSStringClass NSStringClass) StringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -4901,13 +4843,6 @@ func (_NSStringClass NSStringClass) StringWithValidatedFormatValidFormatSpecifie
 	return NSStringFromID(rv), nil
 
 }
-
-
-
-
-
-
-
 
 // The number of UTF-16 code units in the receiver.
 //
@@ -4923,8 +4858,6 @@ func (s NSString) Length() uint {
 	return rv
 }
 
-
-
 // A null-terminated UTF8 representation of the string.
 //
 // # Discussion
@@ -4939,8 +4872,6 @@ func (s NSString) UTF8String() string {
 	rv := objc.Send[*byte](s.ID, objc.Sel("UTF8String"))
 	return objc.GoString(rv)
 }
-
-
 
 // An unsigned integer that can be used as a hash table address.
 //
@@ -4958,8 +4889,6 @@ func (s NSString) Hash() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("hash"))
 	return rv
 }
-
-
 
 // A lowercase representation of the string.
 //
@@ -4989,8 +4918,6 @@ func (s NSString) LowercaseString() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns a version of the string with all letters converted to lowercase,
 // taking into account the current locale.
 //
@@ -5005,8 +4932,6 @@ func (s NSString) LocalizedLowercaseString() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("localizedLowercaseString"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // An uppercase representation of the string.
 //
@@ -5026,8 +4951,6 @@ func (s NSString) UppercaseString() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns a version of the string with all letters converted to uppercase,
 // taking into account the current locale.
 //
@@ -5042,8 +4965,6 @@ func (s NSString) LocalizedUppercaseString() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("localizedUppercaseString"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A capitalized representation of the string.
 //
@@ -5071,8 +4992,6 @@ func (s NSString) CapitalizedString() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns a capitalized representation of the receiver using the current
 // locale.
 //
@@ -5096,8 +5015,6 @@ func (s NSString) LocalizedCapitalizedString() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A string made by normalizing the string’s contents using the Unicode
 // Normalization Form D.
 //
@@ -5106,8 +5023,6 @@ func (s NSString) DecomposedStringWithCanonicalMapping() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("decomposedStringWithCanonicalMapping"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A string made by normalizing the receiver’s contents using the Unicode
 // Normalization Form KD.
@@ -5118,8 +5033,6 @@ func (s NSString) DecomposedStringWithCompatibilityMapping() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A string made by normalizing the string’s contents using the Unicode
 // Normalization Form C.
 //
@@ -5129,8 +5042,6 @@ func (s NSString) PrecomposedStringWithCanonicalMapping() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A string made by normalizing the receiver’s contents using the Unicode
 // Normalization Form KC.
 //
@@ -5139,8 +5050,6 @@ func (s NSString) PrecomposedStringWithCompatibilityMapping() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("precomposedStringWithCompatibilityMapping"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The floating-point value of the string as a `double`.
 //
@@ -5161,8 +5070,6 @@ func (s NSString) DoubleValue() float64 {
 	return rv
 }
 
-
-
 // The floating-point value of the string as a `float`.
 //
 // # Discussion
@@ -5181,8 +5088,6 @@ func (s NSString) FloatValue() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("floatValue"))
 	return rv
 }
-
-
 
 // The integer value of the string.
 //
@@ -5207,8 +5112,6 @@ func (s NSString) IntValue() int {
 	return rv
 }
 
-
-
 // The [NSInteger] value of the string.
 //
 // # Discussion
@@ -5227,8 +5130,6 @@ func (s NSString) IntegerValue() int {
 	rv := objc.Send[int](s.ID, objc.Sel("integerValue"))
 	return rv
 }
-
-
 
 // The `long long` value of the string.
 //
@@ -5249,8 +5150,6 @@ func (s NSString) LongLongValue() int64 {
 	rv := objc.Send[int64](s.ID, objc.Sel("longLongValue"))
 	return rv
 }
-
-
 
 // The Boolean value of the string.
 //
@@ -5274,15 +5173,11 @@ func (s NSString) BoolValue() bool {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSString/description
 func (s NSString) Description() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The fastest encoding to which the receiver may be converted without loss of
 // information.
@@ -5298,8 +5193,6 @@ func (s NSString) FastestEncoding() NSStringEncoding {
 	return NSStringEncoding(rv)
 }
 
-
-
 // The smallest encoding to which the receiver can be converted without loss
 // of information.
 //
@@ -5313,8 +5206,6 @@ func (s NSString) SmallestEncoding() NSStringEncoding {
 	rv := objc.Send[NSStringEncoding](s.ID, objc.Sel("smallestEncoding"))
 	return NSStringEncoding(rv)
 }
-
-
 
 // The file-system path components of the receiver.
 //
@@ -5347,8 +5238,6 @@ func (s NSString) PathComponents() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A file system-specific representation of the receiver.
 //
 // # Discussion
@@ -5378,8 +5267,6 @@ func (s NSString) FileSystemRepresentation() string {
 	return objc.GoString(rv)
 }
 
-
-
 // A Boolean value that indicates whether the receiver represents an absolute
 // path.
 //
@@ -5405,8 +5292,6 @@ func (s NSString) AbsolutePath() bool {
 	return rv
 }
 
-
-
 // The last path component of the receiver.
 //
 // # Discussion
@@ -5429,8 +5314,6 @@ func (s NSString) LastPathComponent() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The path extension, if any, of the string as interpreted as a path.
 //
 // # Discussion
@@ -5450,8 +5333,6 @@ func (s NSString) PathExtension() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("pathExtension"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A new string that replaces the current home directory portion of the
 // current path with a tilde (`~`) character.
@@ -5481,8 +5362,6 @@ func (s NSString) StringByAbbreviatingWithTildeInPath() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A new string made by deleting the last path component from the receiver,
 // along with any final path separator.
 //
@@ -5505,8 +5384,6 @@ func (s NSString) StringByDeletingLastPathComponent() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("stringByDeletingLastPathComponent"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A new string made by deleting the extension (if any, and only the last)
 // from the receiver.
@@ -5536,8 +5413,6 @@ func (s NSString) StringByDeletingPathExtension() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A new string made by expanding the initial component of the receiver to its
 // full path value.
 //
@@ -5556,8 +5431,6 @@ func (s NSString) StringByExpandingTildeInPath() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("stringByExpandingTildeInPath"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A new string made from the receiver by resolving all symbolic links and
 // standardizing path.
@@ -5579,8 +5452,6 @@ func (s NSString) StringByResolvingSymlinksInPath() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("stringByResolvingSymlinksInPath"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A new string made by removing extraneous path components from the receiver.
 //
@@ -5612,8 +5483,6 @@ func (s NSString) StringByStandardizingPath() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns a new string made from the receiver by replacing all percent
 // encoded sequences with the matching UTF-8 characters.
 //
@@ -5630,8 +5499,6 @@ func (s NSString) StringByRemovingPercentEncoding() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A custom playground Quick Look for this instance.
 //
 // See: https://developer.apple.com/documentation/foundation/nsstring/customplaygroundquicklook
@@ -5642,8 +5509,6 @@ func (s NSString) CustomPlaygroundQuickLook() objectivec.IObject {
 func (s NSString) SetCustomPlaygroundQuickLook(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
 }
-
-
 
 // An array of UTI strings representing the types of data that can be loaded
 // for an item provider.
@@ -5666,12 +5531,6 @@ func (s NSString) WritableTypeIdentifiersForItemProvider() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
 
 // Returns a zero-terminated list of the encodings string objects support in
 // the application’s environment.
@@ -5702,8 +5561,6 @@ func (_NSStringClass NSStringClass) AvailableStringEncodings() NSStringEncoding 
 	rv := objc.Send[NSStringEncoding](objc.ID(_NSStringClass.class), objc.Sel("availableStringEncodings"))
 	return NSStringEncoding(rv)
 }
-
-
 
 // Returns the C-string encoding assumed for any method accepting a C string
 // as an argument.
@@ -5737,54 +5594,20 @@ func (_NSStringClass NSStringClass) DefaultCStringEncoding() NSStringEncoding {
 	return NSStringEncoding(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
 
 			// Protocol methods for NSItemProviderReading
 			
 
-
-
-
 			// Protocol methods for NSItemProviderWriting
 			
-
-
-
 
 			// Protocol methods for NSMutableCopying
 			
 
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 
 // LoadDataWithTypeIdentifierForItemProvider is a synchronous wrapper around [NSString.LoadDataWithTypeIdentifierForItemProviderCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -5804,8 +5627,4 @@ func (s NSString) LoadDataWithTypeIdentifierForItemProvider(ctx context.Context,
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
 

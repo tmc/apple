@@ -37,12 +37,6 @@ func (mc MTLArchitectureClass) Alloc() MTLArchitecture {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that contains the architectural details of a GPU device.
 //
 // # Inspecting a GPU device’s architecture details
@@ -58,14 +52,10 @@ type MTLArchitecture struct {
 //
 // A class that contains the architectural details of a GPU device.
 func MTLArchitectureFromID(id objc.ID) MTLArchitecture {
-	return MTLArchitecture{objectivec.Object{id}}
+	return MTLArchitecture{objectivec.Object{ID: id}}
 }
 // NOTE: MTLArchitecture adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLArchitecture] class.
 //
@@ -114,10 +104,6 @@ type IMTLArchitecture interface {
 	SetRegistryID(value uint64)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MTLArchitecture) Init() MTLArchitecture {
 	rv := objc.Send[MTLArchitecture](a.ID, objc.Sel("init"))
@@ -136,26 +122,6 @@ func NewMTLArchitecture() MTLArchitecture {
 	rv := objc.Send[MTLArchitecture](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The name of a GPU device’s architecture.
 //
@@ -179,8 +145,6 @@ func (a MTLArchitecture) Name() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The architectural details of the GPU device.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/architecture
@@ -191,8 +155,6 @@ func (a MTLArchitecture) Architecture() IMTLArchitecture {
 func (a MTLArchitecture) SetArchitecture(value IMTLArchitecture) {
 	objc.Send[struct{}](a.ID, objc.Sel("setArchitecture:"), value)
 }
-
-
 
 // A Boolean value that indicates whether a GPU device doesn’t have a
 // connection to a display.
@@ -206,8 +168,6 @@ func (a MTLArchitecture) SetIsHeadless(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setHeadless:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the GPU lowers its performance to
 // conserve energy.
 //
@@ -220,8 +180,6 @@ func (a MTLArchitecture) SetIsLowPower(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLowPower:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the GPU is removable.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/isremovable
@@ -232,8 +190,6 @@ func (a MTLArchitecture) IsRemovable() bool {
 func (a MTLArchitecture) SetIsRemovable(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRemovable:"), value)
 }
-
-
 
 // The physical location of the GPU relative to the system.
 //
@@ -246,8 +202,6 @@ func (a MTLArchitecture) SetLocation(value MTLDeviceLocation) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLocation:"), value)
 }
 
-
-
 // A specific GPU position based on its general location.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/locationnumber
@@ -258,8 +212,6 @@ func (a MTLArchitecture) LocationNumber() int {
 func (a MTLArchitecture) SetLocationNumber(value int) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLocationNumber:"), value)
 }
-
-
 
 // The total number of GPUs in the peer group, if applicable.
 //
@@ -272,8 +224,6 @@ func (a MTLArchitecture) SetPeerCount(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPeerCount:"), value)
 }
 
-
-
 // The peer group ID the GPU belongs to, if applicable.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/peergroupid
@@ -284,8 +234,6 @@ func (a MTLArchitecture) PeerGroupID() uint64 {
 func (a MTLArchitecture) SetPeerGroupID(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPeerGroupID:"), value)
 }
-
-
 
 // The unique identifier for a GPU in a peer group.
 //
@@ -298,8 +246,6 @@ func (a MTLArchitecture) SetPeerIndex(value uint32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPeerIndex:"), value)
 }
 
-
-
 // The GPU device’s registry identifier.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/registryid
@@ -310,27 +256,4 @@ func (a MTLArchitecture) RegistryID() uint64 {
 func (a MTLArchitecture) SetRegistryID(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRegistryID:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

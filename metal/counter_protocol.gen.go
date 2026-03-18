@@ -20,8 +20,6 @@ type MTLCounter interface {
 	Name() string
 }
 
-
-
 // MTLCounterObject wraps an existing Objective-C object that conforms to the MTLCounter protocol.
 type MTLCounterObject struct {
 	objectivec.Object
@@ -30,8 +28,6 @@ func (o MTLCounterObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLCounterObjectFromID constructs a [MTLCounterObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLCounterObjectFromID(id objc.ID) MTLCounterObject {
@@ -39,9 +35,6 @@ func MTLCounterObjectFromID(id objc.ID) MTLCounterObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The name of a GPU’s counter instance.
 //
@@ -52,12 +45,4 @@ func (o MTLCounterObject) Name() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
-
-
-
-
-
-
-
 

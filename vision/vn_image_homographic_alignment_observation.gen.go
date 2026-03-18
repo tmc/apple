@@ -5,7 +5,6 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -37,12 +36,6 @@ func (vc VNImageHomographicAlignmentObservationClass) Alloc() VNImageHomographic
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a perspective warp transformation.
 //
 // # Overview
@@ -69,10 +62,6 @@ func VNImageHomographicAlignmentObservationFromID(id objc.ID) VNImageHomographic
 // NOTE: VNImageHomographicAlignmentObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNImageHomographicAlignmentObservation] class.
 //
 // # Accessing the Transform
@@ -87,13 +76,7 @@ type IVNImageHomographicAlignmentObservation interface {
 
 	// The warp transform matrix to morph the floating image into the reference image.
 	WarpTransform() objectivec.IObject
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i VNImageHomographicAlignmentObservation) Init() VNImageHomographicAlignmentObservation {
@@ -114,29 +97,6 @@ func NewVNImageHomographicAlignmentObservation() VNImageHomographicAlignmentObse
 	return rv
 }
 
-
-
-
-
-
-
-
-
-func (i VNImageHomographicAlignmentObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The warp transform matrix to morph the floating image into the reference
 // image.
 //
@@ -145,30 +105,4 @@ func (i VNImageHomographicAlignmentObservation) WarpTransform() objectivec.IObje
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("warpTransform"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

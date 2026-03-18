@@ -36,12 +36,6 @@ func (mc MsgidClass) Alloc() Msgid {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSPortMessage/msgid-c.ivar
 type Msgid struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Msgid struct {
 
 // MsgidFromID constructs a [Msgid] from an objc.ID.
 func MsgidFromID(id objc.ID) Msgid {
-	return Msgid{objectivec.Object{id}}
+	return Msgid{objectivec.Object{ID: id}}
 }
 // Ensure Msgid implements IMsgid.
 var _ IMsgid = Msgid{}
-
-
-
-
 
 // An interface definition for the [Msgid] class.
 //
@@ -64,10 +54,6 @@ var _ IMsgid = Msgid{}
 type IMsgid interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m Msgid) Init() Msgid {
@@ -87,38 +73,4 @@ func NewMsgid() Msgid {
 	rv := objc.Send[Msgid](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

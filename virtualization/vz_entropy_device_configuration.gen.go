@@ -36,12 +36,6 @@ func (vc VZEntropyDeviceConfigurationClass) Alloc() VZEntropyDeviceConfiguration
 	return rv
 }
 
-
-
-
-
-
-
 // The common configuration traits for entropy devices.
 //
 // # Overview
@@ -59,14 +53,10 @@ type VZEntropyDeviceConfiguration struct {
 //
 // The common configuration traits for entropy devices.
 func VZEntropyDeviceConfigurationFromID(id objc.ID) VZEntropyDeviceConfiguration {
-	return VZEntropyDeviceConfiguration{objectivec.Object{id}}
+	return VZEntropyDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZEntropyDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZEntropyDeviceConfiguration] class.
 //
@@ -74,10 +64,6 @@ func VZEntropyDeviceConfigurationFromID(id objc.ID) VZEntropyDeviceConfiguration
 type IVZEntropyDeviceConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e VZEntropyDeviceConfiguration) Init() VZEntropyDeviceConfiguration {
@@ -97,45 +83,4 @@ func NewVZEntropyDeviceConfiguration() VZEntropyDeviceConfiguration {
 	rv := objc.Send[VZEntropyDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSKeyValueSharedObserversClass) Alloc() NSKeyValueSharedObservers {
 	return rv
 }
 
-
-
-
-
-
-
 // A collection of key-value observations which may be registered with
 // multiple observable objects
 //
@@ -65,14 +59,10 @@ type NSKeyValueSharedObservers struct {
 // A collection of key-value observations which may be registered with
 // multiple observable objects
 func NSKeyValueSharedObserversFromID(id objc.ID) NSKeyValueSharedObservers {
-	return NSKeyValueSharedObservers{objectivec.Object{id}}
+	return NSKeyValueSharedObservers{objectivec.Object{ID: id}}
 }
 // NOTE: NSKeyValueSharedObservers adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSKeyValueSharedObservers] class.
 //
@@ -102,10 +92,6 @@ type INSKeyValueSharedObservers interface {
 	Snapshot() INSKeyValueSharedObserversSnapshot
 }
 
-
-
-
-
 // Init initializes the instance.
 func (k NSKeyValueSharedObservers) Init() NSKeyValueSharedObservers {
 	rv := objc.Send[NSKeyValueSharedObservers](k.ID, objc.Sel("init"))
@@ -125,11 +111,6 @@ func NewNSKeyValueSharedObservers() NSKeyValueSharedObservers {
 	return rv
 }
 
-
-
-
-
-
 // A new collection of observables for an observable object of the given class
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyValueSharedObservers/init(observableClass:)
@@ -138,12 +119,6 @@ func NewKeyValueSharedObserversWithObservableClass(observableClass objc.Class) N
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObservableClass:"), observableClass)
 	return NSKeyValueSharedObserversFromID(rv)
 }
-
-
-
-
-
-
 
 // A new collection of observables for an observable object of the given class
 //
@@ -186,35 +161,4 @@ func (k NSKeyValueSharedObservers) Snapshot() INSKeyValueSharedObserversSnapshot
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("snapshot"))
 	return NSKeyValueSharedObserversSnapshotFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

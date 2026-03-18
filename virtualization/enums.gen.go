@@ -18,7 +18,6 @@ const (
 	VZDiskImageCachingModeUncached VZDiskImageCachingMode = 1
 )
 
-
 func (e VZDiskImageCachingMode) String() string {
 	switch e {
 	case VZDiskImageCachingModeAutomatic:
@@ -32,8 +31,6 @@ func (e VZDiskImageCachingMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode
 type VZDiskImageSynchronizationMode int
 
@@ -45,7 +42,6 @@ const (
 	// VZDiskImageSynchronizationModeNone: Disables data synchronization with the permanent storage.
 	VZDiskImageSynchronizationModeNone VZDiskImageSynchronizationMode = 3
 )
-
 
 func (e VZDiskImageSynchronizationMode) String() string {
 	switch e {
@@ -60,8 +56,6 @@ func (e VZDiskImageSynchronizationMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskSynchronizationMode
 type VZDiskSynchronizationMode int
 
@@ -71,7 +65,6 @@ const (
 	// VZDiskSynchronizationModeNone: Don’t synchronize the data with the permanent storage.
 	VZDiskSynchronizationModeNone VZDiskSynchronizationMode = 1
 )
-
 
 func (e VZDiskSynchronizationMode) String() string {
 	switch e {
@@ -84,8 +77,6 @@ func (e VZDiskSynchronizationMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/InitializationOptions
 type VZEFIVariableStoreInitializationOptions int
 
@@ -93,7 +84,6 @@ const (
 	// VZEFIVariableStoreInitializationOptionAllowOverwrite: A Boolean value that indicates whether the framework can overwrite the EFI variable store.
 	VZEFIVariableStoreInitializationOptionAllowOverwrite VZEFIVariableStoreInitializationOptions = 1
 )
-
 
 func (e VZEFIVariableStoreInitializationOptions) String() string {
 	switch e {
@@ -103,8 +93,6 @@ func (e VZEFIVariableStoreInitializationOptions) String() string {
 		return fmt.Sprintf("VZEFIVariableStoreInitializationOptions(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/Virtualization/VZError/Code
 type VZErrorCode int
@@ -161,7 +149,6 @@ const (
 	// VZErrorVirtualMachineLimitExceeded: Unable to create an additional VM.
 	VZErrorVirtualMachineLimitExceeded VZErrorCode = 6
 )
-
 
 func (e VZErrorCode) String() string {
 	switch e {
@@ -220,8 +207,6 @@ func (e VZErrorCode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaAvailability
 type VZLinuxRosettaAvailability int
 
@@ -233,7 +218,6 @@ const (
 	// VZLinuxRosettaAvailabilityNotSupported: The current hardware or software configuration doesn’t support Rosetta.
 	VZLinuxRosettaAvailabilityNotSupported VZLinuxRosettaAvailability = 0
 )
-
 
 func (e VZLinuxRosettaAvailability) String() string {
 	switch e {
@@ -248,8 +232,6 @@ func (e VZLinuxRosettaAvailability) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/InitializationOptions
 type VZMacAuxiliaryStorageInitializationOptions int
 
@@ -257,7 +239,6 @@ const (
 	// VZMacAuxiliaryStorageInitializationOptionAllowOverwrite: A Boolean value that indicates whether the VM can overwrite an existing auxiliary storage file.
 	VZMacAuxiliaryStorageInitializationOptionAllowOverwrite VZMacAuxiliaryStorageInitializationOptions = 1
 )
-
 
 func (e VZMacAuxiliaryStorageInitializationOptions) String() string {
 	switch e {
@@ -267,8 +248,6 @@ func (e VZMacAuxiliaryStorageInitializationOptions) String() string {
 		return fmt.Sprintf("VZMacAuxiliaryStorageInitializationOptions(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/State-swift.enum
 type VZVirtualMachineState int
@@ -296,7 +275,6 @@ const (
 	VZVirtualMachineStateStopping VZVirtualMachineState = 7
 )
 
-
 func (e VZVirtualMachineState) String() string {
 	switch e {
 	case VZVirtualMachineStateError:
@@ -323,8 +301,4 @@ func (e VZVirtualMachineState) String() string {
 		return fmt.Sprintf("VZVirtualMachineState(%d)", e)
 	}
 }
-
-
-
-
 

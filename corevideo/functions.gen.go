@@ -7,6 +7,7 @@ import (
 	"os"
 	"unsafe"
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/metal"
@@ -340,6 +341,8 @@ var _cVDisplayLinkRelease func(displayLink CVDisplayLinkRef)
 
 // CVDisplayLinkRelease releases a display link.
 //
+// Deprecated: Deprecated since macOS 15.0.
+//
 // See: https://developer.apple.com/documentation/CoreVideo/CVDisplayLinkRelease
 func CVDisplayLinkRelease(displayLink CVDisplayLinkRef) {
 	if _cVDisplayLinkRelease == nil {
@@ -351,6 +354,8 @@ func CVDisplayLinkRelease(displayLink CVDisplayLinkRef) {
 var _cVDisplayLinkRetain func(displayLink CVDisplayLinkRef) CVDisplayLinkRef
 
 // CVDisplayLinkRetain retains a display link.
+//
+// Deprecated: Deprecated since macOS 15.0.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVDisplayLinkRetain
 func CVDisplayLinkRetain(displayLink CVDisplayLinkRef) CVDisplayLinkRef {
@@ -578,12 +583,12 @@ func CVIsCompressedPixelFormatAvailable(pixelFormatType uint32) bool {
 	return _cVIsCompressedPixelFormatAvailable(pixelFormatType)
 }
 
-var _cVMetalBufferCacheCreate func(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice unsafe.Pointer, cacheOut *CVMetalBufferCacheRef) CVReturn
+var _cVMetalBufferCacheCreate func(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice metal.MTLDeviceObject, cacheOut *CVMetalBufferCacheRef) CVReturn
 
 // CVMetalBufferCacheCreate.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVMetalBufferCacheCreate(_:_:_:_:)
-func CVMetalBufferCacheCreate(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice unsafe.Pointer, cacheOut *CVMetalBufferCacheRef) CVReturn {
+func CVMetalBufferCacheCreate(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice metal.MTLDeviceObject, cacheOut *CVMetalBufferCacheRef) CVReturn {
 	if _cVMetalBufferCacheCreate == nil {
 		panic("CoreVideo: symbol CVMetalBufferCacheCreate not loaded")
 	}
@@ -631,11 +636,12 @@ var _cVMetalBufferGetBuffer func(buffer CVMetalBufferRef) unsafe.Pointer
 // CVMetalBufferGetBuffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVMetalBufferGetBuffer(_:)
-func CVMetalBufferGetBuffer(buffer CVMetalBufferRef) unsafe.Pointer {
+func CVMetalBufferGetBuffer(buffer CVMetalBufferRef) metal.MTLBufferObject {
 	if _cVMetalBufferGetBuffer == nil {
 		panic("CoreVideo: symbol CVMetalBufferGetBuffer not loaded")
 	}
-	return _cVMetalBufferGetBuffer(buffer)
+	rv := _cVMetalBufferGetBuffer(buffer)
+	return metal.MTLBufferObjectFromID(objc.IDFrom(rv))
 }
 
 var _cVMetalBufferGetTypeID func() uint
@@ -650,12 +656,12 @@ func CVMetalBufferGetTypeID() uint {
 	return _cVMetalBufferGetTypeID()
 }
 
-var _cVMetalTextureCacheCreate func(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice unsafe.Pointer, textureAttributes corefoundation.CFDictionaryRef, cacheOut *CVMetalTextureCacheRef) CVReturn
+var _cVMetalTextureCacheCreate func(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice metal.MTLDeviceObject, textureAttributes corefoundation.CFDictionaryRef, cacheOut *CVMetalTextureCacheRef) CVReturn
 
 // CVMetalTextureCacheCreate creates a new texture cache.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVMetalTextureCacheCreate(_:_:_:_:_:)
-func CVMetalTextureCacheCreate(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice unsafe.Pointer, textureAttributes corefoundation.CFDictionaryRef, cacheOut *CVMetalTextureCacheRef) CVReturn {
+func CVMetalTextureCacheCreate(allocator corefoundation.CFAllocatorRef, cacheAttributes corefoundation.CFDictionaryRef, metalDevice metal.MTLDeviceObject, textureAttributes corefoundation.CFDictionaryRef, cacheOut *CVMetalTextureCacheRef) CVReturn {
 	if _cVMetalTextureCacheCreate == nil {
 		panic("CoreVideo: symbol CVMetalTextureCacheCreate not loaded")
 	}
@@ -715,11 +721,12 @@ var _cVMetalTextureGetTexture func(image CVMetalTextureRef) unsafe.Pointer
 // CVMetalTextureGetTexture returns the Metal texture object for the image buffer.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVMetalTextureGetTexture(_:)
-func CVMetalTextureGetTexture(image CVMetalTextureRef) unsafe.Pointer {
+func CVMetalTextureGetTexture(image CVMetalTextureRef) metal.MTLTextureObject {
 	if _cVMetalTextureGetTexture == nil {
 		panic("CoreVideo: symbol CVMetalTextureGetTexture not loaded")
 	}
-	return _cVMetalTextureGetTexture(image)
+	rv := _cVMetalTextureGetTexture(image)
+	return metal.MTLTextureObjectFromID(objc.IDFrom(rv))
 }
 
 var _cVMetalTextureGetTypeID func() uint
@@ -750,6 +757,8 @@ var _cVOpenGLBufferPoolRelease func(openGLBufferPool CVOpenGLBufferPoolRef)
 
 // CVOpenGLBufferPoolRelease releases an OpenGL buffer pool.
 //
+// Deprecated: Deprecated since macOS 10.14.
+//
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLBufferPoolRelease
 func CVOpenGLBufferPoolRelease(openGLBufferPool CVOpenGLBufferPoolRef) {
 	if _cVOpenGLBufferPoolRelease == nil {
@@ -761,6 +770,8 @@ func CVOpenGLBufferPoolRelease(openGLBufferPool CVOpenGLBufferPoolRef) {
 var _cVOpenGLBufferPoolRetain func(openGLBufferPool CVOpenGLBufferPoolRef) CVOpenGLBufferPoolRef
 
 // CVOpenGLBufferPoolRetain retains an OpenGL buffer pool.
+//
+// Deprecated: Deprecated since macOS 10.14.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLBufferPoolRetain
 func CVOpenGLBufferPoolRetain(openGLBufferPool CVOpenGLBufferPoolRef) CVOpenGLBufferPoolRef {
@@ -774,6 +785,8 @@ var _cVOpenGLBufferRelease func(buffer CVOpenGLBufferRef)
 
 // CVOpenGLBufferRelease releases a Core Video OpenGL buffer.
 //
+// Deprecated: Deprecated since macOS 10.14.
+//
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLBufferRelease
 func CVOpenGLBufferRelease(buffer CVOpenGLBufferRef) {
 	if _cVOpenGLBufferRelease == nil {
@@ -785,6 +798,8 @@ func CVOpenGLBufferRelease(buffer CVOpenGLBufferRef) {
 var _cVOpenGLBufferRetain func(buffer CVOpenGLBufferRef) CVOpenGLBufferRef
 
 // CVOpenGLBufferRetain retains a Core Video OpenGL buffer.
+//
+// Deprecated: Deprecated since macOS 10.14.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLBufferRetain
 func CVOpenGLBufferRetain(buffer CVOpenGLBufferRef) CVOpenGLBufferRef {
@@ -798,6 +813,8 @@ var _cVOpenGLTextureCacheRelease func(textureCache CVOpenGLTextureCacheRef)
 
 // CVOpenGLTextureCacheRelease releases a texture cache object.
 //
+// Deprecated: Deprecated since macOS 10.14.
+//
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLTextureCacheRelease
 func CVOpenGLTextureCacheRelease(textureCache CVOpenGLTextureCacheRef) {
 	if _cVOpenGLTextureCacheRelease == nil {
@@ -809,6 +826,8 @@ func CVOpenGLTextureCacheRelease(textureCache CVOpenGLTextureCacheRef) {
 var _cVOpenGLTextureCacheRetain func(textureCache CVOpenGLTextureCacheRef) CVOpenGLTextureCacheRef
 
 // CVOpenGLTextureCacheRetain retains a texture cache object.
+//
+// Deprecated: Deprecated since macOS 10.14.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLTextureCacheRetain
 func CVOpenGLTextureCacheRetain(textureCache CVOpenGLTextureCacheRef) CVOpenGLTextureCacheRef {
@@ -822,6 +841,8 @@ var _cVOpenGLTextureRelease func(texture CVOpenGLTextureRef)
 
 // CVOpenGLTextureRelease releases a Core Video OpenGL texture.
 //
+// Deprecated: Deprecated since macOS 10.14.
+//
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLTextureRelease
 func CVOpenGLTextureRelease(texture CVOpenGLTextureRef) {
 	if _cVOpenGLTextureRelease == nil {
@@ -833,6 +854,8 @@ func CVOpenGLTextureRelease(texture CVOpenGLTextureRef) {
 var _cVOpenGLTextureRetain func(texture CVOpenGLTextureRef) CVOpenGLTextureRef
 
 // CVOpenGLTextureRetain retains a Core Video OpenGL texture.
+//
+// Deprecated: Deprecated since macOS 10.14.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVOpenGLTextureRetain
 func CVOpenGLTextureRetain(texture CVOpenGLTextureRef) CVOpenGLTextureRef {

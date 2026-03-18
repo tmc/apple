@@ -15,7 +15,6 @@ func (o MTLDeviceObject) NewSharedEventWithMachPort(port uint32) MTLSharedEvent 
 	return MTLSharedEventObjectFromID(rv)
 }
 
-
 // SharedEventNotificationBinding keeps a notify block alive.
 type SharedEventNotificationBinding struct {
 	cleanup func()

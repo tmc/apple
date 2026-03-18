@@ -30,8 +30,6 @@ type MTLSamplerState interface {
 	GpuResourceID() MTLResourceID
 }
 
-
-
 // MTLSamplerStateObject wraps an existing Objective-C object that conforms to the MTLSamplerState protocol.
 type MTLSamplerStateObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o MTLSamplerStateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLSamplerStateObjectFromID constructs a [MTLSamplerStateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLSamplerStateObjectFromID(id objc.ID) MTLSamplerStateObject {
@@ -49,9 +45,6 @@ func MTLSamplerStateObjectFromID(id objc.ID) MTLSamplerStateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device object that created the sampler.
 //
@@ -80,16 +73,4 @@ func (o MTLSamplerStateObject) GpuResourceID() MTLResourceID {
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 

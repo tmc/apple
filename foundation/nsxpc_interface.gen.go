@@ -37,12 +37,6 @@ func (nc NSXPCInterfaceClass) Alloc() NSXPCInterface {
 	return rv
 }
 
-
-
-
-
-
-
 // An interface that may be sent to an exported object or remote object proxy.
 //
 // # Overview
@@ -75,14 +69,10 @@ type NSXPCInterface struct {
 //
 // An interface that may be sent to an exported object or remote object proxy.
 func NSXPCInterfaceFromID(id objc.ID) NSXPCInterface {
-	return NSXPCInterface{objectivec.Object{id}}
+	return NSXPCInterface{objectivec.Object{ID: id}}
 }
 // NOTE: NSXPCInterface adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSXPCInterface] class.
 //
@@ -124,10 +114,6 @@ type INSXPCInterface interface {
 	XPCTypeForSelectorArgumentIndexOfReply(sel objc.SEL, arg uint, ofReply bool) unsafe.Pointer
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x NSXPCInterface) Init() NSXPCInterface {
 	rv := objc.Send[NSXPCInterface](x.ID, objc.Sel("init"))
@@ -147,11 +133,6 @@ func NewNSXPCInterface() NSXPCInterface {
 	return rv
 }
 
-
-
-
-
-
 // Returns an NSXPCInterface instance for a given protocol.
 //
 // # Discussion
@@ -165,12 +146,6 @@ func NewXPCInterfaceWithProtocol(protocol_ *objectivec.Protocol) NSXPCInterface 
 	rv := objc.Send[objc.ID](objc.ID(getNSXPCInterfaceClass().class), objc.Sel("interfaceWithProtocol:"), protocol_)
 	return NSXPCInterfaceFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the current list of allowed classes that can appear within the
 // specified collection object argument to the specified method.
@@ -301,17 +276,6 @@ func (x NSXPCInterface) XPCTypeForSelectorArgumentIndexOfReply(sel objc.SEL, arg
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The Objective-C protocol that this interface is based on.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCInterface/protocol
@@ -324,28 +288,10 @@ func (x NSXPCInterface) Protocol() *objectivec.Protocol {
 	return &val
 }
 func (x NSXPCInterface) SetProtocol(value *objectivec.Protocol) {
+	if value == nil {
+		objc.Send[struct{}](x.ID, objc.Sel("setProtocol:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](x.ID, objc.Sel("setProtocol:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

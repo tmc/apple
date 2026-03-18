@@ -36,12 +36,6 @@ func (nc NSTimeZoneClass) Alloc() NSTimeZone {
 	return rv
 }
 
-
-
-
-
-
-
 // Information about standard time conventions associated with a specific
 // geopolitical region.
 //
@@ -125,14 +119,10 @@ type NSTimeZone struct {
 // Information about standard time conventions associated with a specific
 // geopolitical region.
 func NSTimeZoneFromID(id objc.ID) NSTimeZone {
-	return NSTimeZone{objectivec.Object{id}}
+	return NSTimeZone{objectivec.Object{ID: id}}
 }
 // NOTE: NSTimeZone adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTimeZone] class.
 //
@@ -175,7 +165,9 @@ func NSTimeZoneFromID(id objc.ID) NSTimeZone {
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone
 type INSTimeZone interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating Time Zones
 
@@ -230,15 +222,7 @@ type INSTimeZone interface {
 
 	// A notification posted when the time zone changes.
 	NSSystemTimeZoneDidChange() NSNotificationName
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSTimeZone
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTimeZone) Init() NSTimeZone {
@@ -258,11 +242,6 @@ func NewNSTimeZone() NSTimeZone {
 	rv := objc.Send[NSTimeZone](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns a time zone object offset from Greenwich Mean Time by a given
 // number of seconds.
@@ -284,7 +263,6 @@ func NewTimeZoneForSecondsFromGMT(seconds int) NSTimeZone {
 	rv := objc.Send[objc.ID](objc.ID(getNSTimeZoneClass().class), objc.Sel("timeZoneForSecondsFromGMT:"), seconds)
 	return NSTimeZoneFromID(rv)
 }
-
 
 // Returns the time zone object identified by a given abbreviation.
 //
@@ -310,7 +288,6 @@ func NewTimeZoneWithAbbreviation(abbreviation string) NSTimeZone {
 	return NSTimeZoneFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewTimeZoneWithCoder(coder INSCoder) NSTimeZone {
@@ -318,7 +295,6 @@ func NewTimeZoneWithCoder(coder INSCoder) NSTimeZone {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSTimeZoneFromID(rv)
 }
-
 
 // Returns a time zone initialized with a given identifier.
 //
@@ -341,7 +317,6 @@ func NewTimeZoneWithName(tzName string) NSTimeZone {
 	return NSTimeZoneFromID(rv)
 }
 
-
 // Initializes a time zone with a given identifier and time zone data.
 //
 // tzName: The identifier for the time zone. Providing `nil` for this parameter raises
@@ -360,12 +335,6 @@ func NewTimeZoneWithNameData(tzName string, aData INSData) NSTimeZone {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:data:"), objc.String(tzName), aData)
 	return NSTimeZoneFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a time zone initialized with a given identifier.
 //
@@ -547,10 +516,6 @@ func (t NSTimeZone) InitWithCoder(coder INSCoder) NSTimeZone {
 	return rv
 }
 
-
-
-
-
 // Clears any time zone value cached for the [SystemTimeZone] property.
 //
 // # Discussion
@@ -602,13 +567,6 @@ func (_NSTimeZoneClass NSTimeZoneClass) TimeZoneWithNameData(tzName string, aDat
 	return NSTimeZoneFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The geopolitical region ID that identifies the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/name
@@ -616,8 +574,6 @@ func (t NSTimeZone) Name() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("name"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The abbreviation for the receiver, such as “EDT” (Eastern Daylight
 // Time).
@@ -632,8 +588,6 @@ func (t NSTimeZone) Abbreviation() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The current difference in seconds between the receiver and Greenwich Mean
 // Time.
 //
@@ -642,8 +596,6 @@ func (t NSTimeZone) SecondsFromGMT() int {
 	rv := objc.Send[int](t.ID, objc.Sel("secondsFromGMT"))
 	return rv
 }
-
-
 
 // The data that stores the information used by the receiver.
 //
@@ -656,8 +608,6 @@ func (t NSTimeZone) Data() INSData {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("data"))
 	return NSDataFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the receiver is currently using
 // daylight saving time.
@@ -677,8 +627,6 @@ func (t NSTimeZone) DaylightSavingTime() bool {
 	return rv
 }
 
-
-
 // The current daylight saving time offset of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone/daylightSavingTimeOffset
@@ -686,8 +634,6 @@ func (t NSTimeZone) DaylightSavingTimeOffset() float64 {
 	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("daylightSavingTimeOffset"))
 	return float64(rv)
 }
-
-
 
 // The date of the next daylight saving time transition for the receiver.
 //
@@ -705,8 +651,6 @@ func (t NSTimeZone) NextDaylightSavingTimeTransition() INSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // A textual description of the time zone including the name, abbreviation,
 // offset from GMT, and whether or not daylight saving time is currently in
 // effect.
@@ -717,8 +661,6 @@ func (t NSTimeZone) Description() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A notification posted when the time zone changes.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nssystemtimezonedidchange
@@ -726,12 +668,6 @@ func (t NSTimeZone) NSSystemTimeZoneDidChange() NSNotificationName {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSSystemTimeZoneDidChangeNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
 
 // An object that tracks the current system time zone.
 //
@@ -755,8 +691,6 @@ func (_NSTimeZoneClass NSTimeZoneClass) LocalTimeZone() NSTimeZone {
 	rv := objc.Send[objc.ID](objc.ID(_NSTimeZoneClass.class), objc.Sel("localTimeZone"))
 	return NSTimeZoneFromID(objc.ID(rv))
 }
-
-
 
 // The time zone currently used by the system.
 //
@@ -784,8 +718,6 @@ func (_NSTimeZoneClass NSTimeZoneClass) SystemTimeZone() NSTimeZone {
 	rv := objc.Send[objc.ID](objc.ID(_NSTimeZoneClass.class), objc.Sel("systemTimeZone"))
 	return NSTimeZoneFromID(objc.ID(rv))
 }
-
-
 
 // The default time zone for the current app.
 //
@@ -816,8 +748,6 @@ func (_NSTimeZoneClass NSTimeZoneClass) SetDefaultTimeZone(value NSTimeZone) {
 	objc.Send[struct{}](objc.ID(_NSTimeZoneClass.class), objc.Sel("setDefaultTimeZone:"), value)
 }
 
-
-
 // Returns an array of strings listing the IDs of all the time zones known to
 // the system.
 //
@@ -836,8 +766,6 @@ func (_NSTimeZoneClass NSTimeZoneClass) KnownTimeZoneNames() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSTimeZoneClass.class), objc.Sel("knownTimeZoneNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // Returns a dictionary holding the mappings of time zone abbreviations to
 // time zone names.
@@ -863,8 +791,6 @@ func (_NSTimeZoneClass NSTimeZoneClass) SetAbbreviationDictionary(value INSDicti
 	objc.Send[struct{}](objc.ID(_NSTimeZoneClass.class), objc.Sel("setAbbreviationDictionary:"), value)
 }
 
-
-
 // Returns the time zone data version.
 //
 // # Return Value
@@ -877,33 +803,9 @@ func (_NSTimeZoneClass NSTimeZoneClass) TimeZoneDataVersion() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

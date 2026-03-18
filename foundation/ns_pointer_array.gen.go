@@ -37,12 +37,6 @@ func (nc NSPointerArrayClass) Alloc() NSPointerArray {
 	return rv
 }
 
-
-
-
-
-
-
 // A collection similar to an array, but with a broader range of available
 // memory semantics.
 //
@@ -103,14 +97,10 @@ type NSPointerArray struct {
 // A collection similar to an array, but with a broader range of available
 // memory semantics.
 func NSPointerArrayFromID(id objc.ID) NSPointerArray {
-	return NSPointerArray{objectivec.Object{id}}
+	return NSPointerArray{objectivec.Object{ID: id}}
 }
 // NOTE: NSPointerArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPointerArray] class.
 //
@@ -138,7 +128,9 @@ func NSPointerArrayFromID(id objc.ID) NSPointerArray {
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray
 type INSPointerArray interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating and Initializing a New Pointer Array
 
@@ -171,15 +163,7 @@ type INSPointerArray interface {
 
 	// The functions in use by the receiver.
 	PointerFunctions() INSPointerFunctions
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSPointerArray
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPointerArray) Init() NSPointerArray {
@@ -200,11 +184,6 @@ func NewNSPointerArray() NSPointerArray {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewPointerArrayWithCoder(coder INSCoder) NSPointerArray {
@@ -212,7 +191,6 @@ func NewPointerArrayWithCoder(coder INSCoder) NSPointerArray {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPointerArrayFromID(rv)
 }
-
 
 // Initializes the receiver to use the given options.
 //
@@ -229,7 +207,6 @@ func NewPointerArrayWithOptions(options NSPointerFunctionsOptions) NSPointerArra
 	return NSPointerArrayFromID(rv)
 }
 
-
 // Initializes the receiver to use the given functions.
 //
 // functions: The pointer functions for the new instance.
@@ -244,12 +221,6 @@ func NewPointerArrayWithPointerFunctions(functions INSPointerFunctions) NSPointe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPointerFunctions:"), functions)
 	return NSPointerArrayFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes the receiver to use the given options.
 //
@@ -403,10 +374,6 @@ func (p NSPointerArray) InitWithCoder(coder INSCoder) NSPointerArray {
 	return rv
 }
 
-
-
-
-
 // Returns a new pointer array that maintains strong references to its
 // elements.
 //
@@ -460,13 +427,6 @@ func (_NSPointerArrayClass NSPointerArrayClass) PointerArrayWithPointerFunctions
 	return NSPointerArrayFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The number of elements in the receiver.
 //
 // # Discussion
@@ -483,8 +443,6 @@ func (p NSPointerArray) SetCount(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCount:"), value)
 }
 
-
-
 // All the objects in the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/allObjects
@@ -492,8 +450,6 @@ func (p NSPointerArray) AllObjects() INSArray {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("allObjects"))
 	return NSArrayFromID(objc.ID(rv))
 }
-
-
 
 // The functions in use by the receiver.
 //
@@ -508,34 +464,9 @@ func (p NSPointerArray) PointerFunctions() INSPointerFunctions {
 	return NSPointerFunctionsFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

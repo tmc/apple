@@ -36,12 +36,6 @@ func (nc NSDateComponentsClass) Alloc() NSDateComponents {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that specifies a date or time in terms of units (such as year,
 // month, day, hour, and minute) to be evaluated in a calendar system and time
 // zone.
@@ -151,14 +145,10 @@ type NSDateComponents struct {
 // month, day, hour, and minute) to be evaluated in a calendar system and time
 // zone.
 func NSDateComponentsFromID(id objc.ID) NSDateComponents {
-	return NSDateComponents{objectivec.Object{id}}
+	return NSDateComponents{objectivec.Object{ID: id}}
 }
 // NOTE: NSDateComponents adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDateComponents] class.
 //
@@ -229,7 +219,9 @@ func NSDateComponentsFromID(id objc.ID) NSDateComponents {
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents
 type INSDateComponents interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Setting a Calendar and Time Zone
 
@@ -320,14 +312,7 @@ type INSDateComponents interface {
 	// Specifies a date component without a value.
 	NSDateComponentUndefined() int
 	SetNSDateComponentUndefined(value int)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSDateComponents
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d NSDateComponents) Init() NSDateComponents {
@@ -348,11 +333,6 @@ func NewNSDateComponents() NSDateComponents {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDateComponentsWithCoder(coder INSCoder) NSDateComponents {
@@ -360,12 +340,6 @@ func NewDateComponentsWithCoder(coder INSCoder) NSDateComponents {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDateComponentsFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a Boolean value that indicates whether the current combination of
 // properties represents a date which exists in the specified calendar.
@@ -454,17 +428,6 @@ func (d NSDateComponents) InitWithCoder(coder INSCoder) NSDateComponents {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The calendar used to interpret the date components.
 //
 // # Discussion
@@ -483,8 +446,6 @@ func (d NSDateComponents) Calendar() INSCalendar {
 func (d NSDateComponents) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
-
-
 
 // The time zone used to interpret the date components.
 //
@@ -505,8 +466,6 @@ func (d NSDateComponents) SetTimeZone(value INSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the current combination of
 // properties represents a date which exists in the current calendar.
 //
@@ -521,8 +480,6 @@ func (d NSDateComponents) ValidDate() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isValidDate"))
 	return rv
 }
-
-
 
 // The date calculated from the current components using the stored calendar.
 //
@@ -542,8 +499,6 @@ func (d NSDateComponents) Date() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("date"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // The number of eras.
 //
@@ -565,8 +520,6 @@ func (d NSDateComponents) SetEra(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEra:"), value)
 }
 
-
-
 // The number of years.
 //
 // # Discussion
@@ -586,8 +539,6 @@ func (d NSDateComponents) Year() int {
 func (d NSDateComponents) SetYear(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setYear:"), value)
 }
-
-
 
 // The ISO 8601 week-numbering year.
 //
@@ -622,8 +573,6 @@ func (d NSDateComponents) SetYearForWeekOfYear(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setYearForWeekOfYear:"), value)
 }
 
-
-
 // The number of quarters.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/quarter
@@ -634,8 +583,6 @@ func (d NSDateComponents) Quarter() int {
 func (d NSDateComponents) SetQuarter(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setQuarter:"), value)
 }
-
-
 
 // The number of months.
 //
@@ -657,8 +604,6 @@ func (d NSDateComponents) SetMonth(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMonth:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the month is a leap month.
 //
 // # Discussion
@@ -676,8 +621,6 @@ func (d NSDateComponents) LeapMonth() bool {
 func (d NSDateComponents) SetLeapMonth(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLeapMonth:"), value)
 }
-
-
 
 // The number of the weekdays.
 //
@@ -703,8 +646,6 @@ func (d NSDateComponents) SetWeekday(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekday:"), value)
 }
 
-
-
 // The ordinal number of weekdays.
 //
 // # Discussion
@@ -729,8 +670,6 @@ func (d NSDateComponents) SetWeekdayOrdinal(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekdayOrdinal:"), value)
 }
 
-
-
 // The week number of the months.
 //
 // # Discussion
@@ -750,8 +689,6 @@ func (d NSDateComponents) WeekOfMonth() int {
 func (d NSDateComponents) SetWeekOfMonth(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekOfMonth:"), value)
 }
-
-
 
 // The ISO 8601 week date of the year.
 //
@@ -773,8 +710,6 @@ func (d NSDateComponents) SetWeekOfYear(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekOfYear:"), value)
 }
 
-
-
 // The number of days.
 //
 // # Discussion
@@ -794,8 +729,6 @@ func (d NSDateComponents) Day() int {
 func (d NSDateComponents) SetDay(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDay:"), value)
 }
-
-
 
 // The number of hour units for the receiver.
 //
@@ -817,8 +750,6 @@ func (d NSDateComponents) SetHour(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setHour:"), value)
 }
 
-
-
 // The number of minute units for the receiver.
 //
 // # Discussion
@@ -838,8 +769,6 @@ func (d NSDateComponents) Minute() int {
 func (d NSDateComponents) SetMinute(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinute:"), value)
 }
-
-
 
 // The number of second units for the receiver.
 //
@@ -861,8 +790,6 @@ func (d NSDateComponents) SetSecond(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSecond:"), value)
 }
 
-
-
 // The number of nanosecond units for the receiver.
 //
 // # Discussion
@@ -883,8 +810,6 @@ func (d NSDateComponents) SetNanosecond(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNanosecond:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/dayOfYear
 func (d NSDateComponents) DayOfYear() int {
 	rv := objc.Send[int](d.ID, objc.Sel("dayOfYear"))
@@ -894,8 +819,6 @@ func (d NSDateComponents) SetDayOfYear(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDayOfYear:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents/isRepeatedDay
 func (d NSDateComponents) RepeatedDay() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isRepeatedDay"))
@@ -904,8 +827,6 @@ func (d NSDateComponents) RepeatedDay() bool {
 func (d NSDateComponents) SetRepeatedDay(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRepeatedDay:"), value)
 }
-
-
 
 // Specifies a date component without a value.
 //
@@ -918,34 +839,9 @@ func (d NSDateComponents) SetNSDateComponentUndefined(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSDateComponentUndefined:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

@@ -8,110 +8,112 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-var KANEFAOTCacheUrlIdentifierKey objectivec.Object
-
-var KANEFBaseModelIdentifierKey objectivec.Object
-
-var KANEFCompilationInitiatedByE5MLKey objectivec.Object
-
-var KANEFCompilerOptionsFilenameKey objectivec.Object
-
-var KANEFConstantSurfaceAlignmentKey objectivec.Object
-
-var KANEFConstantSurfaceIDKey objectivec.Object
-
-var KANEFDisableIOFencesUseSharedEventsKey objectivec.Object
-
-var KANEFEnableFWToFWSignal objectivec.Object
-
-var KANEFEnableLateLatchKey objectivec.Object
-
-var KANEFEnablePowerSavingKey objectivec.Object
-
-var KANEFEspressoFileResourcesKey objectivec.Object
-
-var KANEFHintEnergyEfficientWorkloadKey objectivec.Object
-
-var KANEFHintReportResidentPagesKey objectivec.Object
-
-var KANEFHintReportSessionStatusKey objectivec.Object
-
-var KANEFHintReportTotalPagesKey objectivec.Object
-
-var KANEFHintSessionAbort objectivec.Object
-
-var KANEFHintSessionInfo objectivec.Object
-
-var KANEFHintSessionStart objectivec.Object
-
-var KANEFHintSessionStop objectivec.Object
-
-var KANEFInMemoryModelIdentifierKey objectivec.Object
-
-var KANEFInMemoryModelIsCachedKey objectivec.Object
-
-var KANEFIntermediateBufferHandleKey objectivec.Object
-
-var KANEFKeepModelMemoryWiredKey objectivec.Object
-
-var KANEFMemoryPoolIDKey objectivec.Object
-
-var KANEFModelANECIRValue objectivec.Object
-
-var KANEFModelCacheIdentifierUsingSourceURLKey objectivec.Object
-
-var KANEFModelCoreMLValue objectivec.Object
-
-var KANEFModelDescriptionKey objectivec.Object
-
-var KANEFModelHasCacheURLIdentifierKey objectivec.Object
-
-var KANEFModelIdentityStrKey objectivec.Object
-
-var KANEFModelInput16KAlignmentArrayKey objectivec.Object
-
-var KANEFModelInputSymbolIndexArrayKey objectivec.Object
-
-var KANEFModelInputSymbolsArrayKey objectivec.Object
-
-var KANEFModelInstanceParameters objectivec.Object
-
-var KANEFModelIsEncryptedKey objectivec.Object
-
-var KANEFModelLLIRBundleValue objectivec.Object
-
-var KANEFModelLoadPerformanceStatsKey objectivec.Object
-
-var KANEFModelMILValue objectivec.Object
-
-var KANEFModelMLIRValue objectivec.Object
-
-var KANEFModelOutput16KAlignmentArrayKey objectivec.Object
-
-var KANEFModelOutputSymbolIndexArrayKey objectivec.Object
-
-var KANEFModelOutputSymbolsArrayKey objectivec.Object
-
-var KANEFModelPreCompiledValue objectivec.Object
-
-var KANEFModelProcedureIDKey objectivec.Object
-
-var KANEFModelProcedureNameToIDMapKey objectivec.Object
-
-var KANEFModelProcedureNameToStatsSizeMapKey objectivec.Object
-
-var KANEFModelProceduresArrayKey objectivec.Object
-
-var KANEFModelTypeKey objectivec.Object
-
-var KANEFNetPlistFilenameKey objectivec.Object
-
-var KANEFPerformanceStatsMaskKey objectivec.Object
-
-var KANEFRetainModelsWithoutSourceURLKey objectivec.Object
-
-var KANEFSkipPreparePhaseKey objectivec.Object
-
+var (
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFAOTCacheUrlIdentifierKey
+	KANEFAOTCacheUrlIdentifierKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFBaseModelIdentifierKey
+	KANEFBaseModelIdentifierKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFCompilationInitiatedByE5MLKey
+	KANEFCompilationInitiatedByE5MLKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFCompilerOptionsFilenameKey
+	KANEFCompilerOptionsFilenameKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFConstantSurfaceAlignmentKey
+	KANEFConstantSurfaceAlignmentKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFConstantSurfaceIDKey
+	KANEFConstantSurfaceIDKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFDisableIOFencesUseSharedEventsKey
+	KANEFDisableIOFencesUseSharedEventsKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFEnableFWToFWSignal
+	KANEFEnableFWToFWSignal objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFEnableLateLatchKey
+	KANEFEnableLateLatchKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFEnablePowerSavingKey
+	KANEFEnablePowerSavingKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFEspressoFileResourcesKey
+	KANEFEspressoFileResourcesKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFHintEnergyEfficientWorkloadKey
+	KANEFHintEnergyEfficientWorkloadKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFHintReportResidentPagesKey
+	KANEFHintReportResidentPagesKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFHintReportSessionStatusKey
+	KANEFHintReportSessionStatusKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFHintReportTotalPagesKey
+	KANEFHintReportTotalPagesKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFHintSessionAbort
+	KANEFHintSessionAbort objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFHintSessionInfo
+	KANEFHintSessionInfo objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFHintSessionStart
+	KANEFHintSessionStart objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFHintSessionStop
+	KANEFHintSessionStop objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFInMemoryModelIdentifierKey
+	KANEFInMemoryModelIdentifierKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFInMemoryModelIsCachedKey
+	KANEFInMemoryModelIsCachedKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFIntermediateBufferHandleKey
+	KANEFIntermediateBufferHandleKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFKeepModelMemoryWiredKey
+	KANEFKeepModelMemoryWiredKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFMemoryPoolIDKey
+	KANEFMemoryPoolIDKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelANECIRValue
+	KANEFModelANECIRValue objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelCacheIdentifierUsingSourceURLKey
+	KANEFModelCacheIdentifierUsingSourceURLKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelCoreMLValue
+	KANEFModelCoreMLValue objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelDescriptionKey
+	KANEFModelDescriptionKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelHasCacheURLIdentifierKey
+	KANEFModelHasCacheURLIdentifierKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelIdentityStrKey
+	KANEFModelIdentityStrKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelInput16KAlignmentArrayKey
+	KANEFModelInput16KAlignmentArrayKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelInputSymbolIndexArrayKey
+	KANEFModelInputSymbolIndexArrayKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelInputSymbolsArrayKey
+	KANEFModelInputSymbolsArrayKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelInstanceParameters
+	KANEFModelInstanceParameters objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelIsEncryptedKey
+	KANEFModelIsEncryptedKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelLLIRBundleValue
+	KANEFModelLLIRBundleValue objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelLoadPerformanceStatsKey
+	KANEFModelLoadPerformanceStatsKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelMILValue
+	KANEFModelMILValue objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelMLIRValue
+	KANEFModelMLIRValue objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelOutput16KAlignmentArrayKey
+	KANEFModelOutput16KAlignmentArrayKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelOutputSymbolIndexArrayKey
+	KANEFModelOutputSymbolIndexArrayKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelOutputSymbolsArrayKey
+	KANEFModelOutputSymbolsArrayKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelPreCompiledValue
+	KANEFModelPreCompiledValue objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelProcedureIDKey
+	KANEFModelProcedureIDKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelProcedureNameToIDMapKey
+	KANEFModelProcedureNameToIDMapKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelProcedureNameToStatsSizeMapKey
+	KANEFModelProcedureNameToStatsSizeMapKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelProceduresArrayKey
+	KANEFModelProceduresArrayKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFModelTypeKey
+	KANEFModelTypeKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFNetPlistFilenameKey
+	KANEFNetPlistFilenameKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFPerformanceStatsMaskKey
+	KANEFPerformanceStatsMaskKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFRetainModelsWithoutSourceURLKey
+	KANEFRetainModelsWithoutSourceURLKey objectivec.Object
+	// See: https://developer.apple.com/documentation/AppleNeuralEngine/kANEFSkipPreparePhaseKey
+	KANEFSkipPreparePhaseKey objectivec.Object
+)
 func init() {
 	if frameworkHandle == 0 {
 		return

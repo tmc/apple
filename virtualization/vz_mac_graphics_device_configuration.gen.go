@@ -36,12 +36,6 @@ func (vc VZMacGraphicsDeviceConfigurationClass) Alloc() VZMacGraphicsDeviceConfi
 	return rv
 }
 
-
-
-
-
-
-
 // Configuration for a display attached to a Mac graphics device.
 //
 // # Overview
@@ -68,10 +62,6 @@ func VZMacGraphicsDeviceConfigurationFromID(id objc.ID) VZMacGraphicsDeviceConfi
 // NOTE: VZMacGraphicsDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZMacGraphicsDeviceConfiguration] class.
 //
 // # Configuring displays
@@ -89,10 +79,6 @@ type IVZMacGraphicsDeviceConfiguration interface {
 	Displays() []VZMacGraphicsDisplayConfiguration
 	SetDisplays(value []VZMacGraphicsDisplayConfiguration)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m VZMacGraphicsDeviceConfiguration) Init() VZMacGraphicsDeviceConfiguration {
@@ -113,27 +99,6 @@ func NewVZMacGraphicsDeviceConfiguration() VZMacGraphicsDeviceConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The displays associated with this graphics device.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDeviceConfiguration/displays
@@ -146,27 +111,4 @@ func (m VZMacGraphicsDeviceConfiguration) Displays() []VZMacGraphicsDisplayConfi
 func (m VZMacGraphicsDeviceConfiguration) SetDisplays(value []VZMacGraphicsDisplayConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDisplays:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

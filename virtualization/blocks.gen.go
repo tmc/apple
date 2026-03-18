@@ -52,8 +52,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // MacOSRestoreImageErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -84,8 +82,6 @@ func NewMacOSRestoreImageErrorBlock(handler MacOSRestoreImageErrorHandler) (objc
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // VirtioSocketConnectionErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -113,6 +109,4 @@ func NewVirtioSocketConnectionErrorBlock(handler VirtioSocketConnectionErrorHand
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 

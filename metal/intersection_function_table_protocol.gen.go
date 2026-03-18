@@ -72,8 +72,6 @@ type MTLIntersectionFunctionTable interface {
 	SetVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, bufferRange foundation.NSRange)
 }
 
-
-
 // MTLIntersectionFunctionTableObject wraps an existing Objective-C object that conforms to the MTLIntersectionFunctionTable protocol.
 type MTLIntersectionFunctionTableObject struct {
 	objectivec.Object
@@ -82,8 +80,6 @@ func (o MTLIntersectionFunctionTableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIntersectionFunctionTableObjectFromID constructs a [MTLIntersectionFunctionTableObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIntersectionFunctionTableObjectFromID(id objc.ID) MTLIntersectionFunctionTableObject {
@@ -91,9 +87,6 @@ func MTLIntersectionFunctionTableObjectFromID(id objc.ID) MTLIntersectionFunctio
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sets an entry in the table.
 //
@@ -433,32 +426,7 @@ func (o MTLIntersectionFunctionTableObject) SetOwnerWithIdentity(task_id_token o
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
 func (o MTLIntersectionFunctionTableObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

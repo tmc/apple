@@ -39,12 +39,6 @@ func (vc VNCoreMLModelClass) Alloc() VNCoreMLModel {
 	return rv
 }
 
-
-
-
-
-
-
 // A container for the model to use with Vision requests.
 //
 // # Overview
@@ -73,14 +67,10 @@ type VNCoreMLModel struct {
 //
 // A container for the model to use with Vision requests.
 func VNCoreMLModelFromID(id objc.ID) VNCoreMLModel {
-	return VNCoreMLModel{objectivec.Object{id}}
+	return VNCoreMLModel{objectivec.Object{ID: id}}
 }
 // NOTE: VNCoreMLModel adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNCoreMLModel] class.
 //
@@ -109,10 +99,6 @@ type IVNCoreMLModel interface {
 	SetModel(value IVNCoreMLModel)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c VNCoreMLModel) Init() VNCoreMLModel {
 	rv := objc.Send[VNCoreMLModel](c.ID, objc.Sel("init"))
@@ -131,11 +117,6 @@ func NewVNCoreMLModel() VNCoreMLModel {
 	rv := objc.Send[VNCoreMLModel](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a model container to use with a Core ML request.
 //
@@ -157,23 +138,6 @@ func NewCoreMLModelForMLModelError(model coreml.MLModel) (VNCoreMLModel, error) 
 	}
 	return VNCoreMLModelFromID(rv), nil
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // An optional object to support inputs outside Vision.
 //
@@ -198,8 +162,6 @@ func (c VNCoreMLModel) SetFeatureProvider(value coreml.MLFeatureProvider) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProvider:"), value)
 }
 
-
-
 // The name of the feature value that Vision sets from the request handler.
 //
 // # Discussion
@@ -216,8 +178,6 @@ func (c VNCoreMLModel) SetInputImageFeatureName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInputImageFeatureName:"), objc.String(value))
 }
 
-
-
 // The model to base the image analysis request on.
 //
 // See: https://developer.apple.com/documentation/vision/vncoremlrequest/model
@@ -228,26 +188,4 @@ func (c VNCoreMLModel) Model() IVNCoreMLModel {
 func (c VNCoreMLModel) SetModel(value IVNCoreMLModel) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModel:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

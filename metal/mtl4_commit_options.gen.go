@@ -37,12 +37,6 @@ func (mc MTL4CommitOptionsClass) Alloc() MTL4CommitOptions {
 	return rv
 }
 
-
-
-
-
-
-
 // Represents options to configure a commit operation on a command queue.
 //
 // # Overview
@@ -66,14 +60,10 @@ type MTL4CommitOptions struct {
 //
 // Represents options to configure a commit operation on a command queue.
 func MTL4CommitOptionsFromID(id objc.ID) MTL4CommitOptions {
-	return MTL4CommitOptions{objectivec.Object{id}}
+	return MTL4CommitOptions{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4CommitOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4CommitOptions] class.
 //
@@ -92,10 +82,6 @@ type IMTL4CommitOptions interface {
 
 	MTL4CommandQueueErrorDomain() string
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MTL4CommitOptions) Init() MTL4CommitOptions {
@@ -116,15 +102,6 @@ func NewMTL4CommitOptions() MTL4CommitOptions {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Registers a commit feedback handler that Metal calls with feedback data
 // when available.
 //
@@ -135,42 +112,9 @@ func (m MTL4CommitOptions) AddFeedbackHandler(block MTL4CommitFeedbackHandler) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addFeedbackHandler:"), block)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommitOptions) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (mc MTL4StaticLinkingDescriptorClass) Alloc() MTL4StaticLinkingDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together properties to drive a static linking process.
 //
 // # Instance Properties
@@ -63,14 +57,10 @@ type MTL4StaticLinkingDescriptor struct {
 //
 // Groups together properties to drive a static linking process.
 func MTL4StaticLinkingDescriptorFromID(id objc.ID) MTL4StaticLinkingDescriptor {
-	return MTL4StaticLinkingDescriptor{objectivec.Object{id}}
+	return MTL4StaticLinkingDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4StaticLinkingDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4StaticLinkingDescriptor] class.
 //
@@ -100,10 +90,6 @@ type IMTL4StaticLinkingDescriptor interface {
 	SetPrivateFunctionDescriptors(value []MTL4FunctionDescriptor)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4StaticLinkingDescriptor) Init() MTL4StaticLinkingDescriptor {
 	rv := objc.Send[MTL4StaticLinkingDescriptor](m.ID, objc.Sel("init"))
@@ -123,26 +109,6 @@ func NewMTL4StaticLinkingDescriptor() MTL4StaticLinkingDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Provides an array of functions to link at the Metal IR level.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4StaticLinkingDescriptor/functionDescriptors
@@ -155,8 +121,6 @@ func (m MTL4StaticLinkingDescriptor) FunctionDescriptors() []MTL4FunctionDescrip
 func (m MTL4StaticLinkingDescriptor) SetFunctionDescriptors(value []MTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // Assigns groups of functions to match call-site attributes in shader code.
 //
@@ -174,8 +138,6 @@ func (m MTL4StaticLinkingDescriptor) Groups() foundation.INSDictionary {
 func (m MTL4StaticLinkingDescriptor) SetGroups(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGroups:"), value)
 }
-
-
 
 // Provides an array of private functions to link at the Metal IR level.
 //
@@ -195,27 +157,4 @@ func (m MTL4StaticLinkingDescriptor) PrivateFunctionDescriptors() []MTL4Function
 func (m MTL4StaticLinkingDescriptor) SetPrivateFunctionDescriptors(value []MTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrivateFunctionDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

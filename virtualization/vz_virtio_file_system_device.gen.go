@@ -36,12 +36,6 @@ func (vc VZVirtioFileSystemDeviceClass) Alloc() VZVirtioFileSystemDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // An object the defines a VIRTIO file system device.
 //
 // # Overview
@@ -85,10 +79,6 @@ func VZVirtioFileSystemDeviceFromID(id objc.ID) VZVirtioFileSystemDevice {
 // NOTE: VZVirtioFileSystemDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioFileSystemDevice] class.
 //
 // # Accessing directory properties
@@ -114,10 +104,6 @@ type IVZVirtioFileSystemDevice interface {
 	SetDirectorySharingDevices(value IVZDirectorySharingDevice)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioFileSystemDevice) Init() VZVirtioFileSystemDevice {
 	rv := objc.Send[VZVirtioFileSystemDevice](v.ID, objc.Sel("init"))
@@ -137,26 +123,6 @@ func NewVZVirtioFileSystemDevice() VZVirtioFileSystemDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A value that defines the directory share the host exposes to the guest VM.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDevice/share
@@ -167,8 +133,6 @@ func (v VZVirtioFileSystemDevice) Share() IVZDirectoryShare {
 func (v VZVirtioFileSystemDevice) SetShare(value IVZDirectoryShare) {
 	objc.Send[struct{}](v.ID, objc.Sel("setShare:"), value)
 }
-
-
 
 // A string that identifies the device.
 //
@@ -183,8 +147,6 @@ func (v VZVirtioFileSystemDevice) Tag() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The list of configured directory-sharing devices on the VM.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/directorysharingdevices
@@ -195,26 +157,4 @@ func (v VZVirtioFileSystemDevice) DirectorySharingDevices() IVZDirectorySharingD
 func (v VZVirtioFileSystemDevice) SetDirectorySharingDevices(value IVZDirectorySharingDevice) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDirectorySharingDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -25,8 +25,6 @@ type MTL4PipelineDataSetSerializer interface {
 	SerializeAsPipelinesScriptWithError() (foundation.INSData, error)
 }
 
-
-
 // MTL4PipelineDataSetSerializerObject wraps an existing Objective-C object that conforms to the MTL4PipelineDataSetSerializer protocol.
 type MTL4PipelineDataSetSerializerObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o MTL4PipelineDataSetSerializerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4PipelineDataSetSerializerObjectFromID constructs a [MTL4PipelineDataSetSerializerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4PipelineDataSetSerializerObjectFromID(id objc.ID) MTL4PipelineDataSetSerializerObject {
@@ -44,9 +40,6 @@ func MTL4PipelineDataSetSerializerObjectFromID(id objc.ID) MTL4PipelineDataSetSe
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Serializes a pipeline data set to an archive.
 //
@@ -79,10 +72,4 @@ func (o MTL4PipelineDataSetSerializerObject) SerializeAsPipelinesScriptWithError
 	}
 	return foundation.NSDataFromID(rv), nil
 	}
-
-
-
-
-
-
 

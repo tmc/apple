@@ -35,8 +35,6 @@ type MTLFunctionLogDebugLocation interface {
 	Column() uint
 }
 
-
-
 // MTLFunctionLogDebugLocationObject wraps an existing Objective-C object that conforms to the MTLFunctionLogDebugLocation protocol.
 type MTLFunctionLogDebugLocationObject struct {
 	objectivec.Object
@@ -45,8 +43,6 @@ func (o MTLFunctionLogDebugLocationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLFunctionLogDebugLocationObjectFromID constructs a [MTLFunctionLogDebugLocationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLFunctionLogDebugLocationObjectFromID(id objc.ID) MTLFunctionLogDebugLocationObject {
@@ -54,9 +50,6 @@ func MTLFunctionLogDebugLocationObjectFromID(id objc.ID) MTLFunctionLogDebugLoca
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The name of the shader function.
 //
@@ -97,18 +90,4 @@ func (o MTLFunctionLogDebugLocationObject) Column() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("column"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

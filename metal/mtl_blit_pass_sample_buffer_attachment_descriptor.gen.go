@@ -36,12 +36,6 @@ func (mc MTLBlitPassSampleBufferAttachmentDescriptorClass) Alloc() MTLBlitPassSa
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration that instructs the GPU where to store counter data from the
 // beginning and end of a blit pass.
 //
@@ -73,14 +67,10 @@ type MTLBlitPassSampleBufferAttachmentDescriptor struct {
 // A configuration that instructs the GPU where to store counter data from the
 // beginning and end of a blit pass.
 func MTLBlitPassSampleBufferAttachmentDescriptorFromID(id objc.ID) MTLBlitPassSampleBufferAttachmentDescriptor {
-	return MTLBlitPassSampleBufferAttachmentDescriptor{objectivec.Object{id}}
+	return MTLBlitPassSampleBufferAttachmentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLBlitPassSampleBufferAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLBlitPassSampleBufferAttachmentDescriptor] class.
 //
@@ -110,10 +100,6 @@ type IMTLBlitPassSampleBufferAttachmentDescriptor interface {
 	SetEndOfEncoderSampleIndex(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) Init() MTLBlitPassSampleBufferAttachmentDescriptor {
 	rv := objc.Send[MTLBlitPassSampleBufferAttachmentDescriptor](b.ID, objc.Sel("init"))
@@ -132,26 +118,6 @@ func NewMTLBlitPassSampleBufferAttachmentDescriptor() MTLBlitPassSampleBufferAtt
 	rv := objc.Send[MTLBlitPassSampleBufferAttachmentDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A specialized memory buffer that the GPU uses to store its counter data
 // during the blit pass.
@@ -174,8 +140,6 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounterSa
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCounterSampleBuffer) {
 	objc.Send[struct{}](b.ID, objc.Sel("setSampleBuffer:"), value)
 }
-
-
 
 // An index within a counter sample buffer that tells the GPU where to store
 // counter data from the start of a blit pass.
@@ -200,8 +164,6 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptor) SetStartOfEncoderSampleInde
 	objc.Send[struct{}](b.ID, objc.Sel("setStartOfEncoderSampleIndex:"), value)
 }
 
-
-
 // An index within a counter sample buffer that tells the GPU where to store
 // counter data from the end of a blit pass.
 //
@@ -224,27 +186,4 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex() u
 func (b MTLBlitPassSampleBufferAttachmentDescriptor) SetEndOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](b.ID, objc.Sel("setEndOfEncoderSampleIndex:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

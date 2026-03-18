@@ -34,13 +34,6 @@ rv := objc.Send[objc.ID](e.ID, objc.Sel("interfaceParametersDescription"))
 return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
 // Metadata for populating your share extensions interface.
 //
 // # Discussion
@@ -61,8 +54,6 @@ rv := objc.Send[objc.ID](e.ID, objc.Sel("intent"))
 return objectivec.Object{ID: rv}
 }
 
-
-
 // The minimum size for a Siri hosted view.
 //
 // # Discussion
@@ -77,8 +68,6 @@ func (e NSExtensionContext) HostedViewMinimumAllowedSize() corefoundation.CGSize
 rv := objc.Send[corefoundation.CGSize](e.ID, objc.Sel("hostedViewMinimumAllowedSize"))
 		return corefoundation.CGSize(rv)
 }
-
-
 
 // The maximum size for a Siri hosted view.
 //
@@ -95,8 +84,6 @@ rv := objc.Send[corefoundation.CGSize](e.ID, objc.Sel("hostedViewMaximumAllowedS
 		return corefoundation.CGSize(rv)
 }
 
-
-
 // The active display mode of the widget.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/widgetActiveDisplayMode
@@ -104,8 +91,6 @@ func (e NSExtensionContext) WidgetActiveDisplayMode() objectivec.IObject {
 rv := objc.Send[objc.ID](e.ID, objc.Sel("widgetActiveDisplayMode"))
 return objectivec.Object{ID: rv}
 }
-
-
 
 // The largest display mode the widget supports.
 //
@@ -127,11 +112,4 @@ return objectivec.Object{ID: rv}
 func (e NSExtensionContext) SetWidgetLargestAvailableDisplayMode(value objectivec.IObject) {
 objc.Send[struct{}](e.ID, objc.Sel("setWidgetLargestAvailableDisplayMode:"), value)
 }
-
-
-
-
-
-
-
 

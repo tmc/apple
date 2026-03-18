@@ -35,12 +35,6 @@ func (vc VZMacGraphicsDisplayClass) Alloc() VZMacGraphicsDisplay {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents the graphics display on a Mac.
 //
 // # Getting the display’s pixel density
@@ -61,10 +55,6 @@ func VZMacGraphicsDisplayFromID(id objc.ID) VZMacGraphicsDisplay {
 // NOTE: VZMacGraphicsDisplay adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZMacGraphicsDisplay] class.
 //
 // # Getting the display’s pixel density
@@ -80,10 +70,6 @@ type IVZMacGraphicsDisplay interface {
 	// Returns the pixel density of the display in pixels per inch.
 	PixelsPerInch() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m VZMacGraphicsDisplay) Init() VZMacGraphicsDisplay {
@@ -104,26 +90,6 @@ func NewVZMacGraphicsDisplay() VZMacGraphicsDisplay {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns the pixel density of the display in pixels per inch.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDisplay/pixelsPerInch
@@ -131,26 +97,4 @@ func (m VZMacGraphicsDisplay) PixelsPerInch() int {
 	rv := objc.Send[int](m.ID, objc.Sel("pixelsPerInch"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

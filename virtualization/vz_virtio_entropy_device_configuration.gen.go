@@ -35,12 +35,6 @@ func (vc VZVirtioEntropyDeviceConfigurationClass) Alloc() VZVirtioEntropyDeviceC
 	return rv
 }
 
-
-
-
-
-
-
 // A source of entropy for the guest’s random number generator.
 //
 // # Overview
@@ -69,10 +63,6 @@ func VZVirtioEntropyDeviceConfigurationFromID(id objc.ID) VZVirtioEntropyDeviceC
 // NOTE: VZVirtioEntropyDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioEntropyDeviceConfiguration] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioEntropyDeviceConfiguration
@@ -83,10 +73,6 @@ type IVZVirtioEntropyDeviceConfiguration interface {
 	EntropyDevices() IVZEntropyDeviceConfiguration
 	SetEntropyDevices(value IVZEntropyDeviceConfiguration)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioEntropyDeviceConfiguration) Init() VZVirtioEntropyDeviceConfiguration {
@@ -107,27 +93,6 @@ func NewVZVirtioEntropyDeviceConfiguration() VZVirtioEntropyDeviceConfiguration 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The array of randomization devices that you expose to the guest operating
 // system.
 //
@@ -139,27 +104,4 @@ func (v VZVirtioEntropyDeviceConfiguration) EntropyDevices() IVZEntropyDeviceCon
 func (v VZVirtioEntropyDeviceConfiguration) SetEntropyDevices(value IVZEntropyDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEntropyDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

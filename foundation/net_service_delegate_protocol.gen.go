@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The interface a net service uses to inform its delegate about the state of the service it offers.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSNetServiceDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSNetServiceDelegateObject wraps an existing Objective-C object that conforms to the NSNetServiceDelegate protocol.
 type NSNetServiceDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSNetServiceDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSNetServiceDelegateObjectFromID constructs a [NSNetServiceDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSNetServiceDelegateObjectFromID(id objc.ID) NSNetServiceDelegateObject {
@@ -37,9 +31,6 @@ func NSNetServiceDelegateObjectFromID(id objc.ID) NSNetServiceDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Notifies the delegate that the network is ready to publish the service.
 //
@@ -197,10 +188,6 @@ func (o NSNetServiceDelegateObject) NetServiceDidAcceptConnectionWithInputStream
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didAcceptConnectionWithInputStream:outputStream:"), sender, inputStream, outputStream)
 	}
 
-
-
-
-
 // NSNetServiceDelegateConfig holds optional typed callbacks for [NSNetServiceDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -344,8 +331,4 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSNetServiceDelegateObjectFromID(instance)
 }
-
-
-
-
 

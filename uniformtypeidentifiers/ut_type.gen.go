@@ -37,12 +37,6 @@ func (uc UTTypeClass) Alloc() UTType {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a type of data to load, send, or receive.
 //
 // # Overview
@@ -120,14 +114,10 @@ type UTType struct {
 //
 // An object that represents a type of data to load, send, or receive.
 func UTTypeFromID(id objc.ID) UTType {
-	return UTType{objectivec.Object{id}}
+	return UTType{objectivec.Object{ID: id}}
 }
 // NOTE: UTType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [UTType] class.
 //
@@ -242,10 +232,6 @@ type IUTType interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t UTType) Init() UTType {
 	rv := objc.Send[UTType](t.ID, objc.Sel("init"))
@@ -265,11 +251,6 @@ func NewUTType() UTType {
 	return rv
 }
 
-
-
-
-
-
 // Creates a type your app owns based on an identifier.
 //
 // identifier: The identifier of your type.
@@ -279,7 +260,6 @@ func NewTypeExportedTypeWithIdentifier(identifier string) UTType {
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("exportedTypeWithIdentifier:"), objc.String(identifier))
 	return UTTypeFromID(rv)
 }
-
 
 // Creates a type your app owns based on an identifier and a supertype that it
 // conforms to.
@@ -294,7 +274,6 @@ func NewTypeExportedTypeWithIdentifierConformingToType(identifier string, parent
 	return UTTypeFromID(rv)
 }
 
-
 // Creates a type your app uses, but doesn’t own, based on an identifier.
 //
 // identifier: The identifier of your type.
@@ -304,7 +283,6 @@ func NewTypeImportedTypeWithIdentifier(identifier string) UTType {
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("importedTypeWithIdentifier:"), objc.String(identifier))
 	return UTTypeFromID(rv)
 }
-
 
 // Creates a type your app uses, but doesn’t own, based on an identifier and
 // a supertype that it conforms to.
@@ -318,7 +296,6 @@ func NewTypeImportedTypeWithIdentifierConformingToType(identifier string, parent
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("importedTypeWithIdentifier:conformingToType:"), objc.String(identifier), parentType)
 	return UTTypeFromID(rv)
 }
-
 
 // Creates a type that represents the specified filename extension.
 //
@@ -339,7 +316,6 @@ func NewTypeWithFilenameExtension(filenameExtension string) UTType {
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("typeWithFilenameExtension:"), objc.String(filenameExtension))
 	return UTTypeFromID(rv)
 }
-
 
 // Creates a type that represents the specified filename extension and
 // conforms to an existing type.
@@ -367,7 +343,6 @@ func NewTypeWithFilenameExtensionConformingToType(filenameExtension string, supe
 	return UTTypeFromID(rv)
 }
 
-
 // Creates a type based on an identifier.
 //
 // identifier: The identifier of your type.
@@ -383,7 +358,6 @@ func NewTypeWithIdentifier(identifier string) UTType {
 	return UTTypeFromID(rv)
 }
 
-
 // Creates a type based on a MIME type.
 //
 // mimeType: A string that represents the MIME type.
@@ -397,7 +371,6 @@ func NewTypeWithMIMEType(mimeType string) UTType {
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("typeWithMIMEType:"), objc.String(mimeType))
 	return UTTypeFromID(rv)
 }
-
 
 // Creates a type based on a MIME type and a supertype that it conforms to.
 //
@@ -418,7 +391,6 @@ func NewTypeWithMIMETypeConformingToType(mimeType string, supertype IUTType) UTT
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("typeWithMIMEType:conformingToType:"), objc.String(mimeType), supertype)
 	return UTTypeFromID(rv)
 }
-
 
 // Creates a type that represents the specified tag and tag class and which
 // conforms to an existing type.
@@ -448,12 +420,6 @@ func NewTypeWithTagTagClassConformingToType(tag string, tagClass string, superty
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("typeWithTag:tagClass:conformingToType:"), objc.String(tag), objc.String(tagClass), supertype)
 	return UTTypeFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a Boolean value that indicates whether a type conforms to the type.
 //
@@ -519,10 +485,6 @@ func (t UTType) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns an array of types from the provided tag and tag class.
 //
 // tag: The desired tag, such as a filename extension.
@@ -544,13 +506,6 @@ func (_UTTypeClass UTTypeClass) TypesWithTagTagClassConformingToType(tag string,
 	})
 }
 
-
-
-
-
-
-
-
 // The string that represents the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/identifier
@@ -561,8 +516,6 @@ func (t UTType) Identifier() string {
 func (t UTType) SetIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
-
-
 
 // The preferred filename extension for the type.
 //
@@ -575,8 +528,6 @@ func (t UTType) SetPreferredFilenameExtension(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreferredFilenameExtension:"), objc.String(value))
 }
 
-
-
 // The preferred MIME type for the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/preferredmimetype
@@ -588,8 +539,6 @@ func (t UTType) SetPreferredMIMEType(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreferredMIMEType:"), objc.String(value))
 }
 
-
-
 // The tag specification dictionary of the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/tags
@@ -600,8 +549,6 @@ func (t UTType) Tags() string {
 func (t UTType) SetTags(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTags:"), objc.String(value))
 }
-
-
 
 // A Boolean value that indicates whether the system declares the type.
 //
@@ -615,8 +562,6 @@ func (t UTType) Declared() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDeclared"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the system generates the type.
 //
@@ -636,8 +581,6 @@ func (t UTType) Dynamic() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the type is in the public domain.
 //
 // # Discussion
@@ -652,8 +595,6 @@ func (t UTType) PublicType() bool {
 	return rv
 }
 
-
-
 // The reference URL for the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/referenceurl
@@ -664,8 +605,6 @@ func (t UTType) ReferenceURL() foundation.INSURL {
 func (t UTType) SetReferenceURL(value foundation.INSURL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReferenceURL:"), value)
 }
-
-
 
 // The type’s version, if available.
 //
@@ -678,8 +617,6 @@ func (t UTType) SetVersion(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVersion:"), value)
 }
 
-
-
 // The set of types the type directly or indirectly conforms to.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/supertypes
@@ -690,8 +627,6 @@ func (t UTType) Supertypes() IUTType {
 func (t UTType) SetSupertypes(value IUTType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSupertypes:"), value)
 }
-
-
 
 // A localized description of the type.
 //
@@ -704,8 +639,6 @@ func (t UTType) SetLocalizedDescription(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLocalizedDescription:"), objc.String(value))
 }
 
-
-
 // A type that represents a custom catalog.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/shazamcustomcatalog
@@ -717,8 +650,6 @@ func (t UTType) SetShazamCustomCatalog(value IUTType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setShazamCustomCatalog:"), value)
 }
 
-
-
 // A type that represents a signature.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/shazamsignature
@@ -729,34 +660,4 @@ func (t UTType) ShazamSignature() IUTType {
 func (t UTType) SetShazamSignature(value IUTType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setShazamSignature:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

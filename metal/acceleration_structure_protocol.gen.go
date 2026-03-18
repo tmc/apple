@@ -27,8 +27,6 @@ type MTLAccelerationStructure interface {
 	GpuResourceID() MTLResourceID
 }
 
-
-
 // MTLAccelerationStructureObject wraps an existing Objective-C object that conforms to the MTLAccelerationStructure protocol.
 type MTLAccelerationStructureObject struct {
 	objectivec.Object
@@ -37,8 +35,6 @@ func (o MTLAccelerationStructureObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLAccelerationStructureObjectFromID constructs a [MTLAccelerationStructureObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLAccelerationStructureObjectFromID(id objc.ID) MTLAccelerationStructureObject {
@@ -46,9 +42,6 @@ func MTLAccelerationStructureObjectFromID(id objc.ID) MTLAccelerationStructureOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The size of the acceleration structure’s memory allocation, in bytes.
 //
@@ -271,34 +264,7 @@ func (o MTLAccelerationStructureObject) SetOwnerWithIdentity(task_id_token objec
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 func (o MTLAccelerationStructureObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (mc MTL4RenderPipelineColorAttachmentDescriptorArrayClass) Alloc() MTL4Rend
 	return rv
 }
 
-
-
-
-
-
-
 // An array of color attachment descriptions for a render pipeline.
 //
 // # Instance Methods
@@ -61,14 +55,10 @@ type MTL4RenderPipelineColorAttachmentDescriptorArray struct {
 //
 // An array of color attachment descriptions for a render pipeline.
 func MTL4RenderPipelineColorAttachmentDescriptorArrayFromID(id objc.ID) MTL4RenderPipelineColorAttachmentDescriptorArray {
-	return MTL4RenderPipelineColorAttachmentDescriptorArray{objectivec.Object{id}}
+	return MTL4RenderPipelineColorAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4RenderPipelineColorAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4RenderPipelineColorAttachmentDescriptorArray] class.
 //
@@ -98,10 +88,6 @@ type IMTL4RenderPipelineColorAttachmentDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attachment IMTL4RenderPipelineColorAttachmentDescriptor, attachmentIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4RenderPipelineColorAttachmentDescriptorArray) Init() MTL4RenderPipelineColorAttachmentDescriptorArray {
 	rv := objc.Send[MTL4RenderPipelineColorAttachmentDescriptorArray](m.ID, objc.Sel("init"))
@@ -120,15 +106,6 @@ func NewMTL4RenderPipelineColorAttachmentDescriptorArray() MTL4RenderPipelineCol
 	rv := objc.Send[MTL4RenderPipelineColorAttachmentDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Resets the elements of the descriptor array
 //
@@ -165,36 +142,4 @@ func (m MTL4RenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubscri
 func (m MTL4RenderPipelineColorAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTL4RenderPipelineColorAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

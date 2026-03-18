@@ -37,12 +37,6 @@ func (nc NSSimpleCStringClass) Alloc() NSSimpleCString {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSSimpleCString
 type NSSimpleCString struct {
 	NSString
@@ -55,20 +49,12 @@ func NSSimpleCStringFromID(id objc.ID) NSSimpleCString {
 // Ensure NSSimpleCString implements INSSimpleCString.
 var _ INSSimpleCString = NSSimpleCString{}
 
-
-
-
-
 // An interface definition for the [NSSimpleCString] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSimpleCString
 type INSSimpleCString interface {
 	INSString
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSimpleCString) Init() NSSimpleCString {
@@ -88,11 +74,6 @@ func NewNSSimpleCString() NSSimpleCString {
 	rv := objc.Send[NSSimpleCString](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an initialized [NSString] object containing a given number of bytes
 // from a given buffer of bytes interpreted in a given encoding.
@@ -119,15 +100,13 @@ func NewSimpleCStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSSimp
 	return NSSimpleCStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func NewSimpleCStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator uint) NSSimpleCString {
+func NewSimpleCStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, deallocator)
 	return NSSimpleCStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // bytes from a given buffer of bytes interpreted in a given encoding, and
@@ -168,7 +147,6 @@ func NewSimpleCStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Poin
 	return NSSimpleCStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:)
 func NewSimpleCStringWithCString(bytes []byte) NSSimpleCString {
@@ -176,7 +154,6 @@ func NewSimpleCStringWithCString(bytes []byte) NSSimpleCString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.SliceData(bytes)))
 	return NSSimpleCStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
@@ -186,7 +163,6 @@ func NewSimpleCStringWithCStringEncoding(nullTerminatedCString []byte, encoding 
 	return NSSimpleCStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:length:)
 func NewSimpleCStringWithCStringLength(bytes []byte, length uint) NSSimpleCString {
@@ -195,7 +171,6 @@ func NewSimpleCStringWithCStringLength(bytes []byte, length uint) NSSimpleCStrin
 	return NSSimpleCStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cStringNoCopy:length:freeWhenDone:)
 func NewSimpleCStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length uint, freeBuffer bool) NSSimpleCString {
@@ -203,7 +178,6 @@ func NewSimpleCStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length ui
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), unsafe.Pointer(unsafe.SliceData(bytes)), length, freeBuffer)
 	return NSSimpleCStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // characters from a given C array of UTF-16 code units.
@@ -219,21 +193,19 @@ func NewSimpleCStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length ui
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func NewSimpleCStringWithCharactersLength(characters uint16, length uint) NSSimpleCString {
+func NewSimpleCStringWithCharactersLength(characters unsafe.Pointer, length uint) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return NSSimpleCStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:deallocator:)
-func NewSimpleCStringWithCharactersNoCopyLengthDeallocator(chars uint16, len_ uint, deallocator uint) NSSimpleCString {
+func NewSimpleCStringWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:deallocator:"), chars, len_, deallocator)
 	return NSSimpleCStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // characters from a given C array of UTF-16 code units.
@@ -264,12 +236,11 @@ func NewSimpleCStringWithCharactersNoCopyLengthDeallocator(chars uint16, len_ ui
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func NewSimpleCStringWithCharactersNoCopyLengthFreeWhenDone(characters uint16, length uint, freeBuffer bool) NSSimpleCString {
+func NewSimpleCStringWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return NSSimpleCStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(coder:)
@@ -278,7 +249,6 @@ func NewSimpleCStringWithCoder(coder INSCoder) NSSimpleCString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSimpleCStringFromID(rv)
 }
-
 
 // Initializes the receiver, a newly allocated [NSString] object, by reading
 // data from the file named by `path`.
@@ -298,7 +268,6 @@ func NewSimpleCStringWithContentsOfFile(path string) NSSimpleCString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), objc.String(path))
 	return NSSimpleCStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by reading data from the file at a
 // given path using a given encoding.
@@ -329,7 +298,6 @@ func NewSimpleCStringWithContentsOfFileEncodingError(path string, enc uint) (NSS
 	return NSSimpleCStringFromID(rv), nil
 }
 
-
 // Returns an [NSString] object initialized by reading data from the file at a
 // given path and returns by reference the encoding used to interpret the
 // characters.
@@ -349,7 +317,7 @@ func NewSimpleCStringWithContentsOfFileEncodingError(path string, enc uint) (NSS
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func NewSimpleCStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSSimpleCString, error) {
+func NewSimpleCStringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSSimpleCString, error) {
 	var errorPtr objc.ID
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
@@ -360,7 +328,6 @@ func NewSimpleCStringWithContentsOfFileUsedEncodingError(path string, enc uint) 
 	return NSSimpleCStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:)
 func NewSimpleCStringWithContentsOfURL(url INSURL) NSSimpleCString {
@@ -368,7 +335,6 @@ func NewSimpleCStringWithContentsOfURL(url INSURL) NSSimpleCString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return NSSimpleCStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:encoding:)
@@ -383,10 +349,9 @@ func NewSimpleCStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSSim
 	return NSSimpleCStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func NewSimpleCStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSSimpleCString, error) {
+func NewSimpleCStringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSSimpleCString, error) {
 	var errorPtr objc.ID
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -396,7 +361,6 @@ func NewSimpleCStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (N
 	}
 	return NSSimpleCStringFromID(rv), nil
 }
-
 
 // Returns an [NSString] object initialized by converting given data into
 // UTF-16 code units using a given encoding.
@@ -421,7 +385,6 @@ func NewSimpleCStringWithDataEncoding(data INSData, encoding uint) NSSimpleCStri
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:encoding:"), data, encoding)
 	return NSSimpleCStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted.
@@ -455,7 +418,6 @@ func NewSimpleCStringWithFormat(format string) NSSimpleCString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:"), objc.String(format))
 	return NSSimpleCStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted without
@@ -493,7 +455,6 @@ func NewSimpleCStringWithFormatArguments(format string, argList unsafe.Pointer) 
 	return NSSimpleCStringFromID(rv)
 }
 
-
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted
 // according to given locale.
@@ -525,7 +486,6 @@ func NewSimpleCStringWithFormatLocale(format string, locale objectivec.IObject) 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:locale:"), objc.String(format), locale)
 	return NSSimpleCStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted
@@ -573,7 +533,6 @@ func NewSimpleCStringWithFormatLocaleArguments(format string, locale objectivec.
 	return NSSimpleCStringFromID(rv)
 }
 
-
 // Returns an [NSString] object initialized by copying the characters from
 // another given string.
 //
@@ -591,7 +550,6 @@ func NewSimpleCStringWithString(aString string) NSSimpleCString {
 	return NSSimpleCStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
 func NewSimpleCStringWithUTF8String(nullTerminatedCString []byte) NSSimpleCString {
@@ -599,7 +557,6 @@ func NewSimpleCStringWithUTF8String(nullTerminatedCString []byte) NSSimpleCStrin
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
 	return NSSimpleCStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
@@ -614,7 +571,6 @@ func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersArgumentsError(form
 	return NSSimpleCStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:error:
 func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSSimpleCString, error) {
@@ -627,7 +583,6 @@ func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersError(format string
 	}
 	return NSSimpleCStringFromID(rv), nil
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
@@ -642,7 +597,6 @@ func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsErro
 	return NSSimpleCStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:error:
 func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSSimpleCString, error) {
@@ -655,34 +609,4 @@ func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersLocaleError(format 
 	}
 	return NSSimpleCStringFromID(rv), nil
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

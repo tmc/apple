@@ -36,8 +36,6 @@ type MTLTextureBinding interface {
 	TextureType() MTLTextureType
 }
 
-
-
 // MTLTextureBindingObject wraps an existing Objective-C object that conforms to the MTLTextureBinding protocol.
 type MTLTextureBindingObject struct {
 	objectivec.Object
@@ -46,8 +44,6 @@ func (o MTLTextureBindingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLTextureBindingObjectFromID constructs a [MTLTextureBindingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLTextureBindingObjectFromID(id objc.ID) MTLTextureBindingObject {
@@ -55,9 +51,6 @@ func MTLTextureBindingObjectFromID(id objc.ID) MTLTextureBindingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/arrayLength
 
@@ -138,30 +131,4 @@ func (o MTLTextureBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

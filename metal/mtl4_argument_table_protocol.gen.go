@@ -50,8 +50,6 @@ type MTL4ArgumentTable interface {
 	SetTextureAtIndex(resourceID MTLResourceID, bindingIndex uint)
 }
 
-
-
 // MTL4ArgumentTableObject wraps an existing Objective-C object that conforms to the MTL4ArgumentTable protocol.
 type MTL4ArgumentTableObject struct {
 	objectivec.Object
@@ -60,8 +58,6 @@ func (o MTL4ArgumentTableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4ArgumentTableObjectFromID constructs a [MTL4ArgumentTableObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4ArgumentTableObjectFromID(id objc.ID) MTL4ArgumentTableObject {
@@ -69,9 +65,6 @@ func MTL4ArgumentTableObjectFromID(id objc.ID) MTL4ArgumentTableObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device from which you created this argument table.
 //
@@ -181,14 +174,4 @@ func (o MTL4ArgumentTableObject) SetTextureAtIndex(resourceID MTLResourceID, bin
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setTexture:atIndex:"), resourceID, bindingIndex)
 	}
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (mc MTL4CompilerDescriptorClass) Alloc() MTL4CompilerDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together properties for creating a compiler context.
 //
 // # Instance Properties
@@ -61,14 +55,10 @@ type MTL4CompilerDescriptor struct {
 //
 // Groups together properties for creating a compiler context.
 func MTL4CompilerDescriptorFromID(id objc.ID) MTL4CompilerDescriptor {
-	return MTL4CompilerDescriptor{objectivec.Object{id}}
+	return MTL4CompilerDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4CompilerDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4CompilerDescriptor] class.
 //
@@ -93,10 +83,6 @@ type IMTL4CompilerDescriptor interface {
 	SetPipelineDataSetSerializer(value MTL4PipelineDataSetSerializer)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4CompilerDescriptor) Init() MTL4CompilerDescriptor {
 	rv := objc.Send[MTL4CompilerDescriptor](m.ID, objc.Sel("init"))
@@ -116,26 +102,6 @@ func NewMTL4CompilerDescriptor() MTL4CompilerDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Assigns an optional descriptor label to the compiler for debugging
 // purposes.
 //
@@ -148,8 +114,6 @@ func (m MTL4CompilerDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // Assigns a pipeline data set serializer into which this compiler stores data
 // for all pipelines it creates.
 //
@@ -161,27 +125,4 @@ func (m MTL4CompilerDescriptor) PipelineDataSetSerializer() MTL4PipelineDataSetS
 func (m MTL4CompilerDescriptor) SetPipelineDataSetSerializer(value MTL4PipelineDataSetSerializer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPipelineDataSetSerializer:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

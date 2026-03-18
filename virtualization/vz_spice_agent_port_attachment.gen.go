@@ -36,12 +36,6 @@ func (vc VZSpiceAgentPortAttachmentClass) Alloc() VZSpiceAgentPortAttachment {
 	return rv
 }
 
-
-
-
-
-
-
 // An attachment point that enables the Spice clipboard sharing capability.
 //
 // # Enabling clipboard sharing between the host and the VM
@@ -63,10 +57,6 @@ func VZSpiceAgentPortAttachmentFromID(id objc.ID) VZSpiceAgentPortAttachment {
 // NOTE: VZSpiceAgentPortAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZSpiceAgentPortAttachment] class.
 //
 // # Enabling clipboard sharing between the host and the VM
@@ -84,10 +74,6 @@ type IVZSpiceAgentPortAttachment interface {
 	SharesClipboard() bool
 	SetSharesClipboard(value bool)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VZSpiceAgentPortAttachment) Init() VZSpiceAgentPortAttachment {
@@ -108,27 +94,6 @@ func NewVZSpiceAgentPortAttachment() VZSpiceAgentPortAttachment {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the framework needs to share the
 // clipboard between the host and the VM.
 //
@@ -141,12 +106,6 @@ func (s VZSpiceAgentPortAttachment) SetSharesClipboard(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSharesClipboard:"), value)
 }
 
-
-
-
-
-
-
 // The name of the Virtio console port for the Spice guest agent.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZSpiceAgentPortAttachment/spiceAgentPortName
@@ -154,22 +113,4 @@ func (_VZSpiceAgentPortAttachmentClass VZSpiceAgentPortAttachmentClass) SpiceAge
 	rv := objc.Send[objc.ID](objc.ID(_VZSpiceAgentPortAttachmentClass.class), objc.Sel("spiceAgentPortName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

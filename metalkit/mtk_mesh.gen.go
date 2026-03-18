@@ -39,12 +39,6 @@ func (mc MTKMeshClass) Alloc() MTKMesh {
 	return rv
 }
 
-
-
-
-
-
-
 // A container for the vertex data of a Model I/O mesh, suitable for use in a
 // Metal app.
 //
@@ -77,14 +71,10 @@ type MTKMesh struct {
 // A container for the vertex data of a Model I/O mesh, suitable for use in a
 // Metal app.
 func MTKMeshFromID(id objc.ID) MTKMesh {
-	return MTKMesh{objectivec.Object{id}}
+	return MTKMesh{objectivec.Object{ID: id}}
 }
 // NOTE: MTKMesh adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTKMesh] class.
 //
@@ -137,10 +127,6 @@ type IMTKMesh interface {
 	SetName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTKMesh) Init() MTKMesh {
 	rv := objc.Send[MTKMesh](m.ID, objc.Sel("init"))
@@ -159,11 +145,6 @@ func NewMTKMesh() MTKMesh {
 	rv := objc.Send[MTKMesh](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a MetalKit mesh and its submeshes from a Model I/O mesh.
 //
@@ -204,12 +185,6 @@ func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice)
 	return MTKMeshFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Initializes a MetalKit mesh and its submeshes from a Model I/O mesh.
 //
 // mesh: The source Model I/O mesh from which to create this MetalKit mesh.
@@ -239,7 +214,7 @@ func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice)
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
 func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithMesh:device:error:"), mesh, device, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -248,17 +223,6 @@ func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.M
 	return MTKMeshFromID(rv), nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // An array of submeshes containing index buffers referencing the mesh
 // vertices.
@@ -276,8 +240,6 @@ func (m MTKMesh) Submeshes() []MTKSubmesh {
 	})
 }
 
-
-
 // An array of buffers in which mesh vertex data resides.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexBuffers
@@ -288,8 +250,6 @@ func (m MTKMesh) VertexBuffers() []MTKMeshBuffer {
 	})
 }
 
-
-
 // The number of vertices in the vertex buffers.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexCount
@@ -297,8 +257,6 @@ func (m MTKMesh) VertexCount() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("vertexCount"))
 	return rv
 }
-
-
 
 // A Model I/O vertex descriptor specifying the data layout in the vertex
 // buffers.
@@ -320,8 +278,6 @@ func (m MTKMesh) VertexDescriptor() objc.ID {
 	return rv
 }
 
-
-
 // The name of the mesh.
 //
 // # Discussion
@@ -336,26 +292,4 @@ func (m MTKMesh) Name() string {
 func (m MTKMesh) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

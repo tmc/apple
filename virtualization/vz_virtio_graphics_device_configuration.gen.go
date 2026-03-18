@@ -36,12 +36,6 @@ func (vc VZVirtioGraphicsDeviceConfigurationClass) Alloc() VZVirtioGraphicsDevic
 	return rv
 }
 
-
-
-
-
-
-
 // Configuration that represents the configuration of a Virtio graphics device
 // for a Linux VM.
 //
@@ -65,10 +59,6 @@ func VZVirtioGraphicsDeviceConfigurationFromID(id objc.ID) VZVirtioGraphicsDevic
 // NOTE: VZVirtioGraphicsDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioGraphicsDeviceConfiguration] class.
 //
 // # Instance properties
@@ -86,10 +76,6 @@ type IVZVirtioGraphicsDeviceConfiguration interface {
 	Scanouts() []VZVirtioGraphicsScanoutConfiguration
 	SetScanouts(value []VZVirtioGraphicsScanoutConfiguration)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioGraphicsDeviceConfiguration) Init() VZVirtioGraphicsDeviceConfiguration {
@@ -110,27 +96,6 @@ func NewVZVirtioGraphicsDeviceConfiguration() VZVirtioGraphicsDeviceConfiguratio
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The array of output devices.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsDeviceConfiguration/scanouts
@@ -143,27 +108,4 @@ func (v VZVirtioGraphicsDeviceConfiguration) Scanouts() []VZVirtioGraphicsScanou
 func (v VZVirtioGraphicsDeviceConfiguration) SetScanouts(value []VZVirtioGraphicsScanoutConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setScanouts:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

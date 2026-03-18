@@ -36,12 +36,6 @@ func (hc HasEvaluatedReceiversClass) Alloc() HasEvaluatedReceivers {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/struct_(unnamed)/hasEvaluatedReceivers
 type HasEvaluatedReceivers struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type HasEvaluatedReceivers struct {
 
 // HasEvaluatedReceiversFromID constructs a [HasEvaluatedReceivers] from an objc.ID.
 func HasEvaluatedReceiversFromID(id objc.ID) HasEvaluatedReceivers {
-	return HasEvaluatedReceivers{objectivec.Object{id}}
+	return HasEvaluatedReceivers{objectivec.Object{ID: id}}
 }
 // Ensure HasEvaluatedReceivers implements IHasEvaluatedReceivers.
 var _ IHasEvaluatedReceivers = HasEvaluatedReceivers{}
-
-
-
-
 
 // An interface definition for the [HasEvaluatedReceivers] class.
 //
@@ -64,10 +54,6 @@ var _ IHasEvaluatedReceivers = HasEvaluatedReceivers{}
 type IHasEvaluatedReceivers interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h HasEvaluatedReceivers) Init() HasEvaluatedReceivers {
@@ -87,38 +73,4 @@ func NewHasEvaluatedReceivers() HasEvaluatedReceivers {
 	rv := objc.Send[HasEvaluatedReceivers](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

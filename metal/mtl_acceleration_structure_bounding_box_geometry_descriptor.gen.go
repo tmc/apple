@@ -35,12 +35,6 @@ func (mc MTLAccelerationStructureBoundingBoxGeometryDescriptorClass) Alloc() MTL
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a list of bounding boxes to turn into an acceleration
 // structure.
 //
@@ -72,10 +66,6 @@ func MTLAccelerationStructureBoundingBoxGeometryDescriptorFromID(id objc.ID) MTL
 }
 // NOTE: MTLAccelerationStructureBoundingBoxGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLAccelerationStructureBoundingBoxGeometryDescriptor] class.
 //
@@ -116,10 +106,6 @@ type IMTLAccelerationStructureBoundingBoxGeometryDescriptor interface {
 	SetBoundingBoxStride(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) Init() MTLAccelerationStructureBoundingBoxGeometryDescriptor {
 	rv := objc.Send[MTLAccelerationStructureBoundingBoxGeometryDescriptor](a.ID, objc.Sel("init"))
@@ -139,19 +125,6 @@ func NewMTLAccelerationStructureBoundingBoxGeometryDescriptor() MTLAccelerationS
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a new bounding box descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureBoundingBoxGeometryDescriptor/descriptor
@@ -159,13 +132,6 @@ func (_MTLAccelerationStructureBoundingBoxGeometryDescriptorClass MTLAcceleratio
 	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureBoundingBoxGeometryDescriptorClass.class), objc.Sel("descriptor"))
 	return MTLAccelerationStructureBoundingBoxGeometryDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The number of bounding boxes in the bounding box buffer.
 //
@@ -177,8 +143,6 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxCount(
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxCount:"), value)
 }
-
-
 
 // A buffer that contains an array of bounding box structures.
 //
@@ -198,8 +162,6 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxBuf
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxBuffer:"), value)
 }
 
-
-
 // The offset, in bytes, to the first bounding box in the buffer.
 //
 // # Discussion
@@ -216,8 +178,6 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxBuf
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxBufferOffset:"), value)
 }
 
-
-
 // The stride, in bytes, between bounding boxes in the buffer.
 //
 // # Discussion
@@ -233,27 +193,4 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxStride
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxStride(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxStride:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

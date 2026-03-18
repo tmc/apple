@@ -37,12 +37,6 @@ func (xc XMLNodeClass) Alloc() XMLNode {
 	return rv
 }
 
-
-
-
-
-
-
 // The nodes in the abstract, logical tree structure that represents an XML
 // document.
 //
@@ -161,17 +155,13 @@ type XMLNode struct {
 // The nodes in the abstract, logical tree structure that represents an XML
 // document.
 func XMLNodeFromID(id objc.ID) XMLNode {
-	return NSXMLNode{objectivec.Object{id}}
+	return NSXMLNode{objectivec.Object{ID: id}}
 }
 
 // NSXMLNodeFromID is an alias for [XMLNodeFromID] for cross-framework compatibility.
 func NSXMLNodeFromID(id objc.ID) XMLNode { return XMLNodeFromID(id) }
 // NOTE: XMLNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [XMLNode] class.
 //
@@ -316,10 +306,6 @@ type IXMLNode interface {
 	Prefix() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x XMLNode) Init() XMLNode {
 	rv := objc.Send[XMLNode](x.ID, objc.Sel("init"))
@@ -338,11 +324,6 @@ func NewXMLNode() XMLNode {
 	rv := objc.Send[XMLNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSXMLNode] instance initialized with the constant indicating
 // node kind.
@@ -374,7 +355,6 @@ func NewXMLNodeWithKind(kind NSXMLNodeKind) XMLNode {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:"), kind)
 	return XMLNodeFromID(rv)
 }
-
 
 // Returns an [NSXMLNode] instance initialized with the constant indicating
 // node kind and one or more initialization options.
@@ -410,12 +390,6 @@ func NewXMLNodeWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XML
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:options:"), kind, options)
 	return XMLNodeFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSXMLNode] instance initialized with the constant indicating
 // node kind.
@@ -628,7 +602,7 @@ func (x XMLNode) CanonicalXMLStringPreservingComments(comments bool) string {
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/nodes(forXPath:)
 func (x XMLNode) NodesForXPathError(xpath string) ([]NSXMLNode, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](x.ID, objc.Sel("nodesForXPath:error:"), objc.String(xpath), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -658,7 +632,7 @@ func (x XMLNode) NodesForXPathError(xpath string) ([]NSXMLNode, error) {
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/objects(forXQuery:)
 func (x XMLNode) ObjectsForXQueryError(xquery string) (INSArray, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("objectsForXQuery:error:"), objc.String(xquery), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -688,7 +662,7 @@ func (x XMLNode) ObjectsForXQueryError(xquery string) (INSArray, error) {
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLNode/objects(forXQuery:constants:)
 func (x XMLNode) ObjectsForXQueryConstantsError(xquery string, constants INSDictionary) (INSArray, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("objectsForXQuery:constants:error:"), objc.String(xquery), constants, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -697,10 +671,6 @@ func (x XMLNode) ObjectsForXQueryConstantsError(xquery string, constants INSDict
 	return NSArrayFromID(rv), nil
 
 }
-
-
-
-
 
 // Returns an empty document node.
 //
@@ -1051,13 +1021,6 @@ func (_XMLNodeClass XMLNodeClass) PrefixForName(name string) string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
 // Returns the index of the receiver identifying its position relative to its
 // sibling nodes.
 //
@@ -1069,8 +1032,6 @@ func (x XMLNode) Index() int {
 func (x XMLNode) SetIndex(value int) {
 	objc.Send[struct{}](x.ID, objc.Sel("setIndex:"), value)
 }
-
-
 
 // Returns the kind of node the receiver is as a constant of type
 // [XMLNode.Kind].
@@ -1090,8 +1051,6 @@ func (x XMLNode) Kind() NSXMLNodeKind {
 	return NSXMLNodeKind(rv)
 }
 
-
-
 // Returns the nesting level of the receiver within the tree hierarchy.
 //
 // # Return Value
@@ -1107,8 +1066,6 @@ func (x XMLNode) Level() uint {
 	rv := objc.Send[uint](x.ID, objc.Sel("level"))
 	return rv
 }
-
-
 
 // Returns the name of the receiver.
 //
@@ -1140,8 +1097,6 @@ func (x XMLNode) SetName(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setName:"), objc.String(value))
 }
 
-
-
 // Returns the object value of the receiver.
 //
 // # Return Value
@@ -1159,8 +1114,6 @@ func (x XMLNode) ObjectValue() objectivec.IObject {
 func (x XMLNode) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](x.ID, objc.Sel("setObjectValue:"), value)
 }
-
-
 
 // Returns the content of the receiver as a string value.
 //
@@ -1189,8 +1142,6 @@ func (x XMLNode) SetStringValue(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setStringValue:"), objc.String(value))
 }
 
-
-
 // Returns the URI associated with the receiver.
 //
 // # Discussion
@@ -1209,8 +1160,6 @@ func (x XMLNode) SetURI(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setURI:"), objc.String(value))
 }
 
-
-
 // Returns the [NSXMLDocument] object containing the root element and
 // representing the XML document as a whole.
 //
@@ -1224,8 +1173,6 @@ func (x XMLNode) RootDocument() INSXMLDocument {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("rootDocument"))
 	return NSXMLDocumentFromID(objc.ID(rv))
 }
-
-
 
 // Returns the parent node of the receiver.
 //
@@ -1243,8 +1190,6 @@ func (x XMLNode) Parent() INSXMLNode {
 	return NSXMLNodeFromID(objc.ID(rv))
 }
 
-
-
 // Returns the number of child nodes the receiver has.
 //
 // # Discussion
@@ -1260,8 +1205,6 @@ func (x XMLNode) ChildCount() uint {
 	return rv
 }
 
-
-
 // Returns an immutable array containing the child nodes of the receiver (as
 // [NSXMLNode] objects).
 //
@@ -1272,8 +1215,6 @@ func (x XMLNode) Children() []NSXMLNode {
 		return NSXMLNodeFromID(id)
 	})
 }
-
-
 
 // Returns the next [NSXMLNode] object in document order.
 //
@@ -1292,8 +1233,6 @@ func (x XMLNode) NextNode() INSXMLNode {
 	return NSXMLNodeFromID(objc.ID(rv))
 }
 
-
-
 // Returns the next [NSXMLNode] object that is a sibling node to the receiver.
 //
 // # Discussion
@@ -1309,8 +1248,6 @@ func (x XMLNode) NextSibling() INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("nextSibling"))
 	return NSXMLNodeFromID(objc.ID(rv))
 }
-
-
 
 // Returns the previous [NSXMLNode] object in document order.
 //
@@ -1330,8 +1267,6 @@ func (x XMLNode) PreviousNode() INSXMLNode {
 	return NSXMLNodeFromID(objc.ID(rv))
 }
 
-
-
 // Returns the previous [NSXMLNode] object that is a sibling node to the
 // receiver.
 //
@@ -1349,8 +1284,6 @@ func (x XMLNode) PreviousSibling() INSXMLNode {
 	return NSXMLNodeFromID(objc.ID(rv))
 }
 
-
-
 // Returns the string representation of the receiver as it would appear in an
 // XML document.
 //
@@ -1366,8 +1299,6 @@ func (x XMLNode) XMLString() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 //
 // # Discussion
 // 
@@ -1378,8 +1309,6 @@ func (x XMLNode) Description() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Returns the XPath expression identifying the receiver’s location in the
 // document tree.
@@ -1395,8 +1324,6 @@ func (x XMLNode) XPath() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("XPath"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Returns the local name of the receiver.
 //
@@ -1417,8 +1344,6 @@ func (x XMLNode) LocalName() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns the prefix of the receiver’s name.
 //
 // # Return Value
@@ -1438,31 +1363,6 @@ func (x XMLNode) Prefix() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

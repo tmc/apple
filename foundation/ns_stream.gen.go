@@ -36,12 +36,6 @@ func (sc StreamClass) Alloc() Stream {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class representing a stream.
 //
 // # Overview
@@ -156,17 +150,13 @@ type Stream struct {
 //
 // An abstract class representing a stream.
 func StreamFromID(id objc.ID) Stream {
-	return NSStream{objectivec.Object{id}}
+	return NSStream{objectivec.Object{ID: id}}
 }
 
 // NSStreamFromID is an alias for [StreamFromID] for cross-framework compatibility.
 func NSStreamFromID(id objc.ID) Stream { return StreamFromID(id) }
 // NOTE: Stream adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Stream] class.
 //
@@ -240,10 +230,6 @@ type IStream interface {
 	NSStreamSOCKSErrorDomain() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s Stream) Init() Stream {
 	rv := objc.Send[Stream](s.ID, objc.Sel("init"))
@@ -262,15 +248,6 @@ func NewStream() Stream {
 	rv := objc.Send[Stream](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the receiver’s property for a given key.
 //
@@ -363,10 +340,6 @@ func (s Stream) RemoveFromRunLoopForMode(aRunLoop INSRunLoop, mode NSRunLoopMode
 	objc.Send[objc.ID](s.ID, objc.Sel("removeFromRunLoop:forMode:"), aRunLoop, objc.String(string(mode)))
 }
 
-
-
-
-
 // Creates and returns by reference a bound pair of input and output streams.
 //
 // bufferSize: The size of the buffer, in bytes, used to transfer data from `inputStream`
@@ -392,13 +365,6 @@ func (_StreamClass StreamClass) GetBoundStreamsWithBufferSizeInputStreamOutputSt
 	objc.Send[objc.ID](objc.ID(_StreamClass.class), objc.Sel("getBoundStreamsWithBufferSize:inputStream:outputStream:"), bufferSize, inputStream, outputStream)
 }
 
-
-
-
-
-
-
-
 // Sets the receiver’s delegate.
 //
 // # Discussion
@@ -420,8 +386,6 @@ func (s Stream) SetDelegate(value NSStreamDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // Returns the receiver’s status.
 //
 // # Return Value
@@ -438,8 +402,6 @@ func (s Stream) StreamStatus() NSStreamStatus {
 	return NSStreamStatus(rv)
 }
 
-
-
 // Returns an [NSError] object representing the stream error.
 //
 // # Return Value
@@ -453,8 +415,6 @@ func (s Stream) StreamError() INSError {
 	return NSErrorFromID(objc.ID(rv))
 }
 
-
-
 // The error domain used by
 //
 // See: https://developer.apple.com/documentation/foundation/nsstreamsocketsslerrordomain
@@ -463,8 +423,6 @@ func (s Stream) NSStreamSocketSSLErrorDomain() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The error domain used by
 //
 // See: https://developer.apple.com/documentation/foundation/nsstreamsockserrordomain
@@ -472,26 +430,4 @@ func (s Stream) NSStreamSOCKSErrorDomain() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("NSStreamSOCKSErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

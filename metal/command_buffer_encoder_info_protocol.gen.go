@@ -30,8 +30,6 @@ type MTLCommandBufferEncoderInfo interface {
 	ErrorState() MTLCommandEncoderErrorState
 }
 
-
-
 // MTLCommandBufferEncoderInfoObject wraps an existing Objective-C object that conforms to the MTLCommandBufferEncoderInfo protocol.
 type MTLCommandBufferEncoderInfoObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o MTLCommandBufferEncoderInfoObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLCommandBufferEncoderInfoObjectFromID constructs a [MTLCommandBufferEncoderInfoObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLCommandBufferEncoderInfoObjectFromID(id objc.ID) MTLCommandBufferEncoderInfoObject {
@@ -49,9 +45,6 @@ func MTLCommandBufferEncoderInfoObjectFromID(id objc.ID) MTLCommandBufferEncoder
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The name of the encoder that generates the error information.
 //
@@ -83,16 +76,4 @@ func (o MTLCommandBufferEncoderInfoObject) ErrorState() MTLCommandEncoderErrorSt
 	rv := objc.Send[MTLCommandEncoderErrorState](o.ID, objc.Sel("errorState"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 

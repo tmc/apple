@@ -9,20 +9,43 @@ import (
 	"github.com/tmc/apple/foundation"
 )
 
-var MLModelAuthorKey MLModelMetadataKey
+var (
+)
 
-var MLModelCollectionDidChangeNotification foundation.NSNotification
+var (
+	// MLModelAuthorKey is key for the author of the model.
+	//
+	// See: https://developer.apple.com/documentation/CoreML/MLModelMetadataKey/author
+	MLModelAuthorKey MLModelMetadataKey
+	// MLModelCreatorDefinedKey is key for the model creator’s custom metadata.
+	//
+	// See: https://developer.apple.com/documentation/CoreML/MLModelMetadataKey/creatorDefinedKey
+	MLModelCreatorDefinedKey MLModelMetadataKey
+	// MLModelDescriptionKey is key for the overall description of the model.
+	//
+	// See: https://developer.apple.com/documentation/CoreML/MLModelMetadataKey/description
+	MLModelDescriptionKey MLModelMetadataKey
+	// MLModelLicenseKey is key for the license of the model.
+	//
+	// See: https://developer.apple.com/documentation/CoreML/MLModelMetadataKey/license
+	MLModelLicenseKey MLModelMetadataKey
+	// MLModelVersionStringKey is key for the version of the model.
+	//
+	// See: https://developer.apple.com/documentation/CoreML/MLModelMetadataKey/versionString
+	MLModelVersionStringKey MLModelMetadataKey
+)
 
-var MLModelCreatorDefinedKey MLModelMetadataKey
+var (
+	// See: https://developer.apple.com/documentation/coreml/mlmodelcollection/didchangenotification
+	MLModelCollectionDidChangeNotification foundation.NSNotification
+)
 
-var MLModelDescriptionKey MLModelMetadataKey
-
-var MLModelErrorDomain string
-
-var MLModelLicenseKey MLModelMetadataKey
-
-var MLModelVersionStringKey MLModelMetadataKey
-
+var (
+	// MLModelErrorDomain is the domain for Core ML errors.
+	//
+	// See: https://developer.apple.com/documentation/CoreML/MLModelErrorDomain
+	MLModelErrorDomain string
+)
 func init() {
 	if frameworkHandle == 0 {
 		return

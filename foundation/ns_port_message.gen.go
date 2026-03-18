@@ -36,12 +36,6 @@ func (pc PortMessageClass) Alloc() PortMessage {
 	return rv
 }
 
-
-
-
-
-
-
 // A low-level, operating system-independent type for inter-application (and
 // inter-thread) messages.
 //
@@ -102,17 +96,13 @@ type PortMessage struct {
 // A low-level, operating system-independent type for inter-application (and
 // inter-thread) messages.
 func PortMessageFromID(id objc.ID) PortMessage {
-	return NSPortMessage{objectivec.Object{id}}
+	return NSPortMessage{objectivec.Object{ID: id}}
 }
 
 // NSPortMessageFromID is an alias for [PortMessageFromID] for cross-framework compatibility.
 func NSPortMessageFromID(id objc.ID) PortMessage { return PortMessageFromID(id) }
 // NOTE: PortMessage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [PortMessage] class.
 //
@@ -171,10 +161,6 @@ type IPortMessage interface {
 	SetMsgid(value uint32)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p PortMessage) Init() PortMessage {
 	rv := objc.Send[PortMessage](p.ID, objc.Sel("init"))
@@ -193,11 +179,6 @@ func NewPortMessage() PortMessage {
 	rv := objc.Send[PortMessage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a newly allocated [NSPortMessage] object to send given data on
 // a given port and to receiver replies on another given port.
@@ -228,12 +209,6 @@ func NewPortMessageWithSendPortReceivePortComponents(sendPort INSPort, replyPort
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSendPort:receivePort:components:"), sendPort, replyPort, components)
 	return PortMessageFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated [NSPortMessage] object to send given data on
 // a given port and to receiver replies on another given port.
@@ -298,17 +273,6 @@ func (p PortMessage) SendBeforeDate(date INSDate) bool {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the data components of the receiver.
 //
 // # Return Value
@@ -321,8 +285,6 @@ func (p PortMessage) Components() INSArray {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("components"))
 	return NSArrayFromID(objc.ID(rv))
 }
-
-
 
 // For an outgoing message, returns the port on which replies to the receiver
 // will arrive. For an incoming message, returns the port the receiver did
@@ -339,8 +301,6 @@ func (p PortMessage) ReceivePort() INSPort {
 	return NSPortFromID(objc.ID(rv))
 }
 
-
-
 // For an outgoing message, returns the port the receiver will send itself
 // through. For an incoming message, returns the port replies to the receiver
 // should be sent through.
@@ -356,8 +316,6 @@ func (p PortMessage) SendPort() INSPort {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("sendPort"))
 	return NSPortFromID(objc.ID(rv))
 }
-
-
 
 // Returns the identifier for the receiver.
 //
@@ -378,26 +336,4 @@ func (p PortMessage) Msgid() uint32 {
 func (p PortMessage) SetMsgid(value uint32) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMsgid:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSFileProviderServiceClass) Alloc() NSFileProviderService {
 	return rv
 }
 
-
-
-
-
-
-
 // A service that provides a custom communication channel between your app and
 // a File Provider extension.
 //
@@ -104,14 +98,10 @@ type NSFileProviderService struct {
 // A service that provides a custom communication channel between your app and
 // a File Provider extension.
 func NSFileProviderServiceFromID(id objc.ID) NSFileProviderService {
-	return NSFileProviderService{objectivec.Object{id}}
+	return NSFileProviderService{objectivec.Object{ID: id}}
 }
 // NOTE: NSFileProviderService adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFileProviderService] class.
 //
@@ -132,10 +122,6 @@ type INSFileProviderService interface {
 	GetFileProviderConnectionWithCompletionHandler(completionHandler XPCConnectionErrorHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFileProviderService) Init() NSFileProviderService {
 	rv := objc.Send[NSFileProviderService](f.ID, objc.Sel("init"))
@@ -155,15 +141,6 @@ func NewNSFileProviderService() NSFileProviderService {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Asynchronously returns the service’s connection object.
 //
 // completionHandler: A block that is called on an anonymous background queue. The system passes
@@ -175,21 +152,10 @@ func NewNSFileProviderService() NSFileProviderService {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileProviderService/getFileProviderConnection(completionHandler:)
 func (f NSFileProviderService) GetFileProviderConnectionWithCompletionHandler(completionHandler XPCConnectionErrorHandler) {
-		_block0, _cleanup0 := NewXPCConnectionErrorBlock(completionHandler)
+_block0, _cleanup0 := NewXPCConnectionErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](f.ID, objc.Sel("getFileProviderConnectionWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](f.ID, objc.Sel("getFileProviderConnectionWithCompletionHandler:"), _block0)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The File Provider service’s name.
 //
@@ -198,23 +164,6 @@ func (f NSFileProviderService) Name() NSFileProviderServiceName {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("name"))
 	return NSFileProviderServiceName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // GetFileProviderConnection is a synchronous wrapper around [NSFileProviderService.GetFileProviderConnectionWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -234,9 +183,4 @@ func (f NSFileProviderService) GetFileProviderConnection(ctx context.Context) (*
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

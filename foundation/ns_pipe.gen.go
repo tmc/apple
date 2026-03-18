@@ -36,12 +36,6 @@ func (pc PipeClass) Alloc() Pipe {
 	return rv
 }
 
-
-
-
-
-
-
 // A one-way communications channel between related processes.
 //
 // # Overview
@@ -68,17 +62,13 @@ type Pipe struct {
 //
 // A one-way communications channel between related processes.
 func PipeFromID(id objc.ID) Pipe {
-	return NSPipe{objectivec.Object{id}}
+	return NSPipe{objectivec.Object{ID: id}}
 }
 
 // NSPipeFromID is an alias for [PipeFromID] for cross-framework compatibility.
 func NSPipeFromID(id objc.ID) Pipe { return PipeFromID(id) }
 // NOTE: Pipe adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Pipe] class.
 //
@@ -99,10 +89,6 @@ type IPipe interface {
 	FileHandleForWriting() INSFileHandle
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p Pipe) Init() Pipe {
 	rv := objc.Send[Pipe](p.ID, objc.Sel("init"))
@@ -122,19 +108,6 @@ func NewPipe() Pipe {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns an [NSPipe] object.
 //
 // # Return Value
@@ -148,13 +121,6 @@ func (_PipeClass PipeClass) Pipe() Pipe {
 	rv := objc.Send[objc.ID](objc.ID(_PipeClass.class), objc.Sel("pipe"))
 	return NSPipeFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The receiver’s read file handle.
 //
@@ -176,8 +142,6 @@ func (p Pipe) FileHandleForReading() INSFileHandle {
 	return NSFileHandleFromID(objc.ID(rv))
 }
 
-
-
 // The receiver’s write file handle.
 //
 // # Discussion
@@ -195,28 +159,4 @@ func (p Pipe) FileHandleForWriting() INSFileHandle {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("fileHandleForWriting"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

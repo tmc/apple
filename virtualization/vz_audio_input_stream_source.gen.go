@@ -36,12 +36,6 @@ func (vc VZAudioInputStreamSourceClass) Alloc() VZAudioInputStreamSource {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for an audio input stream source.
 //
 // # Overview
@@ -61,14 +55,10 @@ type VZAudioInputStreamSource struct {
 //
 // The base class for an audio input stream source.
 func VZAudioInputStreamSourceFromID(id objc.ID) VZAudioInputStreamSource {
-	return VZAudioInputStreamSource{objectivec.Object{id}}
+	return VZAudioInputStreamSource{objectivec.Object{ID: id}}
 }
 // NOTE: VZAudioInputStreamSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZAudioInputStreamSource] class.
 //
@@ -76,10 +66,6 @@ func VZAudioInputStreamSourceFromID(id objc.ID) VZAudioInputStreamSource {
 type IVZAudioInputStreamSource interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a VZAudioInputStreamSource) Init() VZAudioInputStreamSource {
@@ -99,44 +85,4 @@ func NewVZAudioInputStreamSource() VZAudioInputStreamSource {
 	rv := objc.Send[VZAudioInputStreamSource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

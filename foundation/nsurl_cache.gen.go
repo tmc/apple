@@ -37,12 +37,6 @@ func (uc URLCacheClass) Alloc() URLCache {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that maps URL requests to cached response objects.
 //
 // # Overview
@@ -122,17 +116,13 @@ type URLCache struct {
 //
 // An object that maps URL requests to cached response objects.
 func URLCacheFromID(id objc.ID) URLCache {
-	return NSURLCache{objectivec.Object{id}}
+	return NSURLCache{objectivec.Object{ID: id}}
 }
 
 // NSURLCacheFromID is an alias for [URLCacheFromID] for cross-framework compatibility.
 func NSURLCacheFromID(id objc.ID) URLCache { return URLCacheFromID(id) }
 // NOTE: URLCache adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLCache] class.
 //
@@ -208,10 +198,6 @@ type IURLCache interface {
 	InitWithMemoryCapacityDiskCapacityDirectoryURL(memoryCapacity uint, diskCapacity uint, directoryURL INSURL) URLCache
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u URLCache) Init() URLCache {
 	rv := objc.Send[URLCache](u.ID, objc.Sel("init"))
@@ -230,11 +216,6 @@ func NewURLCache() URLCache {
 	rv := objc.Send[URLCache](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a URL cache object with the specified memory and disk capacities,
 // in the specified directory.
@@ -257,7 +238,6 @@ func NewURLCacheWithMemoryCapacityDiskCapacityDirectoryURL(memoryCapacity uint, 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMemoryCapacity:diskCapacity:directoryURL:"), memoryCapacity, diskCapacity, directoryURL)
 	return URLCacheFromID(rv)
 }
-
 
 // Creates a URL cache object with the specified values.
 //
@@ -287,12 +267,6 @@ func NewURLCacheWithMemoryCapacityDiskCapacityDiskPath(memoryCapacity uint, disk
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMemoryCapacity:diskCapacity:diskPath:"), memoryCapacity, diskCapacity, objc.String(path))
 	return URLCacheFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the cached URL response in the cache for the specified URL request.
 //
@@ -340,9 +314,9 @@ func (u URLCache) StoreCachedResponseForRequest(cachedResponse INSCachedURLRespo
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/getCachedResponse(for:completionHandler:)
 func (u URLCache) GetCachedResponseForDataTaskCompletionHandler(dataTask INSURLSessionDataTask, completionHandler CachedURLResponseHandler) {
-		_block1, _cleanup1 := NewCachedURLResponseBlock(completionHandler)
+_block1, _cleanup1 := NewCachedURLResponseBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](u.ID, objc.Sel("getCachedResponseForDataTask:completionHandler:"), dataTask, _block1)
+	objc.Send[objc.ID](u.ID, objc.Sel("getCachedResponseForDataTask:completionHandler:"), dataTask, _block1)
 }
 
 // Stores a cached URL response for a specified data task.
@@ -420,17 +394,6 @@ func (u URLCache) InitWithMemoryCapacityDiskCapacityDirectoryURL(memoryCapacity 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The current size of the on-disk cache, in bytes.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/currentDiskUsage
@@ -438,8 +401,6 @@ func (u URLCache) CurrentDiskUsage() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("currentDiskUsage"))
 	return rv
 }
-
-
 
 // The capacity of the on-disk cache, in bytes.
 //
@@ -457,8 +418,6 @@ func (u URLCache) SetDiskCapacity(value uint) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDiskCapacity:"), value)
 }
 
-
-
 // The current size of the in-memory cache, in bytes.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/currentMemoryUsage
@@ -466,8 +425,6 @@ func (u URLCache) CurrentMemoryUsage() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("currentMemoryUsage"))
 	return rv
 }
-
-
 
 // The capacity of the in-memory cache, in bytes.
 //
@@ -484,12 +441,6 @@ func (u URLCache) MemoryCapacity() uint {
 func (u URLCache) SetMemoryCapacity(value uint) {
 	objc.Send[struct{}](u.ID, objc.Sel("setMemoryCapacity:"), value)
 }
-
-
-
-
-
-
 
 // The shared URL cache instance.
 //
@@ -510,21 +461,6 @@ func (_URLCacheClass URLCacheClass) SetSharedURLCache(value URLCache) {
 	objc.Send[struct{}](objc.ID(_URLCacheClass.class), objc.Sel("setSharedURLCache:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // GetCachedResponseForDataTask is a synchronous wrapper around [URLCache.GetCachedResponseForDataTaskCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (u URLCache) GetCachedResponseForDataTask(ctx context.Context, dataTask INSURLSessionDataTask) (*NSCachedURLResponse, error) {
@@ -539,9 +475,4 @@ func (u URLCache) GetCachedResponseForDataTask(ctx context.Context, dataTask INS
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

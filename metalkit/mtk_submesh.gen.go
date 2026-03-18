@@ -38,12 +38,6 @@ func (mc MTKSubmeshClass) Alloc() MTKSubmesh {
 	return rv
 }
 
-
-
-
-
-
-
 // A container for the index data of a Model I/O submesh, suitable for use in
 // a Metal app.
 //
@@ -84,14 +78,10 @@ type MTKSubmesh struct {
 // A container for the index data of a Model I/O submesh, suitable for use in
 // a Metal app.
 func MTKSubmeshFromID(id objc.ID) MTKSubmesh {
-	return MTKSubmesh{objectivec.Object{id}}
+	return MTKSubmesh{objectivec.Object{ID: id}}
 }
 // NOTE: MTKSubmesh adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTKSubmesh] class.
 //
@@ -138,10 +128,6 @@ type IMTKSubmesh interface {
 	SetName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MTKSubmesh) Init() MTKSubmesh {
 	rv := objc.Send[MTKSubmesh](s.ID, objc.Sel("init"))
@@ -161,26 +147,6 @@ func NewMTKSubmesh() MTKSubmesh {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The parent mesh containing the vertex data of this submesh.
 //
 // # Discussion
@@ -198,8 +164,6 @@ func (s MTKSubmesh) Mesh() IMTKMesh {
 	return MTKMeshFromID(objc.ID(rv))
 }
 
-
-
 // The index buffer used to render the submesh object.
 //
 // # Discussion
@@ -214,8 +178,6 @@ func (s MTKSubmesh) IndexBuffer() IMTKMeshBuffer {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("indexBuffer"))
 	return MTKMeshBufferFromID(objc.ID(rv))
 }
-
-
 
 // The number of indices in the index buffer.
 //
@@ -232,8 +194,6 @@ func (s MTKSubmesh) IndexCount() uint {
 	return rv
 }
 
-
-
 // The type of index data in the index buffer.
 //
 // # Discussion
@@ -248,8 +208,6 @@ func (s MTKSubmesh) IndexType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("indexType"))
 	return rv
 }
-
-
 
 // The primitive type with which to draw the submesh object.
 //
@@ -266,8 +224,6 @@ func (s MTKSubmesh) PrimitiveType() unsafe.Pointer {
 	return rv
 }
 
-
-
 // The name of the submesh.
 //
 // # Discussion
@@ -282,26 +238,4 @@ func (s MTKSubmesh) Name() string {
 func (s MTKSubmesh) SetName(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

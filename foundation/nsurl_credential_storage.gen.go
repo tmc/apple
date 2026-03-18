@@ -37,12 +37,6 @@ func (uc URLCredentialStorageClass) Alloc() URLCredentialStorage {
 	return rv
 }
 
-
-
-
-
-
-
 // The manager of a shared credentials cache.
 //
 // # Overview
@@ -112,17 +106,13 @@ type URLCredentialStorage struct {
 //
 // The manager of a shared credentials cache.
 func URLCredentialStorageFromID(id objc.ID) URLCredentialStorage {
-	return NSURLCredentialStorage{objectivec.Object{id}}
+	return NSURLCredentialStorage{objectivec.Object{ID: id}}
 }
 
 // NSURLCredentialStorageFromID is an alias for [URLCredentialStorageFromID] for cross-framework compatibility.
 func NSURLCredentialStorageFromID(id objc.ID) URLCredentialStorage { return URLCredentialStorageFromID(id) }
 // NOTE: URLCredentialStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLCredentialStorage] class.
 //
@@ -191,10 +181,6 @@ type IURLCredentialStorage interface {
 	NSURLCredentialStorageChanged() NSNotificationName
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u URLCredentialStorage) Init() URLCredentialStorage {
 	rv := objc.Send[URLCredentialStorage](u.ID, objc.Sel("init"))
@@ -213,15 +199,6 @@ func NewURLCredentialStorage() URLCredentialStorage {
 	rv := objc.Send[URLCredentialStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the default credential for the specified protection space.
 //
@@ -256,9 +233,9 @@ func (u URLCredentialStorage) DefaultCredentialForProtectionSpace(space INSURLPr
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredentialStorage/getDefaultCredential(for:task:completionHandler:)
 func (u URLCredentialStorage) GetDefaultCredentialForProtectionSpaceTaskCompletionHandler(space INSURLProtectionSpace, task INSURLSessionTask, completionHandler URLCredentialHandler) {
-		_block2, _cleanup2 := NewURLCredentialBlock(completionHandler)
+_block2, _cleanup2 := NewURLCredentialBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](u.ID, objc.Sel("getDefaultCredentialForProtectionSpace:task:completionHandler:"), space, task, _block2)
+	objc.Send[objc.ID](u.ID, objc.Sel("getDefaultCredentialForProtectionSpace:task:completionHandler:"), space, task, _block2)
 }
 
 // Sets the default credential for a specified protection space.
@@ -429,17 +406,6 @@ func (u URLCredentialStorage) CredentialsForProtectionSpace(space INSURLProtecti
 	return NSDictionaryFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The credentials for all available protection spaces.
 //
 // # Discussion
@@ -454,8 +420,6 @@ func (u URLCredentialStorage) AllCredentials() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // A notification posted when the set of stored credentials changes.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsurlcredentialstoragechanged
@@ -464,12 +428,6 @@ func (u URLCredentialStorage) NSURLCredentialStorageChanged() NSNotificationName
 	return NSNotificationName(NSStringFromID(rv).String())
 }
 
-
-
-
-
-
-
 // The shared URL credential storage instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredentialStorage/shared
@@ -477,21 +435,6 @@ func (_URLCredentialStorageClass URLCredentialStorageClass) SharedCredentialStor
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialStorageClass.class), objc.Sel("sharedCredentialStorage"))
 	return NSURLCredentialStorageFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // GetDefaultCredentialForProtectionSpaceTask is a synchronous wrapper around [URLCredentialStorage.GetDefaultCredentialForProtectionSpaceTaskCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -507,9 +450,4 @@ func (u URLCredentialStorage) GetDefaultCredentialForProtectionSpaceTask(ctx con
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

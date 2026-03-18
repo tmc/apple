@@ -36,12 +36,6 @@ func (vc VNVideoProcessorCadenceClass) Alloc() VNVideoProcessorCadence {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines the cadence at which to process video.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/Cadence
@@ -53,14 +47,10 @@ type VNVideoProcessorCadence struct {
 //
 // An object that defines the cadence at which to process video.
 func VNVideoProcessorCadenceFromID(id objc.ID) VNVideoProcessorCadence {
-	return VNVideoProcessorCadence{objectivec.Object{id}}
+	return VNVideoProcessorCadence{objectivec.Object{ID: id}}
 }
 // NOTE: VNVideoProcessorCadence adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNVideoProcessorCadence] class.
 //
@@ -72,10 +62,6 @@ type IVNVideoProcessorCadence interface {
 	Cadence() IVNVideoProcessorCadence
 	SetCadence(value IVNVideoProcessorCadence)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VNVideoProcessorCadence) Init() VNVideoProcessorCadence {
@@ -96,26 +82,6 @@ func NewVNVideoProcessorCadence() VNVideoProcessorCadence {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The cadence the video processor maintains to process the request.
 //
 // See: https://developer.apple.com/documentation/vision/vnvideoprocessor/requestprocessingoptions/cadence
@@ -126,27 +92,4 @@ func (v VNVideoProcessorCadence) Cadence() IVNVideoProcessorCadence {
 func (v VNVideoProcessorCadence) SetCadence(value IVNVideoProcessorCadence) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCadence:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -14,8 +14,6 @@ type NSCopying interface {
 	objectivec.IObject
 }
 
-
-
 // NSCopyingObject wraps an existing Objective-C object that conforms to the NSCopying protocol.
 type NSCopyingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSCopyingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCopyingObjectFromID constructs a [NSCopyingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCopyingObjectFromID(id objc.ID) NSCopyingObject {
@@ -33,13 +29,4 @@ func NSCopyingObjectFromID(id objc.ID) NSCopyingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

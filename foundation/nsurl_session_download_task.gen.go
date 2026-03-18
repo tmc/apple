@@ -36,12 +36,6 @@ func (uc URLSessionDownloadTaskClass) Alloc() URLSessionDownloadTask {
 	return rv
 }
 
-
-
-
-
-
-
 // A URL session task that stores downloaded data to a file.
 //
 // # Overview
@@ -98,10 +92,6 @@ func NSURLSessionDownloadTaskFromID(id objc.ID) URLSessionDownloadTask { return 
 // NOTE: URLSessionDownloadTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [URLSessionDownloadTask] class.
 //
 // # Canceling a download
@@ -117,10 +107,6 @@ type IURLSessionDownloadTask interface {
 	// Cancels a download and calls a callback with resume data for later use.
 	CancelByProducingResumeData(completionHandler DataHandler)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u URLSessionDownloadTask) Init() URLSessionDownloadTask {
@@ -140,15 +126,6 @@ func NewURLSessionDownloadTask() URLSessionDownloadTask {
 	rv := objc.Send[URLSessionDownloadTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Cancels a download and calls a callback with resume data for later use.
 //
@@ -177,40 +154,10 @@ func NewURLSessionDownloadTask() URLSessionDownloadTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDownloadTask/cancel(byProducingResumeData:)
 func (u URLSessionDownloadTask) CancelByProducingResumeData(completionHandler DataHandler) {
-		_block0, _cleanup0 := NewDataBlock(completionHandler)
+_block0, _cleanup0 := NewDataBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](u.ID, objc.Sel("cancelByProducingResumeData:"), _block0)
+	objc.Send[objc.ID](u.ID, objc.Sel("cancelByProducingResumeData:"), _block0)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // CancelByProducingResumeDataSync is a synchronous wrapper around [URLSessionDownloadTask.CancelByProducingResumeData].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -226,9 +173,4 @@ func (u URLSessionDownloadTask) CancelByProducingResumeDataSync(ctx context.Cont
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

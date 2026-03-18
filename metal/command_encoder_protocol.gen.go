@@ -55,8 +55,6 @@ type MTLCommandEncoder interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLCommandEncoder protocol.
 type MTLCommandEncoderObject struct {
 	objectivec.Object
@@ -65,8 +63,6 @@ func (o MTLCommandEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLCommandEncoderObjectFromID constructs a [MTLCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLCommandEncoderObjectFromID(id objc.ID) MTLCommandEncoderObject {
@@ -74,9 +70,6 @@ func MTLCommandEncoderObjectFromID(id objc.ID) MTLCommandEncoderObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Declares that all command generation from the encoder is completed.
 //
@@ -198,16 +191,7 @@ func (o MTLCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueS
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 
-
-
-
-
-
 func (o MTLCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

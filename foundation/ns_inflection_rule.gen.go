@@ -36,12 +36,6 @@ func (nc NSInflectionRuleClass) Alloc() NSInflectionRule {
 	return rv
 }
 
-
-
-
-
-
-
 // A rule that affects how an attributed string performs automatic grammatical
 // agreement.
 //
@@ -75,14 +69,10 @@ type NSInflectionRule struct {
 // A rule that affects how an attributed string performs automatic grammatical
 // agreement.
 func NSInflectionRuleFromID(id objc.ID) NSInflectionRule {
-	return NSInflectionRule{objectivec.Object{id}}
+	return NSInflectionRule{objectivec.Object{ID: id}}
 }
 // NOTE: NSInflectionRule adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSInflectionRule] class.
 //
@@ -90,15 +80,12 @@ func NSInflectionRuleFromID(id objc.ID) NSInflectionRule {
 type INSInflectionRule interface {
 	objectivec.IObject
 	NSCopying
+	NSSecureCoding
 
 	InitWithCoder(coder INSCoder) NSInflectionRule
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i NSInflectionRule) Init() NSInflectionRule {
@@ -119,15 +106,6 @@ func NewNSInflectionRule() NSInflectionRule {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (i NSInflectionRule) InitWithCoder(coder INSCoder) NSInflectionRule {
@@ -144,10 +122,6 @@ func (i NSInflectionRule) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns a Boolean value that indicates whether the rule can inflect a given
 // language.
 //
@@ -159,17 +133,6 @@ func (_NSInflectionRuleClass NSInflectionRuleClass) CanInflectLanguage(language 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An inflection rule that performs automatic grammar agreement with default
 // transformations.
 //
@@ -178,8 +141,6 @@ func (_NSInflectionRuleClass NSInflectionRuleClass) AutomaticRule() NSInflection
 	rv := objc.Send[objc.ID](objc.ID(_NSInflectionRuleClass.class), objc.Sel("automaticRule"))
 	return NSInflectionRuleFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the rule can inflect the user’s
 // current preferred localization.
@@ -194,22 +155,9 @@ func (_NSInflectionRuleClass NSInflectionRuleClass) CanInflectPreferredLocalizat
 	return rv
 }
 
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

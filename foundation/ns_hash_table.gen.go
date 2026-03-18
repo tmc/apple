@@ -36,12 +36,6 @@ func (nc NSHashTableClass) Alloc() NSHashTable {
 	return rv
 }
 
-
-
-
-
-
-
 // A collection similar to a set, but with broader range of available memory
 // semantics.
 //
@@ -122,14 +116,10 @@ type NSHashTable struct {
 // A collection similar to a set, but with broader range of available memory
 // semantics.
 func NSHashTableFromID(id objc.ID) NSHashTable {
-	return NSHashTable{objectivec.Object{id}}
+	return NSHashTable{objectivec.Object{ID: id}}
 }
 // NOTE: NSHashTable adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSHashTable] class.
 //
@@ -173,7 +163,9 @@ func NSHashTableFromID(id objc.ID) NSHashTable {
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable
 type INSHashTable interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Initialization
 
@@ -230,15 +222,7 @@ type INSHashTable interface {
 
 	// The pointer functions for the hash table.
 	PointerFunctions() INSPointerFunctions
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSHashTable
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h NSHashTable) Init() NSHashTable {
@@ -259,11 +243,6 @@ func NewNSHashTable() NSHashTable {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewHashTableWithCoder(coder INSCoder) NSHashTable {
@@ -271,7 +250,6 @@ func NewHashTableWithCoder(coder INSCoder) NSHashTable {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSHashTableFromID(rv)
 }
-
 
 // Returns a hash table initialized with the given attributes.
 //
@@ -291,7 +269,6 @@ func NewHashTableWithOptionsCapacity(options NSPointerFunctionsOptions, initialC
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOptions:capacity:"), options, initialCapacity)
 	return NSHashTableFromID(rv)
 }
-
 
 // Returns a hash table initialized with the given functions and capacity.
 //
@@ -314,12 +291,6 @@ func NewHashTableWithPointerFunctionsCapacity(functions INSPointerFunctions, ini
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPointerFunctions:capacity:"), functions, initialCapacity)
 	return NSHashTableFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a hash table initialized with the given attributes.
 //
@@ -652,10 +623,6 @@ func (h NSHashTable) InitWithCoder(coder INSCoder) NSHashTable {
 	return rv
 }
 
-
-
-
-
 // Returns a new hash table for storing weak references to its contents.
 //
 // # Return Value
@@ -684,13 +651,6 @@ func (_NSHashTableClass NSHashTableClass) HashTableWithOptions(options NSPointer
 	return NSHashTableFromID(rv)
 }
 
-
-
-
-
-
-
-
 // One of the objects in the hash table.
 //
 // # Discussion
@@ -707,8 +667,6 @@ func (h NSHashTable) AnyObject() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The hash table’s members.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable/allObjects
@@ -719,8 +677,6 @@ func (h NSHashTable) AllObjects() []objectivec.IObject {
 	})
 }
 
-
-
 // A set that contains the hash table’s members.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable/setRepresentation
@@ -728,8 +684,6 @@ func (h NSHashTable) SetRepresentation() INSSet {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("setRepresentation"))
 	return NSSetFromID(objc.ID(rv))
 }
-
-
 
 // The number of elements in the hash table.
 //
@@ -739,8 +693,6 @@ func (h NSHashTable) Count() uint {
 	return rv
 }
 
-
-
 // The pointer functions for the hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable/pointerFunctions
@@ -749,34 +701,9 @@ func (h NSHashTable) PointerFunctions() INSPointerFunctions {
 	return NSPointerFunctionsFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

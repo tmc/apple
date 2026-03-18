@@ -36,12 +36,6 @@ func (ic ISAClass) Alloc() ISA {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/isa
 type ISA struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type ISA struct {
 
 // ISAFromID constructs a [ISA] from an objc.ID.
 func ISAFromID(id objc.ID) ISA {
-	return ISA{objectivec.Object{id}}
+	return ISA{objectivec.Object{ID: id}}
 }
 // Ensure ISA implements IISA.
 var _ IISA = ISA{}
-
-
-
-
 
 // An interface definition for the [ISA] class.
 //
@@ -64,10 +54,6 @@ var _ IISA = ISA{}
 type IISA interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i ISA) Init() ISA {
@@ -87,38 +73,4 @@ func NewISA() ISA {
 	rv := objc.Send[ISA](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

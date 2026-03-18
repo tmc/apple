@@ -36,12 +36,6 @@ func (sc SCContentSharingPickerClass) Alloc() SCContentSharingPicker {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance of a picker presented by the operating system for managing
 // frame-capture streams.
 //
@@ -83,14 +77,10 @@ type SCContentSharingPicker struct {
 // An instance of a picker presented by the operating system for managing
 // frame-capture streams.
 func SCContentSharingPickerFromID(id objc.ID) SCContentSharingPicker {
-	return SCContentSharingPicker{objectivec.Object{id}}
+	return SCContentSharingPicker{objectivec.Object{ID: id}}
 }
 // NOTE: SCContentSharingPicker adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCContentSharingPicker] class.
 //
@@ -161,10 +151,6 @@ type ISCContentSharingPicker interface {
 	PresentPickerForStreamUsingContentStyle(stream ISCStream, contentStyle SCShareableContentStyle)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c SCContentSharingPicker) Init() SCContentSharingPicker {
 	rv := objc.Send[SCContentSharingPicker](c.ID, objc.Sel("init"))
@@ -183,15 +169,6 @@ func NewSCContentSharingPicker() SCContentSharingPicker {
 	rv := objc.Send[SCContentSharingPicker](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Adds an observer instance to notify of changes in the content-sharing
 // picker.
@@ -251,17 +228,6 @@ func (c SCContentSharingPicker) PresentPickerForStreamUsingContentStyle(stream I
 	objc.Send[objc.ID](c.ID, objc.Sel("presentPickerForStream:usingContentStyle:"), stream, contentStyle)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates if the picker is active.
 //
 // # Discussion
@@ -278,8 +244,6 @@ func (c SCContentSharingPicker) SetActive(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setActive:"), value)
 }
 
-
-
 // Sets the configuration for the content capture picker for all streams,
 // providing allowed selection modes and content excluded from selection.
 //
@@ -292,8 +256,6 @@ func (c SCContentSharingPicker) SetConfiguration(value ISCContentSharingPickerCo
 	objc.Send[struct{}](c.ID, objc.Sel("setConfiguration:"), value)
 }
 
-
-
 // The default configuration to use for the content capture picker.
 //
 // See: https://developer.apple.com/documentation/screencapturekit/sccontentsharingpicker/defaultconfiguration-94q2b
@@ -305,8 +267,6 @@ func (c SCContentSharingPicker) SetDefaultConfiguration(value ISCContentSharingP
 	objc.Send[struct{}](c.ID, objc.Sel("setDefaultConfiguration:"), value)
 }
 
-
-
 // The maximum number of streams the content capture picker allows.
 //
 // See: https://developer.apple.com/documentation/screencapturekit/sccontentsharingpicker/maximumstreamcount-2kuaa
@@ -317,12 +277,6 @@ func (c SCContentSharingPicker) MaximumStreamCount() int {
 func (c SCContentSharingPicker) SetMaximumStreamCount(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumStreamCount:"), value)
 }
-
-
-
-
-
-
 
 // The system-provided picker UI instance for capturing display and audio
 // content from someone’s Mac.
@@ -338,22 +292,4 @@ func (_SCContentSharingPickerClass SCContentSharingPickerClass) SharedPicker() S
 	rv := objc.Send[objc.ID](objc.ID(_SCContentSharingPickerClass.class), objc.Sel("sharedPicker"))
 	return SCContentSharingPickerFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

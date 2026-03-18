@@ -35,12 +35,6 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceConfigurationClass) Alloc() VZVir
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration object that provides a way to reclaim memory from the guest
 // system.
 //
@@ -69,10 +63,6 @@ func VZVirtioTraditionalMemoryBalloonDeviceConfigurationFromID(id objc.ID) VZVir
 // NOTE: VZVirtioTraditionalMemoryBalloonDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioTraditionalMemoryBalloonDeviceConfiguration] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioTraditionalMemoryBalloonDeviceConfiguration
@@ -83,10 +73,6 @@ type IVZVirtioTraditionalMemoryBalloonDeviceConfiguration interface {
 	MemoryBalloonDevices() IVZMemoryBalloonDevice
 	SetMemoryBalloonDevices(value IVZMemoryBalloonDevice)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioTraditionalMemoryBalloonDeviceConfiguration) Init() VZVirtioTraditionalMemoryBalloonDeviceConfiguration {
@@ -107,27 +93,6 @@ func NewVZVirtioTraditionalMemoryBalloonDeviceConfiguration() VZVirtioTraditiona
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The array of devices that you use to adjust the amount of memory available
 // to the guest system.
 //
@@ -139,27 +104,4 @@ func (v VZVirtioTraditionalMemoryBalloonDeviceConfiguration) MemoryBalloonDevice
 func (v VZVirtioTraditionalMemoryBalloonDeviceConfiguration) SetMemoryBalloonDevices(value IVZMemoryBalloonDevice) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMemoryBalloonDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

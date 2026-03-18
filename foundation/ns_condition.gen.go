@@ -36,12 +36,6 @@ func (nc NSConditionClass) Alloc() NSCondition {
 	return rv
 }
 
-
-
-
-
-
-
 // A condition variable whose semantics follow those used for POSIX-style
 // conditions.
 //
@@ -123,14 +117,10 @@ type NSCondition struct {
 // A condition variable whose semantics follow those used for POSIX-style
 // conditions.
 func NSConditionFromID(id objc.ID) NSCondition {
-	return NSCondition{objectivec.Object{id}}
+	return NSCondition{objectivec.Object{ID: id}}
 }
 // NOTE: NSCondition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCondition] class.
 //
@@ -174,10 +164,6 @@ type INSCondition interface {
 	SetName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCondition) Init() NSCondition {
 	rv := objc.Send[NSCondition](c.ID, objc.Sel("init"))
@@ -196,15 +182,6 @@ func NewNSCondition() NSCondition {
 	rv := objc.Send[NSCondition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Blocks the current thread until the condition is signaled.
 //
@@ -292,17 +269,6 @@ func (c NSCondition) Unlock() {
 	objc.Send[objc.ID](c.ID, objc.Sel("unlock"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name of the condition.
 //
 // # Discussion
@@ -319,29 +285,4 @@ func (c NSCondition) Name() string {
 func (c NSCondition) SetName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

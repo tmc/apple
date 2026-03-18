@@ -35,12 +35,6 @@ func (nc NSSymbolReplaceContentTransitionClass) Alloc() NSSymbolReplaceContentTr
 	return rv
 }
 
-
-
-
-
-
-
 // A type that replaces the layers of one symbol-based image with those of
 // another.
 //
@@ -76,10 +70,6 @@ func NSSymbolReplaceContentTransitionFromID(id objc.ID) NSSymbolReplaceContentTr
 // Ensure NSSymbolReplaceContentTransition implements INSSymbolReplaceContentTransition.
 var _ INSSymbolReplaceContentTransition = NSSymbolReplaceContentTransition{}
 
-
-
-
-
 // An interface definition for the [NSSymbolReplaceContentTransition] class.
 //
 // # Determining effect scope
@@ -99,10 +89,6 @@ type INSSymbolReplaceContentTransition interface {
 	TransitionWithWholeSymbol() INSSymbolReplaceContentTransition
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolReplaceContentTransition) Init() NSSymbolReplaceContentTransition {
 	rv := objc.Send[NSSymbolReplaceContentTransition](s.ID, objc.Sel("init"))
@@ -121,15 +107,6 @@ func NewNSSymbolReplaceContentTransition() NSSymbolReplaceContentTransition {
 	rv := objc.Send[NSSymbolReplaceContentTransition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // An effect that replaces each layer separately.
 //
@@ -154,10 +131,6 @@ func (s NSSymbolReplaceContentTransition) TransitionWithWholeSymbol() INSSymbolR
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("transitionWithWholeSymbol"))
 	return NSSymbolReplaceContentTransitionFromID(rv)
 }
-
-
-
-
 
 // An effect that replaces the layers of one symbol-based image with those of
 // another.
@@ -234,25 +207,4 @@ func (_NSSymbolReplaceContentTransitionClass NSSymbolReplaceContentTransitionCla
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolReplaceContentTransitionClass.class), objc.Sel("magicTransitionWithFallback:"), fallback)
 	return NSSymbolMagicReplaceContentTransitionFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

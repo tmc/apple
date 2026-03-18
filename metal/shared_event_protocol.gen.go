@@ -41,8 +41,6 @@ type MTLSharedEvent interface {
 	SetSignaledValue(value uint64)
 }
 
-
-
 // MTLSharedEventObject wraps an existing Objective-C object that conforms to the MTLSharedEvent protocol.
 type MTLSharedEventObject struct {
 	objectivec.Object
@@ -51,8 +49,6 @@ func (o MTLSharedEventObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLSharedEventObjectFromID constructs a [MTLSharedEventObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLSharedEventObjectFromID(id objc.ID) MTLSharedEventObject {
@@ -60,9 +56,6 @@ func MTLSharedEventObjectFromID(id objc.ID) MTLSharedEventObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The current signal value for the shareable event.
 //
@@ -130,21 +123,11 @@ func (o MTLSharedEventObject) Label() string {
 	return foundation.NSStringFromID(rv).String()
 	}
 
-
-
-
 func (o MTLSharedEventObject) SetSignaledValue(value uint64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSignaledValue:"), value)
 }
 
-
-
-
 func (o MTLSharedEventObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

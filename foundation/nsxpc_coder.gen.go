@@ -37,12 +37,6 @@ func (nc NSXPCCoderClass) Alloc() NSXPCCoder {
 	return rv
 }
 
-
-
-
-
-
-
 // A coder that encodes and decodes objects that your app sends over an XPC
 // connection.
 //
@@ -81,10 +75,6 @@ func NSXPCCoderFromID(id objc.ID) NSXPCCoder {
 // NOTE: NSXPCCoder adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSXPCCoder] class.
 //
 // # Inspecting the Coder
@@ -118,10 +108,6 @@ type INSXPCCoder interface {
 	DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string) objectivec.Object
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x NSXPCCoder) Init() NSXPCCoder {
 	rv := objc.Send[NSXPCCoder](x.ID, objc.Sel("init"))
@@ -140,15 +126,6 @@ func NewNSXPCCoder() NSXPCCoder {
 	rv := objc.Send[NSXPCCoder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Encodes an object to send over an XPC connection.
 //
@@ -189,17 +166,6 @@ func (x NSXPCCoder) DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string
 	return objectivec.ObjectFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The connection currently performing encoding or decoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/connection
@@ -207,8 +173,6 @@ func (x NSXPCCoder) Connection() INSXPCConnection {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("connection"))
 	return NSXPCConnectionFromID(objc.ID(rv))
 }
-
-
 
 // An optional user information object associated with the coder.
 //
@@ -220,28 +184,4 @@ func (x NSXPCCoder) UserInfo() objectivec.Object {
 func (x NSXPCCoder) SetUserInfo(value objectivec.Object) {
 	objc.Send[struct{}](x.ID, objc.Sel("setUserInfo:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

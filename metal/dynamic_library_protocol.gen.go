@@ -40,8 +40,6 @@ type MTLDynamicLibrary interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLDynamicLibraryObject wraps an existing Objective-C object that conforms to the MTLDynamicLibrary protocol.
 type MTLDynamicLibraryObject struct {
 	objectivec.Object
@@ -50,8 +48,6 @@ func (o MTLDynamicLibraryObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLDynamicLibraryObjectFromID constructs a [MTLDynamicLibraryObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLDynamicLibraryObjectFromID(id objc.ID) MTLDynamicLibraryObject {
@@ -59,9 +55,6 @@ func MTLDynamicLibraryObjectFromID(id objc.ID) MTLDynamicLibraryObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The Metal device object that created the dynamic library.
 //
@@ -121,18 +114,7 @@ func (o MTLDynamicLibraryObject) SerializeToURLError(url foundation.INSURL) (boo
 	return rv, nil
 	}
 
-
-
-
-
-
-
-
 func (o MTLDynamicLibraryObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

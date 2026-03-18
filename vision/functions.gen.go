@@ -35,7 +35,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _vNElementTypeSize func(elementType VNElementType) uint
 
 // VNElementTypeSize returns the size of a feature print element.
@@ -47,7 +46,6 @@ func VNElementTypeSize(elementType VNElementType) uint {
 	}
 	return _vNElementTypeSize(elementType)
 }
-
 
 var _vNImagePointForFaceLandmarkPoint func(faceLandmarkPoint uintptr, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint
 
@@ -61,7 +59,6 @@ func VNImagePointForFaceLandmarkPoint(faceLandmarkPoint uintptr, faceBoundingBox
 	return _vNImagePointForFaceLandmarkPoint(faceLandmarkPoint, faceBoundingBox, imageWidth, imageHeight)
 }
 
-
 var _vNImagePointForNormalizedPoint func(normalizedPoint corefoundation.CGPoint, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint
 
 // VNImagePointForNormalizedPoint projects a point in normalized coordinates into image coordinates.
@@ -73,7 +70,6 @@ func VNImagePointForNormalizedPoint(normalizedPoint corefoundation.CGPoint, imag
 	}
 	return _vNImagePointForNormalizedPoint(normalizedPoint, imageWidth, imageHeight)
 }
-
 
 var _vNImagePointForNormalizedPointUsingRegionOfInterest func(normalizedPoint corefoundation.CGPoint, imageWidth uintptr, imageHeight uintptr, roi corefoundation.CGRect) corefoundation.CGPoint
 
@@ -87,7 +83,6 @@ func VNImagePointForNormalizedPointUsingRegionOfInterest(normalizedPoint corefou
 	return _vNImagePointForNormalizedPointUsingRegionOfInterest(normalizedPoint, imageWidth, imageHeight, roi)
 }
 
-
 var _vNImageRectForNormalizedRect func(normalizedRect corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGRect
 
 // VNImageRectForNormalizedRect projects a rectangle from normalized coordinates into image coordinates.
@@ -99,7 +94,6 @@ func VNImageRectForNormalizedRect(normalizedRect corefoundation.CGRect, imageWid
 	}
 	return _vNImageRectForNormalizedRect(normalizedRect, imageWidth, imageHeight)
 }
-
 
 var _vNImageRectForNormalizedRectUsingRegionOfInterest func(normalizedRect corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr, roi corefoundation.CGRect) corefoundation.CGRect
 
@@ -113,7 +107,6 @@ func VNImageRectForNormalizedRectUsingRegionOfInterest(normalizedRect corefounda
 	return _vNImageRectForNormalizedRectUsingRegionOfInterest(normalizedRect, imageWidth, imageHeight, roi)
 }
 
-
 var _vNNormalizedFaceBoundingBoxPointForLandmarkPoint func(faceLandmarkPoint uintptr, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint
 
 // VNNormalizedFaceBoundingBoxPointForLandmarkPoint returns the coordinates of a specified face landmark point, in bounding box coordinates.
@@ -125,7 +118,6 @@ func VNNormalizedFaceBoundingBoxPointForLandmarkPoint(faceLandmarkPoint uintptr,
 	}
 	return _vNNormalizedFaceBoundingBoxPointForLandmarkPoint(faceLandmarkPoint, faceBoundingBox, imageWidth, imageHeight)
 }
-
 
 var _vNNormalizedPointForImagePoint func(imagePoint corefoundation.CGPoint, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint
 
@@ -139,7 +131,6 @@ func VNNormalizedPointForImagePoint(imagePoint corefoundation.CGPoint, imageWidt
 	return _vNNormalizedPointForImagePoint(imagePoint, imageWidth, imageHeight)
 }
 
-
 var _vNNormalizedPointForImagePointUsingRegionOfInterest func(imagePoint corefoundation.CGPoint, imageWidth uintptr, imageHeight uintptr, roi corefoundation.CGRect) corefoundation.CGPoint
 
 // VNNormalizedPointForImagePointUsingRegionOfInterest projects a point from a region of interest within the image coordinates into normalized coordinates.
@@ -151,7 +142,6 @@ func VNNormalizedPointForImagePointUsingRegionOfInterest(imagePoint corefoundati
 	}
 	return _vNNormalizedPointForImagePointUsingRegionOfInterest(imagePoint, imageWidth, imageHeight, roi)
 }
-
 
 var _vNNormalizedRectForImageRect func(imageRect corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGRect
 
@@ -165,7 +155,6 @@ func VNNormalizedRectForImageRect(imageRect corefoundation.CGRect, imageWidth ui
 	return _vNNormalizedRectForImageRect(imageRect, imageWidth, imageHeight)
 }
 
-
 var _vNNormalizedRectForImageRectUsingRegionOfInterest func(imageRect corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr, roi corefoundation.CGRect) corefoundation.CGRect
 
 // VNNormalizedRectForImageRectUsingRegionOfInterest projects a rectangle from a region of interest within the image coordinates space into normalized coordinates.
@@ -178,7 +167,6 @@ func VNNormalizedRectForImageRectUsingRegionOfInterest(imageRect corefoundation.
 	return _vNNormalizedRectForImageRectUsingRegionOfInterest(imageRect, imageWidth, imageHeight, roi)
 }
 
-
 var _vNNormalizedRectIsIdentityRect func(normalizedRect corefoundation.CGRect) bool
 
 // VNNormalizedRectIsIdentityRect returns a Boolean value that indicates whether the rectangle has an origin of zero and unit length and width.
@@ -190,8 +178,6 @@ func VNNormalizedRectIsIdentityRect(normalizedRect corefoundation.CGRect) bool {
 	}
 	return _vNNormalizedRectIsIdentityRect(normalizedRect)
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -210,5 +196,4 @@ func init() {
 		registerFunc(&_vNNormalizedRectForImageRectUsingRegionOfInterest, frameworkHandle, "VNNormalizedRectForImageRectUsingRegionOfInterest")
 		registerFunc(&_vNNormalizedRectIsIdentityRect, frameworkHandle, "VNNormalizedRectIsIdentityRect")
 	}
-
 

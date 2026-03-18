@@ -36,12 +36,6 @@ func (mc MTLStageInputOutputDescriptorClass) Alloc() MTLStageInputOutputDescript
 	return rv
 }
 
-
-
-
-
-
-
 // A description of the input and output data of a function.
 //
 // # Describing argument layouts
@@ -69,14 +63,10 @@ type MTLStageInputOutputDescriptor struct {
 //
 // A description of the input and output data of a function.
 func MTLStageInputOutputDescriptorFromID(id objc.ID) MTLStageInputOutputDescriptor {
-	return MTLStageInputOutputDescriptor{objectivec.Object{id}}
+	return MTLStageInputOutputDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLStageInputOutputDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLStageInputOutputDescriptor] class.
 //
@@ -122,10 +112,6 @@ type IMTLStageInputOutputDescriptor interface {
 	Reset()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MTLStageInputOutputDescriptor) Init() MTLStageInputOutputDescriptor {
 	rv := objc.Send[MTLStageInputOutputDescriptor](s.ID, objc.Sel("init"))
@@ -145,15 +131,6 @@ func NewMTLStageInputOutputDescriptor() MTLStageInputOutputDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Resets the default state for the descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStageInputOutputDescriptor/reset()
@@ -161,22 +138,11 @@ func (s MTLStageInputOutputDescriptor) Reset() {
 	objc.Send[objc.ID](s.ID, objc.Sel("reset"))
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLStageInputOutputDescriptor/stageInputOutputDescriptor
 func (_MTLStageInputOutputDescriptorClass MTLStageInputOutputDescriptorClass) StageInputOutputDescriptor() MTLStageInputOutputDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_MTLStageInputOutputDescriptorClass.class), objc.Sel("stageInputOutputDescriptor"))
 	return MTLStageInputOutputDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // An array that describes where and how to fetch data for the function.
 //
@@ -186,8 +152,6 @@ func (s MTLStageInputOutputDescriptor) Attributes() IMTLAttributeDescriptorArray
 	return MTLAttributeDescriptorArrayFromID(objc.ID(rv))
 }
 
-
-
 // An array that describes how the function fetches data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStageInputOutputDescriptor/layouts
@@ -195,8 +159,6 @@ func (s MTLStageInputOutputDescriptor) Layouts() IMTLBufferLayoutDescriptorArray
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("layouts"))
 	return MTLBufferLayoutDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // The location of the index buffer for a compute function using indexed
 // thread addressing.
@@ -210,8 +172,6 @@ func (s MTLStageInputOutputDescriptor) SetIndexBufferIndex(value uint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIndexBufferIndex:"), value)
 }
 
-
-
 // The data type of the indices stored in the index buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStageInputOutputDescriptor/indexType
@@ -222,27 +182,4 @@ func (s MTLStageInputOutputDescriptor) IndexType() MTLIndexType {
 func (s MTLStageInputOutputDescriptor) SetIndexType(value MTLIndexType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIndexType:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

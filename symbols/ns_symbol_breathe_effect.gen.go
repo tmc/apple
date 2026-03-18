@@ -35,12 +35,6 @@ func (nc NSSymbolBreatheEffectClass) Alloc() NSSymbolBreatheEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A symbol effect that applies the Breathe animation to symbol images.
 //
 // # Overview
@@ -66,10 +60,6 @@ func NSSymbolBreatheEffectFromID(id objc.ID) NSSymbolBreatheEffect {
 // Ensure NSSymbolBreatheEffect implements INSSymbolBreatheEffect.
 var _ INSSymbolBreatheEffect = NSSymbolBreatheEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolBreatheEffect] class.
 //
 // # Instance Methods
@@ -88,10 +78,6 @@ type INSSymbolBreatheEffect interface {
 	// Returns a copy of the effect that animates all layers of the symbol simultaneously.
 	EffectWithWholeSymbol() INSSymbolBreatheEffect
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSymbolBreatheEffect) Init() NSSymbolBreatheEffect {
@@ -112,15 +98,6 @@ func NewNSSymbolBreatheEffect() NSSymbolBreatheEffect {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Returns a copy of the effect that animates incrementally, by layer.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolBreatheEffect/effectWithByLayer
@@ -137,10 +114,6 @@ func (s NSSymbolBreatheEffect) EffectWithWholeSymbol() INSSymbolBreatheEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithWholeSymbol"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
-
-
-
-
 
 // Convenience initializer for a breathe effect that makes the symbol breathe
 // with no other styling.
@@ -167,25 +140,4 @@ func (_NSSymbolBreatheEffectClass NSSymbolBreatheEffectClass) Effect() NSSymbolB
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBreatheEffectClass.class), objc.Sel("effect"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

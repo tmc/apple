@@ -35,12 +35,6 @@ func (mc MTLTextureReferenceTypeClass) Alloc() MTLTextureReferenceType {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a texture.
 //
 // # Describing the texture
@@ -63,10 +57,6 @@ func MTLTextureReferenceTypeFromID(id objc.ID) MTLTextureReferenceType {
 }
 // NOTE: MTLTextureReferenceType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLTextureReferenceType] class.
 //
@@ -93,10 +83,6 @@ type IMTLTextureReferenceType interface {
 	IsDepthTexture() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t MTLTextureReferenceType) Init() MTLTextureReferenceType {
 	rv := objc.Send[MTLTextureReferenceType](t.ID, objc.Sel("init"))
@@ -116,26 +102,6 @@ func NewMTLTextureReferenceType() MTLTextureReferenceType {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The texture type of the texture.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureReferenceType/textureType
@@ -144,8 +110,6 @@ func (t MTLTextureReferenceType) TextureType() MTLTextureType {
 	return MTLTextureType(rv)
 }
 
-
-
 // The data type of the texture.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureReferenceType/textureDataType
@@ -153,8 +117,6 @@ func (t MTLTextureReferenceType) TextureDataType() MTLDataType {
 	rv := objc.Send[MTLDataType](t.ID, objc.Sel("textureDataType"))
 	return MTLDataType(rv)
 }
-
-
 
 // The texture’s read/write access to the argument.
 //
@@ -170,8 +132,6 @@ func (t MTLTextureReferenceType) Access() MTLBindingAccess {
 	return MTLBindingAccess(rv)
 }
 
-
-
 // A Boolean value that indicates whether the texture is a depth texture.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureReferenceType/isDepthTexture
@@ -179,26 +139,4 @@ func (t MTLTextureReferenceType) IsDepthTexture() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDepthTexture"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

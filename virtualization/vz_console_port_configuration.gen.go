@@ -36,12 +36,6 @@ func (vc VZConsolePortConfigurationClass) Alloc() VZConsolePortConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a console port configuration.
 //
 // # Overview
@@ -63,14 +57,10 @@ type VZConsolePortConfiguration struct {
 //
 // The base class for a console port configuration.
 func VZConsolePortConfigurationFromID(id objc.ID) VZConsolePortConfiguration {
-	return VZConsolePortConfiguration{objectivec.Object{id}}
+	return VZConsolePortConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZConsolePortConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZConsolePortConfiguration] class.
 //
@@ -89,10 +79,6 @@ type IVZConsolePortConfiguration interface {
 	Attachment() IVZSerialPortAttachment
 	SetAttachment(value IVZSerialPortAttachment)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c VZConsolePortConfiguration) Init() VZConsolePortConfiguration {
@@ -113,26 +99,6 @@ func NewVZConsolePortConfiguration() VZConsolePortConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The serial port attachment.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZConsolePortConfiguration/attachment
@@ -143,27 +109,4 @@ func (c VZConsolePortConfiguration) Attachment() IVZSerialPortAttachment {
 func (c VZConsolePortConfiguration) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAttachment:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

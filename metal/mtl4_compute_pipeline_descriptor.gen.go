@@ -35,12 +35,6 @@ func (mc MTL4ComputePipelineDescriptorClass) Alloc() MTL4ComputePipelineDescript
 	return rv
 }
 
-
-
-
-
-
-
 // Describes a compute pipeline state.
 //
 // # Instance Properties
@@ -77,10 +71,6 @@ func MTL4ComputePipelineDescriptorFromID(id objc.ID) MTL4ComputePipelineDescript
 }
 // NOTE: MTL4ComputePipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4ComputePipelineDescriptor] class.
 //
@@ -139,10 +129,6 @@ type IMTL4ComputePipelineDescriptor interface {
 	Reset()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4ComputePipelineDescriptor) Init() MTL4ComputePipelineDescriptor {
 	rv := objc.Send[MTL4ComputePipelineDescriptor](m.ID, objc.Sel("init"))
@@ -162,32 +148,12 @@ func NewMTL4ComputePipelineDescriptor() MTL4ComputePipelineDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Resets the descriptor to its default values.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputePipelineDescriptor/reset()
 func (m MTL4ComputePipelineDescriptor) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A descriptor representing the compute pipeline’s function.
 //
@@ -207,8 +173,6 @@ func (m MTL4ComputePipelineDescriptor) SetComputeFunctionDescriptor(value IMTL4F
 	objc.Send[struct{}](m.ID, objc.Sel("setComputeFunctionDescriptor:"), value)
 }
 
-
-
 // The maximum total number of threads that Metal can execute in a single
 // threadgroup for the compute function.
 //
@@ -220,8 +184,6 @@ func (m MTL4ComputePipelineDescriptor) MaxTotalThreadsPerThreadgroup() uint {
 func (m MTL4ComputePipelineDescriptor) SetMaxTotalThreadsPerThreadgroup(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTotalThreadsPerThreadgroup:"), value)
 }
-
-
 
 // The required number of threads per threadgroup for compute dispatches.
 //
@@ -244,8 +206,6 @@ func (m MTL4ComputePipelineDescriptor) SetRequiredThreadsPerThreadgroup(value MT
 	objc.Send[struct{}](m.ID, objc.Sel("setRequiredThreadsPerThreadgroup:"), value)
 }
 
-
-
 // An object that contains information about functions to link to the compute
 // pipeline.
 //
@@ -257,8 +217,6 @@ func (m MTL4ComputePipelineDescriptor) StaticLinkingDescriptor() IMTL4StaticLink
 func (m MTL4ComputePipelineDescriptor) SetStaticLinkingDescriptor(value IMTL4StaticLinkingDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStaticLinkingDescriptor:"), value)
 }
-
-
 
 // A boolean value indicating whether the compute pipeline supports linking
 // binary functions.
@@ -272,8 +230,6 @@ func (m MTL4ComputePipelineDescriptor) SetSupportBinaryLinking(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportBinaryLinking:"), value)
 }
 
-
-
 // A value indicating whether the pipeline supports Metal indirect command
 // buffers.
 //
@@ -286,8 +242,6 @@ func (m MTL4ComputePipelineDescriptor) SetSupportIndirectCommandBuffers(value MT
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportIndirectCommandBuffers:"), value)
 }
 
-
-
 // A boolean value indicating whether each dimension of the threadgroup size
 // is a multiple of its corresponding thread execution width.
 //
@@ -299,27 +253,4 @@ func (m MTL4ComputePipelineDescriptor) ThreadGroupSizeIsMultipleOfThreadExecutio
 func (m MTL4ComputePipelineDescriptor) SetThreadGroupSizeIsMultipleOfThreadExecutionWidth(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setThreadGroupSizeIsMultipleOfThreadExecutionWidth:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

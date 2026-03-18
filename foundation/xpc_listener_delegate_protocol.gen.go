@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The protocol that delegates to the XPC listener use to accept or reject new connections.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSXPCListenerDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSXPCListenerDelegateObject wraps an existing Objective-C object that conforms to the NSXPCListenerDelegate protocol.
 type NSXPCListenerDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSXPCListenerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSXPCListenerDelegateObjectFromID constructs a [NSXPCListenerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSXPCListenerDelegateObjectFromID(id objc.ID) NSXPCListenerDelegateObject {
@@ -37,9 +31,6 @@ func NSXPCListenerDelegateObjectFromID(id objc.ID) NSXPCListenerDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Accepts or rejects a new connection to the listener.
 //
@@ -66,10 +57,6 @@ func (o NSXPCListenerDelegateObject) ListenerShouldAcceptNewConnection(listener 
 	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, newConnection)
 	return rv
 	}
-
-
-
-
 
 // NSXPCListenerDelegateConfig holds optional typed callbacks for [NSXPCListenerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -132,8 +119,4 @@ func NewNSXPCListenerDelegate(config NSXPCListenerDelegateConfig) NSXPCListenerD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSXPCListenerDelegateObjectFromID(instance)
 }
-
-
-
-
 

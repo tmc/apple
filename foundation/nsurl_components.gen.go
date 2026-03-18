@@ -36,12 +36,6 @@ func (nc NSURLComponentsClass) Alloc() NSURLComponents {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that parses URLs into and constructs URLs from their constituent
 // parts.
 //
@@ -140,14 +134,10 @@ type NSURLComponents struct {
 // An object that parses URLs into and constructs URLs from their constituent
 // parts.
 func NSURLComponentsFromID(id objc.ID) NSURLComponents {
-	return NSURLComponents{objectivec.Object{id}}
+	return NSURLComponents{objectivec.Object{ID: id}}
 }
 // NOTE: NSURLComponents adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSURLComponents] class.
 //
@@ -313,10 +303,6 @@ type INSURLComponents interface {
 	RangeOfUser() NSRange
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u NSURLComponents) Init() NSURLComponents {
 	rv := objc.Send[NSURLComponents](u.ID, objc.Sel("init"))
@@ -336,11 +322,6 @@ func NewNSURLComponents() NSURLComponents {
 	return rv
 }
 
-
-
-
-
-
 // Creates a URL components object by parsing a URL in string form.
 //
 // URLString: The URL string to parse.
@@ -356,7 +337,6 @@ func NewURLComponentsWithString(URLString string) NSURLComponents {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), objc.String(URLString))
 	return NSURLComponentsFromID(rv)
 }
-
 
 // Creates a URL components instance from the provided string, optionally
 // IDNA- and percent-encoding any invalid characters.
@@ -378,7 +358,6 @@ func NewURLComponentsWithStringEncodingInvalidCharacters(URLString string, encod
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:encodingInvalidCharacters:"), objc.String(URLString), encodingInvalidCharacters)
 	return NSURLComponentsFromID(rv)
 }
-
 
 // Creates a URL components object by parsing the URL from an [NSURL] object.
 //
@@ -402,12 +381,6 @@ func NewURLComponentsWithURLResolvingAgainstBaseURL(url INSURL, resolve bool) NS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:resolvingAgainstBaseURL:"), url, resolve)
 	return NSURLComponentsFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a URL components object by parsing a URL in string form.
 //
@@ -491,10 +464,6 @@ func (u NSURLComponents) URLRelativeToURL(baseURL INSURL) INSURL {
 	return NSURLFromID(rv)
 }
 
-
-
-
-
 // Returns a URL components object by parsing a URL in string form.
 //
 // URLString: The URL string to parse.
@@ -557,13 +526,6 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithURLResolvingAgai
 	return NSURLComponentsFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A URL derived from the components object, in string form.
 //
 // # Discussion
@@ -586,8 +548,6 @@ func (u NSURLComponents) String() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("string"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A URL object derived from the components object.
 //
@@ -617,8 +577,6 @@ func (u NSURLComponents) URL() INSURL {
 	return NSURLFromID(objc.ID(rv))
 }
 
-
-
 // The fragment URL component (the part after a `#` symbol), or nil if not
 // present.
 //
@@ -636,8 +594,6 @@ func (u NSURLComponents) Fragment() string {
 func (u NSURLComponents) SetFragment(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setFragment:"), objc.String(value))
 }
-
-
 
 // The host URL subcomponent, or nil if not present.
 //
@@ -660,8 +616,6 @@ func (u NSURLComponents) SetHost(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHost:"), objc.String(value))
 }
 
-
-
 // The host subcomponent, percent-encoded.
 //
 // # Discussion
@@ -682,8 +636,6 @@ func (u NSURLComponents) SetEncodedHost(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setEncodedHost:"), objc.String(value))
 }
 
-
-
 // The password URL subcomponent, or nil if not present.
 //
 // # Discussion
@@ -701,8 +653,6 @@ func (u NSURLComponents) SetPassword(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPassword:"), objc.String(value))
 }
 
-
-
 // The path URL component, or nil if not present.
 //
 // # Discussion
@@ -718,8 +668,6 @@ func (u NSURLComponents) Path() string {
 func (u NSURLComponents) SetPath(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPath:"), objc.String(value))
 }
-
-
 
 // The port number URL component, or nil if not present.
 //
@@ -740,8 +688,6 @@ func (u NSURLComponents) SetPort(value INSNumber) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPort:"), value)
 }
 
-
-
 // The query URL component as a string, or nil if not present.
 //
 // # Discussion
@@ -758,8 +704,6 @@ func (u NSURLComponents) Query() string {
 func (u NSURLComponents) SetQuery(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setQuery:"), objc.String(value))
 }
-
-
 
 // The query URL component as an array of name/value pairs.
 //
@@ -811,8 +755,6 @@ func (u NSURLComponents) SetQueryItems(value []NSURLQueryItem) {
 	objc.Send[struct{}](u.ID, objc.Sel("setQueryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The scheme URL component, or nil if not present.
 //
 // # Discussion
@@ -832,8 +774,6 @@ func (u NSURLComponents) SetScheme(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setScheme:"), objc.String(value))
 }
 
-
-
 // The username URL subcomponent, or nil if not present.
 //
 // # Discussion
@@ -850,8 +790,6 @@ func (u NSURLComponents) User() string {
 func (u NSURLComponents) SetUser(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUser:"), objc.String(value))
 }
-
-
 
 // The fragment URL component (the part after a `#` symbol) expressed as a
 // URL-encoded string, or `nil` if not present.
@@ -874,8 +812,6 @@ func (u NSURLComponents) SetPercentEncodedFragment(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedFragment:"), objc.String(value))
 }
 
-
-
 // The host URL subcomponent expressed as a URL-encoded string, or `nil` if
 // not present.
 //
@@ -895,8 +831,6 @@ func (u NSURLComponents) PercentEncodedHost() string {
 func (u NSURLComponents) SetPercentEncodedHost(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedHost:"), objc.String(value))
 }
-
-
 
 // The password URL subcomponent expressed as a URL-encoded string, or `nil`
 // if not present.
@@ -919,8 +853,6 @@ func (u NSURLComponents) SetPercentEncodedPassword(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedPassword:"), objc.String(value))
 }
 
-
-
 // The path URL component expressed as a URL-encoded string, or `nil` if not
 // present.
 //
@@ -940,8 +872,6 @@ func (u NSURLComponents) PercentEncodedPath() string {
 func (u NSURLComponents) SetPercentEncodedPath(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedPath:"), objc.String(value))
 }
-
-
 
 // The query URL component expressed as a URL-encoded string, or `nil` if not
 // present.
@@ -964,8 +894,6 @@ func (u NSURLComponents) SetPercentEncodedQuery(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedQuery:"), objc.String(value))
 }
 
-
-
 // The username URL subcomponent expressed as a URL-encoded string, or `nil`
 // if not present.
 //
@@ -987,8 +915,6 @@ func (u NSURLComponents) SetPercentEncodedUser(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedUser:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/percentEncodedQueryItems
 func (u NSURLComponents) PercentEncodedQueryItems() []NSURLQueryItem {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("percentEncodedQueryItems"))
@@ -1000,8 +926,6 @@ func (u NSURLComponents) SetPercentEncodedQueryItems(value []NSURLQueryItem) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPercentEncodedQueryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Returns the character range of the fragment in the string returned by the
 // string property.
 //
@@ -1010,8 +934,6 @@ func (u NSURLComponents) RangeOfFragment() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfFragment"))
 	return NSRange(rv)
 }
-
-
 
 // Returns the character range of the host in the string returned by the
 // string property.
@@ -1022,8 +944,6 @@ func (u NSURLComponents) RangeOfHost() NSRange {
 	return NSRange(rv)
 }
 
-
-
 // Returns the character range of the password in the string returned by the
 // string property.
 //
@@ -1032,8 +952,6 @@ func (u NSURLComponents) RangeOfPassword() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfPassword"))
 	return NSRange(rv)
 }
-
-
 
 // Returns the character range of the path in the string returned by the
 // string property.
@@ -1044,8 +962,6 @@ func (u NSURLComponents) RangeOfPath() NSRange {
 	return NSRange(rv)
 }
 
-
-
 // Returns the character range of the port in the string returned by the
 // string property.
 //
@@ -1054,8 +970,6 @@ func (u NSURLComponents) RangeOfPort() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfPort"))
 	return NSRange(rv)
 }
-
-
 
 // Returns the character range of the query in the string returned by the
 // string property.
@@ -1066,8 +980,6 @@ func (u NSURLComponents) RangeOfQuery() NSRange {
 	return NSRange(rv)
 }
 
-
-
 // Returns the character range of the scheme in the string returned by the
 // string property.
 //
@@ -1076,8 +988,6 @@ func (u NSURLComponents) RangeOfScheme() NSRange {
 	rv := objc.Send[NSRange](u.ID, objc.Sel("rangeOfScheme"))
 	return NSRange(rv)
 }
-
-
 
 // Returns the character range of the user in the string returned by the
 // string property.
@@ -1088,33 +998,6 @@ func (u NSURLComponents) RangeOfUser() NSRange {
 	return NSRange(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

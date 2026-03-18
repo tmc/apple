@@ -36,8 +36,6 @@ type MTL4MachineLearningPipelineState interface {
 	Reflection() IMTL4MachineLearningPipelineReflection
 }
 
-
-
 // MTL4MachineLearningPipelineStateObject wraps an existing Objective-C object that conforms to the MTL4MachineLearningPipelineState protocol.
 type MTL4MachineLearningPipelineStateObject struct {
 	objectivec.Object
@@ -46,8 +44,6 @@ func (o MTL4MachineLearningPipelineStateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4MachineLearningPipelineStateObjectFromID constructs a [MTL4MachineLearningPipelineStateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4MachineLearningPipelineStateObjectFromID(id objc.ID) MTL4MachineLearningPipelineStateObject {
@@ -55,9 +51,6 @@ func MTL4MachineLearningPipelineStateObjectFromID(id objc.ID) MTL4MachineLearnin
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the device the pipeline state belongs to.
 //
@@ -110,20 +103,4 @@ func (o MTL4MachineLearningPipelineStateObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (nc NSSymbolAutomaticContentTransitionClass) Alloc() NSSymbolAutomaticConte
 	return rv
 }
 
-
-
-
-
-
-
 // A type that applies the default animation to a symbol-based image in a
 // context-sensitive manner.
 //
@@ -59,20 +53,12 @@ func NSSymbolAutomaticContentTransitionFromID(id objc.ID) NSSymbolAutomaticConte
 // Ensure NSSymbolAutomaticContentTransition implements INSSymbolAutomaticContentTransition.
 var _ INSSymbolAutomaticContentTransition = NSSymbolAutomaticContentTransition{}
 
-
-
-
-
 // An interface definition for the [NSSymbolAutomaticContentTransition] class.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolAutomaticContentTransition
 type INSSymbolAutomaticContentTransition interface {
 	INSSymbolContentTransition
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSymbolAutomaticContentTransition) Init() NSSymbolAutomaticContentTransition {
@@ -93,19 +79,6 @@ func NewNSSymbolAutomaticContentTransition() NSSymbolAutomaticContentTransition 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A transition that applies the default animation to a symbol-based image in
 // a context-sensitive manner.
 //
@@ -118,25 +91,4 @@ func (_NSSymbolAutomaticContentTransitionClass NSSymbolAutomaticContentTransitio
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolAutomaticContentTransitionClass.class), objc.Sel("transition"))
 	return NSSymbolAutomaticContentTransitionFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

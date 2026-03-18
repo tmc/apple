@@ -36,12 +36,6 @@ func (uc URLSessionTaskClass) Alloc() URLSessionTask {
 	return rv
 }
 
-
-
-
-
-
-
 // A task, like downloading a specific resource, performed in a URL session.
 //
 // # Overview
@@ -129,17 +123,13 @@ type URLSessionTask struct {
 //
 // A task, like downloading a specific resource, performed in a URL session.
 func URLSessionTaskFromID(id objc.ID) URLSessionTask {
-	return NSURLSessionTask{objectivec.Object{id}}
+	return NSURLSessionTask{objectivec.Object{ID: id}}
 }
 
 // NSURLSessionTaskFromID is an alias for [URLSessionTaskFromID] for cross-framework compatibility.
 func NSURLSessionTaskFromID(id objc.ID) URLSessionTask { return URLSessionTaskFromID(id) }
 // NOTE: URLSessionTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLSessionTask] class.
 //
@@ -262,10 +252,6 @@ type IURLSessionTask interface {
 	SetEarliestBeginDate(value INSDate)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u URLSessionTask) Init() URLSessionTask {
 	rv := objc.Send[URLSessionTask](u.ID, objc.Sel("init"))
@@ -284,15 +270,6 @@ func NewURLSessionTask() URLSessionTask {
 	rv := objc.Send[URLSessionTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Cancels the task.
 //
@@ -339,17 +316,6 @@ func (u URLSessionTask) Suspend() {
 	objc.Send[objc.ID](u.ID, objc.Sel("suspend"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The current state of the task—active, suspended, in the process of being
 // canceled, or completed.
 //
@@ -358,8 +324,6 @@ func (u URLSessionTask) State() NSURLSessionTaskState {
 	rv := objc.Send[NSURLSessionTaskState](u.ID, objc.Sel("state"))
 	return NSURLSessionTaskState(rv)
 }
-
-
 
 // The relative priority at which you’d like a host to handle the task,
 // specified as a floating point value between `0.0` (lowest priority) and
@@ -393,8 +357,6 @@ func (u URLSessionTask) SetPriority(value float32) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPriority:"), value)
 }
 
-
-
 // A representation of the overall task progress.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/progress
@@ -402,8 +364,6 @@ func (u URLSessionTask) Progress() INSProgress {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("progress"))
 	return NSProgressFromID(objc.ID(rv))
 }
-
-
 
 // The number of bytes that the task expects to receive in the response body.
 //
@@ -421,8 +381,6 @@ func (u URLSessionTask) CountOfBytesExpectedToReceive() int64 {
 	return rv
 }
 
-
-
 // The number of bytes that the task has received from the server in the
 // response body.
 //
@@ -439,8 +397,6 @@ func (u URLSessionTask) CountOfBytesReceived() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesReceived"))
 	return rv
 }
-
-
 
 // The number of bytes that the task expects to send in the request body.
 //
@@ -465,8 +421,6 @@ func (u URLSessionTask) CountOfBytesExpectedToSend() int64 {
 	return rv
 }
 
-
-
 // The number of bytes that the task has sent to the server in the request
 // body.
 //
@@ -485,8 +439,6 @@ func (u URLSessionTask) CountOfBytesSent() int64 {
 	return rv
 }
 
-
-
 // The URL request object currently being handled by the task.
 //
 // # Discussion
@@ -500,8 +452,6 @@ func (u URLSessionTask) CurrentRequest() INSURLRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("currentRequest"))
 	return NSURLRequestFromID(objc.ID(rv))
 }
-
-
 
 // The original request object passed when the task was created.
 //
@@ -517,8 +467,6 @@ func (u URLSessionTask) OriginalRequest() INSURLRequest {
 	return NSURLRequestFromID(objc.ID(rv))
 }
 
-
-
 // The server’s response to the currently active request.
 //
 // # Discussion
@@ -533,8 +481,6 @@ func (u URLSessionTask) Response() INSURLResponse {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("response"))
 	return NSURLResponseFromID(objc.ID(rv))
 }
-
-
 
 // An app-provided string value for the current task.
 //
@@ -553,8 +499,6 @@ func (u URLSessionTask) SetTaskDescription(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTaskDescription:"), objc.String(value))
 }
 
-
-
 // An identifier uniquely identifying the task within a given session.
 //
 // # Discussion
@@ -568,8 +512,6 @@ func (u URLSessionTask) TaskIdentifier() uint {
 	return rv
 }
 
-
-
 // An error object that indicates why the task failed.
 //
 // # Discussion
@@ -582,8 +524,6 @@ func (u URLSessionTask) Error() INSError {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("error"))
 	return NSErrorFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that determines whether to deliver a partial response body
 // in increments.
@@ -611,8 +551,6 @@ func (u URLSessionTask) SetPrefersIncrementalDelivery(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPrefersIncrementalDelivery:"), value)
 }
 
-
-
 // A delegate specific to the task.
 //
 // # Discussion
@@ -633,8 +571,6 @@ func (u URLSessionTask) Delegate() NSURLSessionTaskDelegate {
 func (u URLSessionTask) SetDelegate(value NSURLSessionTaskDelegate) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A best-guess upper bound on the number of bytes the client expects to
 // receive.
@@ -659,8 +595,6 @@ func (u URLSessionTask) SetCountOfBytesClientExpectsToReceive(value int64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setCountOfBytesClientExpectsToReceive:"), value)
 }
 
-
-
 // A best-guess upper bound on the number of bytes the client expects to send.
 //
 // # Discussion
@@ -683,8 +617,6 @@ func (u URLSessionTask) SetCountOfBytesClientExpectsToSend(value int64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setCountOfBytesClientExpectsToSend:"), value)
 }
 
-
-
 // The total size of the transfer cannot be determined.
 //
 // See: https://developer.apple.com/documentation/foundation/nsurlsessiontransfersizeunknown
@@ -692,8 +624,6 @@ func (u URLSessionTask) NSURLSessionTransferSizeUnknown() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSURLSessionTransferSizeUnknown"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The earliest date at which the network load should begin.
 //
@@ -716,34 +646,6 @@ func (u URLSessionTask) SetEarliestBeginDate(value INSDate) {
 	objc.Send[struct{}](u.ID, objc.Sel("setEarliestBeginDate:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

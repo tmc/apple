@@ -7,6 +7,7 @@ import (
 	"os"
 	"unsafe"
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/objc"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -40,11 +41,16 @@ var _mLAllComputeDevices func() []unsafe.Pointer
 // MLAllComputeDevices returns an array that contains all of the compute devices that are accessible.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLAllComputeDevices
-func MLAllComputeDevices() []unsafe.Pointer {
+func MLAllComputeDevices() []MLComputeDeviceProtocolObject {
 	if _mLAllComputeDevices == nil {
 		panic("CoreML: symbol MLAllComputeDevices not loaded")
 	}
-	return _mLAllComputeDevices()
+	ptrs := _mLAllComputeDevices()
+	result := make([]MLComputeDeviceProtocolObject, len(ptrs))
+	for i, p := range ptrs {
+		result[i] = MLComputeDeviceProtocolObjectFromID(objc.IDFrom(p))
+	}
+	return result
 }
 
 func init() {

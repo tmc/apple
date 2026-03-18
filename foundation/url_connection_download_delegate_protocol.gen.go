@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that delegates of a URL connection created with Newsstand Kit implement to receive data associated with a download.
 //
@@ -24,8 +22,6 @@ type NSURLConnectionDownloadDelegate interface {
 	ConnectionDidFinishDownloadingDestinationURL(connection INSURLConnection, destinationURL INSURL)
 }
 
-
-
 // NSURLConnectionDownloadDelegateObject wraps an existing Objective-C object that conforms to the NSURLConnectionDownloadDelegate protocol.
 type NSURLConnectionDownloadDelegateObject struct {
 	objectivec.Object
@@ -34,8 +30,6 @@ func (o NSURLConnectionDownloadDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLConnectionDownloadDelegateObjectFromID constructs a [NSURLConnectionDownloadDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLConnectionDownloadDelegateObjectFromID(id objc.ID) NSURLConnectionDownloadDelegateObject {
@@ -43,9 +37,6 @@ func NSURLConnectionDownloadDelegateObjectFromID(id objc.ID) NSURLConnectionDown
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sent to the delegate when the URL connection has successfully downloaded
 // the URL asset to a destination file.
@@ -213,10 +204,6 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFailWithError(connec
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)
 	}
 
-
-
-
-
 // NSURLConnectionDownloadDelegateConfig holds optional typed callbacks for [NSURLConnectionDownloadDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -304,8 +291,4 @@ func NewNSURLConnectionDownloadDelegate(config NSURLConnectionDownloadDelegateCo
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLConnectionDownloadDelegateObjectFromID(instance)
 }
-
-
-
-
 

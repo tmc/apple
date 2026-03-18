@@ -38,12 +38,6 @@ func (vc VZNetworkBlockDeviceStorageDeviceAttachmentClass) Alloc() VZNetworkBloc
 	return rv
 }
 
-
-
-
-
-
-
 // A storage device attachment backed by a Network Block Device (NBD) client.
 //
 // # Overview
@@ -117,10 +111,6 @@ func VZNetworkBlockDeviceStorageDeviceAttachmentFromID(id objc.ID) VZNetworkBloc
 // NOTE: VZNetworkBlockDeviceStorageDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZNetworkBlockDeviceStorageDeviceAttachment] class.
 //
 // # Creating network block device attachments
@@ -169,10 +159,6 @@ type IVZNetworkBlockDeviceStorageDeviceAttachment interface {
 	SetDelegate(value VZNetworkBlockDeviceStorageDeviceAttachmentDelegate)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) Init() VZNetworkBlockDeviceStorageDeviceAttachment {
 	rv := objc.Send[VZNetworkBlockDeviceStorageDeviceAttachment](n.ID, objc.Sel("init"))
@@ -192,11 +178,6 @@ func NewVZNetworkBlockDeviceStorageDeviceAttachment() VZNetworkBlockDeviceStorag
 	return rv
 }
 
-
-
-
-
-
 // Creates a new network block device (NBD) storage attachment from an NDB
 // Uniform Resource Indicator (URI) represented as a URL that you provide.
 //
@@ -213,7 +194,6 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.INS
 	}
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 }
-
 
 // Creates a new network block device storage attachment from an NBD Uniform
 // Resource Indicator (URI) represented as a URL, timeout value, and read-only
@@ -257,12 +237,6 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySyn
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Creates a new network block device (NBD) storage attachment from an NDB
 // Uniform Resource Indicator (URI) represented as a URL that you provide.
 //
@@ -270,7 +244,7 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySyn
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL foundation.INSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithURL:error:"), URL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -312,7 +286,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL founda
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:timeout:isForcedReadOnly:synchronizationMode:)
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedReadOnlySynchronizationModeError(URL foundation.INSURL, timeout float64, forcedReadOnly bool, synchronizationMode VZDiskSynchronizationMode) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithURL:timeout:forcedReadOnly:synchronizationMode:error:"), URL, timeout, forcedReadOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -321,10 +295,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedRea
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 
 }
-
-
-
-
 
 // Checks if the URL is a valid network block device URL.
 //
@@ -340,7 +310,7 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLTimeoutForcedRea
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/validate(_:)
 func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStorageDeviceAttachmentClass) ValidateURLError(URL foundation.INSURL) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_VZNetworkBlockDeviceStorageDeviceAttachmentClass.class), objc.Sel("validateURL:error:"), URL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -352,13 +322,6 @@ func (_VZNetworkBlockDeviceStorageDeviceAttachmentClass VZNetworkBlockDeviceStor
 	return rv, nil
 
 }
-
-
-
-
-
-
-
 
 // Returns a Boolean value that indicates whether the underlying disk
 // attachment network is in a read-only state.
@@ -383,8 +346,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) ForcedReadOnly() bool {
 	return rv
 }
 
-
-
 // The mode in which the NBD client synchronizes data with the NBD server.
 //
 // # Discussion
@@ -399,8 +360,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) SynchronizationMode() VZDis
 	rv := objc.Send[VZDiskSynchronizationMode](n.ID, objc.Sel("synchronizationMode"))
 	return VZDiskSynchronizationMode(rv)
 }
-
-
 
 // The timeout value in seconds for the connection between the client and
 // server.
@@ -418,8 +377,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) Timeout() float64 {
 	return rv
 }
 
-
-
 // The URL that refers to the NBD server to which the NBD client will connect.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/url
@@ -427,8 +384,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
 
 // The object that receives messages about changes to the network block device
 // attachment.
@@ -441,26 +396,4 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) Delegate() VZNetworkBlockDe
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) SetDelegate(value VZNetworkBlockDeviceStorageDeviceAttachmentDelegate) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

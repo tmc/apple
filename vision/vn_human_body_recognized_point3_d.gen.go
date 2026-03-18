@@ -5,7 +5,6 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -37,12 +36,6 @@ func (vc VNHumanBodyRecognizedPoint3DClass) Alloc() VNHumanBodyRecognizedPoint3D
 	return rv
 }
 
-
-
-
-
-
-
 // A recognized 3D point that includes a parent joint.
 //
 // # Getting the Position
@@ -67,10 +60,6 @@ func VNHumanBodyRecognizedPoint3DFromID(id objc.ID) VNHumanBodyRecognizedPoint3D
 // NOTE: VNHumanBodyRecognizedPoint3D adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNHumanBodyRecognizedPoint3D] class.
 //
 // # Getting the Position
@@ -94,13 +83,7 @@ type IVNHumanBodyRecognizedPoint3D interface {
 
 	// The parent joint in the observation.
 	ParentJoint() VNHumanBodyPose3DObservationJointName
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VNHumanBodyRecognizedPoint3D) Init() VNHumanBodyRecognizedPoint3D {
@@ -121,11 +104,6 @@ func NewVNHumanBodyRecognizedPoint3D() VNHumanBodyRecognizedPoint3D {
 	return rv
 }
 
-
-
-
-
-
 // Creates a point object with the position you specify.
 //
 // position: The three-dimensional position.
@@ -138,26 +116,6 @@ func NewHumanBodyRecognizedPoint3DWithPosition(position objectivec.IObject) VNHu
 	return VNHumanBodyRecognizedPoint3DFromID(rv)
 }
 
-
-
-
-
-
-func (h VNHumanBodyRecognizedPoint3D) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](h.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The three-dimensional position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyRecognizedPoint3D/localPosition
@@ -166,8 +124,6 @@ func (h VNHumanBodyRecognizedPoint3D) LocalPosition() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The parent joint in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyRecognizedPoint3D/parentJoint
@@ -175,29 +131,4 @@ func (h VNHumanBodyRecognizedPoint3D) ParentJoint() VNHumanBodyPose3DObservation
 	rv := objc.Send[VNHumanBodyPose3DObservationJointName](h.ID, objc.Sel("parentJoint"))
 	return VNHumanBodyPose3DObservationJointName(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

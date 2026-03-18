@@ -38,12 +38,6 @@ func (rc RunLoopClass) Alloc() RunLoop {
 	return rv
 }
 
-
-
-
-
-
-
 // The programmatic interface to objects that manage input sources.
 //
 // # Overview
@@ -101,17 +95,13 @@ type RunLoop struct {
 //
 // The programmatic interface to objects that manage input sources.
 func RunLoopFromID(id objc.ID) RunLoop {
-	return NSRunLoop{objectivec.Object{id}}
+	return NSRunLoop{objectivec.Object{ID: id}}
 }
 
 // NSRunLoopFromID is an alias for [RunLoopFromID] for cross-framework compatibility.
 func NSRunLoopFromID(id objc.ID) RunLoop { return RunLoopFromID(id) }
 // NOTE: RunLoop adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [RunLoop] class.
 //
@@ -195,10 +185,6 @@ type IRunLoop interface {
 	CancelPerformSelectorsWithTarget(target objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r RunLoop) Init() RunLoop {
 	rv := objc.Send[RunLoop](r.ID, objc.Sel("init"))
@@ -217,15 +203,6 @@ func NewRunLoop() RunLoop {
 	rv := objc.Send[RunLoop](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Performs one pass through the run loop in the specified mode and returns
 // the date at which the next timer is scheduled to fire.
@@ -447,9 +424,9 @@ func (r RunLoop) AcceptInputForModeBeforeDate(mode NSRunLoopMode, limitDate INSD
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/perform(_:)
 func (r RunLoop) PerformBlock(block VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(block)
+_block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
-		objc.Send[objc.ID](r.ID, objc.Sel("performBlock:"), _block0)
+	objc.Send[objc.ID](r.ID, objc.Sel("performBlock:"), _block0)
 }
 
 // Schedules a block that the run loop invokes when it’s running in any of
@@ -461,9 +438,9 @@ func (r RunLoop) PerformBlock(block VoidHandler) {
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/perform(inModes:block:)
 func (r RunLoop) PerformInModesBlock(modes []string, block VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(block)
+_block1, _cleanup1 := NewVoidBlock(block)
 	defer _cleanup1()
-		objc.Send[objc.ID](r.ID, objc.Sel("performInModes:block:"), modes, _block1)
+	objc.Send[objc.ID](r.ID, objc.Sel("performInModes:block:"), modes, _block1)
 }
 
 // Schedules the sending of a message on the receiver.
@@ -545,17 +522,6 @@ func (r RunLoop) CancelPerformSelectorsWithTarget(target objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("cancelPerformSelectorsWithTarget:"), target)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The receiver’s current input mode.
 //
 // # Discussion
@@ -571,12 +537,6 @@ func (r RunLoop) CurrentMode() NSRunLoopMode {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("currentMode"))
 	return NSRunLoopMode(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
 
 // Returns the run loop for the current thread.
 //
@@ -595,8 +555,6 @@ func (_RunLoopClass RunLoopClass) CurrentRunLoop() RunLoop {
 	return NSRunLoopFromID(objc.ID(rv))
 }
 
-
-
 // Returns the run loop of the main thread.
 //
 // # Return Value
@@ -608,22 +566,6 @@ func (_RunLoopClass RunLoopClass) MainRunLoop() RunLoop {
 	rv := objc.Send[objc.ID](objc.ID(_RunLoopClass.class), objc.Sel("mainRunLoop"))
 	return NSRunLoopFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // PerformBlockSync is a synchronous wrapper around [RunLoop.PerformBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -639,9 +581,4 @@ func (r RunLoop) PerformBlockSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

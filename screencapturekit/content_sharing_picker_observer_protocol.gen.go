@@ -30,8 +30,6 @@ type SCContentSharingPickerObserver interface {
 	ContentSharingPickerStartDidFailWithError(error_ foundation.INSError)
 }
 
-
-
 // SCContentSharingPickerObserverObject wraps an existing Objective-C object that conforms to the SCContentSharingPickerObserver protocol.
 type SCContentSharingPickerObserverObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o SCContentSharingPickerObserverObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // SCContentSharingPickerObserverObjectFromID constructs a [SCContentSharingPickerObserverObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func SCContentSharingPickerObserverObjectFromID(id objc.ID) SCContentSharingPickerObserverObject {
@@ -49,9 +45,6 @@ func SCContentSharingPickerObserverObjectFromID(id objc.ID) SCContentSharingPick
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the observer that a sharing picker canceled selection for a stream.
 //
@@ -92,10 +85,4 @@ func (o SCContentSharingPickerObserverObject) ContentSharingPickerStartDidFailWi
 	
 	objc.Send[struct{}](o.ID, objc.Sel("contentSharingPickerStartDidFailWithError:"), error_)
 	}
-
-
-
-
-
-
 

@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -35,12 +36,6 @@ func (nc NSIndexSetClass) Alloc() NSIndexSet {
 	rv := objc.Send[NSIndexSet](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // An immutable collection of unique integer values that represent indexes in
 // another collection.
@@ -130,14 +125,10 @@ type NSIndexSet struct {
 // An immutable collection of unique integer values that represent indexes in
 // another collection.
 func NSIndexSetFromID(id objc.ID) NSIndexSet {
-	return NSIndexSet{objectivec.Object{id}}
+	return NSIndexSet{objectivec.Object{ID: id}}
 }
 // NOTE: NSIndexSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSIndexSet] class.
 //
@@ -191,8 +182,10 @@ func NSIndexSetFromID(id objc.ID) NSIndexSet {
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet
 type INSIndexSet interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 	NSMutableCopying
+	NSSecureCoding
 
 	// Topic: Creating Index Sets
 
@@ -218,26 +211,26 @@ type INSIndexSet interface {
 	// Returns the number of indexes in the index set that are members of a given range.
 	CountOfIndexesInRange(range_ NSRange) uint
 	// Returns the index of the first object that passes the predicate Block test.
-	IndexPassingTest(predicate bool) uint
+	IndexPassingTest(predicate unsafe.Pointer) uint
 	// Returns an [NSIndexSet] containing the receiving index set’s objects that pass the Block test.
-	IndexesPassingTest(predicate bool) INSIndexSet
+	IndexesPassingTest(predicate unsafe.Pointer) INSIndexSet
 	// Returns the index of the first object that passes the predicate Block test using the specified enumeration options.
-	IndexWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) uint
+	IndexWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) uint
 	// Returns an [NSIndexSet] containing the receiving index set’s objects that pass the Block test using the specified enumeration options.
-	IndexesWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) INSIndexSet
+	IndexesWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet
 	// Returns the index of the first object in the specified range that passes the predicate Block test.
-	IndexInRangeOptionsPassingTest(range_ NSRange, opts NSEnumerationOptions, predicate bool) uint
+	IndexInRangeOptionsPassingTest(range_ NSRange, opts NSEnumerationOptions, predicate unsafe.Pointer) uint
 	// Returns an [NSIndexSet] containing the receiving index set’s objects in the specified range that pass the Block test.
-	IndexesInRangeOptionsPassingTest(range_ NSRange, opts NSEnumerationOptions, predicate bool) INSIndexSet
+	IndexesInRangeOptionsPassingTest(range_ NSRange, opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet
 
 	// Topic: Enumerating Index Set Content
 
 	// Enumerates over the ranges in the range of objects using the block
-	EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block bool)
+	EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block unsafe.Pointer)
 	// Executes a given block using each object in the index set, in the specified ranges.
-	EnumerateRangesUsingBlock(block bool)
+	EnumerateRangesUsingBlock(block unsafe.Pointer)
 	// Executes a given block using each object in the index set, in the specified ranges.
-	EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block bool)
+	EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
 
 	// Topic: Comparing Index Sets
 
@@ -259,25 +252,17 @@ type INSIndexSet interface {
 	// Returns either the closest index in the index set that is greater than a specific index or the not-found indicator.
 	IndexGreaterThanIndex(value uint) uint
 	// The index set fills an index buffer with the indexes contained both in the index set and in an index range, returning the number of indexes copied.
-	GetIndexesMaxCountInIndexRange(indexBuffer uint, bufferSize uint, range_ NSRangePointer) uint
+	GetIndexesMaxCountInIndexRange(indexBuffer unsafe.Pointer, bufferSize uint, range_ NSRangePointer) uint
 
 	// Topic: Enumerating Indexes
 
 	// Executes a given Block using each object in the index set.
-	EnumerateIndexesUsingBlock(block bool)
+	EnumerateIndexesUsingBlock(block unsafe.Pointer)
 	// Executes a given Block over the index set’s indexes, using the specified enumeration options.
-	EnumerateIndexesWithOptionsUsingBlock(opts NSEnumerationOptions, block bool)
+	EnumerateIndexesWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
 	// Executes a given Block using the indexes in the specified range, using the specified enumeration options.
-	EnumerateIndexesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block bool)
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSIndexSet
+	EnumerateIndexesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block unsafe.Pointer)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i NSIndexSet) Init() NSIndexSet {
@@ -298,11 +283,6 @@ func NewNSIndexSet() NSIndexSet {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewIndexSetWithCoder(coder INSCoder) NSIndexSet {
@@ -310,7 +290,6 @@ func NewIndexSetWithCoder(coder INSCoder) NSIndexSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSIndexSetFromID(rv)
 }
-
 
 // Initializes an allocated [NSIndexSet] object with an index.
 //
@@ -326,7 +305,6 @@ func NewIndexSetWithIndex(value uint) NSIndexSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndex:"), value)
 	return NSIndexSetFromID(rv)
 }
-
 
 // Initializes an allocated [NSIndexSet] object with an index set.
 //
@@ -346,7 +324,6 @@ func NewIndexSetWithIndexSet(indexSet INSIndexSet) NSIndexSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndexSet:"), indexSet)
 	return NSIndexSetFromID(rv)
 }
-
 
 // Initializes an allocated [NSIndexSet] object with an index range.
 //
@@ -375,12 +352,6 @@ func NewIndexSetWithIndexesInRange(range_ NSRange) NSIndexSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndexesInRange:"), range_)
 	return NSIndexSetFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes an allocated [NSIndexSet] object with an index.
 //
@@ -550,7 +521,7 @@ func (i NSIndexSet) CountOfIndexesInRange(range_ NSRange) uint {
 // The index of the first object that passes the predicate test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/index(passingTest:)
-func (i NSIndexSet) IndexPassingTest(predicate bool) uint {
+func (i NSIndexSet) IndexPassingTest(predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("indexPassingTest:"), predicate)
 	return rv
 }
@@ -578,7 +549,7 @@ func (i NSIndexSet) IndexPassingTest(predicate bool) uint {
 // passed the predicate Block test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/indexes(passingTest:)
-func (i NSIndexSet) IndexesPassingTest(predicate bool) INSIndexSet {
+func (i NSIndexSet) IndexesPassingTest(predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("indexesPassingTest:"), predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -611,7 +582,7 @@ func (i NSIndexSet) IndexesPassingTest(predicate bool) INSIndexSet {
 // The index of the first object that passes the predicate test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/index(options:passingTest:)
-func (i NSIndexSet) IndexWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) uint {
+func (i NSIndexSet) IndexWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("indexWithOptions:passingTest:"), opts, predicate)
 	return rv
 }
@@ -645,7 +616,7 @@ func (i NSIndexSet) IndexWithOptionsPassingTest(opts NSEnumerationOptions, predi
 // passed the predicate Block test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/indexes(options:passingTest:)
-func (i NSIndexSet) IndexesWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) INSIndexSet {
+func (i NSIndexSet) IndexesWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("indexesWithOptions:passingTest:"), opts, predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -680,7 +651,7 @@ func (i NSIndexSet) IndexesWithOptionsPassingTest(opts NSEnumerationOptions, pre
 // The index of the first object that passes the predicate test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/index(in:options:passingTest:)
-func (i NSIndexSet) IndexInRangeOptionsPassingTest(range_ NSRange, opts NSEnumerationOptions, predicate bool) uint {
+func (i NSIndexSet) IndexInRangeOptionsPassingTest(range_ NSRange, opts NSEnumerationOptions, predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("indexInRange:options:passingTest:"), range_, opts, predicate)
 	return rv
 }
@@ -716,7 +687,7 @@ func (i NSIndexSet) IndexInRangeOptionsPassingTest(range_ NSRange, opts NSEnumer
 // passed the predicate Block test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/indexes(in:options:passingTest:)
-func (i NSIndexSet) IndexesInRangeOptionsPassingTest(range_ NSRange, opts NSEnumerationOptions, predicate bool) INSIndexSet {
+func (i NSIndexSet) IndexesInRangeOptionsPassingTest(range_ NSRange, opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("indexesInRange:options:passingTest:"), range_, opts, predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -751,7 +722,7 @@ func (i NSIndexSet) IndexesInRangeOptionsPassingTest(range_ NSRange, opts NSEnum
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(in:options:using:)
-func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block bool) {
+func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesInRange:options:usingBlock:"), range_, opts, block)
 }
 
@@ -776,7 +747,7 @@ func (i NSIndexSet) EnumerateRangesInRangeOptionsUsingBlock(range_ NSRange, opts
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(_:)
-func (i NSIndexSet) EnumerateRangesUsingBlock(block bool) {
+func (i NSIndexSet) EnumerateRangesUsingBlock(block unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesUsingBlock:"), block)
 }
 
@@ -810,7 +781,7 @@ func (i NSIndexSet) EnumerateRangesUsingBlock(block bool) {
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerateRanges(options:using:)
-func (i NSIndexSet) EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block bool) {
+func (i NSIndexSet) EnumerateRangesWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateRangesWithOptions:usingBlock:"), opts, block)
 }
 
@@ -932,7 +903,7 @@ func (i NSIndexSet) IndexGreaterThanIndex(value uint) uint {
 // range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/getIndexes(_:maxCount:inIndexRange:)
-func (i NSIndexSet) GetIndexesMaxCountInIndexRange(indexBuffer uint, bufferSize uint, range_ NSRangePointer) uint {
+func (i NSIndexSet) GetIndexesMaxCountInIndexRange(indexBuffer unsafe.Pointer, bufferSize uint, range_ NSRangePointer) uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("getIndexes:maxCount:inIndexRange:"), indexBuffer, bufferSize, range_)
 	return rv
 }
@@ -955,7 +926,7 @@ func (i NSIndexSet) GetIndexesMaxCountInIndexRange(indexBuffer uint, bufferSize 
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerate(_:)
-func (i NSIndexSet) EnumerateIndexesUsingBlock(block bool) {
+func (i NSIndexSet) EnumerateIndexesUsingBlock(block unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateIndexesUsingBlock:"), block)
 }
 
@@ -984,7 +955,7 @@ func (i NSIndexSet) EnumerateIndexesUsingBlock(block bool) {
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerate(options:using:)
-func (i NSIndexSet) EnumerateIndexesWithOptionsUsingBlock(opts NSEnumerationOptions, block bool) {
+func (i NSIndexSet) EnumerateIndexesWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateIndexesWithOptions:usingBlock:"), opts, block)
 }
 
@@ -1015,7 +986,7 @@ func (i NSIndexSet) EnumerateIndexesWithOptionsUsingBlock(opts NSEnumerationOpti
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/enumerate(in:options:using:)
-func (i NSIndexSet) EnumerateIndexesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block bool) {
+func (i NSIndexSet) EnumerateIndexesInRangeOptionsUsingBlock(range_ NSRange, opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("enumerateIndexesInRange:options:usingBlock:"), range_, opts, block)
 }
 
@@ -1034,10 +1005,6 @@ func (i NSIndexSet) InitWithCoder(coder INSCoder) NSIndexSet {
 	rv := objc.Send[NSIndexSet](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-
-
-
 
 // Creates an empty index set.
 //
@@ -1085,13 +1052,6 @@ func (_NSIndexSetClass NSIndexSetClass) IndexSetWithIndexesInRange(range_ NSRang
 	return NSIndexSetFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The number of indexes in the index set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSet/count
@@ -1099,8 +1059,6 @@ func (i NSIndexSet) Count() uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("count"))
 	return rv
 }
-
-
 
 // The first index in the index set.
 //
@@ -1114,8 +1072,6 @@ func (i NSIndexSet) FirstIndex() uint {
 	return rv
 }
 
-
-
 // The last index in the index set.
 //
 // # Discussion
@@ -1128,42 +1084,12 @@ func (i NSIndexSet) LastIndex() uint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
 
 			// Protocol methods for NSMutableCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

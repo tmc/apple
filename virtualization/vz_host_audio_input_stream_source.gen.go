@@ -35,12 +35,6 @@ func (vc VZHostAudioInputStreamSourceClass) Alloc() VZHostAudioInputStreamSource
 	return rv
 }
 
-
-
-
-
-
-
 // The host audio input stream source that provides audio from the host
 // system’s default input device.
 //
@@ -66,20 +60,12 @@ func VZHostAudioInputStreamSourceFromID(id objc.ID) VZHostAudioInputStreamSource
 // NOTE: VZHostAudioInputStreamSource adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZHostAudioInputStreamSource] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZHostAudioInputStreamSource
 type IVZHostAudioInputStreamSource interface {
 	IVZAudioInputStreamSource
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VZHostAudioInputStreamSource) Init() VZHostAudioInputStreamSource {
@@ -99,45 +85,4 @@ func NewVZHostAudioInputStreamSource() VZHostAudioInputStreamSource {
 	rv := objc.Send[VZHostAudioInputStreamSource](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

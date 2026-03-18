@@ -37,12 +37,6 @@ func (mc MTLTextureViewDescriptorClass) Alloc() MTLTextureViewDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Instance Properties
 //
@@ -59,14 +53,10 @@ type MTLTextureViewDescriptor struct {
 
 // MTLTextureViewDescriptorFromID constructs a [MTLTextureViewDescriptor] from an objc.ID.
 func MTLTextureViewDescriptorFromID(id objc.ID) MTLTextureViewDescriptor {
-	return MTLTextureViewDescriptor{objectivec.Object{id}}
+	return MTLTextureViewDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLTextureViewDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLTextureViewDescriptor] class.
 //
@@ -98,10 +88,6 @@ type IMTLTextureViewDescriptor interface {
 	SetSliceRange(value foundation.NSRange)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t MTLTextureViewDescriptor) Init() MTLTextureViewDescriptor {
 	rv := objc.Send[MTLTextureViewDescriptor](t.ID, objc.Sel("init"))
@@ -121,26 +107,6 @@ func NewMTLTextureViewDescriptor() MTLTextureViewDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // # Discussion
 // 
@@ -154,8 +120,6 @@ func (t MTLTextureViewDescriptor) PixelFormat() MTLPixelFormat {
 func (t MTLTextureViewDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPixelFormat:"), value)
 }
-
-
 
 //
 // # Discussion
@@ -171,8 +135,6 @@ func (t MTLTextureViewDescriptor) SetSwizzle(value MTLTextureSwizzleChannels) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSwizzle:"), value)
 }
 
-
-
 //
 // # Discussion
 // 
@@ -186,8 +148,6 @@ func (t MTLTextureViewDescriptor) TextureType() MTLTextureType {
 func (t MTLTextureViewDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextureType:"), value)
 }
-
-
 
 //
 // # Discussion
@@ -203,8 +163,6 @@ func (t MTLTextureViewDescriptor) SetLevelRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLevelRange:"), value)
 }
 
-
-
 //
 // # Discussion
 // 
@@ -218,27 +176,4 @@ func (t MTLTextureViewDescriptor) SliceRange() foundation.NSRange {
 func (t MTLTextureViewDescriptor) SetSliceRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSliceRange:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

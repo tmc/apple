@@ -36,12 +36,6 @@ func (vc VZKeyboardConfigurationClass) Alloc() VZKeyboardConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a configuring a keyboard.
 //
 // # Overview
@@ -60,14 +54,10 @@ type VZKeyboardConfiguration struct {
 //
 // The base class for a configuring a keyboard.
 func VZKeyboardConfigurationFromID(id objc.ID) VZKeyboardConfiguration {
-	return VZKeyboardConfiguration{objectivec.Object{id}}
+	return VZKeyboardConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZKeyboardConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZKeyboardConfiguration] class.
 //
@@ -75,10 +65,6 @@ func VZKeyboardConfigurationFromID(id objc.ID) VZKeyboardConfiguration {
 type IVZKeyboardConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (k VZKeyboardConfiguration) Init() VZKeyboardConfiguration {
@@ -98,45 +84,4 @@ func NewVZKeyboardConfiguration() VZKeyboardConfiguration {
 	rv := objc.Send[VZKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

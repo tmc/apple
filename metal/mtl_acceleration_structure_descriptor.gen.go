@@ -36,12 +36,6 @@ func (mc MTLAccelerationStructureDescriptorClass) Alloc() MTLAccelerationStructu
 	return rv
 }
 
-
-
-
-
-
-
 // A base class for classes that define the configuration for a new
 // acceleration structure.
 //
@@ -66,14 +60,10 @@ type MTLAccelerationStructureDescriptor struct {
 // A base class for classes that define the configuration for a new
 // acceleration structure.
 func MTLAccelerationStructureDescriptorFromID(id objc.ID) MTLAccelerationStructureDescriptor {
-	return MTLAccelerationStructureDescriptor{objectivec.Object{id}}
+	return MTLAccelerationStructureDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLAccelerationStructureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLAccelerationStructureDescriptor] class.
 //
@@ -92,10 +82,6 @@ type IMTLAccelerationStructureDescriptor interface {
 	Usage() MTLAccelerationStructureUsage
 	SetUsage(value MTLAccelerationStructureUsage)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a MTLAccelerationStructureDescriptor) Init() MTLAccelerationStructureDescriptor {
@@ -116,26 +102,6 @@ func NewMTLAccelerationStructureDescriptor() MTLAccelerationStructureDescriptor 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The options that describe how you intend to use the acceleration structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureDescriptor/usage
@@ -146,27 +112,4 @@ func (a MTLAccelerationStructureDescriptor) Usage() MTLAccelerationStructureUsag
 func (a MTLAccelerationStructureDescriptor) SetUsage(value MTLAccelerationStructureUsage) {
 	objc.Send[struct{}](a.ID, objc.Sel("setUsage:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

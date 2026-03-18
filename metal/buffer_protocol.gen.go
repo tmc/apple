@@ -72,8 +72,6 @@ type MTLBuffer interface {
 	DidModifyRange(range_ foundation.NSRange)
 }
 
-
-
 // MTLBufferObject wraps an existing Objective-C object that conforms to the MTLBuffer protocol.
 type MTLBufferObject struct {
 	objectivec.Object
@@ -82,8 +80,6 @@ func (o MTLBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLBufferObjectFromID constructs a [MTLBufferObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLBufferObjectFromID(id objc.ID) MTLBufferObject {
@@ -91,9 +87,6 @@ func MTLBufferObjectFromID(id objc.ID) MTLBufferObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Creates a texture that shares its storage with the buffer.
 //
@@ -508,38 +501,7 @@ func (o MTLBufferObject) SetOwnerWithIdentity(task_id_token objectivec.IObject) 
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 func (o MTLBufferObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

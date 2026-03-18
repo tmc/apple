@@ -36,12 +36,6 @@ func (mc MTLResourceStatePassSampleBufferAttachmentDescriptorArrayClass) Alloc()
 	return rv
 }
 
-
-
-
-
-
-
 // An array of sample buffer attachments for a resource state pass.
 //
 // # Accessing a sample buffer attachment
@@ -57,14 +51,10 @@ type MTLResourceStatePassSampleBufferAttachmentDescriptorArray struct {
 //
 // An array of sample buffer attachments for a resource state pass.
 func MTLResourceStatePassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLResourceStatePassSampleBufferAttachmentDescriptorArray {
-	return MTLResourceStatePassSampleBufferAttachmentDescriptorArray{objectivec.Object{id}}
+	return MTLResourceStatePassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLResourceStatePassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLResourceStatePassSampleBufferAttachmentDescriptorArray] class.
 //
@@ -85,10 +75,6 @@ type IMTLResourceStatePassSampleBufferAttachmentDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attachment IMTLResourceStatePassSampleBufferAttachmentDescriptor, attachmentIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptorArray) Init() MTLResourceStatePassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[MTLResourceStatePassSampleBufferAttachmentDescriptorArray](r.ID, objc.Sel("init"))
@@ -107,15 +93,6 @@ func NewMTLResourceStatePassSampleBufferAttachmentDescriptorArray() MTLResourceS
 	rv := objc.Send[MTLResourceStatePassSampleBufferAttachmentDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the descriptor object for the specified sample buffer attachment.
 //
@@ -148,35 +125,4 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptorArray) ObjectAtIndex
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLResourceStatePassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

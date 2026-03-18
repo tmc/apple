@@ -35,12 +35,6 @@ func (vc VNTrackObjectRequestClass) Alloc() VNTrackObjectRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that tracks the movement of a previously
 // identified object across multiple images or video frames.
 //
@@ -75,10 +69,6 @@ func VNTrackObjectRequestFromID(id objc.ID) VNTrackObjectRequest {
 // NOTE: VNTrackObjectRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNTrackObjectRequest] class.
 //
 // # Initializing an Object Tracking Request
@@ -110,10 +100,6 @@ type IVNTrackObjectRequest interface {
 	VNTrackObjectRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t VNTrackObjectRequest) Init() VNTrackObjectRequest {
 	rv := objc.Send[VNTrackObjectRequest](t.ID, objc.Sel("init"))
@@ -133,11 +119,6 @@ func NewVNTrackObjectRequest() VNTrackObjectRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -155,7 +136,6 @@ func NewTrackObjectRequestWithCompletionHandler(completionHandler VNRequestCompl
 	return VNTrackObjectRequestFromID(rv)
 }
 
-
 // Creates a new object tracking request with a detected object observation.
 //
 // observation: A detected object observation with bounding box information.
@@ -166,7 +146,6 @@ func NewTrackObjectRequestWithDetectedObjectObservation(observation IVNDetectedO
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDetectedObjectObservation:"), observation)
 	return VNTrackObjectRequestFromID(rv)
 }
-
 
 // Creates a new object tracking request with a detected object observation.
 //
@@ -180,12 +159,6 @@ func NewTrackObjectRequestWithDetectedObjectObservationCompletionHandler(observa
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, completionHandler)
 	return VNTrackObjectRequestFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new object tracking request with a detected object observation.
 //
@@ -205,22 +178,11 @@ func (t VNTrackObjectRequest) InitWithDetectedObjectObservation(observation IVND
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequest/init(detectedObjectObservation:completionHandler:)
 func (t VNTrackObjectRequest) InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler ErrorHandler) VNTrackObjectRequest {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, _block1)
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, _block1)
 	return VNTrackObjectRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A constant for specifying revision 2 of the object tracking request.
 //
@@ -230,8 +192,6 @@ func (t VNTrackObjectRequest) VNTrackObjectRequestRevision2() int {
 	return rv
 }
 
-
-
 // A constant for specifying revision 1 of the object tracking request.
 //
 // See: https://developer.apple.com/documentation/vision/vntrackobjectrequestrevision1
@@ -239,27 +199,4 @@ func (t VNTrackObjectRequest) VNTrackObjectRequestRevision1() int {
 	rv := objc.Send[int](t.ID, objc.Sel("VNTrackObjectRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

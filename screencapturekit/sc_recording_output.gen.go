@@ -36,12 +36,6 @@ func (sc SCRecordingOutputClass) Alloc() SCRecordingOutput {
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Creating a recording output
 //
@@ -58,14 +52,10 @@ type SCRecordingOutput struct {
 
 // SCRecordingOutputFromID constructs a [SCRecordingOutput] from an objc.ID.
 func SCRecordingOutputFromID(id objc.ID) SCRecordingOutput {
-	return SCRecordingOutput{objectivec.Object{id}}
+	return SCRecordingOutput{objectivec.Object{ID: id}}
 }
 // NOTE: SCRecordingOutput adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCRecordingOutput] class.
 //
@@ -92,10 +82,6 @@ type ISCRecordingOutput interface {
 	RecordedFileSize() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r SCRecordingOutput) Init() SCRecordingOutput {
 	rv := objc.Send[SCRecordingOutput](r.ID, objc.Sel("init"))
@@ -115,11 +101,6 @@ func NewSCRecordingOutput() SCRecordingOutput {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/init(configuration:delegate:)
 func NewRecordingOutputWithConfigurationDelegate(recordingOutputConfiguration ISCRecordingOutputConfiguration, delegate SCRecordingOutputDelegate) SCRecordingOutput {
@@ -128,12 +109,6 @@ func NewRecordingOutputWithConfigurationDelegate(recordingOutputConfiguration IS
 	return SCRecordingOutputFromID(rv)
 }
 
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/init(configuration:delegate:)
 func (r SCRecordingOutput) InitWithConfigurationDelegate(recordingOutputConfiguration ISCRecordingOutputConfiguration, delegate SCRecordingOutputDelegate) SCRecordingOutput {
@@ -141,50 +116,15 @@ func (r SCRecordingOutput) InitWithConfigurationDelegate(recordingOutputConfigur
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/recordedDuration
 func (r SCRecordingOutput) RecordedDuration() objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recordedDuration"))
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/recordedFileSize
 func (r SCRecordingOutput) RecordedFileSize() int {
 	rv := objc.Send[int](r.ID, objc.Sel("recordedFileSize"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

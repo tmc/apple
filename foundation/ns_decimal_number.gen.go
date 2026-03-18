@@ -37,12 +37,6 @@ func (nc NSDecimalNumberClass) Alloc() NSDecimalNumber {
 	return rv
 }
 
-
-
-
-
-
-
 // An object for representing and performing arithmetic on base-10 numbers.
 //
 // # Overview
@@ -97,10 +91,6 @@ func NSDecimalNumberFromID(id objc.ID) NSDecimalNumber {
 }
 // NOTE: NSDecimalNumber adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDecimalNumber] class.
 //
@@ -178,10 +168,6 @@ type INSDecimalNumber interface {
 	DecimalNumberByRoundingAccordingToBehavior(behavior NSDecimalNumberBehaviors) INSDecimalNumber
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDecimalNumber) Init() NSDecimalNumber {
 	rv := objc.Send[NSDecimalNumber](d.ID, objc.Sel("init"))
@@ -201,11 +187,6 @@ func NewNSDecimalNumber() NSDecimalNumber {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(GCPoint2:)
 // point is a [gamecontroller.GCPoint2].
@@ -213,7 +194,6 @@ func NewDecimalNumberValueWithGCPoint2(point objectivec.IObject) NSDecimalNumber
 	rv := objc.Send[objc.ID](objc.ID(getNSDecimalNumberClass().class), objc.Sel("valueWithGCPoint2:"), point)
 	return NSDecimalNumberFromID(rv)
 }
-
 
 // Initializes a value object to contain the specified value, interpreted with
 // the specified Objective-C type.
@@ -245,7 +225,6 @@ func NewDecimalNumberWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSDec
 	return NSDecimalNumberFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/init(coder:)
 func NewDecimalNumberWithCoder(coder INSCoder) NSDecimalNumber {
@@ -253,7 +232,6 @@ func NewDecimalNumberWithCoder(coder INSCoder) NSDecimalNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDecimalNumberFromID(rv)
 }
-
 
 // Initializes a decimal number to represent a given decimal.
 //
@@ -273,7 +251,6 @@ func NewDecimalNumberWithDecimal(dcm NSDecimal) NSDecimalNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDecimal:"), dcm)
 	return NSDecimalNumberFromID(rv)
 }
-
 
 // Initializes a decimal number using the given mantissa, exponent, and sign.
 //
@@ -305,7 +282,6 @@ func NewDecimalNumberWithMantissaExponentIsNegative(mantissa uint64, exponent in
 	return NSDecimalNumberFromID(rv)
 }
 
-
 // Initializes a decimal number so that its value is equivalent to that in a
 // given numeric string.
 //
@@ -336,7 +312,6 @@ func NewDecimalNumberWithString(numberValue string) NSDecimalNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), objc.String(numberValue))
 	return NSDecimalNumberFromID(rv)
 }
-
 
 // Initializes a decimal number so that its value is equivalent to that in a
 // given numeric string, interpreted using a given locale.
@@ -375,12 +350,6 @@ func NewDecimalNumberWithStringLocale(numberValue string, locale objectivec.IObj
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:locale:"), objc.String(numberValue), locale)
 	return NSDecimalNumberFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a decimal number to represent a given decimal.
 //
@@ -697,10 +666,6 @@ func (d NSDecimalNumber) DecimalNumberByRoundingAccordingToBehavior(behavior NSD
 	return NSDecimalNumberFromID(rv)
 }
 
-
-
-
-
 // Creates and returns a decimal number equivalent to a given decimal
 // structure.
 //
@@ -819,17 +784,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithStringLocale(
 	return NSDecimalNumberFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A decimal number equivalent to the number 1.0.
 //
 // # Return Value
@@ -842,8 +796,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) One() NSDecimalNumber {
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
 
-
-
 // A decimal number equivalent to the number 0.0.
 //
 // # Return Value
@@ -855,8 +807,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) Zero() NSDecimalNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("zero"))
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
-
-
 
 // A decimal number that specifies no number.
 //
@@ -880,8 +830,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) NotANumber() NSDecimalNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("notANumber"))
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
-
-
 
 // The way arithmetic methods round off and handle error conditions.
 //
@@ -910,8 +858,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) SetDefaultBehavior(value NSDec
 	objc.Send[struct{}](objc.ID(_NSDecimalNumberClass.class), objc.Sel("setDefaultBehavior:"), value)
 }
 
-
-
 // Returns the largest possible value of a decimal number.
 //
 // # Return Value
@@ -924,8 +870,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) MaximumDecimalNumber() NSDecim
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
 
-
-
 // Returns the smallest possible value of a decimal number.
 //
 // # Return Value
@@ -937,29 +881,4 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) MinimumDecimalNumber() NSDecim
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("minimumDecimalNumber"))
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

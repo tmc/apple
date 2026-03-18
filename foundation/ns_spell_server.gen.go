@@ -36,12 +36,6 @@ func (nc NSSpellServerClass) Alloc() NSSpellServer {
 	return rv
 }
 
-
-
-
-
-
-
 // A server that your app uses to provide a spell checker service to other
 // apps running in the system.
 //
@@ -80,14 +74,10 @@ type NSSpellServer struct {
 // A server that your app uses to provide a spell checker service to other
 // apps running in the system.
 func NSSpellServerFromID(id objc.ID) NSSpellServer {
-	return NSSpellServer{objectivec.Object{id}}
+	return NSSpellServer{objectivec.Object{ID: id}}
 }
 // NOTE: NSSpellServer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSpellServer] class.
 //
@@ -128,10 +118,6 @@ type INSSpellServer interface {
 	IsWordInUserDictionariesCaseSensitive(word string, flag bool) bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSpellServer) Init() NSSpellServer {
 	rv := objc.Send[NSSpellServer](s.ID, objc.Sel("init"))
@@ -150,15 +136,6 @@ func NewNSSpellServer() NSSpellServer {
 	rv := objc.Send[NSSpellServer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Notifies the receiver of a language your spelling checker can check.
 //
@@ -221,17 +198,6 @@ func (s NSSpellServer) IsWordInUserDictionariesCaseSensitive(word string, flag b
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServer/delegate
@@ -242,26 +208,4 @@ func (s NSSpellServer) Delegate() NSSpellServerDelegate {
 func (s NSSpellServer) SetDelegate(value NSSpellServerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (vc VNDetectRectanglesRequestClass) Alloc() VNDetectRectanglesRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that finds projected rectangular regions in an
 // image.
 //
@@ -95,10 +89,6 @@ func VNDetectRectanglesRequestFromID(id objc.ID) VNDetectRectanglesRequest {
 // NOTE: VNDetectRectanglesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectRectanglesRequest] class.
 //
 // # Configuring Detection
@@ -151,10 +141,6 @@ type IVNDetectRectanglesRequest interface {
 	VNDetectRectanglesRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectRectanglesRequest) Init() VNDetectRectanglesRequest {
 	rv := objc.Send[VNDetectRectanglesRequest](d.ID, objc.Sel("init"))
@@ -174,11 +160,6 @@ func NewVNDetectRectanglesRequest() VNDetectRectanglesRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -195,23 +176,6 @@ func NewDetectRectanglesRequestWithCompletionHandler(completionHandler VNRequest
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectRectanglesRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A `float` specifying the minimum aspect ratio of the rectangle to detect,
 // defined as the shorter dimension over the longer dimension.
@@ -230,8 +194,6 @@ func (d VNDetectRectanglesRequest) SetMinimumAspectRatio(value VNAspectRatio) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumAspectRatio:"), value)
 }
 
-
-
 // A `float` specifying the maximum aspect ratio of the rectangle to detect,
 // defined as the shorter dimension over the longer dimension.
 //
@@ -249,8 +211,6 @@ func (d VNDetectRectanglesRequest) SetMaximumAspectRatio(value VNAspectRatio) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumAspectRatio:"), value)
 }
 
-
-
 // A float specifying the number of degrees a rectangle corner angle can
 // deviate from 90°.
 //
@@ -267,8 +227,6 @@ func (d VNDetectRectanglesRequest) QuadratureTolerance() VNDegrees {
 func (d VNDetectRectanglesRequest) SetQuadratureTolerance(value VNDegrees) {
 	objc.Send[struct{}](d.ID, objc.Sel("setQuadratureTolerance:"), value)
 }
-
-
 
 // The minimum size of a rectangle to detect, as a proportion of the smallest
 // dimension.
@@ -289,8 +247,6 @@ func (d VNDetectRectanglesRequest) SetMinimumSize(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumSize:"), value)
 }
 
-
-
 // A value specifying the minimum acceptable confidence level.
 //
 // # Discussion
@@ -310,8 +266,6 @@ func (d VNDetectRectanglesRequest) SetMinimumConfidence(value VNConfidence) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumConfidence:"), value)
 }
 
-
-
 // An integer specifying the maximum number of rectangles Vision returns.
 //
 // # Discussion
@@ -330,8 +284,6 @@ func (d VNDetectRectanglesRequest) SetMaximumObservations(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumObservations:"), value)
 }
 
-
-
 // A constant for specifying revision 1 of the rectangle detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectrectanglesrequestrevision1
@@ -339,27 +291,4 @@ func (d VNDetectRectanglesRequest) VNDetectRectanglesRequestRevision1() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectRectanglesRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

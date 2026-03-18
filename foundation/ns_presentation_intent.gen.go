@@ -36,12 +36,6 @@ func (nc NSPresentationIntentClass) Alloc() NSPresentationIntent {
 	return rv
 }
 
-
-
-
-
-
-
 // A type that contains the Markdown formatting for blocks of text, like
 // paragraphs, lists, code blocks, and parts of tables.
 //
@@ -95,14 +89,10 @@ type NSPresentationIntent struct {
 // A type that contains the Markdown formatting for blocks of text, like
 // paragraphs, lists, code blocks, and parts of tables.
 func NSPresentationIntentFromID(id objc.ID) NSPresentationIntent {
-	return NSPresentationIntent{objectivec.Object{id}}
+	return NSPresentationIntent{objectivec.Object{ID: id}}
 }
 // NOTE: NSPresentationIntent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPresentationIntent] class.
 //
@@ -137,6 +127,7 @@ func NSPresentationIntentFromID(id objc.ID) NSPresentationIntent {
 type INSPresentationIntent interface {
 	objectivec.IObject
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Getting the intent identity
 
@@ -182,10 +173,6 @@ type INSPresentationIntent interface {
 	EncodeWithCoder(coder INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPresentationIntent) Init() NSPresentationIntent {
 	rv := objc.Send[NSPresentationIntent](p.ID, objc.Sel("init"))
@@ -204,15 +191,6 @@ func NewNSPresentationIntent() NSPresentationIntent {
 	rv := objc.Send[NSPresentationIntent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a Boolean value that indicates whether the current intent is
 // equivalent to the specified intent.
@@ -254,10 +232,6 @@ func (p NSPresentationIntent) InitWithCoder(coder INSCoder) NSPresentationIntent
 func (p NSPresentationIntent) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
 
 // Creates a paragraph intent with the provided information.
 //
@@ -472,13 +446,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) TableCellIntentWithI
 	return NSPresentationIntentFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A unique identifier for the intent in the document.
 //
 // # Discussion
@@ -493,8 +460,6 @@ func (p NSPresentationIntent) Identity() int {
 	return rv
 }
 
-
-
 // The type of the intent.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/intentKind
@@ -503,8 +468,6 @@ func (p NSPresentationIntent) IntentKind() NSPresentationIntentKind {
 	return NSPresentationIntentKind(rv)
 }
 
-
-
 // The parent of the current intent.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/parentIntent
@@ -512,8 +475,6 @@ func (p NSPresentationIntent) ParentIntent() INSPresentationIntent {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("parentIntent"))
 	return NSPresentationIntentFromID(objc.ID(rv))
 }
-
-
 
 // The level of a header section.
 //
@@ -529,8 +490,6 @@ func (p NSPresentationIntent) HeaderLevel() int {
 	return rv
 }
 
-
-
 // The number for an item in an ordered list.
 //
 // # Discussion
@@ -542,8 +501,6 @@ func (p NSPresentationIntent) Ordinal() int {
 	rv := objc.Send[int](p.ID, objc.Sel("ordinal"))
 	return rv
 }
-
-
 
 // The indentation level of the intent.
 //
@@ -559,8 +516,6 @@ func (p NSPresentationIntent) IndentationLevel() int {
 	return rv
 }
 
-
-
 // The row number to which this cell belongs.
 //
 // # Discussion
@@ -574,8 +529,6 @@ func (p NSPresentationIntent) Row() int {
 	rv := objc.Send[int](p.ID, objc.Sel("row"))
 	return rv
 }
-
-
 
 // The column number to which the cell belongs.
 //
@@ -592,8 +545,6 @@ func (p NSPresentationIntent) Column() int {
 	return rv
 }
 
-
-
 // The number of columns in a table.
 //
 // # Discussion
@@ -605,8 +556,6 @@ func (p NSPresentationIntent) ColumnCount() int {
 	rv := objc.Send[int](p.ID, objc.Sel("columnCount"))
 	return rv
 }
-
-
 
 // The alignments for the columns in a table.
 //
@@ -622,8 +571,6 @@ func (p NSPresentationIntent) ColumnAlignments() []NSNumber {
 	})
 }
 
-
-
 // The language associated with the code listing.
 //
 // # Discussion
@@ -636,26 +583,9 @@ func (p NSPresentationIntent) LanguageHint() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

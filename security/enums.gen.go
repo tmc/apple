@@ -1416,9 +1416,9 @@ const (
 	CSSM_ALGID_WrapSET_OAEP CssmAlgid = 0
 	CSSM_ALGID_XORBaseAndData CssmAlgid = 0
 	CSSM_ALGID__FIRST_UNUSED CssmAlgid = 30
-	// Deprecated: use CSSM_ALGID_3DES.
+	// Deprecated.
 	CSSM_ALGID_SSL3MasterDerive CssmAlgid = 0
-	// Deprecated: use CSSM_ALGID_3DES.
+	// Deprecated.
 	CSSM_ALGID_SSL3PreMasterGen CssmAlgid = 0
 )
 
@@ -7098,11 +7098,11 @@ const (
 	ErrSecWrPerm ErrSec = 0
 	// ErrSecWrongSecVersion: The version is incorrect.
 	ErrSecWrongSecVersion ErrSec = 0
-	// Deprecated: use ErrSecACLAddFailed.
+	// Deprecated.
 	ErrSecDskFull ErrSec = 0
-	// Deprecated: use ErrSecACLAddFailed.
+	// Deprecated.
 	ErrSecInvaldCRLAuthority ErrSec = 0
-	// Deprecated: use ErrSecACLAddFailed.
+	// Deprecated.
 	ErrSecInvalidTupleCredendtials ErrSec = 0
 )
 
@@ -7533,9 +7533,9 @@ const (
 	KSecKeyVerifyRecover KSecKey = 0
 	// KSecKeyWrap: Type uint32; value is nonzero.
 	KSecKeyWrap KSecKey = 0
-	// Deprecated: use KSecKeyAlias.
+	// Deprecated.
 	KSecKeyDerive KSecKey = 0
-	// Deprecated: use KSecKeyAlias.
+	// Deprecated.
 	KSecKeyStartDate KSecKey = 0
 )
 
@@ -8442,11 +8442,11 @@ const (
 	KSecAccessControlPrivateKeyUsage SecAccessControlCreateFlags = 1073741824
 	// KSecAccessControlUserPresence: Constraint to access an item with either biometry or passcode.
 	KSecAccessControlUserPresence SecAccessControlCreateFlags = 1
-	// Deprecated: use KSecAccessControlBiometryAny.
+	// Deprecated.
 	KSecAccessControlTouchIDAny SecAccessControlCreateFlags = 2
-	// Deprecated: use KSecAccessControlBiometryCurrentSet.
+	// Deprecated.
 	KSecAccessControlTouchIDCurrentSet SecAccessControlCreateFlags = 8
-	// Deprecated: use KSecAccessControlCompanion.
+	// Deprecated.
 	KSecAccessControlWatch SecAccessControlCreateFlags = 32
 )
 

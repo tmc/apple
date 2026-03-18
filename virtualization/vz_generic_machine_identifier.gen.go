@@ -37,12 +37,6 @@ func (vc VZGenericMachineIdentifierClass) Alloc() VZGenericMachineIdentifier {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a unique identifier for a virtual machine.
 //
 // # Overview
@@ -68,14 +62,10 @@ type VZGenericMachineIdentifier struct {
 //
 // An object that represents a unique identifier for a virtual machine.
 func VZGenericMachineIdentifierFromID(id objc.ID) VZGenericMachineIdentifier {
-	return VZGenericMachineIdentifier{objectivec.Object{id}}
+	return VZGenericMachineIdentifier{objectivec.Object{ID: id}}
 }
 // NOTE: VZGenericMachineIdentifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZGenericMachineIdentifier] class.
 //
@@ -109,10 +99,6 @@ type IVZGenericMachineIdentifier interface {
 	SetMachineIdentifier(value IVZGenericMachineIdentifier)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (g VZGenericMachineIdentifier) Init() VZGenericMachineIdentifier {
 	rv := objc.Send[VZGenericMachineIdentifier](g.ID, objc.Sel("init"))
@@ -132,11 +118,6 @@ func NewVZGenericMachineIdentifier() VZGenericMachineIdentifier {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new unique identifier for a VM with the provided data.
 //
 // dataRepresentation: A data object that describes the machine identifier.
@@ -148,12 +129,6 @@ func NewGenericMachineIdentifierWithDataRepresentation(dataRepresentation founda
 	return VZGenericMachineIdentifierFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new unique identifier for a VM with the provided data.
 //
 // dataRepresentation: A data object that describes the machine identifier.
@@ -164,17 +139,6 @@ func (g VZGenericMachineIdentifier) InitWithDataRepresentation(dataRepresentatio
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An opaque data representation of the VM’s identifier.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericMachineIdentifier/dataRepresentation
@@ -182,8 +146,6 @@ func (g VZGenericMachineIdentifier) DataRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether nested virtualization is in an
 // enabled state.
@@ -197,8 +159,6 @@ func (g VZGenericMachineIdentifier) SetIsNestedVirtualizationEnabled(value bool)
 	objc.Send[struct{}](g.ID, objc.Sel("setNestedVirtualizationEnabled:"), value)
 }
 
-
-
 // A value that represents a unique identifier for the virtual machine.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzgenericplatformconfiguration/machineidentifier
@@ -209,12 +169,6 @@ func (g VZGenericMachineIdentifier) MachineIdentifier() IVZGenericMachineIdentif
 func (g VZGenericMachineIdentifier) SetMachineIdentifier(value IVZGenericMachineIdentifier) {
 	objc.Send[struct{}](g.ID, objc.Sel("setMachineIdentifier:"), value)
 }
-
-
-
-
-
-
 
 // A Boolean value that describes whether the platform configuration supports
 // nested virtualization.
@@ -227,23 +181,4 @@ func (_VZGenericMachineIdentifierClass VZGenericMachineIdentifierClass) IsNested
 func (_VZGenericMachineIdentifierClass VZGenericMachineIdentifierClass) SetIsNestedVirtualizationSupported(value bool) {
 	objc.Send[struct{}](objc.ID(_VZGenericMachineIdentifierClass.class), objc.Sel("setNestedVirtualizationSupported:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

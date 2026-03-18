@@ -36,12 +36,6 @@ func (nc NSLocalizedNumberFormatRuleClass) Alloc() NSLocalizedNumberFormatRule {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSLocalizedNumberFormatRule
 type NSLocalizedNumberFormatRule struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type NSLocalizedNumberFormatRule struct {
 
 // NSLocalizedNumberFormatRuleFromID constructs a [NSLocalizedNumberFormatRule] from an objc.ID.
 func NSLocalizedNumberFormatRuleFromID(id objc.ID) NSLocalizedNumberFormatRule {
-	return NSLocalizedNumberFormatRule{objectivec.Object{id}}
+	return NSLocalizedNumberFormatRule{objectivec.Object{ID: id}}
 }
 // NOTE: NSLocalizedNumberFormatRule adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSLocalizedNumberFormatRule] class.
 //
@@ -64,15 +54,12 @@ func NSLocalizedNumberFormatRuleFromID(id objc.ID) NSLocalizedNumberFormatRule {
 type INSLocalizedNumberFormatRule interface {
 	objectivec.IObject
 	NSCopying
+	NSSecureCoding
 
 	InitWithCoder(coder INSCoder) NSLocalizedNumberFormatRule
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (l NSLocalizedNumberFormatRule) Init() NSLocalizedNumberFormatRule {
@@ -93,15 +80,6 @@ func NewNSLocalizedNumberFormatRule() NSLocalizedNumberFormatRule {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (l NSLocalizedNumberFormatRule) InitWithCoder(coder INSCoder) NSLocalizedNumberFormatRule {
@@ -118,41 +96,15 @@ func (l NSLocalizedNumberFormatRule) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSLocalizedNumberFormatRule/automatic
 func (_NSLocalizedNumberFormatRuleClass NSLocalizedNumberFormatRuleClass) Automatic() NSLocalizedNumberFormatRule {
 	rv := objc.Send[objc.ID](objc.ID(_NSLocalizedNumberFormatRuleClass.class), objc.Sel("automatic"))
 	return NSLocalizedNumberFormatRuleFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

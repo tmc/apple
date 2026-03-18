@@ -35,12 +35,6 @@ func (nc NSSecureUnarchiveFromDataTransformerClass) Alloc() NSSecureUnarchiveFro
 	return rv
 }
 
-
-
-
-
-
-
 // A value transformer that converts data to and from classes that support
 // secure coding.
 //
@@ -86,20 +80,12 @@ func NSSecureUnarchiveFromDataTransformerFromID(id objc.ID) NSSecureUnarchiveFro
 // NOTE: NSSecureUnarchiveFromDataTransformer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSSecureUnarchiveFromDataTransformer] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSecureUnarchiveFromDataTransformer
 type INSSecureUnarchiveFromDataTransformer interface {
 	INSValueTransformer
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSecureUnarchiveFromDataTransformer) Init() NSSecureUnarchiveFromDataTransformer {
@@ -119,31 +105,6 @@ func NewNSSecureUnarchiveFromDataTransformer() NSSecureUnarchiveFromDataTransfor
 	rv := objc.Send[NSSecureUnarchiveFromDataTransformer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A list of allowed classes the top-level object in an archive must conform
 // to, for encoding and decoding.
@@ -165,24 +126,4 @@ func (_NSSecureUnarchiveFromDataTransformerClass NSSecureUnarchiveFromDataTransf
 		return objc.Class(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

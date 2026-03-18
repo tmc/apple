@@ -35,12 +35,6 @@ func (vc VZMacOSBootLoaderClass) Alloc() VZMacOSBootLoader {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that loads and configures a boot loader for running macOS on
 // Apple silicon as a guest system of your VM.
 //
@@ -65,10 +59,6 @@ func VZMacOSBootLoaderFromID(id objc.ID) VZMacOSBootLoader {
 // NOTE: VZMacOSBootLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZMacOSBootLoader] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSBootLoader
@@ -79,10 +69,6 @@ type IVZMacOSBootLoader interface {
 	Platform() IVZPlatformConfiguration
 	SetPlatform(value IVZPlatformConfiguration)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m VZMacOSBootLoader) Init() VZMacOSBootLoader {
@@ -103,27 +89,6 @@ func NewVZMacOSBootLoader() VZMacOSBootLoader {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The hardware platform to use.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/platform
@@ -134,27 +99,4 @@ func (m VZMacOSBootLoader) Platform() IVZPlatformConfiguration {
 func (m VZMacOSBootLoader) SetPlatform(value IVZPlatformConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPlatform:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (vc VNBarcodeObservationClass) Alloc() VNBarcodeObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents barcode information that an image analysis
 // request detects.
 //
@@ -88,10 +82,6 @@ func VNBarcodeObservationFromID(id objc.ID) VNBarcodeObservation {
 }
 // NOTE: VNBarcodeObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNBarcodeObservation] class.
 //
@@ -148,13 +138,7 @@ type IVNBarcodeObservation interface {
 
 	// A Boolean value that indicates whether the barcode is color inverted.
 	IsColorInverted() bool
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b VNBarcodeObservation) Init() VNBarcodeObservation {
@@ -175,11 +159,6 @@ func NewVNBarcodeObservation() VNBarcodeObservation {
 	return rv
 }
 
-
-
-
-
-
 // Creates a rectangle observation from its corner points.
 //
 // requestRevision: The rectangle detector revision number. A higher revision indicates more
@@ -198,7 +177,6 @@ func NewBarcodeObservationRectangleObservationWithRequestRevisionTopLeftBottomLe
 	rv := objc.Send[objc.ID](objc.ID(getVNBarcodeObservationClass().class), objc.Sel("rectangleObservationWithRequestRevision:topLeft:bottomLeft:bottomRight:topRight:"), requestRevision, topLeft, bottomLeft, bottomRight, topRight)
 	return VNBarcodeObservationFromID(rv)
 }
-
 
 // Creates a rectangle observation from its corner points.
 //
@@ -219,7 +197,6 @@ func NewBarcodeObservationRectangleObservationWithRequestRevisionTopLeftTopRight
 	return VNBarcodeObservationFromID(rv)
 }
 
-
 // Creates an observation with a bounding box.
 //
 // boundingBox: The observation’s bounding box, in coordinates normalized to the
@@ -231,7 +208,6 @@ func NewBarcodeObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNB
 	rv := objc.Send[objc.ID](objc.ID(getVNBarcodeObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
 	return VNBarcodeObservationFromID(rv)
 }
-
 
 // Creates an observation with a revision number and bounding box.
 //
@@ -247,26 +223,6 @@ func NewBarcodeObservationWithRequestRevisionBoundingBox(requestRevision uint, b
 	return VNBarcodeObservationFromID(rv)
 }
 
-
-
-
-
-
-func (b VNBarcodeObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](b.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A string value that represents the barcode payload.
 //
 // # Discussion
@@ -280,8 +236,6 @@ func (b VNBarcodeObservation) PayloadStringValue() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The raw data representation of the barcode’s payload.
 //
 // See: https://developer.apple.com/documentation/Vision/VNBarcodeObservation/payloadData
@@ -289,8 +243,6 @@ func (b VNBarcodeObservation) PayloadData() foundation.INSData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("payloadData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
 
 // The supplemental code decoded as a string value.
 //
@@ -300,15 +252,11 @@ func (b VNBarcodeObservation) SupplementalPayloadString() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNBarcodeObservation/supplementalPayloadData
 func (b VNBarcodeObservation) SupplementalPayloadData() foundation.INSData {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("supplementalPayloadData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
 
 // The supplemental composite type.
 //
@@ -318,8 +266,6 @@ func (b VNBarcodeObservation) SupplementalCompositeType() VNBarcodeCompositeType
 	return VNBarcodeCompositeType(rv)
 }
 
-
-
 // A Boolean value that indicates whether the barcode carries any global
 // standards data.
 //
@@ -328,8 +274,6 @@ func (b VNBarcodeObservation) IsGS1DataCarrier() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isGS1DataCarrier"))
 	return rv
 }
-
-
 
 // An object that describes the low-level details about the barcode and its
 // data.
@@ -344,8 +288,6 @@ func (b VNBarcodeObservation) BarcodeDescriptor() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The symbology of the observed barcode.
 //
 // See: https://developer.apple.com/documentation/Vision/VNBarcodeObservation/symbology
@@ -354,8 +296,6 @@ func (b VNBarcodeObservation) Symbology() VNBarcodeSymbology {
 	return VNBarcodeSymbology(foundation.NSStringFromID(rv).String())
 }
 
-
-
 // A Boolean value that indicates whether the barcode is color inverted.
 //
 // See: https://developer.apple.com/documentation/Vision/VNBarcodeObservation/isColorInverted
@@ -363,30 +303,4 @@ func (b VNBarcodeObservation) IsColorInverted() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isColorInverted"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

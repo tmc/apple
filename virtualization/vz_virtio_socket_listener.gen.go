@@ -36,12 +36,6 @@ func (vc VZVirtioSocketListenerClass) Alloc() VZVirtioSocketListener {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that listens for port-based connection requests from the guest
 // operating system.
 //
@@ -74,14 +68,10 @@ type VZVirtioSocketListener struct {
 // An object that listens for port-based connection requests from the guest
 // operating system.
 func VZVirtioSocketListenerFromID(id objc.ID) VZVirtioSocketListener {
-	return VZVirtioSocketListener{objectivec.Object{id}}
+	return VZVirtioSocketListener{objectivec.Object{ID: id}}
 }
 // NOTE: VZVirtioSocketListener adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZVirtioSocketListener] class.
 //
@@ -100,10 +90,6 @@ type IVZVirtioSocketListener interface {
 	Delegate() VZVirtioSocketListenerDelegate
 	SetDelegate(value VZVirtioSocketListenerDelegate)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioSocketListener) Init() VZVirtioSocketListener {
@@ -124,26 +110,6 @@ func NewVZVirtioSocketListener() VZVirtioSocketListener {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The custom object you use to respond to port-based connection attempts.
 //
 // # Discussion
@@ -159,26 +125,4 @@ func (v VZVirtioSocketListener) Delegate() VZVirtioSocketListenerDelegate {
 func (v VZVirtioSocketListener) SetDelegate(value VZVirtioSocketListenerDelegate) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

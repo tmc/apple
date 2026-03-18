@@ -36,12 +36,6 @@ func (nc NSEnumeratorClass) Alloc() NSEnumerator {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class whose subclasses enumerate collections of objects, such
 // as arrays and dictionaries.
 //
@@ -81,14 +75,10 @@ type NSEnumerator struct {
 // An abstract class whose subclasses enumerate collections of objects, such
 // as arrays and dictionaries.
 func NSEnumeratorFromID(id objc.ID) NSEnumerator {
-	return NSEnumerator{objectivec.Object{id}}
+	return NSEnumerator{objectivec.Object{ID: id}}
 }
 // NOTE: NSEnumerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSEnumerator] class.
 //
@@ -109,10 +99,6 @@ type INSEnumerator interface {
 	NextObject() objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e NSEnumerator) Init() NSEnumerator {
 	rv := objc.Send[NSEnumerator](e.ID, objc.Sel("init"))
@@ -131,15 +117,6 @@ func NewNSEnumerator() NSEnumerator {
 	rv := objc.Send[NSEnumerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the next object from the collection being enumerated.
 //
@@ -185,17 +162,6 @@ func (e NSEnumerator) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The array of unenumerated objects.
 //
 // # Discussion
@@ -214,30 +180,4 @@ func (e NSEnumerator) AllObjects() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNRectangleObservation] class.
@@ -37,12 +36,6 @@ func (vc VNRectangleObservationClass) Alloc() VNRectangleObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents the four vertices of a detected rectangle.
 //
 // # Accessing the Coordinates
@@ -65,10 +58,6 @@ func VNRectangleObservationFromID(id objc.ID) VNRectangleObservation {
 }
 // NOTE: VNRectangleObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNRectangleObservation] class.
 //
@@ -97,12 +86,7 @@ type IVNRectangleObservation interface {
 	// The results of a document segmentation request.
 	Results() IVNRectangleObservation
 	SetResults(value IVNRectangleObservation)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r VNRectangleObservation) Init() VNRectangleObservation {
@@ -123,11 +107,6 @@ func NewVNRectangleObservation() VNRectangleObservation {
 	return rv
 }
 
-
-
-
-
-
 // Creates an observation with a bounding box.
 //
 // boundingBox: The observation’s bounding box, in coordinates normalized to the
@@ -139,7 +118,6 @@ func NewRectangleObservationWithBoundingBox(boundingBox corefoundation.CGRect) V
 	rv := objc.Send[objc.ID](objc.ID(getVNRectangleObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
 	return VNRectangleObservationFromID(rv)
 }
-
 
 // Creates an observation with a revision number and bounding box.
 //
@@ -154,7 +132,6 @@ func NewRectangleObservationWithRequestRevisionBoundingBox(requestRevision uint,
 	rv := objc.Send[objc.ID](objc.ID(getVNRectangleObservationClass().class), objc.Sel("observationWithRequestRevision:boundingBox:"), requestRevision, boundingBox)
 	return VNRectangleObservationFromID(rv)
 }
-
 
 // Creates a rectangle observation from its corner points.
 //
@@ -175,7 +152,6 @@ func NewRectangleObservationWithRequestRevisionTopLeftBottomLeftBottomRightTopRi
 	return VNRectangleObservationFromID(rv)
 }
 
-
 // Creates a rectangle observation from its corner points.
 //
 // requestRevision: The rectangle detector revision number. A higher revision indicates more
@@ -195,26 +171,6 @@ func NewRectangleObservationWithRequestRevisionTopLeftTopRightBottomRightBottomL
 	return VNRectangleObservationFromID(rv)
 }
 
-
-
-
-
-
-func (r VNRectangleObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The coordinates of the lower-left corner of the observation bounding box.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRectangleObservation/bottomLeft
@@ -222,8 +178,6 @@ func (r VNRectangleObservation) BottomLeft() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("bottomLeft"))
 	return corefoundation.CGPoint(rv)
 }
-
-
 
 // The coordinates of the lower-right corner of the observation bounding box.
 //
@@ -233,8 +187,6 @@ func (r VNRectangleObservation) BottomRight() corefoundation.CGPoint {
 	return corefoundation.CGPoint(rv)
 }
 
-
-
 // The coordinates of the upper-left corner of the observation bounding box.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRectangleObservation/topLeft
@@ -243,8 +195,6 @@ func (r VNRectangleObservation) TopLeft() corefoundation.CGPoint {
 	return corefoundation.CGPoint(rv)
 }
 
-
-
 // The coordinates of the upper-right corner of the observation bounding box.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRectangleObservation/topRight
@@ -252,8 +202,6 @@ func (r VNRectangleObservation) TopRight() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](r.ID, objc.Sel("topRight"))
 	return corefoundation.CGPoint(rv)
 }
-
-
 
 // The results of a document segmentation request.
 //
@@ -265,30 +213,4 @@ func (r VNRectangleObservation) Results() IVNRectangleObservation {
 func (r VNRectangleObservation) SetResults(value IVNRectangleObservation) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResults:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

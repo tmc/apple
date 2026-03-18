@@ -30,8 +30,6 @@ type MTLDepthStencilState interface {
 	GpuResourceID() MTLResourceID
 }
 
-
-
 // MTLDepthStencilStateObject wraps an existing Objective-C object that conforms to the MTLDepthStencilState protocol.
 type MTLDepthStencilStateObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o MTLDepthStencilStateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLDepthStencilStateObjectFromID constructs a [MTLDepthStencilStateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLDepthStencilStateObjectFromID(id objc.ID) MTLDepthStencilStateObject {
@@ -49,9 +45,6 @@ func MTLDepthStencilStateObjectFromID(id objc.ID) MTLDepthStencilStateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device from which this state object was created.
 //
@@ -80,16 +73,4 @@ func (o MTLDepthStencilStateObject) GpuResourceID() MTLResourceID {
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 

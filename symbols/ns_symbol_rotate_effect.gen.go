@@ -35,12 +35,6 @@ func (nc NSSymbolRotateEffectClass) Alloc() NSSymbolRotateEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A symbol effect that applies the Rotate animation to symbol images.
 //
 // # Overview
@@ -67,10 +61,6 @@ func NSSymbolRotateEffectFromID(id objc.ID) NSSymbolRotateEffect {
 // Ensure NSSymbolRotateEffect implements INSSymbolRotateEffect.
 var _ INSSymbolRotateEffect = NSSymbolRotateEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolRotateEffect] class.
 //
 // # Instance Methods
@@ -89,10 +79,6 @@ type INSSymbolRotateEffect interface {
 	// Returns a copy of the effect that animates all layers of the symbol simultaneously.
 	EffectWithWholeSymbol() INSSymbolRotateEffect
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSymbolRotateEffect) Init() NSSymbolRotateEffect {
@@ -113,15 +99,6 @@ func NewNSSymbolRotateEffect() NSSymbolRotateEffect {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Returns a copy of the effect that animates incrementally, by layer.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolRotateEffect/effectWithByLayer
@@ -138,10 +115,6 @@ func (s NSSymbolRotateEffect) EffectWithWholeSymbol() INSSymbolRotateEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithWholeSymbol"))
 	return NSSymbolRotateEffectFromID(rv)
 }
-
-
-
-
 
 // The default rotate effect, determined by the system.
 //
@@ -166,25 +139,4 @@ func (_NSSymbolRotateEffectClass NSSymbolRotateEffectClass) RotateCounterClockwi
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolRotateEffectClass.class), objc.Sel("rotateCounterClockwiseEffect"))
 	return NSSymbolRotateEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

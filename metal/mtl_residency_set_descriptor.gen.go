@@ -37,12 +37,6 @@ func (mc MTLResidencySetDescriptorClass) Alloc() MTLResidencySetDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration that customizes the behavior for a residency set.
 //
 // # Overview
@@ -72,14 +66,10 @@ type MTLResidencySetDescriptor struct {
 //
 // A configuration that customizes the behavior for a residency set.
 func MTLResidencySetDescriptorFromID(id objc.ID) MTLResidencySetDescriptor {
-	return MTLResidencySetDescriptor{objectivec.Object{id}}
+	return MTLResidencySetDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLResidencySetDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLResidencySetDescriptor] class.
 //
@@ -104,10 +94,6 @@ type IMTLResidencySetDescriptor interface {
 	SetInitialCapacity(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLResidencySetDescriptor) Init() MTLResidencySetDescriptor {
 	rv := objc.Send[MTLResidencySetDescriptor](r.ID, objc.Sel("init"))
@@ -127,26 +113,6 @@ func NewMTLResidencySetDescriptor() MTLResidencySetDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // An optional name that can help you identify a residency set you create with
 // the descriptor.
 //
@@ -164,8 +130,6 @@ func (r MTLResidencySetDescriptor) Label() string {
 func (r MTLResidencySetDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
 
 // The number of allocations a new residency set can store without
 // reallocating memory.
@@ -185,27 +149,4 @@ func (r MTLResidencySetDescriptor) InitialCapacity() uint {
 func (r MTLResidencySetDescriptor) SetInitialCapacity(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInitialCapacity:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

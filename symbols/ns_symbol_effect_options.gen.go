@@ -37,12 +37,6 @@ func (nc NSSymbolEffectOptionsClass) Alloc() NSSymbolEffectOptions {
 	return rv
 }
 
-
-
-
-
-
-
 // Options that configure how effects apply to symbol-based images.
 //
 // # Configuring repeating effects
@@ -66,14 +60,10 @@ type NSSymbolEffectOptions struct {
 //
 // Options that configure how effects apply to symbol-based images.
 func NSSymbolEffectOptionsFromID(id objc.ID) NSSymbolEffectOptions {
-	return NSSymbolEffectOptions{objectivec.Object{id}}
+	return NSSymbolEffectOptions{objectivec.Object{ID: id}}
 }
 // NOTE: NSSymbolEffectOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSymbolEffectOptions] class.
 //
@@ -111,10 +101,6 @@ type INSSymbolEffectOptions interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolEffectOptions) Init() NSSymbolEffectOptions {
 	rv := objc.Send[NSSymbolEffectOptions](s.ID, objc.Sel("init"))
@@ -133,15 +119,6 @@ func NewNSSymbolEffectOptions() NSSymbolEffectOptions {
 	rv := objc.Send[NSSymbolEffectOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // A set of effect options that prefers to not repeat.
 //
@@ -187,10 +164,6 @@ func (s NSSymbolEffectOptions) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // The default set of effect options.
 //
 // # Return Value
@@ -202,27 +175,4 @@ func (_NSSymbolEffectOptionsClass NSSymbolEffectOptionsClass) Options() NSSymbol
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolEffectOptionsClass.class), objc.Sel("options"))
 	return NSSymbolEffectOptionsFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

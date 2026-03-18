@@ -36,12 +36,6 @@ func (vc VZVirtioSoundDeviceStreamConfigurationClass) Alloc() VZVirtioSoundDevic
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines a Virtio sound device stream configuration.
 //
 // # Overview
@@ -61,14 +55,10 @@ type VZVirtioSoundDeviceStreamConfiguration struct {
 //
 // An object that defines a Virtio sound device stream configuration.
 func VZVirtioSoundDeviceStreamConfigurationFromID(id objc.ID) VZVirtioSoundDeviceStreamConfiguration {
-	return VZVirtioSoundDeviceStreamConfiguration{objectivec.Object{id}}
+	return VZVirtioSoundDeviceStreamConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZVirtioSoundDeviceStreamConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZVirtioSoundDeviceStreamConfiguration] class.
 //
@@ -76,10 +66,6 @@ func VZVirtioSoundDeviceStreamConfigurationFromID(id objc.ID) VZVirtioSoundDevic
 type IVZVirtioSoundDeviceStreamConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioSoundDeviceStreamConfiguration) Init() VZVirtioSoundDeviceStreamConfiguration {
@@ -99,45 +85,4 @@ func NewVZVirtioSoundDeviceStreamConfiguration() VZVirtioSoundDeviceStreamConfig
 	rv := objc.Send[VZVirtioSoundDeviceStreamConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

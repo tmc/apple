@@ -38,12 +38,6 @@ func (nc NSPredicateClass) Alloc() NSPredicate {
 	return rv
 }
 
-
-
-
-
-
-
 // A definition of logical conditions for constraining a search for a fetch or
 // for in-memory filtering.
 //
@@ -101,14 +95,10 @@ type NSPredicate struct {
 // A definition of logical conditions for constraining a search for a fetch or
 // for in-memory filtering.
 func NSPredicateFromID(id objc.ID) NSPredicate {
-	return NSPredicate{objectivec.Object{id}}
+	return NSPredicate{objectivec.Object{ID: id}}
 }
 // NOTE: NSPredicate adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPredicate] class.
 //
@@ -133,7 +123,9 @@ func NSPredicateFromID(id objc.ID) NSPredicate {
 // See: https://developer.apple.com/documentation/Foundation/NSPredicate
 type INSPredicate interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating a Predicate
 
@@ -157,15 +149,7 @@ type INSPredicate interface {
 	// Topic: Instance Methods
 
 	AllowEvaluationWithValidatorError(validator NSPredicateValidating) (bool, error)
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSPredicate
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPredicate) Init() NSPredicate {
@@ -186,11 +170,6 @@ func NewNSPredicate() NSPredicate {
 	return rv
 }
 
-
-
-
-
-
 // Creates a predicate with a metadata query string.
 //
 // queryString: A metadata query string.
@@ -208,7 +187,6 @@ func NewPredicateFromMetadataQueryString(queryString string) NSPredicate {
 	return NSPredicateFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewPredicateWithCoder(coder INSCoder) NSPredicate {
@@ -216,7 +194,6 @@ func NewPredicateWithCoder(coder INSCoder) NSPredicate {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPredicateFromID(rv)
 }
-
 
 // Creates a predicate by substituting the values in a specified array into a
 // format string and parsing the result.
@@ -244,7 +221,6 @@ func NewPredicateWithFormatArgumentArray(predicateFormat string, arguments INSAr
 	return NSPredicateFromID(rv)
 }
 
-
 // Creates a predicate by substituting the values in an argument list into a
 // format string and parsing the result.
 //
@@ -271,7 +247,6 @@ func NewPredicateWithFormatArguments(predicateFormat string, argList unsafe.Poin
 	return NSPredicateFromID(rv)
 }
 
-
 // Creates and returns a predicate that always evaluates to a specified
 // Boolean value.
 //
@@ -286,12 +261,6 @@ func NewPredicateWithValue(value bool) NSPredicate {
 	rv := objc.Send[objc.ID](objc.ID(getNSPredicateClass().class), objc.Sel("predicateWithValue:"), value)
 	return NSPredicateFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a copy of the predicate and substitutes the predicates variables
 // with specified values from a specified substitution variables dictionary.
@@ -387,7 +356,7 @@ func (p NSPredicate) AllowEvaluation() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicate/allowEvaluation(validator:)
 func (p NSPredicate) AllowEvaluationWithValidatorError(validator NSPredicateValidating) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](p.ID, objc.Sel("allowEvaluationWithValidator:error:"), validator, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -416,10 +385,6 @@ func (p NSPredicate) InitWithCoder(coder INSCoder) NSPredicate {
 	return rv
 }
 
-
-
-
-
 // Creates and returns a new predicate formed by creating a new string with a
 // specified format and parsing the result.
 //
@@ -446,13 +411,6 @@ func (_NSPredicateClass NSPredicateClass) PredicateWithFormat(predicateFormat st
 	return NSPredicateFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The predicate’s format string.
 //
 // # Discussion
@@ -475,33 +433,9 @@ func (p NSPredicate) PredicateFormat() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

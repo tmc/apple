@@ -14,7 +14,6 @@ const (
 	VMNET_INTERFACE_PACKETS_AVAILABLE Interface_event_t = 1
 )
 
-
 func (e Interface_event_t) String() string {
 	switch e {
 	case VMNET_INTERFACE_PACKETS_AVAILABLE:
@@ -24,25 +23,15 @@ func (e Interface_event_t) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/vmnet/operating_modes_t
 type Operating_modes_t int
 
 const (
 )
 
-
-
-
 // See: https://developer.apple.com/documentation/vmnet/vmnet_return_t
 type Vmnet_return_t int
 
 const (
 )
-
-
-
-
-
 

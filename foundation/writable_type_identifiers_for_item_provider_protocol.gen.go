@@ -14,8 +14,6 @@ type writableTypeIdentifiersForItemProvider interface {
 	objectivec.IObject
 }
 
-
-
 // writableTypeIdentifiersForItemProviderObject wraps an existing Objective-C object that conforms to the writableTypeIdentifiersForItemProvider protocol.
 type writableTypeIdentifiersForItemProviderObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o writableTypeIdentifiersForItemProviderObject) BaseObject() objectivec.Ob
 	return o.Object
 }
 
-
-
 // writableTypeIdentifiersForItemProviderObjectFromID constructs a [writableTypeIdentifiersForItemProviderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func writableTypeIdentifiersForItemProviderObjectFromID(id objc.ID) writableTypeIdentifiersForItemProviderObject {
@@ -33,13 +29,4 @@ func writableTypeIdentifiersForItemProviderObjectFromID(id objc.ID) writableType
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

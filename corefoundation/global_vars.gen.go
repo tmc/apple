@@ -8,733 +8,1393 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-var AllocatorDefault CFAllocatorRef
-
-var AllocatorMalloc CFAllocatorRef
-
-var AllocatorMallocZone CFAllocatorRef
-
-var AllocatorNull CFAllocatorRef
-
-var AllocatorSystemDefault CFAllocatorRef
-
-var AllocatorUseContext CFAllocatorRef
-
-var BanglaCalendar CFCalendarIdentifier
-
-var BooleanFalse CFBooleanRef
-
-var BooleanTrue CFBooleanRef
-
-var BuddhistCalendar CFCalendarIdentifier
-
-var BundleDevelopmentRegionKey string
-
-var BundleExecutableKey string
-
-var BundleIdentifierKey string
-
-var BundleInfoDictionaryVersionKey string
-
-var BundleLocalizationsKey string
-
-var BundleNameKey string
-
-var BundleVersionKey string
-
-var ChineseCalendar CFCalendarIdentifier
-
-var DangiCalendar CFCalendarIdentifier
-
-var DateFormatterAMSymbol CFDateFormatterKey
-
-var DateFormatterCalendar CFDateFormatterKey
-
-var DateFormatterCalendarName CFDateFormatterKey
-
-var DateFormatterDefaultDate CFDateFormatterKey
-
-var DateFormatterDefaultFormat CFDateFormatterKey
-
-var DateFormatterDoesRelativeDateFormattingKey CFDateFormatterKey
-
-var DateFormatterEraSymbols CFDateFormatterKey
-
-var DateFormatterGregorianStartDate CFDateFormatterKey
-
-var DateFormatterIsLenient CFDateFormatterKey
-
-var DateFormatterLongEraSymbols CFDateFormatterKey
-
-var DateFormatterMonthSymbols CFDateFormatterKey
-
-var DateFormatterPMSymbol CFDateFormatterKey
-
-var DateFormatterQuarterSymbols CFDateFormatterKey
-
-var DateFormatterShortMonthSymbols CFDateFormatterKey
-
-var DateFormatterShortQuarterSymbols CFDateFormatterKey
-
-var DateFormatterShortStandaloneMonthSymbols CFDateFormatterKey
-
-var DateFormatterShortStandaloneQuarterSymbols CFDateFormatterKey
-
-var DateFormatterShortStandaloneWeekdaySymbols CFDateFormatterKey
-
-var DateFormatterShortWeekdaySymbols CFDateFormatterKey
-
-var DateFormatterStandaloneMonthSymbols CFDateFormatterKey
-
-var DateFormatterStandaloneQuarterSymbols CFDateFormatterKey
-
-var DateFormatterStandaloneWeekdaySymbols CFDateFormatterKey
-
-var DateFormatterTimeZone CFDateFormatterKey
-
-var DateFormatterTwoDigitStartDate CFDateFormatterKey
-
-var DateFormatterVeryShortMonthSymbols CFDateFormatterKey
-
-var DateFormatterVeryShortStandaloneMonthSymbols CFDateFormatterKey
-
-var DateFormatterVeryShortStandaloneWeekdaySymbols CFDateFormatterKey
-
-var DateFormatterVeryShortWeekdaySymbols CFDateFormatterKey
-
-var DateFormatterWeekdaySymbols CFDateFormatterKey
-
-var ErrorDescriptionKey string
-
-var ErrorDomainCocoa CFErrorDomain
-
-var ErrorDomainMach CFErrorDomain
-
-var ErrorDomainOSStatus CFErrorDomain
-
-var ErrorDomainPOSIX CFErrorDomain
-
-var ErrorFilePathKey string
-
-var ErrorLocalizedDescriptionKey string
-
-var ErrorLocalizedFailureKey string
-
-var ErrorLocalizedFailureReasonKey string
-
-var ErrorLocalizedRecoverySuggestionKey string
-
-var ErrorURLKey string
-
-var ErrorUnderlyingErrorKey string
-
-var GregorianCalendar CFCalendarIdentifier
-
-var GujaratiCalendar CFCalendarIdentifier
-
-var HebrewCalendar CFCalendarIdentifier
-
-var ISO8601Calendar CFCalendarIdentifier
-
-var IndianCalendar CFCalendarIdentifier
-
-var IslamicCalendar CFCalendarIdentifier
-
-var IslamicCivilCalendar CFCalendarIdentifier
-
-var IslamicTabularCalendar CFCalendarIdentifier
-
-var IslamicUmmAlQuraCalendar CFCalendarIdentifier
-
-var JapaneseCalendar CFCalendarIdentifier
-
-var KannadaCalendar CFCalendarIdentifier
-
-var LocaleAlternateQuotationBeginDelimiterKey CFLocaleKey
-
-var LocaleAlternateQuotationEndDelimiterKey CFLocaleKey
-
-var LocaleCalendar CFLocaleKey
-
-var LocaleCalendarIdentifier CFLocaleKey
-
-var LocaleCollationIdentifier CFLocaleKey
-
-var LocaleCollatorIdentifier CFLocaleKey
-
-var LocaleCountryCode CFLocaleKey
-
-var LocaleCurrencyCode CFLocaleKey
-
-var LocaleCurrencySymbol CFLocaleKey
-
-var LocaleCurrentLocaleDidChangeNotification CFNotificationName
-
-var LocaleDecimalSeparator CFLocaleKey
-
-var LocaleExemplarCharacterSet CFLocaleKey
-
-var LocaleGroupingSeparator CFLocaleKey
-
-var LocaleIdentifier CFLocaleKey
-
-var LocaleLanguageCode CFLocaleKey
-
-var LocaleMeasurementSystem CFLocaleKey
-
-var LocaleQuotationBeginDelimiterKey CFLocaleKey
-
-var LocaleQuotationEndDelimiterKey CFLocaleKey
-
-var LocaleScriptCode CFLocaleKey
-
-var LocaleUsesMetricSystem CFLocaleKey
-
-var LocaleVariantCode CFLocaleKey
-
-var MalayalamCalendar CFCalendarIdentifier
-
-var MarathiCalendar CFCalendarIdentifier
-
-var Null CFNullRef
-
-var NumberFormatterAlwaysShowDecimalSeparator CFNumberFormatterKey
-
-var NumberFormatterCurrencyCode CFNumberFormatterKey
-
-var NumberFormatterCurrencyDecimalSeparator CFNumberFormatterKey
-
-var NumberFormatterCurrencyGroupingSeparator CFNumberFormatterKey
-
-var NumberFormatterCurrencySymbol CFNumberFormatterKey
-
-var NumberFormatterDecimalSeparator CFNumberFormatterKey
-
-var NumberFormatterDefaultFormat CFNumberFormatterKey
-
-var NumberFormatterExponentSymbol CFNumberFormatterKey
-
-var NumberFormatterFormatWidth CFNumberFormatterKey
-
-var NumberFormatterGroupingSeparator CFNumberFormatterKey
-
-var NumberFormatterGroupingSize CFNumberFormatterKey
-
-var NumberFormatterInfinitySymbol CFNumberFormatterKey
-
-var NumberFormatterInternationalCurrencySymbol CFNumberFormatterKey
-
-var NumberFormatterIsLenient CFNumberFormatterKey
-
-var NumberFormatterMaxFractionDigits CFNumberFormatterKey
-
-var NumberFormatterMaxIntegerDigits CFNumberFormatterKey
-
-var NumberFormatterMaxSignificantDigits CFNumberFormatterKey
-
-var NumberFormatterMinFractionDigits CFNumberFormatterKey
-
-var NumberFormatterMinGroupingDigits CFNumberFormatterKey
-
-var NumberFormatterMinIntegerDigits CFNumberFormatterKey
-
-var NumberFormatterMinSignificantDigits CFNumberFormatterKey
-
-var NumberFormatterMinusSign CFNumberFormatterKey
-
-var NumberFormatterMultiplier CFNumberFormatterKey
-
-var NumberFormatterNaNSymbol CFNumberFormatterKey
-
-var NumberFormatterNegativePrefix CFNumberFormatterKey
-
-var NumberFormatterNegativeSuffix CFNumberFormatterKey
-
-var NumberFormatterPaddingCharacter CFNumberFormatterKey
-
-var NumberFormatterPaddingPosition CFNumberFormatterKey
-
-var NumberFormatterPerMillSymbol CFNumberFormatterKey
-
-var NumberFormatterPercentSymbol CFNumberFormatterKey
-
-var NumberFormatterPlusSign CFNumberFormatterKey
-
-var NumberFormatterPositivePrefix CFNumberFormatterKey
-
-var NumberFormatterPositiveSuffix CFNumberFormatterKey
-
-var NumberFormatterRoundingIncrement CFNumberFormatterKey
-
-var NumberFormatterRoundingMode CFNumberFormatterKey
-
-var NumberFormatterSecondaryGroupingSize CFNumberFormatterKey
-
-var NumberFormatterUseGroupingSeparator CFNumberFormatterKey
-
-var NumberFormatterUseSignificantDigits CFNumberFormatterKey
-
-var NumberFormatterZeroSymbol CFNumberFormatterKey
-
-var NumberNaN CFNumberRef
-
-var NumberNegativeInfinity CFNumberRef
-
-var NumberPositiveInfinity CFNumberRef
-
-var OdiaCalendar CFCalendarIdentifier
-
-var PersianCalendar CFCalendarIdentifier
-
-var PlugInDynamicRegisterFunctionKey string
-
-var PlugInDynamicRegistrationKey string
-
-var PlugInFactoriesKey string
-
-var PlugInTypesKey string
-
-var PlugInUnloadFunctionKey string
-
-var PreferencesAnyApplication string
-
-var PreferencesAnyHost string
-
-var PreferencesAnyUser string
-
-var PreferencesCurrentApplication string
-
-var PreferencesCurrentHost string
-
-var PreferencesCurrentUser string
-
-var RepublicOfChinaCalendar CFCalendarIdentifier
-
-var RunLoopCommonModes CFRunLoopMode
-
-var RunLoopDefaultMode CFRunLoopMode
-
-var SocketCommandKey string
-
-var SocketErrorKey string
-
-var SocketNameKey string
-
-var SocketRegisterCommand string
-
-var SocketResultKey string
-
-var SocketRetrieveCommand string
-
-var SocketValueKey string
-
-var StreamPropertyAppendToFile CFStreamPropertyKey
-
-var StreamPropertyDataWritten CFStreamPropertyKey
-
-var StreamPropertyFileCurrentOffset CFStreamPropertyKey
-
-var StreamPropertySOCKSPassword string
-
-var StreamPropertySOCKSProxy string
-
-var StreamPropertySOCKSProxyHost string
-
-var StreamPropertySOCKSProxyPort string
-
-var StreamPropertySOCKSUser string
-
-var StreamPropertySOCKSVersion string
-
-var StreamPropertyShouldCloseNativeSocket string
-
-var StreamPropertySocketNativeHandle CFStreamPropertyKey
-
-var StreamPropertySocketRemoteHostName CFStreamPropertyKey
-
-var StreamPropertySocketRemotePortNumber CFStreamPropertyKey
-
-var StreamPropertySocketSecurityLevel string
-
-var StreamSocketSOCKSVersion4 string
-
-var StreamSocketSOCKSVersion5 string
-
-var StreamSocketSecurityLevelNegotiatedSSL string
-
-var StreamSocketSecurityLevelNone string
-
-var StreamSocketSecurityLevelTLSv1 string
-
-var StringTransformFullwidthHalfwidth string
-
-var StringTransformHiraganaKatakana string
-
-var StringTransformLatinArabic string
-
-var StringTransformLatinCyrillic string
-
-var StringTransformLatinGreek string
-
-var StringTransformLatinHangul string
-
-var StringTransformLatinHebrew string
-
-var StringTransformLatinHiragana string
-
-var StringTransformLatinKatakana string
-
-var StringTransformLatinThai string
-
-var StringTransformMandarinLatin string
-
-var StringTransformStripCombiningMarks string
-
-var StringTransformStripDiacritics string
-
-var StringTransformToLatin string
-
-var StringTransformToUnicodeName string
-
-var StringTransformToXMLHex string
-
-var TamilCalendar CFCalendarIdentifier
-
-var TeluguCalendar CFCalendarIdentifier
-
-var TimeZoneSystemTimeZoneDidChangeNotification CFNotificationName
-
-var URLAddedToDirectoryDateKey string
-
-var URLApplicationIsScriptableKey string
-
-var URLAttributeModificationDateKey string
-
-var URLCanonicalPathKey string
-
-var URLContentAccessDateKey string
-
-var URLContentModificationDateKey string
-
-var URLCreationDateKey string
-
-var URLDirectoryEntryCountKey string
-
-var URLDocumentIdentifierKey string
-
-var URLFileAllocatedSizeKey string
-
-var URLFileContentIdentifierKey string
-
-var URLFileIdentifierKey string
-
-var URLFileResourceIdentifierKey string
-
-var URLFileResourceTypeBlockSpecial string
-
-var URLFileResourceTypeCharacterSpecial string
-
-var URLFileResourceTypeDirectory string
-
-var URLFileResourceTypeKey string
-
-var URLFileResourceTypeNamedPipe string
-
-var URLFileResourceTypeRegular string
-
-var URLFileResourceTypeSocket string
-
-var URLFileResourceTypeSymbolicLink string
-
-var URLFileResourceTypeUnknown string
-
-var URLFileSecurityKey string
-
-var URLFileSizeKey string
-
-var URLGenerationIdentifierKey string
-
-var URLHasHiddenExtensionKey string
-
-var URLIsAliasFileKey string
-
-var URLIsApplicationKey string
-
-var URLIsDirectoryKey string
-
-var URLIsExcludedFromBackupKey string
-
-var URLIsExecutableKey string
-
-var URLIsHiddenKey string
-
-var URLIsMountTriggerKey string
-
-var URLIsPackageKey string
-
-var URLIsPurgeableKey string
-
-var URLIsReadableKey string
-
-var URLIsRegularFileKey string
-
-var URLIsSparseKey string
-
-var URLIsSymbolicLinkKey string
-
-var URLIsSystemImmutableKey string
-
-var URLIsUbiquitousItemKey string
-
-var URLIsUserImmutableKey string
-
-var URLIsVolumeKey string
-
-var URLIsWritableKey string
-
-var URLKeysOfUnsetValuesKey string
-
-var URLLabelNumberKey string
-
-var URLLinkCountKey string
-
-var URLLocalizedLabelKey string
-
-var URLLocalizedNameKey string
-
-var URLLocalizedTypeDescriptionKey string
-
-var URLMayHaveExtendedAttributesKey string
-
-var URLMayShareFileContentKey string
-
-var URLNameKey string
-
-var URLParentDirectoryURLKey string
-
-var URLPathKey string
-
-var URLPreferredIOBlockSizeKey string
-
-var URLQuarantinePropertiesKey string
-
-var URLTagNamesKey string
-
-var URLTotalFileAllocatedSizeKey string
-
-var URLTotalFileSizeKey string
-
-//
-// Deprecated: Deprecated since macOS 26.2. Use NSURLContentTypeKey instead
-var URLTypeIdentifierKey string
-
-var URLUbiquitousItemDownloadingErrorKey string
-
-var URLUbiquitousItemDownloadingStatusCurrent string
-
-var URLUbiquitousItemDownloadingStatusDownloaded string
-
-var URLUbiquitousItemDownloadingStatusKey string
-
-var URLUbiquitousItemDownloadingStatusNotDownloaded string
-
-var URLUbiquitousItemHasUnresolvedConflictsKey string
-
-var URLUbiquitousItemIsDownloadingKey string
-
-var URLUbiquitousItemIsExcludedFromSyncKey string
-
-var URLUbiquitousItemIsSyncPausedKey string
-
-var URLUbiquitousItemIsUploadedKey string
-
-var URLUbiquitousItemIsUploadingKey string
-
-var URLUbiquitousItemSupportedSyncControlsKey string
-
-var URLUbiquitousItemUploadingErrorKey string
-
-var URLVolumeAvailableCapacityForImportantUsageKey string
-
-var URLVolumeAvailableCapacityForOpportunisticUsageKey string
-
-var URLVolumeAvailableCapacityKey string
-
-var URLVolumeCreationDateKey string
-
-var URLVolumeIdentifierKey string
-
-var URLVolumeIsAutomountedKey string
-
-var URLVolumeIsBrowsableKey string
-
-var URLVolumeIsEjectableKey string
-
-var URLVolumeIsEncryptedKey string
-
-var URLVolumeIsInternalKey string
-
-var URLVolumeIsJournalingKey string
-
-var URLVolumeIsLocalKey string
-
-var URLVolumeIsReadOnlyKey string
-
-var URLVolumeIsRemovableKey string
-
-var URLVolumeIsRootFileSystemKey string
-
-var URLVolumeLocalizedFormatDescriptionKey string
-
-var URLVolumeLocalizedNameKey string
-
-var URLVolumeMaximumFileSizeKey string
-
-var URLVolumeMountFromLocationKey string
-
-var URLVolumeNameKey string
-
-var URLVolumeResourceCountKey string
-
-var URLVolumeSubtypeKey string
-
-var URLVolumeSupportsAccessPermissionsKey string
-
-var URLVolumeSupportsAdvisoryFileLockingKey string
-
-var URLVolumeSupportsCasePreservedNamesKey string
-
-var URLVolumeSupportsCaseSensitiveNamesKey string
-
-var URLVolumeSupportsCompressionKey string
-
-var URLVolumeSupportsExclusiveRenamingKey string
-
-var URLVolumeSupportsExtendedSecurityKey string
-
-var URLVolumeSupportsFileCloningKey string
-
-var URLVolumeSupportsFileProtectionKey string
-
-var URLVolumeSupportsHardLinksKey string
-
-var URLVolumeSupportsImmutableFilesKey string
-
-var URLVolumeSupportsJournalingKey string
-
-var URLVolumeSupportsPersistentIDsKey string
-
-var URLVolumeSupportsRenamingKey string
-
-var URLVolumeSupportsRootDirectoryDatesKey string
-
-var URLVolumeSupportsSparseFilesKey string
-
-var URLVolumeSupportsSwapRenamingKey string
-
-var URLVolumeSupportsSymbolicLinksKey string
-
-var URLVolumeSupportsVolumeSizesKey string
-
-var URLVolumeSupportsZeroRunsKey string
-
-var URLVolumeTotalCapacityKey string
-
-var URLVolumeTypeNameKey string
-
-var URLVolumeURLForRemountingKey string
-
-var URLVolumeURLKey string
-
-var URLVolumeUUIDStringKey string
-
-var UserNotificationAlertHeaderKey string
-
-var UserNotificationAlertMessageKey string
-
-var UserNotificationAlertTopMostKey string
-
-var UserNotificationAlternateButtonTitleKey string
-
-var UserNotificationCheckBoxTitlesKey string
-
-var UserNotificationDefaultButtonTitleKey string
-
-var UserNotificationIconURLKey string
-
-var UserNotificationKeyboardTypesKey string
-
-var UserNotificationLocalizationURLKey string
-
-var UserNotificationOtherButtonTitleKey string
-
-var UserNotificationPopUpSelectionKey string
-
-var UserNotificationPopUpTitlesKey string
-
-var UserNotificationProgressIndicatorValueKey string
-
-var UserNotificationSoundURLKey string
-
-var UserNotificationTextFieldTitlesKey string
-
-var UserNotificationTextFieldValuesKey string
-
-var VietnameseCalendar CFCalendarIdentifier
-
-var VikramCalendar CFCalendarIdentifier
-
-var XMLTreeErrorDescription string
-
-var XMLTreeErrorLineNumber string
-
-var XMLTreeErrorLocation string
-
-var XMLTreeErrorStatusCode string
-
+var (
+	// KCFAllocatorDefault is this is a synonym for [NULL].
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFAllocatorDefault
+	KCFAllocatorDefault CFAllocatorRef
+	// KCFAllocatorMalloc is this allocator uses `malloc()`, `realloc()`, and `free()`.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFAllocatorMalloc
+	KCFAllocatorMalloc CFAllocatorRef
+	// KCFAllocatorMallocZone is this allocator explicitly uses the default malloc zone, returned by `malloc_default_zone()`.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFAllocatorMallocZone
+	KCFAllocatorMallocZone CFAllocatorRef
+	// KCFAllocatorNull is this allocator does nothing—it allocates no memory.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFAllocatorNull
+	KCFAllocatorNull CFAllocatorRef
+	// KCFAllocatorSystemDefault is default system allocator.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFAllocatorSystemDefault
+	KCFAllocatorSystemDefault CFAllocatorRef
+	// KCFAllocatorUseContext is special allocator argument to [CFAllocatorCreate(_:_:)]—it uses the functions given in the context to allocate the allocator.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFAllocatorUseContext
+	KCFAllocatorUseContext CFAllocatorRef
+)
+
+var (
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/banglaCalendar
+	KCFBanglaCalendar CFCalendarIdentifier
+	// KCFBuddhistCalendar is specifies the Buddhist calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/buddhistCalendar
+	KCFBuddhistCalendar CFCalendarIdentifier
+	// KCFChineseCalendar is specifies the Chinese calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/chineseCalendar
+	KCFChineseCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/dangiCalendar
+	KCFDangiCalendar CFCalendarIdentifier
+	// KCFGregorianCalendar is the name of the calendar currently supported by the [calendarName] property.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/gregorianCalendar
+	KCFGregorianCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/gujaratiCalendar
+	KCFGujaratiCalendar CFCalendarIdentifier
+	// KCFHebrewCalendar is specifies the Hebrew calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/hebrewCalendar
+	KCFHebrewCalendar CFCalendarIdentifier
+	// KCFISO8601Calendar is specifies the ISO 8601 calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/cfiso8601Calendar
+	KCFISO8601Calendar CFCalendarIdentifier
+	// KCFIndianCalendar is specifies the Indian calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/indianCalendar
+	KCFIndianCalendar CFCalendarIdentifier
+	// KCFIslamicCalendar is specifies the Islamic calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/islamicCalendar
+	KCFIslamicCalendar CFCalendarIdentifier
+	// KCFIslamicCivilCalendar is specifies the Islamic tabular calendar with Friday (civil) origin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/islamicCivilCalendar
+	KCFIslamicCivilCalendar CFCalendarIdentifier
+	// KCFIslamicTabularCalendar is specifies the Islamic tabular calendar with Thursday (astronomical) origin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/islamicTabularCalendar
+	KCFIslamicTabularCalendar CFCalendarIdentifier
+	// KCFIslamicUmmAlQuraCalendar is specifies the Islamic Umm Al Qura calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/islamicUmmAlQuraCalendar
+	KCFIslamicUmmAlQuraCalendar CFCalendarIdentifier
+	// KCFJapaneseCalendar is specifies the Japanese calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/japaneseCalendar
+	KCFJapaneseCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/kannadaCalendar
+	KCFKannadaCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/malayalamCalendar
+	KCFMalayalamCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/marathiCalendar
+	KCFMarathiCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/odiaCalendar
+	KCFOdiaCalendar CFCalendarIdentifier
+	// KCFPersianCalendar is specifies the Persian calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/persianCalendar
+	KCFPersianCalendar CFCalendarIdentifier
+	// KCFRepublicOfChinaCalendar is specifies the calendar for the Republic of China.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/republicOfChinaCalendar
+	KCFRepublicOfChinaCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/tamilCalendar
+	KCFTamilCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/teluguCalendar
+	KCFTeluguCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/vietnameseCalendar
+	KCFVietnameseCalendar CFCalendarIdentifier
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarIdentifier/vikramCalendar
+	KCFVikramCalendar CFCalendarIdentifier
+)
+
+var (
+	// KCFBooleanFalse is boolean false value.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBooleanFalse
+	KCFBooleanFalse CFBooleanRef
+	// KCFBooleanTrue is boolean true value.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBooleanTrue
+	KCFBooleanTrue CFBooleanRef
+)
+
+var (
+	// KCFBundleDevelopmentRegionKey is the name of the development language of the bundle.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBundleDevelopmentRegionKey
+	KCFBundleDevelopmentRegionKey string
+	// KCFBundleExecutableKey is the name of the executable in this bundle (if any).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBundleExecutableKey
+	KCFBundleExecutableKey string
+	// KCFBundleIdentifierKey is the bundle identifier.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBundleIdentifierKey
+	KCFBundleIdentifierKey string
+	// KCFBundleInfoDictionaryVersionKey is the version of the information property list format.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBundleInfoDictionaryVersionKey
+	KCFBundleInfoDictionaryVersionKey string
+	// KCFBundleLocalizationsKey is allows an unbundled application that handles localization itself to specify which localizations it has available.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBundleLocalizationsKey
+	KCFBundleLocalizationsKey string
+	// KCFBundleNameKey is the human-readable name of the bundle.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBundleNameKey
+	KCFBundleNameKey string
+	// KCFBundleVersionKey is the version number of the bundle.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFBundleVersionKey
+	KCFBundleVersionKey string
+	// KCFErrorDescriptionKey is key to identify the description in the `userInfo` dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorDescriptionKey
+	KCFErrorDescriptionKey string
+	// KCFErrorFilePathKey is key to identify associated file path in the `userInfo` dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorFilePathKey
+	KCFErrorFilePathKey string
+	// KCFErrorLocalizedDescriptionKey is key to identify the user-presentable description in the `userInfo` dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorLocalizedDescriptionKey
+	KCFErrorLocalizedDescriptionKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorLocalizedFailureKey
+	KCFErrorLocalizedFailureKey string
+	// KCFErrorLocalizedFailureReasonKey is key to identify the user-presentable failure reason in the `userInfo` dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorLocalizedFailureReasonKey
+	KCFErrorLocalizedFailureReasonKey string
+	// KCFErrorLocalizedRecoverySuggestionKey is key to identify the user-presentable recovery suggestion in the `userInfo` dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorLocalizedRecoverySuggestionKey
+	KCFErrorLocalizedRecoverySuggestionKey string
+	// KCFErrorURLKey is key to identify associated URL in the `userInfo` dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorURLKey
+	KCFErrorURLKey string
+	// KCFErrorUnderlyingErrorKey is key to identify the underlying error in the `userInfo` dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorUnderlyingErrorKey
+	KCFErrorUnderlyingErrorKey string
+	// KCFPlugInDynamicRegisterFunctionKey is used to specify a plug-in’s registration function.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPlugInDynamicRegisterFunctionKey
+	KCFPlugInDynamicRegisterFunctionKey string
+	// KCFPlugInDynamicRegistrationKey is indicates whether a plug-in requires dynamic registration.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPlugInDynamicRegistrationKey
+	KCFPlugInDynamicRegistrationKey string
+	// KCFPlugInFactoriesKey is used to statically register factory functions.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPlugInFactoriesKey
+	KCFPlugInFactoriesKey string
+	// KCFPlugInTypesKey is used to statically register the factories that can create each supported type.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPlugInTypesKey
+	KCFPlugInTypesKey string
+	// KCFPlugInUnloadFunctionKey is used to specify a plug-in’s unload function.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPlugInUnloadFunctionKey
+	KCFPlugInUnloadFunctionKey string
+	// KCFPreferencesAnyApplication is indicates a preference that applies to any application.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPreferencesAnyApplication
+	KCFPreferencesAnyApplication string
+	// KCFPreferencesAnyHost is indicates a preference that applies to any host.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPreferencesAnyHost
+	KCFPreferencesAnyHost string
+	// KCFPreferencesAnyUser is indicates a preference that applies to any user.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPreferencesAnyUser
+	KCFPreferencesAnyUser string
+	// KCFPreferencesCurrentApplication is indicates a preference that applies only to the current application.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPreferencesCurrentApplication
+	KCFPreferencesCurrentApplication string
+	// KCFPreferencesCurrentHost is indicates a preference that applies only to the current host.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPreferencesCurrentHost
+	KCFPreferencesCurrentHost string
+	// KCFPreferencesCurrentUser is indicates a preference that applies only to the current user.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFPreferencesCurrentUser
+	KCFPreferencesCurrentUser string
+	// KCFSocketCommandKey is not used.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFSocketCommandKey
+	KCFSocketCommandKey string
+	// KCFSocketErrorKey is not used.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFSocketErrorKey
+	KCFSocketErrorKey string
+	// KCFSocketNameKey is not used.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFSocketNameKey
+	KCFSocketNameKey string
+	// KCFSocketRegisterCommand is not used.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFSocketRegisterCommand
+	KCFSocketRegisterCommand string
+	// KCFSocketResultKey is not used.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFSocketResultKey
+	KCFSocketResultKey string
+	// KCFSocketRetrieveCommand is not used.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFSocketRetrieveCommand
+	KCFSocketRetrieveCommand string
+	// KCFSocketValueKey is not used.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFSocketValueKey
+	KCFSocketValueKey string
+	// KCFStreamPropertySOCKSPassword is constant for the key required to set a user’s password.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamPropertySOCKSPassword
+	KCFStreamPropertySOCKSPassword string
+	// KCFStreamPropertySOCKSProxy is sOCKS proxy property key.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamPropertySOCKSProxy
+	KCFStreamPropertySOCKSProxy string
+	// KCFStreamPropertySOCKSProxyHost is constant for the SOCKS proxy host key.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamPropertySOCKSProxyHost
+	KCFStreamPropertySOCKSProxyHost string
+	// KCFStreamPropertySOCKSProxyPort is constant for the SOCKS proxy host port key.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamPropertySOCKSProxyPort
+	KCFStreamPropertySOCKSProxyPort string
+	// KCFStreamPropertySOCKSUser is constant for the key required to set a user name.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamPropertySOCKSUser
+	KCFStreamPropertySOCKSUser string
+	// KCFStreamPropertySOCKSVersion is constant for the SOCKS version key.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamPropertySOCKSVersion
+	KCFStreamPropertySOCKSVersion string
+	// KCFStreamPropertyShouldCloseNativeSocket is should Close Native Socket property key.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamPropertyShouldCloseNativeSocket
+	KCFStreamPropertyShouldCloseNativeSocket string
+	// KCFStreamPropertySocketSecurityLevel is socket Security Level property key.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamPropertySocketSecurityLevel
+	KCFStreamPropertySocketSecurityLevel string
+	// KCFStreamSocketSOCKSVersion4 is constant used in the `kCFStreamSockerSOCKSVersion` key to specify SOCKS4 as the SOCKS version for the stream.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamSocketSOCKSVersion4
+	KCFStreamSocketSOCKSVersion4 string
+	// KCFStreamSocketSOCKSVersion5 is constant used in the `kCFStreamSOCKSVersion` key to specify SOCKS5 as the SOCKS version for the stream.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamSocketSOCKSVersion5
+	KCFStreamSocketSOCKSVersion5 string
+	// KCFStreamSocketSecurityLevelNegotiatedSSL is specifies that the highest level security protocol that can be negotiated be set as the security protocol for a socket stream.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamSocketSecurityLevelNegotiatedSSL
+	KCFStreamSocketSecurityLevelNegotiatedSSL string
+	// KCFStreamSocketSecurityLevelNone is specifies that no security level be set.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamSocketSecurityLevelNone
+	KCFStreamSocketSecurityLevelNone string
+	// KCFStreamSocketSecurityLevelTLSv1 is specifies that TLS version 1 be set as the security protocol for a socket stream.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStreamSocketSecurityLevelTLSv1
+	KCFStreamSocketSecurityLevelTLSv1 string
+	// KCFStringTransformFullwidthHalfwidth is the identifier of a reversible transform to convert full-width characters to their half-width equivalents.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformFullwidthHalfwidth
+	KCFStringTransformFullwidthHalfwidth string
+	// KCFStringTransformHiraganaKatakana is the identifier of a reversible transform to transliterate text to Katakana from Hiragana.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformHiraganaKatakana
+	KCFStringTransformHiraganaKatakana string
+	// KCFStringTransformLatinArabic is the identifier of a reversible transform to transliterate text to Arabic from Latin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformLatinArabic
+	KCFStringTransformLatinArabic string
+	// KCFStringTransformLatinCyrillic is the identifier of a reversible transform to transliterate text to Cyrillic from Latin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformLatinCyrillic
+	KCFStringTransformLatinCyrillic string
+	// KCFStringTransformLatinGreek is the identifier of a reversible transform to transliterate text to Greek from Latin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformLatinGreek
+	KCFStringTransformLatinGreek string
+	// KCFStringTransformLatinHangul is the identifier of a reversible transform to transliterate text to Hangul from Latin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformLatinHangul
+	KCFStringTransformLatinHangul string
+	// KCFStringTransformLatinHebrew is the identifier of a reversible transform to transliterate text to Hebrew from Latin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformLatinHebrew
+	KCFStringTransformLatinHebrew string
+	// KCFStringTransformLatinHiragana is the identifier of a reversible transform to transliterate text to Hiragana from Latin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformLatinHiragana
+	KCFStringTransformLatinHiragana string
+	// KCFStringTransformLatinKatakana is the identifier of a reversible transform to transliterate text to Katakana from Latin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformLatinKatakana
+	KCFStringTransformLatinKatakana string
+	// KCFStringTransformLatinThai is the identifier of a reversible transform to transliterate text to Thai from Latin.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformLatinThai
+	KCFStringTransformLatinThai string
+	// KCFStringTransformMandarinLatin is the identifier of a transform to transliterate text to Latin from ideographs interpreted as Mandarin Chinese. This transform is not reversible.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformMandarinLatin
+	KCFStringTransformMandarinLatin string
+	// KCFStringTransformStripCombiningMarks is the identifier of a transform to strip combining marks (accents or diacritics).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformStripCombiningMarks
+	KCFStringTransformStripCombiningMarks string
+	// KCFStringTransformStripDiacritics is the identifier of a transform to remove diacritic markings.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformStripDiacritics
+	KCFStringTransformStripDiacritics string
+	// KCFStringTransformToLatin is the identifier of a transform to transliterate all text possible to Latin script. Ideographs are transliterated as Mandarin Chinese.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformToLatin
+	KCFStringTransformToLatin string
+	// KCFStringTransformToUnicodeName is the identifier of a reversible transform to transliterate characters other than printable ASCII to their Unicode character name in braces.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformToUnicodeName
+	KCFStringTransformToUnicodeName string
+	// KCFStringTransformToXMLHex is the identifier of a reversible transform to transliterate characters other than printable ASCII to XML/HTML numeric entities.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringTransformToXMLHex
+	KCFStringTransformToXMLHex string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLAddedToDirectoryDateKey
+	KCFURLAddedToDirectoryDateKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLApplicationIsScriptableKey
+	KCFURLApplicationIsScriptableKey string
+	// KCFURLAttributeModificationDateKey is key for the last time the resource’s attributes were modified, returned as a [CFDate] object if the volume supports attribute modification dates, or `nil` if attribute modification dates are unsupported.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLAttributeModificationDateKey
+	KCFURLAttributeModificationDateKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLCanonicalPathKey
+	KCFURLCanonicalPathKey string
+	// KCFURLContentAccessDateKey is key for the last time the resource was accessed, returned as a [CFDate] object if the volume supports access dates, or `nil` if access dates are unsupported.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLContentAccessDateKey
+	KCFURLContentAccessDateKey string
+	// KCFURLContentModificationDateKey is key for the last time the resource was modified, returned as a [CFDate] object if the volume supports modification dates, or `nil` if modification dates are unsupported.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLContentModificationDateKey
+	KCFURLContentModificationDateKey string
+	// KCFURLCreationDateKey is key for the resource’s creation date, returned as a [CFDate] object if the volume supports creation dates, or `nil` if creation dates are unsupported.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLCreationDateKey
+	KCFURLCreationDateKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLDirectoryEntryCountKey
+	KCFURLDirectoryEntryCountKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLDocumentIdentifierKey
+	KCFURLDocumentIdentifierKey string
+	// KCFURLFileAllocatedSizeKey is key for the total size allocated on disk for the file, returned as an [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileAllocatedSizeKey
+	KCFURLFileAllocatedSizeKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileContentIdentifierKey
+	KCFURLFileContentIdentifierKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileIdentifierKey
+	KCFURLFileIdentifierKey string
+	// KCFURLFileResourceIdentifierKey is key for the resource’s unique identifier, returned as a [CFType] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceIdentifierKey
+	KCFURLFileResourceIdentifierKey string
+	// KCFURLFileResourceTypeBlockSpecial is the resource is a block special file.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeBlockSpecial
+	KCFURLFileResourceTypeBlockSpecial string
+	// KCFURLFileResourceTypeCharacterSpecial is the resource is a character special file.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeCharacterSpecial
+	KCFURLFileResourceTypeCharacterSpecial string
+	// KCFURLFileResourceTypeDirectory is the resource is a directory.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeDirectory
+	KCFURLFileResourceTypeDirectory string
+	// KCFURLFileResourceTypeKey is key for the resource’s object type, returned as a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeKey
+	KCFURLFileResourceTypeKey string
+	// KCFURLFileResourceTypeNamedPipe is the resource is a named pipe.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeNamedPipe
+	KCFURLFileResourceTypeNamedPipe string
+	// KCFURLFileResourceTypeRegular is the resource is a regular file.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeRegular
+	KCFURLFileResourceTypeRegular string
+	// KCFURLFileResourceTypeSocket is the resource is a socket.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeSocket
+	KCFURLFileResourceTypeSocket string
+	// KCFURLFileResourceTypeSymbolicLink is the resource is a symbolic link.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeSymbolicLink
+	KCFURLFileResourceTypeSymbolicLink string
+	// KCFURLFileResourceTypeUnknown is the resource’s type is unknown.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileResourceTypeUnknown
+	KCFURLFileResourceTypeUnknown string
+	// KCFURLFileSecurityKey is key for the resource’s security information, returned as a [CFFileSecurity] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileSecurityKey
+	KCFURLFileSecurityKey string
+	// KCFURLFileSizeKey is key for the file’s size in bytes, returned as a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLFileSizeKey
+	KCFURLFileSizeKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLGenerationIdentifierKey
+	KCFURLGenerationIdentifierKey string
+	// KCFURLHasHiddenExtensionKey is key for determining whether the resource’s extension is normally removed from its localized name, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLHasHiddenExtensionKey
+	KCFURLHasHiddenExtensionKey string
+	// KCFURLIsAliasFileKey is key for determining whether the file is an alias, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsAliasFileKey
+	KCFURLIsAliasFileKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsApplicationKey
+	KCFURLIsApplicationKey string
+	// KCFURLIsDirectoryKey is key for determining whether the resource is a directory, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsDirectoryKey
+	KCFURLIsDirectoryKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsExcludedFromBackupKey
+	KCFURLIsExcludedFromBackupKey string
+	// KCFURLIsExecutableKey is key for determining whether the current process (as determined by the EUID) can execute the resource (if it is a file) or search the resource (if it is a directory), returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsExecutableKey
+	KCFURLIsExecutableKey string
+	// KCFURLIsHiddenKey is key for determining whether the resource is normally not displayed to users, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsHiddenKey
+	KCFURLIsHiddenKey string
+	// KCFURLIsMountTriggerKey is key for determining whether the URL is a file system trigger directory, returned as a [CFBoolean] object. Traversing or opening a file system trigger directory causes an attempt to mount a file system on the directory.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsMountTriggerKey
+	KCFURLIsMountTriggerKey string
+	// KCFURLIsPackageKey is key for determining whether the resource is a packaged directory, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsPackageKey
+	KCFURLIsPackageKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsPurgeableKey
+	KCFURLIsPurgeableKey string
+	// KCFURLIsReadableKey is key for determining whether the current process (as determined by the EUID) can read the resource, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsReadableKey
+	KCFURLIsReadableKey string
+	// KCFURLIsRegularFileKey is key for determining whether the resource is a regular file, as opposed to a directory or a symbolic link. Returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsRegularFileKey
+	KCFURLIsRegularFileKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsSparseKey
+	KCFURLIsSparseKey string
+	// KCFURLIsSymbolicLinkKey is key for determining whether the resource is a symbolic link, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsSymbolicLinkKey
+	KCFURLIsSymbolicLinkKey string
+	// KCFURLIsSystemImmutableKey is key for determining whether the resource’s system immutable bit is set, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsSystemImmutableKey
+	KCFURLIsSystemImmutableKey string
+	// KCFURLIsUbiquitousItemKey is a [CFBoolean] value that tells whether the item is synced to the cloud. (read-only).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsUbiquitousItemKey
+	KCFURLIsUbiquitousItemKey string
+	// KCFURLIsUserImmutableKey is key for determining whether the resource’s user immutable bit is set, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsUserImmutableKey
+	KCFURLIsUserImmutableKey string
+	// KCFURLIsVolumeKey is key for determining whether the resource is the root directory of a volume, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsVolumeKey
+	KCFURLIsVolumeKey string
+	// KCFURLIsWritableKey is key for determining whether the current process (as determined by the EUID) can write to the resource, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLIsWritableKey
+	KCFURLIsWritableKey string
+	// KCFURLKeysOfUnsetValuesKey is key for the resource properties that have not been set after the [CFURLSetResourcePropertiesForKeys(_:_:_:)] function returns an error, returned as an array of [CFString] objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLKeysOfUnsetValuesKey
+	KCFURLKeysOfUnsetValuesKey string
+	// KCFURLLabelNumberKey is key for the resource’s label number, returned as a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLLabelNumberKey
+	KCFURLLabelNumberKey string
+	// KCFURLLinkCountKey is key for the number of hard links to the resource, returned as a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLLinkCountKey
+	KCFURLLinkCountKey string
+	// KCFURLLocalizedLabelKey is key for the resource’s localized label text, returned as a [CFString] object, or [NULL] if the resource has no localized label text.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLLocalizedLabelKey
+	KCFURLLocalizedLabelKey string
+	// KCFURLLocalizedNameKey is key for the resource’s localized or extension-hidden name, retuned as a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLLocalizedNameKey
+	KCFURLLocalizedNameKey string
+	// KCFURLLocalizedTypeDescriptionKey is key for the resource’s localized type description, returned as a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLLocalizedTypeDescriptionKey
+	KCFURLLocalizedTypeDescriptionKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLMayHaveExtendedAttributesKey
+	KCFURLMayHaveExtendedAttributesKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLMayShareFileContentKey
+	KCFURLMayShareFileContentKey string
+	// KCFURLNameKey is key for the resource’s name in the file system, returned as a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLNameKey
+	KCFURLNameKey string
+	// KCFURLParentDirectoryURLKey is key for the parent directory of the resource, returned as a [CFURL] object, or `nil` if the resource is the root directory of its volume.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLParentDirectoryURLKey
+	KCFURLParentDirectoryURLKey string
+	// KCFURLPathKey is a [CFString] value containing the URL’s path as a file system path. (read-only).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLPathKey
+	KCFURLPathKey string
+	// KCFURLPreferredIOBlockSizeKey is key for the optimal block size to use when reading or writing this file’s data, returned as a [CFNumber] object, or [NULL] if the preferred size is not available.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLPreferredIOBlockSizeKey
+	KCFURLPreferredIOBlockSizeKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLQuarantinePropertiesKey
+	KCFURLQuarantinePropertiesKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLTagNamesKey
+	KCFURLTagNamesKey string
+	// KCFURLTotalFileAllocatedSizeKey is key for the total allocated size of the file in bytes, returned as a [CFNumber] object. This includes the size of any file metadata.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLTotalFileAllocatedSizeKey
+	KCFURLTotalFileAllocatedSizeKey string
+	// KCFURLTotalFileSizeKey is key for the total displayable size of the file in bytes, returned as a [CFNumber] object. This includes the size of any file metadata.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLTotalFileSizeKey
+	KCFURLTotalFileSizeKey string
+	// KCFURLTypeIdentifierKey is key for the resource’s uniform type identifier (UTI), returned as a [CFString] object.
+	//
+	// Deprecated: Deprecated since macOS 26.2. Use NSURLContentTypeKey instead
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLTypeIdentifierKey
+	KCFURLTypeIdentifierKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemDownloadingErrorKey
+	KCFURLUbiquitousItemDownloadingErrorKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemDownloadingStatusCurrent
+	KCFURLUbiquitousItemDownloadingStatusCurrent string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemDownloadingStatusDownloaded
+	KCFURLUbiquitousItemDownloadingStatusDownloaded string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemDownloadingStatusKey
+	KCFURLUbiquitousItemDownloadingStatusKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemDownloadingStatusNotDownloaded
+	KCFURLUbiquitousItemDownloadingStatusNotDownloaded string
+	// KCFURLUbiquitousItemHasUnresolvedConflictsKey is a [CFBoolean] value that tells whether the item has conflicts outstanding. (read-only).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemHasUnresolvedConflictsKey
+	KCFURLUbiquitousItemHasUnresolvedConflictsKey string
+	// KCFURLUbiquitousItemIsDownloadingKey is a [CFBoolean] value that tells whether data for the item is being downloaded. (read-only).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemIsDownloadingKey
+	KCFURLUbiquitousItemIsDownloadingKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemIsExcludedFromSyncKey
+	KCFURLUbiquitousItemIsExcludedFromSyncKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemIsSyncPausedKey
+	KCFURLUbiquitousItemIsSyncPausedKey string
+	// KCFURLUbiquitousItemIsUploadedKey is a [CFBoolean] value that tells whether there is data present in the cloud for this item. (read-only).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemIsUploadedKey
+	KCFURLUbiquitousItemIsUploadedKey string
+	// KCFURLUbiquitousItemIsUploadingKey is a [CFBoolean] value that tells whether data for the item is being uploaded. (read-only).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemIsUploadingKey
+	KCFURLUbiquitousItemIsUploadingKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemSupportedSyncControlsKey
+	KCFURLUbiquitousItemSupportedSyncControlsKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLUbiquitousItemUploadingErrorKey
+	KCFURLUbiquitousItemUploadingErrorKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeAvailableCapacityForImportantUsageKey
+	KCFURLVolumeAvailableCapacityForImportantUsageKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeAvailableCapacityForOpportunisticUsageKey
+	KCFURLVolumeAvailableCapacityForOpportunisticUsageKey string
+	// KCFURLVolumeAvailableCapacityKey is key for the volume’s available capacity in bytes, returned as a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeAvailableCapacityKey
+	KCFURLVolumeAvailableCapacityKey string
+	// KCFURLVolumeCreationDateKey is key for the volume’s creation date, returned as a [CFDate] object, or [NULL] if it cannot be determined.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeCreationDateKey
+	KCFURLVolumeCreationDateKey string
+	// KCFURLVolumeIdentifierKey is key for the unique identifier of the resource’s volume, returned as a [CFType] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIdentifierKey
+	KCFURLVolumeIdentifierKey string
+	// KCFURLVolumeIsAutomountedKey is key for determining whether the volume is automounted, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsAutomountedKey
+	KCFURLVolumeIsAutomountedKey string
+	// KCFURLVolumeIsBrowsableKey is key for determining whether the volume is visible in GUI-based file-browsing environments, such as the Desktop or the Finder application, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsBrowsableKey
+	KCFURLVolumeIsBrowsableKey string
+	// KCFURLVolumeIsEjectableKey is key for determining whether the volume is ejectable from the drive mechanism under software control, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsEjectableKey
+	KCFURLVolumeIsEjectableKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsEncryptedKey
+	KCFURLVolumeIsEncryptedKey string
+	// KCFURLVolumeIsInternalKey is key for determining whether the volume is connected to an internal bus, returned as a [CFBoolean] object, or [NULL] if it cannot be determined.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsInternalKey
+	KCFURLVolumeIsInternalKey string
+	// KCFURLVolumeIsJournalingKey is key for determining whether the volume is currently journaling, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsJournalingKey
+	KCFURLVolumeIsJournalingKey string
+	// KCFURLVolumeIsLocalKey is key for determining whether the volume is stored on a local device, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsLocalKey
+	KCFURLVolumeIsLocalKey string
+	// KCFURLVolumeIsReadOnlyKey is key for determining whether the volume is read-only, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsReadOnlyKey
+	KCFURLVolumeIsReadOnlyKey string
+	// KCFURLVolumeIsRemovableKey is key for determining whether the volume is removable from the drive mechanism, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsRemovableKey
+	KCFURLVolumeIsRemovableKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeIsRootFileSystemKey
+	KCFURLVolumeIsRootFileSystemKey string
+	// KCFURLVolumeLocalizedFormatDescriptionKey is key for the volume’s descriptive format name, returned as a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeLocalizedFormatDescriptionKey
+	KCFURLVolumeLocalizedFormatDescriptionKey string
+	// KCFURLVolumeLocalizedNameKey is the user-presentable name of the volume, returned as a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeLocalizedNameKey
+	KCFURLVolumeLocalizedNameKey string
+	// KCFURLVolumeMaximumFileSizeKey is key for the largest file size supported by the volume in bytes, returned as a [CFNumber] object, or [NULL] if it cannot be determined.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeMaximumFileSizeKey
+	KCFURLVolumeMaximumFileSizeKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeMountFromLocationKey
+	KCFURLVolumeMountFromLocationKey string
+	// KCFURLVolumeNameKey is the name of the volume, returned as a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeNameKey
+	KCFURLVolumeNameKey string
+	// KCFURLVolumeResourceCountKey is key for the total number of resources on the volume, returned as a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeResourceCountKey
+	KCFURLVolumeResourceCountKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSubtypeKey
+	KCFURLVolumeSubtypeKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsAccessPermissionsKey
+	KCFURLVolumeSupportsAccessPermissionsKey string
+	// KCFURLVolumeSupportsAdvisoryFileLockingKey is key for determining whether the volume implements whole-file advisory locks in the style of flock, along with the `O_EXLOCK` and `O_SHLOCK` flags of the open function, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsAdvisoryFileLockingKey
+	KCFURLVolumeSupportsAdvisoryFileLockingKey string
+	// KCFURLVolumeSupportsCasePreservedNamesKey is key for determining whether the volume supports case-preserved names, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsCasePreservedNamesKey
+	KCFURLVolumeSupportsCasePreservedNamesKey string
+	// KCFURLVolumeSupportsCaseSensitiveNamesKey is key for determining whether the volume supports case-sensitive names, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsCaseSensitiveNamesKey
+	KCFURLVolumeSupportsCaseSensitiveNamesKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsCompressionKey
+	KCFURLVolumeSupportsCompressionKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsExclusiveRenamingKey
+	KCFURLVolumeSupportsExclusiveRenamingKey string
+	// KCFURLVolumeSupportsExtendedSecurityKey is key for determining whether the volume supports extended security (access control lists), returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsExtendedSecurityKey
+	KCFURLVolumeSupportsExtendedSecurityKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsFileCloningKey
+	KCFURLVolumeSupportsFileCloningKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsFileProtectionKey
+	KCFURLVolumeSupportsFileProtectionKey string
+	// KCFURLVolumeSupportsHardLinksKey is key for determining whether the volume supports hard links, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsHardLinksKey
+	KCFURLVolumeSupportsHardLinksKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsImmutableFilesKey
+	KCFURLVolumeSupportsImmutableFilesKey string
+	// KCFURLVolumeSupportsJournalingKey is key for determining whether the volume supports journaling, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsJournalingKey
+	KCFURLVolumeSupportsJournalingKey string
+	// KCFURLVolumeSupportsPersistentIDsKey is key for determining whether the volume supports persistent IDs, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsPersistentIDsKey
+	KCFURLVolumeSupportsPersistentIDsKey string
+	// KCFURLVolumeSupportsRenamingKey is key for determining whether the volume can be renamed, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsRenamingKey
+	KCFURLVolumeSupportsRenamingKey string
+	// KCFURLVolumeSupportsRootDirectoryDatesKey is key for determining whether the volume supports reliable storage of times for the root directory, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsRootDirectoryDatesKey
+	KCFURLVolumeSupportsRootDirectoryDatesKey string
+	// KCFURLVolumeSupportsSparseFilesKey is key for determining whether the volume supports sparse files, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsSparseFilesKey
+	KCFURLVolumeSupportsSparseFilesKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsSwapRenamingKey
+	KCFURLVolumeSupportsSwapRenamingKey string
+	// KCFURLVolumeSupportsSymbolicLinksKey is key for determining whether the volume supports symbolic links, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsSymbolicLinksKey
+	KCFURLVolumeSupportsSymbolicLinksKey string
+	// KCFURLVolumeSupportsVolumeSizesKey is key for determining whether the volume supports returning volume size information, returned as a [CFBoolean] object. If `true`, volume size information is available as values of the [kCFURLVolumeTotalCapacityKey] and [kCFURLVolumeAvailableCapacityKey] keys.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsVolumeSizesKey
+	KCFURLVolumeSupportsVolumeSizesKey string
+	// KCFURLVolumeSupportsZeroRunsKey is key for determining whether the volume supports zero runs, returned as a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeSupportsZeroRunsKey
+	KCFURLVolumeSupportsZeroRunsKey string
+	// KCFURLVolumeTotalCapacityKey is key for the volume’s capacity in bytes, returned as a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeTotalCapacityKey
+	KCFURLVolumeTotalCapacityKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeTypeNameKey
+	KCFURLVolumeTypeNameKey string
+	// KCFURLVolumeURLForRemountingKey is key for the URL needed to remount the network volume, returned as a [CFURL] object, or [NULL] if a URL is not available.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeURLForRemountingKey
+	KCFURLVolumeURLForRemountingKey string
+	// KCFURLVolumeURLKey is key for the root directory of the resource’s volume, returned as a [CFURL] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeURLKey
+	KCFURLVolumeURLKey string
+	// KCFURLVolumeUUIDStringKey is key for the volume’s persistent UUID, returned as a [CFString] object, or [NULL] if a persistent UUID is not available.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFURLVolumeUUIDStringKey
+	KCFURLVolumeUUIDStringKey string
+	// KCFUserNotificationAlertHeaderKey is the title of the notification dialog.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationAlertHeaderKey
+	KCFUserNotificationAlertHeaderKey string
+	// KCFUserNotificationAlertMessageKey is the message string to display in the dialog.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationAlertMessageKey
+	KCFUserNotificationAlertMessageKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationAlertTopMostKey
+	KCFUserNotificationAlertTopMostKey string
+	// KCFUserNotificationAlternateButtonTitleKey is the title of an optional alternate button.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationAlternateButtonTitleKey
+	KCFUserNotificationAlternateButtonTitleKey string
+	// KCFUserNotificationCheckBoxTitlesKey is the list of titles for all the checkboxes or radio buttons to display.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationCheckBoxTitlesKey
+	KCFUserNotificationCheckBoxTitlesKey string
+	// KCFUserNotificationDefaultButtonTitleKey is the title of the default button.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationDefaultButtonTitleKey
+	KCFUserNotificationDefaultButtonTitleKey string
+	// KCFUserNotificationIconURLKey is a file URL pointing to the icon to display in the dialog.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationIconURLKey
+	KCFUserNotificationIconURLKey string
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationKeyboardTypesKey
+	KCFUserNotificationKeyboardTypesKey string
+	// KCFUserNotificationLocalizationURLKey is a file URL pointing to a bundle that contains localized versions of the strings displayed in the dialog.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationLocalizationURLKey
+	KCFUserNotificationLocalizationURLKey string
+	// KCFUserNotificationOtherButtonTitleKey is the title of an optional third button.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationOtherButtonTitleKey
+	KCFUserNotificationOtherButtonTitleKey string
+	// KCFUserNotificationPopUpSelectionKey is the item that was selected from a pop-up menu.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationPopUpSelectionKey
+	KCFUserNotificationPopUpSelectionKey string
+	// KCFUserNotificationPopUpTitlesKey is the list of strings to display in a pop-up menu.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationPopUpTitlesKey
+	KCFUserNotificationPopUpTitlesKey string
+	// KCFUserNotificationProgressIndicatorValueKey is a value to indicate the progress of an operation.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationProgressIndicatorValueKey
+	KCFUserNotificationProgressIndicatorValueKey string
+	// KCFUserNotificationSoundURLKey is a file URL pointing to a sound that will be played when the alert appears.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationSoundURLKey
+	KCFUserNotificationSoundURLKey string
+	// KCFUserNotificationTextFieldTitlesKey is the list of titles for all the text fields to display.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationTextFieldTitlesKey
+	KCFUserNotificationTextFieldTitlesKey string
+	// KCFUserNotificationTextFieldValuesKey is the list of values to put into the text fields. If only one text field is to be displayed, you can pass its value string directly without putting it into an array first.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFUserNotificationTextFieldValuesKey
+	KCFUserNotificationTextFieldValuesKey string
+	// KCFXMLTreeErrorDescription is dictionary key whose value is a CFString containing a readable description of the error.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFXMLTreeErrorDescription
+	KCFXMLTreeErrorDescription string
+	// KCFXMLTreeErrorLineNumber is dictionary key whose value is a CFNumber containing the line number where the error was detected. This may not be the line number where the actual XML error is located.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFXMLTreeErrorLineNumber
+	KCFXMLTreeErrorLineNumber string
+	// KCFXMLTreeErrorLocation is dictionary key whose value is a CFNumber containing the byte location where the error was detected.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFXMLTreeErrorLocation
+	KCFXMLTreeErrorLocation string
+	// KCFXMLTreeErrorStatusCode is dictionary key whose value is a CFNumber containing the error status code. See [CFXMLParser] for possible status code values.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFXMLTreeErrorStatusCode
+	KCFXMLTreeErrorStatusCode string
+)
+
+var (
+	// KCFCopyStringBagCallBacks is predefined [CFBagCallBacks] structure containing a set of callbacks appropriate for use when the values in a CFBag are all CFString objects. The bag makes immutable copies of the strings placed into it.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFCopyStringBagCallBacks
+	KCFCopyStringBagCallBacks CFBagCallBacks
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFTypeBagCallBacks
+	KCFTypeBagCallBacks CFBagCallBacks
+)
+
+var (
+	// KCFCopyStringDictionaryKeyCallBacks is predefined [CFDictionaryKeyCallBacks] structure containing a set of callbacks appropriate for use when the keys of a CFDictionary are all CFString objects, which may be mutable and need to be copied in order to serve as constant keys for the values in the dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFCopyStringDictionaryKeyCallBacks
+	KCFCopyStringDictionaryKeyCallBacks CFDictionaryKeyCallBacks
+	// KCFTypeDictionaryKeyCallBacks is predefined [CFDictionaryKeyCallBacks] structure containing a set of callbacks appropriate for use when the keys of a CFDictionary are all CFType-derived objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFTypeDictionaryKeyCallBacks
+	KCFTypeDictionaryKeyCallBacks CFDictionaryKeyCallBacks
+)
+
+var (
+	// KCFCopyStringSetCallBacks is predefined [CFSetCallBacks] structure containing a set of callbacks appropriate for use when the values in a set are all CFString objects. The retain callback makes an immutable copy of strings added to the set.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFCopyStringSetCallBacks
+	KCFCopyStringSetCallBacks CFSetCallBacks
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFTypeSetCallBacks
+	KCFTypeSetCallBacks CFSetCallBacks
+)
+
+var (
+	// KCFDateFormatterAMSymbol is specifies the AM symbol property, a CFString object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/amSymbol
+	KCFDateFormatterAMSymbol CFDateFormatterKey
+	// KCFDateFormatterCalendar is specifies the calendar property, a CFCalendar object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/calendar
+	KCFDateFormatterCalendar CFDateFormatterKey
+	// KCFDateFormatterCalendarName is specifies the calendar name, a CFString object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/calendarName
+	KCFDateFormatterCalendarName CFDateFormatterKey
+	// KCFDateFormatterDefaultDate is specifies the default date property, a CFDate object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/defaultDate
+	KCFDateFormatterDefaultDate CFDateFormatterKey
+	// KCFDateFormatterDefaultFormat is the original format string for the formatter (given the date & time style and locale specified at creation).
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/defaultFormat
+	KCFDateFormatterDefaultFormat CFDateFormatterKey
+	// KCFDateFormatterDoesRelativeDateFormattingKey is specifies the relative date formatting property, a CFBoolean object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/doesRelativeDateFormattingKey
+	KCFDateFormatterDoesRelativeDateFormattingKey CFDateFormatterKey
+	// KCFDateFormatterEraSymbols is specifies the era symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/eraSymbols
+	KCFDateFormatterEraSymbols CFDateFormatterKey
+	// KCFDateFormatterGregorianStartDate is specifies the Gregorian start date property, a CFDate object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/gregorianStartDate
+	KCFDateFormatterGregorianStartDate CFDateFormatterKey
+	// KCFDateFormatterIsLenient is specifies the lenient property, a CFBoolean object where a true value indicates that the parsing of strings into date or absolute time values will be fuzzy.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/isLenient
+	KCFDateFormatterIsLenient CFDateFormatterKey
+	// KCFDateFormatterLongEraSymbols is specifies the long era symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/longEraSymbols
+	KCFDateFormatterLongEraSymbols CFDateFormatterKey
+	// KCFDateFormatterMonthSymbols is specifies the month symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/monthSymbols
+	KCFDateFormatterMonthSymbols CFDateFormatterKey
+	// KCFDateFormatterPMSymbol is specifies the PM symbol property, a CFString object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/pmSymbol
+	KCFDateFormatterPMSymbol CFDateFormatterKey
+	// KCFDateFormatterQuarterSymbols is specifies the quarter symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/quarterSymbols
+	KCFDateFormatterQuarterSymbols CFDateFormatterKey
+	// KCFDateFormatterShortMonthSymbols is specifies the short month symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/shortMonthSymbols
+	KCFDateFormatterShortMonthSymbols CFDateFormatterKey
+	// KCFDateFormatterShortQuarterSymbols is specifies the short quarter symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/shortQuarterSymbols
+	KCFDateFormatterShortQuarterSymbols CFDateFormatterKey
+	// KCFDateFormatterShortStandaloneMonthSymbols is specifies the short standalone month symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/shortStandaloneMonthSymbols
+	KCFDateFormatterShortStandaloneMonthSymbols CFDateFormatterKey
+	// KCFDateFormatterShortStandaloneQuarterSymbols is specifies the short standalone quarter symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/shortStandaloneQuarterSymbols
+	KCFDateFormatterShortStandaloneQuarterSymbols CFDateFormatterKey
+	// KCFDateFormatterShortStandaloneWeekdaySymbols is specifies the short standalone weekday symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/shortStandaloneWeekdaySymbols
+	KCFDateFormatterShortStandaloneWeekdaySymbols CFDateFormatterKey
+	// KCFDateFormatterShortWeekdaySymbols is specifies the short weekday symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/shortWeekdaySymbols
+	KCFDateFormatterShortWeekdaySymbols CFDateFormatterKey
+	// KCFDateFormatterStandaloneMonthSymbols is specifies the standalone month symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/standaloneMonthSymbols
+	KCFDateFormatterStandaloneMonthSymbols CFDateFormatterKey
+	// KCFDateFormatterStandaloneQuarterSymbols is specifies the standalone quarter symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/standaloneQuarterSymbols
+	KCFDateFormatterStandaloneQuarterSymbols CFDateFormatterKey
+	// KCFDateFormatterStandaloneWeekdaySymbols is specifies the standalone weekday symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/standaloneWeekdaySymbols
+	KCFDateFormatterStandaloneWeekdaySymbols CFDateFormatterKey
+	// KCFDateFormatterTimeZone is specifies the time zone property, a CFTimeZone object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/timeZone
+	KCFDateFormatterTimeZone CFDateFormatterKey
+	// KCFDateFormatterTwoDigitStartDate is specifies the property representing the date from which two-digit years start, a CFDate object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/twoDigitStartDate
+	KCFDateFormatterTwoDigitStartDate CFDateFormatterKey
+	// KCFDateFormatterVeryShortMonthSymbols is specifies the very short month symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/veryShortMonthSymbols
+	KCFDateFormatterVeryShortMonthSymbols CFDateFormatterKey
+	// KCFDateFormatterVeryShortStandaloneMonthSymbols is specifies the very short standalone month symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/veryShortStandaloneMonthSymbols
+	KCFDateFormatterVeryShortStandaloneMonthSymbols CFDateFormatterKey
+	// KCFDateFormatterVeryShortStandaloneWeekdaySymbols is specifies the very short standalone weekday symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/veryShortStandaloneWeekdaySymbols
+	KCFDateFormatterVeryShortStandaloneWeekdaySymbols CFDateFormatterKey
+	// KCFDateFormatterVeryShortWeekdaySymbols is specifies the very short weekday symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/veryShortWeekdaySymbols
+	KCFDateFormatterVeryShortWeekdaySymbols CFDateFormatterKey
+	// KCFDateFormatterWeekdaySymbols is specifies the weekday symbols property, a CFArray of CFString objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterKey/weekdaySymbols
+	KCFDateFormatterWeekdaySymbols CFDateFormatterKey
+)
+
+var (
+	// KCFErrorDomainCocoa is a constant that specified the Cocoa domain.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorDomainCocoa
+	KCFErrorDomainCocoa CFErrorDomain
+	// KCFErrorDomainMach is a constant that specified the Mach domain.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorDomainMach
+	KCFErrorDomainMach CFErrorDomain
+	// KCFErrorDomainOSStatus is a constant that specified the OS domain.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorDomainOSStatus
+	KCFErrorDomainOSStatus CFErrorDomain
+	// KCFErrorDomainPOSIX is a constant that specified the POSIX domain.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFErrorDomainPOSIX
+	KCFErrorDomainPOSIX CFErrorDomain
+)
+
+var (
+	// KCFLocaleAlternateQuotationBeginDelimiterKey is specifies the alternating begin quotation symbol associated with the locale. In some locales, when quotations are nested, the quotation characters alternate. Thus, [NSLocaleQuotationBeginDelimiterKey], then [NSLocaleAlternateQuotationBeginDelimiterKey], and so on.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/alternateQuotationBeginDelimiterKey
+	KCFLocaleAlternateQuotationBeginDelimiterKey CFLocaleKey
+	// KCFLocaleAlternateQuotationEndDelimiterKey is specifies the alternating end quotation symbol associated with the locale. In some locales, when quotations are nested, the quotation characters alternate. Thus, [NSLocaleQuotationEndDelimiterKey], then [NSLocaleAlternateQuotationEndDelimiterKey], and so on.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/alternateQuotationEndDelimiterKey
+	KCFLocaleAlternateQuotationEndDelimiterKey CFLocaleKey
+	// KCFLocaleCalendar is specifies the locale calendar.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/calendar
+	KCFLocaleCalendar CFLocaleKey
+	// KCFLocaleCalendarIdentifier is specifies the locale calendar identifier.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/calendarIdentifier
+	KCFLocaleCalendarIdentifier CFLocaleKey
+	// KCFLocaleCollationIdentifier is specifies the locale collation identifier.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/collationIdentifier
+	KCFLocaleCollationIdentifier CFLocaleKey
+	// KCFLocaleCollatorIdentifier is specifies the collation identifier for the locale.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/collatorIdentifier
+	KCFLocaleCollatorIdentifier CFLocaleKey
+	// KCFLocaleCountryCode is specifies the locale country code.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/countryCode
+	KCFLocaleCountryCode CFLocaleKey
+	// KCFLocaleCurrencyCode is specifies the locale currency code.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/currencyCode
+	KCFLocaleCurrencyCode CFLocaleKey
+	// KCFLocaleCurrencySymbol is specifies the currency symbol.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/currencySymbol
+	KCFLocaleCurrencySymbol CFLocaleKey
+	// KCFLocaleDecimalSeparator is specifies the decimal point string.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/decimalSeparator
+	KCFLocaleDecimalSeparator CFLocaleKey
+	// KCFLocaleExemplarCharacterSet is specifies the locale character set.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/exemplarCharacterSet
+	KCFLocaleExemplarCharacterSet CFLocaleKey
+	// KCFLocaleGroupingSeparator is specifies the separator string between groups of digits.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/groupingSeparator
+	KCFLocaleGroupingSeparator CFLocaleKey
+	// KCFLocaleIdentifier is specifies locale identifier.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/identifier
+	KCFLocaleIdentifier CFLocaleKey
+	// KCFLocaleLanguageCode is specifies the locale language code.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/languageCode
+	KCFLocaleLanguageCode CFLocaleKey
+	// KCFLocaleMeasurementSystem is specifies the measurement system used.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/measurementSystem
+	KCFLocaleMeasurementSystem CFLocaleKey
+	// KCFLocaleQuotationBeginDelimiterKey is specifies the begin quotation symbol associated with the locale.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/quotationBeginDelimiterKey
+	KCFLocaleQuotationBeginDelimiterKey CFLocaleKey
+	// KCFLocaleQuotationEndDelimiterKey is specifies the end quotation symbol associated with the locale.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/quotationEndDelimiterKey
+	KCFLocaleQuotationEndDelimiterKey CFLocaleKey
+	// KCFLocaleScriptCode is specifies the locale script code.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/scriptCode
+	KCFLocaleScriptCode CFLocaleKey
+	// KCFLocaleUsesMetricSystem is specifies the whether the locale uses the metric system.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/usesMetricSystem
+	KCFLocaleUsesMetricSystem CFLocaleKey
+	// KCFLocaleVariantCode is specifies the locale variant code.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleKey/variantCode
+	KCFLocaleVariantCode CFLocaleKey
+)
+
+var (
+	// KCFLocaleCurrentLocaleDidChangeNotification is identifier for the notification sent if the current locale changes.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationName/cfLocaleCurrentLocaleDidChange
+	KCFLocaleCurrentLocaleDidChangeNotification CFNotificationName
+	// KCFTimeZoneSystemTimeZoneDidChangeNotification is name of the notification posted when the system time zone changes.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationName/cfTimeZoneSystemTimeZoneDidChange
+	KCFTimeZoneSystemTimeZoneDidChangeNotification CFNotificationName
+)
+
+var (
+	// KCFNull is the singleton CFNull object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFNull
+	KCFNull CFNullRef
+)
+
+var (
+	// KCFNumberFormatterAlwaysShowDecimalSeparator is specifies if the result of converting a value to a string should always contain the decimal separator, even if the number is an integer.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/alwaysShowDecimalSeparator
+	KCFNumberFormatterAlwaysShowDecimalSeparator CFNumberFormatterKey
+	// KCFNumberFormatterCurrencyCode is specifies the currency code, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/currencyCode
+	KCFNumberFormatterCurrencyCode CFNumberFormatterKey
+	// KCFNumberFormatterCurrencyDecimalSeparator is specifies the currency decimal separator, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/currencyDecimalSeparator
+	KCFNumberFormatterCurrencyDecimalSeparator CFNumberFormatterKey
+	// KCFNumberFormatterCurrencyGroupingSeparator is specifies the grouping symbol to use when placing a currency value within a string, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/currencyGroupingSeparator
+	KCFNumberFormatterCurrencyGroupingSeparator CFNumberFormatterKey
+	// KCFNumberFormatterCurrencySymbol is specifies the symbol for the currency, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/currencySymbol
+	KCFNumberFormatterCurrencySymbol CFNumberFormatterKey
+	// KCFNumberFormatterDecimalSeparator is specifies the decimal separator, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/decimalSeparator
+	KCFNumberFormatterDecimalSeparator CFNumberFormatterKey
+	// KCFNumberFormatterDefaultFormat is the original format string for the formatter (given the date and time style and locale specified at creation), a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/defaultFormat
+	KCFNumberFormatterDefaultFormat CFNumberFormatterKey
+	// KCFNumberFormatterExponentSymbol is specifies the exponent symbol (“E” or “e”) in the scientific notation of numbers (for example, as in `1.0e+56`), a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/exponentSymbol
+	KCFNumberFormatterExponentSymbol CFNumberFormatterKey
+	// KCFNumberFormatterFormatWidth is specifies the width of a formatted number within a string that is either left justified or right justified based on the value of [paddingPosition], a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/formatWidth
+	KCFNumberFormatterFormatWidth CFNumberFormatterKey
+	// KCFNumberFormatterGroupingSeparator is specifies the grouping separator, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/groupingSeparator
+	KCFNumberFormatterGroupingSeparator CFNumberFormatterKey
+	// KCFNumberFormatterGroupingSize is specifies how often the “thousands” or grouping separator appears, as in “10,000,000”, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/groupingSize
+	KCFNumberFormatterGroupingSize CFNumberFormatterKey
+	// KCFNumberFormatterInfinitySymbol is specifies the string that is used to represent the symbol for infinity, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/infinitySymbol
+	KCFNumberFormatterInfinitySymbol CFNumberFormatterKey
+	// KCFNumberFormatterInternationalCurrencySymbol is specifies the international currency symbol to use when placing a formatted number within a string, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/internationalCurrencySymbol
+	KCFNumberFormatterInternationalCurrencySymbol CFNumberFormatterKey
+	// KCFNumberFormatterIsLenient is specifies whether the formatter is lenient, a[CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/isLenient
+	KCFNumberFormatterIsLenient CFNumberFormatterKey
+	// KCFNumberFormatterMaxFractionDigits is specifies the maximum number of digits after a decimal point, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/maxFractionDigits
+	KCFNumberFormatterMaxFractionDigits CFNumberFormatterKey
+	// KCFNumberFormatterMaxIntegerDigits is specifies the maximum number of integer digits before a decimal point, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/maxIntegerDigits
+	KCFNumberFormatterMaxIntegerDigits CFNumberFormatterKey
+	// KCFNumberFormatterMaxSignificantDigits is specifies the maximum number of significant digits to use, a[CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/maxSignificantDigits
+	KCFNumberFormatterMaxSignificantDigits CFNumberFormatterKey
+	// KCFNumberFormatterMinFractionDigits is specifies the minimum number of digits after a decimal point, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/minFractionDigits
+	KCFNumberFormatterMinFractionDigits CFNumberFormatterKey
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/minGroupingDigits
+	KCFNumberFormatterMinGroupingDigits CFNumberFormatterKey
+	// KCFNumberFormatterMinIntegerDigits is specifies the minimum number of integer digits before a decimal point, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/minIntegerDigits
+	KCFNumberFormatterMinIntegerDigits CFNumberFormatterKey
+	// KCFNumberFormatterMinSignificantDigits is specifies the minimum number of significant digits to use, a[CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/minSignificantDigits
+	KCFNumberFormatterMinSignificantDigits CFNumberFormatterKey
+	// KCFNumberFormatterMinusSign is specifies the symbol for the minus sign, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/minusSign
+	KCFNumberFormatterMinusSign CFNumberFormatterKey
+	// KCFNumberFormatterMultiplier is specifies the multiplier to use when placing a formatted number within a string, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/multiplier
+	KCFNumberFormatterMultiplier CFNumberFormatterKey
+	// KCFNumberFormatterNaNSymbol is specifies the string that is used to represent NaN (“not a number”) when values are converted to strings, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/naNSymbol
+	KCFNumberFormatterNaNSymbol CFNumberFormatterKey
+	// KCFNumberFormatterNegativePrefix is specifies the minus sign prefix symbol to use when placing a formatted number within a string, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/negativePrefix
+	KCFNumberFormatterNegativePrefix CFNumberFormatterKey
+	// KCFNumberFormatterNegativeSuffix is specifies the minus sign suffix symbol to use when placing a formatted number within a string, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/negativeSuffix
+	KCFNumberFormatterNegativeSuffix CFNumberFormatterKey
+	// KCFNumberFormatterPaddingCharacter is specifies the padding character to use when placing a formatted number within a string, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/paddingCharacter
+	KCFNumberFormatterPaddingCharacter CFNumberFormatterKey
+	// KCFNumberFormatterPaddingPosition is specifies the position of a formatted number within a string, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/paddingPosition
+	KCFNumberFormatterPaddingPosition CFNumberFormatterKey
+	// KCFNumberFormatterPerMillSymbol is specifies the per mill (1/1000) symbol to use when placing a formatted number within a string, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/perMillSymbol
+	KCFNumberFormatterPerMillSymbol CFNumberFormatterKey
+	// KCFNumberFormatterPercentSymbol is specifies the string that is used to represent the percent symbol, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/percentSymbol
+	KCFNumberFormatterPercentSymbol CFNumberFormatterKey
+	// KCFNumberFormatterPlusSign is specifies the symbol for the plus sign, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/plusSign
+	KCFNumberFormatterPlusSign CFNumberFormatterKey
+	// KCFNumberFormatterPositivePrefix is specifies the plus sign prefix symbol to use when placing a formatted number within a string, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/positivePrefix
+	KCFNumberFormatterPositivePrefix CFNumberFormatterKey
+	// KCFNumberFormatterPositiveSuffix is specifies the plus sign suffix symbol to use when placing a formatted number within a string, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/positiveSuffix
+	KCFNumberFormatterPositiveSuffix CFNumberFormatterKey
+	// KCFNumberFormatterRoundingIncrement is specifies a positive rounding increment, or `0.0` to disable rounding, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/roundingIncrement
+	KCFNumberFormatterRoundingIncrement CFNumberFormatterKey
+	// KCFNumberFormatterRoundingMode is specifies how the last digit is rounded, as when `3.1415926535…` is rounded to three decimal places, as in `3.142`. See [CFNumberFormatterRoundingMode] for possible values.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/roundingMode
+	KCFNumberFormatterRoundingMode CFNumberFormatterKey
+	// KCFNumberFormatterSecondaryGroupingSize is specifies how often the secondary grouping separator appears, a [CFNumber] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/secondaryGroupingSize
+	KCFNumberFormatterSecondaryGroupingSize CFNumberFormatterKey
+	// KCFNumberFormatterUseGroupingSeparator is specifies if the grouping separator should be used, a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/useGroupingSeparator
+	KCFNumberFormatterUseGroupingSeparator CFNumberFormatterKey
+	// KCFNumberFormatterUseSignificantDigits is specifies the whether the formatter uses significant digits, a [CFBoolean] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/useSignificantDigits
+	KCFNumberFormatterUseSignificantDigits CFNumberFormatterKey
+	// KCFNumberFormatterZeroSymbol is specifies the string that is used to represent zero, a [CFString] object.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterKey/zeroSymbol
+	KCFNumberFormatterZeroSymbol CFNumberFormatterKey
+)
+
+var (
+	// KCFNumberNaN is “Not a Number.” This value is often the result of an invalid operation, such as the square-root of a negative number.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFNumberNaN
+	KCFNumberNaN CFNumberRef
+	// KCFNumberNegativeInfinity is designates a negative infinity value.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFNumberNegativeInfinity
+	KCFNumberNegativeInfinity CFNumberRef
+	// KCFNumberPositiveInfinity is designates a positive infinity value.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFNumberPositiveInfinity
+	KCFNumberPositiveInfinity CFNumberRef
+)
+
+var (
+	// KCFRunLoopCommonModes is objects added to a run loop using this value as the mode are monitored by all run loop modes that have been declared as a member of the set of “common” modes with [CFRunLoopAddCommonMode(_:_:)].
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopMode/commonModes
+	KCFRunLoopCommonModes CFRunLoopMode
+	// KCFRunLoopDefaultMode is run loop mode that should be used when a thread is in its default, or idle, state, waiting for an event. This mode is used when the run loop is started with [CFRunLoopRun()].
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopMode/defaultMode
+	KCFRunLoopDefaultMode CFRunLoopMode
+)
+
+var (
+	// KCFStreamPropertyAppendToFile is value is a [CFBoolean] value that indicates whether to append the written data to a file, if it already exists, rather than to replace its contents.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFStreamPropertyKey/appendToFile
+	KCFStreamPropertyAppendToFile CFStreamPropertyKey
+	// KCFStreamPropertyDataWritten is value is a [CFData] object that contains all the bytes written to a writable memory stream. You cannot modify this value.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFStreamPropertyKey/dataWritten
+	KCFStreamPropertyDataWritten CFStreamPropertyKey
+	// KCFStreamPropertyFileCurrentOffset is value is a [CFNumber] object containing the current file offset.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFStreamPropertyKey/fileCurrentOffset
+	KCFStreamPropertyFileCurrentOffset CFStreamPropertyKey
+	// KCFStreamPropertySocketNativeHandle is value is a [CFData] object that contains the native handle for a socket stream—of type [CFSocketNativeHandle]—to which the socket stream is connected.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFStreamPropertyKey/socketNativeHandle
+	KCFStreamPropertySocketNativeHandle CFStreamPropertyKey
+	// KCFStreamPropertySocketRemoteHostName is value is a [CFString] object containing the name of the host to which the socket stream is connected or [NULL] if unknown.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFStreamPropertyKey/socketRemoteHostName
+	KCFStreamPropertySocketRemoteHostName CFStreamPropertyKey
+	// KCFStreamPropertySocketRemotePortNumber is value is a [CFNumber] object containing the remote port number to which the socket stream is connected or [NULL] if unknown.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/CFStreamPropertyKey/socketRemotePortNumber
+	KCFStreamPropertySocketRemotePortNumber CFStreamPropertyKey
+)
+
+var (
+	// KCFStringBinaryHeapCallBacks is predefined [CFBinaryHeapCallBacks] structure containing a set of callbacks appropriate for use when the values in a binary heap are all [CFString] objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFStringBinaryHeapCallBacks
+	KCFStringBinaryHeapCallBacks CFBinaryHeapCallBacks
+)
+
+var (
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFTypeArrayCallBacks
+	KCFTypeArrayCallBacks CFArrayCallBacks
+)
+
+var (
+	// KCFTypeDictionaryValueCallBacks is predefined [CFDictionaryValueCallBacks] structure containing a set of callbacks appropriate for use when the values in a CFDictionary are all CFType-derived objects.
+	//
+	// See: https://developer.apple.com/documentation/CoreFoundation/kCFTypeDictionaryValueCallBacks
+	KCFTypeDictionaryValueCallBacks CFDictionaryValueCallBacks
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorDefault"); err == nil && ptr != 0 {
-		AllocatorDefault = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorDefault = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorMalloc"); err == nil && ptr != 0 {
-		AllocatorMalloc = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorMalloc = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorMallocZone"); err == nil && ptr != 0 {
-		AllocatorMallocZone = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorMallocZone = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorNull"); err == nil && ptr != 0 {
-		AllocatorNull = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorNull = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorSystemDefault"); err == nil && ptr != 0 {
-		AllocatorSystemDefault = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorSystemDefault = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorUseContext"); err == nil && ptr != 0 {
-		AllocatorUseContext = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorUseContext = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBanglaCalendar"); err == nil && ptr != 0 {
-		BanglaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFBanglaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBooleanFalse"); err == nil && ptr != 0 {
-		BooleanFalse = *(*CFBooleanRef)(unsafe.Pointer(ptr))
+		KCFBooleanFalse = *(*CFBooleanRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBooleanTrue"); err == nil && ptr != 0 {
-		BooleanTrue = *(*CFBooleanRef)(unsafe.Pointer(ptr))
+		KCFBooleanTrue = *(*CFBooleanRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBuddhistCalendar"); err == nil && ptr != 0 {
-		BuddhistCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFBuddhistCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleDevelopmentRegionKey"); err == nil && ptr != 0 {
@@ -742,7 +1402,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				BundleDevelopmentRegionKey = objc.GoString(cstr)
+				KCFBundleDevelopmentRegionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -752,7 +1412,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				BundleExecutableKey = objc.GoString(cstr)
+				KCFBundleExecutableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -762,7 +1422,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				BundleIdentifierKey = objc.GoString(cstr)
+				KCFBundleIdentifierKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -772,7 +1432,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				BundleInfoDictionaryVersionKey = objc.GoString(cstr)
+				KCFBundleInfoDictionaryVersionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -782,7 +1442,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				BundleLocalizationsKey = objc.GoString(cstr)
+				KCFBundleLocalizationsKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -792,7 +1452,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				BundleNameKey = objc.GoString(cstr)
+				KCFBundleNameKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -802,133 +1462,145 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				BundleVersionKey = objc.GoString(cstr)
+				KCFBundleVersionKey = objc.GoString(cstr)
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFChineseCalendar"); err == nil && ptr != 0 {
-		ChineseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFChineseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFCopyStringBagCallBacks"); err == nil && ptr != 0 {
+		KCFCopyStringBagCallBacks = *(*CFBagCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFCopyStringDictionaryKeyCallBacks"); err == nil && ptr != 0 {
+		KCFCopyStringDictionaryKeyCallBacks = *(*CFDictionaryKeyCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFCopyStringSetCallBacks"); err == nil && ptr != 0 {
+		KCFCopyStringSetCallBacks = *(*CFSetCallBacks)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDangiCalendar"); err == nil && ptr != 0 {
-		DangiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFDangiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterAMSymbol"); err == nil && ptr != 0 {
-		DateFormatterAMSymbol = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterAMSymbol = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterCalendar"); err == nil && ptr != 0 {
-		DateFormatterCalendar = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterCalendar = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterCalendarName"); err == nil && ptr != 0 {
-		DateFormatterCalendarName = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterCalendarName = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterDefaultDate"); err == nil && ptr != 0 {
-		DateFormatterDefaultDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterDefaultDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterDefaultFormat"); err == nil && ptr != 0 {
-		DateFormatterDefaultFormat = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterDefaultFormat = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterDoesRelativeDateFormattingKey"); err == nil && ptr != 0 {
-		DateFormatterDoesRelativeDateFormattingKey = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterDoesRelativeDateFormattingKey = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterEraSymbols"); err == nil && ptr != 0 {
-		DateFormatterEraSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterEraSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterGregorianStartDate"); err == nil && ptr != 0 {
-		DateFormatterGregorianStartDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterGregorianStartDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterIsLenient"); err == nil && ptr != 0 {
-		DateFormatterIsLenient = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterIsLenient = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterLongEraSymbols"); err == nil && ptr != 0 {
-		DateFormatterLongEraSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterLongEraSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterMonthSymbols"); err == nil && ptr != 0 {
-		DateFormatterMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterPMSymbol"); err == nil && ptr != 0 {
-		DateFormatterPMSymbol = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterPMSymbol = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterQuarterSymbols"); err == nil && ptr != 0 {
-		DateFormatterQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortMonthSymbols"); err == nil && ptr != 0 {
-		DateFormatterShortMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortQuarterSymbols"); err == nil && ptr != 0 {
-		DateFormatterShortQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortStandaloneMonthSymbols"); err == nil && ptr != 0 {
-		DateFormatterShortStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortStandaloneQuarterSymbols"); err == nil && ptr != 0 {
-		DateFormatterShortStandaloneQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortStandaloneQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortStandaloneWeekdaySymbols"); err == nil && ptr != 0 {
-		DateFormatterShortStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortWeekdaySymbols"); err == nil && ptr != 0 {
-		DateFormatterShortWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterStandaloneMonthSymbols"); err == nil && ptr != 0 {
-		DateFormatterStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterStandaloneQuarterSymbols"); err == nil && ptr != 0 {
-		DateFormatterStandaloneQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterStandaloneQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterStandaloneWeekdaySymbols"); err == nil && ptr != 0 {
-		DateFormatterStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterTimeZone"); err == nil && ptr != 0 {
-		DateFormatterTimeZone = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterTimeZone = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterTwoDigitStartDate"); err == nil && ptr != 0 {
-		DateFormatterTwoDigitStartDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterTwoDigitStartDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterVeryShortMonthSymbols"); err == nil && ptr != 0 {
-		DateFormatterVeryShortMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterVeryShortMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterVeryShortStandaloneMonthSymbols"); err == nil && ptr != 0 {
-		DateFormatterVeryShortStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterVeryShortStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterVeryShortStandaloneWeekdaySymbols"); err == nil && ptr != 0 {
-		DateFormatterVeryShortStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterVeryShortStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterVeryShortWeekdaySymbols"); err == nil && ptr != 0 {
-		DateFormatterVeryShortWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterVeryShortWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterWeekdaySymbols"); err == nil && ptr != 0 {
-		DateFormatterWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDescriptionKey"); err == nil && ptr != 0 {
@@ -936,25 +1608,25 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				ErrorDescriptionKey = objc.GoString(cstr)
+				KCFErrorDescriptionKey = objc.GoString(cstr)
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDomainCocoa"); err == nil && ptr != 0 {
-		ErrorDomainCocoa = *(*CFErrorDomain)(unsafe.Pointer(ptr))
+		KCFErrorDomainCocoa = *(*CFErrorDomain)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDomainMach"); err == nil && ptr != 0 {
-		ErrorDomainMach = *(*CFErrorDomain)(unsafe.Pointer(ptr))
+		KCFErrorDomainMach = *(*CFErrorDomain)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDomainOSStatus"); err == nil && ptr != 0 {
-		ErrorDomainOSStatus = *(*CFErrorDomain)(unsafe.Pointer(ptr))
+		KCFErrorDomainOSStatus = *(*CFErrorDomain)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDomainPOSIX"); err == nil && ptr != 0 {
-		ErrorDomainPOSIX = *(*CFErrorDomain)(unsafe.Pointer(ptr))
+		KCFErrorDomainPOSIX = *(*CFErrorDomain)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorFilePathKey"); err == nil && ptr != 0 {
@@ -962,7 +1634,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				ErrorFilePathKey = objc.GoString(cstr)
+				KCFErrorFilePathKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -972,7 +1644,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				ErrorLocalizedDescriptionKey = objc.GoString(cstr)
+				KCFErrorLocalizedDescriptionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -982,7 +1654,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				ErrorLocalizedFailureKey = objc.GoString(cstr)
+				KCFErrorLocalizedFailureKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -992,7 +1664,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				ErrorLocalizedFailureReasonKey = objc.GoString(cstr)
+				KCFErrorLocalizedFailureReasonKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1002,7 +1674,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				ErrorLocalizedRecoverySuggestionKey = objc.GoString(cstr)
+				KCFErrorLocalizedRecoverySuggestionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1012,7 +1684,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				ErrorURLKey = objc.GoString(cstr)
+				KCFErrorURLKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1022,325 +1694,325 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				ErrorUnderlyingErrorKey = objc.GoString(cstr)
+				KCFErrorUnderlyingErrorKey = objc.GoString(cstr)
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFGregorianCalendar"); err == nil && ptr != 0 {
-		GregorianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFGregorianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFGujaratiCalendar"); err == nil && ptr != 0 {
-		GujaratiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFGujaratiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFHebrewCalendar"); err == nil && ptr != 0 {
-		HebrewCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFHebrewCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFISO8601Calendar"); err == nil && ptr != 0 {
-		ISO8601Calendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFISO8601Calendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIndianCalendar"); err == nil && ptr != 0 {
-		IndianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIndianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIslamicCalendar"); err == nil && ptr != 0 {
-		IslamicCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIslamicCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIslamicCivilCalendar"); err == nil && ptr != 0 {
-		IslamicCivilCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIslamicCivilCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIslamicTabularCalendar"); err == nil && ptr != 0 {
-		IslamicTabularCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIslamicTabularCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIslamicUmmAlQuraCalendar"); err == nil && ptr != 0 {
-		IslamicUmmAlQuraCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIslamicUmmAlQuraCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFJapaneseCalendar"); err == nil && ptr != 0 {
-		JapaneseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFJapaneseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFKannadaCalendar"); err == nil && ptr != 0 {
-		KannadaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFKannadaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleAlternateQuotationBeginDelimiterKey"); err == nil && ptr != 0 {
-		LocaleAlternateQuotationBeginDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleAlternateQuotationBeginDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleAlternateQuotationEndDelimiterKey"); err == nil && ptr != 0 {
-		LocaleAlternateQuotationEndDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleAlternateQuotationEndDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCalendar"); err == nil && ptr != 0 {
-		LocaleCalendar = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCalendar = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCalendarIdentifier"); err == nil && ptr != 0 {
-		LocaleCalendarIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCalendarIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCollationIdentifier"); err == nil && ptr != 0 {
-		LocaleCollationIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCollationIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCollatorIdentifier"); err == nil && ptr != 0 {
-		LocaleCollatorIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCollatorIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCountryCode"); err == nil && ptr != 0 {
-		LocaleCountryCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCountryCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCurrencyCode"); err == nil && ptr != 0 {
-		LocaleCurrencyCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCurrencyCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCurrencySymbol"); err == nil && ptr != 0 {
-		LocaleCurrencySymbol = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCurrencySymbol = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCurrentLocaleDidChangeNotification"); err == nil && ptr != 0 {
-		LocaleCurrentLocaleDidChangeNotification = *(*CFNotificationName)(unsafe.Pointer(ptr))
+		KCFLocaleCurrentLocaleDidChangeNotification = *(*CFNotificationName)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleDecimalSeparator"); err == nil && ptr != 0 {
-		LocaleDecimalSeparator = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleDecimalSeparator = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleExemplarCharacterSet"); err == nil && ptr != 0 {
-		LocaleExemplarCharacterSet = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleExemplarCharacterSet = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleGroupingSeparator"); err == nil && ptr != 0 {
-		LocaleGroupingSeparator = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleGroupingSeparator = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleIdentifier"); err == nil && ptr != 0 {
-		LocaleIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleLanguageCode"); err == nil && ptr != 0 {
-		LocaleLanguageCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleLanguageCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleMeasurementSystem"); err == nil && ptr != 0 {
-		LocaleMeasurementSystem = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleMeasurementSystem = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleQuotationBeginDelimiterKey"); err == nil && ptr != 0 {
-		LocaleQuotationBeginDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleQuotationBeginDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleQuotationEndDelimiterKey"); err == nil && ptr != 0 {
-		LocaleQuotationEndDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleQuotationEndDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleScriptCode"); err == nil && ptr != 0 {
-		LocaleScriptCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleScriptCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleUsesMetricSystem"); err == nil && ptr != 0 {
-		LocaleUsesMetricSystem = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleUsesMetricSystem = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleVariantCode"); err == nil && ptr != 0 {
-		LocaleVariantCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleVariantCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFMalayalamCalendar"); err == nil && ptr != 0 {
-		MalayalamCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFMalayalamCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFMarathiCalendar"); err == nil && ptr != 0 {
-		MarathiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFMarathiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNull"); err == nil && ptr != 0 {
-		Null = *(*CFNullRef)(unsafe.Pointer(ptr))
+		KCFNull = *(*CFNullRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterAlwaysShowDecimalSeparator"); err == nil && ptr != 0 {
-		NumberFormatterAlwaysShowDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterAlwaysShowDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterCurrencyCode"); err == nil && ptr != 0 {
-		NumberFormatterCurrencyCode = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterCurrencyCode = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterCurrencyDecimalSeparator"); err == nil && ptr != 0 {
-		NumberFormatterCurrencyDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterCurrencyDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterCurrencyGroupingSeparator"); err == nil && ptr != 0 {
-		NumberFormatterCurrencyGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterCurrencyGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterCurrencySymbol"); err == nil && ptr != 0 {
-		NumberFormatterCurrencySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterCurrencySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterDecimalSeparator"); err == nil && ptr != 0 {
-		NumberFormatterDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterDefaultFormat"); err == nil && ptr != 0 {
-		NumberFormatterDefaultFormat = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterDefaultFormat = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterExponentSymbol"); err == nil && ptr != 0 {
-		NumberFormatterExponentSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterExponentSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterFormatWidth"); err == nil && ptr != 0 {
-		NumberFormatterFormatWidth = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterFormatWidth = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterGroupingSeparator"); err == nil && ptr != 0 {
-		NumberFormatterGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterGroupingSize"); err == nil && ptr != 0 {
-		NumberFormatterGroupingSize = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterGroupingSize = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterInfinitySymbol"); err == nil && ptr != 0 {
-		NumberFormatterInfinitySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterInfinitySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterInternationalCurrencySymbol"); err == nil && ptr != 0 {
-		NumberFormatterInternationalCurrencySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterInternationalCurrencySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterIsLenient"); err == nil && ptr != 0 {
-		NumberFormatterIsLenient = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterIsLenient = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMaxFractionDigits"); err == nil && ptr != 0 {
-		NumberFormatterMaxFractionDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMaxFractionDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMaxIntegerDigits"); err == nil && ptr != 0 {
-		NumberFormatterMaxIntegerDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMaxIntegerDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMaxSignificantDigits"); err == nil && ptr != 0 {
-		NumberFormatterMaxSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMaxSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinFractionDigits"); err == nil && ptr != 0 {
-		NumberFormatterMinFractionDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinFractionDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinGroupingDigits"); err == nil && ptr != 0 {
-		NumberFormatterMinGroupingDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinGroupingDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinIntegerDigits"); err == nil && ptr != 0 {
-		NumberFormatterMinIntegerDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinIntegerDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinSignificantDigits"); err == nil && ptr != 0 {
-		NumberFormatterMinSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinusSign"); err == nil && ptr != 0 {
-		NumberFormatterMinusSign = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinusSign = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMultiplier"); err == nil && ptr != 0 {
-		NumberFormatterMultiplier = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMultiplier = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterNaNSymbol"); err == nil && ptr != 0 {
-		NumberFormatterNaNSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterNaNSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterNegativePrefix"); err == nil && ptr != 0 {
-		NumberFormatterNegativePrefix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterNegativePrefix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterNegativeSuffix"); err == nil && ptr != 0 {
-		NumberFormatterNegativeSuffix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterNegativeSuffix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPaddingCharacter"); err == nil && ptr != 0 {
-		NumberFormatterPaddingCharacter = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPaddingCharacter = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPaddingPosition"); err == nil && ptr != 0 {
-		NumberFormatterPaddingPosition = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPaddingPosition = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPerMillSymbol"); err == nil && ptr != 0 {
-		NumberFormatterPerMillSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPerMillSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPercentSymbol"); err == nil && ptr != 0 {
-		NumberFormatterPercentSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPercentSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPlusSign"); err == nil && ptr != 0 {
-		NumberFormatterPlusSign = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPlusSign = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPositivePrefix"); err == nil && ptr != 0 {
-		NumberFormatterPositivePrefix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPositivePrefix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPositiveSuffix"); err == nil && ptr != 0 {
-		NumberFormatterPositiveSuffix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPositiveSuffix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterRoundingIncrement"); err == nil && ptr != 0 {
-		NumberFormatterRoundingIncrement = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterRoundingIncrement = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterRoundingMode"); err == nil && ptr != 0 {
-		NumberFormatterRoundingMode = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterRoundingMode = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterSecondaryGroupingSize"); err == nil && ptr != 0 {
-		NumberFormatterSecondaryGroupingSize = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterSecondaryGroupingSize = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterUseGroupingSeparator"); err == nil && ptr != 0 {
-		NumberFormatterUseGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterUseGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterUseSignificantDigits"); err == nil && ptr != 0 {
-		NumberFormatterUseSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterUseSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterZeroSymbol"); err == nil && ptr != 0 {
-		NumberFormatterZeroSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterZeroSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberNaN"); err == nil && ptr != 0 {
-		NumberNaN = *(*CFNumberRef)(unsafe.Pointer(ptr))
+		KCFNumberNaN = *(*CFNumberRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberNegativeInfinity"); err == nil && ptr != 0 {
-		NumberNegativeInfinity = *(*CFNumberRef)(unsafe.Pointer(ptr))
+		KCFNumberNegativeInfinity = *(*CFNumberRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberPositiveInfinity"); err == nil && ptr != 0 {
-		NumberPositiveInfinity = *(*CFNumberRef)(unsafe.Pointer(ptr))
+		KCFNumberPositiveInfinity = *(*CFNumberRef)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFOdiaCalendar"); err == nil && ptr != 0 {
-		OdiaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFOdiaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPersianCalendar"); err == nil && ptr != 0 {
-		PersianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFPersianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPlugInDynamicRegisterFunctionKey"); err == nil && ptr != 0 {
@@ -1348,7 +2020,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PlugInDynamicRegisterFunctionKey = objc.GoString(cstr)
+				KCFPlugInDynamicRegisterFunctionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1358,7 +2030,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PlugInDynamicRegistrationKey = objc.GoString(cstr)
+				KCFPlugInDynamicRegistrationKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1368,7 +2040,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PlugInFactoriesKey = objc.GoString(cstr)
+				KCFPlugInFactoriesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1378,7 +2050,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PlugInTypesKey = objc.GoString(cstr)
+				KCFPlugInTypesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1388,7 +2060,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PlugInUnloadFunctionKey = objc.GoString(cstr)
+				KCFPlugInUnloadFunctionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1398,7 +2070,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PreferencesAnyApplication = objc.GoString(cstr)
+				KCFPreferencesAnyApplication = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1408,7 +2080,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PreferencesAnyHost = objc.GoString(cstr)
+				KCFPreferencesAnyHost = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1418,7 +2090,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PreferencesAnyUser = objc.GoString(cstr)
+				KCFPreferencesAnyUser = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1428,7 +2100,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PreferencesCurrentApplication = objc.GoString(cstr)
+				KCFPreferencesCurrentApplication = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1438,7 +2110,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PreferencesCurrentHost = objc.GoString(cstr)
+				KCFPreferencesCurrentHost = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1448,21 +2120,21 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				PreferencesCurrentUser = objc.GoString(cstr)
+				KCFPreferencesCurrentUser = objc.GoString(cstr)
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFRepublicOfChinaCalendar"); err == nil && ptr != 0 {
-		RepublicOfChinaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFRepublicOfChinaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFRunLoopCommonModes"); err == nil && ptr != 0 {
-		RunLoopCommonModes = *(*CFRunLoopMode)(unsafe.Pointer(ptr))
+		KCFRunLoopCommonModes = *(*CFRunLoopMode)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFRunLoopDefaultMode"); err == nil && ptr != 0 {
-		RunLoopDefaultMode = *(*CFRunLoopMode)(unsafe.Pointer(ptr))
+		KCFRunLoopDefaultMode = *(*CFRunLoopMode)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketCommandKey"); err == nil && ptr != 0 {
@@ -1470,7 +2142,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				SocketCommandKey = objc.GoString(cstr)
+				KCFSocketCommandKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1480,7 +2152,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				SocketErrorKey = objc.GoString(cstr)
+				KCFSocketErrorKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1490,7 +2162,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				SocketNameKey = objc.GoString(cstr)
+				KCFSocketNameKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1500,7 +2172,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				SocketRegisterCommand = objc.GoString(cstr)
+				KCFSocketRegisterCommand = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1510,7 +2182,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				SocketResultKey = objc.GoString(cstr)
+				KCFSocketResultKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1520,7 +2192,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				SocketRetrieveCommand = objc.GoString(cstr)
+				KCFSocketRetrieveCommand = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1530,21 +2202,21 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				SocketValueKey = objc.GoString(cstr)
+				KCFSocketValueKey = objc.GoString(cstr)
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertyAppendToFile"); err == nil && ptr != 0 {
-		StreamPropertyAppendToFile = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertyAppendToFile = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertyDataWritten"); err == nil && ptr != 0 {
-		StreamPropertyDataWritten = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertyDataWritten = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertyFileCurrentOffset"); err == nil && ptr != 0 {
-		StreamPropertyFileCurrentOffset = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertyFileCurrentOffset = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySOCKSPassword"); err == nil && ptr != 0 {
@@ -1552,7 +2224,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamPropertySOCKSPassword = objc.GoString(cstr)
+				KCFStreamPropertySOCKSPassword = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1562,7 +2234,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamPropertySOCKSProxy = objc.GoString(cstr)
+				KCFStreamPropertySOCKSProxy = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1572,7 +2244,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamPropertySOCKSProxyHost = objc.GoString(cstr)
+				KCFStreamPropertySOCKSProxyHost = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1582,7 +2254,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamPropertySOCKSProxyPort = objc.GoString(cstr)
+				KCFStreamPropertySOCKSProxyPort = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1592,7 +2264,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamPropertySOCKSUser = objc.GoString(cstr)
+				KCFStreamPropertySOCKSUser = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1602,7 +2274,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamPropertySOCKSVersion = objc.GoString(cstr)
+				KCFStreamPropertySOCKSVersion = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1612,21 +2284,21 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamPropertyShouldCloseNativeSocket = objc.GoString(cstr)
+				KCFStreamPropertyShouldCloseNativeSocket = objc.GoString(cstr)
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketNativeHandle"); err == nil && ptr != 0 {
-		StreamPropertySocketNativeHandle = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertySocketNativeHandle = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketRemoteHostName"); err == nil && ptr != 0 {
-		StreamPropertySocketRemoteHostName = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertySocketRemoteHostName = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketRemotePortNumber"); err == nil && ptr != 0 {
-		StreamPropertySocketRemotePortNumber = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertySocketRemotePortNumber = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketSecurityLevel"); err == nil && ptr != 0 {
@@ -1634,7 +2306,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamPropertySocketSecurityLevel = objc.GoString(cstr)
+				KCFStreamPropertySocketSecurityLevel = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1644,7 +2316,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSOCKSVersion4 = objc.GoString(cstr)
+				KCFStreamSocketSOCKSVersion4 = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1654,7 +2326,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSOCKSVersion5 = objc.GoString(cstr)
+				KCFStreamSocketSOCKSVersion5 = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1664,7 +2336,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSecurityLevelNegotiatedSSL = objc.GoString(cstr)
+				KCFStreamSocketSecurityLevelNegotiatedSSL = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1674,7 +2346,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSecurityLevelNone = objc.GoString(cstr)
+				KCFStreamSocketSecurityLevelNone = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1684,9 +2356,13 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StreamSocketSecurityLevelTLSv1 = objc.GoString(cstr)
+				KCFStreamSocketSecurityLevelTLSv1 = objc.GoString(cstr)
 			}
 		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringBinaryHeapCallBacks"); err == nil && ptr != 0 {
+		KCFStringBinaryHeapCallBacks = *(*CFBinaryHeapCallBacks)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformFullwidthHalfwidth"); err == nil && ptr != 0 {
@@ -1694,7 +2370,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformFullwidthHalfwidth = objc.GoString(cstr)
+				KCFStringTransformFullwidthHalfwidth = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1704,7 +2380,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformHiraganaKatakana = objc.GoString(cstr)
+				KCFStringTransformHiraganaKatakana = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1714,7 +2390,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformLatinArabic = objc.GoString(cstr)
+				KCFStringTransformLatinArabic = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1724,7 +2400,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformLatinCyrillic = objc.GoString(cstr)
+				KCFStringTransformLatinCyrillic = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1734,7 +2410,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformLatinGreek = objc.GoString(cstr)
+				KCFStringTransformLatinGreek = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1744,7 +2420,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformLatinHangul = objc.GoString(cstr)
+				KCFStringTransformLatinHangul = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1754,7 +2430,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformLatinHebrew = objc.GoString(cstr)
+				KCFStringTransformLatinHebrew = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1764,7 +2440,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformLatinHiragana = objc.GoString(cstr)
+				KCFStringTransformLatinHiragana = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1774,7 +2450,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformLatinKatakana = objc.GoString(cstr)
+				KCFStringTransformLatinKatakana = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1784,7 +2460,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformLatinThai = objc.GoString(cstr)
+				KCFStringTransformLatinThai = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1794,7 +2470,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformMandarinLatin = objc.GoString(cstr)
+				KCFStringTransformMandarinLatin = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1804,7 +2480,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformStripCombiningMarks = objc.GoString(cstr)
+				KCFStringTransformStripCombiningMarks = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1814,7 +2490,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformStripDiacritics = objc.GoString(cstr)
+				KCFStringTransformStripDiacritics = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1824,7 +2500,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformToLatin = objc.GoString(cstr)
+				KCFStringTransformToLatin = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1834,7 +2510,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformToUnicodeName = objc.GoString(cstr)
+				KCFStringTransformToUnicodeName = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1844,21 +2520,41 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				StringTransformToXMLHex = objc.GoString(cstr)
+				KCFStringTransformToXMLHex = objc.GoString(cstr)
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTamilCalendar"); err == nil && ptr != 0 {
-		TamilCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFTamilCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTeluguCalendar"); err == nil && ptr != 0 {
-		TeluguCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFTeluguCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTimeZoneSystemTimeZoneDidChangeNotification"); err == nil && ptr != 0 {
-		TimeZoneSystemTimeZoneDidChangeNotification = *(*CFNotificationName)(unsafe.Pointer(ptr))
+		KCFTimeZoneSystemTimeZoneDidChangeNotification = *(*CFNotificationName)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeArrayCallBacks"); err == nil && ptr != 0 {
+		KCFTypeArrayCallBacks = *(*CFArrayCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeBagCallBacks"); err == nil && ptr != 0 {
+		KCFTypeBagCallBacks = *(*CFBagCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeDictionaryKeyCallBacks"); err == nil && ptr != 0 {
+		KCFTypeDictionaryKeyCallBacks = *(*CFDictionaryKeyCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeDictionaryValueCallBacks"); err == nil && ptr != 0 {
+		KCFTypeDictionaryValueCallBacks = *(*CFDictionaryValueCallBacks)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeSetCallBacks"); err == nil && ptr != 0 {
+		KCFTypeSetCallBacks = *(*CFSetCallBacks)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLAddedToDirectoryDateKey"); err == nil && ptr != 0 {
@@ -1866,7 +2562,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLAddedToDirectoryDateKey = objc.GoString(cstr)
+				KCFURLAddedToDirectoryDateKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1876,7 +2572,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLApplicationIsScriptableKey = objc.GoString(cstr)
+				KCFURLApplicationIsScriptableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1886,7 +2582,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLAttributeModificationDateKey = objc.GoString(cstr)
+				KCFURLAttributeModificationDateKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1896,7 +2592,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLCanonicalPathKey = objc.GoString(cstr)
+				KCFURLCanonicalPathKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1906,7 +2602,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLContentAccessDateKey = objc.GoString(cstr)
+				KCFURLContentAccessDateKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1916,7 +2612,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLContentModificationDateKey = objc.GoString(cstr)
+				KCFURLContentModificationDateKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1926,7 +2622,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLCreationDateKey = objc.GoString(cstr)
+				KCFURLCreationDateKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1936,7 +2632,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLDirectoryEntryCountKey = objc.GoString(cstr)
+				KCFURLDirectoryEntryCountKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1946,7 +2642,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLDocumentIdentifierKey = objc.GoString(cstr)
+				KCFURLDocumentIdentifierKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1956,7 +2652,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileAllocatedSizeKey = objc.GoString(cstr)
+				KCFURLFileAllocatedSizeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1966,7 +2662,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileContentIdentifierKey = objc.GoString(cstr)
+				KCFURLFileContentIdentifierKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1976,7 +2672,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileIdentifierKey = objc.GoString(cstr)
+				KCFURLFileIdentifierKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1986,7 +2682,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceIdentifierKey = objc.GoString(cstr)
+				KCFURLFileResourceIdentifierKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -1996,7 +2692,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeBlockSpecial = objc.GoString(cstr)
+				KCFURLFileResourceTypeBlockSpecial = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2006,7 +2702,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeCharacterSpecial = objc.GoString(cstr)
+				KCFURLFileResourceTypeCharacterSpecial = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2016,7 +2712,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeDirectory = objc.GoString(cstr)
+				KCFURLFileResourceTypeDirectory = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2026,7 +2722,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeKey = objc.GoString(cstr)
+				KCFURLFileResourceTypeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2036,7 +2732,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeNamedPipe = objc.GoString(cstr)
+				KCFURLFileResourceTypeNamedPipe = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2046,7 +2742,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeRegular = objc.GoString(cstr)
+				KCFURLFileResourceTypeRegular = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2056,7 +2752,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeSocket = objc.GoString(cstr)
+				KCFURLFileResourceTypeSocket = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2066,7 +2762,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeSymbolicLink = objc.GoString(cstr)
+				KCFURLFileResourceTypeSymbolicLink = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2076,7 +2772,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileResourceTypeUnknown = objc.GoString(cstr)
+				KCFURLFileResourceTypeUnknown = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2086,7 +2782,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileSecurityKey = objc.GoString(cstr)
+				KCFURLFileSecurityKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2096,7 +2792,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLFileSizeKey = objc.GoString(cstr)
+				KCFURLFileSizeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2106,7 +2802,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLGenerationIdentifierKey = objc.GoString(cstr)
+				KCFURLGenerationIdentifierKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2116,7 +2812,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLHasHiddenExtensionKey = objc.GoString(cstr)
+				KCFURLHasHiddenExtensionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2126,7 +2822,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsAliasFileKey = objc.GoString(cstr)
+				KCFURLIsAliasFileKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2136,7 +2832,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsApplicationKey = objc.GoString(cstr)
+				KCFURLIsApplicationKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2146,7 +2842,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsDirectoryKey = objc.GoString(cstr)
+				KCFURLIsDirectoryKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2156,7 +2852,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsExcludedFromBackupKey = objc.GoString(cstr)
+				KCFURLIsExcludedFromBackupKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2166,7 +2862,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsExecutableKey = objc.GoString(cstr)
+				KCFURLIsExecutableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2176,7 +2872,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsHiddenKey = objc.GoString(cstr)
+				KCFURLIsHiddenKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2186,7 +2882,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsMountTriggerKey = objc.GoString(cstr)
+				KCFURLIsMountTriggerKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2196,7 +2892,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsPackageKey = objc.GoString(cstr)
+				KCFURLIsPackageKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2206,7 +2902,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsPurgeableKey = objc.GoString(cstr)
+				KCFURLIsPurgeableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2216,7 +2912,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsReadableKey = objc.GoString(cstr)
+				KCFURLIsReadableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2226,7 +2922,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsRegularFileKey = objc.GoString(cstr)
+				KCFURLIsRegularFileKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2236,7 +2932,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsSparseKey = objc.GoString(cstr)
+				KCFURLIsSparseKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2246,7 +2942,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsSymbolicLinkKey = objc.GoString(cstr)
+				KCFURLIsSymbolicLinkKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2256,7 +2952,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsSystemImmutableKey = objc.GoString(cstr)
+				KCFURLIsSystemImmutableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2266,7 +2962,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsUbiquitousItemKey = objc.GoString(cstr)
+				KCFURLIsUbiquitousItemKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2276,7 +2972,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsUserImmutableKey = objc.GoString(cstr)
+				KCFURLIsUserImmutableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2286,7 +2982,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsVolumeKey = objc.GoString(cstr)
+				KCFURLIsVolumeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2296,7 +2992,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLIsWritableKey = objc.GoString(cstr)
+				KCFURLIsWritableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2306,7 +3002,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLKeysOfUnsetValuesKey = objc.GoString(cstr)
+				KCFURLKeysOfUnsetValuesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2316,7 +3012,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLLabelNumberKey = objc.GoString(cstr)
+				KCFURLLabelNumberKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2326,7 +3022,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLLinkCountKey = objc.GoString(cstr)
+				KCFURLLinkCountKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2336,7 +3032,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLLocalizedLabelKey = objc.GoString(cstr)
+				KCFURLLocalizedLabelKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2346,7 +3042,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLLocalizedNameKey = objc.GoString(cstr)
+				KCFURLLocalizedNameKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2356,7 +3052,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLLocalizedTypeDescriptionKey = objc.GoString(cstr)
+				KCFURLLocalizedTypeDescriptionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2366,7 +3062,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLMayHaveExtendedAttributesKey = objc.GoString(cstr)
+				KCFURLMayHaveExtendedAttributesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2376,7 +3072,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLMayShareFileContentKey = objc.GoString(cstr)
+				KCFURLMayShareFileContentKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2386,7 +3082,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLNameKey = objc.GoString(cstr)
+				KCFURLNameKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2396,7 +3092,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLParentDirectoryURLKey = objc.GoString(cstr)
+				KCFURLParentDirectoryURLKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2406,7 +3102,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLPathKey = objc.GoString(cstr)
+				KCFURLPathKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2416,7 +3112,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLPreferredIOBlockSizeKey = objc.GoString(cstr)
+				KCFURLPreferredIOBlockSizeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2426,7 +3122,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLQuarantinePropertiesKey = objc.GoString(cstr)
+				KCFURLQuarantinePropertiesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2436,7 +3132,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLTagNamesKey = objc.GoString(cstr)
+				KCFURLTagNamesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2446,7 +3142,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLTotalFileAllocatedSizeKey = objc.GoString(cstr)
+				KCFURLTotalFileAllocatedSizeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2456,7 +3152,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLTotalFileSizeKey = objc.GoString(cstr)
+				KCFURLTotalFileSizeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2466,7 +3162,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLTypeIdentifierKey = objc.GoString(cstr)
+				KCFURLTypeIdentifierKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2476,7 +3172,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemDownloadingErrorKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemDownloadingErrorKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2486,7 +3182,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemDownloadingStatusCurrent = objc.GoString(cstr)
+				KCFURLUbiquitousItemDownloadingStatusCurrent = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2496,7 +3192,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemDownloadingStatusDownloaded = objc.GoString(cstr)
+				KCFURLUbiquitousItemDownloadingStatusDownloaded = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2506,7 +3202,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemDownloadingStatusKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemDownloadingStatusKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2516,7 +3212,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemDownloadingStatusNotDownloaded = objc.GoString(cstr)
+				KCFURLUbiquitousItemDownloadingStatusNotDownloaded = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2526,7 +3222,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemHasUnresolvedConflictsKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemHasUnresolvedConflictsKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2536,7 +3232,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemIsDownloadingKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemIsDownloadingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2546,7 +3242,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemIsExcludedFromSyncKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemIsExcludedFromSyncKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2556,7 +3252,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemIsSyncPausedKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemIsSyncPausedKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2566,7 +3262,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemIsUploadedKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemIsUploadedKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2576,7 +3272,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemIsUploadingKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemIsUploadingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2586,7 +3282,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemSupportedSyncControlsKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemSupportedSyncControlsKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2596,7 +3292,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLUbiquitousItemUploadingErrorKey = objc.GoString(cstr)
+				KCFURLUbiquitousItemUploadingErrorKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2606,7 +3302,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeAvailableCapacityForImportantUsageKey = objc.GoString(cstr)
+				KCFURLVolumeAvailableCapacityForImportantUsageKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2616,7 +3312,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeAvailableCapacityForOpportunisticUsageKey = objc.GoString(cstr)
+				KCFURLVolumeAvailableCapacityForOpportunisticUsageKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2626,7 +3322,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeAvailableCapacityKey = objc.GoString(cstr)
+				KCFURLVolumeAvailableCapacityKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2636,7 +3332,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeCreationDateKey = objc.GoString(cstr)
+				KCFURLVolumeCreationDateKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2646,7 +3342,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIdentifierKey = objc.GoString(cstr)
+				KCFURLVolumeIdentifierKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2656,7 +3352,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsAutomountedKey = objc.GoString(cstr)
+				KCFURLVolumeIsAutomountedKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2666,7 +3362,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsBrowsableKey = objc.GoString(cstr)
+				KCFURLVolumeIsBrowsableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2676,7 +3372,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsEjectableKey = objc.GoString(cstr)
+				KCFURLVolumeIsEjectableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2686,7 +3382,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsEncryptedKey = objc.GoString(cstr)
+				KCFURLVolumeIsEncryptedKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2696,7 +3392,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsInternalKey = objc.GoString(cstr)
+				KCFURLVolumeIsInternalKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2706,7 +3402,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsJournalingKey = objc.GoString(cstr)
+				KCFURLVolumeIsJournalingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2716,7 +3412,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsLocalKey = objc.GoString(cstr)
+				KCFURLVolumeIsLocalKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2726,7 +3422,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsReadOnlyKey = objc.GoString(cstr)
+				KCFURLVolumeIsReadOnlyKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2736,7 +3432,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsRemovableKey = objc.GoString(cstr)
+				KCFURLVolumeIsRemovableKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2746,7 +3442,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeIsRootFileSystemKey = objc.GoString(cstr)
+				KCFURLVolumeIsRootFileSystemKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2756,7 +3452,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeLocalizedFormatDescriptionKey = objc.GoString(cstr)
+				KCFURLVolumeLocalizedFormatDescriptionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2766,7 +3462,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeLocalizedNameKey = objc.GoString(cstr)
+				KCFURLVolumeLocalizedNameKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2776,7 +3472,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeMaximumFileSizeKey = objc.GoString(cstr)
+				KCFURLVolumeMaximumFileSizeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2786,7 +3482,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeMountFromLocationKey = objc.GoString(cstr)
+				KCFURLVolumeMountFromLocationKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2796,7 +3492,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeNameKey = objc.GoString(cstr)
+				KCFURLVolumeNameKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2806,7 +3502,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeResourceCountKey = objc.GoString(cstr)
+				KCFURLVolumeResourceCountKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2816,7 +3512,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSubtypeKey = objc.GoString(cstr)
+				KCFURLVolumeSubtypeKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2826,7 +3522,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsAccessPermissionsKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsAccessPermissionsKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2836,7 +3532,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsAdvisoryFileLockingKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsAdvisoryFileLockingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2846,7 +3542,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsCasePreservedNamesKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsCasePreservedNamesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2856,7 +3552,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsCaseSensitiveNamesKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsCaseSensitiveNamesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2866,7 +3562,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsCompressionKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsCompressionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2876,7 +3572,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsExclusiveRenamingKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsExclusiveRenamingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2886,7 +3582,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsExtendedSecurityKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsExtendedSecurityKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2896,7 +3592,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsFileCloningKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsFileCloningKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2906,7 +3602,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsFileProtectionKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsFileProtectionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2916,7 +3612,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsHardLinksKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsHardLinksKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2926,7 +3622,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsImmutableFilesKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsImmutableFilesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2936,7 +3632,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsJournalingKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsJournalingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2946,7 +3642,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsPersistentIDsKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsPersistentIDsKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2956,7 +3652,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsRenamingKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsRenamingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2966,7 +3662,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsRootDirectoryDatesKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsRootDirectoryDatesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2976,7 +3672,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsSparseFilesKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsSparseFilesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2986,7 +3682,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsSwapRenamingKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsSwapRenamingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -2996,7 +3692,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsSymbolicLinksKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsSymbolicLinksKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3006,7 +3702,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsVolumeSizesKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsVolumeSizesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3016,7 +3712,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeSupportsZeroRunsKey = objc.GoString(cstr)
+				KCFURLVolumeSupportsZeroRunsKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3026,7 +3722,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeTotalCapacityKey = objc.GoString(cstr)
+				KCFURLVolumeTotalCapacityKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3036,7 +3732,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeTypeNameKey = objc.GoString(cstr)
+				KCFURLVolumeTypeNameKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3046,7 +3742,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeURLForRemountingKey = objc.GoString(cstr)
+				KCFURLVolumeURLForRemountingKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3056,7 +3752,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeURLKey = objc.GoString(cstr)
+				KCFURLVolumeURLKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3066,7 +3762,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				URLVolumeUUIDStringKey = objc.GoString(cstr)
+				KCFURLVolumeUUIDStringKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3076,7 +3772,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationAlertHeaderKey = objc.GoString(cstr)
+				KCFUserNotificationAlertHeaderKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3086,7 +3782,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationAlertMessageKey = objc.GoString(cstr)
+				KCFUserNotificationAlertMessageKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3096,7 +3792,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationAlertTopMostKey = objc.GoString(cstr)
+				KCFUserNotificationAlertTopMostKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3106,7 +3802,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationAlternateButtonTitleKey = objc.GoString(cstr)
+				KCFUserNotificationAlternateButtonTitleKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3116,7 +3812,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationCheckBoxTitlesKey = objc.GoString(cstr)
+				KCFUserNotificationCheckBoxTitlesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3126,7 +3822,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationDefaultButtonTitleKey = objc.GoString(cstr)
+				KCFUserNotificationDefaultButtonTitleKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3136,7 +3832,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationIconURLKey = objc.GoString(cstr)
+				KCFUserNotificationIconURLKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3146,7 +3842,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationKeyboardTypesKey = objc.GoString(cstr)
+				KCFUserNotificationKeyboardTypesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3156,7 +3852,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationLocalizationURLKey = objc.GoString(cstr)
+				KCFUserNotificationLocalizationURLKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3166,7 +3862,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationOtherButtonTitleKey = objc.GoString(cstr)
+				KCFUserNotificationOtherButtonTitleKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3176,7 +3872,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationPopUpSelectionKey = objc.GoString(cstr)
+				KCFUserNotificationPopUpSelectionKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3186,7 +3882,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationPopUpTitlesKey = objc.GoString(cstr)
+				KCFUserNotificationPopUpTitlesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3196,7 +3892,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationProgressIndicatorValueKey = objc.GoString(cstr)
+				KCFUserNotificationProgressIndicatorValueKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3206,7 +3902,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationSoundURLKey = objc.GoString(cstr)
+				KCFUserNotificationSoundURLKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3216,7 +3912,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationTextFieldTitlesKey = objc.GoString(cstr)
+				KCFUserNotificationTextFieldTitlesKey = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3226,17 +3922,17 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				UserNotificationTextFieldValuesKey = objc.GoString(cstr)
+				KCFUserNotificationTextFieldValuesKey = objc.GoString(cstr)
 			}
 		}
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFVietnameseCalendar"); err == nil && ptr != 0 {
-		VietnameseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFVietnameseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFVikramCalendar"); err == nil && ptr != 0 {
-		VikramCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFVikramCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFXMLTreeErrorDescription"); err == nil && ptr != 0 {
@@ -3244,7 +3940,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				XMLTreeErrorDescription = objc.GoString(cstr)
+				KCFXMLTreeErrorDescription = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3254,7 +3950,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				XMLTreeErrorLineNumber = objc.GoString(cstr)
+				KCFXMLTreeErrorLineNumber = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3264,7 +3960,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				XMLTreeErrorLocation = objc.GoString(cstr)
+				KCFXMLTreeErrorLocation = objc.GoString(cstr)
 			}
 		}
 	}
@@ -3274,7 +3970,7 @@ func init() {
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
-				XMLTreeErrorStatusCode = objc.GoString(cstr)
+				KCFXMLTreeErrorStatusCode = objc.GoString(cstr)
 			}
 		}
 	}

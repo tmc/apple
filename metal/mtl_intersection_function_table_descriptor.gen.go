@@ -36,12 +36,6 @@ func (mc MTLIntersectionFunctionTableDescriptorClass) Alloc() MTLIntersectionFun
 	return rv
 }
 
-
-
-
-
-
-
 // A specification of how to create an intersection function table.
 //
 // # Configuring the table’s size
@@ -58,14 +52,10 @@ type MTLIntersectionFunctionTableDescriptor struct {
 //
 // A specification of how to create an intersection function table.
 func MTLIntersectionFunctionTableDescriptorFromID(id objc.ID) MTLIntersectionFunctionTableDescriptor {
-	return MTLIntersectionFunctionTableDescriptor{objectivec.Object{id}}
+	return MTLIntersectionFunctionTableDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLIntersectionFunctionTableDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLIntersectionFunctionTableDescriptor] class.
 //
@@ -84,10 +74,6 @@ type IMTLIntersectionFunctionTableDescriptor interface {
 	FunctionCount() uint
 	SetFunctionCount(value uint)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i MTLIntersectionFunctionTableDescriptor) Init() MTLIntersectionFunctionTableDescriptor {
@@ -108,19 +94,6 @@ func NewMTLIntersectionFunctionTableDescriptor() MTLIntersectionFunctionTableDes
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates an intersection function table descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTableDescriptor/intersectionFunctionTableDescriptor
@@ -128,13 +101,6 @@ func (_MTLIntersectionFunctionTableDescriptorClass MTLIntersectionFunctionTableD
 	rv := objc.Send[objc.ID](objc.ID(_MTLIntersectionFunctionTableDescriptorClass.class), objc.Sel("intersectionFunctionTableDescriptor"))
 	return MTLIntersectionFunctionTableDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The number of entries in the intersection function table.
 //
@@ -146,27 +112,4 @@ func (i MTLIntersectionFunctionTableDescriptor) FunctionCount() uint {
 func (i MTLIntersectionFunctionTableDescriptor) SetFunctionCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setFunctionCount:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

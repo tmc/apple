@@ -19,8 +19,6 @@ type MTLLogState interface {
 	AddLogHandler(block VoidHandler)
 }
 
-
-
 // MTLLogStateObject wraps an existing Objective-C object that conforms to the MTLLogState protocol.
 type MTLLogStateObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o MTLLogStateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLLogStateObjectFromID constructs a [MTLLogStateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLLogStateObjectFromID(id objc.ID) MTLLogStateObject {
@@ -38,9 +34,6 @@ func MTLLogStateObjectFromID(id objc.ID) MTLLogStateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Adds a log handler to customize the presentation of shader logging.
 //
@@ -61,10 +54,4 @@ func (o MTLLogStateObject) AddLogHandler(block VoidHandler) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("addLogHandler:"), block)
 	}
-
-
-
-
-
-
 

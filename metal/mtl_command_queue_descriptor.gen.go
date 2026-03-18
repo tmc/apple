@@ -37,12 +37,6 @@ func (mc MTLCommandQueueDescriptorClass) Alloc() MTLCommandQueueDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration that customizes the behavior for a new command queue.
 //
 // # Instance Properties
@@ -61,14 +55,10 @@ type MTLCommandQueueDescriptor struct {
 //
 // A configuration that customizes the behavior for a new command queue.
 func MTLCommandQueueDescriptorFromID(id objc.ID) MTLCommandQueueDescriptor {
-	return MTLCommandQueueDescriptor{objectivec.Object{id}}
+	return MTLCommandQueueDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLCommandQueueDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLCommandQueueDescriptor] class.
 //
@@ -96,10 +86,6 @@ type IMTLCommandQueueDescriptor interface {
 	MTLCommandBufferErrorDomain() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MTLCommandQueueDescriptor) Init() MTLCommandQueueDescriptor {
 	rv := objc.Send[MTLCommandQueueDescriptor](c.ID, objc.Sel("init"))
@@ -119,26 +105,6 @@ func NewMTLCommandQueueDescriptor() MTLCommandQueueDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The shader logging configuration that the command queue uses.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueueDescriptor/logState
@@ -149,8 +115,6 @@ func (c MTLCommandQueueDescriptor) LogState() MTLLogState {
 func (c MTLCommandQueueDescriptor) SetLogState(value MTLLogState) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLogState:"), value)
 }
-
-
 
 // An integer that sets the maximum number of uncompleted command buffers the
 // queue can allow.
@@ -164,8 +128,6 @@ func (c MTLCommandQueueDescriptor) SetMaxCommandBufferCount(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxCommandBufferCount:"), value)
 }
 
-
-
 // The domain for Metal command buffer errors.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcommandbuffererrordomain
@@ -173,27 +135,4 @@ func (c MTLCommandQueueDescriptor) MTLCommandBufferErrorDomain() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("MTLCommandBufferErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

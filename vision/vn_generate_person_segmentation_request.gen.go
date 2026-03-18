@@ -38,12 +38,6 @@ func (vc VNGeneratePersonSegmentationRequestClass) Alloc() VNGeneratePersonSegme
 	return rv
 }
 
-
-
-
-
-
-
 // An object that produces a matte image for a person it finds in the input
 // image.
 //
@@ -82,10 +76,6 @@ func VNGeneratePersonSegmentationRequestFromID(id objc.ID) VNGeneratePersonSegme
 }
 // NOTE: VNGeneratePersonSegmentationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNGeneratePersonSegmentationRequest] class.
 //
@@ -128,10 +118,6 @@ type IVNGeneratePersonSegmentationRequest interface {
 	VNGeneratePersonSegmentationRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (g VNGeneratePersonSegmentationRequest) Init() VNGeneratePersonSegmentationRequest {
 	rv := objc.Send[VNGeneratePersonSegmentationRequest](g.ID, objc.Sel("init"))
@@ -151,11 +137,6 @@ func NewVNGeneratePersonSegmentationRequest() VNGeneratePersonSegmentationReques
 	return rv
 }
 
-
-
-
-
-
 // Creates a generate person segmentation request with a completion handler.
 //
 // completionHandler: A completion handler that processes the resuts of the request.
@@ -166,7 +147,6 @@ func NewGeneratePersonSegmentationRequestWithCompletionHandler(completionHandler
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNGeneratePersonSegmentationRequestFromID(rv)
 }
-
 
 // Initializes a video-based request.
 //
@@ -189,17 +169,11 @@ func NewGeneratePersonSegmentationRequestWithFrameAnalysisSpacingCompletionHandl
 	return VNGeneratePersonSegmentationRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns a list of output pixel formats that the request supports.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/supportedOutputPixelFormats()
 func (g VNGeneratePersonSegmentationRequest) SupportedOutputPixelFormatsAndReturnError() ([]foundation.NSNumber, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("supportedOutputPixelFormatsAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -210,17 +184,6 @@ func (g VNGeneratePersonSegmentationRequest) SupportedOutputPixelFormatsAndRetur
 	}), nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The pixel format of the output image.
 //
@@ -247,8 +210,6 @@ func (g VNGeneratePersonSegmentationRequest) SetOutputPixelFormat(value uint32) 
 	objc.Send[struct{}](g.ID, objc.Sel("setOutputPixelFormat:"), value)
 }
 
-
-
 // A value that indicates how the request balances accuracy and performance.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/qualityLevel-swift.property
@@ -260,8 +221,6 @@ func (g VNGeneratePersonSegmentationRequest) SetQualityLevel(value VNGeneratePer
 	objc.Send[struct{}](g.ID, objc.Sel("setQualityLevel:"), value)
 }
 
-
-
 // A constant for specifying revision 1 of the person segmentation generation
 // request.
 //
@@ -270,27 +229,4 @@ func (g VNGeneratePersonSegmentationRequest) VNGeneratePersonSegmentationRequest
 	rv := objc.Send[int](g.ID, objc.Sel("VNGeneratePersonSegmentationRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

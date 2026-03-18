@@ -85,8 +85,6 @@ type MTLResidencySet interface {
 	RemoveAllocationsCount(allocations []MTLAllocation, count uint)
 }
 
-
-
 // MTLResidencySetObject wraps an existing Objective-C object that conforms to the MTLResidencySet protocol.
 type MTLResidencySetObject struct {
 	objectivec.Object
@@ -95,8 +93,6 @@ func (o MTLResidencySetObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLResidencySetObjectFromID constructs a [MTLResidencySetObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLResidencySetObjectFromID(id objc.ID) MTLResidencySetObject {
@@ -104,9 +100,6 @@ func MTLResidencySetObjectFromID(id objc.ID) MTLResidencySetObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Stages a single resource to join the residency set’s list of allocations.
 //
@@ -305,20 +298,4 @@ func (o MTLResidencySetObject) RemoveAllocationsCount(allocations []MTLAllocatio
 	
 	objc.Send[struct{}](o.ID, objc.Sel("removeAllocations:count:"), objc.CArray(allocations), count)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

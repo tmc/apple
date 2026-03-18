@@ -36,12 +36,6 @@ func (mc MTL4SpecializedFunctionDescriptorClass) Alloc() MTL4SpecializedFunction
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together properties to configure and create a specialized function
 // by passing it to a factory method.
 //
@@ -75,10 +69,6 @@ func MTL4SpecializedFunctionDescriptorFromID(id objc.ID) MTL4SpecializedFunction
 // NOTE: MTL4SpecializedFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MTL4SpecializedFunctionDescriptor] class.
 //
 // # Instance Properties
@@ -107,10 +97,6 @@ type IMTL4SpecializedFunctionDescriptor interface {
 	SetSpecializedName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4SpecializedFunctionDescriptor) Init() MTL4SpecializedFunctionDescriptor {
 	rv := objc.Send[MTL4SpecializedFunctionDescriptor](m.ID, objc.Sel("init"))
@@ -130,26 +116,6 @@ func NewMTL4SpecializedFunctionDescriptor() MTL4SpecializedFunctionDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Configures optional function constant values to associate with the
 // function.
 //
@@ -161,8 +127,6 @@ func (m MTL4SpecializedFunctionDescriptor) ConstantValues() IMTLFunctionConstant
 func (m MTL4SpecializedFunctionDescriptor) SetConstantValues(value IMTLFunctionConstantValues) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConstantValues:"), value)
 }
-
-
 
 // Provides a descriptor that corresponds to a base function that the
 // specialization applies to.
@@ -176,8 +140,6 @@ func (m MTL4SpecializedFunctionDescriptor) SetFunctionDescriptor(value IMTL4Func
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptor:"), value)
 }
 
-
-
 // Assigns an optional name to the specialized function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4SpecializedFunctionDescriptor/specializedName
@@ -188,27 +150,4 @@ func (m MTL4SpecializedFunctionDescriptor) SpecializedName() string {
 func (m MTL4SpecializedFunctionDescriptor) SetSpecializedName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSpecializedName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

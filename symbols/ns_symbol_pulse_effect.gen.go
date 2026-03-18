@@ -35,12 +35,6 @@ func (nc NSSymbolPulseEffectClass) Alloc() NSSymbolPulseEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A type that fades the opacity of some or all layers in a symbol-based
 // image.
 //
@@ -71,10 +65,6 @@ func NSSymbolPulseEffectFromID(id objc.ID) NSSymbolPulseEffect {
 // Ensure NSSymbolPulseEffect implements INSSymbolPulseEffect.
 var _ INSSymbolPulseEffect = NSSymbolPulseEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolPulseEffect] class.
 //
 // # Determining effect scope
@@ -94,10 +84,6 @@ type INSSymbolPulseEffect interface {
 	EffectWithWholeSymbol() INSSymbolPulseEffect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolPulseEffect) Init() NSSymbolPulseEffect {
 	rv := objc.Send[NSSymbolPulseEffect](s.ID, objc.Sel("init"))
@@ -116,15 +102,6 @@ func NewNSSymbolPulseEffect() NSSymbolPulseEffect {
 	rv := objc.Send[NSSymbolPulseEffect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // A copy of the effect requesting an animation that pulses only the layers
 // marked to always pulse.
@@ -153,10 +130,6 @@ func (s NSSymbolPulseEffect) EffectWithWholeSymbol() INSSymbolPulseEffect {
 	return NSSymbolPulseEffectFromID(rv)
 }
 
-
-
-
-
 // The default pulse effect, determined by the system.
 //
 // # Return Value
@@ -168,25 +141,4 @@ func (_NSSymbolPulseEffectClass NSSymbolPulseEffectClass) Effect() NSSymbolPulse
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolPulseEffectClass.class), objc.Sel("effect"))
 	return NSSymbolPulseEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

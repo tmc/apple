@@ -42,12 +42,6 @@ func (mc MTKViewClass) Alloc() MTKView {
 	return rv
 }
 
-
-
-
-
-
-
 // A specialized view that creates, configures, and displays Metal objects.
 //
 // # Overview
@@ -228,10 +222,6 @@ func MTKViewFromID(id objc.ID) MTKView {
 }
 // NOTE: MTKView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTKView] class.
 //
@@ -424,10 +414,6 @@ type IMTKView interface {
 	CurrentMTL4RenderPassDescriptor() metal.MTL4RenderPassDescriptor
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v MTKView) Init() MTKView {
 	rv := objc.Send[MTKView](v.ID, objc.Sel("init"))
@@ -447,11 +433,6 @@ func NewMTKView() MTKView {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a view from data in a given unarchiver.
 //
 // coder: An unarchiver object.
@@ -466,7 +447,6 @@ func NewViewWithCoder(coder foundation.INSCoder) MTKView {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MTKViewFromID(rv)
 }
-
 
 // Initializes a view with the specified frame rectangle and Metal device.
 //
@@ -484,12 +464,6 @@ func NewViewWithFrameDevice(frameRect corefoundation.CGRect, device metal.MTLDev
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrame:device:"), frameRect, device)
 	return MTKViewFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a view with the specified frame rectangle and Metal device.
 //
@@ -536,20 +510,6 @@ func (v MTKView) Draw() {
 func (v MTKView) ReleaseDrawables() {
 	objc.Send[objc.ID](v.ID, objc.Sel("releaseDrawables"))
 }
-func (v MTKView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The view’s delegate.
 //
@@ -570,8 +530,6 @@ func (v MTKView) SetDelegate(value MTKViewDelegate) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // The device object the view uses to create its Metal objects.
 //
 // # Discussion
@@ -586,8 +544,6 @@ func (v MTKView) Device() metal.MTLDevice {
 func (v MTKView) SetDevice(value metal.MTLDevice) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDevice:"), value)
 }
-
-
 
 // The device object that the system recommends using for this view.
 //
@@ -611,8 +567,6 @@ func (v MTKView) PreferredDevice() metal.MTLDevice {
 	return metal.MTLDeviceObjectFromID(rv)
 }
 
-
-
 // The color pixel format for the current drawable’s texture.
 //
 // # Discussion
@@ -635,8 +589,6 @@ func (v MTKView) SetColorPixelFormat(value metal.MTLPixelFormat) {
 	objc.Send[struct{}](v.ID, objc.Sel("setColorPixelFormat:"), value)
 }
 
-
-
 // The color space of the rendered content.
 //
 // # Discussion
@@ -654,8 +606,6 @@ func (v MTKView) Colorspace() coregraphics.CGColorSpaceRef {
 func (v MTKView) SetColorspace(value coregraphics.CGColorSpaceRef) {
 	objc.Send[struct{}](v.ID, objc.Sel("setColorspace:"), value)
 }
-
-
 
 // A Boolean value that determines whether the drawable’s textures are used
 // only for rendering.
@@ -683,8 +633,6 @@ func (v MTKView) SetFramebufferOnly(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFramebufferOnly:"), value)
 }
 
-
-
 // The current size of drawable textures.
 //
 // # Discussion
@@ -710,8 +658,6 @@ func (v MTKView) SetDrawableSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDrawableSize:"), value)
 }
 
-
-
 // The recommended dimensions of the drawable.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/preferredDrawableSize
@@ -719,8 +665,6 @@ func (v MTKView) PreferredDrawableSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("preferredDrawableSize"))
 	return corefoundation.CGSize(rv)
 }
-
-
 
 // A Boolean value that controls whether to resize the drawable as the view
 // changes size.
@@ -746,8 +690,6 @@ func (v MTKView) SetAutoResizeDrawable(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAutoResizeDrawable:"), value)
 }
 
-
-
 // The color to use to clear the color target when creating a render pass
 // descriptor.
 //
@@ -767,8 +709,6 @@ func (v MTKView) ClearColor() metal.MTLClearColor {
 func (v MTKView) SetClearColor(value metal.MTLClearColor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setClearColor:"), value)
 }
-
-
 
 // The format used to generate the [DepthStencilTexture] object.
 //
@@ -790,8 +730,6 @@ func (v MTKView) SetDepthStencilPixelFormat(value metal.MTLPixelFormat) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDepthStencilPixelFormat:"), value)
 }
 
-
-
 // The texture usage characteristics that the view uses when creating the
 // depth and stencil textures.
 //
@@ -809,8 +747,6 @@ func (v MTKView) DepthStencilAttachmentTextureUsage() unsafe.Pointer {
 func (v MTKView) SetDepthStencilAttachmentTextureUsage(value metal.MTLTextureUsage) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDepthStencilAttachmentTextureUsage:"), value)
 }
-
-
 
 // The depth value to use to clear the depth target when creating a render
 // pass descriptor.
@@ -833,8 +769,6 @@ func (v MTKView) SetClearDepth(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setClearDepth:"), value)
 }
 
-
-
 // The stencil value to use to clear the stencil target when creating a render
 // pass descriptor.
 //
@@ -855,8 +789,6 @@ func (v MTKView) ClearStencil() uint32 {
 func (v MTKView) SetClearStencil(value uint32) {
 	objc.Send[struct{}](v.ID, objc.Sel("setClearStencil:"), value)
 }
-
-
 
 // The sample count used to generate the [MultisampleColorTexture] object.
 //
@@ -886,8 +818,6 @@ func (v MTKView) SetSampleCount(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSampleCount:"), value)
 }
 
-
-
 // The texture usage characteristics that the view uses when creating
 // multisample textures.
 //
@@ -905,8 +835,6 @@ func (v MTKView) MultisampleColorAttachmentTextureUsage() unsafe.Pointer {
 func (v MTKView) SetMultisampleColorAttachmentTextureUsage(value metal.MTLTextureUsage) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMultisampleColorAttachmentTextureUsage:"), value)
 }
-
-
 
 // A render pass descriptor to draw into the current drawable.
 //
@@ -946,8 +874,6 @@ func (v MTKView) CurrentRenderPassDescriptor() metal.MTLRenderPassDescriptor {
 	return metal.MTLRenderPassDescriptorFromID(objc.ID(rv))
 }
 
-
-
 // The drawable to use for the current frame.
 //
 // # Discussion
@@ -975,8 +901,6 @@ func (v MTKView) CurrentDrawable() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // A packed depth and stencil texture associated with the current drawable
 // object’s texture.
 //
@@ -996,8 +920,6 @@ func (v MTKView) DepthStencilTexture() metal.MTLTexture {
 	return metal.MTLTextureObjectFromID(rv)
 }
 
-
-
 // The storage mode that the packed depth and stencil texture use.
 //
 // # Discussion
@@ -1014,8 +936,6 @@ func (v MTKView) DepthStencilStorageMode() unsafe.Pointer {
 func (v MTKView) SetDepthStencilStorageMode(value metal.MTLStorageMode) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDepthStencilStorageMode:"), value)
 }
-
-
 
 // The multisample color sample texture to render into.
 //
@@ -1035,8 +955,6 @@ func (v MTKView) MultisampleColorTexture() metal.MTLTexture {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("multisampleColorTexture"))
 	return metal.MTLTextureObjectFromID(rv)
 }
-
-
 
 // The rate at which the view redraws its contents.
 //
@@ -1064,8 +982,6 @@ func (v MTKView) SetPreferredFramesPerSecond(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPreferredFramesPerSecond:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the draw loop is paused.
 //
 // # Discussion
@@ -1085,8 +1001,6 @@ func (v MTKView) Paused() bool {
 func (v MTKView) SetPaused(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPaused:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the view responds to
 // [setNeedsDisplay()].
@@ -1116,8 +1030,6 @@ func (v MTKView) SetEnableSetNeedsDisplay(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEnableSetNeedsDisplay:"), value)
 }
 
-
-
 // A Boolean value that determines whether the view presents its content using
 // a Core Animation transaction.
 //
@@ -1141,8 +1053,6 @@ func (v MTKView) SetPresentsWithTransaction(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPresentsWithTransaction:"), value)
 }
 
-
-
 //
 // # Discussion
 // 
@@ -1157,55 +1067,4 @@ func (v MTKView) CurrentMTL4RenderPassDescriptor() metal.MTL4RenderPassDescripto
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("currentMTL4RenderPassDescriptor"))
 	return metal.MTL4RenderPassDescriptorFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

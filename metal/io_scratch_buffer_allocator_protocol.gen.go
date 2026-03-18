@@ -19,8 +19,6 @@ type MTLIOScratchBufferAllocator interface {
 	NewScratchBufferWithMinimumSize(minimumSize uint) MTLIOScratchBuffer
 }
 
-
-
 // MTLIOScratchBufferAllocatorObject wraps an existing Objective-C object that conforms to the MTLIOScratchBufferAllocator protocol.
 type MTLIOScratchBufferAllocatorObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o MTLIOScratchBufferAllocatorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIOScratchBufferAllocatorObjectFromID constructs a [MTLIOScratchBufferAllocatorObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIOScratchBufferAllocatorObjectFromID(id objc.ID) MTLIOScratchBufferAllocatorObject {
@@ -38,9 +34,6 @@ func MTLIOScratchBufferAllocatorObjectFromID(id objc.ID) MTLIOScratchBufferAlloc
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Creates a scratch memory buffer for an input/output command queue.
 //
@@ -65,10 +58,4 @@ func (o MTLIOScratchBufferAllocatorObject) NewScratchBufferWithMinimumSize(minim
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newScratchBufferWithMinimumSize:"), minimumSize)
 	return MTLIOScratchBufferObjectFromID(rv)
 	}
-
-
-
-
-
-
 

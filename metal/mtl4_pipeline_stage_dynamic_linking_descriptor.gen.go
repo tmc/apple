@@ -36,12 +36,6 @@ func (mc MTL4PipelineStageDynamicLinkingDescriptorClass) Alloc() MTL4PipelineSta
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together properties to drive the dynamic linking process of a
 // pipeline stage.
 //
@@ -64,14 +58,10 @@ type MTL4PipelineStageDynamicLinkingDescriptor struct {
 // Groups together properties to drive the dynamic linking process of a
 // pipeline stage.
 func MTL4PipelineStageDynamicLinkingDescriptorFromID(id objc.ID) MTL4PipelineStageDynamicLinkingDescriptor {
-	return MTL4PipelineStageDynamicLinkingDescriptor{objectivec.Object{id}}
+	return MTL4PipelineStageDynamicLinkingDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4PipelineStageDynamicLinkingDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4PipelineStageDynamicLinkingDescriptor] class.
 //
@@ -101,10 +91,6 @@ type IMTL4PipelineStageDynamicLinkingDescriptor interface {
 	SetPreloadedLibraries(value []objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4PipelineStageDynamicLinkingDescriptor) Init() MTL4PipelineStageDynamicLinkingDescriptor {
 	rv := objc.Send[MTL4PipelineStageDynamicLinkingDescriptor](m.ID, objc.Sel("init"))
@@ -124,26 +110,6 @@ func NewMTL4PipelineStageDynamicLinkingDescriptor() MTL4PipelineStageDynamicLink
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Provides the array of binary functions to link.
 //
 // # Discussion
@@ -162,8 +128,6 @@ func (m MTL4PipelineStageDynamicLinkingDescriptor) SetBinaryLinkedFunctions(valu
 	objc.Send[struct{}](m.ID, objc.Sel("setBinaryLinkedFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Limits the maximum depth of the call stack for indirect function calls in
 // the pipeline stage function.
 //
@@ -175,8 +139,6 @@ func (m MTL4PipelineStageDynamicLinkingDescriptor) MaxCallStackDepth() uint {
 func (m MTL4PipelineStageDynamicLinkingDescriptor) SetMaxCallStackDepth(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxCallStackDepth:"), value)
 }
-
-
 
 // Provides an array of dynamic libraries the compiler loads when it builds
 // the pipeline.
@@ -191,27 +153,4 @@ func (m MTL4PipelineStageDynamicLinkingDescriptor) PreloadedLibraries() []object
 func (m MTL4PipelineStageDynamicLinkingDescriptor) SetPreloadedLibraries(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreloadedLibraries:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

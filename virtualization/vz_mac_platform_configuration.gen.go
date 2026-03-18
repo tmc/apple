@@ -35,12 +35,6 @@ func (vc VZMacPlatformConfigurationClass) Alloc() VZMacPlatformConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // The platform configuration for booting macOS on Apple silicon.
 //
 // # Overview
@@ -88,10 +82,6 @@ func VZMacPlatformConfigurationFromID(id objc.ID) VZMacPlatformConfiguration {
 // NOTE: VZMacPlatformConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZMacPlatformConfiguration] class.
 //
 // # Getting platform properties
@@ -124,10 +114,6 @@ type IVZMacPlatformConfiguration interface {
 	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m VZMacPlatformConfiguration) Init() VZMacPlatformConfiguration {
 	rv := objc.Send[VZMacPlatformConfiguration](m.ID, objc.Sel("init"))
@@ -147,27 +133,6 @@ func NewVZMacPlatformConfiguration() VZMacPlatformConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The Mac auxiliary storage.
 //
 // # Discussion
@@ -184,8 +149,6 @@ func (m VZMacPlatformConfiguration) AuxiliaryStorage() IVZMacAuxiliaryStorage {
 func (m VZMacPlatformConfiguration) SetAuxiliaryStorage(value IVZMacAuxiliaryStorage) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAuxiliaryStorage:"), value)
 }
-
-
 
 // The Mac hardware model.
 //
@@ -209,8 +172,6 @@ func (m VZMacPlatformConfiguration) SetHardwareModel(value IVZMacHardwareModel) 
 	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
 }
 
-
-
 // The Mac machine identifier.
 //
 // # Discussion
@@ -228,8 +189,6 @@ func (m VZMacPlatformConfiguration) SetMachineIdentifier(value IVZMacMachineIden
 	objc.Send[struct{}](m.ID, objc.Sel("setMachineIdentifier:"), value)
 }
 
-
-
 // This object represents the most fully featured configuration that’s
 // supported by both the current host and by this restore image.
 //
@@ -241,27 +200,4 @@ func (m VZMacPlatformConfiguration) MostFeaturefulSupportedConfiguration() IVZMa
 func (m VZMacPlatformConfiguration) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

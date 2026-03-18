@@ -40,8 +40,6 @@ type MTLIOCommandQueue interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLIOCommandQueueObject wraps an existing Objective-C object that conforms to the MTLIOCommandQueue protocol.
 type MTLIOCommandQueueObject struct {
 	objectivec.Object
@@ -50,8 +48,6 @@ func (o MTLIOCommandQueueObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIOCommandQueueObjectFromID constructs a [MTLIOCommandQueueObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIOCommandQueueObjectFromID(id objc.ID) MTLIOCommandQueueObject {
@@ -59,9 +55,6 @@ func MTLIOCommandQueueObjectFromID(id objc.ID) MTLIOCommandQueueObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Creates an input/output command buffer for the command queue.
 //
@@ -105,14 +98,7 @@ func (o MTLIOCommandQueueObject) Label() string {
 	return foundation.NSStringFromID(rv).String()
 	}
 
-
-
-
 func (o MTLIOCommandQueueObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

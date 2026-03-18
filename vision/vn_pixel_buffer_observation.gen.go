@@ -38,12 +38,6 @@ func (vc VNPixelBufferObservationClass) Alloc() VNPixelBufferObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents an image that an image-analysis request produces.
 //
 // # Overview
@@ -79,10 +73,6 @@ func VNPixelBufferObservationFromID(id objc.ID) VNPixelBufferObservation {
 // NOTE: VNPixelBufferObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNPixelBufferObservation] class.
 //
 // # Parsing Observation Content
@@ -107,12 +97,7 @@ type IVNPixelBufferObservation interface {
 	// A dictionary of output feature descriptions, which the model keys by the output’s name.
 	OutputDescriptionsByName() coreml.MLFeatureDescription
 	SetOutputDescriptionsByName(value coreml.MLFeatureDescription)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p VNPixelBufferObservation) Init() VNPixelBufferObservation {
@@ -133,29 +118,6 @@ func NewVNPixelBufferObservation() VNPixelBufferObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-func (p VNPixelBufferObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The image that results from a request with image output.
 //
 // # Discussion
@@ -168,8 +130,6 @@ func (p VNPixelBufferObservation) PixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](p.ID, objc.Sel("pixelBuffer"))
 	return corevideo.CVImageBufferRef(rv)
 }
-
-
 
 // A feature name that the CoreML model defines.
 //
@@ -186,8 +146,6 @@ func (p VNPixelBufferObservation) FeatureName() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -200,8 +158,6 @@ func (p VNPixelBufferObservation) SetModelDescription(value coreml.MLModelDescri
 	objc.Send[struct{}](p.ID, objc.Sel("setModelDescription:"), value)
 }
 
-
-
 // A dictionary of output feature descriptions, which the model keys by the
 // output’s name.
 //
@@ -213,30 +169,4 @@ func (p VNPixelBufferObservation) OutputDescriptionsByName() coreml.MLFeatureDes
 func (p VNPixelBufferObservation) SetOutputDescriptionsByName(value coreml.MLFeatureDescription) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (nc NSScriptCoercionHandlerClass) Alloc() NSScriptCoercionHandler {
 	return rv
 }
 
-
-
-
-
-
-
 // A mechanism for converting one kind of scripting data to another.
 //
 // # Overview
@@ -64,14 +58,10 @@ type NSScriptCoercionHandler struct {
 //
 // A mechanism for converting one kind of scripting data to another.
 func NSScriptCoercionHandlerFromID(id objc.ID) NSScriptCoercionHandler {
-	return NSScriptCoercionHandler{objectivec.Object{id}}
+	return NSScriptCoercionHandler{objectivec.Object{ID: id}}
 }
 // NOTE: NSScriptCoercionHandler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScriptCoercionHandler] class.
 //
@@ -92,10 +82,6 @@ type INSScriptCoercionHandler interface {
 	RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objc.SEL, fromClass objc.Class, toClass objc.Class)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSScriptCoercionHandler) Init() NSScriptCoercionHandler {
 	rv := objc.Send[NSScriptCoercionHandler](s.ID, objc.Sel("init"))
@@ -114,15 +100,6 @@ func NewNSScriptCoercionHandler() NSScriptCoercionHandler {
 	rv := objc.Send[NSScriptCoercionHandler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns an object of a given class representing a given value.
 //
@@ -161,10 +138,6 @@ func (s NSScriptCoercionHandler) RegisterCoercerSelectorToConvertFromClassToClas
 	objc.Send[objc.ID](s.ID, objc.Sel("registerCoercer:selector:toConvertFromClass:toClass:"), coercer, selector, fromClass, toClass)
 }
 
-
-
-
-
 // Returns the shared [NSScriptCoercionHandler] for the application.
 //
 // # Return Value
@@ -176,31 +149,4 @@ func (_NSScriptCoercionHandlerClass NSScriptCoercionHandlerClass) SharedCoercion
 	rv := objc.Send[objc.ID](objc.ID(_NSScriptCoercionHandlerClass.class), objc.Sel("sharedCoercionHandler"))
 	return NSScriptCoercionHandlerFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

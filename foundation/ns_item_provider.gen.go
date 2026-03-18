@@ -38,12 +38,6 @@ func (nc NSItemProviderClass) Alloc() NSItemProvider {
 	return rv
 }
 
-
-
-
-
-
-
 // An item provider for conveying data or a file between processes during
 // drag-and-drop or copy-and-paste activities, or from a host app to an app
 // extension.
@@ -160,14 +154,10 @@ type NSItemProvider struct {
 // drag-and-drop or copy-and-paste activities, or from a host app to an app
 // extension.
 func NSItemProviderFromID(id objc.ID) NSItemProvider {
-	return NSItemProvider{objectivec.Object{id}}
+	return NSItemProvider{objectivec.Object{ID: id}}
 }
 // NOTE: NSItemProvider adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSItemProvider] class.
 //
@@ -354,10 +344,6 @@ type INSItemProvider interface {
 	RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, openInPlace bool, loadHandler VoidHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i NSItemProvider) Init() NSItemProvider {
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("init"))
@@ -376,11 +362,6 @@ func NewNSItemProvider() NSItemProvider {
 	rv := objc.Send[NSItemProvider](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Provides data-backed content from an existing file.
 //
@@ -405,7 +386,6 @@ func NewItemProviderWithContentsOfURL(fileURL INSURL) NSItemProvider {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), fileURL)
 	return NSItemProviderFromID(rv)
 }
-
 
 // Provides data-backed content from an existing file with the specified
 // parameters.
@@ -439,7 +419,6 @@ func NewItemProviderWithContentsOfURLContentTypeOpenInPlaceCoordinatedVisibility
 	return NSItemProviderFromID(rv)
 }
 
-
 // Creates an item provider with an object, according to the item provider
 // type coercion policy.
 //
@@ -466,7 +445,6 @@ func NewItemProviderWithItemTypeIdentifier(item NSSecureCoding, typeIdentifier s
 	return NSItemProviderFromID(rv)
 }
 
-
 // Creates a new item provider, employing a specified object’s type
 // identifiers to specify the data representations eligible for the provider
 // to load.
@@ -479,12 +457,6 @@ func NewItemProviderWithObject(object NSItemProviderWriting) NSItemProvider {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
 	return NSItemProviderFromID(rv)
 }
-
-
-
-
-
-
 
 // Provides data-backed content from an existing file.
 //
@@ -645,9 +617,9 @@ func (i NSItemProvider) RegisteredTypeIdentifiersWithFileOptions(fileOptions NSI
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadItem(forTypeIdentifier:options:completionHandler:)
 func (i NSItemProvider) LoadItemForTypeIdentifierOptionsCompletionHandler(typeIdentifier string, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](i.ID, objc.Sel("loadItemForTypeIdentifier:options:completionHandler:"), objc.String(typeIdentifier), options, _block2)
+	objc.Send[objc.ID](i.ID, objc.Sel("loadItemForTypeIdentifier:options:completionHandler:"), objc.String(typeIdentifier), options, _block2)
 }
 
 // Asynchronously copies the provided, typed data into a generic data object,
@@ -662,9 +634,9 @@ func (i NSItemProvider) LoadItemForTypeIdentifierOptionsCompletionHandler(typeId
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadDataRepresentation(forTypeIdentifier:completionHandler:)
 func (i NSItemProvider) LoadDataRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-		_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
+_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
+	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
 
@@ -678,9 +650,9 @@ func (i NSItemProvider) LoadDataRepresentationForTypeIdentifierCompletionHandler
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadFileRepresentation(forTypeIdentifier:completionHandler:)
 func (i NSItemProvider) LoadFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLErrorHandler) INSProgress {
-		_block1, _cleanup1 := NewURLErrorBlock(completionHandler)
+_block1, _cleanup1 := NewURLErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
+	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
 
@@ -704,9 +676,9 @@ func (i NSItemProvider) LoadFileRepresentationForTypeIdentifierCompletionHandler
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadInPlaceFileRepresentation(forTypeIdentifier:completionHandler:)
 func (i NSItemProvider) LoadInPlaceFileRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler URLErrorHandler) INSProgress {
-		_block1, _cleanup1 := NewURLErrorBlock(completionHandler)
+_block1, _cleanup1 := NewURLErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadInPlaceFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
+	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadInPlaceFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
 
@@ -715,9 +687,9 @@ func (i NSItemProvider) LoadInPlaceFileRepresentationForTypeIdentifierCompletion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadObject(ofClass:completionHandler:)-8ak5d
 func (i NSItemProvider) LoadObjectOfClassCompletionHandler(aClass objc.Class, completionHandler NSItemProviderReadingErrorHandler) INSProgress {
-		_block1, _cleanup1 := NewNSItemProviderReadingErrorBlock(completionHandler)
+_block1, _cleanup1 := NewNSItemProviderReadingErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadObjectOfClass:completionHandler:"), aClass, _block1)
+	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadObjectOfClass:completionHandler:"), aClass, _block1)
 	return NSProgressFromID(rv)
 }
 
@@ -752,9 +724,9 @@ func (i NSItemProvider) LoadObjectOfClassCompletionHandler(aClass objc.Class, co
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadPreviewImage(options:completionHandler:)
 func (i NSItemProvider) LoadPreviewImageWithOptionsCompletionHandler(options INSDictionary, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](i.ID, objc.Sel("loadPreviewImageWithOptions:completionHandler:"), options, _block1)
+	objc.Send[objc.ID](i.ID, objc.Sel("loadPreviewImageWithOptions:completionHandler:"), options, _block1)
 }
 
 // Registers a CloudKit share for the user to modify.
@@ -825,9 +797,9 @@ func (i NSItemProvider) RegisterCloudKitShareContainer(share objectivec.IObject,
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCloudKitShare(preparationHandler:)
 func (i NSItemProvider) RegisterCloudKitShareWithPreparationHandler(preparationHandler VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(preparationHandler)
+_block0, _cleanup0 := NewVoidBlock(preparationHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShareWithPreparationHandler:"), _block0)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShareWithPreparationHandler:"), _block0)
 }
 
 // Returns an array of registered content types that conform to a specified
@@ -850,9 +822,9 @@ func (i NSItemProvider) RegisteredContentTypesConformingToContentType(contentTyp
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerDataRepresentation(forTypeIdentifier:visibility:loadHandler:)
 func (i NSItemProvider) RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler(typeIdentifier string, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-		_block2, _cleanup2 := NewVoidBlock(loadHandler)
+_block2, _cleanup2 := NewVoidBlock(loadHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForTypeIdentifier:visibility:loadHandler:"), objc.String(typeIdentifier), visibility, _block2)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForTypeIdentifier:visibility:loadHandler:"), objc.String(typeIdentifier), visibility, _block2)
 }
 
 // Lazily registers an item, according to the item provider type coercion
@@ -879,9 +851,9 @@ func (i NSItemProvider) RegisterDataRepresentationForTypeIdentifierVisibilityLoa
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerItem(forTypeIdentifier:loadHandler:)
 func (i NSItemProvider) RegisterItemForTypeIdentifierLoadHandler(typeIdentifier string, loadHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(loadHandler)
+_block1, _cleanup1 := NewErrorBlock(loadHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](i.ID, objc.Sel("registerItemForTypeIdentifier:loadHandler:"), objc.String(typeIdentifier), _block1)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerItemForTypeIdentifier:loadHandler:"), objc.String(typeIdentifier), _block1)
 }
 
 // Registers a file-backed representation for an item, specifying file
@@ -907,9 +879,9 @@ func (i NSItemProvider) RegisterItemForTypeIdentifierLoadHandler(typeIdentifier 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerFileRepresentation(forTypeIdentifier:fileOptions:visibility:loadHandler:)
 func (i NSItemProvider) RegisterFileRepresentationForTypeIdentifierFileOptionsVisibilityLoadHandler(typeIdentifier string, fileOptions NSItemProviderFileOptions, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-		_block3, _cleanup3 := NewVoidBlock(loadHandler)
+_block3, _cleanup3 := NewVoidBlock(loadHandler)
 	defer _cleanup3()
-		objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForTypeIdentifier:fileOptions:visibility:loadHandler:"), objc.String(typeIdentifier), fileOptions, visibility, _block3)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForTypeIdentifier:fileOptions:visibility:loadHandler:"), objc.String(typeIdentifier), fileOptions, visibility, _block3)
 }
 
 // Adds representations of a specified object to an item provider, based on
@@ -932,9 +904,9 @@ func (i NSItemProvider) RegisterObjectVisibility(object NSItemProviderWriting, v
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerObject(ofClass:visibility:loadHandler:)-9sndn
 func (i NSItemProvider) RegisterObjectOfClassVisibilityLoadHandler(aClass objc.Class, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-		_block2, _cleanup2 := NewVoidBlock(loadHandler)
+_block2, _cleanup2 := NewVoidBlock(loadHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](i.ID, objc.Sel("registerObjectOfClass:visibility:loadHandler:"), aClass, visibility, _block2)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerObjectOfClass:visibility:loadHandler:"), aClass, visibility, _block2)
 }
 
 // Provides data-backed content from an existing file with the specified
@@ -973,9 +945,9 @@ func (i NSItemProvider) InitWithContentsOfURLContentTypeOpenInPlaceCoordinatedVi
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadDataRepresentationForContentType:completionHandler:
 func (i NSItemProvider) LoadDataRepresentationForContentTypeCompletionHandler(contentType objectivec.IObject, completionHandler DataErrorHandler) INSProgress {
-		_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
+_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForContentType:completionHandler:"), contentType, _block1)
+	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForContentType:completionHandler:"), contentType, _block1)
 	return NSProgressFromID(rv)
 }
 
@@ -984,9 +956,9 @@ func (i NSItemProvider) LoadDataRepresentationForContentTypeCompletionHandler(co
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/loadFileRepresentationForContentType:openInPlace:completionHandler:
 func (i NSItemProvider) LoadFileRepresentationForContentTypeOpenInPlaceCompletionHandler(contentType objectivec.IObject, openInPlace bool, completionHandler URLErrorHandler) INSProgress {
-		_block2, _cleanup2 := NewURLErrorBlock(completionHandler)
+_block2, _cleanup2 := NewURLErrorBlock(completionHandler)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForContentType:openInPlace:completionHandler:"), contentType, openInPlace, _block2)
+	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForContentType:openInPlace:completionHandler:"), contentType, openInPlace, _block2)
 	return NSProgressFromID(rv)
 }
 
@@ -1068,9 +1040,9 @@ func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share obje
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerCKShareWithContainer:allowedSharingOptions:preparationHandler:
 func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(preparationHandler)
+_block2, _cleanup2 := NewErrorBlock(preparationHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, _block2)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, _block2)
 }
 
 // Lazily registers an item, according to the item provider type coercion
@@ -1087,9 +1059,9 @@ func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPrepara
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerDataRepresentationForContentType:visibility:loadHandler:
 func (i NSItemProvider) RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler VoidHandler) {
-		_block2, _cleanup2 := NewVoidBlock(loadHandler)
+_block2, _cleanup2 := NewVoidBlock(loadHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForContentType:visibility:loadHandler:"), contentType, visibility, _block2)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForContentType:visibility:loadHandler:"), contentType, visibility, _block2)
 }
 
 // Registers a file-backed representation for an item with item visibility, an
@@ -1097,21 +1069,10 @@ func (i NSItemProvider) RegisterDataRepresentationForContentTypeVisibilityLoadHa
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerFileRepresentationForContentType:visibility:openInPlace:loadHandler:
 func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenInPlaceLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, openInPlace bool, loadHandler VoidHandler) {
-		_block3, _cleanup3 := NewVoidBlock(loadHandler)
+_block3, _cleanup3 := NewVoidBlock(loadHandler)
 	defer _cleanup3()
-		objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForContentType:visibility:openInPlace:loadHandler:"), contentType, visibility, openInPlace, _block3)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForContentType:visibility:openInPlace:loadHandler:"), contentType, visibility, openInPlace, _block3)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The ideal presentation size of the item.
 //
@@ -1135,8 +1096,6 @@ func (i NSItemProvider) SetPreferredPresentationSize(value corefoundation.CGSize
 	objc.Send[struct{}](i.ID, objc.Sel("setPreferredPresentationSize:"), value)
 }
 
-
-
 // The filename to use when writing the provided data to a file on disk.
 //
 // # Discussion
@@ -1155,8 +1114,6 @@ func (i NSItemProvider) SetSuggestedName(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSuggestedName:"), objc.String(value))
 }
 
-
-
 // Returns the array of type identifiers for the item provider, in the same
 // order they were registered.
 //
@@ -1165,8 +1122,6 @@ func (i NSItemProvider) RegisteredTypeIdentifiers() []string {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredTypeIdentifiers"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // The custom preview image handler block for the item provider.
 //
@@ -1184,8 +1139,6 @@ func (i NSItemProvider) SetPreviewImageHandler(value NSItemProviderLoadHandler) 
 	objc.Send[struct{}](i.ID, objc.Sel("setPreviewImageHandler:"), value)
 }
 
-
-
 // Registered content types in the order the app registers each type.
 //
 // # Discussion
@@ -1199,8 +1152,6 @@ func (i NSItemProvider) RegisteredContentTypes() []objc.ID {
 	return rv
 }
 
-
-
 // Registered content types that the system can load as open-in-place files.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registeredContentTypesForOpenInPlace
@@ -1208,8 +1159,6 @@ func (i NSItemProvider) RegisteredContentTypesForOpenInPlace() []objc.ID {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypesForOpenInPlace"))
 	return rv
 }
-
-
 
 // The rectangle that the item occupies in the host app’s source window.
 //
@@ -1224,8 +1173,6 @@ func (i NSItemProvider) SourceFrame() NSRect {
 	rv := objc.Send[NSRect](i.ID, objc.Sel("sourceFrame"))
 	return NSRect(rv)
 }
-
-
 
 // The rectangle of the item’s visible content.
 //
@@ -1249,8 +1196,6 @@ func (i NSItemProvider) ContainerFrame() NSRect {
 	return NSRect(rv)
 }
 
-
-
 // An optional array of media data associated with the extension item.
 //
 // See: https://developer.apple.com/documentation/foundation/nsextensionitem/attachments
@@ -1262,28 +1207,8 @@ func (i NSItemProvider) SetAttachments(value INSItemProvider) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAttachments:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
 
 // LoadDataRepresentationForTypeIdentifier is a synchronous wrapper around [NSItemProvider.LoadDataRepresentationForTypeIdentifierCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -1450,8 +1375,4 @@ func (i NSItemProvider) RegisterFileRepresentationForContentTypeVisibilityOpenIn
 		return ctx.Err()
 	}
 }
-
-
-
-
 

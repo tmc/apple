@@ -37,12 +37,6 @@ func (vc VNCoreMLRequestClass) Alloc() VNCoreMLRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that uses a Core ML model to process images.
 //
 // # Overview
@@ -91,10 +85,6 @@ func VNCoreMLRequestFromID(id objc.ID) VNCoreMLRequest {
 }
 // NOTE: VNCoreMLRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNCoreMLRequest] class.
 //
@@ -148,10 +138,6 @@ type IVNCoreMLRequest interface {
 	SetPredictedFeatureName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c VNCoreMLRequest) Init() VNCoreMLRequest {
 	rv := objc.Send[VNCoreMLRequest](c.ID, objc.Sel("init"))
@@ -171,11 +157,6 @@ func NewVNCoreMLRequest() VNCoreMLRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -192,7 +173,6 @@ func NewCoreMLRequestWithCompletionHandler(completionHandler VNRequestCompletion
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNCoreMLRequestFromID(rv)
 }
-
 
 // Creates a model container to use with an image analysis request based on
 // the model you provide.
@@ -215,7 +195,6 @@ func NewCoreMLRequestWithModel(model IVNCoreMLModel) VNCoreMLRequest {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModel:"), model)
 	return VNCoreMLRequestFromID(rv)
 }
-
 
 // Creates a model container to use with an image analysis request based on
 // the model you provide, with an optional completion handler.
@@ -240,12 +219,6 @@ func NewCoreMLRequestWithModelCompletionHandler(model IVNCoreMLModel, completion
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModel:completionHandler:"), model, completionHandler)
 	return VNCoreMLRequestFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a model container to use with an image analysis request based on
 // the model you provide.
@@ -287,22 +260,11 @@ func (c VNCoreMLRequest) InitWithModel(model IVNCoreMLModel) VNCoreMLRequest {
 //
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLRequest/init(model:completionHandler:)
 func (c VNCoreMLRequest) InitWithModelCompletionHandler(model IVNCoreMLModel, completionHandler ErrorHandler) VNCoreMLRequest {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithModel:completionHandler:"), model, _block1)
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithModel:completionHandler:"), model, _block1)
 	return VNCoreMLRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The model to base the image analysis request on.
 //
@@ -317,8 +279,6 @@ func (c VNCoreMLRequest) Model() IVNCoreMLModel {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("model"))
 	return VNCoreMLModelFromID(objc.ID(rv))
 }
-
-
 
 // An optional setting that tells the Vision algorithm how to scale an input
 // image.
@@ -340,8 +300,6 @@ func (c VNCoreMLRequest) SetImageCropAndScaleOption(value VNImageCropAndScaleOpt
 	objc.Send[struct{}](c.ID, objc.Sel("setImageCropAndScaleOption:"), value)
 }
 
-
-
 // A constant for specifying revision 1 of a Core ML request.
 //
 // See: https://developer.apple.com/documentation/vision/vncoremlrequestrevision1
@@ -349,8 +307,6 @@ func (c VNCoreMLRequest) VNCoreMLRequestRevision1() int {
 	rv := objc.Send[int](c.ID, objc.Sel("VNCoreMLRequestRevision1"))
 	return rv
 }
-
-
 
 // The level of confidence in the observation’s accuracy.
 //
@@ -362,8 +318,6 @@ func (c VNCoreMLRequest) Confidence() VNConfidence {
 func (c VNCoreMLRequest) SetConfidence(value VNConfidence) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConfidence:"), value)
 }
-
-
 
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
@@ -377,8 +331,6 @@ func (c VNCoreMLRequest) SetModelDescription(value coreml.MLModelDescription) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModelDescription:"), value)
 }
 
-
-
 // The name of the primary prediction feature output description.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName
@@ -389,27 +341,4 @@ func (c VNCoreMLRequest) PredictedFeatureName() string {
 func (c VNCoreMLRequest) SetPredictedFeatureName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPredictedFeatureName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

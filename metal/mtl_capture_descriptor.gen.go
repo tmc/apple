@@ -37,12 +37,6 @@ func (mc MTLCaptureDescriptorClass) Alloc() MTLCaptureDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration for a Metal capture session.
 //
 // # Setting capture parameters
@@ -63,14 +57,10 @@ type MTLCaptureDescriptor struct {
 //
 // A configuration for a Metal capture session.
 func MTLCaptureDescriptorFromID(id objc.ID) MTLCaptureDescriptor {
-	return MTLCaptureDescriptor{objectivec.Object{id}}
+	return MTLCaptureDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLCaptureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLCaptureDescriptor] class.
 //
@@ -100,10 +90,6 @@ type IMTLCaptureDescriptor interface {
 	SetOutputURL(value foundation.INSURL)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MTLCaptureDescriptor) Init() MTLCaptureDescriptor {
 	rv := objc.Send[MTLCaptureDescriptor](c.ID, objc.Sel("init"))
@@ -122,26 +108,6 @@ func NewMTLCaptureDescriptor() MTLCaptureDescriptor {
 	rv := objc.Send[MTLCaptureDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The instance whose contents should be captured.
 //
@@ -168,8 +134,6 @@ func (c MTLCaptureDescriptor) SetCaptureObject(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCaptureObject:"), value)
 }
 
-
-
 // The destination for any captured command data.
 //
 // # Discussion
@@ -184,8 +148,6 @@ func (c MTLCaptureDescriptor) Destination() MTLCaptureDestination {
 func (c MTLCaptureDescriptor) SetDestination(value MTLCaptureDestination) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDestination:"), value)
 }
-
-
 
 // A URL for a file to write the capture data into.
 //
@@ -203,27 +165,4 @@ func (c MTLCaptureDescriptor) OutputURL() foundation.INSURL {
 func (c MTLCaptureDescriptor) SetOutputURL(value foundation.INSURL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOutputURL:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -3,7 +3,6 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -73,7 +72,7 @@ type IGTShaderProfilerRegisterPressureView interface {
 
 	// Topic: Methods
 
-	Binary() unsafe.Pointer
+	Binary() objectivec.IObject
 	LoadFromDict(dict objectivec.IObject)
 	MaxTheoriticalOccupancy() float32
 	RegisterPressureForAddress(address uint32) objectivec.IObject
@@ -141,8 +140,8 @@ func (_GTShaderProfilerRegisterPressureViewClass GTShaderProfilerRegisterPressur
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterPressureView/binary
-func (g GTShaderProfilerRegisterPressureView) Binary() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binary"))
-	return rv
+func (g GTShaderProfilerRegisterPressureView) Binary() objectivec.IObject {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("binary"))
+	return objectivec.Object{ID: rv}
 }
 

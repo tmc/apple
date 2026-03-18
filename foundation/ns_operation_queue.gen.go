@@ -38,12 +38,6 @@ func (oc OperationQueueClass) Alloc() OperationQueue {
 	return rv
 }
 
-
-
-
-
-
-
 // A queue that regulates the execution of operations.
 //
 // # Overview
@@ -164,17 +158,13 @@ type OperationQueue struct {
 //
 // A queue that regulates the execution of operations.
 func OperationQueueFromID(id objc.ID) OperationQueue {
-	return NSOperationQueue{objectivec.Object{id}}
+	return NSOperationQueue{objectivec.Object{ID: id}}
 }
 
 // NSOperationQueueFromID is an alias for [OperationQueueFromID] for cross-framework compatibility.
 func NSOperationQueueFromID(id objc.ID) OperationQueue { return OperationQueueFromID(id) }
 // NOTE: OperationQueue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [OperationQueue] class.
 //
@@ -263,10 +253,6 @@ type IOperationQueue interface {
 	SetQueuePriority(value NSOperationQueuePriority)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (o OperationQueue) Init() OperationQueue {
 	rv := objc.Send[OperationQueue](o.ID, objc.Sel("init"))
@@ -285,15 +271,6 @@ func NewOperationQueue() OperationQueue {
 	rv := objc.Send[OperationQueue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Adds the specified operation to the receiver.
 //
@@ -350,9 +327,9 @@ func (o OperationQueue) AddOperationsWaitUntilFinished(ops []NSOperation, wait b
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/addOperation(_:)-5s294
 func (o OperationQueue) AddOperationWithBlock(block VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(block)
+_block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
-		objc.Send[objc.ID](o.ID, objc.Sel("addOperationWithBlock:"), _block0)
+	objc.Send[objc.ID](o.ID, objc.Sel("addOperationWithBlock:"), _block0)
 }
 
 // Invokes a block when the queue finishes all enqueued operations, and
@@ -370,9 +347,9 @@ func (o OperationQueue) AddOperationWithBlock(block VoidHandler) {
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/addBarrierBlock(_:)
 func (o OperationQueue) AddBarrierBlock(barrier VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(barrier)
+_block0, _cleanup0 := NewVoidBlock(barrier)
 	defer _cleanup0()
-		objc.Send[objc.ID](o.ID, objc.Sel("addBarrierBlock:"), _block0)
+	objc.Send[objc.ID](o.ID, objc.Sel("addBarrierBlock:"), _block0)
 }
 
 // Cancels all queued and executing operations.
@@ -416,17 +393,6 @@ func (o OperationQueue) WaitUntilAllOperationsAreFinished() {
 	objc.Send[objc.ID](o.ID, objc.Sel("waitUntilAllOperationsAreFinished"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The operations currently in the queue.
 //
 // # Discussion
@@ -455,8 +421,6 @@ func (o OperationQueue) Operations() []NSOperation {
 	})
 }
 
-
-
 // The number of operations currently in the queue.
 //
 // # Discussion
@@ -479,8 +443,6 @@ func (o OperationQueue) OperationCount() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("operationCount"))
 	return rv
 }
-
-
 
 // The default service level to apply to operations that the queue invokes.
 //
@@ -510,8 +472,6 @@ func (o OperationQueue) QualityOfService() QualityOfService {
 func (o OperationQueue) SetQualityOfService(value QualityOfService) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQualityOfService:"), value)
 }
-
-
 
 // The maximum number of queued operations that can run at the same time.
 //
@@ -544,8 +504,6 @@ func (o OperationQueue) SetMaxConcurrentOperationCount(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaxConcurrentOperationCount:"), value)
 }
 
-
-
 // An object that represents the total progress of the operations executing in
 // the queue.
 //
@@ -568,8 +526,6 @@ func (o OperationQueue) Progress() INSProgress {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("progress"))
 	return NSProgressFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value indicating whether the queue is actively scheduling
 // operations for execution.
@@ -608,8 +564,6 @@ func (o OperationQueue) SetSuspended(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSuspended:"), value)
 }
 
-
-
 // The name of the operation queue.
 //
 // # Discussion
@@ -633,8 +587,6 @@ func (o OperationQueue) Name() string {
 func (o OperationQueue) SetName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
 
 // The dispatch queue that the operation queue uses to invoke operations.
 //
@@ -663,8 +615,6 @@ func (o OperationQueue) SetUnderlyingQueue(value dispatch.Queue) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUnderlyingQueue:"), uintptr(value.Handle()))
 }
 
-
-
 // A Boolean value indicating whether the operation can be performed now.
 //
 // See: https://developer.apple.com/documentation/foundation/operation/isready
@@ -676,8 +626,6 @@ func (o OperationQueue) SetIsReady(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setReady:"), value)
 }
 
-
-
 // The execution priority of the operation in an operation queue.
 //
 // See: https://developer.apple.com/documentation/foundation/operation/queuepriority-swift.property
@@ -688,12 +636,6 @@ func (o OperationQueue) QueuePriority() NSOperationQueuePriority {
 func (o OperationQueue) SetQueuePriority(value NSOperationQueuePriority) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQueuePriority:"), value)
 }
-
-
-
-
-
-
 
 // Returns the operation queue associated with the main thread.
 //
@@ -720,8 +662,6 @@ func (_OperationQueueClass OperationQueueClass) MainQueue() OperationQueue {
 	return NSOperationQueueFromID(objc.ID(rv))
 }
 
-
-
 // Returns the operation queue that launched the current operation.
 //
 // # Return Value
@@ -741,25 +681,6 @@ func (_OperationQueueClass OperationQueueClass) CurrentQueue() OperationQueue {
 	rv := objc.Send[objc.ID](objc.ID(_OperationQueueClass.class), objc.Sel("currentQueue"))
 	return NSOperationQueueFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // AddOperationWithBlockSync is a synchronous wrapper around [OperationQueue.AddOperationWithBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -790,9 +711,4 @@ func (o OperationQueue) AddBarrierBlockSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

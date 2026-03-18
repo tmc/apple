@@ -37,12 +37,6 @@ func (xc XMLDTDClass) Alloc() XMLDTD {
 	return rv
 }
 
-
-
-
-
-
-
 // A representation of a Document Type Definition.
 //
 // # Overview
@@ -113,10 +107,6 @@ func XMLDTDFromID(id objc.ID) XMLDTD {
 func NSXMLDTDFromID(id objc.ID) XMLDTD { return XMLDTDFromID(id) }
 // NOTE: XMLDTD adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [XMLDTD] class.
 //
@@ -196,10 +186,6 @@ type IXMLDTD interface {
 	SetDtd(value INSXMLDTD)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x XMLDTD) Init() XMLDTD {
 	rv := objc.Send[XMLDTD](x.ID, objc.Sel("init"))
@@ -218,11 +204,6 @@ func NewXMLDTD() XMLDTD {
 	rv := objc.Send[XMLDTD](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes and returns an [NSXMLDTD] object created from the DTD
 // declarations in a URL-referenced source.
@@ -258,7 +239,6 @@ func NewXMLDTDWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (
 	return XMLDTDFromID(rv), nil
 }
 
-
 // Initializes and returns an [NSXMLDTD] object created from the DTD
 // declarations encapsulated in an [NSData] object
 //
@@ -293,7 +273,6 @@ func NewXMLDTDWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD,
 	return XMLDTDFromID(rv), nil
 }
 
-
 // Returns an [NSXMLNode] instance initialized with the constant indicating
 // node kind.
 //
@@ -325,7 +304,6 @@ func NewXMLDTDWithKind(kind NSXMLNodeKind) XMLDTD {
 	return XMLDTDFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXMLDTD/initWithKind:options:
 func NewXMLDTDWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLDTD {
@@ -333,12 +311,6 @@ func NewXMLDTDWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLD
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:options:"), kind, options)
 	return XMLDTDFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns an [NSXMLDTD] object created from the DTD
 // declarations in a URL-referenced source.
@@ -364,7 +336,7 @@ func NewXMLDTDWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLD
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/init(contentsOf:options:)
 func (x XMLDTD) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (XMLDTD, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithContentsOfURL:options:error:"), url, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -398,7 +370,7 @@ func (x XMLDTD) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOpti
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/init(data:options:)
 func (x XMLDTD) InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithData:options:error:"), data, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -546,10 +518,6 @@ func (x XMLDTD) NotationDeclarationForName(name string) INSXMLDTDNode {
 	return NSXMLDTDNodeFromID(rv)
 }
 
-
-
-
-
 // Returns a DTD node representing the predefined entity declaration with the
 // specified name.
 //
@@ -572,13 +540,6 @@ func (_XMLDTDClass XMLDTDClass) PredefinedEntityDeclarationForName(name string) 
 	return NSXMLDTDNodeFromID(rv)
 }
 
-
-
-
-
-
-
-
 // Returns the receiver’s public identifier.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/publicID
@@ -589,8 +550,6 @@ func (x XMLDTD) PublicID() string {
 func (x XMLDTD) SetPublicID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPublicID:"), objc.String(value))
 }
-
-
 
 // Returns the receiver’s system identifier.
 //
@@ -603,8 +562,6 @@ func (x XMLDTD) SetSystemID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setSystemID:"), objc.String(value))
 }
 
-
-
 // Returns an
 //
 // See: https://developer.apple.com/documentation/foundation/xmldocument/dtd
@@ -615,29 +572,4 @@ func (x XMLDTD) Dtd() INSXMLDTD {
 func (x XMLDTD) SetDtd(value INSXMLDTD) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDTD:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

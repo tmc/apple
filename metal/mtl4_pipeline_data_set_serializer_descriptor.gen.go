@@ -36,12 +36,6 @@ func (mc MTL4PipelineDataSetSerializerDescriptorClass) Alloc() MTL4PipelineDataS
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together properties to create a pipeline data set serializer.
 //
 // # Instance Properties
@@ -58,14 +52,10 @@ type MTL4PipelineDataSetSerializerDescriptor struct {
 //
 // Groups together properties to create a pipeline data set serializer.
 func MTL4PipelineDataSetSerializerDescriptorFromID(id objc.ID) MTL4PipelineDataSetSerializerDescriptor {
-	return MTL4PipelineDataSetSerializerDescriptor{objectivec.Object{id}}
+	return MTL4PipelineDataSetSerializerDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4PipelineDataSetSerializerDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4PipelineDataSetSerializerDescriptor] class.
 //
@@ -85,10 +75,6 @@ type IMTL4PipelineDataSetSerializerDescriptor interface {
 	SetConfiguration(value MTL4PipelineDataSetSerializerConfiguration)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4PipelineDataSetSerializerDescriptor) Init() MTL4PipelineDataSetSerializerDescriptor {
 	rv := objc.Send[MTL4PipelineDataSetSerializerDescriptor](m.ID, objc.Sel("init"))
@@ -107,26 +93,6 @@ func NewMTL4PipelineDataSetSerializerDescriptor() MTL4PipelineDataSetSerializerD
 	rv := objc.Send[MTL4PipelineDataSetSerializerDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Specifies the configuration of the serialization process.
 //
@@ -151,27 +117,4 @@ func (m MTL4PipelineDataSetSerializerDescriptor) Configuration() MTL4PipelineDat
 func (m MTL4PipelineDataSetSerializerDescriptor) SetConfiguration(value MTL4PipelineDataSetSerializerConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConfiguration:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

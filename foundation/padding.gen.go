@@ -36,12 +36,6 @@ func (pc PaddingClass) Alloc() Padding {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSXMLDocument/padding
 type Padding struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Padding struct {
 
 // PaddingFromID constructs a [Padding] from an objc.ID.
 func PaddingFromID(id objc.ID) Padding {
-	return Padding{objectivec.Object{id}}
+	return Padding{objectivec.Object{ID: id}}
 }
 // Ensure Padding implements IPadding.
 var _ IPadding = Padding{}
-
-
-
-
 
 // An interface definition for the [Padding] class.
 //
@@ -64,10 +54,6 @@ var _ IPadding = Padding{}
 type IPadding interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p Padding) Init() Padding {
@@ -87,38 +73,4 @@ func NewPadding() Padding {
 	rv := objc.Send[Padding](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

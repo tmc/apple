@@ -37,12 +37,6 @@ func (mc MTLRenderPipelineDescriptorClass) Alloc() MTLRenderPipelineDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // An argument of options you pass to a GPU device to get a render pipeline
 // state.
 //
@@ -219,14 +213,10 @@ type MTLRenderPipelineDescriptor struct {
 // An argument of options you pass to a GPU device to get a render pipeline
 // state.
 func MTLRenderPipelineDescriptorFromID(id objc.ID) MTLRenderPipelineDescriptor {
-	return MTLRenderPipelineDescriptor{objectivec.Object{id}}
+	return MTLRenderPipelineDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRenderPipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRenderPipelineDescriptor] class.
 //
@@ -473,10 +463,6 @@ type IMTLRenderPipelineDescriptor interface {
 	SetVertexPreloadedLibraries(value []objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRenderPipelineDescriptor) Init() MTLRenderPipelineDescriptor {
 	rv := objc.Send[MTLRenderPipelineDescriptor](r.ID, objc.Sel("init"))
@@ -496,32 +482,12 @@ func NewMTLRenderPipelineDescriptor() MTLRenderPipelineDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Specifies the default rendering pipeline state values for the descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/reset()
 func (r MTLRenderPipelineDescriptor) Reset() {
 	objc.Send[objc.ID](r.ID, objc.Sel("reset"))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A string that identifies the render pipeline descriptor.
 //
@@ -533,8 +499,6 @@ func (r MTLRenderPipelineDescriptor) Label() string {
 func (r MTLRenderPipelineDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
 
 // The vertex function the pipeline calls to process vertices.
 //
@@ -553,8 +517,6 @@ func (r MTLRenderPipelineDescriptor) SetVertexFunction(value MTLFunction) {
 	objc.Send[struct{}](r.ID, objc.Sel("setVertexFunction:"), value)
 }
 
-
-
 // The fragment function the pipeline calls to process fragments.
 //
 // # Discussion
@@ -572,8 +534,6 @@ func (r MTLRenderPipelineDescriptor) SetFragmentFunction(value MTLFunction) {
 	objc.Send[struct{}](r.ID, objc.Sel("setFragmentFunction:"), value)
 }
 
-
-
 // The maximum function call depth from the top-most vertex shader function.
 //
 // # Discussion
@@ -589,8 +549,6 @@ func (r MTLRenderPipelineDescriptor) SetMaxVertexCallStackDepth(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMaxVertexCallStackDepth:"), value)
 }
 
-
-
 // The maximum function call depth from the top-most fragment shader function.
 //
 // # Discussion
@@ -605,8 +563,6 @@ func (r MTLRenderPipelineDescriptor) MaxFragmentCallStackDepth() uint {
 func (r MTLRenderPipelineDescriptor) SetMaxFragmentCallStackDepth(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMaxFragmentCallStackDepth:"), value)
 }
-
-
 
 // The organization of vertex data in an attribute’s argument table.
 //
@@ -624,8 +580,6 @@ func (r MTLRenderPipelineDescriptor) SetVertexDescriptor(value IMTLVertexDescrip
 	objc.Send[struct{}](r.ID, objc.Sel("setVertexDescriptor:"), value)
 }
 
-
-
 // An array that contains the buffer mutability options for a render
 // pipeline’s vertex function.
 //
@@ -640,8 +594,6 @@ func (r MTLRenderPipelineDescriptor) VertexBuffers() IMTLPipelineBufferDescripto
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("vertexBuffers"))
 	return MTLPipelineBufferDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // An array that contains the buffer mutability options for a render
 // pipeline’s fragment function.
@@ -658,8 +610,6 @@ func (r MTLRenderPipelineDescriptor) FragmentBuffers() IMTLPipelineBufferDescrip
 	return MTLPipelineBufferDescriptorArrayFromID(objc.ID(rv))
 }
 
-
-
 // An array of attachments that store color data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/colorAttachments
@@ -667,8 +617,6 @@ func (r MTLRenderPipelineDescriptor) ColorAttachments() IMTLRenderPipelineColorA
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("colorAttachments"))
 	return MTLRenderPipelineColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // The pixel format of the attachment that stores depth data.
 //
@@ -686,8 +634,6 @@ func (r MTLRenderPipelineDescriptor) SetDepthAttachmentPixelFormat(value MTLPixe
 	objc.Send[struct{}](r.ID, objc.Sel("setDepthAttachmentPixelFormat:"), value)
 }
 
-
-
 // The pixel format of the attachment that stores stencil data.
 //
 // # Discussion
@@ -703,8 +649,6 @@ func (r MTLRenderPipelineDescriptor) StencilAttachmentPixelFormat() MTLPixelForm
 func (r MTLRenderPipelineDescriptor) SetStencilAttachmentPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](r.ID, objc.Sel("setStencilAttachmentPixelFormat:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to read and use the alpha channel
 // fragment output for color attachments to compute a sample coverage mask.
@@ -723,8 +667,6 @@ func (r MTLRenderPipelineDescriptor) AlphaToCoverageEnabled() bool {
 func (r MTLRenderPipelineDescriptor) SetAlphaToCoverageEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAlphaToCoverageEnabled:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to force alpha channel values for
 // color attachments to the largest representable value.
@@ -751,8 +693,6 @@ func (r MTLRenderPipelineDescriptor) SetAlphaToOneEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAlphaToOneEnabled:"), value)
 }
 
-
-
 // A Boolean value that determines whether the pipeline rasterizes primitives.
 //
 // # Discussion
@@ -777,8 +717,6 @@ func (r MTLRenderPipelineDescriptor) SetRasterizationEnabled(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRasterizationEnabled:"), value)
 }
 
-
-
 // The type of primitive topology the pipeline renders.
 //
 // # Discussion
@@ -795,8 +733,6 @@ func (r MTLRenderPipelineDescriptor) InputPrimitiveTopology() MTLPrimitiveTopolo
 func (r MTLRenderPipelineDescriptor) SetInputPrimitiveTopology(value MTLPrimitiveTopologyClass) {
 	objc.Send[struct{}](r.ID, objc.Sel("setInputPrimitiveTopology:"), value)
 }
-
-
 
 // The number of samples the pipeline applies for each fragment.
 //
@@ -825,8 +761,6 @@ func (r MTLRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRasterSampleCount:"), value)
 }
 
-
-
 // The maximum tessellation factor that the tessellator uses when tessellating
 // patches.
 //
@@ -852,8 +786,6 @@ func (r MTLRenderPipelineDescriptor) SetMaxTessellationFactor(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMaxTessellationFactor:"), value)
 }
 
-
-
 // A Boolean value that determines whether the pipeline scales the
 // tessellation factor.
 //
@@ -878,8 +810,6 @@ func (r MTLRenderPipelineDescriptor) SetTessellationFactorScaleEnabled(value boo
 	objc.Send[struct{}](r.ID, objc.Sel("setTessellationFactorScaleEnabled:"), value)
 }
 
-
-
 // The format of the tessellation factors in the tessellation factor buffer.
 //
 // # Discussion
@@ -894,8 +824,6 @@ func (r MTLRenderPipelineDescriptor) TessellationFactorFormat() MTLTessellationF
 func (r MTLRenderPipelineDescriptor) SetTessellationFactorFormat(value MTLTessellationFactorFormat) {
 	objc.Send[struct{}](r.ID, objc.Sel("setTessellationFactorFormat:"), value)
 }
-
-
 
 // The size of the control point indices in a control point index buffer.
 //
@@ -916,8 +844,6 @@ func (r MTLRenderPipelineDescriptor) SetTessellationControlPointIndexType(value 
 	objc.Send[struct{}](r.ID, objc.Sel("setTessellationControlPointIndexType:"), value)
 }
 
-
-
 // The step function for determining the tessellation factors for a patch from
 // the tessellation factor buffer.
 //
@@ -934,8 +860,6 @@ func (r MTLRenderPipelineDescriptor) SetTessellationFactorStepFunction(value MTL
 	objc.Send[struct{}](r.ID, objc.Sel("setTessellationFactorStepFunction:"), value)
 }
 
-
-
 // The winding order of triangles from the tessellator.
 //
 // # Discussion
@@ -950,8 +874,6 @@ func (r MTLRenderPipelineDescriptor) TessellationOutputWindingOrder() MTLWinding
 func (r MTLRenderPipelineDescriptor) SetTessellationOutputWindingOrder(value MTLWinding) {
 	objc.Send[struct{}](r.ID, objc.Sel("setTessellationOutputWindingOrder:"), value)
 }
-
-
 
 // The partitioning mode that the tessellator uses to derive the number and
 // spacing of segments for subdividing a corresponding edge.
@@ -969,8 +891,6 @@ func (r MTLRenderPipelineDescriptor) SetTessellationPartitionMode(value MTLTesse
 	objc.Send[struct{}](r.ID, objc.Sel("setTessellationPartitionMode:"), value)
 }
 
-
-
 // A Boolean value that determines whether you can encode commands into an
 // indirect command buffer using the render pipeline.
 //
@@ -982,8 +902,6 @@ func (r MTLRenderPipelineDescriptor) SupportIndirectCommandBuffers() bool {
 func (r MTLRenderPipelineDescriptor) SetSupportIndirectCommandBuffers(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSupportIndirectCommandBuffers:"), value)
 }
-
-
 
 // The maximum vertex amplification count you can set when encoding render
 // commands.
@@ -1003,8 +921,6 @@ func (r MTLRenderPipelineDescriptor) SetMaxVertexAmplificationCount(value uint) 
 	objc.Send[struct{}](r.ID, objc.Sel("setMaxVertexAmplificationCount:"), value)
 }
 
-
-
 // A Boolean value that indicates whether you can use the pipeline to create
 // new pipelines by adding binary functions to the vertex shader’s callable
 // functions list.
@@ -1018,8 +934,6 @@ func (r MTLRenderPipelineDescriptor) SetSupportAddingVertexBinaryFunctions(value
 	objc.Send[struct{}](r.ID, objc.Sel("setSupportAddingVertexBinaryFunctions:"), value)
 }
 
-
-
 // A Boolean value that indicates whether you can use the pipeline to create
 // new pipelines by adding binary functions to the fragment shader’s
 // callable functions list.
@@ -1032,8 +946,6 @@ func (r MTLRenderPipelineDescriptor) SupportAddingFragmentBinaryFunctions() bool
 func (r MTLRenderPipelineDescriptor) SetSupportAddingFragmentBinaryFunctions(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSupportAddingFragmentBinaryFunctions:"), value)
 }
-
-
 
 // An array of binary archives to search for precompiled versions of the
 // shader.
@@ -1049,8 +961,6 @@ func (r MTLRenderPipelineDescriptor) SetBinaryArchives(value []objectivec.IObjec
 	objc.Send[struct{}](r.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Functions that you can specify as function arguments for the vertex shader
 // when encoding commands that use the pipeline.
 //
@@ -1063,8 +973,6 @@ func (r MTLRenderPipelineDescriptor) SetVertexLinkedFunctions(value IMTLLinkedFu
 	objc.Send[struct{}](r.ID, objc.Sel("setVertexLinkedFunctions:"), value)
 }
 
-
-
 // Functions that you can specify as function arguments for the fragment
 // shader when encoding commands that use the pipeline.
 //
@@ -1076,8 +984,6 @@ func (r MTLRenderPipelineDescriptor) FragmentLinkedFunctions() IMTLLinkedFunctio
 func (r MTLRenderPipelineDescriptor) SetFragmentLinkedFunctions(value IMTLLinkedFunctions) {
 	objc.Send[struct{}](r.ID, objc.Sel("setFragmentLinkedFunctions:"), value)
 }
-
-
 
 // A value that enables or disables shader validation for the pipeline.
 //
@@ -1096,8 +1002,6 @@ func (r MTLRenderPipelineDescriptor) SetShaderValidation(value MTLShaderValidati
 	objc.Send[struct{}](r.ID, objc.Sel("setShaderValidation:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/fragmentPreloadedLibraries
 func (r MTLRenderPipelineDescriptor) FragmentPreloadedLibraries() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("fragmentPreloadedLibraries"))
@@ -1109,8 +1013,6 @@ func (r MTLRenderPipelineDescriptor) SetFragmentPreloadedLibraries(value []objec
 	objc.Send[struct{}](r.ID, objc.Sel("setFragmentPreloadedLibraries:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineDescriptor/vertexPreloadedLibraries
 func (r MTLRenderPipelineDescriptor) VertexPreloadedLibraries() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("vertexPreloadedLibraries"))
@@ -1121,27 +1023,4 @@ func (r MTLRenderPipelineDescriptor) VertexPreloadedLibraries() []objectivec.IOb
 func (r MTLRenderPipelineDescriptor) SetVertexPreloadedLibraries(value []objectivec.IObject) {
 	objc.Send[struct{}](r.ID, objc.Sel("setVertexPreloadedLibraries:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

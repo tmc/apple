@@ -37,12 +37,6 @@ func (nc NSSymbolEffectClass) Alloc() NSSymbolEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract base class for effects that you can apply to a symbol-based
 // image.
 //
@@ -61,14 +55,10 @@ type NSSymbolEffect struct {
 // An abstract base class for effects that you can apply to a symbol-based
 // image.
 func NSSymbolEffectFromID(id objc.ID) NSSymbolEffect {
-	return NSSymbolEffect{objectivec.Object{id}}
+	return NSSymbolEffect{objectivec.Object{ID: id}}
 }
 // NOTE: NSSymbolEffect adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSymbolEffect] class.
 //
@@ -78,10 +68,6 @@ type INSSymbolEffect interface {
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSymbolEffect) Init() NSSymbolEffect {
@@ -102,42 +88,7 @@ func NewNSSymbolEffect() NSSymbolEffect {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (s NSSymbolEffect) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

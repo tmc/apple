@@ -146,8 +146,6 @@ type MTLRenderPipelineState interface {
 	NewRenderPipelineStateWithBinaryFunctionsError(binaryFunctionsDescriptor IMTL4RenderPipelineBinaryFunctionsDescriptor) (MTLRenderPipelineState, error)
 }
 
-
-
 // MTLRenderPipelineStateObject wraps an existing Objective-C object that conforms to the MTLRenderPipelineState protocol.
 type MTLRenderPipelineStateObject struct {
 	objectivec.Object
@@ -156,8 +154,6 @@ func (o MTLRenderPipelineStateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLRenderPipelineStateObjectFromID constructs a [MTLRenderPipelineStateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLRenderPipelineStateObjectFromID(id objc.ID) MTLRenderPipelineStateObject {
@@ -165,9 +161,6 @@ func MTLRenderPipelineStateObjectFromID(id objc.ID) MTLRenderPipelineStateObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device instance that creates the pipeline state.
 //
@@ -554,46 +547,4 @@ func (o MTLRenderPipelineStateObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

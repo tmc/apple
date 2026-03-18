@@ -35,12 +35,6 @@ func (uc UnitConverterLinearClass) Alloc() UnitConverterLinear {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of how to convert between units using a linear equation.
 //
 // # Overview
@@ -103,10 +97,6 @@ func NSUnitConverterLinearFromID(id objc.ID) UnitConverterLinear { return UnitCo
 // NOTE: UnitConverterLinear adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [UnitConverterLinear] class.
 //
 // # Accessing Linear Parameters
@@ -122,6 +112,8 @@ func NSUnitConverterLinearFromID(id objc.ID) UnitConverterLinear { return UnitCo
 // See: https://developer.apple.com/documentation/Foundation/UnitConverterLinear
 type IUnitConverterLinear interface {
 	INSUnitConverter
+	NSCoding
+	NSSecureCoding
 
 	// Topic: Accessing Linear Parameters
 
@@ -136,15 +128,7 @@ type IUnitConverterLinear interface {
 	InitWithCoefficient(coefficient float64) UnitConverterLinear
 	// Creates a unit converter with the coefficient and constant you specify.
 	InitWithCoefficientConstant(coefficient float64, constant float64) UnitConverterLinear
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) UnitConverterLinear
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u UnitConverterLinear) Init() UnitConverterLinear {
@@ -165,11 +149,6 @@ func NewUnitConverterLinear() UnitConverterLinear {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitConverterLinearWithCoder(coder INSCoder) UnitConverterLinear {
@@ -177,7 +156,6 @@ func NewUnitConverterLinearWithCoder(coder INSCoder) UnitConverterLinear {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return UnitConverterLinearFromID(rv)
 }
-
 
 // Initializes the unit converter with the coefficient you specify.
 //
@@ -199,7 +177,6 @@ func NewUnitConverterLinearWithCoefficient(coefficient float64) UnitConverterLin
 	return UnitConverterLinearFromID(rv)
 }
 
-
 // Creates a unit converter with the coefficient and constant you specify.
 //
 // coefficient: The coefficient used in the linear unit conversion calculation.
@@ -212,12 +189,6 @@ func NewUnitConverterLinearWithCoefficientConstant(coefficient float64, constant
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoefficient:constant:"), coefficient, constant)
 	return UnitConverterLinearFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes the unit converter with the coefficient you specify.
 //
@@ -250,33 +221,6 @@ func (u UnitConverterLinear) InitWithCoefficientConstant(coefficient float64, co
 	return rv
 }
 
-// Encodes the receiver using a given archiver.
-//
-// coder: An archiver object.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
-func (u UnitConverterLinear) EncodeWithCoder(coder INSCoder) {
-	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
-func (u UnitConverterLinear) InitWithCoder(coder INSCoder) UnitConverterLinear {
-	rv := objc.Send[UnitConverterLinear](u.ID, objc.Sel("initWithCoder:"), coder)
-	return rv
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The coefficient to use in the linear unit conversion calculation.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConverterLinear/coefficient
@@ -285,8 +229,6 @@ func (u UnitConverterLinear) Coefficient() float64 {
 	return rv
 }
 
-
-
 // The constant to use in the linear unit conversion calculation.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConverterLinear/constant
@@ -294,12 +236,6 @@ func (u UnitConverterLinear) Constant() float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("constant"))
 	return rv
 }
-
-
-
-
-
-
 
 // The degree Fahrenheit unit of temperature.
 //
@@ -312,8 +248,6 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) SetFahrenheit(value Un
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setFahrenheit:"), value)
 }
 
-
-
 // The kelvin unit of temperature.
 //
 // See: https://developer.apple.com/documentation/foundation/unittemperature/kelvin
@@ -324,8 +258,6 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) Kelvin() UnitTemperatu
 func (_UnitConverterLinearClass UnitConverterLinearClass) SetKelvin(value UnitTemperature) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKelvin:"), value)
 }
-
-
 
 // The kilometers unit of length.
 //
@@ -338,25 +270,6 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) SetKilometers(value Un
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKilometers:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

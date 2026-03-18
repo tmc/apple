@@ -35,12 +35,6 @@ func (vc VNGeneratePersonInstanceMaskRequestClass) Alloc() VNGeneratePersonInsta
 	return rv
 }
 
-
-
-
-
-
-
 // An object that produces a mask of individual people it finds in the input
 // image.
 //
@@ -63,10 +57,6 @@ func VNGeneratePersonInstanceMaskRequestFromID(id objc.ID) VNGeneratePersonInsta
 // NOTE: VNGeneratePersonInstanceMaskRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNGeneratePersonInstanceMaskRequest] class.
 //
 // # Identifying Request Revisions
@@ -82,10 +72,6 @@ type IVNGeneratePersonInstanceMaskRequest interface {
 	// A constant for specifying revision 1 of the person instance mask request.
 	VNGeneratePersonInstanceMaskRequestRevision1() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g VNGeneratePersonInstanceMaskRequest) Init() VNGeneratePersonInstanceMaskRequest {
@@ -106,11 +92,6 @@ func NewVNGeneratePersonInstanceMaskRequest() VNGeneratePersonInstanceMaskReques
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -128,23 +109,6 @@ func NewGeneratePersonInstanceMaskRequestWithCompletionHandler(completionHandler
 	return VNGeneratePersonInstanceMaskRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying revision 1 of the person instance mask request.
 //
 // See: https://developer.apple.com/documentation/vision/vngeneratepersoninstancemaskrequestrevision1
@@ -152,27 +116,4 @@ func (g VNGeneratePersonInstanceMaskRequest) VNGeneratePersonInstanceMaskRequest
 	rv := objc.Send[int](g.ID, objc.Sel("VNGeneratePersonInstanceMaskRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

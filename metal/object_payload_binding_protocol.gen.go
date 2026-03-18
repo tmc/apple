@@ -26,8 +26,6 @@ type MTLObjectPayloadBinding interface {
 	ObjectPayloadDataSize() uint
 }
 
-
-
 // MTLObjectPayloadBindingObject wraps an existing Objective-C object that conforms to the MTLObjectPayloadBinding protocol.
 type MTLObjectPayloadBindingObject struct {
 	objectivec.Object
@@ -36,8 +34,6 @@ func (o MTLObjectPayloadBindingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLObjectPayloadBindingObjectFromID constructs a [MTLObjectPayloadBindingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLObjectPayloadBindingObjectFromID(id objc.ID) MTLObjectPayloadBindingObject {
@@ -45,9 +41,6 @@ func MTLObjectPayloadBindingObjectFromID(id objc.ID) MTLObjectPayloadBindingObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLObjectPayloadBinding/objectPayloadAlignment
 
@@ -112,26 +105,4 @@ func (o MTLObjectPayloadBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

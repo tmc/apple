@@ -69,8 +69,6 @@ type MTLIndirectComputeCommand interface {
 	SetKernelBufferOffsetAttributeStrideAtIndex(buffer MTLBuffer, offset uint, stride uint, index uint)
 }
 
-
-
 // MTLIndirectComputeCommandObject wraps an existing Objective-C object that conforms to the MTLIndirectComputeCommand protocol.
 type MTLIndirectComputeCommandObject struct {
 	objectivec.Object
@@ -79,8 +77,6 @@ func (o MTLIndirectComputeCommandObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIndirectComputeCommandObjectFromID constructs a [MTLIndirectComputeCommandObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIndirectComputeCommandObjectFromID(id objc.ID) MTLIndirectComputeCommandObject {
@@ -88,9 +84,6 @@ func MTLIndirectComputeCommandObjectFromID(id objc.ID) MTLIndirectComputeCommand
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sets the command’s compute pipeline state.
 //
@@ -294,10 +287,4 @@ func (o MTLIndirectComputeCommandObject) SetKernelBufferOffsetAttributeStrideAtI
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setKernelBuffer:offset:attributeStride:atIndex:"), buffer, offset, stride, index)
 	}
-
-
-
-
-
-
 

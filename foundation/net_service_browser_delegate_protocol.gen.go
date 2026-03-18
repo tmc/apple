@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The interface a net service browser uses to inform a delegate about the state of service discovery.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSNetServiceBrowserDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSNetServiceBrowserDelegateObject wraps an existing Objective-C object that conforms to the NSNetServiceBrowserDelegate protocol.
 type NSNetServiceBrowserDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSNetServiceBrowserDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSNetServiceBrowserDelegateObjectFromID constructs a [NSNetServiceBrowserDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSNetServiceBrowserDelegateObjectFromID(id objc.ID) NSNetServiceBrowserDelegateObject {
@@ -37,9 +31,6 @@ func NSNetServiceBrowserDelegateObjectFromID(id objc.ID) NSNetServiceBrowserDele
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate the sender found a domain.
 //
@@ -210,10 +201,6 @@ func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidStopSearch(browse
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceBrowserDidStopSearch:"), browser)
 	}
 
-
-
-
-
 // NSNetServiceBrowserDelegateConfig holds optional typed callbacks for [NSNetServiceBrowserDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -317,8 +304,4 @@ func NewNSNetServiceBrowserDelegate(config NSNetServiceBrowserDelegateConfig) NS
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSNetServiceBrowserDelegateObjectFromID(instance)
 }
-
-
-
-
 

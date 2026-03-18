@@ -38,12 +38,6 @@ func (vc VNInstanceMaskObservationClass) Alloc() VNInstanceMaskObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that contains an instance mask that labels instances in the
 // mask.
 //
@@ -72,10 +66,6 @@ func VNInstanceMaskObservationFromID(id objc.ID) VNInstanceMaskObservation {
 }
 // NOTE: VNInstanceMaskObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNInstanceMaskObservation] class.
 //
@@ -112,12 +102,7 @@ type IVNInstanceMaskObservation interface {
 
 	// A constant for specifying the first revision of the foreground instance mask request.
 	VNGenerateForegroundInstanceMaskRequestRevision1() int
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i VNInstanceMaskObservation) Init() VNInstanceMaskObservation {
@@ -138,15 +123,6 @@ func NewVNInstanceMaskObservation() VNInstanceMaskObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Creates a low-resolution mask from the instances you specify.
 //
 // instances: The collection of instances.
@@ -157,7 +133,7 @@ func NewVNInstanceMaskObservation() VNInstanceMaskObservation {
 //
 // See: https://developer.apple.com/documentation/Vision/VNInstanceMaskObservation/generateMask(forInstances:)
 func (i VNInstanceMaskObservation) GenerateMaskForInstancesError(instances foundation.NSIndexSet) (corevideo.CVImageBufferRef, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("generateMaskForInstances:error:"), instances, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -183,7 +159,7 @@ func (i VNInstanceMaskObservation) GenerateMaskForInstancesError(instances found
 //
 // See: https://developer.apple.com/documentation/Vision/VNInstanceMaskObservation/generateMaskedImage(ofInstances:from:croppedToInstancesExtent:)
 func (i VNInstanceMaskObservation) GenerateMaskedImageOfInstancesFromRequestHandlerCroppedToInstancesExtentError(instances foundation.NSIndexSet, requestHandler IVNImageRequestHandler, cropResult bool) (corevideo.CVImageBufferRef, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("generateMaskedImageOfInstances:fromRequestHandler:croppedToInstancesExtent:error:"), instances, requestHandler, cropResult, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -206,7 +182,7 @@ func (i VNInstanceMaskObservation) GenerateMaskedImageOfInstancesFromRequestHand
 //
 // See: https://developer.apple.com/documentation/Vision/VNInstanceMaskObservation/generateScaledMaskForImage(forInstances:from:)
 func (i VNInstanceMaskObservation) GenerateScaledMaskForImageForInstancesFromRequestHandlerError(instances foundation.NSIndexSet, requestHandler IVNImageRequestHandler) (corevideo.CVImageBufferRef, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("generateScaledMaskForImageForInstances:fromRequestHandler:error:"), instances, requestHandler, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -215,20 +191,6 @@ func (i VNInstanceMaskObservation) GenerateScaledMaskForImageForInstancesFromReq
 	return rv, nil
 
 }
-func (i VNInstanceMaskObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The collection that contains all instances, excluding the background.
 //
@@ -237,8 +199,6 @@ func (i VNInstanceMaskObservation) AllInstances() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("allInstances"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-
-
 
 // The resulting mask that represents all instances.
 //
@@ -253,8 +213,6 @@ func (i VNInstanceMaskObservation) InstanceMask() corevideo.CVImageBufferRef {
 	return corevideo.CVImageBufferRef(rv)
 }
 
-
-
 // A constant for specifying the first revision of the foreground instance
 // mask request.
 //
@@ -263,30 +221,4 @@ func (i VNInstanceMaskObservation) VNGenerateForegroundInstanceMaskRequestRevisi
 	rv := objc.Send[int](i.ID, objc.Sel("VNGenerateForegroundInstanceMaskRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

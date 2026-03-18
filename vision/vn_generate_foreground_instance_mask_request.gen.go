@@ -35,12 +35,6 @@ func (vc VNGenerateForegroundInstanceMaskRequestClass) Alloc() VNGenerateForegro
 	return rv
 }
 
-
-
-
-
-
-
 // A request that generates an instance mask of noticable objects to separate
 // from the background.
 //
@@ -59,10 +53,6 @@ func VNGenerateForegroundInstanceMaskRequestFromID(id objc.ID) VNGenerateForegro
 // NOTE: VNGenerateForegroundInstanceMaskRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNGenerateForegroundInstanceMaskRequest] class.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGenerateForegroundInstanceMaskRequest
@@ -72,10 +62,6 @@ type IVNGenerateForegroundInstanceMaskRequest interface {
 	// A constant for specifying the first revision of the foreground instance mask request.
 	VNGenerateForegroundInstanceMaskRequestRevision1() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g VNGenerateForegroundInstanceMaskRequest) Init() VNGenerateForegroundInstanceMaskRequest {
@@ -96,11 +82,6 @@ func NewVNGenerateForegroundInstanceMaskRequest() VNGenerateForegroundInstanceMa
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -118,23 +99,6 @@ func NewGenerateForegroundInstanceMaskRequestWithCompletionHandler(completionHan
 	return VNGenerateForegroundInstanceMaskRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying the first revision of the foreground instance
 // mask request.
 //
@@ -143,27 +107,4 @@ func (g VNGenerateForegroundInstanceMaskRequest) VNGenerateForegroundInstanceMas
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateForegroundInstanceMaskRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

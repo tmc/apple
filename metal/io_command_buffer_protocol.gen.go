@@ -106,8 +106,6 @@ type MTLIOCommandBuffer interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLIOCommandBufferObject wraps an existing Objective-C object that conforms to the MTLIOCommandBuffer protocol.
 type MTLIOCommandBufferObject struct {
 	objectivec.Object
@@ -116,8 +114,6 @@ func (o MTLIOCommandBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIOCommandBufferObjectFromID constructs a [MTLIOCommandBufferObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIOCommandBufferObjectFromID(id objc.ID) MTLIOCommandBufferObject {
@@ -125,9 +121,6 @@ func MTLIOCommandBufferObjectFromID(id objc.ID) MTLIOCommandBufferObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Encodes a command that loads data from a file handle into a GPU buffer.
 //
@@ -389,18 +382,7 @@ func (o MTLIOCommandBufferObject) PopDebugGroup() {
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
 
-
-
-
-
-
-
-
 func (o MTLIOCommandBufferObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

@@ -36,12 +36,6 @@ func (vc VNStatefulRequestClass) Alloc() VNStatefulRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract request type that builds evidence of a condition over time.
 //
 // # Initializing a Request
@@ -66,10 +60,6 @@ func VNStatefulRequestFromID(id objc.ID) VNStatefulRequest {
 }
 // NOTE: VNStatefulRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNStatefulRequest] class.
 //
@@ -99,10 +89,6 @@ type IVNStatefulRequest interface {
 	FrameAnalysisSpacing() objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s VNStatefulRequest) Init() VNStatefulRequest {
 	rv := objc.Send[VNStatefulRequest](s.ID, objc.Sel("init"))
@@ -122,11 +108,6 @@ func NewVNStatefulRequest() VNStatefulRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -143,7 +124,6 @@ func NewStatefulRequestWithCompletionHandler(completionHandler VNRequestCompleti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNStatefulRequestFromID(rv)
 }
-
 
 // Initializes a video-based request.
 //
@@ -166,12 +146,6 @@ func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSp
 	return VNStatefulRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Initializes a video-based request.
 //
 // frameAnalysisSpacing: A [CMTime] value that indicates the duration between analysis operations.
@@ -189,22 +163,11 @@ func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSp
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
 func (s VNStatefulRequest) InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler ErrorHandler) VNStatefulRequest {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNStatefulRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The minimum number of frames a request processes before reporting an
 // observation.
@@ -222,8 +185,6 @@ func (s VNStatefulRequest) MinimumLatencyFrameCount() int {
 	return rv
 }
 
-
-
 // A time value that indicates the interval between analysis operations.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/frameAnalysisSpacing
@@ -231,27 +192,4 @@ func (s VNStatefulRequest) FrameAnalysisSpacing() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("frameAnalysisSpacing"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

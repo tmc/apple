@@ -7,6 +7,8 @@ import (
 	"os"
 	"unsafe"
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -35,48 +37,52 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
-
-
-
 var _mTLCopyAllDevices func() []unsafe.Pointer
 
 // MTLCopyAllDevices returns an array of all the Metal device instances in the system.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCopyAllDevices()
-func MTLCopyAllDevices() []unsafe.Pointer {
+func MTLCopyAllDevices() []MTLDeviceObject {
 	if _mTLCopyAllDevices == nil {
 		panic("Metal: symbol MTLCopyAllDevices not loaded")
 	}
-	return _mTLCopyAllDevices()
+	ptrs := _mTLCopyAllDevices()
+	result := make([]MTLDeviceObject, len(ptrs))
+	for i, p := range ptrs {
+		result[i] = MTLDeviceObjectFromID(objc.IDFrom(p))
+	}
+	return result
 }
 
-
-var _mTLCopyAllDevicesWithObserver func(observer uintptr, handler MTLDeviceNotificationHandler) []unsafe.Pointer
+var _mTLCopyAllDevicesWithObserver func(observer objectivec.Object, handler MTLDeviceNotificationHandler) []unsafe.Pointer
 
 // MTLCopyAllDevicesWithObserver returns an array of all the Metal GPU devices in the system and registers a notification handler that Metal calls when the device list changes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCopyAllDevicesWithObserver
-func MTLCopyAllDevicesWithObserver(observer uintptr, handler MTLDeviceNotificationHandler) []unsafe.Pointer {
+func MTLCopyAllDevicesWithObserver(observer objectivec.Object, handler MTLDeviceNotificationHandler) []MTLDeviceObject {
 	if _mTLCopyAllDevicesWithObserver == nil {
 		panic("Metal: symbol MTLCopyAllDevicesWithObserver not loaded")
 	}
-	return _mTLCopyAllDevicesWithObserver(observer, handler)
+	ptrs := _mTLCopyAllDevicesWithObserver(observer, handler)
+	result := make([]MTLDeviceObject, len(ptrs))
+	for i, p := range ptrs {
+		result[i] = MTLDeviceObjectFromID(objc.IDFrom(p))
+	}
+	return result
 }
-
 
 var _mTLCreateSystemDefaultDevice func() unsafe.Pointer
 
 // MTLCreateSystemDefaultDevice returns the device instance Metal selects as the default.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCreateSystemDefaultDevice()
-func MTLCreateSystemDefaultDevice() unsafe.Pointer {
+func MTLCreateSystemDefaultDevice() MTLDeviceObject {
 	if _mTLCreateSystemDefaultDevice == nil {
 		panic("Metal: symbol MTLCreateSystemDefaultDevice not loaded")
 	}
-	return _mTLCreateSystemDefaultDevice()
+	rv := _mTLCreateSystemDefaultDevice()
+	return MTLDeviceObjectFromID(objc.IDFrom(rv))
 }
-
 
 var _mTLIOCompressionContextAppendData func(context MTLIOCompressionContext, data unsafe.Pointer, size uintptr)
 
@@ -90,7 +96,6 @@ func MTLIOCompressionContextAppendData(context MTLIOCompressionContext, data uns
 	_mTLIOCompressionContextAppendData(context, data, size)
 }
 
-
 var _mTLIOCompressionContextDefaultChunkSize func() uintptr
 
 // MTLIOCompressionContextDefaultChunkSize returns a compression chunk size you can use as a default for creating a compression context.
@@ -103,19 +108,17 @@ func MTLIOCompressionContextDefaultChunkSize() uintptr {
 	return _mTLIOCompressionContextDefaultChunkSize()
 }
 
-
-var _mTLIOCreateCompressionContext func(path *byte, type_ MTLIOCompressionMethod, chunkSize uintptr) MTLIOCompressionContext
+var _mTLIOCreateCompressionContext func(path string, type_ MTLIOCompressionMethod, chunkSize uintptr) MTLIOCompressionContext
 
 // MTLIOCreateCompressionContext creates a compression context that you use to compress data into a single file.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCreateCompressionContext
-func MTLIOCreateCompressionContext(path *byte, type_ MTLIOCompressionMethod, chunkSize uintptr) MTLIOCompressionContext {
+func MTLIOCreateCompressionContext(path string, type_ MTLIOCompressionMethod, chunkSize uintptr) MTLIOCompressionContext {
 	if _mTLIOCreateCompressionContext == nil {
 		panic("Metal: symbol MTLIOCreateCompressionContext not loaded")
 	}
 	return _mTLIOCreateCompressionContext(path, type_, chunkSize)
 }
-
 
 var _mTLIOFlushAndDestroyCompressionContext func(context MTLIOCompressionContext) MTLIOCompressionStatus
 
@@ -129,30 +132,17 @@ func MTLIOFlushAndDestroyCompressionContext(context MTLIOCompressionContext) MTL
 	return _mTLIOFlushAndDestroyCompressionContext(context)
 }
 
-
-
-
-
-
-
-
-
-var _mTLRemoveDeviceObserver func(observer unsafe.Pointer)
+var _mTLRemoveDeviceObserver func(observer objectivec.Object)
 
 // MTLRemoveDeviceObserver removes a registered observer of device notifications.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRemoveDeviceObserver(_:)
-func MTLRemoveDeviceObserver(observer unsafe.Pointer) {
+func MTLRemoveDeviceObserver(observer objectivec.Object) {
 	if _mTLRemoveDeviceObserver == nil {
 		panic("Metal: symbol MTLRemoveDeviceObserver not loaded")
 	}
 	_mTLRemoveDeviceObserver(observer)
 }
-
-
-
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -167,5 +157,4 @@ func init() {
 		registerFunc(&_mTLIOFlushAndDestroyCompressionContext, frameworkHandle, "MTLIOFlushAndDestroyCompressionContext")
 		registerFunc(&_mTLRemoveDeviceObserver, frameworkHandle, "MTLRemoveDeviceObserver")
 	}
-
 

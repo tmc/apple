@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // Methods you implement to respond to changes to a network block device attachment.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type VZNetworkBlockDeviceStorageDeviceAttachmentDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject wraps an existing Objective-C object that conforms to the VZNetworkBlockDeviceStorageDeviceAttachmentDelegate protocol.
 type VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject struct {
@@ -29,8 +25,6 @@ func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) BaseObject() 
 	return o.Object
 }
 
-
-
 // VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObjectFromID constructs a [VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObjectFromID(id objc.ID) VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject {
@@ -38,9 +32,6 @@ func VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObjectFromID(id objc.ID)
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The method the attachment object calls when the NBD client encounters a
 // nonrecoverable error.
@@ -83,10 +74,6 @@ func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentWas
 	
 	objc.Send[struct{}](o.ID, objc.Sel("attachmentWasConnected:"), attachment)
 	}
-
-
-
-
 
 // VZNetworkBlockDeviceStorageDeviceAttachmentDelegateConfig holds optional typed callbacks for [VZNetworkBlockDeviceStorageDeviceAttachmentDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -162,8 +149,4 @@ func NewVZNetworkBlockDeviceStorageDeviceAttachmentDelegate(config VZNetworkBloc
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObjectFromID(instance)
 }
-
-
-
-
 

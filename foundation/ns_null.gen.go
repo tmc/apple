@@ -36,12 +36,6 @@ func (nc NSNullClass) Alloc() NSNull {
 	return rv
 }
 
-
-
-
-
-
-
 // A singleton object used to represent null values in collection objects that
 // don’t allow `nil` values.
 //
@@ -64,33 +58,24 @@ type NSNull struct {
 // A singleton object used to represent null values in collection objects that
 // don’t allow `nil` values.
 func NSNullFromID(id objc.ID) NSNull {
-	return NSNull{objectivec.Object{id}}
+	return NSNull{objectivec.Object{ID: id}}
 }
 // NOTE: NSNull adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSNull] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNull
 type INSNull interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// A value indicating that a requested item couldn’t be found or doesn’t exist.
 	NSNotFound() int
 	SetNSNotFound(value int)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSNull
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n NSNull) Init() NSNull {
@@ -111,11 +96,6 @@ func NewNSNull() NSNull {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewNullWithCoder(coder INSCoder) NSNull {
@@ -123,12 +103,6 @@ func NewNullWithCoder(coder INSCoder) NSNull {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSNullFromID(rv)
 }
-
-
-
-
-
-
 
 // Encodes the receiver using a given archiver.
 //
@@ -146,10 +120,6 @@ func (n NSNull) InitWithCoder(coder INSCoder) NSNull {
 	return rv
 }
 
-
-
-
-
 // Returns the singleton instance of [NSNull].
 //
 // # Return Value
@@ -164,13 +134,6 @@ func (_NSNullClass NSNullClass) Null() NSNull {
 	return NSNullFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A value indicating that a requested item couldn’t be found or doesn’t
 // exist.
 //
@@ -183,38 +146,9 @@ func (n NSNull) SetNSNotFound(value int) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNSNotFound:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

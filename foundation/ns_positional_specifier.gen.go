@@ -36,12 +36,6 @@ func (nc NSPositionalSpecifierClass) Alloc() NSPositionalSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier for an insertion point in a container relative to another
 // object in the container.
 //
@@ -90,14 +84,10 @@ type NSPositionalSpecifier struct {
 // A specifier for an insertion point in a container relative to another
 // object in the container.
 func NSPositionalSpecifierFromID(id objc.ID) NSPositionalSpecifier {
-	return NSPositionalSpecifier{objectivec.Object{id}}
+	return NSPositionalSpecifier{objectivec.Object{ID: id}}
 }
 // NOTE: NSPositionalSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPositionalSpecifier] class.
 //
@@ -151,10 +141,6 @@ type INSPositionalSpecifier interface {
 	Evaluate()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPositionalSpecifier) Init() NSPositionalSpecifier {
 	rv := objc.Send[NSPositionalSpecifier](p.ID, objc.Sel("init"))
@@ -174,11 +160,6 @@ func NewNSPositionalSpecifier() NSPositionalSpecifier {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a positional specifier with a given position relative to
 // another given specifier.
 //
@@ -197,12 +178,6 @@ func NewPositionalSpecifierWithPositionObjectSpecifier(position NSInsertionPosit
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPosition:objectSpecifier:"), position, specifier)
 	return NSPositionalSpecifierFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a positional specifier with a given position relative to
 // another given specifier.
@@ -249,17 +224,6 @@ func (p NSPositionalSpecifier) Evaluate() {
 	objc.Send[objc.ID](p.ID, objc.Sel("evaluate"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the container in which the new or copied object or objects should
 // be placed.
 //
@@ -272,8 +236,6 @@ func (p NSPositionalSpecifier) InsertionContainer() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("insertionContainer"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // Returns an insertion index that indicates where the new or copied object or
 // objects should be placed.
@@ -288,8 +250,6 @@ func (p NSPositionalSpecifier) InsertionIndex() int {
 	return rv
 }
 
-
-
 // Returns the key that identifies the relationship into which the new or
 // copied object or objects should be inserted.
 //
@@ -302,8 +262,6 @@ func (p NSPositionalSpecifier) InsertionKey() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("insertionKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Returns a Boolean value that indicates whether evaluation has been
 // successful and the object to be inserted should actually replace the keyed,
@@ -328,8 +286,6 @@ func (p NSPositionalSpecifier) InsertionReplaces() bool {
 	return rv
 }
 
-
-
 // Returns the object specifier specified at initialization time.
 //
 // # Return Value
@@ -342,8 +298,6 @@ func (p NSPositionalSpecifier) ObjectSpecifier() INSScriptObjectSpecifier {
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
 
-
-
 // Returns the insertion position specified at initialization time.
 //
 // # Return Value
@@ -355,26 +309,4 @@ func (p NSPositionalSpecifier) Position() NSInsertionPosition {
 	rv := objc.Send[NSInsertionPosition](p.ID, objc.Sel("position"))
 	return NSInsertionPosition(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

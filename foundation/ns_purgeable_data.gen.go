@@ -36,12 +36,6 @@ func (nc NSPurgeableDataClass) Alloc() NSPurgeableData {
 	return rv
 }
 
-
-
-
-
-
-
 // A mutable data object containing bytes that can be discarded when they’re
 // no longer needed.
 //
@@ -88,10 +82,6 @@ func NSPurgeableDataFromID(id objc.ID) NSPurgeableData {
 // NOTE: NSPurgeableData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPurgeableData] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPurgeableData
@@ -99,10 +89,6 @@ type INSPurgeableData interface {
 	INSMutableData
 	NSDiscardableContent
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPurgeableData) Init() NSPurgeableData {
@@ -123,11 +109,6 @@ func NewNSPurgeableData() NSPurgeableData {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
 func NewPurgeableDataWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSPurgeableData {
@@ -136,7 +117,6 @@ func NewPurgeableDataWithBase64EncodedDataOptions(base64Data INSData, options NS
 	return NSPurgeableDataFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
 func NewPurgeableDataWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSPurgeableData {
@@ -144,7 +124,6 @@ func NewPurgeableDataWithBase64EncodedStringOptions(base64String string, options
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
 	return NSPurgeableDataFromID(rv)
 }
-
 
 // Initializes a data object initialized with the given Base64 encoded string.
 //
@@ -171,7 +150,6 @@ func NewPurgeableDataWithBase64Encoding(base64String string) NSPurgeableData {
 	return NSPurgeableDataFromID(rv)
 }
 
-
 // Initializes a data object filled with a given number of bytes copied from a
 // given buffer.
 //
@@ -187,7 +165,6 @@ func NewPurgeableDataWithBytesLength(bytes []byte) NSPurgeableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 	return NSPurgeableDataFromID(rv)
 }
-
 
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer.
@@ -216,7 +193,6 @@ func NewPurgeableDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:"), bytes, length)
 	return NSPurgeableDataFromID(rv)
 }
-
 
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer, with a custom deallocator block.
@@ -249,12 +225,11 @@ func NewPurgeableDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NS
 // outside the block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
-func NewPurgeableDataWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator uint) NSPurgeableData {
+func NewPurgeableDataWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator unsafe.Pointer) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, deallocator)
 	return NSPurgeableDataFromID(rv)
 }
-
 
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
@@ -278,7 +253,6 @@ func NewPurgeableDataWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, len
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:freeWhenDone:"), bytes, length, b)
 	return NSPurgeableDataFromID(rv)
 }
-
 
 // Returns an initialized mutable data object capable of holding the specified
 // number of bytes.
@@ -310,7 +284,6 @@ func NewPurgeableDataWithCapacity(capacity uint) NSPurgeableData {
 	return NSPurgeableDataFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewPurgeableDataWithCoder(coder INSCoder) NSPurgeableData {
@@ -318,7 +291,6 @@ func NewPurgeableDataWithCoder(coder INSCoder) NSPurgeableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPurgeableDataFromID(rv)
 }
-
 
 // Initializes a data object with the content of the file at a given path.
 //
@@ -340,7 +312,6 @@ func NewPurgeableDataWithContentsOfFile(path string) NSPurgeableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), objc.String(path))
 	return NSPurgeableDataFromID(rv)
 }
-
 
 // Initializes a data object with the content of the file at a given path.
 //
@@ -370,7 +341,6 @@ func NewPurgeableDataWithContentsOfFileOptionsError(path string, readOptionsMask
 	return NSPurgeableDataFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:)
 func NewPurgeableDataWithContentsOfURL(url INSURL) NSPurgeableData {
@@ -378,7 +348,6 @@ func NewPurgeableDataWithContentsOfURL(url INSURL) NSPurgeableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return NSPurgeableDataFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:options:)
@@ -392,7 +361,6 @@ func NewPurgeableDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask N
 	}
 	return NSPurgeableDataFromID(rv), nil
 }
-
 
 // Initializes a data object with the contents of another data object.
 //
@@ -408,7 +376,6 @@ func NewPurgeableDataWithData(data INSData) NSPurgeableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return NSPurgeableDataFromID(rv)
 }
-
 
 // Initializes and returns a mutable data object containing a given number of
 // zeroed bytes.
@@ -426,12 +393,6 @@ func NewPurgeableDataWithLength(length uint) NSPurgeableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLength:"), length)
 	return NSPurgeableDataFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a Boolean value indicating whether the discardable contents are
 // still available and have been successfully accessed.
@@ -501,50 +462,6 @@ func (p NSPurgeableData) IsContentDiscarded() bool {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSDiscardableContent
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

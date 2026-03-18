@@ -37,12 +37,6 @@ func (nc NSMutableDictionaryClass) Alloc() NSMutableDictionary {
 	return rv
 }
 
-
-
-
-
-
-
 // A dynamic collection of objects associated with unique keys.
 //
 // # Overview
@@ -136,10 +130,6 @@ func NSMutableDictionaryFromID(id objc.ID) NSMutableDictionary {
 }
 // NOTE: NSMutableDictionary adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMutableDictionary] class.
 //
@@ -238,10 +228,6 @@ type INSMutableDictionary interface {
 	SetObjectForKeyedSubscript(obj objectivec.IObject, key NSCopying)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMutableDictionary) Init() NSMutableDictionary {
 	rv := objc.Send[NSMutableDictionary](m.ID, objc.Sel("init"))
@@ -260,11 +246,6 @@ func NewNSMutableDictionary() NSMutableDictionary {
 	rv := objc.Send[NSMutableDictionary](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a newly allocated mutable dictionary, allocating enough memory
 // to hold `numItems` entries.
@@ -290,7 +271,6 @@ func NewMutableDictionaryWithCapacity(numItems uint) NSMutableDictionary {
 	return NSMutableDictionaryFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/init(coder:)
 func NewMutableDictionaryWithCoder(coder INSCoder) NSMutableDictionary {
@@ -298,7 +278,6 @@ func NewMutableDictionaryWithCoder(coder INSCoder) NSMutableDictionary {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableDictionaryFromID(rv)
 }
-
 
 // Initializes a newly allocated dictionary by placing in it the keys and
 // values contained in another given dictionary.
@@ -317,7 +296,6 @@ func NewMutableDictionaryWithDictionary(otherDictionary INSDictionary) NSMutable
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:"), otherDictionary)
 	return NSMutableDictionaryFromID(rv)
 }
-
 
 // Initializes a newly allocated dictionary using the objects contained in
 // another given dictionary.
@@ -365,7 +343,6 @@ func NewMutableDictionaryWithDictionaryCopyItems(otherDictionary INSDictionary, 
 	return NSMutableDictionaryFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/init(OBEXHeadersData:)
 func NewMutableDictionaryWithOBEXHeadersData(inHeadersData INSData) NSMutableDictionary {
@@ -373,14 +350,12 @@ func NewMutableDictionaryWithOBEXHeadersData(inHeadersData INSData) NSMutableDic
 	return NSMutableDictionaryFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableDictionary/init(OBEXHeadersData:headersDataSize:)
 func NewMutableDictionaryWithOBEXHeadersDataHeadersDataSize(inHeadersData unsafe.Pointer, inDataSize uintptr) NSMutableDictionary {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableDictionaryClass().class), objc.Sel("dictionaryWithOBEXHeadersData:headersDataSize:"), inHeadersData, inDataSize)
 	return NSMutableDictionaryFromID(rv)
 }
-
 
 // Creates a dictionary containing a given key and value.
 //
@@ -407,7 +382,6 @@ func NewMutableDictionaryWithObjectForKey(object objectivec.IObject, key NSCopyi
 	return NSMutableDictionaryFromID(rv)
 }
 
-
 // Initializes a newly allocated dictionary with entries constructed from the
 // specified set of values and keys.
 //
@@ -433,7 +407,6 @@ func NewMutableDictionaryWithObjectsAndKeys(firstObject objectivec.IObject) NSMu
 	return NSMutableDictionaryFromID(rv)
 }
 
-
 // Initializes a newly allocated dictionary with key-value pairs constructed
 // from the provided arrays of keys and objects.
 //
@@ -455,12 +428,6 @@ func NewMutableDictionaryWithObjectsForKeys(objects []objectivec.IObject, keys [
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObjects:forKeys:"), objectivec.IObjectSliceToNSArray(objects), objectivec.IObjectSliceToNSArray(keys))
 	return NSMutableDictionaryFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated mutable dictionary, allocating enough memory
 // to hold `numItems` entries.
@@ -750,10 +717,6 @@ func (m NSMutableDictionary) SetObjectForKeyedSubscript(obj objectivec.IObject, 
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:forKeyedSubscript:"), obj, key)
 }
 
-
-
-
-
 // Creates a mutable dictionary which is optimized for dealing with a known
 // set of keys.
 //
@@ -795,41 +758,4 @@ func (_NSMutableDictionaryClass NSMutableDictionaryClass) DictionaryWithCapacity
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableDictionaryClass.class), objc.Sel("dictionaryWithCapacity:"), numItems)
 	return NSMutableDictionaryFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

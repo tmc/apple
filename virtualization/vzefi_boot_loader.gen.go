@@ -35,12 +35,6 @@ func (vc VZEFIBootLoaderClass) Alloc() VZEFIBootLoader {
 	return rv
 }
 
-
-
-
-
-
-
 // The boot loader configuration the system uses to boot guest-operating
 // systems that expect an Extensible Firmware Interface (EFI) ROM.
 //
@@ -64,10 +58,6 @@ func VZEFIBootLoaderFromID(id objc.ID) VZEFIBootLoader {
 // NOTE: VZEFIBootLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZEFIBootLoader] class.
 //
 // # Instance properties
@@ -85,10 +75,6 @@ type IVZEFIBootLoader interface {
 	VariableStore() IVZEFIVariableStore
 	SetVariableStore(value IVZEFIVariableStore)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e VZEFIBootLoader) Init() VZEFIBootLoader {
@@ -109,27 +95,6 @@ func NewVZEFIBootLoader() VZEFIBootLoader {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The boot loader’s EFI variable store.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIBootLoader/variableStore
@@ -140,27 +105,4 @@ func (e VZEFIBootLoader) VariableStore() IVZEFIVariableStore {
 func (e VZEFIBootLoader) SetVariableStore(value IVZEFIVariableStore) {
 	objc.Send[struct{}](e.ID, objc.Sel("setVariableStore:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

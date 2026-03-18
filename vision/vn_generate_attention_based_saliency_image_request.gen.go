@@ -35,12 +35,6 @@ func (vc VNGenerateAttentionBasedSaliencyImageRequestClass) Alloc() VNGenerateAt
 	return rv
 }
 
-
-
-
-
-
-
 // An object that produces a heat map that identifies the parts of an image
 // most likely to draw attention.
 //
@@ -63,10 +57,6 @@ func VNGenerateAttentionBasedSaliencyImageRequestFromID(id objc.ID) VNGenerateAt
 // NOTE: VNGenerateAttentionBasedSaliencyImageRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNGenerateAttentionBasedSaliencyImageRequest] class.
 //
 // # Identifying Request Revisions
@@ -82,10 +72,6 @@ type IVNGenerateAttentionBasedSaliencyImageRequest interface {
 	// A constant for specifying revision 1 of the image saliency request.
 	VNGenerateAttentionBasedSaliencyImageRequestRevision1() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g VNGenerateAttentionBasedSaliencyImageRequest) Init() VNGenerateAttentionBasedSaliencyImageRequest {
@@ -106,11 +92,6 @@ func NewVNGenerateAttentionBasedSaliencyImageRequest() VNGenerateAttentionBasedS
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -128,23 +109,6 @@ func NewGenerateAttentionBasedSaliencyImageRequestWithCompletionHandler(completi
 	return VNGenerateAttentionBasedSaliencyImageRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying revision 1 of the image saliency request.
 //
 // See: https://developer.apple.com/documentation/vision/vngenerateattentionbasedsaliencyimagerequestrevision1
@@ -152,27 +116,4 @@ func (g VNGenerateAttentionBasedSaliencyImageRequest) VNGenerateAttentionBasedSa
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateAttentionBasedSaliencyImageRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

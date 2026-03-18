@@ -35,12 +35,6 @@ func (hc HTTPURLResponseClass) Alloc() HTTPURLResponse {
 	return rv
 }
 
-
-
-
-
-
-
 // The metadata associated with the response to an HTTP protocol URL load
 // request.
 //
@@ -83,10 +77,6 @@ func NSHTTPURLResponseFromID(id objc.ID) HTTPURLResponse { return HTTPURLRespons
 // NOTE: HTTPURLResponse adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [HTTPURLResponse] class.
 //
 // # Initializing a response object
@@ -124,10 +114,6 @@ type IHTTPURLResponse interface {
 	StatusCode() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (h HTTPURLResponse) Init() HTTPURLResponse {
 	rv := objc.Send[HTTPURLResponse](h.ID, objc.Sel("init"))
@@ -147,11 +133,6 @@ func NewHTTPURLResponse() HTTPURLResponse {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewHTTPURLResponseWithCoder(coder INSCoder) HTTPURLResponse {
@@ -159,7 +140,6 @@ func NewHTTPURLResponseWithCoder(coder INSCoder) HTTPURLResponse {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return HTTPURLResponseFromID(rv)
 }
-
 
 // Creates an initialized [NSURLResponse] object with the URL, MIME type,
 // length, and text encoding set to given values.
@@ -188,7 +168,6 @@ func NewHTTPURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL 
 	return HTTPURLResponseFromID(rv)
 }
 
-
 // Initializes an HTTP URL response object with a status code, protocol
 // version, and response headers.
 //
@@ -216,12 +195,6 @@ func NewHTTPURLResponseWithURLStatusCodeHTTPVersionHeaderFields(url INSURL, stat
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:statusCode:HTTPVersion:headerFields:"), url, statusCode, objc.String(HTTPVersion), headerFields)
 	return HTTPURLResponseFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes an HTTP URL response object with a status code, protocol
 // version, and response headers.
@@ -270,10 +243,6 @@ func (h HTTPURLResponse) ValueForHTTPHeaderField(field string) string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
 // Returns a localized string corresponding to a specified HTTP status code.
 //
 // statusCode: The HTTP status code. See [RFC 2616] for details.
@@ -290,13 +259,6 @@ func (_HTTPURLResponseClass HTTPURLResponseClass) LocalizedStringForStatusCode(s
 	rv := objc.Send[objc.ID](objc.ID(_HTTPURLResponseClass.class), objc.Sel("localizedStringForStatusCode:"), statusCode)
 	return NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
 
 // All HTTP header fields of the response.
 //
@@ -341,8 +303,6 @@ func (h HTTPURLResponse) AllHeaderFields() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The response’s HTTP status code.
 //
 // # Discussion
@@ -356,31 +316,4 @@ func (h HTTPURLResponse) StatusCode() int {
 	rv := objc.Send[int](h.ID, objc.Sel("statusCode"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

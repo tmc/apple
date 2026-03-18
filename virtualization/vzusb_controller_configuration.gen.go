@@ -36,12 +36,6 @@ func (vc VZUSBControllerConfigurationClass) Alloc() VZUSBControllerConfiguration
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a USB controller configuration.
 //
 // # Overview
@@ -63,14 +57,10 @@ type VZUSBControllerConfiguration struct {
 //
 // The base class for a USB controller configuration.
 func VZUSBControllerConfigurationFromID(id objc.ID) VZUSBControllerConfiguration {
-	return VZUSBControllerConfiguration{objectivec.Object{id}}
+	return VZUSBControllerConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZUSBControllerConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZUSBControllerConfiguration] class.
 //
@@ -90,10 +80,6 @@ type IVZUSBControllerConfiguration interface {
 	SetUsbDevices(value []objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u VZUSBControllerConfiguration) Init() VZUSBControllerConfiguration {
 	rv := objc.Send[VZUSBControllerConfiguration](u.ID, objc.Sel("init"))
@@ -112,26 +98,6 @@ func NewVZUSBControllerConfiguration() VZUSBControllerConfiguration {
 	rv := objc.Send[VZUSBControllerConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The list of USB devices.
 //
@@ -153,27 +119,4 @@ func (u VZUSBControllerConfiguration) UsbDevices() []objectivec.IObject {
 func (u VZUSBControllerConfiguration) SetUsbDevices(value []objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUsbDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

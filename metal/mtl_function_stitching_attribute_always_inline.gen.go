@@ -36,12 +36,6 @@ func (mc MTLFunctionStitchingAttributeAlwaysInlineClass) Alloc() MTLFunctionStit
 	return rv
 }
 
-
-
-
-
-
-
 // An attribute to specify that Metal needs to inline all of the function
 // calls when generating the stitched function.
 //
@@ -60,14 +54,10 @@ type MTLFunctionStitchingAttributeAlwaysInline struct {
 // An attribute to specify that Metal needs to inline all of the function
 // calls when generating the stitched function.
 func MTLFunctionStitchingAttributeAlwaysInlineFromID(id objc.ID) MTLFunctionStitchingAttributeAlwaysInline {
-	return MTLFunctionStitchingAttributeAlwaysInline{objectivec.Object{id}}
+	return MTLFunctionStitchingAttributeAlwaysInline{objectivec.Object{ID: id}}
 }
 // NOTE: MTLFunctionStitchingAttributeAlwaysInline adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLFunctionStitchingAttributeAlwaysInline] class.
 //
@@ -80,10 +70,6 @@ type IMTLFunctionStitchingAttributeAlwaysInline interface {
 	Attributes() MTLFunctionStitchingAttribute
 	SetAttributes(value MTLFunctionStitchingAttribute)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f MTLFunctionStitchingAttributeAlwaysInline) Init() MTLFunctionStitchingAttributeAlwaysInline {
@@ -104,26 +90,6 @@ func NewMTLFunctionStitchingAttributeAlwaysInline() MTLFunctionStitchingAttribut
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A list of attributes to configure how the Metal device object generates the
 // new stitched function.
 //
@@ -136,31 +102,6 @@ func (f MTLFunctionStitchingAttributeAlwaysInline) SetAttributes(value MTLFuncti
 	objc.Send[struct{}](f.ID, objc.Sel("setAttributes:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for MTLFunctionStitchingAttribute
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

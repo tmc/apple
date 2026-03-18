@@ -37,12 +37,6 @@ func (vc VNRecognizedPoints3DObservationClass) Alloc() VNRecognizedPoints3DObser
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that provides the 3D points for a request.
 //
 // # Inspecting the Observation
@@ -65,10 +59,6 @@ func VNRecognizedPoints3DObservationFromID(id objc.ID) VNRecognizedPoints3DObser
 }
 // NOTE: VNRecognizedPoints3DObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNRecognizedPoints3DObservation] class.
 //
@@ -93,13 +83,7 @@ type IVNRecognizedPoints3DObservation interface {
 	RecognizedPointForKeyError(pointKey VNRecognizedPointKey) (IVNRecognizedPoint3D, error)
 	// Returns a point for a group key you specify.
 	RecognizedPointsForGroupKeyError(groupKey VNRecognizedPointGroupKey) (foundation.INSDictionary, error)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r VNRecognizedPoints3DObservation) Init() VNRecognizedPoints3DObservation {
@@ -120,15 +104,6 @@ func NewVNRecognizedPoints3DObservation() VNRecognizedPoints3DObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Returns a point for a key you specify.
 //
 // pointKey: The key of the point to retrieve.
@@ -139,7 +114,7 @@ func NewVNRecognizedPoints3DObservation() VNRecognizedPoints3DObservation {
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPoints3DObservation/recognizedPoint(forKey:)
 func (r VNRecognizedPoints3DObservation) RecognizedPointForKeyError(pointKey VNRecognizedPointKey) (IVNRecognizedPoint3D, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recognizedPointForKey:error:"), objc.String(string(pointKey)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -159,7 +134,7 @@ func (r VNRecognizedPoints3DObservation) RecognizedPointForKeyError(pointKey VNR
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPoints3DObservation/recognizedPoints(forGroupKey:)
 func (r VNRecognizedPoints3DObservation) RecognizedPointsForGroupKeyError(groupKey VNRecognizedPointGroupKey) (foundation.INSDictionary, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recognizedPointsForGroupKey:error:"), objc.String(string(groupKey)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -168,20 +143,6 @@ func (r VNRecognizedPoints3DObservation) RecognizedPointsForGroupKeyError(groupK
 	return foundation.NSDictionaryFromID(rv), nil
 
 }
-func (r VNRecognizedPoints3DObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The available point keys in the observation.
 //
@@ -191,8 +152,6 @@ func (r VNRecognizedPoints3DObservation) AvailableKeys() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The available point group keys in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPoints3DObservation/availableGroupKeys
@@ -200,30 +159,4 @@ func (r VNRecognizedPoints3DObservation) AvailableGroupKeys() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableGroupKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

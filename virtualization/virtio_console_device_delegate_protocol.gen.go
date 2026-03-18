@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // Optional methods that you use to respond when a console port opens or closes in the virtual machine.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type VZVirtioConsoleDeviceDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // VZVirtioConsoleDeviceDelegateObject wraps an existing Objective-C object that conforms to the VZVirtioConsoleDeviceDelegate protocol.
 type VZVirtioConsoleDeviceDelegateObject struct {
@@ -28,8 +24,6 @@ func (o VZVirtioConsoleDeviceDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // VZVirtioConsoleDeviceDelegateObjectFromID constructs a [VZVirtioConsoleDeviceDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VZVirtioConsoleDeviceDelegateObjectFromID(id objc.ID) VZVirtioConsoleDeviceDelegateObject {
@@ -37,9 +31,6 @@ func VZVirtioConsoleDeviceDelegateObjectFromID(id objc.ID) VZVirtioConsoleDevice
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the framework opened a console port.
 //
@@ -78,10 +69,6 @@ func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidClosePort(consoleDe
 	
 	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didClosePort:"), consoleDevice, consolePort)
 	}
-
-
-
-
 
 // VZVirtioConsoleDeviceDelegateConfig holds optional typed callbacks for [VZVirtioConsoleDeviceDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -158,8 +145,4 @@ func NewVZVirtioConsoleDeviceDelegate(config VZVirtioConsoleDeviceDelegateConfig
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZVirtioConsoleDeviceDelegateObjectFromID(instance)
 }
-
-
-
-
 

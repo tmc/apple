@@ -35,12 +35,6 @@ func (vc VZGenericPlatformConfigurationClass) Alloc() VZGenericPlatformConfigura
 	return rv
 }
 
-
-
-
-
-
-
 // The platform configuration for a generic Intel or ARM virtual machine.
 //
 // # Identifying the platform configuration
@@ -63,10 +57,6 @@ func VZGenericPlatformConfigurationFromID(id objc.ID) VZGenericPlatformConfigura
 }
 // NOTE: VZGenericPlatformConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZGenericPlatformConfiguration] class.
 //
@@ -91,10 +81,6 @@ type IVZGenericPlatformConfiguration interface {
 	SetNestedVirtualizationEnabled(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (g VZGenericPlatformConfiguration) Init() VZGenericPlatformConfiguration {
 	rv := objc.Send[VZGenericPlatformConfiguration](g.ID, objc.Sel("init"))
@@ -114,27 +100,6 @@ func NewVZGenericPlatformConfiguration() VZGenericPlatformConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A value that represents a unique identifier for the virtual machine.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGenericPlatformConfiguration/machineIdentifier
@@ -145,8 +110,6 @@ func (g VZGenericPlatformConfiguration) MachineIdentifier() IVZGenericMachineIde
 func (g VZGenericPlatformConfiguration) SetMachineIdentifier(value IVZGenericMachineIdentifier) {
 	objc.Send[struct{}](g.ID, objc.Sel("setMachineIdentifier:"), value)
 }
-
-
 
 // A Boolean value that indicates whether nested virtualization is in an
 // enabled state.
@@ -159,12 +122,6 @@ func (g VZGenericPlatformConfiguration) NestedVirtualizationEnabled() bool {
 func (g VZGenericPlatformConfiguration) SetNestedVirtualizationEnabled(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setNestedVirtualizationEnabled:"), value)
 }
-
-
-
-
-
-
 
 // A Boolean value that describes whether the platform configuration supports
 // nested virtualization.
@@ -181,23 +138,4 @@ func (_VZGenericPlatformConfigurationClass VZGenericPlatformConfigurationClass) 
 	rv := objc.Send[bool](objc.ID(_VZGenericPlatformConfigurationClass.class), objc.Sel("isNestedVirtualizationSupported"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (mc MTL4TileRenderPipelineDescriptorClass) Alloc() MTL4TileRenderPipelineDe
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together properties you use to create a tile render pipeline state
 // object.
 //
@@ -80,10 +74,6 @@ func MTL4TileRenderPipelineDescriptorFromID(id objc.ID) MTL4TileRenderPipelineDe
 }
 // NOTE: MTL4TileRenderPipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4TileRenderPipelineDescriptor] class.
 //
@@ -145,10 +135,6 @@ type IMTL4TileRenderPipelineDescriptor interface {
 	Reset()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4TileRenderPipelineDescriptor) Init() MTL4TileRenderPipelineDescriptor {
 	rv := objc.Send[MTL4TileRenderPipelineDescriptor](m.ID, objc.Sel("init"))
@@ -168,32 +154,12 @@ func NewMTL4TileRenderPipelineDescriptor() MTL4TileRenderPipelineDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Resets the descriptor to the default state.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4TileRenderPipelineDescriptor/reset()
 func (m MTL4TileRenderPipelineDescriptor) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Access an array of descriptors that configure the properties of each color
 // attachment in the tile render pipeline.
@@ -203,8 +169,6 @@ func (m MTL4TileRenderPipelineDescriptor) ColorAttachments() IMTLTileRenderPipel
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("colorAttachments"))
 	return MTLTileRenderPipelineColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // Sets the maximum number of threads that the GPU can execute simultaneously
 // within a single threadgroup in the tile render pipeline.
@@ -218,8 +182,6 @@ func (m MTL4TileRenderPipelineDescriptor) SetMaxTotalThreadsPerThreadgroup(value
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTotalThreadsPerThreadgroup:"), value)
 }
 
-
-
 // Configures the number of samples per pixel used for multisampling.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4TileRenderPipelineDescriptor/rasterSampleCount
@@ -230,8 +192,6 @@ func (m MTL4TileRenderPipelineDescriptor) RasterSampleCount() uint {
 func (m MTL4TileRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRasterSampleCount:"), value)
 }
-
-
 
 // Sets the required number of threads per threadgroup for tile dispatches.
 //
@@ -257,8 +217,6 @@ func (m MTL4TileRenderPipelineDescriptor) SetRequiredThreadsPerThreadgroup(value
 	objc.Send[struct{}](m.ID, objc.Sel("setRequiredThreadsPerThreadgroup:"), value)
 }
 
-
-
 // Configures an object that contains information about functions to link to
 // the tile render pipeline when Metal builds it.
 //
@@ -271,8 +229,6 @@ func (m MTL4TileRenderPipelineDescriptor) SetStaticLinkingDescriptor(value IMTL4
 	objc.Send[struct{}](m.ID, objc.Sel("setStaticLinkingDescriptor:"), value)
 }
 
-
-
 // Indicates whether the pipeline supports linking binary functions.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4TileRenderPipelineDescriptor/supportBinaryLinking
@@ -283,8 +239,6 @@ func (m MTL4TileRenderPipelineDescriptor) SupportBinaryLinking() bool {
 func (m MTL4TileRenderPipelineDescriptor) SetSupportBinaryLinking(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportBinaryLinking:"), value)
 }
-
-
 
 // Indicating whether the size of the threadgroup matches the size of a tile
 // in the render pipeline.
@@ -298,8 +252,6 @@ func (m MTL4TileRenderPipelineDescriptor) SetThreadgroupSizeMatchesTileSize(valu
 	objc.Send[struct{}](m.ID, objc.Sel("setThreadgroupSizeMatchesTileSize:"), value)
 }
 
-
-
 // Configures the tile function that the render pipeline executes for each
 // tile in the tile shader stage.
 //
@@ -311,27 +263,4 @@ func (m MTL4TileRenderPipelineDescriptor) TileFunctionDescriptor() IMTL4Function
 func (m MTL4TileRenderPipelineDescriptor) SetTileFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTileFunctionDescriptor:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

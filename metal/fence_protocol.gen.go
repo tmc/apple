@@ -30,8 +30,6 @@ type MTLFence interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLFenceObject wraps an existing Objective-C object that conforms to the MTLFence protocol.
 type MTLFenceObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o MTLFenceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLFenceObjectFromID constructs a [MTLFenceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLFenceObjectFromID(id objc.ID) MTLFenceObject {
@@ -49,9 +45,6 @@ func MTLFenceObjectFromID(id objc.ID) MTLFenceObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device object that created the fence.
 //
@@ -73,16 +66,7 @@ func (o MTLFenceObject) Label() string {
 	return foundation.NSStringFromID(rv).String()
 	}
 
-
-
-
-
-
 func (o MTLFenceObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

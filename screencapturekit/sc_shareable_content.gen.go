@@ -37,12 +37,6 @@ func (sc SCShareableContentClass) Alloc() SCShareableContent {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that represents a set of displays, apps, and windows that your
 // app can capture.
 //
@@ -69,14 +63,10 @@ type SCShareableContent struct {
 // An instance that represents a set of displays, apps, and windows that your
 // app can capture.
 func SCShareableContentFromID(id objc.ID) SCShareableContent {
-	return SCShareableContent{objectivec.Object{id}}
+	return SCShareableContent{objectivec.Object{ID: id}}
 }
 // NOTE: SCShareableContent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCShareableContent] class.
 //
@@ -100,10 +90,6 @@ type ISCShareableContent interface {
 	Applications() []SCRunningApplication
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s SCShareableContent) Init() SCShareableContent {
 	rv := objc.Send[SCShareableContent](s.ID, objc.Sel("init"))
@@ -123,19 +109,6 @@ func NewSCShareableContent() SCShareableContent {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Retrieves the displays, apps, and windows that your app can capture.
 //
 // completionHandler: A callback the system invokes with the shareable content, or an error if a
@@ -150,9 +123,9 @@ func NewSCShareableContent() SCShareableContent {
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContent/getWithCompletionHandler(_:)
 func (_SCShareableContentClass SCShareableContentClass) GetShareableContentWithCompletionHandler(completionHandler SCShareableContentErrorHandler) {
-		_block0, _cleanup0 := NewSCShareableContentErrorBlock(completionHandler)
+_block0, _cleanup0 := NewSCShareableContentErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getShareableContentWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getShareableContentWithCompletionHandler:"), _block0)
 }
 
 // Retrieves the displays, apps, and windows that match your criteria.
@@ -175,9 +148,9 @@ func (_SCShareableContentClass SCShareableContentClass) GetShareableContentWithC
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContent/getExcludingDesktopWindows(_:onScreenWindowsOnly:completionHandler:)
 func (_SCShareableContentClass SCShareableContentClass) GetShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyCompletionHandler(excludeDesktopWindows bool, onScreenWindowsOnly bool, completionHandler SCShareableContentErrorHandler) {
-		_block2, _cleanup2 := NewSCShareableContentErrorBlock(completionHandler)
+_block2, _cleanup2 := NewSCShareableContentErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getShareableContentExcludingDesktopWindows:onScreenWindowsOnly:completionHandler:"), excludeDesktopWindows, onScreenWindowsOnly, _block2)
+	objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getShareableContentExcludingDesktopWindows:onScreenWindowsOnly:completionHandler:"), excludeDesktopWindows, onScreenWindowsOnly, _block2)
 }
 
 // Retrieves the displays, apps, and windows that are in front of the
@@ -200,9 +173,9 @@ func (_SCShareableContentClass SCShareableContentClass) GetShareableContentExclu
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContent/getExcludingDesktopWindows(_:onScreenWindowsOnlyAbove:completionHandler:)
 func (_SCShareableContentClass SCShareableContentClass) GetShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyAboveWindowCompletionHandler(excludeDesktopWindows bool, window ISCWindow, completionHandler SCShareableContentErrorHandler) {
-		_block2, _cleanup2 := NewSCShareableContentErrorBlock(completionHandler)
+_block2, _cleanup2 := NewSCShareableContentErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getShareableContentExcludingDesktopWindows:onScreenWindowsOnlyAboveWindow:completionHandler:"), excludeDesktopWindows, window, _block2)
+	objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getShareableContentExcludingDesktopWindows:onScreenWindowsOnlyAboveWindow:completionHandler:"), excludeDesktopWindows, window, _block2)
 }
 
 // Retrieves the displays, apps, and windows that are behind the specified
@@ -225,9 +198,9 @@ func (_SCShareableContentClass SCShareableContentClass) GetShareableContentExclu
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContent/getExcludingDesktopWindows(_:onScreenWindowsOnlyBelow:completionHandler:)
 func (_SCShareableContentClass SCShareableContentClass) GetShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyBelowWindowCompletionHandler(excludeDesktopWindows bool, window ISCWindow, completionHandler SCShareableContentErrorHandler) {
-		_block2, _cleanup2 := NewSCShareableContentErrorBlock(completionHandler)
+_block2, _cleanup2 := NewSCShareableContentErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getShareableContentExcludingDesktopWindows:onScreenWindowsOnlyBelowWindow:completionHandler:"), excludeDesktopWindows, window, _block2)
+	objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getShareableContentExcludingDesktopWindows:onScreenWindowsOnlyBelowWindow:completionHandler:"), excludeDesktopWindows, window, _block2)
 }
 
 // Retrieves any available sharable content information that matches the
@@ -248,17 +221,10 @@ func (_SCShareableContentClass SCShareableContentClass) InfoForFilter(filter ISC
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContent/getCurrentProcessShareableContent(completionHandler:)
 func (_SCShareableContentClass SCShareableContentClass) GetCurrentProcessShareableContentWithCompletionHandler(completionHandler SCShareableContentErrorHandler) {
-		_block0, _cleanup0 := NewSCShareableContentErrorBlock(completionHandler)
+_block0, _cleanup0 := NewSCShareableContentErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getCurrentProcessShareableContentWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](objc.ID(_SCShareableContentClass.class), objc.Sel("getCurrentProcessShareableContentWithCompletionHandler:"), _block0)
 }
-
-
-
-
-
-
-
 
 // The windows available for capture.
 //
@@ -270,8 +236,6 @@ func (s SCShareableContent) Windows() []SCWindow {
 	})
 }
 
-
-
 // The displays available for capture.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContent/displays
@@ -282,8 +246,6 @@ func (s SCShareableContent) Displays() []SCDisplay {
 	})
 }
 
-
-
 // The apps available for capture.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContent/applications
@@ -293,23 +255,6 @@ func (s SCShareableContent) Applications() []SCRunningApplication {
 		return SCRunningApplicationFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // GetShareableContent is a synchronous wrapper around [SCShareableContent.GetShareableContentWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -405,9 +350,4 @@ func (sc SCShareableContentClass) GetCurrentProcessShareableContent(ctx context.
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (nc NSWhoseSpecifierClass) Alloc() NSWhoseSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier that indicates every object in a collection matching a
 // condition.
 //
@@ -108,10 +102,6 @@ func NSWhoseSpecifierFromID(id objc.ID) NSWhoseSpecifier {
 // NOTE: NSWhoseSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSWhoseSpecifier] class.
 //
 // # Initializing a whose specifier
@@ -159,10 +149,6 @@ type INSWhoseSpecifier interface {
 	SetTest(value INSScriptWhoseTest)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (w NSWhoseSpecifier) Init() NSWhoseSpecifier {
 	rv := objc.Send[NSWhoseSpecifier](w.ID, objc.Sel("init"))
@@ -182,11 +168,6 @@ func NewNSWhoseSpecifier() NSWhoseSpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSWhoseSpecifier/init(coder:)
 func NewWhoseSpecifierWithCoder(inCoder INSCoder) NSWhoseSpecifier {
@@ -194,7 +175,6 @@ func NewWhoseSpecifierWithCoder(inCoder INSCoder) NSWhoseSpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSWhoseSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -218,7 +198,6 @@ func NewWhoseSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:"), classDesc, container, objc.String(property))
 	return NSWhoseSpecifierFromID(rv)
 }
-
 
 // Returns an [NSWhoseSpecifier] object initialized with the given attributes.
 //
@@ -247,7 +226,6 @@ func NewWhoseSpecifierWithContainerClassDescriptionContainerSpecifierKeyTest(cla
 	return NSWhoseSpecifierFromID(rv)
 }
 
-
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
 //
@@ -266,12 +244,6 @@ func NewWhoseSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSWhoseSpecifierFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSWhoseSpecifier] object initialized with the given attributes.
 //
@@ -299,17 +271,6 @@ func (w NSWhoseSpecifier) InitWithContainerClassDescriptionContainerSpecifierKey
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Sets the end sub-element identifier for the specifier to the value of a
 // given sub-element.
 //
@@ -321,8 +282,6 @@ func (w NSWhoseSpecifier) EndSubelementIdentifier() NSWhoseSubelementIdentifier 
 func (w NSWhoseSpecifier) SetEndSubelementIdentifier(value NSWhoseSubelementIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setEndSubelementIdentifier:"), value)
 }
-
-
 
 // Sets the index position of the last sub-element within the range of objects
 // being tested that pass the specifier’s test.
@@ -340,8 +299,6 @@ func (w NSWhoseSpecifier) SetEndSubelementIndex(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setEndSubelementIndex:"), value)
 }
 
-
-
 // Returns the start sub-element identifier for the receiver.
 //
 // # Return Value
@@ -356,8 +313,6 @@ func (w NSWhoseSpecifier) StartSubelementIdentifier() NSWhoseSubelementIdentifie
 func (w NSWhoseSpecifier) SetStartSubelementIdentifier(value NSWhoseSubelementIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setStartSubelementIdentifier:"), value)
 }
-
-
 
 // Returns the index position of the first sub-element within the range of
 // objects being tested that pass the receiver’s test.
@@ -376,8 +331,6 @@ func (w NSWhoseSpecifier) SetStartSubelementIndex(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setStartSubelementIndex:"), value)
 }
 
-
-
 // Returns the test object encapsulated by the receiver.
 //
 // # Return Value
@@ -392,29 +345,4 @@ func (w NSWhoseSpecifier) Test() INSScriptWhoseTest {
 func (w NSWhoseSpecifier) SetTest(value INSScriptWhoseTest) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTest:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

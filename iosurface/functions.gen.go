@@ -36,7 +36,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _iOSurfaceAlignProperty func(property corefoundation.CFStringRef, value uintptr) uintptr
 
 // IOSurfaceAlignProperty returns the smallest aligned value greater than or equal to the specified value.
@@ -48,7 +47,6 @@ func IOSurfaceAlignProperty(property corefoundation.CFStringRef, value uintptr) 
 	}
 	return _iOSurfaceAlignProperty(property, value)
 }
-
 
 var _iOSurfaceAllowsPixelSizeCasting func(buffer IOSurfaceRef) bool
 
@@ -62,7 +60,6 @@ func IOSurfaceAllowsPixelSizeCasting(buffer IOSurfaceRef) bool {
 	return _iOSurfaceAllowsPixelSizeCasting(buffer)
 }
 
-
 var _iOSurfaceCopyAllValues func(buffer IOSurfaceRef) corefoundation.CFDictionaryRef
 
 // IOSurfaceCopyAllValues.
@@ -74,7 +71,6 @@ func IOSurfaceCopyAllValues(buffer IOSurfaceRef) corefoundation.CFDictionaryRef 
 	}
 	return _iOSurfaceCopyAllValues(buffer)
 }
-
 
 var _iOSurfaceCopyValue func(buffer IOSurfaceRef, key corefoundation.CFStringRef) corefoundation.CFTypeRef
 
@@ -88,7 +84,6 @@ func IOSurfaceCopyValue(buffer IOSurfaceRef, key corefoundation.CFStringRef) cor
 	return _iOSurfaceCopyValue(buffer, key)
 }
 
-
 var _iOSurfaceCreate func(properties corefoundation.CFDictionaryRef) IOSurfaceRef
 
 // IOSurfaceCreate creates a brand new IOSurface object
@@ -100,7 +95,6 @@ func IOSurfaceCreate(properties corefoundation.CFDictionaryRef) IOSurfaceRef {
 	}
 	return _iOSurfaceCreate(properties)
 }
-
 
 var _iOSurfaceCreateMachPort func(buffer IOSurfaceRef) uint32
 
@@ -114,7 +108,6 @@ func IOSurfaceCreateMachPort(buffer IOSurfaceRef) uint32 {
 	return _iOSurfaceCreateMachPort(buffer)
 }
 
-
 var _iOSurfaceCreateXPCObject func(aSurface IOSurfaceRef) unsafe.Pointer
 
 // IOSurfaceCreateXPCObject returns an xpc_object_t that holds a reference to the IOSurface.
@@ -126,7 +119,6 @@ func IOSurfaceCreateXPCObject(aSurface IOSurfaceRef) unsafe.Pointer {
 	}
 	return _iOSurfaceCreateXPCObject(aSurface)
 }
-
 
 var _iOSurfaceDecrementUseCount func(buffer IOSurfaceRef)
 
@@ -140,7 +132,6 @@ func IOSurfaceDecrementUseCount(buffer IOSurfaceRef) {
 	_iOSurfaceDecrementUseCount(buffer)
 }
 
-
 var _iOSurfaceGetAllocSize func(buffer IOSurfaceRef) uintptr
 
 // IOSurfaceGetAllocSize returns the total allocation size of the buffer including all planes.
@@ -152,7 +143,6 @@ func IOSurfaceGetAllocSize(buffer IOSurfaceRef) uintptr {
 	}
 	return _iOSurfaceGetAllocSize(buffer)
 }
-
 
 var _iOSurfaceGetBaseAddress func(buffer IOSurfaceRef) unsafe.Pointer
 
@@ -166,7 +156,6 @@ func IOSurfaceGetBaseAddress(buffer IOSurfaceRef) unsafe.Pointer {
 	return _iOSurfaceGetBaseAddress(buffer)
 }
 
-
 var _iOSurfaceGetBaseAddressOfPlane func(buffer IOSurfaceRef, planeIndex uintptr) unsafe.Pointer
 
 // IOSurfaceGetBaseAddressOfPlane returns the address of the first byte of data in the specified plane.
@@ -178,7 +167,6 @@ func IOSurfaceGetBaseAddressOfPlane(buffer IOSurfaceRef, planeIndex uintptr) uns
 	}
 	return _iOSurfaceGetBaseAddressOfPlane(buffer, planeIndex)
 }
-
 
 var _iOSurfaceGetBitDepthOfComponentOfPlane func(buffer IOSurfaceRef, planeIndex uintptr, componentIndex uintptr) uintptr
 
@@ -192,7 +180,6 @@ func IOSurfaceGetBitDepthOfComponentOfPlane(buffer IOSurfaceRef, planeIndex uint
 	return _iOSurfaceGetBitDepthOfComponentOfPlane(buffer, planeIndex, componentIndex)
 }
 
-
 var _iOSurfaceGetBitOffsetOfComponentOfPlane func(buffer IOSurfaceRef, planeIndex uintptr, componentIndex uintptr) uintptr
 
 // IOSurfaceGetBitOffsetOfComponentOfPlane.
@@ -204,7 +191,6 @@ func IOSurfaceGetBitOffsetOfComponentOfPlane(buffer IOSurfaceRef, planeIndex uin
 	}
 	return _iOSurfaceGetBitOffsetOfComponentOfPlane(buffer, planeIndex, componentIndex)
 }
-
 
 var _iOSurfaceGetBytesPerElement func(buffer IOSurfaceRef) uintptr
 
@@ -218,7 +204,6 @@ func IOSurfaceGetBytesPerElement(buffer IOSurfaceRef) uintptr {
 	return _iOSurfaceGetBytesPerElement(buffer)
 }
 
-
 var _iOSurfaceGetBytesPerElementOfPlane func(buffer IOSurfaceRef, planeIndex uintptr) uintptr
 
 // IOSurfaceGetBytesPerElementOfPlane returns the size of each element (in bytes) in the specified plane.
@@ -230,7 +215,6 @@ func IOSurfaceGetBytesPerElementOfPlane(buffer IOSurfaceRef, planeIndex uintptr)
 	}
 	return _iOSurfaceGetBytesPerElementOfPlane(buffer, planeIndex)
 }
-
 
 var _iOSurfaceGetBytesPerRow func(buffer IOSurfaceRef) uintptr
 
@@ -244,7 +228,6 @@ func IOSurfaceGetBytesPerRow(buffer IOSurfaceRef) uintptr {
 	return _iOSurfaceGetBytesPerRow(buffer)
 }
 
-
 var _iOSurfaceGetBytesPerRowOfPlane func(buffer IOSurfaceRef, planeIndex uintptr) uintptr
 
 // IOSurfaceGetBytesPerRowOfPlane returns the size of each row (in bytes) in the specified plane.
@@ -256,7 +239,6 @@ func IOSurfaceGetBytesPerRowOfPlane(buffer IOSurfaceRef, planeIndex uintptr) uin
 	}
 	return _iOSurfaceGetBytesPerRowOfPlane(buffer, planeIndex)
 }
-
 
 var _iOSurfaceGetElementHeight func(buffer IOSurfaceRef) uintptr
 
@@ -270,7 +252,6 @@ func IOSurfaceGetElementHeight(buffer IOSurfaceRef) uintptr {
 	return _iOSurfaceGetElementHeight(buffer)
 }
 
-
 var _iOSurfaceGetElementHeightOfPlane func(buffer IOSurfaceRef, planeIndex uintptr) uintptr
 
 // IOSurfaceGetElementHeightOfPlane returns the height (in pixels) of each element in the specified plane.
@@ -282,7 +263,6 @@ func IOSurfaceGetElementHeightOfPlane(buffer IOSurfaceRef, planeIndex uintptr) u
 	}
 	return _iOSurfaceGetElementHeightOfPlane(buffer, planeIndex)
 }
-
 
 var _iOSurfaceGetElementWidth func(buffer IOSurfaceRef) uintptr
 
@@ -296,7 +276,6 @@ func IOSurfaceGetElementWidth(buffer IOSurfaceRef) uintptr {
 	return _iOSurfaceGetElementWidth(buffer)
 }
 
-
 var _iOSurfaceGetElementWidthOfPlane func(buffer IOSurfaceRef, planeIndex uintptr) uintptr
 
 // IOSurfaceGetElementWidthOfPlane returns the width (in pixels) of each element in the specified plane.
@@ -308,7 +287,6 @@ func IOSurfaceGetElementWidthOfPlane(buffer IOSurfaceRef, planeIndex uintptr) ui
 	}
 	return _iOSurfaceGetElementWidthOfPlane(buffer, planeIndex)
 }
-
 
 var _iOSurfaceGetHeight func(buffer IOSurfaceRef) uintptr
 
@@ -322,7 +300,6 @@ func IOSurfaceGetHeight(buffer IOSurfaceRef) uintptr {
 	return _iOSurfaceGetHeight(buffer)
 }
 
-
 var _iOSurfaceGetHeightOfPlane func(buffer IOSurfaceRef, planeIndex uintptr) uintptr
 
 // IOSurfaceGetHeightOfPlane returns the height of the specified plane (in pixels).
@@ -334,7 +311,6 @@ func IOSurfaceGetHeightOfPlane(buffer IOSurfaceRef, planeIndex uintptr) uintptr 
 	}
 	return _iOSurfaceGetHeightOfPlane(buffer, planeIndex)
 }
-
 
 var _iOSurfaceGetID func(buffer IOSurfaceRef) uint32
 
@@ -348,7 +324,6 @@ func IOSurfaceGetID(buffer IOSurfaceRef) uint32 {
 	return _iOSurfaceGetID(buffer)
 }
 
-
 var _iOSurfaceGetNameOfComponentOfPlane func(buffer IOSurfaceRef, planeIndex uintptr, componentIndex uintptr) IOSurfaceComponentName
 
 // IOSurfaceGetNameOfComponentOfPlane.
@@ -360,7 +335,6 @@ func IOSurfaceGetNameOfComponentOfPlane(buffer IOSurfaceRef, planeIndex uintptr,
 	}
 	return _iOSurfaceGetNameOfComponentOfPlane(buffer, planeIndex, componentIndex)
 }
-
 
 var _iOSurfaceGetNumberOfComponentsOfPlane func(buffer IOSurfaceRef, planeIndex uintptr) uintptr
 
@@ -374,7 +348,6 @@ func IOSurfaceGetNumberOfComponentsOfPlane(buffer IOSurfaceRef, planeIndex uintp
 	return _iOSurfaceGetNumberOfComponentsOfPlane(buffer, planeIndex)
 }
 
-
 var _iOSurfaceGetPixelFormat func(buffer IOSurfaceRef) uint32
 
 // IOSurfaceGetPixelFormat returns an unsigned integer that contains the traditional macOS buffer format.
@@ -386,7 +359,6 @@ func IOSurfaceGetPixelFormat(buffer IOSurfaceRef) uint32 {
 	}
 	return _iOSurfaceGetPixelFormat(buffer)
 }
-
 
 var _iOSurfaceGetPlaneCount func(buffer IOSurfaceRef) uintptr
 
@@ -400,7 +372,6 @@ func IOSurfaceGetPlaneCount(buffer IOSurfaceRef) uintptr {
 	return _iOSurfaceGetPlaneCount(buffer)
 }
 
-
 var _iOSurfaceGetPropertyAlignment func(property corefoundation.CFStringRef) uintptr
 
 // IOSurfaceGetPropertyAlignment returns the alignment requirements for a property (if any).
@@ -412,7 +383,6 @@ func IOSurfaceGetPropertyAlignment(property corefoundation.CFStringRef) uintptr 
 	}
 	return _iOSurfaceGetPropertyAlignment(property)
 }
-
 
 var _iOSurfaceGetPropertyMaximum func(property corefoundation.CFStringRef) uintptr
 
@@ -426,7 +396,6 @@ func IOSurfaceGetPropertyMaximum(property corefoundation.CFStringRef) uintptr {
 	return _iOSurfaceGetPropertyMaximum(property)
 }
 
-
 var _iOSurfaceGetRangeOfComponentOfPlane func(buffer IOSurfaceRef, planeIndex uintptr, componentIndex uintptr) IOSurfaceComponentRange
 
 // IOSurfaceGetRangeOfComponentOfPlane.
@@ -438,7 +407,6 @@ func IOSurfaceGetRangeOfComponentOfPlane(buffer IOSurfaceRef, planeIndex uintptr
 	}
 	return _iOSurfaceGetRangeOfComponentOfPlane(buffer, planeIndex, componentIndex)
 }
-
 
 var _iOSurfaceGetSeed func(buffer IOSurfaceRef) uint32
 
@@ -452,7 +420,6 @@ func IOSurfaceGetSeed(buffer IOSurfaceRef) uint32 {
 	return _iOSurfaceGetSeed(buffer)
 }
 
-
 var _iOSurfaceGetSubsampling func(buffer IOSurfaceRef) IOSurfaceSubsampling
 
 // IOSurfaceGetSubsampling.
@@ -464,7 +431,6 @@ func IOSurfaceGetSubsampling(buffer IOSurfaceRef) IOSurfaceSubsampling {
 	}
 	return _iOSurfaceGetSubsampling(buffer)
 }
-
 
 var _iOSurfaceGetTypeID func() uint
 
@@ -478,7 +444,6 @@ func IOSurfaceGetTypeID() uint {
 	return _iOSurfaceGetTypeID()
 }
 
-
 var _iOSurfaceGetTypeOfComponentOfPlane func(buffer IOSurfaceRef, planeIndex uintptr, componentIndex uintptr) IOSurfaceComponentType
 
 // IOSurfaceGetTypeOfComponentOfPlane.
@@ -490,7 +455,6 @@ func IOSurfaceGetTypeOfComponentOfPlane(buffer IOSurfaceRef, planeIndex uintptr,
 	}
 	return _iOSurfaceGetTypeOfComponentOfPlane(buffer, planeIndex, componentIndex)
 }
-
 
 var _iOSurfaceGetUseCount func(buffer IOSurfaceRef) int32
 
@@ -504,7 +468,6 @@ func IOSurfaceGetUseCount(buffer IOSurfaceRef) int32 {
 	return _iOSurfaceGetUseCount(buffer)
 }
 
-
 var _iOSurfaceGetWidth func(buffer IOSurfaceRef) uintptr
 
 // IOSurfaceGetWidth returns the width of the IOSurface buffer in pixels.
@@ -516,7 +479,6 @@ func IOSurfaceGetWidth(buffer IOSurfaceRef) uintptr {
 	}
 	return _iOSurfaceGetWidth(buffer)
 }
-
 
 var _iOSurfaceGetWidthOfPlane func(buffer IOSurfaceRef, planeIndex uintptr) uintptr
 
@@ -530,7 +492,6 @@ func IOSurfaceGetWidthOfPlane(buffer IOSurfaceRef, planeIndex uintptr) uintptr {
 	return _iOSurfaceGetWidthOfPlane(buffer, planeIndex)
 }
 
-
 var _iOSurfaceIncrementUseCount func(buffer IOSurfaceRef)
 
 // IOSurfaceIncrementUseCount increments the per-process usage count for an IOSurface.
@@ -542,7 +503,6 @@ func IOSurfaceIncrementUseCount(buffer IOSurfaceRef) {
 	}
 	_iOSurfaceIncrementUseCount(buffer)
 }
-
 
 var _iOSurfaceIsInUse func(buffer IOSurfaceRef) bool
 
@@ -556,7 +516,6 @@ func IOSurfaceIsInUse(buffer IOSurfaceRef) bool {
 	return _iOSurfaceIsInUse(buffer)
 }
 
-
 var _iOSurfaceLock func(buffer IOSurfaceRef, options IOSurfaceLockOptions, seed *uint32) int32
 
 // IOSurfaceLock “Lock” an IOSurface for reading or writing.
@@ -568,7 +527,6 @@ func IOSurfaceLock(buffer IOSurfaceRef, options IOSurfaceLockOptions, seed *uint
 	}
 	return _iOSurfaceLock(buffer, options, seed)
 }
-
 
 var _iOSurfaceLookup func(csid uint32) IOSurfaceRef
 
@@ -582,7 +540,6 @@ func IOSurfaceLookup(csid uint32) IOSurfaceRef {
 	return _iOSurfaceLookup(csid)
 }
 
-
 var _iOSurfaceLookupFromMachPort func(port uint32) IOSurfaceRef
 
 // IOSurfaceLookupFromMachPort recreates an IOSurfaceRef from a mach port.
@@ -594,7 +551,6 @@ func IOSurfaceLookupFromMachPort(port uint32) IOSurfaceRef {
 	}
 	return _iOSurfaceLookupFromMachPort(port)
 }
-
 
 var _iOSurfaceLookupFromXPCObject func(xobj unsafe.Pointer) IOSurfaceRef
 
@@ -608,7 +564,6 @@ func IOSurfaceLookupFromXPCObject(xobj unsafe.Pointer) IOSurfaceRef {
 	return _iOSurfaceLookupFromXPCObject(xobj)
 }
 
-
 var _iOSurfaceRemoveAllValues func(buffer IOSurfaceRef)
 
 // IOSurfaceRemoveAllValues.
@@ -620,7 +575,6 @@ func IOSurfaceRemoveAllValues(buffer IOSurfaceRef) {
 	}
 	_iOSurfaceRemoveAllValues(buffer)
 }
-
 
 var _iOSurfaceRemoveValue func(buffer IOSurfaceRef, key corefoundation.CFStringRef)
 
@@ -634,7 +588,6 @@ func IOSurfaceRemoveValue(buffer IOSurfaceRef, key corefoundation.CFStringRef) {
 	_iOSurfaceRemoveValue(buffer, key)
 }
 
-
 var _iOSurfaceSetOwnershipIdentity func(buffer IOSurfaceRef, task_id_token uintptr, newLedgerTag int, newLedgerOptions uint32) int32
 
 // IOSurfaceSetOwnershipIdentity.
@@ -646,7 +599,6 @@ func IOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token uintptr, n
 	}
 	return _iOSurfaceSetOwnershipIdentity(buffer, task_id_token, newLedgerTag, newLedgerOptions)
 }
-
 
 var _iOSurfaceSetPurgeable func(buffer IOSurfaceRef, newState uint32, oldState *uint32) int32
 
@@ -660,7 +612,6 @@ func IOSurfaceSetPurgeable(buffer IOSurfaceRef, newState uint32, oldState *uint3
 	return _iOSurfaceSetPurgeable(buffer, newState, oldState)
 }
 
-
 var _iOSurfaceSetValue func(buffer IOSurfaceRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef)
 
 // IOSurfaceSetValue sets a value in the dictionary associated with the buffer.
@@ -672,7 +623,6 @@ func IOSurfaceSetValue(buffer IOSurfaceRef, key corefoundation.CFStringRef, valu
 	}
 	_iOSurfaceSetValue(buffer, key, value)
 }
-
 
 var _iOSurfaceSetValues func(buffer IOSurfaceRef, keysAndValues corefoundation.CFDictionaryRef)
 
@@ -686,7 +636,6 @@ func IOSurfaceSetValues(buffer IOSurfaceRef, keysAndValues corefoundation.CFDict
 	_iOSurfaceSetValues(buffer, keysAndValues)
 }
 
-
 var _iOSurfaceUnlock func(buffer IOSurfaceRef, options IOSurfaceLockOptions, seed *uint32) int32
 
 // IOSurfaceUnlock “Unlock” an IOSurface for reading or writing.
@@ -698,8 +647,6 @@ func IOSurfaceUnlock(buffer IOSurfaceRef, options IOSurfaceLockOptions, seed *ui
 	}
 	return _iOSurfaceUnlock(buffer, options, seed)
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -757,6 +704,4 @@ func init() {
 		registerFunc(&_iOSurfaceSetValues, frameworkHandle, "IOSurfaceSetValues")
 		registerFunc(&_iOSurfaceUnlock, frameworkHandle, "IOSurfaceUnlock")
 	}
-
-
 

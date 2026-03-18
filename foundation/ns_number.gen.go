@@ -37,12 +37,6 @@ func (nc NSNumberClass) Alloc() NSNumber {
 	return rv
 }
 
-
-
-
-
-
-
 // An object wrapper for primitive scalar numeric values.
 //
 // # Overview
@@ -162,10 +156,6 @@ func NSNumberFromID(id objc.ID) NSNumber {
 }
 // NOTE: NSNumber adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSNumber] class.
 //
@@ -300,10 +290,6 @@ type INSNumber interface {
 	InitWithUnsignedLong(value uint64) NSNumber
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n NSNumber) Init() NSNumber {
 	rv := objc.Send[NSNumber](n.ID, objc.Sel("init"))
@@ -323,11 +309,6 @@ func NewNSNumber() NSNumber {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(GCPoint2:)
 // point is a [gamecontroller.GCPoint2].
@@ -335,7 +316,6 @@ func NewNumberValueWithGCPoint2(point objectivec.IObject) NSNumber {
 	rv := objc.Send[objc.ID](objc.ID(getNSNumberClass().class), objc.Sel("valueWithGCPoint2:"), point)
 	return NSNumberFromID(rv)
 }
-
 
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as a [BOOL].
@@ -352,7 +332,6 @@ func NewNumberWithBool(value bool) NSNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBool:"), value)
 	return NSNumberFromID(rv)
 }
-
 
 // Initializes a value object to contain the specified value, interpreted with
 // the specified Objective-C type.
@@ -384,7 +363,6 @@ func NewNumberWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as a signed `char`.
 //
@@ -401,7 +379,6 @@ func NewNumberWithChar(value int8) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/init(coder:)
 func NewNumberWithCoder(coder INSCoder) NSNumber {
@@ -409,7 +386,6 @@ func NewNumberWithCoder(coder INSCoder) NSNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSNumberFromID(rv)
 }
-
 
 // Returns an [NSNumber] object initialized to contain `value`, treated as a
 // `double`.
@@ -427,7 +403,6 @@ func NewNumberWithDouble(value float64) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as a `float`.
 //
@@ -443,7 +418,6 @@ func NewNumberWithFloat(value float32) NSNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFloat:"), value)
 	return NSNumberFromID(rv)
 }
-
 
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as a signed `int`.
@@ -461,7 +435,6 @@ func NewNumberWithInt(value int) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as an [NSInteger].
 //
@@ -478,7 +451,6 @@ func NewNumberWithInteger(value int) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as a signed `long`.
 //
@@ -494,7 +466,6 @@ func NewNumberWithLong(value int) NSNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLong:"), value)
 	return NSNumberFromID(rv)
 }
-
 
 // Returns an [NSNumber] object initialized to contain `value`, treated as a
 // signed `long long`.
@@ -513,7 +484,6 @@ func NewNumberWithLongLong(value int64) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as a signed `short`.
 //
@@ -529,7 +499,6 @@ func NewNumberWithShort(value int16) NSNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShort:"), value)
 	return NSNumberFromID(rv)
 }
-
 
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as an `unsigned char`.
@@ -547,7 +516,6 @@ func NewNumberWithUnsignedChar(value byte) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as an `unsigned int`.
 //
@@ -563,7 +531,6 @@ func NewNumberWithUnsignedInt(value uint32) NSNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUnsignedInt:"), value)
 	return NSNumberFromID(rv)
 }
-
 
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as an [NSUInteger].
@@ -581,7 +548,6 @@ func NewNumberWithUnsignedInteger(value uint) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as an `unsigned long`.
 //
@@ -597,7 +563,6 @@ func NewNumberWithUnsignedLong(value uint64) NSNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUnsignedLong:"), value)
 	return NSNumberFromID(rv)
 }
-
 
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as an `unsigned long long`.
@@ -616,7 +581,6 @@ func NewNumberWithUnsignedLongLong(value uint64) NSNumber {
 	return NSNumberFromID(rv)
 }
 
-
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as an `unsigned short`.
 //
@@ -633,12 +597,6 @@ func NewNumberWithUnsignedShort(value uint16) NSNumber {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUnsignedShort:"), value)
 	return NSNumberFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSNumber] object initialized to contain a given value, treated
 // as a [BOOL].
@@ -952,10 +910,6 @@ func (n NSNumber) InitWithUnsignedLong(value uint64) NSNumber {
 	return rv
 }
 
-
-
-
-
 // Creates and returns an [NSNumber] object containing a given value, treating
 // it as a [BOOL].
 //
@@ -1184,13 +1138,6 @@ func (_NSNumberClass NSNumberClass) NumberWithUnsignedShort(value uint16) NSNumb
 	return NSNumberFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The number object’s value expressed as a Boolean value.
 //
 // # Discussion
@@ -1207,8 +1154,6 @@ func (n NSNumber) BoolValue() bool {
 	return rv
 }
 
-
-
 // The number object’s value expressed as a `char`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/int8Value
@@ -1216,8 +1161,6 @@ func (n NSNumber) CharValue() int8 {
 	rv := objc.Send[int8](n.ID, objc.Sel("charValue"))
 	return rv
 }
-
-
 
 // The number object’s value expressed as an [Decimal] structure.
 //
@@ -1236,8 +1179,6 @@ func (n NSNumber) DecimalValue() Decimal {
 	return Decimal(rv)
 }
 
-
-
 // The number object’s value expressed as a `double`, converted as
 // necessary.
 //
@@ -1247,8 +1188,6 @@ func (n NSNumber) DoubleValue() float64 {
 	return rv
 }
 
-
-
 // The number object’s value expressed as a `float`, converted as necessary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/floatValue
@@ -1257,8 +1196,6 @@ func (n NSNumber) FloatValue() float32 {
 	return rv
 }
 
-
-
 // The number object’s value expressed as an `int`, converted as necessary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/int32Value
@@ -1266,8 +1203,6 @@ func (n NSNumber) IntValue() int {
 	rv := objc.Send[int](n.ID, objc.Sel("intValue"))
 	return rv
 }
-
-
 
 // The number object’s value expressed as an [NSInteger] object, converted
 // as necessary.
@@ -1278,8 +1213,6 @@ func (n NSNumber) IntegerValue() int {
 	return rv
 }
 
-
-
 // The number object’s value expressed as a `long long`, converted as
 // necessary.
 //
@@ -1289,8 +1222,6 @@ func (n NSNumber) LongLongValue() int64 {
 	return rv
 }
 
-
-
 // The number object’s value expressed as a `short`, converted as necessary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/int16Value
@@ -1298,8 +1229,6 @@ func (n NSNumber) ShortValue() int16 {
 	rv := objc.Send[int16](n.ID, objc.Sel("shortValue"))
 	return rv
 }
-
-
 
 // The number object’s value expressed as an unsigned `char`, converted as
 // necessary.
@@ -1310,8 +1239,6 @@ func (n NSNumber) UnsignedCharValue() byte {
 	return rv
 }
 
-
-
 // The number object’s value expressed as an [NSUInteger] object, converted
 // as necessary.
 //
@@ -1320,8 +1247,6 @@ func (n NSNumber) UnsignedIntegerValue() uint {
 	rv := objc.Send[uint](n.ID, objc.Sel("unsignedIntegerValue"))
 	return rv
 }
-
-
 
 // The number object’s value expressed as an unsigned `int`, converted as
 // necessary.
@@ -1332,8 +1257,6 @@ func (n NSNumber) UnsignedIntValue() uint32 {
 	return rv
 }
 
-
-
 // The number object’s value expressed as an unsigned `long long`, converted
 // as necessary.
 //
@@ -1343,8 +1266,6 @@ func (n NSNumber) UnsignedLongLongValue() uint64 {
 	return rv
 }
 
-
-
 // The number object’s value expressed as an unsigned `short`, converted as
 // necessary.
 //
@@ -1353,8 +1274,6 @@ func (n NSNumber) UnsignedShortValue() uint16 {
 	rv := objc.Send[uint16](n.ID, objc.Sel("unsignedShortValue"))
 	return rv
 }
-
-
 
 // The number object’s value expressed as a human-readable string.
 //
@@ -1369,8 +1288,6 @@ func (n NSNumber) StringValue() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The number object’s value expressed as a `long`, converted as necessary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/longValue
@@ -1378,8 +1295,6 @@ func (n NSNumber) LongValue() int {
 	rv := objc.Send[int](n.ID, objc.Sel("longValue"))
 	return rv
 }
-
-
 
 // The number object’s value expressed as an unsigned `long`, converted as
 // necessary.
@@ -1389,38 +1304,4 @@ func (n NSNumber) UnsignedLongValue() uint64 {
 	rv := objc.Send[uint64](n.ID, objc.Sel("unsignedLongValue"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

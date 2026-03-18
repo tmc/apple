@@ -35,12 +35,6 @@ func (nc NSSymbolBounceEffectClass) Alloc() NSSymbolBounceEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A type that applies a transitory scaling effect, or bounce, to the layers
 // in a symbol-based image separately or as a whole.
 //
@@ -70,10 +64,6 @@ func NSSymbolBounceEffectFromID(id objc.ID) NSSymbolBounceEffect {
 // Ensure NSSymbolBounceEffect implements INSSymbolBounceEffect.
 var _ INSSymbolBounceEffect = NSSymbolBounceEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolBounceEffect] class.
 //
 // # Determining effect scope
@@ -93,10 +83,6 @@ type INSSymbolBounceEffect interface {
 	EffectWithWholeSymbol() INSSymbolBounceEffect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolBounceEffect) Init() NSSymbolBounceEffect {
 	rv := objc.Send[NSSymbolBounceEffect](s.ID, objc.Sel("init"))
@@ -115,15 +101,6 @@ func NewNSSymbolBounceEffect() NSSymbolBounceEffect {
 	rv := objc.Send[NSSymbolBounceEffect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // An effect that bounces each layer separately.
 //
@@ -148,10 +125,6 @@ func (s NSSymbolBounceEffect) EffectWithWholeSymbol() INSSymbolBounceEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithWholeSymbol"))
 	return NSSymbolBounceEffectFromID(rv)
 }
-
-
-
-
 
 // An effect that bounces the symbol downward.
 //
@@ -190,25 +163,4 @@ func (_NSSymbolBounceEffectClass NSSymbolBounceEffectClass) Effect() NSSymbolBou
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBounceEffectClass.class), objc.Sel("effect"))
 	return NSSymbolBounceEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

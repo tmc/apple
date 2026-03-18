@@ -3,7 +3,6 @@
 package mlruntime
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
@@ -92,8 +91,8 @@ type IMLROnDemandConnectionHandler interface {
 
 	PerformTaskCompletionHandler(task objectivec.IObject, handler ErrorHandler)
 	PerformTaskInternalCompletionHandler(internal objectivec.IObject, handler ErrorHandler)
-	PluginPrincipal() unsafe.Pointer
-	SetPluginPrincipal(value unsafe.Pointer)
+	PluginPrincipal() objectivec.IObject
+	SetPluginPrincipal(value objectivec.IObject)
 	PrincipalObject() objectivec.IObject
 	ShouldAcceptXPCConnection(xPCConnection objectivec.IObject) bool
 	XpcConnection() foundation.NSXPCConnection
@@ -181,11 +180,11 @@ func (r MLROnDemandConnectionHandler) Hash() uint64 {
 }
 
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/pluginPrincipal
-func (r MLROnDemandConnectionHandler) PluginPrincipal() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("pluginPrincipal"))
-	return rv
+func (r MLROnDemandConnectionHandler) PluginPrincipal() objectivec.IObject {
+	rv := objc.Send[objc.ID](r.ID, objc.Sel("pluginPrincipal"))
+	return objectivec.Object{ID: rv}
 }
-func (r MLROnDemandConnectionHandler) SetPluginPrincipal(value unsafe.Pointer) {
+func (r MLROnDemandConnectionHandler) SetPluginPrincipal(value objectivec.IObject) {
 	objc.Send[struct{}](r.ID, objc.Sel("setPluginPrincipal:"), value)
 }
 

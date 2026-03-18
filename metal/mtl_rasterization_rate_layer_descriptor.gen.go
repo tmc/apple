@@ -37,12 +37,6 @@ func (mc MTLRasterizationRateLayerDescriptorClass) Alloc() MTLRasterizationRateL
 	return rv
 }
 
-
-
-
-
-
-
 // The minimum rasterization rates to apply to sections of a layer in the
 // render target.
 //
@@ -88,14 +82,10 @@ type MTLRasterizationRateLayerDescriptor struct {
 // The minimum rasterization rates to apply to sections of a layer in the
 // render target.
 func MTLRasterizationRateLayerDescriptorFromID(id objc.ID) MTLRasterizationRateLayerDescriptor {
-	return MTLRasterizationRateLayerDescriptor{objectivec.Object{id}}
+	return MTLRasterizationRateLayerDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRasterizationRateLayerDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRasterizationRateLayerDescriptor] class.
 //
@@ -138,10 +128,6 @@ type IMTLRasterizationRateLayerDescriptor interface {
 	InitWithSampleCountHorizontalVertical(sampleCount MTLSize, horizontal unsafe.Pointer, vertical unsafe.Pointer) MTLRasterizationRateLayerDescriptor
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRasterizationRateLayerDescriptor) Init() MTLRasterizationRateLayerDescriptor {
 	rv := objc.Send[MTLRasterizationRateLayerDescriptor](r.ID, objc.Sel("init"))
@@ -161,11 +147,6 @@ func NewMTLRasterizationRateLayerDescriptor() MTLRasterizationRateLayerDescripto
 	return rv
 }
 
-
-
-
-
-
 // Initializes the layer map with an empty grid.
 //
 // sampleCount: The size of the grid. Specify the width and height to determine the number
@@ -183,7 +164,6 @@ func NewRasterizationRateLayerDescriptorWithSampleCount(sampleCount MTLSize) MTL
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSampleCount:"), sampleCount)
 	return MTLRasterizationRateLayerDescriptorFromID(rv)
 }
-
 
 // Initializes the layer map with the provided grid size and rasterization
 // rates.
@@ -209,12 +189,6 @@ func NewRasterizationRateLayerDescriptorWithSampleCountHorizontalVertical(sample
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSampleCount:horizontal:vertical:"), sampleCount, horizontal, vertical)
 	return MTLRasterizationRateLayerDescriptorFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes the layer map with an empty grid.
 //
@@ -257,17 +231,6 @@ func (r MTLRasterizationRateLayerDescriptor) InitWithSampleCountHorizontalVertic
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The number of rows and columns in the layer map.
 //
 // # Discussion
@@ -285,8 +248,6 @@ func (r MTLRasterizationRateLayerDescriptor) SampleCount() MTLSize {
 	return MTLSize(rv)
 }
 
-
-
 // The maximum number of rows and columns in the layer map.
 //
 // # Discussion
@@ -301,8 +262,6 @@ func (r MTLRasterizationRateLayerDescriptor) MaxSampleCount() MTLSize {
 	return MTLSize(rv)
 }
 
-
-
 // The horizontal rasterization rates for the layer map’s rows.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/horizontal
@@ -311,8 +270,6 @@ func (r MTLRasterizationRateLayerDescriptor) Horizontal() IMTLRasterizationRateS
 	return MTLRasterizationRateSampleArrayFromID(objc.ID(rv))
 }
 
-
-
 // The vertical rasterization rates for the layer map’s rows.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateLayerDescriptor/vertical
@@ -320,8 +277,6 @@ func (r MTLRasterizationRateLayerDescriptor) Vertical() IMTLRasterizationRateSam
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("vertical"))
 	return MTLRasterizationRateSampleArrayFromID(objc.ID(rv))
 }
-
-
 
 // A pointer to the storage for the layer map’s horizontal rasterization
 // rates.
@@ -339,8 +294,6 @@ func (r MTLRasterizationRateLayerDescriptor) HorizontalSampleStorage() unsafe.Po
 	return rv
 }
 
-
-
 // A pointer to the storage for the layer map’s vertical rasterization
 // rates.
 //
@@ -356,27 +309,4 @@ func (r MTLRasterizationRateLayerDescriptor) VerticalSampleStorage() unsafe.Poin
 	rv := objc.Send[unsafe.Pointer](r.ID, objc.Sel("verticalSampleStorage"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

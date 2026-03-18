@@ -22,8 +22,6 @@ func (i NSItemProvider) SetPreferredPresentationStyle(value UIPreferredPresentat
 objc.Send[struct{}](i.ID, objc.Sel("setPreferredPresentationStyle:"), value)
 }
 
-
-
 // The collection of data an app uses to hold private team information during
 // drag and drop.
 //
@@ -35,11 +33,4 @@ return NSDataFromID(rv)
 func (i NSItemProvider) SetTeamData(value INSData) {
 objc.Send[struct{}](i.ID, objc.Sel("setTeamData:"), value)
 }
-
-
-
-
-
-
-
 

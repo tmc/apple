@@ -35,12 +35,6 @@ func (nc NSSymbolScaleEffectClass) Alloc() NSSymbolScaleEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A type that scales the layers in a symbol-based image separately or as a
 // whole.
 //
@@ -69,10 +63,6 @@ func NSSymbolScaleEffectFromID(id objc.ID) NSSymbolScaleEffect {
 // Ensure NSSymbolScaleEffect implements INSSymbolScaleEffect.
 var _ INSSymbolScaleEffect = NSSymbolScaleEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolScaleEffect] class.
 //
 // # Determining effect scope
@@ -92,10 +82,6 @@ type INSSymbolScaleEffect interface {
 	EffectWithWholeSymbol() INSSymbolScaleEffect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolScaleEffect) Init() NSSymbolScaleEffect {
 	rv := objc.Send[NSSymbolScaleEffect](s.ID, objc.Sel("init"))
@@ -114,15 +100,6 @@ func NewNSSymbolScaleEffect() NSSymbolScaleEffect {
 	rv := objc.Send[NSSymbolScaleEffect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // An effect that scales each layer separately.
 //
@@ -147,10 +124,6 @@ func (s NSSymbolScaleEffect) EffectWithWholeSymbol() INSSymbolScaleEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithWholeSymbol"))
 	return NSSymbolScaleEffectFromID(rv)
 }
-
-
-
-
 
 // An animation that scales the layers in a symbol-based image separately or
 // as a whole.
@@ -188,25 +161,4 @@ func (_NSSymbolScaleEffectClass NSSymbolScaleEffectClass) ScaleUpEffect() NSSymb
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolScaleEffectClass.class), objc.Sel("scaleUpEffect"))
 	return NSSymbolScaleEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

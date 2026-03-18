@@ -36,12 +36,6 @@ func (hc HostNameClass) Alloc() HostName {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSProcessInfo/hostName-c.ivar
 type HostName struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type HostName struct {
 
 // HostNameFromID constructs a [HostName] from an objc.ID.
 func HostNameFromID(id objc.ID) HostName {
-	return HostName{objectivec.Object{id}}
+	return HostName{objectivec.Object{ID: id}}
 }
 // Ensure HostName implements IHostName.
 var _ IHostName = HostName{}
-
-
-
-
 
 // An interface definition for the [HostName] class.
 //
@@ -64,10 +54,6 @@ var _ IHostName = HostName{}
 type IHostName interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h HostName) Init() HostName {
@@ -87,38 +73,4 @@ func NewHostName() HostName {
 	rv := objc.Send[HostName](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (nc NSSymbolAppearEffectClass) Alloc() NSSymbolAppearEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A type that makes the layers of a symbol-based image appear separately or
 // as a whole.
 //
@@ -70,10 +64,6 @@ func NSSymbolAppearEffectFromID(id objc.ID) NSSymbolAppearEffect {
 // Ensure NSSymbolAppearEffect implements INSSymbolAppearEffect.
 var _ INSSymbolAppearEffect = NSSymbolAppearEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolAppearEffect] class.
 //
 // # Determining effect scope
@@ -93,10 +83,6 @@ type INSSymbolAppearEffect interface {
 	EffectWithWholeSymbol() INSSymbolAppearEffect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolAppearEffect) Init() NSSymbolAppearEffect {
 	rv := objc.Send[NSSymbolAppearEffect](s.ID, objc.Sel("init"))
@@ -115,15 +101,6 @@ func NewNSSymbolAppearEffect() NSSymbolAppearEffect {
 	rv := objc.Send[NSSymbolAppearEffect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // An effect that makes each layer appear separately.
 //
@@ -148,10 +125,6 @@ func (s NSSymbolAppearEffect) EffectWithWholeSymbol() INSSymbolAppearEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithWholeSymbol"))
 	return NSSymbolAppearEffectFromID(rv)
 }
-
-
-
-
 
 // An effect that makes the symbol scale down as it appears.
 //
@@ -191,25 +164,4 @@ func (_NSSymbolAppearEffectClass NSSymbolAppearEffectClass) Effect() NSSymbolApp
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolAppearEffectClass.class), objc.Sel("effect"))
 	return NSSymbolAppearEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

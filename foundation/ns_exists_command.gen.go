@@ -35,12 +35,6 @@ func (nc NSExistsCommandClass) Alloc() NSExistsCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that determines whether a scriptable object exists.
 //
 // # Overview
@@ -69,20 +63,12 @@ func NSExistsCommandFromID(id objc.ID) NSExistsCommand {
 // NOTE: NSExistsCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSExistsCommand] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExistsCommand
 type INSExistsCommand interface {
 	INSScriptCommand
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e NSExistsCommand) Init() NSExistsCommand {
@@ -103,11 +89,6 @@ func NewNSExistsCommand() NSExistsCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewExistsCommandWithCoder(inCoder INSCoder) NSExistsCommand {
@@ -115,7 +96,6 @@ func NewExistsCommandWithCoder(inCoder INSCoder) NSExistsCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSExistsCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -137,44 +117,4 @@ func NewExistsCommandWithCommandDescription(commandDef INSScriptCommandDescripti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCommandDescription:"), commandDef)
 	return NSExistsCommandFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

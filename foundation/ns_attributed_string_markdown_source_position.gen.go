@@ -36,12 +36,6 @@ func (nc NSAttributedStringMarkdownSourcePositionClass) Alloc() NSAttributedStri
 	return rv
 }
 
-
-
-
-
-
-
 // The position of attributed string text in its original Markdown source
 // string.
 //
@@ -70,14 +64,10 @@ type NSAttributedStringMarkdownSourcePosition struct {
 // The position of attributed string text in its original Markdown source
 // string.
 func NSAttributedStringMarkdownSourcePositionFromID(id objc.ID) NSAttributedStringMarkdownSourcePosition {
-	return NSAttributedStringMarkdownSourcePosition{objectivec.Object{id}}
+	return NSAttributedStringMarkdownSourcePosition{objectivec.Object{ID: id}}
 }
 // NOTE: NSAttributedStringMarkdownSourcePosition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAttributedStringMarkdownSourcePosition] class.
 //
@@ -100,6 +90,7 @@ func NSAttributedStringMarkdownSourcePositionFromID(id objc.ID) NSAttributedStri
 type INSAttributedStringMarkdownSourcePosition interface {
 	objectivec.IObject
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating an Attributed String Markdown Source Position Instance
 
@@ -127,10 +118,6 @@ type INSAttributedStringMarkdownSourcePosition interface {
 	EncodeWithCoder(coder INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAttributedStringMarkdownSourcePosition) Init() NSAttributedStringMarkdownSourcePosition {
 	rv := objc.Send[NSAttributedStringMarkdownSourcePosition](a.ID, objc.Sel("init"))
@@ -149,11 +136,6 @@ func NewNSAttributedStringMarkdownSourcePosition() NSAttributedStringMarkdownSou
 	rv := objc.Send[NSAttributedStringMarkdownSourcePosition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a Markdown source position instance from its start and end line and
 // column.
@@ -177,12 +159,6 @@ func NewAttributedStringMarkdownSourcePositionWithStartLineStartColumnEndLineEnd
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStartLine:startColumn:endLine:endColumn:"), startLine, startColumn, endLine, endColumn)
 	return NSAttributedStringMarkdownSourcePositionFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a Markdown source position instance from its start and end line and
 // column.
@@ -241,17 +217,6 @@ func (a NSAttributedStringMarkdownSourcePosition) EncodeWithCoder(coder INSCoder
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The line where the text begins in the Markdown source.
 //
 // # Discussion
@@ -263,8 +228,6 @@ func (a NSAttributedStringMarkdownSourcePosition) StartLine() int {
 	rv := objc.Send[int](a.ID, objc.Sel("startLine"))
 	return rv
 }
-
-
 
 // The column where the text begins in the Markdown source.
 //
@@ -279,8 +242,6 @@ func (a NSAttributedStringMarkdownSourcePosition) StartColumn() int {
 	return rv
 }
 
-
-
 // The line where the text ends in the Markdown source.
 //
 // # Discussion
@@ -292,8 +253,6 @@ func (a NSAttributedStringMarkdownSourcePosition) EndLine() int {
 	rv := objc.Send[int](a.ID, objc.Sel("endLine"))
 	return rv
 }
-
-
 
 // The column where the text ends in the Markdown source.
 //
@@ -308,26 +267,9 @@ func (a NSAttributedStringMarkdownSourcePosition) EndColumn() int {
 	return rv
 }
 
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

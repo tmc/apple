@@ -36,12 +36,6 @@ func (nc NSAppleEventManagerClass) Alloc() NSAppleEventManager {
 	return rv
 }
 
-
-
-
-
-
-
 // A mechanism for registering handler routines for specific types of Apple
 // events and dispatching events to those handlers.
 //
@@ -98,14 +92,10 @@ type NSAppleEventManager struct {
 // A mechanism for registering handler routines for specific types of Apple
 // events and dispatching events to those handlers.
 func NSAppleEventManagerFromID(id objc.ID) NSAppleEventManager {
-	return NSAppleEventManager{objectivec.Object{id}}
+	return NSAppleEventManager{objectivec.Object{ID: id}}
 }
 // NOTE: NSAppleEventManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAppleEventManager] class.
 //
@@ -162,10 +152,6 @@ type INSAppleEventManager interface {
 	SuspendCurrentAppleEvent() NSAppleEventManagerSuspensionID
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAppleEventManager) Init() NSAppleEventManager {
 	rv := objc.Send[NSAppleEventManager](a.ID, objc.Sel("init"))
@@ -184,15 +170,6 @@ func NewNSAppleEventManager() NSAppleEventManager {
 	rv := objc.Send[NSAppleEventManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // If an Apple event handler has been registered for the event specified by
 // `eventClass` and `eventID`, removes it.
@@ -217,8 +194,8 @@ func (a NSAppleEventManager) RemoveEventHandlerForEventClassAndEventID(eventClas
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)
 func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler ErrorHandler, handleEventSelector objc.SEL, eventClass uint32, eventID uint32) {
-		_block0, _ := NewErrorBlock(handler)
-		objc.Send[objc.ID](a.ID, objc.Sel("setEventHandler:andSelector:forEventClass:andEventID:"), _block0, handleEventSelector, eventClass, eventID)
+_block0, _ := NewErrorBlock(handler)
+	objc.Send[objc.ID](a.ID, objc.Sel("setEventHandler:andSelector:forEventClass:andEventID:"), _block0, handleEventSelector, eventClass, eventID)
 }
 
 // Causes the Apple event specified by `theAppleEvent` to be dispatched to the
@@ -241,9 +218,9 @@ func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(h
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/dispatchRawAppleEvent(_:withRawReply:handlerRefCon:)
 func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent objectivec.IObject, theReply objectivec.IObject, handlerRefCon ErrorHandler) objectivec.IObject {
-		_block2, _cleanup2 := NewErrorBlock(handlerRefCon)
+_block2, _cleanup2 := NewErrorBlock(handlerRefCon)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, _block2)
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, _block2)
 	return objectivec.Object{ID: rv}
 }
 
@@ -337,10 +314,6 @@ func (a NSAppleEventManager) SuspendCurrentAppleEvent() NSAppleEventManagerSuspe
 	return NSAppleEventManagerSuspensionID(rv)
 }
 
-
-
-
-
 // Returns the single instance of [NSAppleEventManager], creating it first if
 // it doesn’t exist.
 //
@@ -349,13 +322,6 @@ func (_NSAppleEventManagerClass NSAppleEventManagerClass) SharedAppleEventManage
 	rv := objc.Send[objc.ID](objc.ID(_NSAppleEventManagerClass.class), objc.Sel("sharedAppleEventManager"))
 	return NSAppleEventManagerFromID(rv)
 }
-
-
-
-
-
-
-
 
 // Returns the descriptor for `currentAppleEvent` if an Apple event is being
 // handled on the current thread.
@@ -375,8 +341,6 @@ func (a NSAppleEventManager) CurrentAppleEvent() INSAppleEventDescriptor {
 	return NSAppleEventDescriptorFromID(objc.ID(rv))
 }
 
-
-
 // Returns the corresponding reply event descriptor if an Apple event is being
 // handled on the current thread.
 //
@@ -395,26 +359,4 @@ func (a NSAppleEventManager) CurrentReplyAppleEvent() INSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentReplyAppleEvent"))
 	return NSAppleEventDescriptorFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

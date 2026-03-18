@@ -36,12 +36,6 @@ func (nc NSUserAutomatorTaskClass) Alloc() NSUserAutomatorTask {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that executes Automator workflows.
 //
 // # Overview
@@ -83,10 +77,6 @@ func NSUserAutomatorTaskFromID(id objc.ID) NSUserAutomatorTask {
 // NOTE: NSUserAutomatorTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSUserAutomatorTask] class.
 //
 // # Executing Automator Tasks
@@ -108,10 +98,6 @@ type INSUserAutomatorTask interface {
 	SetVariables(value INSDictionary)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u NSUserAutomatorTask) Init() NSUserAutomatorTask {
 	rv := objc.Send[NSUserAutomatorTask](u.ID, objc.Sel("init"))
@@ -130,11 +116,6 @@ func NewNSUserAutomatorTask() NSUserAutomatorTask {
 	rv := objc.Send[NSUserAutomatorTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Return a user script task instance given a URL for a script file.
 //
@@ -165,12 +146,6 @@ func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 	return NSUserAutomatorTaskFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Execute the Automator workflow by providing it as securely coded input.
 //
 // input: The automator task.
@@ -190,21 +165,10 @@ func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserAutomatorTask/execute(withInput:completionHandler:)
 func (u NSUserAutomatorTask) ExecuteWithInputCompletionHandler(input NSSecureCoding, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](u.ID, objc.Sel("executeWithInput:completionHandler:"), input, _block1)
+	objc.Send[objc.ID](u.ID, objc.Sel("executeWithInput:completionHandler:"), input, _block1)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The variables required by the Automator workflow.
 //
@@ -216,28 +180,4 @@ func (u NSUserAutomatorTask) Variables() INSDictionary {
 func (u NSUserAutomatorTask) SetVariables(value INSDictionary) {
 	objc.Send[struct{}](u.ID, objc.Sel("setVariables:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

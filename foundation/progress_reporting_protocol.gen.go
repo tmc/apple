@@ -19,8 +19,6 @@ type NSProgressReporting interface {
 	Progress() INSProgress
 }
 
-
-
 // NSProgressReportingObject wraps an existing Objective-C object that conforms to the NSProgressReporting protocol.
 type NSProgressReportingObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSProgressReportingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSProgressReportingObjectFromID constructs a [NSProgressReportingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSProgressReportingObjectFromID(id objc.ID) NSProgressReportingObject {
@@ -38,9 +34,6 @@ func NSProgressReportingObjectFromID(id objc.ID) NSProgressReportingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The progress object returned by the class.
 //
@@ -51,12 +44,4 @@ func (o NSProgressReportingObject) Progress() INSProgress {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("progress"))
 	return NSProgressFromID(rv)
 	}
-
-
-
-
-
-
-
-
 

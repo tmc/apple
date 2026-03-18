@@ -65,8 +65,6 @@ type MTLCommandQueue interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLCommandQueueObject wraps an existing Objective-C object that conforms to the MTLCommandQueue protocol.
 type MTLCommandQueueObject struct {
 	objectivec.Object
@@ -75,8 +73,6 @@ func (o MTLCommandQueueObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLCommandQueueObjectFromID constructs a [MTLCommandQueueObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLCommandQueueObjectFromID(id objc.ID) MTLCommandQueueObject {
@@ -84,9 +80,6 @@ func MTLCommandQueueObjectFromID(id objc.ID) MTLCommandQueueObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a command buffer from the command queue that you configure with a
 // descriptor.
@@ -295,16 +288,7 @@ func (o MTLCommandQueueObject) RemoveResidencySetsCount(residencySets []MTLResid
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySets:count:"), objc.CArray(residencySets), count)
 	}
 
-
-
-
-
-
 func (o MTLCommandQueueObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

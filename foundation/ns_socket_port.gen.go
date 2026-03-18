@@ -35,12 +35,6 @@ func (sc SocketPortClass) Alloc() SocketPort {
 	return rv
 }
 
-
-
-
-
-
-
 // A port that represents a BSD socket.
 //
 // # Overview
@@ -83,10 +77,6 @@ func SocketPortFromID(id objc.ID) SocketPort {
 func NSSocketPortFromID(id objc.ID) SocketPort { return SocketPortFromID(id) }
 // NOTE: SocketPort adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SocketPort] class.
 //
@@ -137,10 +127,6 @@ type ISocketPort interface {
 	SocketType() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s SocketPort) Init() SocketPort {
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("init"))
@@ -159,11 +145,6 @@ func NewSocketPort() SocketPort {
 	rv := objc.Send[SocketPort](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes the receiver as a remote socket with the provided arguments.
 //
@@ -187,7 +168,6 @@ func NewSocketPortRemoteWithProtocolFamilySocketTypeProtocolAddress(family int, 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initRemoteWithProtocolFamily:socketType:protocol:address:"), family, type_, protocol_, address)
 	return SocketPortFromID(rv)
 }
-
 
 // Initializes the receiver as a TCP/IP socket of type `SOCK_STREAM` that can
 // connect to a remote host on a specified port.
@@ -213,7 +193,6 @@ func NewSocketPortRemoteWithTCPPortHost(port uint16, hostName string) SocketPort
 	return SocketPortFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewSocketPortWithCoder(coder INSCoder) SocketPort {
@@ -221,7 +200,6 @@ func NewSocketPortWithCoder(coder INSCoder) SocketPort {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SocketPortFromID(rv)
 }
-
 
 // Initializes the receiver as a local socket with the provided arguments.
 //
@@ -254,7 +232,6 @@ func NewSocketPortWithProtocolFamilySocketTypeProtocolAddress(family int, type_ 
 	return SocketPortFromID(rv)
 }
 
-
 // Initializes the receiver with a previously created local socket.
 //
 // family: The protocol family for the provided socket. Possible values are defined in
@@ -277,7 +254,6 @@ func NewSocketPortWithProtocolFamilySocketTypeProtocolSocket(family int, type_ i
 	return SocketPortFromID(rv)
 }
 
-
 // Initializes the receiver as a local TCP/IP socket of type `SOCK_STREAM`,
 // listening on a specified port number.
 //
@@ -299,12 +275,6 @@ func NewSocketPortWithTCPPort(port uint16) SocketPort {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTCPPort:"), port)
 	return SocketPortFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes the receiver as a local TCP/IP socket of type `SOCK_STREAM`,
 // listening on a specified port number.
@@ -423,17 +393,6 @@ func (s SocketPort) InitRemoteWithProtocolFamilySocketTypeProtocolAddress(family
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The receiver’s socket address structure stored inside an [NSData] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/address
@@ -442,8 +401,6 @@ func (s SocketPort) Address() INSData {
 	return NSDataFromID(objc.ID(rv))
 }
 
-
-
 // The protocol that the receiver uses for communication.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/protocol
@@ -451,8 +408,6 @@ func (s SocketPort) Protocol() int {
 	rv := objc.Send[int](s.ID, objc.Sel("protocol"))
 	return rv
 }
-
-
 
 // The protocol family that the receiver uses for communication.
 //
@@ -467,8 +422,6 @@ func (s SocketPort) ProtocolFamily() int {
 	return rv
 }
 
-
-
 // The receiver’s native socket identifier on the platform.
 //
 // # Discussion
@@ -481,8 +434,6 @@ func (s SocketPort) Socket() NSSocketNativeHandle {
 	return NSSocketNativeHandle(rv)
 }
 
-
-
 // The receiver’s socket type.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/socketType
@@ -490,30 +441,4 @@ func (s SocketPort) SocketType() int {
 	rv := objc.Send[int](s.ID, objc.Sel("socketType"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

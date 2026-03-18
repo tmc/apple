@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The optional methods implemented by the delegate of a keyed archiver.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSKeyedArchiverDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSKeyedArchiverDelegateObject wraps an existing Objective-C object that conforms to the NSKeyedArchiverDelegate protocol.
 type NSKeyedArchiverDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSKeyedArchiverDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSKeyedArchiverDelegateObjectFromID constructs a [NSKeyedArchiverDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSKeyedArchiverDelegateObjectFromID(id objc.ID) NSKeyedArchiverDelegateObject {
@@ -37,9 +31,6 @@ func NSKeyedArchiverDelegateObjectFromID(id objc.ID) NSKeyedArchiverDelegateObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Informs the delegate that a given object has been encoded.
 //
@@ -141,10 +132,6 @@ func (o NSKeyedArchiverDelegateObject) ArchiverWillReplaceObjectWithObject(archi
 	objc.Send[struct{}](o.ID, objc.Sel("archiver:willReplaceObject:withObject:"), archiver, object, newObject)
 	}
 
-
-
-
-
 // NSKeyedArchiverDelegateConfig holds optional typed callbacks for [NSKeyedArchiverDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -218,8 +205,4 @@ func NewNSKeyedArchiverDelegate(config NSKeyedArchiverDelegateConfig) NSKeyedArc
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSKeyedArchiverDelegateObjectFromID(instance)
 }
-
-
-
-
 

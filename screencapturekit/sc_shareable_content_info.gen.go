@@ -37,12 +37,6 @@ func (sc SCShareableContentInfoClass) Alloc() SCShareableContentInfo {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that provides information for the content in a given stream.
 //
 // # Shared content properties
@@ -60,14 +54,10 @@ type SCShareableContentInfo struct {
 //
 // An instance that provides information for the content in a given stream.
 func SCShareableContentInfoFromID(id objc.ID) SCShareableContentInfo {
-	return SCShareableContentInfo{objectivec.Object{id}}
+	return SCShareableContentInfo{objectivec.Object{ID: id}}
 }
 // NOTE: SCShareableContentInfo adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCShareableContentInfo] class.
 //
@@ -91,10 +81,6 @@ type ISCShareableContentInfo interface {
 	Style() SCShareableContentStyle
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s SCShareableContentInfo) Init() SCShareableContentInfo {
 	rv := objc.Send[SCShareableContentInfo](s.ID, objc.Sel("init"))
@@ -114,26 +100,6 @@ func NewSCShareableContentInfo() SCShareableContentInfo {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The size and location of content for the stream.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContentInfo/contentRect
@@ -141,8 +107,6 @@ func (s SCShareableContentInfo) ContentRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("contentRect"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // The scaling from points to output pixel resolution for the stream.
 //
@@ -152,8 +116,6 @@ func (s SCShareableContentInfo) PointPixelScale() float32 {
 	return rv
 }
 
-
-
 // The current presentation style of the stream.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContentInfo/style
@@ -161,26 +123,4 @@ func (s SCShareableContentInfo) Style() SCShareableContentStyle {
 	rv := objc.Send[SCShareableContentStyle](s.ID, objc.Sel("style"))
 	return SCShareableContentStyle(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

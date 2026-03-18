@@ -37,12 +37,6 @@ func (mc MTLBinaryArchiveDescriptorClass) Alloc() MTLBinaryArchiveDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a binary shader archive that you want to create.
 //
 // # Choosing an archive file
@@ -59,14 +53,10 @@ type MTLBinaryArchiveDescriptor struct {
 //
 // A description of a binary shader archive that you want to create.
 func MTLBinaryArchiveDescriptorFromID(id objc.ID) MTLBinaryArchiveDescriptor {
-	return MTLBinaryArchiveDescriptor{objectivec.Object{id}}
+	return MTLBinaryArchiveDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLBinaryArchiveDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLBinaryArchiveDescriptor] class.
 //
@@ -89,10 +79,6 @@ type IMTLBinaryArchiveDescriptor interface {
 	MTLBinaryArchiveDomain() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (b MTLBinaryArchiveDescriptor) Init() MTLBinaryArchiveDescriptor {
 	rv := objc.Send[MTLBinaryArchiveDescriptor](b.ID, objc.Sel("init"))
@@ -112,26 +98,6 @@ func NewMTLBinaryArchiveDescriptor() MTLBinaryArchiveDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A URL to a Metal binary archive file.
 //
 // # Discussion
@@ -148,8 +114,6 @@ func (b MTLBinaryArchiveDescriptor) SetUrl(value foundation.INSURL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setUrl:"), value)
 }
 
-
-
 // The domain for Metal binary archive errors.
 //
 // See: https://developer.apple.com/documentation/metal/mtlbinaryarchivedomain
@@ -157,27 +121,4 @@ func (b MTLBinaryArchiveDescriptor) MTLBinaryArchiveDomain() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("MTLBinaryArchiveDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

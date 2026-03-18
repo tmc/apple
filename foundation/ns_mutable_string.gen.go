@@ -37,12 +37,6 @@ func (nc NSMutableStringClass) Alloc() NSMutableString {
 	return rv
 }
 
-
-
-
-
-
-
 // A dynamic plain-text Unicode string object.
 //
 // # Overview
@@ -84,7 +78,6 @@ func (nc NSMutableStringClass) Alloc() NSMutableString {
 //   - [NSMutableString.InsertStringAtIndex]: Inserts into the receiver the characters of a given string at a given location.
 //   - [NSMutableString.ReplaceCharactersInRangeWithString]: Replaces the characters from `range` with those in `aString`.
 //   - [NSMutableString.ReplaceOccurrencesOfStringWithStringOptionsRange]: Replaces all occurrences of a given string in a given range with another given string, returning the number of replacements.
-//   - [NSMutableString.SetString]: Replaces the characters of the receiver with those in a given string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableString
 type NSMutableString struct {
@@ -100,10 +93,6 @@ func NSMutableStringFromID(id objc.ID) NSMutableString {
 // NOTE: NSMutableString adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMutableString] class.
 //
 // # Creating and Initializing a Mutable String
@@ -118,7 +107,6 @@ func NSMutableStringFromID(id objc.ID) NSMutableString {
 //   - [INSMutableString.InsertStringAtIndex]: Inserts into the receiver the characters of a given string at a given location.
 //   - [INSMutableString.ReplaceCharactersInRangeWithString]: Replaces the characters from `range` with those in `aString`.
 //   - [INSMutableString.ReplaceOccurrencesOfStringWithStringOptionsRange]: Replaces all occurrences of a given string in a given range with another given string, returning the number of replacements.
-//   - [INSMutableString.SetString]: Replaces the characters of the receiver with those in a given string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableString
 type INSMutableString interface {
@@ -143,16 +131,10 @@ type INSMutableString interface {
 	ReplaceCharactersInRangeWithString(range_ NSRange, aString string)
 	// Replaces all occurrences of a given string in a given range with another given string, returning the number of replacements.
 	ReplaceOccurrencesOfStringWithStringOptionsRange(target string, replacement string, options NSStringCompareOptions, searchRange NSRange) uint
-	// Replaces the characters of the receiver with those in a given string.
-	SetString(aString string)
 
 	// Adds a constructed string to the receiver.
 	AppendFormat(format string)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMutableString) Init() NSMutableString {
@@ -172,11 +154,6 @@ func NewNSMutableString() NSMutableString {
 	rv := objc.Send[NSMutableString](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an initialized [NSString] object containing a given number of bytes
 // from a given buffer of bytes interpreted in a given encoding.
@@ -203,15 +180,13 @@ func NewMutableStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSMuta
 	return NSMutableStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func NewMutableStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator uint) NSMutableString {
+func NewMutableStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, deallocator)
 	return NSMutableStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // bytes from a given buffer of bytes interpreted in a given encoding, and
@@ -252,7 +227,6 @@ func NewMutableStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Poin
 	return NSMutableStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:)
 func NewMutableStringWithCString(bytes []byte) NSMutableString {
@@ -260,7 +234,6 @@ func NewMutableStringWithCString(bytes []byte) NSMutableString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.SliceData(bytes)))
 	return NSMutableStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
@@ -270,7 +243,6 @@ func NewMutableStringWithCStringEncoding(nullTerminatedCString []byte, encoding 
 	return NSMutableStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:length:)
 func NewMutableStringWithCStringLength(bytes []byte, length uint) NSMutableString {
@@ -279,7 +251,6 @@ func NewMutableStringWithCStringLength(bytes []byte, length uint) NSMutableStrin
 	return NSMutableStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cStringNoCopy:length:freeWhenDone:)
 func NewMutableStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length uint, freeBuffer bool) NSMutableString {
@@ -287,7 +258,6 @@ func NewMutableStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length ui
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), unsafe.Pointer(unsafe.SliceData(bytes)), length, freeBuffer)
 	return NSMutableStringFromID(rv)
 }
-
 
 // Returns an [NSMutableString] object initialized with initial storage for a
 // given number of characters,
@@ -313,7 +283,6 @@ func NewMutableStringWithCapacity(capacity uint) NSMutableString {
 	return NSMutableStringFromID(rv)
 }
 
-
 // Returns an initialized [NSString] object that contains a given number of
 // characters from a given C array of UTF-16 code units.
 //
@@ -328,21 +297,19 @@ func NewMutableStringWithCapacity(capacity uint) NSMutableString {
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func NewMutableStringWithCharactersLength(characters uint16, length uint) NSMutableString {
+func NewMutableStringWithCharactersLength(characters unsafe.Pointer, length uint) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return NSMutableStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:deallocator:)
-func NewMutableStringWithCharactersNoCopyLengthDeallocator(chars uint16, len_ uint, deallocator uint) NSMutableString {
+func NewMutableStringWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:deallocator:"), chars, len_, deallocator)
 	return NSMutableStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // characters from a given C array of UTF-16 code units.
@@ -373,12 +340,11 @@ func NewMutableStringWithCharactersNoCopyLengthDeallocator(chars uint16, len_ ui
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func NewMutableStringWithCharactersNoCopyLengthFreeWhenDone(characters uint16, length uint, freeBuffer bool) NSMutableString {
+func NewMutableStringWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return NSMutableStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(coder:)
@@ -387,7 +353,6 @@ func NewMutableStringWithCoder(coder INSCoder) NSMutableString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableStringFromID(rv)
 }
-
 
 // Initializes the receiver, a newly allocated [NSString] object, by reading
 // data from the file named by `path`.
@@ -407,7 +372,6 @@ func NewMutableStringWithContentsOfFile(path string) NSMutableString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), objc.String(path))
 	return NSMutableStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by reading data from the file at a
 // given path using a given encoding.
@@ -438,7 +402,6 @@ func NewMutableStringWithContentsOfFileEncodingError(path string, enc uint) (NSM
 	return NSMutableStringFromID(rv), nil
 }
 
-
 // Returns an [NSString] object initialized by reading data from the file at a
 // given path and returns by reference the encoding used to interpret the
 // characters.
@@ -458,7 +421,7 @@ func NewMutableStringWithContentsOfFileEncodingError(path string, enc uint) (NSM
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func NewMutableStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSMutableString, error) {
+func NewMutableStringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSMutableString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
@@ -469,7 +432,6 @@ func NewMutableStringWithContentsOfFileUsedEncodingError(path string, enc uint) 
 	return NSMutableStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:)
 func NewMutableStringWithContentsOfURL(url INSURL) NSMutableString {
@@ -477,7 +439,6 @@ func NewMutableStringWithContentsOfURL(url INSURL) NSMutableString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return NSMutableStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:encoding:)
@@ -492,10 +453,9 @@ func NewMutableStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSMut
 	return NSMutableStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func NewMutableStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSMutableString, error) {
+func NewMutableStringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSMutableString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -505,7 +465,6 @@ func NewMutableStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (N
 	}
 	return NSMutableStringFromID(rv), nil
 }
-
 
 // Returns an [NSString] object initialized by converting given data into
 // UTF-16 code units using a given encoding.
@@ -530,7 +489,6 @@ func NewMutableStringWithDataEncoding(data INSData, encoding uint) NSMutableStri
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:encoding:"), data, encoding)
 	return NSMutableStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted.
@@ -564,7 +522,6 @@ func NewMutableStringWithFormat(format string) NSMutableString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:"), objc.String(format))
 	return NSMutableStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted without
@@ -602,7 +559,6 @@ func NewMutableStringWithFormatArguments(format string, argList unsafe.Pointer) 
 	return NSMutableStringFromID(rv)
 }
 
-
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted
 // according to given locale.
@@ -634,7 +590,6 @@ func NewMutableStringWithFormatLocale(format string, locale objectivec.IObject) 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:locale:"), objc.String(format), locale)
 	return NSMutableStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted
@@ -682,7 +637,6 @@ func NewMutableStringWithFormatLocaleArguments(format string, locale objectivec.
 	return NSMutableStringFromID(rv)
 }
 
-
 // Returns an [NSString] object initialized by copying the characters from
 // another given string.
 //
@@ -700,7 +654,6 @@ func NewMutableStringWithString(aString string) NSMutableString {
 	return NSMutableStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
 func NewMutableStringWithUTF8String(nullTerminatedCString []byte) NSMutableString {
@@ -708,7 +661,6 @@ func NewMutableStringWithUTF8String(nullTerminatedCString []byte) NSMutableStrin
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
 	return NSMutableStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
@@ -723,7 +675,6 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersArgumentsError(form
 	return NSMutableStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:error:
 func NewMutableStringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSMutableString, error) {
@@ -736,7 +687,6 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersError(format string
 	}
 	return NSMutableStringFromID(rv), nil
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
@@ -751,7 +701,6 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsErro
 	return NSMutableStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:error:
 func NewMutableStringWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSMutableString, error) {
@@ -764,12 +713,6 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersLocaleError(format 
 	}
 	return NSMutableStringFromID(rv), nil
 }
-
-
-
-
-
-
 
 // Returns an [NSMutableString] object initialized with initial storage for a
 // given number of characters,
@@ -935,16 +878,6 @@ func (m NSMutableString) ReplaceOccurrencesOfStringWithStringOptionsRange(target
 	return rv
 }
 
-// Replaces the characters of the receiver with those in a given string.
-//
-// aString: The string with which to replace the receiver’s content. `aString` must
-// not be `nil`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSMutableString/setString(_:)
-func (m NSMutableString) SetString(aString string) {
-	objc.Send[objc.ID](m.ID, objc.Sel("setString:"), objc.String(aString))
-}
-
 // Adds a constructed string to the receiver.
 //
 // format: A format string. See [Formatting String Objects] for more information. This
@@ -961,10 +894,6 @@ func (m NSMutableString) SetString(aString string) {
 func (m NSMutableString) AppendFormat(format string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("appendFormat:"), objc.String(format))
 }
-
-
-
-
 
 // Returns an empty [NSMutableString] object with initial storage for a given
 // number of characters.
@@ -987,41 +916,4 @@ func (_NSMutableStringClass NSMutableStringClass) StringWithCapacity(capacity ui
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableStringClass.class), objc.Sel("stringWithCapacity:"), capacity)
 	return NSMutableStringFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

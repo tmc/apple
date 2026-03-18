@@ -35,12 +35,6 @@ func (nc NSQuitCommandClass) Alloc() NSQuitCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that quits the specified app.
 //
 // # Overview
@@ -75,10 +69,6 @@ func NSQuitCommandFromID(id objc.ID) NSQuitCommand {
 // NOTE: NSQuitCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSQuitCommand] class.
 //
 // # Accessing options
@@ -94,10 +84,6 @@ type INSQuitCommand interface {
 	// Returns a constant indicating how to deal with closing any modified documents.
 	SaveOptions() NSSaveOptions
 }
-
-
-
-
 
 // Init initializes the instance.
 func (q NSQuitCommand) Init() NSQuitCommand {
@@ -118,11 +104,6 @@ func NewNSQuitCommand() NSQuitCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewQuitCommandWithCoder(inCoder INSCoder) NSQuitCommand {
@@ -130,7 +111,6 @@ func NewQuitCommandWithCoder(inCoder INSCoder) NSQuitCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSQuitCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -153,23 +133,6 @@ func NewQuitCommandWithCommandDescription(commandDef INSScriptCommandDescription
 	return NSQuitCommandFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns a constant indicating how to deal with closing any modified
 // documents.
 //
@@ -184,29 +147,4 @@ func (q NSQuitCommand) SaveOptions() NSSaveOptions {
 	rv := objc.Send[NSSaveOptions](q.ID, objc.Sel("saveOptions"))
 	return NSSaveOptions(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

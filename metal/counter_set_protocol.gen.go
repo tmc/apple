@@ -25,8 +25,6 @@ type MTLCounterSet interface {
 	Counters() []objectivec.IObject
 }
 
-
-
 // MTLCounterSetObject wraps an existing Objective-C object that conforms to the MTLCounterSet protocol.
 type MTLCounterSetObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o MTLCounterSetObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLCounterSetObjectFromID constructs a [MTLCounterSetObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLCounterSetObjectFromID(id objc.ID) MTLCounterSetObject {
@@ -44,9 +40,6 @@ func MTLCounterSetObjectFromID(id objc.ID) MTLCounterSetObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The name of the GPU’s counter set instance.
 //
@@ -69,14 +62,4 @@ func (o MTLCounterSetObject) Counters() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 	}
-
-
-
-
-
-
-
-
-
-
 

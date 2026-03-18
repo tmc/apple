@@ -35,12 +35,6 @@ func (vc VNCalculateImageAestheticsScoresRequestClass) Alloc() VNCalculateImageA
 	return rv
 }
 
-
-
-
-
-
-
 // An object that analyzes an image for aesthetically pleasing attributes.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCalculateImageAestheticsScoresRequest
@@ -57,20 +51,12 @@ func VNCalculateImageAestheticsScoresRequestFromID(id objc.ID) VNCalculateImageA
 // NOTE: VNCalculateImageAestheticsScoresRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNCalculateImageAestheticsScoresRequest] class.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCalculateImageAestheticsScoresRequest
 type IVNCalculateImageAestheticsScoresRequest interface {
 	IVNImageBasedRequest
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c VNCalculateImageAestheticsScoresRequest) Init() VNCalculateImageAestheticsScoresRequest {
@@ -91,11 +77,6 @@ func NewVNCalculateImageAestheticsScoresRequest() VNCalculateImageAestheticsScor
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -112,42 +93,4 @@ func NewCalculateImageAestheticsScoresRequestWithCompletionHandler(completionHan
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNCalculateImageAestheticsScoresRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

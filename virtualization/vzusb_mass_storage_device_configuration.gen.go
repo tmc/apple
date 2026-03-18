@@ -36,12 +36,6 @@ func (vc VZUSBMassStorageDeviceConfigurationClass) Alloc() VZUSBMassStorageDevic
 	return rv
 }
 
-
-
-
-
-
-
 // The configuration object that represents a USB Mass storage device.
 //
 // # Creating the configuration object
@@ -62,10 +56,6 @@ func VZUSBMassStorageDeviceConfigurationFromID(id objc.ID) VZUSBMassStorageDevic
 // NOTE: VZUSBMassStorageDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZUSBMassStorageDeviceConfiguration] class.
 //
 // # Creating the configuration object
@@ -82,10 +72,6 @@ type IVZUSBMassStorageDeviceConfiguration interface {
 	// Creates a new storage device configuration with the specified attachment.
 	InitWithAttachment(attachment IVZStorageDeviceAttachment) VZUSBMassStorageDeviceConfiguration
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u VZUSBMassStorageDeviceConfiguration) Init() VZUSBMassStorageDeviceConfiguration {
@@ -106,11 +92,6 @@ func NewVZUSBMassStorageDeviceConfiguration() VZUSBMassStorageDeviceConfiguratio
 	return rv
 }
 
-
-
-
-
-
 // Creates a new storage device configuration with the specified attachment.
 //
 // attachment: A [VZStorageDeviceAttachment] object.
@@ -122,12 +103,6 @@ func NewUSBMassStorageDeviceConfigurationWithAttachment(attachment IVZStorageDev
 	return VZUSBMassStorageDeviceConfigurationFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new storage device configuration with the specified attachment.
 //
 // attachment: A [VZStorageDeviceAttachment] object.
@@ -137,17 +112,6 @@ func (u VZUSBMassStorageDeviceConfiguration) InitWithAttachment(attachment IVZSt
 	rv := objc.Send[VZUSBMassStorageDeviceConfiguration](u.ID, objc.Sel("initWithAttachment:"), attachment)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The device’s unique identifier.
 //
@@ -167,32 +131,6 @@ func (u VZUSBMassStorageDeviceConfiguration) SetUuid(value foundation.NSUUID) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUuid:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for VZUSBDeviceConfiguration
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

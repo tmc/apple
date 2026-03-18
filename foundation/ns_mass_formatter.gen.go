@@ -35,12 +35,6 @@ func (mc MassFormatterClass) Alloc() MassFormatter {
 	return rv
 }
 
-
-
-
-
-
-
 // A formatter that provides localized descriptions of mass and weight values.
 //
 // # Overview
@@ -74,10 +68,6 @@ func MassFormatterFromID(id objc.ID) MassFormatter {
 func NSMassFormatterFromID(id objc.ID) MassFormatter { return MassFormatterFromID(id) }
 // NOTE: MassFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MassFormatter] class.
 //
@@ -119,10 +109,6 @@ type IMassFormatter interface {
 	SetUnitStyle(value NSFormattingUnitStyle)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MassFormatter) Init() MassFormatter {
 	rv := objc.Send[MassFormatter](m.ID, objc.Sel("init"))
@@ -142,11 +128,6 @@ func NewMassFormatter() MassFormatter {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMassFormatterWithCoder(coder INSCoder) MassFormatter {
@@ -154,12 +135,6 @@ func NewMassFormatterWithCoder(coder INSCoder) MassFormatter {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MassFormatterFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a mass string for the provided value.
 //
@@ -240,17 +215,6 @@ func (m MassFormatter) UnitStringFromValueUnit(value float64, unit NSMassFormatt
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the resulting string represents a
 // person’s mass.
 //
@@ -275,8 +239,6 @@ func (m MassFormatter) SetForPersonMassUse(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setForPersonMassUse:"), value)
 }
 
-
-
 // The number formatter used to format the numbers in a mass strings.
 //
 // # Discussion
@@ -293,8 +255,6 @@ func (m MassFormatter) NumberFormatter() INSNumberFormatter {
 func (m MassFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberFormatter:"), value)
 }
-
-
 
 // The unit style used by this formatter.
 //
@@ -313,28 +273,4 @@ func (m MassFormatter) UnitStyle() NSFormattingUnitStyle {
 func (m MassFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUnitStyle:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

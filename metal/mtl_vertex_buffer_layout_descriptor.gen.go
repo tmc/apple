@@ -36,12 +36,6 @@ func (mc MTLVertexBufferLayoutDescriptorClass) Alloc() MTLVertexBufferLayoutDesc
 	return rv
 }
 
-
-
-
-
-
-
 // An object that configures how a render pipeline fetches data to send to the
 // vertex function.
 //
@@ -64,14 +58,10 @@ type MTLVertexBufferLayoutDescriptor struct {
 // An object that configures how a render pipeline fetches data to send to the
 // vertex function.
 func MTLVertexBufferLayoutDescriptorFromID(id objc.ID) MTLVertexBufferLayoutDescriptor {
-	return MTLVertexBufferLayoutDescriptor{objectivec.Object{id}}
+	return MTLVertexBufferLayoutDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLVertexBufferLayoutDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLVertexBufferLayoutDescriptor] class.
 //
@@ -103,10 +93,6 @@ type IMTLVertexBufferLayoutDescriptor interface {
 	MTLBufferLayoutStrideDynamic() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v MTLVertexBufferLayoutDescriptor) Init() MTLVertexBufferLayoutDescriptor {
 	rv := objc.Send[MTLVertexBufferLayoutDescriptor](v.ID, objc.Sel("init"))
@@ -125,26 +111,6 @@ func NewMTLVertexBufferLayoutDescriptor() MTLVertexBufferLayoutDescriptor {
 	rv := objc.Send[MTLVertexBufferLayoutDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The circumstances under which the vertex and its attributes are presented
 // to the vertex function.
@@ -176,8 +142,6 @@ func (v MTLVertexBufferLayoutDescriptor) SetStepFunction(value MTLVertexStepFunc
 	objc.Send[struct{}](v.ID, objc.Sel("setStepFunction:"), value)
 }
 
-
-
 // The interval at which the vertex and its attributes are presented to the
 // vertex function.
 //
@@ -200,8 +164,6 @@ func (v MTLVertexBufferLayoutDescriptor) SetStepRate(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStepRate:"), value)
 }
 
-
-
 // The number of bytes between the first byte of two consecutive vertices in a
 // buffer.
 //
@@ -221,34 +183,9 @@ func (v MTLVertexBufferLayoutDescriptor) SetStride(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStride:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexBufferLayoutDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

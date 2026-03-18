@@ -19,8 +19,6 @@ type MTLIOScratchBuffer interface {
 	Buffer() MTLBuffer
 }
 
-
-
 // MTLIOScratchBufferObject wraps an existing Objective-C object that conforms to the MTLIOScratchBuffer protocol.
 type MTLIOScratchBufferObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o MTLIOScratchBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIOScratchBufferObjectFromID constructs a [MTLIOScratchBufferObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIOScratchBufferObjectFromID(id objc.ID) MTLIOScratchBufferObject {
@@ -38,9 +34,6 @@ func MTLIOScratchBufferObjectFromID(id objc.ID) MTLIOScratchBufferObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A Metal buffer that serves as scratch memory for an input/output command
 // queue.
@@ -52,12 +45,4 @@ func (o MTLIOScratchBufferObject) Buffer() MTLBuffer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))
 	return MTLBufferObjectFromID(rv)
 	}
-
-
-
-
-
-
-
-
 

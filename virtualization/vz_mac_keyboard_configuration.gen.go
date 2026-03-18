@@ -35,12 +35,6 @@ func (vc VZMacKeyboardConfigurationClass) Alloc() VZMacKeyboardConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // A device that defines the configuration for a Mac keyboard.
 //
 // # Overview
@@ -63,20 +57,12 @@ func VZMacKeyboardConfigurationFromID(id objc.ID) VZMacKeyboardConfiguration {
 // NOTE: VZMacKeyboardConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZMacKeyboardConfiguration] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacKeyboardConfiguration
 type IVZMacKeyboardConfiguration interface {
 	IVZKeyboardConfiguration
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m VZMacKeyboardConfiguration) Init() VZMacKeyboardConfiguration {
@@ -96,46 +82,4 @@ func NewVZMacKeyboardConfiguration() VZMacKeyboardConfiguration {
 	rv := objc.Send[VZMacKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

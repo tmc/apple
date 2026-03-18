@@ -36,12 +36,6 @@ func (vc VNVideoProcessorRequestProcessingOptionsClass) Alloc() VNVideoProcessor
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines a video processor’s configuration options.
 //
 // # Configuring Options
@@ -58,14 +52,10 @@ type VNVideoProcessorRequestProcessingOptions struct {
 //
 // An object that defines a video processor’s configuration options.
 func VNVideoProcessorRequestProcessingOptionsFromID(id objc.ID) VNVideoProcessorRequestProcessingOptions {
-	return VNVideoProcessorRequestProcessingOptions{objectivec.Object{id}}
+	return VNVideoProcessorRequestProcessingOptions{objectivec.Object{ID: id}}
 }
 // NOTE: VNVideoProcessorRequestProcessingOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNVideoProcessorRequestProcessingOptions] class.
 //
@@ -84,10 +74,6 @@ type IVNVideoProcessorRequestProcessingOptions interface {
 	Cadence() IVNVideoProcessorCadence
 	SetCadence(value IVNVideoProcessorCadence)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VNVideoProcessorRequestProcessingOptions) Init() VNVideoProcessorRequestProcessingOptions {
@@ -108,26 +94,6 @@ func NewVNVideoProcessorRequestProcessingOptions() VNVideoProcessorRequestProces
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The cadence the video processor maintains to process the request.
 //
 // # Discussion
@@ -143,27 +109,4 @@ func (v VNVideoProcessorRequestProcessingOptions) Cadence() IVNVideoProcessorCad
 func (v VNVideoProcessorRequestProcessingOptions) SetCadence(value IVNVideoProcessorCadence) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCadence:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

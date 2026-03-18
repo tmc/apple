@@ -38,12 +38,6 @@ func (vc VZMultipleDirectoryShareClass) Alloc() VZMultipleDirectoryShare {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that describes a directory share for multiple directories.
 //
 // # Overview
@@ -73,10 +67,6 @@ func VZMultipleDirectoryShareFromID(id objc.ID) VZMultipleDirectoryShare {
 // NOTE: VZMultipleDirectoryShare adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZMultipleDirectoryShare] class.
 //
 // # Creating a directory share
@@ -102,10 +92,6 @@ type IVZMultipleDirectoryShare interface {
 	Directories() foundation.INSDictionary
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m VZMultipleDirectoryShare) Init() VZMultipleDirectoryShare {
 	rv := objc.Send[VZMultipleDirectoryShare](m.ID, objc.Sel("init"))
@@ -125,11 +111,6 @@ func NewVZMultipleDirectoryShare() VZMultipleDirectoryShare {
 	return rv
 }
 
-
-
-
-
-
 // Creates the directory share with a set of directories on the host.
 //
 // directories: Directories on the host to expose to the guest VM by name.
@@ -146,12 +127,6 @@ func NewMultipleDirectoryShareWithDirectories(directories foundation.INSDictiona
 	return VZMultipleDirectoryShareFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates the directory share with a set of directories on the host.
 //
 // directories: Directories on the host to expose to the guest VM by name.
@@ -166,10 +141,6 @@ func (m VZMultipleDirectoryShare) InitWithDirectories(directories foundation.INS
 	rv := objc.Send[VZMultipleDirectoryShare](m.ID, objc.Sel("initWithDirectories:"), directories)
 	return rv
 }
-
-
-
-
 
 // Transforms a string to be a valid directory name.
 //
@@ -198,7 +169,7 @@ func (_VZMultipleDirectoryShareClass VZMultipleDirectoryShareClass) Canonicalize
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMultipleDirectoryShare/validateName(_:)
 func (_VZMultipleDirectoryShareClass VZMultipleDirectoryShareClass) ValidateNameError(name string) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_VZMultipleDirectoryShareClass.class), objc.Sel("validateName:error:"), objc.String(name), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -210,13 +181,6 @@ func (_VZMultipleDirectoryShareClass VZMultipleDirectoryShareClass) ValidateName
 	return rv, nil
 
 }
-
-
-
-
-
-
-
 
 // The directories on the host to expose to the guest.
 //
@@ -230,26 +194,4 @@ func (m VZMultipleDirectoryShare) Directories() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("directories"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

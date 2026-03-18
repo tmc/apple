@@ -29,8 +29,6 @@ type VNRequestProgressProviding interface {
 	SetProgressHandler(value VNRequestProgressHandler)
 }
 
-
-
 // VNRequestProgressProvidingObject wraps an existing Objective-C object that conforms to the VNRequestProgressProviding protocol.
 type VNRequestProgressProvidingObject struct {
 	objectivec.Object
@@ -39,8 +37,6 @@ func (o VNRequestProgressProvidingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // VNRequestProgressProvidingObjectFromID constructs a [VNRequestProgressProvidingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VNRequestProgressProvidingObjectFromID(id objc.ID) VNRequestProgressProvidingObject {
@@ -48,9 +44,6 @@ func VNRequestProgressProvidingObjectFromID(id objc.ID) VNRequestProgressProvidi
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A block of code executed periodically during a Vision request to report
 // progress on long-running tasks.
@@ -74,16 +67,7 @@ func (o VNRequestProgressProvidingObject) Indeterminate() bool {
 	return rv
 	}
 
-
-
-
 func (o VNRequestProgressProvidingObject) SetProgressHandler(value VNRequestProgressHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("setProgressHandler:"), value)
 }
-
-
-
-
-
-
 

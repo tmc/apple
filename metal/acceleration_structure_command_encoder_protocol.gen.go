@@ -86,8 +86,6 @@ type MTLAccelerationStructureCommandEncoder interface {
 	UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage)
 }
 
-
-
 // MTLAccelerationStructureCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLAccelerationStructureCommandEncoder protocol.
 type MTLAccelerationStructureCommandEncoderObject struct {
 	objectivec.Object
@@ -96,8 +94,6 @@ func (o MTLAccelerationStructureCommandEncoderObject) BaseObject() objectivec.Ob
 	return o.Object
 }
 
-
-
 // MTLAccelerationStructureCommandEncoderObjectFromID constructs a [MTLAccelerationStructureCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLAccelerationStructureCommandEncoderObjectFromID(id objc.ID) MTLAccelerationStructureCommandEncoderObject {
@@ -105,9 +101,6 @@ func MTLAccelerationStructureCommandEncoderObjectFromID(id objc.ID) MTLAccelerat
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Encodes a command to build a new acceleration structure.
 //
@@ -694,16 +687,7 @@ func (o MTLAccelerationStructureCommandEncoderObject) BarrierAfterQueueStagesBef
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 
-
-
-
-
-
 func (o MTLAccelerationStructureCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

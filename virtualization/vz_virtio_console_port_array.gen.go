@@ -36,12 +36,6 @@ func (vc VZVirtioConsolePortArrayClass) Alloc() VZVirtioConsolePortArray {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a collection of Virtio console ports.
 //
 // # Determining the number of ports
@@ -61,14 +55,10 @@ type VZVirtioConsolePortArray struct {
 //
 // A class that represents a collection of Virtio console ports.
 func VZVirtioConsolePortArrayFromID(id objc.ID) VZVirtioConsolePortArray {
-	return VZVirtioConsolePortArray{objectivec.Object{id}}
+	return VZVirtioConsolePortArray{objectivec.Object{ID: id}}
 }
 // NOTE: VZVirtioConsolePortArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZVirtioConsolePortArray] class.
 //
@@ -95,10 +85,6 @@ type IVZVirtioConsolePortArray interface {
 	ObjectAtIndexedSubscript(portIndex uint) IVZVirtioConsolePort
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioConsolePortArray) Init() VZVirtioConsolePortArray {
 	rv := objc.Send[VZVirtioConsolePortArray](v.ID, objc.Sel("init"))
@@ -118,15 +104,6 @@ func NewVZVirtioConsolePortArray() VZVirtioConsolePortArray {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Returns the Virtio console port at the specified index.
 //
 // portIndex: The index of the port to return, if present.
@@ -142,17 +119,6 @@ func (v VZVirtioConsolePortArray) ObjectAtIndexedSubscript(portIndex uint) IVZVi
 	return VZVirtioConsolePortFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An unsigned integer that represents the maximum number of ports allocated
 // by this device.
 //
@@ -161,26 +127,4 @@ func (v VZVirtioConsolePortArray) MaximumPortCount() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("maximumPortCount"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (lc LocalPortClass) Alloc() LocalPort {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSPortMessage/localPort
 type LocalPort struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type LocalPort struct {
 
 // LocalPortFromID constructs a [LocalPort] from an objc.ID.
 func LocalPortFromID(id objc.ID) LocalPort {
-	return LocalPort{objectivec.Object{id}}
+	return LocalPort{objectivec.Object{ID: id}}
 }
 // Ensure LocalPort implements ILocalPort.
 var _ ILocalPort = LocalPort{}
-
-
-
-
 
 // An interface definition for the [LocalPort] class.
 //
@@ -64,10 +54,6 @@ var _ ILocalPort = LocalPort{}
 type ILocalPort interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (l LocalPort) Init() LocalPort {
@@ -87,38 +73,4 @@ func NewLocalPort() LocalPort {
 	rv := objc.Send[LocalPort](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

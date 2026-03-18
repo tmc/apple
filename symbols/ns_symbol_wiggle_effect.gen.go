@@ -35,12 +35,6 @@ func (nc NSSymbolWiggleEffectClass) Alloc() NSSymbolWiggleEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A symbol effect that applies the Wiggle animation to symbol images.
 //
 // # Overview
@@ -67,10 +61,6 @@ func NSSymbolWiggleEffectFromID(id objc.ID) NSSymbolWiggleEffect {
 // Ensure NSSymbolWiggleEffect implements INSSymbolWiggleEffect.
 var _ INSSymbolWiggleEffect = NSSymbolWiggleEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolWiggleEffect] class.
 //
 // # Instance Methods
@@ -89,10 +79,6 @@ type INSSymbolWiggleEffect interface {
 	// Returns a copy of the effect that animates all layers of the symbol simultaneously.
 	EffectWithWholeSymbol() INSSymbolWiggleEffect
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSymbolWiggleEffect) Init() NSSymbolWiggleEffect {
@@ -113,15 +99,6 @@ func NewNSSymbolWiggleEffect() NSSymbolWiggleEffect {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Returns a copy of the effect that animates incrementally, by layer.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolWiggleEffect/effectWithByLayer
@@ -138,10 +115,6 @@ func (s NSSymbolWiggleEffect) EffectWithWholeSymbol() INSSymbolWiggleEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithWholeSymbol"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
-
-
-
 
 // The default wiggle effect, determined by the system.
 //
@@ -235,28 +208,4 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleUpEffect() NSS
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleUpEffect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (nc NSLinguisticTaggerClass) Alloc() NSLinguisticTagger {
 	return rv
 }
 
-
-
-
-
-
-
 // Analyze natural language text to tag part of speech and lexical class,
 // identify names, perform lemmatization, and determine the language and
 // script.
@@ -91,14 +85,10 @@ type NSLinguisticTagger struct {
 // identify names, perform lemmatization, and determine the language and
 // script.
 func NSLinguisticTaggerFromID(id objc.ID) NSLinguisticTagger {
-	return NSLinguisticTagger{objectivec.Object{id}}
+	return NSLinguisticTagger{objectivec.Object{ID: id}}
 }
 // NOTE: NSLinguisticTagger adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSLinguisticTagger] class.
 //
@@ -136,10 +126,6 @@ type INSLinguisticTagger interface {
 	DominantLanguage() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l NSLinguisticTagger) Init() NSLinguisticTagger {
 	rv := objc.Send[NSLinguisticTagger](l.ID, objc.Sel("init"))
@@ -158,11 +144,6 @@ func NewNSLinguisticTagger() NSLinguisticTagger {
 	rv := objc.Send[NSLinguisticTagger](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a linguistic tagger instance using the specified tag schemes and
 // options.
@@ -189,23 +170,6 @@ func NewLinguisticTaggerWithTagSchemesOptions(tagSchemes []string, opts uint) NS
 	return NSLinguisticTaggerFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The string being analyzed by the linguistic tagger.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLinguisticTagger/string
@@ -217,8 +181,6 @@ func (l NSLinguisticTagger) SetString(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setString:"), objc.String(value))
 }
 
-
-
 // Returns the tag schemes configured for this linguistic tagger. For possible
 // values, see [NSLinguisticTagScheme].
 //
@@ -227,8 +189,6 @@ func (l NSLinguisticTagger) TagSchemes() []string {
 	rv := objc.Send[[]objc.ID](l.ID, objc.Sel("tagSchemes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // Returns the dominant language of the string set for the linguistic tagger.
 //
@@ -256,26 +216,4 @@ func (l NSLinguisticTagger) DominantLanguage() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("dominantLanguage"))
 	return NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

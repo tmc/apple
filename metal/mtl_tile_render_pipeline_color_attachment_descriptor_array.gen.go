@@ -36,12 +36,6 @@ func (mc MTLTileRenderPipelineColorAttachmentDescriptorArrayClass) Alloc() MTLTi
 	return rv
 }
 
-
-
-
-
-
-
 // An array of color attachment descriptors for the tile render pipeline.
 //
 // # Instance methods
@@ -57,14 +51,10 @@ type MTLTileRenderPipelineColorAttachmentDescriptorArray struct {
 //
 // An array of color attachment descriptors for the tile render pipeline.
 func MTLTileRenderPipelineColorAttachmentDescriptorArrayFromID(id objc.ID) MTLTileRenderPipelineColorAttachmentDescriptorArray {
-	return MTLTileRenderPipelineColorAttachmentDescriptorArray{objectivec.Object{id}}
+	return MTLTileRenderPipelineColorAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLTileRenderPipelineColorAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLTileRenderPipelineColorAttachmentDescriptorArray] class.
 //
@@ -85,10 +75,6 @@ type IMTLTileRenderPipelineColorAttachmentDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attachment IMTLTileRenderPipelineColorAttachmentDescriptor, attachmentIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t MTLTileRenderPipelineColorAttachmentDescriptorArray) Init() MTLTileRenderPipelineColorAttachmentDescriptorArray {
 	rv := objc.Send[MTLTileRenderPipelineColorAttachmentDescriptorArray](t.ID, objc.Sel("init"))
@@ -107,15 +93,6 @@ func NewMTLTileRenderPipelineColorAttachmentDescriptorArray() MTLTileRenderPipel
 	rv := objc.Send[MTLTileRenderPipelineColorAttachmentDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the render pipeline state for the specified color attachment.
 //
@@ -149,35 +126,4 @@ func (t MTLTileRenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubs
 func (t MTLTileRenderPipelineColorAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLTileRenderPipelineColorAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

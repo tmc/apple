@@ -36,12 +36,6 @@ func (mc MTLIOCommandQueueDescriptorClass) Alloc() MTLIOCommandQueueDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration template you use to create a new input/output command
 // queue.
 //
@@ -91,14 +85,10 @@ type MTLIOCommandQueueDescriptor struct {
 // A configuration template you use to create a new input/output command
 // queue.
 func MTLIOCommandQueueDescriptorFromID(id objc.ID) MTLIOCommandQueueDescriptor {
-	return MTLIOCommandQueueDescriptor{objectivec.Object{id}}
+	return MTLIOCommandQueueDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLIOCommandQueueDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLIOCommandQueueDescriptor] class.
 //
@@ -144,10 +134,6 @@ type IMTLIOCommandQueueDescriptor interface {
 	SetScratchBufferAllocator(value MTLIOScratchBufferAllocator)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i MTLIOCommandQueueDescriptor) Init() MTLIOCommandQueueDescriptor {
 	rv := objc.Send[MTLIOCommandQueueDescriptor](i.ID, objc.Sel("init"))
@@ -167,26 +153,6 @@ func NewMTLIOCommandQueueDescriptor() MTLIOCommandQueueDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Configures the priority for a new input/output command queue.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueueDescriptor/priority
@@ -198,8 +164,6 @@ func (i MTLIOCommandQueueDescriptor) SetPriority(value MTLIOPriority) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPriority:"), value)
 }
 
-
-
 // Configures the queue type for a new input/output command queue.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueueDescriptor/type
@@ -210,8 +174,6 @@ func (i MTLIOCommandQueueDescriptor) Type() MTLIOCommandQueueType {
 func (i MTLIOCommandQueueDescriptor) SetType(value MTLIOCommandQueueType) {
 	objc.Send[struct{}](i.ID, objc.Sel("setType:"), value)
 }
-
-
 
 // Sets the largest number of individual commands that an input/output command
 // queue can run at a time.
@@ -230,8 +192,6 @@ func (i MTLIOCommandQueueDescriptor) SetMaxCommandsInFlight(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxCommandsInFlight:"), value)
 }
 
-
-
 // Sets the largest number of outstanding input/output command buffers a queue
 // can have at any point in time.
 //
@@ -249,8 +209,6 @@ func (i MTLIOCommandQueueDescriptor) MaxCommandBufferCount() uint {
 func (i MTLIOCommandQueueDescriptor) SetMaxCommandBufferCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxCommandBufferCount:"), value)
 }
-
-
 
 // An optional memory allocator that you implement to manage the scratch
 // memory that an input/output command queue requests.
@@ -271,27 +229,4 @@ func (i MTLIOCommandQueueDescriptor) ScratchBufferAllocator() MTLIOScratchBuffer
 func (i MTLIOCommandQueueDescriptor) SetScratchBufferAllocator(value MTLIOScratchBufferAllocator) {
 	objc.Send[struct{}](i.ID, objc.Sel("setScratchBufferAllocator:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

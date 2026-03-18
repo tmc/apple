@@ -37,12 +37,6 @@ func (mc MTLTensorDescriptorClass) Alloc() MTLTensorDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration type for creating new tensor instances.
 //
 // # Instance Properties
@@ -73,14 +67,10 @@ type MTLTensorDescriptor struct {
 //
 // A configuration type for creating new tensor instances.
 func MTLTensorDescriptorFromID(id objc.ID) MTLTensorDescriptor {
-	return MTLTensorDescriptor{objectivec.Object{id}}
+	return MTLTensorDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLTensorDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLTensorDescriptor] class.
 //
@@ -140,10 +130,6 @@ type IMTLTensorDescriptor interface {
 	SetMTL_TENSOR_MAX_RANK(value objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t MTLTensorDescriptor) Init() MTLTensorDescriptor {
 	rv := objc.Send[MTLTensorDescriptor](t.ID, objc.Sel("init"))
@@ -163,26 +149,6 @@ func NewMTLTensorDescriptor() MTLTensorDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A value that configures the cache mode of CPU mapping of tensors you create
 // with this descriptor.
 //
@@ -199,8 +165,6 @@ func (t MTLTensorDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCpuCacheMode:"), value)
 }
 
-
-
 // A data format for the tensors you create with this descriptor.
 //
 // # Discussion
@@ -215,8 +179,6 @@ func (t MTLTensorDescriptor) DataType() MTLTensorDataType {
 func (t MTLTensorDescriptor) SetDataType(value MTLTensorDataType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDataType:"), value)
 }
-
-
 
 // An array of sizes, in elements, one for each dimension of the tensors you
 // create with this descriptor.
@@ -234,8 +196,6 @@ func (t MTLTensorDescriptor) SetDimensions(value IMTLTensorExtents) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDimensions:"), value)
 }
 
-
-
 // A value that configures the hazard tracking of tensors you create with this
 // descriptor.
 //
@@ -252,8 +212,6 @@ func (t MTLTensorDescriptor) SetHazardTrackingMode(value MTLHazardTrackingMode) 
 	objc.Send[struct{}](t.ID, objc.Sel("setHazardTrackingMode:"), value)
 }
 
-
-
 // A packed set of the `storageMode`, `cpuCacheMode` and `hazardTrackingMode`
 // properties.
 //
@@ -265,8 +223,6 @@ func (t MTLTensorDescriptor) ResourceOptions() MTLResourceOptions {
 func (t MTLTensorDescriptor) SetResourceOptions(value MTLResourceOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResourceOptions:"), value)
 }
-
-
 
 // A value that configures the memory location and access permissions of
 // tensors you create with this descriptor.
@@ -283,8 +239,6 @@ func (t MTLTensorDescriptor) StorageMode() MTLStorageMode {
 func (t MTLTensorDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStorageMode:"), value)
 }
-
-
 
 // An array of strides, in elements, one for each dimension in the tensors you
 // create with this descriptor, if applicable.
@@ -311,8 +265,6 @@ func (t MTLTensorDescriptor) SetStrides(value IMTLTensorExtents) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStrides:"), value)
 }
 
-
-
 // A set of contexts in which you can use tensors you create with this
 // descriptor.
 //
@@ -332,8 +284,6 @@ func (t MTLTensorDescriptor) SetUsage(value MTLTensorUsage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsage:"), value)
 }
 
-
-
 // An error domain for errors that pertain to creating a tensor.
 //
 // See: https://developer.apple.com/documentation/metal/mtltensordomain
@@ -341,8 +291,6 @@ func (t MTLTensorDescriptor) MTLTensorDomain() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTLTensorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
 func (t MTLTensorDescriptor) MTL_TENSOR_MAX_RANK() objectivec.IObject {
@@ -352,27 +300,4 @@ func (t MTLTensorDescriptor) MTL_TENSOR_MAX_RANK() objectivec.IObject {
 func (t MTLTensorDescriptor) SetMTL_TENSOR_MAX_RANK(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

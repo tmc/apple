@@ -36,12 +36,6 @@ func (mc MTLLogicalToPhysicalColorAttachmentMapClass) Alloc() MTLLogicalToPhysic
 	return rv
 }
 
-
-
-
-
-
-
 // Allows you to easily specify color attachment remapping from logical to
 // physical indices.
 //
@@ -59,14 +53,10 @@ type MTLLogicalToPhysicalColorAttachmentMap struct {
 // Allows you to easily specify color attachment remapping from logical to
 // physical indices.
 func MTLLogicalToPhysicalColorAttachmentMapFromID(id objc.ID) MTLLogicalToPhysicalColorAttachmentMap {
-	return MTLLogicalToPhysicalColorAttachmentMap{objectivec.Object{id}}
+	return MTLLogicalToPhysicalColorAttachmentMap{objectivec.Object{ID: id}}
 }
 // NOTE: MTLLogicalToPhysicalColorAttachmentMap adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLLogicalToPhysicalColorAttachmentMap] class.
 //
@@ -88,10 +78,6 @@ type IMTLLogicalToPhysicalColorAttachmentMap interface {
 	SetPhysicalIndexForLogicalIndex(physicalIndex uint, logicalIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l MTLLogicalToPhysicalColorAttachmentMap) Init() MTLLogicalToPhysicalColorAttachmentMap {
 	rv := objc.Send[MTLLogicalToPhysicalColorAttachmentMap](l.ID, objc.Sel("init"))
@@ -110,15 +96,6 @@ func NewMTLLogicalToPhysicalColorAttachmentMap() MTLLogicalToPhysicalColorAttach
 	rv := objc.Send[MTLLogicalToPhysicalColorAttachmentMap](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLLogicalToPhysicalColorAttachmentMap/reset()
 func (l MTLLogicalToPhysicalColorAttachmentMap) Reset() {
@@ -144,36 +121,4 @@ func (l MTLLogicalToPhysicalColorAttachmentMap) GetPhysicalIndexForLogicalIndex(
 func (l MTLLogicalToPhysicalColorAttachmentMap) SetPhysicalIndexForLogicalIndex(physicalIndex uint, logicalIndex uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setPhysicalIndex:forLogicalIndex:"), physicalIndex, logicalIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

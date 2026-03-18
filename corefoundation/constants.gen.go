@@ -3,7 +3,7 @@
 package corefoundation
 
 
-// KCFNotFound : A constant that indicates that a search operation did not succeed in locating the target value.
+// KCFNotFound is a constant that indicates that a search operation did not succeed in locating the target value.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/kCFNotFound
 const KCFNotFound int = -1

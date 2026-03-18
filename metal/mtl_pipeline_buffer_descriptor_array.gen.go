@@ -36,12 +36,6 @@ func (mc MTLPipelineBufferDescriptorArrayClass) Alloc() MTLPipelineBufferDescrip
 	return rv
 }
 
-
-
-
-
-
-
 // An array of pipeline buffer descriptors.
 //
 // # Accessing array elements
@@ -57,14 +51,10 @@ type MTLPipelineBufferDescriptorArray struct {
 //
 // An array of pipeline buffer descriptors.
 func MTLPipelineBufferDescriptorArrayFromID(id objc.ID) MTLPipelineBufferDescriptorArray {
-	return MTLPipelineBufferDescriptorArray{objectivec.Object{id}}
+	return MTLPipelineBufferDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLPipelineBufferDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLPipelineBufferDescriptorArray] class.
 //
@@ -85,10 +75,6 @@ type IMTLPipelineBufferDescriptorArray interface {
 	SetObjectAtIndexedSubscript(buffer IMTLPipelineBufferDescriptor, bufferIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p MTLPipelineBufferDescriptorArray) Init() MTLPipelineBufferDescriptorArray {
 	rv := objc.Send[MTLPipelineBufferDescriptorArray](p.ID, objc.Sel("init"))
@@ -107,15 +93,6 @@ func NewMTLPipelineBufferDescriptorArray() MTLPipelineBufferDescriptorArray {
 	rv := objc.Send[MTLPipelineBufferDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the pipeline buffer descriptor at the specified array index.
 //
@@ -141,35 +118,4 @@ func (p MTLPipelineBufferDescriptorArray) ObjectAtIndexedSubscript(bufferIndex u
 func (p MTLPipelineBufferDescriptorArray) SetObjectAtIndexedSubscript(buffer IMTLPipelineBufferDescriptor, bufferIndex uint) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setObject:atIndexedSubscript:"), buffer, bufferIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

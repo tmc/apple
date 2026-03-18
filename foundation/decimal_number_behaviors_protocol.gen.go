@@ -29,8 +29,6 @@ type NSDecimalNumberBehaviors interface {
 	ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber
 }
 
-
-
 // NSDecimalNumberBehaviorsObject wraps an existing Objective-C object that conforms to the NSDecimalNumberBehaviors protocol.
 type NSDecimalNumberBehaviorsObject struct {
 	objectivec.Object
@@ -39,8 +37,6 @@ func (o NSDecimalNumberBehaviorsObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSDecimalNumberBehaviorsObjectFromID constructs a [NSDecimalNumberBehaviorsObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSDecimalNumberBehaviorsObjectFromID(id objc.ID) NSDecimalNumberBehaviorsObject {
@@ -48,9 +44,6 @@ func NSDecimalNumberBehaviorsObjectFromID(id objc.ID) NSDecimalNumberBehaviorsOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the way that [NSDecimalNumber]’s `decimalNumberBy...` methods
 // round their return values.
@@ -141,10 +134,4 @@ func (o NSDecimalNumberBehaviorsObject) ExceptionDuringOperationErrorLeftOperand
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
 	}
-
-
-
-
-
-
 

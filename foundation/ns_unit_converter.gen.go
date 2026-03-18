@@ -36,12 +36,6 @@ func (uc UnitConverterClass) Alloc() UnitConverter {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that provides a description of how to convert a unit to
 // and from the base unit of its dimension.
 //
@@ -86,17 +80,13 @@ type UnitConverter struct {
 // An abstract class that provides a description of how to convert a unit to
 // and from the base unit of its dimension.
 func UnitConverterFromID(id objc.ID) UnitConverter {
-	return NSUnitConverter{objectivec.Object{id}}
+	return NSUnitConverter{objectivec.Object{ID: id}}
 }
 
 // NSUnitConverterFromID is an alias for [UnitConverterFromID] for cross-framework compatibility.
 func NSUnitConverterFromID(id objc.ID) UnitConverter { return UnitConverterFromID(id) }
 // NOTE: UnitConverter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [UnitConverter] class.
 //
@@ -117,10 +107,6 @@ type IUnitConverter interface {
 	ValueFromBaseUnitValue(baseUnitValue float64) float64
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u UnitConverter) Init() UnitConverter {
 	rv := objc.Send[UnitConverter](u.ID, objc.Sel("init"))
@@ -139,15 +125,6 @@ func NewUnitConverter() UnitConverter {
 	rv := objc.Send[UnitConverter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // For a given unit, returns the specified value of that unit in terms of the
 // base unit of its dimension.
@@ -192,35 +169,4 @@ func (u UnitConverter) ValueFromBaseUnitValue(baseUnitValue float64) float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("valueFromBaseUnitValue:"), baseUnitValue)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

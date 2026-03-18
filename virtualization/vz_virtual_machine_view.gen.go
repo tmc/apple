@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/appkit"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VZVirtualMachineView] class.
@@ -36,12 +35,6 @@ func (vc VZVirtualMachineViewClass) Alloc() VZVirtualMachineView {
 	rv := objc.Send[VZVirtualMachineView](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A view that allows user interaction with a VM.
 //
@@ -76,10 +69,6 @@ func VZVirtualMachineViewFromID(id objc.ID) VZVirtualMachineView {
 // NOTE: VZVirtualMachineView adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtualMachineView] class.
 //
 // # Configuring the VM
@@ -108,10 +97,6 @@ type IVZVirtualMachineView interface {
 	SetVirtualMachine(value IVZVirtualMachine)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtualMachineView) Init() VZVirtualMachineView {
 	rv := objc.Send[VZVirtualMachineView](v.ID, objc.Sel("init"))
@@ -130,29 +115,6 @@ func NewVZVirtualMachineView() VZVirtualMachineView {
 	rv := objc.Send[VZVirtualMachineView](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-func (v VZVirtualMachineView) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the graphics display associated with
 // this view automatically reconfigures with respect to view changes.
@@ -185,8 +147,6 @@ func (v VZVirtualMachineView) SetAutomaticallyReconfiguresDisplay(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAutomaticallyReconfiguresDisplay:"), value)
 }
 
-
-
 // A Boolean value that determines whether the system should send certain
 // system keyboard shortcuts to the guest instead of the host.
 //
@@ -203,8 +163,6 @@ func (v VZVirtualMachineView) SetCapturesSystemKeys(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCapturesSystemKeys:"), value)
 }
 
-
-
 // The VM to display in the view.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/virtualMachine
@@ -215,38 +173,4 @@ func (v VZVirtualMachineView) VirtualMachine() IVZVirtualMachine {
 func (v VZVirtualMachineView) SetVirtualMachine(value IVZVirtualMachine) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVirtualMachine:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

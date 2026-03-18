@@ -5,7 +5,6 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -37,12 +36,6 @@ func (vc VNTrajectoryObservationClass) Alloc() VNTrajectoryObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that describes a detected trajectory.
 //
 // # Evaluating an Observation
@@ -65,10 +58,6 @@ func VNTrajectoryObservationFromID(id objc.ID) VNTrajectoryObservation {
 }
 // NOTE: VNTrajectoryObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNTrajectoryObservation] class.
 //
@@ -97,12 +86,7 @@ type IVNTrajectoryObservation interface {
 	// The array of detected trajectory observations.
 	Results() IVNTrajectoryObservation
 	SetResults(value IVNTrajectoryObservation)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t VNTrajectoryObservation) Init() VNTrajectoryObservation {
@@ -123,29 +107,6 @@ func NewVNTrajectoryObservation() VNTrajectoryObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-func (t VNTrajectoryObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The centroid points of the detected contour along the trajectory.
 //
 // # Discussion
@@ -161,8 +122,6 @@ func (t VNTrajectoryObservation) DetectedPoints() []VNPoint {
 		return VNPointFromID(id)
 	})
 }
-
-
 
 // The centroids of the calculated trajectory from the detected points.
 //
@@ -182,8 +141,6 @@ func (t VNTrajectoryObservation) ProjectedPoints() []VNPoint {
 	})
 }
 
-
-
 // The coefficients of the parabolic equation.
 //
 // # Discussion
@@ -197,8 +154,6 @@ func (t VNTrajectoryObservation) EquationCoefficients() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The moving average radius of the object the request is tracking.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrajectoryObservation/movingAverageRadius
@@ -206,8 +161,6 @@ func (t VNTrajectoryObservation) MovingAverageRadius() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("movingAverageRadius"))
 	return rv
 }
-
-
 
 // The array of detected trajectory observations.
 //
@@ -219,30 +172,4 @@ func (t VNTrajectoryObservation) Results() IVNTrajectoryObservation {
 func (t VNTrajectoryObservation) SetResults(value IVNTrajectoryObservation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResults:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (vc VZVirtioFileSystemDeviceConfigurationClass) Alloc() VZVirtioFileSystemD
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents the configuration of a Virtio file system device.
 //
 // # Overview
@@ -119,10 +113,6 @@ func VZVirtioFileSystemDeviceConfigurationFromID(id objc.ID) VZVirtioFileSystemD
 // NOTE: VZVirtioFileSystemDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioFileSystemDeviceConfiguration] class.
 //
 // # Creating a file system device configuration
@@ -155,10 +145,6 @@ type IVZVirtioFileSystemDeviceConfiguration interface {
 	SetTag(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioFileSystemDeviceConfiguration) Init() VZVirtioFileSystemDeviceConfiguration {
 	rv := objc.Send[VZVirtioFileSystemDeviceConfiguration](v.ID, objc.Sel("init"))
@@ -178,11 +164,6 @@ func NewVZVirtioFileSystemDeviceConfiguration() VZVirtioFileSystemDeviceConfigur
 	return rv
 }
 
-
-
-
-
-
 // Creates a configuration for a VIRTIO file system device.
 //
 // tag: The label identifying this device in the guest.
@@ -200,12 +181,6 @@ func NewVirtioFileSystemDeviceConfigurationWithTag(tag string) VZVirtioFileSyste
 	return VZVirtioFileSystemDeviceConfigurationFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a configuration for a VIRTIO file system device.
 //
 // tag: The label identifying this device in the guest.
@@ -222,10 +197,6 @@ func (v VZVirtioFileSystemDeviceConfiguration) InitWithTag(tag string) VZVirtioF
 	return rv
 }
 
-
-
-
-
 // Checks to see whether a Virtio tag is valid.
 //
 // tag: The tag to validate.
@@ -237,7 +208,7 @@ func (v VZVirtioFileSystemDeviceConfiguration) InitWithTag(tag string) VZVirtioF
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDeviceConfiguration/validateTag(_:)
 func (_VZVirtioFileSystemDeviceConfigurationClass VZVirtioFileSystemDeviceConfigurationClass) ValidateTagError(tag string) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_VZVirtioFileSystemDeviceConfigurationClass.class), objc.Sel("validateTag:error:"), objc.String(tag), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -249,13 +220,6 @@ func (_VZVirtioFileSystemDeviceConfigurationClass VZVirtioFileSystemDeviceConfig
 	return rv, nil
 
 }
-
-
-
-
-
-
-
 
 // A value that defines how the host exposes resources to the guest virtual
 // machine.
@@ -269,8 +233,6 @@ func (v VZVirtioFileSystemDeviceConfiguration) SetShare(value IVZDirectoryShare)
 	objc.Send[struct{}](v.ID, objc.Sel("setShare:"), value)
 }
 
-
-
 // A label that identifies this device in the guest VM.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDeviceConfiguration/tag
@@ -281,12 +243,6 @@ func (v VZVirtioFileSystemDeviceConfiguration) Tag() string {
 func (v VZVirtioFileSystemDeviceConfiguration) SetTag(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTag:"), objc.String(value))
 }
-
-
-
-
-
-
 
 // A value that indicates that the guest needs to automount this file system
 // device in the guest VM.
@@ -301,23 +257,4 @@ func (_VZVirtioFileSystemDeviceConfigurationClass VZVirtioFileSystemDeviceConfig
 	rv := objc.Send[objc.ID](objc.ID(_VZVirtioFileSystemDeviceConfigurationClass.class), objc.Sel("macOSGuestAutomountTag"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

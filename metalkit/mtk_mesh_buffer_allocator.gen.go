@@ -37,12 +37,6 @@ func (mc MTKMeshBufferAllocatorClass) Alloc() MTKMeshBufferAllocator {
 	return rv
 }
 
-
-
-
-
-
-
 // An interface for allocating a MetalKit buffer that backs the vertex data of
 // a Model I/O mesh, suitable for use in a Metal app.
 //
@@ -64,14 +58,10 @@ type MTKMeshBufferAllocator struct {
 // An interface for allocating a MetalKit buffer that backs the vertex data of
 // a Model I/O mesh, suitable for use in a Metal app.
 func MTKMeshBufferAllocatorFromID(id objc.ID) MTKMeshBufferAllocator {
-	return MTKMeshBufferAllocator{objectivec.Object{id}}
+	return MTKMeshBufferAllocator{objectivec.Object{ID: id}}
 }
 // NOTE: MTKMeshBufferAllocator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTKMeshBufferAllocator] class.
 //
@@ -98,10 +88,6 @@ type IMTKMeshBufferAllocator interface {
 	Device() metal.MTLDevice
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTKMeshBufferAllocator) Init() MTKMeshBufferAllocator {
 	rv := objc.Send[MTKMeshBufferAllocator](m.ID, objc.Sel("init"))
@@ -121,11 +107,6 @@ func NewMTKMeshBufferAllocator() MTKMeshBufferAllocator {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a new allocator object.
 //
 // device: The Metal device on which to create buffers.
@@ -141,12 +122,6 @@ func NewMeshBufferAllocatorWithDevice(device metal.MTLDevice) MTKMeshBufferAlloc
 	return MTKMeshBufferAllocatorFromID(rv)
 }
 
-
-
-
-
-
-
 // Initializes a new allocator object.
 //
 // device: The Metal device on which to create buffers.
@@ -161,17 +136,6 @@ func (m MTKMeshBufferAllocator) InitWithDevice(device metal.MTLDevice) MTKMeshBu
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The device used to create Metal objects.
 //
 // # Discussion
@@ -183,27 +147,4 @@ func (m MTKMeshBufferAllocator) Device() metal.MTLDevice {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("device"))
 	return metal.MTLDeviceObjectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

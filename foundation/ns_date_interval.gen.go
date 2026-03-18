@@ -36,12 +36,6 @@ func (nc NSDateIntervalClass) Alloc() NSDateInterval {
 	return rv
 }
 
-
-
-
-
-
-
 // An object representing the span of time between a specific start date and
 // end date.
 //
@@ -71,7 +65,6 @@ func (nc NSDateIntervalClass) Alloc() NSDateInterval {
 //
 //   - [NSDateInterval.InitWithStartDateDuration]: Initializes a date interval with a given start date and duration.
 //   - [NSDateInterval.InitWithStartDateEndDate]: Initializes a date interval from a given start date and end date.
-//   - [NSDateInterval.InitWithCoder]: Returns a date interval initialized from data in the given unarchiver.
 //
 // # Accessing Start Date, End Date, and Duration
 //
@@ -103,14 +96,10 @@ type NSDateInterval struct {
 // An object representing the span of time between a specific start date and
 // end date.
 func NSDateIntervalFromID(id objc.ID) NSDateInterval {
-	return NSDateInterval{objectivec.Object{id}}
+	return NSDateInterval{objectivec.Object{ID: id}}
 }
 // NOTE: NSDateInterval adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDateInterval] class.
 //
@@ -118,7 +107,6 @@ func NSDateIntervalFromID(id objc.ID) NSDateInterval {
 //
 //   - [INSDateInterval.InitWithStartDateDuration]: Initializes a date interval with a given start date and duration.
 //   - [INSDateInterval.InitWithStartDateEndDate]: Initializes a date interval from a given start date and end date.
-//   - [INSDateInterval.InitWithCoder]: Returns a date interval initialized from data in the given unarchiver.
 //
 // # Accessing Start Date, End Date, and Duration
 //
@@ -143,7 +131,9 @@ func NSDateIntervalFromID(id objc.ID) NSDateInterval {
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval
 type INSDateInterval interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating Date Intervals
 
@@ -151,8 +141,6 @@ type INSDateInterval interface {
 	InitWithStartDateDuration(startDate INSDate, duration float64) NSDateInterval
 	// Initializes a date interval from a given start date and end date.
 	InitWithStartDateEndDate(startDate INSDate, endDate INSDate) NSDateInterval
-	// Returns a date interval initialized from data in the given unarchiver.
-	InitWithCoder(coder INSCoder) NSDateInterval
 
 	// Topic: Accessing Start Date, End Date, and Duration
 
@@ -181,14 +169,7 @@ type INSDateInterval interface {
 
 	// Indicates whether the receiver contains the specified date.
 	ContainsDate(date INSDate) bool
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d NSDateInterval) Init() NSDateInterval {
@@ -209,11 +190,6 @@ func NewNSDateInterval() NSDateInterval {
 	return rv
 }
 
-
-
-
-
-
 // Returns a date interval initialized from data in the given unarchiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/init(coder:)
@@ -222,7 +198,6 @@ func NewDateIntervalWithCoder(coder INSCoder) NSDateInterval {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDateIntervalFromID(rv)
 }
-
 
 // Initializes a date interval with a given start date and duration.
 //
@@ -241,7 +216,6 @@ func NewDateIntervalWithStartDateDuration(startDate INSDate, duration float64) N
 	return NSDateIntervalFromID(rv)
 }
 
-
 // Initializes a date interval from a given start date and end date.
 //
 // startDate: The start date of the date interval.
@@ -254,12 +228,6 @@ func NewDateIntervalWithStartDateEndDate(startDate INSDate, endDate INSDate) NSD
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStartDate:endDate:"), startDate, endDate)
 	return NSDateIntervalFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a date interval with a given start date and duration.
 //
@@ -432,17 +400,6 @@ func (d NSDateInterval) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The start date of the date interval.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/startDate
@@ -450,8 +407,6 @@ func (d NSDateInterval) StartDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("startDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // The end date of the date interval.
 //
@@ -461,8 +416,6 @@ func (d NSDateInterval) EndDate() INSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // The duration of the date interval.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/duration
@@ -471,37 +424,9 @@ func (d NSDateInterval) Duration() float64 {
 	return float64(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

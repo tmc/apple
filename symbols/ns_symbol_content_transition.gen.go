@@ -37,12 +37,6 @@ func (nc NSSymbolContentTransitionClass) Alloc() NSSymbolContentTransition {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract base class for transitions you can apply to symbol-based
 // images.
 //
@@ -56,14 +50,10 @@ type NSSymbolContentTransition struct {
 // An abstract base class for transitions you can apply to symbol-based
 // images.
 func NSSymbolContentTransitionFromID(id objc.ID) NSSymbolContentTransition {
-	return NSSymbolContentTransition{objectivec.Object{id}}
+	return NSSymbolContentTransition{objectivec.Object{ID: id}}
 }
 // NOTE: NSSymbolContentTransition adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSymbolContentTransition] class.
 //
@@ -73,10 +63,6 @@ type INSSymbolContentTransition interface {
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSymbolContentTransition) Init() NSSymbolContentTransition {
@@ -97,42 +83,7 @@ func NewNSSymbolContentTransition() NSSymbolContentTransition {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (s NSSymbolContentTransition) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

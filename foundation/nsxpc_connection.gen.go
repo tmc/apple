@@ -37,12 +37,6 @@ func (nc NSXPCConnectionClass) Alloc() NSXPCConnection {
 	return rv
 }
 
-
-
-
-
-
-
 // A bidirectional communication channel between two processes.
 //
 // # Overview
@@ -116,14 +110,10 @@ type NSXPCConnection struct {
 //
 // A bidirectional communication channel between two processes.
 func NSXPCConnectionFromID(id objc.ID) NSXPCConnection {
-	return NSXPCConnection{objectivec.Object{id}}
+	return NSXPCConnection{objectivec.Object{ID: id}}
 }
 // NOTE: NSXPCConnection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSXPCConnection] class.
 //
@@ -269,10 +259,6 @@ type INSXPCConnection interface {
 	SetNSXPCConnectionCodeSigningRequirementFailure(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x NSXPCConnection) Init() NSXPCConnection {
 	rv := objc.Send[NSXPCConnection](x.ID, objc.Sel("init"))
@@ -292,11 +278,6 @@ func NewNSXPCConnection() NSXPCConnection {
 	return rv
 }
 
-
-
-
-
-
 // Initializes an [NSXPCConnection] object to connect to an [NSXPCListener]
 // object in another process, identified by an [NSXPCListenerEndpoint] object.
 //
@@ -308,7 +289,6 @@ func NewXPCConnectionWithListenerEndpoint(endpoint INSXPCListenerEndpoint) NSXPC
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithListenerEndpoint:"), endpoint)
 	return NSXPCConnectionFromID(rv)
 }
-
 
 // Initializes an [NSXPCConnection] object to connect to a LaunchAgent or
 // LaunchDaemon with a name advertised in a `launchd.Plist()`.
@@ -332,7 +312,6 @@ func NewXPCConnectionWithMachServiceNameOptions(name string, options NSXPCConnec
 	return NSXPCConnectionFromID(rv)
 }
 
-
 // Initializes an [NSXPCConnection] object to connect to an [NSXPCListener]
 // object in an XPC service, identified by a service name.
 //
@@ -347,12 +326,6 @@ func NewXPCConnectionWithServiceName(serviceName string) NSXPCConnection {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithServiceName:"), objc.String(serviceName))
 	return NSXPCConnectionFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes an [NSXPCConnection] object to connect to an [NSXPCListener]
 // object in another process, identified by an [NSXPCListenerEndpoint] object.
@@ -471,9 +444,9 @@ func (x NSXPCConnection) Suspend() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/scheduleSendBarrierBlock(_:)
 func (x NSXPCConnection) ScheduleSendBarrierBlock(block VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(block)
+_block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
-		objc.Send[objc.ID](x.ID, objc.Sel("scheduleSendBarrierBlock:"), _block0)
+	objc.Send[objc.ID](x.ID, objc.Sel("scheduleSendBarrierBlock:"), _block0)
 }
 
 // Returns a proxy for the remote object (that is, the object exported from
@@ -485,18 +458,18 @@ func (x NSXPCConnection) ScheduleSendBarrierBlock(block VoidHandler) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/remoteObjectProxyWithErrorHandler(_:)
 func (x NSXPCConnection) RemoteObjectProxyWithErrorHandler(handler ErrorHandler) objectivec.IObject {
-		_block0, _cleanup0 := NewErrorBlock(handler)
+_block0, _cleanup0 := NewErrorBlock(handler)
 	defer _cleanup0()
-		rv := objc.Send[objc.ID](x.ID, objc.Sel("remoteObjectProxyWithErrorHandler:"), _block0)
+	rv := objc.Send[objc.ID](x.ID, objc.Sel("remoteObjectProxyWithErrorHandler:"), _block0)
 	return objectivec.Object{ID: rv}
 }
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/synchronousRemoteObjectProxyWithErrorHandler(_:)
 func (x NSXPCConnection) SynchronousRemoteObjectProxyWithErrorHandler(handler ErrorHandler) objectivec.IObject {
-		_block0, _cleanup0 := NewErrorBlock(handler)
+_block0, _cleanup0 := NewErrorBlock(handler)
 	defer _cleanup0()
-		rv := objc.Send[objc.ID](x.ID, objc.Sel("synchronousRemoteObjectProxyWithErrorHandler:"), _block0)
+	rv := objc.Send[objc.ID](x.ID, objc.Sel("synchronousRemoteObjectProxyWithErrorHandler:"), _block0)
 	return objectivec.Object{ID: rv}
 }
 
@@ -527,10 +500,6 @@ func (x NSXPCConnection) SetCodeSigningRequirement(requirement string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setCodeSigningRequirement:"), objc.String(requirement))
 }
 
-
-
-
-
 // Returns the current connection, in the context of a call to a method on
 // your exported object.
 //
@@ -547,13 +516,6 @@ func (_NSXPCConnectionClass NSXPCConnectionClass) CurrentConnection() NSXPCConne
 	rv := objc.Send[objc.ID](objc.ID(_NSXPCConnectionClass.class), objc.Sel("currentConnection"))
 	return NSXPCConnectionFromID(rv)
 }
-
-
-
-
-
-
-
 
 // An interruption handler that is called if the remote process exits or
 // crashes.
@@ -577,8 +539,6 @@ func (x NSXPCConnection) SetInterruptionHandler(value VoidHandler) {
 	objc.Send[struct{}](x.ID, objc.Sel("setInterruptionHandler:"), block)
 }
 
-
-
 // An invalidation handler that is called if the connection can not be formed
 // or the connection has terminated and may not be re-established.
 //
@@ -601,8 +561,6 @@ func (x NSXPCConnection) SetInvalidationHandler(value VoidHandler) {
 	objc.Send[struct{}](x.ID, objc.Sel("setInvalidationHandler:"), block)
 }
 
-
-
 // The name of the XPC service that this connection was configured to connect
 // to.
 //
@@ -612,8 +570,6 @@ func (x NSXPCConnection) ServiceName() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // If the connection was created with an [NSXPCListenerEndpoint] object,
 // returns the endpoint object used.
 //
@@ -622,8 +578,6 @@ func (x NSXPCConnection) Endpoint() INSXPCListenerEndpoint {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("endpoint"))
 	return NSXPCListenerEndpointFromID(objc.ID(rv))
 }
-
-
 
 // The [NSXPCInterface] object that describes the protocol for the exported
 // object on this connection.
@@ -640,8 +594,6 @@ func (x NSXPCConnection) ExportedInterface() INSXPCInterface {
 func (x NSXPCConnection) SetExportedInterface(value INSXPCInterface) {
 	objc.Send[struct{}](x.ID, objc.Sel("setExportedInterface:"), value)
 }
-
-
 
 // An exported object for the connection.
 //
@@ -662,8 +614,6 @@ func (x NSXPCConnection) SetExportedObject(value objectivec.IObject) {
 	objc.Send[struct{}](x.ID, objc.Sel("setExportedObject:"), value)
 }
 
-
-
 // Defines the [NSXPCInterface] object that describes the protocol for the
 // object represented by the `remoteObjectProxy`.
 //
@@ -683,8 +633,6 @@ func (x NSXPCConnection) SetRemoteObjectInterface(value INSXPCInterface) {
 	objc.Send[struct{}](x.ID, objc.Sel("setRemoteObjectInterface:"), value)
 }
 
-
-
 // Returns a proxy for the remote object (that is, the `exportedObject` from
 // the other side of this connection).
 //
@@ -697,8 +645,6 @@ func (x NSXPCConnection) RemoteObjectProxy() objectivec.IObject {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("remoteObjectProxy"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The BSM audit session identifier for the connecting process.
 //
@@ -713,8 +659,6 @@ func (x NSXPCConnection) AuditSessionIdentifier() int32 {
 	return rv
 }
 
-
-
 // The process ID (PID) of the connecting process.
 //
 // # Discussion
@@ -727,8 +671,6 @@ func (x NSXPCConnection) ProcessIdentifier() int32 {
 	rv := objc.Send[int32](x.ID, objc.Sel("processIdentifier"))
 	return rv
 }
-
-
 
 // The effective group ID (EGID) of the connecting process.
 //
@@ -743,8 +685,6 @@ func (x NSXPCConnection) EffectiveGroupIdentifier() uint32 {
 	return rv
 }
 
-
-
 // The effective user ID (EUID) of the connecting process.
 //
 // # Discussion
@@ -758,8 +698,6 @@ func (x NSXPCConnection) EffectiveUserIdentifier() uint32 {
 	return rv
 }
 
-
-
 // The XPC connection was interrupted.
 //
 // See: https://developer.apple.com/documentation/foundation/nsxpcconnectioninterrupted-swift.var
@@ -770,8 +708,6 @@ func (x NSXPCConnection) NSXPCConnectionInterrupted() int {
 func (x NSXPCConnection) SetNSXPCConnectionInterrupted(value int) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionInterrupted:"), value)
 }
-
-
 
 // The XPC connection was invalid.
 //
@@ -784,8 +720,6 @@ func (x NSXPCConnection) SetNSXPCConnectionInvalid(value int) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionInvalid:"), value)
 }
 
-
-
 // The XPC connection reply was invalid.
 //
 // See: https://developer.apple.com/documentation/foundation/nsxpcconnectionreplyinvalid-swift.var
@@ -796,8 +730,6 @@ func (x NSXPCConnection) NSXPCConnectionReplyInvalid() int {
 func (x NSXPCConnection) SetNSXPCConnectionReplyInvalid(value int) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionReplyInvalid:"), value)
 }
-
-
 
 // The lower bounds of XPC connection error code values.
 //
@@ -810,8 +742,6 @@ func (x NSXPCConnection) SetNSXPCConnectionErrorMinimum(value int) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionErrorMinimum:"), value)
 }
 
-
-
 // The upper bounds of XPC connection error code values.
 //
 // See: https://developer.apple.com/documentation/foundation/nsxpcconnectionerrormaximum-swift.var
@@ -822,8 +752,6 @@ func (x NSXPCConnection) NSXPCConnectionErrorMaximum() int {
 func (x NSXPCConnection) SetNSXPCConnectionErrorMaximum(value int) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionErrorMaximum:"), value)
 }
-
-
 
 // A code-signing requirement check failed.
 //
@@ -836,30 +764,8 @@ func (x NSXPCConnection) SetNSXPCConnectionCodeSigningRequirementFailure(value i
 	objc.Send[struct{}](x.ID, objc.Sel("setNSXPCConnectionCodeSigningRequirementFailure:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSXPCProxyCreating
 			
-
-
-
-
-
-
-
-
-
 
 // ScheduleSendBarrierBlockSync is a synchronous wrapper around [NSXPCConnection.ScheduleSendBarrierBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -905,9 +811,4 @@ func (x NSXPCConnection) SynchronousRemoteObjectProxyWithErrorHandlerSync(ctx co
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (dc DateComponentsFormatterClass) Alloc() DateComponentsFormatter {
 	return rv
 }
 
-
-
-
-
-
-
 // A formatter that creates string representations of quantities of time.
 //
 // # Overview
@@ -113,10 +107,6 @@ func DateComponentsFormatterFromID(id objc.ID) DateComponentsFormatter {
 func NSDateComponentsFormatterFromID(id objc.ID) DateComponentsFormatter { return DateComponentsFormatterFromID(id) }
 // NOTE: DateComponentsFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [DateComponentsFormatter] class.
 //
@@ -205,10 +195,6 @@ type IDateComponentsFormatter interface {
 	SetReferenceDate(value INSDate)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d DateComponentsFormatter) Init() DateComponentsFormatter {
 	rv := objc.Send[DateComponentsFormatter](d.ID, objc.Sel("init"))
@@ -228,11 +214,6 @@ func NewDateComponentsFormatter() DateComponentsFormatter {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDateComponentsFormatterWithCoder(coder INSCoder) DateComponentsFormatter {
@@ -240,12 +221,6 @@ func NewDateComponentsFormatterWithCoder(coder INSCoder) DateComponentsFormatter
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DateComponentsFormatterFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a formatted string based on the specified date component
 // information.
@@ -316,10 +291,6 @@ func (d DateComponentsFormatter) StringFromTimeInterval(ti float64) string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
 // Returns a localized string based on the specified date components and style
 // option.
 //
@@ -344,13 +315,6 @@ func (_DateComponentsFormatterClass DateComponentsFormatterClass) LocalizedStrin
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
 // The bitmask of calendrical units such as day and month to include in the
 // output string.
 //
@@ -374,8 +338,6 @@ func (d DateComponentsFormatter) SetAllowedUnits(value NSCalendarUnit) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAllowedUnits:"), value)
 }
 
-
-
 // A Boolean indicating whether non-integer units may be used for values.
 //
 // # Discussion
@@ -396,8 +358,6 @@ func (d DateComponentsFormatter) AllowsFractionalUnits() bool {
 func (d DateComponentsFormatter) SetAllowsFractionalUnits(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAllowsFractionalUnits:"), value)
 }
-
-
 
 // The default calendar to use when formatting date components.
 //
@@ -420,8 +380,6 @@ func (d DateComponentsFormatter) Calendar() INSCalendar {
 func (d DateComponentsFormatter) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
-
-
 
 // A Boolean value indicating whether to collapse the largest unit into
 // smaller units when a certain threshold is met.
@@ -447,8 +405,6 @@ func (d DateComponentsFormatter) SetCollapsesLargestUnit(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCollapsesLargestUnit:"), value)
 }
 
-
-
 // A Boolean value indicating whether the resulting phrase reflects an inexact
 // time value.
 //
@@ -473,8 +429,6 @@ func (d DateComponentsFormatter) SetIncludesApproximationPhrase(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludesApproximationPhrase:"), value)
 }
 
-
-
 // A Boolean value indicating whether output strings reflect the amount of
 // time remaining.
 //
@@ -496,8 +450,6 @@ func (d DateComponentsFormatter) IncludesTimeRemainingPhrase() bool {
 func (d DateComponentsFormatter) SetIncludesTimeRemainingPhrase(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludesTimeRemainingPhrase:"), value)
 }
-
-
 
 // The maximum number of time units to include in the output string.
 //
@@ -521,8 +473,6 @@ func (d DateComponentsFormatter) SetMaximumUnitCount(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumUnitCount:"), value)
 }
 
-
-
 // The formatting style for unit names.
 //
 // # Discussion
@@ -543,8 +493,6 @@ func (d DateComponentsFormatter) UnitsStyle() NSDateComponentsFormatterUnitsStyl
 func (d DateComponentsFormatter) SetUnitsStyle(value NSDateComponentsFormatterUnitsStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUnitsStyle:"), value)
 }
-
-
 
 // The formatting style for units whose value is 0.
 //
@@ -568,8 +516,6 @@ func (d DateComponentsFormatter) SetZeroFormattingBehavior(value NSDateComponent
 	objc.Send[struct{}](d.ID, objc.Sel("setZeroFormattingBehavior:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/formattingContext
 func (d DateComponentsFormatter) FormattingContext() NSFormattingContext {
 	rv := objc.Send[NSFormattingContext](d.ID, objc.Sel("formattingContext"))
@@ -579,8 +525,6 @@ func (d DateComponentsFormatter) SetFormattingContext(value NSFormattingContext)
 	objc.Send[struct{}](d.ID, objc.Sel("setFormattingContext:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/referenceDate
 func (d DateComponentsFormatter) ReferenceDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("referenceDate"))
@@ -589,30 +533,4 @@ func (d DateComponentsFormatter) ReferenceDate() INSDate {
 func (d DateComponentsFormatter) SetReferenceDate(value INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setReferenceDate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

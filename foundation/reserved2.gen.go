@@ -36,12 +36,6 @@ func (rc Reserved2Class) Alloc() Reserved2 {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSPortMessage/reserved2
 type Reserved2 struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Reserved2 struct {
 
 // Reserved2FromID constructs a [Reserved2] from an objc.ID.
 func Reserved2FromID(id objc.ID) Reserved2 {
-	return Reserved2{objectivec.Object{id}}
+	return Reserved2{objectivec.Object{ID: id}}
 }
 // Ensure Reserved2 implements IReserved2.
 var _ IReserved2 = Reserved2{}
-
-
-
-
 
 // An interface definition for the [Reserved2] class.
 //
@@ -64,10 +54,6 @@ var _ IReserved2 = Reserved2{}
 type IReserved2 interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r Reserved2) Init() Reserved2 {
@@ -87,38 +73,4 @@ func NewReserved2() Reserved2 {
 	rv := objc.Send[Reserved2](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

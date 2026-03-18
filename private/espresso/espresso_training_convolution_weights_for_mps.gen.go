@@ -3,7 +3,6 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -75,10 +74,10 @@ type IEspressoTrainingConvolutionWeightsForMPS interface {
 
 	// Topic: Methods
 
-	BiasesBuffer() unsafe.Pointer
-	SetBiasesBuffer(value unsafe.Pointer)
-	WeightsBuffer() unsafe.Pointer
-	SetWeightsBuffer(value unsafe.Pointer)
+	BiasesBuffer() objectivec.IObject
+	SetBiasesBuffer(value objectivec.IObject)
+	WeightsBuffer() objectivec.IObject
+	SetWeightsBuffer(value objectivec.IObject)
 	WeightsLayout() uint32
 	InitWithParamsForMode(params objectivec.IObject, mode bool) EspressoTrainingConvolutionWeightsForMPS
 }
@@ -132,20 +131,20 @@ func (e EspressoTrainingConvolutionWeightsForMPS) InitWithParamsForMode(params o
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/biasesBuffer
-func (e EspressoTrainingConvolutionWeightsForMPS) BiasesBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("biasesBuffer"))
-	return rv
+func (e EspressoTrainingConvolutionWeightsForMPS) BiasesBuffer() objectivec.IObject {
+	rv := objc.Send[objc.ID](e.ID, objc.Sel("biasesBuffer"))
+	return objectivec.Object{ID: rv}
 }
-func (e EspressoTrainingConvolutionWeightsForMPS) SetBiasesBuffer(value unsafe.Pointer) {
+func (e EspressoTrainingConvolutionWeightsForMPS) SetBiasesBuffer(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/weightsBuffer
-func (e EspressoTrainingConvolutionWeightsForMPS) WeightsBuffer() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("weightsBuffer"))
-	return rv
+func (e EspressoTrainingConvolutionWeightsForMPS) WeightsBuffer() objectivec.IObject {
+	rv := objc.Send[objc.ID](e.ID, objc.Sel("weightsBuffer"))
+	return objectivec.Object{ID: rv}
 }
-func (e EspressoTrainingConvolutionWeightsForMPS) SetWeightsBuffer(value unsafe.Pointer) {
+func (e EspressoTrainingConvolutionWeightsForMPS) SetWeightsBuffer(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setWeightsBuffer:"), value)
 }
 

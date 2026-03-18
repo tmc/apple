@@ -36,12 +36,6 @@ func (vc VZPlatformConfigurationClass) Alloc() VZPlatformConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a platform configuration.
 //
 // # Overview
@@ -59,14 +53,10 @@ type VZPlatformConfiguration struct {
 //
 // The base class for a platform configuration.
 func VZPlatformConfigurationFromID(id objc.ID) VZPlatformConfiguration {
-	return VZPlatformConfiguration{objectivec.Object{id}}
+	return VZPlatformConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZPlatformConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZPlatformConfiguration] class.
 //
@@ -74,10 +64,6 @@ func VZPlatformConfigurationFromID(id objc.ID) VZPlatformConfiguration {
 type IVZPlatformConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p VZPlatformConfiguration) Init() VZPlatformConfiguration {
@@ -97,45 +83,4 @@ func NewVZPlatformConfiguration() VZPlatformConfiguration {
 	rv := objc.Send[VZPlatformConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

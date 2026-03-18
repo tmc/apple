@@ -36,12 +36,6 @@ func (mc MTLFunctionStitchingInputNodeClass) Alloc() MTLFunctionStitchingInputNo
 	return rv
 }
 
-
-
-
-
-
-
 // A call graph node that describes an input to the call graph.
 //
 // # Overview
@@ -68,14 +62,10 @@ type MTLFunctionStitchingInputNode struct {
 //
 // A call graph node that describes an input to the call graph.
 func MTLFunctionStitchingInputNodeFromID(id objc.ID) MTLFunctionStitchingInputNode {
-	return MTLFunctionStitchingInputNode{objectivec.Object{id}}
+	return MTLFunctionStitchingInputNode{objectivec.Object{ID: id}}
 }
 // NOTE: MTLFunctionStitchingInputNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLFunctionStitchingInputNode] class.
 //
@@ -105,10 +95,6 @@ type IMTLFunctionStitchingInputNode interface {
 	SetArgumentIndex(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MTLFunctionStitchingInputNode) Init() MTLFunctionStitchingInputNode {
 	rv := objc.Send[MTLFunctionStitchingInputNode](f.ID, objc.Sel("init"))
@@ -128,11 +114,6 @@ func NewMTLFunctionStitchingInputNode() MTLFunctionStitchingInputNode {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new input node.
 //
 // argument: The index of the parameter in the stitched function’s parameter list. The
@@ -145,12 +126,6 @@ func NewFunctionStitchingInputNodeWithArgumentIndex(argument uint) MTLFunctionSt
 	return MTLFunctionStitchingInputNodeFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new input node.
 //
 // argument: The index of the parameter in the stitched function’s parameter list. The
@@ -161,17 +136,6 @@ func (f MTLFunctionStitchingInputNode) InitWithArgumentIndex(argument uint) MTLF
 	rv := objc.Send[MTLFunctionStitchingInputNode](f.ID, objc.Sel("initWithArgumentIndex:"), argument)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The index in the command’s buffer argument table that declares which data
 // to read for this input node.
@@ -185,32 +149,6 @@ func (f MTLFunctionStitchingInputNode) SetArgumentIndex(value uint) {
 	objc.Send[struct{}](f.ID, objc.Sel("setArgumentIndex:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for MTLFunctionStitchingNode
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

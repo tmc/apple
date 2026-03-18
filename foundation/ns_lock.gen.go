@@ -36,12 +36,6 @@ func (nc NSLockClass) Alloc() NSLock {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that coordinates the operation of multiple threads of execution
 // within the same application.
 //
@@ -80,14 +74,10 @@ type NSLock struct {
 // An object that coordinates the operation of multiple threads of execution
 // within the same application.
 func NSLockFromID(id objc.ID) NSLock {
-	return NSLock{objectivec.Object{id}}
+	return NSLock{objectivec.Object{ID: id}}
 }
 // NOTE: NSLock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSLock] class.
 //
@@ -119,10 +109,6 @@ type INSLock interface {
 	SetName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l NSLock) Init() NSLock {
 	rv := objc.Send[NSLock](l.ID, objc.Sel("init"))
@@ -141,15 +127,6 @@ func NewNSLock() NSLock {
 	rv := objc.Send[NSLock](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Attempts to acquire a lock before a given time and returns a Boolean value
 // indicating whether the attempt was successful.
@@ -211,17 +188,6 @@ func (l NSLock) Unlock() {
 	objc.Send[objc.ID](l.ID, objc.Sel("unlock"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name associated with the receiver.
 //
 // # Discussion
@@ -237,29 +203,4 @@ func (l NSLock) Name() string {
 func (l NSLock) SetName(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

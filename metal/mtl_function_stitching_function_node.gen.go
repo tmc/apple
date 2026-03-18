@@ -37,12 +37,6 @@ func (mc MTLFunctionStitchingFunctionNodeClass) Alloc() MTLFunctionStitchingFunc
 	return rv
 }
 
-
-
-
-
-
-
 // A call graph node that describes a function call and its inputs.
 //
 // # Overview
@@ -78,14 +72,10 @@ type MTLFunctionStitchingFunctionNode struct {
 //
 // A call graph node that describes a function call and its inputs.
 func MTLFunctionStitchingFunctionNodeFromID(id objc.ID) MTLFunctionStitchingFunctionNode {
-	return MTLFunctionStitchingFunctionNode{objectivec.Object{id}}
+	return MTLFunctionStitchingFunctionNode{objectivec.Object{ID: id}}
 }
 // NOTE: MTLFunctionStitchingFunctionNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLFunctionStitchingFunctionNode] class.
 //
@@ -125,10 +115,6 @@ type IMTLFunctionStitchingFunctionNode interface {
 	SetControlDependencies(value []MTLFunctionStitchingFunctionNode)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MTLFunctionStitchingFunctionNode) Init() MTLFunctionStitchingFunctionNode {
 	rv := objc.Send[MTLFunctionStitchingFunctionNode](f.ID, objc.Sel("init"))
@@ -148,11 +134,6 @@ func NewMTLFunctionStitchingFunctionNode() MTLFunctionStitchingFunctionNode {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new function node.
 //
 // name: The name of the function to call.
@@ -168,12 +149,6 @@ func NewFunctionStitchingFunctionNodeWithNameArgumentsControlDependencies(name s
 	return MTLFunctionStitchingFunctionNodeFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new function node.
 //
 // name: The name of the function to call.
@@ -187,17 +162,6 @@ func (f MTLFunctionStitchingFunctionNode) InitWithNameArgumentsControlDependenci
 	rv := objc.Send[MTLFunctionStitchingFunctionNode](f.ID, objc.Sel("initWithName:arguments:controlDependencies:"), objc.String(name), objectivec.IObjectSliceToNSArray(arguments), objectivec.IObjectSliceToNSArray(controlDependencies))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The name of the function to call.
 //
@@ -214,8 +178,6 @@ func (f MTLFunctionStitchingFunctionNode) Name() string {
 func (f MTLFunctionStitchingFunctionNode) SetName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
 
 // An ordered list of the nodes that provide the function’s arguments.
 //
@@ -234,8 +196,6 @@ func (f MTLFunctionStitchingFunctionNode) Arguments() []objectivec.IObject {
 func (f MTLFunctionStitchingFunctionNode) SetArguments(value []objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setArguments:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The list of nodes that need to execute before executing the node.
 //
@@ -257,32 +217,6 @@ func (f MTLFunctionStitchingFunctionNode) SetControlDependencies(value []MTLFunc
 	objc.Send[struct{}](f.ID, objc.Sel("setControlDependencies:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for MTLFunctionStitchingNode
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

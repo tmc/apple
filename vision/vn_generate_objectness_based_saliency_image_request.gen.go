@@ -35,12 +35,6 @@ func (vc VNGenerateObjectnessBasedSaliencyImageRequestClass) Alloc() VNGenerateO
 	return rv
 }
 
-
-
-
-
-
-
 // A request that generates a heat map that identifies the parts of an image
 // most likely to represent objects.
 //
@@ -68,10 +62,6 @@ func VNGenerateObjectnessBasedSaliencyImageRequestFromID(id objc.ID) VNGenerateO
 // NOTE: VNGenerateObjectnessBasedSaliencyImageRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNGenerateObjectnessBasedSaliencyImageRequest] class.
 //
 // # Identifying Request Revisions
@@ -87,10 +77,6 @@ type IVNGenerateObjectnessBasedSaliencyImageRequest interface {
 	// A constant for specifying revision 1 of the image saliency request.
 	VNGenerateObjectnessBasedSaliencyImageRequestRevision1() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g VNGenerateObjectnessBasedSaliencyImageRequest) Init() VNGenerateObjectnessBasedSaliencyImageRequest {
@@ -111,11 +97,6 @@ func NewVNGenerateObjectnessBasedSaliencyImageRequest() VNGenerateObjectnessBase
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -133,23 +114,6 @@ func NewGenerateObjectnessBasedSaliencyImageRequestWithCompletionHandler(complet
 	return VNGenerateObjectnessBasedSaliencyImageRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying revision 1 of the image saliency request.
 //
 // See: https://developer.apple.com/documentation/vision/vngenerateobjectnessbasedsaliencyimagerequestrevision1
@@ -157,27 +121,4 @@ func (g VNGenerateObjectnessBasedSaliencyImageRequest) VNGenerateObjectnessBased
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateObjectnessBasedSaliencyImageRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

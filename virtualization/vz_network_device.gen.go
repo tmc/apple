@@ -36,12 +36,6 @@ func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // A base class that represents a network device in a virtual machine.
 //
 // # Overview
@@ -85,14 +79,10 @@ type VZNetworkDevice struct {
 //
 // A base class that represents a network device in a virtual machine.
 func VZNetworkDeviceFromID(id objc.ID) VZNetworkDevice {
-	return VZNetworkDevice{objectivec.Object{id}}
+	return VZNetworkDevice{objectivec.Object{ID: id}}
 }
 // NOTE: VZNetworkDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZNetworkDevice] class.
 //
@@ -116,10 +106,6 @@ type IVZNetworkDevice interface {
 	SetNetworkDevices(value IVZNetworkDevice)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n VZNetworkDevice) Init() VZNetworkDevice {
 	rv := objc.Send[VZNetworkDevice](n.ID, objc.Sel("init"))
@@ -138,26 +124,6 @@ func NewVZNetworkDevice() VZNetworkDevice {
 	rv := objc.Send[VZNetworkDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The network attachment that’s connected to this network device.
 //
@@ -178,8 +144,6 @@ func (n VZNetworkDevice) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
 
-
-
 // The list of configured network devices on the VM.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/networkdevices
@@ -190,26 +154,4 @@ func (n VZNetworkDevice) NetworkDevices() IVZNetworkDevice {
 func (n VZNetworkDevice) SetNetworkDevices(value IVZNetworkDevice) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNetworkDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

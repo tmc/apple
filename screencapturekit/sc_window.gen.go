@@ -38,12 +38,6 @@ func (sc SCWindowClass) Alloc() SCWindow {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that represents an onscreen window.
 //
 // # Overview
@@ -78,14 +72,10 @@ type SCWindow struct {
 //
 // An instance that represents an onscreen window.
 func SCWindowFromID(id objc.ID) SCWindow {
-	return SCWindow{objectivec.Object{id}}
+	return SCWindow{objectivec.Object{ID: id}}
 }
 // NOTE: SCWindow adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCWindow] class.
 //
@@ -133,10 +123,6 @@ type ISCWindow interface {
 	Active() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (w SCWindow) Init() SCWindow {
 	rv := objc.Send[SCWindow](w.ID, objc.Sel("init"))
@@ -156,26 +142,6 @@ func NewSCWindow() SCWindow {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The Core Graphics window identifier.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/windowID
@@ -183,8 +149,6 @@ func (w SCWindow) WindowID() uint32 {
 	rv := objc.Send[uint32](w.ID, objc.Sel("windowID"))
 	return rv
 }
-
-
 
 // The string that displays in a window’s title bar.
 //
@@ -194,8 +158,6 @@ func (w SCWindow) Title() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The app that owns the window.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/owningApplication
@@ -203,8 +165,6 @@ func (w SCWindow) OwningApplication() ISCRunningApplication {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("owningApplication"))
 	return SCRunningApplicationFromID(objc.ID(rv))
 }
-
-
 
 // The layer of the window relative to other windows.
 //
@@ -214,8 +174,6 @@ func (w SCWindow) WindowLayer() int {
 	return rv
 }
 
-
-
 // A rectangle the represents the frame of the window within a display.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/frame
@@ -223,8 +181,6 @@ func (w SCWindow) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](w.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
-
-
 
 // A Boolean value that indicates whether the window is on screen.
 //
@@ -239,8 +195,6 @@ func (w SCWindow) OnScreen() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates if the window is currently streaming.
 //
 // # Discussion
@@ -253,28 +207,4 @@ func (w SCWindow) Active() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isActive"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

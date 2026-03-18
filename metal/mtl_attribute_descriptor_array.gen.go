@@ -36,12 +36,6 @@ func (mc MTLAttributeDescriptorArrayClass) Alloc() MTLAttributeDescriptorArray {
 	return rv
 }
 
-
-
-
-
-
-
 // An array of attribute descriptor objects.
 //
 // # Overview
@@ -62,14 +56,10 @@ type MTLAttributeDescriptorArray struct {
 //
 // An array of attribute descriptor objects.
 func MTLAttributeDescriptorArrayFromID(id objc.ID) MTLAttributeDescriptorArray {
-	return MTLAttributeDescriptorArray{objectivec.Object{id}}
+	return MTLAttributeDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLAttributeDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLAttributeDescriptorArray] class.
 //
@@ -93,10 +83,6 @@ type IMTLAttributeDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attributeDesc IMTLAttributeDescriptor, index uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MTLAttributeDescriptorArray) Init() MTLAttributeDescriptorArray {
 	rv := objc.Send[MTLAttributeDescriptorArray](a.ID, objc.Sel("init"))
@@ -115,15 +101,6 @@ func NewMTLAttributeDescriptorArray() MTLAttributeDescriptorArray {
 	rv := objc.Send[MTLAttributeDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the state of the specified attribute.
 //
@@ -150,17 +127,6 @@ func (a MTLAttributeDescriptorArray) SetObjectAtIndexedSubscript(attributeDesc I
 	objc.Send[objc.ID](a.ID, objc.Sel("setObject:atIndexedSubscript:"), attributeDesc, index)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The organization of input and output data for the next kernel call.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor
@@ -171,26 +137,4 @@ func (a MTLAttributeDescriptorArray) StageInputDescriptor() IMTLStageInputOutput
 func (a MTLAttributeDescriptorArray) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
 	objc.Send[struct{}](a.ID, objc.Sel("setStageInputDescriptor:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

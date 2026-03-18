@@ -36,12 +36,6 @@ func (ec EnvironmentClass) Alloc() Environment {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSProcessInfo/environment-c.ivar
 type Environment struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Environment struct {
 
 // EnvironmentFromID constructs a [Environment] from an objc.ID.
 func EnvironmentFromID(id objc.ID) Environment {
-	return Environment{objectivec.Object{id}}
+	return Environment{objectivec.Object{ID: id}}
 }
 // Ensure Environment implements IEnvironment.
 var _ IEnvironment = Environment{}
-
-
-
-
 
 // An interface definition for the [Environment] class.
 //
@@ -64,10 +54,6 @@ var _ IEnvironment = Environment{}
 type IEnvironment interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e Environment) Init() Environment {
@@ -87,38 +73,4 @@ func NewEnvironment() Environment {
 	rv := objc.Send[Environment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

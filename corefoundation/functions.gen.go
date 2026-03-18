@@ -1992,24 +1992,24 @@ func CFBundleUnloadExecutable(bundle CFBundleRef) {
 	_cFBundleUnloadExecutable(bundle)
 }
 
-var _cFCalendarAddComponents func(calendar CFCalendarRef, at *CFAbsoluteTime, options uint64, componentDesc *byte) bool
+var _cFCalendarAddComponents func(calendar CFCalendarRef, at *CFAbsoluteTime, options uint64, componentDesc string) bool
 
 // CFCalendarAddComponents computes the absolute time when specified components are added to a given absolute time.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarAddComponents
-func CFCalendarAddComponents(calendar CFCalendarRef, at *CFAbsoluteTime, options uint64, componentDesc *byte) bool {
+func CFCalendarAddComponents(calendar CFCalendarRef, at *CFAbsoluteTime, options uint64, componentDesc string) bool {
 	if _cFCalendarAddComponents == nil {
 		panic("CoreFoundation: symbol CFCalendarAddComponents not loaded")
 	}
 	return _cFCalendarAddComponents(calendar, at, options, componentDesc)
 }
 
-var _cFCalendarComposeAbsoluteTime func(calendar CFCalendarRef, at *CFAbsoluteTime, componentDesc *byte) bool
+var _cFCalendarComposeAbsoluteTime func(calendar CFCalendarRef, at *CFAbsoluteTime, componentDesc string) bool
 
 // CFCalendarComposeAbsoluteTime computes the absolute time from components in a description string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarComposeAbsoluteTime
-func CFCalendarComposeAbsoluteTime(calendar CFCalendarRef, at *CFAbsoluteTime, componentDesc *byte) bool {
+func CFCalendarComposeAbsoluteTime(calendar CFCalendarRef, at *CFAbsoluteTime, componentDesc string) bool {
 	if _cFCalendarComposeAbsoluteTime == nil {
 		panic("CoreFoundation: symbol CFCalendarComposeAbsoluteTime not loaded")
 	}
@@ -2064,24 +2064,24 @@ func CFCalendarCreateWithIdentifier(allocator CFAllocatorRef, identifier CFCalen
 	return _cFCalendarCreateWithIdentifier(allocator, identifier)
 }
 
-var _cFCalendarDecomposeAbsoluteTime func(calendar CFCalendarRef, at CFAbsoluteTime, componentDesc *byte) bool
+var _cFCalendarDecomposeAbsoluteTime func(calendar CFCalendarRef, at CFAbsoluteTime, componentDesc string) bool
 
 // CFCalendarDecomposeAbsoluteTime computes the components which are indicated by the componentDesc description string for the given absolute time.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarDecomposeAbsoluteTime
-func CFCalendarDecomposeAbsoluteTime(calendar CFCalendarRef, at CFAbsoluteTime, componentDesc *byte) bool {
+func CFCalendarDecomposeAbsoluteTime(calendar CFCalendarRef, at CFAbsoluteTime, componentDesc string) bool {
 	if _cFCalendarDecomposeAbsoluteTime == nil {
 		panic("CoreFoundation: symbol CFCalendarDecomposeAbsoluteTime not loaded")
 	}
 	return _cFCalendarDecomposeAbsoluteTime(calendar, at, componentDesc)
 }
 
-var _cFCalendarGetComponentDifference func(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options uint64, componentDesc *byte) bool
+var _cFCalendarGetComponentDifference func(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options uint64, componentDesc string) bool
 
 // CFCalendarGetComponentDifference computes the difference between the two absolute times, in terms of specified calendrical components.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarGetComponentDifference
-func CFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options uint64, componentDesc *byte) bool {
+func CFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options uint64, componentDesc string) bool {
 	if _cFCalendarGetComponentDifference == nil {
 		panic("CoreFoundation: symbol CFCalendarGetComponentDifference not loaded")
 	}
@@ -6524,12 +6524,12 @@ func CFStringAppend(theString CFMutableStringRef, appendedString CFStringRef) {
 	_cFStringAppend(theString, appendedString)
 }
 
-var _cFStringAppendCString func(theString CFMutableStringRef, cStr *byte, encoding uint32)
+var _cFStringAppendCString func(theString CFMutableStringRef, cStr string, encoding uint32)
 
 // CFStringAppendCString appends a C string to the character contents of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendCString(_:_:_:)
-func CFStringAppendCString(theString CFMutableStringRef, cStr *byte, encoding uint32) {
+func CFStringAppendCString(theString CFMutableStringRef, cStr string, encoding uint32) {
 	if _cFStringAppendCString == nil {
 		panic("CoreFoundation: symbol CFStringAppendCString not loaded")
 	}
@@ -6860,24 +6860,24 @@ func CFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes *uint8, numBytes 
 	return _cFStringCreateWithBytesNoCopy(alloc, bytes, numBytes, encoding, isExternalRepresentation, contentsDeallocator)
 }
 
-var _cFStringCreateWithCString func(alloc CFAllocatorRef, cStr *byte, encoding uint32) CFStringRef
+var _cFStringCreateWithCString func(alloc CFAllocatorRef, cStr string, encoding uint32) CFStringRef
 
 // CFStringCreateWithCString creates an immutable string from a C string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithCString(_:_:_:)
-func CFStringCreateWithCString(alloc CFAllocatorRef, cStr *byte, encoding uint32) CFStringRef {
+func CFStringCreateWithCString(alloc CFAllocatorRef, cStr string, encoding uint32) CFStringRef {
 	if _cFStringCreateWithCString == nil {
 		panic("CoreFoundation: symbol CFStringCreateWithCString not loaded")
 	}
 	return _cFStringCreateWithCString(alloc, cStr, encoding)
 }
 
-var _cFStringCreateWithCStringNoCopy func(alloc CFAllocatorRef, cStr *byte, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef
+var _cFStringCreateWithCStringNoCopy func(alloc CFAllocatorRef, cStr string, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef
 
 // CFStringCreateWithCStringNoCopy creates a CFString object from an external C string buffer that might serve as the backing store for the object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithCStringNoCopy(_:_:_:_:)
-func CFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr *byte, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef {
+func CFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr string, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef {
 	if _cFStringCreateWithCStringNoCopy == nil {
 		panic("CoreFoundation: symbol CFStringCreateWithCStringNoCopy not loaded")
 	}
@@ -9290,6 +9290,8 @@ var _cFXMLNodeCreate func(alloc CFAllocatorRef, xmlType uint32, dataString CFStr
 
 // CFXMLNodeCreate creates a new CFXMLNode.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeCreate
 func CFXMLNodeCreate(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRef, additionalInfoPtr unsafe.Pointer, version int) unsafe.Pointer {
 	if _cFXMLNodeCreate == nil {
@@ -9301,6 +9303,8 @@ func CFXMLNodeCreate(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRe
 var _cFXMLNodeCreateCopy func(alloc CFAllocatorRef, origNode unsafe.Pointer) unsafe.Pointer
 
 // CFXMLNodeCreateCopy creates a copy of a CFXMLNode object.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeCreateCopy
 func CFXMLNodeCreateCopy(alloc CFAllocatorRef, origNode unsafe.Pointer) unsafe.Pointer {
@@ -9314,6 +9318,8 @@ var _cFXMLNodeGetInfoPtr func(node unsafe.Pointer) unsafe.Pointer
 
 // CFXMLNodeGetInfoPtr returns the additional information pointer of a CFXMLNode object.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeGetInfoPtr
 func CFXMLNodeGetInfoPtr(node unsafe.Pointer) unsafe.Pointer {
 	if _cFXMLNodeGetInfoPtr == nil {
@@ -9325,6 +9331,8 @@ func CFXMLNodeGetInfoPtr(node unsafe.Pointer) unsafe.Pointer {
 var _cFXMLNodeGetString func(node unsafe.Pointer) CFStringRef
 
 // CFXMLNodeGetString returns the data string from a CFXMLNode.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeGetString
 func CFXMLNodeGetString(node unsafe.Pointer) CFStringRef {
@@ -9338,6 +9346,8 @@ var _cFXMLNodeGetTypeCode func(node unsafe.Pointer) uint32
 
 // CFXMLNodeGetTypeCode returns the XML structure type code for a CFXMLNode object.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeGetTypeCode
 func CFXMLNodeGetTypeCode(node unsafe.Pointer) uint32 {
 	if _cFXMLNodeGetTypeCode == nil {
@@ -9349,6 +9359,8 @@ func CFXMLNodeGetTypeCode(node unsafe.Pointer) uint32 {
 var _cFXMLNodeGetTypeID func() uint
 
 // CFXMLNodeGetTypeID returns the type identifier code for the CFXMLNode opaque type.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeGetTypeID
 func CFXMLNodeGetTypeID() uint {
@@ -9362,6 +9374,8 @@ var _cFXMLNodeGetVersion func(node unsafe.Pointer) int
 
 // CFXMLNodeGetVersion returns the version number for a CFXMLNode object.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeGetVersion
 func CFXMLNodeGetVersion(node unsafe.Pointer) int {
 	if _cFXMLNodeGetVersion == nil {
@@ -9373,6 +9387,8 @@ func CFXMLNodeGetVersion(node unsafe.Pointer) int {
 var _cFXMLParserAbort func(parser CFXMLParserRef, errorCode CFXMLParserStatusCode, errorDescription CFStringRef)
 
 // CFXMLParserAbort causes a parser to abort with the given error code and description.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserAbort
 func CFXMLParserAbort(parser CFXMLParserRef, errorCode CFXMLParserStatusCode, errorDescription CFStringRef) {
@@ -9386,6 +9402,8 @@ var _cFXMLParserCopyErrorDescription func(parser CFXMLParserRef) CFStringRef
 
 // CFXMLParserCopyErrorDescription returns the user-readable description of the current error condition.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserCopyErrorDescription
 func CFXMLParserCopyErrorDescription(parser CFXMLParserRef) CFStringRef {
 	if _cFXMLParserCopyErrorDescription == nil {
@@ -9397,6 +9415,8 @@ func CFXMLParserCopyErrorDescription(parser CFXMLParserRef) CFStringRef {
 var _cFXMLParserCreate func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef
 
 // CFXMLParserCreate creates a new XML parser for the specified XML data.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserCreate
 func CFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef {
@@ -9410,6 +9430,8 @@ var _cFXMLParserCreateWithDataFromURL func(allocator CFAllocatorRef, dataSource 
 
 // CFXMLParserCreateWithDataFromURL creates a new XML parser for the specified XML data at the specified URL.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserCreateWithDataFromURL
 func CFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef {
 	if _cFXMLParserCreateWithDataFromURL == nil {
@@ -9421,6 +9443,8 @@ func CFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURL
 var _cFXMLParserGetCallBacks func(parser CFXMLParserRef, callBacks *CFXMLParserCallBacks)
 
 // CFXMLParserGetCallBacks returns the callbacks associated with an XML parser when it was created.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetCallBacks
 func CFXMLParserGetCallBacks(parser CFXMLParserRef, callBacks *CFXMLParserCallBacks) {
@@ -9434,6 +9458,8 @@ var _cFXMLParserGetContext func(parser CFXMLParserRef, context *CFXMLParserConte
 
 // CFXMLParserGetContext returns the context for an XML parser.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetContext
 func CFXMLParserGetContext(parser CFXMLParserRef, context *CFXMLParserContext) {
 	if _cFXMLParserGetContext == nil {
@@ -9445,6 +9471,8 @@ func CFXMLParserGetContext(parser CFXMLParserRef, context *CFXMLParserContext) {
 var _cFXMLParserGetDocument func(parser CFXMLParserRef) unsafe.Pointer
 
 // CFXMLParserGetDocument returns the top-most object returned by the create XML structure callback.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetDocument
 func CFXMLParserGetDocument(parser CFXMLParserRef) unsafe.Pointer {
@@ -9458,6 +9486,8 @@ var _cFXMLParserGetLineNumber func(parser CFXMLParserRef) int
 
 // CFXMLParserGetLineNumber returns the line number of the current parse location.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetLineNumber
 func CFXMLParserGetLineNumber(parser CFXMLParserRef) int {
 	if _cFXMLParserGetLineNumber == nil {
@@ -9469,6 +9499,8 @@ func CFXMLParserGetLineNumber(parser CFXMLParserRef) int {
 var _cFXMLParserGetLocation func(parser CFXMLParserRef) int
 
 // CFXMLParserGetLocation returns the character index of the current parse location.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetLocation
 func CFXMLParserGetLocation(parser CFXMLParserRef) int {
@@ -9482,6 +9514,8 @@ var _cFXMLParserGetSourceURL func(parser CFXMLParserRef) CFURLRef
 
 // CFXMLParserGetSourceURL returns the URL for the XML data being parsed.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetSourceURL
 func CFXMLParserGetSourceURL(parser CFXMLParserRef) CFURLRef {
 	if _cFXMLParserGetSourceURL == nil {
@@ -9493,6 +9527,8 @@ func CFXMLParserGetSourceURL(parser CFXMLParserRef) CFURLRef {
 var _cFXMLParserGetStatusCode func(parser CFXMLParserRef) CFXMLParserStatusCode
 
 // CFXMLParserGetStatusCode returns a numeric code indicating the current status of the parser.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetStatusCode
 func CFXMLParserGetStatusCode(parser CFXMLParserRef) CFXMLParserStatusCode {
@@ -9506,6 +9542,8 @@ var _cFXMLParserGetTypeID func() uint
 
 // CFXMLParserGetTypeID returns the type identifier for the CFXMLParser opaque type.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetTypeID
 func CFXMLParserGetTypeID() uint {
 	if _cFXMLParserGetTypeID == nil {
@@ -9517,6 +9555,8 @@ func CFXMLParserGetTypeID() uint {
 var _cFXMLParserParse func(parser CFXMLParserRef) bool
 
 // CFXMLParserParse begins a parse of the XML data that was associated with the parser when it was created.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserParse
 func CFXMLParserParse(parser CFXMLParserRef) bool {
@@ -9530,6 +9570,8 @@ var _cFXMLTreeCreateFromData func(allocator CFAllocatorRef, xmlData CFDataRef, d
 
 // CFXMLTreeCreateFromData parses the given XML data and returns the resulting CFXMLTree object.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeCreateFromData
 func CFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) CFXMLTreeRef {
 	if _cFXMLTreeCreateFromData == nil {
@@ -9541,6 +9583,8 @@ func CFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSo
 var _cFXMLTreeCreateFromDataWithError func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, errorDict *CFDictionaryRef) CFXMLTreeRef
 
 // CFXMLTreeCreateFromDataWithError parses the given XML data and returns the resulting CFXMLTree object and any error information.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeCreateFromDataWithError
 func CFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, errorDict *CFDictionaryRef) CFXMLTreeRef {
@@ -9554,6 +9598,8 @@ var _cFXMLTreeCreateWithDataFromURL func(allocator CFAllocatorRef, dataSource CF
 
 // CFXMLTreeCreateWithDataFromURL creates a new CFXMLTree object by loading the data to be parsed directly from a data source.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeCreateWithDataFromURL
 func CFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) CFXMLTreeRef {
 	if _cFXMLTreeCreateWithDataFromURL == nil {
@@ -9565,6 +9611,8 @@ func CFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRe
 var _cFXMLTreeCreateWithNode func(allocator CFAllocatorRef, node unsafe.Pointer) CFXMLTreeRef
 
 // CFXMLTreeCreateWithNode creates a childless, parentless CFXMLTree object node for a CFXMLNode object.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeCreateWithNode
 func CFXMLTreeCreateWithNode(allocator CFAllocatorRef, node unsafe.Pointer) CFXMLTreeRef {
@@ -9578,6 +9626,8 @@ var _cFXMLTreeCreateXMLData func(allocator CFAllocatorRef, xmlTree CFXMLTreeRef)
 
 // CFXMLTreeCreateXMLData generates an XML document from a CFXMLTree object which is ready to be written to permanent storage.
 //
+// Deprecated: Deprecated since macOS 10.8.
+//
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeCreateXMLData
 func CFXMLTreeCreateXMLData(allocator CFAllocatorRef, xmlTree CFXMLTreeRef) CFDataRef {
 	if _cFXMLTreeCreateXMLData == nil {
@@ -9589,6 +9639,8 @@ func CFXMLTreeCreateXMLData(allocator CFAllocatorRef, xmlTree CFXMLTreeRef) CFDa
 var _cFXMLTreeGetNode func(xmlTree CFXMLTreeRef) unsafe.Pointer
 
 // CFXMLTreeGetNode returns the node of a CFXMLTree object.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeGetNode
 func CFXMLTreeGetNode(xmlTree CFXMLTreeRef) unsafe.Pointer {

@@ -36,12 +36,6 @@ func (vc VNDetectTrajectoriesRequestClass) Alloc() VNDetectTrajectoriesRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // A request that detects the trajectories of shapes moving along a parabolic
 // path.
 //
@@ -83,10 +77,6 @@ func VNDetectTrajectoriesRequestFromID(id objc.ID) VNDetectTrajectoriesRequest {
 }
 // NOTE: VNDetectTrajectoriesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNDetectTrajectoriesRequest] class.
 //
@@ -137,10 +127,6 @@ type IVNDetectTrajectoriesRequest interface {
 	VNDetectTrajectoriesRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectTrajectoriesRequest) Init() VNDetectTrajectoriesRequest {
 	rv := objc.Send[VNDetectTrajectoriesRequest](d.ID, objc.Sel("init"))
@@ -160,11 +146,6 @@ func NewVNDetectTrajectoriesRequest() VNDetectTrajectoriesRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -181,7 +162,6 @@ func NewDetectTrajectoriesRequestWithCompletionHandler(completionHandler VNReque
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectTrajectoriesRequestFromID(rv)
 }
-
 
 // Initializes a video-based request.
 //
@@ -203,7 +183,6 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frame
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNDetectTrajectoriesRequestFromID(rv)
 }
-
 
 // Creates a new request to detect trajectories.
 //
@@ -229,12 +208,6 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthComplet
 	return VNDetectTrajectoriesRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new request to detect trajectories.
 //
 // frameAnalysisSpacing: A [CMTime] value that indicates the duration between analysis operations.
@@ -255,22 +228,11 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthComplet
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/init(frameAnalysisSpacing:trajectoryLength:completionHandler:)
 func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing objectivec.IObject, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
 	return VNDetectTrajectoriesRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The requested target frame time for processing trajectory detection.
 //
@@ -298,8 +260,6 @@ func (d VNDetectTrajectoriesRequest) SetTargetFrameTime(value objectivec.IObject
 	objc.Send[struct{}](d.ID, objc.Sel("setTargetFrameTime:"), value)
 }
 
-
-
 // The number of points to detect before calculating a trajectory.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/trajectoryLength
@@ -307,8 +267,6 @@ func (d VNDetectTrajectoriesRequest) TrajectoryLength() int {
 	rv := objc.Send[int](d.ID, objc.Sel("trajectoryLength"))
 	return rv
 }
-
-
 
 // The minimum radius of the bounding circle of the object to track.
 //
@@ -321,8 +279,6 @@ func (d VNDetectTrajectoriesRequest) SetObjectMinimumNormalizedRadius(value floa
 	objc.Send[struct{}](d.ID, objc.Sel("setObjectMinimumNormalizedRadius:"), value)
 }
 
-
-
 // The maximum radius of the bounding circle of the object to track.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/objectMaximumNormalizedRadius
@@ -334,8 +290,6 @@ func (d VNDetectTrajectoriesRequest) SetObjectMaximumNormalizedRadius(value floa
 	objc.Send[struct{}](d.ID, objc.Sel("setObjectMaximumNormalizedRadius:"), value)
 }
 
-
-
 // A constant for specifying revision 1 of the trajectories detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecttrajectoriesrequestrevision1
@@ -343,27 +297,4 @@ func (d VNDetectTrajectoriesRequest) VNDetectTrajectoriesRequestRevision1() int 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectTrajectoriesRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

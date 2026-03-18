@@ -20,7 +20,6 @@ const (
 	KIOSurfaceComponentNameUnknown IOSurfaceComponentName = 0
 )
 
-
 func (e IOSurfaceComponentName) String() string {
 	switch e {
 	case KIOSurfaceComponentNameAlpha:
@@ -44,8 +43,6 @@ func (e IOSurfaceComponentName) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceComponentRange
 type IOSurfaceComponentRange int
 
@@ -55,7 +52,6 @@ const (
 	KIOSurfaceComponentRangeVideoRange IOSurfaceComponentRange = 2
 	KIOSurfaceComponentRangeWideRange IOSurfaceComponentRange = 3
 )
-
 
 func (e IOSurfaceComponentRange) String() string {
 	switch e {
@@ -72,8 +68,6 @@ func (e IOSurfaceComponentRange) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceComponentType
 type IOSurfaceComponentType int
 
@@ -84,7 +78,6 @@ const (
 	KIOSurfaceComponentTypeUnknown IOSurfaceComponentType = 0
 	KIOSurfaceComponentTypeUnsignedInteger IOSurfaceComponentType = 1
 )
-
 
 func (e IOSurfaceComponentType) String() string {
 	switch e {
@@ -103,8 +96,6 @@ func (e IOSurfaceComponentType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceLockOptions
 type IOSurfaceLockOptions int
 
@@ -114,7 +105,6 @@ const (
 	// KIOSurfaceLockReadOnly: # Discussion
 	KIOSurfaceLockReadOnly IOSurfaceLockOptions = 1
 )
-
 
 func (e IOSurfaceLockOptions) String() string {
 	switch e {
@@ -127,15 +117,12 @@ func (e IOSurfaceLockOptions) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceMemoryLedgerFlags
 type IOSurfaceMemoryLedgerFlags int
 
 const (
 	KIOSurfaceMemoryLedgerFlagNoFootprint IOSurfaceMemoryLedgerFlags = 1
 )
-
 
 func (e IOSurfaceMemoryLedgerFlags) String() string {
 	switch e {
@@ -145,8 +132,6 @@ func (e IOSurfaceMemoryLedgerFlags) String() string {
 		return fmt.Sprintf("IOSurfaceMemoryLedgerFlags(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceMemoryLedgerTags
 type IOSurfaceMemoryLedgerTags int
@@ -158,7 +143,6 @@ const (
 	KIOSurfaceMemoryLedgerTagNetwork IOSurfaceMemoryLedgerTags = 2
 	KIOSurfaceMemoryLedgerTagNeural IOSurfaceMemoryLedgerTags = 5
 )
-
 
 func (e IOSurfaceMemoryLedgerTags) String() string {
 	switch e {
@@ -177,8 +161,6 @@ func (e IOSurfaceMemoryLedgerTags) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfacePurgeabilityState
 type IOSurfacePurgeabilityState int
 
@@ -188,7 +170,6 @@ const (
 	KIOSurfacePurgeableNonVolatile IOSurfacePurgeabilityState = 0
 	KIOSurfacePurgeableVolatile IOSurfacePurgeabilityState = 1
 )
-
 
 func (e IOSurfacePurgeabilityState) String() string {
 	switch e {
@@ -205,8 +186,6 @@ func (e IOSurfacePurgeabilityState) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceSubsampling
 type IOSurfaceSubsampling int
 
@@ -217,7 +196,6 @@ const (
 	KIOSurfaceSubsamplingNone IOSurfaceSubsampling = 1
 	KIOSurfaceSubsamplingUnknown IOSurfaceSubsampling = 0
 )
-
 
 func (e IOSurfaceSubsampling) String() string {
 	switch e {
@@ -236,9 +214,6 @@ func (e IOSurfaceSubsampling) String() string {
 	}
 }
 
-
-
-
 type KIOSurface uint
 
 const (
@@ -249,7 +224,6 @@ const (
 	KIOSurfaceWriteCombineCache KIOSurface = 4
 	KIOSurfaceWriteThruCache KIOSurface = 2
 )
-
 
 func (e KIOSurface) String() string {
 	switch e {
@@ -270,9 +244,6 @@ func (e KIOSurface) String() string {
 	}
 }
 
-
-
-
 type KIOSurfaceMap uint
 
 const (
@@ -284,7 +255,6 @@ const (
 	KIOSurfaceMapWriteCombineCache KIOSurfaceMap = 4
 	KIOSurfaceMapWriteThruCache KIOSurfaceMap = 2
 )
-
 
 func (e KIOSurfaceMap) String() string {
 	switch e {
@@ -306,8 +276,4 @@ func (e KIOSurfaceMap) String() string {
 		return fmt.Sprintf("KIOSurfaceMap(%d)", e)
 	}
 }
-
-
-
-
 

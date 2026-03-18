@@ -1070,10 +1070,9 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		fn := config.WillCheckTextInRangeOptionsTypes
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:willCheckTextInRange:options:types:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, viewID objc.ID, range_ foundation.NSRange, optionsID objc.ID, checkingTypesID objc.ID) objc.ID {
+			Fn: func(self objc.ID, _cmd objc.SEL, viewID objc.ID, range_ foundation.NSRange, optionsID objc.ID, checkingTypes *uint64) objc.ID {
 				view := NSTextViewFromID(viewID)
 				options := foundation.NSDictionaryFromID(optionsID)
-				checkingTypes := *uint64FromID(checkingTypesID)
 				return fn(view, range_, options, checkingTypes).GetID()
 			},
 		})

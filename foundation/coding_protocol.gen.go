@@ -19,8 +19,6 @@ type NSCoding interface {
 	EncodeWithCoder(coder INSCoder)
 }
 
-
-
 // NSCodingObject wraps an existing Objective-C object that conforms to the NSCoding protocol.
 type NSCodingObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSCodingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCodingObjectFromID constructs a [NSCodingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCodingObjectFromID(id objc.ID) NSCodingObject {
@@ -38,9 +34,6 @@ func NSCodingObjectFromID(id objc.ID) NSCodingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Encodes the receiver using a given archiver.
 //
@@ -52,10 +45,4 @@ func (o NSCodingObject) EncodeWithCoder(coder INSCoder) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
 	}
-
-
-
-
-
-
 

@@ -39,12 +39,6 @@ func (vc VNTranslationalImageRegistrationRequestClass) Alloc() VNTranslationalIm
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that determines the affine transform necessary to
 // align the content of two images.
 //
@@ -68,20 +62,12 @@ func VNTranslationalImageRegistrationRequestFromID(id objc.ID) VNTranslationalIm
 // NOTE: VNTranslationalImageRegistrationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNTranslationalImageRegistrationRequest] class.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTranslationalImageRegistrationRequest
 type IVNTranslationalImageRegistrationRequest interface {
 	IVNImageRegistrationRequest
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t VNTranslationalImageRegistrationRequest) Init() VNTranslationalImageRegistrationRequest {
@@ -102,11 +88,6 @@ func NewVNTranslationalImageRegistrationRequest() VNTranslationalImageRegistrati
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -124,7 +105,6 @@ func NewTranslationalImageRegistrationRequestWithCompletionHandler(completionHan
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting a Core Graphics image.
 //
 // cgImage: The targeted Core Graphics image.
@@ -137,7 +117,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCGImageOptions(cgImage 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:"), cgImage, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image, executing the
 // completion handler when done.
@@ -154,7 +133,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCGImageOptionsCompletio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, completionHandler)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image of known orientation.
 //
@@ -175,7 +153,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCGImageOrientationOptio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image of known orientation,
 // executing the completion handler when done.
@@ -200,7 +177,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCGImageOrientationOptio
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
@@ -216,7 +192,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCIImageOptions(ciImage 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image.
 //
@@ -235,7 +210,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCIImageOptionsCompletio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image of known orientation.
 //
@@ -259,7 +233,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCIImageOrientationOptio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image of known orientation,
 // executing the completion handler when done.
@@ -287,7 +260,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCIImageOrientationOptio
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request that targets an image in a sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
@@ -303,7 +275,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCMSampleBufferOptions(s
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:"), sampleBuffer, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request with a completion handler that targets an image in a
 // sample buffer.
@@ -323,7 +294,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCMSampleBufferOptionsCo
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, completionHandler)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request that targets an image of a known orientation in a
 // sample buffer.
@@ -347,7 +317,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCMSampleBufferOrientati
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request with a completion handler that targets an image of a
 // known orientation in a sample buffer.
@@ -374,7 +343,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCMSampleBufferOrientati
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image in a pixel buffer.
 //
 // pixelBuffer: The pixel buffer containing the targeted image.
@@ -387,7 +355,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCVPixelBufferOptions(pi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:"), pixelBuffer, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer.
 //
@@ -403,7 +370,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCVPixelBufferOptionsCom
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, completionHandler)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer of known
 // orientation.
@@ -425,7 +391,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCVPixelBufferOrientatio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer of known
 // orientation.
@@ -450,7 +415,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedCVPixelBufferOrientatio
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image as raw data.
 //
 // imageData: The data containing the targeted image.
@@ -463,7 +427,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedImageDataOptions(imageD
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:"), imageData, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image as raw data, executing the
 // completion handler when done.
@@ -480,7 +443,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedImageDataOptionsComplet
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, completionHandler)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a raw data image of known orientation.
 //
@@ -501,7 +463,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedImageDataOrientationOpt
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a raw data image of known orientation,
 // executing the completion handler when done.
@@ -526,7 +487,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedImageDataOrientationOpt
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image at the specified URL.
 //
 // imageURL: The URL of the targeted image.
@@ -539,7 +499,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedImageURLOptions(imageUR
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:"), imageURL, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image at the specified URL, executing
 // the completion handler when done.
@@ -556,7 +515,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedImageURLOptionsCompleti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, completionHandler)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image of known orientation, at the
 // specified URL.
@@ -578,7 +536,6 @@ func NewTranslationalImageRegistrationRequestWithTargetedImageURLOrientationOpti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:"), imageURL, orientation, options)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image of known orientation, at the
 // specified URL, executing the completion handler when done.
@@ -602,42 +559,4 @@ func NewTranslationalImageRegistrationRequestWithTargetedImageURLOrientationOpti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, completionHandler)
 	return VNTranslationalImageRegistrationRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

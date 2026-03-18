@@ -36,12 +36,6 @@ func (uc URLSessionTaskMetricsClass) Alloc() URLSessionTaskMetrics {
 	return rv
 }
 
-
-
-
-
-
-
 // An object encapsulating the metrics for a session task.
 //
 // # Overview
@@ -65,17 +59,13 @@ type URLSessionTaskMetrics struct {
 //
 // An object encapsulating the metrics for a session task.
 func URLSessionTaskMetricsFromID(id objc.ID) URLSessionTaskMetrics {
-	return NSURLSessionTaskMetrics{objectivec.Object{id}}
+	return NSURLSessionTaskMetrics{objectivec.Object{ID: id}}
 }
 
 // NSURLSessionTaskMetricsFromID is an alias for [URLSessionTaskMetricsFromID] for cross-framework compatibility.
 func NSURLSessionTaskMetricsFromID(id objc.ID) URLSessionTaskMetrics { return URLSessionTaskMetricsFromID(id) }
 // NOTE: URLSessionTaskMetrics adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLSessionTaskMetrics] class.
 //
@@ -99,10 +89,6 @@ type IURLSessionTaskMetrics interface {
 	RedirectCount() uint
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u URLSessionTaskMetrics) Init() URLSessionTaskMetrics {
 	rv := objc.Send[URLSessionTaskMetrics](u.ID, objc.Sel("init"))
@@ -122,26 +108,6 @@ func NewURLSessionTaskMetrics() URLSessionTaskMetrics {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // An array of metrics for each individual request-response transaction made
 // during the execution of the task.
 //
@@ -153,8 +119,6 @@ func (u URLSessionTaskMetrics) TransactionMetrics() []NSURLSessionTaskTransactio
 	})
 }
 
-
-
 // The time interval between when a task is instantiated and when the task is
 // completed.
 //
@@ -164,8 +128,6 @@ func (u URLSessionTaskMetrics) TaskInterval() INSDateInterval {
 	return NSDateIntervalFromID(objc.ID(rv))
 }
 
-
-
 // The number of redirects that occurred during the execution of the task.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskMetrics/redirectCount
@@ -173,28 +135,4 @@ func (u URLSessionTaskMetrics) RedirectCount() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("redirectCount"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

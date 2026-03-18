@@ -133,36 +133,36 @@ func AuthorizationMakeExternalForm(authorization AuthorizationRef, extForm *Auth
 	return _authorizationMakeExternalForm(authorization, extForm)
 }
 
-var _authorizationRightGet func(rightName *byte, rightDefinition *corefoundation.CFDictionaryRef) int32
+var _authorizationRightGet func(rightName string, rightDefinition *corefoundation.CFDictionaryRef) int32
 
 // AuthorizationRightGet retrieves a right definition as a dictionary.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationRightGet(_:_:)
-func AuthorizationRightGet(rightName *byte, rightDefinition *corefoundation.CFDictionaryRef) int32 {
+func AuthorizationRightGet(rightName string, rightDefinition *corefoundation.CFDictionaryRef) int32 {
 	if _authorizationRightGet == nil {
 		panic("Security: symbol AuthorizationRightGet not loaded")
 	}
 	return _authorizationRightGet(rightName, rightDefinition)
 }
 
-var _authorizationRightRemove func(authRef AuthorizationRef, rightName *byte) int32
+var _authorizationRightRemove func(authRef AuthorizationRef, rightName string) int32
 
 // AuthorizationRightRemove removes a right from the policy database.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationRightRemove(_:_:)
-func AuthorizationRightRemove(authRef AuthorizationRef, rightName *byte) int32 {
+func AuthorizationRightRemove(authRef AuthorizationRef, rightName string) int32 {
 	if _authorizationRightRemove == nil {
 		panic("Security: symbol AuthorizationRightRemove not loaded")
 	}
 	return _authorizationRightRemove(authRef, rightName)
 }
 
-var _authorizationRightSet func(authRef AuthorizationRef, rightName *byte, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundle, localeTableName corefoundation.CFStringRef) int32
+var _authorizationRightSet func(authRef AuthorizationRef, rightName string, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundle, localeTableName corefoundation.CFStringRef) int32
 
 // AuthorizationRightSet creates or updates a right entry in the policy database.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationRightSet(_:_:_:_:_:_:)
-func AuthorizationRightSet(authRef AuthorizationRef, rightName *byte, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundle, localeTableName corefoundation.CFStringRef) int32 {
+func AuthorizationRightSet(authRef AuthorizationRef, rightName string, rightDefinition corefoundation.CFTypeRef, descriptionKey corefoundation.CFStringRef, bundle corefoundation.CFBundle, localeTableName corefoundation.CFStringRef) int32 {
 	if _authorizationRightSet == nil {
 		panic("Security: symbol AuthorizationRightSet not loaded")
 	}
@@ -377,6 +377,8 @@ var _cMSDecoderSetSearchKeychain func(cmsDecoder CMSDecoderRef, keychainOrArray 
 
 // CMSDecoderSetSearchKeychain specifies the keychains to search for intermediate certificates to be used in verifying a signed message’s signer certificates.
 //
+// Deprecated: Deprecated since macOS 10.13.
+//
 // See: https://developer.apple.com/documentation/Security/CMSDecoderSetSearchKeychain(_:_:)
 func CMSDecoderSetSearchKeychain(cmsDecoder CMSDecoderRef, keychainOrArray corefoundation.CFTypeRef) int32 {
 	if _cMSDecoderSetSearchKeychain == nil {
@@ -400,6 +402,8 @@ func CMSDecoderUpdateMessage(cmsDecoder CMSDecoderRef, msgBytes unsafe.Pointer, 
 var _cMSEncode func(signers corefoundation.CFTypeRef, recipients corefoundation.CFTypeRef, eContentType unsafe.Pointer, detachedContent bool, signedAttributes CMSSignedAttributes, content unsafe.Pointer, contentLen uintptr, encodedContentOut *corefoundation.CFDataRef) int32
 
 // CMSEncode encodes a message and obtains the result in one high-level function call.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CMSEncode
 func CMSEncode(signers corefoundation.CFTypeRef, recipients corefoundation.CFTypeRef, eContentType unsafe.Pointer, detachedContent bool, signedAttributes CMSSignedAttributes, content unsafe.Pointer, contentLen uintptr, encodedContentOut *corefoundation.CFDataRef) int32 {
@@ -617,6 +621,8 @@ var _cMSEncoderSetEncapsulatedContentType func(cmsEncoder CMSEncoderRef, eConten
 
 // CMSEncoderSetEncapsulatedContentType specifies an object identifier for the encapsulated data of a signed message.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CMSEncoderSetEncapsulatedContentType
 func CMSEncoderSetEncapsulatedContentType(cmsEncoder CMSEncoderRef, eContentType unsafe.Pointer) int32 {
 	if _cMSEncoderSetEncapsulatedContentType == nil {
@@ -677,6 +683,8 @@ var _cSSM_AC_AuthCompute func(ACHandle CSSM_AC_HANDLE, BaseAuthorizations unsafe
 
 // CSSM_AC_AuthCompute.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_AC_AuthCompute
 func CSSM_AC_AuthCompute(ACHandle CSSM_AC_HANDLE, BaseAuthorizations unsafe.Pointer, Credentials unsafe.Pointer, NumberOfRequestors uint32, Requestors unsafe.Pointer, RequestedAuthorizationPeriod unsafe.Pointer, RequestedAuthorization unsafe.Pointer, AuthorizationResult unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_AC_AuthCompute == nil {
@@ -688,6 +696,8 @@ func CSSM_AC_AuthCompute(ACHandle CSSM_AC_HANDLE, BaseAuthorizations unsafe.Poin
 var _cSSM_AC_PassThrough func(ACHandle CSSM_AC_HANDLE, TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, DBList unsafe.Pointer, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN
 
 // CSSM_AC_PassThrough.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_AC_PassThrough
 func CSSM_AC_PassThrough(ACHandle CSSM_AC_HANDLE, TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, DBList unsafe.Pointer, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN {
@@ -701,6 +711,8 @@ var _cSSM_CL_CertAbortCache func(CLHandle CSSM_CL_HANDLE, CertHandle CSSM_HANDLE
 
 // CSSM_CL_CertAbortCache.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertAbortCache
 func CSSM_CL_CertAbortCache(CLHandle CSSM_CL_HANDLE, CertHandle CSSM_HANDLE) CSSM_RETURN {
 	if _cSSM_CL_CertAbortCache == nil {
@@ -712,6 +724,8 @@ func CSSM_CL_CertAbortCache(CLHandle CSSM_CL_HANDLE, CertHandle CSSM_HANDLE) CSS
 var _cSSM_CL_CertAbortQuery func(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE) CSSM_RETURN
 
 // CSSM_CL_CertAbortQuery.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertAbortQuery
 func CSSM_CL_CertAbortQuery(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE) CSSM_RETURN {
@@ -725,6 +739,8 @@ var _cSSM_CL_CertCache func(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, CertHa
 
 // CSSM_CL_CertCache.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertCache
 func CSSM_CL_CertCache(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, CertHandle CSSM_HANDLE_PTR) CSSM_RETURN {
 	if _cSSM_CL_CertCache == nil {
@@ -736,6 +752,8 @@ func CSSM_CL_CertCache(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, CertHandle 
 var _cSSM_CL_CertCreateTemplate func(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CertFields unsafe.Pointer, CertTemplate unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CertCreateTemplate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertCreateTemplate
 func CSSM_CL_CertCreateTemplate(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CertFields unsafe.Pointer, CertTemplate unsafe.Pointer) CSSM_RETURN {
@@ -749,6 +767,8 @@ var _cSSM_CL_CertDescribeFormat func(CLHandle CSSM_CL_HANDLE, NumberOfFields *ui
 
 // CSSM_CL_CertDescribeFormat.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertDescribeFormat
 func CSSM_CL_CertDescribeFormat(CLHandle CSSM_CL_HANDLE, NumberOfFields *uint32, OidList unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CertDescribeFormat == nil {
@@ -760,6 +780,8 @@ func CSSM_CL_CertDescribeFormat(CLHandle CSSM_CL_HANDLE, NumberOfFields *uint32,
 var _cSSM_CL_CertGetAllFields func(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, NumberOfFields *uint32, CertFields unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CertGetAllFields.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGetAllFields
 func CSSM_CL_CertGetAllFields(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, NumberOfFields *uint32, CertFields unsafe.Pointer) CSSM_RETURN {
@@ -773,6 +795,8 @@ var _cSSM_CL_CertGetAllTemplateFields func(CLHandle CSSM_CL_HANDLE, CertTemplate
 
 // CSSM_CL_CertGetAllTemplateFields.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGetAllTemplateFields
 func CSSM_CL_CertGetAllTemplateFields(CLHandle CSSM_CL_HANDLE, CertTemplate unsafe.Pointer, NumberOfFields *uint32, CertFields unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CertGetAllTemplateFields == nil {
@@ -784,6 +808,8 @@ func CSSM_CL_CertGetAllTemplateFields(CLHandle CSSM_CL_HANDLE, CertTemplate unsa
 var _cSSM_CL_CertGetFirstCachedFieldValue func(CLHandle CSSM_CL_HANDLE, CertHandle CSSM_HANDLE, CertField unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, NumberOfMatchedFields *uint32, Value unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CertGetFirstCachedFieldValue.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGetFirstCachedFieldValue
 func CSSM_CL_CertGetFirstCachedFieldValue(CLHandle CSSM_CL_HANDLE, CertHandle CSSM_HANDLE, CertField unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, NumberOfMatchedFields *uint32, Value unsafe.Pointer) CSSM_RETURN {
@@ -797,6 +823,8 @@ var _cSSM_CL_CertGetFirstFieldValue func(CLHandle CSSM_CL_HANDLE, Cert unsafe.Po
 
 // CSSM_CL_CertGetFirstFieldValue.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGetFirstFieldValue
 func CSSM_CL_CertGetFirstFieldValue(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, CertField unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, NumberOfMatchedFields *uint32, Value unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CertGetFirstFieldValue == nil {
@@ -808,6 +836,8 @@ func CSSM_CL_CertGetFirstFieldValue(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer
 var _cSSM_CL_CertGetKeyInfo func(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, Key unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CertGetKeyInfo.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGetKeyInfo
 func CSSM_CL_CertGetKeyInfo(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, Key unsafe.Pointer) CSSM_RETURN {
@@ -821,6 +851,8 @@ var _cSSM_CL_CertGetNextCachedFieldValue func(CLHandle CSSM_CL_HANDLE, ResultsHa
 
 // CSSM_CL_CertGetNextCachedFieldValue.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGetNextCachedFieldValue
 func CSSM_CL_CertGetNextCachedFieldValue(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE, Value unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CertGetNextCachedFieldValue == nil {
@@ -832,6 +864,8 @@ func CSSM_CL_CertGetNextCachedFieldValue(CLHandle CSSM_CL_HANDLE, ResultsHandle 
 var _cSSM_CL_CertGetNextFieldValue func(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE, Value unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CertGetNextFieldValue.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGetNextFieldValue
 func CSSM_CL_CertGetNextFieldValue(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE, Value unsafe.Pointer) CSSM_RETURN {
@@ -845,6 +879,8 @@ var _cSSM_CL_CertGroupFromVerifiedBundle func(CLHandle CSSM_CL_HANDLE, CCHandle 
 
 // CSSM_CL_CertGroupFromVerifiedBundle.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGroupFromVerifiedBundle
 func CSSM_CL_CertGroupFromVerifiedBundle(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertBundle unsafe.Pointer, SignerCert unsafe.Pointer, CertGroup unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CertGroupFromVerifiedBundle == nil {
@@ -856,6 +892,8 @@ func CSSM_CL_CertGroupFromVerifiedBundle(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_
 var _cSSM_CL_CertGroupToSignedBundle func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertGroupToBundle unsafe.Pointer, BundleInfo unsafe.Pointer, SignedBundle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CertGroupToSignedBundle.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertGroupToSignedBundle
 func CSSM_CL_CertGroupToSignedBundle(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertGroupToBundle unsafe.Pointer, BundleInfo unsafe.Pointer, SignedBundle unsafe.Pointer) CSSM_RETURN {
@@ -869,6 +907,8 @@ var _cSSM_CL_CertSign func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, Cer
 
 // CSSM_CL_CertSign.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertSign
 func CSSM_CL_CertSign(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertTemplate unsafe.Pointer, SignScope unsafe.Pointer, ScopeSize uint32, SignedCert unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CertSign == nil {
@@ -880,6 +920,8 @@ func CSSM_CL_CertSign(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertTemp
 var _cSSM_CL_CertVerify func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertToBeVerified unsafe.Pointer, SignerCert unsafe.Pointer, VerifyScope unsafe.Pointer, ScopeSize uint32) CSSM_RETURN
 
 // CSSM_CL_CertVerify.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertVerify
 func CSSM_CL_CertVerify(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertToBeVerified unsafe.Pointer, SignerCert unsafe.Pointer, VerifyScope unsafe.Pointer, ScopeSize uint32) CSSM_RETURN {
@@ -893,6 +935,8 @@ var _cSSM_CL_CertVerifyWithKey func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HA
 
 // CSSM_CL_CertVerifyWithKey.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CertVerifyWithKey
 func CSSM_CL_CertVerifyWithKey(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertToBeVerified unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CertVerifyWithKey == nil {
@@ -904,6 +948,8 @@ func CSSM_CL_CertVerifyWithKey(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE,
 var _cSSM_CL_CrlAbortCache func(CLHandle CSSM_CL_HANDLE, CrlHandle CSSM_HANDLE) CSSM_RETURN
 
 // CSSM_CL_CrlAbortCache.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlAbortCache
 func CSSM_CL_CrlAbortCache(CLHandle CSSM_CL_HANDLE, CrlHandle CSSM_HANDLE) CSSM_RETURN {
@@ -917,6 +963,8 @@ var _cSSM_CL_CrlAbortQuery func(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HAND
 
 // CSSM_CL_CrlAbortQuery.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlAbortQuery
 func CSSM_CL_CrlAbortQuery(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE) CSSM_RETURN {
 	if _cSSM_CL_CrlAbortQuery == nil {
@@ -928,6 +976,8 @@ func CSSM_CL_CrlAbortQuery(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE) C
 var _cSSM_CL_CrlAddCert func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, Cert unsafe.Pointer, NumberOfFields uint32, CrlEntryFields unsafe.Pointer, OldCrl unsafe.Pointer, NewCrl unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CrlAddCert.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlAddCert
 func CSSM_CL_CrlAddCert(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, Cert unsafe.Pointer, NumberOfFields uint32, CrlEntryFields unsafe.Pointer, OldCrl unsafe.Pointer, NewCrl unsafe.Pointer) CSSM_RETURN {
@@ -941,6 +991,8 @@ var _cSSM_CL_CrlCache func(CLHandle CSSM_CL_HANDLE, Crl unsafe.Pointer, CrlHandl
 
 // CSSM_CL_CrlCache.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlCache
 func CSSM_CL_CrlCache(CLHandle CSSM_CL_HANDLE, Crl unsafe.Pointer, CrlHandle CSSM_HANDLE_PTR) CSSM_RETURN {
 	if _cSSM_CL_CrlCache == nil {
@@ -952,6 +1004,8 @@ func CSSM_CL_CrlCache(CLHandle CSSM_CL_HANDLE, Crl unsafe.Pointer, CrlHandle CSS
 var _cSSM_CL_CrlCreateTemplate func(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CrlTemplate unsafe.Pointer, NewCrl unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CrlCreateTemplate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlCreateTemplate
 func CSSM_CL_CrlCreateTemplate(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CrlTemplate unsafe.Pointer, NewCrl unsafe.Pointer) CSSM_RETURN {
@@ -965,6 +1019,8 @@ var _cSSM_CL_CrlDescribeFormat func(CLHandle CSSM_CL_HANDLE, NumberOfFields *uin
 
 // CSSM_CL_CrlDescribeFormat.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlDescribeFormat
 func CSSM_CL_CrlDescribeFormat(CLHandle CSSM_CL_HANDLE, NumberOfFields *uint32, OidList unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CrlDescribeFormat == nil {
@@ -976,6 +1032,8 @@ func CSSM_CL_CrlDescribeFormat(CLHandle CSSM_CL_HANDLE, NumberOfFields *uint32, 
 var _cSSM_CL_CrlGetAllCachedRecordFields func(CLHandle CSSM_CL_HANDLE, CrlHandle CSSM_HANDLE, CrlRecordIndex unsafe.Pointer, NumberOfFields *uint32, CrlFields unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CrlGetAllCachedRecordFields.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlGetAllCachedRecordFields
 func CSSM_CL_CrlGetAllCachedRecordFields(CLHandle CSSM_CL_HANDLE, CrlHandle CSSM_HANDLE, CrlRecordIndex unsafe.Pointer, NumberOfFields *uint32, CrlFields unsafe.Pointer) CSSM_RETURN {
@@ -989,6 +1047,8 @@ var _cSSM_CL_CrlGetAllFields func(CLHandle CSSM_CL_HANDLE, Crl unsafe.Pointer, N
 
 // CSSM_CL_CrlGetAllFields.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlGetAllFields
 func CSSM_CL_CrlGetAllFields(CLHandle CSSM_CL_HANDLE, Crl unsafe.Pointer, NumberOfCrlFields *uint32, CrlFields unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CrlGetAllFields == nil {
@@ -1000,6 +1060,8 @@ func CSSM_CL_CrlGetAllFields(CLHandle CSSM_CL_HANDLE, Crl unsafe.Pointer, Number
 var _cSSM_CL_CrlGetFirstCachedFieldValue func(CLHandle CSSM_CL_HANDLE, CrlHandle CSSM_HANDLE, CrlRecordIndex unsafe.Pointer, CrlField unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, NumberOfMatchedFields *uint32, Value unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CrlGetFirstCachedFieldValue.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlGetFirstCachedFieldValue
 func CSSM_CL_CrlGetFirstCachedFieldValue(CLHandle CSSM_CL_HANDLE, CrlHandle CSSM_HANDLE, CrlRecordIndex unsafe.Pointer, CrlField unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, NumberOfMatchedFields *uint32, Value unsafe.Pointer) CSSM_RETURN {
@@ -1013,6 +1075,8 @@ var _cSSM_CL_CrlGetFirstFieldValue func(CLHandle CSSM_CL_HANDLE, Crl unsafe.Poin
 
 // CSSM_CL_CrlGetFirstFieldValue.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlGetFirstFieldValue
 func CSSM_CL_CrlGetFirstFieldValue(CLHandle CSSM_CL_HANDLE, Crl unsafe.Pointer, CrlField unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, NumberOfMatchedFields *uint32, Value unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CrlGetFirstFieldValue == nil {
@@ -1024,6 +1088,8 @@ func CSSM_CL_CrlGetFirstFieldValue(CLHandle CSSM_CL_HANDLE, Crl unsafe.Pointer, 
 var _cSSM_CL_CrlGetNextCachedFieldValue func(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE, Value unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CrlGetNextCachedFieldValue.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlGetNextCachedFieldValue
 func CSSM_CL_CrlGetNextCachedFieldValue(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE, Value unsafe.Pointer) CSSM_RETURN {
@@ -1037,6 +1103,8 @@ var _cSSM_CL_CrlGetNextFieldValue func(CLHandle CSSM_CL_HANDLE, ResultsHandle CS
 
 // CSSM_CL_CrlGetNextFieldValue.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlGetNextFieldValue
 func CSSM_CL_CrlGetNextFieldValue(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HANDLE, Value unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CrlGetNextFieldValue == nil {
@@ -1048,6 +1116,8 @@ func CSSM_CL_CrlGetNextFieldValue(CLHandle CSSM_CL_HANDLE, ResultsHandle CSSM_HA
 var _cSSM_CL_CrlRemoveCert func(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, OldCrl unsafe.Pointer, NewCrl unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CrlRemoveCert.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlRemoveCert
 func CSSM_CL_CrlRemoveCert(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, OldCrl unsafe.Pointer, NewCrl unsafe.Pointer) CSSM_RETURN {
@@ -1061,6 +1131,8 @@ var _cSSM_CL_CrlSetFields func(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, C
 
 // CSSM_CL_CrlSetFields.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlSetFields
 func CSSM_CL_CrlSetFields(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CrlTemplate unsafe.Pointer, OldCrl unsafe.Pointer, ModifiedCrl unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_CrlSetFields == nil {
@@ -1072,6 +1144,8 @@ func CSSM_CL_CrlSetFields(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CrlTem
 var _cSSM_CL_CrlSign func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, UnsignedCrl unsafe.Pointer, SignScope unsafe.Pointer, ScopeSize uint32, SignedCrl unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CrlSign.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlSign
 func CSSM_CL_CrlSign(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, UnsignedCrl unsafe.Pointer, SignScope unsafe.Pointer, ScopeSize uint32, SignedCrl unsafe.Pointer) CSSM_RETURN {
@@ -1085,6 +1159,8 @@ var _cSSM_CL_CrlVerify func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, Cr
 
 // CSSM_CL_CrlVerify.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlVerify
 func CSSM_CL_CrlVerify(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CrlToBeVerified unsafe.Pointer, SignerCert unsafe.Pointer, VerifyScope unsafe.Pointer, ScopeSize uint32) CSSM_RETURN {
 	if _cSSM_CL_CrlVerify == nil {
@@ -1096,6 +1172,8 @@ func CSSM_CL_CrlVerify(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CrlToBe
 var _cSSM_CL_CrlVerifyWithKey func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CrlToBeVerified unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_CrlVerifyWithKey.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_CrlVerifyWithKey
 func CSSM_CL_CrlVerifyWithKey(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CrlToBeVerified unsafe.Pointer) CSSM_RETURN {
@@ -1109,6 +1187,8 @@ var _cSSM_CL_FreeFieldValue func(CLHandle CSSM_CL_HANDLE, CertOrCrlOid unsafe.Po
 
 // CSSM_CL_FreeFieldValue.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_FreeFieldValue
 func CSSM_CL_FreeFieldValue(CLHandle CSSM_CL_HANDLE, CertOrCrlOid unsafe.Pointer, Value unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_FreeFieldValue == nil {
@@ -1120,6 +1200,8 @@ func CSSM_CL_FreeFieldValue(CLHandle CSSM_CL_HANDLE, CertOrCrlOid unsafe.Pointer
 var _cSSM_CL_FreeFields func(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, Fields unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_FreeFields.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_FreeFields
 func CSSM_CL_FreeFields(CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, Fields unsafe.Pointer) CSSM_RETURN {
@@ -1133,6 +1215,8 @@ var _cSSM_CL_IsCertInCachedCrl func(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer
 
 // CSSM_CL_IsCertInCachedCrl.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_IsCertInCachedCrl
 func CSSM_CL_IsCertInCachedCrl(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, CrlHandle CSSM_HANDLE, CertFound unsafe.Pointer, CrlRecordIndex unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_IsCertInCachedCrl == nil {
@@ -1144,6 +1228,8 @@ func CSSM_CL_IsCertInCachedCrl(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, Crl
 var _cSSM_CL_IsCertInCrl func(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, Crl unsafe.Pointer, CertFound unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CL_IsCertInCrl.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_IsCertInCrl
 func CSSM_CL_IsCertInCrl(CLHandle CSSM_CL_HANDLE, Cert unsafe.Pointer, Crl unsafe.Pointer, CertFound unsafe.Pointer) CSSM_RETURN {
@@ -1157,6 +1243,8 @@ var _cSSM_CL_PassThrough func(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, 
 
 // CSSM_CL_PassThrough.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_PassThrough
 func CSSM_CL_PassThrough(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CL_PassThrough == nil {
@@ -1168,6 +1256,8 @@ func CSSM_CL_PassThrough(CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, PassT
 var _cSSM_CSP_ChangeLoginAcl func(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_ChangeLoginAcl.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_ChangeLoginAcl
 func CSSM_CSP_ChangeLoginAcl(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) CSSM_RETURN {
@@ -1181,6 +1271,8 @@ var _cSSM_CSP_ChangeLoginOwner func(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe
 
 // CSSM_CSP_ChangeLoginOwner.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_ChangeLoginOwner
 func CSSM_CSP_ChangeLoginOwner(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, NewOwner unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CSP_ChangeLoginOwner == nil {
@@ -1192,6 +1284,8 @@ func CSSM_CSP_ChangeLoginOwner(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Poin
 var _cSSM_CSP_CreateAsymmetricContext func(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, AccessCred unsafe.Pointer, Key unsafe.Pointer, Padding CSSM_PADDING, NewContextHandle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_CreateAsymmetricContext.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreateAsymmetricContext
 func CSSM_CSP_CreateAsymmetricContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, AccessCred unsafe.Pointer, Key unsafe.Pointer, Padding CSSM_PADDING, NewContextHandle unsafe.Pointer) CSSM_RETURN {
@@ -1205,6 +1299,8 @@ var _cSSM_CSP_CreateDeriveKeyContext func(CSPHandle CSSM_CSP_HANDLE, AlgorithmID
 
 // CSSM_CSP_CreateDeriveKeyContext.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreateDeriveKeyContext
 func CSSM_CSP_CreateDeriveKeyContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, DeriveKeyType CSSM_KEY_TYPE, DeriveKeyLengthInBits uint32, AccessCred unsafe.Pointer, BaseKey unsafe.Pointer, IterationCount uint32, Salt unsafe.Pointer, Seed unsafe.Pointer, NewContextHandle unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CSP_CreateDeriveKeyContext == nil {
@@ -1216,6 +1312,8 @@ func CSSM_CSP_CreateDeriveKeyContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM
 var _cSSM_CSP_CreateDigestContext func(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, NewContextHandle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_CreateDigestContext.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreateDigestContext
 func CSSM_CSP_CreateDigestContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, NewContextHandle unsafe.Pointer) CSSM_RETURN {
@@ -1229,6 +1327,8 @@ var _cSSM_CSP_CreateKeyGenContext func(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CS
 
 // CSSM_CSP_CreateKeyGenContext.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreateKeyGenContext
 func CSSM_CSP_CreateKeyGenContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, KeySizeInBits uint32, Seed unsafe.Pointer, Salt unsafe.Pointer, StartDate unsafe.Pointer, EndDate unsafe.Pointer, Params unsafe.Pointer, NewContextHandle unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CSP_CreateKeyGenContext == nil {
@@ -1240,6 +1340,8 @@ func CSSM_CSP_CreateKeyGenContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_AL
 var _cSSM_CSP_CreateMacContext func(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, Key unsafe.Pointer, NewContextHandle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_CreateMacContext.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreateMacContext
 func CSSM_CSP_CreateMacContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, Key unsafe.Pointer, NewContextHandle unsafe.Pointer) CSSM_RETURN {
@@ -1253,6 +1355,8 @@ var _cSSM_CSP_CreatePassThroughContext func(CSPHandle CSSM_CSP_HANDLE, Key unsaf
 
 // CSSM_CSP_CreatePassThroughContext.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreatePassThroughContext
 func CSSM_CSP_CreatePassThroughContext(CSPHandle CSSM_CSP_HANDLE, Key unsafe.Pointer, NewContextHandle unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CSP_CreatePassThroughContext == nil {
@@ -1264,6 +1368,8 @@ func CSSM_CSP_CreatePassThroughContext(CSPHandle CSSM_CSP_HANDLE, Key unsafe.Poi
 var _cSSM_CSP_CreateRandomGenContext func(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, Seed unsafe.Pointer, Length CSSM_SIZE, NewContextHandle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_CreateRandomGenContext.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreateRandomGenContext
 func CSSM_CSP_CreateRandomGenContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, Seed unsafe.Pointer, Length CSSM_SIZE, NewContextHandle unsafe.Pointer) CSSM_RETURN {
@@ -1277,6 +1383,8 @@ var _cSSM_CSP_CreateSignatureContext func(CSPHandle CSSM_CSP_HANDLE, AlgorithmID
 
 // CSSM_CSP_CreateSignatureContext.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreateSignatureContext
 func CSSM_CSP_CreateSignatureContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, AccessCred unsafe.Pointer, Key unsafe.Pointer, NewContextHandle unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CSP_CreateSignatureContext == nil {
@@ -1288,6 +1396,8 @@ func CSSM_CSP_CreateSignatureContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM
 var _cSSM_CSP_CreateSymmetricContext func(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, Mode CSSM_ENCRYPT_MODE, AccessCred unsafe.Pointer, Key unsafe.Pointer, InitVector unsafe.Pointer, Padding CSSM_PADDING, Reserved unsafe.Pointer, NewContextHandle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_CreateSymmetricContext.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_CreateSymmetricContext
 func CSSM_CSP_CreateSymmetricContext(CSPHandle CSSM_CSP_HANDLE, AlgorithmID CSSM_ALGORITHMS, Mode CSSM_ENCRYPT_MODE, AccessCred unsafe.Pointer, Key unsafe.Pointer, InitVector unsafe.Pointer, Padding CSSM_PADDING, Reserved unsafe.Pointer, NewContextHandle unsafe.Pointer) CSSM_RETURN {
@@ -1301,6 +1411,8 @@ var _cSSM_CSP_GetLoginAcl func(CSPHandle CSSM_CSP_HANDLE, SelectionTag unsafe.Po
 
 // CSSM_CSP_GetLoginAcl.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_GetLoginAcl
 func CSSM_CSP_GetLoginAcl(CSPHandle CSSM_CSP_HANDLE, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CSP_GetLoginAcl == nil {
@@ -1312,6 +1424,8 @@ func CSSM_CSP_GetLoginAcl(CSPHandle CSSM_CSP_HANDLE, SelectionTag unsafe.Pointer
 var _cSSM_CSP_GetLoginOwner func(CSPHandle CSSM_CSP_HANDLE, Owner unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_GetLoginOwner.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_GetLoginOwner
 func CSSM_CSP_GetLoginOwner(CSPHandle CSSM_CSP_HANDLE, Owner unsafe.Pointer) CSSM_RETURN {
@@ -1325,6 +1439,8 @@ var _cSSM_CSP_GetOperationalStatistics func(CSPHandle CSSM_CSP_HANDLE, Statistic
 
 // CSSM_CSP_GetOperationalStatistics.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_GetOperationalStatistics
 func CSSM_CSP_GetOperationalStatistics(CSPHandle CSSM_CSP_HANDLE, Statistics unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CSP_GetOperationalStatistics == nil {
@@ -1336,6 +1452,8 @@ func CSSM_CSP_GetOperationalStatistics(CSPHandle CSSM_CSP_HANDLE, Statistics uns
 var _cSSM_CSP_Login func(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, LoginName unsafe.Pointer, Reserved unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_Login.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_Login
 func CSSM_CSP_Login(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, LoginName unsafe.Pointer, Reserved unsafe.Pointer) CSSM_RETURN {
@@ -1349,6 +1467,8 @@ var _cSSM_CSP_Logout func(CSPHandle CSSM_CSP_HANDLE) CSSM_RETURN
 
 // CSSM_CSP_Logout.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_Logout
 func CSSM_CSP_Logout(CSPHandle CSSM_CSP_HANDLE) CSSM_RETURN {
 	if _cSSM_CSP_Logout == nil {
@@ -1360,6 +1480,8 @@ func CSSM_CSP_Logout(CSPHandle CSSM_CSP_HANDLE) CSSM_RETURN {
 var _cSSM_CSP_ObtainPrivateKeyFromPublicKey func(CSPHandle CSSM_CSP_HANDLE, PublicKey unsafe.Pointer, PrivateKey unsafe.Pointer) CSSM_RETURN
 
 // CSSM_CSP_ObtainPrivateKeyFromPublicKey.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_ObtainPrivateKeyFromPublicKey
 func CSSM_CSP_ObtainPrivateKeyFromPublicKey(CSPHandle CSSM_CSP_HANDLE, PublicKey unsafe.Pointer, PrivateKey unsafe.Pointer) CSSM_RETURN {
@@ -1373,6 +1495,8 @@ var _cSSM_CSP_PassThrough func(CCHandle CSSM_CC_HANDLE, PassThroughId uint32, In
 
 // CSSM_CSP_PassThrough.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_PassThrough
 func CSSM_CSP_PassThrough(CCHandle CSSM_CC_HANDLE, PassThroughId uint32, InData unsafe.Pointer, OutData unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_CSP_PassThrough == nil {
@@ -1384,6 +1508,8 @@ func CSSM_CSP_PassThrough(CCHandle CSSM_CC_HANDLE, PassThroughId uint32, InData 
 var _cSSM_ChangeKeyAcl func(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer, Key unsafe.Pointer) CSSM_RETURN
 
 // CSSM_ChangeKeyAcl.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_ChangeKeyAcl
 func CSSM_ChangeKeyAcl(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer, Key unsafe.Pointer) CSSM_RETURN {
@@ -1397,6 +1523,8 @@ var _cSSM_ChangeKeyOwner func(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Point
 
 // CSSM_ChangeKeyOwner.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_ChangeKeyOwner
 func CSSM_ChangeKeyOwner(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, Key unsafe.Pointer, NewOwner unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_ChangeKeyOwner == nil {
@@ -1408,6 +1536,8 @@ func CSSM_ChangeKeyOwner(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, K
 var _cSSM_DL_Authenticate func(DLDBHandle unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_Authenticate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_Authenticate
 func CSSM_DL_Authenticate(DLDBHandle unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer) CSSM_RETURN {
@@ -1421,6 +1551,8 @@ var _cSSM_DL_ChangeDbAcl func(DLDBHandle unsafe.Pointer, AccessCred unsafe.Point
 
 // CSSM_DL_ChangeDbAcl.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_ChangeDbAcl
 func CSSM_DL_ChangeDbAcl(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_ChangeDbAcl == nil {
@@ -1433,6 +1565,8 @@ var _cSSM_DL_ChangeDbOwner func(DLDBHandle unsafe.Pointer, AccessCred unsafe.Poi
 
 // CSSM_DL_ChangeDbOwner.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_ChangeDbOwner
 func CSSM_DL_ChangeDbOwner(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, NewOwner unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_ChangeDbOwner == nil {
@@ -1441,12 +1575,14 @@ func CSSM_DL_ChangeDbOwner(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer,
 	return _cSSM_DL_ChangeDbOwner(DLDBHandle, AccessCred, NewOwner)
 }
 
-var _cSSM_DL_CreateRelation func(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE, RelationName *byte, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_CreateRelation func(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE, RelationName string, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_CreateRelation.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_CreateRelation
-func CSSM_DL_CreateRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE, RelationName *byte, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_CreateRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE, RelationName string, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_CreateRelation == nil {
 		panic("Security: symbol CSSM_DL_CreateRelation not loaded")
 	}
@@ -1456,6 +1592,8 @@ func CSSM_DL_CreateRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORD
 var _cSSM_DL_DataAbortQuery func(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE) CSSM_RETURN
 
 // CSSM_DL_DataAbortQuery.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataAbortQuery
 func CSSM_DL_DataAbortQuery(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE) CSSM_RETURN {
@@ -1469,6 +1607,8 @@ var _cSSM_DL_DataDelete func(DLDBHandle unsafe.Pointer, UniqueRecordIdentifier u
 
 // CSSM_DL_DataDelete.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataDelete
 func CSSM_DL_DataDelete(DLDBHandle unsafe.Pointer, UniqueRecordIdentifier unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_DataDelete == nil {
@@ -1480,6 +1620,8 @@ func CSSM_DL_DataDelete(DLDBHandle unsafe.Pointer, UniqueRecordIdentifier unsafe
 var _cSSM_DL_DataGetFirst func(DLDBHandle unsafe.Pointer, Query unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_DataGetFirst.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataGetFirst
 func CSSM_DL_DataGetFirst(DLDBHandle unsafe.Pointer, Query unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
@@ -1493,6 +1635,8 @@ var _cSSM_DL_DataGetFromUniqueRecordId func(DLDBHandle unsafe.Pointer, UniqueRec
 
 // CSSM_DL_DataGetFromUniqueRecordId.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataGetFromUniqueRecordId
 func CSSM_DL_DataGetFromUniqueRecordId(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer, Attributes unsafe.Pointer, Data unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_DataGetFromUniqueRecordId == nil {
@@ -1504,6 +1648,8 @@ func CSSM_DL_DataGetFromUniqueRecordId(DLDBHandle unsafe.Pointer, UniqueRecord u
 var _cSSM_DL_DataGetNext func(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_DataGetNext.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataGetNext
 func CSSM_DL_DataGetNext(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
@@ -1517,6 +1663,8 @@ var _cSSM_DL_DataInsert func(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECOR
 
 // CSSM_DL_DataInsert.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataInsert
 func CSSM_DL_DataInsert(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_DataInsert == nil {
@@ -1528,6 +1676,8 @@ func CSSM_DL_DataInsert(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE
 var _cSSM_DL_DataModify func(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, UniqueRecordIdentifier unsafe.Pointer, AttributesToBeModified unsafe.Pointer, DataToBeModified unsafe.Pointer, ModifyMode CSSM_DB_MODIFY_MODE) CSSM_RETURN
 
 // CSSM_DL_DataModify.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataModify
 func CSSM_DL_DataModify(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, UniqueRecordIdentifier unsafe.Pointer, AttributesToBeModified unsafe.Pointer, DataToBeModified unsafe.Pointer, ModifyMode CSSM_DB_MODIFY_MODE) CSSM_RETURN {
@@ -1541,6 +1691,8 @@ var _cSSM_DL_DbClose func(DLDBHandle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_DbClose.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DbClose
 func CSSM_DL_DbClose(DLDBHandle unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_DbClose == nil {
@@ -1549,36 +1701,42 @@ func CSSM_DL_DbClose(DLDBHandle unsafe.Pointer) CSSM_RETURN {
 	return _cSSM_DL_DbClose(DLDBHandle)
 }
 
-var _cSSM_DL_DbCreate func(DLHandle CSSM_DL_HANDLE, DbName *byte, DbLocation unsafe.Pointer, DBInfo unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, CredAndAclEntry unsafe.Pointer, OpenParameters unsafe.Pointer, DbHandle unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DbCreate func(DLHandle CSSM_DL_HANDLE, DbName string, DbLocation unsafe.Pointer, DBInfo unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, CredAndAclEntry unsafe.Pointer, OpenParameters unsafe.Pointer, DbHandle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_DbCreate.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DbCreate
-func CSSM_DL_DbCreate(DLHandle CSSM_DL_HANDLE, DbName *byte, DbLocation unsafe.Pointer, DBInfo unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, CredAndAclEntry unsafe.Pointer, OpenParameters unsafe.Pointer, DbHandle unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DbCreate(DLHandle CSSM_DL_HANDLE, DbName string, DbLocation unsafe.Pointer, DBInfo unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, CredAndAclEntry unsafe.Pointer, OpenParameters unsafe.Pointer, DbHandle unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_DbCreate == nil {
 		panic("Security: symbol CSSM_DL_DbCreate not loaded")
 	}
 	return _cSSM_DL_DbCreate(DLHandle, DbName, DbLocation, DBInfo, AccessRequest, CredAndAclEntry, OpenParameters, DbHandle)
 }
 
-var _cSSM_DL_DbDelete func(DLHandle CSSM_DL_HANDLE, DbName *byte, DbLocation unsafe.Pointer, AccessCred unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DbDelete func(DLHandle CSSM_DL_HANDLE, DbName string, DbLocation unsafe.Pointer, AccessCred unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_DbDelete.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DbDelete
-func CSSM_DL_DbDelete(DLHandle CSSM_DL_HANDLE, DbName *byte, DbLocation unsafe.Pointer, AccessCred unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DbDelete(DLHandle CSSM_DL_HANDLE, DbName string, DbLocation unsafe.Pointer, AccessCred unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_DbDelete == nil {
 		panic("Security: symbol CSSM_DL_DbDelete not loaded")
 	}
 	return _cSSM_DL_DbDelete(DLHandle, DbName, DbLocation, AccessCred)
 }
 
-var _cSSM_DL_DbOpen func(DLHandle CSSM_DL_HANDLE, DbName *byte, DbLocation unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer, OpenParameters unsafe.Pointer, DbHandle unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DbOpen func(DLHandle CSSM_DL_HANDLE, DbName string, DbLocation unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer, OpenParameters unsafe.Pointer, DbHandle unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_DbOpen.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DbOpen
-func CSSM_DL_DbOpen(DLHandle CSSM_DL_HANDLE, DbName *byte, DbLocation unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer, OpenParameters unsafe.Pointer, DbHandle unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DbOpen(DLHandle CSSM_DL_HANDLE, DbName string, DbLocation unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer, OpenParameters unsafe.Pointer, DbHandle unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_DbOpen == nil {
 		panic("Security: symbol CSSM_DL_DbOpen not loaded")
 	}
@@ -1588,6 +1746,8 @@ func CSSM_DL_DbOpen(DLHandle CSSM_DL_HANDLE, DbName *byte, DbLocation unsafe.Poi
 var _cSSM_DL_DestroyRelation func(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE) CSSM_RETURN
 
 // CSSM_DL_DestroyRelation.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DestroyRelation
 func CSSM_DL_DestroyRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE) CSSM_RETURN {
@@ -1601,6 +1761,8 @@ var _cSSM_DL_FreeNameList func(DLHandle CSSM_DL_HANDLE, NameList unsafe.Pointer)
 
 // CSSM_DL_FreeNameList.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_FreeNameList
 func CSSM_DL_FreeNameList(DLHandle CSSM_DL_HANDLE, NameList unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_FreeNameList == nil {
@@ -1612,6 +1774,8 @@ func CSSM_DL_FreeNameList(DLHandle CSSM_DL_HANDLE, NameList unsafe.Pointer) CSSM
 var _cSSM_DL_FreeUniqueRecord func(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_FreeUniqueRecord.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_FreeUniqueRecord
 func CSSM_DL_FreeUniqueRecord(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer) CSSM_RETURN {
@@ -1625,6 +1789,8 @@ var _cSSM_DL_GetDbAcl func(DLDBHandle unsafe.Pointer, SelectionTag unsafe.Pointe
 
 // CSSM_DL_GetDbAcl.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_GetDbAcl
 func CSSM_DL_GetDbAcl(DLDBHandle unsafe.Pointer, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_GetDbAcl == nil {
@@ -1633,12 +1799,14 @@ func CSSM_DL_GetDbAcl(DLDBHandle unsafe.Pointer, SelectionTag unsafe.Pointer, Nu
 	return _cSSM_DL_GetDbAcl(DLDBHandle, SelectionTag, NumberOfAclInfos, AclInfos)
 }
 
-var _cSSM_DL_GetDbNameFromHandle func(DLDBHandle unsafe.Pointer, DbName *byte) CSSM_RETURN
+var _cSSM_DL_GetDbNameFromHandle func(DLDBHandle unsafe.Pointer, DbName string) CSSM_RETURN
 
 // CSSM_DL_GetDbNameFromHandle.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_GetDbNameFromHandle
-func CSSM_DL_GetDbNameFromHandle(DLDBHandle unsafe.Pointer, DbName *byte) CSSM_RETURN {
+func CSSM_DL_GetDbNameFromHandle(DLDBHandle unsafe.Pointer, DbName string) CSSM_RETURN {
 	if _cSSM_DL_GetDbNameFromHandle == nil {
 		panic("Security: symbol CSSM_DL_GetDbNameFromHandle not loaded")
 	}
@@ -1648,6 +1816,8 @@ func CSSM_DL_GetDbNameFromHandle(DLDBHandle unsafe.Pointer, DbName *byte) CSSM_R
 var _cSSM_DL_GetDbNames func(DLHandle CSSM_DL_HANDLE, NameList unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_GetDbNames.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_GetDbNames
 func CSSM_DL_GetDbNames(DLHandle CSSM_DL_HANDLE, NameList unsafe.Pointer) CSSM_RETURN {
@@ -1661,6 +1831,8 @@ var _cSSM_DL_GetDbOwner func(DLDBHandle unsafe.Pointer, Owner unsafe.Pointer) CS
 
 // CSSM_DL_GetDbOwner.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_GetDbOwner
 func CSSM_DL_GetDbOwner(DLDBHandle unsafe.Pointer, Owner unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DL_GetDbOwner == nil {
@@ -1672,6 +1844,8 @@ func CSSM_DL_GetDbOwner(DLDBHandle unsafe.Pointer, Owner unsafe.Pointer) CSSM_RE
 var _cSSM_DL_PassThrough func(DLDBHandle unsafe.Pointer, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DL_PassThrough.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_PassThrough
 func CSSM_DL_PassThrough(DLDBHandle unsafe.Pointer, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN {
@@ -1685,6 +1859,8 @@ var _cSSM_DecryptData func(CCHandle CSSM_CC_HANDLE, CipherBufs unsafe.Pointer, C
 
 // CSSM_DecryptData.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DecryptData
 func CSSM_DecryptData(CCHandle CSSM_CC_HANDLE, CipherBufs unsafe.Pointer, CipherBufCount uint32, ClearBufs unsafe.Pointer, ClearBufCount uint32, bytesDecrypted unsafe.Pointer, RemData unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DecryptData == nil {
@@ -1696,6 +1872,8 @@ func CSSM_DecryptData(CCHandle CSSM_CC_HANDLE, CipherBufs unsafe.Pointer, Cipher
 var _cSSM_DecryptDataFinal func(CCHandle CSSM_CC_HANDLE, RemData unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DecryptDataFinal.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DecryptDataFinal
 func CSSM_DecryptDataFinal(CCHandle CSSM_CC_HANDLE, RemData unsafe.Pointer) CSSM_RETURN {
@@ -1709,6 +1887,8 @@ var _cSSM_DecryptDataInit func(CCHandle CSSM_CC_HANDLE) CSSM_RETURN
 
 // CSSM_DecryptDataInit.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DecryptDataInit
 func CSSM_DecryptDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 	if _cSSM_DecryptDataInit == nil {
@@ -1720,6 +1900,8 @@ func CSSM_DecryptDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 var _cSSM_DecryptDataInitP func(CCHandle CSSM_CC_HANDLE, Privilege CSSM_PRIVILEGE) CSSM_RETURN
 
 // CSSM_DecryptDataInitP.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DecryptDataInitP
 func CSSM_DecryptDataInitP(CCHandle CSSM_CC_HANDLE, Privilege CSSM_PRIVILEGE) CSSM_RETURN {
@@ -1733,6 +1915,8 @@ var _cSSM_DecryptDataP func(CCHandle CSSM_CC_HANDLE, CipherBufs unsafe.Pointer, 
 
 // CSSM_DecryptDataP.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DecryptDataP
 func CSSM_DecryptDataP(CCHandle CSSM_CC_HANDLE, CipherBufs unsafe.Pointer, CipherBufCount uint32, ClearBufs unsafe.Pointer, ClearBufCount uint32, bytesDecrypted unsafe.Pointer, RemData unsafe.Pointer, Privilege CSSM_PRIVILEGE) CSSM_RETURN {
 	if _cSSM_DecryptDataP == nil {
@@ -1744,6 +1928,8 @@ func CSSM_DecryptDataP(CCHandle CSSM_CC_HANDLE, CipherBufs unsafe.Pointer, Ciphe
 var _cSSM_DecryptDataUpdate func(CCHandle CSSM_CC_HANDLE, CipherBufs unsafe.Pointer, CipherBufCount uint32, ClearBufs unsafe.Pointer, ClearBufCount uint32, bytesDecrypted unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DecryptDataUpdate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DecryptDataUpdate
 func CSSM_DecryptDataUpdate(CCHandle CSSM_CC_HANDLE, CipherBufs unsafe.Pointer, CipherBufCount uint32, ClearBufs unsafe.Pointer, ClearBufCount uint32, bytesDecrypted unsafe.Pointer) CSSM_RETURN {
@@ -1757,6 +1943,8 @@ var _cSSM_DeleteContext func(CCHandle CSSM_CC_HANDLE) CSSM_RETURN
 
 // CSSM_DeleteContext.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DeleteContext
 func CSSM_DeleteContext(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 	if _cSSM_DeleteContext == nil {
@@ -1768,6 +1956,8 @@ func CSSM_DeleteContext(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 var _cSSM_DeleteContextAttributes func(CCHandle CSSM_CC_HANDLE, NumberOfAttributes uint32, ContextAttributes unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DeleteContextAttributes.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DeleteContextAttributes
 func CSSM_DeleteContextAttributes(CCHandle CSSM_CC_HANDLE, NumberOfAttributes uint32, ContextAttributes unsafe.Pointer) CSSM_RETURN {
@@ -1781,6 +1971,8 @@ var _cSSM_DeriveKey func(CCHandle CSSM_CC_HANDLE, Param unsafe.Pointer, KeyUsage
 
 // CSSM_DeriveKey.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DeriveKey
 func CSSM_DeriveKey(CCHandle CSSM_CC_HANDLE, Param unsafe.Pointer, KeyUsage uint32, KeyAttr uint32, KeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, DerivedKey unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DeriveKey == nil {
@@ -1792,6 +1984,8 @@ func CSSM_DeriveKey(CCHandle CSSM_CC_HANDLE, Param unsafe.Pointer, KeyUsage uint
 var _cSSM_DigestData func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32, Digest unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DigestData.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DigestData
 func CSSM_DigestData(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32, Digest unsafe.Pointer) CSSM_RETURN {
@@ -1805,6 +1999,8 @@ var _cSSM_DigestDataClone func(CCHandle CSSM_CC_HANDLE, ClonednewCCHandle unsafe
 
 // CSSM_DigestDataClone.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DigestDataClone
 func CSSM_DigestDataClone(CCHandle CSSM_CC_HANDLE, ClonednewCCHandle unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_DigestDataClone == nil {
@@ -1816,6 +2012,8 @@ func CSSM_DigestDataClone(CCHandle CSSM_CC_HANDLE, ClonednewCCHandle unsafe.Poin
 var _cSSM_DigestDataFinal func(CCHandle CSSM_CC_HANDLE, Digest unsafe.Pointer) CSSM_RETURN
 
 // CSSM_DigestDataFinal.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DigestDataFinal
 func CSSM_DigestDataFinal(CCHandle CSSM_CC_HANDLE, Digest unsafe.Pointer) CSSM_RETURN {
@@ -1829,6 +2027,8 @@ var _cSSM_DigestDataInit func(CCHandle CSSM_CC_HANDLE) CSSM_RETURN
 
 // CSSM_DigestDataInit.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_DigestDataInit
 func CSSM_DigestDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 	if _cSSM_DigestDataInit == nil {
@@ -1840,6 +2040,8 @@ func CSSM_DigestDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 var _cSSM_DigestDataUpdate func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32) CSSM_RETURN
 
 // CSSM_DigestDataUpdate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DigestDataUpdate
 func CSSM_DigestDataUpdate(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32) CSSM_RETURN {
@@ -1853,6 +2055,8 @@ var _cSSM_EncryptData func(CCHandle CSSM_CC_HANDLE, ClearBufs unsafe.Pointer, Cl
 
 // CSSM_EncryptData.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_EncryptData
 func CSSM_EncryptData(CCHandle CSSM_CC_HANDLE, ClearBufs unsafe.Pointer, ClearBufCount uint32, CipherBufs unsafe.Pointer, CipherBufCount uint32, bytesEncrypted unsafe.Pointer, RemData unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_EncryptData == nil {
@@ -1864,6 +2068,8 @@ func CSSM_EncryptData(CCHandle CSSM_CC_HANDLE, ClearBufs unsafe.Pointer, ClearBu
 var _cSSM_EncryptDataFinal func(CCHandle CSSM_CC_HANDLE, RemData unsafe.Pointer) CSSM_RETURN
 
 // CSSM_EncryptDataFinal.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_EncryptDataFinal
 func CSSM_EncryptDataFinal(CCHandle CSSM_CC_HANDLE, RemData unsafe.Pointer) CSSM_RETURN {
@@ -1877,6 +2083,8 @@ var _cSSM_EncryptDataInit func(CCHandle CSSM_CC_HANDLE) CSSM_RETURN
 
 // CSSM_EncryptDataInit.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_EncryptDataInit
 func CSSM_EncryptDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 	if _cSSM_EncryptDataInit == nil {
@@ -1888,6 +2096,8 @@ func CSSM_EncryptDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 var _cSSM_EncryptDataInitP func(CCHandle CSSM_CC_HANDLE, Privilege CSSM_PRIVILEGE) CSSM_RETURN
 
 // CSSM_EncryptDataInitP.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_EncryptDataInitP
 func CSSM_EncryptDataInitP(CCHandle CSSM_CC_HANDLE, Privilege CSSM_PRIVILEGE) CSSM_RETURN {
@@ -1901,6 +2111,8 @@ var _cSSM_EncryptDataP func(CCHandle CSSM_CC_HANDLE, ClearBufs unsafe.Pointer, C
 
 // CSSM_EncryptDataP.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_EncryptDataP
 func CSSM_EncryptDataP(CCHandle CSSM_CC_HANDLE, ClearBufs unsafe.Pointer, ClearBufCount uint32, CipherBufs unsafe.Pointer, CipherBufCount uint32, bytesEncrypted unsafe.Pointer, RemData unsafe.Pointer, Privilege CSSM_PRIVILEGE) CSSM_RETURN {
 	if _cSSM_EncryptDataP == nil {
@@ -1912,6 +2124,8 @@ func CSSM_EncryptDataP(CCHandle CSSM_CC_HANDLE, ClearBufs unsafe.Pointer, ClearB
 var _cSSM_EncryptDataUpdate func(CCHandle CSSM_CC_HANDLE, ClearBufs unsafe.Pointer, ClearBufCount uint32, CipherBufs unsafe.Pointer, CipherBufCount uint32, bytesEncrypted unsafe.Pointer) CSSM_RETURN
 
 // CSSM_EncryptDataUpdate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_EncryptDataUpdate
 func CSSM_EncryptDataUpdate(CCHandle CSSM_CC_HANDLE, ClearBufs unsafe.Pointer, ClearBufCount uint32, CipherBufs unsafe.Pointer, CipherBufCount uint32, bytesEncrypted unsafe.Pointer) CSSM_RETURN {
@@ -1925,6 +2139,8 @@ var _cSSM_FreeContext func(Context unsafe.Pointer) CSSM_RETURN
 
 // CSSM_FreeContext.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_FreeContext
 func CSSM_FreeContext(Context unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_FreeContext == nil {
@@ -1936,6 +2152,8 @@ func CSSM_FreeContext(Context unsafe.Pointer) CSSM_RETURN {
 var _cSSM_FreeKey func(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, KeyPtr unsafe.Pointer, Delete CSSM_BOOL) CSSM_RETURN
 
 // CSSM_FreeKey.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_FreeKey
 func CSSM_FreeKey(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, KeyPtr unsafe.Pointer, Delete CSSM_BOOL) CSSM_RETURN {
@@ -1949,6 +2167,8 @@ var _cSSM_GenerateAlgorithmParams func(CCHandle CSSM_CC_HANDLE, ParamBits uint32
 
 // CSSM_GenerateAlgorithmParams.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateAlgorithmParams
 func CSSM_GenerateAlgorithmParams(CCHandle CSSM_CC_HANDLE, ParamBits uint32, Param unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_GenerateAlgorithmParams == nil {
@@ -1960,6 +2180,8 @@ func CSSM_GenerateAlgorithmParams(CCHandle CSSM_CC_HANDLE, ParamBits uint32, Par
 var _cSSM_GenerateKey func(CCHandle CSSM_CC_HANDLE, KeyUsage uint32, KeyAttr uint32, KeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, Key unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GenerateKey.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateKey
 func CSSM_GenerateKey(CCHandle CSSM_CC_HANDLE, KeyUsage uint32, KeyAttr uint32, KeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, Key unsafe.Pointer) CSSM_RETURN {
@@ -1973,6 +2195,8 @@ var _cSSM_GenerateKeyP func(CCHandle CSSM_CC_HANDLE, KeyUsage uint32, KeyAttr ui
 
 // CSSM_GenerateKeyP.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateKeyP
 func CSSM_GenerateKeyP(CCHandle CSSM_CC_HANDLE, KeyUsage uint32, KeyAttr uint32, KeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, Key unsafe.Pointer, Privilege CSSM_PRIVILEGE) CSSM_RETURN {
 	if _cSSM_GenerateKeyP == nil {
@@ -1984,6 +2208,8 @@ func CSSM_GenerateKeyP(CCHandle CSSM_CC_HANDLE, KeyUsage uint32, KeyAttr uint32,
 var _cSSM_GenerateKeyPair func(CCHandle CSSM_CC_HANDLE, PublicKeyUsage uint32, PublicKeyAttr uint32, PublicKeyLabel unsafe.Pointer, PublicKey unsafe.Pointer, PrivateKeyUsage uint32, PrivateKeyAttr uint32, PrivateKeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, PrivateKey unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GenerateKeyPair.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateKeyPair
 func CSSM_GenerateKeyPair(CCHandle CSSM_CC_HANDLE, PublicKeyUsage uint32, PublicKeyAttr uint32, PublicKeyLabel unsafe.Pointer, PublicKey unsafe.Pointer, PrivateKeyUsage uint32, PrivateKeyAttr uint32, PrivateKeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, PrivateKey unsafe.Pointer) CSSM_RETURN {
@@ -1997,6 +2223,8 @@ var _cSSM_GenerateKeyPairP func(CCHandle CSSM_CC_HANDLE, PublicKeyUsage uint32, 
 
 // CSSM_GenerateKeyPairP.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateKeyPairP
 func CSSM_GenerateKeyPairP(CCHandle CSSM_CC_HANDLE, PublicKeyUsage uint32, PublicKeyAttr uint32, PublicKeyLabel unsafe.Pointer, PublicKey unsafe.Pointer, PrivateKeyUsage uint32, PrivateKeyAttr uint32, PrivateKeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, PrivateKey unsafe.Pointer, Privilege CSSM_PRIVILEGE) CSSM_RETURN {
 	if _cSSM_GenerateKeyPairP == nil {
@@ -2008,6 +2236,8 @@ func CSSM_GenerateKeyPairP(CCHandle CSSM_CC_HANDLE, PublicKeyUsage uint32, Publi
 var _cSSM_GenerateMac func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32, Mac unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GenerateMac.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateMac
 func CSSM_GenerateMac(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32, Mac unsafe.Pointer) CSSM_RETURN {
@@ -2021,6 +2251,8 @@ var _cSSM_GenerateMacFinal func(CCHandle CSSM_CC_HANDLE, Mac unsafe.Pointer) CSS
 
 // CSSM_GenerateMacFinal.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateMacFinal
 func CSSM_GenerateMacFinal(CCHandle CSSM_CC_HANDLE, Mac unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_GenerateMacFinal == nil {
@@ -2032,6 +2264,8 @@ func CSSM_GenerateMacFinal(CCHandle CSSM_CC_HANDLE, Mac unsafe.Pointer) CSSM_RET
 var _cSSM_GenerateMacInit func(CCHandle CSSM_CC_HANDLE) CSSM_RETURN
 
 // CSSM_GenerateMacInit.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateMacInit
 func CSSM_GenerateMacInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
@@ -2045,6 +2279,8 @@ var _cSSM_GenerateMacUpdate func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointe
 
 // CSSM_GenerateMacUpdate.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateMacUpdate
 func CSSM_GenerateMacUpdate(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32) CSSM_RETURN {
 	if _cSSM_GenerateMacUpdate == nil {
@@ -2056,6 +2292,8 @@ func CSSM_GenerateMacUpdate(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, Da
 var _cSSM_GenerateRandom func(CCHandle CSSM_CC_HANDLE, RandomNumber unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GenerateRandom.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GenerateRandom
 func CSSM_GenerateRandom(CCHandle CSSM_CC_HANDLE, RandomNumber unsafe.Pointer) CSSM_RETURN {
@@ -2069,6 +2307,8 @@ var _cSSM_GetAPIMemoryFunctions func(AddInHandle CSSM_MODULE_HANDLE, AppMemoryFu
 
 // CSSM_GetAPIMemoryFunctions.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GetAPIMemoryFunctions
 func CSSM_GetAPIMemoryFunctions(AddInHandle CSSM_MODULE_HANDLE, AppMemoryFuncs unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_GetAPIMemoryFunctions == nil {
@@ -2080,6 +2320,8 @@ func CSSM_GetAPIMemoryFunctions(AddInHandle CSSM_MODULE_HANDLE, AppMemoryFuncs u
 var _cSSM_GetContext func(CCHandle CSSM_CC_HANDLE, Context unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GetContext.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GetContext
 func CSSM_GetContext(CCHandle CSSM_CC_HANDLE, Context unsafe.Pointer) CSSM_RETURN {
@@ -2093,6 +2335,8 @@ var _cSSM_GetContextAttribute func(Context unsafe.Pointer, AttributeType uint32,
 
 // CSSM_GetContextAttribute.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GetContextAttribute
 func CSSM_GetContextAttribute(Context unsafe.Pointer, AttributeType uint32, ContextAttribute unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_GetContextAttribute == nil {
@@ -2104,6 +2348,8 @@ func CSSM_GetContextAttribute(Context unsafe.Pointer, AttributeType uint32, Cont
 var _cSSM_GetKeyAcl func(CSPHandle CSSM_CSP_HANDLE, Key unsafe.Pointer, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GetKeyAcl.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GetKeyAcl
 func CSSM_GetKeyAcl(CSPHandle CSSM_CSP_HANDLE, Key unsafe.Pointer, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) CSSM_RETURN {
@@ -2117,6 +2363,8 @@ var _cSSM_GetKeyOwner func(CSPHandle CSSM_CSP_HANDLE, Key unsafe.Pointer, Owner 
 
 // CSSM_GetKeyOwner.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GetKeyOwner
 func CSSM_GetKeyOwner(CSPHandle CSSM_CSP_HANDLE, Key unsafe.Pointer, Owner unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_GetKeyOwner == nil {
@@ -2128,6 +2376,8 @@ func CSSM_GetKeyOwner(CSPHandle CSSM_CSP_HANDLE, Key unsafe.Pointer, Owner unsaf
 var _cSSM_GetModuleGUIDFromHandle func(ModuleHandle CSSM_MODULE_HANDLE, ModuleGUID unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GetModuleGUIDFromHandle.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GetModuleGUIDFromHandle
 func CSSM_GetModuleGUIDFromHandle(ModuleHandle CSSM_MODULE_HANDLE, ModuleGUID unsafe.Pointer) CSSM_RETURN {
@@ -2141,6 +2391,8 @@ var _cSSM_GetPrivilege func(Privilege unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GetPrivilege.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GetPrivilege
 func CSSM_GetPrivilege(Privilege unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_GetPrivilege == nil {
@@ -2152,6 +2404,8 @@ func CSSM_GetPrivilege(Privilege unsafe.Pointer) CSSM_RETURN {
 var _cSSM_GetSubserviceUIDFromHandle func(ModuleHandle CSSM_MODULE_HANDLE, SubserviceUID unsafe.Pointer) CSSM_RETURN
 
 // CSSM_GetSubserviceUIDFromHandle.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_GetSubserviceUIDFromHandle
 func CSSM_GetSubserviceUIDFromHandle(ModuleHandle CSSM_MODULE_HANDLE, SubserviceUID unsafe.Pointer) CSSM_RETURN {
@@ -2165,6 +2419,8 @@ var _cSSM_GetTimeValue func(CSPHandle CSSM_CSP_HANDLE, TimeAlgorithm CSSM_ALGORI
 
 // CSSM_GetTimeValue.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_GetTimeValue
 func CSSM_GetTimeValue(CSPHandle CSSM_CSP_HANDLE, TimeAlgorithm CSSM_ALGORITHMS, TimeData unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_GetTimeValue == nil {
@@ -2176,6 +2432,8 @@ func CSSM_GetTimeValue(CSPHandle CSSM_CSP_HANDLE, TimeAlgorithm CSSM_ALGORITHMS,
 var _cSSM_Init func(Version unsafe.Pointer, Scope CSSM_PRIVILEGE_SCOPE, CallerGuid unsafe.Pointer, KeyHierarchy CSSM_KEY_HIERARCHY, PvcPolicy unsafe.Pointer, Reserved unsafe.Pointer) CSSM_RETURN
 
 // CSSM_Init.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_Init
 func CSSM_Init(Version unsafe.Pointer, Scope CSSM_PRIVILEGE_SCOPE, CallerGuid unsafe.Pointer, KeyHierarchy CSSM_KEY_HIERARCHY, PvcPolicy unsafe.Pointer, Reserved unsafe.Pointer) CSSM_RETURN {
@@ -2189,6 +2447,8 @@ var _cSSM_Introduce func(ModuleID unsafe.Pointer, KeyHierarchy CSSM_KEY_HIERARCH
 
 // CSSM_Introduce.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_Introduce
 func CSSM_Introduce(ModuleID unsafe.Pointer, KeyHierarchy CSSM_KEY_HIERARCHY) CSSM_RETURN {
 	if _cSSM_Introduce == nil {
@@ -2200,6 +2460,8 @@ func CSSM_Introduce(ModuleID unsafe.Pointer, KeyHierarchy CSSM_KEY_HIERARCHY) CS
 var _cSSM_ListAttachedModuleManagers func(NumberOfModuleManagers *uint32, ModuleManagerGuids unsafe.Pointer) CSSM_RETURN
 
 // CSSM_ListAttachedModuleManagers.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_ListAttachedModuleManagers
 func CSSM_ListAttachedModuleManagers(NumberOfModuleManagers *uint32, ModuleManagerGuids unsafe.Pointer) CSSM_RETURN {
@@ -2213,6 +2475,8 @@ var _cSSM_ModuleAttach func(ModuleGuid unsafe.Pointer, Version unsafe.Pointer, M
 
 // CSSM_ModuleAttach.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_ModuleAttach
 func CSSM_ModuleAttach(ModuleGuid unsafe.Pointer, Version unsafe.Pointer, MemoryFuncs unsafe.Pointer, SubserviceID uint32, SubServiceType CSSM_SERVICE_TYPE, AttachFlags CSSM_ATTACH_FLAGS, KeyHierarchy CSSM_KEY_HIERARCHY, FunctionTable unsafe.Pointer, NumFunctionTable uint32, Reserved unsafe.Pointer, NewModuleHandle CSSM_MODULE_HANDLE_PTR) CSSM_RETURN {
 	if _cSSM_ModuleAttach == nil {
@@ -2224,6 +2488,8 @@ func CSSM_ModuleAttach(ModuleGuid unsafe.Pointer, Version unsafe.Pointer, Memory
 var _cSSM_ModuleDetach func(ModuleHandle CSSM_MODULE_HANDLE) CSSM_RETURN
 
 // CSSM_ModuleDetach.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_ModuleDetach
 func CSSM_ModuleDetach(ModuleHandle CSSM_MODULE_HANDLE) CSSM_RETURN {
@@ -2237,6 +2503,8 @@ var _cSSM_ModuleLoad func(ModuleGuid unsafe.Pointer, KeyHierarchy CSSM_KEY_HIERA
 
 // CSSM_ModuleLoad.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_ModuleLoad
 func CSSM_ModuleLoad(ModuleGuid unsafe.Pointer, KeyHierarchy CSSM_KEY_HIERARCHY, AppNotifyCallback unsafe.Pointer, AppNotifyCallbackCtx unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_ModuleLoad == nil {
@@ -2248,6 +2516,8 @@ func CSSM_ModuleLoad(ModuleGuid unsafe.Pointer, KeyHierarchy CSSM_KEY_HIERARCHY,
 var _cSSM_ModuleUnload func(ModuleGuid unsafe.Pointer, AppNotifyCallback unsafe.Pointer, AppNotifyCallbackCtx unsafe.Pointer) CSSM_RETURN
 
 // CSSM_ModuleUnload.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_ModuleUnload
 func CSSM_ModuleUnload(ModuleGuid unsafe.Pointer, AppNotifyCallback unsafe.Pointer, AppNotifyCallbackCtx unsafe.Pointer) CSSM_RETURN {
@@ -2261,6 +2531,8 @@ var _cSSM_QueryKeySizeInBits func(CSPHandle CSSM_CSP_HANDLE, CCHandle CSSM_CC_HA
 
 // CSSM_QueryKeySizeInBits.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_QueryKeySizeInBits
 func CSSM_QueryKeySizeInBits(CSPHandle CSSM_CSP_HANDLE, CCHandle CSSM_CC_HANDLE, Key unsafe.Pointer, KeySize unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_QueryKeySizeInBits == nil {
@@ -2272,6 +2544,8 @@ func CSSM_QueryKeySizeInBits(CSPHandle CSSM_CSP_HANDLE, CCHandle CSSM_CC_HANDLE,
 var _cSSM_QuerySize func(CCHandle CSSM_CC_HANDLE, Encrypt CSSM_BOOL, QuerySizeCount uint32, DataBlockSizes unsafe.Pointer) CSSM_RETURN
 
 // CSSM_QuerySize.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_QuerySize
 func CSSM_QuerySize(CCHandle CSSM_CC_HANDLE, Encrypt CSSM_BOOL, QuerySizeCount uint32, DataBlockSizes unsafe.Pointer) CSSM_RETURN {
@@ -2285,6 +2559,8 @@ var _cSSM_RetrieveCounter func(CSPHandle CSSM_CSP_HANDLE, Counter unsafe.Pointer
 
 // CSSM_RetrieveCounter.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_RetrieveCounter
 func CSSM_RetrieveCounter(CSPHandle CSSM_CSP_HANDLE, Counter unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_RetrieveCounter == nil {
@@ -2296,6 +2572,8 @@ func CSSM_RetrieveCounter(CSPHandle CSSM_CSP_HANDLE, Counter unsafe.Pointer) CSS
 var _cSSM_RetrieveUniqueId func(CSPHandle CSSM_CSP_HANDLE, UniqueID unsafe.Pointer) CSSM_RETURN
 
 // CSSM_RetrieveUniqueId.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_RetrieveUniqueId
 func CSSM_RetrieveUniqueId(CSPHandle CSSM_CSP_HANDLE, UniqueID unsafe.Pointer) CSSM_RETURN {
@@ -2309,6 +2587,8 @@ var _cSSM_SetContext func(CCHandle CSSM_CC_HANDLE, Context unsafe.Pointer) CSSM_
 
 // CSSM_SetContext.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_SetContext
 func CSSM_SetContext(CCHandle CSSM_CC_HANDLE, Context unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_SetContext == nil {
@@ -2320,6 +2600,8 @@ func CSSM_SetContext(CCHandle CSSM_CC_HANDLE, Context unsafe.Pointer) CSSM_RETUR
 var _cSSM_SetPrivilege func(Privilege CSSM_PRIVILEGE) CSSM_RETURN
 
 // CSSM_SetPrivilege.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_SetPrivilege
 func CSSM_SetPrivilege(Privilege CSSM_PRIVILEGE) CSSM_RETURN {
@@ -2333,6 +2615,8 @@ var _cSSM_SignData func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBu
 
 // CSSM_SignData.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_SignData
 func CSSM_SignData(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32, DigestAlgorithm CSSM_ALGORITHMS, Signature unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_SignData == nil {
@@ -2344,6 +2628,8 @@ func CSSM_SignData(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCoun
 var _cSSM_SignDataFinal func(CCHandle CSSM_CC_HANDLE, Signature unsafe.Pointer) CSSM_RETURN
 
 // CSSM_SignDataFinal.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_SignDataFinal
 func CSSM_SignDataFinal(CCHandle CSSM_CC_HANDLE, Signature unsafe.Pointer) CSSM_RETURN {
@@ -2357,6 +2643,8 @@ var _cSSM_SignDataInit func(CCHandle CSSM_CC_HANDLE) CSSM_RETURN
 
 // CSSM_SignDataInit.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_SignDataInit
 func CSSM_SignDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 	if _cSSM_SignDataInit == nil {
@@ -2368,6 +2656,8 @@ func CSSM_SignDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 var _cSSM_SignDataUpdate func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32) CSSM_RETURN
 
 // CSSM_SignDataUpdate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_SignDataUpdate
 func CSSM_SignDataUpdate(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32) CSSM_RETURN {
@@ -2381,6 +2671,8 @@ var _cSSM_TP_ApplyCrlToDb func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE,
 
 // CSSM_TP_ApplyCrlToDb.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_ApplyCrlToDb
 func CSSM_TP_ApplyCrlToDb(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, CrlToBeApplied unsafe.Pointer, SignerCertGroup unsafe.Pointer, ApplyCrlVerifyContext unsafe.Pointer, ApplyCrlVerifyResult unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_ApplyCrlToDb == nil {
@@ -2392,6 +2684,8 @@ func CSSM_TP_ApplyCrlToDb(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPH
 var _cSSM_TP_CertCreateTemplate func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CertFields unsafe.Pointer, CertTemplate unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_CertCreateTemplate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertCreateTemplate
 func CSSM_TP_CertCreateTemplate(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CertFields unsafe.Pointer, CertTemplate unsafe.Pointer) CSSM_RETURN {
@@ -2405,6 +2699,8 @@ var _cSSM_TP_CertGetAllTemplateFields func(TPHandle CSSM_TP_HANDLE, CLHandle CSS
 
 // CSSM_TP_CertGetAllTemplateFields.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertGetAllTemplateFields
 func CSSM_TP_CertGetAllTemplateFields(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CertTemplate unsafe.Pointer, NumberOfFields *uint32, CertFields unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_CertGetAllTemplateFields == nil {
@@ -2416,6 +2712,8 @@ func CSSM_TP_CertGetAllTemplateFields(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_
 var _cSSM_TP_CertGroupConstruct func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, DBList unsafe.Pointer, ConstructParams unsafe.Pointer, CertGroupFrag unsafe.Pointer, CertGroup unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_CertGroupConstruct.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertGroupConstruct
 func CSSM_TP_CertGroupConstruct(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, DBList unsafe.Pointer, ConstructParams unsafe.Pointer, CertGroupFrag unsafe.Pointer, CertGroup unsafe.Pointer) CSSM_RETURN {
@@ -2429,6 +2727,8 @@ var _cSSM_TP_CertGroupPrune func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDL
 
 // CSSM_TP_CertGroupPrune.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertGroupPrune
 func CSSM_TP_CertGroupPrune(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, DBList unsafe.Pointer, OrderedCertGroup unsafe.Pointer, PrunedCertGroup unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_CertGroupPrune == nil {
@@ -2440,6 +2740,8 @@ func CSSM_TP_CertGroupPrune(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, DB
 var _cSSM_TP_CertGroupToTupleGroup func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CertGroup unsafe.Pointer, TupleGroup unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_CertGroupToTupleGroup.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertGroupToTupleGroup
 func CSSM_TP_CertGroupToTupleGroup(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CertGroup unsafe.Pointer, TupleGroup unsafe.Pointer) CSSM_RETURN {
@@ -2453,6 +2755,8 @@ var _cSSM_TP_CertGroupVerify func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HAND
 
 // CSSM_TP_CertGroupVerify.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertGroupVerify
 func CSSM_TP_CertGroupVerify(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, CertGroupToBeVerified unsafe.Pointer, VerifyContext unsafe.Pointer, VerifyContextResult unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_CertGroupVerify == nil {
@@ -2464,6 +2768,8 @@ func CSSM_TP_CertGroupVerify(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, C
 var _cSSM_TP_CertReclaimAbort func(TPHandle CSSM_TP_HANDLE, KeyCacheHandle CSSM_LONG_HANDLE) CSSM_RETURN
 
 // CSSM_TP_CertReclaimAbort.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertReclaimAbort
 func CSSM_TP_CertReclaimAbort(TPHandle CSSM_TP_HANDLE, KeyCacheHandle CSSM_LONG_HANDLE) CSSM_RETURN {
@@ -2477,6 +2783,8 @@ var _cSSM_TP_CertReclaimKey func(TPHandle CSSM_TP_HANDLE, CertGroup unsafe.Point
 
 // CSSM_TP_CertReclaimKey.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertReclaimKey
 func CSSM_TP_CertReclaimKey(TPHandle CSSM_TP_HANDLE, CertGroup unsafe.Pointer, CertIndex uint32, KeyCacheHandle CSSM_LONG_HANDLE, CSPHandle CSSM_CSP_HANDLE, CredAndAclEntry unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_CertReclaimKey == nil {
@@ -2488,6 +2796,8 @@ func CSSM_TP_CertReclaimKey(TPHandle CSSM_TP_HANDLE, CertGroup unsafe.Pointer, C
 var _cSSM_TP_CertRemoveFromCrlTemplate func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, OldCrlTemplate unsafe.Pointer, CertGroupToBeRemoved unsafe.Pointer, RevokerCertGroup unsafe.Pointer, RevokerVerifyContext unsafe.Pointer, RevokerVerifyResult unsafe.Pointer, NewCrlTemplate unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_CertRemoveFromCrlTemplate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertRemoveFromCrlTemplate
 func CSSM_TP_CertRemoveFromCrlTemplate(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, OldCrlTemplate unsafe.Pointer, CertGroupToBeRemoved unsafe.Pointer, RevokerCertGroup unsafe.Pointer, RevokerVerifyContext unsafe.Pointer, RevokerVerifyResult unsafe.Pointer, NewCrlTemplate unsafe.Pointer) CSSM_RETURN {
@@ -2501,6 +2811,8 @@ var _cSSM_TP_CertRevoke func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, C
 
 // CSSM_TP_CertRevoke.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertRevoke
 func CSSM_TP_CertRevoke(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, OldCrlTemplate unsafe.Pointer, CertGroupToBeRevoked unsafe.Pointer, RevokerCertGroup unsafe.Pointer, RevokerVerifyContext unsafe.Pointer, RevokerVerifyResult unsafe.Pointer, Reason CSSM_TP_CERTCHANGE_REASON, NewCrlTemplate unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_CertRevoke == nil {
@@ -2512,6 +2824,8 @@ func CSSM_TP_CertRevoke(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHan
 var _cSSM_TP_CertSign func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertTemplateToBeSigned unsafe.Pointer, SignerCertGroup unsafe.Pointer, SignerVerifyContext unsafe.Pointer, SignerVerifyResult unsafe.Pointer, SignedCert unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_CertSign.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CertSign
 func CSSM_TP_CertSign(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CertTemplateToBeSigned unsafe.Pointer, SignerCertGroup unsafe.Pointer, SignerVerifyContext unsafe.Pointer, SignerVerifyResult unsafe.Pointer, SignedCert unsafe.Pointer) CSSM_RETURN {
@@ -2525,6 +2839,8 @@ var _cSSM_TP_ConfirmCredResult func(TPHandle CSSM_TP_HANDLE, ReferenceIdentifier
 
 // CSSM_TP_ConfirmCredResult.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_ConfirmCredResult
 func CSSM_TP_ConfirmCredResult(TPHandle CSSM_TP_HANDLE, ReferenceIdentifier unsafe.Pointer, CallerAuthCredentials unsafe.Pointer, Responses unsafe.Pointer, PreferredAuthority unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_ConfirmCredResult == nil {
@@ -2536,6 +2852,8 @@ func CSSM_TP_ConfirmCredResult(TPHandle CSSM_TP_HANDLE, ReferenceIdentifier unsa
 var _cSSM_TP_CrlCreateTemplate func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CrlFields unsafe.Pointer, NewCrlTemplate unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_CrlCreateTemplate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CrlCreateTemplate
 func CSSM_TP_CrlCreateTemplate(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, NumberOfFields uint32, CrlFields unsafe.Pointer, NewCrlTemplate unsafe.Pointer) CSSM_RETURN {
@@ -2549,6 +2867,8 @@ var _cSSM_TP_CrlSign func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHa
 
 // CSSM_TP_CrlSign.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CrlSign
 func CSSM_TP_CrlSign(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, CrlToBeSigned unsafe.Pointer, SignerCertGroup unsafe.Pointer, SignerVerifyContext unsafe.Pointer, SignerVerifyResult unsafe.Pointer, SignedCrl unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_CrlSign == nil {
@@ -2560,6 +2880,8 @@ func CSSM_TP_CrlSign(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHandle 
 var _cSSM_TP_CrlVerify func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, CrlToBeVerified unsafe.Pointer, SignerCertGroup unsafe.Pointer, VerifyContext unsafe.Pointer, RevokerVerifyResult unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_CrlVerify.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_CrlVerify
 func CSSM_TP_CrlVerify(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CSPHandle CSSM_CSP_HANDLE, CrlToBeVerified unsafe.Pointer, SignerCertGroup unsafe.Pointer, VerifyContext unsafe.Pointer, RevokerVerifyResult unsafe.Pointer) CSSM_RETURN {
@@ -2573,6 +2895,8 @@ var _cSSM_TP_FormRequest func(TPHandle CSSM_TP_HANDLE, PreferredAuthority unsafe
 
 // CSSM_TP_FormRequest.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_FormRequest
 func CSSM_TP_FormRequest(TPHandle CSSM_TP_HANDLE, PreferredAuthority unsafe.Pointer, FormType CSSM_TP_FORM_TYPE, BlankForm unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_FormRequest == nil {
@@ -2584,6 +2908,8 @@ func CSSM_TP_FormRequest(TPHandle CSSM_TP_HANDLE, PreferredAuthority unsafe.Poin
 var _cSSM_TP_FormSubmit func(TPHandle CSSM_TP_HANDLE, FormType CSSM_TP_FORM_TYPE, Form unsafe.Pointer, ClearanceAuthority unsafe.Pointer, RepresentedAuthority unsafe.Pointer, Credentials unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_FormSubmit.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_FormSubmit
 func CSSM_TP_FormSubmit(TPHandle CSSM_TP_HANDLE, FormType CSSM_TP_FORM_TYPE, Form unsafe.Pointer, ClearanceAuthority unsafe.Pointer, RepresentedAuthority unsafe.Pointer, Credentials unsafe.Pointer) CSSM_RETURN {
@@ -2597,6 +2923,8 @@ var _cSSM_TP_PassThrough func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, 
 
 // CSSM_TP_PassThrough.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_PassThrough
 func CSSM_TP_PassThrough(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHandle CSSM_CC_HANDLE, DBList unsafe.Pointer, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_PassThrough == nil {
@@ -2608,6 +2936,8 @@ func CSSM_TP_PassThrough(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, CCHan
 var _cSSM_TP_ReceiveConfirmation func(TPHandle CSSM_TP_HANDLE, ReferenceIdentifier unsafe.Pointer, Responses unsafe.Pointer, ElapsedTime *int32) CSSM_RETURN
 
 // CSSM_TP_ReceiveConfirmation.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_ReceiveConfirmation
 func CSSM_TP_ReceiveConfirmation(TPHandle CSSM_TP_HANDLE, ReferenceIdentifier unsafe.Pointer, Responses unsafe.Pointer, ElapsedTime *int32) CSSM_RETURN {
@@ -2621,6 +2951,8 @@ var _cSSM_TP_RetrieveCredResult func(TPHandle CSSM_TP_HANDLE, ReferenceIdentifie
 
 // CSSM_TP_RetrieveCredResult.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_RetrieveCredResult
 func CSSM_TP_RetrieveCredResult(TPHandle CSSM_TP_HANDLE, ReferenceIdentifier unsafe.Pointer, CallerAuthCredentials unsafe.Pointer, EstimatedTime *int32, ConfirmationRequired unsafe.Pointer, RetrieveOutput unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_RetrieveCredResult == nil {
@@ -2632,6 +2964,8 @@ func CSSM_TP_RetrieveCredResult(TPHandle CSSM_TP_HANDLE, ReferenceIdentifier uns
 var _cSSM_TP_SubmitCredRequest func(TPHandle CSSM_TP_HANDLE, PreferredAuthority unsafe.Pointer, RequestType CSSM_TP_AUTHORITY_REQUEST_TYPE, RequestInput unsafe.Pointer, CallerAuthContext unsafe.Pointer, EstimatedTime *int32, ReferenceIdentifier unsafe.Pointer) CSSM_RETURN
 
 // CSSM_TP_SubmitCredRequest.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_SubmitCredRequest
 func CSSM_TP_SubmitCredRequest(TPHandle CSSM_TP_HANDLE, PreferredAuthority unsafe.Pointer, RequestType CSSM_TP_AUTHORITY_REQUEST_TYPE, RequestInput unsafe.Pointer, CallerAuthContext unsafe.Pointer, EstimatedTime *int32, ReferenceIdentifier unsafe.Pointer) CSSM_RETURN {
@@ -2645,6 +2979,8 @@ var _cSSM_TP_TupleGroupToCertGroup func(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_C
 
 // CSSM_TP_TupleGroupToCertGroup.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_TupleGroupToCertGroup
 func CSSM_TP_TupleGroupToCertGroup(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HANDLE, TupleGroup unsafe.Pointer, CertTemplates unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_TP_TupleGroupToCertGroup == nil {
@@ -2656,6 +2992,8 @@ func CSSM_TP_TupleGroupToCertGroup(TPHandle CSSM_TP_HANDLE, CLHandle CSSM_CL_HAN
 var _cSSM_Terminate func() CSSM_RETURN
 
 // CSSM_Terminate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_Terminate
 func CSSM_Terminate() CSSM_RETURN {
@@ -2669,6 +3007,8 @@ var _cSSM_Unintroduce func(ModuleID unsafe.Pointer) CSSM_RETURN
 
 // CSSM_Unintroduce.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_Unintroduce
 func CSSM_Unintroduce(ModuleID unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_Unintroduce == nil {
@@ -2680,6 +3020,8 @@ func CSSM_Unintroduce(ModuleID unsafe.Pointer) CSSM_RETURN {
 var _cSSM_UnwrapKey func(CCHandle CSSM_CC_HANDLE, PublicKey unsafe.Pointer, WrappedKey unsafe.Pointer, KeyUsage uint32, KeyAttr uint32, KeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, UnwrappedKey unsafe.Pointer, DescriptiveData unsafe.Pointer) CSSM_RETURN
 
 // CSSM_UnwrapKey.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_UnwrapKey
 func CSSM_UnwrapKey(CCHandle CSSM_CC_HANDLE, PublicKey unsafe.Pointer, WrappedKey unsafe.Pointer, KeyUsage uint32, KeyAttr uint32, KeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, UnwrappedKey unsafe.Pointer, DescriptiveData unsafe.Pointer) CSSM_RETURN {
@@ -2693,6 +3035,8 @@ var _cSSM_UnwrapKeyP func(CCHandle CSSM_CC_HANDLE, PublicKey unsafe.Pointer, Wra
 
 // CSSM_UnwrapKeyP.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_UnwrapKeyP
 func CSSM_UnwrapKeyP(CCHandle CSSM_CC_HANDLE, PublicKey unsafe.Pointer, WrappedKey unsafe.Pointer, KeyUsage uint32, KeyAttr uint32, KeyLabel unsafe.Pointer, CredAndAclEntry unsafe.Pointer, UnwrappedKey unsafe.Pointer, DescriptiveData unsafe.Pointer, Privilege CSSM_PRIVILEGE) CSSM_RETURN {
 	if _cSSM_UnwrapKeyP == nil {
@@ -2704,6 +3048,8 @@ func CSSM_UnwrapKeyP(CCHandle CSSM_CC_HANDLE, PublicKey unsafe.Pointer, WrappedK
 var _cSSM_UpdateContextAttributes func(CCHandle CSSM_CC_HANDLE, NumberOfAttributes uint32, ContextAttributes unsafe.Pointer) CSSM_RETURN
 
 // CSSM_UpdateContextAttributes.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_UpdateContextAttributes
 func CSSM_UpdateContextAttributes(CCHandle CSSM_CC_HANDLE, NumberOfAttributes uint32, ContextAttributes unsafe.Pointer) CSSM_RETURN {
@@ -2717,6 +3063,8 @@ var _cSSM_VerifyData func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, Data
 
 // CSSM_VerifyData.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyData
 func CSSM_VerifyData(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32, DigestAlgorithm CSSM_ALGORITHMS, Signature unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_VerifyData == nil {
@@ -2728,6 +3076,8 @@ func CSSM_VerifyData(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCo
 var _cSSM_VerifyDataFinal func(CCHandle CSSM_CC_HANDLE, Signature unsafe.Pointer) CSSM_RETURN
 
 // CSSM_VerifyDataFinal.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyDataFinal
 func CSSM_VerifyDataFinal(CCHandle CSSM_CC_HANDLE, Signature unsafe.Pointer) CSSM_RETURN {
@@ -2741,6 +3091,8 @@ var _cSSM_VerifyDataInit func(CCHandle CSSM_CC_HANDLE) CSSM_RETURN
 
 // CSSM_VerifyDataInit.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyDataInit
 func CSSM_VerifyDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 	if _cSSM_VerifyDataInit == nil {
@@ -2752,6 +3104,8 @@ func CSSM_VerifyDataInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
 var _cSSM_VerifyDataUpdate func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32) CSSM_RETURN
 
 // CSSM_VerifyDataUpdate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyDataUpdate
 func CSSM_VerifyDataUpdate(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32) CSSM_RETURN {
@@ -2765,6 +3119,8 @@ var _cSSM_VerifyDevice func(CSPHandle CSSM_CSP_HANDLE, DeviceCert unsafe.Pointer
 
 // CSSM_VerifyDevice.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyDevice
 func CSSM_VerifyDevice(CSPHandle CSSM_CSP_HANDLE, DeviceCert unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_VerifyDevice == nil {
@@ -2776,6 +3132,8 @@ func CSSM_VerifyDevice(CSPHandle CSSM_CSP_HANDLE, DeviceCert unsafe.Pointer) CSS
 var _cSSM_VerifyMac func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32, Mac unsafe.Pointer) CSSM_RETURN
 
 // CSSM_VerifyMac.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyMac
 func CSSM_VerifyMac(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32, Mac unsafe.Pointer) CSSM_RETURN {
@@ -2789,6 +3147,8 @@ var _cSSM_VerifyMacFinal func(CCHandle CSSM_CC_HANDLE, Mac unsafe.Pointer) CSSM_
 
 // CSSM_VerifyMacFinal.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyMacFinal
 func CSSM_VerifyMacFinal(CCHandle CSSM_CC_HANDLE, Mac unsafe.Pointer) CSSM_RETURN {
 	if _cSSM_VerifyMacFinal == nil {
@@ -2800,6 +3160,8 @@ func CSSM_VerifyMacFinal(CCHandle CSSM_CC_HANDLE, Mac unsafe.Pointer) CSSM_RETUR
 var _cSSM_VerifyMacInit func(CCHandle CSSM_CC_HANDLE) CSSM_RETURN
 
 // CSSM_VerifyMacInit.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyMacInit
 func CSSM_VerifyMacInit(CCHandle CSSM_CC_HANDLE) CSSM_RETURN {
@@ -2813,6 +3175,8 @@ var _cSSM_VerifyMacUpdate func(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer,
 
 // CSSM_VerifyMacUpdate.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_VerifyMacUpdate
 func CSSM_VerifyMacUpdate(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, DataBufCount uint32) CSSM_RETURN {
 	if _cSSM_VerifyMacUpdate == nil {
@@ -2824,6 +3188,8 @@ func CSSM_VerifyMacUpdate(CCHandle CSSM_CC_HANDLE, DataBufs unsafe.Pointer, Data
 var _cSSM_WrapKey func(CCHandle CSSM_CC_HANDLE, AccessCred unsafe.Pointer, Key unsafe.Pointer, DescriptiveData unsafe.Pointer, WrappedKey unsafe.Pointer) CSSM_RETURN
 
 // CSSM_WrapKey.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_WrapKey
 func CSSM_WrapKey(CCHandle CSSM_CC_HANDLE, AccessCred unsafe.Pointer, Key unsafe.Pointer, DescriptiveData unsafe.Pointer, WrappedKey unsafe.Pointer) CSSM_RETURN {
@@ -2837,6 +3203,8 @@ var _cSSM_WrapKeyP func(CCHandle CSSM_CC_HANDLE, AccessCred unsafe.Pointer, Key 
 
 // CSSM_WrapKeyP.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/CSSM_WrapKeyP
 func CSSM_WrapKeyP(CCHandle CSSM_CC_HANDLE, AccessCred unsafe.Pointer, Key unsafe.Pointer, DescriptiveData unsafe.Pointer, WrappedKey unsafe.Pointer, Privilege CSSM_PRIVILEGE) CSSM_RETURN {
 	if _cSSM_WrapKeyP == nil {
@@ -2848,6 +3216,8 @@ func CSSM_WrapKeyP(CCHandle CSSM_CC_HANDLE, AccessCred unsafe.Pointer, Key unsaf
 var _mDS_Initialize func(pCallerGuid unsafe.Pointer, pMemoryFunctions unsafe.Pointer, pDlFunctions unsafe.Pointer, hMds *MDS_HANDLE) CSSM_RETURN
 
 // MDS_Initialize.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/MDS_Initialize
 func MDS_Initialize(pCallerGuid unsafe.Pointer, pMemoryFunctions unsafe.Pointer, pDlFunctions unsafe.Pointer, hMds *MDS_HANDLE) CSSM_RETURN {
@@ -2861,6 +3231,8 @@ var _mDS_Install func(MdsHandle MDS_HANDLE) CSSM_RETURN
 
 // MDS_Install.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/MDS_Install
 func MDS_Install(MdsHandle MDS_HANDLE) CSSM_RETURN {
 	if _mDS_Install == nil {
@@ -2873,6 +3245,8 @@ var _mDS_Terminate func(MdsHandle MDS_HANDLE) CSSM_RETURN
 
 // MDS_Terminate.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/MDS_Terminate
 func MDS_Terminate(MdsHandle MDS_HANDLE) CSSM_RETURN {
 	if _mDS_Terminate == nil {
@@ -2884,6 +3258,8 @@ func MDS_Terminate(MdsHandle MDS_HANDLE) CSSM_RETURN {
 var _mDS_Uninstall func(MdsHandle MDS_HANDLE) CSSM_RETURN
 
 // MDS_Uninstall.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/MDS_Uninstall
 func MDS_Uninstall(MdsHandle MDS_HANDLE) CSSM_RETURN {
@@ -2935,6 +3311,8 @@ var _secAsn1AllocCopy func(coder uintptr, src unsafe.Pointer, len_ uintptr, dest
 
 // SecAsn1AllocCopy allocates memory for an item’s data field in the coder object’s memory pool and copies in a block of data.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecAsn1AllocCopy
 func SecAsn1AllocCopy(coder uintptr, src unsafe.Pointer, len_ uintptr, dest unsafe.Pointer) int32 {
 	if _secAsn1AllocCopy == nil {
@@ -2946,6 +3324,8 @@ func SecAsn1AllocCopy(coder uintptr, src unsafe.Pointer, len_ uintptr, dest unsa
 var _secAsn1AllocCopyItem func(coder uintptr, src unsafe.Pointer, dest unsafe.Pointer) int32
 
 // SecAsn1AllocCopyItem allocates memory for an item’s data field in the coder object’s memory pool and copies in a block of data from another item.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecAsn1AllocCopyItem
 func SecAsn1AllocCopyItem(coder uintptr, src unsafe.Pointer, dest unsafe.Pointer) int32 {
@@ -2959,6 +3339,8 @@ var _secAsn1AllocItem func(coder uintptr, item unsafe.Pointer, len_ uintptr) int
 
 // SecAsn1AllocItem allocates memory for an item’s data field in the coder object’s memory pool.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecAsn1AllocItem
 func SecAsn1AllocItem(coder uintptr, item unsafe.Pointer, len_ uintptr) int32 {
 	if _secAsn1AllocItem == nil {
@@ -2970,6 +3352,8 @@ func SecAsn1AllocItem(coder uintptr, item unsafe.Pointer, len_ uintptr) int32 {
 var _secAsn1CoderCreate func(coder unsafe.Pointer) int32
 
 // SecAsn1CoderCreate creates an ASN.1 coder object.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecAsn1CoderCreate
 func SecAsn1CoderCreate(coder unsafe.Pointer) int32 {
@@ -2983,6 +3367,8 @@ var _secAsn1CoderRelease func(coder uintptr) int32
 
 // SecAsn1CoderRelease destroys an ASN.1 coder object and releases all of its memory.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecAsn1CoderRelease
 func SecAsn1CoderRelease(coder uintptr) int32 {
 	if _secAsn1CoderRelease == nil {
@@ -2994,6 +3380,8 @@ func SecAsn1CoderRelease(coder uintptr) int32 {
 var _secAsn1Decode func(coder uintptr, src unsafe.Pointer, len_ uintptr, templates unsafe.Pointer, dest unsafe.Pointer) int32
 
 // SecAsn1Decode decodes untyped DER data.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecAsn1Decode
 func SecAsn1Decode(coder uintptr, src unsafe.Pointer, len_ uintptr, templates unsafe.Pointer, dest unsafe.Pointer) int32 {
@@ -3007,6 +3395,8 @@ var _secAsn1DecodeData func(coder uintptr, src unsafe.Pointer, templ unsafe.Poin
 
 // SecAsn1DecodeData decodes an ASN.1 item in DER format.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecAsn1DecodeData
 func SecAsn1DecodeData(coder uintptr, src unsafe.Pointer, templ unsafe.Pointer, dest unsafe.Pointer) int32 {
 	if _secAsn1DecodeData == nil {
@@ -3018,6 +3408,8 @@ func SecAsn1DecodeData(coder uintptr, src unsafe.Pointer, templ unsafe.Pointer, 
 var _secAsn1EncodeItem func(coder uintptr, src unsafe.Pointer, templates unsafe.Pointer, dest unsafe.Pointer) int32
 
 // SecAsn1EncodeItem encodes data in DER format.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecAsn1EncodeItem
 func SecAsn1EncodeItem(coder uintptr, src unsafe.Pointer, templates unsafe.Pointer, dest unsafe.Pointer) int32 {
@@ -3031,6 +3423,8 @@ var _secAsn1Malloc func(coder uintptr, len_ uintptr) unsafe.Pointer
 
 // SecAsn1Malloc allocates memory in the coder object’s memory pool.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecAsn1Malloc
 func SecAsn1Malloc(coder uintptr, len_ uintptr) unsafe.Pointer {
 	if _secAsn1Malloc == nil {
@@ -3042,6 +3436,8 @@ func SecAsn1Malloc(coder uintptr, len_ uintptr) unsafe.Pointer {
 var _secAsn1OidCompare func(oid1 unsafe.Pointer, oid2 unsafe.Pointer) bool
 
 // SecAsn1OidCompare compares two decoded object identifiers.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecAsn1OidCompare
 func SecAsn1OidCompare(oid1 unsafe.Pointer, oid2 unsafe.Pointer) bool {
@@ -3175,6 +3571,8 @@ var _secCertificateCopyPreference func(name corefoundation.CFStringRef, keyUsage
 
 // SecCertificateCopyPreference retrieves the preferred certificate for the specified name and key use.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecCertificateCopyPreference
 func SecCertificateCopyPreference(name corefoundation.CFStringRef, keyUsage uint32, certificate *SecCertificateRef) int32 {
 	if _secCertificateCopyPreference == nil {
@@ -3259,6 +3657,8 @@ var _secCertificateGetAlgorithmID func(certificate SecCertificateRef, algid unsa
 
 // SecCertificateGetAlgorithmID retrieves the algorithm identifier for a certificate.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecCertificateGetAlgorithmID
 func SecCertificateGetAlgorithmID(certificate SecCertificateRef, algid unsafe.Pointer) int32 {
 	if _secCertificateGetAlgorithmID == nil {
@@ -3270,6 +3670,8 @@ func SecCertificateGetAlgorithmID(certificate SecCertificateRef, algid unsafe.Po
 var _secCertificateGetCLHandle func(certificate SecCertificateRef, clHandle unsafe.Pointer) int32
 
 // SecCertificateGetCLHandle retrieves the certificate library handle from a certificate object.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecCertificateGetCLHandle
 func SecCertificateGetCLHandle(certificate SecCertificateRef, clHandle unsafe.Pointer) int32 {
@@ -3283,6 +3685,8 @@ var _secCertificateGetData func(certificate SecCertificateRef, data unsafe.Point
 
 // SecCertificateGetData retrieves the data for a certificate.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecCertificateGetData
 func SecCertificateGetData(certificate SecCertificateRef, data unsafe.Pointer) int32 {
 	if _secCertificateGetData == nil {
@@ -3294,6 +3698,8 @@ func SecCertificateGetData(certificate SecCertificateRef, data unsafe.Pointer) i
 var _secCertificateGetIssuer func(certificate SecCertificateRef, issuer unsafe.Pointer) int32
 
 // SecCertificateGetIssuer unsupported.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecCertificateGetIssuer
 func SecCertificateGetIssuer(certificate SecCertificateRef, issuer unsafe.Pointer) int32 {
@@ -3307,6 +3713,8 @@ var _secCertificateGetSubject func(certificate SecCertificateRef, subject unsafe
 
 // SecCertificateGetSubject unsupported.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecCertificateGetSubject
 func SecCertificateGetSubject(certificate SecCertificateRef, subject unsafe.Pointer) int32 {
 	if _secCertificateGetSubject == nil {
@@ -3318,6 +3726,8 @@ func SecCertificateGetSubject(certificate SecCertificateRef, subject unsafe.Poin
 var _secCertificateGetType func(certificate SecCertificateRef, certificateType unsafe.Pointer) int32
 
 // SecCertificateGetType retrieves the type of a specified certificate.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecCertificateGetType
 func SecCertificateGetType(certificate SecCertificateRef, certificateType unsafe.Pointer) int32 {
@@ -3342,6 +3752,8 @@ func SecCertificateGetTypeID() uint {
 var _secCertificateSetPreference func(certificate SecCertificateRef, name corefoundation.CFStringRef, keyUsage uint32, date corefoundation.CFDateRef) int32
 
 // SecCertificateSetPreference sets the preferred certificate for a specified name, key use, and date.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecCertificateSetPreference
 func SecCertificateSetPreference(certificate SecCertificateRef, name corefoundation.CFStringRef, keyUsage uint32, date corefoundation.CFDateRef) int32 {
@@ -3547,6 +3959,8 @@ var _secHostCreateGuest func(host SecGuestRef, status uint32, path corefoundatio
 
 // SecHostCreateGuest creates a new guest and describes its initial properties.
 //
+// Deprecated: Deprecated since macOS 10.6.
+//
 // See: https://developer.apple.com/documentation/Security/SecHostCreateGuest
 func SecHostCreateGuest(host SecGuestRef, status uint32, path corefoundation.CFURLRef, attributes corefoundation.CFDictionaryRef, flags SecCSFlags, newGuest *SecGuestRef) int32 {
 	if _secHostCreateGuest == nil {
@@ -3558,6 +3972,8 @@ func SecHostCreateGuest(host SecGuestRef, status uint32, path corefoundation.CFU
 var _secHostRemoveGuest func(host SecGuestRef, guest SecGuestRef, flags SecCSFlags) int32
 
 // SecHostRemoveGuest removes a guest from a host.
+//
+// Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/Security/SecHostRemoveGuest
 func SecHostRemoveGuest(host SecGuestRef, guest SecGuestRef, flags SecCSFlags) int32 {
@@ -3571,6 +3987,8 @@ var _secHostSelectGuest func(guestRef SecGuestRef, flags SecCSFlags) int32
 
 // SecHostSelectGuest makes the calling thread the proxy for a specified guest.
 //
+// Deprecated: Deprecated since macOS 10.6.
+//
 // See: https://developer.apple.com/documentation/Security/SecHostSelectGuest
 func SecHostSelectGuest(guestRef SecGuestRef, flags SecCSFlags) int32 {
 	if _secHostSelectGuest == nil {
@@ -3582,6 +4000,8 @@ func SecHostSelectGuest(guestRef SecGuestRef, flags SecCSFlags) int32 {
 var _secHostSelectedGuest func(flags SecCSFlags, guestRef *SecGuestRef) int32
 
 // SecHostSelectedGuest retrieves the handle for the guest currently selected for the calling thread.
+//
+// Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/Security/SecHostSelectedGuest
 func SecHostSelectedGuest(flags SecCSFlags, guestRef *SecGuestRef) int32 {
@@ -3595,6 +4015,8 @@ var _secHostSetGuestStatus func(guestRef SecGuestRef, status uint32, attributes 
 
 // SecHostSetGuestStatus updates the status and attributes of a particular guest.
 //
+// Deprecated: Deprecated since macOS 10.6.
+//
 // See: https://developer.apple.com/documentation/Security/SecHostSetGuestStatus
 func SecHostSetGuestStatus(guestRef SecGuestRef, status uint32, attributes corefoundation.CFDictionaryRef, flags SecCSFlags) int32 {
 	if _secHostSetGuestStatus == nil {
@@ -3606,6 +4028,8 @@ func SecHostSetGuestStatus(guestRef SecGuestRef, status uint32, attributes coref
 var _secHostSetHostingPort func(hostingPort uint32, flags SecCSFlags) int32
 
 // SecHostSetHostingPort tells code signing services that the calling code will directly respond to hosting inquiries over the given port.
+//
+// Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/Security/SecHostSetHostingPort
 func SecHostSetHostingPort(hostingPort uint32, flags SecCSFlags) int32 {
@@ -3630,6 +4054,8 @@ func SecIdentityCopyCertificate(identityRef SecIdentityRef, certificateRef *SecC
 var _secIdentityCopyPreference func(name corefoundation.CFStringRef, keyUsage CSSM_KEYUSE, validIssuers corefoundation.CFArrayRef, identity *SecIdentityRef) int32
 
 // SecIdentityCopyPreference returns the preferred identity for the specified name and key use.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecIdentityCopyPreference
 func SecIdentityCopyPreference(name corefoundation.CFStringRef, keyUsage CSSM_KEYUSE, validIssuers corefoundation.CFArrayRef, identity *SecIdentityRef) int32 {
@@ -3715,6 +4141,8 @@ var _secIdentitySearchCopyNext func(searchRef SecIdentitySearchRef, identity *Se
 
 // SecIdentitySearchCopyNext finds the next identity matching specified search criteria
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecIdentitySearchCopyNext
 func SecIdentitySearchCopyNext(searchRef SecIdentitySearchRef, identity *SecIdentityRef) int32 {
 	if _secIdentitySearchCopyNext == nil {
@@ -3726,6 +4154,8 @@ func SecIdentitySearchCopyNext(searchRef SecIdentitySearchRef, identity *SecIden
 var _secIdentitySearchCreate func(keychainOrArray corefoundation.CFTypeRef, keyUsage CSSM_KEYUSE, searchRef *SecIdentitySearchRef) int32
 
 // SecIdentitySearchCreate creates a search object for finding identities.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecIdentitySearchCreate
 func SecIdentitySearchCreate(keychainOrArray corefoundation.CFTypeRef, keyUsage CSSM_KEYUSE, searchRef *SecIdentitySearchRef) int32 {
@@ -3739,6 +4169,8 @@ var _secIdentitySearchGetTypeID func() uint
 
 // SecIdentitySearchGetTypeID returns the unique identifier of the opaque type to which a [SecIdentitySearch] object belongs.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecIdentitySearchGetTypeID
 func SecIdentitySearchGetTypeID() uint {
 	if _secIdentitySearchGetTypeID == nil {
@@ -3750,6 +4182,8 @@ func SecIdentitySearchGetTypeID() uint {
 var _secIdentitySetPreference func(identity SecIdentityRef, name corefoundation.CFStringRef, keyUsage CSSM_KEYUSE) int32
 
 // SecIdentitySetPreference sets the preferred identity for the specified name and key use.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecIdentitySetPreference
 func SecIdentitySetPreference(identity SecIdentityRef, name corefoundation.CFStringRef, keyUsage CSSM_KEYUSE) int32 {
@@ -3931,6 +4365,8 @@ var _secKeyCreatePair func(keychainRef SecKeychainRef, algorithm CSSM_ALGORITHMS
 
 // SecKeyCreatePair creates an asymmetric key pair and stores it in a keychain.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecKeyCreatePair
 func SecKeyCreatePair(keychainRef SecKeychainRef, algorithm CSSM_ALGORITHMS, keySizeInBits uint32, contextHandle CSSM_CC_HANDLE, publicKeyUsage CSSM_KEYUSE, publicKeyAttr uint32, privateKeyUsage CSSM_KEYUSE, privateKeyAttr uint32, initialAccess SecAccessRef, publicKey *SecKeyRef, privateKey *SecKeyRef) int32 {
 	if _secKeyCreatePair == nil {
@@ -3979,6 +4415,8 @@ var _secKeyGenerate func(keychainRef SecKeychainRef, algorithm CSSM_ALGORITHMS, 
 
 // SecKeyGenerate creates a symmetric key and optionally stores it in a keychain.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecKeyGenerate
 func SecKeyGenerate(keychainRef SecKeychainRef, algorithm CSSM_ALGORITHMS, keySizeInBits uint32, contextHandle CSSM_CC_HANDLE, keyUsage CSSM_KEYUSE, keyAttr uint32, initialAccess SecAccessRef, keyRef *SecKeyRef) int32 {
 	if _secKeyGenerate == nil {
@@ -4003,6 +4441,8 @@ var _secKeyGetCSPHandle func(keyRef SecKeyRef, cspHandle unsafe.Pointer) int32
 
 // SecKeyGetCSPHandle returns the CSSM CSP handle for a key.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecKeyGetCSPHandle
 func SecKeyGetCSPHandle(keyRef SecKeyRef, cspHandle unsafe.Pointer) int32 {
 	if _secKeyGetCSPHandle == nil {
@@ -4015,6 +4455,8 @@ var _secKeyGetCSSMKey func(key SecKeyRef, cssmKey unsafe.Pointer) int32
 
 // SecKeyGetCSSMKey retrieves a pointer to the `CSSM_KEY` structure containing the key stored in a keychain item.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecKeyGetCSSMKey
 func SecKeyGetCSSMKey(key SecKeyRef, cssmKey unsafe.Pointer) int32 {
 	if _secKeyGetCSSMKey == nil {
@@ -4026,6 +4468,8 @@ func SecKeyGetCSSMKey(key SecKeyRef, cssmKey unsafe.Pointer) int32 {
 var _secKeyGetCredentials func(keyRef SecKeyRef, operation CSSM_ACL_AUTHORIZATION_TAG, credentialType SecCredentialType, outCredentials unsafe.Pointer) int32
 
 // SecKeyGetCredentials returns an access credential for a key.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecKeyGetCredentials
 func SecKeyGetCredentials(keyRef SecKeyRef, operation CSSM_ACL_AUTHORIZATION_TAG, credentialType SecCredentialType, outCredentials unsafe.Pointer) int32 {
@@ -4074,6 +4518,8 @@ func SecKeyVerifySignature(key SecKeyRef, algorithm SecKeyAlgorithm, signedData 
 var _secKeychainSearchGetTypeID func() uint
 
 // SecKeychainSearchGetTypeID returns the unique identifier of the opaque type to which a keychain search object belongs.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecKeychainSearchGetTypeID
 func SecKeychainSearchGetTypeID() uint {
@@ -4147,6 +4593,8 @@ var _secPolicyCreateWithOID func(policyOID corefoundation.CFTypeRef) SecPolicyRe
 
 // SecPolicyCreateWithOID returns a policy object for the specified policy type object identifier.
 //
+// Deprecated: Deprecated since macOS 10.9.
+//
 // See: https://developer.apple.com/documentation/Security/SecPolicyCreateWithOID
 func SecPolicyCreateWithOID(policyOID corefoundation.CFTypeRef) SecPolicyRef {
 	if _secPolicyCreateWithOID == nil {
@@ -4171,6 +4619,8 @@ var _secPolicyGetOID func(policyRef SecPolicyRef, oid unsafe.Pointer) int32
 
 // SecPolicyGetOID retrieves a policy’s object identifier.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecPolicyGetOID
 func SecPolicyGetOID(policyRef SecPolicyRef, oid unsafe.Pointer) int32 {
 	if _secPolicyGetOID == nil {
@@ -4182,6 +4632,8 @@ func SecPolicyGetOID(policyRef SecPolicyRef, oid unsafe.Pointer) int32 {
 var _secPolicyGetTPHandle func(policyRef SecPolicyRef, tpHandle unsafe.Pointer) int32
 
 // SecPolicyGetTPHandle retrieves the trust policy handle for a policy object.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecPolicyGetTPHandle
 func SecPolicyGetTPHandle(policyRef SecPolicyRef, tpHandle unsafe.Pointer) int32 {
@@ -4207,6 +4659,8 @@ var _secPolicyGetValue func(policyRef SecPolicyRef, value unsafe.Pointer) int32
 
 // SecPolicyGetValue retrieves a policy’s value.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecPolicyGetValue
 func SecPolicyGetValue(policyRef SecPolicyRef, value unsafe.Pointer) int32 {
 	if _secPolicyGetValue == nil {
@@ -4218,6 +4672,8 @@ func SecPolicyGetValue(policyRef SecPolicyRef, value unsafe.Pointer) int32 {
 var _secPolicySearchCopyNext func(searchRef SecPolicySearchRef, policyRef *SecPolicyRef) int32
 
 // SecPolicySearchCopyNext retrieves a policy object for the next policy matching specified search criteria.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecPolicySearchCopyNext
 func SecPolicySearchCopyNext(searchRef SecPolicySearchRef, policyRef *SecPolicyRef) int32 {
@@ -4231,6 +4687,8 @@ var _secPolicySearchCreate func(certType CSSM_CERT_TYPE, policyOID unsafe.Pointe
 
 // SecPolicySearchCreate creates a search object for finding policies.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecPolicySearchCreate
 func SecPolicySearchCreate(certType CSSM_CERT_TYPE, policyOID unsafe.Pointer, value unsafe.Pointer, searchRef *SecPolicySearchRef) int32 {
 	if _secPolicySearchCreate == nil {
@@ -4242,6 +4700,8 @@ func SecPolicySearchCreate(certType CSSM_CERT_TYPE, policyOID unsafe.Pointer, va
 var _secPolicySearchGetTypeID func() uint
 
 // SecPolicySearchGetTypeID returns the unique identifier of the opaque type to which a [SecPolicySearch] object belongs.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecPolicySearchGetTypeID
 func SecPolicySearchGetTypeID() uint {
@@ -4255,6 +4715,8 @@ var _secPolicySetProperties func(policyRef SecPolicyRef, properties corefoundati
 
 // SecPolicySetProperties sets properties for a policy.
 //
+// Deprecated: Deprecated since macOS 10.9.
+//
 // See: https://developer.apple.com/documentation/Security/SecPolicySetProperties
 func SecPolicySetProperties(policyRef SecPolicyRef, properties corefoundation.CFDictionaryRef) int32 {
 	if _secPolicySetProperties == nil {
@@ -4266,6 +4728,8 @@ func SecPolicySetProperties(policyRef SecPolicyRef, properties corefoundation.CF
 var _secPolicySetValue func(policyRef SecPolicyRef, value unsafe.Pointer) int32
 
 // SecPolicySetValue sets a policy’s value.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecPolicySetValue
 func SecPolicySetValue(policyRef SecPolicyRef, value unsafe.Pointer) int32 {
@@ -4567,6 +5031,8 @@ var _secTrustCopyProperties func(trust SecTrustRef) corefoundation.CFArrayRef
 
 // SecTrustCopyProperties returns an array containing the properties of a trust object.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecTrustCopyProperties(_:)
 func SecTrustCopyProperties(trust SecTrustRef) corefoundation.CFArrayRef {
 	if _secTrustCopyProperties == nil {
@@ -4578,6 +5044,8 @@ func SecTrustCopyProperties(trust SecTrustRef) corefoundation.CFArrayRef {
 var _secTrustCopyPublicKey func(trust SecTrustRef) SecKeyRef
 
 // SecTrustCopyPublicKey returns the public key for a leaf certificate after it has been evaluated.
+//
+// Deprecated: Deprecated since macOS 11.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustCopyPublicKey(_:)
 func SecTrustCopyPublicKey(trust SecTrustRef) SecKeyRef {
@@ -4639,6 +5107,8 @@ var _secTrustGetCertificateAtIndex func(trust SecTrustRef, ix int) SecCertificat
 
 // SecTrustGetCertificateAtIndex returns a specific certificate from the certificate chain used to evaluate trust.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecTrustGetCertificateAtIndex(_:_:)
 func SecTrustGetCertificateAtIndex(trust SecTrustRef, ix int) SecCertificateRef {
 	if _secTrustGetCertificateAtIndex == nil {
@@ -4663,6 +5133,8 @@ var _secTrustGetCssmResult func(trust SecTrustRef, result unsafe.Pointer) int32
 
 // SecTrustGetCssmResult retrieves the CSSM trust result.
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecTrustGetCssmResult
 func SecTrustGetCssmResult(trust SecTrustRef, result unsafe.Pointer) int32 {
 	if _secTrustGetCssmResult == nil {
@@ -4674,6 +5146,8 @@ func SecTrustGetCssmResult(trust SecTrustRef, result unsafe.Pointer) int32 {
 var _secTrustGetCssmResultCode func(trust SecTrustRef, resultCode *int32) int32
 
 // SecTrustGetCssmResultCode retrieves the CSSM result code from the most recent trust evaluation for a trust management object.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustGetCssmResultCode
 func SecTrustGetCssmResultCode(trust SecTrustRef, resultCode *int32) int32 {
@@ -4699,6 +5173,8 @@ var _secTrustGetResult func(trustRef SecTrustRef, result *SecTrustResultType, ce
 
 // SecTrustGetResult retrieves details on the outcome of a call to the function [SecTrustEvaluate].
 //
+// Deprecated: Deprecated since macOS 10.7.
+//
 // See: https://developer.apple.com/documentation/Security/SecTrustGetResult
 func SecTrustGetResult(trustRef SecTrustRef, result *SecTrustResultType, certChain *corefoundation.CFArrayRef, statusChain unsafe.Pointer) int32 {
 	if _secTrustGetResult == nil {
@@ -4710,6 +5186,8 @@ func SecTrustGetResult(trustRef SecTrustRef, result *SecTrustResultType, certCha
 var _secTrustGetTPHandle func(trust SecTrustRef, handle unsafe.Pointer) int32
 
 // SecTrustGetTPHandle retrieves the trust policy handle.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustGetTPHandle
 func SecTrustGetTPHandle(trust SecTrustRef, handle unsafe.Pointer) int32 {
@@ -4795,6 +5273,8 @@ var _secTrustSetKeychains func(trust SecTrustRef, keychainOrArray corefoundation
 
 // SecTrustSetKeychains sets the keychains searched for intermediate certificates when evaluating a trust management object.
 //
+// Deprecated: Deprecated since macOS 10.13.
+//
 // See: https://developer.apple.com/documentation/Security/SecTrustSetKeychains(_:_:)
 func SecTrustSetKeychains(trust SecTrustRef, keychainOrArray corefoundation.CFTypeRef) int32 {
 	if _secTrustSetKeychains == nil {
@@ -4842,6 +5322,8 @@ func SecTrustSetOptions(trustRef SecTrustRef, options SecTrustOptionFlags) int32
 var _secTrustSetParameters func(trustRef SecTrustRef, action CSSM_TP_ACTION, actionData corefoundation.CFDataRef) int32
 
 // SecTrustSetParameters sets the action and action data for a trust management object.
+//
+// Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustSetParameters
 func SecTrustSetParameters(trustRef SecTrustRef, action CSSM_TP_ACTION, actionData corefoundation.CFDataRef) int32 {
@@ -4975,6 +5457,8 @@ var _secureDownloadCopyCreationDate func(downloadRef SecureDownloadRef, date *co
 
 // SecureDownloadCopyCreationDate returns download ticket’s creation date.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecureDownloadCopyCreationDate
 func SecureDownloadCopyCreationDate(downloadRef SecureDownloadRef, date *corefoundation.CFDateRef) int32 {
 	if _secureDownloadCopyCreationDate == nil {
@@ -4986,6 +5470,8 @@ func SecureDownloadCopyCreationDate(downloadRef SecureDownloadRef, date *corefou
 var _secureDownloadCopyName func(downloadRef SecureDownloadRef, name *corefoundation.CFStringRef) int32
 
 // SecureDownloadCopyName returns the printable name of the download ticket.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecureDownloadCopyName
 func SecureDownloadCopyName(downloadRef SecureDownloadRef, name *corefoundation.CFStringRef) int32 {
@@ -4999,6 +5485,8 @@ var _secureDownloadCopyTicketLocation func(url corefoundation.CFURLRef, ticketLo
 
 // SecureDownloadCopyTicketLocation copies the ticket location from a secure download URL.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecureDownloadCopyTicketLocation
 func SecureDownloadCopyTicketLocation(url corefoundation.CFURLRef, ticketLocation *corefoundation.CFURLRef) int32 {
 	if _secureDownloadCopyTicketLocation == nil {
@@ -5010,6 +5498,8 @@ func SecureDownloadCopyTicketLocation(url corefoundation.CFURLRef, ticketLocatio
 var _secureDownloadCopyURLs func(downloadRef SecureDownloadRef, urls *corefoundation.CFArrayRef) int32
 
 // SecureDownloadCopyURLs returns a list of URLs from which the data can be downloaded.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecureDownloadCopyURLs
 func SecureDownloadCopyURLs(downloadRef SecureDownloadRef, urls *corefoundation.CFArrayRef) int32 {
@@ -5023,6 +5513,8 @@ var _secureDownloadCreateWithTicket func(ticket corefoundation.CFDataRef, setup 
 
 // SecureDownloadCreateWithTicket creates a secure download object for use during the download process.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecureDownloadCreateWithTicket
 func SecureDownloadCreateWithTicket(ticket corefoundation.CFDataRef, setup unsafe.Pointer, setupContext unsafe.Pointer, evaluate unsafe.Pointer, evaluateContext unsafe.Pointer, downloadRef *SecureDownloadRef) int32 {
 	if _secureDownloadCreateWithTicket == nil {
@@ -5034,6 +5526,8 @@ func SecureDownloadCreateWithTicket(ticket corefoundation.CFDataRef, setup unsaf
 var _secureDownloadFinished func(downloadRef SecureDownloadRef) int32
 
 // SecureDownloadFinished concludes the secure download process.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecureDownloadFinished
 func SecureDownloadFinished(downloadRef SecureDownloadRef) int32 {
@@ -5047,6 +5541,8 @@ var _secureDownloadGetDownloadSize func(downloadRef SecureDownloadRef, downloadS
 
 // SecureDownloadGetDownloadSize returns the size of the expected download.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecureDownloadGetDownloadSize
 func SecureDownloadGetDownloadSize(downloadRef SecureDownloadRef, downloadSize *int64) int32 {
 	if _secureDownloadGetDownloadSize == nil {
@@ -5059,6 +5555,8 @@ var _secureDownloadRelease func(downloadRef SecureDownloadRef) int32
 
 // SecureDownloadRelease releases the memory associated with a secure download object.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Security/SecureDownloadRelease
 func SecureDownloadRelease(downloadRef SecureDownloadRef) int32 {
 	if _secureDownloadRelease == nil {
@@ -5070,6 +5568,8 @@ func SecureDownloadRelease(downloadRef SecureDownloadRef) int32 {
 var _secureDownloadUpdateWithData func(downloadRef SecureDownloadRef, data corefoundation.CFDataRef) int32
 
 // SecureDownloadUpdateWithData checks data received during download for validity.
+//
+// Deprecated: Deprecated since macOS 12.0.
 //
 // See: https://developer.apple.com/documentation/Security/SecureDownloadUpdateWithData
 func SecureDownloadUpdateWithData(downloadRef SecureDownloadRef, data corefoundation.CFDataRef) int32 {
@@ -5127,12 +5627,12 @@ func CssmOidToAlg(oid unsafe.Pointer, alg unsafe.Pointer) bool {
 	return _cssmOidToAlg(oid, alg)
 }
 
-var _cssmPerror func(how *byte, err CSSM_RETURN)
+var _cssmPerror func(how string, err CSSM_RETURN)
 
 // CssmPerror.
 //
 // See: https://developer.apple.com/documentation/Security/cssmPerror(_:_:)
-func CssmPerror(how *byte, err CSSM_RETURN) {
+func CssmPerror(how string, err CSSM_RETURN) {
 	if _cssmPerror == nil {
 		panic("Security: symbol cssmPerror not loaded")
 	}
@@ -5331,24 +5831,24 @@ func Sec_protocol_metadata_copy_server_name(metadata Sec_protocol_metadata_t) *b
 	return _sec_protocol_metadata_copy_server_name(metadata)
 }
 
-var _sec_protocol_metadata_create_secret func(metadata Sec_protocol_metadata_t, label_len uintptr, label *byte, exporter_length uintptr) uintptr
+var _sec_protocol_metadata_create_secret func(metadata Sec_protocol_metadata_t, label_len uintptr, label string, exporter_length uintptr) uintptr
 
 // Sec_protocol_metadata_create_secret.
 //
 // See: https://developer.apple.com/documentation/Security/sec_protocol_metadata_create_secret(_:_:_:_:)
-func Sec_protocol_metadata_create_secret(metadata Sec_protocol_metadata_t, label_len uintptr, label *byte, exporter_length uintptr) dispatch.Data {
+func Sec_protocol_metadata_create_secret(metadata Sec_protocol_metadata_t, label_len uintptr, label string, exporter_length uintptr) dispatch.Data {
 	if _sec_protocol_metadata_create_secret == nil {
 		panic("Security: symbol sec_protocol_metadata_create_secret not loaded")
 	}
 	return dispatch.DataFromHandle(_sec_protocol_metadata_create_secret(metadata, label_len, label, exporter_length))
 }
 
-var _sec_protocol_metadata_create_secret_with_context func(metadata Sec_protocol_metadata_t, label_len uintptr, label *byte, context_len uintptr, context *uint8, exporter_length uintptr) uintptr
+var _sec_protocol_metadata_create_secret_with_context func(metadata Sec_protocol_metadata_t, label_len uintptr, label string, context_len uintptr, context *uint8, exporter_length uintptr) uintptr
 
 // Sec_protocol_metadata_create_secret_with_context.
 //
 // See: https://developer.apple.com/documentation/Security/sec_protocol_metadata_create_secret_with_context(_:_:_:_:_:_:)
-func Sec_protocol_metadata_create_secret_with_context(metadata Sec_protocol_metadata_t, label_len uintptr, label *byte, context_len uintptr, context *uint8, exporter_length uintptr) dispatch.Data {
+func Sec_protocol_metadata_create_secret_with_context(metadata Sec_protocol_metadata_t, label_len uintptr, label string, context_len uintptr, context *uint8, exporter_length uintptr) dispatch.Data {
 	if _sec_protocol_metadata_create_secret_with_context == nil {
 		panic("Security: symbol sec_protocol_metadata_create_secret_with_context not loaded")
 	}
@@ -5371,6 +5871,8 @@ var _sec_protocol_metadata_get_negotiated_ciphersuite func(metadata Sec_protocol
 
 // Sec_protocol_metadata_get_negotiated_ciphersuite.
 //
+// Deprecated: Deprecated since macOS 10.15.
+//
 // See: https://developer.apple.com/documentation/Security/sec_protocol_metadata_get_negotiated_ciphersuite(_:)
 func Sec_protocol_metadata_get_negotiated_ciphersuite(metadata Sec_protocol_metadata_t) SSLCipherSuite {
 	if _sec_protocol_metadata_get_negotiated_ciphersuite == nil {
@@ -5383,6 +5885,8 @@ var _sec_protocol_metadata_get_negotiated_protocol func(metadata Sec_protocol_me
 
 // Sec_protocol_metadata_get_negotiated_protocol.
 //
+// Deprecated: Deprecated since macOS 15.5.
+//
 // See: https://developer.apple.com/documentation/Security/sec_protocol_metadata_get_negotiated_protocol(_:)
 func Sec_protocol_metadata_get_negotiated_protocol(metadata Sec_protocol_metadata_t) *byte {
 	if _sec_protocol_metadata_get_negotiated_protocol == nil {
@@ -5394,6 +5898,8 @@ func Sec_protocol_metadata_get_negotiated_protocol(metadata Sec_protocol_metadat
 var _sec_protocol_metadata_get_negotiated_protocol_version func(metadata Sec_protocol_metadata_t) SSLProtocol
 
 // Sec_protocol_metadata_get_negotiated_protocol_version.
+//
+// Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/Security/sec_protocol_metadata_get_negotiated_protocol_version(_:)
 func Sec_protocol_metadata_get_negotiated_protocol_version(metadata Sec_protocol_metadata_t) SSLProtocol {
@@ -5431,6 +5937,8 @@ var _sec_protocol_metadata_get_server_name func(metadata Sec_protocol_metadata_t
 
 // Sec_protocol_metadata_get_server_name.
 //
+// Deprecated: Deprecated since macOS 15.5.
+//
 // See: https://developer.apple.com/documentation/Security/sec_protocol_metadata_get_server_name(_:)
 func Sec_protocol_metadata_get_server_name(metadata Sec_protocol_metadata_t) *byte {
 	if _sec_protocol_metadata_get_server_name == nil {
@@ -5463,12 +5971,12 @@ func Sec_protocol_options_add_pre_shared_key(options Sec_protocol_options_t, psk
 	_sec_protocol_options_add_pre_shared_key(options, uintptr(psk.Handle()), uintptr(psk_identity.Handle()))
 }
 
-var _sec_protocol_options_add_tls_application_protocol func(options Sec_protocol_options_t, application_protocol *byte)
+var _sec_protocol_options_add_tls_application_protocol func(options Sec_protocol_options_t, application_protocol string)
 
 // Sec_protocol_options_add_tls_application_protocol.
 //
 // See: https://developer.apple.com/documentation/Security/sec_protocol_options_add_tls_application_protocol(_:_:)
-func Sec_protocol_options_add_tls_application_protocol(options Sec_protocol_options_t, application_protocol *byte) {
+func Sec_protocol_options_add_tls_application_protocol(options Sec_protocol_options_t, application_protocol string) {
 	if _sec_protocol_options_add_tls_application_protocol == nil {
 		panic("Security: symbol sec_protocol_options_add_tls_application_protocol not loaded")
 	}
@@ -5731,6 +6239,8 @@ var _sec_protocol_options_set_tls_max_version func(options Sec_protocol_options_
 
 // Sec_protocol_options_set_tls_max_version.
 //
+// Deprecated: Deprecated since macOS 10.15.
+//
 // See: https://developer.apple.com/documentation/Security/sec_protocol_options_set_tls_max_version(_:_:)
 func Sec_protocol_options_set_tls_max_version(options Sec_protocol_options_t, version SSLProtocol) {
 	if _sec_protocol_options_set_tls_max_version == nil {
@@ -5742,6 +6252,8 @@ func Sec_protocol_options_set_tls_max_version(options Sec_protocol_options_t, ve
 var _sec_protocol_options_set_tls_min_version func(options Sec_protocol_options_t, version SSLProtocol)
 
 // Sec_protocol_options_set_tls_min_version.
+//
+// Deprecated: Deprecated since macOS 10.15.
 //
 // See: https://developer.apple.com/documentation/Security/sec_protocol_options_set_tls_min_version(_:_:)
 func Sec_protocol_options_set_tls_min_version(options Sec_protocol_options_t, version SSLProtocol) {
@@ -5811,12 +6323,12 @@ func Sec_protocol_options_set_tls_sct_enabled(options Sec_protocol_options_t, sc
 	_sec_protocol_options_set_tls_sct_enabled(options, sct_enabled)
 }
 
-var _sec_protocol_options_set_tls_server_name func(options Sec_protocol_options_t, server_name *byte)
+var _sec_protocol_options_set_tls_server_name func(options Sec_protocol_options_t, server_name string)
 
 // Sec_protocol_options_set_tls_server_name.
 //
 // See: https://developer.apple.com/documentation/Security/sec_protocol_options_set_tls_server_name(_:_:)
-func Sec_protocol_options_set_tls_server_name(options Sec_protocol_options_t, server_name *byte) {
+func Sec_protocol_options_set_tls_server_name(options Sec_protocol_options_t, server_name string) {
 	if _sec_protocol_options_set_tls_server_name == nil {
 		panic("Security: symbol sec_protocol_options_set_tls_server_name not loaded")
 	}

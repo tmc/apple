@@ -9,218 +9,337 @@ import (
 	"github.com/tmc/apple/corefoundation"
 )
 
-var CGAffineTransformIdentity corefoundation.CGAffineTransform
-
-var CGPointZero corefoundation.CGPoint
-
-var CGRectInfinite corefoundation.CGRect
-
-var CGRectNull corefoundation.CGRect
-
-var CGRectZero corefoundation.CGRect
-
-var CGSizeZero corefoundation.CGSize
-
-var KCGAdaptiveMaximumBitDepth string
-
-var KCGColorBlack string
-
-var KCGColorClear string
-
-var KCGColorConversionBlackPointCompensation string
-
-var KCGColorConversionTRCSize string
-
-var KCGColorSpaceACESCGLinear string
-
-var KCGColorSpaceAdobeRGB1998 string
-
-var KCGColorSpaceCoreMedia709 string
-
-var KCGColorSpaceDCIP3 string
-
-var KCGColorSpaceDisplayP3 string
-
-var KCGColorSpaceDisplayP3_HLG string
-
-var KCGColorSpaceDisplayP3_PQ string
-
-var KCGColorSpaceExtendedDisplayP3 string
-
-var KCGColorSpaceExtendedGray string
-
-var KCGColorSpaceExtendedITUR_2020 string
-
-var KCGColorSpaceExtendedLinearDisplayP3 string
-
-var KCGColorSpaceExtendedLinearGray string
-
-var KCGColorSpaceExtendedLinearITUR_2020 string
-
-var KCGColorSpaceExtendedLinearSRGB string
-
-var KCGColorSpaceExtendedRange string
-
-var KCGColorSpaceExtendedSRGB string
-
-var KCGColorSpaceGenericCMYK string
-
-var KCGColorSpaceGenericGrayGamma2_2 string
-
-var KCGColorSpaceGenericLab string
-
-var KCGColorSpaceGenericRGBLinear string
-
-var KCGColorSpaceGenericXYZ string
-
-var KCGColorSpaceITUR_2020 string
-
-var KCGColorSpaceITUR_2020_sRGBGamma string
-
-var KCGColorSpaceITUR_2100_HLG string
-
-var KCGColorSpaceITUR_2100_PQ string
-
-var KCGColorSpaceITUR_709 string
-
-var KCGColorSpaceITUR_709_HLG string
-
-var KCGColorSpaceITUR_709_PQ string
-
-var KCGColorSpaceLinearDisplayP3 string
-
-var KCGColorSpaceLinearGray string
-
-var KCGColorSpaceLinearITUR_2020 string
-
-var KCGColorSpaceLinearSRGB string
-
-var KCGColorSpaceROMMRGB string
-
-var KCGColorSpaceSRGB string
-
-var KCGColorWhite string
-
-var KCGContentAverageLightLevel string
-
-var KCGContentAverageLightLevelNits string
-
-var KCGDisplayShowDuplicateLowResolutionModes string
-
-var KCGDisplayStreamYCbCrMatrix_ITU_R_601_4 string
-
-var KCGDisplayStreamYCbCrMatrix_ITU_R_709_2 string
-
-var KCGDisplayStreamYCbCrMatrix_SMPTE_240M_1995 string
-
-var KCGDynamicRangeConstrained string
-
-var KCGDynamicRangeHigh string
-
-var KCGDynamicRangeStandard string
-
-var KCGEXRToneMappingGammaDefog string
-
-var KCGEXRToneMappingGammaExposure string
-
-var KCGEXRToneMappingGammaKneeHigh string
-
-var KCGEXRToneMappingGammaKneeLow string
-
-var KCGPDFContextAccessPermissions string
-
-var KCGPDFContextAllowsCopying string
-
-var KCGPDFContextAllowsPrinting string
-
-var KCGPDFContextArtBox string
-
-var KCGPDFContextAuthor string
-
-var KCGPDFContextBleedBox string
-
-var KCGPDFContextCreateLinearizedPDF string
-
-var KCGPDFContextCreatePDFA string
-
-var KCGPDFContextCreator string
-
-var KCGPDFContextCropBox string
-
-var KCGPDFContextEncryptionKeyLength string
-
-var KCGPDFContextKeywords string
-
-var KCGPDFContextMediaBox string
-
-var KCGPDFContextOutputIntent string
-
-var KCGPDFContextOutputIntents string
-
-var KCGPDFContextOwnerPassword string
-
-var KCGPDFContextSubject string
-
-var KCGPDFContextTitle string
-
-var KCGPDFContextTrimBox string
-
-var KCGPDFContextUserPassword string
-
-var KCGPDFOutlineChildren string
-
-var KCGPDFOutlineDestination string
-
-var KCGPDFOutlineDestinationRect string
-
-var KCGPDFOutlineTitle string
-
-var KCGPDFXDestinationOutputProfile string
-
-var KCGPDFXInfo string
-
-var KCGPDFXOutputCondition string
-
-var KCGPDFXOutputConditionIdentifier string
-
-var KCGPDFXOutputIntentSubtype string
-
-var KCGPDFXRegistryName string
-
-var KCGPreferredDynamicRange string
-
-var KCGSkipBoostToHDR string
-
-var KCGUse100nitsHLGOOTF string
-
-var KCGUseBT1886ForCoreVideoGamma string
-
-var KCGUseLegacyHDREcosystem string
-
-var KCGWindowAlpha string
-
-var KCGWindowBackingLocationVideoMemory string
-
-var KCGWindowBounds string
-
-var KCGWindowIsOnscreen string
-
-var KCGWindowLayer string
-
-var KCGWindowMemoryUsage string
-
-var KCGWindowName string
-
-var KCGWindowNumber string
-
-var KCGWindowOwnerName string
-
-var KCGWindowOwnerPID string
-
-var KCGWindowSharingState string
-
-var KCGWindowStoreType string
-
+var (
+	// CGAffineTransformIdentity is the identity transform.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGAffineTransformIdentity
+	CGAffineTransformIdentity corefoundation.CGAffineTransform
+)
+
+var (
+	// CGPointZero is a point constant with location `(0,0)`. The zero point is equivalent to `CGPointMake(0,0)`.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGPointZero
+	CGPointZero corefoundation.CGPoint
+)
+
+var (
+	// CGRectInfinite is a rectangle that has infinite extent.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGRectInfinite
+	CGRectInfinite corefoundation.CGRect
+	// CGRectNull is the null rectangle, representing an invalid value.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGRectNull
+	CGRectNull corefoundation.CGRect
+	// CGRectZero is a rectangle constant with location `(0,0)`, and width and height of 0. The zero rectangle is equivalent to `CGRectMake(0,0,0,0)`.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGRectZero
+	CGRectZero corefoundation.CGRect
+)
+
+var (
+	// CGSizeZero is a size constant with width and height of `0`. The zero size is equivalent to `CGSizeMake(0,0)`.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGSizeZero
+	CGSizeZero corefoundation.CGSize
+)
+
+var (
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGAdaptiveMaximumBitDepth
+	KCGAdaptiveMaximumBitDepth string
+	// KCGColorBlack is the black color in the Generic gray color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGColorBlack
+	KCGColorBlack string
+	// KCGColorClear is the clear color in the Generic gray color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGColorClear
+	KCGColorClear string
+	// KCGColorConversionBlackPointCompensation is an option for whether to apply black point compensation when converting between color profiles.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColor/conversionBlackPointCompensation
+	KCGColorConversionBlackPointCompensation string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColor/conversionTRCSize
+	KCGColorConversionTRCSize string
+	// KCGColorSpaceACESCGLinear is the ACEScg color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/acescgLinear
+	KCGColorSpaceACESCGLinear string
+	// KCGColorSpaceAdobeRGB1998 is the Adobe RGB (1998) color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/adobeRGB1998
+	KCGColorSpaceAdobeRGB1998 string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/coreMedia709
+	KCGColorSpaceCoreMedia709 string
+	// KCGColorSpaceDCIP3 is the DCI P3 color space, which is the digital cinema standard.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/dcip3
+	KCGColorSpaceDCIP3 string
+	// KCGColorSpaceDisplayP3 is the Display P3 color space, created by Apple.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/displayP3
+	KCGColorSpaceDisplayP3 string
+	// KCGColorSpaceDisplayP3_HLG is the Display P3 color space, using the HLG transfer function.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/displayP3_HLG
+	KCGColorSpaceDisplayP3_HLG string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/displayP3_PQ
+	KCGColorSpaceDisplayP3_PQ string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedDisplayP3
+	KCGColorSpaceExtendedDisplayP3 string
+	// KCGColorSpaceExtendedGray is the extended gray color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedGray
+	KCGColorSpaceExtendedGray string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedITUR_2020
+	KCGColorSpaceExtendedITUR_2020 string
+	// KCGColorSpaceExtendedLinearDisplayP3 is the Display P3 color space with a linear transfer function and extended-range values.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedLinearDisplayP3
+	KCGColorSpaceExtendedLinearDisplayP3 string
+	// KCGColorSpaceExtendedLinearGray is the extended gray color space with a linear transfer function.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedLinearGray
+	KCGColorSpaceExtendedLinearGray string
+	// KCGColorSpaceExtendedLinearITUR_2020 is the recommendation of the International Telecommunication Union (ITU) Radiocommunication sector for the BT.2020 color space, with a linear transfer function and extended range values.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedLinearITUR_2020
+	KCGColorSpaceExtendedLinearITUR_2020 string
+	// KCGColorSpaceExtendedLinearSRGB is the sRGB color space with a linear transfer function and extended-range values.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedLinearSRGB
+	KCGColorSpaceExtendedLinearSRGB string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGColorSpaceExtendedRange
+	KCGColorSpaceExtendedRange string
+	// KCGColorSpaceExtendedSRGB is the extended sRGB color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedSRGB
+	KCGColorSpaceExtendedSRGB string
+	// KCGColorSpaceGenericCMYK is the generic CMYK color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/genericCMYK
+	KCGColorSpaceGenericCMYK string
+	// KCGColorSpaceGenericGrayGamma2_2 is the generic gray color space that has an exponential transfer function with a power of 2.2.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/genericGrayGamma2_2
+	KCGColorSpaceGenericGrayGamma2_2 string
+	// KCGColorSpaceGenericLab is the generic LAB color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/genericLab
+	KCGColorSpaceGenericLab string
+	// KCGColorSpaceGenericRGBLinear is the generic RGB color space with a linear transfer function.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/genericRGBLinear
+	KCGColorSpaceGenericRGBLinear string
+	// KCGColorSpaceGenericXYZ is the XYZ color space, as defined by the CIE 1931 standard.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/genericXYZ
+	KCGColorSpaceGenericXYZ string
+	// KCGColorSpaceITUR_2020 is the recommendation of the International Telecommunication Union (ITU) Radiocommunication sector for the BT.2020 color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/itur_2020
+	KCGColorSpaceITUR_2020 string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/itur_2020_sRGBGamma
+	KCGColorSpaceITUR_2020_sRGBGamma string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/itur_2100_HLG
+	KCGColorSpaceITUR_2100_HLG string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/itur_2100_PQ
+	KCGColorSpaceITUR_2100_PQ string
+	// KCGColorSpaceITUR_709 is the recommendation of the International Telecommunication Union (ITU) Radiocommunication sector for the BT.709 color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/itur_709
+	KCGColorSpaceITUR_709 string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/itur_709_HLG
+	KCGColorSpaceITUR_709_HLG string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/itur_709_PQ
+	KCGColorSpaceITUR_709_PQ string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/linearDisplayP3
+	KCGColorSpaceLinearDisplayP3 string
+	// KCGColorSpaceLinearGray is the gray color space using a linear transfer function.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/linearGray
+	KCGColorSpaceLinearGray string
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/linearITUR_2020
+	KCGColorSpaceLinearITUR_2020 string
+	// KCGColorSpaceLinearSRGB is the sRGB color space with a linear transfer function.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/linearSRGB
+	KCGColorSpaceLinearSRGB string
+	// KCGColorSpaceROMMRGB is the Reference Output Medium Metric (ROMM) RGB color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/rommrgb
+	KCGColorSpaceROMMRGB string
+	// KCGColorSpaceSRGB is the standard Red Green Blue (sRGB) color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/sRGB
+	KCGColorSpaceSRGB string
+	// KCGColorWhite is the white color in the Generic gray color space.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGColorWhite
+	KCGColorWhite string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGContentAverageLightLevel
+	KCGContentAverageLightLevel string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGContentAverageLightLevelNits
+	KCGContentAverageLightLevelNits string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGDisplayShowDuplicateLowResolutionModes
+	KCGDisplayShowDuplicateLowResolutionModes string
+	// KCGDisplayStreamYCbCrMatrix_ITU_R_601_4 is specifies the YCbCr to RGB conversion matrix for standard digital television (ITU R 601) images.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/yCbCrMatrix_ITU_R_601_4
+	KCGDisplayStreamYCbCrMatrix_ITU_R_601_4 string
+	// KCGDisplayStreamYCbCrMatrix_ITU_R_709_2 is specifies the YCbCr to RGB conversion matrix for HDTV digital television (ITU R 709) images.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/yCbCrMatrix_ITU_R_709_2
+	KCGDisplayStreamYCbCrMatrix_ITU_R_709_2 string
+	// KCGDisplayStreamYCbCrMatrix_SMPTE_240M_1995 is specifies the YCbCR to RGB conversion matrix for 1920 x 1135 HDTV (SMPTE 240M 1995).
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/yCbCrMatrix_SMPTE_240M_1995
+	KCGDisplayStreamYCbCrMatrix_SMPTE_240M_1995 string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGDynamicRangeConstrained
+	KCGDynamicRangeConstrained string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGDynamicRangeHigh
+	KCGDynamicRangeHigh string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGDynamicRangeStandard
+	KCGDynamicRangeStandard string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGEXRToneMappingGammaDefog
+	KCGEXRToneMappingGammaDefog string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGEXRToneMappingGammaExposure
+	KCGEXRToneMappingGammaExposure string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGEXRToneMappingGammaKneeHigh
+	KCGEXRToneMappingGammaKneeHigh string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGEXRToneMappingGammaKneeLow
+	KCGEXRToneMappingGammaKneeLow string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextAccessPermissions
+	KCGPDFContextAccessPermissions string
+	// KCGPDFContextAllowsCopying is whether the document allows copying when unlocked with the user password.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextAllowsCopying
+	KCGPDFContextAllowsCopying string
+	// KCGPDFContextAllowsPrinting is whether the document allows printing when unlocked with the user password.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextAllowsPrinting
+	KCGPDFContextAllowsPrinting string
+	// KCGPDFContextArtBox is the art box for the document or for a given page.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextArtBox
+	KCGPDFContextArtBox string
+	// KCGPDFContextAuthor is the corresponding value is a string that represents the name of the person who created the document. This key is optional.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextAuthor
+	KCGPDFContextAuthor string
+	// KCGPDFContextBleedBox is the bleed box for the document or for a given page.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextBleedBox
+	KCGPDFContextBleedBox string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextCreateLinearizedPDF
+	KCGPDFContextCreateLinearizedPDF string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextCreatePDFA
+	KCGPDFContextCreatePDFA string
+	// KCGPDFContextCreator is the corresponding value is a string that represents the name of the application used to produce the document. This key is optional.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextCreator
+	KCGPDFContextCreator string
+	// KCGPDFContextCropBox is the crop box for the document or for a given page.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextCropBox
+	KCGPDFContextCropBox string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextEncryptionKeyLength
+	KCGPDFContextEncryptionKeyLength string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextKeywords
+	KCGPDFContextKeywords string
+	// KCGPDFContextMediaBox is the media box for the document or for a given page.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextMediaBox
+	KCGPDFContextMediaBox string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextOutputIntent
+	KCGPDFContextOutputIntent string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextOutputIntents
+	KCGPDFContextOutputIntents string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextOwnerPassword
+	KCGPDFContextOwnerPassword string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextSubject
+	KCGPDFContextSubject string
+	// KCGPDFContextTitle is the corresponding value is a string that represents the title of the document. This key is optional.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextTitle
+	KCGPDFContextTitle string
+	// KCGPDFContextTrimBox is the trim box for the document or for a given page.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextTrimBox
+	KCGPDFContextTrimBox string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFContextUserPassword
+	KCGPDFContextUserPassword string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFOutlineChildren
+	KCGPDFOutlineChildren string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFOutlineDestination
+	KCGPDFOutlineDestination string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFOutlineDestinationRect
+	KCGPDFOutlineDestinationRect string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFOutlineTitle
+	KCGPDFOutlineTitle string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFXDestinationOutputProfile
+	KCGPDFXDestinationOutputProfile string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFXInfo
+	KCGPDFXInfo string
+	// KCGPDFXOutputCondition is a text string identifying the intended output device or production condition in a human-readable form.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFXOutputCondition
+	KCGPDFXOutputCondition string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFXOutputConditionIdentifier
+	KCGPDFXOutputConditionIdentifier string
+	// KCGPDFXOutputIntentSubtype is the output intent subtype. This key is required.
+	//
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFXOutputIntentSubtype
+	KCGPDFXOutputIntentSubtype string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPDFXRegistryName
+	KCGPDFXRegistryName string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGPreferredDynamicRange
+	KCGPreferredDynamicRange string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGSkipBoostToHDR
+	KCGSkipBoostToHDR string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGUse100nitsHLGOOTF
+	KCGUse100nitsHLGOOTF string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGUseBT1886ForCoreVideoGamma
+	KCGUseBT1886ForCoreVideoGamma string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGUseLegacyHDREcosystem
+	KCGUseLegacyHDREcosystem string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowAlpha
+	KCGWindowAlpha string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowBackingLocationVideoMemory
+	KCGWindowBackingLocationVideoMemory string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowBounds
+	KCGWindowBounds string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowIsOnscreen
+	KCGWindowIsOnscreen string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowLayer
+	KCGWindowLayer string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowMemoryUsage
+	KCGWindowMemoryUsage string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowName
+	KCGWindowName string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowNumber
+	KCGWindowNumber string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowOwnerName
+	KCGWindowOwnerName string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowOwnerPID
+	KCGWindowOwnerPID string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowSharingState
+	KCGWindowSharingState string
+	// See: https://developer.apple.com/documentation/CoreGraphics/kCGWindowStoreType
+	KCGWindowStoreType string
+)
+
+var (
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/actualText
+	KCGPDFTagPropertyActualText CGPDFTagProperty
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/alternativeText
+	KCGPDFTagPropertyAlternativeText CGPDFTagProperty
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/languageText
+	KCGPDFTagPropertyLanguageText CGPDFTagProperty
+	// See: https://developer.apple.com/documentation/CoreGraphics/CGPDFTagProperty/titleText
+	KCGPDFTagPropertyTitleText CGPDFTagProperty
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -1018,6 +1137,22 @@ func init() {
 				KCGPDFOutlineTitle = objc.GoString(cstr)
 			}
 		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFTagPropertyActualText"); err == nil && ptr != 0 {
+		KCGPDFTagPropertyActualText = *(*CGPDFTagProperty)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFTagPropertyAlternativeText"); err == nil && ptr != 0 {
+		KCGPDFTagPropertyAlternativeText = *(*CGPDFTagProperty)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFTagPropertyLanguageText"); err == nil && ptr != 0 {
+		KCGPDFTagPropertyLanguageText = *(*CGPDFTagProperty)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFTagPropertyTitleText"); err == nil && ptr != 0 {
+		KCGPDFTagPropertyTitleText = *(*CGPDFTagProperty)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFXDestinationOutputProfile"); err == nil && ptr != 0 {

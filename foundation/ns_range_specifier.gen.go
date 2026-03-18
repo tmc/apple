@@ -35,12 +35,6 @@ func (nc NSRangeSpecifierClass) Alloc() NSRangeSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier for a range of objects in a container.
 //
 // # Overview
@@ -79,10 +73,6 @@ func NSRangeSpecifierFromID(id objc.ID) NSRangeSpecifier {
 // NOTE: NSRangeSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSRangeSpecifier] class.
 //
 // # Initializing a range specifier
@@ -115,10 +105,6 @@ type INSRangeSpecifier interface {
 	SetStartSpecifier(value INSScriptObjectSpecifier)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r NSRangeSpecifier) Init() NSRangeSpecifier {
 	rv := objc.Send[NSRangeSpecifier](r.ID, objc.Sel("init"))
@@ -138,11 +124,6 @@ func NewNSRangeSpecifier() NSRangeSpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRangeSpecifier/init(coder:)
 func NewRangeSpecifierWithCoder(inCoder INSCoder) NSRangeSpecifier {
@@ -150,7 +131,6 @@ func NewRangeSpecifierWithCoder(inCoder INSCoder) NSRangeSpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSRangeSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -174,7 +154,6 @@ func NewRangeSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:"), classDesc, container, objc.String(property))
 	return NSRangeSpecifierFromID(rv)
 }
-
 
 // Returns a range specifier initialized with the given properties.
 //
@@ -207,7 +186,6 @@ func NewRangeSpecifierWithContainerClassDescriptionContainerSpecifierKeyStartSpe
 	return NSRangeSpecifierFromID(rv)
 }
 
-
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
 //
@@ -226,12 +204,6 @@ func NewRangeSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSRangeSpecifierFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a range specifier initialized with the given properties.
 //
@@ -263,17 +235,6 @@ func (r NSRangeSpecifier) InitWithContainerClassDescriptionContainerSpecifierKey
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Sets the object specifier representing the last object of the range to a
 // given object.
 //
@@ -285,8 +246,6 @@ func (r NSRangeSpecifier) EndSpecifier() INSScriptObjectSpecifier {
 func (r NSRangeSpecifier) SetEndSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEndSpecifier:"), value)
 }
-
-
 
 // Returns the object specifier representing the first object of the range.
 //
@@ -302,29 +261,4 @@ func (r NSRangeSpecifier) StartSpecifier() INSScriptObjectSpecifier {
 func (r NSRangeSpecifier) SetStartSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](r.ID, objc.Sel("setStartSpecifier:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

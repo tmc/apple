@@ -35,12 +35,6 @@ func (nc NSCloseCommandClass) Alloc() NSCloseCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that closes one or more scriptable objects.
 //
 // # Overview
@@ -73,10 +67,6 @@ func NSCloseCommandFromID(id objc.ID) NSCloseCommand {
 // NOTE: NSCloseCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCloseCommand] class.
 //
 // # Accessing save options
@@ -92,10 +82,6 @@ type INSCloseCommand interface {
 	// Returns a constant indicating how to deal with closing any modified documents.
 	SaveOptions() NSSaveOptions
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCloseCommand) Init() NSCloseCommand {
@@ -116,11 +102,6 @@ func NewNSCloseCommand() NSCloseCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewCloseCommandWithCoder(inCoder INSCoder) NSCloseCommand {
@@ -128,7 +109,6 @@ func NewCloseCommandWithCoder(inCoder INSCoder) NSCloseCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSCloseCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -151,23 +131,6 @@ func NewCloseCommandWithCommandDescription(commandDef INSScriptCommandDescriptio
 	return NSCloseCommandFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns a constant indicating how to deal with closing any modified
 // documents.
 //
@@ -182,29 +145,4 @@ func (c NSCloseCommand) SaveOptions() NSSaveOptions {
 	rv := objc.Send[NSSaveOptions](c.ID, objc.Sel("saveOptions"))
 	return NSSaveOptions(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

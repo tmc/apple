@@ -36,12 +36,6 @@ func (nc NSLogicalTestClass) Alloc() NSLogicalTest {
 	return rv
 }
 
-
-
-
-
-
-
 // The logical combination of one or more specifier tests.
 //
 // # Overview
@@ -80,10 +74,6 @@ func NSLogicalTestFromID(id objc.ID) NSLogicalTest {
 // NOTE: NSLogicalTest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSLogicalTest] class.
 //
 // # Initializing a logical test
@@ -106,10 +96,6 @@ type INSLogicalTest interface {
 	InitOrTestWithTests(subTests []NSSpecifierTest) NSLogicalTest
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l NSLogicalTest) Init() NSLogicalTest {
 	rv := objc.Send[NSLogicalTest](l.ID, objc.Sel("init"))
@@ -129,11 +115,6 @@ func NewNSLogicalTest() NSLogicalTest {
 	return rv
 }
 
-
-
-
-
-
 // Returns an [NSLogicalTest] object initialized to perform an [AND] operation
 // with the [NSSpecifierTest] objects in a given array.
 //
@@ -150,7 +131,6 @@ func NewLogicalTestAndTestWithTests(subTests []NSSpecifierTest) NSLogicalTest {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initAndTestWithTests:"), objectivec.IObjectSliceToNSArray(subTests))
 	return NSLogicalTestFromID(rv)
 }
-
 
 // Returns an [NSLogicalTest] object initialized to perform a [NOT] operation
 // on the given [NSScriptWhoseTest] object.
@@ -169,7 +149,6 @@ func NewLogicalTestNotTestWithTest(subTest INSScriptWhoseTest) NSLogicalTest {
 	return NSLogicalTestFromID(rv)
 }
 
-
 // Returns an [NSLogicalTest] object initialized to perform an [OR] operation
 // with the [NSSpecifierTest] objects in a given array.
 //
@@ -187,7 +166,6 @@ func NewLogicalTestOrTestWithTests(subTests []NSSpecifierTest) NSLogicalTest {
 	return NSLogicalTestFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest/init(coder:)
 func NewLogicalTestWithCoder(inCoder INSCoder) NSLogicalTest {
@@ -195,12 +173,6 @@ func NewLogicalTestWithCoder(inCoder INSCoder) NSLogicalTest {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSLogicalTestFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSLogicalTest] object initialized to perform an [AND] operation
 // with the [NSSpecifierTest] objects in a given array.
@@ -249,38 +221,4 @@ func (l NSLogicalTest) InitOrTestWithTests(subTests []NSSpecifierTest) NSLogical
 	rv := objc.Send[NSLogicalTest](l.ID, objc.Sel("initOrTestWithTests:"), objectivec.IObjectSliceToNSArray(subTests))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

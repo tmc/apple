@@ -3,326 +3,562 @@
 package corevideo
 
 import (
+	"unsafe"
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
 
-var KCVBufferMovieTimeKey string
-
-var KCVBufferNonPropagatedAttachmentsKey string
-
-var KCVBufferPropagatedAttachmentsKey string
-
-var KCVBufferTimeScaleKey string
-
-var KCVBufferTimeValueKey string
-
-var KCVImageBufferAlphaChannelIsOpaque string
-
-var KCVImageBufferAlphaChannelModeKey string
-
-var KCVImageBufferAlphaChannelMode_PremultipliedAlpha string
-
-var KCVImageBufferAlphaChannelMode_StraightAlpha string
-
-var KCVImageBufferAmbientViewingEnvironmentKey string
-
-var KCVImageBufferCGColorSpaceKey string
-
-var KCVImageBufferChromaLocationBottomFieldKey string
-
-var KCVImageBufferChromaLocationTopFieldKey string
-
-var KCVImageBufferChromaLocation_Bottom string
-
-var KCVImageBufferChromaLocation_BottomLeft string
-
-var KCVImageBufferChromaLocation_Center string
-
-var KCVImageBufferChromaLocation_DV420 string
-
-var KCVImageBufferChromaLocation_Left string
-
-var KCVImageBufferChromaLocation_Top string
-
-var KCVImageBufferChromaLocation_TopLeft string
-
-var KCVImageBufferChromaSubsamplingKey string
-
-var KCVImageBufferChromaSubsampling_411 string
-
-var KCVImageBufferChromaSubsampling_420 string
-
-var KCVImageBufferChromaSubsampling_422 string
-
-var KCVImageBufferCleanApertureHeightKey string
-
-var KCVImageBufferCleanApertureHorizontalOffsetKey string
-
-var KCVImageBufferCleanApertureKey string
-
-var KCVImageBufferCleanApertureVerticalOffsetKey string
-
-var KCVImageBufferCleanApertureWidthKey string
-
-var KCVImageBufferColorPrimariesKey string
-
-var KCVImageBufferColorPrimaries_DCI_P3 string
-
-var KCVImageBufferColorPrimaries_EBU_3213 string
-
-var KCVImageBufferColorPrimaries_ITU_R_2020 string
-
-var KCVImageBufferColorPrimaries_ITU_R_709_2 string
-
-var KCVImageBufferColorPrimaries_P22 string
-
-var KCVImageBufferColorPrimaries_P3_D65 string
-
-var KCVImageBufferColorPrimaries_SMPTE_C string
-
-var KCVImageBufferContentLightLevelInfoKey string
-
-var KCVImageBufferDisplayDimensionsKey string
-
-var KCVImageBufferDisplayHeightKey string
-
-var KCVImageBufferDisplayMaskRectangleKey string
-
-var KCVImageBufferDisplayMaskRectangleStereoLeftKey string
-
-var KCVImageBufferDisplayMaskRectangleStereoRightKey string
-
-var KCVImageBufferDisplayMaskRectangle_LeftEdgePointsKey string
-
-var KCVImageBufferDisplayMaskRectangle_RectangleHeightKey string
-
-var KCVImageBufferDisplayMaskRectangle_RectangleLeftKey string
-
-var KCVImageBufferDisplayMaskRectangle_RectangleTopKey string
-
-var KCVImageBufferDisplayMaskRectangle_RectangleWidthKey string
-
-var KCVImageBufferDisplayMaskRectangle_ReferenceRasterHeightKey string
-
-var KCVImageBufferDisplayMaskRectangle_ReferenceRasterWidthKey string
-
-var KCVImageBufferDisplayMaskRectangle_RightEdgePointsKey string
-
-var KCVImageBufferDisplayWidthKey string
-
-var KCVImageBufferFieldCountKey string
-
-var KCVImageBufferFieldDetailKey string
-
-var KCVImageBufferFieldDetailSpatialFirstLineEarly string
-
-var KCVImageBufferFieldDetailSpatialFirstLineLate string
-
-var KCVImageBufferFieldDetailTemporalBottomFirst string
-
-var KCVImageBufferFieldDetailTemporalTopFirst string
-
-var KCVImageBufferGammaLevelKey string
-
-var KCVImageBufferICCProfileKey string
-
-var KCVImageBufferLogTransferFunctionKey string
-
-var KCVImageBufferLogTransferFunction_AppleLog string
-
-var KCVImageBufferLogTransferFunction_AppleLog2 string
-
-var KCVImageBufferMasteringDisplayColorVolumeKey string
-
-var KCVImageBufferPixelAspectRatioHorizontalSpacingKey string
-
-var KCVImageBufferPixelAspectRatioKey string
-
-var KCVImageBufferPixelAspectRatioVerticalSpacingKey string
-
-var KCVImageBufferPostDecodeProcessingFrameMetadataKey string
-
-var KCVImageBufferPostDecodeProcessingSequenceMetadataKey string
-
-var KCVImageBufferPreferredCleanApertureKey string
-
-var KCVImageBufferRegionOfInterestKey string
-
-var KCVImageBufferSceneIlluminationKey string
-
-var KCVImageBufferTransferFunctionKey string
-
-var KCVImageBufferTransferFunction_ITU_R_2020 string
-
-var KCVImageBufferTransferFunction_ITU_R_2100_HLG string
-
-var KCVImageBufferTransferFunction_ITU_R_709_2 string
-
-var KCVImageBufferTransferFunction_Linear string
-
-var KCVImageBufferTransferFunction_SMPTE_240M_1995 string
-
-var KCVImageBufferTransferFunction_SMPTE_ST_2084_PQ string
-
-var KCVImageBufferTransferFunction_SMPTE_ST_428_1 string
-
-var KCVImageBufferTransferFunction_UseGamma string
-
-var KCVImageBufferTransferFunction_sRGB string
-
-var KCVImageBufferYCbCrMatrixKey string
-
-var KCVImageBufferYCbCrMatrix_ITU_R_2020 string
-
-var KCVImageBufferYCbCrMatrix_ITU_R_601_4 string
-
-var KCVImageBufferYCbCrMatrix_ITU_R_709_2 string
-
-var KCVImageBufferYCbCrMatrix_SMPTE_240M_1995 string
-
-var KCVMetalBufferCacheMaximumBufferAgeKey string
-
-var KCVMetalTextureCacheMaximumTextureAgeKey string
-
-var KCVMetalTextureStorageMode string
-
-var KCVMetalTextureUsage string
-
-var KCVPixelBufferBytesPerRowAlignmentKey string
-
-var KCVPixelBufferCGBitmapContextCompatibilityKey string
-
-var KCVPixelBufferCGImageCompatibilityKey string
-
-var KCVPixelBufferExtendedPixelsBottomKey string
-
-var KCVPixelBufferExtendedPixelsLeftKey string
-
-var KCVPixelBufferExtendedPixelsRightKey string
-
-var KCVPixelBufferExtendedPixelsTopKey string
-
-var KCVPixelBufferHeightKey string
-
-var KCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey string
-
-var KCVPixelBufferIOSurfaceOpenGLFBOCompatibilityKey string
-
-var KCVPixelBufferIOSurfaceOpenGLTextureCompatibilityKey string
-
-var KCVPixelBufferIOSurfacePropertiesKey string
-
-var KCVPixelBufferIOSurfacePurgeableKey string
-
-var KCVPixelBufferMemoryAllocatorKey string
-
-var KCVPixelBufferMetalCompatibilityKey string
-
-var KCVPixelBufferOpenGLCompatibilityKey string
-
-var KCVPixelBufferOpenGLTextureCacheCompatibilityKey string
-
-var KCVPixelBufferPixelFormatTypeKey string
-
-var KCVPixelBufferPlaneAlignmentKey string
-
-var KCVPixelBufferPoolAllocationThresholdKey string
-
-var KCVPixelBufferPoolFreeBufferNotification string
-
-var KCVPixelBufferPoolMaximumBufferAgeKey string
-
-var KCVPixelBufferPoolMinimumBufferCountKey string
-
-var KCVPixelBufferProResRAWKey_BlackLevel string
-
-var KCVPixelBufferProResRAWKey_ColorMatrix string
-
-var KCVPixelBufferProResRAWKey_GainFactor string
-
-var KCVPixelBufferProResRAWKey_MetadataExtension string
-
-var KCVPixelBufferProResRAWKey_RecommendedCrop string
-
-var KCVPixelBufferProResRAWKey_SenselSitingOffsets string
-
-var KCVPixelBufferProResRAWKey_WhiteBalanceBlueFactor string
-
-var KCVPixelBufferProResRAWKey_WhiteBalanceCCT string
-
-var KCVPixelBufferProResRAWKey_WhiteBalanceRedFactor string
-
-var KCVPixelBufferProResRAWKey_WhiteLevel string
-
-var KCVPixelBufferVersatileBayerKey_BayerPattern string
-
-var KCVPixelBufferWidthKey string
-
-var KCVPixelFormatBitsPerBlock string
-
-var KCVPixelFormatBitsPerComponent string
-
-var KCVPixelFormatBlackBlock string
-
-var KCVPixelFormatBlockHeight string
-
-var KCVPixelFormatBlockHorizontalAlignment string
-
-var KCVPixelFormatBlockVerticalAlignment string
-
-var KCVPixelFormatBlockWidth string
-
-var KCVPixelFormatCGBitmapContextCompatibility string
-
-var KCVPixelFormatCGBitmapInfo string
-
-var KCVPixelFormatCGImageCompatibility string
-
-var KCVPixelFormatCodecType string
-
-var KCVPixelFormatComponentRange string
-
-var KCVPixelFormatComponentRange_FullRange string
-
-var KCVPixelFormatComponentRange_VideoRange string
-
-var KCVPixelFormatComponentRange_WideRange string
-
-var KCVPixelFormatConstant string
-
-var KCVPixelFormatContainsAlpha string
-
-var KCVPixelFormatContainsGrayscale string
-
-var KCVPixelFormatContainsRGB string
-
-var KCVPixelFormatContainsSenselArray string
-
-var KCVPixelFormatContainsYCbCr string
-
-var KCVPixelFormatFillExtendedPixelsCallback string
-
-var KCVPixelFormatFourCC string
-
-var KCVPixelFormatHorizontalSubsampling string
-
-var KCVPixelFormatName string
-
-var KCVPixelFormatOpenGLCompatibility string
-
-var KCVPixelFormatOpenGLFormat string
-
-var KCVPixelFormatOpenGLInternalFormat string
-
-var KCVPixelFormatOpenGLType string
-
-var KCVPixelFormatPlanes string
-
-var KCVPixelFormatQDCompatibility string
-
-var KCVPixelFormatVerticalSubsampling string
-
+var (
+	// KCVBufferMovieTimeKey is the movie time associated with the buffer. Generally only available for frames emitted by QuickTime (type [CFDictionary] containing the [kCVBufferTimeValueKey] and [kCVBufferTimeScaleKey] keys).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVBufferMovieTimeKey
+	KCVBufferMovieTimeKey string
+	// KCVBufferNonPropagatedAttachmentsKey is attachments that should not be copied when using the [CVBufferPropagateAttachments(_:_:)] function (type [CFDictionary], containing a list of attachments as key-value pairs).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVBufferNonPropagatedAttachmentsKey
+	KCVBufferNonPropagatedAttachmentsKey string
+	// KCVBufferPropagatedAttachmentsKey is attachments that should be copied when using the [CVBufferPropagateAttachments(_:_:)] function (type [CFDictionary], containing a list of attachments as key-value pairs).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVBufferPropagatedAttachmentsKey
+	KCVBufferPropagatedAttachmentsKey string
+	// KCVBufferTimeScaleKey is the time scale associated with the movie.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVBufferTimeScaleKey
+	KCVBufferTimeScaleKey string
+	// KCVBufferTimeValueKey is the time value associated with the movie.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVBufferTimeValueKey
+	KCVBufferTimeValueKey string
+	// KCVImageBufferAlphaChannelIsOpaque is a key to indicate whether the alpha channel is fully opaque.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferAlphaChannelIsOpaque
+	KCVImageBufferAlphaChannelIsOpaque string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferAlphaChannelModeKey
+	KCVImageBufferAlphaChannelModeKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferAlphaChannelMode_PremultipliedAlpha
+	KCVImageBufferAlphaChannelMode_PremultipliedAlpha string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferAlphaChannelMode_StraightAlpha
+	KCVImageBufferAlphaChannelMode_StraightAlpha string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferAmbientViewingEnvironmentKey
+	KCVImageBufferAmbientViewingEnvironmentKey string
+	// KCVImageBufferCGColorSpaceKey is a key to the color space of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferCGColorSpaceKey
+	KCVImageBufferCGColorSpaceKey string
+	// KCVImageBufferChromaLocationBottomFieldKey is a key to the location of chroma bottom field information in the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocationBottomFieldKey
+	KCVImageBufferChromaLocationBottomFieldKey string
+	// KCVImageBufferChromaLocationTopFieldKey is a key to the location of chroma top field information in the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocationTopFieldKey
+	KCVImageBufferChromaLocationTopFieldKey string
+	// KCVImageBufferChromaLocation_Bottom is a key that indicates the chroma sample is horizontally centered, but is co-sited with the bottom row of luma samples.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocation_Bottom
+	KCVImageBufferChromaLocation_Bottom string
+	// KCVImageBufferChromaLocation_BottomLeft is a key that indicates the chroma sample is co-sited with the bottom-left luma sample.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocation_BottomLeft
+	KCVImageBufferChromaLocation_BottomLeft string
+	// KCVImageBufferChromaLocation_Center is a key that indicates the chroma sample is fully centered.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocation_Center
+	KCVImageBufferChromaLocation_Center string
+	// KCVImageBufferChromaLocation_DV420 is a key that indicates the Cr and Cb samples are alternatingly co-sited with the left luma samples of the same field.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocation_DV420
+	KCVImageBufferChromaLocation_DV420 string
+	// KCVImageBufferChromaLocation_Left is a key that indicates the chroma sample is horizontally co-sited with the left column of luma samples, but centered vertically.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocation_Left
+	KCVImageBufferChromaLocation_Left string
+	// KCVImageBufferChromaLocation_Top is a key that indicates the chroma sample is horizontally centered, but is co-sited with the top row of luma samples.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocation_Top
+	KCVImageBufferChromaLocation_Top string
+	// KCVImageBufferChromaLocation_TopLeft is a key that indicates the chroma sample is co-sited with the top-left luma sample.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaLocation_TopLeft
+	KCVImageBufferChromaLocation_TopLeft string
+	// KCVImageBufferChromaSubsamplingKey is a key to the original format of subsampled data in the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaSubsamplingKey
+	KCVImageBufferChromaSubsamplingKey string
+	// KCVImageBufferChromaSubsampling_411 is a key that indicates the original chroma-subsampled data used 4:1:1 formatting.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaSubsampling_411
+	KCVImageBufferChromaSubsampling_411 string
+	// KCVImageBufferChromaSubsampling_420 is a key that indicates the original chroma-subsampled data used 4:2:0 formatting.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaSubsampling_420
+	KCVImageBufferChromaSubsampling_420 string
+	// KCVImageBufferChromaSubsampling_422 is a key that indicates the original chroma-subsampled data used 4:2:2 formatting.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferChromaSubsampling_422
+	KCVImageBufferChromaSubsampling_422 string
+	// KCVImageBufferCleanApertureHeightKey is a key to the clean aperture height of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferCleanApertureHeightKey
+	KCVImageBufferCleanApertureHeightKey string
+	// KCVImageBufferCleanApertureHorizontalOffsetKey is a key to the clean aperture horizontal offset value from the center of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferCleanApertureHorizontalOffsetKey
+	KCVImageBufferCleanApertureHorizontalOffsetKey string
+	// KCVImageBufferCleanApertureKey is a key to the dictionary describing the clean aperture for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferCleanApertureKey
+	KCVImageBufferCleanApertureKey string
+	// KCVImageBufferCleanApertureVerticalOffsetKey is a key to the clean aperture vertical offset value from the center of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferCleanApertureVerticalOffsetKey
+	KCVImageBufferCleanApertureVerticalOffsetKey string
+	// KCVImageBufferCleanApertureWidthKey is a key to the clean aperture width of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferCleanApertureWidthKey
+	KCVImageBufferCleanApertureWidthKey string
+	// KCVImageBufferColorPrimariesKey is a key to the color primaries gamut for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimariesKey
+	KCVImageBufferColorPrimariesKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimaries_DCI_P3
+	KCVImageBufferColorPrimaries_DCI_P3 string
+	// KCVImageBufferColorPrimaries_EBU_3213 is a key to the color primaries gamut for PAL video.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimaries_EBU_3213
+	KCVImageBufferColorPrimaries_EBU_3213 string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimaries_ITU_R_2020
+	KCVImageBufferColorPrimaries_ITU_R_2020 string
+	// KCVImageBufferColorPrimaries_ITU_R_709_2 is a key to the color primaries gamut for HD video.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimaries_ITU_R_709_2
+	KCVImageBufferColorPrimaries_ITU_R_709_2 string
+	// KCVImageBufferColorPrimaries_P22 is a key to the color primaries gamut for sRGB video.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimaries_P22
+	KCVImageBufferColorPrimaries_P22 string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimaries_P3_D65
+	KCVImageBufferColorPrimaries_P3_D65 string
+	// KCVImageBufferColorPrimaries_SMPTE_C is a key to the color primaries gamut for standard-definition video.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferColorPrimaries_SMPTE_C
+	KCVImageBufferColorPrimaries_SMPTE_C string
+	// KCVImageBufferContentLightLevelInfoKey is a key to the content light level information.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferContentLightLevelInfoKey
+	KCVImageBufferContentLightLevelInfoKey string
+	// KCVImageBufferDisplayDimensionsKey is a key to the dictionary describing the display dimensions for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayDimensionsKey
+	KCVImageBufferDisplayDimensionsKey string
+	// KCVImageBufferDisplayHeightKey is a key to the display height of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayHeightKey
+	KCVImageBufferDisplayHeightKey string
+	// KCVImageBufferDisplayMaskRectangleKey is specifies the rectangular display area within the image.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangleKey
+	KCVImageBufferDisplayMaskRectangleKey string
+	// KCVImageBufferDisplayMaskRectangleStereoLeftKey is specifies the rectangular display area within the left-eye view of stereo images, using the same keys as `kCVImageBufferDisplayMaskRectangleKey`.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangleStereoLeftKey
+	KCVImageBufferDisplayMaskRectangleStereoLeftKey string
+	// KCVImageBufferDisplayMaskRectangleStereoRightKey is specifies the rectangular display area within the right-eye view of stereo images, using the same keys as `kCVImageBufferDisplayMaskRectangleKey`.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangleStereoRightKey
+	KCVImageBufferDisplayMaskRectangleStereoRightKey string
+	// KCVImageBufferDisplayMaskRectangle_LeftEdgePointsKey is specifies inset points on the left vertical edge of the rectangle.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangle_LeftEdgePointsKey
+	KCVImageBufferDisplayMaskRectangle_LeftEdgePointsKey string
+	// KCVImageBufferDisplayMaskRectangle_RectangleHeightKey is specifies the height of the rectangle starting at the rectangle’s top offset toward the rectangle’s bottom edge.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangle_RectangleHeightKey
+	KCVImageBufferDisplayMaskRectangle_RectangleHeightKey string
+	// KCVImageBufferDisplayMaskRectangle_RectangleLeftKey is specifies the horizontal pixel offset of the rectangle from the left of the bounding raster.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangle_RectangleLeftKey
+	KCVImageBufferDisplayMaskRectangle_RectangleLeftKey string
+	// KCVImageBufferDisplayMaskRectangle_RectangleTopKey is specifies the vertical pixel offset of the rectangle from the top of the bounding raster.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangle_RectangleTopKey
+	KCVImageBufferDisplayMaskRectangle_RectangleTopKey string
+	// KCVImageBufferDisplayMaskRectangle_RectangleWidthKey is specifies the width of the rectangle starting at the rectangle’s left offset toward the rectangle’s right edge.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangle_RectangleWidthKey
+	KCVImageBufferDisplayMaskRectangle_RectangleWidthKey string
+	// KCVImageBufferDisplayMaskRectangle_ReferenceRasterHeightKey is specifies the height in pixels of the 2D coordinate system to define the rectangle.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangle_ReferenceRasterHeightKey
+	KCVImageBufferDisplayMaskRectangle_ReferenceRasterHeightKey string
+	// KCVImageBufferDisplayMaskRectangle_ReferenceRasterWidthKey is specifies the width in pixels of the 2D coordinate system to define the rectangle.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangle_ReferenceRasterWidthKey
+	KCVImageBufferDisplayMaskRectangle_ReferenceRasterWidthKey string
+	// KCVImageBufferDisplayMaskRectangle_RightEdgePointsKey is specifies inset points on the right vertical edge of the rectangle.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayMaskRectangle_RightEdgePointsKey
+	KCVImageBufferDisplayMaskRectangle_RightEdgePointsKey string
+	// KCVImageBufferDisplayWidthKey is a key to the display width of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferDisplayWidthKey
+	KCVImageBufferDisplayWidthKey string
+	// KCVImageBufferFieldCountKey is a key to the field count for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferFieldCountKey
+	KCVImageBufferFieldCountKey string
+	// KCVImageBufferFieldDetailKey is a key to the field detail for an image buffer that indicates the order of interlaced video data in the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferFieldDetailKey
+	KCVImageBufferFieldDetailKey string
+	// KCVImageBufferFieldDetailSpatialFirstLineEarly is a key to the spatial first line early detail field of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferFieldDetailSpatialFirstLineEarly
+	KCVImageBufferFieldDetailSpatialFirstLineEarly string
+	// KCVImageBufferFieldDetailSpatialFirstLineLate is a key to the spatial first line late detail field of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferFieldDetailSpatialFirstLineLate
+	KCVImageBufferFieldDetailSpatialFirstLineLate string
+	// KCVImageBufferFieldDetailTemporalBottomFirst is a key to the temporal bottom first detail field of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferFieldDetailTemporalBottomFirst
+	KCVImageBufferFieldDetailTemporalBottomFirst string
+	// KCVImageBufferFieldDetailTemporalTopFirst is a key to the temporal top first detail field of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferFieldDetailTemporalTopFirst
+	KCVImageBufferFieldDetailTemporalTopFirst string
+	// KCVImageBufferGammaLevelKey is a key to the gamma level for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferGammaLevelKey
+	KCVImageBufferGammaLevelKey string
+	// KCVImageBufferICCProfileKey is a key to the ICC color profile for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferICCProfileKey
+	KCVImageBufferICCProfileKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferLogTransferFunctionKey
+	KCVImageBufferLogTransferFunctionKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferLogTransferFunction_AppleLog
+	KCVImageBufferLogTransferFunction_AppleLog string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferLogTransferFunction_AppleLog2
+	KCVImageBufferLogTransferFunction_AppleLog2 string
+	// KCVImageBufferMasteringDisplayColorVolumeKey is a key to the mastering display color volume.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferMasteringDisplayColorVolumeKey
+	KCVImageBufferMasteringDisplayColorVolumeKey string
+	// KCVImageBufferPixelAspectRatioHorizontalSpacingKey is a key to the horizontal component of the image buffer aspect ratio.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferPixelAspectRatioHorizontalSpacingKey
+	KCVImageBufferPixelAspectRatioHorizontalSpacingKey string
+	// KCVImageBufferPixelAspectRatioKey is a key to the dictionary describing the pixel aspect ratio for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferPixelAspectRatioKey
+	KCVImageBufferPixelAspectRatioKey string
+	// KCVImageBufferPixelAspectRatioVerticalSpacingKey is a key to the vertical component of the image buffer aspect ratio.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferPixelAspectRatioVerticalSpacingKey
+	KCVImageBufferPixelAspectRatioVerticalSpacingKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferPostDecodeProcessingFrameMetadataKey
+	KCVImageBufferPostDecodeProcessingFrameMetadataKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferPostDecodeProcessingSequenceMetadataKey
+	KCVImageBufferPostDecodeProcessingSequenceMetadataKey string
+	// KCVImageBufferPreferredCleanApertureKey is a key to the dictionary describing the preferred clean aperture for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferPreferredCleanApertureKey
+	KCVImageBufferPreferredCleanApertureKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferRegionOfInterestKey
+	KCVImageBufferRegionOfInterestKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferSceneIlluminationKey
+	KCVImageBufferSceneIlluminationKey string
+	// KCVImageBufferTransferFunctionKey is a key to the transfer function for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunctionKey
+	KCVImageBufferTransferFunctionKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_ITU_R_2020
+	KCVImageBufferTransferFunction_ITU_R_2020 string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_ITU_R_2100_HLG
+	KCVImageBufferTransferFunction_ITU_R_2100_HLG string
+	// KCVImageBufferTransferFunction_ITU_R_709_2 is a key to the transfer function for high-definition and standard-definition video.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_ITU_R_709_2
+	KCVImageBufferTransferFunction_ITU_R_709_2 string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_Linear
+	KCVImageBufferTransferFunction_Linear string
+	// KCVImageBufferTransferFunction_SMPTE_240M_1995 is a key to the transfer function for HDTV interim video.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_SMPTE_240M_1995
+	KCVImageBufferTransferFunction_SMPTE_240M_1995 string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_SMPTE_ST_2084_PQ
+	KCVImageBufferTransferFunction_SMPTE_ST_2084_PQ string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_SMPTE_ST_428_1
+	KCVImageBufferTransferFunction_SMPTE_ST_428_1 string
+	// KCVImageBufferTransferFunction_UseGamma is a key to the transfer function that’s defined by the gamma level value of the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_UseGamma
+	KCVImageBufferTransferFunction_UseGamma string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferTransferFunction_sRGB
+	KCVImageBufferTransferFunction_sRGB string
+	// KCVImageBufferYCbCrMatrixKey is a key to the YCbCr to RGB color conversion matrix for the image buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferYCbCrMatrixKey
+	KCVImageBufferYCbCrMatrixKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferYCbCrMatrix_ITU_R_2020
+	KCVImageBufferYCbCrMatrix_ITU_R_2020 string
+	// KCVImageBufferYCbCrMatrix_ITU_R_601_4 is a key to the conversion matrix for standard digital television images, that follows the ITU R 601 standard.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferYCbCrMatrix_ITU_R_601_4
+	KCVImageBufferYCbCrMatrix_ITU_R_601_4 string
+	// KCVImageBufferYCbCrMatrix_ITU_R_709_2 is a key to the conversion matrix for HDTV digital television images, that follows the ITU R 709 standard.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferYCbCrMatrix_ITU_R_709_2
+	KCVImageBufferYCbCrMatrix_ITU_R_709_2 string
+	// KCVImageBufferYCbCrMatrix_SMPTE_240M_1995 is a key to the conversion matrix for 1920 x 1135 HDTV images, that follows the SMPTE 240M 1995 standard.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVImageBufferYCbCrMatrix_SMPTE_240M_1995
+	KCVImageBufferYCbCrMatrix_SMPTE_240M_1995 string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVMetalBufferCacheMaximumBufferAgeKey
+	KCVMetalBufferCacheMaximumBufferAgeKey string
+	// KCVMetalTextureCacheMaximumTextureAgeKey is the length of time, in seconds, before the cache is automatically evicted.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVMetalTextureCacheMaximumTextureAgeKey
+	KCVMetalTextureCacheMaximumTextureAgeKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVMetalTextureStorageMode
+	KCVMetalTextureStorageMode string
+	// KCVMetalTextureUsage is the set of options that define how you can use a texture on the GPU.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVMetalTextureUsage
+	KCVMetalTextureUsage string
+	// KCVPixelBufferBytesPerRowAlignmentKey is a key to a number that specifies the alignment of number of bytes per row in the pixel buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferBytesPerRowAlignmentKey
+	KCVPixelBufferBytesPerRowAlignmentKey string
+	// KCVPixelBufferCGBitmapContextCompatibilityKey is a key to a Boolean value that indicates whether the pixel buffer is compatible with Core Graphics bitmap contexts.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferCGBitmapContextCompatibilityKey
+	KCVPixelBufferCGBitmapContextCompatibilityKey string
+	// KCVPixelBufferCGImageCompatibilityKey is a key to a Boolean value that indicates whether the pixel buffer is compatible with Core Graphics bitmap image types.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferCGImageCompatibilityKey
+	KCVPixelBufferCGImageCompatibilityKey string
+	// KCVPixelBufferExtendedPixelsBottomKey is a key to the number of pixels padding the bottom of the image.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferExtendedPixelsBottomKey
+	KCVPixelBufferExtendedPixelsBottomKey string
+	// KCVPixelBufferExtendedPixelsLeftKey is a key to the number of pixels padding the left of the image.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferExtendedPixelsLeftKey
+	KCVPixelBufferExtendedPixelsLeftKey string
+	// KCVPixelBufferExtendedPixelsRightKey is a key to the number of pixels padding the right of the image.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferExtendedPixelsRightKey
+	KCVPixelBufferExtendedPixelsRightKey string
+	// KCVPixelBufferExtendedPixelsTopKey is a key to the number of pixels padding the top of the image.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferExtendedPixelsTopKey
+	KCVPixelBufferExtendedPixelsTopKey string
+	// KCVPixelBufferHeightKey is a key to the height of the pixel buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferHeightKey
+	KCVPixelBufferHeightKey string
+	// KCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey is a key to a Boolean value that indicates whether Core Animation can display the pixel buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey
+	KCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey string
+	// KCVPixelBufferIOSurfaceOpenGLFBOCompatibilityKey is a key to a Boolean value that indicates whether OpenGL can create a valid texture for use as a color buffer attachment.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferIOSurfaceOpenGLFBOCompatibilityKey
+	KCVPixelBufferIOSurfaceOpenGLFBOCompatibilityKey string
+	// KCVPixelBufferIOSurfaceOpenGLTextureCompatibilityKey is a key to a Boolean value that indicates whether OpenGL can create a valid texture object from the IOSurface-backed pixel buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferIOSurfaceOpenGLTextureCompatibilityKey
+	KCVPixelBufferIOSurfaceOpenGLTextureCompatibilityKey string
+	// KCVPixelBufferIOSurfacePropertiesKey is a key to the dictionary containing optional properties for the IOSurface framework.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferIOSurfacePropertiesKey
+	KCVPixelBufferIOSurfacePropertiesKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferIOSurfacePurgeableKey
+	KCVPixelBufferIOSurfacePurgeableKey string
+	// KCVPixelBufferMemoryAllocatorKey is a key to the allocator that the system uses to create the pixel buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferMemoryAllocatorKey
+	KCVPixelBufferMemoryAllocatorKey string
+	// KCVPixelBufferMetalCompatibilityKey is a key to a Boolean value that indicates whether the pixel buffer is compatible with the Metal framework.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferMetalCompatibilityKey
+	KCVPixelBufferMetalCompatibilityKey string
+	// KCVPixelBufferOpenGLCompatibilityKey is a key to a Boolean value that indicates whether the pixel buffer is compatible with OpenGL contexts.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferOpenGLCompatibilityKey
+	KCVPixelBufferOpenGLCompatibilityKey string
+	// KCVPixelBufferOpenGLTextureCacheCompatibilityKey is a key to a Boolean value that indicates whether OpenGL performs format conversions of the texture-cache data in a shader.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferOpenGLTextureCacheCompatibilityKey
+	KCVPixelBufferOpenGLTextureCacheCompatibilityKey string
+	// KCVPixelBufferPixelFormatTypeKey is a key to one or more pixel buffer format types.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPixelFormatTypeKey
+	KCVPixelBufferPixelFormatTypeKey string
+	// KCVPixelBufferPlaneAlignmentKey is a key to a number that specifies the alignment of the planes in the pixel buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPlaneAlignmentKey
+	KCVPixelBufferPlaneAlignmentKey string
+	// KCVPixelBufferPoolAllocationThresholdKey is the key you use to set the auxiliary attributes dictionary.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPoolAllocationThresholdKey
+	KCVPixelBufferPoolAllocationThresholdKey string
+	// KCVPixelBufferPoolFreeBufferNotification is a notification that the system posts if a buffer becomes available after it fails to create a pixel buffer with auxiliary attributes because it exceeded the threshold you specified.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPoolFreeBufferNotification
+	KCVPixelBufferPoolFreeBufferNotification string
+	// KCVPixelBufferPoolMaximumBufferAgeKey is the key you use to set the maximum allowable age for a buffer in the pixel buffer pool.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPoolMaximumBufferAgeKey
+	KCVPixelBufferPoolMaximumBufferAgeKey string
+	// KCVPixelBufferPoolMinimumBufferCountKey is the minimum number of buffers allowed in the pixel buffer pool.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferPoolMinimumBufferCountKey
+	KCVPixelBufferPoolMinimumBufferCountKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_BlackLevel
+	KCVPixelBufferProResRAWKey_BlackLevel string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_ColorMatrix
+	KCVPixelBufferProResRAWKey_ColorMatrix string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_GainFactor
+	KCVPixelBufferProResRAWKey_GainFactor string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_MetadataExtension
+	KCVPixelBufferProResRAWKey_MetadataExtension string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_RecommendedCrop
+	KCVPixelBufferProResRAWKey_RecommendedCrop string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_SenselSitingOffsets
+	KCVPixelBufferProResRAWKey_SenselSitingOffsets string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_WhiteBalanceBlueFactor
+	KCVPixelBufferProResRAWKey_WhiteBalanceBlueFactor string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_WhiteBalanceCCT
+	KCVPixelBufferProResRAWKey_WhiteBalanceCCT string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_WhiteBalanceRedFactor
+	KCVPixelBufferProResRAWKey_WhiteBalanceRedFactor string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferProResRAWKey_WhiteLevel
+	KCVPixelBufferProResRAWKey_WhiteLevel string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferVersatileBayerKey_BayerPattern
+	KCVPixelBufferVersatileBayerKey_BayerPattern string
+	// KCVPixelBufferWidthKey is a key to the width of the pixel buffer.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferWidthKey
+	KCVPixelBufferWidthKey string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatBitsPerBlock
+	KCVPixelFormatBitsPerBlock string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatBitsPerComponent
+	KCVPixelFormatBitsPerComponent string
+	// KCVPixelFormatBlackBlock is the bit pattern for a block of black pixels (type [CFData]. If this key is absent, black is assumed to be all zeros. If present, this should be `bitsPerPixel` bits long; if `bitsPerPixel` is less than a byte, repeat the bit pattern for the full byte.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatBlackBlock
+	KCVPixelFormatBlackBlock string
+	// KCVPixelFormatBlockHeight is the height, in pixels, of the smallest byte-addressable group of pixels (type [CFNumber]). Assumed to be 1 if this key is not present.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatBlockHeight
+	KCVPixelFormatBlockHeight string
+	// KCVPixelFormatBlockHorizontalAlignment is the horizontal alignment requirements of this format (type [CFNumber]). For example,the alignment for v210 would be 8 here for the horizontal case to match the standard v210 row alignment value of 48. Assumed to be 1 if this key is not present.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatBlockHorizontalAlignment
+	KCVPixelFormatBlockHorizontalAlignment string
+	// KCVPixelFormatBlockVerticalAlignment is the vertical alignment requirements of this format (type [CFNumber]). Assumed to be 1 if this key is not present.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatBlockVerticalAlignment
+	KCVPixelFormatBlockVerticalAlignment string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatBlockWidth
+	KCVPixelFormatBlockWidth string
+	// KCVPixelFormatCGBitmapContextCompatibility is if true, this format is compatible with Core Graphics bitmap contexts(type [CFBoolean]).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatCGBitmapContextCompatibility
+	KCVPixelFormatCGBitmapContextCompatibility string
+	// KCVPixelFormatCGBitmapInfo is the Core Graphics bitmap information for this pixel format (if applicable).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatCGBitmapInfo
+	KCVPixelFormatCGBitmapInfo string
+	// KCVPixelFormatCGImageCompatibility is if true, this format is compatible with the [CGImage] type (type [CFBoolean]).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatCGImageCompatibility
+	KCVPixelFormatCGImageCompatibility string
+	// KCVPixelFormatCodecType is the codec type (type [CFString]). For example, `'2vuy'` or `k422YpCbCr8CodecType`.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatCodecType
+	KCVPixelFormatCodecType string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatComponentRange
+	KCVPixelFormatComponentRange string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatComponentRange_FullRange
+	KCVPixelFormatComponentRange_FullRange string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatComponentRange_VideoRange
+	KCVPixelFormatComponentRange_VideoRange string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatComponentRange_WideRange
+	KCVPixelFormatComponentRange_WideRange string
+	// KCVPixelFormatConstant is the pixel format constant for QuickTime.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatConstant
+	KCVPixelFormatConstant string
+	// KCVPixelFormatContainsAlpha is a Boolean value where [kCFBooleanTrue] indicates that the format contains alpha and some images may be considered transparent; [kCFBooleanFalse] indicates that there is no alpha and images are always opaque.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatContainsAlpha
+	KCVPixelFormatContainsAlpha string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatContainsGrayscale
+	KCVPixelFormatContainsGrayscale string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatContainsRGB
+	KCVPixelFormatContainsRGB string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatContainsSenselArray
+	KCVPixelFormatContainsSenselArray string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatContainsYCbCr
+	KCVPixelFormatContainsYCbCr string
+	// KCVPixelFormatFillExtendedPixelsCallback is a custom extended pixel fill algorithm (type [CFData]). See [CVFillExtendedPixelsCallBack] and [CVFillExtendedPixelsCallBackData] for more information.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatFillExtendedPixelsCallback
+	KCVPixelFormatFillExtendedPixelsCallback string
+	// KCVPixelFormatFourCC is the Microsoft FourCC equivalent code for this pixel format (type [CFString]).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatFourCC
+	KCVPixelFormatFourCC string
+	// KCVPixelFormatHorizontalSubsampling is horizontal subsampling information for this plane (type [CFNumber]). Assumed to be 1 if this key is not present.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatHorizontalSubsampling
+	KCVPixelFormatHorizontalSubsampling string
+	// KCVPixelFormatName is the name of the pixel format (type [CFString]). This should be the same as the codec name you would use in QuickTime.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatName
+	KCVPixelFormatName string
+	// KCVPixelFormatOpenGLCompatibility is if true, this format is compatible with OpenGL (type [CFBoolean]).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatOpenGLCompatibility
+	KCVPixelFormatOpenGLCompatibility string
+	// KCVPixelFormatOpenGLFormat is the OpenGL format used to describe this image plane (if applicable). See the [OpenGL specification] for possible values.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatOpenGLFormat
+	KCVPixelFormatOpenGLFormat string
+	// KCVPixelFormatOpenGLInternalFormat is the OpenGL internal format for this pixel format (if applicable). See the [OpenGL specification] for possible values.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatOpenGLInternalFormat
+	KCVPixelFormatOpenGLInternalFormat string
+	// KCVPixelFormatOpenGLType is the OpenGL type to describe this image plane (if applicable). See the [OpenGL specification] for possible values.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatOpenGLType
+	KCVPixelFormatOpenGLType string
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatPlanes
+	KCVPixelFormatPlanes string
+	// KCVPixelFormatQDCompatibility is if true, this format is compatible with QuickDraw (type [CFBoolean]).
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatQDCompatibility
+	KCVPixelFormatQDCompatibility string
+	// KCVPixelFormatVerticalSubsampling is vertical subsampling information for this plane (type [CFNumber]). Assumed to be 1 if this key is not present.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatVerticalSubsampling
+	KCVPixelFormatVerticalSubsampling string
+)
+
+var (
+	// KCVIndefiniteTime is an unknown or indefinite time. For example, [CVDisplayLinkGetNominalOutputVideoRefreshPeriod(_:)] returns `kCVIndefiniteTime` if the display link specified is not valid.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVIndefiniteTime
+	KCVIndefiniteTime CVTime
+	// KCVZeroTime is zero time or duration. For example, [CVDisplayLinkGetOutputVideoLatency(_:)] returns `kCVZeroTime` for zero video latency.
+	//
+	// See: https://developer.apple.com/documentation/CoreVideo/kCVZeroTime
+	KCVZeroTime CVTime
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -1198,6 +1434,10 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCVIndefiniteTime"); err == nil && ptr != 0 {
+		KCVIndefiniteTime = *(*CVTime)(unsafe.Pointer(ptr))
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVMetalBufferCacheMaximumBufferAgeKey"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -1906,6 +2146,10 @@ func init() {
 				KCVPixelFormatVerticalSubsampling = objc.GoString(cstr)
 			}
 		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "kCVZeroTime"); err == nil && ptr != 0 {
+		KCVZeroTime = *(*CVTime)(unsafe.Pointer(ptr))
 	}
 
 }

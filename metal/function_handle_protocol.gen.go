@@ -35,8 +35,6 @@ type MTLFunctionHandle interface {
 	GpuResourceID() MTLResourceID
 }
 
-
-
 // MTLFunctionHandleObject wraps an existing Objective-C object that conforms to the MTLFunctionHandle protocol.
 type MTLFunctionHandleObject struct {
 	objectivec.Object
@@ -45,8 +43,6 @@ func (o MTLFunctionHandleObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLFunctionHandleObjectFromID constructs a [MTLFunctionHandleObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLFunctionHandleObjectFromID(id objc.ID) MTLFunctionHandleObject {
@@ -54,9 +50,6 @@ func MTLFunctionHandleObjectFromID(id objc.ID) MTLFunctionHandleObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device object that created the shader function.
 //
@@ -95,18 +88,4 @@ func (o MTLFunctionHandleObject) GpuResourceID() MTLResourceID {
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

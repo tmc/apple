@@ -41,8 +41,6 @@ type MTLBufferBinding interface {
 	BufferStructType() IMTLStructType
 }
 
-
-
 // MTLBufferBindingObject wraps an existing Objective-C object that conforms to the MTLBufferBinding protocol.
 type MTLBufferBindingObject struct {
 	objectivec.Object
@@ -51,8 +49,6 @@ func (o MTLBufferBindingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLBufferBindingObjectFromID constructs a [MTLBufferBindingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLBufferBindingObjectFromID(id objc.ID) MTLBufferBindingObject {
@@ -60,9 +56,6 @@ func MTLBufferBindingObjectFromID(id objc.ID) MTLBufferBindingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLBufferBinding/bufferAlignment
 
@@ -151,32 +144,4 @@ func (o MTLBufferBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

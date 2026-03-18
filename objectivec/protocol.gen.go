@@ -35,12 +35,6 @@ func (pc ProtocolClass) Alloc() Protocol {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/ObjectiveC/Protocol
 type Protocol struct {
 	Object
@@ -48,14 +42,10 @@ type Protocol struct {
 
 // ProtocolFromID constructs a [Protocol] from an objc.ID.
 func ProtocolFromID(id objc.ID) Protocol {
-	return Protocol{Object{id}}
+	return Protocol{Object{ID: id}}
 }
 // Ensure Protocol implements IProtocol.
 var _ IProtocol = Protocol{}
-
-
-
-
 
 // An interface definition for the [Protocol] class.
 //
@@ -63,10 +53,6 @@ var _ IProtocol = Protocol{}
 type IProtocol interface {
 	IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p Protocol) Init() Protocol {
@@ -86,40 +72,4 @@ func NewProtocol() Protocol {
 	rv := objc.Send[Protocol](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

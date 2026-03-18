@@ -36,12 +36,6 @@ func (vc VZAudioDeviceConfigurationClass) Alloc() VZAudioDeviceConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for an audio device configuration.
 //
 // # Overview
@@ -58,14 +52,10 @@ type VZAudioDeviceConfiguration struct {
 //
 // The base class for an audio device configuration.
 func VZAudioDeviceConfigurationFromID(id objc.ID) VZAudioDeviceConfiguration {
-	return VZAudioDeviceConfiguration{objectivec.Object{id}}
+	return VZAudioDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZAudioDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZAudioDeviceConfiguration] class.
 //
@@ -73,10 +63,6 @@ func VZAudioDeviceConfigurationFromID(id objc.ID) VZAudioDeviceConfiguration {
 type IVZAudioDeviceConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a VZAudioDeviceConfiguration) Init() VZAudioDeviceConfiguration {
@@ -96,45 +82,4 @@ func NewVZAudioDeviceConfiguration() VZAudioDeviceConfiguration {
 	rv := objc.Send[VZAudioDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

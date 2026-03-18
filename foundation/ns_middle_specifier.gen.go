@@ -35,12 +35,6 @@ func (nc NSMiddleSpecifierClass) Alloc() NSMiddleSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier indicating the middle object in a collection or, if not a
 // one-to-many relationship, the sole object.
 //
@@ -63,20 +57,12 @@ func NSMiddleSpecifierFromID(id objc.ID) NSMiddleSpecifier {
 // NOTE: NSMiddleSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMiddleSpecifier] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMiddleSpecifier
 type INSMiddleSpecifier interface {
 	INSScriptObjectSpecifier
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMiddleSpecifier) Init() NSMiddleSpecifier {
@@ -97,11 +83,6 @@ func NewNSMiddleSpecifier() NSMiddleSpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(coder:)
 func NewMiddleSpecifierWithCoder(inCoder INSCoder) NSMiddleSpecifier {
@@ -109,7 +90,6 @@ func NewMiddleSpecifierWithCoder(inCoder INSCoder) NSMiddleSpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSMiddleSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -134,7 +114,6 @@ func NewMiddleSpecifierWithContainerClassDescriptionContainerSpecifierKey(classD
 	return NSMiddleSpecifierFromID(rv)
 }
 
-
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
 //
@@ -153,44 +132,4 @@ func NewMiddleSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecif
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSMiddleSpecifierFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -41,12 +41,6 @@ func (mc MTKTextureLoaderClass) Alloc() MTKTextureLoader {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that creates textures from existing data in common image formats.
 //
 // # Overview
@@ -121,14 +115,10 @@ type MTKTextureLoader struct {
 //
 // An object that creates textures from existing data in common image formats.
 func MTKTextureLoaderFromID(id objc.ID) MTKTextureLoader {
-	return MTKTextureLoader{objectivec.Object{id}}
+	return MTKTextureLoader{objectivec.Object{ID: id}}
 }
 // NOTE: MTKTextureLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTKTextureLoader] class.
 //
@@ -227,10 +217,6 @@ type IMTKTextureLoader interface {
 	NewTextureWithMDLTextureOptionsCompletionHandler(texture objectivec.IObject, options foundation.INSDictionary, completionHandler ErrorHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t MTKTextureLoader) Init() MTKTextureLoader {
 	rv := objc.Send[MTKTextureLoader](t.ID, objc.Sel("init"))
@@ -250,11 +236,6 @@ func NewMTKTextureLoader() MTKTextureLoader {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a new texture loader object.
 //
 // device: The Metal device to create Metal textures with.
@@ -269,12 +250,6 @@ func NewTextureLoaderWithDevice(device metal.MTLDevice) MTKTextureLoader {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return MTKTextureLoaderFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a new texture loader object.
 //
@@ -305,7 +280,7 @@ func (t MTKTextureLoader) InitWithDevice(device metal.MTLDevice) MTKTextureLoade
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(URL:options:)
 func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsError(URL foundation.INSURL, options foundation.INSDictionary) (metal.MTLTexture, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithContentsOfURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -329,9 +304,9 @@ func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsError(URL foundation
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(URL:options:completionHandler:)
 func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsCompletionHandler(URL foundation.INSURL, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithContentsOfURL:options:completionHandler:"), URL, options, _block2)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithContentsOfURL:options:completionHandler:"), URL, options, _block2)
 }
 
 // Synchronously loads image data and creates new Metal textures from the
@@ -359,7 +334,7 @@ func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsCompletionHandler(UR
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTextures(URLs:options:error:)
 func (t MTKTextureLoader) NewTexturesWithContentsOfURLsOptionsError(URLs []foundation.NSURL, options foundation.INSDictionary) ([]objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("newTexturesWithContentsOfURLs:options:error:"), objectivec.IObjectSliceToNSArray(URLs), options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -387,9 +362,9 @@ func (t MTKTextureLoader) NewTexturesWithContentsOfURLsOptionsError(URLs []found
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTextures(URLs:options:completionHandler:)
 func (t MTKTextureLoader) NewTexturesWithContentsOfURLsOptionsCompletionHandler(URLs []foundation.NSURL, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithContentsOfURLs:options:completionHandler:"), URLs, options, _block2)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithContentsOfURLs:options:completionHandler:"), URLs, options, _block2)
 }
 
 // Synchronously loads image data and creates a Metal texture from the named
@@ -429,7 +404,7 @@ func (t MTKTextureLoader) NewTexturesWithContentsOfURLsOptionsCompletionHandler(
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(name:scaleFactor:bundle:options:)
 func (t MTKTextureLoader) NewTextureWithNameScaleFactorBundleOptionsError(name string, scaleFactor float64, bundle foundation.NSBundle, options foundation.INSDictionary) (metal.MTLTexture, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:bundle:options:error:"), objc.String(name), scaleFactor, bundle, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -474,9 +449,9 @@ func (t MTKTextureLoader) NewTextureWithNameScaleFactorBundleOptionsError(name s
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(name:scaleFactor:bundle:options:completionHandler:)
 func (t MTKTextureLoader) NewTextureWithNameScaleFactorBundleOptionsCompletionHandler(name string, scaleFactor float64, bundle foundation.NSBundle, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block4, _cleanup4 := NewErrorBlock(completionHandler)
+_block4, _cleanup4 := NewErrorBlock(completionHandler)
 	defer _cleanup4()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:bundle:options:completionHandler:"), objc.String(name), scaleFactor, bundle, options, _block4)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:bundle:options:completionHandler:"), objc.String(name), scaleFactor, bundle, options, _block4)
 }
 
 // Asynchronously loads image data and creates Metal textures from the
@@ -516,9 +491,9 @@ func (t MTKTextureLoader) NewTextureWithNameScaleFactorBundleOptionsCompletionHa
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTextures(names:scaleFactor:bundle:options:completionHandler:)
 func (t MTKTextureLoader) NewTexturesWithNamesScaleFactorBundleOptionsCompletionHandler(names []string, scaleFactor float64, bundle foundation.NSBundle, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block4, _cleanup4 := NewErrorBlock(completionHandler)
+_block4, _cleanup4 := NewErrorBlock(completionHandler)
 	defer _cleanup4()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithNames:scaleFactor:bundle:options:completionHandler:"), names, scaleFactor, bundle, options, _block4)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithNames:scaleFactor:bundle:options:completionHandler:"), names, scaleFactor, bundle, options, _block4)
 }
 
 // Synchronously loads image data and creates a Metal texture from the named
@@ -565,7 +540,7 @@ func (t MTKTextureLoader) NewTexturesWithNamesScaleFactorBundleOptionsCompletion
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(name:scaleFactor:displayGamut:bundle:options:)
 func (t MTKTextureLoader) NewTextureWithNameScaleFactorDisplayGamutBundleOptionsError(name string, scaleFactor float64, displayGamut appkit.NSDisplayGamut, bundle foundation.NSBundle, options foundation.INSDictionary) (metal.MTLTexture, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:displayGamut:bundle:options:error:"), objc.String(name), scaleFactor, displayGamut, bundle, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -618,9 +593,9 @@ func (t MTKTextureLoader) NewTextureWithNameScaleFactorDisplayGamutBundleOptions
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(name:scaleFactor:displayGamut:bundle:options:completionHandler:)
 func (t MTKTextureLoader) NewTextureWithNameScaleFactorDisplayGamutBundleOptionsCompletionHandler(name string, scaleFactor float64, displayGamut appkit.NSDisplayGamut, bundle foundation.NSBundle, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block5, _cleanup5 := NewErrorBlock(completionHandler)
+_block5, _cleanup5 := NewErrorBlock(completionHandler)
 	defer _cleanup5()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:displayGamut:bundle:options:completionHandler:"), objc.String(name), scaleFactor, displayGamut, bundle, options, _block5)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:displayGamut:bundle:options:completionHandler:"), objc.String(name), scaleFactor, displayGamut, bundle, options, _block5)
 }
 
 // Asynchronously loads image data and creates Metal textures from the
@@ -668,9 +643,9 @@ func (t MTKTextureLoader) NewTextureWithNameScaleFactorDisplayGamutBundleOptions
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTextures(names:scaleFactor:displayGamut:bundle:options:completionHandler:)
 func (t MTKTextureLoader) NewTexturesWithNamesScaleFactorDisplayGamutBundleOptionsCompletionHandler(names []string, scaleFactor float64, displayGamut appkit.NSDisplayGamut, bundle foundation.NSBundle, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block5, _cleanup5 := NewErrorBlock(completionHandler)
+_block5, _cleanup5 := NewErrorBlock(completionHandler)
 	defer _cleanup5()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithNames:scaleFactor:displayGamut:bundle:options:completionHandler:"), names, scaleFactor, displayGamut, bundle, options, _block5)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithNames:scaleFactor:displayGamut:bundle:options:completionHandler:"), names, scaleFactor, displayGamut, bundle, options, _block5)
 }
 
 // Synchronously loads image data and creates a new Metal texture from a given
@@ -690,7 +665,7 @@ func (t MTKTextureLoader) NewTexturesWithNamesScaleFactorDisplayGamutBundleOptio
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(cgImage:options:)
 func (t MTKTextureLoader) NewTextureWithCGImageOptionsError(cgImage coregraphics.CGImageRef, options foundation.INSDictionary) (metal.MTLTexture, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithCGImage:options:error:"), cgImage, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -716,9 +691,9 @@ func (t MTKTextureLoader) NewTextureWithCGImageOptionsError(cgImage coregraphics
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(cgImage:options:completionHandler:)
 func (t MTKTextureLoader) NewTextureWithCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithCGImage:options:completionHandler:"), cgImage, options, _block2)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithCGImage:options:completionHandler:"), cgImage, options, _block2)
 }
 
 // Synchronously creates a new Metal texture from an in-memory representation
@@ -738,7 +713,7 @@ func (t MTKTextureLoader) NewTextureWithCGImageOptionsCompletionHandler(cgImage 
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(data:options:)
 func (t MTKTextureLoader) NewTextureWithDataOptionsError(data foundation.INSData, options foundation.INSDictionary) (metal.MTLTexture, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithData:options:error:"), data, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -764,9 +739,9 @@ func (t MTKTextureLoader) NewTextureWithDataOptionsError(data foundation.INSData
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(data:options:completionHandler:)
 func (t MTKTextureLoader) NewTextureWithDataOptionsCompletionHandler(data foundation.INSData, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithData:options:completionHandler:"), data, options, _block2)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithData:options:completionHandler:"), data, options, _block2)
 }
 
 // Synchronously loads image data and creates a Metal texture from the
@@ -785,7 +760,7 @@ func (t MTKTextureLoader) NewTextureWithDataOptionsCompletionHandler(data founda
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(texture:options:)
 func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsError(texture objectivec.IObject, options foundation.INSDictionary) (metal.MTLTexture, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithMDLTexture:options:error:"), texture, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -810,21 +785,10 @@ func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsError(texture objective
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/newTexture(texture:options:completionHandler:)
 func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsCompletionHandler(texture objectivec.IObject, options foundation.INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithMDLTexture:options:completionHandler:"), texture, options, _block2)
+	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithMDLTexture:options:completionHandler:"), texture, options, _block2)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The device object that the texture loader uses to create textures.
 //
@@ -833,26 +797,4 @@ func (t MTKTextureLoader) Device() metal.MTLDevice {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("device"))
 	return metal.MTLDeviceObjectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (fc FormatterClass) Alloc() Formatter {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that declares an interface for objects that create,
 // interpret, and validate the textual representation of values.
 //
@@ -92,17 +86,13 @@ type Formatter struct {
 // An abstract class that declares an interface for objects that create,
 // interpret, and validate the textual representation of values.
 func FormatterFromID(id objc.ID) Formatter {
-	return NSFormatter{objectivec.Object{id}}
+	return NSFormatter{objectivec.Object{ID: id}}
 }
 
 // NSFormatterFromID is an alias for [FormatterFromID] for cross-framework compatibility.
 func NSFormatterFromID(id objc.ID) Formatter { return FormatterFromID(id) }
 // NOTE: Formatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Formatter] class.
 //
@@ -124,6 +114,7 @@ func NSFormatterFromID(id objc.ID) Formatter { return FormatterFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/Formatter
 type IFormatter interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 
 	// Topic: Getting Textual Representations of Object Values
@@ -146,15 +137,7 @@ type IFormatter interface {
 	IsPartialStringValidNewEditingStringErrorDescription(partialString string, newString string, error_ string) bool
 	// This method should be implemented in subclasses that want to validate user changes to a string in a field, where the user changes are not necessarily at the end of the string, and preserve the selection (or set a different one, such as selecting the erroneous part of the string the user has typed).
 	IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription(partialStringPtr string, proposedSelRangePtr NSRangePointer, origString string, origSelRange NSRange, error_ string) bool
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) Formatter
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f Formatter) Init() Formatter {
@@ -175,11 +158,6 @@ func NewFormatter() Formatter {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewFormatterWithCoder(coder INSCoder) Formatter {
@@ -187,12 +165,6 @@ func NewFormatterWithCoder(coder INSCoder) Formatter {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return FormatterFromID(rv)
 }
-
-
-
-
-
-
 
 // The default implementation of this method raises an exception.
 //
@@ -454,41 +426,9 @@ func (f Formatter) InitWithCoder(coder INSCoder) Formatter {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSCoding
+			
 
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

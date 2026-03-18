@@ -35,12 +35,6 @@ func (ec EnergyFormatterClass) Alloc() EnergyFormatter {
 	return rv
 }
 
-
-
-
-
-
-
 // A formatter that provides localized descriptions of energy values.
 //
 // # Overview
@@ -74,10 +68,6 @@ func EnergyFormatterFromID(id objc.ID) EnergyFormatter {
 func NSEnergyFormatterFromID(id objc.ID) EnergyFormatter { return EnergyFormatterFromID(id) }
 // NOTE: EnergyFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [EnergyFormatter] class.
 //
@@ -119,10 +109,6 @@ type IEnergyFormatter interface {
 	SetUnitStyle(value NSFormattingUnitStyle)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e EnergyFormatter) Init() EnergyFormatter {
 	rv := objc.Send[EnergyFormatter](e.ID, objc.Sel("init"))
@@ -142,11 +128,6 @@ func NewEnergyFormatter() EnergyFormatter {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewEnergyFormatterWithCoder(coder INSCoder) EnergyFormatter {
@@ -154,12 +135,6 @@ func NewEnergyFormatterWithCoder(coder INSCoder) EnergyFormatter {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return EnergyFormatterFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an energy string for the provided value.
 //
@@ -238,17 +213,6 @@ func (e EnergyFormatter) UnitStringFromValueUnit(value float64, unit NSEnergyFor
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the energy value is used to measure
 // food energy.
 //
@@ -271,8 +235,6 @@ func (e EnergyFormatter) SetForFoodEnergyUse(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setForFoodEnergyUse:"), value)
 }
 
-
-
 // The number formatter used to format the numbers in energy strings.
 //
 // # Discussion
@@ -289,8 +251,6 @@ func (e EnergyFormatter) NumberFormatter() INSNumberFormatter {
 func (e EnergyFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNumberFormatter:"), value)
 }
-
-
 
 // The unit style used by this formatter.
 //
@@ -309,28 +269,4 @@ func (e EnergyFormatter) UnitStyle() NSFormattingUnitStyle {
 func (e EnergyFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](e.ID, objc.Sel("setUnitStyle:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

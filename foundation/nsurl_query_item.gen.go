@@ -36,12 +36,6 @@ func (nc NSURLQueryItemClass) Alloc() NSURLQueryItem {
 	return rv
 }
 
-
-
-
-
-
-
 // An object representing a single name/value pair for an item in the query
 // portion of a URL.
 //
@@ -74,14 +68,10 @@ type NSURLQueryItem struct {
 // An object representing a single name/value pair for an item in the query
 // portion of a URL.
 func NSURLQueryItemFromID(id objc.ID) NSURLQueryItem {
-	return NSURLQueryItem{objectivec.Object{id}}
+	return NSURLQueryItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSURLQueryItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSURLQueryItem] class.
 //
@@ -97,7 +87,9 @@ func NSURLQueryItemFromID(id objc.ID) NSURLQueryItem {
 // See: https://developer.apple.com/documentation/Foundation/NSURLQueryItem
 type INSURLQueryItem interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating a Query Item
 
@@ -114,14 +106,7 @@ type INSURLQueryItem interface {
 	// The query URL component as an array of name/value pairs.
 	QueryItems() INSURLQueryItem
 	SetQueryItems(value INSURLQueryItem)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSURLQueryItem
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u NSURLQueryItem) Init() NSURLQueryItem {
@@ -142,11 +127,6 @@ func NewNSURLQueryItem() NSURLQueryItem {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLQueryItemWithCoder(coder INSCoder) NSURLQueryItem {
@@ -154,7 +134,6 @@ func NewURLQueryItemWithCoder(coder INSCoder) NSURLQueryItem {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSURLQueryItemFromID(rv)
 }
-
 
 // Initializes a newly allocated query item with the specified name and value.
 //
@@ -183,12 +162,6 @@ func NewURLQueryItemWithNameValue(name string, value string) NSURLQueryItem {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:value:"), objc.String(name), objc.String(value))
 	return NSURLQueryItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated query item with the specified name and value.
 //
@@ -233,10 +206,6 @@ func (u NSURLQueryItem) InitWithCoder(coder INSCoder) NSURLQueryItem {
 	return rv
 }
 
-
-
-
-
 // Creates a new query item with the specified name and value.
 //
 // name: The name of the query item. For example, in the URL
@@ -264,13 +233,6 @@ func (_NSURLQueryItemClass NSURLQueryItemClass) QueryItemWithNameValue(name stri
 	return NSURLQueryItemFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The name of the query item.
 //
 // # Discussion
@@ -285,8 +247,6 @@ func (u NSURLQueryItem) Name() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("name"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The value for the query item.
 //
@@ -303,8 +263,6 @@ func (u NSURLQueryItem) Value() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The query URL component as an array of name/value pairs.
 //
 // See: https://developer.apple.com/documentation/foundation/nsurlcomponents/queryitems
@@ -316,37 +274,9 @@ func (u NSURLQueryItem) SetQueryItems(value INSURLQueryItem) {
 	objc.Send[struct{}](u.ID, objc.Sel("setQueryItems:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

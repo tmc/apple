@@ -36,12 +36,6 @@ func (xc XMLParserClass) Alloc() XMLParser {
 	return rv
 }
 
-
-
-
-
-
-
 // An event driven parser of XML documents (including DTD declarations).
 //
 // # Overview
@@ -103,17 +97,13 @@ type XMLParser struct {
 //
 // An event driven parser of XML documents (including DTD declarations).
 func XMLParserFromID(id objc.ID) XMLParser {
-	return NSXMLParser{objectivec.Object{id}}
+	return NSXMLParser{objectivec.Object{ID: id}}
 }
 
 // NSXMLParserFromID is an alias for [XMLParserFromID] for cross-framework compatibility.
 func NSXMLParserFromID(id objc.ID) XMLParser { return XMLParserFromID(id) }
 // NOTE: XMLParser adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [XMLParser] class.
 //
@@ -216,10 +206,6 @@ type IXMLParser interface {
 	SetExternalEntityResolvingPolicy(value NSXMLParserExternalEntityResolvingPolicy)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x XMLParser) Init() XMLParser {
 	rv := objc.Send[XMLParser](x.ID, objc.Sel("init"))
@@ -239,11 +225,6 @@ func NewXMLParser() XMLParser {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a parser with the XML content referenced by the given URL.
 //
 // url: An [NSURL] object specifying a URL. The URL must be fully qualified and
@@ -259,7 +240,6 @@ func NewXMLParserWithContentsOfURL(url INSURL) XMLParser {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return XMLParserFromID(rv)
 }
-
 
 // Initializes a parser with the XML contents encapsulated in a given data
 // object.
@@ -281,7 +261,6 @@ func NewXMLParserWithData(data INSData) XMLParser {
 	return XMLParserFromID(rv)
 }
 
-
 // Initializes a parser with the XML contents from the specified stream and
 // parses it.
 //
@@ -299,12 +278,6 @@ func NewXMLParserWithStream(stream INSInputStream) XMLParser {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStream:"), stream)
 	return XMLParserFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a parser with the XML content referenced by the given URL.
 //
@@ -385,17 +358,6 @@ func (x XMLParser) AbortParsing() {
 	objc.Send[objc.ID](x.ID, objc.Sel("abortParsing"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A delegate object that receives messages about the parsing process.
 //
 // # Discussion
@@ -410,8 +372,6 @@ func (x XMLParser) Delegate() NSXMLParserDelegate {
 func (x XMLParser) SetDelegate(value NSXMLParserDelegate) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // A Boolean value that determines whether the parser reports the namespaces
 // and qualified names of elements.
@@ -437,8 +397,6 @@ func (x XMLParser) SetShouldProcessNamespaces(value bool) {
 	objc.Send[struct{}](x.ID, objc.Sel("setShouldProcessNamespaces:"), value)
 }
 
-
-
 // A Boolean value that determines whether the parser reports the prefixes
 // indicating the scope of namespace declarations.
 //
@@ -461,8 +419,6 @@ func (x XMLParser) ShouldReportNamespacePrefixes() bool {
 func (x XMLParser) SetShouldReportNamespacePrefixes(value bool) {
 	objc.Send[struct{}](x.ID, objc.Sel("setShouldReportNamespacePrefixes:"), value)
 }
-
-
 
 // A Boolean value that determines whether the parser reports declarations of
 // external entities.
@@ -489,8 +445,6 @@ func (x XMLParser) SetShouldResolveExternalEntities(value bool) {
 	objc.Send[struct{}](x.ID, objc.Sel("setShouldResolveExternalEntities:"), value)
 }
 
-
-
 // An [NSError] object from which you can obtain information about a parsing
 // error.
 //
@@ -504,8 +458,6 @@ func (x XMLParser) ParserError() INSError {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("parserError"))
 	return NSErrorFromID(objc.ID(rv))
 }
-
-
 
 // The column number of the XML document being processed by the parser.
 //
@@ -521,8 +473,6 @@ func (x XMLParser) ColumnNumber() int {
 	return rv
 }
 
-
-
 // The line number of the XML document being processed by the parser.
 //
 // # Discussion
@@ -535,8 +485,6 @@ func (x XMLParser) LineNumber() int {
 	rv := objc.Send[int](x.ID, objc.Sel("lineNumber"))
 	return rv
 }
-
-
 
 // The public identifier of the external entity referenced in the XML
 // document.
@@ -552,8 +500,6 @@ func (x XMLParser) PublicID() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The system identifier of the external entity referenced in the XML
 // document.
 //
@@ -568,8 +514,6 @@ func (x XMLParser) SystemID() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/XMLParser/allowedExternalEntityURLs
 func (x XMLParser) AllowedExternalEntityURLs() INSSet {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("allowedExternalEntityURLs"))
@@ -579,8 +523,6 @@ func (x XMLParser) SetAllowedExternalEntityURLs(value INSSet) {
 	objc.Send[struct{}](x.ID, objc.Sel("setAllowedExternalEntityURLs:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/XMLParser/externalEntityResolvingPolicy-swift.property
 func (x XMLParser) ExternalEntityResolvingPolicy() NSXMLParserExternalEntityResolvingPolicy {
 	rv := objc.Send[NSXMLParserExternalEntityResolvingPolicy](x.ID, objc.Sel("externalEntityResolvingPolicy"))
@@ -589,26 +531,4 @@ func (x XMLParser) ExternalEntityResolvingPolicy() NSXMLParserExternalEntityReso
 func (x XMLParser) SetExternalEntityResolvingPolicy(value NSXMLParserExternalEntityResolvingPolicy) {
 	objc.Send[struct{}](x.ID, objc.Sel("setExternalEntityResolvingPolicy:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

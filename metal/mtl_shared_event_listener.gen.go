@@ -37,12 +37,6 @@ func (mc MTLSharedEventListenerClass) Alloc() MTLSharedEventListener {
 	return rv
 }
 
-
-
-
-
-
-
 // A listener for shareable event notifications.
 //
 // # Initializing a shareable event listener
@@ -62,14 +56,10 @@ type MTLSharedEventListener struct {
 //
 // A listener for shareable event notifications.
 func MTLSharedEventListenerFromID(id objc.ID) MTLSharedEventListener {
-	return MTLSharedEventListener{objectivec.Object{id}}
+	return MTLSharedEventListener{objectivec.Object{ID: id}}
 }
 // NOTE: MTLSharedEventListener adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLSharedEventListener] class.
 //
@@ -96,10 +86,6 @@ type IMTLSharedEventListener interface {
 	DispatchQueue() dispatch.Queue
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MTLSharedEventListener) Init() MTLSharedEventListener {
 	rv := objc.Send[MTLSharedEventListener](s.ID, objc.Sel("init"))
@@ -119,11 +105,6 @@ func NewMTLSharedEventListener() MTLSharedEventListener {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new shareable event listener with a specific dispatch queue.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEventListener/init(dispatchQueue:)
@@ -133,12 +114,6 @@ func NewSharedEventListenerWithDispatchQueue(dispatchQueue dispatch.Queue) MTLSh
 	return MTLSharedEventListenerFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new shareable event listener with a specific dispatch queue.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEventListener/init(dispatchQueue:)
@@ -147,22 +122,11 @@ func (s MTLSharedEventListener) InitWithDispatchQueue(dispatchQueue dispatch.Que
 	return rv
 }
 
-
-
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEventListener/shared()
 func (_MTLSharedEventListenerClass MTLSharedEventListenerClass) SharedListener() MTLSharedEventListener {
 	rv := objc.Send[objc.ID](objc.ID(_MTLSharedEventListenerClass.class), objc.Sel("sharedListener"))
 	return MTLSharedEventListenerFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The dispatch queue used to dispatch any notifications.
 //
@@ -171,28 +135,4 @@ func (s MTLSharedEventListener) DispatchQueue() dispatch.Queue {
 	rv := objc.Send[uintptr](s.ID, objc.Sel("dispatchQueue"))
 	return dispatch.QueueFromHandle(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

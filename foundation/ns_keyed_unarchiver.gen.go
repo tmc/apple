@@ -37,12 +37,6 @@ func (nc NSKeyedUnarchiverClass) Alloc() NSKeyedUnarchiver {
 	return rv
 }
 
-
-
-
-
-
-
 // A decoder that restores data from an archive referenced by keys.
 //
 // # Overview
@@ -109,10 +103,6 @@ func NSKeyedUnarchiverFromID(id objc.ID) NSKeyedUnarchiver {
 // NOTE: NSKeyedUnarchiver adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSKeyedUnarchiver] class.
 //
 // # Creating a Keyed Unarchiver
@@ -154,10 +144,6 @@ type INSKeyedUnarchiver interface {
 	RangeException() NSExceptionName
 }
 
-
-
-
-
 // Init initializes the instance.
 func (k NSKeyedUnarchiver) Init() NSKeyedUnarchiver {
 	rv := objc.Send[NSKeyedUnarchiver](k.ID, objc.Sel("init"))
@@ -176,11 +162,6 @@ func NewNSKeyedUnarchiver() NSKeyedUnarchiver {
 	rv := objc.Send[NSKeyedUnarchiver](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes an archiver to decode data from the specified location.
 //
@@ -207,12 +188,6 @@ func NewKeyedUnarchiverForReadingFromDataError(data INSData) (NSKeyedUnarchiver,
 	return NSKeyedUnarchiverFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Initializes an archiver to decode data from the specified location.
 //
 // data: An archive previously encoded by [NSKeyedArchiver].
@@ -228,7 +203,7 @@ func NewKeyedUnarchiverForReadingFromDataError(data INSData) (NSKeyedUnarchiver,
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/init(forReadingFrom:)
 func (k NSKeyedUnarchiver) InitForReadingFromDataError(data INSData) (NSKeyedUnarchiver, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("initForReadingFromData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -251,10 +226,6 @@ func (k NSKeyedUnarchiver) FinishDecoding() {
 	objc.Send[objc.ID](k.ID, objc.Sel("finishDecoding"))
 }
 
-
-
-
-
 // Decodes a previously-archived object graph, returning the root object as
 // one of the specified classes.
 //
@@ -273,7 +244,7 @@ func (k NSKeyedUnarchiver) FinishDecoding() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedObject(ofClasses:from:)-b9t5
 func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedObjectOfClassesFromDataError(classes INSSet, data INSData) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedObjectOfClasses:fromData:error:"), classes, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -332,7 +303,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) ClassForClassNameWithCoded
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedArrayOfObjectsOfClass:fromData:error:
 func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOfClassFromDataError(cls objc.Class, data INSData) (INSArray, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedArrayOfObjectsOfClass:fromData:error:"), cls, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -357,7 +328,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOf
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedArrayOfObjectsOfClasses:fromData:error:
 func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOfClassesFromDataError(classes INSSet, data INSData) (INSArray, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedArrayOfObjectsOfClasses:fromData:error:"), classes, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -383,7 +354,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOf
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedDictionaryWithKeysOfClass:objectsOfClass:fromData:error:
 func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKeysOfClassObjectsOfClassFromDataError(keyCls objc.Class, valueCls objc.Class, data INSData) (INSDictionary, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedDictionaryWithKeysOfClass:objectsOfClass:fromData:error:"), keyCls, valueCls, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -409,7 +380,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKe
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedDictionaryWithKeysOfClasses:objectsOfClasses:fromData:error:
 func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKeysOfClassesObjectsOfClassesFromDataError(keyClasses INSSet, valueClasses INSSet, data INSData) (INSDictionary, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedDictionaryWithKeysOfClasses:objectsOfClasses:fromData:error:"), keyClasses, valueClasses, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -439,7 +410,7 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKe
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiver/unarchivedObjectOfClass:fromData:error:
 func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedObjectOfClassFromDataError(cls objc.Class, data INSData) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("unarchivedObjectOfClass:fromData:error:"), cls, data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -448,13 +419,6 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedObjectOfClassFro
 	return objectivec.Object{ID: rv}, nil
 
 }
-
-
-
-
-
-
-
 
 // The receiver’s delegate.
 //
@@ -467,8 +431,6 @@ func (k NSKeyedUnarchiver) SetDelegate(value NSKeyedUnarchiverDelegate) {
 	objc.Send[struct{}](k.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // The name of the exception raised by
 //
 // See: https://developer.apple.com/documentation/foundation/nsexceptionname/invalidunarchiveoperationexception
@@ -476,8 +438,6 @@ func (k NSKeyedUnarchiver) InvalidUnarchiveOperationException() NSExceptionName 
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("NSInvalidUnarchiveOperationException"))
 	return NSExceptionName(NSStringFromID(rv).String())
 }
-
-
 
 // Name of an exception that occurs when attempting to access outside the
 // bounds of some data, such as beyond the end of a string.
@@ -487,28 +447,4 @@ func (k NSKeyedUnarchiver) RangeException() NSExceptionName {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("NSRangeException"))
 	return NSExceptionName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

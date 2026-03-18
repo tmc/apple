@@ -36,12 +36,6 @@ func (nc NSFileAccessIntentClass) Alloc() NSFileAccessIntent {
 	return rv
 }
 
-
-
-
-
-
-
 // The details of a coordinated-read or coordinated-write operation.
 //
 // # Overview
@@ -63,14 +57,10 @@ type NSFileAccessIntent struct {
 //
 // The details of a coordinated-read or coordinated-write operation.
 func NSFileAccessIntentFromID(id objc.ID) NSFileAccessIntent {
-	return NSFileAccessIntent{objectivec.Object{id}}
+	return NSFileAccessIntent{objectivec.Object{ID: id}}
 }
 // NOTE: NSFileAccessIntent adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFileAccessIntent] class.
 //
@@ -87,10 +77,6 @@ type INSFileAccessIntent interface {
 	// The current URL for the item managed by the file access intent instance. (read-only)
 	URL() INSURL
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f NSFileAccessIntent) Init() NSFileAccessIntent {
@@ -110,19 +96,6 @@ func NewNSFileAccessIntent() NSFileAccessIntent {
 	rv := objc.Send[NSFileAccessIntent](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Returns a file access intent object for reading the given URL with the
 // provided options.
@@ -180,13 +153,6 @@ func (_NSFileAccessIntentClass NSFileAccessIntentClass) WritingIntentWithURLOpti
 	return NSFileAccessIntentFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The current URL for the item managed by the file access intent instance.
 // (read-only)
 //
@@ -203,28 +169,4 @@ func (f NSFileAccessIntent) URL() INSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("URL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 	return rv
 }
 
-
-
-
-
-
-
 // A device that stores content in a disk image.
 //
 // # Overview
@@ -147,10 +141,6 @@ func VZDiskImageStorageDeviceAttachmentFromID(id objc.ID) VZDiskImageStorageDevi
 // NOTE: VZDiskImageStorageDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZDiskImageStorageDeviceAttachment] class.
 //
 // # Creating the attachment point
@@ -188,10 +178,6 @@ type IVZDiskImageStorageDeviceAttachment interface {
 	SynchronizationMode() VZDiskImageSynchronizationMode
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VZDiskImageStorageDeviceAttachment) Init() VZDiskImageStorageDeviceAttachment {
 	rv := objc.Send[VZDiskImageStorageDeviceAttachment](d.ID, objc.Sel("init"))
@@ -210,11 +196,6 @@ func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment 
 	rv := objc.Send[VZDiskImageStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initialize the attachment from a local file URL.
 //
@@ -246,7 +227,6 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyCachingModeSynchronizatio
 	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
 }
 
-
 // Creates the attachment object from the specified disk image.
 //
 // url: A URL that points to a local disk image in RAW format.
@@ -276,12 +256,6 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.INSU
 	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Creates the attachment object from the specified disk image.
 //
 // url: A URL that points to a local disk image in RAW format.
@@ -301,7 +275,7 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.INSU
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)
 func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundation.INSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:readOnly:error:"), url, readOnly, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -331,7 +305,7 @@ func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundat
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)
 func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyCachingModeSynchronizationModeError(url foundation.INSURL, readOnly bool, cachingMode VZDiskImageCachingMode, synchronizationMode VZDiskImageSynchronizationMode) (VZDiskImageStorageDeviceAttachment, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:readOnly:cachingMode:synchronizationMode:error:"), url, readOnly, cachingMode, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -341,17 +315,6 @@ func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyCachingModeSynchr
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The URL of the underlying disk image.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/url
@@ -359,8 +322,6 @@ func (d VZDiskImageStorageDeviceAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the underlying disk image is
 // read-only.
@@ -378,8 +339,6 @@ func (d VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
 	return rv
 }
 
-
-
 // The current cacheing mode for the virtual disk image.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/cachingMode
@@ -387,8 +346,6 @@ func (d VZDiskImageStorageDeviceAttachment) CachingMode() VZDiskImageCachingMode
 	rv := objc.Send[VZDiskImageCachingMode](d.ID, objc.Sel("cachingMode"))
 	return VZDiskImageCachingMode(rv)
 }
-
-
 
 // The mode in which the disk image synchronizes data with the underlying
 // storage device.
@@ -398,26 +355,4 @@ func (d VZDiskImageStorageDeviceAttachment) SynchronizationMode() VZDiskImageSyn
 	rv := objc.Send[VZDiskImageSynchronizationMode](d.ID, objc.Sel("synchronizationMode"))
 	return VZDiskImageSynchronizationMode(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

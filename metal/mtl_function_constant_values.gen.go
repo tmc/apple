@@ -38,12 +38,6 @@ func (mc MTLFunctionConstantValuesClass) Alloc() MTLFunctionConstantValues {
 	return rv
 }
 
-
-
-
-
-
-
 // A set of constant values that specialize a graphics or compute GPU
 // function.
 //
@@ -87,14 +81,10 @@ type MTLFunctionConstantValues struct {
 // A set of constant values that specialize a graphics or compute GPU
 // function.
 func MTLFunctionConstantValuesFromID(id objc.ID) MTLFunctionConstantValues {
-	return MTLFunctionConstantValues{objectivec.Object{id}}
+	return MTLFunctionConstantValues{objectivec.Object{ID: id}}
 }
 // NOTE: MTLFunctionConstantValues adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLFunctionConstantValues] class.
 //
@@ -127,10 +117,6 @@ type IMTLFunctionConstantValues interface {
 	SetConstantValuesTypeWithRange(values unsafe.Pointer, type_ MTLDataType, range_ foundation.NSRange)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MTLFunctionConstantValues) Init() MTLFunctionConstantValues {
 	rv := objc.Send[MTLFunctionConstantValues](f.ID, objc.Sel("init"))
@@ -149,15 +135,6 @@ func NewMTLFunctionConstantValues() MTLFunctionConstantValues {
 	rv := objc.Send[MTLFunctionConstantValues](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Sets a value for a function constant at a specific index.
 //
@@ -229,36 +206,4 @@ func (f MTLFunctionConstantValues) Reset() {
 func (f MTLFunctionConstantValues) SetConstantValuesTypeWithRange(values unsafe.Pointer, type_ MTLDataType, range_ foundation.NSRange) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setConstantValues:type:withRange:"), values, type_, range_)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

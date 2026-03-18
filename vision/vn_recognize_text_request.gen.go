@@ -38,12 +38,6 @@ func (vc VNRecognizeTextRequestClass) Alloc() VNRecognizeTextRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that finds and recognizes text in an image.
 //
 // # Overview
@@ -93,10 +87,6 @@ func VNRecognizeTextRequestFromID(id objc.ID) VNRecognizeTextRequest {
 }
 // NOTE: VNRecognizeTextRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNRecognizeTextRequest] class.
 //
@@ -166,10 +156,6 @@ type IVNRecognizeTextRequest interface {
 	VNRecognizeTextRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r VNRecognizeTextRequest) Init() VNRecognizeTextRequest {
 	rv := objc.Send[VNRecognizeTextRequest](r.ID, objc.Sel("init"))
@@ -189,11 +175,6 @@ func NewVNRecognizeTextRequest() VNRecognizeTextRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -211,12 +192,6 @@ func NewRecognizeTextRequestWithCompletionHandler(completionHandler VNRequestCom
 	return VNRecognizeTextRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns the identifiers of the languages that the request supports.
 //
 // # Return Value
@@ -225,7 +200,7 @@ func NewRecognizeTextRequestWithCompletionHandler(completionHandler VNRequestCom
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequest/supportedRecognitionLanguages()
 func (r VNRecognizeTextRequest) SupportedRecognitionLanguagesAndReturnError() ([]string, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("supportedRecognitionLanguagesAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -234,17 +209,6 @@ func (r VNRecognizeTextRequest) SupportedRecognitionLanguagesAndReturnError() ([
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The minimum height, relative to the image height, of the text to recognize.
 //
@@ -264,8 +228,6 @@ func (r VNRecognizeTextRequest) MinimumTextHeight() float32 {
 func (r VNRecognizeTextRequest) SetMinimumTextHeight(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMinimumTextHeight:"), value)
 }
-
-
 
 // A value that determines whether the request prioritizes accuracy or speed
 // in text recognition.
@@ -287,8 +249,6 @@ func (r VNRecognizeTextRequest) SetRecognitionLevel(value VNRequestTextRecogniti
 	objc.Send[struct{}](r.ID, objc.Sel("setRecognitionLevel:"), value)
 }
 
-
-
 // A Boolean value that indicates whether to attempt detecting the language to
 // use the appropriate model for recognition and language correction.
 //
@@ -300,8 +260,6 @@ func (r VNRecognizeTextRequest) AutomaticallyDetectsLanguage() bool {
 func (r VNRecognizeTextRequest) SetAutomaticallyDetectsLanguage(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAutomaticallyDetectsLanguage:"), value)
 }
-
-
 
 // An array of languages to detect, in priority order.
 //
@@ -320,8 +278,6 @@ func (r VNRecognizeTextRequest) RecognitionLanguages() []string {
 func (r VNRecognizeTextRequest) SetRecognitionLanguages(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRecognitionLanguages:"), objectivec.StringSliceToNSArray(value))
 }
-
-
 
 // A Boolean value that indicates whether the request applies language
 // correction during the recognition process.
@@ -343,8 +299,6 @@ func (r VNRecognizeTextRequest) SetUsesLanguageCorrection(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUsesLanguageCorrection:"), value)
 }
 
-
-
 // An array of strings to supplement the recognized languages at the
 // word-recognition stage.
 //
@@ -364,8 +318,6 @@ func (r VNRecognizeTextRequest) SetCustomWords(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCustomWords:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // A constant for specifying revision 3 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision3
@@ -373,8 +325,6 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision3() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision3"))
 	return rv
 }
-
-
 
 // A constant for specifying revision 2 of the text recognition request.
 //
@@ -384,8 +334,6 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision2() int {
 	return rv
 }
 
-
-
 // A constant for specifying revision 1 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision1
@@ -393,8 +341,6 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision1() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision1"))
 	return rv
 }
-
-
 
 // A Boolean set to true when a request can’t determine its progress in
 // fractions completed.
@@ -413,8 +359,6 @@ func (r VNRecognizeTextRequest) Indeterminate() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("indeterminate"))
 	return rv
 }
-
-
 
 // A block of code executed periodically during a Vision request to report
 // progress on long-running tasks.
@@ -437,32 +381,6 @@ func (r VNRecognizeTextRequest) SetProgressHandler(value VNRequestProgressHandle
 	objc.Send[struct{}](r.ID, objc.Sel("setProgressHandler:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for VNRequestProgressProviding
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (nc NSCacheClass) Alloc() NSCache {
 	return rv
 }
 
-
-
-
-
-
-
 // A mutable collection you use to temporarily store transient key-value pairs
 // that are subject to eviction when resources are low.
 //
@@ -115,14 +109,10 @@ type NSCache struct {
 // A mutable collection you use to temporarily store transient key-value pairs
 // that are subject to eviction when resources are low.
 func NSCacheFromID(id objc.ID) NSCache {
-	return NSCache{objectivec.Object{id}}
+	return NSCache{objectivec.Object{ID: id}}
 }
 // NOTE: NSCache adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCache] class.
 //
@@ -207,10 +197,6 @@ type INSCache interface {
 	RemoveAllObjects()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCache) Init() NSCache {
 	rv := objc.Send[NSCache](c.ID, objc.Sel("init"))
@@ -229,15 +215,6 @@ func NewNSCache() NSCache {
 	rv := objc.Send[NSCache](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the value associated with a given key.
 //
@@ -318,17 +295,6 @@ func (c NSCache) RemoveAllObjects() {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeAllObjects"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name of the cache.
 //
 // # Discussion
@@ -343,8 +309,6 @@ func (c NSCache) Name() string {
 func (c NSCache) SetName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
 
 // The maximum number of objects the cache should hold.
 //
@@ -364,8 +328,6 @@ func (c NSCache) CountLimit() uint {
 func (c NSCache) SetCountLimit(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCountLimit:"), value)
 }
-
-
 
 // The maximum total cost that the cache can hold before it starts evicting
 // objects.
@@ -394,8 +356,6 @@ func (c NSCache) SetTotalCostLimit(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTotalCostLimit:"), value)
 }
 
-
-
 // Whether the cache will automatically evict discardable-content objects
 // whose content has been discarded.
 //
@@ -416,8 +376,6 @@ func (c NSCache) SetEvictsObjectsWithDiscardedContent(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEvictsObjectsWithDiscardedContent:"), value)
 }
 
-
-
 // The cache’s delegate.
 //
 // # Discussion
@@ -432,26 +390,4 @@ func (c NSCache) Delegate() NSCacheDelegate {
 func (c NSCache) SetDelegate(value NSCacheDelegate) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

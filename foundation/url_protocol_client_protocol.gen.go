@@ -54,8 +54,6 @@ type NSURLProtocolClient interface {
 	URLProtocolDidFinishLoading(protocol_ INSURLProtocol)
 }
 
-
-
 // NSURLProtocolClientObject wraps an existing Objective-C object that conforms to the NSURLProtocolClient protocol.
 type NSURLProtocolClientObject struct {
 	objectivec.Object
@@ -64,8 +62,6 @@ func (o NSURLProtocolClientObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLProtocolClientObjectFromID constructs a [NSURLProtocolClientObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLProtocolClientObjectFromID(id objc.ID) NSURLProtocolClientObject {
@@ -73,9 +69,6 @@ func NSURLProtocolClientObjectFromID(id objc.ID) NSURLProtocolClientObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the client that the protocol implementation has created a response
 // object for the request.
@@ -201,10 +194,4 @@ func (o NSURLProtocolClientObject) URLProtocolDidFinishLoading(protocol_ INSURLP
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocolDidFinishLoading:"), protocol_)
 	}
-
-
-
-
-
-
 

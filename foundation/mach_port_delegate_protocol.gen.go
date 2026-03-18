@@ -16,8 +16,6 @@ type NSMachPortDelegate interface {
 	NSPortDelegate
 }
 
-
-
 // NSMachPortDelegateObject wraps an existing Objective-C object that conforms to the NSMachPortDelegate protocol.
 type NSMachPortDelegateObject struct {
 	objectivec.Object
@@ -26,8 +24,6 @@ func (o NSMachPortDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSMachPortDelegateObjectFromID constructs a [NSMachPortDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSMachPortDelegateObjectFromID(id objc.ID) NSMachPortDelegateObject {
@@ -35,9 +31,6 @@ func NSMachPortDelegateObjectFromID(id objc.ID) NSMachPortDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Process an incoming Mach message.
 //
@@ -77,10 +70,4 @@ func (o NSMachPortDelegateObject) HandlePortMessage(message INSPortMessage) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("handlePortMessage:"), message)
 	}
-
-
-
-
-
-
 

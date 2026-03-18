@@ -35,12 +35,6 @@ func (mc MessagePortClass) Alloc() MessagePort {
 	return rv
 }
 
-
-
-
-
-
-
 // A port that can be used as an endpoint for distributed object connections
 // (or raw messaging).
 //
@@ -72,20 +66,12 @@ func NSMessagePortFromID(id objc.ID) MessagePort { return MessagePortFromID(id) 
 // NOTE: MessagePort adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MessagePort] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/MessagePort
 type IMessagePort interface {
 	INSPort
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MessagePort) Init() MessagePort {
@@ -106,11 +92,6 @@ func NewMessagePort() MessagePort {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMessagePortWithCoder(coder INSCoder) MessagePort {
@@ -118,45 +99,4 @@ func NewMessagePortWithCoder(coder INSCoder) MessagePort {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MessagePortFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

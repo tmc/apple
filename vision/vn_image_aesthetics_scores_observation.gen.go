@@ -5,7 +5,6 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNImageAestheticsScoresObservation] class.
@@ -36,12 +35,6 @@ func (vc VNImageAestheticsScoresObservationClass) Alloc() VNImageAestheticsScore
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents the overall score of aesthetic attributes for an
 // image.
 //
@@ -65,10 +58,6 @@ func VNImageAestheticsScoresObservationFromID(id objc.ID) VNImageAestheticsScore
 // NOTE: VNImageAestheticsScoresObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNImageAestheticsScoresObservation] class.
 //
 // # Parsing Observation Content
@@ -90,12 +79,7 @@ type IVNImageAestheticsScoresObservation interface {
 	// The results of the aesthetics request.
 	Results() IVNImageAestheticsScoresObservation
 	SetResults(value IVNImageAestheticsScoresObservation)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i VNImageAestheticsScoresObservation) Init() VNImageAestheticsScoresObservation {
@@ -116,29 +100,6 @@ func NewVNImageAestheticsScoresObservation() VNImageAestheticsScoresObservation 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-func (i VNImageAestheticsScoresObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A score which incorporates aesthetic score, failure score, and utility
 // labels.
 //
@@ -153,8 +114,6 @@ func (i VNImageAestheticsScoresObservation) OverallScore() float32 {
 	return rv
 }
 
-
-
 // A Boolean value that represents images that are not necessarily of poor
 // image quality, but may not have memorable or exciting content.
 //
@@ -163,8 +122,6 @@ func (i VNImageAestheticsScoresObservation) IsUtility() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isUtility"))
 	return rv
 }
-
-
 
 // The results of the aesthetics request.
 //
@@ -176,30 +133,4 @@ func (i VNImageAestheticsScoresObservation) Results() IVNImageAestheticsScoresOb
 func (i VNImageAestheticsScoresObservation) SetResults(value IVNImageAestheticsScoresObservation) {
 	objc.Send[struct{}](i.ID, objc.Sel("setResults:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

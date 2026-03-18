@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that defines methods that URL session instances call on their delegates to handle task-level events specific to stream tasks.
 //
@@ -20,8 +18,6 @@ type NSURLSessionStreamDelegate interface {
 	NSURLSessionTaskDelegate
 }
 
-
-
 // NSURLSessionStreamDelegateObject wraps an existing Objective-C object that conforms to the NSURLSessionStreamDelegate protocol.
 type NSURLSessionStreamDelegateObject struct {
 	objectivec.Object
@@ -30,8 +26,6 @@ func (o NSURLSessionStreamDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLSessionStreamDelegateObjectFromID constructs a [NSURLSessionStreamDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLSessionStreamDelegateObjectFromID(id objc.ID) NSURLSessionStreamDelegateObject {
@@ -39,9 +33,6 @@ func NSURLSessionStreamDelegateObjectFromID(id objc.ID) NSURLSessionStreamDelega
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that a better route to the host has been detected for
 // the stream.
@@ -500,10 +491,6 @@ func (o NSURLSessionStreamDelegateObject) URLSessionTaskNeedNewBodyStreamFromOff
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStreamFromOffset:completionHandler:"), session, task, offset, completionHandler)
 	}
 
-
-
-
-
 // NSURLSessionStreamDelegateConfig holds optional typed callbacks for [NSURLSessionStreamDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -609,8 +596,4 @@ func NewNSURLSessionStreamDelegate(config NSURLSessionStreamDelegateConfig) NSUR
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLSessionStreamDelegateObjectFromID(instance)
 }
-
-
-
-
 

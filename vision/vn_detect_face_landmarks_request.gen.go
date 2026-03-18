@@ -35,12 +35,6 @@ func (vc VNDetectFaceLandmarksRequestClass) Alloc() VNDetectFaceLandmarksRequest
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that finds facial features like eyes and mouth in
 // an image.
 //
@@ -83,10 +77,6 @@ func VNDetectFaceLandmarksRequestFromID(id objc.ID) VNDetectFaceLandmarksRequest
 // NOTE: VNDetectFaceLandmarksRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectFaceLandmarksRequest] class.
 //
 // # Locating Face Landmarks
@@ -120,10 +110,6 @@ type IVNDetectFaceLandmarksRequest interface {
 	VNDetectFaceLandmarksRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectFaceLandmarksRequest) Init() VNDetectFaceLandmarksRequest {
 	rv := objc.Send[VNDetectFaceLandmarksRequest](d.ID, objc.Sel("init"))
@@ -143,11 +129,6 @@ func NewVNDetectFaceLandmarksRequest() VNDetectFaceLandmarksRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -164,16 +145,6 @@ func NewDetectFaceLandmarksRequestWithCompletionHandler(completionHandler VNRequ
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectFaceLandmarksRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
 
 // Returns a Boolean value that indicates whether a revision supports a
 // constellation.
@@ -195,13 +166,6 @@ func (_VNDetectFaceLandmarksRequestClass VNDetectFaceLandmarksRequestClass) Revi
 	return rv
 }
 
-
-
-
-
-
-
-
 // A variable that describes how a face landmarks request orders or enumerates
 // the resulting features.
 //
@@ -222,8 +186,6 @@ func (d VNDetectFaceLandmarksRequest) SetConstellation(value VNRequestFaceLandma
 	objc.Send[struct{}](d.ID, objc.Sel("setConstellation:"), value)
 }
 
-
-
 // A constant for specifying revision 3 of the face landmarks detection
 // request.
 //
@@ -232,8 +194,6 @@ func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision3() in
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceLandmarksRequestRevision3"))
 	return rv
 }
-
-
 
 // A constant for specifying revision 2 of the face landmarks detection
 // request.
@@ -244,8 +204,6 @@ func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision2() in
 	return rv
 }
 
-
-
 // A constant for specifying revision 1 of the face landmarks detection
 // request.
 //
@@ -254,8 +212,6 @@ func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision1() in
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceLandmarksRequestRevision1"))
 	return rv
 }
-
-
 
 // An array of
 //
@@ -267,28 +223,4 @@ func (d VNDetectFaceLandmarksRequest) InputFaceObservations() IVNFaceObservation
 func (d VNDetectFaceLandmarksRequest) SetInputFaceObservations(value IVNFaceObservation) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInputFaceObservations:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (vc VZXHCIControllerClass) Alloc() VZXHCIController {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a USB Extensible Host Controller Interface (XHCI)
 // controller in a VM.
 //
@@ -66,20 +60,12 @@ func VZXHCIControllerFromID(id objc.ID) VZXHCIController {
 // NOTE: VZXHCIController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZXHCIController] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZXHCIController
 type IVZXHCIController interface {
 	IVZUSBController
 }
-
-
-
-
 
 // Init initializes the instance.
 func (x VZXHCIController) Init() VZXHCIController {
@@ -99,44 +85,4 @@ func NewVZXHCIController() VZXHCIController {
 	rv := objc.Send[VZXHCIController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

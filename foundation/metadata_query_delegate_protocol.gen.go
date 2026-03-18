@@ -14,8 +14,6 @@ type NSMetadataQueryDelegate interface {
 	objectivec.IObject
 }
 
-
-
 // NSMetadataQueryDelegateObject wraps an existing Objective-C object that conforms to the NSMetadataQueryDelegate protocol.
 type NSMetadataQueryDelegateObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSMetadataQueryDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSMetadataQueryDelegateObjectFromID constructs a [NSMetadataQueryDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSMetadataQueryDelegateObjectFromID(id objc.ID) NSMetadataQueryDelegateObject {
@@ -33,9 +29,6 @@ func NSMetadataQueryDelegateObjectFromID(id objc.ID) NSMetadataQueryDelegateObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a different object for a given query result object.
 //
@@ -86,10 +79,4 @@ func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementValueForAttribute
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadataQuery:replacementValueForAttribute:value:"), query, objc.String(attrName), attrValue)
 	return objectivec.Object{ID: rv}
 	}
-
-
-
-
-
-
 

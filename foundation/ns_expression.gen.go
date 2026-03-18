@@ -37,12 +37,6 @@ func (nc NSExpressionClass) Alloc() NSExpression {
 	return rv
 }
 
-
-
-
-
-
-
 // An expression for use in a comparison predicate.
 //
 // # Overview
@@ -108,7 +102,6 @@ func (nc NSExpressionClass) Alloc() NSExpression {
 // # Creating an Expression
 //
 //   - [NSExpression.InitWithExpressionType]: Creates the expression with the specified expression type.
-//   - [NSExpression.InitWithCoder]: Creates an expression by decoding from the coder you specify.
 //
 // # Getting Information About an Expression
 //
@@ -144,21 +137,16 @@ type NSExpression struct {
 //
 // An expression for use in a comparison predicate.
 func NSExpressionFromID(id objc.ID) NSExpression {
-	return NSExpression{objectivec.Object{id}}
+	return NSExpression{objectivec.Object{ID: id}}
 }
 // NOTE: NSExpression adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSExpression] class.
 //
 // # Creating an Expression
 //
 //   - [INSExpression.InitWithExpressionType]: Creates the expression with the specified expression type.
-//   - [INSExpression.InitWithCoder]: Creates an expression by decoding from the coder you specify.
 //
 // # Getting Information About an Expression
 //
@@ -188,14 +176,14 @@ func NSExpressionFromID(id objc.ID) NSExpression {
 // See: https://developer.apple.com/documentation/Foundation/NSExpression
 type INSExpression interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating an Expression
 
 	// Creates the expression with the specified expression type.
 	InitWithExpressionType(type_ NSExpressionType) NSExpression
-	// Creates an expression by decoding from the coder you specify.
-	InitWithCoder(coder INSCoder) NSExpression
 
 	// Topic: Getting Information About an Expression
 
@@ -237,14 +225,7 @@ type INSExpression interface {
 
 	// The block that executes to evaluate the expression.
 	ExpressionBlock() ArrayHandler
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e NSExpression) Init() NSExpression {
@@ -265,11 +246,6 @@ func NewNSExpression() NSExpression {
 	return rv
 }
 
-
-
-
-
-
 // Creates an aggregate expression for a specified collection.
 //
 // subexpressions: A collection object (an instance of [NSArray], [NSSet], or [NSDictionary])
@@ -284,7 +260,6 @@ func NewExpressionForAggregate(subexpressions []NSExpression) NSExpression {
 	rv := objc.Send[objc.ID](objc.ID(getNSExpressionClass().class), objc.Sel("expressionForAggregate:"), objectivec.IObjectSliceToNSArray(subexpressions))
 	return NSExpressionFromID(rv)
 }
-
 
 // Creates an expression that returns a result, depending on the value of
 // predicate.
@@ -302,7 +277,6 @@ func NewExpressionForConditionalTrueExpressionFalseExpression(predicate INSPredi
 	return NSExpressionFromID(rv)
 }
 
-
 // Creates an expression that represents a specified constant value.
 //
 // obj: The constant value the new expression is to represent.
@@ -316,7 +290,6 @@ func NewExpressionForConstantValue(obj objectivec.IObject) NSExpression {
 	rv := objc.Send[objc.ID](objc.ID(getNSExpressionClass().class), objc.Sel("expressionForConstantValue:"), obj)
 	return NSExpressionFromID(rv)
 }
-
 
 // Creates an expression that invokes one of the predefined functions.
 //
@@ -363,7 +336,6 @@ func NewExpressionForFunctionArguments(name string, parameters INSArray) NSExpre
 	return NSExpressionFromID(rv)
 }
 
-
 // Creates an expression that returns the result of invoking a selector with a
 // specified name using specified arguments.
 //
@@ -401,7 +373,6 @@ func NewExpressionForFunctionSelectorNameArguments(target INSExpression, name st
 	return NSExpressionFromID(rv)
 }
 
-
 // Creates an expression object that represents the intersection of a
 // specified set and collection.
 //
@@ -421,7 +392,6 @@ func NewExpressionForIntersectSetWith(left INSExpression, right INSExpression) N
 	return NSExpressionFromID(rv)
 }
 
-
 // Creates an expression that invokes the value function with a specified key
 // path.
 //
@@ -438,7 +408,6 @@ func NewExpressionForKeyPath(keyPath string) NSExpression {
 	rv := objc.Send[objc.ID](objc.ID(getNSExpressionClass().class), objc.Sel("expressionForKeyPath:"), objc.String(keyPath))
 	return NSExpressionFromID(rv)
 }
-
 
 // Creates an expression object that represents the subtraction of a specified
 // collection from a specified set.
@@ -458,7 +427,6 @@ func NewExpressionForMinusSetWith(left INSExpression, right INSExpression) NSExp
 	rv := objc.Send[objc.ID](objc.ID(getNSExpressionClass().class), objc.Sel("expressionForMinusSet:with:"), left, right)
 	return NSExpressionFromID(rv)
 }
-
 
 // Creates an expression that filters a collection by storing elements in the
 // collection in a specified variable and keeping the elements that the
@@ -522,7 +490,6 @@ func NewExpressionForSubqueryUsingIteratorVariablePredicate(expression INSExpres
 	return NSExpressionFromID(rv)
 }
 
-
 // Creates an expression object that represents the union of a specified set
 // and collection.
 //
@@ -542,7 +509,6 @@ func NewExpressionForUnionSetWith(left INSExpression, right INSExpression) NSExp
 	return NSExpressionFromID(rv)
 }
 
-
 // Creates an expression that extracts a value from the variable bindings
 // dictionary for a specified key.
 //
@@ -559,7 +525,6 @@ func NewExpressionForVariable(string_ string) NSExpression {
 	return NSExpressionFromID(rv)
 }
 
-
 // Creates an expression by decoding from the coder you specify.
 //
 // coder: The coder to read data from.
@@ -570,7 +535,6 @@ func NewExpressionWithCoder(coder INSCoder) NSExpression {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSExpressionFromID(rv)
 }
-
 
 // Creates the expression with the specified expression type.
 //
@@ -594,7 +558,6 @@ func NewExpressionWithExpressionType(type_ NSExpressionType) NSExpression {
 	return NSExpressionFromID(rv)
 }
 
-
 // Creates the expression with the specified expression format and array of
 // arguments.
 //
@@ -611,7 +574,6 @@ func NewExpressionWithFormatArgumentArray(expressionFormat string, arguments INS
 	rv := objc.Send[objc.ID](objc.ID(getNSExpressionClass().class), objc.Sel("expressionWithFormat:argumentArray:"), objc.String(expressionFormat), arguments)
 	return NSExpressionFromID(rv)
 }
-
 
 // Creates the expression with the specified expression format and arguments
 // list.
@@ -630,12 +592,6 @@ func NewExpressionWithFormatArguments(expressionFormat string, argList unsafe.Po
 	rv := objc.Send[objc.ID](objc.ID(getNSExpressionClass().class), objc.Sel("expressionWithFormat:arguments:"), objc.String(expressionFormat), argList)
 	return NSExpressionFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates the expression with the specified expression type.
 //
@@ -716,10 +672,6 @@ func (e NSExpression) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Creates an expression that represents the object you’re evaluating.
 //
 // # Return Value
@@ -782,9 +734,9 @@ func (_NSExpressionClass NSExpressionClass) ExpressionForAnyKey() NSExpression {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExpression/init(block:arguments:)
 func (_NSExpressionClass NSExpressionClass) ExpressionForBlockArguments(block ArrayHandler, arguments []NSExpression) NSExpression {
-		_block0, _cleanup0 := NewArrayBlock(block)
+_block0, _cleanup0 := NewArrayBlock(block)
 	defer _cleanup0()
-		rv := objc.Send[objc.ID](objc.ID(_NSExpressionClass.class), objc.Sel("expressionForBlock:arguments:"), _block0, arguments)
+	rv := objc.Send[objc.ID](objc.ID(_NSExpressionClass.class), objc.Sel("expressionForBlock:arguments:"), _block0, arguments)
 	return NSExpressionFromID(rv)
 }
 
@@ -808,13 +760,6 @@ func (_NSExpressionClass NSExpressionClass) ExpressionWithFormat(expressionForma
 	return NSExpressionFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The arguments for the expression.
 //
 // # Discussion
@@ -834,8 +779,6 @@ func (e NSExpression) Arguments() []NSExpression {
 	})
 }
 
-
-
 // The collection of expressions in an aggregate expression, or the collection
 // element of a subquery expression.
 //
@@ -850,8 +793,6 @@ func (e NSExpression) Collection() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The constant value of the expression.
 //
 // # Discussion
@@ -864,8 +805,6 @@ func (e NSExpression) ConstantValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("constantValue"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The expression type for the expression.
 //
@@ -880,8 +819,6 @@ func (e NSExpression) ExpressionType() NSExpressionType {
 	return NSExpressionType(rv)
 }
 
-
-
 // The function for the expression.
 //
 // # Discussion
@@ -895,8 +832,6 @@ func (e NSExpression) Function() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The key path for the expression.
 //
 // # Discussion
@@ -909,8 +844,6 @@ func (e NSExpression) KeyPath() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("keyPath"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The operand for the expression.
 //
@@ -927,8 +860,6 @@ func (e NSExpression) Operand() INSExpression {
 	return NSExpressionFromID(objc.ID(rv))
 }
 
-
-
 // The predicate of a subquery expression.
 //
 // # Discussion
@@ -941,8 +872,6 @@ func (e NSExpression) Predicate() INSPredicate {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("predicate"))
 	return NSPredicateFromID(objc.ID(rv))
 }
-
-
 
 // The left expression of an aggregate expression.
 //
@@ -957,8 +886,6 @@ func (e NSExpression) LeftExpression() INSExpression {
 	return NSExpressionFromID(objc.ID(rv))
 }
 
-
-
 // The right expression of an aggregate expression.
 //
 // # Discussion
@@ -972,8 +899,6 @@ func (e NSExpression) RightExpression() INSExpression {
 	return NSExpressionFromID(objc.ID(rv))
 }
 
-
-
 // The variable for the expression.
 //
 // # Discussion
@@ -986,8 +911,6 @@ func (e NSExpression) Variable() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("variable"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // An expression to evalutate if a conditional expression’s predicate
 // evaluates to false.
@@ -1003,8 +926,6 @@ func (e NSExpression) FalseExpression() INSExpression {
 	return NSExpressionFromID(objc.ID(rv))
 }
 
-
-
 // An expression to evalutate if a conditional expression’s predicate
 // evaluates to true.
 //
@@ -1019,8 +940,6 @@ func (e NSExpression) TrueExpression() INSExpression {
 	return NSExpressionFromID(objc.ID(rv))
 }
 
-
-
 // The block that executes to evaluate the expression.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExpression/expressionBlock
@@ -1030,33 +949,9 @@ func (e NSExpression) ExpressionBlock() ArrayHandler {
 	return nil
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

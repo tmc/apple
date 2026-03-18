@@ -37,12 +37,6 @@ func (vc VNPoint3DClass) Alloc() VNPoint3D {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a 3D point in an image.
 //
 // # Creating a Point
@@ -62,14 +56,10 @@ type VNPoint3D struct {
 //
 // An object that represents a 3D point in an image.
 func VNPoint3DFromID(id objc.ID) VNPoint3D {
-	return VNPoint3D{objectivec.Object{id}}
+	return VNPoint3D{objectivec.Object{ID: id}}
 }
 // NOTE: VNPoint3D adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNPoint3D] class.
 //
@@ -98,10 +88,6 @@ type IVNPoint3D interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p VNPoint3D) Init() VNPoint3D {
 	rv := objc.Send[VNPoint3D](p.ID, objc.Sel("init"))
@@ -121,11 +107,6 @@ func NewVNPoint3D() VNPoint3D {
 	return rv
 }
 
-
-
-
-
-
 // Creates a point object with the position you specify.
 //
 // position: The three-dimensional position.
@@ -137,12 +118,6 @@ func NewPoint3DWithPosition(position objectivec.IObject) VNPoint3D {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPosition:"), position)
 	return VNPoint3DFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a point object with the position you specify.
 //
@@ -159,17 +134,6 @@ func (p VNPoint3D) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The three-dimensional position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint3D/position
@@ -177,29 +141,4 @@ func (p VNPoint3D) Position() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("position"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

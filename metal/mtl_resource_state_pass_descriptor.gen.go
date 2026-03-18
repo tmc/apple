@@ -36,12 +36,6 @@ func (mc MTLResourceStatePassDescriptorClass) Alloc() MTLResourceStatePassDescri
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration for a resource state pass, used to create a resource state
 // command encoder.
 //
@@ -59,14 +53,10 @@ type MTLResourceStatePassDescriptor struct {
 // A configuration for a resource state pass, used to create a resource state
 // command encoder.
 func MTLResourceStatePassDescriptorFromID(id objc.ID) MTLResourceStatePassDescriptor {
-	return MTLResourceStatePassDescriptor{objectivec.Object{id}}
+	return MTLResourceStatePassDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLResourceStatePassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLResourceStatePassDescriptor] class.
 //
@@ -83,10 +73,6 @@ type IMTLResourceStatePassDescriptor interface {
 	// The array of sample buffers that the resource state pass can access.
 	SampleBufferAttachments() IMTLResourceStatePassSampleBufferAttachmentDescriptorArray
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r MTLResourceStatePassDescriptor) Init() MTLResourceStatePassDescriptor {
@@ -107,19 +93,6 @@ func NewMTLResourceStatePassDescriptor() MTLResourceStatePassDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a new resource state pass descriptor.
 //
 // # Return Value
@@ -132,13 +105,6 @@ func (_MTLResourceStatePassDescriptorClass MTLResourceStatePassDescriptorClass) 
 	return MTLResourceStatePassDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The array of sample buffers that the resource state pass can access.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStatePassDescriptor/sampleBufferAttachments
@@ -146,27 +112,4 @@ func (r MTLResourceStatePassDescriptor) SampleBufferAttachments() IMTLResourceSt
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLResourceStatePassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

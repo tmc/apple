@@ -41,12 +41,6 @@ func (sc SCStreamClass) Alloc() SCStream {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that represents a stream of shareable content.
 //
 // # Overview
@@ -94,14 +88,10 @@ type SCStream struct {
 //
 // An instance that represents a stream of shareable content.
 func SCStreamFromID(id objc.ID) SCStream {
-	return SCStream{objectivec.Object{id}}
+	return SCStream{objectivec.Object{ID: id}}
 }
 // NOTE: SCStream adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCStream] class.
 //
@@ -174,10 +164,6 @@ type ISCStream interface {
 	SynchronizationClock() objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s SCStream) Init() SCStream {
 	rv := objc.Send[SCStream](s.ID, objc.Sel("init"))
@@ -197,11 +183,6 @@ func NewSCStream() SCStream {
 	return rv
 }
 
-
-
-
-
-
 // Creates a stream with a content filter and configuration.
 //
 // contentFilter: The content to capture.
@@ -216,12 +197,6 @@ func NewStreamWithFilterConfigurationDelegate(contentFilter ISCContentFilter, st
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilter:configuration:delegate:"), contentFilter, streamConfig, delegate)
 	return SCStreamFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a stream with a content filter and configuration.
 //
@@ -246,9 +221,9 @@ func (s SCStream) InitWithFilterConfigurationDelegate(contentFilter ISCContentFi
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/updateConfiguration(_:completionHandler:)
 func (s SCStream) UpdateConfigurationCompletionHandler(streamConfig ISCStreamConfiguration, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](s.ID, objc.Sel("updateConfiguration:completionHandler:"), streamConfig, _block1)
+	objc.Send[objc.ID](s.ID, objc.Sel("updateConfiguration:completionHandler:"), streamConfig, _block1)
 }
 
 // Updates the stream by applying a new content filter.
@@ -260,9 +235,9 @@ func (s SCStream) UpdateConfigurationCompletionHandler(streamConfig ISCStreamCon
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/updateContentFilter(_:completionHandler:)
 func (s SCStream) UpdateContentFilterCompletionHandler(contentFilter ISCContentFilter, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](s.ID, objc.Sel("updateContentFilter:completionHandler:"), contentFilter, _block1)
+	objc.Send[objc.ID](s.ID, objc.Sel("updateContentFilter:completionHandler:"), contentFilter, _block1)
 }
 
 // Adds a destination that receives the stream output.
@@ -283,7 +258,7 @@ func (s SCStream) UpdateContentFilterCompletionHandler(contentFilter ISCContentF
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/addStreamOutput(_:type:sampleHandlerQueue:)
 func (s SCStream) AddStreamOutputTypeSampleHandlerQueueError(output SCStreamOutput, type_ SCStreamOutputType, sampleHandlerQueue dispatch.Queue) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("addStreamOutput:type:sampleHandlerQueue:error:"), output, type_, uintptr(sampleHandlerQueue.Handle()), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -304,7 +279,7 @@ func (s SCStream) AddStreamOutputTypeSampleHandlerQueueError(output SCStreamOutp
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/removeStreamOutput(_:type:)
 func (s SCStream) RemoveStreamOutputTypeError(output SCStreamOutput, type_ SCStreamOutputType) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("removeStreamOutput:type:error:"), output, type_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -320,7 +295,7 @@ func (s SCStream) RemoveStreamOutputTypeError(output SCStreamOutput, type_ SCStr
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/addRecordingOutput(_:)
 func (s SCStream) AddRecordingOutputError(recordingOutput ISCRecordingOutput) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("addRecordingOutput:error:"), recordingOutput, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -336,7 +311,7 @@ func (s SCStream) AddRecordingOutputError(recordingOutput ISCRecordingOutput) (b
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/removeRecordingOutput(_:)
 func (s SCStream) RemoveRecordingOutputError(recordingOutput ISCRecordingOutput) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("removeRecordingOutput:error:"), recordingOutput, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -356,9 +331,9 @@ func (s SCStream) RemoveRecordingOutputError(recordingOutput ISCRecordingOutput)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/startCapture(completionHandler:)
 func (s SCStream) StartCaptureWithCompletionHandler(completionHandler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(completionHandler)
+_block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](s.ID, objc.Sel("startCaptureWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](s.ID, objc.Sel("startCaptureWithCompletionHandler:"), _block0)
 }
 
 // Stops the stream.
@@ -367,21 +342,10 @@ func (s SCStream) StartCaptureWithCompletionHandler(completionHandler ErrorHandl
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/stopCapture(completionHandler:)
 func (s SCStream) StopCaptureWithCompletionHandler(completionHandler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(completionHandler)
+_block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](s.ID, objc.Sel("stopCaptureWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](s.ID, objc.Sel("stopCaptureWithCompletionHandler:"), _block0)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A clock to use for output synchronization.
 //
@@ -399,23 +363,6 @@ func (s SCStream) SynchronizationClock() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("synchronizationClock"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // UpdateConfiguration is a synchronous wrapper around [SCStream.UpdateConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -476,9 +423,4 @@ func (s SCStream) StopCapture(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

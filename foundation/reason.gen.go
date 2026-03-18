@@ -36,12 +36,6 @@ func (rc ReasonClass) Alloc() Reason {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSException/reason-c.ivar
 type Reason struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Reason struct {
 
 // ReasonFromID constructs a [Reason] from an objc.ID.
 func ReasonFromID(id objc.ID) Reason {
-	return Reason{objectivec.Object{id}}
+	return Reason{objectivec.Object{ID: id}}
 }
 // Ensure Reason implements IReason.
 var _ IReason = Reason{}
-
-
-
-
 
 // An interface definition for the [Reason] class.
 //
@@ -64,10 +54,6 @@ var _ IReason = Reason{}
 type IReason interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r Reason) Init() Reason {
@@ -87,38 +73,4 @@ func NewReason() Reason {
 	rv := objc.Send[Reason](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

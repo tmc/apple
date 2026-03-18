@@ -36,12 +36,6 @@ func (mc MTL4RenderPipelineBinaryFunctionsDescriptorClass) Alloc() MTL4RenderPip
 	return rv
 }
 
-
-
-
-
-
-
 // Allows you to specify additional binary functions to link to each stage of
 // a render pipeline.
 //
@@ -72,14 +66,10 @@ type MTL4RenderPipelineBinaryFunctionsDescriptor struct {
 // Allows you to specify additional binary functions to link to each stage of
 // a render pipeline.
 func MTL4RenderPipelineBinaryFunctionsDescriptorFromID(id objc.ID) MTL4RenderPipelineBinaryFunctionsDescriptor {
-	return MTL4RenderPipelineBinaryFunctionsDescriptor{objectivec.Object{id}}
+	return MTL4RenderPipelineBinaryFunctionsDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4RenderPipelineBinaryFunctionsDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4RenderPipelineBinaryFunctionsDescriptor] class.
 //
@@ -128,10 +118,6 @@ type IMTL4RenderPipelineBinaryFunctionsDescriptor interface {
 	Reset()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) Init() MTL4RenderPipelineBinaryFunctionsDescriptor {
 	rv := objc.Send[MTL4RenderPipelineBinaryFunctionsDescriptor](m.ID, objc.Sel("init"))
@@ -151,32 +137,12 @@ func NewMTL4RenderPipelineBinaryFunctionsDescriptor() MTL4RenderPipelineBinaryFu
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Resets this descriptor to its default state.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineBinaryFunctionsDescriptor/reset()
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Provides an array of binary functions representing additional binary
 // fragment shader functions.
@@ -192,8 +158,6 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetFragmentAdditionalBinary
 	objc.Send[struct{}](m.ID, objc.Sel("setFragmentAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Provides an array of binary functions representing additional binary mesh
 // shader functions.
 //
@@ -207,8 +171,6 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) MeshAdditionalBinaryFunctio
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetMeshAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMeshAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // Provides an array of binary functions representing additional binary object
 // shader functions.
@@ -224,8 +186,6 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetObjectAdditionalBinaryFu
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Provides an array of binary functions representing additional binary tile
 // shader functions.
 //
@@ -240,8 +200,6 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetTileAdditionalBinaryFunc
 	objc.Send[struct{}](m.ID, objc.Sel("setTileAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Provides an array of binary functions representing additional binary vertex
 // shader functions.
 //
@@ -255,27 +213,4 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) VertexAdditionalBinaryFunct
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetVertexAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

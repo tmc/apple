@@ -491,4 +491,3 @@ func GroupFromHandle(handle uintptr) Group {
 	return Group{group: dispatch_group_t(handle)}
 }
 
-

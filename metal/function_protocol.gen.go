@@ -75,8 +75,6 @@ type MTLFunction interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLFunctionObject wraps an existing Objective-C object that conforms to the MTLFunction protocol.
 type MTLFunctionObject struct {
 	objectivec.Object
@@ -85,8 +83,6 @@ func (o MTLFunctionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLFunctionObjectFromID constructs a [MTLFunctionObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLFunctionObjectFromID(id objc.ID) MTLFunctionObject {
@@ -94,9 +90,6 @@ func MTLFunctionObjectFromID(id objc.ID) MTLFunctionObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device object that created the shader function.
 //
@@ -226,32 +219,7 @@ func (o MTLFunctionObject) NewArgumentEncoderWithBufferIndex(bufferIndex uint) M
 	return MTLArgumentEncoderObjectFromID(rv)
 	}
 
-
-
-
-
-
 func (o MTLFunctionObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

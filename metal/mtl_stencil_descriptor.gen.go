@@ -36,12 +36,6 @@ func (mc MTLStencilDescriptorClass) Alloc() MTLStencilDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines the front-facing or back-facing stencil operations
 // of a depth and stencil state object.
 //
@@ -91,14 +85,10 @@ type MTLStencilDescriptor struct {
 // An object that defines the front-facing or back-facing stencil operations
 // of a depth and stencil state object.
 func MTLStencilDescriptorFromID(id objc.ID) MTLStencilDescriptor {
-	return MTLStencilDescriptor{objectivec.Object{id}}
+	return MTLStencilDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLStencilDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLStencilDescriptor] class.
 //
@@ -149,10 +139,6 @@ type IMTLStencilDescriptor interface {
 	SetWriteMask(value uint32)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MTLStencilDescriptor) Init() MTLStencilDescriptor {
 	rv := objc.Send[MTLStencilDescriptor](s.ID, objc.Sel("init"))
@@ -171,26 +157,6 @@ func NewMTLStencilDescriptor() MTLStencilDescriptor {
 	rv := objc.Send[MTLStencilDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The operation that is performed to update the values in the stencil
 // attachment when the stencil test fails.
@@ -215,8 +181,6 @@ func (s MTLStencilDescriptor) SetStencilFailureOperation(value MTLStencilOperati
 	objc.Send[struct{}](s.ID, objc.Sel("setStencilFailureOperation:"), value)
 }
 
-
-
 // The operation that is performed to update the values in the stencil
 // attachment when the stencil test passes, but the depth test fails.
 //
@@ -237,8 +201,6 @@ func (s MTLStencilDescriptor) SetDepthFailureOperation(value MTLStencilOperation
 	objc.Send[struct{}](s.ID, objc.Sel("setDepthFailureOperation:"), value)
 }
 
-
-
 // The operation that is performed to update the values in the stencil
 // attachment when both the stencil test and the depth test pass.
 //
@@ -258,8 +220,6 @@ func (s MTLStencilDescriptor) DepthStencilPassOperation() MTLStencilOperation {
 func (s MTLStencilDescriptor) SetDepthStencilPassOperation(value MTLStencilOperation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDepthStencilPassOperation:"), value)
 }
-
-
 
 // The comparison that is performed between the masked reference value and a
 // masked value in the stencil attachment.
@@ -286,8 +246,6 @@ func (s MTLStencilDescriptor) SetStencilCompareFunction(value MTLCompareFunction
 	objc.Send[struct{}](s.ID, objc.Sel("setStencilCompareFunction:"), value)
 }
 
-
-
 // A bitmask that determines from which bits that stencil comparison tests can
 // read.
 //
@@ -309,8 +267,6 @@ func (s MTLStencilDescriptor) SetReadMask(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setReadMask:"), value)
 }
 
-
-
 // A bitmask that determines to which bits that stencil operations can write.
 //
 // # Discussion
@@ -330,27 +286,4 @@ func (s MTLStencilDescriptor) WriteMask() uint32 {
 func (s MTLStencilDescriptor) SetWriteMask(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setWriteMask:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,7 +38,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _mTKMetalVertexDescriptorFromModelIO func(modelIODescriptor uintptr) *metal.MTLVertexDescriptor
 
 // MTKMetalVertexDescriptorFromModelIO returns a partially converted Metal vertex descriptor.
@@ -50,7 +49,6 @@ func MTKMetalVertexDescriptorFromModelIO(modelIODescriptor uintptr) *metal.MTLVe
 	}
 	return _mTKMetalVertexDescriptorFromModelIO(modelIODescriptor)
 }
-
 
 var _mTKMetalVertexDescriptorFromModelIOWithError func(modelIODescriptor uintptr, err *foundation.NSError) *metal.MTLVertexDescriptor
 
@@ -64,7 +62,6 @@ func MTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor uintptr, err
 	return _mTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor, err)
 }
 
-
 var _mTKMetalVertexFormatFromModelIO func(vertexFormat uintptr) metal.MTLVertexFormat
 
 // MTKMetalVertexFormatFromModelIO returns a converted Metal vertex format.
@@ -76,7 +73,6 @@ func MTKMetalVertexFormatFromModelIO(vertexFormat uintptr) metal.MTLVertexFormat
 	}
 	return _mTKMetalVertexFormatFromModelIO(vertexFormat)
 }
-
 
 var _mTKModelIOVertexDescriptorFromMetal func(metalDescriptor *metal.MTLVertexDescriptor) *objc.ID
 
@@ -90,7 +86,6 @@ func MTKModelIOVertexDescriptorFromMetal(metalDescriptor *metal.MTLVertexDescrip
 	return _mTKModelIOVertexDescriptorFromMetal(metalDescriptor)
 }
 
-
 var _mTKModelIOVertexDescriptorFromMetalWithError func(metalDescriptor *metal.MTLVertexDescriptor, err *foundation.NSError) *objc.ID
 
 // MTKModelIOVertexDescriptorFromMetalWithError returns a partially converted Model I/O vertex descriptor, reporting any error that occurs.
@@ -102,7 +97,6 @@ func MTKModelIOVertexDescriptorFromMetalWithError(metalDescriptor *metal.MTLVert
 	}
 	return _mTKModelIOVertexDescriptorFromMetalWithError(metalDescriptor, err)
 }
-
 
 var _mTKModelIOVertexFormatFromMetal func(vertexFormat metal.MTLVertexFormat) objectivec.IObject
 
@@ -116,8 +110,6 @@ func MTKModelIOVertexFormatFromMetal(vertexFormat metal.MTLVertexFormat) objecti
 	return _mTKModelIOVertexFormatFromMetal(vertexFormat)
 }
 
-
-
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -129,5 +121,4 @@ func init() {
 		registerFunc(&_mTKModelIOVertexDescriptorFromMetalWithError, frameworkHandle, "MTKModelIOVertexDescriptorFromMetalWithError")
 		registerFunc(&_mTKModelIOVertexFormatFromMetal, frameworkHandle, "MTKModelIOVertexFormatFromMetal")
 	}
-
 

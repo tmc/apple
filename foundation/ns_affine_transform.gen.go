@@ -37,12 +37,6 @@ func (nc NSAffineTransformClass) Alloc() NSAffineTransform {
 	return rv
 }
 
-
-
-
-
-
-
 // A graphics coordinate transformation.
 //
 // # Overview
@@ -105,14 +99,10 @@ type NSAffineTransform struct {
 //
 // A graphics coordinate transformation.
 func NSAffineTransformFromID(id objc.ID) NSAffineTransform {
-	return NSAffineTransform{objectivec.Object{id}}
+	return NSAffineTransform{objectivec.Object{ID: id}}
 }
 // NOTE: NSAffineTransform adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAffineTransform] class.
 //
@@ -150,7 +140,9 @@ func NSAffineTransformFromID(id objc.ID) NSAffineTransform {
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform
 type INSAffineTransform interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating an Affine Transform
 
@@ -197,15 +189,7 @@ type INSAffineTransform interface {
 	Set()
 	// Appends the receiver’s matrix to the current transformation matrix stored in the current graphics context, replacing the current transformation matrix with the result.
 	Concat()
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSAffineTransform
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSAffineTransform) Init() NSAffineTransform {
@@ -226,11 +210,6 @@ func NewNSAffineTransform() NSAffineTransform {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewAffineTransformWithCoder(coder INSCoder) NSAffineTransform {
@@ -238,7 +217,6 @@ func NewAffineTransformWithCoder(coder INSCoder) NSAffineTransform {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSAffineTransformFromID(rv)
 }
-
 
 // Initializes the receiver’s matrix using another transform object.
 //
@@ -254,12 +232,6 @@ func NewAffineTransformWithTransform(transform INSAffineTransform) NSAffineTrans
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTransform:"), transform)
 	return NSAffineTransformFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes the receiver’s matrix using another transform object.
 //
@@ -530,10 +502,6 @@ func (a NSAffineTransform) InitWithCoder(coder INSCoder) NSAffineTransform {
 	return rv
 }
 
-
-
-
-
 // Creates a new affine transform initialized to the identity matrix.
 //
 // # Return Value
@@ -546,13 +514,6 @@ func (_NSAffineTransformClass NSAffineTransformClass) Transform() NSAffineTransf
 	rv := objc.Send[objc.ID](objc.ID(_NSAffineTransformClass.class), objc.Sel("transform"))
 	return NSAffineTransformFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The matrix coefficients stored as the transformation matrix.
 //
@@ -577,35 +538,9 @@ func (a NSAffineTransform) SetTransformStruct(value NSAffineTransformStruct) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTransformStruct:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

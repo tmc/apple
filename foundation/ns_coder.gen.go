@@ -38,12 +38,6 @@ func (nc NSCoderClass) Alloc() NSCoder {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that serves as the basis for objects that enable
 // archiving and distribution of other objects.
 //
@@ -199,14 +193,10 @@ type NSCoder struct {
 // An abstract class that serves as the basis for objects that enable
 // archiving and distribution of other objects.
 func NSCoderFromID(id objc.ID) NSCoder {
-	return NSCoder{objectivec.Object{id}}
+	return NSCoder{objectivec.Object{ID: id}}
 }
 // NOTE: NSCoder adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCoder] class.
 //
@@ -341,7 +331,7 @@ type INSCoder interface {
 	// Encodes a buffer of data of an unspecified type.
 	EncodeBytesLength(byteaddr unsafe.Pointer, length uint)
 	// Encodes a buffer of data, given its length and a pointer, and associates it with a string key.
-	EncodeBytesLengthForKey(bytes uint8, length uint, key string)
+	EncodeBytesLengthForKey(bytes []byte, length uint, key string)
 	// An encoding method for subclasses to override to conditionally encode an object, preserving common references to it.
 	EncodeConditionalObject(object objectivec.IObject)
 	// An encoding method for subclasses to override to conditionally encode an object, preserving common references to it, only if it has been unconditionally encoded.
@@ -406,9 +396,9 @@ type INSCoder interface {
 	// Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
 	DecodeBoolForKey(key string) bool
 	// Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
-	DecodeBytesForKeyReturnedLength(key string, lengthp uint) uint8
+	DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Pointer) uint8
 	// Decodes a buffer of data whose types are unspecified.
-	DecodeBytesWithReturnedLength(lengthp uint)
+	DecodeBytesWithReturnedLength(lengthp unsafe.Pointer)
 	// Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
 	DecodeDataObject() INSData
 	// Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
@@ -518,10 +508,6 @@ type INSCoder interface {
 	ObjectZone() NSZone
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCoder) Init() NSCoder {
 	rv := objc.Send[NSCoder](c.ID, objc.Sel("init"))
@@ -540,15 +526,6 @@ func NewNSCoder() NSCoder {
 	rv := objc.Send[NSCoder](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a Boolean value that indicates whether an encoded value is
 // available for a string.
@@ -656,8 +633,8 @@ func (c NSCoder) EncodeBytesLength(byteaddr unsafe.Pointer, length uint) {
 // Subclasses must override this method if they perform keyed coding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)
-func (c NSCoder) EncodeBytesLengthForKey(bytes uint8, length uint, key string) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeBytes:length:forKey:"), bytes, length, objc.String(key))
+func (c NSCoder) EncodeBytesLengthForKey(bytes []byte, length uint, key string) {
+	objc.Send[objc.ID](c.ID, objc.Sel("encodeBytes:length:forKey:"), unsafe.Pointer(unsafe.SliceData(bytes)), length, objc.String(key))
 }
 
 // An encoding method for subclasses to override to conditionally encode an
@@ -1013,7 +990,7 @@ func (c NSCoder) DecodeBoolForKey(key string) bool {
 // keyed coding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(forKey:returnedLength:)
-func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp uint) uint8 {
+func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Pointer) uint8 {
 	rv := objc.Send[uint8](c.ID, objc.Sel("decodeBytesForKey:returnedLength:"), objc.String(key), lengthp)
 	return rv
 }
@@ -1031,7 +1008,7 @@ func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp uint) uint8
 // This method matches an [EncodeBytesLength] message used during encoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(withReturnedLength:)
-func (c NSCoder) DecodeBytesWithReturnedLength(lengthp uint) {
+func (c NSCoder) DecodeBytesWithReturnedLength(lengthp unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("decodeBytesWithReturnedLength:"), lengthp)
 }
 
@@ -1540,7 +1517,7 @@ func (c NSCoder) DecodeObjectOfClassesForKey(classes INSSet, key string) objecti
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeTopLevelObjectForKey:error:
 func (c NSCoder) DecodeTopLevelObjectForKeyError(key string) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeTopLevelObjectForKey:error:"), objc.String(key), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1579,7 +1556,7 @@ func (c NSCoder) DecodeTopLevelObjectForKeyError(key string) (objectivec.IObject
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeTopLevelObjectOfClass:forKey:error:
 func (c NSCoder) DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key string) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeTopLevelObjectOfClass:forKey:error:"), aClass, objc.String(key), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1668,17 +1645,6 @@ func (c NSCoder) ObjectZone() NSZone {
 	return NSZone(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the receiver supports keyed coding
 // of objects.
 //
@@ -1695,8 +1661,6 @@ func (c NSCoder) AllowsKeyedCoding() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("allowsKeyedCoding"))
 	return rv
 }
-
-
 
 // The action the coder should take when decoding fails.
 //
@@ -1721,8 +1685,6 @@ func (c NSCoder) DecodingFailurePolicy() NSDecodingFailurePolicy {
 	return NSDecodingFailurePolicy(rv)
 }
 
-
-
 // Indicates whether the archiver requires all archived classes to resist
 // object substitution attacks.
 //
@@ -1742,8 +1704,6 @@ func (c NSCoder) RequiresSecureCoding() bool {
 	return rv
 }
 
-
-
 // The set of coded classes allowed for secure coding.
 //
 // # Discussion
@@ -1756,8 +1716,6 @@ func (c NSCoder) AllowedClasses() INSSet {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("allowedClasses"))
 	return NSSetFromID(objc.ID(rv))
 }
-
-
 
 // An error in the top-level encode.
 //
@@ -1775,8 +1733,6 @@ func (c NSCoder) Error() INSError {
 	return NSErrorFromID(objc.ID(rv))
 }
 
-
-
 // The system version in effect for the archive.
 //
 // # Discussion
@@ -1793,8 +1749,6 @@ func (c NSCoder) SystemVersion() uint32 {
 	return rv
 }
 
-
-
 // The end of the range of error codes reserved for coder errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nscodererrormaximum-swift.var
@@ -1805,8 +1759,6 @@ func (c NSCoder) NSCoderErrorMaximum() int {
 func (c NSCoder) SetNSCoderErrorMaximum(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderErrorMaximum:"), value)
 }
-
-
 
 // The start of the range of error codes reserved for coder errors.
 //
@@ -1819,8 +1771,6 @@ func (c NSCoder) SetNSCoderErrorMinimum(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderErrorMinimum:"), value)
 }
 
-
-
 // Decoding failed due to corrupt data.
 //
 // See: https://developer.apple.com/documentation/foundation/nscoderreadcorrupterror-swift.var
@@ -1831,8 +1781,6 @@ func (c NSCoder) NSCoderReadCorruptError() int {
 func (c NSCoder) SetNSCoderReadCorruptError(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderReadCorruptError:"), value)
 }
-
-
 
 // The requested data wasn’t found.
 //
@@ -1845,8 +1793,6 @@ func (c NSCoder) SetNSCoderValueNotFoundError(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderValueNotFoundError:"), value)
 }
 
-
-
 // Data wasn’t valid to encode.
 //
 // See: https://developer.apple.com/documentation/foundation/nscoderinvalidvalueerror-swift.var
@@ -1857,25 +1803,4 @@ func (c NSCoder) NSCoderInvalidValueError() int {
 func (c NSCoder) SetNSCoderInvalidValueError(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderInvalidValueError:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

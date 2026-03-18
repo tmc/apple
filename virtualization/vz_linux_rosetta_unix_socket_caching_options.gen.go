@@ -37,12 +37,6 @@ func (vc VZLinuxRosettaUnixSocketCachingOptionsClass) Alloc() VZLinuxRosettaUnix
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents caching options for a UNIX domain socket.
 //
 // # Overview
@@ -72,10 +66,6 @@ func VZLinuxRosettaUnixSocketCachingOptionsFromID(id objc.ID) VZLinuxRosettaUnix
 // Ensure VZLinuxRosettaUnixSocketCachingOptions implements IVZLinuxRosettaUnixSocketCachingOptions.
 var _ IVZLinuxRosettaUnixSocketCachingOptions = VZLinuxRosettaUnixSocketCachingOptions{}
 
-
-
-
-
 // An interface definition for the [VZLinuxRosettaUnixSocketCachingOptions] class.
 //
 // # Initializers
@@ -101,10 +91,6 @@ type IVZLinuxRosettaUnixSocketCachingOptions interface {
 	Path() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l VZLinuxRosettaUnixSocketCachingOptions) Init() VZLinuxRosettaUnixSocketCachingOptions {
 	rv := objc.Send[VZLinuxRosettaUnixSocketCachingOptions](l.ID, objc.Sel("init"))
@@ -123,11 +109,6 @@ func NewVZLinuxRosettaUnixSocketCachingOptions() VZLinuxRosettaUnixSocketCaching
 	rv := objc.Send[VZLinuxRosettaUnixSocketCachingOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a new Rosetta caching options object for a UNIX domain socket with
 // the path you specify.
@@ -156,12 +137,6 @@ func NewLinuxRosettaUnixSocketCachingOptionsWithPathError(path string) (VZLinuxR
 	return VZLinuxRosettaUnixSocketCachingOptionsFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Creates a new Rosetta caching options object for a UNIX domain socket with
 // the path you specify.
 //
@@ -179,7 +154,7 @@ func NewLinuxRosettaUnixSocketCachingOptionsWithPathError(path string) (VZLinuxR
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaUnixSocketCachingOptions/initWithPath:error:
 func (l VZLinuxRosettaUnixSocketCachingOptions) InitWithPathError(path string) (VZLinuxRosettaUnixSocketCachingOptions, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("initWithPath:error:"), objc.String(path), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -189,17 +164,6 @@ func (l VZLinuxRosettaUnixSocketCachingOptions) InitWithPathError(path string) (
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The path to the UNIX domain socket that Rosetta uses.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaUnixSocketCachingOptions/path
@@ -207,12 +171,6 @@ func (l VZLinuxRosettaUnixSocketCachingOptions) Path() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("path"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
 
 // The maximum allowed length of the path to the UNIX domain socket.
 //
@@ -226,16 +184,4 @@ func (_VZLinuxRosettaUnixSocketCachingOptionsClass VZLinuxRosettaUnixSocketCachi
 	rv := objc.Send[uint](objc.ID(_VZLinuxRosettaUnixSocketCachingOptionsClass.class), objc.Sel("maximumPathLength"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

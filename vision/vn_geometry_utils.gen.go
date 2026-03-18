@@ -39,12 +39,6 @@ func (vc VNGeometryUtilsClass) Alloc() VNGeometryUtils {
 	return rv
 }
 
-
-
-
-
-
-
 // Utility methods to determine the geometries of various Vision types.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils
@@ -56,14 +50,10 @@ type VNGeometryUtils struct {
 //
 // Utility methods to determine the geometries of various Vision types.
 func VNGeometryUtilsFromID(id objc.ID) VNGeometryUtils {
-	return VNGeometryUtils{objectivec.Object{id}}
+	return VNGeometryUtils{objectivec.Object{ID: id}}
 }
 // NOTE: VNGeometryUtils adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNGeometryUtils] class.
 //
@@ -71,10 +61,6 @@ func VNGeometryUtilsFromID(id objc.ID) VNGeometryUtils {
 type IVNGeometryUtils interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g VNGeometryUtils) Init() VNGeometryUtils {
@@ -95,19 +81,6 @@ func NewVNGeometryUtils() VNGeometryUtils {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Calculates a bounding circle for the specified contour object.
 //
 // contour: A contour around which to calculate the bounding circle.
@@ -118,7 +91,7 @@ func NewVNGeometryUtils() VNGeometryUtils {
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(for:)-423ll
 func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForContourError(contour IVNContour) (VNCircle, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_VNGeometryUtilsClass.class), objc.Sel("boundingCircleForContour:error:"), contour, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -138,7 +111,7 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForContourError(
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(for:)-9dggv
 func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForPointsError(points []VNPoint) (VNCircle, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_VNGeometryUtilsClass.class), objc.Sel("boundingCircleForPoints:error:"), objectivec.IObjectSliceToNSArray(points), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -162,7 +135,7 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForPointsError(p
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(forSIMDPoints:pointCount:)
 func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPointCountError(points objectivec.IObject, pointCount int) (VNCircle, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_VNGeometryUtilsClass.class), objc.Sel("boundingCircleForSIMDPoints:pointCount:error:"), points, pointCount, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -225,31 +198,4 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) CalculatePerimeterForContourEr
 	}
 	return perimeter, nil
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

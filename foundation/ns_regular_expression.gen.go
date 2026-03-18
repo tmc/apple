@@ -37,12 +37,6 @@ func (nc NSRegularExpressionClass) Alloc() NSRegularExpression {
 	return rv
 }
 
-
-
-
-
-
-
 // An immutable representation of a compiled regular expression that you apply
 // to Unicode strings.
 //
@@ -275,14 +269,10 @@ type NSRegularExpression struct {
 // An immutable representation of a compiled regular expression that you apply
 // to Unicode strings.
 func NSRegularExpressionFromID(id objc.ID) NSRegularExpression {
-	return NSRegularExpression{objectivec.Object{id}}
+	return NSRegularExpression{objectivec.Object{ID: id}}
 }
 // NOTE: NSRegularExpression adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSRegularExpression] class.
 //
@@ -316,7 +306,9 @@ func NSRegularExpressionFromID(id objc.ID) NSRegularExpression {
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression
 type INSRegularExpression interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating Regular Expressions
 
@@ -337,7 +329,7 @@ type INSRegularExpression interface {
 	// Returns the number of matches of the regular expression within the specified range of the string.
 	NumberOfMatchesInStringOptionsRange(string_ string, options NSMatchingOptions, range_ NSRange) uint
 	// Enumerates the string allowing the Block to handle each regular expression match.
-	EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block bool)
+	EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block unsafe.Pointer)
 	// Returns an array containing all the matches of the regular expression in the string.
 	MatchesInStringOptionsRange(string_ string, options NSMatchingOptions, range_ NSRange) []NSTextCheckingResult
 	// Returns the first match of the regular expression within the specified range of the string.
@@ -372,14 +364,7 @@ type INSRegularExpression interface {
 	// Call the Block periodically during long-running match operations. This option has no effect for methods other than 
 	ReportProgress() NSMatchingOptions
 	SetReportProgress(value NSMatchingOptions)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSRegularExpression
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r NSRegularExpression) Init() NSRegularExpression {
@@ -400,11 +385,6 @@ func NewNSRegularExpression() NSRegularExpression {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewRegularExpressionWithCoder(coder INSCoder) NSRegularExpression {
@@ -412,7 +392,6 @@ func NewRegularExpressionWithCoder(coder INSCoder) NSRegularExpression {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSRegularExpressionFromID(rv)
 }
-
 
 // Returns an initialized NSRegularExpression instance with the specified
 // regular expression pattern and options.
@@ -443,12 +422,6 @@ func NewRegularExpressionWithPatternOptionsError(pattern string, options NSRegul
 	return NSRegularExpressionFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Returns an initialized NSRegularExpression instance with the specified
 // regular expression pattern and options.
 //
@@ -468,7 +441,7 @@ func NewRegularExpressionWithPatternOptionsError(pattern string, options NSRegul
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/init(pattern:options:)
 func (r NSRegularExpression) InitWithPatternOptionsError(pattern string, options NSRegularExpressionOptions) (NSRegularExpression, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("initWithPattern:options:error:"), objc.String(pattern), options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -601,7 +574,7 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/enumerateMatches(in:options:range:using:)
-func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block bool) {
+func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block unsafe.Pointer) {
 	objc.Send[objc.ID](r.ID, objc.Sel("enumerateMatchesInString:options:range:usingBlock:"), objc.String(string_), options, range_, block)
 }
 
@@ -804,10 +777,6 @@ func (r NSRegularExpression) InitWithCoder(coder INSCoder) NSRegularExpression {
 	return rv
 }
 
-
-
-
-
 // Returns a template string by adding backslash escapes as necessary to
 // protect any characters that would match as pattern metacharacters
 //
@@ -883,7 +852,7 @@ func (_NSRegularExpressionClass NSRegularExpressionClass) EscapedPatternForStrin
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/regularExpressionWithPattern:options:error:
 func (_NSRegularExpressionClass NSRegularExpressionClass) RegularExpressionWithPatternOptionsError(pattern string, options NSRegularExpressionOptions) (NSRegularExpression, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSRegularExpressionClass.class), objc.Sel("regularExpressionWithPattern:options:error:"), objc.String(pattern), options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -893,13 +862,6 @@ func (_NSRegularExpressionClass NSRegularExpressionClass) RegularExpressionWithP
 
 }
 
-
-
-
-
-
-
-
 // Returns the regular expression pattern.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/pattern
@@ -907,8 +869,6 @@ func (r NSRegularExpression) Pattern() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("pattern"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Returns the options used when the regular expression option was created.
 //
@@ -927,8 +887,6 @@ func (r NSRegularExpression) Options() NSRegularExpressionOptions {
 	rv := objc.Send[NSRegularExpressionOptions](r.ID, objc.Sel("options"))
 	return NSRegularExpressionOptions(rv)
 }
-
-
 
 // Returns the number of capture groups in the regular expression.
 //
@@ -951,8 +909,6 @@ func (r NSRegularExpression) NumberOfCaptureGroups() uint {
 	return rv
 }
 
-
-
 // A value indicating that a requested item couldn’t be found or doesn’t
 // exist.
 //
@@ -965,8 +921,6 @@ func (r NSRegularExpression) SetNSNotFound(value int) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSNotFound:"), value)
 }
 
-
-
 // Returns the range of the result that the receiver represents.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/range
@@ -978,8 +932,6 @@ func (r NSRegularExpression) SetRange(value NSRange) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRange:"), value)
 }
 
-
-
 // Matches a regular expression.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/regularexpression
@@ -990,8 +942,6 @@ func (r NSRegularExpression) RegularExpression() NSTextCheckingType {
 func (r NSRegularExpression) SetRegularExpression(value NSTextCheckingType) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSTextCheckingTypeRegularExpression:"), value)
 }
-
-
 
 // Call the Block once after the completion of any matching. This option has
 // no effect for methods other than
@@ -1005,8 +955,6 @@ func (r NSRegularExpression) SetReportCompletion(value NSMatchingOptions) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSMatchingReportCompletion:"), value)
 }
 
-
-
 // Call the Block periodically during long-running match operations. This
 // option has no effect for methods other than
 //
@@ -1019,35 +967,9 @@ func (r NSRegularExpression) SetReportProgress(value NSMatchingOptions) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSMatchingReportProgress:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

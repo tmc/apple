@@ -36,12 +36,6 @@ func (vc VZNetworkDeviceAttachmentClass) Alloc() VZNetworkDeviceAttachment {
 	return rv
 }
 
-
-
-
-
-
-
 // The common behaviors for the network attachment points of your virtual
 // machine.
 //
@@ -62,14 +56,10 @@ type VZNetworkDeviceAttachment struct {
 // The common behaviors for the network attachment points of your virtual
 // machine.
 func VZNetworkDeviceAttachmentFromID(id objc.ID) VZNetworkDeviceAttachment {
-	return VZNetworkDeviceAttachment{objectivec.Object{id}}
+	return VZNetworkDeviceAttachment{objectivec.Object{ID: id}}
 }
 // NOTE: VZNetworkDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZNetworkDeviceAttachment] class.
 //
@@ -77,10 +67,6 @@ func VZNetworkDeviceAttachmentFromID(id objc.ID) VZNetworkDeviceAttachment {
 type IVZNetworkDeviceAttachment interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n VZNetworkDeviceAttachment) Init() VZNetworkDeviceAttachment {
@@ -100,44 +86,4 @@ func NewVZNetworkDeviceAttachment() VZNetworkDeviceAttachment {
 	rv := objc.Send[VZNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

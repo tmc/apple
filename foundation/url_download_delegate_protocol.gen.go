@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that URL download delegates implement to interact with a URL download request.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSURLDownloadDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSURLDownloadDelegateObject wraps an existing Objective-C object that conforms to the NSURLDownloadDelegate protocol.
 type NSURLDownloadDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSURLDownloadDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLDownloadDelegateObjectFromID constructs a [NSURLDownloadDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLDownloadDelegateObjectFromID(id objc.ID) NSURLDownloadDelegateObject {
@@ -37,9 +31,6 @@ func NSURLDownloadDelegateObjectFromID(id objc.ID) NSURLDownloadDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sent to determine whether the delegate is able to respond to a protection
 // space’s form of authentication.
@@ -386,10 +377,6 @@ func (o NSURLDownloadDelegateObject) DownloadDidFinish(download INSURLDownload) 
 	objc.Send[struct{}](o.ID, objc.Sel("downloadDidFinish:"), download)
 	}
 
-
-
-
-
 // NSURLDownloadDelegateConfig holds optional typed callbacks for [NSURLDownloadDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -594,8 +581,4 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLDownloadDelegateObjectFromID(instance)
 }
-
-
-
-
 

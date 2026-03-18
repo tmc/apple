@@ -36,12 +36,6 @@ func (nc NSMorphologyCustomPronounClass) Alloc() NSMorphologyCustomPronoun {
 	return rv
 }
 
-
-
-
-
-
-
 // A custom pronoun behavior for use in a specific langauge.
 //
 // # Overview
@@ -81,14 +75,10 @@ type NSMorphologyCustomPronoun struct {
 //
 // A custom pronoun behavior for use in a specific langauge.
 func NSMorphologyCustomPronounFromID(id objc.ID) NSMorphologyCustomPronoun {
-	return NSMorphologyCustomPronoun{objectivec.Object{id}}
+	return NSMorphologyCustomPronoun{objectivec.Object{ID: id}}
 }
 // NOTE: NSMorphologyCustomPronoun adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMorphologyCustomPronoun] class.
 //
@@ -109,6 +99,7 @@ func NSMorphologyCustomPronounFromID(id objc.ID) NSMorphologyCustomPronoun {
 type INSMorphologyCustomPronoun interface {
 	objectivec.IObject
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Determining Pronoun Forms
 
@@ -133,10 +124,6 @@ type INSMorphologyCustomPronoun interface {
 	EncodeWithCoder(coder INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMorphologyCustomPronoun) Init() NSMorphologyCustomPronoun {
 	rv := objc.Send[NSMorphologyCustomPronoun](m.ID, objc.Sel("init"))
@@ -156,15 +143,6 @@ func NewNSMorphologyCustomPronoun() NSMorphologyCustomPronoun {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (m NSMorphologyCustomPronoun) InitWithCoder(coder INSCoder) NSMorphologyCustomPronoun {
@@ -180,17 +158,6 @@ func (m NSMorphologyCustomPronoun) InitWithCoder(coder INSCoder) NSMorphologyCus
 func (m NSMorphologyCustomPronoun) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The subject pronoun form to apply when using this custom pronoun behavior.
 //
@@ -208,8 +175,6 @@ func (m NSMorphologyCustomPronoun) SetSubjectForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSubjectForm:"), objc.String(value))
 }
 
-
-
 // The object pronoun form to apply when using this custom pronoun behavior.
 //
 // # Discussion
@@ -225,8 +190,6 @@ func (m NSMorphologyCustomPronoun) ObjectForm() string {
 func (m NSMorphologyCustomPronoun) SetObjectForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectForm:"), objc.String(value))
 }
-
-
 
 // The posessive pronoun form to apply when using this custom pronoun
 // behavior.
@@ -245,8 +208,6 @@ func (m NSMorphologyCustomPronoun) SetPossessiveForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPossessiveForm:"), objc.String(value))
 }
 
-
-
 // The posessive adjective pronoun form to apply when using this custom
 // pronoun behavior.
 //
@@ -264,8 +225,6 @@ func (m NSMorphologyCustomPronoun) SetPossessiveAdjectiveForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPossessiveAdjectiveForm:"), objc.String(value))
 }
 
-
-
 // The reflexive pronoun form to apply when using this custom pronoun
 // behavior.
 //
@@ -282,26 +241,9 @@ func (m NSMorphologyCustomPronoun) SetReflexiveForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setReflexiveForm:"), objc.String(value))
 }
 
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

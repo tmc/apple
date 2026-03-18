@@ -5,7 +5,6 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNSaliencyImageObservation] class.
@@ -35,12 +34,6 @@ func (vc VNSaliencyImageObservationClass) Alloc() VNSaliencyImageObservation {
 	rv := objc.Send[VNSaliencyImageObservation](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // An observation that contains a grayscale heat map of important areas across
 // an image.
@@ -72,10 +65,6 @@ func VNSaliencyImageObservationFromID(id objc.ID) VNSaliencyImageObservation {
 // NOTE: VNSaliencyImageObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNSaliencyImageObservation] class.
 //
 // # Locating Salient Regions
@@ -90,13 +79,7 @@ type IVNSaliencyImageObservation interface {
 
 	// A collection of objects describing the distinct areas of the saliency heat map.
 	SalientObjects() []VNRectangleObservation
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VNSaliencyImageObservation) Init() VNSaliencyImageObservation {
@@ -117,29 +100,6 @@ func NewVNSaliencyImageObservation() VNSaliencyImageObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-func (s VNSaliencyImageObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A collection of objects describing the distinct areas of the saliency heat
 // map.
 //
@@ -158,30 +118,4 @@ func (s VNSaliencyImageObservation) SalientObjects() []VNRectangleObservation {
 		return VNRectangleObservationFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

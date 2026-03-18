@@ -36,12 +36,6 @@ func (mc MTL4StitchedFunctionDescriptorClass) Alloc() MTL4StitchedFunctionDescri
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together properties that describe a shader function suitable for
 // stitching.
 //
@@ -67,10 +61,6 @@ func MTL4StitchedFunctionDescriptorFromID(id objc.ID) MTL4StitchedFunctionDescri
 // NOTE: MTL4StitchedFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MTL4StitchedFunctionDescriptor] class.
 //
 // # Instance Properties
@@ -94,10 +84,6 @@ type IMTL4StitchedFunctionDescriptor interface {
 	SetFunctionGraph(value IMTLFunctionStitchingGraph)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4StitchedFunctionDescriptor) Init() MTL4StitchedFunctionDescriptor {
 	rv := objc.Send[MTL4StitchedFunctionDescriptor](m.ID, objc.Sel("init"))
@@ -117,26 +103,6 @@ func NewMTL4StitchedFunctionDescriptor() MTL4StitchedFunctionDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Configures an array of function descriptors with references to functions
 // that contribute to the stitching process.
 //
@@ -151,8 +117,6 @@ func (m MTL4StitchedFunctionDescriptor) SetFunctionDescriptors(value []MTL4Funct
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Sets the graph representing how to stitch functions together.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4StitchedFunctionDescriptor/functionGraph
@@ -163,27 +127,4 @@ func (m MTL4StitchedFunctionDescriptor) FunctionGraph() IMTLFunctionStitchingGra
 func (m MTL4StitchedFunctionDescriptor) SetFunctionGraph(value IMTLFunctionStitchingGraph) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionGraph:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

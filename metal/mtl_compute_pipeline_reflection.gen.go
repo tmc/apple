@@ -36,12 +36,6 @@ func (mc MTLComputePipelineReflectionClass) Alloc() MTLComputePipelineReflection
 	return rv
 }
 
-
-
-
-
-
-
 // Information about the arguments of a compute function.
 //
 // # Overview
@@ -73,14 +67,10 @@ type MTLComputePipelineReflection struct {
 //
 // Information about the arguments of a compute function.
 func MTLComputePipelineReflectionFromID(id objc.ID) MTLComputePipelineReflection {
-	return MTLComputePipelineReflection{objectivec.Object{id}}
+	return MTLComputePipelineReflection{objectivec.Object{ID: id}}
 }
 // NOTE: MTLComputePipelineReflection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLComputePipelineReflection] class.
 //
@@ -96,10 +86,6 @@ type IMTLComputePipelineReflection interface {
 
 	Bindings() []objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c MTLComputePipelineReflection) Init() MTLComputePipelineReflection {
@@ -120,26 +106,6 @@ func NewMTLComputePipelineReflection() MTLComputePipelineReflection {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineReflection/bindings
 func (c MTLComputePipelineReflection) Bindings() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("bindings"))
@@ -147,28 +113,4 @@ func (c MTLComputePipelineReflection) Bindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

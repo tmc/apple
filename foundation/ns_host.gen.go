@@ -36,12 +36,6 @@ func (hc HostClass) Alloc() Host {
 	return rv
 }
 
-
-
-
-
-
-
 // A representation of an individual host on the network.
 //
 // # Overview
@@ -87,17 +81,13 @@ type Host struct {
 //
 // A representation of an individual host on the network.
 func HostFromID(id objc.ID) Host {
-	return NSHost{objectivec.Object{id}}
+	return NSHost{objectivec.Object{ID: id}}
 }
 
 // NSHostFromID is an alias for [HostFromID] for cross-framework compatibility.
 func NSHostFromID(id objc.ID) Host { return HostFromID(id) }
 // NOTE: Host adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Host] class.
 //
@@ -127,10 +117,6 @@ type IHost interface {
 	Names() []string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (h Host) Init() Host {
 	rv := objc.Send[Host](h.ID, objc.Sel("init"))
@@ -150,11 +136,6 @@ func NewHost() Host {
 	return rv
 }
 
-
-
-
-
-
 // Returns the [NSHost] with the Internet address `address`.
 //
 // address: Network address to look up. For example, `"127.0.0.1"` or `":1"`.
@@ -168,7 +149,6 @@ func NewHostWithAddress(address string) Host {
 	rv := objc.Send[objc.ID](objc.ID(getHostClass().class), objc.Sel("hostWithAddress:"), objc.String(address))
 	return HostFromID(rv)
 }
-
 
 // Returns a host with a specific name.
 //
@@ -186,23 +166,6 @@ func NewHostWithName(name string) Host {
 	return HostFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns one of the network addresses of the receiver.
 //
 // # Return Value
@@ -216,8 +179,6 @@ func (h Host) Address() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns all the network addresses of the receiver.
 //
 // # Return Value
@@ -229,8 +190,6 @@ func (h Host) Addresses() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("addresses"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // Returns one of the hostnames of the receiver.
 //
@@ -245,8 +204,6 @@ func (h Host) Name() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("name"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Returns the name used as by default when publishing [NSNetServices].
 //
@@ -270,8 +227,6 @@ func (h Host) LocalizedName() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns all the hostnames of the receiver.
 //
 // # Return Value
@@ -283,26 +238,4 @@ func (h Host) Names() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("names"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

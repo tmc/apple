@@ -35,12 +35,6 @@ func (vc VNTrackRectangleRequestClass) Alloc() VNTrackRectangleRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that tracks movement of a previously identified
 // rectangular object across multiple images or video frames.
 //
@@ -74,10 +68,6 @@ func VNTrackRectangleRequestFromID(id objc.ID) VNTrackRectangleRequest {
 // NOTE: VNTrackRectangleRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNTrackRectangleRequest] class.
 //
 // # Initializing a Rectangle Tracking Request
@@ -106,10 +96,6 @@ type IVNTrackRectangleRequest interface {
 	VNTrackRectangleRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t VNTrackRectangleRequest) Init() VNTrackRectangleRequest {
 	rv := objc.Send[VNTrackRectangleRequest](t.ID, objc.Sel("init"))
@@ -129,11 +115,6 @@ func NewVNTrackRectangleRequest() VNTrackRectangleRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -151,7 +132,6 @@ func NewTrackRectangleRequestWithCompletionHandler(completionHandler VNRequestCo
 	return VNTrackRectangleRequestFromID(rv)
 }
 
-
 // Creates a new rectangle tracking request with a rectangle observation.
 //
 // observation: A rectangle observation with bounding box and corner location information.
@@ -162,7 +142,6 @@ func NewTrackRectangleRequestWithRectangleObservation(observation IVNRectangleOb
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRectangleObservation:"), observation)
 	return VNTrackRectangleRequestFromID(rv)
 }
-
 
 // Creates a new rectangle tracking request with a rectangle observation.
 //
@@ -176,12 +155,6 @@ func NewTrackRectangleRequestWithRectangleObservationCompletionHandler(observati
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, completionHandler)
 	return VNTrackRectangleRequestFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new rectangle tracking request with a rectangle observation.
 //
@@ -201,22 +174,11 @@ func (t VNTrackRectangleRequest) InitWithRectangleObservation(observation IVNRec
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackRectangleRequest/init(rectangleObservation:completionHandler:)
 func (t VNTrackRectangleRequest) InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler ErrorHandler) VNTrackRectangleRequest {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, _block1)
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, _block1)
 	return VNTrackRectangleRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A constant for specifying revision 1 of the rectangling tracking request.
 //
@@ -225,27 +187,4 @@ func (t VNTrackRectangleRequest) VNTrackRectangleRequestRevision1() int {
 	rv := objc.Send[int](t.ID, objc.Sel("VNTrackRectangleRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

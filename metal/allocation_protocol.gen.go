@@ -19,8 +19,6 @@ type MTLAllocation interface {
 	AllocatedSize() uint
 }
 
-
-
 // MTLAllocationObject wraps an existing Objective-C object that conforms to the MTLAllocation protocol.
 type MTLAllocationObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o MTLAllocationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLAllocationObjectFromID constructs a [MTLAllocationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLAllocationObjectFromID(id objc.ID) MTLAllocationObject {
@@ -38,9 +34,6 @@ func MTLAllocationObjectFromID(id objc.ID) MTLAllocationObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
 // texture, or heap.
@@ -52,12 +45,4 @@ func (o MTLAllocationObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
-
-
-
-
-
-
-
-
 

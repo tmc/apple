@@ -61,8 +61,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // MTLFunctionErrorHandler handles A block of code that Metal calls after it creates the specialized function.
 //   - function: A specialized function, or `nil` if an error occurred.
 //   - error: An error object that describes compilation problems, if any. This object contains compiler errors if the specialized function is `nil`, and compiler warnings if Metal created the specialized function with warnings. If Metal created the function without errors or warnings, this error object is `nil`.
@@ -97,8 +95,6 @@ func NewMTLFunctionErrorBlock(handler MTLFunctionErrorHandler) (objc.ID, func())
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // VoidHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -116,7 +112,4 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
-
 

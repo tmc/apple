@@ -37,12 +37,6 @@ func (nc NSUserScriptTaskClass) Alloc() NSUserScriptTask {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that executes scripts.
 //
 // # Overview
@@ -74,14 +68,10 @@ type NSUserScriptTask struct {
 //
 // An object that executes scripts.
 func NSUserScriptTaskFromID(id objc.ID) NSUserScriptTask {
-	return NSUserScriptTask{objectivec.Object{id}}
+	return NSUserScriptTask{objectivec.Object{ID: id}}
 }
 // NOTE: NSUserScriptTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSUserScriptTask] class.
 //
@@ -111,10 +101,6 @@ type INSUserScriptTask interface {
 	ExecuteWithCompletionHandler(handler ErrorHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u NSUserScriptTask) Init() NSUserScriptTask {
 	rv := objc.Send[NSUserScriptTask](u.ID, objc.Sel("init"))
@@ -133,11 +119,6 @@ func NewNSUserScriptTask() NSUserScriptTask {
 	rv := objc.Send[NSUserScriptTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Return a user script task instance given a URL for a script file.
 //
@@ -168,12 +149,6 @@ func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 	return NSUserScriptTaskFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Return a user script task instance given a URL for a script file.
 //
 // url: The script URL.
@@ -193,7 +168,7 @@ func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
 func (u NSUserScriptTask) InitWithURLError(url INSURL) (NSUserScriptTask, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -218,21 +193,10 @@ func (u NSUserScriptTask) InitWithURLError(url INSURL) (NSUserScriptTask, error)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/execute(completionHandler:)
 func (u NSUserScriptTask) ExecuteWithCompletionHandler(handler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(handler)
+_block0, _cleanup0 := NewErrorBlock(handler)
 	defer _cleanup0()
-		objc.Send[objc.ID](u.ID, objc.Sel("executeWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](u.ID, objc.Sel("executeWithCompletionHandler:"), _block0)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The URL of the script file.
 //
@@ -245,26 +209,4 @@ func (u NSUserScriptTask) ScriptURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("scriptURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

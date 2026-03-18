@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that defines methods that URL session instances call on their delegates to handle session-level events, like session life cycle changes.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSURLSessionDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSURLSessionDelegateObject wraps an existing Objective-C object that conforms to the NSURLSessionDelegate protocol.
 type NSURLSessionDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSURLSessionDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLSessionDelegateObjectFromID constructs a [NSURLSessionDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLSessionDelegateObjectFromID(id objc.ID) NSURLSessionDelegateObject {
@@ -37,9 +31,6 @@ func NSURLSessionDelegateObjectFromID(id objc.ID) NSURLSessionDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the URL session that the session has been invalidated.
 //
@@ -131,10 +122,6 @@ func (o NSURLSessionDelegateObject) URLSessionDidReceiveChallengeCompletionHandl
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
 	}
 
-
-
-
-
 // NSURLSessionDelegateConfig holds optional typed callbacks for [NSURLSessionDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -224,8 +211,4 @@ func NewNSURLSessionDelegate(config NSURLSessionDelegateConfig) NSURLSessionDele
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLSessionDelegateObjectFromID(instance)
 }
-
-
-
-
 

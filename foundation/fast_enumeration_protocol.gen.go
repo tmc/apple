@@ -19,8 +19,6 @@ type NSFastEnumeration interface {
 	CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint
 }
 
-
-
 // NSFastEnumerationObject wraps an existing Objective-C object that conforms to the NSFastEnumeration protocol.
 type NSFastEnumerationObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSFastEnumerationObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSFastEnumerationObjectFromID constructs a [NSFastEnumerationObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSFastEnumerationObjectFromID(id objc.ID) NSFastEnumerationObject {
@@ -38,9 +34,6 @@ func NSFastEnumerationObjectFromID(id objc.ID) NSFastEnumerationObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
@@ -70,10 +63,4 @@ func (o NSFastEnumerationObject) CountByEnumeratingWithStateObjectsCount(state N
 	rv := objc.Send[uint](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 	}
-
-
-
-
-
-
 

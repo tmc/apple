@@ -37,12 +37,6 @@ func (nc NSConstantStringClass) Alloc() NSConstantString {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSConstantString
 type NSConstantString struct {
 	NSSimpleCString
@@ -55,20 +49,12 @@ func NSConstantStringFromID(id objc.ID) NSConstantString {
 // Ensure NSConstantString implements INSConstantString.
 var _ INSConstantString = NSConstantString{}
 
-
-
-
-
 // An interface definition for the [NSConstantString] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSConstantString
 type INSConstantString interface {
 	INSSimpleCString
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSConstantString) Init() NSConstantString {
@@ -88,11 +74,6 @@ func NewNSConstantString() NSConstantString {
 	rv := objc.Send[NSConstantString](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an initialized [NSString] object containing a given number of bytes
 // from a given buffer of bytes interpreted in a given encoding.
@@ -119,15 +100,13 @@ func NewConstantStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSCon
 	return NSConstantStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func NewConstantStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator uint) NSConstantString {
+func NewConstantStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, deallocator)
 	return NSConstantStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // bytes from a given buffer of bytes interpreted in a given encoding, and
@@ -168,7 +147,6 @@ func NewConstantStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Poi
 	return NSConstantStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:)
 func NewConstantStringWithCString(bytes []byte) NSConstantString {
@@ -176,7 +154,6 @@ func NewConstantStringWithCString(bytes []byte) NSConstantString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.SliceData(bytes)))
 	return NSConstantStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
@@ -186,7 +163,6 @@ func NewConstantStringWithCStringEncoding(nullTerminatedCString []byte, encoding
 	return NSConstantStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:length:)
 func NewConstantStringWithCStringLength(bytes []byte, length uint) NSConstantString {
@@ -195,7 +171,6 @@ func NewConstantStringWithCStringLength(bytes []byte, length uint) NSConstantStr
 	return NSConstantStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cStringNoCopy:length:freeWhenDone:)
 func NewConstantStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length uint, freeBuffer bool) NSConstantString {
@@ -203,7 +178,6 @@ func NewConstantStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length u
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), unsafe.Pointer(unsafe.SliceData(bytes)), length, freeBuffer)
 	return NSConstantStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // characters from a given C array of UTF-16 code units.
@@ -219,21 +193,19 @@ func NewConstantStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length u
 // receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(characters:length:)
-func NewConstantStringWithCharactersLength(characters uint16, length uint) NSConstantString {
+func NewConstantStringWithCharactersLength(characters unsafe.Pointer, length uint) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
 	return NSConstantStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:deallocator:)
-func NewConstantStringWithCharactersNoCopyLengthDeallocator(chars uint16, len_ uint, deallocator uint) NSConstantString {
+func NewConstantStringWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:deallocator:"), chars, len_, deallocator)
 	return NSConstantStringFromID(rv)
 }
-
 
 // Returns an initialized [NSString] object that contains a given number of
 // characters from a given C array of UTF-16 code units.
@@ -264,12 +236,11 @@ func NewConstantStringWithCharactersNoCopyLengthDeallocator(chars uint16, len_ u
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:freeWhenDone:)
-func NewConstantStringWithCharactersNoCopyLengthFreeWhenDone(characters uint16, length uint, freeBuffer bool) NSConstantString {
+func NewConstantStringWithCharactersNoCopyLengthFreeWhenDone(characters unsafe.Pointer, length uint, freeBuffer bool) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:freeWhenDone:"), characters, length, freeBuffer)
 	return NSConstantStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(coder:)
@@ -278,7 +249,6 @@ func NewConstantStringWithCoder(coder INSCoder) NSConstantString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSConstantStringFromID(rv)
 }
-
 
 // Initializes the receiver, a newly allocated [NSString] object, by reading
 // data from the file named by `path`.
@@ -298,7 +268,6 @@ func NewConstantStringWithContentsOfFile(path string) NSConstantString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), objc.String(path))
 	return NSConstantStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by reading data from the file at a
 // given path using a given encoding.
@@ -329,7 +298,6 @@ func NewConstantStringWithContentsOfFileEncodingError(path string, enc uint) (NS
 	return NSConstantStringFromID(rv), nil
 }
 
-
 // Returns an [NSString] object initialized by reading data from the file at a
 // given path and returns by reference the encoding used to interpret the
 // characters.
@@ -349,7 +317,7 @@ func NewConstantStringWithContentsOfFileEncodingError(path string, enc uint) (NS
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func NewConstantStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSConstantString, error) {
+func NewConstantStringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointer) (NSConstantString, error) {
 	var errorPtr objc.ID
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
@@ -360,7 +328,6 @@ func NewConstantStringWithContentsOfFileUsedEncodingError(path string, enc uint)
 	return NSConstantStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:)
 func NewConstantStringWithContentsOfURL(url INSURL) NSConstantString {
@@ -368,7 +335,6 @@ func NewConstantStringWithContentsOfURL(url INSURL) NSConstantString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return NSConstantStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:encoding:)
@@ -383,10 +349,9 @@ func NewConstantStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSCo
 	return NSConstantStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func NewConstantStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSConstantString, error) {
+func NewConstantStringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSConstantString, error) {
 	var errorPtr objc.ID
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -396,7 +361,6 @@ func NewConstantStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (
 	}
 	return NSConstantStringFromID(rv), nil
 }
-
 
 // Returns an [NSString] object initialized by converting given data into
 // UTF-16 code units using a given encoding.
@@ -421,7 +385,6 @@ func NewConstantStringWithDataEncoding(data INSData, encoding uint) NSConstantSt
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:encoding:"), data, encoding)
 	return NSConstantStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted.
@@ -455,7 +418,6 @@ func NewConstantStringWithFormat(format string) NSConstantString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:"), objc.String(format))
 	return NSConstantStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted without
@@ -493,7 +455,6 @@ func NewConstantStringWithFormatArguments(format string, argList unsafe.Pointer)
 	return NSConstantStringFromID(rv)
 }
 
-
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted
 // according to given locale.
@@ -525,7 +486,6 @@ func NewConstantStringWithFormatLocale(format string, locale objectivec.IObject)
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:locale:"), objc.String(format), locale)
 	return NSConstantStringFromID(rv)
 }
-
 
 // Returns an [NSString] object initialized by using a given format string as
 // a template into which the remaining argument values are substituted
@@ -573,7 +533,6 @@ func NewConstantStringWithFormatLocaleArguments(format string, locale objectivec
 	return NSConstantStringFromID(rv)
 }
 
-
 // Returns an [NSString] object initialized by copying the characters from
 // another given string.
 //
@@ -591,7 +550,6 @@ func NewConstantStringWithString(aString string) NSConstantString {
 	return NSConstantStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
 func NewConstantStringWithUTF8String(nullTerminatedCString []byte) NSConstantString {
@@ -599,7 +557,6 @@ func NewConstantStringWithUTF8String(nullTerminatedCString []byte) NSConstantStr
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
 	return NSConstantStringFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:arguments:error:
@@ -614,7 +571,6 @@ func NewConstantStringWithValidatedFormatValidFormatSpecifiersArgumentsError(for
 	return NSConstantStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:error:
 func NewConstantStringWithValidatedFormatValidFormatSpecifiersError(format string, validFormatSpecifiers string) (NSConstantString, error) {
@@ -627,7 +583,6 @@ func NewConstantStringWithValidatedFormatValidFormatSpecifiersError(format strin
 	}
 	return NSConstantStringFromID(rv), nil
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:
@@ -642,7 +597,6 @@ func NewConstantStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsErr
 	return NSConstantStringFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/initWithValidatedFormat:validFormatSpecifiers:locale:error:
 func NewConstantStringWithValidatedFormatValidFormatSpecifiersLocaleError(format string, validFormatSpecifiers string, locale objectivec.IObject) (NSConstantString, error) {
@@ -655,34 +609,4 @@ func NewConstantStringWithValidatedFormatValidFormatSpecifiersLocaleError(format
 	}
 	return NSConstantStringFromID(rv), nil
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

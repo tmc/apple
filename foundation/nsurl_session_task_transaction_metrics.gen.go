@@ -36,12 +36,6 @@ func (uc URLSessionTaskTransactionMetricsClass) Alloc() URLSessionTaskTransactio
 	return rv
 }
 
-
-
-
-
-
-
 // An object that encapsualtes the performance metrics collected by the URL
 // Loading System during the execution of a session task.
 //
@@ -135,17 +129,13 @@ type URLSessionTaskTransactionMetrics struct {
 // An object that encapsualtes the performance metrics collected by the URL
 // Loading System during the execution of a session task.
 func URLSessionTaskTransactionMetricsFromID(id objc.ID) URLSessionTaskTransactionMetrics {
-	return NSURLSessionTaskTransactionMetrics{objectivec.Object{id}}
+	return NSURLSessionTaskTransactionMetrics{objectivec.Object{ID: id}}
 }
 
 // NSURLSessionTaskTransactionMetricsFromID is an alias for [URLSessionTaskTransactionMetricsFromID] for cross-framework compatibility.
 func NSURLSessionTaskTransactionMetricsFromID(id objc.ID) URLSessionTaskTransactionMetrics { return URLSessionTaskTransactionMetricsFromID(id) }
 // NOTE: URLSessionTaskTransactionMetrics adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLSessionTaskTransactionMetrics] class.
 //
@@ -288,10 +278,6 @@ type IURLSessionTaskTransactionMetrics interface {
 	SetTransactionMetrics(value INSURLSessionTaskTransactionMetrics)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u URLSessionTaskTransactionMetrics) Init() URLSessionTaskTransactionMetrics {
 	rv := objc.Send[URLSessionTaskTransactionMetrics](u.ID, objc.Sel("init"))
@@ -311,26 +297,6 @@ func NewURLSessionTaskTransactionMetrics() URLSessionTaskTransactionMetrics {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The transaction request.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/request
@@ -338,8 +304,6 @@ func (u URLSessionTaskTransactionMetrics) Request() INSURLRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("request"))
 	return NSURLRequestFromID(objc.ID(rv))
 }
-
-
 
 // The transaction response.
 //
@@ -353,8 +317,6 @@ func (u URLSessionTaskTransactionMetrics) Response() INSURLResponse {
 	return NSURLResponseFromID(objc.ID(rv))
 }
 
-
-
 // The time when the task started fetching the resource, from the server or
 // locally.
 //
@@ -363,8 +325,6 @@ func (u URLSessionTaskTransactionMetrics) FetchStartDate() INSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("fetchStartDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // The time immediately before the task started the name lookup for the
 // resource.
@@ -380,8 +340,6 @@ func (u URLSessionTaskTransactionMetrics) DomainLookupStartDate() INSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // The time after the name lookup was completed.
 //
 // # Discussion
@@ -394,8 +352,6 @@ func (u URLSessionTaskTransactionMetrics) DomainLookupEndDate() INSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("domainLookupEndDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // The time immediately before the task started establishing a TCP connection
 // to the server.
@@ -410,8 +366,6 @@ func (u URLSessionTaskTransactionMetrics) ConnectStartDate() INSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("connectStartDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // The time immediately before the task started the TLS security handshake to
 // secure the current connection.
@@ -428,8 +382,6 @@ func (u URLSessionTaskTransactionMetrics) SecureConnectionStartDate() INSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // The time immediately after the security handshake completed.
 //
 // # Discussion
@@ -443,8 +395,6 @@ func (u URLSessionTaskTransactionMetrics) SecureConnectionEndDate() INSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("secureConnectionEndDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // The time immediately after the task finished establishing the connection to
 // the server.
@@ -461,8 +411,6 @@ func (u URLSessionTaskTransactionMetrics) ConnectEndDate() INSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // The time immediately before the task started requesting the resource,
 // regardless of whether it is retrieved from the server or local resources.
 //
@@ -471,8 +419,6 @@ func (u URLSessionTaskTransactionMetrics) RequestStartDate() INSDate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("requestStartDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // The time immediately after the task finished requesting the resource,
 // regardless of whether it was retrieved from the server or local resources.
@@ -483,8 +429,6 @@ func (u URLSessionTaskTransactionMetrics) RequestEndDate() INSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // The time immediately after the task received the first byte of the response
 // from the server or from local resources.
 //
@@ -494,8 +438,6 @@ func (u URLSessionTaskTransactionMetrics) ResponseStartDate() INSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // The time immediately after the task received the last byte of the resource.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/responseEndDate
@@ -504,8 +446,6 @@ func (u URLSessionTaskTransactionMetrics) ResponseEndDate() INSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // The size of the upload body data, file, or stream, in bytes.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/countOfRequestBodyBytesBeforeEncoding
@@ -513,8 +453,6 @@ func (u URLSessionTaskTransactionMetrics) CountOfRequestBodyBytesBeforeEncoding(
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfRequestBodyBytesBeforeEncoding"))
 	return rv
 }
-
-
 
 // The number of bytes transferred for the request body.
 //
@@ -529,8 +467,6 @@ func (u URLSessionTaskTransactionMetrics) CountOfRequestBodyBytesSent() int64 {
 	return rv
 }
 
-
-
 // The number of bytes transferred for the request header.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/countOfRequestHeaderBytesSent
@@ -539,8 +475,6 @@ func (u URLSessionTaskTransactionMetrics) CountOfRequestHeaderBytesSent() int64 
 	return rv
 }
 
-
-
 // The size of data delivered to your delegate or completion handler.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/countOfResponseBodyBytesAfterDecoding
@@ -548,8 +482,6 @@ func (u URLSessionTaskTransactionMetrics) CountOfResponseBodyBytesAfterDecoding(
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfResponseBodyBytesAfterDecoding"))
 	return rv
 }
-
-
 
 // The number of bytes transferred for the response body.
 //
@@ -564,8 +496,6 @@ func (u URLSessionTaskTransactionMetrics) CountOfResponseBodyBytesReceived() int
 	return rv
 }
 
-
-
 // The number of bytes transferred for the response header.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/countOfResponseHeaderBytesReceived
@@ -573,8 +503,6 @@ func (u URLSessionTaskTransactionMetrics) CountOfResponseHeaderBytesReceived() i
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfResponseHeaderBytesReceived"))
 	return rv
 }
-
-
 
 // The network protocol used to fetch the resource.
 //
@@ -598,8 +526,6 @@ func (u URLSessionTaskTransactionMetrics) NetworkProtocolName() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The IP address string of the remote interface for the connection.
 //
 // # Discussion
@@ -612,8 +538,6 @@ func (u URLSessionTaskTransactionMetrics) RemoteAddress() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("remoteAddress"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The IP address string of the local interface for the connection.
 //
@@ -628,8 +552,6 @@ func (u URLSessionTaskTransactionMetrics) LocalAddress() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The TLS protocol version the task negotiated with the endpoint for the
 // connection.
 //
@@ -641,8 +563,6 @@ func (u URLSessionTaskTransactionMetrics) NegotiatedTLSProtocolVersion() uint16 
 func (u URLSessionTaskTransactionMetrics) SetNegotiatedTLSProtocolVersion(value uint16) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNegotiatedTLSProtocolVersion:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the connection operates over a
 // cellular interface.
@@ -661,8 +581,6 @@ func (u URLSessionTaskTransactionMetrics) Cellular() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isCellular"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the connection operates over an
 // expensive interface.
@@ -684,8 +602,6 @@ func (u URLSessionTaskTransactionMetrics) Expensive() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the connection operates over an
 // interface marked as constrained.
 //
@@ -706,8 +622,6 @@ func (u URLSessionTaskTransactionMetrics) Constrained() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicastes whether the task used a proxy connection to
 // fetch the resource.
 //
@@ -717,8 +631,6 @@ func (u URLSessionTaskTransactionMetrics) ProxyConnection() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the task used a persistent
 // connection to fetch the resource.
 //
@@ -727,8 +639,6 @@ func (u URLSessionTaskTransactionMetrics) ReusedConnection() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isReusedConnection"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the connection uses a successfully
 // negotiated multipath protocol.
@@ -744,8 +654,6 @@ func (u URLSessionTaskTransactionMetrics) Multipath() bool {
 	return rv
 }
 
-
-
 // A value that indicates whether the resource was loaded, pushed, or
 // retrieved from the local cache.
 //
@@ -755,15 +663,11 @@ func (u URLSessionTaskTransactionMetrics) ResourceFetchType() NSURLSessionTaskMe
 	return NSURLSessionTaskMetricsResourceFetchType(rv)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskTransactionMetrics/domainResolutionProtocol
 func (u URLSessionTaskTransactionMetrics) DomainResolutionProtocol() NSURLSessionTaskMetricsDomainResolutionProtocol {
 	rv := objc.Send[NSURLSessionTaskMetricsDomainResolutionProtocol](u.ID, objc.Sel("domainResolutionProtocol"))
 	return NSURLSessionTaskMetricsDomainResolutionProtocol(rv)
 }
-
-
 
 // The port number of the local interface for the connection.
 //
@@ -777,8 +681,6 @@ func (u URLSessionTaskTransactionMetrics) LocalPort() INSNumber {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("localPort"))
 	return NSNumberFromID(objc.ID(rv))
 }
-
-
 
 // The TLS cipher suite the task negotiated with the endpoint for the
 // connection.
@@ -797,8 +699,6 @@ func (u URLSessionTaskTransactionMetrics) NegotiatedTLSCipherSuite() INSNumber {
 	return NSNumberFromID(objc.ID(rv))
 }
 
-
-
 // The number of redirects that occurred during the execution of the task.
 //
 // See: https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics/redirectcount
@@ -809,8 +709,6 @@ func (u URLSessionTaskTransactionMetrics) RedirectCount() int {
 func (u URLSessionTaskTransactionMetrics) SetRedirectCount(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setRedirectCount:"), value)
 }
-
-
 
 // The port number of the remote interface for the connection.
 //
@@ -825,8 +723,6 @@ func (u URLSessionTaskTransactionMetrics) RemotePort() INSNumber {
 	return NSNumberFromID(objc.ID(rv))
 }
 
-
-
 // The time interval between when a task is instantiated and when the task is
 // completed.
 //
@@ -839,8 +735,6 @@ func (u URLSessionTaskTransactionMetrics) SetTaskInterval(value INSDateInterval)
 	objc.Send[struct{}](u.ID, objc.Sel("setTaskInterval:"), value)
 }
 
-
-
 // An array of metrics for each individual request-response transaction made
 // during the execution of the task.
 //
@@ -852,28 +746,4 @@ func (u URLSessionTaskTransactionMetrics) TransactionMetrics() INSURLSessionTask
 func (u URLSessionTaskTransactionMetrics) SetTransactionMetrics(value INSURLSessionTaskTransactionMetrics) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTransactionMetrics:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

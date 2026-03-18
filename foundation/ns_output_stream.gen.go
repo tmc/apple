@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 )
@@ -34,12 +35,6 @@ func (oc OutputStreamClass) Alloc() OutputStream {
 	rv := objc.Send[OutputStream](objc.ID(oc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A stream that provides write-only stream functionality.
 //
@@ -117,10 +112,6 @@ func NSOutputStreamFromID(id objc.ID) OutputStream { return OutputStreamFromID(i
 // NOTE: OutputStream adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [OutputStream] class.
 //
 // # Creating Streams
@@ -144,7 +135,7 @@ type IOutputStream interface {
 	// Returns an initialized output stream that will write to memory.
 	InitToMemory() OutputStream
 	// Returns an initialized output stream that can write to a provided buffer.
-	InitToBufferCapacity(buffer uint8, capacity uint) OutputStream
+	InitToBufferCapacity(buffer unsafe.Pointer, capacity uint) OutputStream
 	// Returns an initialized output stream for writing to a specified file.
 	InitToFileAtPathAppend(path string, shouldAppend bool) OutputStream
 	// Returns an initialized output stream for writing to a specified URL.
@@ -155,12 +146,8 @@ type IOutputStream interface {
 	// A boolean value that indicates whether the receiver can be written to.
 	HasSpaceAvailable() bool
 	// Writes the contents of a provided data buffer to the receiver.
-	WriteMaxLength(buffer uint8, len_ uint) int
+	WriteMaxLength(buffer unsafe.Pointer, len_ uint) int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (o OutputStream) Init() OutputStream {
@@ -181,11 +168,6 @@ func NewOutputStream() OutputStream {
 	return rv
 }
 
-
-
-
-
-
 // Returns an initialized output stream that can write to a provided buffer.
 //
 // buffer: The buffer the output stream will write to.
@@ -204,12 +186,11 @@ func NewOutputStream() OutputStream {
 // stream’s [StreamStatus] will return [NSStreamStatusAtEnd].
 //
 // See: https://developer.apple.com/documentation/Foundation/OutputStream/init(toBuffer:capacity:)
-func NewOutputStreamToBufferCapacity(buffer uint8, capacity uint) OutputStream {
+func NewOutputStreamToBufferCapacity(buffer unsafe.Pointer, capacity uint) OutputStream {
 	instance := getOutputStreamClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initToBuffer:capacity:"), buffer, capacity)
 	return OutputStreamFromID(rv)
 }
-
 
 // Returns an initialized output stream for writing to a specified file.
 //
@@ -236,7 +217,6 @@ func NewOutputStreamToFileAtPathAppend(path string, shouldAppend bool) OutputStr
 	return OutputStreamFromID(rv)
 }
 
-
 // Returns an initialized output stream that will write to memory.
 //
 // # Return Value
@@ -256,7 +236,6 @@ func NewOutputStreamToMemory() OutputStream {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initToMemory"))
 	return OutputStreamFromID(rv)
 }
-
 
 // Returns an initialized output stream for writing to a specified URL.
 //
@@ -282,12 +261,6 @@ func NewOutputStreamWithURLAppend(url INSURL, shouldAppend bool) OutputStream {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:append:"), url, shouldAppend)
 	return OutputStreamFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an initialized output stream that will write to memory.
 //
@@ -326,7 +299,7 @@ func (o OutputStream) InitToMemory() OutputStream {
 // stream’s [StreamStatus] will return [NSStreamStatusAtEnd].
 //
 // See: https://developer.apple.com/documentation/Foundation/OutputStream/init(toBuffer:capacity:)
-func (o OutputStream) InitToBufferCapacity(buffer uint8, capacity uint) OutputStream {
+func (o OutputStream) InitToBufferCapacity(buffer unsafe.Pointer, capacity uint) OutputStream {
 	rv := objc.Send[OutputStream](o.ID, objc.Sel("initToBuffer:capacity:"), buffer, capacity)
 	return rv
 }
@@ -395,14 +368,10 @@ func (o OutputStream) InitWithURLAppend(url INSURL, shouldAppend bool) OutputStr
 // [StreamError].
 //
 // See: https://developer.apple.com/documentation/Foundation/OutputStream/write(_:maxLength:)
-func (o OutputStream) WriteMaxLength(buffer uint8, len_ uint) int {
+func (o OutputStream) WriteMaxLength(buffer unsafe.Pointer, len_ uint) int {
 	rv := objc.Send[int](o.ID, objc.Sel("write:maxLength:"), buffer, len_)
 	return rv
 }
-
-
-
-
 
 // Creates and returns an initialized output stream that will write stream
 // data to memory.
@@ -444,7 +413,7 @@ func (_OutputStreamClass OutputStreamClass) OutputStreamToMemory() OutputStream 
 // stream’s [StreamStatus] will return [NSStreamStatusAtEnd].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOutputStream/outputStreamToBuffer:capacity:
-func (_OutputStreamClass OutputStreamClass) OutputStreamToBufferCapacity(buffer uint8, capacity uint) OutputStream {
+func (_OutputStreamClass OutputStreamClass) OutputStreamToBufferCapacity(buffer unsafe.Pointer, capacity uint) OutputStream {
 	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamToBuffer:capacity:"), buffer, capacity)
 	return NSOutputStreamFromID(rv)
 }
@@ -481,13 +450,6 @@ func (_OutputStreamClass OutputStreamClass) OutputStreamWithURLAppend(url INSURL
 	return NSOutputStreamFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A boolean value that indicates whether the receiver can be written to.
 //
 // # Discussion
@@ -503,28 +465,4 @@ func (o OutputStream) HasSpaceAvailable() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("hasSpaceAvailable"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

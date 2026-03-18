@@ -29,8 +29,6 @@ type MTL4CompilerTask interface {
 	WaitUntilCompleted()
 }
 
-
-
 // MTL4CompilerTaskObject wraps an existing Objective-C object that conforms to the MTL4CompilerTask protocol.
 type MTL4CompilerTaskObject struct {
 	objectivec.Object
@@ -39,8 +37,6 @@ func (o MTL4CompilerTaskObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4CompilerTaskObjectFromID constructs a [MTL4CompilerTaskObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4CompilerTaskObjectFromID(id objc.ID) MTL4CompilerTaskObject {
@@ -48,9 +44,6 @@ func MTL4CompilerTaskObjectFromID(id objc.ID) MTL4CompilerTaskObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the compiler instance that this asynchronous compiler task belongs
 // to.
@@ -82,14 +75,4 @@ func (o MTL4CompilerTaskObject) WaitUntilCompleted() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("waitUntilCompleted"))
 	}
-
-
-
-
-
-
-
-
-
-
 

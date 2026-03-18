@@ -65,8 +65,6 @@ type MTLRasterizationRateMap interface {
 	CopyParameterDataToBufferOffset(buffer MTLBuffer, offset uint)
 }
 
-
-
 // MTLRasterizationRateMapObject wraps an existing Objective-C object that conforms to the MTLRasterizationRateMap protocol.
 type MTLRasterizationRateMapObject struct {
 	objectivec.Object
@@ -75,8 +73,6 @@ func (o MTLRasterizationRateMapObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLRasterizationRateMapObjectFromID constructs a [MTLRasterizationRateMapObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLRasterizationRateMapObjectFromID(id objc.ID) MTLRasterizationRateMapObject {
@@ -84,9 +80,6 @@ func MTLRasterizationRateMapObjectFromID(id objc.ID) MTLRasterizationRateMapObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device object that created the rate map.
 //
@@ -253,22 +246,4 @@ func (o MTLRasterizationRateMapObject) CopyParameterDataToBufferOffset(buffer MT
 	
 	objc.Send[struct{}](o.ID, objc.Sel("copyParameterDataToBuffer:offset:"), buffer, offset)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

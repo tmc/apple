@@ -37,12 +37,6 @@ func (sc SCRecordingOutputConfigurationClass) Alloc() SCRecordingOutputConfigura
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Instance Properties
 //
@@ -61,14 +55,10 @@ type SCRecordingOutputConfiguration struct {
 
 // SCRecordingOutputConfigurationFromID constructs a [SCRecordingOutputConfiguration] from an objc.ID.
 func SCRecordingOutputConfigurationFromID(id objc.ID) SCRecordingOutputConfiguration {
-	return SCRecordingOutputConfiguration{objectivec.Object{id}}
+	return SCRecordingOutputConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: SCRecordingOutputConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCRecordingOutputConfiguration] class.
 //
@@ -99,10 +89,6 @@ type ISCRecordingOutputConfiguration interface {
 	SetVideoCodecType(value foundation.NSString)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r SCRecordingOutputConfiguration) Init() SCRecordingOutputConfiguration {
 	rv := objc.Send[SCRecordingOutputConfiguration](r.ID, objc.Sel("init"))
@@ -122,41 +108,17 @@ func NewSCRecordingOutputConfiguration() SCRecordingOutputConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputConfiguration/availableOutputFileTypes
 func (r SCRecordingOutputConfiguration) AvailableOutputFileTypes() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableOutputFileTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputConfiguration/availableVideoCodecTypes
 func (r SCRecordingOutputConfiguration) AvailableVideoCodecTypes() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableVideoCodecTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputConfiguration/outputFileType
 func (r SCRecordingOutputConfiguration) OutputFileType() foundation.NSString {
@@ -167,8 +129,6 @@ func (r SCRecordingOutputConfiguration) SetOutputFileType(value foundation.NSStr
 	objc.Send[struct{}](r.ID, objc.Sel("setOutputFileType:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputConfiguration/outputURL
 func (r SCRecordingOutputConfiguration) OutputURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("outputURL"))
@@ -178,8 +138,6 @@ func (r SCRecordingOutputConfiguration) SetOutputURL(value foundation.INSURL) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOutputURL:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputConfiguration/videoCodecType
 func (r SCRecordingOutputConfiguration) VideoCodecType() foundation.NSString {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("videoCodecType"))
@@ -188,26 +146,4 @@ func (r SCRecordingOutputConfiguration) VideoCodecType() foundation.NSString {
 func (r SCRecordingOutputConfiguration) SetVideoCodecType(value foundation.NSString) {
 	objc.Send[struct{}](r.ID, objc.Sel("setVideoCodecType:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

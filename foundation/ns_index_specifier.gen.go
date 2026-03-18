@@ -35,12 +35,6 @@ func (nc NSIndexSpecifierClass) Alloc() NSIndexSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier representing an object in a collection (or container) with an
 // index number.
 //
@@ -77,10 +71,6 @@ func NSIndexSpecifierFromID(id objc.ID) NSIndexSpecifier {
 // NOTE: NSIndexSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSIndexSpecifier] class.
 //
 // # Creating Index Specifiers
@@ -108,10 +98,6 @@ type INSIndexSpecifier interface {
 	SetIndex(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i NSIndexSpecifier) Init() NSIndexSpecifier {
 	rv := objc.Send[NSIndexSpecifier](i.ID, objc.Sel("init"))
@@ -131,11 +117,6 @@ func NewNSIndexSpecifier() NSIndexSpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(coder:)
 func NewIndexSpecifierWithCoder(inCoder INSCoder) NSIndexSpecifier {
@@ -143,7 +124,6 @@ func NewIndexSpecifierWithCoder(inCoder INSCoder) NSIndexSpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSIndexSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -167,7 +147,6 @@ func NewIndexSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:"), classDesc, container, objc.String(property))
 	return NSIndexSpecifierFromID(rv)
 }
-
 
 // Initializes an allocated [NSIndexSpecifier] object with a class
 // description, container specifier, collection key, and object index.
@@ -198,7 +177,6 @@ func NewIndexSpecifierWithContainerClassDescriptionContainerSpecifierKeyIndex(cl
 	return NSIndexSpecifierFromID(rv)
 }
 
-
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
 //
@@ -217,12 +195,6 @@ func NewIndexSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSIndexSpecifierFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes an allocated [NSIndexSpecifier] object with a class
 // description, container specifier, collection key, and object index.
@@ -252,17 +224,6 @@ func (i NSIndexSpecifier) InitWithContainerClassDescriptionContainerSpecifierKey
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Sets the value of the receiver’s `index` property.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexSpecifier/index
@@ -273,29 +234,4 @@ func (i NSIndexSpecifier) Index() int {
 func (i NSIndexSpecifier) SetIndex(value int) {
 	objc.Send[struct{}](i.ID, objc.Sel("setIndex:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

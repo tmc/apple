@@ -37,12 +37,6 @@ func (vc VNHumanBodyPoseObservationClass) Alloc() VNHumanBodyPoseObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that provides the body points the analysis recognized.
 //
 // # Accessing Points
@@ -65,10 +59,6 @@ func VNHumanBodyPoseObservationFromID(id objc.ID) VNHumanBodyPoseObservation {
 }
 // NOTE: VNHumanBodyPoseObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNHumanBodyPoseObservation] class.
 //
@@ -93,13 +83,7 @@ type IVNHumanBodyPoseObservation interface {
 	RecognizedPointForJointNameError(jointName VNHumanBodyPoseObservationJointName) (IVNRecognizedPoint, error)
 	// Retrieves the recognized points associated with the joint group name.
 	RecognizedPointsForJointsGroupNameError(jointsGroupName VNHumanBodyPoseObservationJointsGroupName) (foundation.INSDictionary, error)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VNHumanBodyPoseObservation) Init() VNHumanBodyPoseObservation {
@@ -120,15 +104,6 @@ func NewVNHumanBodyPoseObservation() VNHumanBodyPoseObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Retrieves the recognized point for a joint name.
 //
 // jointName: The joint name of the point to retrieve.
@@ -139,7 +114,7 @@ func NewVNHumanBodyPoseObservation() VNHumanBodyPoseObservation {
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPoseObservation/recognizedPoint(_:)
 func (h VNHumanBodyPoseObservation) RecognizedPointForJointNameError(jointName VNHumanBodyPoseObservationJointName) (IVNRecognizedPoint, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("recognizedPointForJointName:error:"), jointName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -159,7 +134,7 @@ func (h VNHumanBodyPoseObservation) RecognizedPointForJointNameError(jointName V
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPoseObservation/recognizedPoints(_:)
 func (h VNHumanBodyPoseObservation) RecognizedPointsForJointsGroupNameError(jointsGroupName VNHumanBodyPoseObservationJointsGroupName) (foundation.INSDictionary, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("recognizedPointsForJointsGroupName:error:"), jointsGroupName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -168,20 +143,6 @@ func (h VNHumanBodyPoseObservation) RecognizedPointsForJointsGroupNameError(join
 	return foundation.NSDictionaryFromID(rv), nil
 
 }
-func (h VNHumanBodyPoseObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](h.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The names of the available joints in the observation.
 //
@@ -191,8 +152,6 @@ func (h VNHumanBodyPoseObservation) AvailableJointNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The available joint group names in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPoseObservation/availableJointsGroupNames
@@ -200,30 +159,4 @@ func (h VNHumanBodyPoseObservation) AvailableJointsGroupNames() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("availableJointsGroupNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

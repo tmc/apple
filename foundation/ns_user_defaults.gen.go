@@ -36,12 +36,6 @@ func (uc UserDefaultsClass) Alloc() UserDefaults {
 	return rv
 }
 
-
-
-
-
-
-
 // An interface to the user’s defaults database, which stores system-wide
 // and app-specific settings.
 //
@@ -237,17 +231,13 @@ type UserDefaults struct {
 // An interface to the user’s defaults database, which stores system-wide
 // and app-specific settings.
 func UserDefaultsFromID(id objc.ID) UserDefaults {
-	return NSUserDefaults{objectivec.Object{id}}
+	return NSUserDefaults{objectivec.Object{ID: id}}
 }
 
 // NSUserDefaultsFromID is an alias for [UserDefaultsFromID] for cross-framework compatibility.
 func NSUserDefaultsFromID(id objc.ID) UserDefaults { return UserDefaultsFromID(id) }
 // NOTE: UserDefaults adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [UserDefaults] class.
 //
@@ -415,10 +405,6 @@ type IUserDefaults interface {
 	Synchronize() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u UserDefaults) Init() UserDefaults {
 	rv := objc.Send[UserDefaults](u.ID, objc.Sel("init"))
@@ -437,11 +423,6 @@ func NewUserDefaults() UserDefaults {
 	rv := objc.Send[UserDefaults](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a new defaults object and initializes it with the settings from the
 // specified database.
@@ -482,7 +463,6 @@ func NewUserDefaultsWithSuiteName(suitename string) UserDefaults {
 	return UserDefaultsFromID(rv)
 }
 
-
 // Creates a user defaults object initialized with the defaults for the
 // specified user account.
 //
@@ -517,12 +497,6 @@ func NewUserDefaultsWithUser(username string) UserDefaults {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUser:"), objc.String(username))
 	return UserDefaultsFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new defaults object and initializes it with the settings from the
 // specified database.
@@ -1237,23 +1211,12 @@ func (u UserDefaults) Synchronize() bool {
 	return rv
 }
 
-
-
-
-
 // This method has no effect and shouldn’t be used.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/resetStandardUserDefaults()
 func (_UserDefaultsClass UserDefaultsClass) ResetStandardUserDefaults() {
 	objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("resetStandardUserDefaults"))
 }
-
-
-
-
-
-
-
 
 // An array of identifiers for the volatile domains associated with the
 // current object.
@@ -1269,12 +1232,6 @@ func (u UserDefaults) VolatileDomainNames() []string {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("volatileDomainNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
 
 // The shared defaults object for the current app.
 //
@@ -1302,8 +1259,6 @@ func (_UserDefaultsClass UserDefaultsClass) StandardUserDefaults() UserDefaults 
 	return NSUserDefaultsFromID(objc.ID(rv))
 }
 
-
-
 // The identifier for the domain that contains command-line settings.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/argumentDomain
@@ -1311,8 +1266,6 @@ func (_UserDefaultsClass UserDefaultsClass) ArgumentDomain() string {
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("argumentDomain"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The identifier for the domain that contains system-specified settings for
 // all apps.
@@ -1323,8 +1276,6 @@ func (_UserDefaultsClass UserDefaultsClass) GlobalDomain() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The identifier for the domain that contains your app’s registered default
 // values.
 //
@@ -1333,8 +1284,6 @@ func (_UserDefaultsClass UserDefaultsClass) RegistrationDomain() string {
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("registrationDomain"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Posted when ubiquitous defaults finish downloading data, either the first
 // time a device is connected to an iCloud account or when a user switches
@@ -1346,8 +1295,6 @@ func (_UserDefaultsClass UserDefaultsClass) CompletedInitialCloudSyncNotificatio
 	return NSNotificationName(NSStringFromID(rv).String())
 }
 
-
-
 // Posted when the user changes the primary iCloud account.
 //
 // See: https://developer.apple.com/documentation/foundation/userdefaults/didchangecloudaccountsnotification
@@ -1356,8 +1303,6 @@ func (_UserDefaultsClass UserDefaultsClass) DidChangeCloudAccountsNotification()
 	return NSNotificationName(NSStringFromID(rv).String())
 }
 
-
-
 // Posted when a cloud default is set, but no iCloud user is logged in.
 //
 // See: https://developer.apple.com/documentation/foundation/userdefaults/nocloudaccountnotification
@@ -1365,21 +1310,4 @@ func (_UserDefaultsClass UserDefaultsClass) NoCloudAccountNotification() NSNotif
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("NSUbiquitousUserDefaultsNoCloudAccountNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

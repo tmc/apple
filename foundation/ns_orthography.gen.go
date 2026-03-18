@@ -36,12 +36,6 @@ func (nc NSOrthographyClass) Alloc() NSOrthography {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of the linguistic content of natural language text, typically
 // used for spelling and grammar checking.
 //
@@ -88,10 +82,6 @@ func (nc NSOrthographyClass) Alloc() NSOrthography {
 //   - [NSOrthography.AllScripts]: The scripts appearing as keys in the language map.
 //   - [NSOrthography.AllLanguages]: The languages appearing in values of the language map.
 //
-// # Initializers
-//
-//   - [NSOrthography.InitWithCoder]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography
 type NSOrthography struct {
 	objectivec.Object
@@ -102,14 +92,10 @@ type NSOrthography struct {
 // A description of the linguistic content of natural language text, typically
 // used for spelling and grammar checking.
 func NSOrthographyFromID(id objc.ID) NSOrthography {
-	return NSOrthography{objectivec.Object{id}}
+	return NSOrthography{objectivec.Object{ID: id}}
 }
 // NOTE: NSOrthography adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSOrthography] class.
 //
@@ -127,14 +113,12 @@ func NSOrthographyFromID(id objc.ID) NSOrthography {
 //   - [INSOrthography.AllScripts]: The scripts appearing as keys in the language map.
 //   - [INSOrthography.AllLanguages]: The languages appearing in values of the language map.
 //
-// # Initializers
-//
-//   - [INSOrthography.InitWithCoder]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography
 type INSOrthography interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating Orthography Objects
 
@@ -157,18 +141,7 @@ type INSOrthography interface {
 	AllScripts() []string
 	// The languages appearing in values of the language map.
 	AllLanguages() []string
-
-	// Topic: Initializers
-
-	InitWithCoder(coder INSCoder) NSOrthography
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (o NSOrthography) Init() NSOrthography {
@@ -189,11 +162,6 @@ func NewNSOrthography() NSOrthography {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography/init(coder:)
 func NewOrthographyWithCoder(coder INSCoder) NSOrthography {
@@ -201,7 +169,6 @@ func NewOrthographyWithCoder(coder INSCoder) NSOrthography {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSOrthographyFromID(rv)
 }
-
 
 // Creates an orthography object with the specified dominant script and
 // language map.
@@ -229,12 +196,6 @@ func NewOrthographyWithDominantScriptLanguageMap(script string, map_ INSDictiona
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDominantScript:languageMap:"), objc.String(script), map_)
 	return NSOrthographyFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates an orthography object with the specified dominant script and
 // language map.
@@ -308,10 +269,6 @@ func (o NSOrthography) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Creates and returns an orthography object with the default language map for
 // the specified language.
 //
@@ -357,13 +314,6 @@ func (_NSOrthographyClass NSOrthographyClass) OrthographyWithDominantScriptLangu
 	return NSOrthographyFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A dictionary that maps script tags to arrays of language tags.
 //
 // # Discussion
@@ -378,8 +328,6 @@ func (o NSOrthography) LanguageMap() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The first language in the list of languages for the dominant script.
 //
 // # Discussion
@@ -392,8 +340,6 @@ func (o NSOrthography) DominantLanguage() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dominantLanguage"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The dominant script for the text.
 //
@@ -408,8 +354,6 @@ func (o NSOrthography) DominantScript() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The scripts appearing as keys in the language map.
 //
 // # Discussion
@@ -422,8 +366,6 @@ func (o NSOrthography) AllScripts() []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("allScripts"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // The languages appearing in values of the language map.
 //
@@ -438,33 +380,9 @@ func (o NSOrthography) AllLanguages() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

@@ -33,7 +33,3 @@ func ExampleGroup() {
 	// Output: true
 }
 
-
-
-
-

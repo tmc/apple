@@ -36,12 +36,6 @@ func (nc NSMorphologyPronounClass) Alloc() NSMorphologyPronoun {
 	return rv
 }
 
-
-
-
-
-
-
 // A custom pronoun for referring to a third person.
 //
 // # Overview
@@ -72,14 +66,10 @@ type NSMorphologyPronoun struct {
 //
 // A custom pronoun for referring to a third person.
 func NSMorphologyPronounFromID(id objc.ID) NSMorphologyPronoun {
-	return NSMorphologyPronoun{objectivec.Object{id}}
+	return NSMorphologyPronoun{objectivec.Object{ID: id}}
 }
 // NOTE: NSMorphologyPronoun adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMorphologyPronoun] class.
 //
@@ -97,6 +87,7 @@ func NSMorphologyPronounFromID(id objc.ID) NSMorphologyPronoun {
 type INSMorphologyPronoun interface {
 	objectivec.IObject
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Using pronouns
 
@@ -112,10 +103,6 @@ type INSMorphologyPronoun interface {
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMorphologyPronoun) Init() NSMorphologyPronoun {
@@ -136,11 +123,6 @@ func NewNSMorphologyPronoun() NSMorphologyPronoun {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyPronoun/initWithPronoun:morphology:dependentMorphology:
 func NewMorphologyPronounWithPronounMorphologyDependentMorphology(pronoun string, morphology INSMorphology, dependentMorphology INSMorphology) NSMorphologyPronoun {
@@ -148,12 +130,6 @@ func NewMorphologyPronounWithPronounMorphologyDependentMorphology(pronoun string
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPronoun:morphology:dependentMorphology:"), objc.String(pronoun), morphology, dependentMorphology)
 	return NSMorphologyPronounFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyPronoun/initWithPronoun:morphology:dependentMorphology:
@@ -178,24 +154,11 @@ func (m NSMorphologyPronoun) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyPronoun/pronoun
 func (m NSMorphologyPronoun) Pronoun() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pronoun"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyPronoun/morphology
 func (m NSMorphologyPronoun) Morphology() INSMorphology {
@@ -203,34 +166,15 @@ func (m NSMorphologyPronoun) Morphology() INSMorphology {
 	return NSMorphologyFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyPronoun/dependentMorphology
 func (m NSMorphologyPronoun) DependentMorphology() INSMorphology {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dependentMorphology"))
 	return NSMorphologyFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

@@ -36,12 +36,6 @@ func (vc VZBootLoaderClass) Alloc() VZBootLoader {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class that defines the management of the initial process of the
 // guest system.
 //
@@ -65,14 +59,10 @@ type VZBootLoader struct {
 // The base class that defines the management of the initial process of the
 // guest system.
 func VZBootLoaderFromID(id objc.ID) VZBootLoader {
-	return VZBootLoader{objectivec.Object{id}}
+	return VZBootLoader{objectivec.Object{ID: id}}
 }
 // NOTE: VZBootLoader adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZBootLoader] class.
 //
@@ -80,10 +70,6 @@ func VZBootLoaderFromID(id objc.ID) VZBootLoader {
 type IVZBootLoader interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b VZBootLoader) Init() VZBootLoader {
@@ -103,45 +89,4 @@ func NewVZBootLoader() VZBootLoader {
 	rv := objc.Send[VZBootLoader](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

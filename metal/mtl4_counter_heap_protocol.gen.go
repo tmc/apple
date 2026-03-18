@@ -45,8 +45,6 @@ type MTL4CounterHeap interface {
 	SetLabel(value string)
 }
 
-
-
 // MTL4CounterHeapObject wraps an existing Objective-C object that conforms to the MTL4CounterHeap protocol.
 type MTL4CounterHeapObject struct {
 	objectivec.Object
@@ -55,8 +53,6 @@ func (o MTL4CounterHeapObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4CounterHeapObjectFromID constructs a [MTL4CounterHeapObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4CounterHeapObjectFromID(id objc.ID) MTL4CounterHeapObject {
@@ -64,9 +60,6 @@ func MTL4CounterHeapObjectFromID(id objc.ID) MTL4CounterHeapObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Queries the number of entries in the heap.
 //
@@ -137,18 +130,7 @@ func (o MTL4CounterHeapObject) ResolveCounterRange(range_ foundation.NSRange) fo
 	return foundation.NSDataFromID(rv)
 	}
 
-
-
-
-
-
 func (o MTL4CounterHeapObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (vc ValueTransformerClass) Alloc() ValueTransformer {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class used to transform values from one representation to
 // another.
 //
@@ -93,17 +87,13 @@ type ValueTransformer struct {
 // An abstract class used to transform values from one representation to
 // another.
 func ValueTransformerFromID(id objc.ID) ValueTransformer {
-	return NSValueTransformer{objectivec.Object{id}}
+	return NSValueTransformer{objectivec.Object{ID: id}}
 }
 
 // NSValueTransformerFromID is an alias for [ValueTransformerFromID] for cross-framework compatibility.
 func NSValueTransformerFromID(id objc.ID) ValueTransformer { return ValueTransformerFromID(id) }
 // NOTE: ValueTransformer adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [ValueTransformer] class.
 //
@@ -124,10 +114,6 @@ type IValueTransformer interface {
 	ReverseTransformedValue(value objectivec.IObject) objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v ValueTransformer) Init() ValueTransformer {
 	rv := objc.Send[ValueTransformer](v.ID, objc.Sel("init"))
@@ -146,11 +132,6 @@ func NewValueTransformer() ValueTransformer {
 	rv := objc.Send[ValueTransformer](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns the value transformer identified by a given identifier.
 //
@@ -173,12 +154,6 @@ func NewValueTransformerForName(name NSValueTransformerName) ValueTransformer {
 	rv := objc.Send[objc.ID](objc.ID(getValueTransformerClass().class), objc.Sel("valueTransformerForName:"), objc.String(string(name)))
 	return ValueTransformerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the result of transforming a given value.
 //
@@ -228,10 +203,6 @@ func (v ValueTransformer) ReverseTransformedValue(value objectivec.IObject) obje
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("reverseTransformedValue:"), value)
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
 
 // Registers the provided value transformer with a given identifier.
 //
@@ -299,31 +270,4 @@ func (_ValueTransformerClass ValueTransformerClass) TransformedValueClass() objc
 	rv := objc.Send[objc.Class](objc.ID(_ValueTransformerClass.class), objc.Sel("transformedValueClass"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

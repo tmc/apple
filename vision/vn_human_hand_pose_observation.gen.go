@@ -37,12 +37,6 @@ func (vc VNHumanHandPoseObservationClass) Alloc() VNHumanHandPoseObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that provides the hand points the analysis recognized.
 //
 // # Retrieving Points
@@ -69,10 +63,6 @@ func VNHumanHandPoseObservationFromID(id objc.ID) VNHumanHandPoseObservation {
 }
 // NOTE: VNHumanHandPoseObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNHumanHandPoseObservation] class.
 //
@@ -106,13 +96,7 @@ type IVNHumanHandPoseObservation interface {
 
 	// The chirality, or handedness, of a pose.
 	Chirality() VNChirality
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VNHumanHandPoseObservation) Init() VNHumanHandPoseObservation {
@@ -133,15 +117,6 @@ func NewVNHumanHandPoseObservation() VNHumanHandPoseObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Retrieves the recognized point for a joint name.
 //
 // jointName: The joint name of the point to retrieve.
@@ -152,7 +127,7 @@ func NewVNHumanHandPoseObservation() VNHumanHandPoseObservation {
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/recognizedPoint(_:)
 func (h VNHumanHandPoseObservation) RecognizedPointForJointNameError(jointName VNHumanHandPoseObservationJointName) (IVNRecognizedPoint, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("recognizedPointForJointName:error:"), jointName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -172,7 +147,7 @@ func (h VNHumanHandPoseObservation) RecognizedPointForJointNameError(jointName V
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/recognizedPoints(_:)
 func (h VNHumanHandPoseObservation) RecognizedPointsForJointsGroupNameError(jointsGroupName VNHumanHandPoseObservationJointsGroupName) (foundation.INSDictionary, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("recognizedPointsForJointsGroupName:error:"), jointsGroupName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -181,20 +156,6 @@ func (h VNHumanHandPoseObservation) RecognizedPointsForJointsGroupNameError(join
 	return foundation.NSDictionaryFromID(rv), nil
 
 }
-func (h VNHumanHandPoseObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](h.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The names of the available joints in the observation.
 //
@@ -204,8 +165,6 @@ func (h VNHumanHandPoseObservation) AvailableJointNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The joint group names available in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/availableJointsGroupNames
@@ -214,8 +173,6 @@ func (h VNHumanHandPoseObservation) AvailableJointsGroupNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The chirality, or handedness, of a pose.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/chirality
@@ -223,30 +180,4 @@ func (h VNHumanHandPoseObservation) Chirality() VNChirality {
 	rv := objc.Send[VNChirality](h.ID, objc.Sel("chirality"))
 	return VNChirality(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

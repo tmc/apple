@@ -37,12 +37,6 @@ func (pc ProgressClass) Alloc() Progress {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that conveys ongoing progress to the user for a specified task.
 //
 // # Overview
@@ -235,17 +229,13 @@ type Progress struct {
 //
 // An object that conveys ongoing progress to the user for a specified task.
 func ProgressFromID(id objc.ID) Progress {
-	return NSProgress{objectivec.Object{id}}
+	return NSProgress{objectivec.Object{ID: id}}
 }
 
 // NSProgressFromID is an alias for [ProgressFromID] for cross-framework compatibility.
 func NSProgressFromID(id objc.ID) Progress { return ProgressFromID(id) }
 // NOTE: Progress adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Progress] class.
 //
@@ -434,10 +424,6 @@ type IProgress interface {
 	PerformAsCurrentWithPendingUnitCountUsingBlock(unitCount int64, work VoidHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p Progress) Init() Progress {
 	rv := objc.Send[Progress](p.ID, objc.Sel("init"))
@@ -456,11 +442,6 @@ func NewProgress() Progress {
 	rv := objc.Send[Progress](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a new progress instance.
 //
@@ -481,7 +462,6 @@ func NewProgressWithParentUserInfo(parentProgressOrNil INSProgress, userInfoOrNi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithParent:userInfo:"), parentProgressOrNil, userInfoOrNil)
 	return ProgressFromID(rv)
 }
-
 
 // Creates and returns a progress instance.
 //
@@ -511,7 +491,6 @@ func NewProgressWithTotalUnitCount(unitCount int64) Progress {
 	rv := objc.Send[objc.ID](objc.ID(getProgressClass().class), objc.Sel("progressWithTotalUnitCount:"), unitCount)
 	return ProgressFromID(rv)
 }
-
 
 // Creates a progress instance for the specified progress object with a unit
 // count that’s a portion of the containing object’s total unit count.
@@ -546,12 +525,6 @@ func NewProgressWithTotalUnitCountParentPendingUnitCount(unitCount int64, parent
 	rv := objc.Send[objc.ID](objc.ID(getProgressClass().class), objc.Sel("progressWithTotalUnitCount:parent:pendingUnitCount:"), unitCount, parent, portionOfParentTotalUnitCount)
 	return ProgressFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new progress instance.
 //
@@ -758,14 +731,10 @@ func (p Progress) Unpublish() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProgress/performAsCurrentWithPendingUnitCount:usingBlock:
 func (p Progress) PerformAsCurrentWithPendingUnitCountUsingBlock(unitCount int64, work VoidHandler) {
-		_block1, _cleanup1 := NewVoidBlock(work)
+_block1, _cleanup1 := NewVoidBlock(work)
 	defer _cleanup1()
-		objc.Send[objc.ID](p.ID, objc.Sel("performAsCurrentWithPendingUnitCount:usingBlock:"), unitCount, _block1)
+	objc.Send[objc.ID](p.ID, objc.Sel("performAsCurrentWithPendingUnitCount:usingBlock:"), unitCount, _block1)
 }
-
-
-
-
 
 // Creates and returns a progress instance with the specified unit count that
 // isn’t part of any existing progress tree.
@@ -855,9 +824,9 @@ func (_ProgressClass ProgressClass) CurrentProgress() Progress {
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/addSubscriber(forFileURL:withPublishingHandler:)
 func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler(url INSURL, publishingHandler ErrorHandler) objectivec.IObject {
-		_block1, _cleanup1 := NewErrorBlock(publishingHandler)
+_block1, _cleanup1 := NewErrorBlock(publishingHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("addSubscriberForFileURL:withPublishingHandler:"), url, _block1)
+	rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("addSubscriberForFileURL:withPublishingHandler:"), url, _block1)
 	return objectivec.Object{ID: rv}
 }
 
@@ -875,13 +844,6 @@ func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler
 func (_ProgressClass ProgressClass) RemoveSubscriber(subscriber objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("removeSubscriber:"), subscriber)
 }
-
-
-
-
-
-
-
 
 // The total number of tracked units of work for the current progress.
 //
@@ -908,8 +870,6 @@ func (p Progress) SetTotalUnitCount(value int64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTotalUnitCount:"), value)
 }
 
-
-
 // The number of completed units of work for the current job.
 //
 // # Discussion
@@ -934,8 +894,6 @@ func (p Progress) CompletedUnitCount() int64 {
 func (p Progress) SetCompletedUnitCount(value int64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCompletedUnitCount:"), value)
 }
-
-
 
 // A localized description of tracked progress for the receiver.
 //
@@ -967,8 +925,6 @@ func (p Progress) LocalizedDescription() string {
 func (p Progress) SetLocalizedDescription(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLocalizedDescription:"), objc.String(value))
 }
-
-
 
 // A more specific localized description of tracked progress for the receiver.
 //
@@ -1002,8 +958,6 @@ func (p Progress) SetLocalizedAdditionalDescription(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLocalizedAdditionalDescription:"), objc.String(value))
 }
 
-
-
 // A Boolean value that indicates whether the receiver is tracking work that
 // you can cancel.
 //
@@ -1035,8 +989,6 @@ func (p Progress) SetCancellable(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCancellable:"), value)
 }
 
-
-
 // A Boolean value that Indicates whether the receiver is tracking canceled
 // work.
 //
@@ -1053,8 +1005,6 @@ func (p Progress) Cancelled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isCancelled"))
 	return rv
 }
-
-
 
 // The block to invoke when canceling progress.
 //
@@ -1083,8 +1033,6 @@ func (p Progress) SetCancellationHandler(value VoidHandler) {
 	defer cleanup()
 	objc.Send[struct{}](p.ID, objc.Sel("setCancellationHandler:"), block)
 }
-
-
 
 // A Boolean value that indicates whether the receiver is tracking work that
 // you can pause.
@@ -1116,8 +1064,6 @@ func (p Progress) SetPausable(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPausable:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the receiver is tracking paused
 // work.
 //
@@ -1134,8 +1080,6 @@ func (p Progress) Paused() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isPaused"))
 	return rv
 }
-
-
 
 // The block to invoke when pausing progress.
 //
@@ -1165,8 +1109,6 @@ func (p Progress) SetPausingHandler(value VoidHandler) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPausingHandler:"), block)
 }
 
-
-
 // A Boolean value that indicates whether the tracked progress is
 // indeterminate.
 //
@@ -1190,8 +1132,6 @@ func (p Progress) Indeterminate() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isIndeterminate"))
 	return rv
 }
-
-
 
 // The fraction of the overall work that the progress object completes,
 // including work from its suboperations.
@@ -1218,8 +1158,6 @@ func (p Progress) FractionCompleted() float64 {
 	return rv
 }
 
-
-
 // A Boolean value that indicates the progress object is complete.
 //
 // # Discussion
@@ -1235,8 +1173,6 @@ func (p Progress) Finished() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isFinished"))
 	return rv
 }
-
-
 
 // The block to invoke when progress resumes.
 //
@@ -1266,8 +1202,6 @@ func (p Progress) SetResumingHandler(value VoidHandler) {
 	objc.Send[struct{}](p.ID, objc.Sel("setResumingHandler:"), block)
 }
 
-
-
 // An object that represents the kind of progress for the progress object.
 //
 // # Discussion
@@ -1291,8 +1225,6 @@ func (p Progress) SetKind(value NSProgressKind) {
 	objc.Send[struct{}](p.ID, objc.Sel("setKind:"), objc.String(string(value)))
 }
 
-
-
 // A dictionary of arbitrary values for the receiver.
 //
 // # Discussion
@@ -1310,8 +1242,6 @@ func (p Progress) UserInfo() INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("userInfo"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // The kind of file operation for the progress object.
 //
@@ -1334,8 +1264,6 @@ func (p Progress) SetFileOperationKind(value NSProgressFileOperationKind) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFileOperationKind:"), objc.String(string(value)))
 }
 
-
-
 // A URL that represents the file for the current progress object.
 //
 // # Discussion
@@ -1354,8 +1282,6 @@ func (p Progress) FileURL() INSURL {
 func (p Progress) SetFileURL(value INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFileURL:"), value)
 }
-
-
 
 // A Boolean value that indicates when the observed progress object invokes
 // the publish method before you subscribe to it.
@@ -1385,8 +1311,6 @@ func (p Progress) Old() bool {
 	return rv
 }
 
-
-
 // A value that indicates the estimated amount of time remaining to complete
 // the progress.
 //
@@ -1403,8 +1327,6 @@ func (p Progress) EstimatedTimeRemaining() INSNumber {
 func (p Progress) SetEstimatedTimeRemaining(value INSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEstimatedTimeRemaining:"), value)
 }
-
-
 
 // The number of completed files for a file progress object.
 //
@@ -1425,8 +1347,6 @@ func (p Progress) SetFileCompletedCount(value INSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFileCompletedCount:"), value)
 }
 
-
-
 // The total number of files for a file progress object.
 //
 // # Discussion
@@ -1446,8 +1366,6 @@ func (p Progress) SetFileTotalCount(value INSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFileTotalCount:"), value)
 }
 
-
-
 // A value that represents the speed of data processing, in bytes per second.
 //
 // # Discussion
@@ -1464,25 +1382,6 @@ func (p Progress) SetThroughput(value INSNumber) {
 	objc.Send[struct{}](p.ID, objc.Sel("setThroughput:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // PerformAsCurrentWithPendingUnitCountUsingBlockSync is a synchronous wrapper around [Progress.PerformAsCurrentWithPendingUnitCountUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
 func (p Progress) PerformAsCurrentWithPendingUnitCountUsingBlockSync(ctx context.Context, unitCount int64) error {
@@ -1497,9 +1396,4 @@ func (p Progress) PerformAsCurrentWithPendingUnitCountUsingBlockSync(ctx context
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

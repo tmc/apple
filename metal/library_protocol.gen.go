@@ -85,8 +85,6 @@ type MTLLibrary interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLLibraryObject wraps an existing Objective-C object that conforms to the MTLLibrary protocol.
 type MTLLibraryObject struct {
 	objectivec.Object
@@ -95,8 +93,6 @@ func (o MTLLibraryObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLLibraryObjectFromID constructs a [MTLLibraryObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLLibraryObjectFromID(id objc.ID) MTLLibraryObject {
@@ -104,9 +100,6 @@ func MTLLibraryObjectFromID(id objc.ID) MTLLibraryObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The installation name for a dynamic library.
 //
@@ -343,22 +336,7 @@ func (o MTLLibraryObject) ReflectionForFunctionWithName(functionName string) IMT
 	return MTLFunctionReflectionFromID(rv)
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 func (o MTLLibraryObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

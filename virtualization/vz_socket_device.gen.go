@@ -36,12 +36,6 @@ func (vc VZSocketDeviceClass) Alloc() VZSocketDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // The common behavior of socket devices.
 //
 // # Overview
@@ -61,14 +55,10 @@ type VZSocketDevice struct {
 //
 // The common behavior of socket devices.
 func VZSocketDeviceFromID(id objc.ID) VZSocketDevice {
-	return VZSocketDevice{objectivec.Object{id}}
+	return VZSocketDevice{objectivec.Object{ID: id}}
 }
 // NOTE: VZSocketDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZSocketDevice] class.
 //
@@ -80,10 +70,6 @@ type IVZSocketDevice interface {
 	SocketDevices() IVZSocketDevice
 	SetSocketDevices(value IVZSocketDevice)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VZSocketDevice) Init() VZSocketDevice {
@@ -104,26 +90,6 @@ func NewVZSocketDevice() VZSocketDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The array of socket devices that the VM configures for use ports in the
 // guest VM.
 //
@@ -135,26 +101,4 @@ func (s VZSocketDevice) SocketDevices() IVZSocketDevice {
 func (s VZSocketDevice) SetSocketDevices(value IVZSocketDevice) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSocketDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

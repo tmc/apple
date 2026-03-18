@@ -14,8 +14,6 @@ type supportsSecureCoding interface {
 	objectivec.IObject
 }
 
-
-
 // supportsSecureCodingObject wraps an existing Objective-C object that conforms to the supportsSecureCoding protocol.
 type supportsSecureCodingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o supportsSecureCodingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // supportsSecureCodingObjectFromID constructs a [supportsSecureCodingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func supportsSecureCodingObjectFromID(id objc.ID) supportsSecureCodingObject {
@@ -33,13 +29,4 @@ func supportsSecureCodingObjectFromID(id objc.ID) supportsSecureCodingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

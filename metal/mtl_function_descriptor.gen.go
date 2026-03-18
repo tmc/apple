@@ -37,12 +37,6 @@ func (mc MTLFunctionDescriptorClass) Alloc() MTLFunctionDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a function object to create.
 //
 // # Specifying the function configuration
@@ -67,14 +61,10 @@ type MTLFunctionDescriptor struct {
 //
 // A description of a function object to create.
 func MTLFunctionDescriptorFromID(id objc.ID) MTLFunctionDescriptor {
-	return MTLFunctionDescriptor{objectivec.Object{id}}
+	return MTLFunctionDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLFunctionDescriptor] class.
 //
@@ -114,10 +104,6 @@ type IMTLFunctionDescriptor interface {
 	SetBinaryArchives(value []objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MTLFunctionDescriptor) Init() MTLFunctionDescriptor {
 	rv := objc.Send[MTLFunctionDescriptor](f.ID, objc.Sel("init"))
@@ -137,19 +123,6 @@ func NewMTLFunctionDescriptor() MTLFunctionDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a default function descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionDescriptor/functionDescriptor
@@ -157,13 +130,6 @@ func (_MTLFunctionDescriptorClass MTLFunctionDescriptorClass) FunctionDescriptor
 	rv := objc.Send[objc.ID](objc.ID(_MTLFunctionDescriptorClass.class), objc.Sel("functionDescriptor"))
 	return MTLFunctionDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The name of the function to fetch from the library.
 //
@@ -175,8 +141,6 @@ func (f MTLFunctionDescriptor) Name() string {
 func (f MTLFunctionDescriptor) SetName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
 
 // A new name for the created function object.
 //
@@ -196,8 +160,6 @@ func (f MTLFunctionDescriptor) SetSpecializedName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setSpecializedName:"), objc.String(value))
 }
 
-
-
 // The set of constant values assigned to the function constants.
 //
 // # Discussion
@@ -215,8 +177,6 @@ func (f MTLFunctionDescriptor) SetConstantValues(value IMTLFunctionConstantValue
 	objc.Send[struct{}](f.ID, objc.Sel("setConstantValues:"), value)
 }
 
-
-
 // Flags specifying how Metal should create the new function object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionDescriptor/options
@@ -227,8 +187,6 @@ func (f MTLFunctionDescriptor) Options() MTLFunctionOptions {
 func (f MTLFunctionDescriptor) SetOptions(value MTLFunctionOptions) {
 	objc.Send[struct{}](f.ID, objc.Sel("setOptions:"), value)
 }
-
-
 
 // The binary archives to search for a previously-compiled version of this
 // function.
@@ -248,27 +206,4 @@ func (f MTLFunctionDescriptor) BinaryArchives() []objectivec.IObject {
 func (f MTLFunctionDescriptor) SetBinaryArchives(value []objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

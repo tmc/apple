@@ -37,12 +37,6 @@ func (vc VNRecognizeAnimalsRequestClass) Alloc() VNRecognizeAnimalsRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // A request that recognizes animals in an image.
 //
 // # Overview
@@ -75,10 +69,6 @@ func VNRecognizeAnimalsRequestFromID(id objc.ID) VNRecognizeAnimalsRequest {
 // NOTE: VNRecognizeAnimalsRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNRecognizeAnimalsRequest] class.
 //
 // # Identifying Animals
@@ -107,10 +97,6 @@ type IVNRecognizeAnimalsRequest interface {
 	VNRecognizeAnimalsRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r VNRecognizeAnimalsRequest) Init() VNRecognizeAnimalsRequest {
 	rv := objc.Send[VNRecognizeAnimalsRequest](r.ID, objc.Sel("init"))
@@ -130,11 +116,6 @@ func NewVNRecognizeAnimalsRequest() VNRecognizeAnimalsRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -152,12 +133,6 @@ func NewRecognizeAnimalsRequestWithCompletionHandler(completionHandler VNRequest
 	return VNRecognizeAnimalsRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns the identifiers of the animals that the request detects.
 //
 // # Return Value
@@ -166,7 +141,7 @@ func NewRecognizeAnimalsRequestWithCompletionHandler(completionHandler VNRequest
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequest/supportedIdentifiers()
 func (r VNRecognizeAnimalsRequest) SupportedIdentifiersAndReturnError() ([]string, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("supportedIdentifiersAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -176,17 +151,6 @@ func (r VNRecognizeAnimalsRequest) SupportedIdentifiersAndReturnError() ([]strin
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying revision 2 of the animal recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizeanimalsrequestrevision2
@@ -195,8 +159,6 @@ func (r VNRecognizeAnimalsRequest) VNRecognizeAnimalsRequestRevision2() int {
 	return rv
 }
 
-
-
 // A constant for specifying revision 1 of the animal recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizeanimalsrequestrevision1
@@ -204,27 +166,4 @@ func (r VNRecognizeAnimalsRequest) VNRecognizeAnimalsRequestRevision1() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeAnimalsRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

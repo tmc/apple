@@ -36,12 +36,6 @@ func (mc MTL4PipelineOptionsClass) Alloc() MTL4PipelineOptions {
 	return rv
 }
 
-
-
-
-
-
-
 // Provides options controlling how to compile a pipeline state.
 //
 // # Overview
@@ -65,14 +59,10 @@ type MTL4PipelineOptions struct {
 //
 // Provides options controlling how to compile a pipeline state.
 func MTL4PipelineOptionsFromID(id objc.ID) MTL4PipelineOptions {
-	return MTL4PipelineOptions{objectivec.Object{id}}
+	return MTL4PipelineOptions{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4PipelineOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4PipelineOptions] class.
 //
@@ -97,10 +87,6 @@ type IMTL4PipelineOptions interface {
 	SetShaderValidation(value MTLShaderValidation)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4PipelineOptions) Init() MTL4PipelineOptions {
 	rv := objc.Send[MTL4PipelineOptions](m.ID, objc.Sel("init"))
@@ -120,26 +106,6 @@ func NewMTL4PipelineOptions() MTL4PipelineOptions {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Controls whether to include Metal shader reflection in this pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PipelineOptions/shaderReflection
@@ -150,8 +116,6 @@ func (m MTL4PipelineOptions) ShaderReflection() MTL4ShaderReflection {
 func (m MTL4PipelineOptions) SetShaderReflection(value MTL4ShaderReflection) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShaderReflection:"), value)
 }
-
-
 
 // Controls whether to enable or disable Metal Shader Validation for the
 // pipeline.
@@ -164,27 +128,4 @@ func (m MTL4PipelineOptions) ShaderValidation() MTLShaderValidation {
 func (m MTL4PipelineOptions) SetShaderValidation(value MTLShaderValidation) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShaderValidation:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

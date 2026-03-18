@@ -38,12 +38,6 @@ func (vc VNDetectHumanBodyPose3DRequestClass) Alloc() VNDetectHumanBodyPose3DReq
 	return rv
 }
 
-
-
-
-
-
-
 // A request that detects points on human bodies in 3D space, relative to the
 // camera.
 //
@@ -78,10 +72,6 @@ func VNDetectHumanBodyPose3DRequestFromID(id objc.ID) VNDetectHumanBodyPose3DReq
 // NOTE: VNDetectHumanBodyPose3DRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectHumanBodyPose3DRequest] class.
 //
 // # Determining Supported Joints
@@ -110,10 +100,6 @@ type IVNDetectHumanBodyPose3DRequest interface {
 	SupportedJointsGroupNamesAndReturnError() ([]string, error)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectHumanBodyPose3DRequest) Init() VNDetectHumanBodyPose3DRequest {
 	rv := objc.Send[VNDetectHumanBodyPose3DRequest](d.ID, objc.Sel("init"))
@@ -133,11 +119,6 @@ func NewVNDetectHumanBodyPose3DRequest() VNDetectHumanBodyPose3DRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new 3D body pose request with a completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -148,7 +129,6 @@ func NewDetectHumanBodyPose3DRequestWithCompletionHandler(completionHandler VNRe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectHumanBodyPose3DRequestFromID(rv)
 }
-
 
 // Initializes a video-based request.
 //
@@ -171,12 +151,6 @@ func NewDetectHumanBodyPose3DRequestWithFrameAnalysisSpacingCompletionHandler(fr
 	return VNDetectHumanBodyPose3DRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns the joint names the request supports.
 //
 // # Return Value
@@ -185,7 +159,7 @@ func NewDetectHumanBodyPose3DRequestWithFrameAnalysisSpacingCompletionHandler(fr
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanBodyPose3DRequest/supportedJointNamesAndReturnError:
 func (d VNDetectHumanBodyPose3DRequest) SupportedJointNamesAndReturnError() ([]string, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("supportedJointNamesAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -203,7 +177,7 @@ func (d VNDetectHumanBodyPose3DRequest) SupportedJointNamesAndReturnError() ([]s
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanBodyPose3DRequest/supportedJointsGroupNamesAndReturnError:
 func (d VNDetectHumanBodyPose3DRequest) SupportedJointsGroupNamesAndReturnError() ([]string, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("supportedJointsGroupNamesAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -212,17 +186,6 @@ func (d VNDetectHumanBodyPose3DRequest) SupportedJointsGroupNamesAndReturnError(
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Returns the joint names the request supports.
 //
@@ -235,8 +198,6 @@ func (d VNDetectHumanBodyPose3DRequest) SetSupportedJointsGroupNames(value VNHum
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
 }
 
-
-
 // Returns the joint group names the request supports.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanbodypose3drequest/supportedjointnames
@@ -247,27 +208,4 @@ func (d VNDetectHumanBodyPose3DRequest) SupportedJointNames() VNHumanBodyPose3DO
 func (d VNDetectHumanBodyPose3DRequest) SetSupportedJointNames(value VNHumanBodyPose3DObservationJointName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

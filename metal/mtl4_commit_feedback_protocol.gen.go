@@ -30,8 +30,6 @@ type MTL4CommitFeedback interface {
 	GPUStartTime() float64
 }
 
-
-
 // MTL4CommitFeedbackObject wraps an existing Objective-C object that conforms to the MTL4CommitFeedback protocol.
 type MTL4CommitFeedbackObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o MTL4CommitFeedbackObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4CommitFeedbackObjectFromID constructs a [MTL4CommitFeedbackObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4CommitFeedbackObjectFromID(id objc.ID) MTL4CommitFeedbackObject {
@@ -49,9 +45,6 @@ func MTL4CommitFeedbackObjectFromID(id objc.ID) MTL4CommitFeedbackObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A description of an error when the GPU encounters an issue as it runs the
 // committed command buffers.
@@ -85,16 +78,4 @@ func (o MTL4CommitFeedbackObject) GPUStartTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("GPUStartTime"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (hc HTTPCookieClass) Alloc() HTTPCookie {
 	return rv
 }
 
-
-
-
-
-
-
 // A representation of an HTTP cookie.
 //
 // # Overview
@@ -101,17 +95,13 @@ type HTTPCookie struct {
 //
 // A representation of an HTTP cookie.
 func HTTPCookieFromID(id objc.ID) HTTPCookie {
-	return NSHTTPCookie{objectivec.Object{id}}
+	return NSHTTPCookie{objectivec.Object{ID: id}}
 }
 
 // NSHTTPCookieFromID is an alias for [HTTPCookieFromID] for cross-framework compatibility.
 func NSHTTPCookieFromID(id objc.ID) HTTPCookie { return HTTPCookieFromID(id) }
 // NOTE: HTTPCookie adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [HTTPCookie] class.
 //
@@ -207,10 +197,6 @@ type IHTTPCookie interface {
 	CommentURL() INSURL
 }
 
-
-
-
-
 // Init initializes the instance.
 func (h HTTPCookie) Init() HTTPCookie {
 	rv := objc.Send[HTTPCookie](h.ID, objc.Sel("init"))
@@ -229,11 +215,6 @@ func NewHTTPCookie() HTTPCookie {
 	rv := objc.Send[HTTPCookie](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes an HTTP cookie object with the given cookie properties.
 //
@@ -267,12 +248,6 @@ func NewHTTPCookieWithProperties(properties INSDictionary) HTTPCookie {
 	return HTTPCookieFromID(rv)
 }
 
-
-
-
-
-
-
 // Initializes an HTTP cookie object with the given cookie properties.
 //
 // properties: The properties for the new cookie object, expressed as key-value pairs.
@@ -303,10 +278,6 @@ func (h HTTPCookie) InitWithProperties(properties INSDictionary) HTTPCookie {
 	rv := objc.Send[HTTPCookie](h.ID, objc.Sel("initWithProperties:"), properties)
 	return rv
 }
-
-
-
-
 
 // Creates an array of HTTP cookies that corresponds to the provided response
 // header fields for the provided URL.
@@ -392,13 +363,6 @@ func (_HTTPCookieClass HTTPCookieClass) CookieWithProperties(properties INSDicti
 	return NSHTTPCookieFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The domain of the cookie.
 //
 // # Discussion
@@ -416,8 +380,6 @@ func (h HTTPCookie) Domain() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The cookie’s path.
 //
 // # Discussion
@@ -431,8 +393,6 @@ func (h HTTPCookie) Path() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("path"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The cookie’s port list.
 //
@@ -451,8 +411,6 @@ func (h HTTPCookie) PortList() []NSNumber {
 	})
 }
 
-
-
 // The cookie’s name.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/name
@@ -461,8 +419,6 @@ func (h HTTPCookie) Name() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The cookie’s string value.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/value
@@ -470,8 +426,6 @@ func (h HTTPCookie) Value() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("value"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The cookie’s version.
 //
@@ -488,8 +442,6 @@ func (h HTTPCookie) Version() uint {
 	return rv
 }
 
-
-
 // The cookie’s expiration date.
 //
 // # Discussion
@@ -503,8 +455,6 @@ func (h HTTPCookie) ExpiresDate() INSDate {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("expiresDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the cookie should be discarded at
 // the end of the session (regardless of expiration date).
@@ -522,8 +472,6 @@ func (h HTTPCookie) SessionOnly() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isSessionOnly"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the cookie should only be sent to
 // HTTP servers.
@@ -546,8 +494,6 @@ func (h HTTPCookie) HTTPOnly() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the cookie may only be sent over
 // secure channels.
 //
@@ -565,8 +511,6 @@ func (h HTTPCookie) Secure() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether to restrict the cookie to requests
 // sent back to the same site that created it.
 //
@@ -581,8 +525,6 @@ func (h HTTPCookie) SameSitePolicy() NSHTTPCookieStringPolicy {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("sameSitePolicy"))
 	return HTTPCookieStringPolicy(NSStringFromID(rv).String())
 }
-
-
 
 // The cookie’s properties.
 //
@@ -601,8 +543,6 @@ func (h HTTPCookie) Properties() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The cookie’s comment string.
 //
 // # Discussion
@@ -615,8 +555,6 @@ func (h HTTPCookie) Comment() string {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("comment"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The cookie’s comment URL.
 //
@@ -631,28 +569,4 @@ func (h HTTPCookie) CommentURL() INSURL {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("commentURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

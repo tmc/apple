@@ -38,12 +38,6 @@ func (nc NSValueClass) Alloc() NSValue {
 	return rv
 }
 
-
-
-
-
-
-
 // A simple container for a single C or Objective-C data item.
 //
 // # Overview
@@ -136,10 +130,6 @@ func (nc NSValueClass) Alloc() NSValue {
 //
 //   - [NSValue.IsEqualToValue]: Returns a Boolean value that indicates whether the value object and another value object are equal.
 //
-// # Initializers
-//
-//   - [NSValue.InitWithCoder]
-//
 // # Instance Properties
 //
 //   - [NSValue.EdgeInsetsValue]
@@ -159,14 +149,10 @@ type NSValue struct {
 //
 // A simple container for a single C or Objective-C data item.
 func NSValueFromID(id objc.ID) NSValue {
-	return NSValue{objectivec.Object{id}}
+	return NSValue{objectivec.Object{ID: id}}
 }
 // NOTE: NSValue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSValue] class.
 //
@@ -215,10 +201,6 @@ func NSValueFromID(id objc.ID) NSValue {
 //
 //   - [INSValue.IsEqualToValue]: Returns a Boolean value that indicates whether the value object and another value object are equal.
 //
-// # Initializers
-//
-//   - [INSValue.InitWithCoder]
-//
 // # Instance Properties
 //
 //   - [INSValue.EdgeInsetsValue]
@@ -232,7 +214,9 @@ func NSValueFromID(id objc.ID) NSValue {
 // See: https://developer.apple.com/documentation/Foundation/NSValue
 type INSValue interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Working with Raw Values
 
@@ -297,10 +281,6 @@ type INSValue interface {
 	// Returns a Boolean value that indicates whether the value object and another value object are equal.
 	IsEqualToValue(value INSValue) bool
 
-	// Topic: Initializers
-
-	InitWithCoder(coder INSCoder) NSValue
-
 	// Topic: Instance Properties
 
 	EdgeInsetsValue() NSEdgeInsets
@@ -314,13 +294,7 @@ type INSValue interface {
 	// Returns an integer that can be used as a table address in a hash table structure.
 	Hash() int
 	SetHash(value int)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v NSValue) Init() NSValue {
@@ -340,11 +314,6 @@ func NewNSValue() NSValue {
 	rv := objc.Send[NSValue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a value object to contain the specified value, interpreted with
 // the specified Objective-C type.
@@ -376,7 +345,6 @@ func NewValueWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified CoreAnimation transform
 // structure.
 //
@@ -391,7 +359,6 @@ func NewValueWithCATransform3D(t objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCATransform3D:"), t)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a new value object containing the specified CoreGraphics affine
 // transform structure.
@@ -408,7 +375,6 @@ func NewValueWithCGAffineTransform(transform corefoundation.CGAffineTransform) N
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified CoreGraphics point
 // structure.
 //
@@ -423,7 +389,6 @@ func NewValueWithCGPoint(point corefoundation.CGPoint) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCGPoint:"), point)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a new value object containing the specified CoreGraphics rectangle
 // structure.
@@ -440,7 +405,6 @@ func NewValueWithCGRect(rect corefoundation.CGRect) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified CoreGraphics size
 // structure.
 //
@@ -455,7 +419,6 @@ func NewValueWithCGSize(size corefoundation.CGSize) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCGSize:"), size)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a new value object containing the specified CoreGraphics vector
 // structure.
@@ -472,7 +435,6 @@ func NewValueWithCGVector(vector corefoundation.CGVector) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified CoreMedia time
 // structure.
 //
@@ -487,7 +449,6 @@ func NewValueWithCMTime(time objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMTime:"), time)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a new value object containing the specified CoreMedia time mapping
 // structure.
@@ -504,7 +465,6 @@ func NewValueWithCMTimeMapping(timeMapping objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified CoreMedia time range
 // structure.
 //
@@ -520,14 +480,12 @@ func NewValueWithCMTimeRange(timeRange objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMVideoDimensions:)
 func NewValueWithCMVideoDimensions(dimensions objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMVideoDimensions:"), dimensions)
 	return NSValueFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(coder:)
@@ -537,7 +495,6 @@ func NewValueWithCoder(coder INSCoder) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(directionalEdgeInsets:)
 // insets is a [appkit.NSDirectionalEdgeInsets].
@@ -546,14 +503,12 @@ func NewValueWithDirectionalEdgeInsets(insets objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(edgeInsets:)
 func NewValueWithEdgeInsets(insets NSEdgeInsets) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithEdgeInsets:"), insets)
 	return NSValueFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(GCPoint2:)
@@ -562,7 +517,6 @@ func NewValueWithGCPoint2(point objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithGCPoint2:"), point)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a new value object containing the specified CoreLocation geographic
 // coordinate structure.
@@ -579,7 +533,6 @@ func NewValueWithMKCoordinate(coordinate objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified MapKit coordinate span
 // structure.
 //
@@ -595,7 +548,6 @@ func NewValueWithMKCoordinateSpan(span objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithMKCoordinateSpan:"), span)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a value object containing the specified object.
 //
@@ -619,7 +571,6 @@ func NewValueWithNonretainedObject(anObject objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithNonretainedObject:"), anObject)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a value object containing the specified value, interpreted with the
 // specified Objective-C type.
@@ -646,7 +597,6 @@ func NewValueWithObjCType(value unsafe.Pointer, type_ []byte) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified Foundation point
 // structure.
 //
@@ -661,7 +611,6 @@ func NewValueWithPoint(point corefoundation.CGPoint) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithPoint:"), point)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a value object containing the specified pointer.
 //
@@ -686,7 +635,6 @@ func NewValueWithPointer(pointer unsafe.Pointer) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified Foundation range
 // structure.
 //
@@ -701,7 +649,6 @@ func NewValueWithRange(range_ NSRange) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithRange:"), range_)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a new value object containing the specified Foundation rectangle
 // structure.
@@ -718,7 +665,6 @@ func NewValueWithRect(rect corefoundation.CGRect) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a value object that contains the specified SceneKit 4 x 4 matrix.
 //
 // v: The value for the new object.
@@ -733,7 +679,6 @@ func NewValueWithSCNMatrix4(v objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithSCNMatrix4:"), v)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a value object that contains the specified three-element SceneKit
 // vector.
@@ -751,7 +696,6 @@ func NewValueWithSCNVector3(v objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a value object that contains the specified four-element SceneKit
 // vector.
 //
@@ -768,7 +712,6 @@ func NewValueWithSCNVector4(v objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified Foundation size
 // structure.
 //
@@ -783,7 +726,6 @@ func NewValueWithSize(size corefoundation.CGSize) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithSize:"), size)
 	return NSValueFromID(rv)
 }
-
 
 // Creates a new value object containing the specified UIKit edge insets
 // structure.
@@ -801,7 +743,6 @@ func NewValueWithUIEdgeInsets(insets objectivec.IObject) NSValue {
 	return NSValueFromID(rv)
 }
 
-
 // Creates a new value object containing the specified UIKit offset structure.
 //
 // insets: The value for the new object.
@@ -816,12 +757,6 @@ func NewValueWithUIOffset(insets objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithUIOffset:"), insets)
 	return NSValueFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a value object to contain the specified value, interpreted with
 // the specified Objective-C type.
@@ -897,10 +832,6 @@ func (v NSValue) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Creates a value object containing the specified value, interpreted with the
 // specified Objective-C type.
 //
@@ -927,13 +858,6 @@ func (_NSValueClass NSValueClass) ValueWithBytesObjCType(value unsafe.Pointer, t
 	return NSValueFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A C string containing the Objective-C type of the data contained in the
 // value object.
 //
@@ -948,8 +872,6 @@ func (v NSValue) ObjCType() string {
 	return objc.GoString(rv)
 }
 
-
-
 // Returns the value as an untyped pointer.
 //
 // # Return Value
@@ -962,8 +884,6 @@ func (v NSValue) PointerValue() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("pointerValue"))
 	return rv
 }
-
-
 
 // The value as a non-retained pointer to an object.
 //
@@ -978,8 +898,6 @@ func (v NSValue) NonretainedObjectValue() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The Foundation range structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/rangeValue
@@ -987,8 +905,6 @@ func (v NSValue) RangeValue() NSRange {
 	rv := objc.Send[NSRange](v.ID, objc.Sel("rangeValue"))
 	return NSRange(rv)
 }
-
-
 
 // The Foundation point structure representation of the value.
 //
@@ -998,8 +914,6 @@ func (v NSValue) PointValue() NSPoint {
 	return NSPoint(rv)
 }
 
-
-
 // The Foundation size structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/sizeValue
@@ -1007,8 +921,6 @@ func (v NSValue) SizeValue() NSSize {
 	rv := objc.Send[NSSize](v.ID, objc.Sel("sizeValue"))
 	return NSSize(rv)
 }
-
-
 
 // The Foundation rectangle structure representation of the value.
 //
@@ -1018,8 +930,6 @@ func (v NSValue) RectValue() NSRect {
 	return NSRect(rv)
 }
 
-
-
 // The CoreAnimation transform structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/caTransform3DValue
@@ -1027,8 +937,6 @@ func (v NSValue) CATransform3DValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CATransform3DValue"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The CoreMedia time structure representation of the value.
 //
@@ -1038,8 +946,6 @@ func (v NSValue) CMTimeValue() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The CoreMedia time range structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeRangeValue
@@ -1048,8 +954,6 @@ func (v NSValue) CMTimeRangeValue() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The CoreMedia time mapping structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeMappingValue
@@ -1057,8 +961,6 @@ func (v NSValue) CMTimeMappingValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeMappingValue"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The CoreLocation geographic coordinate structure representation of the
 // value.
@@ -1069,8 +971,6 @@ func (v NSValue) MKCoordinateValue() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The MapKit coordinate span structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/mkCoordinateSpanValue
@@ -1078,8 +978,6 @@ func (v NSValue) MKCoordinateSpanValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("MKCoordinateSpanValue"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The three-element Scene Kit vector representation of the value.
 //
@@ -1089,8 +987,6 @@ func (v NSValue) SCNVector3Value() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The four-element Scene Kit vector representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnVector4Value
@@ -1098,8 +994,6 @@ func (v NSValue) SCNVector4Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNVector4Value"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The Scene Kit 4 x 4 matrix representation of the value.
 //
@@ -1109,15 +1003,11 @@ func (v NSValue) SCNMatrix4Value() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSValue/edgeInsetsValue
 func (v NSValue) EdgeInsetsValue() NSEdgeInsets {
 	rv := objc.Send[NSEdgeInsets](v.ID, objc.Sel("edgeInsetsValue"))
 	return NSEdgeInsets(rv)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Foundation/NSValue/gcPoint2Value
 func (v NSValue) GCPoint2Value() objectivec.IObject {
@@ -1125,15 +1015,11 @@ func (v NSValue) GCPoint2Value() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSValue/videoDimensionsValue
 func (v NSValue) CMVideoDimensionsValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMVideoDimensionsValue"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // Returns an integer that can be used as a table address in a hash table
 // structure.
@@ -1147,32 +1033,9 @@ func (v NSValue) SetHash(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHash:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

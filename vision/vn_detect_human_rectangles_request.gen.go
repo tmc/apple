@@ -35,12 +35,6 @@ func (vc VNDetectHumanRectanglesRequestClass) Alloc() VNDetectHumanRectanglesReq
 	return rv
 }
 
-
-
-
-
-
-
 // A request that finds rectangular regions that contain people in an image.
 //
 // # Configuring the Request
@@ -66,10 +60,6 @@ func VNDetectHumanRectanglesRequestFromID(id objc.ID) VNDetectHumanRectanglesReq
 }
 // NOTE: VNDetectHumanRectanglesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNDetectHumanRectanglesRequest] class.
 //
@@ -101,10 +91,6 @@ type IVNDetectHumanRectanglesRequest interface {
 	VNDetectHumanRectanglesRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectHumanRectanglesRequest) Init() VNDetectHumanRectanglesRequest {
 	rv := objc.Send[VNDetectHumanRectanglesRequest](d.ID, objc.Sel("init"))
@@ -124,11 +110,6 @@ func NewVNDetectHumanRectanglesRequest() VNDetectHumanRectanglesRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -145,23 +126,6 @@ func NewDetectHumanRectanglesRequestWithCompletionHandler(completionHandler VNRe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectHumanRectanglesRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the request requires detecting a
 // full body or upper body only to produce a result.
@@ -182,8 +146,6 @@ func (d VNDetectHumanRectanglesRequest) SetUpperBodyOnly(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUpperBodyOnly:"), value)
 }
 
-
-
 // A constant for specifying revision 2 of the human rectangles detection
 // request.
 //
@@ -193,8 +155,6 @@ func (d VNDetectHumanRectanglesRequest) VNDetectHumanRectanglesRequestRevision2(
 	return rv
 }
 
-
-
 // A constant for specifying revision 1 of the human rectangles detection
 // request.
 //
@@ -203,27 +163,4 @@ func (d VNDetectHumanRectanglesRequest) VNDetectHumanRectanglesRequestRevision1(
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanRectanglesRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

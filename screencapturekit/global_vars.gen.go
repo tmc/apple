@@ -3,30 +3,26 @@
 package screencapturekit
 
 import (
-	"unsafe"
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
 
-var SCStreamErrorDomain string
+var (
+	// SCStreamErrorDomain is a string representation of the error domain.
+	//
+	// See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamErrorDomain
+	SCStreamErrorDomain string
+)
 
-
-
-
-
-
-
-
-
-
+var (
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -36,7 +32,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoBoundingRect"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -46,7 +42,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoContentRect"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -56,7 +52,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoContentScale"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -66,7 +62,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoDirtyRects"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -76,7 +72,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoDisplayTime"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -86,7 +82,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoPresenterOverlayContentRect"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -96,7 +92,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoScaleFactor"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -106,7 +102,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoScreenRect"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -116,7 +112,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "SCStreamFrameInfoStatus"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {

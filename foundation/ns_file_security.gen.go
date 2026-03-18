@@ -36,12 +36,6 @@ func (nc NSFileSecurityClass) Alloc() NSFileSecurity {
 	return rv
 }
 
-
-
-
-
-
-
 // A stub class that encapsulates security information about a file.
 //
 // # Overview
@@ -50,10 +44,6 @@ func (nc NSFileSecurityClass) Alloc() NSFileSecurity {
 // transparently bridged to [CFFileSecurity].
 //
 // [CFFileSecurity]: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurity
-//
-// # Initializers
-//
-//   - [NSFileSecurity.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity
 type NSFileSecurity struct {
@@ -64,37 +54,20 @@ type NSFileSecurity struct {
 //
 // A stub class that encapsulates security information about a file.
 func NSFileSecurityFromID(id objc.ID) NSFileSecurity {
-	return NSFileSecurity{objectivec.Object{id}}
+	return NSFileSecurity{objectivec.Object{ID: id}}
 }
 // NOTE: NSFileSecurity adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSFileSecurity] class.
-//
-// # Initializers
-//
-//   - [INSFileSecurity.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity
 type INSFileSecurity interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
-
-	// Topic: Initializers
-
-	InitWithCoder(coder INSCoder) NSFileSecurity
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
+	NSSecureCoding
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f NSFileSecurity) Init() NSFileSecurity {
@@ -115,11 +88,6 @@ func NewNSFileSecurity() NSFileSecurity {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity/init(coder:)
 func NewFileSecurityWithCoder(coder INSCoder) NSFileSecurity {
@@ -127,12 +95,6 @@ func NewFileSecurityWithCoder(coder INSCoder) NSFileSecurity {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSFileSecurityFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity/init(coder:)
@@ -150,42 +112,9 @@ func (f NSFileSecurity) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

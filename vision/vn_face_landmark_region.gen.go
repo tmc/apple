@@ -37,12 +37,6 @@ func (vc VNFaceLandmarkRegionClass) Alloc() VNFaceLandmarkRegion {
 	return rv
 }
 
-
-
-
-
-
-
 // The abstract superclass for information about a specific face landmark.
 //
 // # Instance Properties
@@ -58,14 +52,10 @@ type VNFaceLandmarkRegion struct {
 //
 // The abstract superclass for information about a specific face landmark.
 func VNFaceLandmarkRegionFromID(id objc.ID) VNFaceLandmarkRegion {
-	return VNFaceLandmarkRegion{objectivec.Object{id}}
+	return VNFaceLandmarkRegion{objectivec.Object{ID: id}}
 }
 // NOTE: VNFaceLandmarkRegion adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNFaceLandmarkRegion] class.
 //
@@ -89,10 +79,6 @@ type IVNFaceLandmarkRegion interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f VNFaceLandmarkRegion) Init() VNFaceLandmarkRegion {
 	rv := objc.Send[VNFaceLandmarkRegion](f.ID, objc.Sel("init"))
@@ -112,28 +98,9 @@ func NewVNFaceLandmarkRegion() VNFaceLandmarkRegion {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (f VNFaceLandmarkRegion) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The number of points in the face region.
 //
@@ -147,8 +114,6 @@ func (f VNFaceLandmarkRegion) PointCount() uint {
 	return rv
 }
 
-
-
 // The facial features of the detected face.
 //
 // See: https://developer.apple.com/documentation/vision/vnfaceobservation/landmarks
@@ -160,8 +125,6 @@ func (f VNFaceLandmarkRegion) SetLandmarks(value IVNFaceLandmarks2D) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
 }
 
-
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -171,34 +134,6 @@ func (f VNFaceLandmarkRegion) RequestRevision() uint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for VNRequestRevisionProviding
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

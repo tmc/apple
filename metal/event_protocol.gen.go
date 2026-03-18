@@ -30,8 +30,6 @@ type MTLEvent interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLEventObject wraps an existing Objective-C object that conforms to the MTLEvent protocol.
 type MTLEventObject struct {
 	objectivec.Object
@@ -40,8 +38,6 @@ func (o MTLEventObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLEventObjectFromID constructs a [MTLEventObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLEventObjectFromID(id objc.ID) MTLEventObject {
@@ -49,9 +45,6 @@ func MTLEventObjectFromID(id objc.ID) MTLEventObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device object that created the event.
 //
@@ -73,16 +66,7 @@ func (o MTLEventObject) Label() string {
 	return foundation.NSStringFromID(rv).String()
 	}
 
-
-
-
-
-
 func (o MTLEventObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

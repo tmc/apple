@@ -36,12 +36,6 @@ func (uc UserInfoClass) Alloc() UserInfo {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSException/userInfo-c.ivar
 type UserInfo struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type UserInfo struct {
 
 // UserInfoFromID constructs a [UserInfo] from an objc.ID.
 func UserInfoFromID(id objc.ID) UserInfo {
-	return UserInfo{objectivec.Object{id}}
+	return UserInfo{objectivec.Object{ID: id}}
 }
 // Ensure UserInfo implements IUserInfo.
 var _ IUserInfo = UserInfo{}
-
-
-
-
 
 // An interface definition for the [UserInfo] class.
 //
@@ -64,10 +54,6 @@ var _ IUserInfo = UserInfo{}
 type IUserInfo interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u UserInfo) Init() UserInfo {
@@ -87,38 +73,4 @@ func NewUserInfo() UserInfo {
 	rv := objc.Send[UserInfo](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

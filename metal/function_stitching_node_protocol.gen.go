@@ -16,8 +16,6 @@ type MTLFunctionStitchingNode interface {
 	foundation.NSCopying
 }
 
-
-
 // MTLFunctionStitchingNodeObject wraps an existing Objective-C object that conforms to the MTLFunctionStitchingNode protocol.
 type MTLFunctionStitchingNodeObject struct {
 	foundation.NSCopyingObject
@@ -26,8 +24,6 @@ func (o MTLFunctionStitchingNodeObject) BaseObject() objectivec.Object {
 	return o.NSCopyingObject.BaseObject()
 }
 
-
-
 // MTLFunctionStitchingNodeObjectFromID constructs a [MTLFunctionStitchingNodeObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLFunctionStitchingNodeObjectFromID(id objc.ID) MTLFunctionStitchingNodeObject {
@@ -35,13 +31,4 @@ func MTLFunctionStitchingNodeObjectFromID(id objc.ID) MTLFunctionStitchingNodeOb
 		NSCopyingObject: foundation.NSCopyingObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

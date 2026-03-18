@@ -37,12 +37,6 @@ func (mc MTL4BinaryFunctionDescriptorClass) Alloc() MTL4BinaryFunctionDescriptor
 	return rv
 }
 
-
-
-
-
-
-
 // Base interface for other function-derived interfaces.
 //
 // # Instance Properties
@@ -63,14 +57,10 @@ type MTL4BinaryFunctionDescriptor struct {
 //
 // Base interface for other function-derived interfaces.
 func MTL4BinaryFunctionDescriptorFromID(id objc.ID) MTL4BinaryFunctionDescriptor {
-	return MTL4BinaryFunctionDescriptor{objectivec.Object{id}}
+	return MTL4BinaryFunctionDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4BinaryFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4BinaryFunctionDescriptor] class.
 //
@@ -100,10 +90,6 @@ type IMTL4BinaryFunctionDescriptor interface {
 	SetOptions(value MTL4BinaryFunctionOptions)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4BinaryFunctionDescriptor) Init() MTL4BinaryFunctionDescriptor {
 	rv := objc.Send[MTL4BinaryFunctionDescriptor](m.ID, objc.Sel("init"))
@@ -123,26 +109,6 @@ func NewMTL4BinaryFunctionDescriptor() MTL4BinaryFunctionDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Provides the function descriptor corresponding to the function to compile
 // into a binary function.
 //
@@ -154,8 +120,6 @@ func (m MTL4BinaryFunctionDescriptor) FunctionDescriptor() IMTL4FunctionDescript
 func (m MTL4BinaryFunctionDescriptor) SetFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptor:"), value)
 }
-
-
 
 // Associates a string that uniquely identifies a binary function.
 //
@@ -173,8 +137,6 @@ func (m MTL4BinaryFunctionDescriptor) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
 
-
-
 // Configure the options to use at binary function creation time.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4BinaryFunctionDescriptor/options
@@ -185,27 +147,4 @@ func (m MTL4BinaryFunctionDescriptor) Options() MTL4BinaryFunctionOptions {
 func (m MTL4BinaryFunctionDescriptor) SetOptions(value MTL4BinaryFunctionOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOptions:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

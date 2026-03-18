@@ -155,8 +155,6 @@ type MTLArgumentEncoder interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLArgumentEncoderObject wraps an existing Objective-C object that conforms to the MTLArgumentEncoder protocol.
 type MTLArgumentEncoderObject struct {
 	objectivec.Object
@@ -165,8 +163,6 @@ func (o MTLArgumentEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLArgumentEncoderObjectFromID constructs a [MTLArgumentEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLArgumentEncoderObjectFromID(id objc.ID) MTLArgumentEncoderObject {
@@ -174,9 +170,6 @@ func MTLArgumentEncoderObjectFromID(id objc.ID) MTLArgumentEncoderObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Specifies the position in a buffer where the encoder writes argument data.
 //
@@ -606,20 +599,7 @@ func (o MTLArgumentEncoderObject) SetVisibleFunctionTablesWithRange(visibleFunct
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTables:withRange:"), visibleFunctionTables, range_)
 	}
 
-
-
-
-
-
-
-
 func (o MTLArgumentEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
 

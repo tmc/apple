@@ -36,12 +36,6 @@ func (rc RESERVEDClass) Alloc() RESERVED {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/struct_(unnamed)/RESERVED
 type RESERVED struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type RESERVED struct {
 
 // RESERVEDFromID constructs a [RESERVED] from an objc.ID.
 func RESERVEDFromID(id objc.ID) RESERVED {
-	return RESERVED{objectivec.Object{id}}
+	return RESERVED{objectivec.Object{ID: id}}
 }
 // Ensure RESERVED implements IRESERVED.
 var _ IRESERVED = RESERVED{}
-
-
-
-
 
 // An interface definition for the [RESERVED] class.
 //
@@ -64,10 +54,6 @@ var _ IRESERVED = RESERVED{}
 type IRESERVED interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r RESERVED) Init() RESERVED {
@@ -87,38 +73,4 @@ func NewRESERVED() RESERVED {
 	rv := objc.Send[RESERVED](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

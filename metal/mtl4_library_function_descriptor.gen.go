@@ -36,12 +36,6 @@ func (mc MTL4LibraryFunctionDescriptorClass) Alloc() MTL4LibraryFunctionDescript
 	return rv
 }
 
-
-
-
-
-
-
 // Describes a shader function from a Metal library.
 //
 // # Instance Properties
@@ -64,10 +58,6 @@ func MTL4LibraryFunctionDescriptorFromID(id objc.ID) MTL4LibraryFunctionDescript
 }
 // NOTE: MTL4LibraryFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4LibraryFunctionDescriptor] class.
 //
@@ -92,10 +82,6 @@ type IMTL4LibraryFunctionDescriptor interface {
 	SetName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4LibraryFunctionDescriptor) Init() MTL4LibraryFunctionDescriptor {
 	rv := objc.Send[MTL4LibraryFunctionDescriptor](m.ID, objc.Sel("init"))
@@ -115,26 +101,6 @@ func NewMTL4LibraryFunctionDescriptor() MTL4LibraryFunctionDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns a reference to the library containing the function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4LibraryFunctionDescriptor/library
@@ -146,8 +112,6 @@ func (m MTL4LibraryFunctionDescriptor) SetLibrary(value MTLLibrary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLibrary:"), value)
 }
 
-
-
 // Assigns a name to the function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4LibraryFunctionDescriptor/name
@@ -158,27 +122,4 @@ func (m MTL4LibraryFunctionDescriptor) Name() string {
 func (m MTL4LibraryFunctionDescriptor) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

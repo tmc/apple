@@ -49,15 +49,3 @@ func (p ProcessInfo) PerformExpiringActivityWithReasonUsingBlock(reason string, 
 objc.Send[objc.ID](p.ID, objc.Sel("performExpiringActivityWithReason:usingBlock:"), objc.String(reason), block)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-

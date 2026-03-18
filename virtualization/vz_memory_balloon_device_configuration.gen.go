@@ -36,12 +36,6 @@ func (vc VZMemoryBalloonDeviceConfigurationClass) Alloc() VZMemoryBalloonDeviceC
 	return rv
 }
 
-
-
-
-
-
-
 // The common configuration traits for memory balloon devices.
 //
 // # Overview
@@ -59,14 +53,10 @@ type VZMemoryBalloonDeviceConfiguration struct {
 //
 // The common configuration traits for memory balloon devices.
 func VZMemoryBalloonDeviceConfigurationFromID(id objc.ID) VZMemoryBalloonDeviceConfiguration {
-	return VZMemoryBalloonDeviceConfiguration{objectivec.Object{id}}
+	return VZMemoryBalloonDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZMemoryBalloonDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZMemoryBalloonDeviceConfiguration] class.
 //
@@ -74,10 +64,6 @@ func VZMemoryBalloonDeviceConfigurationFromID(id objc.ID) VZMemoryBalloonDeviceC
 type IVZMemoryBalloonDeviceConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m VZMemoryBalloonDeviceConfiguration) Init() VZMemoryBalloonDeviceConfiguration {
@@ -97,45 +83,4 @@ func NewVZMemoryBalloonDeviceConfiguration() VZMemoryBalloonDeviceConfiguration 
 	rv := objc.Send[VZMemoryBalloonDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (nc NSSymbolVariableColorEffectClass) Alloc() NSSymbolVariableColorEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A type that replaces the opacity of variable layers in a symbol-based image
 // in a repeatable sequence.
 //
@@ -82,10 +76,6 @@ func NSSymbolVariableColorEffectFromID(id objc.ID) NSSymbolVariableColorEffect {
 }
 // Ensure NSSymbolVariableColorEffect implements INSSymbolVariableColorEffect.
 var _ INSSymbolVariableColorEffect = NSSymbolVariableColorEffect{}
-
-
-
-
 
 // An interface definition for the [NSSymbolVariableColorEffect] class.
 //
@@ -130,10 +120,6 @@ type INSSymbolVariableColorEffect interface {
 	EffectWithHideInactiveLayers() INSSymbolVariableColorEffect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolVariableColorEffect) Init() NSSymbolVariableColorEffect {
 	rv := objc.Send[NSSymbolVariableColorEffect](s.ID, objc.Sel("init"))
@@ -152,15 +138,6 @@ func NewNSSymbolVariableColorEffect() NSSymbolVariableColorEffect {
 	rv := objc.Send[NSSymbolVariableColorEffect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // An effect that enables each layer of a symbol-based image in sequence.
 //
@@ -261,10 +238,6 @@ func (s NSSymbolVariableColorEffect) EffectWithHideInactiveLayers() INSSymbolVar
 	return NSSymbolVariableColorEffectFromID(rv)
 }
 
-
-
-
-
 // An animation that replaces the opacity of variable layers in a symbol-based
 // image in a repeatable sequence.
 //
@@ -277,25 +250,4 @@ func (_NSSymbolVariableColorEffectClass NSSymbolVariableColorEffectClass) Effect
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolVariableColorEffectClass.class), objc.Sel("effect"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

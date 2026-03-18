@@ -36,12 +36,6 @@ func (vc VZDirectoryShareClass) Alloc() VZDirectoryShare {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a directory share.
 //
 // # Overview
@@ -61,14 +55,10 @@ type VZDirectoryShare struct {
 //
 // The base class for a directory share.
 func VZDirectoryShareFromID(id objc.ID) VZDirectoryShare {
-	return VZDirectoryShare{objectivec.Object{id}}
+	return VZDirectoryShare{objectivec.Object{ID: id}}
 }
 // NOTE: VZDirectoryShare adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZDirectoryShare] class.
 //
@@ -76,10 +66,6 @@ func VZDirectoryShareFromID(id objc.ID) VZDirectoryShare {
 type IVZDirectoryShare interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d VZDirectoryShare) Init() VZDirectoryShare {
@@ -99,44 +85,4 @@ func NewVZDirectoryShare() VZDirectoryShare {
 	rv := objc.Send[VZDirectoryShare](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

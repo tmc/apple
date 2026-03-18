@@ -65,8 +65,6 @@ type MTLBinaryArchive interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLBinaryArchiveObject wraps an existing Objective-C object that conforms to the MTLBinaryArchive protocol.
 type MTLBinaryArchiveObject struct {
 	objectivec.Object
@@ -75,8 +73,6 @@ func (o MTLBinaryArchiveObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLBinaryArchiveObjectFromID constructs a [MTLBinaryArchiveObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLBinaryArchiveObjectFromID(id objc.ID) MTLBinaryArchiveObject {
@@ -84,9 +80,6 @@ func MTLBinaryArchiveObjectFromID(id objc.ID) MTLBinaryArchiveObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The Metal device object that created the binary archive.
 //
@@ -209,16 +202,7 @@ func (o MTLBinaryArchiveObject) AddMeshRenderPipelineFunctionsWithDescriptorErro
 	return rv, nil
 	}
 
-
-
-
-
-
 func (o MTLBinaryArchiveObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

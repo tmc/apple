@@ -36,12 +36,6 @@ func (mc MTLAccelerationStructurePassDescriptorClass) Alloc() MTLAccelerationStr
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Instance Properties
 //
@@ -53,14 +47,10 @@ type MTLAccelerationStructurePassDescriptor struct {
 
 // MTLAccelerationStructurePassDescriptorFromID constructs a [MTLAccelerationStructurePassDescriptor] from an objc.ID.
 func MTLAccelerationStructurePassDescriptorFromID(id objc.ID) MTLAccelerationStructurePassDescriptor {
-	return MTLAccelerationStructurePassDescriptor{objectivec.Object{id}}
+	return MTLAccelerationStructurePassDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLAccelerationStructurePassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLAccelerationStructurePassDescriptor] class.
 //
@@ -76,10 +66,6 @@ type IMTLAccelerationStructurePassDescriptor interface {
 
 	SampleBufferAttachments() IMTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a MTLAccelerationStructurePassDescriptor) Init() MTLAccelerationStructurePassDescriptor {
@@ -100,58 +86,15 @@ func NewMTLAccelerationStructurePassDescriptor() MTLAccelerationStructurePassDes
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassDescriptor/accelerationStructurePassDescriptor
 func (_MTLAccelerationStructurePassDescriptorClass MTLAccelerationStructurePassDescriptorClass) AccelerationStructurePassDescriptor() MTLAccelerationStructurePassDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructurePassDescriptorClass.class), objc.Sel("accelerationStructurePassDescriptor"))
 	return MTLAccelerationStructurePassDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassDescriptor/sampleBufferAttachments
 func (a MTLAccelerationStructurePassDescriptor) SampleBufferAttachments() IMTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (mc MTL4RenderPipelineColorAttachmentDescriptorClass) Alloc() MTL4RenderPip
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Instance Properties
 //
@@ -74,14 +68,10 @@ type MTL4RenderPipelineColorAttachmentDescriptor struct {
 
 // MTL4RenderPipelineColorAttachmentDescriptorFromID constructs a [MTL4RenderPipelineColorAttachmentDescriptor] from an objc.ID.
 func MTL4RenderPipelineColorAttachmentDescriptorFromID(id objc.ID) MTL4RenderPipelineColorAttachmentDescriptor {
-	return MTL4RenderPipelineColorAttachmentDescriptor{objectivec.Object{id}}
+	return MTL4RenderPipelineColorAttachmentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4RenderPipelineColorAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4RenderPipelineColorAttachmentDescriptor] class.
 //
@@ -150,10 +140,6 @@ type IMTL4RenderPipelineColorAttachmentDescriptor interface {
 	Reset()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4RenderPipelineColorAttachmentDescriptor) Init() MTL4RenderPipelineColorAttachmentDescriptor {
 	rv := objc.Send[MTL4RenderPipelineColorAttachmentDescriptor](m.ID, objc.Sel("init"))
@@ -173,32 +159,12 @@ func NewMTL4RenderPipelineColorAttachmentDescriptor() MTL4RenderPipelineColorAtt
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Resets this descriptor to its default state.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineColorAttachmentDescriptor/reset()
 func (m MTL4RenderPipelineColorAttachmentDescriptor) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Configures the alpha blending operation.
 //
@@ -215,8 +181,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SetAlphaBlendOperation(valu
 	objc.Send[struct{}](m.ID, objc.Sel("setAlphaBlendOperation:"), value)
 }
 
-
-
 // Configure the blend state for color attachments the pipeline state uses.
 //
 // # Discussion
@@ -231,8 +195,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) BlendingState() MTL4BlendSt
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetBlendingState(value MTL4BlendState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBlendingState:"), value)
 }
-
-
 
 // Configures the destination-alpha blend factor.
 //
@@ -249,8 +211,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SetDestinationAlphaBlendFac
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationAlphaBlendFactor:"), value)
 }
 
-
-
 // Configures the destination RGB blend factor.
 //
 // # Discussion
@@ -265,8 +225,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) DestinationRGBBlendFactor()
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetDestinationRGBBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationRGBBlendFactor:"), value)
 }
-
-
 
 // Configures the pixel format.
 //
@@ -283,8 +241,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SetPixelFormat(value MTLPix
 	objc.Send[struct{}](m.ID, objc.Sel("setPixelFormat:"), value)
 }
 
-
-
 // Configures the RGB blend operation.
 //
 // # Discussion
@@ -299,8 +255,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) RgbBlendOperation() MTLBlen
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetRgbBlendOperation(value MTLBlendOperation) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRgbBlendOperation:"), value)
 }
-
-
 
 // Configures the source-alpha blend factor.
 //
@@ -317,8 +271,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SetSourceAlphaBlendFactor(v
 	objc.Send[struct{}](m.ID, objc.Sel("setSourceAlphaBlendFactor:"), value)
 }
 
-
-
 // Configures the source RGB blend factor.
 //
 // # Discussion
@@ -334,8 +286,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SetSourceRGBBlendFactor(val
 	objc.Send[struct{}](m.ID, objc.Sel("setSourceRGBBlendFactor:"), value)
 }
 
-
-
 // Configures the color write mask.
 //
 // # Discussion
@@ -350,27 +300,4 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) WriteMask() MTLColorWriteMa
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetWriteMask(value MTLColorWriteMask) {
 	objc.Send[struct{}](m.ID, objc.Sel("setWriteMask:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

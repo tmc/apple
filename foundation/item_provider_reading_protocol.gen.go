@@ -14,8 +14,6 @@ type NSItemProviderReading interface {
 	objectivec.IObject
 }
 
-
-
 // NSItemProviderReadingObject wraps an existing Objective-C object that conforms to the NSItemProviderReading protocol.
 type NSItemProviderReadingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSItemProviderReadingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSItemProviderReadingObjectFromID constructs a [NSItemProviderReadingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSItemProviderReadingObjectFromID(id objc.ID) NSItemProviderReadingObject {
@@ -33,13 +29,4 @@ func NSItemProviderReadingObjectFromID(id objc.ID) NSItemProviderReadingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (mc MTLRenderPassSampleBufferAttachmentDescriptorClass) Alloc() MTLRenderPa
 	return rv
 }
 
-
-
-
-
-
-
 // A description of where to store GPU counter information at the start and
 // end of a render pass.
 //
@@ -68,14 +62,10 @@ type MTLRenderPassSampleBufferAttachmentDescriptor struct {
 // A description of where to store GPU counter information at the start and
 // end of a render pass.
 func MTLRenderPassSampleBufferAttachmentDescriptorFromID(id objc.ID) MTLRenderPassSampleBufferAttachmentDescriptor {
-	return MTLRenderPassSampleBufferAttachmentDescriptor{objectivec.Object{id}}
+	return MTLRenderPassSampleBufferAttachmentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRenderPassSampleBufferAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRenderPassSampleBufferAttachmentDescriptor] class.
 //
@@ -115,10 +105,6 @@ type IMTLRenderPassSampleBufferAttachmentDescriptor interface {
 	SetEndOfFragmentSampleIndex(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) Init() MTLRenderPassSampleBufferAttachmentDescriptor {
 	rv := objc.Send[MTLRenderPassSampleBufferAttachmentDescriptor](r.ID, objc.Sel("init"))
@@ -137,26 +123,6 @@ func NewMTLRenderPassSampleBufferAttachmentDescriptor() MTLRenderPassSampleBuffe
 	rv := objc.Send[MTLRenderPassSampleBufferAttachmentDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A specialized memory buffer that the GPU uses to store its counter data
 // during the render pass.
@@ -179,8 +145,6 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounter
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCounterSampleBuffer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSampleBuffer:"), value)
 }
-
-
 
 // The index the Metal device object should use to store GPU counters when
 // starting the render pass’s vertex stage.
@@ -205,8 +169,6 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetStartOfVertexSampleInd
 	objc.Send[struct{}](r.ID, objc.Sel("setStartOfVertexSampleIndex:"), value)
 }
 
-
-
 // The index the Metal device object should use to store GPU counters when
 // ending the render pass’s vertex stage.
 //
@@ -229,8 +191,6 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) EndOfVertexSampleIndex() 
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetEndOfVertexSampleIndex(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEndOfVertexSampleIndex:"), value)
 }
-
-
 
 // The index the Metal device object should use to store GPU counters when
 // starting the render pass’s fragment stage.
@@ -255,8 +215,6 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetStartOfFragmentSampleI
 	objc.Send[struct{}](r.ID, objc.Sel("setStartOfFragmentSampleIndex:"), value)
 }
 
-
-
 // The index the Metal device object should use to store GPU counters when
 // ending the render pass’s fragment stage.
 //
@@ -279,27 +237,4 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptor) EndOfFragmentSampleIndex(
 func (r MTLRenderPassSampleBufferAttachmentDescriptor) SetEndOfFragmentSampleIndex(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEndOfFragmentSampleIndex:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

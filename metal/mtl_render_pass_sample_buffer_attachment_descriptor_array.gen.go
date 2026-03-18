@@ -36,12 +36,6 @@ func (mc MTLRenderPassSampleBufferAttachmentDescriptorArrayClass) Alloc() MTLRen
 	return rv
 }
 
-
-
-
-
-
-
 // An array of sample buffer attachments for a render pass.
 //
 // # Accessing a sample buffer attachment
@@ -57,14 +51,10 @@ type MTLRenderPassSampleBufferAttachmentDescriptorArray struct {
 //
 // An array of sample buffer attachments for a render pass.
 func MTLRenderPassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLRenderPassSampleBufferAttachmentDescriptorArray {
-	return MTLRenderPassSampleBufferAttachmentDescriptorArray{objectivec.Object{id}}
+	return MTLRenderPassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRenderPassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRenderPassSampleBufferAttachmentDescriptorArray] class.
 //
@@ -85,10 +75,6 @@ type IMTLRenderPassSampleBufferAttachmentDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attachment IMTLRenderPassSampleBufferAttachmentDescriptor, attachmentIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRenderPassSampleBufferAttachmentDescriptorArray) Init() MTLRenderPassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[MTLRenderPassSampleBufferAttachmentDescriptorArray](r.ID, objc.Sel("init"))
@@ -107,15 +93,6 @@ func NewMTLRenderPassSampleBufferAttachmentDescriptorArray() MTLRenderPassSample
 	rv := objc.Send[MTLRenderPassSampleBufferAttachmentDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the descriptor object for the specified sample buffer attachment.
 //
@@ -146,35 +123,4 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubsc
 func (r MTLRenderPassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLRenderPassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

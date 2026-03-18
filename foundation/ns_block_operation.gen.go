@@ -36,12 +36,6 @@ func (bc BlockOperationClass) Alloc() BlockOperation {
 	return rv
 }
 
-
-
-
-
-
-
 // An operation that manages the concurrent execution of one or more blocks.
 //
 // # Overview
@@ -83,10 +77,6 @@ func NSBlockOperationFromID(id objc.ID) BlockOperation { return BlockOperationFr
 // NOTE: BlockOperation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [BlockOperation] class.
 //
 // # Managing the Blocks in the Operation
@@ -105,10 +95,6 @@ type IBlockOperation interface {
 	// The blocks associated with the receiver.
 	ExecutionBlocks() VoidHandler
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b BlockOperation) Init() BlockOperation {
@@ -129,16 +115,6 @@ func NewBlockOperation() BlockOperation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
 // Adds the specified block to the receiver’s list of blocks to perform.
 //
 // block: The block to add to the receiver’s list. The block should take no
@@ -154,14 +130,10 @@ func NewBlockOperation() BlockOperation {
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation/addExecutionBlock(_:)
 func (b BlockOperation) AddExecutionBlock(block VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(block)
+_block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
-		objc.Send[objc.ID](b.ID, objc.Sel("addExecutionBlock:"), _block0)
+	objc.Send[objc.ID](b.ID, objc.Sel("addExecutionBlock:"), _block0)
 }
-
-
-
-
 
 // Creates and returns an [NSBlockOperation] object and adds the specified
 // block to it.
@@ -175,18 +147,11 @@ func (b BlockOperation) AddExecutionBlock(block VoidHandler) {
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation/init(block:)
 func (_BlockOperationClass BlockOperationClass) BlockOperationWithBlock(block VoidHandler) BlockOperation {
-		_block0, _cleanup0 := NewVoidBlock(block)
+_block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
-		rv := objc.Send[objc.ID](objc.ID(_BlockOperationClass.class), objc.Sel("blockOperationWithBlock:"), _block0)
+	rv := objc.Send[objc.ID](objc.ID(_BlockOperationClass.class), objc.Sel("blockOperationWithBlock:"), _block0)
 	return NSBlockOperationFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The blocks associated with the receiver.
 //
@@ -201,25 +166,6 @@ func (b BlockOperation) ExecutionBlocks() VoidHandler {
 	_ = rv
 	return nil
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // BlockOperationWithBlockSync is a synchronous wrapper around [BlockOperation.BlockOperationWithBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -250,9 +196,4 @@ func (b BlockOperation) AddExecutionBlockSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

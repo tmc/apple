@@ -35,12 +35,6 @@ func (mc MTL4IndirectInstanceAccelerationStructureDescriptorClass) Alloc() MTL4I
 	return rv
 }
 
-
-
-
-
-
-
 // Descriptor for an “indirect” instance acceleration structure that
 // allows providing the instance count and motion transform count indirectly,
 // through buffer references.
@@ -108,10 +102,6 @@ func MTL4IndirectInstanceAccelerationStructureDescriptorFromID(id objc.ID) MTL4I
 }
 // NOTE: MTL4IndirectInstanceAccelerationStructureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4IndirectInstanceAccelerationStructureDescriptor] class.
 //
@@ -181,10 +171,6 @@ type IMTL4IndirectInstanceAccelerationStructureDescriptor interface {
 	SetMotionTransformType(value MTLTransformType)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) Init() MTL4IndirectInstanceAccelerationStructureDescriptor {
 	rv := objc.Send[MTL4IndirectInstanceAccelerationStructureDescriptor](m.ID, objc.Sel("init"))
@@ -204,26 +190,6 @@ func NewMTL4IndirectInstanceAccelerationStructureDescriptor() MTL4IndirectInstan
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Provides a reference to a buffer containing the number of instances in the
 // instance descriptor buffer, formatted as a 32-bit unsigned integer.
 //
@@ -241,8 +207,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) InstanceCountBuffer
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetInstanceCountBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInstanceCountBuffer:"), value)
 }
-
-
 
 // Assigns a reference to a buffer containing instance descriptors for
 // acceleration structures to reference.
@@ -265,8 +229,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetInstanceDescript
 	objc.Send[struct{}](m.ID, objc.Sel("setInstanceDescriptorBuffer:"), value)
 }
 
-
-
 // Sets the stride, in bytes, between instance descriptors in the instance
 // descriptor buffer.
 //
@@ -286,8 +248,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) InstanceDescriptorS
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetInstanceDescriptorStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInstanceDescriptorStride:"), value)
 }
-
-
 
 // Controls the type of instance descriptor that the instance descriptor
 // buffer references.
@@ -311,8 +271,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetInstanceDescript
 	objc.Send[struct{}](m.ID, objc.Sel("setInstanceDescriptorType:"), value)
 }
 
-
-
 // Specifies the layout for the transformation matrices in the instance
 // descriptor buffer and the motion transformation matrix buffer.
 //
@@ -332,8 +290,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetInstanceTransfor
 	objc.Send[struct{}](m.ID, objc.Sel("setInstanceTransformationMatrixLayout:"), value)
 }
 
-
-
 // Controls the maximum number of instance descriptors the instance descriptor
 // buffer can reference.
 //
@@ -352,8 +308,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetMaxInstanceCount
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxInstanceCount:"), value)
 }
 
-
-
 // Controls the maximum number of motion transforms in the motion transform
 // buffer.
 //
@@ -371,8 +325,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) MaxMotionTransformC
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetMaxMotionTransformCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxMotionTransformCount:"), value)
 }
-
-
 
 // A buffer containing transformation information for instance motion
 // keyframes, formatted according to the motion transform type.
@@ -394,8 +346,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetMotionTransformB
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionTransformBuffer:"), value)
 }
 
-
-
 // Associates a buffer reference containing the number of motion transforms in
 // the motion transform buffer, formatted as a 32-bit unsigned integer.
 //
@@ -414,8 +364,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetMotionTransformC
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionTransformCountBuffer:"), value)
 }
 
-
-
 // Sets the stride for motion transform.
 //
 // # Discussion
@@ -431,8 +379,6 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) MotionTransformStri
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetMotionTransformStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionTransformStride:"), value)
 }
-
-
 
 // Sets the type of motion transforms, either as a matrix or individual
 // components.
@@ -452,27 +398,4 @@ func (m MTL4IndirectInstanceAccelerationStructureDescriptor) MotionTransformType
 func (m MTL4IndirectInstanceAccelerationStructureDescriptor) SetMotionTransformType(value MTLTransformType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionTransformType:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (mc MTL4PrimitiveAccelerationStructureDescriptorClass) Alloc() MTL4Primitiv
 	return rv
 }
 
-
-
-
-
-
-
 // Descriptor for a primitive acceleration structure that directly references
 // geometric shapes, such as triangles and bounding boxes.
 //
@@ -74,10 +68,6 @@ func MTL4PrimitiveAccelerationStructureDescriptorFromID(id objc.ID) MTL4Primitiv
 }
 // NOTE: MTL4PrimitiveAccelerationStructureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4PrimitiveAccelerationStructureDescriptor] class.
 //
@@ -122,10 +112,6 @@ type IMTL4PrimitiveAccelerationStructureDescriptor interface {
 	SetMotionStartTime(value float32)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4PrimitiveAccelerationStructureDescriptor) Init() MTL4PrimitiveAccelerationStructureDescriptor {
 	rv := objc.Send[MTL4PrimitiveAccelerationStructureDescriptor](m.ID, objc.Sel("init"))
@@ -144,26 +130,6 @@ func NewMTL4PrimitiveAccelerationStructureDescriptor() MTL4PrimitiveAcceleration
 	rv := objc.Send[MTL4PrimitiveAccelerationStructureDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Associates the array of geometry descriptors that comprise this primitive
 // acceleration structure.
@@ -191,8 +157,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) SetGeometryDescriptors(val
 	objc.Send[struct{}](m.ID, objc.Sel("setGeometryDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Configures the motion border mode.
 //
 // # Discussion
@@ -211,8 +175,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionEndBorderMode(val
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionEndBorderMode:"), value)
 }
 
-
-
 // Configures the motion end time for this geometry.
 //
 // # Discussion
@@ -228,8 +190,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionEndTime(value flo
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionEndTime:"), value)
 }
 
-
-
 // Sets the motion keyframe count.
 //
 // # Discussion
@@ -244,8 +204,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionKeyframeCount() uint
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionKeyframeCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionKeyframeCount:"), value)
 }
-
-
 
 // Configures the behavior when the ray-tracing system samples the
 // acceleration structure before the motion start time.
@@ -267,8 +225,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionStartBorderMode(v
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionStartBorderMode:"), value)
 }
 
-
-
 // Configures the motion start time for this geometry.
 //
 // # Discussion
@@ -283,27 +239,4 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionStartTime() float32 
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionStartTime(value float32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionStartTime:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

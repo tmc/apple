@@ -36,12 +36,6 @@ func (mc MTLVertexDescriptorClass) Alloc() MTLVertexDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that describes how to organize and map data to a vertex
 // function.
 //
@@ -79,14 +73,10 @@ type MTLVertexDescriptor struct {
 // An instance that describes how to organize and map data to a vertex
 // function.
 func MTLVertexDescriptorFromID(id objc.ID) MTLVertexDescriptor {
-	return MTLVertexDescriptor{objectivec.Object{id}}
+	return MTLVertexDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLVertexDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLVertexDescriptor] class.
 //
@@ -121,10 +111,6 @@ type IMTLVertexDescriptor interface {
 	SetVertexDescriptor(value IMTLVertexDescriptor)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v MTLVertexDescriptor) Init() MTLVertexDescriptor {
 	rv := objc.Send[MTLVertexDescriptor](v.ID, objc.Sel("init"))
@@ -144,15 +130,6 @@ func NewMTLVertexDescriptor() MTLVertexDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Resets the default state for the vertex descriptor.
 //
 // # Discussion
@@ -165,10 +142,6 @@ func NewMTLVertexDescriptor() MTLVertexDescriptor {
 func (v MTLVertexDescriptor) Reset() {
 	objc.Send[objc.ID](v.ID, objc.Sel("reset"))
 }
-
-
-
-
 
 // Creates and returns a new vertex descriptor.
 //
@@ -183,13 +156,6 @@ func (_MTLVertexDescriptorClass MTLVertexDescriptorClass) VertexDescriptor() MTL
 	return MTLVertexDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // An array of state data that describes how vertex attribute data is stored
 // in memory and is mapped to arguments for a vertex shader function.
 //
@@ -198,8 +164,6 @@ func (v MTLVertexDescriptor) Attributes() IMTLVertexAttributeDescriptorArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attributes"))
 	return MTLVertexAttributeDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // An array of state data that describes how data are fetched by a vertex
 // shader function when rendering primitives.
@@ -210,15 +174,11 @@ func (v MTLVertexDescriptor) Layouts() IMTLVertexBufferLayoutDescriptorArray {
 	return MTLVertexBufferLayoutDescriptorArrayFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-
-
 
 // The organization of vertex data in an attribute’s argument table.
 //
@@ -230,27 +190,4 @@ func (v MTLVertexDescriptor) VertexDescriptor() IMTLVertexDescriptor {
 func (v MTLVertexDescriptor) SetVertexDescriptor(value IMTLVertexDescriptor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVertexDescriptor:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

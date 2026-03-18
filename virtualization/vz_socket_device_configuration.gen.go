@@ -36,12 +36,6 @@ func (vc VZSocketDeviceConfigurationClass) Alloc() VZSocketDeviceConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // The common configuration traits for socket device requests.
 //
 // # Overview
@@ -59,14 +53,10 @@ type VZSocketDeviceConfiguration struct {
 //
 // The common configuration traits for socket device requests.
 func VZSocketDeviceConfigurationFromID(id objc.ID) VZSocketDeviceConfiguration {
-	return VZSocketDeviceConfiguration{objectivec.Object{id}}
+	return VZSocketDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZSocketDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZSocketDeviceConfiguration] class.
 //
@@ -74,10 +64,6 @@ func VZSocketDeviceConfigurationFromID(id objc.ID) VZSocketDeviceConfiguration {
 type IVZSocketDeviceConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VZSocketDeviceConfiguration) Init() VZSocketDeviceConfiguration {
@@ -97,45 +83,4 @@ func NewVZSocketDeviceConfiguration() VZSocketDeviceConfiguration {
 	rv := objc.Send[VZSocketDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

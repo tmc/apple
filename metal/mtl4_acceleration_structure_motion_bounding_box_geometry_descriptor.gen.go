@@ -35,12 +35,6 @@ func (mc MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptorClass) Allo
 	return rv
 }
 
-
-
-
-
-
-
 // Describes motion bounding box geometry, suitable for motion ray tracing.
 //
 // # Overview
@@ -75,10 +69,6 @@ func MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptorFromID(id objc.
 // NOTE: MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor] class.
 //
 // # Instance Properties
@@ -107,10 +97,6 @@ type IMTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor interface {
 	SetBoundingBoxStride(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) Init() MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor {
 	rv := objc.Send[MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor](m.ID, objc.Sel("init"))
@@ -129,26 +115,6 @@ func NewMTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor() MTL4Accel
 	rv := objc.Send[MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Configures a reference to a buffer where each entry contains a reference to
 // a buffer of bounding boxes.
@@ -174,8 +140,6 @@ func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) SetBoundin
 	objc.Send[struct{}](m.ID, objc.Sel("setBoundingBoxBuffers:"), value)
 }
 
-
-
 // Declares the number of bounding boxes in each buffer that
 // `boundingBoxBuffer` references.
 //
@@ -191,8 +155,6 @@ func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) BoundingBo
 func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) SetBoundingBoxCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBoundingBoxCount:"), value)
 }
-
-
 
 // Declares the stride, in bytes, between bounding boxes in the bounding box
 // buffers each entry in `boundingBoxBuffer` references.
@@ -212,27 +174,4 @@ func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) BoundingBo
 func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) SetBoundingBoxStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBoundingBoxStride:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

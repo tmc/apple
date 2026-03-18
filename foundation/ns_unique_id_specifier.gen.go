@@ -36,12 +36,6 @@ func (nc NSUniqueIDSpecifierClass) Alloc() NSUniqueIDSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier for an object in a collection (or container) by unique ID.
 //
 // # Overview
@@ -100,10 +94,6 @@ func NSUniqueIDSpecifierFromID(id objc.ID) NSUniqueIDSpecifier {
 // NOTE: NSUniqueIDSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSUniqueIDSpecifier] class.
 //
 // # Initializing a unique ID specifier
@@ -131,10 +121,6 @@ type INSUniqueIDSpecifier interface {
 	SetUniqueID(value objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u NSUniqueIDSpecifier) Init() NSUniqueIDSpecifier {
 	rv := objc.Send[NSUniqueIDSpecifier](u.ID, objc.Sel("init"))
@@ -154,11 +140,6 @@ func NewNSUniqueIDSpecifier() NSUniqueIDSpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUniqueIDSpecifier/init(coder:)
 func NewUniqueIDSpecifierWithCoder(inCoder INSCoder) NSUniqueIDSpecifier {
@@ -166,7 +147,6 @@ func NewUniqueIDSpecifierWithCoder(inCoder INSCoder) NSUniqueIDSpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSUniqueIDSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -190,7 +170,6 @@ func NewUniqueIDSpecifierWithContainerClassDescriptionContainerSpecifierKey(clas
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:"), classDesc, container, objc.String(property))
 	return NSUniqueIDSpecifierFromID(rv)
 }
-
 
 // Returns an [NSUniqueIDSpecifier] object, initialized with the given
 // arguments.
@@ -224,7 +203,6 @@ func NewUniqueIDSpecifierWithContainerClassDescriptionContainerSpecifierKeyUniqu
 	return NSUniqueIDSpecifierFromID(rv)
 }
 
-
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
 //
@@ -243,12 +221,6 @@ func NewUniqueIDSpecifierWithContainerSpecifierKey(container INSScriptObjectSpec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSUniqueIDSpecifierFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSUniqueIDSpecifier] object, initialized with the given
 // arguments.
@@ -281,17 +253,6 @@ func (u NSUniqueIDSpecifier) InitWithContainerClassDescriptionContainerSpecifier
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the ID encapsulated by the receiver.
 //
 // # Return Value
@@ -306,29 +267,4 @@ func (u NSUniqueIDSpecifier) UniqueID() objectivec.IObject {
 func (u NSUniqueIDSpecifier) SetUniqueID(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUniqueID:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

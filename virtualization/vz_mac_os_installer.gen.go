@@ -38,12 +38,6 @@ func (vc VZMacOSInstallerClass) Alloc() VZMacOSInstaller {
 	return rv
 }
 
-
-
-
-
-
-
 // An object you use to install macOS on the specified virtual machine.
 //
 // # Overview
@@ -76,14 +70,10 @@ type VZMacOSInstaller struct {
 //
 // An object you use to install macOS on the specified virtual machine.
 func VZMacOSInstallerFromID(id objc.ID) VZMacOSInstaller {
-	return VZMacOSInstaller{objectivec.Object{id}}
+	return VZMacOSInstaller{objectivec.Object{ID: id}}
 }
 // NOTE: VZMacOSInstaller adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZMacOSInstaller] class.
 //
@@ -125,10 +115,6 @@ type IVZMacOSInstaller interface {
 	InstallWithCompletionHandler(completionHandler ErrorHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m VZMacOSInstaller) Init() VZMacOSInstaller {
 	rv := objc.Send[VZMacOSInstaller](m.ID, objc.Sel("init"))
@@ -148,11 +134,6 @@ func NewVZMacOSInstaller() VZMacOSInstaller {
 	return rv
 }
 
-
-
-
-
-
 // Creates a macOS installer object.
 //
 // virtualMachine: The virtual machine to install the operating system on.
@@ -165,12 +146,6 @@ func NewMacOSInstallerWithVirtualMachineRestoreImageURL(virtualMachine IVZVirtua
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:restoreImageURL:"), virtualMachine, restoreImageFileURL)
 	return VZMacOSInstallerFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a macOS installer object.
 //
@@ -199,21 +174,10 @@ func (m VZMacOSInstaller) InitWithVirtualMachineRestoreImageURL(virtualMachine I
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/install()
 func (m VZMacOSInstaller) InstallWithCompletionHandler(completionHandler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(completionHandler)
+_block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](m.ID, objc.Sel("installWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](m.ID, objc.Sel("installWithCompletionHandler:"), _block0)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A progress object that you can use to observe or cancel an installation.
 //
@@ -228,8 +192,6 @@ func (m VZMacOSInstaller) Progress() foundation.NSProgress {
 	return foundation.NSProgressFromID(objc.ID(rv))
 }
 
-
-
 // The restore image URL used to initialize this installer.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/restoreImageURL
@@ -238,8 +200,6 @@ func (m VZMacOSInstaller) RestoreImageURL() foundation.INSURL {
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
-
-
 // The virtual machine used to initialize this installer.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/virtualMachine
@@ -247,23 +207,6 @@ func (m VZMacOSInstaller) VirtualMachine() IVZVirtualMachine {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("virtualMachine"))
 	return VZVirtualMachineFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Install is a synchronous wrapper around [VZMacOSInstaller.InstallWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -279,9 +222,4 @@ func (m VZMacOSInstaller) Install(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

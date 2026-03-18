@@ -36,12 +36,6 @@ func (mc MTLMotionKeyframeDataClass) Alloc() MTLMotionKeyframeData {
 	return rv
 }
 
-
-
-
-
-
-
 // Geometry data for a specific keyframe to use in a moving instance.
 //
 // # Overview
@@ -70,14 +64,10 @@ type MTLMotionKeyframeData struct {
 //
 // Geometry data for a specific keyframe to use in a moving instance.
 func MTLMotionKeyframeDataFromID(id objc.ID) MTLMotionKeyframeData {
-	return MTLMotionKeyframeData{objectivec.Object{id}}
+	return MTLMotionKeyframeData{objectivec.Object{ID: id}}
 }
 // NOTE: MTLMotionKeyframeData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLMotionKeyframeData] class.
 //
@@ -102,10 +92,6 @@ type IMTLMotionKeyframeData interface {
 	SetOffset(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTLMotionKeyframeData) Init() MTLMotionKeyframeData {
 	rv := objc.Send[MTLMotionKeyframeData](m.ID, objc.Sel("init"))
@@ -125,19 +111,6 @@ func NewMTLMotionKeyframeData() MTLMotionKeyframeData {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a new keyframe object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLMotionKeyframeData/data
@@ -145,13 +118,6 @@ func (_MTLMotionKeyframeDataClass MTLMotionKeyframeDataClass) Data() MTLMotionKe
 	rv := objc.Send[objc.ID](objc.ID(_MTLMotionKeyframeDataClass.class), objc.Sel("data"))
 	return MTLMotionKeyframeDataFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The buffer that holds the geometry data.
 //
@@ -164,8 +130,6 @@ func (m MTLMotionKeyframeData) SetBuffer(value MTLBuffer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBuffer:"), value)
 }
 
-
-
 // The offset, in bytes, to the keyframe data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLMotionKeyframeData/offset
@@ -176,26 +140,4 @@ func (m MTLMotionKeyframeData) Offset() uint {
 func (m MTLMotionKeyframeData) SetOffset(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOffset:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

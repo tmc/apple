@@ -36,12 +36,6 @@ func (vc VZStorageDeviceConfigurationClass) Alloc() VZStorageDeviceConfiguration
 	return rv
 }
 
-
-
-
-
-
-
 // The common configuration traits for storage device requests.
 //
 // # Overview
@@ -64,14 +58,10 @@ type VZStorageDeviceConfiguration struct {
 //
 // The common configuration traits for storage device requests.
 func VZStorageDeviceConfigurationFromID(id objc.ID) VZStorageDeviceConfiguration {
-	return VZStorageDeviceConfiguration{objectivec.Object{id}}
+	return VZStorageDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZStorageDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZStorageDeviceConfiguration] class.
 //
@@ -88,10 +78,6 @@ type IVZStorageDeviceConfiguration interface {
 	// The attachment object that provides the underlying storage for the device.
 	Attachment() IVZStorageDeviceAttachment
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VZStorageDeviceConfiguration) Init() VZStorageDeviceConfiguration {
@@ -112,26 +98,6 @@ func NewVZStorageDeviceConfiguration() VZStorageDeviceConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The attachment object that provides the underlying storage for the device.
 //
 // # Discussion
@@ -144,27 +110,4 @@ func (s VZStorageDeviceConfiguration) Attachment() IVZStorageDeviceAttachment {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("attachment"))
 	return VZStorageDeviceAttachmentFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

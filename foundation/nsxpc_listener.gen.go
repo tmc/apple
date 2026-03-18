@@ -36,12 +36,6 @@ func (nc NSXPCListenerClass) Alloc() NSXPCListener {
 	return rv
 }
 
-
-
-
-
-
-
 // A listener that waits for new incoming connections, configures them, and
 // accepts or rejects them.
 //
@@ -89,14 +83,10 @@ type NSXPCListener struct {
 // A listener that waits for new incoming connections, configures them, and
 // accepts or rejects them.
 func NSXPCListenerFromID(id objc.ID) NSXPCListener {
-	return NSXPCListener{objectivec.Object{id}}
+	return NSXPCListener{objectivec.Object{ID: id}}
 }
 // NOTE: NSXPCListener adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSXPCListener] class.
 //
@@ -161,10 +151,6 @@ type INSXPCListener interface {
 	SetConnectionCodeSigningRequirement(requirement string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x NSXPCListener) Init() NSXPCListener {
 	rv := objc.Send[NSXPCListener](x.ID, objc.Sel("init"))
@@ -184,11 +170,6 @@ func NewNSXPCListener() NSXPCListener {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a listener in a LaunchAgent or LaunchDaemon which has a name
 // advertised in a `launchd.Plist()` file.
 //
@@ -205,12 +186,6 @@ func NewXPCListenerWithMachServiceName(name string) NSXPCListener {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMachServiceName:"), objc.String(name))
 	return NSXPCListenerFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a listener in a LaunchAgent or LaunchDaemon which has a name
 // advertised in a `launchd.Plist()` file.
@@ -310,10 +285,6 @@ func (x NSXPCListener) SetConnectionCodeSigningRequirement(requirement string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setConnectionCodeSigningRequirement:"), objc.String(requirement))
 }
 
-
-
-
-
 // Returns the singleton listener used to listen for incoming connections in
 // an XPC service.
 //
@@ -343,13 +314,6 @@ func (_NSXPCListenerClass NSXPCListenerClass) AnonymousListener() NSXPCListener 
 	return NSXPCListenerFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The delegate for the listener.
 //
 // # Discussion
@@ -366,8 +330,6 @@ func (x NSXPCListener) SetDelegate(value NSXPCListenerDelegate) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDelegate:"), value)
 }
 
-
-
 // Returns an endpoint object that may be sent over an existing connection.
 //
 // # Discussion
@@ -381,28 +343,4 @@ func (x NSXPCListener) Endpoint() INSXPCListenerEndpoint {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("endpoint"))
 	return NSXPCListenerEndpointFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (nc NetServiceClass) Alloc() NetService {
 	return rv
 }
 
-
-
-
-
-
-
 // A network service that broadcasts its availability using multicast DNS.
 //
 // # Overview
@@ -115,17 +109,13 @@ type NetService struct {
 //
 // A network service that broadcasts its availability using multicast DNS.
 func NetServiceFromID(id objc.ID) NetService {
-	return NSNetService{objectivec.Object{id}}
+	return NSNetService{objectivec.Object{ID: id}}
 }
 
 // NSNetServiceFromID is an alias for [NetServiceFromID] for cross-framework compatibility.
 func NSNetServiceFromID(id objc.ID) NetService { return NetServiceFromID(id) }
 // NOTE: NetService adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NetService] class.
 //
@@ -180,10 +170,6 @@ type INetService interface {
 	HostName() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n NetService) Init() NetService {
 	rv := objc.Send[NetService](n.ID, objc.Sel("init"))
@@ -202,11 +188,6 @@ func NewNetService() NetService {
 	rv := objc.Send[NetService](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns the receiver, initialized as a network service of a given type and
 // sets the initial host information.
@@ -261,7 +242,6 @@ func NewNetServiceWithDomainTypeName(domain string, type_ string, name string) N
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDomain:type:name:"), objc.String(domain), objc.String(type_), objc.String(name))
 	return NetServiceFromID(rv)
 }
-
 
 // Initializes the receiver for publishing a network service of type `type` at
 // the socket location specified by `domain`, `name`, and `port`.
@@ -324,23 +304,6 @@ func NewNetServiceWithDomainTypeNamePort(domain string, type_ string, name strin
 	return NetServiceFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A read-only array containing [NSData] objects, each of which contains a
 // socket address for the service.
 //
@@ -365,8 +328,6 @@ func (n NetService) Addresses() []NSData {
 	})
 }
 
-
-
 // A string containing the domain for this service.
 //
 // # Discussion
@@ -385,8 +346,6 @@ func (n NetService) Domain() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Specifies whether to also publish, resolve, or monitor this service over
 // peer-to-peer Bluetooth and Wi-Fi, if available.
 //
@@ -404,8 +363,6 @@ func (n NetService) SetIncludesPeerToPeer(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setIncludesPeerToPeer:"), value)
 }
 
-
-
 // A string containing the name of this service.
 //
 // # Discussion
@@ -420,8 +377,6 @@ func (n NetService) Name() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The type of the published service.
 //
 // # Discussion
@@ -435,8 +390,6 @@ func (n NetService) Type() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("type"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The delegate for the receiver.
 //
@@ -453,8 +406,6 @@ func (n NetService) Delegate() NSNetServiceDelegate {
 func (n NetService) SetDelegate(value NSNetServiceDelegate) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // The port on which the service is listening for connections.
 //
@@ -474,8 +425,6 @@ func (n NetService) Port() int {
 	return rv
 }
 
-
-
 // A string containing the DNS hostname for this service.
 //
 // # Discussion
@@ -488,25 +437,4 @@ func (n NetService) HostName() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("hostName"))
 	return NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

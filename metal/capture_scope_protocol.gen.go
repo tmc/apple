@@ -50,8 +50,6 @@ type MTLCaptureScope interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLCaptureScopeObject wraps an existing Objective-C object that conforms to the MTLCaptureScope protocol.
 type MTLCaptureScopeObject struct {
 	objectivec.Object
@@ -60,8 +58,6 @@ func (o MTLCaptureScopeObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLCaptureScopeObjectFromID constructs a [MTLCaptureScopeObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLCaptureScopeObjectFromID(id objc.ID) MTLCaptureScopeObject {
@@ -69,9 +65,6 @@ func MTLCaptureScopeObjectFromID(id objc.ID) MTLCaptureScopeObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells Metal to begin recording command information.
 //
@@ -134,20 +127,7 @@ func (o MTLCaptureScopeObject) Mtl4CommandQueue() MTL4CommandQueue {
 	return MTL4CommandQueueObjectFromID(rv)
 	}
 
-
-
-
 func (o MTLCaptureScopeObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
 

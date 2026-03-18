@@ -35,12 +35,6 @@ func (mc MTLIntersectionFunctionDescriptorClass) Alloc() MTLIntersectionFunction
 	return rv
 }
 
-
-
-
-
-
-
 // A description of an intersection function that performs an intersection
 // test.
 //
@@ -63,20 +57,12 @@ func MTLIntersectionFunctionDescriptorFromID(id objc.ID) MTLIntersectionFunction
 // NOTE: MTLIntersectionFunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MTLIntersectionFunctionDescriptor] class.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionDescriptor
 type IMTLIntersectionFunctionDescriptor interface {
 	IMTLFunctionDescriptor
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i MTLIntersectionFunctionDescriptor) Init() MTLIntersectionFunctionDescriptor {
@@ -96,45 +82,4 @@ func NewMTLIntersectionFunctionDescriptor() MTLIntersectionFunctionDescriptor {
 	rv := objc.Send[MTLIntersectionFunctionDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

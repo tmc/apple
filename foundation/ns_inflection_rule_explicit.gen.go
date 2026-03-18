@@ -35,12 +35,6 @@ func (nc NSInflectionRuleExplicitClass) Alloc() NSInflectionRuleExplicit {
 	return rv
 }
 
-
-
-
-
-
-
 // An inflection rule that uses a morphology instance to determine how to
 // inflect attribued strings.
 //
@@ -67,10 +61,6 @@ func NSInflectionRuleExplicitFromID(id objc.ID) NSInflectionRuleExplicit {
 // Ensure NSInflectionRuleExplicit implements INSInflectionRuleExplicit.
 var _ INSInflectionRuleExplicit = NSInflectionRuleExplicit{}
 
-
-
-
-
 // An interface definition for the [NSInflectionRuleExplicit] class.
 //
 // # Creating an Explicit Inflection Rule
@@ -96,10 +86,6 @@ type INSInflectionRuleExplicit interface {
 	Morphology() INSMorphology
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i NSInflectionRuleExplicit) Init() NSInflectionRuleExplicit {
 	rv := objc.Send[NSInflectionRuleExplicit](i.ID, objc.Sel("init"))
@@ -119,11 +105,6 @@ func NewNSInflectionRuleExplicit() NSInflectionRuleExplicit {
 	return rv
 }
 
-
-
-
-
-
 // Creates an inflection rule with the given morphology.
 //
 // morphology: The morphology this rule applies when inflecting.
@@ -139,12 +120,6 @@ func NewInflectionRuleExplicitWithMorphology(morphology INSMorphology) NSInflect
 	return NSInflectionRuleExplicitFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates an inflection rule with the given morphology.
 //
 // morphology: The morphology this rule applies when inflecting.
@@ -159,17 +134,6 @@ func (i NSInflectionRuleExplicit) InitWithMorphology(morphology INSMorphology) N
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The morphology used by this inflection rule.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInflectionRuleExplicit/morphology
@@ -177,20 +141,4 @@ func (i NSInflectionRuleExplicit) Morphology() INSMorphology {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("morphology"))
 	return NSMorphologyFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

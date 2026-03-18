@@ -35,12 +35,6 @@ func (vc VNDetectDocumentSegmentationRequestClass) Alloc() VNDetectDocumentSegme
 	return rv
 }
 
-
-
-
-
-
-
 // An object that detects rectangular regions that contain text in the input
 // image.
 //
@@ -69,10 +63,6 @@ func VNDetectDocumentSegmentationRequestFromID(id objc.ID) VNDetectDocumentSegme
 // NOTE: VNDetectDocumentSegmentationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectDocumentSegmentationRequest] class.
 //
 // # Identifying Request Revisions
@@ -88,10 +78,6 @@ type IVNDetectDocumentSegmentationRequest interface {
 	// A constant for specifying revision 1 of the document segmentation request.
 	VNDetectDocumentSegmentationRequestRevision1() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d VNDetectDocumentSegmentationRequest) Init() VNDetectDocumentSegmentationRequest {
@@ -112,11 +98,6 @@ func NewVNDetectDocumentSegmentationRequest() VNDetectDocumentSegmentationReques
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -134,23 +115,6 @@ func NewDetectDocumentSegmentationRequestWithCompletionHandler(completionHandler
 	return VNDetectDocumentSegmentationRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying revision 1 of the document segmentation request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectdocumentsegmentationrequestrevision1
@@ -158,27 +122,4 @@ func (d VNDetectDocumentSegmentationRequest) VNDetectDocumentSegmentationRequest
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectDocumentSegmentationRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

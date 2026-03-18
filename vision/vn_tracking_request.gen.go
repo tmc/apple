@@ -37,12 +37,6 @@ func (vc VNTrackingRequestClass) Alloc() VNTrackingRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // The abstract superclass for image-analysis requests that track unique
 // features across multiple images or video frames.
 //
@@ -81,10 +75,6 @@ func VNTrackingRequestFromID(id objc.ID) VNTrackingRequest {
 // NOTE: VNTrackingRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNTrackingRequest] class.
 //
 // # Configuring a Tracking Request
@@ -122,10 +112,6 @@ type IVNTrackingRequest interface {
 	SupportedNumberOfTrackersAndReturnError() (uint, error)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t VNTrackingRequest) Init() VNTrackingRequest {
 	rv := objc.Send[VNTrackingRequest](t.ID, objc.Sel("init"))
@@ -145,11 +131,6 @@ func NewVNTrackingRequest() VNTrackingRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -167,12 +148,6 @@ func NewTrackingRequestWithCompletionHandler(completionHandler VNRequestCompleti
 	return VNTrackingRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns the maximum number of simultaneous trackers for the request.
 //
 // error: An error that contains the reason why a failure occurs.
@@ -184,7 +159,7 @@ func NewTrackingRequestWithCompletionHandler(completionHandler VNRequestCompleti
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackingRequest/supportedNumber(ofTrackersAndReturnError:)
 func (t VNTrackingRequest) SupportedNumberOfTrackersAndReturnError() (uint, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[uint](t.ID, objc.Sel("supportedNumberOfTrackersAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -193,17 +168,6 @@ func (t VNTrackingRequest) SupportedNumberOfTrackersAndReturnError() (uint, erro
 	return rv, nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The observation object defining a region to track.
 //
@@ -227,8 +191,6 @@ func (t VNTrackingRequest) SetInputObservation(value IVNDetectedObjectObservatio
 	objc.Send[struct{}](t.ID, objc.Sel("setInputObservation:"), value)
 }
 
-
-
 // A value for specifying whether to prioritize speed or location accuracy.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackingRequest/trackingLevel
@@ -239,8 +201,6 @@ func (t VNTrackingRequest) TrackingLevel() VNRequestTrackingLevel {
 func (t VNTrackingRequest) SetTrackingLevel(value VNRequestTrackingLevel) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTrackingLevel:"), value)
 }
-
-
 
 // A Boolean that indicates the last frame in a tracking sequence.
 //
@@ -259,27 +219,4 @@ func (t VNTrackingRequest) LastFrame() bool {
 func (t VNTrackingRequest) SetLastFrame(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLastFrame:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

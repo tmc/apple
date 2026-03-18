@@ -36,12 +36,6 @@ func (mc MTLAccelerationStructureMotionBoundingBoxGeometryDescriptorClass) Alloc
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a list of bounding boxes, as motion keyframe data, to turn
 // into an acceleration structure.
 //
@@ -71,10 +65,6 @@ func MTLAccelerationStructureMotionBoundingBoxGeometryDescriptorFromID(id objc.I
 }
 // NOTE: MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor] class.
 //
@@ -110,10 +100,6 @@ type IMTLAccelerationStructureMotionBoundingBoxGeometryDescriptor interface {
 	SetBoundingBoxStride(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor) Init() MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor {
 	rv := objc.Send[MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor](a.ID, objc.Sel("init"))
@@ -133,19 +119,6 @@ func NewMTLAccelerationStructureMotionBoundingBoxGeometryDescriptor() MTLAcceler
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a new bounding box descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor/descriptor
@@ -153,13 +126,6 @@ func (_MTLAccelerationStructureMotionBoundingBoxGeometryDescriptorClass MTLAccel
 	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureMotionBoundingBoxGeometryDescriptorClass.class), objc.Sel("descriptor"))
 	return MTLAccelerationStructureMotionBoundingBoxGeometryDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The number of bounding boxes in each bounding box buffer.
 //
@@ -171,8 +137,6 @@ func (a MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor) BoundingBox
 func (a MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor) SetBoundingBoxCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxCount:"), value)
 }
-
-
 
 // A array of motion keyframes, each containing bounding box data.
 //
@@ -187,8 +151,6 @@ func (a MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor) SetBounding
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxBuffers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The stride, in bytes, between bounding boxes in each buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor/boundingBoxStride
@@ -199,27 +161,4 @@ func (a MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor) BoundingBox
 func (a MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor) SetBoundingBoxStride(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxStride:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

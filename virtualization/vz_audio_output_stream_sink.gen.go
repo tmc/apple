@@ -36,12 +36,6 @@ func (vc VZAudioOutputStreamSinkClass) Alloc() VZAudioOutputStreamSink {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for an audio output stream sink.
 //
 // # Overview
@@ -61,14 +55,10 @@ type VZAudioOutputStreamSink struct {
 //
 // The base class for an audio output stream sink.
 func VZAudioOutputStreamSinkFromID(id objc.ID) VZAudioOutputStreamSink {
-	return VZAudioOutputStreamSink{objectivec.Object{id}}
+	return VZAudioOutputStreamSink{objectivec.Object{ID: id}}
 }
 // NOTE: VZAudioOutputStreamSink adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZAudioOutputStreamSink] class.
 //
@@ -76,10 +66,6 @@ func VZAudioOutputStreamSinkFromID(id objc.ID) VZAudioOutputStreamSink {
 type IVZAudioOutputStreamSink interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a VZAudioOutputStreamSink) Init() VZAudioOutputStreamSink {
@@ -99,44 +85,4 @@ func NewVZAudioOutputStreamSink() VZAudioOutputStreamSink {
 	rv := objc.Send[VZAudioOutputStreamSink](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

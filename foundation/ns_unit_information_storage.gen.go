@@ -35,12 +35,6 @@ func (uc UnitInformationStorageClass) Alloc() UnitInformationStorage {
 	return rv
 }
 
-
-
-
-
-
-
 // A unit of measure for quantities of information.
 //
 // # Overview
@@ -82,20 +76,12 @@ func NSUnitInformationStorageFromID(id objc.ID) UnitInformationStorage { return 
 // NOTE: UnitInformationStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [UnitInformationStorage] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage
 type IUnitInformationStorage interface {
 	INSDimension
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u UnitInformationStorage) Init() UnitInformationStorage {
@@ -116,11 +102,6 @@ func NewUnitInformationStorage() UnitInformationStorage {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitInformationStorageWithCoder(coder INSCoder) UnitInformationStorage {
@@ -128,7 +109,6 @@ func NewUnitInformationStorageWithCoder(coder INSCoder) UnitInformationStorage {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return UnitInformationStorageFromID(rv)
 }
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -144,7 +124,6 @@ func NewUnitInformationStorageWithSymbol(symbol string) UnitInformationStorage {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return UnitInformationStorageFromID(rv)
 }
-
 
 // Initializes a dimensional unit with the symbol and unit converter you
 // specify.
@@ -169,27 +148,6 @@ func NewUnitInformationStorageWithSymbolConverter(symbol string, converter INSUn
 	return UnitInformationStorageFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The bits unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/bits
@@ -197,8 +155,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Bits() UnitInfor
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("bits"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The nibbles unit of information.
 //
@@ -208,8 +164,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Nibbles() UnitIn
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The bytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/bytes
@@ -217,8 +171,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Bytes() UnitInfo
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("bytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The kibibits unit of information.
 //
@@ -228,8 +180,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Kibibits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The kibibytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/kibibytes
@@ -237,8 +187,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Kibibytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("kibibytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The mebibits unit of information.
 //
@@ -248,8 +196,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Mebibits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The mebibytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/mebibytes
@@ -257,8 +203,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Mebibytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("mebibytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The gibibits unit of information.
 //
@@ -268,8 +212,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Gibibits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The gibibytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/gibibytes
@@ -277,8 +219,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Gibibytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("gibibytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The tebibits unit of information.
 //
@@ -288,8 +228,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Tebibits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The tebibytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/tebibytes
@@ -297,8 +235,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Tebibytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("tebibytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The pebibits unit of information.
 //
@@ -308,8 +244,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Pebibits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The pebibytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/pebibytes
@@ -317,8 +251,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Pebibytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("pebibytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The exbibits unit of information.
 //
@@ -328,8 +260,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Exbibits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The exbibytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/exbibytes
@@ -337,8 +267,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Exbibytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("exbibytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The zebibits unit of information.
 //
@@ -348,8 +276,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Zebibits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The zebibytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/zebibytes
@@ -357,8 +283,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Zebibytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("zebibytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The yobibits unit of information.
 //
@@ -368,8 +292,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Yobibits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The yobibytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/yobibytes
@@ -377,8 +299,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Yobibytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("yobibytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The kilobits unit of information.
 //
@@ -388,8 +308,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Kilobits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The kilobytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/kilobytes
@@ -397,8 +315,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Kilobytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("kilobytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The megabits unit of information.
 //
@@ -408,8 +324,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Megabits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The megabytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/megabytes
@@ -417,8 +331,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Megabytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("megabytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The gigabits unit of information.
 //
@@ -428,8 +340,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Gigabits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The gigabytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/gigabytes
@@ -437,8 +347,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Gigabytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("gigabytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The terabits unit of information.
 //
@@ -448,8 +356,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Terabits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The terrabytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/terabytes
@@ -457,8 +363,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Terabytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("terabytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The petabits unit of information.
 //
@@ -468,8 +372,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Petabits() UnitI
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The petabytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/petabytes
@@ -477,8 +379,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Petabytes() Unit
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("petabytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The exabits unit of information.
 //
@@ -488,8 +388,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Exabits() UnitIn
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The exabytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/exabytes
@@ -497,8 +395,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Exabytes() UnitI
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("exabytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The zettabits unit of information.
 //
@@ -508,8 +404,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Zettabits() Unit
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The zettabytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/zettabytes
@@ -517,8 +411,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Zettabytes() Uni
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("zettabytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
 
 // The yottabits unit of information.
 //
@@ -528,8 +420,6 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Yottabits() Unit
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
 
-
-
 // The yottabytes unit of information.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitInformationStorage/yottabytes
@@ -537,27 +427,4 @@ func (_UnitInformationStorageClass UnitInformationStorageClass) Yottabytes() Uni
 	rv := objc.Send[objc.ID](objc.ID(_UnitInformationStorageClass.class), objc.Sel("yottabytes"))
 	return NSUnitInformationStorageFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

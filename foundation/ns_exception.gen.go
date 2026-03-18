@@ -37,12 +37,6 @@ func (nc NSExceptionClass) Alloc() NSException {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a special condition that interrupts the normal
 // flow of program execution.
 //
@@ -83,14 +77,10 @@ type NSException struct {
 // An object that represents a special condition that interrupts the normal
 // flow of program execution.
 func NSExceptionFromID(id objc.ID) NSException {
-	return NSException{objectivec.Object{id}}
+	return NSException{objectivec.Object{ID: id}}
 }
 // NOTE: NSException adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSException] class.
 //
@@ -113,7 +103,9 @@ func NSExceptionFromID(id objc.ID) NSException {
 // See: https://developer.apple.com/documentation/Foundation/NSException
 type INSException interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating and Raising an NSException Object
 
@@ -137,15 +129,7 @@ type INSException interface {
 	CallStackReturnAddresses() []NSNumber
 	// An array containing the current call stack symbols.
 	CallStackSymbols() []string
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSException
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e NSException) Init() NSException {
@@ -166,11 +150,6 @@ func NewNSException() NSException {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewExceptionWithCoder(coder INSCoder) NSException {
@@ -178,7 +157,6 @@ func NewExceptionWithCoder(coder INSCoder) NSException {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSExceptionFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated exception object.
 //
@@ -203,12 +181,6 @@ func NewExceptionWithNameReasonUserInfo(aName NSExceptionName, aReason string, a
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:reason:userInfo:"), objc.String(string(aName)), objc.String(aReason), aUserInfo)
 	return NSExceptionFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a newly allocated exception object.
 //
@@ -264,10 +236,6 @@ func (e NSException) InitWithCoder(coder INSCoder) NSException {
 	rv := objc.Send[NSException](e.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-
-
-
 
 // Creates and raises an exception with the specified name, reason, and
 // arguments.
@@ -327,13 +295,6 @@ func (_NSExceptionClass NSExceptionClass) RaiseFormat(name NSExceptionName, form
 	objc.Send[objc.ID](objc.ID(_NSExceptionClass.class), objc.Sel("raise:format:"), objc.String(string(name)), objc.String(format))
 }
 
-
-
-
-
-
-
-
 // A string used to uniquely identify the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSException/name-swift.property
@@ -342,8 +303,6 @@ func (e NSException) Name() NSExceptionName {
 	return NSExceptionName(NSStringFromID(rv).String())
 }
 
-
-
 // A string containing a “human-readable” reason for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSException/reason-swift.property
@@ -351,8 +310,6 @@ func (e NSException) Reason() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("reason"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A dictionary containing application-specific data pertaining to the
 // receiver.
@@ -368,8 +325,6 @@ func (e NSException) UserInfo() INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("userInfo"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // The call return addresses related to a raised exception.
 //
@@ -394,8 +349,6 @@ func (e NSException) CallStackReturnAddresses() []NSNumber {
 	})
 }
 
-
-
 // An array containing the current call stack symbols.
 //
 // # Discussion
@@ -410,33 +363,9 @@ func (e NSException) CallStackSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

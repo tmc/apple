@@ -35,12 +35,6 @@ func (nc NSMachPortClass) Alloc() NSMachPort {
 	return rv
 }
 
-
-
-
-
-
-
 // A port that can be used as an endpoint for distributed object connections
 // (or raw messaging).
 //
@@ -80,10 +74,6 @@ func NSMachPortFromID(id objc.ID) NSMachPort {
 // NOTE: NSMachPort adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMachPort] class.
 //
 // # Creating and Initializing
@@ -112,10 +102,6 @@ type INSMachPort interface {
 	MachPort() uint32
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMachPort) Init() NSMachPort {
 	rv := objc.Send[NSMachPort](m.ID, objc.Sel("init"))
@@ -135,11 +121,6 @@ func NewNSMachPort() NSMachPort {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMachPortWithCoder(coder INSCoder) NSMachPort {
@@ -147,7 +128,6 @@ func NewMachPortWithCoder(coder INSCoder) NSMachPort {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMachPortFromID(rv)
 }
-
 
 // Initializes a newly allocated [NSMachPort] object with a given Mach port.
 //
@@ -174,7 +154,6 @@ func NewMachPortWithMachPort(machPort uint32) NSMachPort {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMachPort:"), machPort)
 	return NSMachPortFromID(rv)
 }
-
 
 // Initializes a newly allocated [NSMachPort] object with a given Mach port
 // and the specified options.
@@ -204,12 +183,6 @@ func NewMachPortWithMachPortOptions(machPort uint32, f NSMachPortOptions) NSMach
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMachPort:options:"), machPort, f)
 	return NSMachPortFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated [NSMachPort] object with a given Mach port.
 //
@@ -264,10 +237,6 @@ func (m NSMachPort) InitWithMachPortOptions(machPort uint32, f NSMachPortOptions
 	return rv
 }
 
-
-
-
-
 // Creates and returns a port object configured with the given Mach port.
 //
 // machPort: The Mach port for the new port. This parameter should originally be of type
@@ -315,13 +284,6 @@ func (_NSMachPortClass NSMachPortClass) PortWithMachPortOptions(machPort uint32,
 	return NSPortFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The Mach port used by the receiver, represented as an integer.
 //
 // # Discussion
@@ -334,30 +296,4 @@ func (m NSMachPort) MachPort() uint32 {
 	rv := objc.Send[uint32](m.ID, objc.Sel("machPort"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

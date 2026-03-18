@@ -36,12 +36,6 @@ func (nc NSUserAppleScriptTaskClass) Alloc() NSUserAppleScriptTask {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that executes AppleScript scripts.
 //
 // # Overview
@@ -78,10 +72,6 @@ func NSUserAppleScriptTaskFromID(id objc.ID) NSUserAppleScriptTask {
 // NOTE: NSUserAppleScriptTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSUserAppleScriptTask] class.
 //
 // # Executing an AppleScript Script
@@ -97,10 +87,6 @@ type INSUserAppleScriptTask interface {
 	// Execute the AppleScript script by sending it the specified Apple event.
 	ExecuteWithAppleEventCompletionHandler(event INSAppleEventDescriptor, handler ErrorHandler)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u NSUserAppleScriptTask) Init() NSUserAppleScriptTask {
@@ -120,11 +106,6 @@ func NewNSUserAppleScriptTask() NSUserAppleScriptTask {
 	rv := objc.Send[NSUserAppleScriptTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Return a user script task instance given a URL for a script file.
 //
@@ -155,12 +136,6 @@ func NewUserAppleScriptTaskWithURLError(url INSURL) (NSUserAppleScriptTask, erro
 	return NSUserAppleScriptTaskFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Execute the AppleScript script by sending it the specified Apple event.
 //
 // event: The Apple event.
@@ -180,41 +155,8 @@ func NewUserAppleScriptTaskWithURLError(url INSURL) (NSUserAppleScriptTask, erro
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserAppleScriptTask/execute(withAppleEvent:completionHandler:)
 func (u NSUserAppleScriptTask) ExecuteWithAppleEventCompletionHandler(event INSAppleEventDescriptor, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](u.ID, objc.Sel("executeWithAppleEvent:completionHandler:"), event, _block1)
+	objc.Send[objc.ID](u.ID, objc.Sel("executeWithAppleEvent:completionHandler:"), event, _block1)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

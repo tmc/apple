@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A delegate protocol your app implements to respond to stream events.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type SCStreamDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // SCStreamDelegateObject wraps an existing Objective-C object that conforms to the SCStreamDelegate protocol.
 type SCStreamDelegateObject struct {
@@ -29,8 +25,6 @@ func (o SCStreamDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // SCStreamDelegateObjectFromID constructs a [SCStreamDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func SCStreamDelegateObjectFromID(id objc.ID) SCStreamDelegateObject {
@@ -38,9 +32,6 @@ func SCStreamDelegateObjectFromID(id objc.ID) SCStreamDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that Presenter Overlay started.
 //
@@ -114,10 +105,6 @@ func (o SCStreamDelegateObject) StreamDidBecomeInactive(stream ISCStream) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("streamDidBecomeInactive:"), stream)
 	}
-
-
-
-
 
 // SCStreamDelegateConfig holds optional typed callbacks for [SCStreamDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -234,8 +221,4 @@ func NewSCStreamDelegate(config SCStreamDelegateConfig) SCStreamDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return SCStreamDelegateObjectFromID(instance)
 }
-
-
-
-
 

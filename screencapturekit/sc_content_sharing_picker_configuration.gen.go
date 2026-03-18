@@ -37,12 +37,6 @@ func (sc SCContentSharingPickerConfigurationClass) Alloc() SCContentSharingPicke
 	return rv
 }
 
-
-
-
-
-
-
 // An instance for configuring the system content-sharing picker.
 //
 // # Control streaming selections
@@ -65,14 +59,10 @@ type SCContentSharingPickerConfiguration struct {
 //
 // An instance for configuring the system content-sharing picker.
 func SCContentSharingPickerConfigurationFromID(id objc.ID) SCContentSharingPickerConfiguration {
-	return SCContentSharingPickerConfiguration{objectivec.Object{id}}
+	return SCContentSharingPickerConfiguration{objectivec.Object{ID: id}}
 }
 // Ensure SCContentSharingPickerConfiguration implements ISCContentSharingPickerConfiguration.
 var _ ISCContentSharingPickerConfiguration = SCContentSharingPickerConfiguration{}
-
-
-
-
 
 // An interface definition for the [SCContentSharingPickerConfiguration] class.
 //
@@ -107,10 +97,6 @@ type ISCContentSharingPickerConfiguration interface {
 	SetExcludedWindowIDs(value []foundation.NSNumber)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c SCContentSharingPickerConfiguration) Init() SCContentSharingPickerConfiguration {
 	rv := objc.Send[SCContentSharingPickerConfiguration](c.ID, objc.Sel("init"))
@@ -129,26 +115,6 @@ func NewSCContentSharingPickerConfiguration() SCContentSharingPickerConfiguratio
 	rv := objc.Send[SCContentSharingPickerConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The content-selection modes supported by the picker.
 //
@@ -169,8 +135,6 @@ func (c SCContentSharingPickerConfiguration) SetAllowedPickerModes(value SCConte
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowedPickerModes:"), value)
 }
 
-
-
 // A Boolean value that indicates if the present stream can change to a
 // different source.
 //
@@ -187,8 +151,6 @@ func (c SCContentSharingPickerConfiguration) SetAllowsChangingSelectedContent(va
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsChangingSelectedContent:"), value)
 }
 
-
-
 // A list of bundle IDs to exclude from the sharing picker.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerConfiguration-c.class/excludedBundleIDs
@@ -199,8 +161,6 @@ func (c SCContentSharingPickerConfiguration) ExcludedBundleIDs() []string {
 func (c SCContentSharingPickerConfiguration) SetExcludedBundleIDs(value []string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setExcludedBundleIDs:"), objectivec.StringSliceToNSArray(value))
 }
-
-
 
 // A list of window IDs to exclude from the sharing picker.
 //
@@ -216,20 +176,4 @@ func (c SCContentSharingPickerConfiguration) ExcludedWindowIDs() []foundation.NS
 func (c SCContentSharingPickerConfiguration) SetExcludedWindowIDs(value []foundation.NSNumber) {
 	objc.Send[struct{}](c.ID, objc.Sel("setExcludedWindowIDs:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

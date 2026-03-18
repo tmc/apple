@@ -37,12 +37,6 @@ func (mc MTL4CommandBufferOptionsClass) Alloc() MTL4CommandBufferOptions {
 	return rv
 }
 
-
-
-
-
-
-
 // Options to configure a command buffer before encoding work into it.
 //
 // # Instance Properties
@@ -59,14 +53,10 @@ type MTL4CommandBufferOptions struct {
 //
 // Options to configure a command buffer before encoding work into it.
 func MTL4CommandBufferOptionsFromID(id objc.ID) MTL4CommandBufferOptions {
-	return MTL4CommandBufferOptions{objectivec.Object{id}}
+	return MTL4CommandBufferOptions{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4CommandBufferOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4CommandBufferOptions] class.
 //
@@ -88,10 +78,6 @@ type IMTL4CommandBufferOptions interface {
 	MTL4CommandQueueErrorDomain() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4CommandBufferOptions) Init() MTL4CommandBufferOptions {
 	rv := objc.Send[MTL4CommandBufferOptions](m.ID, objc.Sel("init"))
@@ -110,26 +96,6 @@ func NewMTL4CommandBufferOptions() MTL4CommandBufferOptions {
 	rv := objc.Send[MTL4CommandBufferOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Contains information related to shader logging.
 //
@@ -150,34 +116,9 @@ func (m MTL4CommandBufferOptions) SetLogState(value MTLLogState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLogState:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommandBufferOptions) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

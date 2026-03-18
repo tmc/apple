@@ -37,12 +37,6 @@ func (nc NSKeyedArchiverClass) Alloc() NSKeyedArchiver {
 	return rv
 }
 
-
-
-
-
-
-
 // An encoder that stores an object’s data to an archive referenced by keys.
 //
 // # Overview
@@ -105,10 +99,6 @@ func NSKeyedArchiverFromID(id objc.ID) NSKeyedArchiver {
 // NOTE: NSKeyedArchiver adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSKeyedArchiver] class.
 //
 // # Creating a Keyed Archiver
@@ -153,10 +143,6 @@ type INSKeyedArchiver interface {
 	SetDelegate(value NSKeyedArchiverDelegate)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (k NSKeyedArchiver) Init() NSKeyedArchiver {
 	rv := objc.Send[NSKeyedArchiver](k.ID, objc.Sel("init"))
@@ -175,11 +161,6 @@ func NewNSKeyedArchiver() NSKeyedArchiver {
 	rv := objc.Send[NSKeyedArchiver](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates an archiver to encode data, and optionally disables secure coding.
 //
@@ -200,12 +181,6 @@ func NewKeyedArchiverRequiringSecureCoding(requiresSecureCoding bool) NSKeyedArc
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initRequiringSecureCoding:"), requiresSecureCoding)
 	return NSKeyedArchiverFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates an archiver to encode data, and optionally disables secure coding.
 //
@@ -238,10 +213,6 @@ func (k NSKeyedArchiver) FinishEncoding() {
 	objc.Send[objc.ID](k.ID, objc.Sel("finishEncoding"))
 }
 
-
-
-
-
 // Encodes an object graph with the given root object into a data
 // representation, optionally requiring secure coding.
 //
@@ -258,7 +229,7 @@ func (k NSKeyedArchiver) FinishEncoding() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/archivedData(withRootObject:requiringSecureCoding:)
 func (_NSKeyedArchiverClass NSKeyedArchiverClass) ArchivedDataWithRootObjectRequiringSecureCodingError(object objectivec.IObject, requiresSecureCoding bool) (NSData, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSKeyedArchiverClass.class), objc.Sel("archivedDataWithRootObject:requiringSecureCoding:error:"), object, requiresSecureCoding, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -302,13 +273,6 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ClassNameForClassWithCls(cls o
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
 // The encoded data for the archiver.
 //
 // # Discussion
@@ -325,8 +289,6 @@ func (k NSKeyedArchiver) EncodedData() INSData {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("encodedData"))
 	return NSDataFromID(objc.ID(rv))
 }
-
-
 
 // The format in which the receiver encodes its data.
 //
@@ -348,8 +310,6 @@ func (k NSKeyedArchiver) SetOutputFormat(value NSPropertyListFormat) {
 	objc.Send[struct{}](k.ID, objc.Sel("setOutputFormat:"), value)
 }
 
-
-
 // The archiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/delegate
@@ -360,28 +320,4 @@ func (k NSKeyedArchiver) Delegate() NSKeyedArchiverDelegate {
 func (k NSKeyedArchiver) SetDelegate(value NSKeyedArchiverDelegate) {
 	objc.Send[struct{}](k.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

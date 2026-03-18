@@ -37,12 +37,6 @@ func (mc MTLStructMemberClass) Alloc() MTLStructMember {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that provides information about a field in a structure.
 //
 // # Overview
@@ -89,14 +83,10 @@ type MTLStructMember struct {
 //
 // An instance that provides information about a field in a structure.
 func MTLStructMemberFromID(id objc.ID) MTLStructMember {
-	return MTLStructMember{objectivec.Object{id}}
+	return MTLStructMember{objectivec.Object{ID: id}}
 }
 // NOTE: MTLStructMember adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLStructMember] class.
 //
@@ -154,10 +144,6 @@ type IMTLStructMember interface {
 	SetMembers(value IMTLStructMember)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MTLStructMember) Init() MTLStructMember {
 	rv := objc.Send[MTLStructMember](s.ID, objc.Sel("init"))
@@ -176,15 +162,6 @@ func NewMTLStructMember() MTLStructMember {
 	rv := objc.Send[MTLStructMember](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Provides a description of the underlying array when the struct member holds
 // an array.
@@ -256,17 +233,6 @@ func (s MTLStructMember) TensorReferenceType() IMTLTensorReferenceType {
 	return MTLTensorReferenceTypeFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name of the struct member.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/name
@@ -274,8 +240,6 @@ func (s MTLStructMember) Name() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The data type of the struct member.
 //
@@ -294,8 +258,6 @@ func (s MTLStructMember) DataType() MTLDataType {
 	return MTLDataType(rv)
 }
 
-
-
 // The location of this member relative to the start of its struct, in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/offset
@@ -304,8 +266,6 @@ func (s MTLStructMember) Offset() uint {
 	return rv
 }
 
-
-
 // The index in the argument table that corresponds to the struct member.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/argumentIndex
@@ -313,8 +273,6 @@ func (s MTLStructMember) ArgumentIndex() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("argumentIndex"))
 	return rv
 }
-
-
 
 // An array of instances that describe the fields in the struct.
 //
@@ -326,26 +284,4 @@ func (s MTLStructMember) Members() IMTLStructMember {
 func (s MTLStructMember) SetMembers(value IMTLStructMember) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMembers:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

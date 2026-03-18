@@ -35,12 +35,6 @@ func (vc VNDetectTextRectanglesRequestClass) Alloc() VNDetectTextRectanglesReque
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that finds regions of visible text in an image.
 //
 // # Overview
@@ -71,10 +65,6 @@ func VNDetectTextRectanglesRequestFromID(id objc.ID) VNDetectTextRectanglesReque
 // NOTE: VNDetectTextRectanglesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectTextRectanglesRequest] class.
 //
 // # Configuring a Request
@@ -102,10 +92,6 @@ type IVNDetectTextRectanglesRequest interface {
 	VNDetectTextRectanglesRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectTextRectanglesRequest) Init() VNDetectTextRectanglesRequest {
 	rv := objc.Send[VNDetectTextRectanglesRequest](d.ID, objc.Sel("init"))
@@ -125,11 +111,6 @@ func NewVNDetectTextRectanglesRequest() VNDetectTextRectanglesRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -146,23 +127,6 @@ func NewDetectTextRectanglesRequestWithCompletionHandler(completionHandler VNReq
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectTextRectanglesRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the request detects character
 // bounding boxes.
@@ -183,8 +147,6 @@ func (d VNDetectTextRectanglesRequest) SetReportCharacterBoxes(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setReportCharacterBoxes:"), value)
 }
 
-
-
 // A constant for specifying revision 1 of the text rectangles detection
 // request.
 //
@@ -193,27 +155,4 @@ func (d VNDetectTextRectanglesRequest) VNDetectTextRectanglesRequestRevision1() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectTextRectanglesRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

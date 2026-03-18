@@ -37,12 +37,6 @@ func (vc VZBridgedNetworkInterfaceClass) Alloc() VZBridgedNetworkInterface {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that identifies the supported network interfaces of the host
 // computer.
 //
@@ -76,14 +70,10 @@ type VZBridgedNetworkInterface struct {
 // An object that identifies the supported network interfaces of the host
 // computer.
 func VZBridgedNetworkInterfaceFromID(id objc.ID) VZBridgedNetworkInterface {
-	return VZBridgedNetworkInterface{objectivec.Object{id}}
+	return VZBridgedNetworkInterface{objectivec.Object{ID: id}}
 }
 // NOTE: VZBridgedNetworkInterface adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZBridgedNetworkInterface] class.
 //
@@ -104,10 +94,6 @@ type IVZBridgedNetworkInterface interface {
 	LocalizedDisplayName() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (b VZBridgedNetworkInterface) Init() VZBridgedNetworkInterface {
 	rv := objc.Send[VZBridgedNetworkInterface](b.ID, objc.Sel("init"))
@@ -127,26 +113,6 @@ func NewVZBridgedNetworkInterface() VZBridgedNetworkInterface {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The unique BSD name of this network interface.
 //
 // # Discussion
@@ -160,8 +126,6 @@ func (b VZBridgedNetworkInterface) Identifier() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // A user-visible name for the network interface.
 //
 // # Discussion
@@ -174,12 +138,6 @@ func (b VZBridgedNetworkInterface) LocalizedDisplayName() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("localizedDisplayName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
 
 // The bridged network interfaces that you may use in your virtual machine.
 //
@@ -195,22 +153,4 @@ func (_VZBridgedNetworkInterfaceClass VZBridgedNetworkInterfaceClass) NetworkInt
 		return VZBridgedNetworkInterfaceFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

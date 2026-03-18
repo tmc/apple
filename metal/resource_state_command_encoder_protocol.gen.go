@@ -46,8 +46,6 @@ type MTLResourceStateCommandEncoder interface {
 	MoveTextureMappingsFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToTextureDestinationSliceDestinationLevelDestinationOrigin(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin)
 }
 
-
-
 // MTLResourceStateCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLResourceStateCommandEncoder protocol.
 type MTLResourceStateCommandEncoderObject struct {
 	objectivec.Object
@@ -56,8 +54,6 @@ func (o MTLResourceStateCommandEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLResourceStateCommandEncoderObjectFromID constructs a [MTLResourceStateCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLResourceStateCommandEncoderObjectFromID(id objc.ID) MTLResourceStateCommandEncoderObject {
@@ -65,9 +61,6 @@ func MTLResourceStateCommandEncoderObjectFromID(id objc.ID) MTLResourceStateComm
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Encodes a command to update the texture mappings for a region in a single
 // texture mipmap.
@@ -352,16 +345,7 @@ func (o MTLResourceStateCommandEncoderObject) BarrierAfterQueueStagesBeforeStage
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 
-
-
-
-
-
 func (o MTLResourceStateCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

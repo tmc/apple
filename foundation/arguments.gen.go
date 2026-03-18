@@ -36,12 +36,6 @@ func (ac ArgumentsClass) Alloc() Arguments {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSProcessInfo/arguments-c.ivar
 type Arguments struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Arguments struct {
 
 // ArgumentsFromID constructs a [Arguments] from an objc.ID.
 func ArgumentsFromID(id objc.ID) Arguments {
-	return Arguments{objectivec.Object{id}}
+	return Arguments{objectivec.Object{ID: id}}
 }
 // Ensure Arguments implements IArguments.
 var _ IArguments = Arguments{}
-
-
-
-
 
 // An interface definition for the [Arguments] class.
 //
@@ -64,10 +54,6 @@ var _ IArguments = Arguments{}
 type IArguments interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a Arguments) Init() Arguments {
@@ -87,38 +73,4 @@ func NewArguments() Arguments {
 	rv := objc.Send[Arguments](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

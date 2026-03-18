@@ -37,12 +37,6 @@ func (nc NSInvocationClass) Alloc() NSInvocation {
 	return rv
 }
 
-
-
-
-
-
-
 // An Objective-C message rendered as an object.
 //
 // # Overview
@@ -113,14 +107,10 @@ type NSInvocation struct {
 //
 // An Objective-C message rendered as an object.
 func NSInvocationFromID(id objc.ID) NSInvocation {
-	return NSInvocation{objectivec.Object{id}}
+	return NSInvocation{objectivec.Object{ID: id}}
 }
 // Ensure NSInvocation implements INSInvocation.
 var _ INSInvocation = NSInvocation{}
-
-
-
-
 
 // An interface definition for the [NSInvocation] class.
 //
@@ -192,10 +182,6 @@ type INSInvocation interface {
 	InvokeUsingIMP(imp objectivec.IMP)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i NSInvocation) Init() NSInvocation {
 	rv := objc.Send[NSInvocation](i.ID, objc.Sel("init"))
@@ -214,15 +200,6 @@ func NewNSInvocation() NSInvocation {
 	rv := objc.Send[NSInvocation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Sets an argument of the receiver.
 //
@@ -388,10 +365,6 @@ func (i NSInvocation) InvokeUsingIMP(imp objectivec.IMP) {
 	objc.Send[objc.ID](i.ID, objc.Sel("invokeUsingIMP:"), imp)
 }
 
-
-
-
-
 // Returns an [NSInvocation] object able to construct messages using a given
 // method signature.
 //
@@ -412,13 +385,6 @@ func (_NSInvocationClass NSInvocationClass) InvocationWithMethodSignature(sig IN
 	return NSInvocationFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The receiver’s selector, or 0 if it hasn’t been set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/selector
@@ -429,8 +395,6 @@ func (i NSInvocation) Selector() objc.SEL {
 func (i NSInvocation) SetSelector(value objc.SEL) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSelector:"), value)
 }
-
-
 
 // The receiver’s target, or `nil` if the receiver has no target.
 //
@@ -447,8 +411,6 @@ func (i NSInvocation) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](i.ID, objc.Sel("setTarget:"), value)
 }
 
-
-
 // A Boolean value that indicates if the receiver has retained its arguments.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/argumentsRetained
@@ -457,8 +419,6 @@ func (i NSInvocation) ArgumentsRetained() bool {
 	return rv
 }
 
-
-
 // The receiver’s method signature.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/methodSignature
@@ -466,20 +426,4 @@ func (i NSInvocation) MethodSignature() INSMethodSignature {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("methodSignature"))
 	return NSMethodSignatureFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

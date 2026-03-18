@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNTextObservation] class.
@@ -37,12 +36,6 @@ func (vc VNTextObservationClass) Alloc() VNTextObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // Information about regions of text that an image-analysis request detects.
 //
 // # Overview
@@ -68,10 +61,6 @@ func VNTextObservationFromID(id objc.ID) VNTextObservation {
 // NOTE: VNTextObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNTextObservation] class.
 //
 // # Finding Individual Characters
@@ -86,13 +75,7 @@ type IVNTextObservation interface {
 
 	// An array of detected individual character bounding boxes.
 	CharacterBoxes() []VNRectangleObservation
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t VNTextObservation) Init() VNTextObservation {
@@ -113,11 +96,6 @@ func NewVNTextObservation() VNTextObservation {
 	return rv
 }
 
-
-
-
-
-
 // Creates a rectangle observation from its corner points.
 //
 // requestRevision: The rectangle detector revision number. A higher revision indicates more
@@ -136,7 +114,6 @@ func NewTextObservationRectangleObservationWithRequestRevisionTopLeftBottomLeftB
 	rv := objc.Send[objc.ID](objc.ID(getVNTextObservationClass().class), objc.Sel("rectangleObservationWithRequestRevision:topLeft:bottomLeft:bottomRight:topRight:"), requestRevision, topLeft, bottomLeft, bottomRight, topRight)
 	return VNTextObservationFromID(rv)
 }
-
 
 // Creates a rectangle observation from its corner points.
 //
@@ -157,7 +134,6 @@ func NewTextObservationRectangleObservationWithRequestRevisionTopLeftTopRightBot
 	return VNTextObservationFromID(rv)
 }
 
-
 // Creates an observation with a bounding box.
 //
 // boundingBox: The observation’s bounding box, in coordinates normalized to the
@@ -169,7 +145,6 @@ func NewTextObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNText
 	rv := objc.Send[objc.ID](objc.ID(getVNTextObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
 	return VNTextObservationFromID(rv)
 }
-
 
 // Creates an observation with a revision number and bounding box.
 //
@@ -184,26 +159,6 @@ func NewTextObservationWithRequestRevisionBoundingBox(requestRevision uint, boun
 	rv := objc.Send[objc.ID](objc.ID(getVNTextObservationClass().class), objc.Sel("observationWithRequestRevision:boundingBox:"), requestRevision, boundingBox)
 	return VNTextObservationFromID(rv)
 }
-
-
-
-
-
-
-func (t VNTextObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // An array of detected individual character bounding boxes.
 //
@@ -223,30 +178,4 @@ func (t VNTextObservation) CharacterBoxes() []VNRectangleObservation {
 		return VNRectangleObservationFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

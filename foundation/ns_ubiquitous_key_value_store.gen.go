@@ -36,12 +36,6 @@ func (nc NSUbiquitousKeyValueStoreClass) Alloc() NSUbiquitousKeyValueStore {
 	return rv
 }
 
-
-
-
-
-
-
 // An iCloud-based container of key-value pairs you share among instances of
 // your app running on a person’s devices.
 //
@@ -168,14 +162,10 @@ type NSUbiquitousKeyValueStore struct {
 // An iCloud-based container of key-value pairs you share among instances of
 // your app running on a person’s devices.
 func NSUbiquitousKeyValueStoreFromID(id objc.ID) NSUbiquitousKeyValueStore {
-	return NSUbiquitousKeyValueStore{objectivec.Object{id}}
+	return NSUbiquitousKeyValueStore{objectivec.Object{ID: id}}
 }
 // NOTE: NSUbiquitousKeyValueStore adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSUbiquitousKeyValueStore] class.
 //
@@ -297,10 +287,6 @@ type INSUbiquitousKeyValueStore interface {
 	SetNSUbiquitousKeyValueStoreAccountChange(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u NSUbiquitousKeyValueStore) Init() NSUbiquitousKeyValueStore {
 	rv := objc.Send[NSUbiquitousKeyValueStore](u.ID, objc.Sel("init"))
@@ -319,15 +305,6 @@ func NewNSUbiquitousKeyValueStore() NSUbiquitousKeyValueStore {
 	rv := objc.Send[NSUbiquitousKeyValueStore](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the Boolean value associated with the specified key.
 //
@@ -651,17 +628,6 @@ func (u NSUbiquitousKeyValueStore) RemoveObjectForKey(aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeObjectForKey:"), objc.String(aKey))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A dictionary with all of the key-value pairs in the iCloud key-value store.
 //
 // # Discussion
@@ -679,8 +645,6 @@ func (u NSUbiquitousKeyValueStore) DictionaryRepresentation() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // A key that indicates the reason why the key-value store changed.
 //
 // See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestorechangereasonkey
@@ -689,8 +653,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreChangeReasonKey() st
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A key that indicates which keys changed in the iCloud key-value store.
 //
 // See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestorechangedkeyskey
@@ -698,8 +660,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreChangedKeysKey() str
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUbiquitousKeyValueStoreChangedKeysKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A constant that indicates a value changed in iCloud.
 //
@@ -711,8 +671,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreServerChange() int {
 func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreServerChange(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreServerChange:"), value)
 }
-
-
 
 // A constant that indicates the initial attempt to load keys and values from
 // iCloud is in progress.
@@ -726,8 +684,6 @@ func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreInitialSyncChange
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreInitialSyncChange:"), value)
 }
 
-
-
 // A constant that indicates an attempt to write data exceeded the quota
 // limits.
 //
@@ -740,8 +696,6 @@ func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreQuotaViolationCha
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreQuotaViolationChange:"), value)
 }
 
-
-
 // A constant that indicates the current Apple account changed.
 //
 // See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestoreaccountchange
@@ -752,12 +706,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreAccountChange() int 
 func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreAccountChange(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreAccountChange:"), value)
 }
-
-
-
-
-
-
 
 // The shared iCloud key-value store object.
 //
@@ -772,22 +720,4 @@ func (_NSUbiquitousKeyValueStoreClass NSUbiquitousKeyValueStoreClass) DefaultSto
 	rv := objc.Send[objc.ID](objc.ID(_NSUbiquitousKeyValueStoreClass.class), objc.Sel("defaultStore"))
 	return NSUbiquitousKeyValueStoreFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

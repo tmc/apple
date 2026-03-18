@@ -39,12 +39,6 @@ func (vc VNHomographicImageRegistrationRequestClass) Alloc() VNHomographicImageR
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that determines the perspective warp matrix
 // necessary to align the content of two images.
 //
@@ -73,10 +67,6 @@ func VNHomographicImageRegistrationRequestFromID(id objc.ID) VNHomographicImageR
 // NOTE: VNHomographicImageRegistrationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNHomographicImageRegistrationRequest] class.
 //
 // # Identifying Request Revisions
@@ -92,10 +82,6 @@ type IVNHomographicImageRegistrationRequest interface {
 	// A constant for specifying revision 1 of the homographic image registration request.
 	VNHomographicImageRegistrationRequestRevision1() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VNHomographicImageRegistrationRequest) Init() VNHomographicImageRegistrationRequest {
@@ -116,11 +102,6 @@ func NewVNHomographicImageRegistrationRequest() VNHomographicImageRegistrationRe
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -138,7 +119,6 @@ func NewHomographicImageRegistrationRequestWithCompletionHandler(completionHandl
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting a Core Graphics image.
 //
 // cgImage: The targeted Core Graphics image.
@@ -151,7 +131,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCGImageOptions(cgImage co
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:"), cgImage, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image, executing the
 // completion handler when done.
@@ -168,7 +147,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCGImageOptionsCompletionH
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, completionHandler)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image of known orientation.
 //
@@ -189,7 +167,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCGImageOrientationOptions
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image of known orientation,
 // executing the completion handler when done.
@@ -214,7 +191,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCGImageOrientationOptions
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
@@ -230,7 +206,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCIImageOptions(ciImage ob
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image.
 //
@@ -249,7 +224,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCIImageOptionsCompletionH
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image of known orientation.
 //
@@ -273,7 +247,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCIImageOrientationOptions
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image of known orientation,
 // executing the completion handler when done.
@@ -301,7 +274,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCIImageOrientationOptions
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request that targets an image in a sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
@@ -317,7 +289,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCMSampleBufferOptions(sam
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:"), sampleBuffer, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request with a completion handler that targets an image in a
 // sample buffer.
@@ -337,7 +308,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCMSampleBufferOptionsComp
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, completionHandler)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request that targets an image of a known orientation in a
 // sample buffer.
@@ -361,7 +331,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCMSampleBufferOrientation
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request with a completion handler that targets an image of a
 // known orientation in a sample buffer.
@@ -388,7 +357,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCMSampleBufferOrientation
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image in a pixel buffer.
 //
 // pixelBuffer: The pixel buffer containing the targeted image.
@@ -401,7 +369,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCVPixelBufferOptions(pixe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:"), pixelBuffer, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer.
 //
@@ -417,7 +384,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCVPixelBufferOptionsCompl
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, completionHandler)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer of known
 // orientation.
@@ -439,7 +405,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCVPixelBufferOrientationO
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer of known
 // orientation.
@@ -464,7 +429,6 @@ func NewHomographicImageRegistrationRequestWithTargetedCVPixelBufferOrientationO
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image as raw data.
 //
 // imageData: The data containing the targeted image.
@@ -477,7 +441,6 @@ func NewHomographicImageRegistrationRequestWithTargetedImageDataOptions(imageDat
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:"), imageData, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image as raw data, executing the
 // completion handler when done.
@@ -494,7 +457,6 @@ func NewHomographicImageRegistrationRequestWithTargetedImageDataOptionsCompletio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, completionHandler)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a raw data image of known orientation.
 //
@@ -515,7 +477,6 @@ func NewHomographicImageRegistrationRequestWithTargetedImageDataOrientationOptio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a raw data image of known orientation,
 // executing the completion handler when done.
@@ -540,7 +501,6 @@ func NewHomographicImageRegistrationRequestWithTargetedImageDataOrientationOptio
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image at the specified URL.
 //
 // imageURL: The URL of the targeted image.
@@ -553,7 +513,6 @@ func NewHomographicImageRegistrationRequestWithTargetedImageURLOptions(imageURL 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:"), imageURL, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image at the specified URL, executing
 // the completion handler when done.
@@ -570,7 +529,6 @@ func NewHomographicImageRegistrationRequestWithTargetedImageURLOptionsCompletion
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, completionHandler)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image of known orientation, at the
 // specified URL.
@@ -592,7 +550,6 @@ func NewHomographicImageRegistrationRequestWithTargetedImageURLOrientationOption
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:"), imageURL, orientation, options)
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image of known orientation, at the
 // specified URL, executing the completion handler when done.
@@ -617,23 +574,6 @@ func NewHomographicImageRegistrationRequestWithTargetedImageURLOrientationOption
 	return VNHomographicImageRegistrationRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying revision 1 of the homographic image registration
 // request.
 //
@@ -642,27 +582,4 @@ func (h VNHomographicImageRegistrationRequest) VNHomographicImageRegistrationReq
 	rv := objc.Send[int](h.ID, objc.Sel("VNHomographicImageRegistrationRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -26,8 +26,6 @@ type MTLThreadgroupBinding interface {
 	ThreadgroupMemoryDataSize() uint
 }
 
-
-
 // MTLThreadgroupBindingObject wraps an existing Objective-C object that conforms to the MTLThreadgroupBinding protocol.
 type MTLThreadgroupBindingObject struct {
 	objectivec.Object
@@ -36,8 +34,6 @@ func (o MTLThreadgroupBindingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLThreadgroupBindingObjectFromID constructs a [MTLThreadgroupBindingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLThreadgroupBindingObjectFromID(id objc.ID) MTLThreadgroupBindingObject {
@@ -45,9 +41,6 @@ func MTLThreadgroupBindingObjectFromID(id objc.ID) MTLThreadgroupBindingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLThreadgroupBinding/threadgroupMemoryAlignment
 
@@ -112,26 +105,4 @@ func (o MTLThreadgroupBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

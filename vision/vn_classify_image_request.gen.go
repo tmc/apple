@@ -37,12 +37,6 @@ func (vc VNClassifyImageRequestClass) Alloc() VNClassifyImageRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // A request to classify an image.
 //
 // # Overview
@@ -75,10 +69,6 @@ func VNClassifyImageRequestFromID(id objc.ID) VNClassifyImageRequest {
 // NOTE: VNClassifyImageRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNClassifyImageRequest] class.
 //
 // # Accessing Results
@@ -104,10 +94,6 @@ type IVNClassifyImageRequest interface {
 	VNClassifyImageRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c VNClassifyImageRequest) Init() VNClassifyImageRequest {
 	rv := objc.Send[VNClassifyImageRequest](c.ID, objc.Sel("init"))
@@ -127,11 +113,6 @@ func NewVNClassifyImageRequest() VNClassifyImageRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -149,12 +130,6 @@ func NewClassifyImageRequestWithCompletionHandler(completionHandler VNRequestCom
 	return VNClassifyImageRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns the classification identifiers that the request supports in its
 // current configuration.
 //
@@ -164,7 +139,7 @@ func NewClassifyImageRequestWithCompletionHandler(completionHandler VNRequestCom
 //
 // See: https://developer.apple.com/documentation/Vision/VNClassifyImageRequest/supportedIdentifiers()
 func (c VNClassifyImageRequest) SupportedIdentifiersAndReturnError() ([]string, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("supportedIdentifiersAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -174,17 +149,6 @@ func (c VNClassifyImageRequest) SupportedIdentifiersAndReturnError() ([]string, 
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying the first revision of the image-classification
 // request.
 //
@@ -193,27 +157,4 @@ func (c VNClassifyImageRequest) VNClassifyImageRequestRevision1() int {
 	rv := objc.Send[int](c.ID, objc.Sel("VNClassifyImageRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

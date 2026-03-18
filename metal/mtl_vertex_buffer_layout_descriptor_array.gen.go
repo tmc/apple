@@ -36,12 +36,6 @@ func (mc MTLVertexBufferLayoutDescriptorArrayClass) Alloc() MTLVertexBufferLayou
 	return rv
 }
 
-
-
-
-
-
-
 // An array of vertex buffer layout descriptor instances.
 //
 // # Overview
@@ -64,14 +58,10 @@ type MTLVertexBufferLayoutDescriptorArray struct {
 //
 // An array of vertex buffer layout descriptor instances.
 func MTLVertexBufferLayoutDescriptorArrayFromID(id objc.ID) MTLVertexBufferLayoutDescriptorArray {
-	return MTLVertexBufferLayoutDescriptorArray{objectivec.Object{id}}
+	return MTLVertexBufferLayoutDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLVertexBufferLayoutDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLVertexBufferLayoutDescriptorArray] class.
 //
@@ -93,10 +83,6 @@ type IMTLVertexBufferLayoutDescriptorArray interface {
 	SetObjectAtIndexedSubscript(bufferDesc IMTLVertexBufferLayoutDescriptor, index uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v MTLVertexBufferLayoutDescriptorArray) Init() MTLVertexBufferLayoutDescriptorArray {
 	rv := objc.Send[MTLVertexBufferLayoutDescriptorArray](v.ID, objc.Sel("init"))
@@ -115,15 +101,6 @@ func NewMTLVertexBufferLayoutDescriptorArray() MTLVertexBufferLayoutDescriptorAr
 	rv := objc.Send[MTLVertexBufferLayoutDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the state of the specified vertex buffer layout.
 //
@@ -156,42 +133,9 @@ func (v MTLVertexBufferLayoutDescriptorArray) SetObjectAtIndexedSubscript(buffer
 	objc.Send[objc.ID](v.ID, objc.Sel("setObject:atIndexedSubscript:"), bufferDesc, index)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexBufferLayoutDescriptorArray) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

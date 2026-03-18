@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNHorizonObservation] class.
@@ -37,12 +36,6 @@ func (vc VNHorizonObservationClass) Alloc() VNHorizonObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // The horizon angle information that an image-analysis request detects.
 //
 // # Overview
@@ -70,10 +63,6 @@ func VNHorizonObservationFromID(id objc.ID) VNHorizonObservation {
 // NOTE: VNHorizonObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNHorizonObservation] class.
 //
 // # Evaluating the Horizon
@@ -94,13 +83,7 @@ type IVNHorizonObservation interface {
 	Transform() corefoundation.CGAffineTransform
 	// Creates an affine transform for the specified image width and height.
 	TransformForImageWidthHeight(width uintptr, height uintptr) corefoundation.CGAffineTransform
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VNHorizonObservation) Init() VNHorizonObservation {
@@ -121,15 +104,6 @@ func NewVNHorizonObservation() VNHorizonObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Creates an affine transform for the specified image width and height.
 //
 // width: The width of the image.
@@ -145,20 +119,6 @@ func (h VNHorizonObservation) TransformForImageWidthHeight(width uintptr, height
 	rv := objc.Send[corefoundation.CGAffineTransform](h.ID, objc.Sel("transformForImageWidth:height:"), width, height)
 	return corefoundation.CGAffineTransform(rv)
 }
-func (h VNHorizonObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](h.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The angle of the observed horizon.
 //
@@ -173,8 +133,6 @@ func (h VNHorizonObservation) Angle() float64 {
 	return rv
 }
 
-
-
 // The transform to apply to the detected horizon.
 //
 // # Discussion
@@ -187,30 +145,4 @@ func (h VNHorizonObservation) Transform() corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](h.ID, objc.Sel("transform"))
 	return corefoundation.CGAffineTransform(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

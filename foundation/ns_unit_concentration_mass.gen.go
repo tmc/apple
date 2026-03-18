@@ -35,12 +35,6 @@ func (uc UnitConcentrationMassClass) Alloc() UnitConcentrationMass {
 	return rv
 }
 
-
-
-
-
-
-
 // A unit of measure for concentration of mass.
 //
 // # Overview
@@ -77,20 +71,12 @@ func NSUnitConcentrationMassFromID(id objc.ID) UnitConcentrationMass { return Un
 // NOTE: UnitConcentrationMass adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [UnitConcentrationMass] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass
 type IUnitConcentrationMass interface {
 	INSDimension
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u UnitConcentrationMass) Init() UnitConcentrationMass {
@@ -111,11 +97,6 @@ func NewUnitConcentrationMass() UnitConcentrationMass {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitConcentrationMassWithCoder(coder INSCoder) UnitConcentrationMass {
@@ -123,7 +104,6 @@ func NewUnitConcentrationMassWithCoder(coder INSCoder) UnitConcentrationMass {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return UnitConcentrationMassFromID(rv)
 }
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -139,7 +119,6 @@ func NewUnitConcentrationMassWithSymbol(symbol string) UnitConcentrationMass {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return UnitConcentrationMassFromID(rv)
 }
-
 
 // Initializes a dimensional unit with the symbol and unit converter you
 // specify.
@@ -164,16 +143,6 @@ func NewUnitConcentrationMassWithSymbolConverter(symbol string, converter INSUni
 	return UnitConcentrationMassFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
 // Returns the millimoles per liter unit with the specified number of grams
 // per mole.
 //
@@ -189,17 +158,6 @@ func (_UnitConcentrationMassClass UnitConcentrationMassClass) MillimolesPerLiter
 	return NSUnitConcentrationMassFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The grams per liter unit of concentration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass/gramsPerLiter
@@ -208,8 +166,6 @@ func (_UnitConcentrationMassClass UnitConcentrationMassClass) GramsPerLiter() Un
 	return NSUnitConcentrationMassFromID(objc.ID(rv))
 }
 
-
-
 // The milligrams per deciliter unit of concentration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass/milligramsPerDeciliter
@@ -217,27 +173,4 @@ func (_UnitConcentrationMassClass UnitConcentrationMassClass) MilligramsPerDecil
 	rv := objc.Send[objc.ID](objc.ID(_UnitConcentrationMassClass.class), objc.Sel("milligramsPerDeciliter"))
 	return NSUnitConcentrationMassFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

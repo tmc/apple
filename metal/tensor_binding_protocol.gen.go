@@ -31,8 +31,6 @@ type MTLTensorBinding interface {
 	TensorDataType() MTLTensorDataType
 }
 
-
-
 // MTLTensorBindingObject wraps an existing Objective-C object that conforms to the MTLTensorBinding protocol.
 type MTLTensorBindingObject struct {
 	objectivec.Object
@@ -41,8 +39,6 @@ func (o MTLTensorBindingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLTensorBindingObjectFromID constructs a [MTLTensorBindingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLTensorBindingObjectFromID(id objc.ID) MTLTensorBindingObject {
@@ -50,9 +46,6 @@ func MTLTensorBindingObjectFromID(id objc.ID) MTLTensorBindingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The array of sizes, in elements, one for each dimension of this tensor.
 //
@@ -131,28 +124,4 @@ func (o MTLTensorBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

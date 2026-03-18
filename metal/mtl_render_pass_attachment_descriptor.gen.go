@@ -36,12 +36,6 @@ func (mc MTLRenderPassAttachmentDescriptorClass) Alloc() MTLRenderPassAttachment
 	return rv
 }
 
-
-
-
-
-
-
 // A render target that serves as the output destination for pixels generated
 // by a render pass.
 //
@@ -129,14 +123,10 @@ type MTLRenderPassAttachmentDescriptor struct {
 // A render target that serves as the output destination for pixels generated
 // by a render pass.
 func MTLRenderPassAttachmentDescriptorFromID(id objc.ID) MTLRenderPassAttachmentDescriptor {
-	return MTLRenderPassAttachmentDescriptor{objectivec.Object{id}}
+	return MTLRenderPassAttachmentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRenderPassAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRenderPassAttachmentDescriptor] class.
 //
@@ -218,10 +208,6 @@ type IMTLRenderPassAttachmentDescriptor interface {
 	SetResolveDepthPlane(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRenderPassAttachmentDescriptor) Init() MTLRenderPassAttachmentDescriptor {
 	rv := objc.Send[MTLRenderPassAttachmentDescriptor](r.ID, objc.Sel("init"))
@@ -240,26 +226,6 @@ func NewMTLRenderPassAttachmentDescriptor() MTLRenderPassAttachmentDescriptor {
 	rv := objc.Send[MTLRenderPassAttachmentDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The texture object associated with this attachment.
 //
@@ -283,8 +249,6 @@ func (r MTLRenderPassAttachmentDescriptor) SetTexture(value MTLTexture) {
 	objc.Send[struct{}](r.ID, objc.Sel("setTexture:"), value)
 }
 
-
-
 // The mipmap level of the texture used for rendering to the attachment.
 //
 // # Discussion
@@ -300,8 +264,6 @@ func (r MTLRenderPassAttachmentDescriptor) SetLevel(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLevel:"), value)
 }
 
-
-
 // The slice of the texture used for rendering to the attachment.
 //
 // # Discussion
@@ -316,8 +278,6 @@ func (r MTLRenderPassAttachmentDescriptor) Slice() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetSlice(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSlice:"), value)
 }
-
-
 
 // The depth plane of the texture used for rendering to the attachment.
 //
@@ -335,8 +295,6 @@ func (r MTLRenderPassAttachmentDescriptor) DepthPlane() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetDepthPlane(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDepthPlane:"), value)
 }
-
-
 
 // The action performed by this attachment at the start of a rendering pass
 // for a render command encoder.
@@ -362,8 +320,6 @@ func (r MTLRenderPassAttachmentDescriptor) LoadAction() MTLLoadAction {
 func (r MTLRenderPassAttachmentDescriptor) SetLoadAction(value MTLLoadAction) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLoadAction:"), value)
 }
-
-
 
 // The action performed by this attachment at the end of a rendering pass for
 // a render command encoder.
@@ -404,8 +360,6 @@ func (r MTLRenderPassAttachmentDescriptor) SetStoreAction(value MTLStoreAction) 
 	objc.Send[struct{}](r.ID, objc.Sel("setStoreAction:"), value)
 }
 
-
-
 // The options that modify the store action performed by this attachment.
 //
 // # Discussion
@@ -424,8 +378,6 @@ func (r MTLRenderPassAttachmentDescriptor) SetStoreActionOptions(value MTLStoreA
 	objc.Send[struct{}](r.ID, objc.Sel("setStoreActionOptions:"), value)
 }
 
-
-
 // The destination texture used when resolving multisampled texture data into
 // single sample values.
 //
@@ -443,8 +395,6 @@ func (r MTLRenderPassAttachmentDescriptor) ResolveTexture() MTLTexture {
 func (r MTLRenderPassAttachmentDescriptor) SetResolveTexture(value MTLTexture) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResolveTexture:"), value)
 }
-
-
 
 // The mipmap level of the texture used for the multisample resolve action.
 //
@@ -465,8 +415,6 @@ func (r MTLRenderPassAttachmentDescriptor) SetResolveLevel(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResolveLevel:"), value)
 }
 
-
-
 // The slice of the texture used for the multisample resolve action.
 //
 // # Discussion
@@ -486,8 +434,6 @@ func (r MTLRenderPassAttachmentDescriptor) SetResolveSlice(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResolveSlice:"), value)
 }
 
-
-
 // The depth plane of the texture used for the multisample resolve action.
 //
 // # Discussion
@@ -506,27 +452,4 @@ func (r MTLRenderPassAttachmentDescriptor) ResolveDepthPlane() uint {
 func (r MTLRenderPassAttachmentDescriptor) SetResolveDepthPlane(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResolveDepthPlane:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

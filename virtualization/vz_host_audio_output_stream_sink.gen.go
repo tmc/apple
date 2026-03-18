@@ -35,12 +35,6 @@ func (vc VZHostAudioOutputStreamSinkClass) Alloc() VZHostAudioOutputStreamSink {
 	return rv
 }
 
-
-
-
-
-
-
 // Host audio output stream sink plays audio to the host system’s default
 // output device.
 //
@@ -66,20 +60,12 @@ func VZHostAudioOutputStreamSinkFromID(id objc.ID) VZHostAudioOutputStreamSink {
 // NOTE: VZHostAudioOutputStreamSink adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZHostAudioOutputStreamSink] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZHostAudioOutputStreamSink
 type IVZHostAudioOutputStreamSink interface {
 	IVZAudioOutputStreamSink
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VZHostAudioOutputStreamSink) Init() VZHostAudioOutputStreamSink {
@@ -99,45 +85,4 @@ func NewVZHostAudioOutputStreamSink() VZHostAudioOutputStreamSink {
 	rv := objc.Send[VZHostAudioOutputStreamSink](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

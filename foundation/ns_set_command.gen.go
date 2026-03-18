@@ -35,12 +35,6 @@ func (nc NSSetCommandClass) Alloc() NSSetCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that sets one or more attributes or relationships to one or more
 // values.
 //
@@ -90,10 +84,6 @@ func NSSetCommandFromID(id objc.ID) NSSetCommand {
 // NOTE: NSSetCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSSetCommand] class.
 //
 // # Working with specifiers
@@ -109,10 +99,6 @@ type INSSetCommand interface {
 	// Returns a specifier that identifies the attribute or relationship that is to be set for the receiver of the `set` AppleScript command.
 	KeySpecifier() INSScriptObjectSpecifier
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSetCommand) Init() NSSetCommand {
@@ -133,11 +119,6 @@ func NewNSSetCommand() NSSetCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewSetCommandWithCoder(inCoder INSCoder) NSSetCommand {
@@ -145,7 +126,6 @@ func NewSetCommandWithCoder(inCoder INSCoder) NSSetCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSSetCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -168,23 +148,6 @@ func NewSetCommandWithCommandDescription(commandDef INSScriptCommandDescription)
 	return NSSetCommandFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns a specifier that identifies the attribute or relationship that is
 // to be set for the receiver of the `set` AppleScript command.
 //
@@ -198,29 +161,4 @@ func (s NSSetCommand) KeySpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("keySpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (vc VZVirtioConsolePortConfigurationArrayClass) Alloc() VZVirtioConsolePort
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a collection of Virtio console port configurations.
 //
 // # Overview
@@ -71,14 +65,10 @@ type VZVirtioConsolePortConfigurationArray struct {
 //
 // A class that represents a collection of Virtio console port configurations.
 func VZVirtioConsolePortConfigurationArrayFromID(id objc.ID) VZVirtioConsolePortConfigurationArray {
-	return VZVirtioConsolePortConfigurationArray{objectivec.Object{id}}
+	return VZVirtioConsolePortConfigurationArray{objectivec.Object{ID: id}}
 }
 // NOTE: VZVirtioConsolePortConfigurationArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZVirtioConsolePortConfigurationArray] class.
 //
@@ -109,10 +99,6 @@ type IVZVirtioConsolePortConfigurationArray interface {
 	SetObjectAtIndexedSubscript(configuration IVZVirtioConsolePortConfiguration, portIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioConsolePortConfigurationArray) Init() VZVirtioConsolePortConfigurationArray {
 	rv := objc.Send[VZVirtioConsolePortConfigurationArray](v.ID, objc.Sel("init"))
@@ -131,15 +117,6 @@ func NewVZVirtioConsolePortConfigurationArray() VZVirtioConsolePortConfiguration
 	rv := objc.Send[VZVirtioConsolePortConfigurationArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the Virtio console port configuration as the specified index.
 //
@@ -162,17 +139,6 @@ func (v VZVirtioConsolePortConfigurationArray) SetObjectAtIndexedSubscript(confi
 	objc.Send[objc.ID](v.ID, objc.Sel("setObject:atIndexedSubscript:"), configuration, portIndex)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An unsigned integer that represents the maximum number of ports allocated
 // by this device.
 //
@@ -184,27 +150,4 @@ func (v VZVirtioConsolePortConfigurationArray) MaximumPortCount() uint32 {
 func (v VZVirtioConsolePortConfigurationArray) SetMaximumPortCount(value uint32) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMaximumPortCount:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

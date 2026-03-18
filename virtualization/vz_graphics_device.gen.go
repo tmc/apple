@@ -36,12 +36,6 @@ func (vc VZGraphicsDeviceClass) Alloc() VZGraphicsDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a graphics device in a VM.
 //
 // # Overview
@@ -73,14 +67,10 @@ type VZGraphicsDevice struct {
 //
 // A class that represents a graphics device in a VM.
 func VZGraphicsDeviceFromID(id objc.ID) VZGraphicsDevice {
-	return VZGraphicsDevice{objectivec.Object{id}}
+	return VZGraphicsDevice{objectivec.Object{ID: id}}
 }
 // NOTE: VZGraphicsDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZGraphicsDevice] class.
 //
@@ -102,10 +92,6 @@ type IVZGraphicsDevice interface {
 	SetGraphicsDevices(value IVZGraphicsDevice)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (g VZGraphicsDevice) Init() VZGraphicsDevice {
 	rv := objc.Send[VZGraphicsDevice](g.ID, objc.Sel("init"))
@@ -125,26 +111,6 @@ func NewVZGraphicsDevice() VZGraphicsDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The list of graphics displays configured for this graphics device.
 //
 // # Discussion
@@ -160,8 +126,6 @@ func (g VZGraphicsDevice) Displays() []VZGraphicsDisplay {
 	})
 }
 
-
-
 // The list of configured graphics devices on the virtual machine.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/graphicsdevices
@@ -172,26 +136,4 @@ func (g VZGraphicsDevice) GraphicsDevices() IVZGraphicsDevice {
 func (g VZGraphicsDevice) SetGraphicsDevices(value IVZGraphicsDevice) {
 	objc.Send[struct{}](g.ID, objc.Sel("setGraphicsDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

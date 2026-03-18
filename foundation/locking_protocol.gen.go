@@ -24,8 +24,6 @@ type NSLocking interface {
 	Unlock()
 }
 
-
-
 // NSLockingObject wraps an existing Objective-C object that conforms to the NSLocking protocol.
 type NSLockingObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o NSLockingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSLockingObjectFromID constructs a [NSLockingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSLockingObjectFromID(id objc.ID) NSLockingObject {
@@ -43,9 +39,6 @@ func NSLockingObjectFromID(id objc.ID) NSLockingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Attempts to acquire a lock, blocking a thread’s execution until the lock
 // can be acquired.
@@ -71,10 +64,4 @@ func (o NSLockingObject) Unlock() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("unlock"))
 	}
-
-
-
-
-
-
 

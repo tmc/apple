@@ -37,12 +37,6 @@ func (mc MTL4CounterHeapDescriptorClass) Alloc() MTL4CounterHeapDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together parameters for configuring a counter heap object at
 // creation time.
 //
@@ -63,14 +57,10 @@ type MTL4CounterHeapDescriptor struct {
 // Groups together parameters for configuring a counter heap object at
 // creation time.
 func MTL4CounterHeapDescriptorFromID(id objc.ID) MTL4CounterHeapDescriptor {
-	return MTL4CounterHeapDescriptor{objectivec.Object{id}}
+	return MTL4CounterHeapDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4CounterHeapDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4CounterHeapDescriptor] class.
 //
@@ -97,10 +87,6 @@ type IMTL4CounterHeapDescriptor interface {
 	MTL4CommandQueueErrorDomain() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4CounterHeapDescriptor) Init() MTL4CounterHeapDescriptor {
 	rv := objc.Send[MTL4CounterHeapDescriptor](m.ID, objc.Sel("init"))
@@ -120,26 +106,6 @@ func NewMTL4CounterHeapDescriptor() MTL4CounterHeapDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Assigns the number of entries in the heap.
 //
 // # Discussion
@@ -156,8 +122,6 @@ func (m MTL4CounterHeapDescriptor) SetCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCount:"), value)
 }
 
-
-
 // Assigns the type of data that the heap contains.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeapDescriptor/type
@@ -169,34 +133,9 @@ func (m MTL4CounterHeapDescriptor) SetType(value MTL4CounterHeapType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setType:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CounterHeapDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

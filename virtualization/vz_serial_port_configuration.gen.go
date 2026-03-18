@@ -36,12 +36,6 @@ func (vc VZSerialPortConfigurationClass) Alloc() VZSerialPortConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // The common configuration traits for serial port requests.
 //
 // # Overview
@@ -65,14 +59,10 @@ type VZSerialPortConfiguration struct {
 //
 // The common configuration traits for serial port requests.
 func VZSerialPortConfigurationFromID(id objc.ID) VZSerialPortConfiguration {
-	return VZSerialPortConfiguration{objectivec.Object{id}}
+	return VZSerialPortConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZSerialPortConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZSerialPortConfiguration] class.
 //
@@ -91,10 +81,6 @@ type IVZSerialPortConfiguration interface {
 	Attachment() IVZSerialPortAttachment
 	SetAttachment(value IVZSerialPortAttachment)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VZSerialPortConfiguration) Init() VZSerialPortConfiguration {
@@ -115,26 +101,6 @@ func NewVZSerialPortConfiguration() VZSerialPortConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The object that defines how the configuration of the virtual machine’s
 // serial port interfaces.
 //
@@ -153,27 +119,4 @@ func (s VZSerialPortConfiguration) Attachment() IVZSerialPortAttachment {
 func (s VZSerialPortConfiguration) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAttachment:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

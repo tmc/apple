@@ -37,12 +37,6 @@ func (mc MTLTensorReferenceTypeClass) Alloc() MTLTensorReferenceType {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a tensor in the shading language in a struct or
 // array.
 //
@@ -67,10 +61,6 @@ func MTLTensorReferenceTypeFromID(id objc.ID) MTLTensorReferenceType {
 }
 // NOTE: MTLTensorReferenceType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLTensorReferenceType] class.
 //
@@ -102,10 +92,6 @@ type IMTLTensorReferenceType interface {
 	SetMTL_TENSOR_MAX_RANK(value objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t MTLTensorReferenceType) Init() MTLTensorReferenceType {
 	rv := objc.Send[MTLTensorReferenceType](t.ID, objc.Sel("init"))
@@ -125,26 +111,6 @@ func NewMTLTensorReferenceType() MTLTensorReferenceType {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A value that represents the read/write permissions of the tensor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorReferenceType/access
@@ -152,8 +118,6 @@ func (t MTLTensorReferenceType) Access() MTLBindingAccess {
 	rv := objc.Send[MTLBindingAccess](t.ID, objc.Sel("access"))
 	return MTLBindingAccess(rv)
 }
-
-
 
 // The array of sizes, in elements, one for each dimension of this tensor.
 //
@@ -169,8 +133,6 @@ func (t MTLTensorReferenceType) Dimensions() IMTLTensorExtents {
 	return MTLTensorExtentsFromID(objc.ID(rv))
 }
 
-
-
 // The data format you use for indexing into the tensor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorReferenceType/indexType
@@ -178,8 +140,6 @@ func (t MTLTensorReferenceType) IndexType() MTLDataType {
 	rv := objc.Send[MTLDataType](t.ID, objc.Sel("indexType"))
 	return MTLDataType(rv)
 }
-
-
 
 // The underlying data format of the tensor.
 //
@@ -189,8 +149,6 @@ func (t MTLTensorReferenceType) TensorDataType() MTLTensorDataType {
 	return MTLTensorDataType(rv)
 }
 
-
-
 // An error domain for errors that pertain to creating a tensor.
 //
 // See: https://developer.apple.com/documentation/metal/mtltensordomain
@@ -198,8 +156,6 @@ func (t MTLTensorReferenceType) MTLTensorDomain() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTLTensorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
 func (t MTLTensorReferenceType) MTL_TENSOR_MAX_RANK() objectivec.IObject {
@@ -209,26 +165,4 @@ func (t MTLTensorReferenceType) MTL_TENSOR_MAX_RANK() objectivec.IObject {
 func (t MTLTensorReferenceType) SetMTL_TENSOR_MAX_RANK(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

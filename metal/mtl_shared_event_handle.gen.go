@@ -37,12 +37,6 @@ func (mc MTLSharedEventHandleClass) Alloc() MTLSharedEventHandle {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance you use to recreate a shareable event.
 //
 // # Overview
@@ -66,14 +60,10 @@ type MTLSharedEventHandle struct {
 //
 // An instance you use to recreate a shareable event.
 func MTLSharedEventHandleFromID(id objc.ID) MTLSharedEventHandle {
-	return MTLSharedEventHandle{objectivec.Object{id}}
+	return MTLSharedEventHandle{objectivec.Object{ID: id}}
 }
 // NOTE: MTLSharedEventHandle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLSharedEventHandle] class.
 //
@@ -92,10 +82,6 @@ type IMTLSharedEventHandle interface {
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s MTLSharedEventHandle) Init() MTLSharedEventHandle {
@@ -116,28 +102,9 @@ func NewMTLSharedEventHandle() MTLSharedEventHandle {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (s MTLSharedEventHandle) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A string that identifies the shareable event.
 //
@@ -146,30 +113,4 @@ func (s MTLSharedEventHandle) Label() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

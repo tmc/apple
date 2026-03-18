@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The optional methods implemented by the delegate of a keyed unarchiver.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSKeyedUnarchiverDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSKeyedUnarchiverDelegateObject wraps an existing Objective-C object that conforms to the NSKeyedUnarchiverDelegate protocol.
 type NSKeyedUnarchiverDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSKeyedUnarchiverDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSKeyedUnarchiverDelegateObjectFromID constructs a [NSKeyedUnarchiverDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSKeyedUnarchiverDelegateObjectFromID(id objc.ID) NSKeyedUnarchiverDelegateObject {
@@ -37,9 +31,6 @@ func NSKeyedUnarchiverDelegateObjectFromID(id objc.ID) NSKeyedUnarchiverDelegate
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Informs the delegate that the class with a given name is not available
 // during decoding.
@@ -147,10 +138,6 @@ func (o NSKeyedUnarchiverDelegateObject) UnarchiverWillFinish(unarchiver INSKeye
 	objc.Send[struct{}](o.ID, objc.Sel("unarchiverWillFinish:"), unarchiver)
 	}
 
-
-
-
-
 // NSKeyedUnarchiverDelegateConfig holds optional typed callbacks for [NSKeyedUnarchiverDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -224,8 +211,4 @@ func NewNSKeyedUnarchiverDelegate(config NSKeyedUnarchiverDelegateConfig) NSKeye
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSKeyedUnarchiverDelegateObjectFromID(instance)
 }
-
-
-
-
 

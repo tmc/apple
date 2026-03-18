@@ -35,12 +35,6 @@ func (vc VZMacGraphicsDeviceClass) Alloc() VZMacGraphicsDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a Mac graphics device.
 //
 // # Overview
@@ -65,20 +59,12 @@ func VZMacGraphicsDeviceFromID(id objc.ID) VZMacGraphicsDevice {
 // NOTE: VZMacGraphicsDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZMacGraphicsDevice] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacGraphicsDevice
 type IVZMacGraphicsDevice interface {
 	IVZGraphicsDevice
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m VZMacGraphicsDevice) Init() VZMacGraphicsDevice {
@@ -98,44 +84,4 @@ func NewVZMacGraphicsDevice() VZMacGraphicsDevice {
 	rv := objc.Send[VZMacGraphicsDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

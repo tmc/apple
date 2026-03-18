@@ -14,8 +14,6 @@ type NSPredicateValidating interface {
 	objectivec.IObject
 }
 
-
-
 // NSPredicateValidatingObject wraps an existing Objective-C object that conforms to the NSPredicateValidating protocol.
 type NSPredicateValidatingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSPredicateValidatingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSPredicateValidatingObjectFromID constructs a [NSPredicateValidatingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSPredicateValidatingObjectFromID(id objc.ID) NSPredicateValidatingObject {
@@ -33,9 +29,6 @@ func NSPredicateValidatingObjectFromID(id objc.ID) NSPredicateValidatingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicateValidating/visit(_:)-491gq
@@ -84,10 +77,4 @@ func (o NSPredicateValidatingObject) VisitExpressionKeyPathScopeKeyError(express
 	}
 	return rv, nil
 	}
-
-
-
-
-
-
 

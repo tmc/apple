@@ -36,12 +36,6 @@ func (nc NSDistributedLockClass) Alloc() NSDistributedLock {
 	return rv
 }
 
-
-
-
-
-
-
 // A lock that multiple applications on multiple hosts can use to restrict
 // access to some shared resource, such as a file.
 //
@@ -90,14 +84,10 @@ type NSDistributedLock struct {
 // A lock that multiple applications on multiple hosts can use to restrict
 // access to some shared resource, such as a file.
 func NSDistributedLockFromID(id objc.ID) NSDistributedLock {
-	return NSDistributedLock{objectivec.Object{id}}
+	return NSDistributedLock{objectivec.Object{ID: id}}
 }
 // NOTE: NSDistributedLock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDistributedLock] class.
 //
@@ -145,10 +135,6 @@ type INSDistributedLock interface {
 	LockDate() INSDate
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDistributedLock) Init() NSDistributedLock {
 	rv := objc.Send[NSDistributedLock](d.ID, objc.Sel("init"))
@@ -167,11 +153,6 @@ func NewNSDistributedLock() NSDistributedLock {
 	rv := objc.Send[NSDistributedLock](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes an [NSDistributedLock] object to use as the lock the
 // file-system entry specified by a given path.
@@ -196,12 +177,6 @@ func NewDistributedLockWithPath(path string) NSDistributedLock {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPath:"), objc.String(path))
 	return NSDistributedLockFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes an [NSDistributedLock] object to use as the lock the
 // file-system entry specified by a given path.
@@ -281,10 +256,6 @@ func (d NSDistributedLock) Unlock() {
 	objc.Send[objc.ID](d.ID, objc.Sel("unlock"))
 }
 
-
-
-
-
 // Returns an [NSDistributedLock] object initialized to use as the locking
 // object the file-system entry specified by a given path.
 //
@@ -308,13 +279,6 @@ func (_NSDistributedLockClass NSDistributedLockClass) LockWithPath(path string) 
 	return NSDistributedLockFromID(rv)
 }
 
-
-
-
-
-
-
-
 // Returns the time the receiver was acquired by any of the
 // [NSDistributedLock] objects using the same path.
 //
@@ -336,28 +300,4 @@ func (d NSDistributedLock) LockDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("lockDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

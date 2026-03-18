@@ -896,12 +896,12 @@ func BNNSGetPointer(filter BNNSFilter, target unsafe.Pointer) BNNSNDArrayDescrip
 	return _bNNSGetPointer(filter, target)
 }
 
-var _bNNSGraphCompileFromFile func(filename *byte, function *byte, options Bnns_graph_compile_options_t) Bnns_graph_t
+var _bNNSGraphCompileFromFile func(filename string, function string, options Bnns_graph_compile_options_t) Bnns_graph_t
 
 // BNNSGraphCompileFromFile compiles a source mlmodelc file to a graph object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileFromFile(_:_:_:)
-func BNNSGraphCompileFromFile(filename *byte, function *byte, options Bnns_graph_compile_options_t) Bnns_graph_t {
+func BNNSGraphCompileFromFile(filename string, function string, options Bnns_graph_compile_options_t) Bnns_graph_t {
 	if _bNNSGraphCompileFromFile == nil {
 		panic("Accelerate: symbol BNNSGraphCompileFromFile not loaded")
 	}
@@ -1052,12 +1052,12 @@ func BNNSGraphCompileOptionsSetOutputFD(options Bnns_graph_compile_options_t, fd
 	_bNNSGraphCompileOptionsSetOutputFD(options, fd)
 }
 
-var _bNNSGraphCompileOptionsSetOutputPath func(options Bnns_graph_compile_options_t, path *byte)
+var _bNNSGraphCompileOptionsSetOutputPath func(options Bnns_graph_compile_options_t, path string)
 
 // BNNSGraphCompileOptionsSetOutputPath sets the option for graph compilation to generate the graph object directly to the specified file.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphCompileOptionsSetOutputPath(_:_:)
-func BNNSGraphCompileOptionsSetOutputPath(options Bnns_graph_compile_options_t, path *byte) {
+func BNNSGraphCompileOptionsSetOutputPath(options Bnns_graph_compile_options_t, path string) {
 	if _bNNSGraphCompileOptionsSetOutputPath == nil {
 		panic("Accelerate: symbol BNNSGraphCompileOptionsSetOutputPath not loaded")
 	}
@@ -1100,36 +1100,36 @@ func BNNSGraphContextEnableNanAndInfChecks(context Bnns_graph_context_t, enable_
 	_bNNSGraphContextEnableNanAndInfChecks(context, enable_check_for_nans_inf)
 }
 
-var _bNNSGraphContextExecute func(context Bnns_graph_context_t, function *byte, argument_count uintptr, arguments *Bnns_graph_argument_t, workspace_size uintptr, workspace *byte) int
+var _bNNSGraphContextExecute func(context Bnns_graph_context_t, function string, argument_count uintptr, arguments *Bnns_graph_argument_t, workspace_size uintptr, workspace string) int
 
 // BNNSGraphContextExecute executes the specified function with the given context.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextExecute(_:_:_:_:_:_:)
-func BNNSGraphContextExecute(context Bnns_graph_context_t, function *byte, argument_count uintptr, arguments *Bnns_graph_argument_t, workspace_size uintptr, workspace *byte) int {
+func BNNSGraphContextExecute(context Bnns_graph_context_t, function string, argument_count uintptr, arguments *Bnns_graph_argument_t, workspace_size uintptr, workspace string) int {
 	if _bNNSGraphContextExecute == nil {
 		panic("Accelerate: symbol BNNSGraphContextExecute not loaded")
 	}
 	return _bNNSGraphContextExecute(context, function, argument_count, arguments, workspace_size, workspace)
 }
 
-var _bNNSGraphContextGetTensor func(context Bnns_graph_context_t, function *byte, argument *byte, fill_known_dynamic_shapes bool, tensor *BNNSTensor) int
+var _bNNSGraphContextGetTensor func(context Bnns_graph_context_t, function string, argument string, fill_known_dynamic_shapes bool, tensor *BNNSTensor) int
 
 // BNNSGraphContextGetTensor sets the properties of a tensor for the specified function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextGetTensor(_:_:_:_:_:)
-func BNNSGraphContextGetTensor(context Bnns_graph_context_t, function *byte, argument *byte, fill_known_dynamic_shapes bool, tensor *BNNSTensor) int {
+func BNNSGraphContextGetTensor(context Bnns_graph_context_t, function string, argument string, fill_known_dynamic_shapes bool, tensor *BNNSTensor) int {
 	if _bNNSGraphContextGetTensor == nil {
 		panic("Accelerate: symbol BNNSGraphContextGetTensor not loaded")
 	}
 	return _bNNSGraphContextGetTensor(context, function, argument, fill_known_dynamic_shapes, tensor)
 }
 
-var _bNNSGraphContextGetWorkspaceSize func(context Bnns_graph_context_t, function *byte) uintptr
+var _bNNSGraphContextGetWorkspaceSize func(context Bnns_graph_context_t, function string) uintptr
 
 // BNNSGraphContextGetWorkspaceSize returns the minimum size, in bytes, of the workspace that graph context execution requires.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextGetWorkspaceSize(_:_:)
-func BNNSGraphContextGetWorkspaceSize(context Bnns_graph_context_t, function *byte) uintptr {
+func BNNSGraphContextGetWorkspaceSize(context Bnns_graph_context_t, function string) uintptr {
 	if _bNNSGraphContextGetWorkspaceSize == nil {
 		panic("Accelerate: symbol BNNSGraphContextGetWorkspaceSize not loaded")
 	}
@@ -1148,12 +1148,12 @@ func BNNSGraphContextMake(graph Bnns_graph_t) Bnns_graph_context_t {
 	return _bNNSGraphContextMake(graph)
 }
 
-var _bNNSGraphContextMakeStreaming func(graph Bnns_graph_t, function *byte, initial_states_count uintptr, initial_states *BNNSTensor) Bnns_graph_context_t
+var _bNNSGraphContextMakeStreaming func(graph Bnns_graph_t, function string, initial_states_count uintptr, initial_states *BNNSTensor) Bnns_graph_context_t
 
 // BNNSGraphContextMakeStreaming returns an allocated and initialized graph context with streaming support from the specified graph.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextMakeStreaming(_:_:_:_:)
-func BNNSGraphContextMakeStreaming(graph Bnns_graph_t, function *byte, initial_states_count uintptr, initial_states *BNNSTensor) Bnns_graph_context_t {
+func BNNSGraphContextMakeStreaming(graph Bnns_graph_t, function string, initial_states_count uintptr, initial_states *BNNSTensor) Bnns_graph_context_t {
 	if _bNNSGraphContextMakeStreaming == nil {
 		panic("Accelerate: symbol BNNSGraphContextMakeStreaming not loaded")
 	}
@@ -1172,12 +1172,12 @@ func BNNSGraphContextSetArgumentType(context Bnns_graph_context_t, argument_type
 	return _bNNSGraphContextSetArgumentType(context, argument_type)
 }
 
-var _bNNSGraphContextSetDynamicShapes func(context Bnns_graph_context_t, function *byte, shapes_count uintptr, shapes *Bnns_graph_shape_t) int
+var _bNNSGraphContextSetDynamicShapes func(context Bnns_graph_context_t, function string, shapes_count uintptr, shapes *Bnns_graph_shape_t) int
 
 // BNNSGraphContextSetDynamicShapes specifies the dynamic shapes for a graph and, if possible, infers, the output shapes.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphContextSetDynamicShapes(_:_:_:_:)
-func BNNSGraphContextSetDynamicShapes(context Bnns_graph_context_t, function *byte, shapes_count uintptr, shapes *Bnns_graph_shape_t) int {
+func BNNSGraphContextSetDynamicShapes(context Bnns_graph_context_t, function string, shapes_count uintptr, shapes *Bnns_graph_shape_t) int {
 	if _bNNSGraphContextSetDynamicShapes == nil {
 		panic("Accelerate: symbol BNNSGraphContextSetDynamicShapes not loaded")
 	}
@@ -1220,60 +1220,60 @@ func BNNSGraphContextSetStreamingAdvanceCount(context Bnns_graph_context_t, adva
 	return _bNNSGraphContextSetStreamingAdvanceCount(context, advance_count)
 }
 
-var _bNNSGraphGetArgumentCount func(graph Bnns_graph_t, function *byte) uintptr
+var _bNNSGraphGetArgumentCount func(graph Bnns_graph_t, function string) uintptr
 
 // BNNSGraphGetArgumentCount returns the number of arguments for the given function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetArgumentCount(_:_:)
-func BNNSGraphGetArgumentCount(graph Bnns_graph_t, function *byte) uintptr {
+func BNNSGraphGetArgumentCount(graph Bnns_graph_t, function string) uintptr {
 	if _bNNSGraphGetArgumentCount == nil {
 		panic("Accelerate: symbol BNNSGraphGetArgumentCount not loaded")
 	}
 	return _bNNSGraphGetArgumentCount(graph, function)
 }
 
-var _bNNSGraphGetArgumentIntents func(graph Bnns_graph_t, function *byte, argument_intents_count uintptr, argument_intents *uintptr) int
+var _bNNSGraphGetArgumentIntents func(graph Bnns_graph_t, function string, argument_intents_count uintptr, argument_intents *uintptr) int
 
 // BNNSGraphGetArgumentIntents extracts the intents of arguments for the given function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetArgumentIntents(_:_:_:_:)
-func BNNSGraphGetArgumentIntents(graph Bnns_graph_t, function *byte, argument_intents_count uintptr, argument_intents *uintptr) int {
+func BNNSGraphGetArgumentIntents(graph Bnns_graph_t, function string, argument_intents_count uintptr, argument_intents *uintptr) int {
 	if _bNNSGraphGetArgumentIntents == nil {
 		panic("Accelerate: symbol BNNSGraphGetArgumentIntents not loaded")
 	}
 	return _bNNSGraphGetArgumentIntents(graph, function, argument_intents_count, argument_intents)
 }
 
-var _bNNSGraphGetArgumentInterleaveFactors func(graph Bnns_graph_t, function *byte, argument_count uintptr, argument_interleave *uint16, argument_interleave_counts *uintptr) int
+var _bNNSGraphGetArgumentInterleaveFactors func(graph Bnns_graph_t, function string, argument_count uintptr, argument_interleave *uint16, argument_interleave_counts *uintptr) int
 
 // BNNSGraphGetArgumentInterleaveFactors returns the interleave factors for arguments, if present
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetArgumentInterleaveFactors(_:_:_:_:_:)
-func BNNSGraphGetArgumentInterleaveFactors(graph Bnns_graph_t, function *byte, argument_count uintptr, argument_interleave *uint16, argument_interleave_counts *uintptr) int {
+func BNNSGraphGetArgumentInterleaveFactors(graph Bnns_graph_t, function string, argument_count uintptr, argument_interleave *uint16, argument_interleave_counts *uintptr) int {
 	if _bNNSGraphGetArgumentInterleaveFactors == nil {
 		panic("Accelerate: symbol BNNSGraphGetArgumentInterleaveFactors not loaded")
 	}
 	return _bNNSGraphGetArgumentInterleaveFactors(graph, function, argument_count, argument_interleave, argument_interleave_counts)
 }
 
-var _bNNSGraphGetArgumentNames func(graph Bnns_graph_t, function *byte, argument_names_count uintptr, argument_names *byte) int
+var _bNNSGraphGetArgumentNames func(graph Bnns_graph_t, function string, argument_names_count uintptr, argument_names string) int
 
 // BNNSGraphGetArgumentNames extracts the names of arguments for the given function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetArgumentNames(_:_:_:_:)
-func BNNSGraphGetArgumentNames(graph Bnns_graph_t, function *byte, argument_names_count uintptr, argument_names *byte) int {
+func BNNSGraphGetArgumentNames(graph Bnns_graph_t, function string, argument_names_count uintptr, argument_names string) int {
 	if _bNNSGraphGetArgumentNames == nil {
 		panic("Accelerate: symbol BNNSGraphGetArgumentNames not loaded")
 	}
 	return _bNNSGraphGetArgumentNames(graph, function, argument_names_count, argument_names)
 }
 
-var _bNNSGraphGetArgumentPosition func(graph Bnns_graph_t, function *byte, argument *byte) uintptr
+var _bNNSGraphGetArgumentPosition func(graph Bnns_graph_t, function string, argument string) uintptr
 
 // BNNSGraphGetArgumentPosition returns the index into the arguments array for the given function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetArgumentPosition(_:_:_:)
-func BNNSGraphGetArgumentPosition(graph Bnns_graph_t, function *byte, argument *byte) uintptr {
+func BNNSGraphGetArgumentPosition(graph Bnns_graph_t, function string, argument string) uintptr {
 	if _bNNSGraphGetArgumentPosition == nil {
 		panic("Accelerate: symbol BNNSGraphGetArgumentPosition not loaded")
 	}
@@ -1292,72 +1292,72 @@ func BNNSGraphGetFunctionCount(graph Bnns_graph_t) uintptr {
 	return _bNNSGraphGetFunctionCount(graph)
 }
 
-var _bNNSGraphGetFunctionNames func(graph Bnns_graph_t, function_name_count uintptr, function_names *byte) int
+var _bNNSGraphGetFunctionNames func(graph Bnns_graph_t, function_name_count uintptr, function_names string) int
 
 // BNNSGraphGetFunctionNames extracts the names of callable functions in the graph.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetFunctionNames(_:_:_:)
-func BNNSGraphGetFunctionNames(graph Bnns_graph_t, function_name_count uintptr, function_names *byte) int {
+func BNNSGraphGetFunctionNames(graph Bnns_graph_t, function_name_count uintptr, function_names string) int {
 	if _bNNSGraphGetFunctionNames == nil {
 		panic("Accelerate: symbol BNNSGraphGetFunctionNames not loaded")
 	}
 	return _bNNSGraphGetFunctionNames(graph, function_name_count, function_names)
 }
 
-var _bNNSGraphGetInputCount func(graph Bnns_graph_t, function *byte) uintptr
+var _bNNSGraphGetInputCount func(graph Bnns_graph_t, function string) uintptr
 
 // BNNSGraphGetInputCount returns the number of input arguments for the given function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetInputCount(_:_:)
-func BNNSGraphGetInputCount(graph Bnns_graph_t, function *byte) uintptr {
+func BNNSGraphGetInputCount(graph Bnns_graph_t, function string) uintptr {
 	if _bNNSGraphGetInputCount == nil {
 		panic("Accelerate: symbol BNNSGraphGetInputCount not loaded")
 	}
 	return _bNNSGraphGetInputCount(graph, function)
 }
 
-var _bNNSGraphGetInputNames func(graph Bnns_graph_t, function *byte, input_names_count uintptr, input_names *byte) int
+var _bNNSGraphGetInputNames func(graph Bnns_graph_t, function string, input_names_count uintptr, input_names string) int
 
 // BNNSGraphGetInputNames extracts the names of input arguments for the given function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetInputNames(_:_:_:_:)
-func BNNSGraphGetInputNames(graph Bnns_graph_t, function *byte, input_names_count uintptr, input_names *byte) int {
+func BNNSGraphGetInputNames(graph Bnns_graph_t, function string, input_names_count uintptr, input_names string) int {
 	if _bNNSGraphGetInputNames == nil {
 		panic("Accelerate: symbol BNNSGraphGetInputNames not loaded")
 	}
 	return _bNNSGraphGetInputNames(graph, function, input_names_count, input_names)
 }
 
-var _bNNSGraphGetOutputCount func(graph Bnns_graph_t, function *byte) uintptr
+var _bNNSGraphGetOutputCount func(graph Bnns_graph_t, function string) uintptr
 
 // BNNSGraphGetOutputCount returns the number of output arguments for the given function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetOutputCount(_:_:)
-func BNNSGraphGetOutputCount(graph Bnns_graph_t, function *byte) uintptr {
+func BNNSGraphGetOutputCount(graph Bnns_graph_t, function string) uintptr {
 	if _bNNSGraphGetOutputCount == nil {
 		panic("Accelerate: symbol BNNSGraphGetOutputCount not loaded")
 	}
 	return _bNNSGraphGetOutputCount(graph, function)
 }
 
-var _bNNSGraphGetOutputNames func(graph Bnns_graph_t, function *byte, output_names_count uintptr, output_names *byte) int
+var _bNNSGraphGetOutputNames func(graph Bnns_graph_t, function string, output_names_count uintptr, output_names string) int
 
 // BNNSGraphGetOutputNames extracts the names of output arguments for the given function argument.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphGetOutputNames(_:_:_:_:)
-func BNNSGraphGetOutputNames(graph Bnns_graph_t, function *byte, output_names_count uintptr, output_names *byte) int {
+func BNNSGraphGetOutputNames(graph Bnns_graph_t, function string, output_names_count uintptr, output_names string) int {
 	if _bNNSGraphGetOutputNames == nil {
 		panic("Accelerate: symbol BNNSGraphGetOutputNames not loaded")
 	}
 	return _bNNSGraphGetOutputNames(graph, function, output_names_count, output_names)
 }
 
-var _bNNSGraphTensorFillStrides func(graph Bnns_graph_t, function *byte, argument *byte, tensor *BNNSTensor) int
+var _bNNSGraphTensorFillStrides func(graph Bnns_graph_t, function string, argument string, tensor *BNNSTensor) int
 
 // BNNSGraphTensorFillStrides sets the stride of the specifed tensor for compatibility with the given model’s input or output argument based on its current shape.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSGraphTensorFillStrides(_:_:_:_:)
-func BNNSGraphTensorFillStrides(graph Bnns_graph_t, function *byte, argument *byte, tensor *BNNSTensor) int {
+func BNNSGraphTensorFillStrides(graph Bnns_graph_t, function string, argument string, tensor *BNNSTensor) int {
 	if _bNNSGraphTensorFillStrides == nil {
 		panic("Accelerate: symbol BNNSGraphTensorFillStrides not loaded")
 	}
@@ -2758,12 +2758,12 @@ func Cblas_dznrm2(N int, X uintptr, INCX int) float64 {
 	return _cblas_dznrm2(N, X, INCX)
 }
 
-var _cblas_errprn func(ierr int, info int, form *byte) int
+var _cblas_errprn func(ierr int, info int, form string) int
 
 // Cblas_errprn prints an error message.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_errprn
-func Cblas_errprn(ierr int, info int, form *byte) int {
+func Cblas_errprn(ierr int, info int, form string) int {
 	if _cblas_errprn == nil {
 		panic("Accelerate: symbol cblas_errprn not loaded")
 	}
@@ -3250,12 +3250,12 @@ func Cblas_strsv(ORDER CBLAS_ORDER, UPLO CBLAS_UPLO, TRANSA CBLAS_TRANSPOSE, DIA
 	_cblas_strsv(ORDER, UPLO, TRANSA, DIAG, N, unsafe.SliceData(A), LDA, unsafe.SliceData(X), INCX)
 }
 
-var _cblas_xerbla func(p int, rout *byte, form *byte)
+var _cblas_xerbla func(p int, rout string, form string)
 
 // Cblas_xerbla the default error handler for BLAS routines.
 //
 // See: https://developer.apple.com/documentation/Accelerate/cblas_xerbla
-func Cblas_xerbla(p int, rout *byte, form *byte) {
+func Cblas_xerbla(p int, rout string, form string) {
 	if _cblas_xerbla == nil {
 		panic("Accelerate: symbol cblas_xerbla not loaded")
 	}
@@ -6278,6 +6278,8 @@ var _vDSP_fft3_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride
 
 // VDSP_fft3_zop computes a single-precision out-of-place radix-3 complex FFT, either forward or inverse.
 //
+// Deprecated: Deprecated since macOS 10.11.
+//
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_fft3_zop
 func VDSP_fft3_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
 	if _vDSP_fft3_zop == nil {
@@ -6289,6 +6291,8 @@ func VDSP_fft3_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C
 var _vDSP_fft3_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft3_zopD computes a double-precision out-of-place radix-3 complex FFT, either forward or inverse.
+//
+// Deprecated: Deprecated since macOS 10.11.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_fft3_zopD
 func VDSP_fft3_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
@@ -6302,6 +6306,8 @@ var _vDSP_fft5_zop func(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride
 
 // VDSP_fft5_zop computes a single-precision out-of-place radix-5 complex FFT, either forward or inverse.
 //
+// Deprecated: Deprecated since macOS 10.11.
+//
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_fft5_zop
 func VDSP_fft5_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C *DSPSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
 	if _vDSP_fft5_zop == nil {
@@ -6313,6 +6319,8 @@ func VDSP_fft5_zop(__Setup FFTSetup, __A *DSPSplitComplex, __IA VDSP_Stride, __C
 var _vDSP_fft5_zopD func(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection)
 
 // VDSP_fft5_zopD computes a double-precision out-of-place radix-5 complex FFT, either forward or inverse.
+//
+// Deprecated: Deprecated since macOS 10.11.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_fft5_zopD
 func VDSP_fft5_zopD(__Setup FFTSetupD, __A *DSPDoubleSplitComplex, __IA VDSP_Stride, __C *DSPDoubleSplitComplex, __IC VDSP_Stride, __Log2N VDSP_Length, __Direction FFTDirection) {
@@ -7930,24 +7938,24 @@ func VDSP_vfix32D(__A []float64, __IA VDSP_Stride, __C []int, __IC VDSP_Stride, 
 	_vDSP_vfix32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-var _vDSP_vfix8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfix8 func(__A *float32, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfix8 converts a vector of single-precision floating-point values to signed 8-bit integer values, and rounds towards zero.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfix8
-func VDSP_vfix8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfix8(__A []float32, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfix8 == nil {
 		panic("Accelerate: symbol vDSP_vfix8 not loaded")
 	}
 	_vDSP_vfix8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-var _vDSP_vfix8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfix8D func(__A *float64, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfix8D converts a vector of double-precision floating-point values to signed 8-bit integer values, and rounds towards zero.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfix8D
-func VDSP_vfix8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfix8D(__A []float64, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfix8D == nil {
 		panic("Accelerate: symbol vDSP_vfix8D not loaded")
 	}
@@ -8002,24 +8010,24 @@ func VDSP_vfixr32D(__A []float64, __IA VDSP_Stride, __C []int, __IC VDSP_Stride,
 	_vDSP_vfixr32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-var _vDSP_vfixr8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfixr8 func(__A *float32, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixr8 converts a vector of single-precision floating-point values to signed 8-bit integer values, and rounds towards the nearest integer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixr8
-func VDSP_vfixr8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfixr8(__A []float32, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfixr8 == nil {
 		panic("Accelerate: symbol vDSP_vfixr8 not loaded")
 	}
 	_vDSP_vfixr8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-var _vDSP_vfixr8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfixr8D func(__A *float64, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixr8D converts a vector of double-precision floating-point values to signed 8-bit integer values, and rounds towards the nearest integer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixr8D
-func VDSP_vfixr8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfixr8D(__A []float64, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfixr8D == nil {
 		panic("Accelerate: symbol vDSP_vfixr8D not loaded")
 	}
@@ -8074,24 +8082,24 @@ func VDSP_vfixru32D(__A []float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride
 	_vDSP_vfixru32D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-var _vDSP_vfixru8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfixru8 func(__A *float32, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixru8 converts a vector of single-precision floating-point values to unsigned 8-bit integer values, and rounds towards the nearest integer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixru8
-func VDSP_vfixru8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfixru8(__A []float32, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfixru8 == nil {
 		panic("Accelerate: symbol vDSP_vfixru8 not loaded")
 	}
 	_vDSP_vfixru8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-var _vDSP_vfixru8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfixru8D func(__A *float64, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixru8D converts a vector of double-precision floating-point values to unsigned 8-bit integer values, and rounds towards the nearest integer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixru8D
-func VDSP_vfixru8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfixru8D(__A []float64, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfixru8D == nil {
 		panic("Accelerate: symbol vDSP_vfixru8D not loaded")
 	}
@@ -8146,24 +8154,24 @@ func VDSP_vfixu32D(__A []float64, __IA VDSP_Stride, __C *uint, __IC VDSP_Stride,
 	_vDSP_vfixu32D(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-var _vDSP_vfixu8 func(__A *float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfixu8 func(__A *float32, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixu8 converts a vector of single-precision floating-point values to unsigned 8-bit integer values, and rounds towards zero.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixu8
-func VDSP_vfixu8(__A []float32, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfixu8(__A []float32, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfixu8 == nil {
 		panic("Accelerate: symbol vDSP_vfixu8 not loaded")
 	}
 	_vDSP_vfixu8(unsafe.SliceData(__A), __IA, __C, __IC, __N)
 }
 
-var _vDSP_vfixu8D func(__A *float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfixu8D func(__A *float64, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfixu8D converts a vector of double-precision floating-point values to unsigned 8-bit integer values, and rounds towards zero.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfixu8D
-func VDSP_vfixu8D(__A []float64, __IA VDSP_Stride, __C *byte, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfixu8D(__A []float64, __IA VDSP_Stride, __C string, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfixu8D == nil {
 		panic("Accelerate: symbol vDSP_vfixu8D not loaded")
 	}
@@ -8230,24 +8238,24 @@ func VDSP_vflt32D(__A []int, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, 
 	_vDSP_vflt32D(unsafe.SliceData(__A), __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-var _vDSP_vflt8 func(__A *byte, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vflt8 func(__A string, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vflt8 converts a vector of signed 8-bit integers to single-precision floating-point values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt8
-func VDSP_vflt8(__A *byte, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vflt8(__A string, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vflt8 == nil {
 		panic("Accelerate: symbol vDSP_vflt8 not loaded")
 	}
 	_vDSP_vflt8(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-var _vDSP_vflt8D func(__A *byte, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vflt8D func(__A string, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vflt8D converts a vector of signed 8-bit integers to double-precision floating-point values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vflt8D
-func VDSP_vflt8D(__A *byte, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vflt8D(__A string, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vflt8D == nil {
 		panic("Accelerate: symbol vDSP_vflt8D not loaded")
 	}
@@ -8338,24 +8346,24 @@ func VDSP_vfltu32D(__A *uint, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride,
 	_vDSP_vfltu32D(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-var _vDSP_vfltu8 func(__A *byte, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfltu8 func(__A string, __IA VDSP_Stride, __C *float32, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfltu8 converts an array of unsigned 8-bit integers to single-precision floating-point values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu8
-func VDSP_vfltu8(__A *byte, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfltu8(__A string, __IA VDSP_Stride, __C []float32, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfltu8 == nil {
 		panic("Accelerate: symbol vDSP_vfltu8 not loaded")
 	}
 	_vDSP_vfltu8(__A, __IA, unsafe.SliceData(__C), __IC, __N)
 }
 
-var _vDSP_vfltu8D func(__A *byte, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
+var _vDSP_vfltu8D func(__A string, __IA VDSP_Stride, __C *float64, __IC VDSP_Stride, __N VDSP_Length)
 
 // VDSP_vfltu8D converts an array of unsigned 8-bit integers to double-precision floating-point values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_vfltu8D
-func VDSP_vfltu8D(__A *byte, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
+func VDSP_vfltu8D(__A string, __IA VDSP_Stride, __C []float64, __IC VDSP_Stride, __N VDSP_Length) {
 	if _vDSP_vfltu8D == nil {
 		panic("Accelerate: symbol vDSP_vfltu8D not loaded")
 	}
@@ -14410,12 +14418,12 @@ func VImageDestroyResamplingFilter(filter ResamplingFilter) {
 	_vImageDestroyResamplingFilter(filter)
 }
 
-var _vImageDilate_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int
+var _vImageDilate_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel string, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageDilate_ARGB8888 dilates an 8-bit-per-channel, 4-channel interleaved buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageDilate_ARGB8888(_:_:_:_:_:_:_:_:)
-func VImageDilate_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int {
+func VImageDilate_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel string, kernel_height uint, kernel_width uint, flags uint32) int {
 	if _vImageDilate_ARGB8888 == nil {
 		panic("Accelerate: symbol vImageDilate_ARGB8888 not loaded")
 	}
@@ -14434,12 +14442,12 @@ func VImageDilate_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToR
 	return _vImageDilate_ARGBFFFF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, flags)
 }
 
-var _vImageDilate_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int
+var _vImageDilate_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel string, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageDilate_Planar8 dilates an 8-bit planar buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageDilate_Planar8(_:_:_:_:_:_:_:_:)
-func VImageDilate_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int {
+func VImageDilate_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel string, kernel_height uint, kernel_width uint, flags uint32) int {
 	if _vImageDilate_Planar8 == nil {
 		panic("Accelerate: symbol vImageDilate_Planar8 not loaded")
 	}
@@ -14554,12 +14562,12 @@ func VImageEqualization_PlanarF(src unsafe.Pointer, dest unsafe.Pointer, tempBuf
 	return _vImageEqualization_PlanarF(src, dest, tempBuffer, histogram_entries, minVal, maxVal, flags)
 }
 
-var _vImageErode_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int
+var _vImageErode_ARGB8888 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel string, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageErode_ARGB8888 erodes an 8-bit-per-channel, 4-channel interleaved buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageErode_ARGB8888(_:_:_:_:_:_:_:_:)
-func VImageErode_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int {
+func VImageErode_ARGB8888(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel string, kernel_height uint, kernel_width uint, flags uint32) int {
 	if _vImageErode_ARGB8888 == nil {
 		panic("Accelerate: symbol vImageErode_ARGB8888 not loaded")
 	}
@@ -14578,12 +14586,12 @@ func VImageErode_ARGBFFFF(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToRO
 	return _vImageErode_ARGBFFFF(src, dest, srcOffsetToROI_X, srcOffsetToROI_Y, unsafe.SliceData(kernel), kernel_height, kernel_width, flags)
 }
 
-var _vImageErode_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int
+var _vImageErode_Planar8 func(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel string, kernel_height uint, kernel_width uint, flags uint32) int
 
 // VImageErode_Planar8 erodes an 8-bit planar buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageErode_Planar8(_:_:_:_:_:_:_:_:)
-func VImageErode_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel *byte, kernel_height uint, kernel_width uint, flags uint32) int {
+func VImageErode_Planar8(src unsafe.Pointer, dest unsafe.Pointer, srcOffsetToROI_X uint, srcOffsetToROI_Y uint, kernel string, kernel_height uint, kernel_width uint, flags uint32) int {
 	if _vImageErode_Planar8 == nil {
 		panic("Accelerate: symbol vImageErode_Planar8 not loaded")
 	}
@@ -19454,6 +19462,8 @@ var _vfabf func(arg0 VFloat) VFloat
 
 // Vfabf for each vector element, calculates the absolute value of `v`.
 //
+// Deprecated: Deprecated since macOS 12.0.
+//
 // See: https://developer.apple.com/documentation/Accelerate/vfabf(_:)
 func Vfabf(arg0 VFloat) VFloat {
 	if _vfabf == nil {
@@ -19501,6 +19511,8 @@ func Vfmodf(arg0 VFloat, arg1 VFloat) VFloat {
 var _vintf func(arg0 VFloat) VFloat
 
 // Vintf truncates the decimal portion of a vector of floating-point values.
+//
+// Deprecated: Deprecated since macOS 10.14.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vintf(_:)
 func Vintf(arg0 VFloat) VFloat {

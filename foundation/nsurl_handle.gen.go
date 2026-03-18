@@ -36,12 +36,6 @@ func (nc NSURLHandleClass) Alloc() NSURLHandle {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that accesses and manages resource data indicated by a URL.
 //
 // # Overview
@@ -65,14 +59,10 @@ type NSURLHandle struct {
 //
 // An object that accesses and manages resource data indicated by a URL.
 func NSURLHandleFromID(id objc.ID) NSURLHandle {
-	return NSURLHandle{objectivec.Object{id}}
+	return NSURLHandle{objectivec.Object{ID: id}}
 }
 // NOTE: NSURLHandle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSURLHandle] class.
 //
@@ -80,10 +70,6 @@ func NSURLHandleFromID(id objc.ID) NSURLHandle {
 type INSURLHandle interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u NSURLHandle) Init() NSURLHandle {
@@ -103,44 +89,4 @@ func NewNSURLHandle() NSURLHandle {
 	rv := objc.Send[NSURLHandle](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

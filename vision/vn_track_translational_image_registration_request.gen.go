@@ -36,12 +36,6 @@ func (vc VNTrackTranslationalImageRegistrationRequestClass) Alloc() VNTrackTrans
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request, as a stateful request you track over time, that
 // determines the affine transform necessary to align the content of two
 // images.
@@ -68,20 +62,12 @@ func VNTrackTranslationalImageRegistrationRequestFromID(id objc.ID) VNTrackTrans
 // NOTE: VNTrackTranslationalImageRegistrationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNTrackTranslationalImageRegistrationRequest] class.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackTranslationalImageRegistrationRequest
 type IVNTrackTranslationalImageRegistrationRequest interface {
 	IVNStatefulRequest
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t VNTrackTranslationalImageRegistrationRequest) Init() VNTrackTranslationalImageRegistrationRequest {
@@ -102,11 +88,6 @@ func NewVNTrackTranslationalImageRegistrationRequest() VNTrackTranslationalImage
 	return rv
 }
 
-
-
-
-
-
 // Creates a new request that tracks the translational registration of two
 // images, with a system callback on completion.
 //
@@ -118,7 +99,6 @@ func NewTrackTranslationalImageRegistrationRequestWithCompletionHandler(completi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNTrackTranslationalImageRegistrationRequestFromID(rv)
 }
-
 
 // Initializes a video-based request.
 //
@@ -140,42 +120,4 @@ func NewTrackTranslationalImageRegistrationRequestWithFrameAnalysisSpacingComple
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNTrackTranslationalImageRegistrationRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (mc MTLVertexAttributeDescriptorClass) Alloc() MTLVertexAttributeDescriptor
 	return rv
 }
 
-
-
-
-
-
-
 // An object that determines how to store attribute data in memory and map it
 // to the arguments of a vertex function.
 //
@@ -72,14 +66,10 @@ type MTLVertexAttributeDescriptor struct {
 // An object that determines how to store attribute data in memory and map it
 // to the arguments of a vertex function.
 func MTLVertexAttributeDescriptorFromID(id objc.ID) MTLVertexAttributeDescriptor {
-	return MTLVertexAttributeDescriptor{objectivec.Object{id}}
+	return MTLVertexAttributeDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLVertexAttributeDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLVertexAttributeDescriptor] class.
 //
@@ -111,10 +101,6 @@ type IMTLVertexAttributeDescriptor interface {
 	MTLBufferLayoutStrideDynamic() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v MTLVertexAttributeDescriptor) Init() MTLVertexAttributeDescriptor {
 	rv := objc.Send[MTLVertexAttributeDescriptor](v.ID, objc.Sel("init"))
@@ -133,26 +119,6 @@ func NewMTLVertexAttributeDescriptor() MTLVertexAttributeDescriptor {
 	rv := objc.Send[MTLVertexAttributeDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The format of the vertex attribute.
 //
@@ -196,8 +162,6 @@ func (v MTLVertexAttributeDescriptor) SetFormat(value MTLVertexFormat) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFormat:"), value)
 }
 
-
-
 // The location of an attribute in vertex data, determined by the byte offset
 // from the start of the vertex data.
 //
@@ -214,8 +178,6 @@ func (v MTLVertexAttributeDescriptor) SetOffset(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setOffset:"), value)
 }
 
-
-
 // The index in the argument table for the associated vertex buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttributeDescriptor/bufferIndex
@@ -227,34 +189,9 @@ func (v MTLVertexAttributeDescriptor) SetBufferIndex(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBufferIndex:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexAttributeDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

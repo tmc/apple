@@ -37,12 +37,6 @@ func (mc MTLFunctionReflectionClass) Alloc() MTLFunctionReflection {
 	return rv
 }
 
-
-
-
-
-
-
 // Represents a reflection object containing information about a function in a
 // Metal library.
 //
@@ -61,14 +55,10 @@ type MTLFunctionReflection struct {
 // Represents a reflection object containing information about a function in a
 // Metal library.
 func MTLFunctionReflectionFromID(id objc.ID) MTLFunctionReflection {
-	return MTLFunctionReflection{objectivec.Object{id}}
+	return MTLFunctionReflection{objectivec.Object{ID: id}}
 }
 // NOTE: MTLFunctionReflection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLFunctionReflection] class.
 //
@@ -89,10 +79,6 @@ type IMTLFunctionReflection interface {
 	UserAnnotation() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MTLFunctionReflection) Init() MTLFunctionReflection {
 	rv := objc.Send[MTLFunctionReflection](f.ID, objc.Sel("init"))
@@ -112,26 +98,6 @@ func NewMTLFunctionReflection() MTLFunctionReflection {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Provides a list of inputs and outputs of the function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionReflection/bindings
@@ -142,8 +108,6 @@ func (f MTLFunctionReflection) Bindings() []objectivec.IObject {
 	})
 }
 
-
-
 // The string passed to the user annotation attribute for this function. Null
 // if no user annotation is present for this function.
 //
@@ -152,28 +116,4 @@ func (f MTLFunctionReflection) UserAnnotation() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("userAnnotation"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -35,12 +36,6 @@ func (nc NSIndexPathClass) Alloc() NSIndexPath {
 	rv := objc.Send[NSIndexPath](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A list of indexes that together represent the path to a specific location
 // in a tree of nested arrays.
@@ -96,14 +91,10 @@ type NSIndexPath struct {
 // A list of indexes that together represent the path to a specific location
 // in a tree of nested arrays.
 func NSIndexPathFromID(id objc.ID) NSIndexPath {
-	return NSIndexPath{objectivec.Object{id}}
+	return NSIndexPath{objectivec.Object{ID: id}}
 }
 // NOTE: NSIndexPath adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSIndexPath] class.
 //
@@ -138,7 +129,9 @@ func NSIndexPathFromID(id objc.ID) NSIndexPath {
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath
 type INSIndexPath interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating and Initializing Index Paths
 
@@ -176,16 +169,8 @@ type INSIndexPath interface {
 	// Provides the value at a particular node in the index path.
 	IndexAtPosition(position uint) uint
 	// Copies the indexes stored in the index path from the positions specified by the position range into the specified indexes.
-	GetIndexesRange(indexes uint, positionRange NSRange)
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSIndexPath
+	GetIndexesRange(indexes unsafe.Pointer, positionRange NSRange)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i NSIndexPath) Init() NSIndexPath {
@@ -205,11 +190,6 @@ func NewNSIndexPath() NSIndexPath {
 	rv := objc.Send[NSIndexPath](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes an index path with the indexes of a specific item and section
 // in a collection view.
@@ -233,7 +213,6 @@ func NewIndexPathForItemInSection(item int, section int) NSIndexPath {
 	return NSIndexPathFromID(rv)
 }
 
-
 // Initializes an index path with the indexes of a specific row and section in
 // a table view.
 //
@@ -256,7 +235,6 @@ func NewIndexPathForRowInSection(row int, section int) NSIndexPath {
 	return NSIndexPathFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewIndexPathWithCoder(coder INSCoder) NSIndexPath {
@@ -264,7 +242,6 @@ func NewIndexPathWithCoder(coder INSCoder) NSIndexPath {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSIndexPathFromID(rv)
 }
-
 
 // Initializes an index path with a single node.
 //
@@ -281,7 +258,6 @@ func NewIndexPathWithIndex(index uint) NSIndexPath {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndex:"), index)
 	return NSIndexPathFromID(rv)
 }
-
 
 // Initializes an index path with the given nodes and length.
 //
@@ -303,12 +279,6 @@ func NewIndexPathWithIndexesLength(indexes uint, length uint) NSIndexPath {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndexes:length:"), indexes, length)
 	return NSIndexPathFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes an index path with a single node.
 //
@@ -447,7 +417,7 @@ func (i NSIndexPath) IndexAtPosition(position uint) uint {
 // You must allocate the memory for the C array.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/getIndexes(_:range:)
-func (i NSIndexPath) GetIndexesRange(indexes uint, positionRange NSRange) {
+func (i NSIndexPath) GetIndexesRange(indexes unsafe.Pointer, positionRange NSRange) {
 	objc.Send[objc.ID](i.ID, objc.Sel("getIndexes:range:"), indexes, positionRange)
 }
 
@@ -466,10 +436,6 @@ func (i NSIndexPath) InitWithCoder(coder INSCoder) NSIndexPath {
 	rv := objc.Send[NSIndexPath](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-
-
-
 
 // Creates a one-node index path.
 //
@@ -501,13 +467,6 @@ func (_NSIndexPathClass NSIndexPathClass) IndexPathWithIndexesLength(indexes uin
 	return NSIndexPathFromID(rv)
 }
 
-
-
-
-
-
-
-
 // An index number identifying a section in a table view or collection view.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/section
@@ -515,8 +474,6 @@ func (i NSIndexPath) Section() int {
 	rv := objc.Send[int](i.ID, objc.Sel("section"))
 	return rv
 }
-
-
 
 // An index number identifying an item in a section of a collection view.
 //
@@ -530,8 +487,6 @@ func (i NSIndexPath) Item() int {
 	return rv
 }
 
-
-
 // The number of nodes in the index path.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/length
@@ -540,34 +495,9 @@ func (i NSIndexPath) Length() uint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

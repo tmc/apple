@@ -9,75 +9,100 @@ import (
 	"github.com/tmc/apple/foundation"
 )
 
+// uint values.
 const (
 
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLAttributeStrideStatic
 	MTLAttributeStrideStatic uint = 9223372036854775807
 
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBufferLayoutStrideDynamic
 	MTLBufferLayoutStrideDynamic uint = 9223372036854775807
 )
 
-var MTL4CommandQueueErrorDomain foundation.NSErrorDomain
+var (
+	// See: https://developer.apple.com/documentation/Metal/MTL4CommandQueueErrorDomain
+	MTL4CommandQueueErrorDomain foundation.NSErrorDomain
+	// MTLBinaryArchiveDomain is the domain for Metal binary archive errors.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBinaryArchiveDomain
+	MTLBinaryArchiveDomain foundation.NSErrorDomain
+	// MTLCaptureErrorDomain is the error domain for capture errors.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCaptureErrorDomain
+	MTLCaptureErrorDomain foundation.NSErrorDomain
+	// MTLCommandBufferEncoderInfoErrorKey is a key to a command buffer error’s user information dictionary that retrieves additional information about a GPU’s runtime error.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfoErrorKey
+	MTLCommandBufferEncoderInfoErrorKey foundation.NSErrorUserInfoKey
+	// MTLCommandBufferErrorDomain is the domain for Metal command buffer errors.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCommandBufferErrorDomain
+	MTLCommandBufferErrorDomain foundation.NSErrorDomain
+	// MTLCounterErrorDomain is the domain for Metal counter sample buffer errors.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLCounterErrorDomain
+	MTLCounterErrorDomain foundation.NSErrorDomain
+	// MTLDynamicLibraryDomain is the domain for Metal dynamic library errors.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibraryDomain
+	MTLDynamicLibraryDomain foundation.NSErrorDomain
+	// MTLIOErrorDomain is the domain for input/output command queue errors.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLIOErrorDomain
+	MTLIOErrorDomain foundation.NSErrorDomain
+	// MTLLibraryErrorDomain is the error domain for Metal libraries.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLLibraryErrorDomain
+	MTLLibraryErrorDomain foundation.NSErrorDomain
+	// See: https://developer.apple.com/documentation/Metal/MTLLogStateErrorDomain
+	MTLLogStateErrorDomain foundation.NSErrorDomain
+	// MTLTensorDomain is an error domain for errors that pertain to creating a tensor.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTensorDomain
+	MTLTensorDomain foundation.NSErrorDomain
+	// See: https://developer.apple.com/documentation/Metal/NSProcessInfoPerformanceProfileDidChangeNotification
+	ProcessInfoPerformanceProfileDidChangeNotification foundation.NSNotificationName
+)
 
+var (
+)
 
-var MTLBinaryArchiveDomain foundation.NSErrorDomain
+var (
+)
 
+var (
+	// MTLDeviceRemovalRequestedNotification is a notification that Metal sends to observers when a person requests to remove a GPU device from the system.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDeviceNotificationName/removalRequested
+	MTLDeviceRemovalRequestedNotification MTLDeviceNotificationName
+	// MTLDeviceWasAddedNotification is a notification that Metal sends to observers when the system adds a GPU device.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDeviceNotificationName/wasAdded
+	MTLDeviceWasAddedNotification MTLDeviceNotificationName
+	// MTLDeviceWasRemovedNotification is a notification that Metal sends to observers when the system removes a GPU device.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDeviceNotificationName/wasRemoved
+	MTLDeviceWasRemovedNotification MTLDeviceNotificationName
+)
 
-var MTLCaptureErrorDomain foundation.NSErrorDomain
+var (
+	// DeviceCertificationiPhonePerformanceGaming is the performance gaming tier for iPhone.
+	//
+	// See: https://developer.apple.com/documentation/Metal/NSDeviceCertification/iPhonePerformanceGaming
+	DeviceCertificationiPhonePerformanceGaming NSDeviceCertification
+)
 
-var MTLCommandBufferEncoderInfoErrorKey foundation.NSErrorUserInfoKey
-
-var MTLCommandBufferErrorDomain foundation.NSErrorDomain
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var MTLCounterErrorDomain foundation.NSErrorDomain
-
-var MTLDeviceRemovalRequestedNotification MTLDeviceNotificationName
-
-var MTLDeviceWasAddedNotification MTLDeviceNotificationName
-
-var MTLDeviceWasRemovedNotification MTLDeviceNotificationName
-
-var MTLDynamicLibraryDomain foundation.NSErrorDomain
-
-var MTLIOErrorDomain foundation.NSErrorDomain
-
-var MTLLibraryErrorDomain foundation.NSErrorDomain
-
-var MTLLogStateErrorDomain foundation.NSErrorDomain
-
-var MTLTensorDomain foundation.NSErrorDomain
-
-var DeviceCertificationiPhonePerformanceGaming NSDeviceCertification
-
-var ProcessInfoPerformanceProfileDidChangeNotification foundation.NSNotificationName
-
-
-
+var (
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTL4CommandQueueErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -86,9 +111,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLBinaryArchiveDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -97,9 +121,8 @@ func init() {
 		}
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCaptureErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -109,7 +132,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommandBufferEncoderInfoErrorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -119,7 +142,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommandBufferErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -201,7 +224,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCounterErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -211,7 +234,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLDeviceRemovalRequestedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -221,7 +244,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLDeviceWasAddedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -231,7 +254,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLDeviceWasRemovedNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -241,7 +264,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLDynamicLibraryDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -251,7 +274,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLIOErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -261,7 +284,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLLibraryErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -271,7 +294,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLLogStateErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -281,7 +304,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLTensorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -295,7 +318,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessInfoPerformanceProfileDidChangeNotification"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {

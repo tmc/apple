@@ -42,8 +42,6 @@ type MTLIndirectCommandBuffer interface {
 	ResetWithRange(range_ foundation.NSRange)
 }
 
-
-
 // MTLIndirectCommandBufferObject wraps an existing Objective-C object that conforms to the MTLIndirectCommandBuffer protocol.
 type MTLIndirectCommandBufferObject struct {
 	objectivec.Object
@@ -52,8 +50,6 @@ func (o MTLIndirectCommandBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIndirectCommandBufferObjectFromID constructs a [MTLIndirectCommandBufferObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIndirectCommandBufferObjectFromID(id objc.ID) MTLIndirectCommandBufferObject {
@@ -61,9 +57,6 @@ func MTLIndirectCommandBufferObjectFromID(id objc.ID) MTLIndirectCommandBufferOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The number of commands contained in the indirect command buffer.
 //
@@ -332,34 +325,7 @@ func (o MTLIndirectCommandBufferObject) SetOwnerWithIdentity(task_id_token objec
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 func (o MTLIndirectCommandBufferObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (uc URLProtectionSpaceClass) Alloc() URLProtectionSpace {
 	return rv
 }
 
-
-
-
-
-
-
 // A server or an area on a server, commonly referred to as a realm, that
 // requires authentication.
 //
@@ -81,17 +75,13 @@ type URLProtectionSpace struct {
 // A server or an area on a server, commonly referred to as a realm, that
 // requires authentication.
 func URLProtectionSpaceFromID(id objc.ID) URLProtectionSpace {
-	return NSURLProtectionSpace{objectivec.Object{id}}
+	return NSURLProtectionSpace{objectivec.Object{ID: id}}
 }
 
 // NSURLProtectionSpaceFromID is an alias for [URLProtectionSpaceFromID] for cross-framework compatibility.
 func NSURLProtectionSpaceFromID(id objc.ID) URLProtectionSpace { return URLProtectionSpaceFromID(id) }
 // NOTE: URLProtectionSpace adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLProtectionSpace] class.
 //
@@ -115,7 +105,9 @@ func NSURLProtectionSpaceFromID(id objc.ID) URLProtectionSpace { return URLProte
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace
 type IURLProtectionSpace interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating a protection space
 
@@ -147,14 +139,7 @@ type IURLProtectionSpace interface {
 
 	// A Boolean value that indicates whether the receiver represents a proxy server.
 	IsProxy() bool
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) URLProtectionSpace
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u URLProtectionSpace) Init() URLProtectionSpace {
@@ -175,11 +160,6 @@ func NewURLProtectionSpace() URLProtectionSpace {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLProtectionSpaceWithCoder(coder INSCoder) URLProtectionSpace {
@@ -187,7 +167,6 @@ func NewURLProtectionSpaceWithCoder(coder INSCoder) URLProtectionSpace {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return URLProtectionSpaceFromID(rv)
 }
-
 
 // Creates a protection space object from the given host, port, protocol,
 // realm, and authentication method.
@@ -225,7 +204,6 @@ func NewURLProtectionSpaceWithHostPortProtocolRealmAuthenticationMethod(host str
 	return URLProtectionSpaceFromID(rv)
 }
 
-
 // Creates a protection space object representing a proxy server.
 //
 // host: The host of the proxy server for the protection space object.
@@ -261,12 +239,6 @@ func NewURLProtectionSpaceWithProxyHostPortTypeRealmAuthenticationMethod(host st
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProxyHost:port:type:realm:authenticationMethod:"), objc.String(host), port, objc.String(type_), objc.String(realm), objc.String(authenticationMethod))
 	return URLProtectionSpaceFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a protection space object from the given host, port, protocol,
 // realm, and authentication method.
@@ -354,17 +326,6 @@ func (u URLProtectionSpace) InitWithCoder(coder INSCoder) URLProtectionSpace {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The authentication method used by the receiver.
 //
 // # Discussion
@@ -379,8 +340,6 @@ func (u URLProtectionSpace) AuthenticationMethod() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("authenticationMethod"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The acceptable certificate-issuing authorities for client certificate
 // authentication.
@@ -399,8 +358,6 @@ func (u URLProtectionSpace) DistinguishedNames() []NSData {
 	})
 }
 
-
-
 // The receiver’s host.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/host
@@ -409,8 +366,6 @@ func (u URLProtectionSpace) Host() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The receiver’s port.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/port
@@ -418,8 +373,6 @@ func (u URLProtectionSpace) Port() int {
 	rv := objc.Send[int](u.ID, objc.Sel("port"))
 	return rv
 }
-
-
 
 // The receiver’s protocol.
 //
@@ -432,8 +385,6 @@ func (u URLProtectionSpace) Protocol() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("protocol"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The receiver’s proxy type.
 //
@@ -451,8 +402,6 @@ func (u URLProtectionSpace) ProxyType() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The receiver’s authentication realm
 //
 // # Discussion
@@ -465,8 +414,6 @@ func (u URLProtectionSpace) Realm() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("realm"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A Boolean value that indicates whether the credentials for the protection
 // space can be sent securely.
@@ -485,8 +432,6 @@ func (u URLProtectionSpace) ReceivesCredentialSecurely() bool {
 	return rv
 }
 
-
-
 // A representation of the server’s SSL transaction state.
 //
 // # Discussion
@@ -499,8 +444,6 @@ func (u URLProtectionSpace) ServerTrust() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("serverTrust"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // A Boolean value that indicates whether the receiver represents a proxy
 // server.
@@ -518,35 +461,9 @@ func (u URLProtectionSpace) IsProxy() bool {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

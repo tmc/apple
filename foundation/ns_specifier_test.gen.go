@@ -36,12 +36,6 @@ func (nc NSSpecifierTestClass) Alloc() NSSpecifierTest {
 	return rv
 }
 
-
-
-
-
-
-
 // A comparison between an object specifier and a test object.
 //
 // # Overview
@@ -93,10 +87,6 @@ func NSSpecifierTestFromID(id objc.ID) NSSpecifierTest {
 // NOTE: NSSpecifierTest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSSpecifierTest] class.
 //
 // # Initializing a specifier test
@@ -117,10 +107,6 @@ type INSSpecifierTest interface {
 	SetContainerIsObjectBeingTested(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSpecifierTest) Init() NSSpecifierTest {
 	rv := objc.Send[NSSpecifierTest](s.ID, objc.Sel("init"))
@@ -140,11 +126,6 @@ func NewNSSpecifierTest() NSSpecifierTest {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpecifierTest/init(coder:)
 func NewSpecifierTestWithCoder(inCoder INSCoder) NSSpecifierTest {
@@ -152,7 +133,6 @@ func NewSpecifierTestWithCoder(inCoder INSCoder) NSSpecifierTest {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSSpecifierTestFromID(rv)
 }
-
 
 // Returns a specifier test initialized to evaluate a test object against an
 // object specified by an object specifier using a given comparison operation.
@@ -175,12 +155,6 @@ func NewSpecifierTestWithObjectSpecifierComparisonOperatorTestObject(obj1 INSScr
 	return NSSpecifierTestFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns a specifier test initialized to evaluate a test object against an
 // object specified by an object specifier using a given comparison operation.
 //
@@ -201,17 +175,6 @@ func (s NSSpecifierTest) InitWithObjectSpecifierComparisonOperatorTestObject(obj
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Sets whether the receiver’s container should be an object involved in a
 // filter reference or the top-level object.
 //
@@ -223,29 +186,4 @@ func (s NSSpecifierTest) ContainerIsObjectBeingTested() bool {
 func (s NSSpecifierTest) SetContainerIsObjectBeingTested(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContainerIsObjectBeingTested:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

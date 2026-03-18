@@ -37,12 +37,6 @@ func (mc MTLLinkedFunctionsClass) Alloc() MTLLinkedFunctions {
 	return rv
 }
 
-
-
-
-
-
-
 // A set of related functions that Metal links to when necessary to create the
 // function instance.
 //
@@ -77,14 +71,10 @@ type MTLLinkedFunctions struct {
 // A set of related functions that Metal links to when necessary to create the
 // function instance.
 func MTLLinkedFunctionsFromID(id objc.ID) MTLLinkedFunctions {
-	return MTLLinkedFunctions{objectivec.Object{id}}
+	return MTLLinkedFunctions{objectivec.Object{ID: id}}
 }
 // NOTE: MTLLinkedFunctions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLLinkedFunctions] class.
 //
@@ -135,10 +125,6 @@ type IMTLLinkedFunctions interface {
 	SetSpecializedName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l MTLLinkedFunctions) Init() MTLLinkedFunctions {
 	rv := objc.Send[MTLLinkedFunctions](l.ID, objc.Sel("init"))
@@ -158,19 +144,6 @@ func NewMTLLinkedFunctions() MTLLinkedFunctions {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates an empty linked functions object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLinkedFunctions/linkedFunctions
@@ -178,13 +151,6 @@ func (_MTLLinkedFunctionsClass MTLLinkedFunctionsClass) LinkedFunctions() MTLLin
 	rv := objc.Send[objc.ID](objc.ID(_MTLLinkedFunctionsClass.class), objc.Sel("linkedFunctions"))
 	return MTLLinkedFunctionsFromID(rv)
 }
-
-
-
-
-
-
-
 
 // An array of function objects to link to the new function.
 //
@@ -199,8 +165,6 @@ func (l MTLLinkedFunctions) SetFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // An array of function objects already compiled to a binary representation to
 // link.
 //
@@ -214,8 +178,6 @@ func (l MTLLinkedFunctions) BinaryFunctions() []objectivec.IObject {
 func (l MTLLinkedFunctions) SetBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // An optional list of groups specifying which functions your shader can call
 // at each call site.
@@ -249,8 +211,6 @@ func (l MTLLinkedFunctions) SetGroups(value foundation.INSDictionary) {
 	objc.Send[struct{}](l.ID, objc.Sel("setGroups:"), value)
 }
 
-
-
 // An array of function objects to link to the new function, without exporting
 // the functions publicly.
 //
@@ -271,8 +231,6 @@ func (l MTLLinkedFunctions) SetPrivateFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](l.ID, objc.Sel("setPrivateFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The binary archives to search for a previously-compiled version of this
 // function.
 //
@@ -285,8 +243,6 @@ func (l MTLLinkedFunctions) SetBinaryArchives(value MTLBinaryArchive) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBinaryArchives:"), value)
 }
 
-
-
 // The set of constant values assigned to the function constants.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/constantvalues
@@ -297,8 +253,6 @@ func (l MTLLinkedFunctions) ConstantValues() IMTLFunctionConstantValues {
 func (l MTLLinkedFunctions) SetConstantValues(value IMTLFunctionConstantValues) {
 	objc.Send[struct{}](l.ID, objc.Sel("setConstantValues:"), value)
 }
-
-
 
 // The name of the function to fetch from the library.
 //
@@ -311,8 +265,6 @@ func (l MTLLinkedFunctions) SetName(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setName:"), objc.String(value))
 }
 
-
-
 // Flags specifying how Metal should create the new function object.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/options
@@ -324,8 +276,6 @@ func (l MTLLinkedFunctions) SetOptions(value MTLFunctionOptions) {
 	objc.Send[struct{}](l.ID, objc.Sel("setOptions:"), value)
 }
 
-
-
 // A new name for the created function object.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunctiondescriptor/specializedname
@@ -336,27 +286,4 @@ func (l MTLLinkedFunctions) SpecializedName() string {
 func (l MTLLinkedFunctions) SetSpecializedName(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setSpecializedName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

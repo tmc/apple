@@ -36,12 +36,6 @@ func (nc NSCompoundPredicateClass) Alloc() NSCompoundPredicate {
 	return rv
 }
 
-
-
-
-
-
-
 // A specialized predicate that evaluates logical combinations of other
 // predicates.
 //
@@ -83,10 +77,6 @@ func NSCompoundPredicateFromID(id objc.ID) NSCompoundPredicate {
 // NOTE: NSCompoundPredicate adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCompoundPredicate] class.
 //
 // # Creating Compound Predicates
@@ -115,10 +105,6 @@ type INSCompoundPredicate interface {
 	Subpredicates() INSArray
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSCompoundPredicate) Init() NSCompoundPredicate {
 	rv := objc.Send[NSCompoundPredicate](c.ID, objc.Sel("init"))
@@ -137,11 +123,6 @@ func NewNSCompoundPredicate() NSCompoundPredicate {
 	rv := objc.Send[NSCompoundPredicate](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns a new predicate that you form using an AND operation on the
 // predicates in a specified array.
@@ -169,7 +150,6 @@ func NewCompoundPredicateAndPredicateWithSubpredicates(subpredicates []NSPredica
 	return NSCompoundPredicateFromID(rv)
 }
 
-
 // Returns a new predicate that you form using a NOT operation on a specified
 // predicate.
 //
@@ -190,7 +170,6 @@ func NewCompoundPredicateNotPredicateWithSubpredicate(predicate INSPredicate) NS
 	rv := objc.Send[objc.ID](objc.ID(getNSCompoundPredicateClass().class), objc.Sel("notPredicateWithSubpredicate:"), predicate)
 	return NSCompoundPredicateFromID(rv)
 }
-
 
 // Returns a new predicate that you form using an OR operation on the
 // predicates in a specified array.
@@ -218,7 +197,6 @@ func NewCompoundPredicateOrPredicateWithSubpredicates(subpredicates []NSPredicat
 	return NSCompoundPredicateFromID(rv)
 }
 
-
 // Creates a predicate by decoding from the coder you specify.
 //
 // coder: The coder to read data from.
@@ -229,7 +207,6 @@ func NewCompoundPredicateWithCoder(coder INSCoder) NSCompoundPredicate {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCompoundPredicateFromID(rv)
 }
-
 
 // Returns the receiver that a specified type initializes using predicates
 // from a specified array.
@@ -256,12 +233,6 @@ func NewCompoundPredicateWithTypeSubpredicates(type_ NSCompoundPredicateType, su
 	return NSCompoundPredicateFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns the receiver that a specified type initializes using predicates
 // from a specified array.
 //
@@ -286,17 +257,6 @@ func (c NSCompoundPredicate) InitWithTypeSubpredicates(type_ NSCompoundPredicate
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The predicate type for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/compoundPredicateType
@@ -305,8 +265,6 @@ func (c NSCompoundPredicate) CompoundPredicateType() NSCompoundPredicateType {
 	return NSCompoundPredicateType(rv)
 }
 
-
-
 // The receiver’s subpredicates.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/subpredicates
@@ -314,31 +272,4 @@ func (c NSCompoundPredicate) Subpredicates() INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("subpredicates"))
 	return NSArrayFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

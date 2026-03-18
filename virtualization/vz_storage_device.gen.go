@@ -36,12 +36,6 @@ func (vc VZStorageDeviceClass) Alloc() VZStorageDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a storage device in a VM.
 //
 // # Overview
@@ -58,14 +52,10 @@ type VZStorageDevice struct {
 //
 // A class that represents a storage device in a VM.
 func VZStorageDeviceFromID(id objc.ID) VZStorageDevice {
-	return VZStorageDevice{objectivec.Object{id}}
+	return VZStorageDevice{objectivec.Object{ID: id}}
 }
 // NOTE: VZStorageDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZStorageDevice] class.
 //
@@ -73,10 +63,6 @@ func VZStorageDeviceFromID(id objc.ID) VZStorageDevice {
 type IVZStorageDevice interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VZStorageDevice) Init() VZStorageDevice {
@@ -96,44 +82,4 @@ func NewVZStorageDevice() VZStorageDevice {
 	rv := objc.Send[VZStorageDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

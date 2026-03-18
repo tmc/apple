@@ -35,12 +35,6 @@ func (nc NSSymbolDisappearEffectClass) Alloc() NSSymbolDisappearEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A type that makes the layers of a symbol-based image disappear separately
 // or as a whole.
 //
@@ -70,10 +64,6 @@ func NSSymbolDisappearEffectFromID(id objc.ID) NSSymbolDisappearEffect {
 // Ensure NSSymbolDisappearEffect implements INSSymbolDisappearEffect.
 var _ INSSymbolDisappearEffect = NSSymbolDisappearEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolDisappearEffect] class.
 //
 // # Determining effect scope
@@ -93,10 +83,6 @@ type INSSymbolDisappearEffect interface {
 	EffectWithWholeSymbol() INSSymbolDisappearEffect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolDisappearEffect) Init() NSSymbolDisappearEffect {
 	rv := objc.Send[NSSymbolDisappearEffect](s.ID, objc.Sel("init"))
@@ -115,15 +101,6 @@ func NewNSSymbolDisappearEffect() NSSymbolDisappearEffect {
 	rv := objc.Send[NSSymbolDisappearEffect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // An effect that makes each layer disappear separately.
 //
@@ -149,10 +126,6 @@ func (s NSSymbolDisappearEffect) EffectWithWholeSymbol() INSSymbolDisappearEffec
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithWholeSymbol"))
 	return NSSymbolDisappearEffectFromID(rv)
 }
-
-
-
-
 
 // An effect that scales the symbol down as it disappears.
 //
@@ -192,25 +165,4 @@ func (_NSSymbolDisappearEffectClass NSSymbolDisappearEffectClass) Effect() NSSym
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolDisappearEffectClass.class), objc.Sel("effect"))
 	return NSSymbolDisappearEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

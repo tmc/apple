@@ -14,8 +14,6 @@ type SCStreamOutput interface {
 	objectivec.IObject
 }
 
-
-
 // SCStreamOutputObject wraps an existing Objective-C object that conforms to the SCStreamOutput protocol.
 type SCStreamOutputObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o SCStreamOutputObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // SCStreamOutputObjectFromID constructs a [SCStreamOutputObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func SCStreamOutputObjectFromID(id objc.ID) SCStreamOutputObject {
@@ -33,9 +29,6 @@ func SCStreamOutputObjectFromID(id objc.ID) SCStreamOutputObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that a capture stream produced a frame.
 //
@@ -51,11 +44,4 @@ func (o SCStreamOutputObject) StreamDidOutputSampleBufferOfType(stream ISCStream
 	
 	objc.Send[struct{}](o.ID, objc.Sel("stream:didOutputSampleBuffer:ofType:"), stream, sampleBuffer, type_)
 	}
-
-
-
-
-
-
-
 

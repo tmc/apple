@@ -470,9 +470,8 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		fn := config.LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, glyphsID objc.ID, props NSGlyphProperty, charIndexes *uint, aFontID objc.ID, glyphRange foundation.NSRange) uint {
+			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, glyphs *coregraphics.CGFontIndex, props NSGlyphProperty, charIndexes *uint, aFontID objc.ID, glyphRange foundation.NSRange) uint {
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
-				glyphs := *coregraphics.CGFontIndexFromID(glyphsID)
 				aFont := NSFontFromID(aFontID)
 				return fn(layoutManager, glyphs, props, charIndexes, aFont, glyphRange)
 			},

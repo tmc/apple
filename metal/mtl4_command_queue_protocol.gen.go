@@ -95,8 +95,6 @@ type MTL4CommandQueue interface {
 	UpdateTextureMappingsHeapOperationsCount(texture MTLTexture, heap MTLHeap, operations []MTL4UpdateSparseTextureMappingOperation, count uint)
 }
 
-
-
 // MTL4CommandQueueObject wraps an existing Objective-C object that conforms to the MTL4CommandQueue protocol.
 type MTL4CommandQueueObject struct {
 	objectivec.Object
@@ -105,8 +103,6 @@ func (o MTL4CommandQueueObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4CommandQueueObjectFromID constructs a [MTL4CommandQueueObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4CommandQueueObjectFromID(id objc.ID) MTL4CommandQueueObject {
@@ -114,9 +110,6 @@ func MTL4CommandQueueObjectFromID(id objc.ID) MTL4CommandQueueObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the GPU device that the command queue belongs to.
 //
@@ -492,14 +485,4 @@ func (o MTL4CommandQueueObject) UpdateTextureMappingsHeapOperationsCount(texture
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateTextureMappings:heap:operations:count:"), texture, heap, objc.CArray(operations), count)
 	}
-
-
-
-
-
-
-
-
-
-
 

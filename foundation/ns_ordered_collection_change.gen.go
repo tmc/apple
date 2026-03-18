@@ -36,12 +36,6 @@ func (nc NSOrderedCollectionChangeClass) Alloc() NSOrderedCollectionChange {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents an indexed change within an ordered collection.
 //
 // # Overview
@@ -71,14 +65,10 @@ type NSOrderedCollectionChange struct {
 //
 // An object that represents an indexed change within an ordered collection.
 func NSOrderedCollectionChangeFromID(id objc.ID) NSOrderedCollectionChange {
-	return NSOrderedCollectionChange{objectivec.Object{id}}
+	return NSOrderedCollectionChange{objectivec.Object{ID: id}}
 }
 // NOTE: NSOrderedCollectionChange adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSOrderedCollectionChange] class.
 //
@@ -128,10 +118,6 @@ type INSOrderedCollectionChange interface {
 	SetRemovals(value INSOrderedCollectionChange)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (o NSOrderedCollectionChange) Init() NSOrderedCollectionChange {
 	rv := objc.Send[NSOrderedCollectionChange](o.ID, objc.Sel("init"))
@@ -151,11 +137,6 @@ func NewNSOrderedCollectionChange() NSOrderedCollectionChange {
 	return rv
 }
 
-
-
-
-
-
 // Creates a change object that represents inserting or removing an object
 // from an ordered collection at a specific index.
 //
@@ -171,7 +152,6 @@ func NewOrderedCollectionChangeWithObjectTypeIndex(anObject objectivec.IObject, 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:type:index:"), anObject, type_, index)
 	return NSOrderedCollectionChangeFromID(rv)
 }
-
 
 // Creates a change object that represents inserting, removing, or moving an
 // object from an ordered collection at a specific index.
@@ -208,12 +188,6 @@ func NewOrderedCollectionChangeWithObjectTypeIndexAssociatedIndex(anObject objec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:type:index:associatedIndex:"), anObject, type_, index, associatedIndex)
 	return NSOrderedCollectionChangeFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a change object that represents inserting or removing an object
 // from an ordered collection at a specific index.
@@ -264,10 +238,6 @@ func (o NSOrderedCollectionChange) InitWithObjectTypeIndexAssociatedIndex(anObje
 	rv := objc.Send[NSOrderedCollectionChange](o.ID, objc.Sel("initWithObject:type:index:associatedIndex:"), anObject, type_, index, associatedIndex)
 	return rv
 }
-
-
-
-
 
 // Creates an change object that represents inserting or removing an object
 // from an ordered collection at a specific index.
@@ -331,13 +301,6 @@ func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWith
 	return NSOrderedCollectionChangeFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The type of change.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/changeType
@@ -345,8 +308,6 @@ func (o NSOrderedCollectionChange) ChangeType() NSCollectionChangeType {
 	rv := objc.Send[NSCollectionChangeType](o.ID, objc.Sel("changeType"))
 	return NSCollectionChangeType(rv)
 }
-
-
 
 // The index location of the change.
 //
@@ -356,8 +317,6 @@ func (o NSOrderedCollectionChange) Index() uint {
 	return rv
 }
 
-
-
 // An object the change inserts or removes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/object
@@ -365,8 +324,6 @@ func (o NSOrderedCollectionChange) GetObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("object"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // When this property is set to a value other than [NSNotFound], the receiver
 // is one half of a move, and this value is the index of the change’s
@@ -396,15 +353,11 @@ func (o NSOrderedCollectionChange) AssociatedIndex() uint {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsnotfound-9t5v2
 func (o NSOrderedCollectionChange) NSNotFound() int {
 	rv := objc.Send[int](o.ID, objc.Sel("NSNotFound"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates if the difference has changes.
 //
@@ -417,8 +370,6 @@ func (o NSOrderedCollectionChange) SetHasChanges(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHasChanges:"), value)
 }
 
-
-
 // A collection of insertion change objects.
 //
 // See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/insertions
@@ -430,8 +381,6 @@ func (o NSOrderedCollectionChange) SetInsertions(value INSOrderedCollectionChang
 	objc.Send[struct{}](o.ID, objc.Sel("setInsertions:"), value)
 }
 
-
-
 // A collection of removal change objects.
 //
 // See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/removals
@@ -442,26 +391,4 @@ func (o NSOrderedCollectionChange) Removals() INSOrderedCollectionChange {
 func (o NSOrderedCollectionChange) SetRemovals(value INSOrderedCollectionChange) {
 	objc.Send[struct{}](o.ID, objc.Sel("setRemovals:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

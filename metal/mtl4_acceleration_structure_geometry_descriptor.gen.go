@@ -37,12 +37,6 @@ func (mc MTL4AccelerationStructureGeometryDescriptorClass) Alloc() MTL4Accelerat
 	return rv
 }
 
-
-
-
-
-
-
 // Base class for all Metal 4 acceleration structure geometry descriptors.
 //
 // # Overview
@@ -75,14 +69,10 @@ type MTL4AccelerationStructureGeometryDescriptor struct {
 //
 // Base class for all Metal 4 acceleration structure geometry descriptors.
 func MTL4AccelerationStructureGeometryDescriptorFromID(id objc.ID) MTL4AccelerationStructureGeometryDescriptor {
-	return MTL4AccelerationStructureGeometryDescriptor{objectivec.Object{id}}
+	return MTL4AccelerationStructureGeometryDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4AccelerationStructureGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4AccelerationStructureGeometryDescriptor] class.
 //
@@ -132,10 +122,6 @@ type IMTL4AccelerationStructureGeometryDescriptor interface {
 	SetPrimitiveDataStride(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4AccelerationStructureGeometryDescriptor) Init() MTL4AccelerationStructureGeometryDescriptor {
 	rv := objc.Send[MTL4AccelerationStructureGeometryDescriptor](m.ID, objc.Sel("init"))
@@ -155,26 +141,6 @@ func NewMTL4AccelerationStructureGeometryDescriptor() MTL4AccelerationStructureG
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A boolean value that indicates whether the ray-tracing system in Metal
 // allows the invocation of intersection functions more than once per
 // ray-primitive intersection.
@@ -193,8 +159,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) AllowDuplicateIntersectionF
 func (m MTL4AccelerationStructureGeometryDescriptor) SetAllowDuplicateIntersectionFunctionInvocation(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowDuplicateIntersectionFunctionInvocation:"), value)
 }
-
-
 
 // Sets the offset that this geometry contributes to determining the
 // intersection function to invoke when a ray intersects it.
@@ -232,8 +196,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) SetIntersectionFunctionTabl
 	objc.Send[struct{}](m.ID, objc.Sel("setIntersectionFunctionTableOffset:"), value)
 }
 
-
-
 // Assigns an optional label you can assign to this geometry for debugging
 // purposes.
 //
@@ -246,8 +208,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // Provides a hint to Metal that this geometry is opaque, potentially
 // accelerating the ray/primitive intersection process.
 //
@@ -259,8 +219,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) Opaque() bool {
 func (m MTL4AccelerationStructureGeometryDescriptor) SetOpaque(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOpaque:"), value)
 }
-
-
 
 // Assigns optional buffer containing data to associate with each primitive in
 // this geometry.
@@ -277,8 +235,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) PrimitiveDataBuffer() MTL4B
 func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrimitiveDataBuffer:"), value)
 }
-
-
 
 // Sets the size, in bytes, of the data for each primitive in the primitive
 // data buffer [PrimitiveDataBuffer] references.
@@ -299,8 +255,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataElementSize
 	objc.Send[struct{}](m.ID, objc.Sel("setPrimitiveDataElementSize:"), value)
 }
 
-
-
 // Defines the stride, in bytes, between each primitive’s data in the
 // primitive data buffer [PrimitiveDataBuffer] references.
 //
@@ -320,27 +274,4 @@ func (m MTL4AccelerationStructureGeometryDescriptor) PrimitiveDataStride() uint 
 func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrimitiveDataStride:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

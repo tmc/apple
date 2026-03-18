@@ -37,12 +37,6 @@ func (sc SCRunningApplicationClass) Alloc() SCRunningApplication {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that represents an app running on a device.
 //
 // # Overview
@@ -67,14 +61,10 @@ type SCRunningApplication struct {
 //
 // An instance that represents an app running on a device.
 func SCRunningApplicationFromID(id objc.ID) SCRunningApplication {
-	return SCRunningApplication{objectivec.Object{id}}
+	return SCRunningApplication{objectivec.Object{ID: id}}
 }
 // NOTE: SCRunningApplication adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCRunningApplication] class.
 //
@@ -98,10 +88,6 @@ type ISCRunningApplication interface {
 	ApplicationName() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r SCRunningApplication) Init() SCRunningApplication {
 	rv := objc.Send[SCRunningApplication](r.ID, objc.Sel("init"))
@@ -121,26 +107,6 @@ func NewSCRunningApplication() SCRunningApplication {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The system process identifier of the app.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRunningApplication/processID
@@ -148,8 +114,6 @@ func (r SCRunningApplication) ProcessID() int32 {
 	rv := objc.Send[int32](r.ID, objc.Sel("processID"))
 	return rv
 }
-
-
 
 // The unique bundle identifier of the app.
 //
@@ -159,8 +123,6 @@ func (r SCRunningApplication) BundleIdentifier() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The display name of the app.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRunningApplication/applicationName
@@ -168,26 +130,4 @@ func (r SCRunningApplication) ApplicationName() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("applicationName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

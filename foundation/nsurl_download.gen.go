@@ -36,12 +36,6 @@ func (nc NSURLDownloadClass) Alloc() NSURLDownload {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that downloads a resource asynchronously and saves the data to a
 // file.
 //
@@ -85,14 +79,10 @@ type NSURLDownload struct {
 // An object that downloads a resource asynchronously and saves the data to a
 // file.
 func NSURLDownloadFromID(id objc.ID) NSURLDownload {
-	return NSURLDownload{objectivec.Object{id}}
+	return NSURLDownload{objectivec.Object{ID: id}}
 }
 // NOTE: NSURLDownload adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSURLDownload] class.
 //
@@ -142,10 +132,6 @@ type INSURLDownload interface {
 	Request() INSURLRequest
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u NSURLDownload) Init() NSURLDownload {
 	rv := objc.Send[NSURLDownload](u.ID, objc.Sel("init"))
@@ -164,15 +150,6 @@ func NewNSURLDownload() NSURLDownload {
 	rv := objc.Send[NSURLDownload](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Sets the destination path of the downloaded file.
 //
@@ -215,10 +192,6 @@ func (u NSURLDownload) SetDestinationAllowOverwrite(path string, allowOverwrite 
 func (u NSURLDownload) Cancel() {
 	objc.Send[objc.ID](u.ID, objc.Sel("cancel"))
 }
-
-
-
-
 
 // Returns whether a URL download object can resume a download that was
 // decoded with the specified MIME type.
@@ -266,13 +239,6 @@ func (_NSURLDownloadClass NSURLDownloadClass) CanResumeDownloadDecodedWithEncodi
 	return rv
 }
 
-
-
-
-
-
-
-
 // Returns the resume data for a download that is not yet complete.
 //
 // # Return Value
@@ -297,8 +263,6 @@ func (u NSURLDownload) ResumeData() INSData {
 	return NSDataFromID(objc.ID(rv))
 }
 
-
-
 // Returns the request that initiated the receiver’s download.
 //
 // # Return Value
@@ -310,8 +274,6 @@ func (u NSURLDownload) Request() INSURLRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("request"))
 	return NSURLRequestFromID(objc.ID(rv))
 }
-
-
 
 // Returns whether the receiver deletes partially downloaded files when a
 // download stops prematurely.
@@ -332,26 +294,4 @@ func (u NSURLDownload) DeletesFileUponFailure() bool {
 func (u NSURLDownload) SetDeletesFileUponFailure(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDeletesFileUponFailure:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (nc NSInvocationOperationClass) Alloc() NSInvocationOperation {
 	return rv
 }
 
-
-
-
-
-
-
 // An operation that manages the execution of a single encapsulated task
 // specified as an invocation.
 //
@@ -79,10 +73,6 @@ func NSInvocationOperationFromID(id objc.ID) NSInvocationOperation {
 // Ensure NSInvocationOperation implements INSInvocationOperation.
 var _ INSInvocationOperation = NSInvocationOperation{}
 
-
-
-
-
 // An interface definition for the [NSInvocationOperation] class.
 //
 // # Initialization
@@ -114,10 +104,6 @@ type INSInvocationOperation interface {
 	Result() objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (i NSInvocationOperation) Init() NSInvocationOperation {
 	rv := objc.Send[NSInvocationOperation](i.ID, objc.Sel("init"))
@@ -136,11 +122,6 @@ func NewNSInvocationOperation() NSInvocationOperation {
 	rv := objc.Send[NSInvocationOperation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSInvocationOperation] object initialized with the specified
 // invocation object.
@@ -164,7 +145,6 @@ func NewInvocationOperationWithInvocation(inv INSInvocation) NSInvocationOperati
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInvocation:"), inv)
 	return NSInvocationOperationFromID(rv)
 }
-
 
 // Returns an [NSInvocationOperation] object initialized with the specified
 // target and selector.
@@ -197,12 +177,6 @@ func NewInvocationOperationWithTargetSelectorObject(target objectivec.IObject, s
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTarget:selector:object:"), target, sel, arg)
 	return NSInvocationOperationFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSInvocationOperation] object initialized with the specified
 // target and selector.
@@ -257,17 +231,6 @@ func (i NSInvocationOperation) InitWithInvocation(inv INSInvocation) NSInvocatio
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The receiver’s invocation object.
 //
 // # Discussion
@@ -280,8 +243,6 @@ func (i NSInvocationOperation) Invocation() INSInvocation {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("invocation"))
 	return NSInvocationFromID(objc.ID(rv))
 }
-
-
 
 // The result of the invocation or method.
 //
@@ -303,20 +264,4 @@ func (i NSInvocationOperation) Result() objectivec.IObject {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("result"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

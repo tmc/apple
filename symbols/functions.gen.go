@@ -34,13 +34,9 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
-
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
 	}
-
-
 

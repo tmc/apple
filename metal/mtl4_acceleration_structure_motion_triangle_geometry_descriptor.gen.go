@@ -35,12 +35,6 @@ func (mc MTL4AccelerationStructureMotionTriangleGeometryDescriptorClass) Alloc()
 	return rv
 }
 
-
-
-
-
-
-
 // Describes motion triangle geometry, suitable for motion ray tracing.
 //
 // # Overview
@@ -80,10 +74,6 @@ func MTL4AccelerationStructureMotionTriangleGeometryDescriptorFromID(id objc.ID)
 }
 // NOTE: MTL4AccelerationStructureMotionTriangleGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4AccelerationStructureMotionTriangleGeometryDescriptor] class.
 //
@@ -138,10 +128,6 @@ type IMTL4AccelerationStructureMotionTriangleGeometryDescriptor interface {
 	SetVertexStride(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) Init() MTL4AccelerationStructureMotionTriangleGeometryDescriptor {
 	rv := objc.Send[MTL4AccelerationStructureMotionTriangleGeometryDescriptor](m.ID, objc.Sel("init"))
@@ -161,26 +147,6 @@ func NewMTL4AccelerationStructureMotionTriangleGeometryDescriptor() MTL4Accelera
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Assigns an optional index buffer containing references to vertices in the
 // vertex buffers you reference through the vertex buffers property.
 //
@@ -198,8 +164,6 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetIndexBuffe
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexBuffer:"), value)
 }
 
-
-
 // Specifies the size of the indices the `indexBuffer` contains, which is
 // typically either 16 or 32-bits for each index.
 //
@@ -211,8 +175,6 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) IndexType() M
 func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetIndexType(value MTLIndexType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexType:"), value)
 }
-
-
 
 // Assings an optional reference to a buffer containing a `float4x3`
 // transformation matrix.
@@ -235,8 +197,6 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetTransforma
 	objc.Send[struct{}](m.ID, objc.Sel("setTransformationMatrixBuffer:"), value)
 }
 
-
-
 // Configures the layout for the transformation matrix in the transformation
 // matrix buffer.
 //
@@ -256,8 +216,6 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetTransforma
 	objc.Send[struct{}](m.ID, objc.Sel("setTransformationMatrixLayout:"), value)
 }
 
-
-
 // Declares the number of triangles in the vertex buffers that the buffer in
 // the vertex buffers property references.
 //
@@ -273,8 +231,6 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) TriangleCount
 func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetTriangleCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTriangleCount:"), value)
 }
-
-
 
 // Assigns a buffer where each entry contains a reference to a vertex buffer.
 //
@@ -299,8 +255,6 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetVertexBuff
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexBuffers:"), value)
 }
 
-
-
 // Defines the format of the vertices in the vertex buffers.
 //
 // # Discussion
@@ -317,8 +271,6 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) VertexFormat(
 func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetVertexFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexFormat:"), value)
 }
-
-
 
 // Sets the stride, in bytes, between vertices in all the vertex buffer.
 //
@@ -342,27 +294,4 @@ func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) VertexStride(
 func (m MTL4AccelerationStructureMotionTriangleGeometryDescriptor) SetVertexStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVertexStride:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

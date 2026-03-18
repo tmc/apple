@@ -35,12 +35,6 @@ func (vc VZUSBKeyboardConfigurationClass) Alloc() VZUSBKeyboardConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // A device that defines the configuration for a USB keyboard.
 //
 // # Overview
@@ -61,20 +55,12 @@ func VZUSBKeyboardConfigurationFromID(id objc.ID) VZUSBKeyboardConfiguration {
 // NOTE: VZUSBKeyboardConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZUSBKeyboardConfiguration] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBKeyboardConfiguration
 type IVZUSBKeyboardConfiguration interface {
 	IVZKeyboardConfiguration
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u VZUSBKeyboardConfiguration) Init() VZUSBKeyboardConfiguration {
@@ -94,46 +80,4 @@ func NewVZUSBKeyboardConfiguration() VZUSBKeyboardConfiguration {
 	rv := objc.Send[VZUSBKeyboardConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSMutableDataClass) Alloc() NSMutableData {
 	return rv
 }
 
-
-
-
-
-
-
 // An object representing a dynamic byte buffer in memory.
 //
 // # Overview
@@ -118,10 +112,6 @@ func NSMutableDataFromID(id objc.ID) NSMutableData {
 // NOTE: NSMutableData adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMutableData] class.
 //
 // # Creating Mutable Data
@@ -195,10 +185,6 @@ type INSMutableData interface {
 	DecompressUsingAlgorithmError(algorithm NSDataCompressionAlgorithm) (bool, error)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMutableData) Init() NSMutableData {
 	rv := objc.Send[NSMutableData](m.ID, objc.Sel("init"))
@@ -218,11 +204,6 @@ func NewNSMutableData() NSMutableData {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
 func NewMutableDataWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSMutableData {
@@ -231,7 +212,6 @@ func NewMutableDataWithBase64EncodedDataOptions(base64Data INSData, options NSDa
 	return NSMutableDataFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
 func NewMutableDataWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSMutableData {
@@ -239,7 +219,6 @@ func NewMutableDataWithBase64EncodedStringOptions(base64String string, options N
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
 	return NSMutableDataFromID(rv)
 }
-
 
 // Initializes a data object initialized with the given Base64 encoded string.
 //
@@ -266,7 +245,6 @@ func NewMutableDataWithBase64Encoding(base64String string) NSMutableData {
 	return NSMutableDataFromID(rv)
 }
 
-
 // Initializes a data object filled with a given number of bytes copied from a
 // given buffer.
 //
@@ -282,7 +260,6 @@ func NewMutableDataWithBytesLength(bytes []byte) NSMutableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 	return NSMutableDataFromID(rv)
 }
-
 
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer.
@@ -311,7 +288,6 @@ func NewMutableDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSMu
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:"), bytes, length)
 	return NSMutableDataFromID(rv)
 }
-
 
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer, with a custom deallocator block.
@@ -344,12 +320,11 @@ func NewMutableDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSMu
 // outside the block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
-func NewMutableDataWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator uint) NSMutableData {
+func NewMutableDataWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator unsafe.Pointer) NSMutableData {
 	instance := getNSMutableDataClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, deallocator)
 	return NSMutableDataFromID(rv)
 }
-
 
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
@@ -373,7 +348,6 @@ func NewMutableDataWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, lengt
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:freeWhenDone:"), bytes, length, b)
 	return NSMutableDataFromID(rv)
 }
-
 
 // Returns an initialized mutable data object capable of holding the specified
 // number of bytes.
@@ -405,7 +379,6 @@ func NewMutableDataWithCapacity(capacity uint) NSMutableData {
 	return NSMutableDataFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMutableDataWithCoder(coder INSCoder) NSMutableData {
@@ -413,7 +386,6 @@ func NewMutableDataWithCoder(coder INSCoder) NSMutableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableDataFromID(rv)
 }
-
 
 // Initializes a data object with the content of the file at a given path.
 //
@@ -435,7 +407,6 @@ func NewMutableDataWithContentsOfFile(path string) NSMutableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:"), objc.String(path))
 	return NSMutableDataFromID(rv)
 }
-
 
 // Initializes a data object with the content of the file at a given path.
 //
@@ -465,7 +436,6 @@ func NewMutableDataWithContentsOfFileOptionsError(path string, readOptionsMask N
 	return NSMutableDataFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:)
 func NewMutableDataWithContentsOfURL(url INSURL) NSMutableData {
@@ -473,7 +443,6 @@ func NewMutableDataWithContentsOfURL(url INSURL) NSMutableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return NSMutableDataFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:options:)
@@ -487,7 +456,6 @@ func NewMutableDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSD
 	}
 	return NSMutableDataFromID(rv), nil
 }
-
 
 // Initializes a data object with the contents of another data object.
 //
@@ -503,7 +471,6 @@ func NewMutableDataWithData(data INSData) NSMutableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return NSMutableDataFromID(rv)
 }
-
 
 // Initializes and returns a mutable data object containing a given number of
 // zeroed bytes.
@@ -521,12 +488,6 @@ func NewMutableDataWithLength(length uint) NSMutableData {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLength:"), length)
 	return NSMutableDataFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an initialized mutable data object capable of holding the specified
 // number of bytes.
@@ -713,7 +674,7 @@ func (m NSMutableData) SetData(data INSData) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableData/compress(using:)
 func (m NSMutableData) CompressUsingAlgorithmError(algorithm NSDataCompressionAlgorithm) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("compressUsingAlgorithm:error:"), algorithm, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -744,7 +705,7 @@ func (m NSMutableData) CompressUsingAlgorithmError(algorithm NSDataCompressionAl
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableData/decompress(using:)
 func (m NSMutableData) DecompressUsingAlgorithmError(algorithm NSDataCompressionAlgorithm) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("decompressUsingAlgorithm:error:"), algorithm, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -756,10 +717,6 @@ func (m NSMutableData) DecompressUsingAlgorithmError(algorithm NSDataCompression
 	return rv, nil
 
 }
-
-
-
-
 
 // Creates and returns a mutable data object capable of holding the specified
 // number of bytes.
@@ -807,13 +764,6 @@ func (_NSMutableDataClass NSMutableDataClass) DataWithLength(length uint) NSMuta
 	return NSMutableDataFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A pointer to the data contained by the mutable data object.
 //
 // # Discussion
@@ -836,36 +786,4 @@ func (m NSMutableData) MutableBytes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("mutableBytes"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

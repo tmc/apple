@@ -617,8 +617,6 @@ type MTLRenderCommandEncoder interface {
 	UseResourcesCountUsageStages(resources []MTLResource, count uint, usage MTLResourceUsage, stages MTLRenderStages)
 }
 
-
-
 // MTLRenderCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLRenderCommandEncoder protocol.
 type MTLRenderCommandEncoderObject struct {
 	objectivec.Object
@@ -627,8 +625,6 @@ func (o MTLRenderCommandEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLRenderCommandEncoderObjectFromID constructs a [MTLRenderCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLRenderCommandEncoderObjectFromID(id objc.ID) MTLRenderCommandEncoderObject {
@@ -636,9 +632,6 @@ func MTLRenderCommandEncoderObjectFromID(id objc.ID) MTLRenderCommandEncoderObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Encodes a draw command that renders an instance of a geometric primitive.
 //
@@ -4294,20 +4287,7 @@ func (o MTLRenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(after
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 
-
-
-
-
-
-
-
-
-
 func (o MTLRenderCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

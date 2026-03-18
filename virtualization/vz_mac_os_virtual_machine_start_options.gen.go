@@ -35,12 +35,6 @@ func (vc VZMacOSVirtualMachineStartOptionsClass) Alloc() VZMacOSVirtualMachineSt
 	return rv
 }
 
-
-
-
-
-
-
 // A class that describes start options for macOS VMs.
 //
 // # Setting recovery mode
@@ -62,10 +56,6 @@ func VZMacOSVirtualMachineStartOptionsFromID(id objc.ID) VZMacOSVirtualMachineSt
 // NOTE: VZMacOSVirtualMachineStartOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZMacOSVirtualMachineStartOptions] class.
 //
 // # Setting recovery mode
@@ -83,10 +73,6 @@ type IVZMacOSVirtualMachineStartOptions interface {
 	StartUpFromMacOSRecovery() bool
 	SetStartUpFromMacOSRecovery(value bool)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m VZMacOSVirtualMachineStartOptions) Init() VZMacOSVirtualMachineStartOptions {
@@ -107,26 +93,6 @@ func NewVZMacOSVirtualMachineStartOptions() VZMacOSVirtualMachineStartOptions {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the macOS guest should start in
 // recovery mode.
 //
@@ -138,26 +104,4 @@ func (m VZMacOSVirtualMachineStartOptions) StartUpFromMacOSRecovery() bool {
 func (m VZMacOSVirtualMachineStartOptions) SetStartUpFromMacOSRecovery(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStartUpFromMacOSRecovery:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

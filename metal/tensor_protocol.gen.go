@@ -63,8 +63,6 @@ type MTLTensor interface {
 	ReplaceSliceOriginSliceDimensionsWithBytesStrides(sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, bytes unsafe.Pointer, strides IMTLTensorExtents)
 }
 
-
-
 // MTLTensorObject wraps an existing Objective-C object that conforms to the MTLTensor protocol.
 type MTLTensorObject struct {
 	objectivec.Object
@@ -73,8 +71,6 @@ func (o MTLTensorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLTensorObjectFromID constructs a [MTLTensorObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLTensorObjectFromID(id objc.ID) MTLTensorObject {
@@ -82,9 +78,6 @@ func MTLTensorObjectFromID(id objc.ID) MTLTensorObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A buffer instance this tensor shares its storage with or nil if this tensor
 // does not wrap an underlying buffer.
@@ -413,44 +406,7 @@ func (o MTLTensorObject) SetOwnerWithIdentity(task_id_token objectivec.IObject) 
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 func (o MTLTensorObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

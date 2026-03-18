@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -35,12 +36,6 @@ func (nc NSOrderedSetClass) Alloc() NSOrderedSet {
 	rv := objc.Send[NSOrderedSet](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A static, ordered collection of unique objects.
 //
@@ -128,10 +123,6 @@ func (nc NSOrderedSetClass) Alloc() NSOrderedSet {
 //   - [NSOrderedSet.Array]: A representation of the ordered set as an array.
 //   - [NSOrderedSet.Set]: A representation of the set containing the contents of the ordered set.
 //
-// # Initializers
-//
-//   - [NSOrderedSet.InitWithCoder]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet
 type NSOrderedSet struct {
 	objectivec.Object
@@ -141,14 +132,10 @@ type NSOrderedSet struct {
 //
 // A static, ordered collection of unique objects.
 func NSOrderedSetFromID(id objc.ID) NSOrderedSet {
-	return NSOrderedSet{objectivec.Object{id}}
+	return NSOrderedSet{objectivec.Object{ID: id}}
 }
 // NOTE: NSOrderedSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSOrderedSet] class.
 //
@@ -221,15 +208,13 @@ func NSOrderedSetFromID(id objc.ID) NSOrderedSet {
 //   - [INSOrderedSet.Array]: A representation of the ordered set as an array.
 //   - [INSOrderedSet.Set]: A representation of the set containing the contents of the ordered set.
 //
-// # Initializers
-//
-//   - [INSOrderedSet.InitWithCoder]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet
 type INSOrderedSet interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 	NSMutableCopying
+	NSSecureCoding
 
 	// Topic: Initializing an Ordered Set
 
@@ -264,11 +249,11 @@ type INSOrderedSet interface {
 	// Returns a Boolean value that indicates whether a given object is present in the ordered set.
 	ContainsObject(object objectivec.IObject) bool
 	// Executes a given block using the objects in the ordered set at the specified indexes.
-	EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block bool)
+	EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block unsafe.Pointer)
 	// Executes a given block using each object in the ordered set.
-	EnumerateObjectsUsingBlock(block bool)
+	EnumerateObjectsUsingBlock(block unsafe.Pointer)
 	// Executes a given block using each object in the set, using the specified enumeration options.
-	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool)
+	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
 	// The first object in the ordered set.
 	FirstObject() objectivec.IObject
 	// The last object in the ordered set.
@@ -284,17 +269,17 @@ type INSOrderedSet interface {
 	// Returns the index, within a specified range, of an object compared with elements in the ordered set using a given NSComparator block.
 	IndexOfObjectInSortedRangeOptionsUsingComparator(object objectivec.IObject, range_ NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint
 	// Returns the index, from a given set of indexes, of the object in the ordered set that passes a test in a given block for a given set of enumeration options.
-	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate bool) uint
+	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate unsafe.Pointer) uint
 	// Returns the index of the object in the ordered set that passes a test in a given block.
-	IndexOfObjectPassingTest(predicate bool) uint
+	IndexOfObjectPassingTest(predicate unsafe.Pointer) uint
 	// Returns the index of an object in the ordered set that passes a test in a given block for a given set of enumeration options.
-	IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) uint
+	IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) uint
 	// Returns the index, from a given set of indexes, of the object in the ordered set that passes a test in a given block for a given set of enumeration options.
-	IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate bool) INSIndexSet
+	IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet
 	// Returns the index of the object in the ordered set that passes a test in a given block.
-	IndexesOfObjectsPassingTest(predicate bool) INSIndexSet
+	IndexesOfObjectsPassingTest(predicate unsafe.Pointer) INSIndexSet
 	// Returns the index of an object in the ordered set that passes a test in a given block for a given set of enumeration options.
-	IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) INSIndexSet
+	IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet
 	// Returns an enumerator object that lets you access each object in the ordered set.
 	ObjectEnumerator() INSEnumerator
 	// Returns an enumerator object that lets you access each object in the ordered set.
@@ -345,18 +330,12 @@ type INSOrderedSet interface {
 	// A representation of the set containing the contents of the ordered set.
 	Set() INSSet
 
-	// Topic: Initializers
-
-	InitWithCoder(coder INSCoder) NSOrderedSet
-
 	// Compares two ordered sets to create a difference object that represents the changes between them.
 	DifferenceFromOrderedSet(other INSOrderedSet) INSOrderedCollectionDifference
 	// Compares two ordered sets, with options, to create a difference object that represents the changes between them.
 	DifferenceFromOrderedSetWithOptions(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions) INSOrderedCollectionDifference
 	// Compares two ordered sets, using the provided block and with options, to create a difference object that represents the changes between them.
 	DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block bool) INSOrderedCollectionDifference
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 	// Copies the objects contained in the ordered set that fall within the specified range to `objects`.
 	GetObjectsRange(objects []objectivec.IObject, range_ NSRange)
 	// Initializes a newly allocated set with members taken from the specified list of objects.
@@ -364,10 +343,6 @@ type INSOrderedSet interface {
 	// Creates a new ordered set by applying a difference object to an existing ordered set.
 	OrderedSetByApplyingDifference(difference INSOrderedCollectionDifference) INSOrderedSet
 }
-
-
-
-
 
 // Init initializes the instance.
 func (o NSOrderedSet) Init() NSOrderedSet {
@@ -388,11 +363,6 @@ func NewNSOrderedSet() NSOrderedSet {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a newly allocated set with the objects that are contained in a
 // given array.
 //
@@ -412,7 +382,6 @@ func NewOrderedSetWithArray(array []objectivec.IObject) NSOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSOrderedSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with the objects that are contained in a
 // given array, optionally copying the items.
@@ -438,7 +407,6 @@ func NewOrderedSetWithArrayCopyItems(set []objectivec.IObject, flag bool) NSOrde
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:copyItems:"), objectivec.IObjectSliceToNSArray(set), flag)
 	return NSOrderedSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with the objects that are contained in
 // the specified range of an array, optionally copying the items.
@@ -467,7 +435,6 @@ func NewOrderedSetWithArrayRangeCopyItems(set []objectivec.IObject, range_ NSRan
 	return NSOrderedSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/init(coder:)
 func NewOrderedSetWithCoder(coder INSCoder) NSOrderedSet {
@@ -475,7 +442,6 @@ func NewOrderedSetWithCoder(coder INSCoder) NSOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSOrderedSetFromID(rv)
 }
-
 
 // Initializes a new ordered set with the object.
 //
@@ -491,7 +457,6 @@ func NewOrderedSetWithObject(object objectivec.IObject) NSOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
 	return NSOrderedSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with members taken from the specified
 // list of objects.
@@ -516,7 +481,6 @@ func NewOrderedSetWithObjects(firstObj objectivec.IObject) NSOrderedSet {
 	return NSOrderedSetFromID(rv)
 }
 
-
 // Initializes a new ordered set with the contents of a set.
 //
 // set: A set.
@@ -531,7 +495,6 @@ func NewOrderedSetWithOrderedSet(set INSOrderedSet) NSOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOrderedSet:"), set)
 	return NSOrderedSetFromID(rv)
 }
-
 
 // Initializes a new ordered set with the contents of a set, optionally
 // copying the items.
@@ -553,7 +516,6 @@ func NewOrderedSetWithOrderedSetCopyItems(set INSOrderedSet, flag bool) NSOrdere
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOrderedSet:copyItems:"), set, flag)
 	return NSOrderedSetFromID(rv)
 }
-
 
 // Initializes a new ordered set with the contents of an ordered set,
 // optionally copying the items.
@@ -578,7 +540,6 @@ func NewOrderedSetWithOrderedSetRangeCopyItems(set INSOrderedSet, range_ NSRange
 	return NSOrderedSetFromID(rv)
 }
 
-
 // Initializes a new ordered set with the contents of a set.
 //
 // set: The set.
@@ -593,7 +554,6 @@ func NewOrderedSetWithSet(set INSSet) NSOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:"), set)
 	return NSOrderedSetFromID(rv)
 }
-
 
 // Initializes a new ordered set with the contents of a set, optionally
 // copying the objects in the set.
@@ -615,12 +575,6 @@ func NewOrderedSetWithSetCopyItems(set INSSet, flag bool) NSOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:copyItems:"), set, flag)
 	return NSOrderedSetFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated set with the objects that are contained in a
 // given array.
@@ -867,7 +821,7 @@ func (o NSOrderedSet) ContainsObject(object objectivec.IObject) bool {
 // enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(at:options:using:)
-func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block bool) {
+func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsAtIndexes:options:usingBlock:"), s, opts, block)
 }
 
@@ -888,7 +842,7 @@ func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, 
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(_:)
-func (o NSOrderedSet) EnumerateObjectsUsingBlock(block bool) {
+func (o NSOrderedSet) EnumerateObjectsUsingBlock(block unsafe.Pointer) {
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsUsingBlock:"), block)
 }
 
@@ -914,7 +868,7 @@ func (o NSOrderedSet) EnumerateObjectsUsingBlock(block bool) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(options:using:)
-func (o NSOrderedSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool) {
+func (o NSOrderedSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, block)
 }
 
@@ -1100,7 +1054,7 @@ func (o NSOrderedSet) IndexOfObjectInSortedRangeOptionsUsingComparator(object ob
 // enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(ofObjectAt:options:passingTest:)
-func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate bool) uint {
+func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectAtIndexes:options:passingTest:"), s, opts, predicate)
 	return rv
 }
@@ -1127,7 +1081,7 @@ func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, op
 // test, returns [NSNotFound].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(ofObjectPassingTest:)
-func (o NSOrderedSet) IndexOfObjectPassingTest(predicate bool) uint {
+func (o NSOrderedSet) IndexOfObjectPassingTest(predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectPassingTest:"), predicate)
 	return rv
 }
@@ -1168,7 +1122,7 @@ func (o NSOrderedSet) IndexOfObjectPassingTest(predicate bool) uint {
 // to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(_:ofObjectPassingTest:)
-func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) uint {
+func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectWithOptions:passingTest:"), opts, predicate)
 	return rv
 }
@@ -1212,7 +1166,7 @@ func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOpti
 // to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(ofObjectsAt:options:passingTest:)
-func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate bool) INSIndexSet {
+func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsAtIndexes:options:passingTest:"), s, opts, predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -1243,7 +1197,7 @@ func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet,
 // If the block parameter is `nil`, this method raises an exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(ofObjectsPassingTest:)
-func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate bool) INSIndexSet {
+func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsPassingTest:"), predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -1283,7 +1237,7 @@ func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate bool) INSIndexSet {
 // to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(options:ofObjectsPassingTest:)
-func (o NSOrderedSet) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) INSIndexSet {
+func (o NSOrderedSet) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsWithOptions:passingTest:"), opts, predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -1735,10 +1689,6 @@ func (o NSOrderedSet) OrderedSetByApplyingDifference(difference INSOrderedCollec
 	return NSOrderedSetFromID(rv)
 }
 
-
-
-
-
 // Creates and returns a set containing a specified number of objects from a
 // given C array of objects.
 //
@@ -1933,13 +1883,6 @@ func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithSetCopyItems(set INSSe
 	return NSOrderedSetFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The number of members in the set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/count
@@ -1947,8 +1890,6 @@ func (o NSOrderedSet) Count() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("count"))
 	return rv
 }
-
-
 
 // The first object in the ordered set.
 //
@@ -1958,8 +1899,6 @@ func (o NSOrderedSet) FirstObject() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The last object in the ordered set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/lastObject
@@ -1967,8 +1906,6 @@ func (o NSOrderedSet) LastObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("lastObject"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // An ordered set in the reverse order.
 //
@@ -1978,8 +1915,6 @@ func (o NSOrderedSet) ReversedOrderedSet() INSOrderedSet {
 	return NSOrderedSetFromID(objc.ID(rv))
 }
 
-
-
 // A string that represents the contents of the ordered set, formatted as a
 // property list.
 //
@@ -1988,8 +1923,6 @@ func (o NSOrderedSet) Description() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A representation of the ordered set as an array.
 //
@@ -2011,8 +1944,6 @@ func (o NSOrderedSet) Array() []objectivec.IObject {
 	})
 }
 
-
-
 // A representation of the set containing the contents of the ordered set.
 //
 // # Discussion
@@ -2031,44 +1962,12 @@ func (o NSOrderedSet) Set() INSSet {
 	return NSSetFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
 
 			// Protocol methods for NSMutableCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

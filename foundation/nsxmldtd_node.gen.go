@@ -35,12 +35,6 @@ func (xc XMLDTDNodeClass) Alloc() XMLDTDNode {
 	return rv
 }
 
-
-
-
-
-
-
 // A representation of element, attribute-list, entity, and notation
 // declarations in a Document Type Definition.
 //
@@ -107,10 +101,6 @@ func NSXMLDTDNodeFromID(id objc.ID) XMLDTDNode { return XMLDTDNodeFromID(id) }
 // NOTE: XMLDTDNode adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [XMLDTDNode] class.
 //
 // # Initializing an NSXMLDTDNode Object
@@ -161,10 +151,6 @@ type IXMLDTDNode interface {
 	SetSystemID(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x XMLDTDNode) Init() XMLDTDNode {
 	rv := objc.Send[XMLDTDNode](x.ID, objc.Sel("init"))
@@ -183,11 +169,6 @@ func NewXMLDTDNode() XMLDTDNode {
 	rv := objc.Send[XMLDTDNode](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSXMLNode] instance initialized with the constant indicating
 // node kind.
@@ -220,7 +201,6 @@ func NewXMLDTDNodeWithKind(kind NSXMLNodeKind) XMLDTDNode {
 	return XMLDTDNodeFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/init(kind:options:)
 func NewXMLDTDNodeWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLDTDNode {
@@ -228,7 +208,6 @@ func NewXMLDTDNodeWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:options:"), kind, options)
 	return XMLDTDNodeFromID(rv)
 }
-
 
 // Returns an [NSXMLDTDNode] object initialized with the DTD declaration in a
 // given string.
@@ -258,12 +237,6 @@ func NewXMLDTDNodeWithXMLString(string_ string) XMLDTDNode {
 	return XMLDTDNodeFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns an [NSXMLDTDNode] object initialized with the DTD declaration in a
 // given string.
 //
@@ -291,17 +264,6 @@ func (x XMLDTDNode) InitWithXMLString(string_ string) XMLDTDNode {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the receiver’s DTD kind.
 //
 // # Return Value
@@ -323,8 +285,6 @@ func (x XMLDTDNode) SetDTDKind(value NSXMLDTDNodeKind) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDTDKind:"), value)
 }
 
-
-
 //
 // # Discussion
 // 
@@ -335,8 +295,6 @@ func (x XMLDTDNode) External() bool {
 	rv := objc.Send[bool](x.ID, objc.Sel("isExternal"))
 	return rv
 }
-
-
 
 // Returns the name of the notation associated with the receiver.
 //
@@ -358,8 +316,6 @@ func (x XMLDTDNode) SetNotationName(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNotationName:"), objc.String(value))
 }
 
-
-
 // Returns the public identifier associated with the receiver.
 //
 // # Return Value
@@ -379,8 +335,6 @@ func (x XMLDTDNode) SetPublicID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPublicID:"), objc.String(value))
 }
 
-
-
 // Returns the system identifier associated with the receiver.
 //
 // # Return Value
@@ -395,29 +349,4 @@ func (x XMLDTDNode) SystemID() string {
 func (x XMLDTDNode) SetSystemID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setSystemID:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

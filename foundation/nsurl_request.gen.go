@@ -36,12 +36,6 @@ func (nc NSURLRequestClass) Alloc() NSURLRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // A URL load request that is independent of protocol or URL scheme.
 //
 // # Overview
@@ -157,14 +151,10 @@ type NSURLRequest struct {
 //
 // A URL load request that is independent of protocol or URL scheme.
 func NSURLRequestFromID(id objc.ID) NSURLRequest {
-	return NSURLRequest{objectivec.Object{id}}
+	return NSURLRequest{objectivec.Object{ID: id}}
 }
 // NOTE: NSURLRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSURLRequest] class.
 //
@@ -221,8 +211,10 @@ func NSURLRequestFromID(id objc.ID) NSURLRequest {
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest
 type INSURLRequest interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 	NSMutableCopying
+	NSSecureCoding
 
 	// Topic: Creating requests
 
@@ -291,15 +283,7 @@ type INSURLRequest interface {
 	AssumesHTTP3Capable() bool
 	CookiePartitionIdentifier() string
 	RequiresDNSSECValidation() bool
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSURLRequest
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u NSURLRequest) Init() NSURLRequest {
@@ -320,11 +304,6 @@ func NewNSURLRequest() NSURLRequest {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLRequestWithCoder(coder INSCoder) NSURLRequest {
@@ -332,7 +311,6 @@ func NewURLRequestWithCoder(coder INSCoder) NSURLRequest {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSURLRequestFromID(rv)
 }
-
 
 // Creates a URL request for a specified URL.
 //
@@ -354,7 +332,6 @@ func NewURLRequestWithURL(URL INSURL) NSURLRequest {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
 	return NSURLRequestFromID(rv)
 }
-
 
 // Creates a URL request with the specified URL, cache policy, and timeout
 // values.
@@ -379,12 +356,6 @@ func NewURLRequestWithURLCachePolicyTimeoutInterval(URL INSURL, cachePolicy NSUR
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:cachePolicy:timeoutInterval:"), URL, cachePolicy, timeoutInterval)
 	return NSURLRequestFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a URL request for a specified URL.
 //
@@ -461,10 +432,6 @@ func (u NSURLRequest) InitWithCoder(coder INSCoder) NSURLRequest {
 	return rv
 }
 
-
-
-
-
 // Creates and returns a URL request for a specified URL.
 //
 // URL: The URL for the new request.
@@ -504,13 +471,6 @@ func (_NSURLRequestClass NSURLRequestClass) RequestWithURLCachePolicyTimeoutInte
 	return NSURLRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The request’s cache policy.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/cachePolicy-swift.property
@@ -518,8 +478,6 @@ func (u NSURLRequest) CachePolicy() NSURLRequestCachePolicy {
 	rv := objc.Send[NSURLRequestCachePolicy](u.ID, objc.Sel("cachePolicy"))
 	return NSURLRequestCachePolicy(rv)
 }
-
-
 
 // The HTTP request method.
 //
@@ -533,8 +491,6 @@ func (u NSURLRequest) HTTPMethod() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The URL being requested.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/url
@@ -542,8 +498,6 @@ func (u NSURLRequest) URL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
-
 
 // The request body.
 //
@@ -557,8 +511,6 @@ func (u NSURLRequest) HTTPBody() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("HTTPBody"))
 	return NSDataFromID(objc.ID(rv))
 }
-
-
 
 // The request body as an input stream.
 //
@@ -578,8 +530,6 @@ func (u NSURLRequest) HTTPBodyStream() INSInputStream {
 	return NSInputStreamFromID(objc.ID(rv))
 }
 
-
-
 // The main document URL associated with the request.
 //
 // # Discussion
@@ -592,8 +542,6 @@ func (u NSURLRequest) MainDocumentURL() INSURL {
 	return NSURLFromID(objc.ID(rv))
 }
 
-
-
 // A dictionary containing all of the HTTP header fields for a request.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/allHTTPHeaderFields
@@ -601,8 +549,6 @@ func (u NSURLRequest) AllHTTPHeaderFields() INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("allHTTPHeaderFields"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // The request’s timeout interval, in seconds.
 //
@@ -616,8 +562,6 @@ func (u NSURLRequest) TimeoutInterval() float64 {
 	rv := objc.Send[NSTimeInterval](u.ID, objc.Sel("timeoutInterval"))
 	return float64(rv)
 }
-
-
 
 // A Boolean value that indicates whether the default cookie handling will be
 // used for this request.
@@ -636,8 +580,6 @@ func (u NSURLRequest) HTTPShouldHandleCookies() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the request should continue
 // transmitting data before receiving a response from an earlier transmission.
 //
@@ -655,8 +597,6 @@ func (u NSURLRequest) HTTPShouldUsePipelining() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the request is allowed to use the
 // cellular radio (if present).
 //
@@ -672,8 +612,6 @@ func (u NSURLRequest) AllowsCellularAccess() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("allowsCellularAccess"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether connections may use the network when
 // the user has specified Low Data Mode.
@@ -703,8 +641,6 @@ func (u NSURLRequest) AllowsConstrainedNetworkAccess() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether connections may use a network
 // interface that the system considers expensive.
 //
@@ -732,8 +668,6 @@ func (u NSURLRequest) AllowsExpensiveNetworkAccess() bool {
 	return rv
 }
 
-
-
 // The network service type of the request.
 //
 // # Discussion
@@ -750,8 +684,6 @@ func (u NSURLRequest) NetworkServiceType() NSURLRequestNetworkServiceType {
 	rv := objc.Send[NSURLRequestNetworkServiceType](u.ID, objc.Sel("networkServiceType"))
 	return NSURLRequestNetworkServiceType(rv)
 }
-
-
 
 // The entity that initiates the network request.
 //
@@ -779,8 +711,6 @@ func (u NSURLRequest) Attribution() NSURLRequestAttribution {
 	return NSURLRequestAttribution(rv)
 }
 
-
-
 //
 // # Discussion
 // 
@@ -796,8 +726,6 @@ func (u NSURLRequest) AllowsPersistentDNS() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("allowsPersistentDNS"))
 	return rv
 }
-
-
 
 //
 // # Return Value
@@ -816,8 +744,6 @@ func (u NSURLRequest) AllowsUltraConstrainedNetworkAccess() bool {
 	return rv
 }
 
-
-
 //
 // # Return Value
 // 
@@ -835,15 +761,11 @@ func (u NSURLRequest) AssumesHTTP3Capable() bool {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/cookiePartitionIdentifier
 func (u NSURLRequest) CookiePartitionIdentifier() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("cookiePartitionIdentifier"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 //
 // # Discussion
@@ -859,12 +781,6 @@ func (u NSURLRequest) RequiresDNSSECValidation() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("requiresDNSSECValidation"))
 	return rv
 }
-
-
-
-
-
-
 
 // A Boolean value indicating whether the [NSURLRequest] implements the
 // [NSSecureCoding] protocol.
@@ -882,37 +798,12 @@ func (_NSURLRequestClass NSURLRequestClass) SupportsSecureCoding() bool {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
 
 			// Protocol methods for NSMutableCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

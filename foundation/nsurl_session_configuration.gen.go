@@ -36,12 +36,6 @@ func (uc URLSessionConfigurationClass) Alloc() URLSessionConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration object that defines behavior and policies for a URL
 // session.
 //
@@ -189,17 +183,13 @@ type URLSessionConfiguration struct {
 // A configuration object that defines behavior and policies for a URL
 // session.
 func URLSessionConfigurationFromID(id objc.ID) URLSessionConfiguration {
-	return NSURLSessionConfiguration{objectivec.Object{id}}
+	return NSURLSessionConfiguration{objectivec.Object{ID: id}}
 }
 
 // NSURLSessionConfigurationFromID is an alias for [URLSessionConfigurationFromID] for cross-framework compatibility.
 func NSURLSessionConfigurationFromID(id objc.ID) URLSessionConfiguration { return URLSessionConfigurationFromID(id) }
 // NOTE: URLSessionConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLSessionConfiguration] class.
 //
@@ -419,10 +409,6 @@ type IURLSessionConfiguration interface {
 	SetProxyConfigurations(value []objectivec.Object)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u URLSessionConfiguration) Init() URLSessionConfiguration {
 	rv := objc.Send[URLSessionConfiguration](u.ID, objc.Sel("init"))
@@ -441,19 +427,6 @@ func NewURLSessionConfiguration() URLSessionConfiguration {
 	rv := objc.Send[URLSessionConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Creates a session configuration object that allows HTTP and HTTPS uploads
 // or downloads to be performed in the background.
@@ -500,13 +473,6 @@ func (_URLSessionConfigurationClass URLSessionConfigurationClass) BackgroundSess
 	return NSURLSessionConfigurationFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The background session identifier of the configuration object.
 //
 // # Discussion
@@ -524,8 +490,6 @@ func (u URLSessionConfiguration) Identifier() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("identifier"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A dictionary of additional headers to send with requests.
 //
@@ -562,8 +526,6 @@ func (u URLSessionConfiguration) SetHTTPAdditionalHeaders(value INSDictionary) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPAdditionalHeaders:"), value)
 }
 
-
-
 // The type of network service for all tasks within network sessions to enable
 // Cellular Network Slicing.
 //
@@ -594,8 +556,6 @@ func (u URLSessionConfiguration) SetNetworkServiceType(value NSURLRequestNetwork
 	objc.Send[struct{}](u.ID, objc.Sel("setNetworkServiceType:"), value)
 }
 
-
-
 // A Boolean value that determines whether connections should be made over a
 // cellular network.
 //
@@ -620,8 +580,6 @@ func (u URLSessionConfiguration) SetAllowsCellularAccess(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAllowsCellularAccess:"), value)
 }
 
-
-
 // The timeout interval to use when waiting for additional data.
 //
 // # Discussion
@@ -643,8 +601,6 @@ func (u URLSessionConfiguration) TimeoutIntervalForRequest() float64 {
 func (u URLSessionConfiguration) SetTimeoutIntervalForRequest(value float64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTimeoutIntervalForRequest:"), value)
 }
-
-
 
 // The maximum amount of time that a resource request should be allowed to
 // take.
@@ -669,8 +625,6 @@ func (u URLSessionConfiguration) SetTimeoutIntervalForResource(value float64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTimeoutIntervalForResource:"), value)
 }
 
-
-
 // The identifier for the shared container into which files in background URL
 // sessions should be downloaded.
 //
@@ -694,8 +648,6 @@ func (u URLSessionConfiguration) SetSharedContainerIdentifier(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setSharedContainerIdentifier:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/usesClassicLoadingMode
 func (u URLSessionConfiguration) UsesClassicLoadingMode() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("usesClassicLoadingMode"))
@@ -704,8 +656,6 @@ func (u URLSessionConfiguration) UsesClassicLoadingMode() bool {
 func (u URLSessionConfiguration) SetUsesClassicLoadingMode(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUsesClassicLoadingMode:"), value)
 }
-
-
 
 // A policy constant that determines when cookies should be accepted.
 //
@@ -736,8 +686,6 @@ func (u URLSessionConfiguration) SetHTTPCookieAcceptPolicy(value NSHTTPCookieAcc
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPCookieAcceptPolicy:"), value)
 }
 
-
-
 // A Boolean value that determines whether requests should contain cookies
 // from the cookie store.
 //
@@ -766,8 +714,6 @@ func (u URLSessionConfiguration) SetHTTPShouldSetCookies(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPShouldSetCookies:"), value)
 }
 
-
-
 // The cookie store for storing cookies within this session.
 //
 // # Discussion
@@ -793,8 +739,6 @@ func (u URLSessionConfiguration) SetHTTPCookieStorage(value INSHTTPCookieStorage
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPCookieStorage:"), value)
 }
 
-
-
 // The minimum TLS protocol version that the client should accept when making
 // connections in this session.
 //
@@ -807,8 +751,6 @@ func (u URLSessionConfiguration) SetTLSMinimumSupportedProtocolVersion(value uin
 	objc.Send[struct{}](u.ID, objc.Sel("setTLSMinimumSupportedProtocolVersion:"), value)
 }
 
-
-
 // The maximum TLS protocol version that the client should request when making
 // connections in this session.
 //
@@ -820,8 +762,6 @@ func (u URLSessionConfiguration) TLSMaximumSupportedProtocolVersion() uint16 {
 func (u URLSessionConfiguration) SetTLSMaximumSupportedProtocolVersion(value uint16) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTLSMaximumSupportedProtocolVersion:"), value)
 }
-
-
 
 // A credential store that provides credentials for authentication.
 //
@@ -848,8 +788,6 @@ func (u URLSessionConfiguration) SetURLCredentialStorage(value INSURLCredentialS
 	objc.Send[struct{}](u.ID, objc.Sel("setURLCredentialStorage:"), value)
 }
 
-
-
 // The minimum TLS protocol to accept during protocol negotiation.
 //
 // # Discussion
@@ -865,8 +803,6 @@ func (u URLSessionConfiguration) TLSMinimumSupportedProtocol() objectivec.IObjec
 func (u URLSessionConfiguration) SetTLSMinimumSupportedProtocol(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTLSMinimumSupportedProtocol:"), value)
 }
-
-
 
 // The maximum TLS protocol version that the client should request when making
 // connections in this session.
@@ -885,8 +821,6 @@ func (u URLSessionConfiguration) SetTLSMaximumSupportedProtocol(value objectivec
 	objc.Send[struct{}](u.ID, objc.Sel("setTLSMaximumSupportedProtocol:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/requiresDNSSECValidation
 func (u URLSessionConfiguration) RequiresDNSSECValidation() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("requiresDNSSECValidation"))
@@ -895,8 +829,6 @@ func (u URLSessionConfiguration) RequiresDNSSECValidation() bool {
 func (u URLSessionConfiguration) SetRequiresDNSSECValidation(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setRequiresDNSSECValidation:"), value)
 }
-
-
 
 // The URL cache for providing cached responses to requests within the
 // session.
@@ -925,8 +857,6 @@ func (u URLSessionConfiguration) SetURLCache(value INSURLCache) {
 	objc.Send[struct{}](u.ID, objc.Sel("setURLCache:"), value)
 }
 
-
-
 // A predefined constant that determines when to return a response from the
 // cache.
 //
@@ -953,8 +883,6 @@ func (u URLSessionConfiguration) RequestCachePolicy() NSURLRequestCachePolicy {
 func (u URLSessionConfiguration) SetRequestCachePolicy(value NSURLRequestCachePolicy) {
 	objc.Send[struct{}](u.ID, objc.Sel("setRequestCachePolicy:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the app should be resumed or
 // launched in the background when transfers finish.
@@ -987,8 +915,6 @@ func (u URLSessionConfiguration) SessionSendsLaunchEvents() bool {
 func (u URLSessionConfiguration) SetSessionSendsLaunchEvents(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setSessionSendsLaunchEvents:"), value)
 }
-
-
 
 // A Boolean value that determines whether background tasks can be scheduled
 // at the discretion of the system for optimal performance.
@@ -1025,8 +951,6 @@ func (u URLSessionConfiguration) SetDiscretionary(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDiscretionary:"), value)
 }
 
-
-
 // A Boolean value that indicates whether TCP connections should be kept open
 // when the app moves to the background.
 //
@@ -1046,8 +970,6 @@ func (u URLSessionConfiguration) ShouldUseExtendedBackgroundIdleMode() bool {
 func (u URLSessionConfiguration) SetShouldUseExtendedBackgroundIdleMode(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setShouldUseExtendedBackgroundIdleMode:"), value)
 }
-
-
 
 // An array of extra protocol subclasses that handle requests in a session.
 //
@@ -1080,8 +1002,6 @@ func (u URLSessionConfiguration) SetProtocolClasses(value []objc.Class) {
 	objc.Send[struct{}](u.ID, objc.Sel("setProtocolClasses:"), value)
 }
 
-
-
 // The maximum number of simultaneous connections to make to a given host.
 //
 // # Discussion
@@ -1104,8 +1024,6 @@ func (u URLSessionConfiguration) SetHTTPMaximumConnectionsPerHost(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPMaximumConnectionsPerHost:"), value)
 }
 
-
-
 // A Boolean value that determines whether the session should use HTTP
 // pipelining.
 //
@@ -1127,8 +1045,6 @@ func (u URLSessionConfiguration) HTTPShouldUsePipelining() bool {
 func (u URLSessionConfiguration) SetHTTPShouldUsePipelining(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPShouldUsePipelining:"), value)
 }
-
-
 
 // A dictionary containing information about the proxy to use within this
 // session.
@@ -1157,8 +1073,6 @@ func (u URLSessionConfiguration) ConnectionProxyDictionary() INSDictionary {
 func (u URLSessionConfiguration) SetConnectionProxyDictionary(value INSDictionary) {
 	objc.Send[struct{}](u.ID, objc.Sel("setConnectionProxyDictionary:"), value)
 }
-
-
 
 // A Boolean value that indicates whether the session should wait for
 // connectivity to become available, or fail immediately.
@@ -1201,8 +1115,6 @@ func (u URLSessionConfiguration) SetWaitsForConnectivity(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setWaitsForConnectivity:"), value)
 }
 
-
-
 // A Boolean value that indicates whether connections may use the network when
 // the user has specified Low Data Mode.
 //
@@ -1237,8 +1149,6 @@ func (u URLSessionConfiguration) AllowsConstrainedNetworkAccess() bool {
 func (u URLSessionConfiguration) SetAllowsConstrainedNetworkAccess(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAllowsConstrainedNetworkAccess:"), value)
 }
-
-
 
 // A Boolean value that indicates whether connections may use a network
 // interface that the system considers expensive.
@@ -1279,8 +1189,6 @@ func (u URLSessionConfiguration) SetAllowsExpensiveNetworkAccess(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAllowsExpensiveNetworkAccess:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/allowsUltraConstrainedNetworkAccess
 func (u URLSessionConfiguration) AllowsUltraConstrainedNetworkAccess() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("allowsUltraConstrainedNetworkAccess"))
@@ -1289,8 +1197,6 @@ func (u URLSessionConfiguration) AllowsUltraConstrainedNetworkAccess() bool {
 func (u URLSessionConfiguration) SetAllowsUltraConstrainedNetworkAccess(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAllowsUltraConstrainedNetworkAccess:"), value)
 }
-
-
 
 // A copy of the configuration object for this session.
 //
@@ -1303,8 +1209,6 @@ func (u URLSessionConfiguration) SetConfiguration(value INSURLSessionConfigurati
 	objc.Send[struct{}](u.ID, objc.Sel("setConfiguration:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/enablesEarlyData
 func (u URLSessionConfiguration) EnablesEarlyData() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("enablesEarlyData"))
@@ -1313,8 +1217,6 @@ func (u URLSessionConfiguration) EnablesEarlyData() bool {
 func (u URLSessionConfiguration) SetEnablesEarlyData(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setEnablesEarlyData:"), value)
 }
-
-
 
 // An array of proxy configuration objects containing information about the
 // proxies to use within this session.
@@ -1338,12 +1240,6 @@ func (u URLSessionConfiguration) SetProxyConfigurations(value []objectivec.Objec
 	objc.Send[struct{}](u.ID, objc.Sel("setProxyConfigurations:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
-
-
-
-
 // A default session configuration object.
 //
 // # Discussion
@@ -1364,8 +1260,6 @@ func (_URLSessionConfigurationClass URLSessionConfigurationClass) DefaultSession
 	rv := objc.Send[objc.ID](objc.ID(_URLSessionConfigurationClass.class), objc.Sel("defaultSessionConfiguration"))
 	return NSURLSessionConfigurationFromID(objc.ID(rv))
 }
-
-
 
 // A session configuration that uses no persistent storage for caches,
 // cookies, or credentials.
@@ -1404,28 +1298,6 @@ func (_URLSessionConfigurationClass URLSessionConfigurationClass) EphemeralSessi
 	return NSURLSessionConfigurationFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

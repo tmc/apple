@@ -36,12 +36,6 @@ func (mc MTLBlitPassSampleBufferAttachmentDescriptorArrayClass) Alloc() MTLBlitP
 	return rv
 }
 
-
-
-
-
-
-
 // A container that stores an array of sample buffer attachments for a blit
 // pass.
 //
@@ -66,14 +60,10 @@ type MTLBlitPassSampleBufferAttachmentDescriptorArray struct {
 // A container that stores an array of sample buffer attachments for a blit
 // pass.
 func MTLBlitPassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLBlitPassSampleBufferAttachmentDescriptorArray {
-	return MTLBlitPassSampleBufferAttachmentDescriptorArray{objectivec.Object{id}}
+	return MTLBlitPassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLBlitPassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLBlitPassSampleBufferAttachmentDescriptorArray] class.
 //
@@ -97,10 +87,6 @@ type IMTLBlitPassSampleBufferAttachmentDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attachment IMTLBlitPassSampleBufferAttachmentDescriptor, attachmentIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) Init() MTLBlitPassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[MTLBlitPassSampleBufferAttachmentDescriptorArray](b.ID, objc.Sel("init"))
@@ -119,15 +105,6 @@ func NewMTLBlitPassSampleBufferAttachmentDescriptorArray() MTLBlitPassSampleBuff
 	rv := objc.Send[MTLBlitPassSampleBufferAttachmentDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Accesses one of the array’s blit pass sample buffer attachment descriptor
 // instances.
@@ -162,17 +139,6 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubs
 	objc.Send[objc.ID](b.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The counter sets supported by the device object.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/countersets
@@ -183,26 +149,4 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) CounterSets() MTLCount
 func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) SetCounterSets(value MTLCounterSet) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCounterSets:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

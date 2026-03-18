@@ -37,12 +37,6 @@ func (mc MTL4ArgumentTableDescriptorClass) Alloc() MTL4ArgumentTableDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // Groups parameters for the creation of a Metal argument table.
 //
 // # Overview
@@ -73,14 +67,10 @@ type MTL4ArgumentTableDescriptor struct {
 //
 // Groups parameters for the creation of a Metal argument table.
 func MTL4ArgumentTableDescriptorFromID(id objc.ID) MTL4ArgumentTableDescriptor {
-	return MTL4ArgumentTableDescriptor{objectivec.Object{id}}
+	return MTL4ArgumentTableDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4ArgumentTableDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4ArgumentTableDescriptor] class.
 //
@@ -127,10 +117,6 @@ type IMTL4ArgumentTableDescriptor interface {
 	MTL4CommandQueueErrorDomain() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4ArgumentTableDescriptor) Init() MTL4ArgumentTableDescriptor {
 	rv := objc.Send[MTL4ArgumentTableDescriptor](m.ID, objc.Sel("init"))
@@ -150,26 +136,6 @@ func NewMTL4ArgumentTableDescriptor() MTL4ArgumentTableDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Configures whether Metal initializes the bindings to nil values upon
 // creation of argument table.
 //
@@ -188,8 +154,6 @@ func (m MTL4ArgumentTableDescriptor) SetInitializeBindings(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInitializeBindings:"), value)
 }
 
-
-
 // Assigns an optional label with the argument table for debug purposes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTableDescriptor/label
@@ -200,8 +164,6 @@ func (m MTL4ArgumentTableDescriptor) Label() string {
 func (m MTL4ArgumentTableDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
 
 // Determines the number of buffer-binding slots for the argument table.
 //
@@ -217,8 +179,6 @@ func (m MTL4ArgumentTableDescriptor) MaxBufferBindCount() uint {
 func (m MTL4ArgumentTableDescriptor) SetMaxBufferBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxBufferBindCount:"), value)
 }
-
-
 
 // Determines the number of sampler state-binding slots for the argument
 // table.
@@ -236,8 +196,6 @@ func (m MTL4ArgumentTableDescriptor) SetMaxSamplerStateBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxSamplerStateBindCount:"), value)
 }
 
-
-
 // Determines the number of texture-binding slots for the argument table.
 //
 // # Discussion
@@ -252,8 +210,6 @@ func (m MTL4ArgumentTableDescriptor) MaxTextureBindCount() uint {
 func (m MTL4ArgumentTableDescriptor) SetMaxTextureBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTextureBindCount:"), value)
 }
-
-
 
 // Controls whether Metal should reserve memory for attribute strides in the
 // argument table.
@@ -277,34 +233,9 @@ func (m MTL4ArgumentTableDescriptor) SetSupportAttributeStrides(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportAttributeStrides:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4ArgumentTableDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

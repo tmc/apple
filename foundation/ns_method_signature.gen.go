@@ -37,12 +37,6 @@ func (nc NSMethodSignatureClass) Alloc() NSMethodSignature {
 	return rv
 }
 
-
-
-
-
-
-
 // A record of the type information for the return value and parameters of a
 // method.
 //
@@ -118,14 +112,10 @@ type NSMethodSignature struct {
 // A record of the type information for the return value and parameters of a
 // method.
 func NSMethodSignatureFromID(id objc.ID) NSMethodSignature {
-	return NSMethodSignature{objectivec.Object{id}}
+	return NSMethodSignature{objectivec.Object{ID: id}}
 }
 // Ensure NSMethodSignature implements INSMethodSignature.
 var _ INSMethodSignature = NSMethodSignature{}
-
-
-
-
 
 // An interface definition for the [NSMethodSignature] class.
 //
@@ -170,10 +160,6 @@ type INSMethodSignature interface {
 	IsOneway() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMethodSignature) Init() NSMethodSignature {
 	rv := objc.Send[NSMethodSignature](m.ID, objc.Sel("init"))
@@ -192,15 +178,6 @@ func NewNSMethodSignature() NSMethodSignature {
 	rv := objc.Send[NSMethodSignature](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the type encoding for the argument at a given index.
 //
@@ -244,10 +221,6 @@ func (m NSMethodSignature) IsOneway() bool {
 	return rv
 }
 
-
-
-
-
 // Returns an [NSMethodSignature] object for the given Objective-C method type
 // string.
 //
@@ -265,13 +238,6 @@ func (_NSMethodSignatureClass NSMethodSignatureClass) SignatureWithObjCTypes(typ
 	return NSMethodSignatureFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The number of arguments recorded in the receiver.
 //
 // # Discussion
@@ -286,8 +252,6 @@ func (m NSMethodSignature) NumberOfArguments() uint {
 	return rv
 }
 
-
-
 // The number of bytes that the arguments, taken together, occupy on the
 // stack.
 //
@@ -301,8 +265,6 @@ func (m NSMethodSignature) FrameLength() uint {
 	return rv
 }
 
-
-
 // A C string encoding the return type of the method in Objective-C type
 // encoding.
 //
@@ -312,8 +274,6 @@ func (m NSMethodSignature) MethodReturnType() string {
 	return objc.GoString(rv)
 }
 
-
-
 // The number of bytes required for the return value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMethodSignature/methodReturnLength
@@ -321,20 +281,4 @@ func (m NSMethodSignature) MethodReturnLength() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("methodReturnLength"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

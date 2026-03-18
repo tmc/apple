@@ -14,8 +14,6 @@ type VZGraphicsDisplayObserver interface {
 	objectivec.IObject
 }
 
-
-
 // VZGraphicsDisplayObserverObject wraps an existing Objective-C object that conforms to the VZGraphicsDisplayObserver protocol.
 type VZGraphicsDisplayObserverObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o VZGraphicsDisplayObserverObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // VZGraphicsDisplayObserverObjectFromID constructs a [VZGraphicsDisplayObserverObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VZGraphicsDisplayObserverObjectFromID(id objc.ID) VZGraphicsDisplayObserverObject {
@@ -33,9 +29,6 @@ func VZGraphicsDisplayObserverObjectFromID(id objc.ID) VZGraphicsDisplayObserver
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The method the framework calls when the reconfiguration operation has
 // begun.
@@ -73,10 +66,4 @@ func (o VZGraphicsDisplayObserverObject) DisplayDidEndReconfiguration(display IV
 	
 	objc.Send[struct{}](o.ID, objc.Sel("displayDidEndReconfiguration:"), display)
 	}
-
-
-
-
-
-
 

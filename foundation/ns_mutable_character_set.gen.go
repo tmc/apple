@@ -35,12 +35,6 @@ func (nc NSMutableCharacterSetClass) Alloc() NSMutableCharacterSet {
 	return rv
 }
 
-
-
-
-
-
-
 // An object representing a mutable set of Unicode character values for use in
 // search operations.
 //
@@ -103,10 +97,6 @@ func NSMutableCharacterSetFromID(id objc.ID) NSMutableCharacterSet {
 // NOTE: NSMutableCharacterSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMutableCharacterSet] class.
 //
 // # Adding and Removing Characters
@@ -153,10 +143,6 @@ type INSMutableCharacterSet interface {
 	Invert()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMutableCharacterSet) Init() NSMutableCharacterSet {
 	rv := objc.Send[NSMutableCharacterSet](m.ID, objc.Sel("init"))
@@ -176,11 +162,6 @@ func NewNSMutableCharacterSet() NSMutableCharacterSet {
 	return rv
 }
 
-
-
-
-
-
 // Returns a character set containing characters determined by a given bitmap
 // representation.
 //
@@ -190,7 +171,6 @@ func NewMutableCharacterSetWithBitmapRepresentation(data INSData) NSMutableChara
 	return NSMutableCharacterSetFromID(rv)
 }
 
-
 // Returns a character set containing the characters in a given string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableCharacterSet/init(charactersIn:)
@@ -199,7 +179,6 @@ func NewMutableCharacterSetWithCharactersInString(aString string) NSMutableChara
 	return NSMutableCharacterSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/init(coder:)
 func NewMutableCharacterSetWithCoder(coder INSCoder) NSMutableCharacterSet {
@@ -207,7 +186,6 @@ func NewMutableCharacterSetWithCoder(coder INSCoder) NSMutableCharacterSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableCharacterSetFromID(rv)
 }
-
 
 // Returns a character set read from the bitmap representation stored in the
 // file a given path.
@@ -218,7 +196,6 @@ func NewMutableCharacterSetWithContentsOfFile(fName string) NSMutableCharacterSe
 	return NSMutableCharacterSetFromID(rv)
 }
 
-
 // Returns a character set containing characters with Unicode values in a
 // given range.
 //
@@ -227,12 +204,6 @@ func NewMutableCharacterSetWithRange(aRange NSRange) NSMutableCharacterSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableCharacterSetClass().class), objc.Sel("characterSetWithRange:"), aRange)
 	return NSMutableCharacterSetFromID(rv)
 }
-
-
-
-
-
-
 
 // Adds to the receiver the characters whose Unicode values are in a given
 // range.
@@ -321,41 +292,4 @@ func (m NSMutableCharacterSet) FormUnionWithCharacterSet(otherSet INSCharacterSe
 func (m NSMutableCharacterSet) Invert() {
 	objc.Send[objc.ID](m.ID, objc.Sel("invert"))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -22,7 +22,6 @@ const (
 	VNBarcodeCompositeTypeNone VNBarcodeCompositeType = 0
 )
 
-
 func (e VNBarcodeCompositeType) String() string {
 	switch e {
 	case VNBarcodeCompositeTypeGS1TypeA:
@@ -40,8 +39,6 @@ func (e VNBarcodeCompositeType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNChirality
 type VNChirality int
 
@@ -53,7 +50,6 @@ const (
 	// VNChiralityUnknown: Indicates that the pose chirality is unknown.
 	VNChiralityUnknown VNChirality = 0
 )
-
 
 func (e VNChirality) String() string {
 	switch e {
@@ -68,8 +64,6 @@ func (e VNChirality) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNElementType
 type VNElementType int
 
@@ -81,7 +75,6 @@ const (
 	// VNElementTypeUnknown: The element type isn’t known.
 	VNElementTypeUnknown VNElementType = 0
 )
-
 
 func (e VNElementType) String() string {
 	switch e {
@@ -95,8 +88,6 @@ func (e VNElementType) String() string {
 		return fmt.Sprintf("VNElementType(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/Vision/VNErrorCode
 type VNErrorCode int
@@ -151,7 +142,6 @@ const (
 	// VNErrorUnsupportedRevision: An app specified an unsupported request revision.
 	VNErrorUnsupportedRevision VNErrorCode = 16
 )
-
 
 func (e VNErrorCode) String() string {
 	switch e {
@@ -208,8 +198,6 @@ func (e VNErrorCode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest/ComputationAccuracy-swift.enum
 type VNGenerateOpticalFlowRequestComputationAccuracy int
 
@@ -223,7 +211,6 @@ const (
 	// VNGenerateOpticalFlowRequestComputationAccuracyVeryHigh: Very high accuracy.
 	VNGenerateOpticalFlowRequestComputationAccuracyVeryHigh VNGenerateOpticalFlowRequestComputationAccuracy = 3
 )
-
 
 func (e VNGenerateOpticalFlowRequestComputationAccuracy) String() string {
 	switch e {
@@ -240,8 +227,6 @@ func (e VNGenerateOpticalFlowRequestComputationAccuracy) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/QualityLevel-swift.enum
 type VNGeneratePersonSegmentationRequestQualityLevel int
 
@@ -253,7 +238,6 @@ const (
 	// VNGeneratePersonSegmentationRequestQualityLevelFast: Prefers performance over image quality.
 	VNGeneratePersonSegmentationRequestQualityLevelFast VNGeneratePersonSegmentationRequestQualityLevel = 2
 )
-
 
 func (e VNGeneratePersonSegmentationRequestQualityLevel) String() string {
 	switch e {
@@ -268,8 +252,6 @@ func (e VNGeneratePersonSegmentationRequestQualityLevel) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/HeightEstimation-swift.enum
 type VNHumanBodyPose3DObservationHeightEstimation int
 
@@ -279,7 +261,6 @@ const (
 	// VNHumanBodyPose3DObservationHeightEstimationReference: A technique that uses a reference height.
 	VNHumanBodyPose3DObservationHeightEstimationReference VNHumanBodyPose3DObservationHeightEstimation = 0
 )
-
 
 func (e VNHumanBodyPose3DObservationHeightEstimation) String() string {
 	switch e {
@@ -291,8 +272,6 @@ func (e VNHumanBodyPose3DObservationHeightEstimation) String() string {
 		return fmt.Sprintf("VNHumanBodyPose3DObservationHeightEstimation(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
 type VNImageCropAndScaleOption int
@@ -310,7 +289,6 @@ const (
 	VNImageCropAndScaleOptionScaleFitRotate90CCW VNImageCropAndScaleOption = 256
 )
 
-
 func (e VNImageCropAndScaleOption) String() string {
 	switch e {
 	case VNImageCropAndScaleOptionCenterCrop:
@@ -326,8 +304,6 @@ func (e VNImageCropAndScaleOption) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNPointsClassification
 type VNPointsClassification int
 
@@ -336,7 +312,6 @@ const (
 	VNPointsClassificationDisconnected VNPointsClassification = 0
 	VNPointsClassificationOpenPath VNPointsClassification = 1
 )
-
 
 func (e VNPointsClassification) String() string {
 	switch e {
@@ -351,8 +326,6 @@ func (e VNPointsClassification) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNRequestFaceLandmarksConstellation
 type VNRequestFaceLandmarksConstellation int
 
@@ -364,7 +337,6 @@ const (
 	// VNRequestFaceLandmarksConstellationNotDefined: An undefined constellation.
 	VNRequestFaceLandmarksConstellationNotDefined VNRequestFaceLandmarksConstellation = 0
 )
-
 
 func (e VNRequestFaceLandmarksConstellation) String() string {
 	switch e {
@@ -379,8 +351,6 @@ func (e VNRequestFaceLandmarksConstellation) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNRequestTextRecognitionLevel
 type VNRequestTextRecognitionLevel int
 
@@ -390,7 +360,6 @@ const (
 	// VNRequestTextRecognitionLevelFast: Fast text recognition returns results more quickly at the expense of accuracy.
 	VNRequestTextRecognitionLevelFast VNRequestTextRecognitionLevel = 1
 )
-
 
 func (e VNRequestTextRecognitionLevel) String() string {
 	switch e {
@@ -403,8 +372,6 @@ func (e VNRequestTextRecognitionLevel) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/Vision/VNRequestTrackingLevel
 type VNRequestTrackingLevel int
 
@@ -414,7 +381,6 @@ const (
 	// VNRequestTrackingLevelFast: Tracking level that favors speed over location accuracy.
 	VNRequestTrackingLevelFast VNRequestTrackingLevel = 1
 )
-
 
 func (e VNRequestTrackingLevel) String() string {
 	switch e {
@@ -426,8 +392,6 @@ func (e VNRequestTrackingLevel) String() string {
 		return fmt.Sprintf("VNRequestTrackingLevel(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequest/ComputationAccuracy-swift.enum
 type VNTrackOpticalFlowRequestComputationAccuracy int
@@ -443,7 +407,6 @@ const (
 	VNTrackOpticalFlowRequestComputationAccuracyVeryHigh VNTrackOpticalFlowRequestComputationAccuracy = 3
 )
 
-
 func (e VNTrackOpticalFlowRequestComputationAccuracy) String() string {
 	switch e {
 	case VNTrackOpticalFlowRequestComputationAccuracyHigh:
@@ -458,8 +421,4 @@ func (e VNTrackOpticalFlowRequestComputationAccuracy) String() string {
 		return fmt.Sprintf("VNTrackOpticalFlowRequestComputationAccuracy(%d)", e)
 	}
 }
-
-
-
-
 

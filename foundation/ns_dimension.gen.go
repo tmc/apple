@@ -35,12 +35,6 @@ func (dc DimensionClass) Alloc() Dimension {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class representing a dimensional unit of measure.
 //
 // # Overview
@@ -160,10 +154,6 @@ func NSDimensionFromID(id objc.ID) Dimension { return DimensionFromID(id) }
 // NOTE: Dimension adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [Dimension] class.
 //
 // # Creating Dimensions
@@ -193,10 +183,6 @@ type IDimension interface {
 	SetCoefficient(value float64)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d Dimension) Init() Dimension {
 	rv := objc.Send[Dimension](d.ID, objc.Sel("init"))
@@ -216,11 +202,6 @@ func NewDimension() Dimension {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDimensionWithCoder(coder INSCoder) Dimension {
@@ -228,7 +209,6 @@ func NewDimensionWithCoder(coder INSCoder) Dimension {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DimensionFromID(rv)
 }
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -244,7 +224,6 @@ func NewDimensionWithSymbol(symbol string) Dimension {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return DimensionFromID(rv)
 }
-
 
 // Initializes a dimensional unit with the symbol and unit converter you
 // specify.
@@ -269,12 +248,6 @@ func NewDimensionWithSymbolConverter(symbol string, converter INSUnitConverter) 
 	return DimensionFromID(rv)
 }
 
-
-
-
-
-
-
 // Initializes a dimensional unit with the symbol and unit converter you
 // specify.
 //
@@ -296,10 +269,6 @@ func (d Dimension) InitWithSymbolConverter(symbol string, converter INSUnitConve
 	rv := objc.Send[Dimension](d.ID, objc.Sel("initWithSymbol:converter:"), objc.String(symbol), converter)
 	return rv
 }
-
-
-
-
 
 // Returns the base unit.
 //
@@ -324,13 +293,6 @@ func (_DimensionClass DimensionClass) BaseUnit() Dimension {
 	return NSDimensionFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The unit converter that represents the unit in terms of the dimension’s
 // base unit.
 //
@@ -339,8 +301,6 @@ func (d Dimension) Converter() INSUnitConverter {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("converter"))
 	return NSUnitConverterFromID(objc.ID(rv))
 }
-
-
 
 // The coefficient to use in the linear unit conversion calculation.
 //
@@ -353,12 +313,6 @@ func (d Dimension) SetCoefficient(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCoefficient:"), value)
 }
 
-
-
-
-
-
-
 // The lux unit of illuminance.
 //
 // See: https://developer.apple.com/documentation/foundation/unitilluminance/lux
@@ -369,8 +323,6 @@ func (_DimensionClass DimensionClass) Lux() UnitIlluminance {
 func (_DimensionClass DimensionClass) SetLux(value UnitIlluminance) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setLux:"), value)
 }
-
-
 
 // The meters unit of length.
 //
@@ -383,8 +335,6 @@ func (_DimensionClass DimensionClass) SetMeters(value UnitLength) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMeters:"), value)
 }
 
-
-
 // The miles unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/miles
@@ -395,27 +345,4 @@ func (_DimensionClass DimensionClass) Miles() UnitLength {
 func (_DimensionClass DimensionClass) SetMiles(value UnitLength) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMiles:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -35,12 +36,6 @@ func (nc NSCalendarClass) Alloc() NSCalendar {
 	rv := objc.Send[NSCalendar](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A definition of the relationships between calendar units and absolute
 // points in time, providing features for calculation and comparison of dates.
@@ -273,14 +268,10 @@ type NSCalendar struct {
 // A definition of the relationships between calendar units and absolute
 // points in time, providing features for calculation and comparison of dates.
 func NSCalendarFromID(id objc.ID) NSCalendar {
-	return NSCalendar{objectivec.Object{id}}
+	return NSCalendar{objectivec.Object{ID: id}}
 }
 // NOTE: NSCalendar adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSCalendar] class.
 //
@@ -389,7 +380,9 @@ func NSCalendarFromID(id objc.ID) NSCalendar {
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar
 type INSCalendar interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating and Initializing Calendars
 
@@ -411,11 +404,11 @@ type INSCalendar interface {
 	// Returns all the date components of a date, as if in a given time zone (instead of the receiving calendar’s time zone).
 	ComponentsInTimeZoneFromDate(timezone INSTimeZone, date INSDate) INSDateComponents
 	// Returns by reference the era, year, week of year, and weekday component values for a given date.
-	GetEraYearMonthDayFromDate(eraValuePointer int, yearValuePointer int, monthValuePointer int, dayValuePointer int, date INSDate)
+	GetEraYearMonthDayFromDate(eraValuePointer unsafe.Pointer, yearValuePointer unsafe.Pointer, monthValuePointer unsafe.Pointer, dayValuePointer unsafe.Pointer, date INSDate)
 	// Returns by reference the era, year, week of year, and weekday component values for a given date.
-	GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer int, yearValuePointer int, weekValuePointer int, weekdayValuePointer int, date INSDate)
+	GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer unsafe.Pointer, yearValuePointer unsafe.Pointer, weekValuePointer unsafe.Pointer, weekdayValuePointer unsafe.Pointer, date INSDate)
 	// Returns by reference the hour, minute, second, and nanosecond component values for a given date.
-	GetHourMinuteSecondNanosecondFromDate(hourValuePointer int, minuteValuePointer int, secondValuePointer int, nanosecondValuePointer int, date INSDate)
+	GetHourMinuteSecondNanosecondFromDate(hourValuePointer unsafe.Pointer, minuteValuePointer unsafe.Pointer, secondValuePointer unsafe.Pointer, nanosecondValuePointer unsafe.Pointer, date INSDate)
 
 	// Topic: Getting Calendar Information
 
@@ -442,16 +435,16 @@ type INSCalendar interface {
 	// Returns the range of absolute time values that a smaller calendar unit (such as a day) can take on in a larger calendar unit (such as a month) that includes a specified absolute time.
 	RangeOfUnitInUnitForDate(smaller NSCalendarUnit, larger NSCalendarUnit, date INSDate) NSRange
 	// Returns by reference the starting time and duration of a given calendar unit that contains a given date.
-	RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, datep INSDate, tip float64, date INSDate) bool
+	RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, datep INSDate, tip unsafe.Pointer, date INSDate) bool
 	// Returns whether a given date falls within a weekend period, and if so, returns by reference the start date and time interval of the weekend range.
-	RangeOfWeekendStartDateIntervalContainingDate(datep INSDate, tip float64, date INSDate) bool
+	RangeOfWeekendStartDateIntervalContainingDate(datep INSDate, tip unsafe.Pointer, date INSDate) bool
 
 	// Topic: Scanning Dates
 
 	// Returns the first moment of a given date as a date instance.
 	StartOfDayForDate(date INSDate) INSDate
 	// Computes the dates that match (or most closely match) a given set of components, and calls the block once for each of them, until the enumeration is stopped.
-	EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block bool)
+	EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block unsafe.Pointer)
 	// Returns the next date after a given date matching the given components.
 	NextDateAfterDateMatchingComponentsOptions(date INSDate, comps INSDateComponents, options NSCalendarOptions) INSDate
 	// Returns the next date after a given date that matches the given hour, minute, and second, component values.
@@ -476,7 +469,7 @@ type INSCalendar interface {
 	// Returns a new date created with the given components base on a week-of-year value.
 	DateWithEraYearForWeekOfYearWeekOfYearWeekdayHourMinuteSecondNanosecond(eraValue int, yearValue int, weekValue int, weekdayValue int, hourValue int, minuteValue int, secondValue int, nanosecondValue int) INSDate
 	// Returns by reference the starting date and time interval range of the next weekend period after a given date.
-	NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, tip float64, options NSCalendarOptions, date INSDate) bool
+	NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, tip unsafe.Pointer, options NSCalendarOptions, date INSDate) bool
 
 	// Topic: Comparing Dates
 
@@ -554,15 +547,7 @@ type INSCalendar interface {
 
 	// A notification that is posted whenever the calendar day of the system changes, as determined by the system calendar, locale, and time zone.
 	NSCalendarDayChanged() NSNotificationName
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSCalendar
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCalendar) Init() NSCalendar {
@@ -583,11 +568,6 @@ func NewNSCalendar() NSCalendar {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a calendar according to a given identifier.
 //
 // ident: The identifier for the new calendar. For valid identifiers, see `Calendar
@@ -606,7 +586,6 @@ func NewCalendarWithCalendarIdentifier(ident NSCalendarIdentifier) NSCalendar {
 	return NSCalendarFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewCalendarWithCoder(coder INSCoder) NSCalendar {
@@ -614,7 +593,6 @@ func NewCalendarWithCoder(coder INSCoder) NSCalendar {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCalendarFromID(rv)
 }
-
 
 // Creates a new calendar specified by a given identifier.
 //
@@ -636,12 +614,6 @@ func NewCalendarWithIdentifier(calendarIdentifierConstant NSCalendarIdentifier) 
 	rv := objc.Send[objc.ID](objc.ID(getNSCalendarClass().class), objc.Sel("calendarWithIdentifier:"), objc.String(string(calendarIdentifierConstant)))
 	return NSCalendarFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a calendar according to a given identifier.
 //
@@ -867,7 +839,7 @@ func (c NSCalendar) ComponentsInTimeZoneFromDate(timezone INSTimeZone, date INSD
 // date using [ComponentsFromDate]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/getEra(_:year:month:day:from:)
-func (c NSCalendar) GetEraYearMonthDayFromDate(eraValuePointer int, yearValuePointer int, monthValuePointer int, dayValuePointer int, date INSDate) {
+func (c NSCalendar) GetEraYearMonthDayFromDate(eraValuePointer unsafe.Pointer, yearValuePointer unsafe.Pointer, monthValuePointer unsafe.Pointer, dayValuePointer unsafe.Pointer, date INSDate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getEra:year:month:day:fromDate:"), eraValuePointer, yearValuePointer, monthValuePointer, dayValuePointer, date)
 }
 
@@ -892,7 +864,7 @@ func (c NSCalendar) GetEraYearMonthDayFromDate(eraValuePointer int, yearValuePoi
 // date using [ComponentsFromDate]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/getEra(_:yearForWeekOfYear:weekOfYear:weekday:from:)
-func (c NSCalendar) GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer int, yearValuePointer int, weekValuePointer int, weekdayValuePointer int, date INSDate) {
+func (c NSCalendar) GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer unsafe.Pointer, yearValuePointer unsafe.Pointer, weekValuePointer unsafe.Pointer, weekdayValuePointer unsafe.Pointer, date INSDate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getEra:yearForWeekOfYear:weekOfYear:weekday:fromDate:"), eraValuePointer, yearValuePointer, weekValuePointer, weekdayValuePointer, date)
 }
 
@@ -917,7 +889,7 @@ func (c NSCalendar) GetEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePoi
 // date using [ComponentsFromDate]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/getHour(_:minute:second:nanosecond:from:)
-func (c NSCalendar) GetHourMinuteSecondNanosecondFromDate(hourValuePointer int, minuteValuePointer int, secondValuePointer int, nanosecondValuePointer int, date INSDate) {
+func (c NSCalendar) GetHourMinuteSecondNanosecondFromDate(hourValuePointer unsafe.Pointer, minuteValuePointer unsafe.Pointer, secondValuePointer unsafe.Pointer, nanosecondValuePointer unsafe.Pointer, date INSDate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getHour:minute:second:nanosecond:fromDate:"), hourValuePointer, minuteValuePointer, secondValuePointer, nanosecondValuePointer, date)
 }
 
@@ -1050,7 +1022,7 @@ func (c NSCalendar) RangeOfUnitInUnitForDate(smaller NSCalendarUnit, larger NSCa
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/range(of:start:interval:for:)
-func (c NSCalendar) RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, datep INSDate, tip float64, date INSDate) bool {
+func (c NSCalendar) RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, datep INSDate, tip unsafe.Pointer, date INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("rangeOfUnit:startDate:interval:forDate:"), unit, datep, tip, date)
 	return rv
 }
@@ -1078,7 +1050,7 @@ func (c NSCalendar) RangeOfUnitStartDateIntervalForDate(unit NSCalendarUnit, dat
 // some calendars and locales.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/range(ofWeekendStart:interval:containing:)
-func (c NSCalendar) RangeOfWeekendStartDateIntervalContainingDate(datep INSDate, tip float64, date INSDate) bool {
+func (c NSCalendar) RangeOfWeekendStartDateIntervalContainingDate(datep INSDate, tip unsafe.Pointer, date INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("rangeOfWeekendStartDate:interval:containingDate:"), datep, tip, date)
 	return rv
 }
@@ -1232,7 +1204,7 @@ func (c NSCalendar) StartOfDayForDate(date INSDate) INSDate {
 // [media-2852013]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/enumerateDates(startingAfter:matching:options:using:)
-func (c NSCalendar) EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block bool) {
+func (c NSCalendar) EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("enumerateDatesStartingAfterDate:matchingComponents:options:usingBlock:"), start, comps, opts, block)
 }
 
@@ -1579,7 +1551,7 @@ func (c NSCalendar) DateWithEraYearForWeekOfYearWeekOfYearWeekdayHourMinuteSecon
 // some calendars and locales.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/nextWeekendStart(_:interval:options:after:)
-func (c NSCalendar) NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, tip float64, options NSCalendarOptions, date INSDate) bool {
+func (c NSCalendar) NextWeekendStartDateIntervalOptionsAfterDate(datep INSDate, tip unsafe.Pointer, options NSCalendarOptions, date INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("nextWeekendStartDate:interval:options:afterDate:"), datep, tip, options, date)
 	return rv
 }
@@ -1745,17 +1717,6 @@ func (c NSCalendar) InitWithCoder(coder INSCoder) NSCalendar {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An identifier for the calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/calendarIdentifier
@@ -1763,8 +1724,6 @@ func (c NSCalendar) CalendarIdentifier() NSCalendarIdentifier {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("calendarIdentifier"))
 	return NSCalendarIdentifier(NSStringFromID(rv).String())
 }
-
-
 
 // The index of the first weekday of the receiver.
 //
@@ -1777,8 +1736,6 @@ func (c NSCalendar) SetFirstWeekday(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFirstWeekday:"), value)
 }
 
-
-
 // The locale of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/locale
@@ -1789,8 +1746,6 @@ func (c NSCalendar) Locale() INSLocale {
 func (c NSCalendar) SetLocale(value INSLocale) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLocale:"), value)
 }
-
-
 
 // The time zone for the calendar.
 //
@@ -1803,8 +1758,6 @@ func (c NSCalendar) SetTimeZone(value INSTimeZone) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimeZone:"), value)
 }
 
-
-
 // The minimum number of days in the first week of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/minimumDaysInFirstWeek
@@ -1816,8 +1769,6 @@ func (c NSCalendar) SetMinimumDaysInFirstWeek(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumDaysInFirstWeek:"), value)
 }
 
-
-
 // The symbol used to represent “AM” for this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/amSymbol
@@ -1825,8 +1776,6 @@ func (c NSCalendar) AMSymbol() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("AMSymbol"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The symbol used to represent “PM” for this calendar.
 //
@@ -1836,8 +1785,6 @@ func (c NSCalendar) PMSymbol() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A list of weekdays in this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/weekdaySymbols
@@ -1845,8 +1792,6 @@ func (c NSCalendar) WeekdaySymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("weekdaySymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of shorter-named weekdays in this calendar.
 //
@@ -1856,8 +1801,6 @@ func (c NSCalendar) ShortWeekdaySymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A list of very-shortly-named weekdays in this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/veryShortWeekdaySymbols
@@ -1865,8 +1808,6 @@ func (c NSCalendar) VeryShortWeekdaySymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("veryShortWeekdaySymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of standalone weekday symbols for this calendar.
 //
@@ -1876,8 +1817,6 @@ func (c NSCalendar) StandaloneWeekdaySymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A list of short standalone weekday symbols for this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/shortStandaloneWeekdaySymbols
@@ -1885,8 +1824,6 @@ func (c NSCalendar) ShortStandaloneWeekdaySymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("shortStandaloneWeekdaySymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of very short standalone weekday symbols for this calendar.
 //
@@ -1896,8 +1833,6 @@ func (c NSCalendar) VeryShortStandaloneWeekdaySymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A list of month symbols for this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/monthSymbols
@@ -1905,8 +1840,6 @@ func (c NSCalendar) MonthSymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("monthSymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of short month symbols for this calendar.
 //
@@ -1916,8 +1849,6 @@ func (c NSCalendar) ShortMonthSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A list of very short month symbols for this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/veryShortMonthSymbols
@@ -1925,8 +1856,6 @@ func (c NSCalendar) VeryShortMonthSymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("veryShortMonthSymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of standalone month symbols for this calendar.
 //
@@ -1936,8 +1865,6 @@ func (c NSCalendar) StandaloneMonthSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A list of short standalone month symbols for this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/shortStandaloneMonthSymbols
@@ -1945,8 +1872,6 @@ func (c NSCalendar) ShortStandaloneMonthSymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("shortStandaloneMonthSymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of very short month symbols for this calendar.
 //
@@ -1956,8 +1881,6 @@ func (c NSCalendar) VeryShortStandaloneMonthSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A list of quarter symbols for this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/quarterSymbols
@@ -1965,8 +1888,6 @@ func (c NSCalendar) QuarterSymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("quarterSymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of short quarter symbols for this calendar.
 //
@@ -1976,8 +1897,6 @@ func (c NSCalendar) ShortQuarterSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A list of standalone quarter symbols for this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/standaloneQuarterSymbols
@@ -1985,8 +1904,6 @@ func (c NSCalendar) StandaloneQuarterSymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("standaloneQuarterSymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of short standalone quarter symbols for this calendar.
 //
@@ -1996,8 +1913,6 @@ func (c NSCalendar) ShortStandaloneQuarterSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A list of era symbols for this calendar.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/eraSymbols
@@ -2005,8 +1920,6 @@ func (c NSCalendar) EraSymbols() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("eraSymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // A list of long era symbols for this calendar.
 //
@@ -2016,8 +1929,6 @@ func (c NSCalendar) LongEraSymbols() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // A notification that is posted whenever the calendar day of the system
 // changes, as determined by the system calendar, locale, and time zone.
 //
@@ -2026,12 +1937,6 @@ func (c NSCalendar) NSCalendarDayChanged() NSNotificationName {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("NSCalendarDayChangedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
 
 // The user’s current calendar.
 //
@@ -2052,8 +1957,6 @@ func (_NSCalendarClass NSCalendarClass) CurrentCalendar() NSCalendar {
 	rv := objc.Send[objc.ID](objc.ID(_NSCalendarClass.class), objc.Sel("currentCalendar"))
 	return NSCalendarFromID(objc.ID(rv))
 }
-
-
 
 // A calendar that tracks changes to user’s preferred calendar.
 //
@@ -2076,31 +1979,9 @@ func (_NSCalendarClass NSCalendarClass) AutoupdatingCurrentCalendar() NSCalendar
 	return NSCalendarFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

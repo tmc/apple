@@ -106,8 +106,6 @@ type MTLComputePipelineState interface {
 	NewComputePipelineStateWithBinaryFunctionsError(additionalBinaryFunctions []objectivec.IObject) (MTLComputePipelineState, error)
 }
 
-
-
 // MTLComputePipelineStateObject wraps an existing Objective-C object that conforms to the MTLComputePipelineState protocol.
 type MTLComputePipelineStateObject struct {
 	objectivec.Object
@@ -116,8 +114,6 @@ func (o MTLComputePipelineStateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLComputePipelineStateObjectFromID constructs a [MTLComputePipelineStateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLComputePipelineStateObjectFromID(id objc.ID) MTLComputePipelineStateObject {
@@ -125,9 +121,6 @@ func MTLComputePipelineStateObjectFromID(id objc.ID) MTLComputePipelineStateObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The device instance that created the pipeline state.
 //
@@ -388,32 +381,4 @@ func (o MTLComputePipelineStateObject) AllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

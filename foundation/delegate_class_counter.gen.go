@@ -9,5 +9,3 @@ import (
 // delegateClassCounter is shared across all delegate builders in this package.
 var delegateClassCounter atomic.Int64
 
-
-

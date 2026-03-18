@@ -200,7 +200,7 @@ type MTLDevice interface {
 	// Creates a buffer that wraps an existing contiguous memory allocation.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(bytesNoCopy:length:options:deallocator:)
-	NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator uint) MTLBuffer
+	NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator unsafe.Pointer) MTLBuffer
 
 	// Creates a buffer the method clears with zero values.
 	//
@@ -225,7 +225,7 @@ type MTLDevice interface {
 	// Synchronously creates a compute pipeline state and reflection information.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(descriptor:options:reflection:)
-	NewComputePipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, reflection MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error)
+	NewComputePipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error)
 
 	// Asynchronously creates a compute pipeline state with a function instance.
 	//
@@ -245,7 +245,7 @@ type MTLDevice interface {
 	// Synchronously creates a compute pipeline state and reflection with a function instance.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:options:reflection:)
-	NewComputePipelineStateWithFunctionOptionsReflectionError(computeFunction MTLFunction, options MTLPipelineOption, reflection MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error)
+	NewComputePipelineStateWithFunctionOptionsReflectionError(computeFunction MTLFunction, options MTLPipelineOption, reflection *MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error)
 
 	// Creates a counter sample buffer.
 	//
@@ -365,7 +365,7 @@ type MTLDevice interface {
 	// Synchronously creates a render pipeline state and reflection information.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:reflection:)
-	NewRenderPipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, reflection MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error)
+	NewRenderPipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error)
 
 	// Asynchronously creates a mesh render pipeline state and reflection information.
 	//
@@ -375,7 +375,7 @@ type MTLDevice interface {
 	// Synchronously creates a mesh render pipeline state and reflection information.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/newRenderPipelineStateWithMeshDescriptor:options:reflection:error:
-	NewRenderPipelineStateWithMeshDescriptorOptionsReflectionError(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, reflection MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error)
+	NewRenderPipelineStateWithMeshDescriptorOptionsReflectionError(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error)
 
 	// Asynchronously creates a tile shader’s render pipeline state and reflection information.
 	//
@@ -385,7 +385,7 @@ type MTLDevice interface {
 	// Synchronously creates a tile shader’s render pipeline state and reflection information.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(tileDescriptor:options:reflection:)
-	NewRenderPipelineStateWithTileDescriptorOptionsReflectionError(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, reflection MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error)
+	NewRenderPipelineStateWithTileDescriptorOptionsReflectionError(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error)
 
 	// Creates a residency set, which can move resources in and out of memory residency.
 	//
@@ -430,7 +430,7 @@ type MTLDevice interface {
 	// Captures and returns a CPU timestamp and a GPU timestamp from the same moment in time.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/sampleTimestamps:gpuTimestamp:
-	SampleTimestampsGpuTimestamp(cpuTimestamp MTLTimestamp, gpuTimestamp MTLTimestamp)
+	SampleTimestampsGpuTimestamp(cpuTimestamp *MTLTimestamp, gpuTimestamp *MTLTimestamp)
 
 	// Returns the size, in bytes, of a sparse tile the GPU device creates with a specific page size.
 	//
@@ -678,8 +678,6 @@ type MTLDevice interface {
 	SupportsShaderBarycentricCoordinates() bool
 }
 
-
-
 // MTLDeviceObject wraps an existing Objective-C object that conforms to the MTLDevice protocol.
 type MTLDeviceObject struct {
 	objectivec.Object
@@ -688,8 +686,6 @@ func (o MTLDeviceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLDeviceObjectFromID constructs a [MTLDeviceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLDeviceObjectFromID(id objc.ID) MTLDeviceObject {
@@ -697,9 +693,6 @@ func MTLDeviceObjectFromID(id objc.ID) MTLDeviceObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The maximum number of concurrent compilation tasks the device is running.
 //
@@ -1457,7 +1450,7 @@ func (o MTLDeviceObject) NewBufferWithBytesLengthOptions(pointer unsafe.Pointer,
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(bytesNoCopy:length:options:deallocator:)
 
-func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator uint) MTLBuffer {
+func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator unsafe.Pointer) MTLBuffer {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithBytesNoCopy:length:options:deallocator:"), pointer, length, options, deallocator)
 	return MTLBufferObjectFromID(rv)
@@ -1585,7 +1578,7 @@ func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsCompletionH
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(descriptor:options:reflection:)
 
-func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, reflection MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error) {
+func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error) {
 	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:options:reflection:error:"), descriptor, options, reflection)
 	if err != nil {
@@ -1679,7 +1672,7 @@ func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsCompletionHan
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:options:reflection:)
 
-func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsReflectionError(computeFunction MTLFunction, options MTLPipelineOption, reflection MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error) {
+func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsReflectionError(computeFunction MTLFunction, options MTLPipelineOption, reflection *MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error) {
 	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithFunction:options:reflection:error:"), computeFunction, options, reflection)
 	if err != nil {
@@ -2241,7 +2234,7 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsCompletionHa
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:reflection:)
 
-func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, reflection MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
+func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
 	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:options:reflection:error:"), descriptor, options, reflection)
 	if err != nil {
@@ -2311,7 +2304,7 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsCompleti
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/newRenderPipelineStateWithMeshDescriptor:options:reflection:error:
 
-func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsReflectionError(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, reflection MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
+func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsReflectionError(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
 	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithMeshDescriptor:options:reflection:error:"), descriptor, options, reflection)
 	if err != nil {
@@ -2367,7 +2360,7 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsCompleti
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(tileDescriptor:options:reflection:)
 
-func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsReflectionError(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, reflection MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
+func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsReflectionError(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
 	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithTileDescriptor:options:reflection:error:"), descriptor, options, reflection)
 	if err != nil {
@@ -2558,7 +2551,7 @@ func (o MTLDeviceObject) NewTextureWithDescriptorIosurfacePlane(descriptor IMTLT
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/sampleTimestamps:gpuTimestamp:
 
-func (o MTLDeviceObject) SampleTimestampsGpuTimestamp(cpuTimestamp MTLTimestamp, gpuTimestamp MTLTimestamp) {
+func (o MTLDeviceObject) SampleTimestampsGpuTimestamp(cpuTimestamp *MTLTimestamp, gpuTimestamp *MTLTimestamp) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("sampleTimestamps:gpuTimestamp:"), cpuTimestamp, gpuTimestamp)
 	}
@@ -2790,16 +2783,9 @@ func (o MTLDeviceObject) ConvertSparseTileRegionsToPixelRegionsWithTileSizeNumRe
 	objc.Send[struct{}](o.ID, objc.Sel("convertSparseTileRegions:toPixelRegions:withTileSize:numRegions:"), tileRegions, pixelRegions, tileSize, numRegions)
 	}
 
-
-
-
-
-
 func (o MTLDeviceObject) SetShouldMaximizeConcurrentCompilation(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setShouldMaximizeConcurrentCompilation:"), value)
 }
-
-
 
 // The architectural details of the GPU device.
 //
@@ -2809,9 +2795,6 @@ func (o MTLDeviceObject) Architecture() IMTLArchitecture {
 	return MTLArchitectureFromID(rv)
 }
 
-
-
-
 // Returns the GPU device’s support tier for argument buffers.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/argumentBuffersSupport
@@ -2819,9 +2802,6 @@ func (o MTLDeviceObject) ArgumentBuffersSupport() MTLArgumentBuffersTier {
 	rv := objc.Send[MTLArgumentBuffersTier](o.ID, objc.Sel("argumentBuffersSupport"))
 	return MTLArgumentBuffersTier(rv)
 }
-
-
-
 
 // The counter sets supported by the device object.
 //
@@ -2835,9 +2815,6 @@ func (o MTLDeviceObject) CounterSets() []objectivec.IObject {
 	return result
 }
 
-
-
-
 // The total amount of memory, in bytes, the GPU device is using for all of
 // its resources.
 //
@@ -2846,9 +2823,6 @@ func (o MTLDeviceObject) CurrentAllocatedSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("currentAllocatedSize"))
 	return uint(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether a device supports a packed
 // depth-and-stencil pixel format.
@@ -2865,9 +2839,6 @@ func (o MTLDeviceObject) Depth24Stencil8PixelFormatSupported() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isDepth24Stencil8PixelFormatSupported"))
 	return bool(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the GPU shares all of its memory
 // with the CPU.
@@ -2887,9 +2858,6 @@ func (o MTLDeviceObject) HasUnifiedMemory() bool {
 	return bool(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether a GPU device doesn’t have a
 // connection to a display.
 //
@@ -2906,9 +2874,6 @@ func (o MTLDeviceObject) Headless() bool {
 	return bool(rv)
 }
 
-
-
-
 // The physical location of the GPU relative to the system.
 //
 // # Discussion
@@ -2921,9 +2886,6 @@ func (o MTLDeviceObject) Location() MTLDeviceLocation {
 	rv := objc.Send[MTLDeviceLocation](o.ID, objc.Sel("location"))
 	return MTLDeviceLocation(rv)
 }
-
-
-
 
 // A specific GPU position based on its general location.
 //
@@ -2945,9 +2907,6 @@ func (o MTLDeviceObject) LocationNumber() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("locationNumber"))
 	return uint(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the GPU lowers its performance to
 // conserve energy.
@@ -2977,9 +2936,6 @@ func (o MTLDeviceObject) LowPower() bool {
 	return bool(rv)
 }
 
-
-
-
 // The maximum number of unique argument buffer samplers per app.
 //
 // # Discussion
@@ -3001,9 +2957,6 @@ func (o MTLDeviceObject) MaxArgumentBufferSamplerCount() uint {
 	return uint(rv)
 }
 
-
-
-
 // The largest amount of memory, in bytes, that a GPU device can allocate to a
 // buffer instance.
 //
@@ -3017,9 +2970,6 @@ func (o MTLDeviceObject) MaxBufferLength() uint {
 	return uint(rv)
 }
 
-
-
-
 // The maximum threadgroup memory available to a compute kernel, in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/maxThreadgroupMemoryLength
@@ -3027,9 +2977,6 @@ func (o MTLDeviceObject) MaxThreadgroupMemoryLength() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("maxThreadgroupMemoryLength"))
 	return uint(rv)
 }
-
-
-
 
 // The maximum number of threads along each dimension of a threadgroup.
 //
@@ -3055,9 +3002,6 @@ func (o MTLDeviceObject) MaxThreadsPerThreadgroup() MTLSize {
 	return MTLSize(rv)
 }
 
-
-
-
 // The highest theoretical rate, in bytes per second, the system can copy
 // between system memory and the GPU’s dedicated memory (VRAM).
 //
@@ -3072,9 +3016,6 @@ func (o MTLDeviceObject) MaxTransferRate() uint64 {
 	return uint64(rv)
 }
 
-
-
-
 // The full name of the GPU device.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/name
@@ -3082,9 +3023,6 @@ func (o MTLDeviceObject) Name() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
 
 // The total number of GPUs in the peer group, if applicable.
 //
@@ -3100,9 +3038,6 @@ func (o MTLDeviceObject) PeerCount() uint32 {
 	return uint32(rv)
 }
 
-
-
-
 // The peer group ID the GPU belongs to, if applicable.
 //
 // # Discussion
@@ -3116,9 +3051,6 @@ func (o MTLDeviceObject) PeerGroupID() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("peerGroupID"))
 	return uint64(rv)
 }
-
-
-
 
 // The unique identifier for a GPU in a peer group.
 //
@@ -3138,9 +3070,6 @@ func (o MTLDeviceObject) PeerIndex() uint32 {
 	return uint32(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether the GPU supports programmable sample
 // positions.
 //
@@ -3149,9 +3078,6 @@ func (o MTLDeviceObject) ProgrammableSamplePositionsSupported() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("areProgrammableSamplePositionsSupported"))
 	return bool(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the GPU supports raster order
 // groups.
@@ -3162,9 +3088,6 @@ func (o MTLDeviceObject) RasterOrderGroupsSupported() bool {
 	return bool(rv)
 }
 
-
-
-
 // The GPU device’s texture support tier.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/readWriteTextureSupport
@@ -3172,9 +3095,6 @@ func (o MTLDeviceObject) ReadWriteTextureSupport() MTLReadWriteTextureTier {
 	rv := objc.Send[MTLReadWriteTextureTier](o.ID, objc.Sel("readWriteTextureSupport"))
 	return MTLReadWriteTextureTier(rv)
 }
-
-
-
 
 // An approximation of how much memory, in bytes, this GPU device can allocate
 // without affecting its runtime performance.
@@ -3190,9 +3110,6 @@ func (o MTLDeviceObject) RecommendedMaxWorkingSetSize() uint64 {
 	return uint64(rv)
 }
 
-
-
-
 // The GPU device’s registry identifier.
 //
 // # Discussion
@@ -3205,9 +3122,6 @@ func (o MTLDeviceObject) RegistryID() uint64 {
 	rv := objc.Send[uint64](o.ID, objc.Sel("registryID"))
 	return uint64(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the GPU is removable.
 //
@@ -3228,9 +3142,6 @@ func (o MTLDeviceObject) Removable() bool {
 	return bool(rv)
 }
 
-
-
-
 // Returns the size, in bytes, of a sparse tile the GPU device creates using a
 // default page size.
 //
@@ -3239,9 +3150,6 @@ func (o MTLDeviceObject) SparseTileSizeInBytes() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("sparseTileSizeInBytes"))
 	return uint(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the GPU can filter a texture with a
 // 32-bit floating-point format.
@@ -3252,9 +3160,6 @@ func (o MTLDeviceObject) Supports32BitFloatFiltering() bool {
 	return bool(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether the GPU can allocate 32-bit integer
 // texture formats and resolve to 32-bit floating-point texture formats.
 //
@@ -3263,9 +3168,6 @@ func (o MTLDeviceObject) Supports32BitMSAA() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supports32BitMSAA"))
 	return bool(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether you can use textures that use BC
 // compression.
@@ -3276,9 +3178,6 @@ func (o MTLDeviceObject) SupportsBCTextureCompression() bool {
 	return bool(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether the GPU device can create and use
 // dynamic libraries in compute pipelines.
 //
@@ -3287,9 +3186,6 @@ func (o MTLDeviceObject) SupportsDynamicLibraries() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsDynamicLibraries"))
 	return bool(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the device supports function
 // pointers in compute kernel functions.
@@ -3300,9 +3196,6 @@ func (o MTLDeviceObject) SupportsFunctionPointers() bool {
 	return bool(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether the device supports function
 // pointers in render functions.
 //
@@ -3311,9 +3204,6 @@ func (o MTLDeviceObject) SupportsFunctionPointersFromRender() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsFunctionPointersFromRender"))
 	return bool(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the device supports placement sparse
 // resources.
@@ -3324,9 +3214,6 @@ func (o MTLDeviceObject) SupportsPlacementSparse() bool {
 	return bool(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether the GPU device supports motion blur
 // for ray tracing.
 //
@@ -3335,9 +3222,6 @@ func (o MTLDeviceObject) SupportsPrimitiveMotionBlur() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsPrimitiveMotionBlur"))
 	return bool(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the GPU can compute multiple
 // interpolations of a fragment function’s input.
@@ -3348,9 +3232,6 @@ func (o MTLDeviceObject) SupportsPullModelInterpolation() bool {
 	return bool(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether you can query the texture level of
 // detail from within a shader.
 //
@@ -3360,9 +3241,6 @@ func (o MTLDeviceObject) SupportsQueryTextureLOD() bool {
 	return bool(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether the GPU device supports ray tracing.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsRaytracing
@@ -3370,9 +3248,6 @@ func (o MTLDeviceObject) SupportsRaytracing() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsRaytracing"))
 	return bool(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether you can call ray-tracing functions
 // from a vertex or fragment shader.
@@ -3383,9 +3258,6 @@ func (o MTLDeviceObject) SupportsRaytracingFromRender() bool {
 	return bool(rv)
 }
 
-
-
-
 // A Boolean value that indicates whether the GPU device can create and use
 // dynamic libraries in render pipelines.
 //
@@ -3394,9 +3266,6 @@ func (o MTLDeviceObject) SupportsRenderDynamicLibraries() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsRenderDynamicLibraries"))
 	return bool(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the GPU supports barycentric
 // coordinates.
@@ -3416,9 +3285,4 @@ func (o MTLDeviceObject) SupportsShaderBarycentricCoordinates() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsShaderBarycentricCoordinates"))
 	return bool(rv)
 }
-
-
-
-
-
 

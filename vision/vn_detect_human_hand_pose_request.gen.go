@@ -37,12 +37,6 @@ func (vc VNDetectHumanHandPoseRequestClass) Alloc() VNDetectHumanHandPoseRequest
 	return rv
 }
 
-
-
-
-
-
-
 // A request that detects a human hand pose.
 //
 // # Overview
@@ -79,10 +73,6 @@ func VNDetectHumanHandPoseRequestFromID(id objc.ID) VNDetectHumanHandPoseRequest
 }
 // NOTE: VNDetectHumanHandPoseRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNDetectHumanHandPoseRequest] class.
 //
@@ -132,10 +122,6 @@ type IVNDetectHumanHandPoseRequest interface {
 	SupportedJointsGroupNamesAndReturnError() ([]string, error)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectHumanHandPoseRequest) Init() VNDetectHumanHandPoseRequest {
 	rv := objc.Send[VNDetectHumanHandPoseRequest](d.ID, objc.Sel("init"))
@@ -155,11 +141,6 @@ func NewVNDetectHumanHandPoseRequest() VNDetectHumanHandPoseRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -177,12 +158,6 @@ func NewDetectHumanHandPoseRequestWithCompletionHandler(completionHandler VNRequ
 	return VNDetectHumanHandPoseRequestFromID(rv)
 }
 
-
-
-
-
-
-
 // Retrieves the supported joint names.
 //
 // error: If an error occurs, an error object that describes the error; otherwise,
@@ -190,7 +165,7 @@ func NewDetectHumanHandPoseRequestWithCompletionHandler(completionHandler VNRequ
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanHandPoseRequest/supportedJointNamesAndReturnError:
 func (d VNDetectHumanHandPoseRequest) SupportedJointNamesAndReturnError() ([]string, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("supportedJointNamesAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -207,7 +182,7 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointNamesAndReturnError() ([]str
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanHandPoseRequest/supportedJointsGroupNamesAndReturnError:
 func (d VNDetectHumanHandPoseRequest) SupportedJointsGroupNamesAndReturnError() ([]string, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("supportedJointsGroupNamesAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -216,17 +191,6 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointsGroupNamesAndReturnError() 
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The maximum number of hands to detect in an image.
 //
@@ -246,8 +210,6 @@ func (d VNDetectHumanHandPoseRequest) SetMaximumHandCount(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumHandCount:"), value)
 }
 
-
-
 // Retrieves the supported joint names.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequest/supportedjointnames
@@ -258,8 +220,6 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointNames() VNHumanHandPoseObser
 func (d VNDetectHumanHandPoseRequest) SetSupportedJointNames(value VNHumanHandPoseObservationJointName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
 }
-
-
 
 // Retrieves the supported joint group names.
 //
@@ -272,8 +232,6 @@ func (d VNDetectHumanHandPoseRequest) SetSupportedJointsGroupNames(value VNHuman
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
 }
 
-
-
 // A constant for specifying revision 1 of the hand pose detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequestrevision1
@@ -281,27 +239,4 @@ func (d VNDetectHumanHandPoseRequest) VNDetectHumanHandPoseRequestRevision1() in
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanHandPoseRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

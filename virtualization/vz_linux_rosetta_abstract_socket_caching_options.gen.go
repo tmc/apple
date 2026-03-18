@@ -37,12 +37,6 @@ func (vc VZLinuxRosettaAbstractSocketCachingOptionsClass) Alloc() VZLinuxRosetta
 	return rv
 }
 
-
-
-
-
-
-
 // Caching options for an abstract socket.
 //
 // # Overview
@@ -72,10 +66,6 @@ func VZLinuxRosettaAbstractSocketCachingOptionsFromID(id objc.ID) VZLinuxRosetta
 // Ensure VZLinuxRosettaAbstractSocketCachingOptions implements IVZLinuxRosettaAbstractSocketCachingOptions.
 var _ IVZLinuxRosettaAbstractSocketCachingOptions = VZLinuxRosettaAbstractSocketCachingOptions{}
 
-
-
-
-
 // An interface definition for the [VZLinuxRosettaAbstractSocketCachingOptions] class.
 //
 // # Initalizers
@@ -101,10 +91,6 @@ type IVZLinuxRosettaAbstractSocketCachingOptions interface {
 	Name() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l VZLinuxRosettaAbstractSocketCachingOptions) Init() VZLinuxRosettaAbstractSocketCachingOptions {
 	rv := objc.Send[VZLinuxRosettaAbstractSocketCachingOptions](l.ID, objc.Sel("init"))
@@ -123,11 +109,6 @@ func NewVZLinuxRosettaAbstractSocketCachingOptions() VZLinuxRosettaAbstractSocke
 	rv := objc.Send[VZLinuxRosettaAbstractSocketCachingOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initialize options to set on a Rosetta directory share.
 //
@@ -152,12 +133,6 @@ func NewLinuxRosettaAbstractSocketCachingOptionsWithNameError(name string) (VZLi
 	return VZLinuxRosettaAbstractSocketCachingOptionsFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Initialize options to set on a Rosetta directory share.
 //
 // name: This is the name of the abstract socket that Rosetta uses.
@@ -171,7 +146,7 @@ func NewLinuxRosettaAbstractSocketCachingOptionsWithNameError(name string) (VZLi
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaAbstractSocketCachingOptions/initWithName:error:
 func (l VZLinuxRosettaAbstractSocketCachingOptions) InitWithNameError(name string) (VZLinuxRosettaAbstractSocketCachingOptions, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("initWithName:error:"), objc.String(name), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -181,17 +156,6 @@ func (l VZLinuxRosettaAbstractSocketCachingOptions) InitWithNameError(name strin
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name of the abstract socket that Rosetta uses.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaAbstractSocketCachingOptions/name
@@ -199,12 +163,6 @@ func (l VZLinuxRosettaAbstractSocketCachingOptions) Name() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
 
 // The maximum length of name that the framework allows.
 //
@@ -218,16 +176,4 @@ func (_VZLinuxRosettaAbstractSocketCachingOptionsClass VZLinuxRosettaAbstractSoc
 	rv := objc.Send[uint](objc.ID(_VZLinuxRosettaAbstractSocketCachingOptionsClass.class), objc.Sel("maximumNameLength"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

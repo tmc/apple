@@ -39,12 +39,6 @@ func (sc SCScreenshotManagerClass) Alloc() SCScreenshotManager {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance for the capture of single frames from a stream.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager
@@ -56,14 +50,10 @@ type SCScreenshotManager struct {
 //
 // An instance for the capture of single frames from a stream.
 func SCScreenshotManagerFromID(id objc.ID) SCScreenshotManager {
-	return SCScreenshotManager{objectivec.Object{id}}
+	return SCScreenshotManager{objectivec.Object{ID: id}}
 }
 // NOTE: SCScreenshotManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCScreenshotManager] class.
 //
@@ -71,10 +61,6 @@ func SCScreenshotManagerFromID(id objc.ID) SCScreenshotManager {
 type ISCScreenshotManager interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s SCScreenshotManager) Init() SCScreenshotManager {
@@ -95,19 +81,6 @@ func NewSCScreenshotManager() SCScreenshotManager {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Captures a single frame from a stream as an image, using a filter.
 //
 // contentFilter: The content filter used to select the stream.
@@ -118,9 +91,9 @@ func NewSCScreenshotManager() SCScreenshotManager {
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureImage(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureImageWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCStreamConfiguration, completionHandler CGImageRefErrorHandler) {
-		_block2, _cleanup2 := NewCGImageRefErrorBlock(completionHandler)
+_block2, _cleanup2 := NewCGImageRefErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
+	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
 
 // Captures a single frame directly from a stream’s buffer, using a filter.
@@ -133,9 +106,9 @@ func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureImageWithFilter
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureSampleBuffer(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureSampleBufferWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCStreamConfiguration, completionHandler CMSampleBufferRefErrorHandler) {
-		_block2, _cleanup2 := NewCMSampleBufferRefErrorBlock(completionHandler)
+_block2, _cleanup2 := NewCMSampleBufferRefErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureSampleBufferWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
+	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureSampleBufferWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
 
 //
@@ -153,9 +126,9 @@ func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureSampleBufferWit
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureImage(in:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureImageInRectCompletionHandler(rect corefoundation.CGRect, completionHandler CGImageRefErrorHandler) {
-		_block1, _cleanup1 := NewCGImageRefErrorBlock(completionHandler)
+_block1, _cleanup1 := NewCGImageRefErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageInRect:completionHandler:"), rect, _block1)
+	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageInRect:completionHandler:"), rect, _block1)
 }
 
 //
@@ -176,9 +149,9 @@ func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureImageInRectComp
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureScreenshot(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureScreenshotWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCScreenshotConfiguration, completionHandler SCScreenshotOutputErrorHandler) {
-		_block2, _cleanup2 := NewSCScreenshotOutputErrorBlock(completionHandler)
+_block2, _cleanup2 := NewSCScreenshotOutputErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
+	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
 
 //
@@ -200,32 +173,10 @@ func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureScreenshotWithF
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureScreenshot(rect:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureScreenshotWithRectConfigurationCompletionHandler(rect corefoundation.CGRect, config ISCScreenshotConfiguration, completionHandler SCScreenshotOutputErrorHandler) {
-		_block2, _cleanup2 := NewSCScreenshotOutputErrorBlock(completionHandler)
+_block2, _cleanup2 := NewSCScreenshotOutputErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithRect:configuration:completionHandler:"), rect, config, _block2)
+	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithRect:configuration:completionHandler:"), rect, config, _block2)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // CaptureImageWithFilterConfiguration is a synchronous wrapper around [SCScreenshotManager.CaptureImageWithFilterConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -321,9 +272,4 @@ func (sc SCScreenshotManagerClass) CaptureScreenshotWithRectConfiguration(ctx co
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

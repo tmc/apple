@@ -121,8 +121,6 @@ type MTLHeap interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLHeapObject wraps an existing Objective-C object that conforms to the MTLHeap protocol.
 type MTLHeapObject struct {
 	objectivec.Object
@@ -131,8 +129,6 @@ func (o MTLHeapObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLHeapObjectFromID constructs a [MTLHeapObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLHeapObjectFromID(id objc.ID) MTLHeapObject {
@@ -140,9 +136,6 @@ func MTLHeapObjectFromID(id objc.ID) MTLHeapObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A string that identifies the heap.
 //
@@ -463,34 +456,7 @@ func (o MTLHeapObject) AllocatedSize() uint {
 	return rv
 	}
 
-
-
-
 func (o MTLHeapObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

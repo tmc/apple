@@ -40,8 +40,6 @@ type MTLResourceViewPool interface {
 	CopyResourceViewsFromPoolSourceRangeDestinationIndex(sourcePool MTLResourceViewPool, sourceRange foundation.NSRange, destinationIndex uint) MTLResourceID
 }
 
-
-
 // MTLResourceViewPoolObject wraps an existing Objective-C object that conforms to the MTLResourceViewPool protocol.
 type MTLResourceViewPoolObject struct {
 	objectivec.Object
@@ -50,8 +48,6 @@ func (o MTLResourceViewPoolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLResourceViewPoolObjectFromID constructs a [MTLResourceViewPoolObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLResourceViewPoolObjectFromID(id objc.ID) MTLResourceViewPoolObject {
@@ -59,9 +55,6 @@ func MTLResourceViewPoolObjectFromID(id objc.ID) MTLResourceViewPoolObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Obtains the resource ID corresponding to the resource view at index 0 in
 // this resource view pool.
@@ -128,18 +121,4 @@ func (o MTLResourceViewPoolObject) CopyResourceViewsFromPoolSourceRangeDestinati
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("copyResourceViewsFromPool:sourceRange:destinationIndex:"), sourcePool, sourceRange, destinationIndex)
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

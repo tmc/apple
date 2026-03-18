@@ -36,12 +36,6 @@ func (nc NSDecimalNumberHandlerClass) Alloc() NSDecimalNumberHandler {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that adopts the decimal number behaviors protocol.
 //
 // # Overview
@@ -70,14 +64,10 @@ type NSDecimalNumberHandler struct {
 //
 // A class that adopts the decimal number behaviors protocol.
 func NSDecimalNumberHandlerFromID(id objc.ID) NSDecimalNumberHandler {
-	return NSDecimalNumberHandler{objectivec.Object{id}}
+	return NSDecimalNumberHandler{objectivec.Object{ID: id}}
 }
 // NOTE: NSDecimalNumberHandler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDecimalNumberHandler] class.
 //
@@ -88,6 +78,7 @@ func NSDecimalNumberHandlerFromID(id objc.ID) NSDecimalNumberHandler {
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberHandler
 type INSDecimalNumberHandler interface {
 	objectivec.IObject
+	NSCoding
 
 	// Topic: Initializing a decimal number handler
 
@@ -100,18 +91,11 @@ type INSDecimalNumberHandler interface {
 	// The rounding increment used by the receiver.
 	RoundingIncrement() INSNumber
 	SetRoundingIncrement(value INSNumber)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 	// Specifies what an [NSDecimalNumber] object will do when it encounters an error.
 	ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber
-	InitWithCoder(coder INSCoder) NSDecimalNumberHandler
 	// Returns the number of digits allowed after the decimal separator.
 	Scale() int16
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d NSDecimalNumberHandler) Init() NSDecimalNumberHandler {
@@ -132,11 +116,6 @@ func NewNSDecimalNumberHandler() NSDecimalNumberHandler {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDecimalNumberHandlerWithCoder(coder INSCoder) NSDecimalNumberHandler {
@@ -144,7 +123,6 @@ func NewDecimalNumberHandlerWithCoder(coder INSCoder) NSDecimalNumberHandler {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDecimalNumberHandlerFromID(rv)
 }
-
 
 // Returns an [NSDecimalNumberHandler] object initialized so it behaves as
 // specified by the method’s arguments.
@@ -195,12 +173,6 @@ func NewDecimalNumberHandlerWithRoundingModeScaleRaiseOnExactnessRaiseOnOverflow
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRoundingMode:scale:raiseOnExactness:raiseOnOverflow:raiseOnUnderflow:raiseOnDivideByZero:"), roundingMode, scale, exact, overflow, underflow, divideByZero)
 	return NSDecimalNumberHandlerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSDecimalNumberHandler] object initialized so it behaves as
 // specified by the method’s arguments.
@@ -335,10 +307,6 @@ func (d NSDecimalNumberHandler) Scale() int16 {
 	return rv
 }
 
-
-
-
-
 // Returns an [NSDecimalNumberHandler] object with customized behavior.
 //
 // roundingMode: The rounding mode to use. There are four possible values: [NSRoundUp],
@@ -385,13 +353,6 @@ func (_NSDecimalNumberHandlerClass NSDecimalNumberHandlerClass) DecimalNumberHan
 	return NSDecimalNumberHandlerFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The rounding behavior used by the receiver.
 //
 // See: https://developer.apple.com/documentation/foundation/numberformatter/roundingbehavior
@@ -402,8 +363,6 @@ func (d NSDecimalNumberHandler) RoundingBehavior() INSDecimalNumberHandler {
 func (d NSDecimalNumberHandler) SetRoundingBehavior(value INSDecimalNumberHandler) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRoundingBehavior:"), value)
 }
-
-
 
 // The rounding increment used by the receiver.
 //
@@ -418,8 +377,6 @@ func (d NSDecimalNumberHandler) SetRoundingIncrement(value INSNumber) {
 		
 		
 
-
-
 // The rounding mode used by the receiver.
 //
 // See: https://developer.apple.com/documentation/foundation/numberformatter/roundingmode-swift.property
@@ -430,12 +387,6 @@ func (d NSDecimalNumberHandler) RoundingMode() NSNumberFormatterRoundingMode {
 func (d NSDecimalNumberHandler) SetRoundingMode(value NSNumberFormatterRoundingMode) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRoundingMode:"), value)
 }
-
-
-
-
-
-
 
 // Returns the default instance of [NSDecimalNumberHandler].
 //
@@ -458,25 +409,6 @@ func (_NSDecimalNumberHandlerClass NSDecimalNumberHandlerClass) DefaultDecimalNu
 }
 		
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSCoding
+			
 

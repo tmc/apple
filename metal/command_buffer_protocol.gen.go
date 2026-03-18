@@ -206,8 +206,6 @@ type MTLCommandBuffer interface {
 	RetainedReferences() bool
 }
 
-
-
 // MTLCommandBufferObject wraps an existing Objective-C object that conforms to the MTLCommandBuffer protocol.
 type MTLCommandBufferObject struct {
 	objectivec.Object
@@ -216,8 +214,6 @@ func (o MTLCommandBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLCommandBufferObjectFromID constructs a [MTLCommandBufferObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLCommandBufferObjectFromID(id objc.ID) MTLCommandBufferObject {
@@ -225,9 +221,6 @@ func MTLCommandBufferObjectFromID(id objc.ID) MTLCommandBufferObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Applies a residency set to a command buffer.
 //
@@ -824,12 +817,6 @@ func (o MTLCommandBufferObject) UseResidencySetsCount(residencySets []MTLResiden
 	objc.Send[struct{}](o.ID, objc.Sel("useResidencySets:count:"), objc.CArray(residencySets), count)
 	}
 
-
-
-
-
-
-
 // The host time, in seconds, when the GPU finishes execution of the command
 // buffer.
 //
@@ -852,9 +839,6 @@ func (o MTLCommandBufferObject) GPUEndTime() float64 {
 	return float64(rv)
 }
 
-
-
-
 // The host time, in seconds, when the GPU starts command buffer execution.
 //
 // # Discussion
@@ -876,9 +860,6 @@ func (o MTLCommandBufferObject) GPUStartTime() float64 {
 	return float64(rv)
 }
 
-
-
-
 // The command queue that creates the command buffer.
 //
 // # Discussion
@@ -891,9 +872,6 @@ func (o MTLCommandBufferObject) CommandQueue() MTLCommandQueue {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandQueue"))
 	return MTLCommandQueueObjectFromID(rv)
 }
-
-
-
 
 // The GPU device that indirectly owns the command buffer because you create
 // it from a command queue the device also owns.
@@ -910,9 +888,6 @@ func (o MTLCommandBufferObject) Device() MTLDevice {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 }
-
-
-
 
 // A description of an error when the GPU encounters an issue as it runs the
 // command buffer.
@@ -939,9 +914,6 @@ func (o MTLCommandBufferObject) Error() foundation.INSError {
 	return foundation.NSErrorFromID(rv)
 }
 
-
-
-
 // Settings that determine which information the command buffer records about
 // execution errors, and how it does it.
 //
@@ -956,9 +928,6 @@ func (o MTLCommandBufferObject) ErrorOptions() MTLCommandBufferErrorOption {
 	rv := objc.Send[MTLCommandBufferErrorOption](o.ID, objc.Sel("errorOptions"))
 	return MTLCommandBufferErrorOption(rv)
 }
-
-
-
 
 // The host time, in seconds, when the CPU finishes scheduling the command
 // buffer.
@@ -981,9 +950,6 @@ func (o MTLCommandBufferObject) KernelEndTime() float64 {
 	return float64(rv)
 }
 
-
-
-
 // The host time, in seconds, when the CPU begins to schedule the command
 // buffer.
 //
@@ -1005,9 +971,6 @@ func (o MTLCommandBufferObject) KernelStartTime() float64 {
 	return float64(rv)
 }
 
-
-
-
 // An optional name that can help you identify the command buffer.
 //
 // # Discussion
@@ -1027,8 +990,6 @@ func (o MTLCommandBufferObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // The messages the command buffer records as the GPU runs its commands.
 //
 // # Discussion
@@ -1041,9 +1002,6 @@ func (o MTLCommandBufferObject) Logs() MTLLogContainer {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("logs"))
 	return MTLLogContainerObjectFromID(rv)
 }
-
-
-
 
 // A Boolean value that indicates whether the command buffer maintains strong
 // references to the resources it uses.
@@ -1067,9 +1025,4 @@ func (o MTLCommandBufferObject) RetainedReferences() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("retainedReferences"))
 	return bool(rv)
 }
-
-
-
-
-
 

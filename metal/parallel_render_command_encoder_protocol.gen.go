@@ -51,8 +51,6 @@ type MTLParallelRenderCommandEncoder interface {
 	SetStencilStoreActionOptions(storeActionOptions MTLStoreActionOptions)
 }
 
-
-
 // MTLParallelRenderCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLParallelRenderCommandEncoder protocol.
 type MTLParallelRenderCommandEncoderObject struct {
 	objectivec.Object
@@ -61,8 +59,6 @@ func (o MTLParallelRenderCommandEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLParallelRenderCommandEncoderObjectFromID constructs a [MTLParallelRenderCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLParallelRenderCommandEncoderObjectFromID(id objc.ID) MTLParallelRenderCommandEncoderObject {
@@ -70,9 +66,6 @@ func MTLParallelRenderCommandEncoderObjectFromID(id objc.ID) MTLParallelRenderCo
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Create an object that encodes commands that perform graphics rendering
 // operations and may be assigned to a different thread.
@@ -312,16 +305,7 @@ func (o MTLParallelRenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStag
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 
-
-
-
-
-
 func (o MTLParallelRenderCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

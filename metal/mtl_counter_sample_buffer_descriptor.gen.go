@@ -37,12 +37,6 @@ func (mc MTLCounterSampleBufferDescriptorClass) Alloc() MTLCounterSampleBufferDe
 	return rv
 }
 
-
-
-
-
-
-
 // A group of properties that configures the counter sample buffers you create
 // with it.
 //
@@ -82,14 +76,10 @@ type MTLCounterSampleBufferDescriptor struct {
 // A group of properties that configures the counter sample buffers you create
 // with it.
 func MTLCounterSampleBufferDescriptorFromID(id objc.ID) MTLCounterSampleBufferDescriptor {
-	return MTLCounterSampleBufferDescriptor{objectivec.Object{id}}
+	return MTLCounterSampleBufferDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLCounterSampleBufferDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLCounterSampleBufferDescriptor] class.
 //
@@ -128,10 +118,6 @@ type IMTLCounterSampleBufferDescriptor interface {
 	SetMTLCounterDontSample(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MTLCounterSampleBufferDescriptor) Init() MTLCounterSampleBufferDescriptor {
 	rv := objc.Send[MTLCounterSampleBufferDescriptor](c.ID, objc.Sel("init"))
@@ -151,26 +137,6 @@ func NewMTLCounterSampleBufferDescriptor() MTLCounterSampleBufferDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A GPU device’s counter set instance that you want to sample.
 //
 // # Discussion
@@ -189,8 +155,6 @@ func (c MTLCounterSampleBufferDescriptor) SetCounterSet(value MTLCounterSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCounterSet:"), value)
 }
 
-
-
 // The name for the counter sample buffer you create with the descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBufferDescriptor/label
@@ -201,8 +165,6 @@ func (c MTLCounterSampleBufferDescriptor) Label() string {
 func (c MTLCounterSampleBufferDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
 
 // The number of instances of a counter set’s data that a counter sample
 // buffer can store.
@@ -222,8 +184,6 @@ func (c MTLCounterSampleBufferDescriptor) SetSampleCount(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSampleCount:"), value)
 }
 
-
-
 // The memory storage mode for the counter sample buffers you create with the
 // descriptor.
 //
@@ -241,8 +201,6 @@ func (c MTLCounterSampleBufferDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStorageMode:"), value)
 }
 
-
-
 // A sentinel value that instructs an encoder to skip sampling a counter as
 // the GPU runs the encoder’s pass.
 //
@@ -254,27 +212,4 @@ func (c MTLCounterSampleBufferDescriptor) MTLCounterDontSample() int {
 func (c MTLCounterSampleBufferDescriptor) SetMTLCounterDontSample(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMTLCounterDontSample:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

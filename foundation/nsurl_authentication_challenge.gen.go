@@ -36,12 +36,6 @@ func (uc URLAuthenticationChallengeClass) Alloc() URLAuthenticationChallenge {
 	return rv
 }
 
-
-
-
-
-
-
 // A challenge from a server requiring authentication from the client.
 //
 // # Overview
@@ -89,17 +83,13 @@ type URLAuthenticationChallenge struct {
 //
 // A challenge from a server requiring authentication from the client.
 func URLAuthenticationChallengeFromID(id objc.ID) URLAuthenticationChallenge {
-	return NSURLAuthenticationChallenge{objectivec.Object{id}}
+	return NSURLAuthenticationChallenge{objectivec.Object{ID: id}}
 }
 
 // NSURLAuthenticationChallengeFromID is an alias for [URLAuthenticationChallengeFromID] for cross-framework compatibility.
 func NSURLAuthenticationChallengeFromID(id objc.ID) URLAuthenticationChallenge { return URLAuthenticationChallengeFromID(id) }
 // NOTE: URLAuthenticationChallenge adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLAuthenticationChallenge] class.
 //
@@ -129,6 +119,8 @@ func NSURLAuthenticationChallengeFromID(id objc.ID) URLAuthenticationChallenge {
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallenge
 type IURLAuthenticationChallenge interface {
 	objectivec.IObject
+	NSCoding
+	NSSecureCoding
 
 	// Topic: Creating an authentication challenge instance
 
@@ -160,15 +152,7 @@ type IURLAuthenticationChallenge interface {
 
 	// The sender of the challenge.
 	Sender() NSURLAuthenticationChallengeSender
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) URLAuthenticationChallenge
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u URLAuthenticationChallenge) Init() URLAuthenticationChallenge {
@@ -188,11 +172,6 @@ func NewURLAuthenticationChallenge() URLAuthenticationChallenge {
 	rv := objc.Send[URLAuthenticationChallenge](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates an authentication challenge from an existing challenge instance.
 //
@@ -228,7 +207,6 @@ func NewURLAuthenticationChallengeWithAuthenticationChallengeSender(challenge IN
 	return URLAuthenticationChallengeFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLAuthenticationChallengeWithCoder(coder INSCoder) URLAuthenticationChallenge {
@@ -236,7 +214,6 @@ func NewURLAuthenticationChallengeWithCoder(coder INSCoder) URLAuthenticationCha
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return URLAuthenticationChallengeFromID(rv)
 }
-
 
 // Initializes an authentication challenge from parameters you provide.
 //
@@ -280,12 +257,6 @@ func NewURLAuthenticationChallengeWithProtectionSpaceProposedCredentialPreviousF
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithProtectionSpace:proposedCredential:previousFailureCount:failureResponse:error:sender:"), space, credential, previousFailureCount, response, error_, sender)
 	return URLAuthenticationChallengeFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates an authentication challenge from an existing challenge instance.
 //
@@ -378,17 +349,6 @@ func (u URLAuthenticationChallenge) InitWithCoder(coder INSCoder) URLAuthenticat
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The receiver’s protection space.
 //
 // # Discussion
@@ -405,8 +365,6 @@ func (u URLAuthenticationChallenge) ProtectionSpace() INSURLProtectionSpace {
 	return NSURLProtectionSpaceFromID(objc.ID(rv))
 }
 
-
-
 // The URL response object representing the last authentication failure.
 //
 // # Discussion
@@ -420,8 +378,6 @@ func (u URLAuthenticationChallenge) FailureResponse() INSURLResponse {
 	return NSURLResponseFromID(objc.ID(rv))
 }
 
-
-
 // The receiver’s count of failed authentication attempts.
 //
 // # Discussion
@@ -434,8 +390,6 @@ func (u URLAuthenticationChallenge) PreviousFailureCount() int {
 	rv := objc.Send[int](u.ID, objc.Sel("previousFailureCount"))
 	return rv
 }
-
-
 
 // The proposed credential for this challenge.
 //
@@ -462,8 +416,6 @@ func (u URLAuthenticationChallenge) ProposedCredential() INSURLCredential {
 	return NSURLCredentialFromID(objc.ID(rv))
 }
 
-
-
 // The error object representing the last authentication failure.
 //
 // # Discussion
@@ -476,8 +428,6 @@ func (u URLAuthenticationChallenge) Error() INSError {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("error"))
 	return NSErrorFromID(objc.ID(rv))
 }
-
-
 
 // The sender of the challenge.
 //
@@ -503,29 +453,6 @@ func (u URLAuthenticationChallenge) Sender() NSURLAuthenticationChallengeSender 
 	return NSURLAuthenticationChallengeSenderObjectFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

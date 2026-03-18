@@ -130,8 +130,6 @@ type MTL4Compiler interface {
 	NewRenderPipelineStateWithDescriptorDynamicLinkingDescriptorCompilerTaskOptionsError(descriptor IMTL4PipelineDescriptor, dynamicLinkingDescriptor IMTL4RenderPipelineDynamicLinkingDescriptor, compilerTaskOptions IMTL4CompilerTaskOptions) (MTLRenderPipelineState, error)
 }
 
-
-
 // MTL4CompilerObject wraps an existing Objective-C object that conforms to the MTL4Compiler protocol.
 type MTL4CompilerObject struct {
 	objectivec.Object
@@ -140,8 +138,6 @@ func (o MTL4CompilerObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4CompilerObjectFromID constructs a [MTL4CompilerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4CompilerObjectFromID(id objc.ID) MTL4CompilerObject {
@@ -149,9 +145,6 @@ func MTL4CompilerObjectFromID(id objc.ID) MTL4CompilerObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the device that this compiler belongs to.
 //
@@ -708,16 +701,4 @@ func (o MTL4CompilerObject) NewRenderPipelineStateWithDescriptorDynamicLinkingDe
 	}
 	return MTLRenderPipelineStateObjectFromID(rv), nil
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 

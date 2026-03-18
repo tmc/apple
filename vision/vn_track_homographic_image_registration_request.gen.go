@@ -36,12 +36,6 @@ func (vc VNTrackHomographicImageRegistrationRequestClass) Alloc() VNTrackHomogra
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request, as a stateful request you track over time, that
 // determines the perspective warp matrix necessary to align the content of
 // two images.
@@ -68,20 +62,12 @@ func VNTrackHomographicImageRegistrationRequestFromID(id objc.ID) VNTrackHomogra
 // NOTE: VNTrackHomographicImageRegistrationRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNTrackHomographicImageRegistrationRequest] class.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackHomographicImageRegistrationRequest
 type IVNTrackHomographicImageRegistrationRequest interface {
 	IVNStatefulRequest
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t VNTrackHomographicImageRegistrationRequest) Init() VNTrackHomographicImageRegistrationRequest {
@@ -102,11 +88,6 @@ func NewVNTrackHomographicImageRegistrationRequest() VNTrackHomographicImageRegi
 	return rv
 }
 
-
-
-
-
-
 // Creates a new request that tracks the homographic transformation of two
 // images, with a system callback on completion.
 //
@@ -118,7 +99,6 @@ func NewTrackHomographicImageRegistrationRequestWithCompletionHandler(completion
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNTrackHomographicImageRegistrationRequestFromID(rv)
 }
-
 
 // Initializes a video-based request.
 //
@@ -140,42 +120,4 @@ func NewTrackHomographicImageRegistrationRequestWithFrameAnalysisSpacingCompleti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNTrackHomographicImageRegistrationRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

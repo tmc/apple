@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -35,12 +36,6 @@ func (nc NSSetClass) Alloc() NSSet {
 	rv := objc.Send[NSSet](objc.ID(nc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A static, unordered collection of unique objects.
 //
@@ -147,10 +142,6 @@ func (nc NSSetClass) Alloc() NSSet {
 //   - [NSSet.Description]: A string that represents the contents of the set, formatted as a property list.
 //   - [NSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
-// # Initializers
-//
-//   - [NSSet.InitWithCoder]
-//
 // # Instance Methods
 //
 //   - [NSSet.EnumerateIndexPathsWithOptionsUsingBlock]
@@ -164,14 +155,10 @@ type NSSet struct {
 //
 // A static, unordered collection of unique objects.
 func NSSetFromID(id objc.ID) NSSet {
-	return NSSet{objectivec.Object{id}}
+	return NSSet{objectivec.Object{ID: id}}
 }
 // NOTE: NSSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSet] class.
 //
@@ -220,10 +207,6 @@ func NSSetFromID(id objc.ID) NSSet {
 //   - [INSSet.Description]: A string that represents the contents of the set, formatted as a property list.
 //   - [INSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
-// # Initializers
-//
-//   - [INSSet.InitWithCoder]
-//
 // # Instance Methods
 //
 //   - [INSSet.EnumerateIndexPathsWithOptionsUsingBlock]
@@ -231,8 +214,10 @@ func NSSetFromID(id objc.ID) NSSet {
 // See: https://developer.apple.com/documentation/Foundation/NSSet
 type INSSet interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 	NSMutableCopying
+	NSSecureCoding
 
 	// Topic: Creating a Set
 
@@ -274,13 +259,13 @@ type INSSet interface {
 	// Returns an enumerator object that lets you access each object in the set.
 	ObjectEnumerator() INSEnumerator
 	// Executes a given block using each object in the set.
-	EnumerateObjectsUsingBlock(block bool)
+	EnumerateObjectsUsingBlock(block unsafe.Pointer)
 	// Executes a given block using each object in the set, using the specified enumeration options.
-	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool)
+	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
 	// Returns a set of objects that pass a test in a given block.
-	ObjectsPassingTest(predicate bool) INSSet
+	ObjectsPassingTest(predicate unsafe.Pointer) INSSet
 	// Returns a set of objects that pass a test in a given block, using the specified enumeration options.
-	ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) INSSet
+	ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSSet
 
 	// Topic: Comparing Sets
 
@@ -303,16 +288,10 @@ type INSSet interface {
 	// Returns a string that represents the contents of the set, formatted as a property list.
 	DescriptionWithLocale(locale objectivec.IObject) string
 
-	// Topic: Initializers
-
-	InitWithCoder(coder INSCoder) NSSet
-
 	// Topic: Instance Methods
 
-	EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool)
+	EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
 
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 	// Initializes a newly allocated set with members taken from the specified list of objects.
 	InitWithObjects(firstObj objectivec.IObject) NSSet
 	// Sends a message specified by a given selector to each object in the set.
@@ -320,10 +299,6 @@ type INSSet interface {
 	// Sends a message specified by a given selector to each object in the set.
 	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSet) Init() NSSet {
@@ -343,11 +318,6 @@ func NewNSSet() NSSet {
 	rv := objc.Send[NSSet](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a newly allocated set with the objects that are contained in a
 // given array.
@@ -370,7 +340,6 @@ func NewSetWithArray(array []objectivec.IObject) NSSet {
 	return NSSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(coder:)
 func NewSetWithCoder(coder INSCoder) NSSet {
@@ -379,7 +348,6 @@ func NewSetWithCoder(coder INSCoder) NSSet {
 	return NSSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPath:)
 func NewSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSSet {
@@ -387,14 +355,12 @@ func NewSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSSet {
 	return NSSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
 func NewSetWithCollectionViewIndexPaths(indexPaths []objc.ID) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
 	return NSSetFromID(rv)
 }
-
 
 // Creates and returns a set that contains a single given object.
 //
@@ -412,7 +378,6 @@ func NewSetWithObject(object objectivec.IObject) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithObject:"), object)
 	return NSSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with members taken from the specified
 // list of objects.
@@ -441,7 +406,6 @@ func NewSetWithObjects(firstObj objectivec.IObject) NSSet {
 	return NSSetFromID(rv)
 }
 
-
 // Initializes a newly allocated set and adds to it objects from another given
 // set.
 //
@@ -459,7 +423,6 @@ func NewSetWithSet(set INSSet) NSSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:"), set)
 	return NSSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set and adds to it members of another given
 // set.
@@ -504,12 +467,6 @@ func NewSetWithSetCopyItems(set INSSet, flag bool) NSSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:copyItems:"), set, flag)
 	return NSSetFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a new set formed by adding a given object to the receiving set.
 //
@@ -792,7 +749,7 @@ func (s NSSet) ObjectEnumerator() INSEnumerator {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(_:)
-func (s NSSet) EnumerateObjectsUsingBlock(block bool) {
+func (s NSSet) EnumerateObjectsUsingBlock(block unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsUsingBlock:"), block)
 }
 
@@ -813,7 +770,7 @@ func (s NSSet) EnumerateObjectsUsingBlock(block bool) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(options:using:)
-func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool) {
+func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, block)
 }
 
@@ -838,7 +795,7 @@ func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, 
 // An [NSSet] containing objects that pass the test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(passingTest:)
-func (s NSSet) ObjectsPassingTest(predicate bool) INSSet {
+func (s NSSet) ObjectsPassingTest(predicate unsafe.Pointer) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsPassingTest:"), predicate)
 	return NSSetFromID(rv)
 }
@@ -867,7 +824,7 @@ func (s NSSet) ObjectsPassingTest(predicate bool) INSSet {
 // An [NSSet] containing objects that pass the test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(options:passingTest:)
-func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) INSSet {
+func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsWithOptions:passingTest:"), opts, predicate)
 	return NSSetFromID(rv)
 }
@@ -1002,7 +959,7 @@ func (s NSSet) InitWithCoder(coder INSCoder) NSSet {
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateIndexPaths(options:using:)
-func (s NSSet) EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool) {
+func (s NSSet) EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateIndexPathsWithOptions:usingBlock:"), opts, block)
 }
 
@@ -1103,10 +1060,6 @@ func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
 func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
 }
-
-
-
-
 
 // Creates and returns a set containing a specified number of objects from a
 // given C array of objects.
@@ -1211,13 +1164,6 @@ func (_NSSetClass NSSetClass) SetWithSet(set INSSet) NSSet {
 	return NSSetFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The number of members in the set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/count
@@ -1225,8 +1171,6 @@ func (s NSSet) Count() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("count"))
 	return rv
 }
-
-
 
 // An array containing the set’s members, or an empty array if the set has
 // no members.
@@ -1243,8 +1187,6 @@ func (s NSSet) AllObjects() []objectivec.IObject {
 	})
 }
 
-
-
 // A string that represents the contents of the set, formatted as a property
 // list.
 //
@@ -1254,45 +1196,12 @@ func (s NSSet) Description() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
 
 			// Protocol methods for NSMutableCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

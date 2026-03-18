@@ -36,12 +36,6 @@ func (vc VZVirtioSocketConnectionClass) Alloc() VZVirtioSocketConnection {
 	return rv
 }
 
-
-
-
-
-
-
 // A port-based connection between the guest operating system and the host
 // computer.
 //
@@ -79,14 +73,10 @@ type VZVirtioSocketConnection struct {
 // A port-based connection between the guest operating system and the host
 // computer.
 func VZVirtioSocketConnectionFromID(id objc.ID) VZVirtioSocketConnection {
-	return VZVirtioSocketConnection{objectivec.Object{id}}
+	return VZVirtioSocketConnection{objectivec.Object{ID: id}}
 }
 // NOTE: VZVirtioSocketConnection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZVirtioSocketConnection] class.
 //
@@ -119,10 +109,6 @@ type IVZVirtioSocketConnection interface {
 	Close()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioSocketConnection) Init() VZVirtioSocketConnection {
 	rv := objc.Send[VZVirtioSocketConnection](v.ID, objc.Sel("init"))
@@ -142,32 +128,12 @@ func NewVZVirtioSocketConnection() VZVirtioSocketConnection {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Close the file descriptor associated with the socket.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketConnection/close()
 func (v VZVirtioSocketConnection) Close() {
 	objc.Send[objc.ID](v.ID, objc.Sel("close"))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The port number of the system that opened the connection.
 //
@@ -184,8 +150,6 @@ func (v VZVirtioSocketConnection) SourcePort() uint32 {
 	return rv
 }
 
-
-
 // The destination port number of the connection.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketConnection/destinationPort
@@ -193,8 +157,6 @@ func (v VZVirtioSocketConnection) DestinationPort() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("destinationPort"))
 	return rv
 }
-
-
 
 // The file descriptor to use when sending data.
 //
@@ -209,26 +171,4 @@ func (v VZVirtioSocketConnection) FileDescriptor() int {
 	rv := objc.Send[int](v.ID, objc.Sel("fileDescriptor"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

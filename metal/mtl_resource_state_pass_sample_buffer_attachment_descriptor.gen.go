@@ -36,12 +36,6 @@ func (mc MTLResourceStatePassSampleBufferAttachmentDescriptorClass) Alloc() MTLR
 	return rv
 }
 
-
-
-
-
-
-
 // A description of where to store GPU counter information at the start and
 // end of a resource state pass.
 //
@@ -64,14 +58,10 @@ type MTLResourceStatePassSampleBufferAttachmentDescriptor struct {
 // A description of where to store GPU counter information at the start and
 // end of a resource state pass.
 func MTLResourceStatePassSampleBufferAttachmentDescriptorFromID(id objc.ID) MTLResourceStatePassSampleBufferAttachmentDescriptor {
-	return MTLResourceStatePassSampleBufferAttachmentDescriptor{objectivec.Object{id}}
+	return MTLResourceStatePassSampleBufferAttachmentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLResourceStatePassSampleBufferAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLResourceStatePassSampleBufferAttachmentDescriptor] class.
 //
@@ -101,10 +91,6 @@ type IMTLResourceStatePassSampleBufferAttachmentDescriptor interface {
 	SetEndOfEncoderSampleIndex(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) Init() MTLResourceStatePassSampleBufferAttachmentDescriptor {
 	rv := objc.Send[MTLResourceStatePassSampleBufferAttachmentDescriptor](r.ID, objc.Sel("init"))
@@ -123,26 +109,6 @@ func NewMTLResourceStatePassSampleBufferAttachmentDescriptor() MTLResourceStateP
 	rv := objc.Send[MTLResourceStatePassSampleBufferAttachmentDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A specialized memory buffer that the GPU uses to store its counter data
 // during the resource state pass.
@@ -165,8 +131,6 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SampleBuffer() MTL
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCounterSampleBuffer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSampleBuffer:"), value)
 }
-
-
 
 // The index the Metal device object should use to store GPU counters when
 // starting the resource state pass.
@@ -191,8 +155,6 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetStartOfEncoderS
 	objc.Send[struct{}](r.ID, objc.Sel("setStartOfEncoderSampleIndex:"), value)
 }
 
-
-
 // The index the Metal device object should use to store GPU counters when
 // ending the resource state pass.
 //
@@ -215,27 +177,4 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) EndOfEncoderSample
 func (r MTLResourceStatePassSampleBufferAttachmentDescriptor) SetEndOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEndOfEncoderSampleIndex:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

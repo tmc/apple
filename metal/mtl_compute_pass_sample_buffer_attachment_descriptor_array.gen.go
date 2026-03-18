@@ -36,12 +36,6 @@ func (mc MTLComputePassSampleBufferAttachmentDescriptorArrayClass) Alloc() MTLCo
 	return rv
 }
 
-
-
-
-
-
-
 // A container that stores an array of sample buffer attachments for a compute
 // pass.
 //
@@ -66,14 +60,10 @@ type MTLComputePassSampleBufferAttachmentDescriptorArray struct {
 // A container that stores an array of sample buffer attachments for a compute
 // pass.
 func MTLComputePassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLComputePassSampleBufferAttachmentDescriptorArray {
-	return MTLComputePassSampleBufferAttachmentDescriptorArray{objectivec.Object{id}}
+	return MTLComputePassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLComputePassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLComputePassSampleBufferAttachmentDescriptorArray] class.
 //
@@ -97,10 +87,6 @@ type IMTLComputePassSampleBufferAttachmentDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attachment IMTLComputePassSampleBufferAttachmentDescriptor, attachmentIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MTLComputePassSampleBufferAttachmentDescriptorArray) Init() MTLComputePassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[MTLComputePassSampleBufferAttachmentDescriptorArray](c.ID, objc.Sel("init"))
@@ -119,15 +105,6 @@ func NewMTLComputePassSampleBufferAttachmentDescriptorArray() MTLComputePassSamp
 	rv := objc.Send[MTLComputePassSampleBufferAttachmentDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the descriptor object for the specified sample buffer attachment.
 //
@@ -160,17 +137,6 @@ func (c MTLComputePassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedS
 	objc.Send[objc.ID](c.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The counter sets supported by the device object.
 //
 // See: https://developer.apple.com/documentation/metal/mtldevice/countersets
@@ -181,26 +147,4 @@ func (c MTLComputePassSampleBufferAttachmentDescriptorArray) CounterSets() MTLCo
 func (c MTLComputePassSampleBufferAttachmentDescriptorArray) SetCounterSets(value MTLCounterSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCounterSets:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

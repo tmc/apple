@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The methods you use to respond to changes in the state of the VM.
 //
@@ -18,8 +16,6 @@ var _ = fmt.Sprintf
 type VZVirtualMachineDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // VZVirtualMachineDelegateObject wraps an existing Objective-C object that conforms to the VZVirtualMachineDelegate protocol.
 type VZVirtualMachineDelegateObject struct {
@@ -29,8 +25,6 @@ func (o VZVirtualMachineDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // VZVirtualMachineDelegateObjectFromID constructs a [VZVirtualMachineDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VZVirtualMachineDelegateObjectFromID(id objc.ID) VZVirtualMachineDelegateObject {
@@ -38,9 +32,6 @@ func VZVirtualMachineDelegateObjectFromID(id objc.ID) VZVirtualMachineDelegateOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the guest operating system stopped the VM.
 //
@@ -91,10 +82,6 @@ func (o VZVirtualMachineDelegateObject) VirtualMachineNetworkDeviceAttachmentWas
 	
 	objc.Send[struct{}](o.ID, objc.Sel("virtualMachine:networkDevice:attachmentWasDisconnectedWithError:"), virtualMachine, networkDevice, error_)
 	}
-
-
-
-
 
 // VZVirtualMachineDelegateConfig holds optional typed callbacks for [VZVirtualMachineDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -189,9 +176,4 @@ func NewVZVirtualMachineDelegate(config VZVirtualMachineDelegateConfig) VZVirtua
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZVirtualMachineDelegateObjectFromID(instance)
 }
-
-
-
-
-
 

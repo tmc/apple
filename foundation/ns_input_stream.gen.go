@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 )
@@ -34,12 +35,6 @@ func (ic InputStreamClass) Alloc() InputStream {
 	rv := objc.Send[InputStream](objc.ID(ic.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // A stream that provides read-only stream functionality.
 //
@@ -124,10 +119,6 @@ func NSInputStreamFromID(id objc.ID) InputStream { return InputStreamFromID(id) 
 // NOTE: InputStream adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [InputStream] class.
 //
 // # Creating Streams
@@ -158,16 +149,12 @@ type IInputStream interface {
 	// Topic: Using Streams
 
 	// Reads up to a given number of bytes into a given buffer.
-	ReadMaxLength(buffer uint8, len_ uint) int
+	ReadMaxLength(buffer unsafe.Pointer, len_ uint) int
 	// Returns by reference a pointer to a read buffer and, by reference, the number of bytes available, and returns a Boolean value that indicates whether the buffer is available.
-	GetBufferLength(buffer uint8, len_ uint) bool
+	GetBufferLength(buffer *uint8) (uint, bool)
 	// A Boolean value that indicates whether the receiver has bytes available to read.
 	HasBytesAvailable() bool
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i InputStream) Init() InputStream {
@@ -188,11 +175,6 @@ func NewInputStream() InputStream {
 	return rv
 }
 
-
-
-
-
-
 // Initializes and returns an [NSInputStream] object for reading from a given
 // [NSData] object.
 //
@@ -212,7 +194,6 @@ func NewInputStreamWithData(data INSData) InputStream {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:"), data)
 	return InputStreamFromID(rv)
 }
-
 
 // Initializes and returns an [NSInputStream] object that reads data from the
 // file at a given path.
@@ -235,7 +216,6 @@ func NewInputStreamWithFileAtPath(path string) InputStream {
 	return InputStreamFromID(rv)
 }
 
-
 // Initializes and returns an [NSInputStream] object that reads data from the
 // file at a given URL.
 //
@@ -256,12 +236,6 @@ func NewInputStreamWithURL(url INSURL) InputStream {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return InputStreamFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns an [NSInputStream] object for reading from a given
 // [NSData] object.
@@ -341,7 +315,7 @@ func (i InputStream) InitWithURL(url INSURL) InputStream {
 // [StreamError].
 //
 // See: https://developer.apple.com/documentation/Foundation/InputStream/read(_:maxLength:)
-func (i InputStream) ReadMaxLength(buffer uint8, len_ uint) int {
+func (i InputStream) ReadMaxLength(buffer unsafe.Pointer, len_ uint) int {
 	rv := objc.Send[int](i.ID, objc.Sel("read:maxLength:"), buffer, len_)
 	return rv
 }
@@ -370,14 +344,11 @@ func (i InputStream) ReadMaxLength(buffer uint8, len_ uint) int {
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/Foundation/InputStream/getBuffer(_:length:)
-func (i InputStream) GetBufferLength(buffer uint8, len_ uint) bool {
-	rv := objc.Send[bool](i.ID, objc.Sel("getBuffer:length:"), buffer, len_)
-	return rv
+func (i InputStream) GetBufferLength(buffer *uint8) (uint, bool) {
+	var len_ uint
+	rv := objc.Send[bool](i.ID, objc.Sel("getBuffer:length:"), buffer, unsafe.Pointer(&len_))
+	return len_, rv
 }
-
-
-
-
 
 // Creates and returns an initialized [NSInputStream] object for reading from
 // a given [NSData] object.
@@ -426,13 +397,6 @@ func (_InputStreamClass InputStreamClass) InputStreamWithURL(url INSURL) InputSt
 	return NSInputStreamFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the receiver has bytes available to
 // read.
 //
@@ -450,28 +414,4 @@ func (i InputStream) HasBytesAvailable() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("hasBytesAvailable"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

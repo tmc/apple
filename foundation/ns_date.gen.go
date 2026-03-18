@@ -37,12 +37,6 @@ func (nc NSDateClass) Alloc() NSDate {
 	return rv
 }
 
-
-
-
-
-
-
 // A representation of a specific point in time, independent of any calendar
 // or time zone.
 //
@@ -108,7 +102,6 @@ func (nc NSDateClass) Alloc() NSDate {
 //   - [NSDate.InitWithTimeIntervalSinceNow]: Returns a date object initialized relative to the current date and time by a given number of seconds.
 //   - [NSDate.InitWithTimeIntervalSinceReferenceDate]: Returns a date object initialized relative to 00:00:00 UTC on 1 January 2001 by a given number of seconds.
 //   - [NSDate.InitWithTimeIntervalSince1970]: Returns a date object initialized relative to 00:00:00 UTC on 1 January 1970 by a given number of seconds.
-//   - [NSDate.InitWithCoder]: Returns a date object initialized from data in the given unarchiver.
 //
 // # Comparing Dates
 //
@@ -155,14 +148,10 @@ type NSDate struct {
 // A representation of a specific point in time, independent of any calendar
 // or time zone.
 func NSDateFromID(id objc.ID) NSDate {
-	return NSDate{objectivec.Object{id}}
+	return NSDate{objectivec.Object{ID: id}}
 }
 // NOTE: NSDate adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDate] class.
 //
@@ -171,7 +160,6 @@ func NSDateFromID(id objc.ID) NSDate {
 //   - [INSDate.InitWithTimeIntervalSinceNow]: Returns a date object initialized relative to the current date and time by a given number of seconds.
 //   - [INSDate.InitWithTimeIntervalSinceReferenceDate]: Returns a date object initialized relative to 00:00:00 UTC on 1 January 2001 by a given number of seconds.
 //   - [INSDate.InitWithTimeIntervalSince1970]: Returns a date object initialized relative to 00:00:00 UTC on 1 January 1970 by a given number of seconds.
-//   - [INSDate.InitWithCoder]: Returns a date object initialized from data in the given unarchiver.
 //
 // # Comparing Dates
 //
@@ -211,7 +199,9 @@ func NSDateFromID(id objc.ID) NSDate {
 // See: https://developer.apple.com/documentation/Foundation/NSDate
 type INSDate interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Initializing a Date
 
@@ -221,8 +211,6 @@ type INSDate interface {
 	InitWithTimeIntervalSinceReferenceDate(ti float64) NSDate
 	// Returns a date object initialized relative to 00:00:00 UTC on 1 January 1970 by a given number of seconds.
 	InitWithTimeIntervalSince1970(secs float64) NSDate
-	// Returns a date object initialized from data in the given unarchiver.
-	InitWithCoder(coder INSCoder) NSDate
 
 	// Topic: Comparing Dates
 
@@ -272,14 +260,7 @@ type INSDate interface {
 	// Topic: Initializers
 
 	InitWithTimeIntervalSinceDate(secsToBeAdded float64, date INSDate) NSDate
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d NSDate) Init() NSDate {
@@ -300,11 +281,6 @@ func NewNSDate() NSDate {
 	return rv
 }
 
-
-
-
-
-
 // Returns a date object initialized from data in the given unarchiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/init(coder:)
@@ -314,7 +290,6 @@ func NewDateWithCoder(coder INSCoder) NSDate {
 	return NSDateFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/init(SRAbsoluteTime:)-886t8
 func NewDateWithSRAbsoluteTime(time corefoundation.CFTimeInterval) NSDate {
@@ -322,7 +297,6 @@ func NewDateWithSRAbsoluteTime(time corefoundation.CFTimeInterval) NSDate {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSRAbsoluteTime:"), time)
 	return NSDateFromID(rv)
 }
-
 
 // Returns a date object initialized relative to 00:00:00 UTC on 1 January
 // 1970 by a given number of seconds.
@@ -347,7 +321,6 @@ func NewDateWithTimeIntervalSince1970(secs float64) NSDate {
 	return NSDateFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/init(timeInterval:since:)
 func NewDateWithTimeIntervalSinceDate(secsToBeAdded float64, date INSDate) NSDate {
@@ -355,7 +328,6 @@ func NewDateWithTimeIntervalSinceDate(secsToBeAdded float64, date INSDate) NSDat
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTimeInterval:sinceDate:"), secsToBeAdded, date)
 	return NSDateFromID(rv)
 }
-
 
 // Returns a date object initialized relative to the current date and time by
 // a given number of seconds.
@@ -375,7 +347,6 @@ func NewDateWithTimeIntervalSinceNow(secs float64) NSDate {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTimeIntervalSinceNow:"), secs)
 	return NSDateFromID(rv)
 }
-
 
 // Returns a date object initialized relative to 00:00:00 UTC on 1 January
 // 2001 by a given number of seconds.
@@ -401,12 +372,6 @@ func NewDateWithTimeIntervalSinceReferenceDate(ti float64) NSDate {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTimeIntervalSinceReferenceDate:"), ti)
 	return NSDateFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a date object initialized relative to the current date and time by
 // a given number of seconds.
@@ -647,10 +612,6 @@ func (d NSDate) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Creates and returns a new date object set to the current date and time.
 //
 // # Return Value
@@ -731,13 +692,6 @@ func (_NSDateClass NSDateClass) DateWithTimeIntervalSinceReferenceDate(ti float6
 	return NSDateFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The interval between the date object and the current date and time.
 //
 // # Discussion
@@ -750,8 +704,6 @@ func (d NSDate) TimeIntervalSinceNow() float64 {
 	rv := objc.Send[NSTimeInterval](d.ID, objc.Sel("timeIntervalSinceNow"))
 	return float64(rv)
 }
-
-
 
 // The interval between the date object and 00:00:00 UTC on 1 January 2001.
 //
@@ -766,8 +718,6 @@ func (d NSDate) TimeIntervalSinceReferenceDate() float64 {
 	return float64(rv)
 }
 
-
-
 // The interval between the date object and 00:00:00 UTC on 1 January 1970.
 //
 // # Discussion
@@ -781,8 +731,6 @@ func (d NSDate) TimeIntervalSince1970() float64 {
 	return float64(rv)
 }
 
-
-
 // The number of seconds from 1 January 1970 to the reference date, 1 January
 // 2001.
 //
@@ -794,8 +742,6 @@ func (d NSDate) NSTimeIntervalSince1970() float64 {
 func (d NSDate) SetNSTimeIntervalSince1970(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSTimeIntervalSince1970:"), value)
 }
-
-
 
 // A string representation of the date object.
 //
@@ -819,8 +765,6 @@ func (d NSDate) Description() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // A custom playground Quick Look for this object.
 //
 // See: https://developer.apple.com/documentation/foundation/nsdate/customplaygroundquicklook
@@ -832,8 +776,6 @@ func (d NSDate) SetCustomPlaygroundQuickLook(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
 }
 
-
-
 // A notification posted whenever the system clock is changed.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nssystemclockdidchange
@@ -841,12 +783,6 @@ func (d NSDate) NSSystemClockDidChange() NSNotificationName {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("NSSystemClockDidChangeNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
 
 // A date object representing a date in the distant future.
 //
@@ -873,8 +809,6 @@ func (_NSDateClass NSDateClass) DistantFuture() NSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // A date object representing a date in the distant past.
 //
 // # Return Value
@@ -892,8 +826,6 @@ func (_NSDateClass NSDateClass) DistantPast() NSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
 // The current date and time, as of the time of access.
 //
 // # Discussion
@@ -908,34 +840,9 @@ func (_NSDateClass NSDateClass) Now() NSDate {
 	return NSDateFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

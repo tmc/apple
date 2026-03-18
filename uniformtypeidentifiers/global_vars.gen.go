@@ -8,159 +8,30 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-var UTTagClassFilenameExtension string
-
-var UTTagClassMIMEType string
-
-var UTType3DContent UTType
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var (
+	// UTTagClassFilenameExtension is the string identifier for the tag that maps to filename extensions.
+	//
+	// See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTagClassFilenameExtension
+	UTTagClassFilenameExtension string
+	// UTTagClassMIMEType is the string identifier for the tag that maps to MIME types.
+	//
+	// See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTagClassMIMEType
+	UTTagClassMIMEType string
+)
+
+var (
+	// UTType3DContent is a base type that represents 3D content.
+	//
+	// See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTType3DContent
+	UTType3DContent UTType
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTagClassFilenameExtension"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -170,7 +41,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTagClassMIMEType"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {

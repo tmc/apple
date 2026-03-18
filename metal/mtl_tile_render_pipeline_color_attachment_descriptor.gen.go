@@ -36,12 +36,6 @@ func (mc MTLTileRenderPipelineColorAttachmentDescriptorClass) Alloc() MTLTileRen
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a tile-shading render pipeline’s color render target.
 //
 // # Specifying pixel format
@@ -58,14 +52,10 @@ type MTLTileRenderPipelineColorAttachmentDescriptor struct {
 //
 // A description of a tile-shading render pipeline’s color render target.
 func MTLTileRenderPipelineColorAttachmentDescriptorFromID(id objc.ID) MTLTileRenderPipelineColorAttachmentDescriptor {
-	return MTLTileRenderPipelineColorAttachmentDescriptor{objectivec.Object{id}}
+	return MTLTileRenderPipelineColorAttachmentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLTileRenderPipelineColorAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLTileRenderPipelineColorAttachmentDescriptor] class.
 //
@@ -84,10 +74,6 @@ type IMTLTileRenderPipelineColorAttachmentDescriptor interface {
 	PixelFormat() MTLPixelFormat
 	SetPixelFormat(value MTLPixelFormat)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t MTLTileRenderPipelineColorAttachmentDescriptor) Init() MTLTileRenderPipelineColorAttachmentDescriptor {
@@ -108,26 +94,6 @@ func NewMTLTileRenderPipelineColorAttachmentDescriptor() MTLTileRenderPipelineCo
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The pixel format associated with the tile shading render pipeline.
 //
 // # Discussion
@@ -142,27 +108,4 @@ func (t MTLTileRenderPipelineColorAttachmentDescriptor) PixelFormat() MTLPixelFo
 func (t MTLTileRenderPipelineColorAttachmentDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPixelFormat:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

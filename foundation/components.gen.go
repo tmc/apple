@@ -36,12 +36,6 @@ func (cc ComponentsClass) Alloc() Components {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSPortMessage/components-c.ivar
 type Components struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Components struct {
 
 // ComponentsFromID constructs a [Components] from an objc.ID.
 func ComponentsFromID(id objc.ID) Components {
-	return Components{objectivec.Object{id}}
+	return Components{objectivec.Object{ID: id}}
 }
 // Ensure Components implements IComponents.
 var _ IComponents = Components{}
-
-
-
-
 
 // An interface definition for the [Components] class.
 //
@@ -64,10 +54,6 @@ var _ IComponents = Components{}
 type IComponents interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c Components) Init() Components {
@@ -87,38 +73,4 @@ func NewComponents() Components {
 	rv := objc.Send[Components](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

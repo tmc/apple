@@ -14,8 +14,6 @@ type NSXPCProxyCreating interface {
 	objectivec.IObject
 }
 
-
-
 // NSXPCProxyCreatingObject wraps an existing Objective-C object that conforms to the NSXPCProxyCreating protocol.
 type NSXPCProxyCreatingObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSXPCProxyCreatingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSXPCProxyCreatingObjectFromID constructs a [NSXPCProxyCreatingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSXPCProxyCreatingObjectFromID(id objc.ID) NSXPCProxyCreatingObject {
@@ -33,9 +29,6 @@ func NSXPCProxyCreatingObjectFromID(id objc.ID) NSXPCProxyCreatingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a proxy object with no error handling block.
 //
@@ -83,10 +76,4 @@ func (o NSXPCProxyCreatingObject) SynchronousRemoteObjectProxyWithErrorHandler(h
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("synchronousRemoteObjectProxyWithErrorHandler:"), handler)
 	return objectivec.Object{ID: rv}
 	}
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (mc MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArrayClass)
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Subscripts
 //
@@ -53,14 +47,10 @@ type MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray struct {
 
 // MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArrayFromID constructs a [MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray] from an objc.ID.
 func MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArrayFromID(id objc.ID) MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray {
-	return MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray{objectivec.Object{id}}
+	return MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray] class.
 //
@@ -78,10 +68,6 @@ type IMTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray interfac
 
 	SetObjectAtIndexedSubscript(attachment IMTLAccelerationStructurePassSampleBufferAttachmentDescriptor, attachmentIndex uint)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray) Init() MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray {
@@ -102,15 +88,6 @@ func NewMTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray() MTLA
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray/subscript(_:)
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubscript(attachmentIndex uint) IMTLAccelerationStructurePassSampleBufferAttachmentDescriptor {
@@ -123,35 +100,4 @@ func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray) Objec
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLAccelerationStructurePassSampleBufferAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

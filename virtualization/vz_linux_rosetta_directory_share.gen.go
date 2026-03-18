@@ -38,12 +38,6 @@ func (vc VZLinuxRosettaDirectoryShareClass) Alloc() VZLinuxRosettaDirectoryShare
 	return rv
 }
 
-
-
-
-
-
-
 // The Linux directory share for Rosetta.
 //
 // # Overview
@@ -87,10 +81,6 @@ func VZLinuxRosettaDirectoryShareFromID(id objc.ID) VZLinuxRosettaDirectoryShare
 // NOTE: VZLinuxRosettaDirectoryShare adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZLinuxRosettaDirectoryShare] class.
 //
 // # Creating a Rosetta directory share
@@ -122,10 +112,6 @@ type IVZLinuxRosettaDirectoryShare interface {
 	SetOptions(value IVZLinuxRosettaCachingOptions)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l VZLinuxRosettaDirectoryShare) Init() VZLinuxRosettaDirectoryShare {
 	rv := objc.Send[VZLinuxRosettaDirectoryShare](l.ID, objc.Sel("init"))
@@ -144,11 +130,6 @@ func NewVZLinuxRosettaDirectoryShare() VZLinuxRosettaDirectoryShare {
 	rv := objc.Send[VZLinuxRosettaDirectoryShare](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a new Rosetta directory share, or returns an error if Rosetta
 // isn’t installed.
@@ -174,12 +155,6 @@ func NewLinuxRosettaDirectoryShareWithError() (VZLinuxRosettaDirectoryShare, err
 	return VZLinuxRosettaDirectoryShareFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Creates a new Rosetta directory share, or returns an error if Rosetta
 // isn’t installed.
 //
@@ -194,7 +169,7 @@ func NewLinuxRosettaDirectoryShareWithError() (VZLinuxRosettaDirectoryShare, err
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/init()
 func (l VZLinuxRosettaDirectoryShare) InitWithError() (VZLinuxRosettaDirectoryShare, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -203,10 +178,6 @@ func (l VZLinuxRosettaDirectoryShare) InitWithError() (VZLinuxRosettaDirectorySh
 	return VZLinuxRosettaDirectoryShareFromID(rv), nil
 
 }
-
-
-
-
 
 // Starts the installation of Rosetta.
 //
@@ -220,17 +191,10 @@ func (l VZLinuxRosettaDirectoryShare) InitWithError() (VZLinuxRosettaDirectorySh
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/installRosetta(completionHandler:)
 func (_VZLinuxRosettaDirectoryShareClass VZLinuxRosettaDirectoryShareClass) InstallRosettaWithCompletionHandler(completionHandler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(completionHandler)
+_block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](objc.ID(_VZLinuxRosettaDirectoryShareClass.class), objc.Sel("installRosettaWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](objc.ID(_VZLinuxRosettaDirectoryShareClass.class), objc.Sel("installRosettaWithCompletionHandler:"), _block0)
 }
-
-
-
-
-
-
-
 
 // The value that enables translation caching and configures the socket
 // communication type for Rosetta.
@@ -244,8 +208,6 @@ func (l VZLinuxRosettaDirectoryShare) SetCachingOptions(value uint) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCachingOptions:"), value)
 }
 
-
-
 // The value that enables translation caching and configures the socket
 // communication type for Rosetta.
 //
@@ -257,12 +219,6 @@ func (l VZLinuxRosettaDirectoryShare) Options() IVZLinuxRosettaCachingOptions {
 func (l VZLinuxRosettaDirectoryShare) SetOptions(value IVZLinuxRosettaCachingOptions) {
 	objc.Send[struct{}](l.ID, objc.Sel("setOptions:"), value)
 }
-
-
-
-
-
-
 
 // A value that indicates the current state of Rosetta’s availability.
 //
@@ -278,19 +234,6 @@ func (_VZLinuxRosettaDirectoryShareClass VZLinuxRosettaDirectoryShareClass) Avai
 	return VZLinuxRosettaAvailability(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // InstallRosetta is a synchronous wrapper around [VZLinuxRosettaDirectoryShare.InstallRosettaWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (lc VZLinuxRosettaDirectoryShareClass) InstallRosetta(ctx context.Context) error {
@@ -305,9 +248,4 @@ func (lc VZLinuxRosettaDirectoryShareClass) InstallRosetta(ctx context.Context) 
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

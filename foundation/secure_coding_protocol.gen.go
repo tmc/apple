@@ -15,8 +15,6 @@ type NSSecureCoding interface {
 	NSCoding
 }
 
-
-
 // NSSecureCodingObject wraps an existing Objective-C object that conforms to the NSSecureCoding protocol.
 type NSSecureCodingObject struct {
 	objectivec.Object
@@ -25,8 +23,6 @@ func (o NSSecureCodingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSSecureCodingObjectFromID constructs a [NSSecureCodingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSSecureCodingObjectFromID(id objc.ID) NSSecureCodingObject {
@@ -34,9 +30,6 @@ func NSSecureCodingObjectFromID(id objc.ID) NSSecureCodingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Encodes the receiver using a given archiver.
 //
@@ -48,10 +41,4 @@ func (o NSSecureCodingObject) EncodeWithCoder(coder INSCoder) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
 	}
-
-
-
-
-
-
 

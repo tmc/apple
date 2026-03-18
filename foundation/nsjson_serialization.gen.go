@@ -37,12 +37,6 @@ func (jc JSONSerializationClass) Alloc() JSONSerialization {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that converts between JSON and the equivalent Foundation objects.
 //
 // # Overview
@@ -72,17 +66,13 @@ type JSONSerialization struct {
 //
 // An object that converts between JSON and the equivalent Foundation objects.
 func JSONSerializationFromID(id objc.ID) JSONSerialization {
-	return NSJSONSerialization{objectivec.Object{id}}
+	return NSJSONSerialization{objectivec.Object{ID: id}}
 }
 
 // NSJSONSerializationFromID is an alias for [JSONSerializationFromID] for cross-framework compatibility.
 func NSJSONSerializationFromID(id objc.ID) JSONSerialization { return JSONSerializationFromID(id) }
 // NOTE: JSONSerialization adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [JSONSerialization] class.
 //
@@ -94,10 +84,6 @@ type IJSONSerialization interface {
 	FragmentsAllowed() NSJSONWritingOptions
 	SetFragmentsAllowed(value NSJSONWritingOptions)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (j JSONSerialization) Init() JSONSerialization {
@@ -117,19 +103,6 @@ func NewJSONSerialization() JSONSerialization {
 	rv := objc.Send[JSONSerialization](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Returns a Foundation object from given JSON data.
 //
@@ -156,7 +129,7 @@ func NewJSONSerialization() JSONSerialization {
 //
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization/jsonObject(with:options:)-8demi
 func (_JSONSerializationClass JSONSerializationClass) JSONObjectWithDataOptionsError(data INSData, opt NSJSONReadingOptions) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_JSONSerializationClass.class), objc.Sel("JSONObjectWithData:options:error:"), data, opt, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -192,7 +165,7 @@ func (_JSONSerializationClass JSONSerializationClass) JSONObjectWithDataOptionsE
 //
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization/jsonObject(with:options:)-3afap
 func (_JSONSerializationClass JSONSerializationClass) JSONObjectWithStreamOptionsError(stream INSInputStream, opt NSJSONReadingOptions) (objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_JSONSerializationClass.class), objc.Sel("JSONObjectWithStream:options:error:"), stream, opt, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -231,7 +204,7 @@ func (_JSONSerializationClass JSONSerializationClass) JSONObjectWithStreamOption
 //
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization/data(withJSONObject:options:)
 func (_JSONSerializationClass JSONSerializationClass) DataWithJSONObjectOptionsError(obj objectivec.IObject, opt NSJSONWritingOptions) (NSData, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_JSONSerializationClass.class), objc.Sel("dataWithJSONObject:options:error:"), obj, opt, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -266,7 +239,7 @@ func (_JSONSerializationClass JSONSerializationClass) DataWithJSONObjectOptionsE
 //
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization/writeJSONObject(_:to:options:error:)
 func (_JSONSerializationClass JSONSerializationClass) WriteJSONObjectToStreamOptionsError(obj objectivec.IObject, stream INSOutputStream, opt NSJSONWritingOptions) (int, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[int](objc.ID(_JSONSerializationClass.class), objc.Sel("writeJSONObject:toStream:options:error:"), obj, stream, opt, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -291,13 +264,6 @@ func (_JSONSerializationClass JSONSerializationClass) IsValidJSONObject(obj obje
 	return rv
 }
 
-
-
-
-
-
-
-
 // Specifies that the parser should allow top-level objects that aren’t
 // arrays or dictionaries.
 //
@@ -309,26 +275,4 @@ func (j JSONSerialization) FragmentsAllowed() NSJSONWritingOptions {
 func (j JSONSerialization) SetFragmentsAllowed(value NSJSONWritingOptions) {
 	objc.Send[struct{}](j.ID, objc.Sel("setNSJSONWritingFragmentsAllowed:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

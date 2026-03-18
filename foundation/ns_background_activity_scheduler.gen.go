@@ -36,12 +36,6 @@ func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivitySchedul
 	return rv
 }
 
-
-
-
-
-
-
 // A task scheduler suitable for low priority operations that can run in the
 // background.
 //
@@ -184,14 +178,10 @@ type NSBackgroundActivityScheduler struct {
 // A task scheduler suitable for low priority operations that can run in the
 // background.
 func NSBackgroundActivitySchedulerFromID(id objc.ID) NSBackgroundActivityScheduler {
-	return NSBackgroundActivityScheduler{objectivec.Object{id}}
+	return NSBackgroundActivityScheduler{objectivec.Object{ID: id}}
 }
 // NOTE: NSBackgroundActivityScheduler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSBackgroundActivityScheduler] class.
 //
@@ -259,10 +249,6 @@ type INSBackgroundActivityScheduler interface {
 	Invalidate()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (b NSBackgroundActivityScheduler) Init() NSBackgroundActivityScheduler {
 	rv := objc.Send[NSBackgroundActivityScheduler](b.ID, objc.Sel("init"))
@@ -281,11 +267,6 @@ func NewNSBackgroundActivityScheduler() NSBackgroundActivityScheduler {
 	rv := objc.Send[NSBackgroundActivityScheduler](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a background activity scheduler object with a specified unique
 // identifier.
@@ -313,12 +294,6 @@ func NewBackgroundActivitySchedulerWithIdentifier(identifier string) NSBackgroun
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), objc.String(identifier))
 	return NSBackgroundActivitySchedulerFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a background activity scheduler object with a specified unique
 // identifier.
@@ -386,17 +361,6 @@ func (b NSBackgroundActivityScheduler) Invalidate() {
 	objc.Send[objc.ID](b.ID, objc.Sel("invalidate"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A unique reverse DNS notation string, such as
 // `com.Example().MyApp.Updatecheck()`, that identifies the activity.
 //
@@ -413,8 +377,6 @@ func (b NSBackgroundActivityScheduler) Identifier() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("identifier"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // A Boolean value indicating whether the activity should be rescheduled after
 // it completes.
@@ -435,8 +397,6 @@ func (b NSBackgroundActivityScheduler) SetRepeats(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setRepeats:"), value)
 }
 
-
-
 // An integer providing a suggested interval between scheduling and invoking
 // the activity.
 //
@@ -453,8 +413,6 @@ func (b NSBackgroundActivityScheduler) Interval() float64 {
 func (b NSBackgroundActivityScheduler) SetInterval(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setInterval:"), value)
 }
-
-
 
 // A value of type [NSQualityOfService], which controls how aggressively the
 // system schedules the activity.
@@ -485,8 +443,6 @@ func (b NSBackgroundActivityScheduler) SetQualityOfService(value QualityOfServic
 	objc.Send[struct{}](b.ID, objc.Sel("setQualityOfService:"), value)
 }
 
-
-
 // A Boolean value indicating whether your app should stop performing
 // background activity and resume at a more optimal time.
 //
@@ -511,8 +467,6 @@ func (b NSBackgroundActivityScheduler) ShouldDefer() bool {
 	return rv
 }
 
-
-
 // A value of type [NSTimeInterval], which specifies a range of time during
 // which the background activity may occur.
 //
@@ -535,26 +489,4 @@ func (b NSBackgroundActivityScheduler) Tolerance() float64 {
 func (b NSBackgroundActivityScheduler) SetTolerance(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTolerance:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

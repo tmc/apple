@@ -14,8 +14,6 @@ type MTLFunctionStitchingAttribute interface {
 	objectivec.IObject
 }
 
-
-
 // MTLFunctionStitchingAttributeObject wraps an existing Objective-C object that conforms to the MTLFunctionStitchingAttribute protocol.
 type MTLFunctionStitchingAttributeObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o MTLFunctionStitchingAttributeObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLFunctionStitchingAttributeObjectFromID constructs a [MTLFunctionStitchingAttributeObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLFunctionStitchingAttributeObjectFromID(id objc.ID) MTLFunctionStitchingAttributeObject {
@@ -33,13 +29,4 @@ func MTLFunctionStitchingAttributeObjectFromID(id objc.ID) MTLFunctionStitchingA
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (vc VZVmnetNetworkDeviceAttachmentClass) Alloc() VZVmnetNetworkDeviceAttach
 	return rv
 }
 
-
-
-
-
-
-
 // A network device attachment that allows a custom network topology.
 //
 // # Overview
@@ -73,10 +67,6 @@ func VZVmnetNetworkDeviceAttachmentFromID(id objc.ID) VZVmnetNetworkDeviceAttach
 // NOTE: VZVmnetNetworkDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVmnetNetworkDeviceAttachment] class.
 //
 // # Creating the vmnet network device attachment
@@ -96,10 +86,6 @@ type IVZVmnetNetworkDeviceAttachment interface {
 	Network() unsafe.Pointer
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVmnetNetworkDeviceAttachment) Init() VZVmnetNetworkDeviceAttachment {
 	rv := objc.Send[VZVmnetNetworkDeviceAttachment](v.ID, objc.Sel("init"))
@@ -118,11 +104,6 @@ func NewVZVmnetNetworkDeviceAttachment() VZVmnetNetworkDeviceAttachment {
 	rv := objc.Send[VZVmnetNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates the attachment and configures it with the specified data.
 //
@@ -155,12 +136,6 @@ func NewVmnetNetworkDeviceAttachmentWithNetwork(network vmnet.Vmnet_network_ref)
 	return VZVmnetNetworkDeviceAttachmentFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates the attachment and configures it with the specified data.
 //
 // network: The logical network object
@@ -191,17 +166,6 @@ func (v VZVmnetNetworkDeviceAttachment) InitWithNetwork(network vmnet.Vmnet_netw
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The network object that the you initialize the attachment with.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVmnetNetworkDeviceAttachment/network
@@ -209,26 +173,4 @@ func (v VZVmnetNetworkDeviceAttachment) Network() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("network"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

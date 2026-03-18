@@ -35,12 +35,6 @@ func (vc VZVirtioTraditionalMemoryBalloonDeviceClass) Alloc() VZVirtioTraditiona
 	return rv
 }
 
-
-
-
-
-
-
 // The object you use to change the amount of memory allocated to the guest
 // system.
 //
@@ -95,10 +89,6 @@ func VZVirtioTraditionalMemoryBalloonDeviceFromID(id objc.ID) VZVirtioTraditiona
 // NOTE: VZVirtioTraditionalMemoryBalloonDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioTraditionalMemoryBalloonDevice] class.
 //
 // # Changing the memory partition size
@@ -116,10 +106,6 @@ type IVZVirtioTraditionalMemoryBalloonDevice interface {
 	TargetVirtualMachineMemorySize() uint64
 	SetTargetVirtualMachineMemorySize(value uint64)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioTraditionalMemoryBalloonDevice) Init() VZVirtioTraditionalMemoryBalloonDevice {
@@ -139,26 +125,6 @@ func NewVZVirtioTraditionalMemoryBalloonDevice() VZVirtioTraditionalMemoryBalloo
 	rv := objc.Send[VZVirtioTraditionalMemoryBalloonDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The target amount of memory, in bytes, to make available to the virtual
 // machine.
@@ -193,26 +159,4 @@ func (v VZVirtioTraditionalMemoryBalloonDevice) TargetVirtualMachineMemorySize()
 func (v VZVirtioTraditionalMemoryBalloonDevice) SetTargetVirtualMachineMemorySize(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTargetVirtualMachineMemorySize:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

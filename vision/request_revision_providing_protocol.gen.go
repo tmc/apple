@@ -19,8 +19,6 @@ type VNRequestRevisionProviding interface {
 	RequestRevision() uint
 }
 
-
-
 // VNRequestRevisionProvidingObject wraps an existing Objective-C object that conforms to the VNRequestRevisionProviding protocol.
 type VNRequestRevisionProvidingObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o VNRequestRevisionProvidingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // VNRequestRevisionProvidingObjectFromID constructs a [VNRequestRevisionProvidingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VNRequestRevisionProvidingObjectFromID(id objc.ID) VNRequestRevisionProvidingObject {
@@ -38,9 +34,6 @@ func VNRequestRevisionProvidingObjectFromID(id objc.ID) VNRequestRevisionProvidi
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
@@ -52,13 +45,4 @@ func (o VNRequestRevisionProvidingObject) RequestRevision() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("requestRevision"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
 

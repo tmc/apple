@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The interface an XML parser uses to inform its delegate about the content of the parsed document.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSXMLParserDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSXMLParserDelegateObject wraps an existing Objective-C object that conforms to the NSXMLParserDelegate protocol.
 type NSXMLParserDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSXMLParserDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSXMLParserDelegateObjectFromID constructs a [NSXMLParserDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSXMLParserDelegateObjectFromID(id objc.ID) NSXMLParserDelegateObject {
@@ -37,9 +31,6 @@ func NSXMLParserDelegateObjectFromID(id objc.ID) NSXMLParserDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sent by the parser object to the delegate when it begins parsing a
 // document.
@@ -422,10 +413,6 @@ func (o NSXMLParserDelegateObject) ParserFoundNotationDeclarationWithNamePublicI
 	objc.Send[struct{}](o.ID, objc.Sel("parser:foundNotationDeclarationWithName:publicID:systemID:"), parser, objc.String(name), objc.String(publicID), objc.String(systemID))
 	}
 
-
-
-
-
 // NSXMLParserDelegateConfig holds optional typed callbacks for [NSXMLParserDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -541,8 +528,4 @@ func NewNSXMLParserDelegate(config NSXMLParserDelegateConfig) NSXMLParserDelegat
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSXMLParserDelegateObjectFromID(instance)
 }
-
-
-
-
 

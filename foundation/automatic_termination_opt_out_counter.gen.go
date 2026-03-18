@@ -36,12 +36,6 @@ func (ac AutomaticTerminationOptOutCounterClass) Alloc() AutomaticTerminationOpt
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSProcessInfo/automaticTerminationOptOutCounter
 type AutomaticTerminationOptOutCounter struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type AutomaticTerminationOptOutCounter struct {
 
 // AutomaticTerminationOptOutCounterFromID constructs a [AutomaticTerminationOptOutCounter] from an objc.ID.
 func AutomaticTerminationOptOutCounterFromID(id objc.ID) AutomaticTerminationOptOutCounter {
-	return AutomaticTerminationOptOutCounter{objectivec.Object{id}}
+	return AutomaticTerminationOptOutCounter{objectivec.Object{ID: id}}
 }
 // Ensure AutomaticTerminationOptOutCounter implements IAutomaticTerminationOptOutCounter.
 var _ IAutomaticTerminationOptOutCounter = AutomaticTerminationOptOutCounter{}
-
-
-
-
 
 // An interface definition for the [AutomaticTerminationOptOutCounter] class.
 //
@@ -64,10 +54,6 @@ var _ IAutomaticTerminationOptOutCounter = AutomaticTerminationOptOutCounter{}
 type IAutomaticTerminationOptOutCounter interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a AutomaticTerminationOptOutCounter) Init() AutomaticTerminationOptOutCounter {
@@ -87,38 +73,4 @@ func NewAutomaticTerminationOptOutCounter() AutomaticTerminationOptOutCounter {
 	rv := objc.Send[AutomaticTerminationOptOutCounter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

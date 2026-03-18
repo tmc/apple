@@ -35,12 +35,6 @@ func (vc VZSingleDirectoryShareClass) Alloc() VZSingleDirectoryShare {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines the directory share for a single directory.
 //
 // # Overview
@@ -70,10 +64,6 @@ func VZSingleDirectoryShareFromID(id objc.ID) VZSingleDirectoryShare {
 // NOTE: VZSingleDirectoryShare adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZSingleDirectoryShare] class.
 //
 // # Creating a directory share
@@ -99,10 +89,6 @@ type IVZSingleDirectoryShare interface {
 	Directory() IVZSharedDirectory
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s VZSingleDirectoryShare) Init() VZSingleDirectoryShare {
 	rv := objc.Send[VZSingleDirectoryShare](s.ID, objc.Sel("init"))
@@ -122,11 +108,6 @@ func NewVZSingleDirectoryShare() VZSingleDirectoryShare {
 	return rv
 }
 
-
-
-
-
-
 // Creates a directory share with a directory that you specify on the host.
 //
 // directory: The directory to share.
@@ -142,12 +123,6 @@ func NewSingleDirectoryShareWithDirectory(directory IVZSharedDirectory) VZSingle
 	return VZSingleDirectoryShareFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a directory share with a directory that you specify on the host.
 //
 // directory: The directory to share.
@@ -162,17 +137,6 @@ func (s VZSingleDirectoryShare) InitWithDirectory(directory IVZSharedDirectory) 
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The directory on the host to share with the guest VM.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZSingleDirectoryShare/directory
@@ -180,26 +144,4 @@ func (s VZSingleDirectoryShare) Directory() IVZSharedDirectory {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("directory"))
 	return VZSharedDirectoryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

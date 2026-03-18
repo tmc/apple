@@ -35,12 +35,6 @@ func (nc NSRelativeSpecifierClass) Alloc() NSRelativeSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier that indicates an object in a collection by its position
 // relative to another object.
 //
@@ -74,10 +68,6 @@ func NSRelativeSpecifierFromID(id objc.ID) NSRelativeSpecifier {
 // NOTE: NSRelativeSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSRelativeSpecifier] class.
 //
 // # Initializing a relative specifier
@@ -110,10 +100,6 @@ type INSRelativeSpecifier interface {
 	SetRelativePosition(value NSRelativePosition)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r NSRelativeSpecifier) Init() NSRelativeSpecifier {
 	rv := objc.Send[NSRelativeSpecifier](r.ID, objc.Sel("init"))
@@ -133,11 +119,6 @@ func NewNSRelativeSpecifier() NSRelativeSpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRelativeSpecifier/init(coder:)
 func NewRelativeSpecifierWithCoder(inCoder INSCoder) NSRelativeSpecifier {
@@ -145,7 +126,6 @@ func NewRelativeSpecifierWithCoder(inCoder INSCoder) NSRelativeSpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSRelativeSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -170,7 +150,6 @@ func NewRelativeSpecifierWithContainerClassDescriptionContainerSpecifierKey(clas
 	return NSRelativeSpecifierFromID(rv)
 }
 
-
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] method and
 // initializes the relative position and base specifier to `relPos` and
@@ -182,7 +161,6 @@ func NewRelativeSpecifierWithContainerClassDescriptionContainerSpecifierKeyRelat
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:relativePosition:baseSpecifier:"), classDesc, container, objc.String(property), relPos, baseSpecifier)
 	return NSRelativeSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
@@ -203,12 +181,6 @@ func NewRelativeSpecifierWithContainerSpecifierKey(container INSScriptObjectSpec
 	return NSRelativeSpecifierFromID(rv)
 }
 
-
-
-
-
-
-
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] method and
 // initializes the relative position and base specifier to `relPos` and
@@ -219,17 +191,6 @@ func (r NSRelativeSpecifier) InitWithContainerClassDescriptionContainerSpecifier
 	rv := objc.Send[NSRelativeSpecifier](r.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:relativePosition:baseSpecifier:"), classDesc, container, objc.String(property), relPos, baseSpecifier)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Sets the specifier for the base object.
 //
@@ -242,8 +203,6 @@ func (r NSRelativeSpecifier) SetBaseSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](r.ID, objc.Sel("setBaseSpecifier:"), value)
 }
 
-
-
 // Sets the relative position encapsulated by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRelativeSpecifier/relativePosition-swift.property
@@ -254,29 +213,4 @@ func (r NSRelativeSpecifier) RelativePosition() NSRelativePosition {
 func (r NSRelativeSpecifier) SetRelativePosition(value NSRelativePosition) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRelativePosition:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

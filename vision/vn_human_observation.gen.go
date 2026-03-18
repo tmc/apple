@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNHumanObservation] class.
@@ -37,12 +36,6 @@ func (vc VNHumanObservationClass) Alloc() VNHumanObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a person that the request detects.
 //
 // # Inspecting the Observation
@@ -63,10 +56,6 @@ func VNHumanObservationFromID(id objc.ID) VNHumanObservation {
 // NOTE: VNHumanObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNHumanObservation] class.
 //
 // # Inspecting the Observation
@@ -81,13 +70,7 @@ type IVNHumanObservation interface {
 
 	// A Boolean value that indicates whether the observation represents an upper-body or full-body rectangle.
 	UpperBodyOnly() bool
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VNHumanObservation) Init() VNHumanObservation {
@@ -108,11 +91,6 @@ func NewVNHumanObservation() VNHumanObservation {
 	return rv
 }
 
-
-
-
-
-
 // Creates an observation with a bounding box.
 //
 // boundingBox: The observation’s bounding box, in coordinates normalized to the
@@ -124,7 +102,6 @@ func NewHumanObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNHum
 	rv := objc.Send[objc.ID](objc.ID(getVNHumanObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
 	return VNHumanObservationFromID(rv)
 }
-
 
 // Creates an observation with a revision number and bounding box.
 //
@@ -140,26 +117,6 @@ func NewHumanObservationWithRequestRevisionBoundingBox(requestRevision uint, bou
 	return VNHumanObservationFromID(rv)
 }
 
-
-
-
-
-
-func (h VNHumanObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](h.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the observation represents an
 // upper-body or full-body rectangle.
 //
@@ -168,30 +125,4 @@ func (h VNHumanObservation) UpperBodyOnly() bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("upperBodyOnly"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -196,8 +196,6 @@ type MTL4ComputeCommandEncoder interface {
 	ResetCommandsInBufferWithRange(buffer MTLIndirectCommandBuffer, range_ foundation.NSRange)
 }
 
-
-
 // MTL4ComputeCommandEncoderObject wraps an existing Objective-C object that conforms to the MTL4ComputeCommandEncoder protocol.
 type MTL4ComputeCommandEncoderObject struct {
 	objectivec.Object
@@ -206,8 +204,6 @@ func (o MTL4ComputeCommandEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4ComputeCommandEncoderObjectFromID constructs a [MTL4ComputeCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4ComputeCommandEncoderObjectFromID(id objc.ID) MTL4ComputeCommandEncoderObject {
@@ -215,9 +211,6 @@ func MTL4ComputeCommandEncoderObjectFromID(id objc.ID) MTL4ComputeCommandEncoder
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Configures this encoder with a compute pipeline state that applies to your
 // subsequent dispatch commands.
@@ -1588,16 +1581,7 @@ func (o MTL4ComputeCommandEncoderObject) BarrierAfterStagesBeforeQueueStagesVisi
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterStages:beforeQueueStages:visibilityOptions:"), afterStages, beforeQueueStages, visibilityOptions)
 	}
 
-
-
-
-
-
 func (o MTL4ComputeCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

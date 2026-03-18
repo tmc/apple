@@ -37,12 +37,6 @@ func (mc MTLFunctionStitchingGraphClass) Alloc() MTLFunctionStitchingGraph {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a new stitched function.
 //
 // # Overview
@@ -127,14 +121,10 @@ type MTLFunctionStitchingGraph struct {
 //
 // A description of a new stitched function.
 func MTLFunctionStitchingGraphFromID(id objc.ID) MTLFunctionStitchingGraph {
-	return MTLFunctionStitchingGraph{objectivec.Object{id}}
+	return MTLFunctionStitchingGraph{objectivec.Object{ID: id}}
 }
 // NOTE: MTLFunctionStitchingGraph adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLFunctionStitchingGraph] class.
 //
@@ -178,10 +168,6 @@ type IMTLFunctionStitchingGraph interface {
 	SetAttributes(value []objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MTLFunctionStitchingGraph) Init() MTLFunctionStitchingGraph {
 	rv := objc.Send[MTLFunctionStitchingGraph](f.ID, objc.Sel("init"))
@@ -201,11 +187,6 @@ func NewMTLFunctionStitchingGraph() MTLFunctionStitchingGraph {
 	return rv
 }
 
-
-
-
-
-
 // Creates a description of a new function call graph.
 //
 // functionName: The name of the new function.
@@ -223,12 +204,6 @@ func NewFunctionStitchingGraphWithFunctionNameNodesOutputNodeAttributes(function
 	return MTLFunctionStitchingGraphFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a description of a new function call graph.
 //
 // functionName: The name of the new function.
@@ -245,17 +220,6 @@ func (f MTLFunctionStitchingGraph) InitWithFunctionNameNodesOutputNodeAttributes
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name of the new stitched function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionStitchingGraph/functionName
@@ -266,8 +230,6 @@ func (f MTLFunctionStitchingGraph) FunctionName() string {
 func (f MTLFunctionStitchingGraph) SetFunctionName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFunctionName:"), objc.String(value))
 }
-
-
 
 // The nodes in the function’s call graph.
 //
@@ -281,8 +243,6 @@ func (f MTLFunctionStitchingGraph) Nodes() []MTLFunctionStitchingFunctionNode {
 func (f MTLFunctionStitchingGraph) SetNodes(value []MTLFunctionStitchingFunctionNode) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNodes:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
 
 // The node with the output that’s the output of the new stitched function.
 //
@@ -300,8 +260,6 @@ func (f MTLFunctionStitchingGraph) SetOutputNode(value IMTLFunctionStitchingFunc
 	objc.Send[struct{}](f.ID, objc.Sel("setOutputNode:"), value)
 }
 
-
-
 // A list of attributes to configure how the Metal device object generates the
 // new stitched function.
 //
@@ -315,27 +273,4 @@ func (f MTLFunctionStitchingGraph) Attributes() []objectivec.IObject {
 func (f MTLFunctionStitchingGraph) SetAttributes(value []objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAttributes:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

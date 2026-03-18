@@ -38,10 +38,3 @@ func (u URLSessionConfiguration) SetMultipathServiceType(value NSURLSessionMulti
 objc.Send[struct{}](u.ID, objc.Sel("setMultipathServiceType:"), value)
 }
 
-
-
-
-
-
-
-

@@ -36,12 +36,6 @@ func (nc NSConditionLockClass) Alloc() NSConditionLock {
 	return rv
 }
 
-
-
-
-
-
-
 // A lock that can be associated with specific, user-defined conditions.
 //
 // # Overview
@@ -83,14 +77,10 @@ type NSConditionLock struct {
 //
 // A lock that can be associated with specific, user-defined conditions.
 func NSConditionLockFromID(id objc.ID) NSConditionLock {
-	return NSConditionLock{objectivec.Object{id}}
+	return NSConditionLock{objectivec.Object{ID: id}}
 }
 // NOTE: NSConditionLock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSConditionLock] class.
 //
@@ -152,10 +142,6 @@ type INSConditionLock interface {
 	SetName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSConditionLock) Init() NSConditionLock {
 	rv := objc.Send[NSConditionLock](c.ID, objc.Sel("init"))
@@ -175,11 +161,6 @@ func NewNSConditionLock() NSConditionLock {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a newly allocated [NSConditionLock] object and sets its
 // condition.
 //
@@ -197,12 +178,6 @@ func NewConditionLockWithCondition(condition int) NSConditionLock {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCondition:"), condition)
 	return NSConditionLockFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated [NSConditionLock] object and sets its
 // condition.
@@ -355,17 +330,6 @@ func (c NSConditionLock) Unlock() {
 	objc.Send[objc.ID](c.ID, objc.Sel("unlock"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The condition associated with the receiver.
 //
 // # Discussion
@@ -377,8 +341,6 @@ func (c NSConditionLock) Condition() int {
 	rv := objc.Send[int](c.ID, objc.Sel("condition"))
 	return rv
 }
-
-
 
 // The name associated with the receiver.
 //
@@ -396,29 +358,4 @@ func (c NSConditionLock) Name() string {
 func (c NSConditionLock) SetName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSFileCoordinatorClass) Alloc() NSFileCoordinator {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that coordinates the reading and writing of files and directories
 // among file presenters.
 //
@@ -152,14 +146,10 @@ type NSFileCoordinator struct {
 // An object that coordinates the reading and writing of files and directories
 // among file presenters.
 func NSFileCoordinatorFromID(id objc.ID) NSFileCoordinator {
-	return NSFileCoordinator{objectivec.Object{id}}
+	return NSFileCoordinator{objectivec.Object{ID: id}}
 }
 // NOTE: NSFileCoordinator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFileCoordinator] class.
 //
@@ -240,10 +230,6 @@ type INSFileCoordinator interface {
 	SetNSUserCancelledError(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFileCoordinator) Init() NSFileCoordinator {
 	rv := objc.Send[NSFileCoordinator](f.ID, objc.Sel("init"))
@@ -262,11 +248,6 @@ func NewNSFileCoordinator() NSFileCoordinator {
 	rv := objc.Send[NSFileCoordinator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes and returns a file coordinator object using the specified file
 // presenter.
@@ -325,12 +306,6 @@ func NewFileCoordinatorWithFilePresenter(filePresenterOrNil NSFilePresenter) NSF
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFilePresenter:"), filePresenterOrNil)
 	return NSFileCoordinatorFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a file coordinator object using the specified file
 // presenter.
@@ -507,9 +482,9 @@ func (f NSFileCoordinator) InitWithFilePresenter(filePresenterOrNil NSFilePresen
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(with:queue:byAccessor:)
 func (f NSFileCoordinator) CoordinateAccessWithIntentsQueueByAccessor(intents []NSFileAccessIntent, queue INSOperationQueue, accessor ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(accessor)
+_block2, _cleanup2 := NewErrorBlock(accessor)
 	defer _cleanup2()
-		objc.Send[objc.ID](f.ID, objc.Sel("coordinateAccessWithIntents:queue:byAccessor:"), intents, queue, _block2)
+	objc.Send[objc.ID](f.ID, objc.Sel("coordinateAccessWithIntents:queue:byAccessor:"), intents, queue, _block2)
 }
 
 // Initiates a read operation on a single file or directory using the
@@ -603,9 +578,9 @@ func (f NSFileCoordinator) CoordinateAccessWithIntentsQueueByAccessor(intents []
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(readingItemAt:options:error:byAccessor:)
 func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsErrorByAccessor(url INSURL, options NSFileCoordinatorReadingOptions, outError INSError, reader URLHandler) {
-		_block3, _cleanup3 := NewURLBlock(reader)
+_block3, _cleanup3 := NewURLBlock(reader)
 	defer _cleanup3()
-		objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
+	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
 }
 
 // Initiates a write operation on a single file or directory using the
@@ -690,9 +665,9 @@ func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsErrorByAccessor(url 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(writingItemAt:options:error:byAccessor:)
 func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsErrorByAccessor(url INSURL, options NSFileCoordinatorWritingOptions, outError INSError, writer URLHandler) {
-		_block3, _cleanup3 := NewURLBlock(writer)
+_block3, _cleanup3 := NewURLBlock(writer)
 	defer _cleanup3()
-		objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
+	objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
 }
 
 // Initiates a read operation that contains a follow-up write operation.
@@ -757,9 +732,9 @@ func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsErrorByAccessor(url 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(readingItemAt:options:writingItemAt:options:error:byAccessor:)
 func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor(readingURL INSURL, readingOptions NSFileCoordinatorReadingOptions, writingURL INSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, readerWriter URLURLHandler) {
-		_block5, _cleanup5 := NewURLURLBlock(readerWriter)
+_block5, _cleanup5 := NewURLURLBlock(readerWriter)
 	defer _cleanup5()
-		objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), readingURL, readingOptions, writingURL, writingOptions, outError, _block5)
+	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), readingURL, readingOptions, writingURL, writingOptions, outError, _block5)
 }
 
 // Initiates a write operation that involves a secondary write operation.
@@ -819,9 +794,9 @@ func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsWritingItemAtURLOpti
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(writingItemAt:options:writingItemAt:options:error:byAccessor:)
 func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor(url1 INSURL, options1 NSFileCoordinatorWritingOptions, url2 INSURL, options2 NSFileCoordinatorWritingOptions, outError INSError, writer URLURLHandler) {
-		_block5, _cleanup5 := NewURLURLBlock(writer)
+_block5, _cleanup5 := NewURLURLBlock(writer)
 	defer _cleanup5()
-		objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), url1, options1, url2, options2, outError, _block5)
+	objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), url1, options1, url2, options2, outError, _block5)
 }
 
 // Prepare to read or write from multiple files in a single batch operation.
@@ -894,9 +869,9 @@ func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsWritingItemAtURLOpti
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/prepare(forReadingItemsAt:options:writingItemsAt:options:error:byAccessor:)
 func (f NSFileCoordinator) PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor(readingURLs []NSURL, readingOptions NSFileCoordinatorReadingOptions, writingURLs []NSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, batchAccessor VoidHandler) {
-		_block5, _cleanup5 := NewVoidBlock(batchAccessor)
+_block5, _cleanup5 := NewVoidBlock(batchAccessor)
 	defer _cleanup5()
-		objc.Send[objc.ID](f.ID, objc.Sel("prepareForReadingItemsAtURLs:options:writingItemsAtURLs:options:error:byAccessor:"), readingURLs, readingOptions, writingURLs, writingOptions, outError, _block5)
+	objc.Send[objc.ID](f.ID, objc.Sel("prepareForReadingItemsAtURLs:options:writingItemsAtURLs:options:error:byAccessor:"), readingURLs, readingOptions, writingURLs, writingOptions, outError, _block5)
 }
 
 // Announces that your app is moving a file to a new URL.
@@ -1004,10 +979,6 @@ func (f NSFileCoordinator) ItemAtURLDidChangeUbiquityAttributes(url INSURL, attr
 	objc.Send[objc.ID](f.ID, objc.Sel("itemAtURL:didChangeUbiquityAttributes:"), url, attributes)
 }
 
-
-
-
-
 // Registers the specified file presenter object so that it can receive
 // notifications.
 //
@@ -1056,13 +1027,6 @@ func (_NSFileCoordinatorClass NSFileCoordinatorClass) RemoveFilePresenter(filePr
 	objc.Send[objc.ID](objc.ID(_NSFileCoordinatorClass.class), objc.Sel("removeFilePresenter:"), filePresenter)
 }
 
-
-
-
-
-
-
-
 // A string that uniquely identifies the file access that was performed by
 // this file coordinator.
 //
@@ -1098,8 +1062,6 @@ func (f NSFileCoordinator) SetPurposeIdentifier(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPurposeIdentifier:"), objc.String(value))
 }
 
-
-
 // The user canceled the operation (for example, by pressing Command-period).
 //
 // See: https://developer.apple.com/documentation/foundation/nsusercancellederror-swift.var
@@ -1110,12 +1072,6 @@ func (f NSFileCoordinator) NSUserCancelledError() int {
 func (f NSFileCoordinator) SetNSUserCancelledError(value int) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNSUserCancelledError:"), value)
 }
-
-
-
-
-
-
 
 // Returns an array containing the currently registered file presenter
 // objects.
@@ -1132,8 +1088,6 @@ func (_NSFileCoordinatorClass NSFileCoordinatorClass) FilePresenters() []objecti
 	})
 }
 
-
-
 // A notification that posts when the app enters the background.
 //
 // See: https://developer.apple.com/documentation/UIKit/UIApplication/didEnterBackgroundNotification
@@ -1141,8 +1095,6 @@ func (_NSFileCoordinatorClass NSFileCoordinatorClass) DidEnterBackgroundNotifica
 	rv := objc.Send[objc.ID](objc.ID(_NSFileCoordinatorClass.class), objc.Sel("didEnterBackgroundNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
 
 // A notification that posts shortly before an app leaves the background state
 // on its way to becoming the active app.
@@ -1152,19 +1104,6 @@ func (_NSFileCoordinatorClass NSFileCoordinatorClass) WillEnterForegroundNotific
 	rv := objc.Send[objc.ID](objc.ID(_NSFileCoordinatorClass.class), objc.Sel("willEnterForegroundNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // CoordinateReadingItemAtURLOptionsErrorByAccessorSync is a synchronous wrapper around [NSFileCoordinator.CoordinateReadingItemAtURLOptionsErrorByAccessor].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -1195,9 +1134,4 @@ func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsErrorByAccessorSync(
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

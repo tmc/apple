@@ -5,7 +5,6 @@ import (
 	"unsafe"
 	"github.com/tmc/apple/objc"
 )
-
 // Object wraps an Objective-C object ID.
 // This is the base type embedded by all generated class types.
 type Object struct {
@@ -56,7 +55,6 @@ func (o Object) String() string {
 func ObjectFromID(id objc.ID) Object {
 	return Object{ID: id}
 }
-
 
 // C struct types
 // NXHashState
@@ -133,10 +131,6 @@ type Objc_super struct {
 
 }
 
-
-
-
-
 // Manual definitions for opaque types not fully parsed.
 
 type Objc_class struct {}
@@ -145,7 +139,4 @@ type Objc_ivar struct {}
 type Objc_selector struct {}
 type Objc_property struct {}
 type Objc_category struct {}
-
-
-
 

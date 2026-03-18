@@ -35,12 +35,6 @@ func (nc NSSymbolDrawOnEffectClass) Alloc() NSSymbolDrawOnEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A symbol effect that applies the DrawOn animation to symbol images.
 //
 // # Overview
@@ -68,10 +62,6 @@ func NSSymbolDrawOnEffectFromID(id objc.ID) NSSymbolDrawOnEffect {
 // Ensure NSSymbolDrawOnEffect implements INSSymbolDrawOnEffect.
 var _ INSSymbolDrawOnEffect = NSSymbolDrawOnEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolDrawOnEffect] class.
 //
 // # Instance Methods
@@ -94,10 +84,6 @@ type INSSymbolDrawOnEffect interface {
 	EffectWithWholeSymbol() INSSymbolDrawOnEffect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolDrawOnEffect) Init() NSSymbolDrawOnEffect {
 	rv := objc.Send[NSSymbolDrawOnEffect](s.ID, objc.Sel("init"))
@@ -116,15 +102,6 @@ func NewNSSymbolDrawOnEffect() NSSymbolDrawOnEffect {
 	rv := objc.Send[NSSymbolDrawOnEffect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a copy of the effect requesting an animation that applies
 // separately to each motion group.
@@ -154,10 +131,6 @@ func (s NSSymbolDrawOnEffect) EffectWithWholeSymbol() INSSymbolDrawOnEffect {
 	return NSSymbolDrawOnEffectFromID(rv)
 }
 
-
-
-
-
 // The default draw on effect, determined by the system.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolDrawOnEffect/effect
@@ -165,25 +138,4 @@ func (_NSSymbolDrawOnEffectClass NSSymbolDrawOnEffectClass) Effect() NSSymbolDra
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolDrawOnEffectClass.class), objc.Sel("effect"))
 	return NSSymbolDrawOnEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

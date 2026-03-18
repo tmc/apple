@@ -39,12 +39,6 @@ func (vc VNContourClass) Alloc() VNContour {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a detected contour in an image.
 //
 // # Inspecting the Contour
@@ -70,14 +64,10 @@ type VNContour struct {
 //
 // A class that represents a detected contour in an image.
 func VNContourFromID(id objc.ID) VNContour {
-	return VNContour{objectivec.Object{id}}
+	return VNContour{objectivec.Object{ID: id}}
 }
 // NOTE: VNContour adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNContour] class.
 //
@@ -135,10 +125,6 @@ type IVNContour interface {
 	SetTopLevelContours(value IVNContour)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c VNContour) Init() VNContour {
 	rv := objc.Send[VNContour](c.ID, objc.Sel("init"))
@@ -158,15 +144,6 @@ func NewVNContour() VNContour {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Simplifies the contour to a polygon using a Ramer-Douglas-Peucker
 // algorithm.
 //
@@ -180,7 +157,7 @@ func NewVNContour() VNContour {
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/polygonApproximation(epsilon:)
 func (c VNContour) PolygonApproximationWithEpsilonError(epsilon float32) (IVNContour, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("polygonApproximationWithEpsilon:error:"), epsilon, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -200,7 +177,7 @@ func (c VNContour) PolygonApproximationWithEpsilonError(epsilon float32) (IVNCon
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/childContour(at:)
 func (c VNContour) ChildContourAtIndexError(childContourIndex uint) (IVNContour, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("childContourAtIndex:error:"), childContourIndex, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -209,17 +186,6 @@ func (c VNContour) ChildContourAtIndexError(childContourIndex uint) (IVNContour,
 	return VNContourFromID(rv), nil
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The aspect ratio of the contour.
 //
@@ -233,8 +199,6 @@ func (c VNContour) AspectRatio() float32 {
 	return rv
 }
 
-
-
 // The contour object’s index path.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/indexPath
@@ -242,8 +206,6 @@ func (c VNContour) IndexPath() objc.ID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPath"))
 	return rv
 }
-
-
 
 // The contour object as a path in normalized coordinates.
 //
@@ -253,8 +215,6 @@ func (c VNContour) NormalizedPath() coregraphics.CGPathRef {
 	return coregraphics.CGPathRef(rv)
 }
 
-
-
 // The contour’s number of points.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/pointCount
@@ -263,8 +223,6 @@ func (c VNContour) PointCount() int {
 	return rv
 }
 
-
-
 // The total number of detected child contours.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/childContourCount
@@ -272,8 +230,6 @@ func (c VNContour) ChildContourCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("childContourCount"))
 	return rv
 }
-
-
 
 // An array of contours that this contour encloses.
 //
@@ -285,8 +241,6 @@ func (c VNContour) ChildContours() []VNContour {
 	})
 }
 
-
-
 // The total number of detected contours.
 //
 // See: https://developer.apple.com/documentation/vision/vncontoursobservation/contourcount
@@ -297,8 +251,6 @@ func (c VNContour) ContourCount() int {
 func (c VNContour) SetContourCount(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContourCount:"), value)
 }
-
-
 
 // The contour’s array of points in normalized coordinates.
 //
@@ -315,8 +267,6 @@ func (c VNContour) NormalizedPoints() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -325,8 +275,6 @@ func (c VNContour) RequestRevision() uint {
 	rv := objc.Send[uint](c.ID, objc.Sel("requestRevision"))
 	return rv
 }
-
-
 
 // The total number of detected top-level contours.
 //
@@ -339,8 +287,6 @@ func (c VNContour) SetTopLevelContourCount(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTopLevelContourCount:"), value)
 }
 
-
-
 // An array of contours that don’t have another contour enclosing them.
 //
 // See: https://developer.apple.com/documentation/vision/vncontoursobservation/toplevelcontours
@@ -352,32 +298,6 @@ func (c VNContour) SetTopLevelContours(value IVNContour) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTopLevelContours:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for VNRequestRevisionProviding
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

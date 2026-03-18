@@ -146,8 +146,6 @@ type MTLBlitCommandEncoder interface {
 	ResolveCountersInRangeDestinationBufferDestinationOffset(sampleBuffer MTLCounterSampleBuffer, range_ foundation.NSRange, destinationBuffer MTLBuffer, destinationOffset uint)
 }
 
-
-
 // MTLBlitCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLBlitCommandEncoder protocol.
 type MTLBlitCommandEncoderObject struct {
 	objectivec.Object
@@ -156,8 +154,6 @@ func (o MTLBlitCommandEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLBlitCommandEncoderObjectFromID constructs a [MTLBlitCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLBlitCommandEncoderObjectFromID(id objc.ID) MTLBlitCommandEncoderObject {
@@ -165,9 +161,6 @@ func MTLBlitCommandEncoderObjectFromID(id objc.ID) MTLBlitCommandEncoderObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Encodes a command that generates mipmaps for a texture from the base mipmap
 // level up to the highest mipmap level.
@@ -1356,16 +1349,7 @@ func (o MTLBlitCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQu
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 
-
-
-
-
-
 func (o MTLBlitCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

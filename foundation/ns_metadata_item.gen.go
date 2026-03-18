@@ -36,12 +36,6 @@ func (nc NSMetadataItemClass) Alloc() NSMetadataItem {
 	return rv
 }
 
-
-
-
-
-
-
 // The metadata associated with a file.
 //
 // # Overview
@@ -264,14 +258,10 @@ type NSMetadataItem struct {
 //
 // The metadata associated with a file.
 func NSMetadataItemFromID(id objc.ID) NSMetadataItem {
-	return NSMetadataItem{objectivec.Object{id}}
+	return NSMetadataItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSMetadataItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMetadataItem] class.
 //
@@ -696,10 +686,6 @@ type INSMetadataItem interface {
 	NSMetadataUbiquitousSharedItemRoleParticipant() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMetadataItem) Init() NSMetadataItem {
 	rv := objc.Send[NSMetadataItem](m.ID, objc.Sel("init"))
@@ -719,11 +705,6 @@ func NewNSMetadataItem() NSMetadataItem {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a metadata item with a given URL.
 //
 // url: The URL for the metadata item.
@@ -738,12 +719,6 @@ func NewMetadataItemWithURL(url INSURL) NSMetadataItem {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return NSMetadataItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a metadata item with a given URL.
 //
@@ -791,17 +766,6 @@ func (m NSMetadataItem) ValuesForAttributes(keys []string) INSDictionary {
 	return NSDictionaryFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An array containing the attribute keys for the metadata item’s values.
 //
 // # Discussion
@@ -816,15 +780,11 @@ func (m NSMetadataItem) Attributes() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemaudienceskey
 func (m NSMetadataItem) NSMetadataItemAudiencesKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAudiencesKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemaudiobitratekey
 func (m NSMetadataItem) NSMetadataItemAudioBitRateKey() string {
@@ -832,15 +792,11 @@ func (m NSMetadataItem) NSMetadataItemAudioBitRateKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemaudiochannelcountkey
 func (m NSMetadataItem) NSMetadataItemAudioChannelCountKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAudioChannelCountKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemaudioencodingapplicationkey
 func (m NSMetadataItem) NSMetadataItemAudioEncodingApplicationKey() string {
@@ -848,15 +804,11 @@ func (m NSMetadataItem) NSMetadataItemAudioEncodingApplicationKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemaudiosampleratekey
 func (m NSMetadataItem) NSMetadataItemAudioSampleRateKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAudioSampleRateKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemaudiotracknumberkey
 func (m NSMetadataItem) NSMetadataItemAudioTrackNumberKey() string {
@@ -864,15 +816,11 @@ func (m NSMetadataItem) NSMetadataItemAudioTrackNumberKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemauthoraddresseskey
 func (m NSMetadataItem) NSMetadataItemAuthorAddressesKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAuthorAddressesKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemauthoremailaddresseskey
 func (m NSMetadataItem) NSMetadataItemAuthorEmailAddressesKey() string {
@@ -880,15 +828,11 @@ func (m NSMetadataItem) NSMetadataItemAuthorEmailAddressesKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemauthorskey
 func (m NSMetadataItem) NSMetadataItemAuthorsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAuthorsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemacquisitionmakekey
 func (m NSMetadataItem) NSMetadataItemAcquisitionMakeKey() string {
@@ -896,15 +840,11 @@ func (m NSMetadataItem) NSMetadataItemAcquisitionMakeKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemacquisitionmodelkey
 func (m NSMetadataItem) NSMetadataItemAcquisitionModelKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAcquisitionModelKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemalbumkey
 func (m NSMetadataItem) NSMetadataItemAlbumKey() string {
@@ -912,15 +852,11 @@ func (m NSMetadataItem) NSMetadataItemAlbumKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemaltitudekey
 func (m NSMetadataItem) NSMetadataItemAltitudeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAltitudeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemaperturekey
 func (m NSMetadataItem) NSMetadataItemApertureKey() string {
@@ -928,15 +864,11 @@ func (m NSMetadataItem) NSMetadataItemApertureKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemappleloopdescriptorskey
 func (m NSMetadataItem) NSMetadataItemAppleLoopDescriptorsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAppleLoopDescriptorsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemappleloopskeyfiltertypekey
 func (m NSMetadataItem) NSMetadataItemAppleLoopsKeyFilterTypeKey() string {
@@ -944,15 +876,11 @@ func (m NSMetadataItem) NSMetadataItemAppleLoopsKeyFilterTypeKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemappleloopsloopmodekey
 func (m NSMetadataItem) NSMetadataItemAppleLoopsLoopModeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemAppleLoopsLoopModeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemappleloopsrootkeykey
 func (m NSMetadataItem) NSMetadataItemAppleLoopsRootKeyKey() string {
@@ -960,15 +888,11 @@ func (m NSMetadataItem) NSMetadataItemAppleLoopsRootKeyKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemapplicationcategorieskey
 func (m NSMetadataItem) NSMetadataItemApplicationCategoriesKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemApplicationCategoriesKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemattributechangedatekey
 func (m NSMetadataItem) NSMetadataItemAttributeChangeDateKey() string {
@@ -976,15 +900,11 @@ func (m NSMetadataItem) NSMetadataItemAttributeChangeDateKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfsnamekey
 func (m NSMetadataItem) NSMetadataItemFSNameKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemFSNameKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemdisplaynamekey
 func (m NSMetadataItem) NSMetadataItemDisplayNameKey() string {
@@ -992,15 +912,11 @@ func (m NSMetadataItem) NSMetadataItemDisplayNameKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemurlkey
 func (m NSMetadataItem) NSMetadataItemURLKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemURLKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitempathkey
 func (m NSMetadataItem) NSMetadataItemPathKey() string {
@@ -1008,15 +924,11 @@ func (m NSMetadataItem) NSMetadataItemPathKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfssizekey
 func (m NSMetadataItem) NSMetadataItemFSSizeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemFSSizeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfscreationdatekey
 func (m NSMetadataItem) NSMetadataItemFSCreationDateKey() string {
@@ -1024,15 +936,11 @@ func (m NSMetadataItem) NSMetadataItemFSCreationDateKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfscontentchangedatekey
 func (m NSMetadataItem) NSMetadataItemFSContentChangeDateKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemFSContentChangeDateKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitembitspersamplekey
 func (m NSMetadataItem) NSMetadataItemBitsPerSampleKey() string {
@@ -1040,15 +948,11 @@ func (m NSMetadataItem) NSMetadataItemBitsPerSampleKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcfbundleidentifierkey
 func (m NSMetadataItem) NSMetadataItemCFBundleIdentifierKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemCFBundleIdentifierKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcameraownerkey
 func (m NSMetadataItem) NSMetadataItemCameraOwnerKey() string {
@@ -1056,15 +960,11 @@ func (m NSMetadataItem) NSMetadataItemCameraOwnerKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcitykey
 func (m NSMetadataItem) NSMetadataItemCityKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemCityKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcodecskey
 func (m NSMetadataItem) NSMetadataItemCodecsKey() string {
@@ -1072,15 +972,11 @@ func (m NSMetadataItem) NSMetadataItemCodecsKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcolorspacekey
 func (m NSMetadataItem) NSMetadataItemColorSpaceKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemColorSpaceKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcommentkey
 func (m NSMetadataItem) NSMetadataItemCommentKey() string {
@@ -1088,15 +984,11 @@ func (m NSMetadataItem) NSMetadataItemCommentKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcomposerkey
 func (m NSMetadataItem) NSMetadataItemComposerKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemComposerKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcontactkeywordskey
 func (m NSMetadataItem) NSMetadataItemContactKeywordsKey() string {
@@ -1104,15 +996,11 @@ func (m NSMetadataItem) NSMetadataItemContactKeywordsKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcontentcreationdatekey
 func (m NSMetadataItem) NSMetadataItemContentCreationDateKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemContentCreationDateKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcontentmodificationdatekey
 func (m NSMetadataItem) NSMetadataItemContentModificationDateKey() string {
@@ -1120,15 +1008,11 @@ func (m NSMetadataItem) NSMetadataItemContentModificationDateKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcontenttypekey
 func (m NSMetadataItem) NSMetadataItemContentTypeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemContentTypeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcontenttypetreekey
 func (m NSMetadataItem) NSMetadataItemContentTypeTreeKey() string {
@@ -1136,15 +1020,11 @@ func (m NSMetadataItem) NSMetadataItemContentTypeTreeKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcontributorskey
 func (m NSMetadataItem) NSMetadataItemContributorsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemContributorsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcopyrightkey
 func (m NSMetadataItem) NSMetadataItemCopyrightKey() string {
@@ -1152,15 +1032,11 @@ func (m NSMetadataItem) NSMetadataItemCopyrightKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcountrykey
 func (m NSMetadataItem) NSMetadataItemCountryKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemCountryKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcoveragekey
 func (m NSMetadataItem) NSMetadataItemCoverageKey() string {
@@ -1168,15 +1044,11 @@ func (m NSMetadataItem) NSMetadataItemCoverageKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemcreatorkey
 func (m NSMetadataItem) NSMetadataItemCreatorKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemCreatorKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemdateaddedkey
 func (m NSMetadataItem) NSMetadataItemDateAddedKey() string {
@@ -1184,15 +1056,11 @@ func (m NSMetadataItem) NSMetadataItemDateAddedKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemdeliverytypekey
 func (m NSMetadataItem) NSMetadataItemDeliveryTypeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemDeliveryTypeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemdescriptionkey
 func (m NSMetadataItem) NSMetadataItemDescriptionKey() string {
@@ -1200,15 +1068,11 @@ func (m NSMetadataItem) NSMetadataItemDescriptionKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemdirectorkey
 func (m NSMetadataItem) NSMetadataItemDirectorKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemDirectorKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemdownloadeddatekey
 func (m NSMetadataItem) NSMetadataItemDownloadedDateKey() string {
@@ -1216,15 +1080,11 @@ func (m NSMetadataItem) NSMetadataItemDownloadedDateKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemduedatekey
 func (m NSMetadataItem) NSMetadataItemDueDateKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemDueDateKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemdurationsecondskey
 func (m NSMetadataItem) NSMetadataItemDurationSecondsKey() string {
@@ -1232,15 +1092,11 @@ func (m NSMetadataItem) NSMetadataItemDurationSecondsKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemexifgpsversionkey
 func (m NSMetadataItem) NSMetadataItemEXIFGPSVersionKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemEXIFGPSVersionKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemexifversionkey
 func (m NSMetadataItem) NSMetadataItemEXIFVersionKey() string {
@@ -1248,15 +1104,11 @@ func (m NSMetadataItem) NSMetadataItemEXIFVersionKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemeditorskey
 func (m NSMetadataItem) NSMetadataItemEditorsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemEditorsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitememailaddresseskey
 func (m NSMetadataItem) NSMetadataItemEmailAddressesKey() string {
@@ -1264,15 +1116,11 @@ func (m NSMetadataItem) NSMetadataItemEmailAddressesKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemencodingapplicationskey
 func (m NSMetadataItem) NSMetadataItemEncodingApplicationsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemEncodingApplicationsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemexecutablearchitectureskey
 func (m NSMetadataItem) NSMetadataItemExecutableArchitecturesKey() string {
@@ -1280,15 +1128,11 @@ func (m NSMetadataItem) NSMetadataItemExecutableArchitecturesKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemexecutableplatformkey
 func (m NSMetadataItem) NSMetadataItemExecutablePlatformKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemExecutablePlatformKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemexposuremodekey
 func (m NSMetadataItem) NSMetadataItemExposureModeKey() string {
@@ -1296,15 +1140,11 @@ func (m NSMetadataItem) NSMetadataItemExposureModeKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemexposureprogramkey
 func (m NSMetadataItem) NSMetadataItemExposureProgramKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemExposureProgramKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemexposuretimesecondskey
 func (m NSMetadataItem) NSMetadataItemExposureTimeSecondsKey() string {
@@ -1312,15 +1152,11 @@ func (m NSMetadataItem) NSMetadataItemExposureTimeSecondsKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemexposuretimestringkey
 func (m NSMetadataItem) NSMetadataItemExposureTimeStringKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemExposureTimeStringKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfnumberkey
 func (m NSMetadataItem) NSMetadataItemFNumberKey() string {
@@ -1328,15 +1164,11 @@ func (m NSMetadataItem) NSMetadataItemFNumberKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfindercommentkey
 func (m NSMetadataItem) NSMetadataItemFinderCommentKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemFinderCommentKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemflashonoffkey
 func (m NSMetadataItem) NSMetadataItemFlashOnOffKey() string {
@@ -1344,15 +1176,11 @@ func (m NSMetadataItem) NSMetadataItemFlashOnOffKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfocallength35mmkey
 func (m NSMetadataItem) NSMetadataItemFocalLength35mmKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemFocalLength35mmKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfocallengthkey
 func (m NSMetadataItem) NSMetadataItemFocalLengthKey() string {
@@ -1360,15 +1188,11 @@ func (m NSMetadataItem) NSMetadataItemFocalLengthKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemfontskey
 func (m NSMetadataItem) NSMetadataItemFontsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemFontsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsareainformationkey
 func (m NSMetadataItem) NSMetadataItemGPSAreaInformationKey() string {
@@ -1376,15 +1200,11 @@ func (m NSMetadataItem) NSMetadataItemGPSAreaInformationKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsdopkey
 func (m NSMetadataItem) NSMetadataItemGPSDOPKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemGPSDOPKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsdatestampkey
 func (m NSMetadataItem) NSMetadataItemGPSDateStampKey() string {
@@ -1392,15 +1212,11 @@ func (m NSMetadataItem) NSMetadataItemGPSDateStampKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsdestbearingkey
 func (m NSMetadataItem) NSMetadataItemGPSDestBearingKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemGPSDestBearingKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsdestdistancekey
 func (m NSMetadataItem) NSMetadataItemGPSDestDistanceKey() string {
@@ -1408,15 +1224,11 @@ func (m NSMetadataItem) NSMetadataItemGPSDestDistanceKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsdestlatitudekey
 func (m NSMetadataItem) NSMetadataItemGPSDestLatitudeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemGPSDestLatitudeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsdestlongitudekey
 func (m NSMetadataItem) NSMetadataItemGPSDestLongitudeKey() string {
@@ -1424,15 +1236,11 @@ func (m NSMetadataItem) NSMetadataItemGPSDestLongitudeKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsdifferentalkey
 func (m NSMetadataItem) NSMetadataItemGPSDifferentalKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemGPSDifferentalKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsmapdatumkey
 func (m NSMetadataItem) NSMetadataItemGPSMapDatumKey() string {
@@ -1440,15 +1248,11 @@ func (m NSMetadataItem) NSMetadataItemGPSMapDatumKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsmeasuremodekey
 func (m NSMetadataItem) NSMetadataItemGPSMeasureModeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemGPSMeasureModeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsprocessingmethodkey
 func (m NSMetadataItem) NSMetadataItemGPSProcessingMethodKey() string {
@@ -1456,15 +1260,11 @@ func (m NSMetadataItem) NSMetadataItemGPSProcessingMethodKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpsstatuskey
 func (m NSMetadataItem) NSMetadataItemGPSStatusKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemGPSStatusKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgpstrackkey
 func (m NSMetadataItem) NSMetadataItemGPSTrackKey() string {
@@ -1472,15 +1272,11 @@ func (m NSMetadataItem) NSMetadataItemGPSTrackKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemgenrekey
 func (m NSMetadataItem) NSMetadataItemGenreKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemGenreKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemhasalphachannelkey
 func (m NSMetadataItem) NSMetadataItemHasAlphaChannelKey() string {
@@ -1488,15 +1284,11 @@ func (m NSMetadataItem) NSMetadataItemHasAlphaChannelKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemheadlinekey
 func (m NSMetadataItem) NSMetadataItemHeadlineKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemHeadlineKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemisospeedkey
 func (m NSMetadataItem) NSMetadataItemISOSpeedKey() string {
@@ -1504,15 +1296,11 @@ func (m NSMetadataItem) NSMetadataItemISOSpeedKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemidentifierkey
 func (m NSMetadataItem) NSMetadataItemIdentifierKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemIdentifierKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemimagedirectionkey
 func (m NSMetadataItem) NSMetadataItemImageDirectionKey() string {
@@ -1520,15 +1308,11 @@ func (m NSMetadataItem) NSMetadataItemImageDirectionKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataiteminformationkey
 func (m NSMetadataItem) NSMetadataItemInformationKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemInformationKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataiteminstantmessageaddresseskey
 func (m NSMetadataItem) NSMetadataItemInstantMessageAddressesKey() string {
@@ -1536,15 +1320,11 @@ func (m NSMetadataItem) NSMetadataItemInstantMessageAddressesKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataiteminstructionskey
 func (m NSMetadataItem) NSMetadataItemInstructionsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemInstructionsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemisapplicationmanagedkey
 func (m NSMetadataItem) NSMetadataItemIsApplicationManagedKey() string {
@@ -1552,15 +1332,11 @@ func (m NSMetadataItem) NSMetadataItemIsApplicationManagedKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemisgeneralmidisequencekey
 func (m NSMetadataItem) NSMetadataItemIsGeneralMIDISequenceKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemIsGeneralMIDISequenceKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemislikelyjunkkey
 func (m NSMetadataItem) NSMetadataItemIsLikelyJunkKey() string {
@@ -1568,15 +1344,11 @@ func (m NSMetadataItem) NSMetadataItemIsLikelyJunkKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemkeysignaturekey
 func (m NSMetadataItem) NSMetadataItemKeySignatureKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemKeySignatureKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemkeywordskey
 func (m NSMetadataItem) NSMetadataItemKeywordsKey() string {
@@ -1584,15 +1356,11 @@ func (m NSMetadataItem) NSMetadataItemKeywordsKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemkindkey
 func (m NSMetadataItem) NSMetadataItemKindKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemKindKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemlanguageskey
 func (m NSMetadataItem) NSMetadataItemLanguagesKey() string {
@@ -1600,15 +1368,11 @@ func (m NSMetadataItem) NSMetadataItemLanguagesKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemlastuseddatekey
 func (m NSMetadataItem) NSMetadataItemLastUsedDateKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemLastUsedDateKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemlatitudekey
 func (m NSMetadataItem) NSMetadataItemLatitudeKey() string {
@@ -1616,15 +1380,11 @@ func (m NSMetadataItem) NSMetadataItemLatitudeKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemlayernameskey
 func (m NSMetadataItem) NSMetadataItemLayerNamesKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemLayerNamesKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemlensmodelkey
 func (m NSMetadataItem) NSMetadataItemLensModelKey() string {
@@ -1632,15 +1392,11 @@ func (m NSMetadataItem) NSMetadataItemLensModelKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemlongitudekey
 func (m NSMetadataItem) NSMetadataItemLongitudeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemLongitudeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemlyricistkey
 func (m NSMetadataItem) NSMetadataItemLyricistKey() string {
@@ -1648,15 +1404,11 @@ func (m NSMetadataItem) NSMetadataItemLyricistKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemmaxaperturekey
 func (m NSMetadataItem) NSMetadataItemMaxApertureKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemMaxApertureKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemmediatypeskey
 func (m NSMetadataItem) NSMetadataItemMediaTypesKey() string {
@@ -1664,15 +1416,11 @@ func (m NSMetadataItem) NSMetadataItemMediaTypesKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemmeteringmodekey
 func (m NSMetadataItem) NSMetadataItemMeteringModeKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemMeteringModeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemmusicalgenrekey
 func (m NSMetadataItem) NSMetadataItemMusicalGenreKey() string {
@@ -1680,15 +1428,11 @@ func (m NSMetadataItem) NSMetadataItemMusicalGenreKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemmusicalinstrumentcategorykey
 func (m NSMetadataItem) NSMetadataItemMusicalInstrumentCategoryKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemMusicalInstrumentCategoryKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemmusicalinstrumentnamekey
 func (m NSMetadataItem) NSMetadataItemMusicalInstrumentNameKey() string {
@@ -1696,15 +1440,11 @@ func (m NSMetadataItem) NSMetadataItemMusicalInstrumentNameKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemnamedlocationkey
 func (m NSMetadataItem) NSMetadataItemNamedLocationKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemNamedLocationKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemnumberofpageskey
 func (m NSMetadataItem) NSMetadataItemNumberOfPagesKey() string {
@@ -1712,15 +1452,11 @@ func (m NSMetadataItem) NSMetadataItemNumberOfPagesKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemorganizationskey
 func (m NSMetadataItem) NSMetadataItemOrganizationsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemOrganizationsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemorientationkey
 func (m NSMetadataItem) NSMetadataItemOrientationKey() string {
@@ -1728,15 +1464,11 @@ func (m NSMetadataItem) NSMetadataItemOrientationKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemoriginalformatkey
 func (m NSMetadataItem) NSMetadataItemOriginalFormatKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemOriginalFormatKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemoriginalsourcekey
 func (m NSMetadataItem) NSMetadataItemOriginalSourceKey() string {
@@ -1744,15 +1476,11 @@ func (m NSMetadataItem) NSMetadataItemOriginalSourceKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitempageheightkey
 func (m NSMetadataItem) NSMetadataItemPageHeightKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemPageHeightKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitempagewidthkey
 func (m NSMetadataItem) NSMetadataItemPageWidthKey() string {
@@ -1760,15 +1488,11 @@ func (m NSMetadataItem) NSMetadataItemPageWidthKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemparticipantskey
 func (m NSMetadataItem) NSMetadataItemParticipantsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemParticipantsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemperformerskey
 func (m NSMetadataItem) NSMetadataItemPerformersKey() string {
@@ -1776,15 +1500,11 @@ func (m NSMetadataItem) NSMetadataItemPerformersKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemphonenumberskey
 func (m NSMetadataItem) NSMetadataItemPhoneNumbersKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemPhoneNumbersKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitempixelcountkey
 func (m NSMetadataItem) NSMetadataItemPixelCountKey() string {
@@ -1792,15 +1512,11 @@ func (m NSMetadataItem) NSMetadataItemPixelCountKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitempixelheightkey
 func (m NSMetadataItem) NSMetadataItemPixelHeightKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemPixelHeightKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitempixelwidthkey
 func (m NSMetadataItem) NSMetadataItemPixelWidthKey() string {
@@ -1808,15 +1524,11 @@ func (m NSMetadataItem) NSMetadataItemPixelWidthKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemproducerkey
 func (m NSMetadataItem) NSMetadataItemProducerKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemProducerKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemprofilenamekey
 func (m NSMetadataItem) NSMetadataItemProfileNameKey() string {
@@ -1824,15 +1536,11 @@ func (m NSMetadataItem) NSMetadataItemProfileNameKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemprojectskey
 func (m NSMetadataItem) NSMetadataItemProjectsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemProjectsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitempublisherskey
 func (m NSMetadataItem) NSMetadataItemPublishersKey() string {
@@ -1840,15 +1548,11 @@ func (m NSMetadataItem) NSMetadataItemPublishersKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemrecipientaddresseskey
 func (m NSMetadataItem) NSMetadataItemRecipientAddressesKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemRecipientAddressesKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemrecipientemailaddresseskey
 func (m NSMetadataItem) NSMetadataItemRecipientEmailAddressesKey() string {
@@ -1856,15 +1560,11 @@ func (m NSMetadataItem) NSMetadataItemRecipientEmailAddressesKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemrecipientskey
 func (m NSMetadataItem) NSMetadataItemRecipientsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemRecipientsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemrecordingdatekey
 func (m NSMetadataItem) NSMetadataItemRecordingDateKey() string {
@@ -1872,15 +1572,11 @@ func (m NSMetadataItem) NSMetadataItemRecordingDateKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemrecordingyearkey
 func (m NSMetadataItem) NSMetadataItemRecordingYearKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemRecordingYearKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemredeyeonoffkey
 func (m NSMetadataItem) NSMetadataItemRedEyeOnOffKey() string {
@@ -1888,15 +1584,11 @@ func (m NSMetadataItem) NSMetadataItemRedEyeOnOffKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemresolutionheightdpikey
 func (m NSMetadataItem) NSMetadataItemResolutionHeightDPIKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemResolutionHeightDPIKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemresolutionwidthdpikey
 func (m NSMetadataItem) NSMetadataItemResolutionWidthDPIKey() string {
@@ -1904,15 +1596,11 @@ func (m NSMetadataItem) NSMetadataItemResolutionWidthDPIKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemrightskey
 func (m NSMetadataItem) NSMetadataItemRightsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemRightsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemsecuritymethodkey
 func (m NSMetadataItem) NSMetadataItemSecurityMethodKey() string {
@@ -1920,15 +1608,11 @@ func (m NSMetadataItem) NSMetadataItemSecurityMethodKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemspeedkey
 func (m NSMetadataItem) NSMetadataItemSpeedKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemSpeedKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemstarratingkey
 func (m NSMetadataItem) NSMetadataItemStarRatingKey() string {
@@ -1936,15 +1620,11 @@ func (m NSMetadataItem) NSMetadataItemStarRatingKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemstateorprovincekey
 func (m NSMetadataItem) NSMetadataItemStateOrProvinceKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemStateOrProvinceKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemstreamablekey
 func (m NSMetadataItem) NSMetadataItemStreamableKey() string {
@@ -1952,15 +1632,11 @@ func (m NSMetadataItem) NSMetadataItemStreamableKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemsubjectkey
 func (m NSMetadataItem) NSMetadataItemSubjectKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemSubjectKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemtempokey
 func (m NSMetadataItem) NSMetadataItemTempoKey() string {
@@ -1968,15 +1644,11 @@ func (m NSMetadataItem) NSMetadataItemTempoKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemtextcontentkey
 func (m NSMetadataItem) NSMetadataItemTextContentKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemTextContentKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemthemekey
 func (m NSMetadataItem) NSMetadataItemThemeKey() string {
@@ -1984,15 +1656,11 @@ func (m NSMetadataItem) NSMetadataItemThemeKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemtimesignaturekey
 func (m NSMetadataItem) NSMetadataItemTimeSignatureKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemTimeSignatureKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemtimestampkey
 func (m NSMetadataItem) NSMetadataItemTimestampKey() string {
@@ -2000,15 +1668,11 @@ func (m NSMetadataItem) NSMetadataItemTimestampKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemtitlekey
 func (m NSMetadataItem) NSMetadataItemTitleKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemTitleKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemtotalbitratekey
 func (m NSMetadataItem) NSMetadataItemTotalBitRateKey() string {
@@ -2016,15 +1680,11 @@ func (m NSMetadataItem) NSMetadataItemTotalBitRateKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemversionkey
 func (m NSMetadataItem) NSMetadataItemVersionKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemVersionKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemvideobitratekey
 func (m NSMetadataItem) NSMetadataItemVideoBitRateKey() string {
@@ -2032,15 +1692,11 @@ func (m NSMetadataItem) NSMetadataItemVideoBitRateKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemwherefromskey
 func (m NSMetadataItem) NSMetadataItemWhereFromsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemWhereFromsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemwhitebalancekey
 func (m NSMetadataItem) NSMetadataItemWhiteBalanceKey() string {
@@ -2048,15 +1704,11 @@ func (m NSMetadataItem) NSMetadataItemWhiteBalanceKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataitemisubiquitouskey
 func (m NSMetadataItem) NSMetadataItemIsUbiquitousKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataItemIsUbiquitousKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemcontainerdisplaynamekey
 func (m NSMetadataItem) NSMetadataUbiquitousItemContainerDisplayNameKey() string {
@@ -2064,15 +1716,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemContainerDisplayNameKey() string
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemdownloadrequestedkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemDownloadRequestedKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemDownloadRequestedKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemisexternaldocumentkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemIsExternalDocumentKey() string {
@@ -2080,15 +1728,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemIsExternalDocumentKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemurlinlocalcontainerkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemURLInLocalContainerKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemURLInLocalContainerKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemhasunresolvedconflictskey
 func (m NSMetadataItem) NSMetadataUbiquitousItemHasUnresolvedConflictsKey() string {
@@ -2096,15 +1740,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemHasUnresolvedConflictsKey() stri
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemisdownloadedkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemIsDownloadedKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemIsDownloadedKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemisdownloadingkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemIsDownloadingKey() string {
@@ -2112,15 +1752,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemIsDownloadingKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemisuploadedkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemIsUploadedKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemIsUploadedKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemisuploadingkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemIsUploadingKey() string {
@@ -2128,15 +1764,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemIsUploadingKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitempercentdownloadedkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemPercentDownloadedKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemPercentDownloadedKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitempercentuploadedkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemPercentUploadedKey() string {
@@ -2144,15 +1776,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemPercentUploadedKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemdownloadingstatuskey
 func (m NSMetadataItem) NSMetadataUbiquitousItemDownloadingStatusKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemDownloadingStatusKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemdownloadingerrorkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemDownloadingErrorKey() string {
@@ -2160,15 +1788,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemDownloadingErrorKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemuploadingerrorkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemUploadingErrorKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemUploadingErrorKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemissharedkey
 func (m NSMetadataItem) NSMetadataUbiquitousItemIsSharedKey() string {
@@ -2176,15 +1800,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemIsSharedKey() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousshareditemcurrentuserpermissionskey
 func (m NSMetadataItem) NSMetadataUbiquitousSharedItemCurrentUserPermissionsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousSharedItemCurrentUserPermissionsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousshareditemcurrentuserrolekey
 func (m NSMetadataItem) NSMetadataUbiquitousSharedItemCurrentUserRoleKey() string {
@@ -2192,15 +1812,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousSharedItemCurrentUserRoleKey() strin
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousshareditemmostrecenteditornamecomponentskey
 func (m NSMetadataItem) NSMetadataUbiquitousSharedItemMostRecentEditorNameComponentsKey() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousSharedItemMostRecentEditorNameComponentsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousshareditemownernamecomponentskey
 func (m NSMetadataItem) NSMetadataUbiquitousSharedItemOwnerNameComponentsKey() string {
@@ -2208,15 +1824,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousSharedItemOwnerNameComponentsKey() s
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemdownloadingstatuscurrent
 func (m NSMetadataItem) NSMetadataUbiquitousItemDownloadingStatusCurrent() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemDownloadingStatusCurrent"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemdownloadingstatusdownloaded
 func (m NSMetadataItem) NSMetadataUbiquitousItemDownloadingStatusDownloaded() string {
@@ -2224,15 +1836,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousItemDownloadingStatusDownloaded() st
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousitemdownloadingstatusnotdownloaded
 func (m NSMetadataItem) NSMetadataUbiquitousItemDownloadingStatusNotDownloaded() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousItemDownloadingStatusNotDownloaded"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousshareditempermissionsreadonly
 func (m NSMetadataItem) NSMetadataUbiquitousSharedItemPermissionsReadOnly() string {
@@ -2240,15 +1848,11 @@ func (m NSMetadataItem) NSMetadataUbiquitousSharedItemPermissionsReadOnly() stri
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousshareditempermissionsreadwrite
 func (m NSMetadataItem) NSMetadataUbiquitousSharedItemPermissionsReadWrite() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousSharedItemPermissionsReadWrite"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousshareditemroleowner
 func (m NSMetadataItem) NSMetadataUbiquitousSharedItemRoleOwner() string {
@@ -2256,33 +1860,9 @@ func (m NSMetadataItem) NSMetadataUbiquitousSharedItemRoleOwner() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/nsmetadataubiquitousshareditemroleparticipant
 func (m NSMetadataItem) NSMetadataUbiquitousSharedItemRoleParticipant() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("NSMetadataUbiquitousSharedItemRoleParticipant"))
 	return NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

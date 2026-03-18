@@ -35,12 +35,6 @@ func (nc NSCloneCommandClass) Alloc() NSCloneCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that clones one or more scriptable objects.
 //
 // # Overview
@@ -80,10 +74,6 @@ func NSCloneCommandFromID(id objc.ID) NSCloneCommand {
 // NOTE: NSCloneCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCloneCommand] class.
 //
 // # Working with specifiers
@@ -99,10 +89,6 @@ type INSCloneCommand interface {
 	// Returns a specifier for the object or objects to be cloned.
 	KeySpecifier() INSScriptObjectSpecifier
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCloneCommand) Init() NSCloneCommand {
@@ -123,11 +109,6 @@ func NewNSCloneCommand() NSCloneCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewCloneCommandWithCoder(inCoder INSCoder) NSCloneCommand {
@@ -135,7 +116,6 @@ func NewCloneCommandWithCoder(inCoder INSCoder) NSCloneCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSCloneCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -158,23 +138,6 @@ func NewCloneCommandWithCommandDescription(commandDef INSScriptCommandDescriptio
 	return NSCloneCommandFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns a specifier for the object or objects to be cloned.
 //
 // # Return Value
@@ -193,29 +156,4 @@ func (c NSCloneCommand) KeySpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("keySpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

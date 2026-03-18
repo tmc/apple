@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNDetectedPoint] class.
@@ -37,12 +36,6 @@ func (vc VNDetectedPointClass) Alloc() VNDetectedPoint {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a normalized point in an image, along with a
 // confidence value.
 //
@@ -65,10 +58,6 @@ func VNDetectedPointFromID(id objc.ID) VNDetectedPoint {
 // NOTE: VNDetectedPoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectedPoint] class.
 //
 // # Inspecting a Point
@@ -83,13 +72,7 @@ type IVNDetectedPoint interface {
 
 	// A confidence score that indicates the detected point’s accuracy.
 	Confidence() VNConfidence
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d VNDetectedPoint) Init() VNDetectedPoint {
@@ -110,11 +93,6 @@ func NewVNDetectedPoint() VNDetectedPoint {
 	return rv
 }
 
-
-
-
-
-
 // Creates a point object from the specified Core Graphics point.
 //
 // location: The Core Graphics point.
@@ -125,7 +103,6 @@ func NewDetectedPointWithLocation(location corefoundation.CGPoint) VNDetectedPoi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:"), location)
 	return VNDetectedPointFromID(rv)
 }
-
 
 // Creates a point object with the specified coordinates.
 //
@@ -140,26 +117,6 @@ func NewDetectedPointWithXY(x float64, y float64) VNDetectedPoint {
 	return VNDetectedPointFromID(rv)
 }
 
-
-
-
-
-
-func (d VNDetectedPoint) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // A confidence score that indicates the detected point’s accuracy.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectedPoint/confidence
@@ -167,29 +124,4 @@ func (d VNDetectedPoint) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](d.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

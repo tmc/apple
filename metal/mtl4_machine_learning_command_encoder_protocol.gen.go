@@ -31,8 +31,6 @@ type MTL4MachineLearningCommandEncoder interface {
 	DispatchNetworkWithIntermediatesHeap(heap MTLHeap)
 }
 
-
-
 // MTL4MachineLearningCommandEncoderObject wraps an existing Objective-C object that conforms to the MTL4MachineLearningCommandEncoder protocol.
 type MTL4MachineLearningCommandEncoderObject struct {
 	objectivec.Object
@@ -41,8 +39,6 @@ func (o MTL4MachineLearningCommandEncoderObject) BaseObject() objectivec.Object 
 	return o.Object
 }
 
-
-
 // MTL4MachineLearningCommandEncoderObjectFromID constructs a [MTL4MachineLearningCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4MachineLearningCommandEncoderObjectFromID(id objc.ID) MTL4MachineLearningCommandEncoderObject {
@@ -50,9 +46,6 @@ func MTL4MachineLearningCommandEncoderObjectFromID(id objc.ID) MTL4MachineLearni
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Configures the encoder with a machine learning pipeline state instance.
 //
@@ -397,16 +390,7 @@ func (o MTL4MachineLearningCommandEncoderObject) BarrierAfterStagesBeforeQueueSt
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterStages:beforeQueueStages:visibilityOptions:"), afterStages, beforeQueueStages, visibilityOptions)
 	}
 
-
-
-
-
-
 func (o MTL4MachineLearningCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

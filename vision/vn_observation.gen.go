@@ -37,12 +37,6 @@ func (vc VNObservationClass) Alloc() VNObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // The abstract superclass for analysis results.
 //
 // # Overview
@@ -68,14 +62,10 @@ type VNObservation struct {
 //
 // The abstract superclass for analysis results.
 func VNObservationFromID(id objc.ID) VNObservation {
-	return VNObservation{objectivec.Object{id}}
+	return VNObservation{objectivec.Object{ID: id}}
 }
 // NOTE: VNObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNObservation] class.
 //
@@ -108,10 +98,6 @@ type IVNObservation interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (o VNObservation) Init() VNObservation {
 	rv := objc.Send[VNObservation](o.ID, objc.Sel("init"))
@@ -131,28 +117,9 @@ func NewVNObservation() VNObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (o VNObservation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // A unique identifier assigned to the Vision observation.
 //
@@ -161,8 +128,6 @@ func (o VNObservation) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-
-
 
 // The time range of the reported observation.
 //
@@ -181,8 +146,6 @@ func (o VNObservation) TimeRange() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The level of confidence in the observation’s accuracy.
 //
 // # Discussion
@@ -198,8 +161,6 @@ func (o VNObservation) Confidence() VNConfidence {
 	return VNConfidence(rv)
 }
 
-
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -209,34 +170,6 @@ func (o VNObservation) RequestRevision() uint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for VNRequestRevisionProviding
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

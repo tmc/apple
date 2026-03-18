@@ -36,12 +36,6 @@ func (nc NumBytesClass) Alloc() NumBytes {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSSimpleCString/numBytes
 type NumBytes struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type NumBytes struct {
 
 // NumBytesFromID constructs a [NumBytes] from an objc.ID.
 func NumBytesFromID(id objc.ID) NumBytes {
-	return NumBytes{objectivec.Object{id}}
+	return NumBytes{objectivec.Object{ID: id}}
 }
 // Ensure NumBytes implements INumBytes.
 var _ INumBytes = NumBytes{}
-
-
-
-
 
 // An interface definition for the [NumBytes] class.
 //
@@ -64,10 +54,6 @@ var _ INumBytes = NumBytes{}
 type INumBytes interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n NumBytes) Init() NumBytes {
@@ -87,38 +73,4 @@ func NewNumBytes() NumBytes {
 	rv := objc.Send[NumBytes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

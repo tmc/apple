@@ -39,12 +39,6 @@ func (mc MTLCaptureManagerClass) Alloc() MTLCaptureManager {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance you use to capture Metal command data in your app.
 //
 // # Overview
@@ -103,14 +97,10 @@ type MTLCaptureManager struct {
 //
 // An instance you use to capture Metal command data in your app.
 func MTLCaptureManagerFromID(id objc.ID) MTLCaptureManager {
-	return MTLCaptureManager{objectivec.Object{id}}
+	return MTLCaptureManager{objectivec.Object{ID: id}}
 }
 // NOTE: MTLCaptureManager adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLCaptureManager] class.
 //
@@ -180,10 +170,6 @@ type IMTLCaptureManager interface {
 	NewCaptureScopeWithMTL4CommandQueue(commandQueue MTL4CommandQueue) MTLCaptureScope
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MTLCaptureManager) Init() MTLCaptureManager {
 	rv := objc.Send[MTLCaptureManager](c.ID, objc.Sel("init"))
@@ -202,16 +188,6 @@ func NewMTLCaptureManager() MTLCaptureManager {
 	rv := objc.Send[MTLCaptureManager](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
 
 // Checks to see whether a particular capture destination is supported.
 //
@@ -255,7 +231,7 @@ func (c MTLCaptureManager) NewCaptureScopeWithCommandQueue(commandQueue MTLComma
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureManager/startCapture(with:)
 func (c MTLCaptureManager) StartCaptureWithDescriptorError(descriptor IMTLCaptureDescriptor) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("startCaptureWithDescriptor:error:"), descriptor, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -290,10 +266,6 @@ func (c MTLCaptureManager) NewCaptureScopeWithMTL4CommandQueue(commandQueue MTL4
 	return MTLCaptureScopeObjectFromID(rv)
 }
 
-
-
-
-
 // Provides the shared capture manager for your Metal app.
 //
 // # Discussion
@@ -305,13 +277,6 @@ func (_MTLCaptureManagerClass MTLCaptureManagerClass) SharedCaptureManager() MTL
 	rv := objc.Send[objc.ID](objc.ID(_MTLCaptureManagerClass.class), objc.Sel("sharedCaptureManager"))
 	return MTLCaptureManagerFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The capture scope to use when a capture is initiated in Xcode.
 //
@@ -334,8 +299,6 @@ func (c MTLCaptureManager) SetDefaultCaptureScope(value MTLCaptureScope) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDefaultCaptureScope:"), value)
 }
 
-
-
 // A Boolean value that indicates whether Metal commands are being captured.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureManager/isCapturing
@@ -343,26 +306,4 @@ func (c MTLCaptureManager) IsCapturing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCapturing"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

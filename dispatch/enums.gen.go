@@ -13,7 +13,6 @@ const (
 	DISPATCH_WALLTIME_NOW DispatchWalltimeNow = 0
 )
 
-
 func (e DispatchWalltimeNow) String() string {
 	switch e {
 	case DISPATCH_WALLTIME_NOW:
@@ -22,8 +21,4 @@ func (e DispatchWalltimeNow) String() string {
 		return fmt.Sprintf("DispatchWalltimeNow(%d)", e)
 	}
 }
-
-
-
-
 

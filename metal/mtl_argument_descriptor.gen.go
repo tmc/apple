@@ -36,12 +36,6 @@ func (mc MTLArgumentDescriptorClass) Alloc() MTLArgumentDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A representation of an argument within an argument buffer.
 //
 // # Overview
@@ -82,14 +76,10 @@ type MTLArgumentDescriptor struct {
 //
 // A representation of an argument within an argument buffer.
 func MTLArgumentDescriptorFromID(id objc.ID) MTLArgumentDescriptor {
-	return MTLArgumentDescriptor{objectivec.Object{id}}
+	return MTLArgumentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLArgumentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLArgumentDescriptor] class.
 //
@@ -136,10 +126,6 @@ type IMTLArgumentDescriptor interface {
 	MTLAttributeStrideStatic() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MTLArgumentDescriptor) Init() MTLArgumentDescriptor {
 	rv := objc.Send[MTLArgumentDescriptor](a.ID, objc.Sel("init"))
@@ -158,26 +144,6 @@ func NewMTLArgumentDescriptor() MTLArgumentDescriptor {
 	rv := objc.Send[MTLArgumentDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The data type of the argument.
 //
@@ -199,8 +165,6 @@ func (a MTLArgumentDescriptor) SetDataType(value MTLDataType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDataType:"), value)
 }
 
-
-
 // The index ID of the argument.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/index
@@ -212,8 +176,6 @@ func (a MTLArgumentDescriptor) SetIndex(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIndex:"), value)
 }
 
-
-
 // The access permissions of the argument.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/access
@@ -224,8 +186,6 @@ func (a MTLArgumentDescriptor) Access() MTLBindingAccess {
 func (a MTLArgumentDescriptor) SetAccess(value MTLBindingAccess) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAccess:"), value)
 }
-
-
 
 // The length of an array argument.
 //
@@ -241,8 +201,6 @@ func (a MTLArgumentDescriptor) ArrayLength() uint {
 func (a MTLArgumentDescriptor) SetArrayLength(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setArrayLength:"), value)
 }
-
-
 
 // The alignment of the constant block.
 //
@@ -262,8 +220,6 @@ func (a MTLArgumentDescriptor) SetConstantBlockAlignment(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setConstantBlockAlignment:"), value)
 }
 
-
-
 // The texture type of a texture argument.
 //
 // # Discussion
@@ -279,34 +235,9 @@ func (a MTLArgumentDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTextureType:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtlattributestridestatic
 func (a MTLArgumentDescriptor) MTLAttributeStrideStatic() int {
 	rv := objc.Send[int](a.ID, objc.Sel("MTLAttributeStrideStatic"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

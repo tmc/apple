@@ -5,7 +5,6 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNImageAlignmentObservation] class.
@@ -36,12 +35,6 @@ func (vc VNImageAlignmentObservationClass) Alloc() VNImageAlignmentObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // The abstract superclass for image-analysis results that describe the
 // relative alignment of two images.
 //
@@ -68,22 +61,12 @@ func VNImageAlignmentObservationFromID(id objc.ID) VNImageAlignmentObservation {
 // NOTE: VNImageAlignmentObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNImageAlignmentObservation] class.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageAlignmentObservation
 type IVNImageAlignmentObservation interface {
 	IVNObservation
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i VNImageAlignmentObservation) Init() VNImageAlignmentObservation {
@@ -103,51 +86,4 @@ func NewVNImageAlignmentObservation() VNImageAlignmentObservation {
 	rv := objc.Send[VNImageAlignmentObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-func (i VNImageAlignmentObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

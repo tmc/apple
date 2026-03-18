@@ -15,8 +15,6 @@ rv := objc.Send[NSDate](d.ID, objc.Sel("initWithSRAbsoluteTime:"), time)
 return rv
 }
 
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDate/init(SRAbsoluteTime:)-9wpl1
 func (_NSDateClass NSDateClass) DateWithSRAbsoluteTime(time corefoundation.CFTimeInterval) NSDate {
@@ -24,21 +22,9 @@ rv := objc.Send[objc.ID](objc.ID(_NSDateClass.class), objc.Sel("dateWithSRAbsolu
 return NSDateFromID(rv)
 }
 
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSDate/srAbsoluteTime
 func (d NSDate) SrAbsoluteTime() corefoundation.CFTimeInterval {
 rv := objc.Send[corefoundation.CFTimeInterval](d.ID, objc.Sel("srAbsoluteTime"))
 		return corefoundation.CFTimeInterval(rv)
 }
-
-
-
-
-
-
-
 

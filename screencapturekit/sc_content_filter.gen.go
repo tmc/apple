@@ -37,12 +37,6 @@ func (sc SCContentFilterClass) Alloc() SCContentFilter {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that filters the content a stream captures.
 //
 // # Overview
@@ -83,14 +77,10 @@ type SCContentFilter struct {
 //
 // An instance that filters the content a stream captures.
 func SCContentFilterFromID(id objc.ID) SCContentFilter {
-	return SCContentFilter{objectivec.Object{id}}
+	return SCContentFilter{objectivec.Object{ID: id}}
 }
 // NOTE: SCContentFilter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCContentFilter] class.
 //
@@ -154,10 +144,6 @@ type ISCContentFilter interface {
 	IncludedWindows() []SCWindow
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c SCContentFilter) Init() SCContentFilter {
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("init"))
@@ -177,11 +163,6 @@ func NewSCContentFilter() SCContentFilter {
 	return rv
 }
 
-
-
-
-
-
 // Creates a filter that captures only the specified window.
 //
 // window: A window to capture.
@@ -192,7 +173,6 @@ func NewContentFilterWithDesktopIndependentWindow(window ISCWindow) SCContentFil
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
 	return SCContentFilterFromID(rv)
 }
-
 
 // Creates a filter that captures a display, excluding windows of the
 // specified apps.
@@ -223,7 +203,6 @@ func NewContentFilterWithDisplayExcludingApplicationsExceptingWindows(display IS
 	return SCContentFilterFromID(rv)
 }
 
-
 // Creates a filter that captures the contents of a display, excluding the
 // specified windows.
 //
@@ -237,7 +216,6 @@ func NewContentFilterWithDisplayExcludingWindows(display ISCDisplay, excluded []
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:excludingWindows:"), display, objectivec.IObjectSliceToNSArray(excluded))
 	return SCContentFilterFromID(rv)
 }
-
 
 // Creates a filter that captures a display, including only windows of the
 // specified apps.
@@ -268,7 +246,6 @@ func NewContentFilterWithDisplayIncludingApplicationsExceptingWindows(display IS
 	return SCContentFilterFromID(rv)
 }
 
-
 // Creates a filter that captures only specific windows from a display.
 //
 // display: A display to capture.
@@ -281,12 +258,6 @@ func NewContentFilterWithDisplayIncludingWindows(display ISCDisplay, includedWin
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDisplay:includingWindows:"), display, objectivec.IObjectSliceToNSArray(includedWindows))
 	return SCContentFilterFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a filter that captures only the specified window.
 //
@@ -379,17 +350,6 @@ func (c SCContentFilter) InitWithDisplayExcludingApplicationsExceptingWindows(di
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The size and location of the content to filter, in screen points.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/contentRect
@@ -398,8 +358,6 @@ func (c SCContentFilter) ContentRect() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The scaling factor used to translate screen points into pixels.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/pointPixelScale
@@ -407,8 +365,6 @@ func (c SCContentFilter) PointPixelScale() float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("pointPixelScale"))
 	return rv
 }
-
-
 
 // The type of the streaming content.
 //
@@ -420,8 +376,6 @@ func (c SCContentFilter) StreamType() SCStreamType {
 	return SCStreamType(rv)
 }
 
-
-
 // The display style of the sharable content.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/style
@@ -429,8 +383,6 @@ func (c SCContentFilter) Style() SCShareableContentStyle {
 	rv := objc.Send[SCShareableContentStyle](c.ID, objc.Sel("style"))
 	return SCShareableContentStyle(rv)
 }
-
-
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/includeMenuBar
 func (c SCContentFilter) IncludeMenuBar() bool {
@@ -440,8 +392,6 @@ func (c SCContentFilter) IncludeMenuBar() bool {
 func (c SCContentFilter) SetIncludeMenuBar(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIncludeMenuBar:"), value)
 }
-
-
 
 //
 // # Discussion
@@ -456,8 +406,6 @@ func (c SCContentFilter) IncludedApplications() []SCRunningApplication {
 	})
 }
 
-
-
 //
 // # Discussion
 // 
@@ -471,8 +419,6 @@ func (c SCContentFilter) IncludedDisplays() []SCDisplay {
 	})
 }
 
-
-
 //
 // # Discussion
 // 
@@ -485,26 +431,4 @@ func (c SCContentFilter) IncludedWindows() []SCWindow {
 		return SCWindowFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

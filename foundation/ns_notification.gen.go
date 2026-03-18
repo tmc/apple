@@ -36,12 +36,6 @@ func (nc NSNotificationClass) Alloc() NSNotification {
 	return rv
 }
 
-
-
-
-
-
-
 // A container for information broadcast through a notification center to all
 // registered observers.
 //
@@ -87,7 +81,6 @@ func (nc NSNotificationClass) Alloc() NSNotification {
 //
 // # Creating Notifications
 //
-//   - [NSNotification.InitWithCoder]: Initializes a notification with the data from an unarchiver.
 //   - [NSNotification.InitWithNameObjectUserInfo]: Initializes a notification with a specified name, object, and user information.
 //
 // # Getting Notification Information
@@ -106,20 +99,15 @@ type NSNotification struct {
 // A container for information broadcast through a notification center to all
 // registered observers.
 func NSNotificationFromID(id objc.ID) NSNotification {
-	return NSNotification{objectivec.Object{id}}
+	return NSNotification{objectivec.Object{ID: id}}
 }
 // NOTE: NSNotification adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSNotification] class.
 //
 // # Creating Notifications
 //
-//   - [INSNotification.InitWithCoder]: Initializes a notification with the data from an unarchiver.
 //   - [INSNotification.InitWithNameObjectUserInfo]: Initializes a notification with a specified name, object, and user information.
 //
 // # Getting Notification Information
@@ -131,12 +119,11 @@ func NSNotificationFromID(id objc.ID) NSNotification {
 // See: https://developer.apple.com/documentation/Foundation/NSNotification
 type INSNotification interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 
 	// Topic: Creating Notifications
 
-	// Initializes a notification with the data from an unarchiver.
-	InitWithCoder(coder INSCoder) NSNotification
 	// Initializes a notification with a specified name, object, and user information.
 	InitWithNameObjectUserInfo(name NSNotificationName, object objectivec.IObject, userInfo INSDictionary) NSNotification
 
@@ -148,14 +135,7 @@ type INSNotification interface {
 	GetObject() objectivec.IObject
 	// The user information dictionary associated with the notification.
 	UserInfo() INSDictionary
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n NSNotification) Init() NSNotification {
@@ -176,11 +156,6 @@ func NewNSNotification() NSNotification {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a notification with the data from an unarchiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNotification/init(coder:)
@@ -189,7 +164,6 @@ func NewNotificationWithCoder(coder INSCoder) NSNotification {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSNotificationFromID(rv)
 }
-
 
 // Returns a new notification object with a specified name and object.
 //
@@ -202,7 +176,6 @@ func NewNotificationWithNameObject(aName NSNotificationName, anObject objectivec
 	rv := objc.Send[objc.ID](objc.ID(getNSNotificationClass().class), objc.Sel("notificationWithName:object:"), objc.String(string(aName)), anObject)
 	return NSNotificationFromID(rv)
 }
-
 
 // Initializes a notification with a specified name, object, and user
 // information.
@@ -219,12 +192,6 @@ func NewNotificationWithNameObjectUserInfo(name NSNotificationName, object objec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:object:userInfo:"), objc.String(string(name)), object, userInfo)
 	return NSNotificationFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a notification with the data from an unarchiver.
 //
@@ -258,10 +225,6 @@ func (n NSNotification) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Returns a notification object with a specified name, object, and user
 // information.
 //
@@ -276,13 +239,6 @@ func (_NSNotificationClass NSNotificationClass) NotificationWithNameObjectUserIn
 	rv := objc.Send[objc.ID](objc.ID(_NSNotificationClass.class), objc.Sel("notificationWithName:object:userInfo:"), objc.String(string(aName)), anObject, aUserInfo)
 	return NSNotificationFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The name of the notification.
 //
@@ -301,8 +257,6 @@ func (n NSNotification) Name() NSNotificationName {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("name"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
 
 // The object associated with the notification.
 //
@@ -326,8 +280,6 @@ func (n NSNotification) GetObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("object"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The user information dictionary associated with the notification.
 //
@@ -357,34 +309,9 @@ func (n NSNotification) UserInfo() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSCoding
+			
 
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

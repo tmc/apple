@@ -95,8 +95,6 @@ type MTL4CommandBuffer interface {
 	SetLabel(value string)
 }
 
-
-
 // MTL4CommandBufferObject wraps an existing Objective-C object that conforms to the MTL4CommandBuffer protocol.
 type MTL4CommandBufferObject struct {
 	objectivec.Object
@@ -105,8 +103,6 @@ func (o MTL4CommandBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4CommandBufferObjectFromID constructs a [MTL4CommandBufferObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4CommandBufferObjectFromID(id objc.ID) MTL4CommandBufferObject {
@@ -114,9 +110,6 @@ func MTL4CommandBufferObjectFromID(id objc.ID) MTL4CommandBufferObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the GPU device that this command buffer belongs to.
 //
@@ -426,16 +419,7 @@ func (o MTL4CommandBufferObject) UseResidencySetsCount(residencySets []MTLReside
 	objc.Send[struct{}](o.ID, objc.Sel("useResidencySets:count:"), objc.CArray(residencySets), count)
 	}
 
-
-
-
-
-
 func (o MTL4CommandBufferObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

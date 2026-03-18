@@ -35,12 +35,6 @@ func (vc VNGenerateImageFeaturePrintRequestClass) Alloc() VNGenerateImageFeature
 	return rv
 }
 
-
-
-
-
-
-
 // An image-based request to generate feature prints from an image.
 //
 // # Overview
@@ -71,10 +65,6 @@ func VNGenerateImageFeaturePrintRequestFromID(id objc.ID) VNGenerateImageFeature
 // NOTE: VNGenerateImageFeaturePrintRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNGenerateImageFeaturePrintRequest] class.
 //
 // # Scaling and Cropping Images
@@ -102,10 +92,6 @@ type IVNGenerateImageFeaturePrintRequest interface {
 	VNGenerateImageFeaturePrintRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (g VNGenerateImageFeaturePrintRequest) Init() VNGenerateImageFeaturePrintRequest {
 	rv := objc.Send[VNGenerateImageFeaturePrintRequest](g.ID, objc.Sel("init"))
@@ -125,11 +111,6 @@ func NewVNGenerateImageFeaturePrintRequest() VNGenerateImageFeaturePrintRequest 
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -146,23 +127,6 @@ func NewGenerateImageFeaturePrintRequestWithCompletionHandler(completionHandler 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNGenerateImageFeaturePrintRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // An optional setting that tells the algorithm how to scale an input image
 // before generating the feature print.
@@ -187,8 +151,6 @@ func (g VNGenerateImageFeaturePrintRequest) SetImageCropAndScaleOption(value VNI
 	objc.Send[struct{}](g.ID, objc.Sel("setImageCropAndScaleOption:"), value)
 }
 
-
-
 // A constant for specifying the first revision of the feature-print request.
 //
 // See: https://developer.apple.com/documentation/vision/vngenerateimagefeatureprintrequestrevision1
@@ -196,27 +158,4 @@ func (g VNGenerateImageFeaturePrintRequest) VNGenerateImageFeaturePrintRequestRe
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateImageFeaturePrintRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (vc VZVirtioSoundDeviceOutputStreamConfigurationClass) Alloc() VZVirtioSoun
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines a Virtio sound device output stream configuration.
 //
 // # Overview
@@ -66,10 +60,6 @@ func VZVirtioSoundDeviceOutputStreamConfigurationFromID(id objc.ID) VZVirtioSoun
 // NOTE: VZVirtioSoundDeviceOutputStreamConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioSoundDeviceOutputStreamConfiguration] class.
 //
 // # Accessing the sound sink
@@ -87,10 +77,6 @@ type IVZVirtioSoundDeviceOutputStreamConfiguration interface {
 	Sink() IVZAudioOutputStreamSink
 	SetSink(value IVZAudioOutputStreamSink)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioSoundDeviceOutputStreamConfiguration) Init() VZVirtioSoundDeviceOutputStreamConfiguration {
@@ -111,27 +97,6 @@ func NewVZVirtioSoundDeviceOutputStreamConfiguration() VZVirtioSoundDeviceOutput
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // An audio stream sink that defines how the host handles audio data produced
 // by the guest.
 //
@@ -148,27 +113,4 @@ func (v VZVirtioSoundDeviceOutputStreamConfiguration) Sink() IVZAudioOutputStrea
 func (v VZVirtioSoundDeviceOutputStreamConfiguration) SetSink(value IVZAudioOutputStreamSink) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSink:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

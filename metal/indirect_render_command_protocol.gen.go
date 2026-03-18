@@ -124,8 +124,6 @@ type MTLIndirectRenderCommand interface {
 	DrawIndexedPatches()
 }
 
-
-
 // MTLIndirectRenderCommandObject wraps an existing Objective-C object that conforms to the MTLIndirectRenderCommand protocol.
 type MTLIndirectRenderCommandObject struct {
 	objectivec.Object
@@ -134,8 +132,6 @@ func (o MTLIndirectRenderCommandObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIndirectRenderCommandObjectFromID constructs a [MTLIndirectRenderCommandObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIndirectRenderCommandObjectFromID(id objc.ID) MTLIndirectRenderCommandObject {
@@ -143,9 +139,6 @@ func MTLIndirectRenderCommandObjectFromID(id objc.ID) MTLIndirectRenderCommandOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sets the render pipeline state for the command.
 //
@@ -456,10 +449,4 @@ func (o MTLIndirectRenderCommandObject) DrawIndexedPatches() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("drawIndexedPatches"))
 	}
-
-
-
-
-
-
 

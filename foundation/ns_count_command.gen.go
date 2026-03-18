@@ -35,12 +35,6 @@ func (nc NSCountCommandClass) Alloc() NSCountCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that counts the number of objects of a specified class in the
 // specified object container.
 //
@@ -69,20 +63,12 @@ func NSCountCommandFromID(id objc.ID) NSCountCommand {
 // NOTE: NSCountCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCountCommand] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCountCommand
 type INSCountCommand interface {
 	INSScriptCommand
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCountCommand) Init() NSCountCommand {
@@ -103,11 +89,6 @@ func NewNSCountCommand() NSCountCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewCountCommandWithCoder(inCoder INSCoder) NSCountCommand {
@@ -115,7 +96,6 @@ func NewCountCommandWithCoder(inCoder INSCoder) NSCountCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSCountCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -137,44 +117,4 @@ func NewCountCommandWithCommandDescription(commandDef INSScriptCommandDescriptio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCommandDescription:"), commandDef)
 	return NSCountCommandFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

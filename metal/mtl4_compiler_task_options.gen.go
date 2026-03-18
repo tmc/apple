@@ -36,12 +36,6 @@ func (mc MTL4CompilerTaskOptionsClass) Alloc() MTL4CompilerTaskOptions {
 	return rv
 }
 
-
-
-
-
-
-
 // The configuration options that control the behavior of a compilation task
 // for a Metal 4 compiler instance.
 //
@@ -66,14 +60,10 @@ type MTL4CompilerTaskOptions struct {
 // The configuration options that control the behavior of a compilation task
 // for a Metal 4 compiler instance.
 func MTL4CompilerTaskOptionsFromID(id objc.ID) MTL4CompilerTaskOptions {
-	return MTL4CompilerTaskOptions{objectivec.Object{id}}
+	return MTL4CompilerTaskOptions{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4CompilerTaskOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4CompilerTaskOptions] class.
 //
@@ -93,10 +83,6 @@ type IMTL4CompilerTaskOptions interface {
 	SetLookupArchives(value []objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4CompilerTaskOptions) Init() MTL4CompilerTaskOptions {
 	rv := objc.Send[MTL4CompilerTaskOptions](m.ID, objc.Sel("init"))
@@ -115,26 +101,6 @@ func NewMTL4CompilerTaskOptions() MTL4CompilerTaskOptions {
 	rv := objc.Send[MTL4CompilerTaskOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // An array of archive instances that can potentially accelerate a compilation
 // task.
@@ -160,27 +126,4 @@ func (m MTL4CompilerTaskOptions) LookupArchives() []objectivec.IObject {
 func (m MTL4CompilerTaskOptions) SetLookupArchives(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLookupArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

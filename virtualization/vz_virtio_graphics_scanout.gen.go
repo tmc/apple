@@ -35,12 +35,6 @@ func (vc VZVirtioGraphicsScanoutClass) Alloc() VZVirtioGraphicsScanout {
 	return rv
 }
 
-
-
-
-
-
-
 // A Virtio graphics scanout that corresponds to a Virtio graphics scanout
 // configuration.
 //
@@ -59,20 +53,12 @@ func VZVirtioGraphicsScanoutFromID(id objc.ID) VZVirtioGraphicsScanout {
 // NOTE: VZVirtioGraphicsScanout adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioGraphicsScanout] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanout
 type IVZVirtioGraphicsScanout interface {
 	IVZGraphicsDisplay
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioGraphicsScanout) Init() VZVirtioGraphicsScanout {
@@ -92,44 +78,4 @@ func NewVZVirtioGraphicsScanout() VZVirtioGraphicsScanout {
 	rv := objc.Send[VZVirtioGraphicsScanout](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

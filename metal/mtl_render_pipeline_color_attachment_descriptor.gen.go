@@ -36,12 +36,6 @@ func (mc MTLRenderPipelineColorAttachmentDescriptorClass) Alloc() MTLRenderPipel
 	return rv
 }
 
-
-
-
-
-
-
 // A color render target that specifies the color configuration and color
 // operations for a render pipeline.
 //
@@ -110,14 +104,10 @@ type MTLRenderPipelineColorAttachmentDescriptor struct {
 // A color render target that specifies the color configuration and color
 // operations for a render pipeline.
 func MTLRenderPipelineColorAttachmentDescriptorFromID(id objc.ID) MTLRenderPipelineColorAttachmentDescriptor {
-	return MTLRenderPipelineColorAttachmentDescriptor{objectivec.Object{id}}
+	return MTLRenderPipelineColorAttachmentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRenderPipelineColorAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRenderPipelineColorAttachmentDescriptor] class.
 //
@@ -193,10 +183,6 @@ type IMTLRenderPipelineColorAttachmentDescriptor interface {
 	SetAll(value MTLColorWriteMask)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRenderPipelineColorAttachmentDescriptor) Init() MTLRenderPipelineColorAttachmentDescriptor {
 	rv := objc.Send[MTLRenderPipelineColorAttachmentDescriptor](r.ID, objc.Sel("init"))
@@ -216,26 +202,6 @@ func NewMTLRenderPipelineColorAttachmentDescriptor() MTLRenderPipelineColorAttac
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The pixel format of the color attachment’s texture.
 //
 // # Discussion
@@ -252,8 +218,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) PixelFormat() MTLPixelFormat
 func (r MTLRenderPipelineColorAttachmentDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](r.ID, objc.Sel("setPixelFormat:"), value)
 }
-
-
 
 // A bitmask that restricts which color channels are written into the texture.
 //
@@ -274,8 +238,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) WriteMask() MTLColorWriteMas
 func (r MTLRenderPipelineColorAttachmentDescriptor) SetWriteMask(value MTLColorWriteMask) {
 	objc.Send[struct{}](r.ID, objc.Sel("setWriteMask:"), value)
 }
-
-
 
 // A Boolean value that determines whether blending is enabled.
 //
@@ -302,8 +264,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SetBlendingEnabled(value boo
 	objc.Send[struct{}](r.ID, objc.Sel("setBlendingEnabled:"), value)
 }
 
-
-
 // The blend operation assigned for the alpha data.
 //
 // # Discussion
@@ -318,8 +278,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) AlphaBlendOperation() MTLBle
 func (r MTLRenderPipelineColorAttachmentDescriptor) SetAlphaBlendOperation(value MTLBlendOperation) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAlphaBlendOperation:"), value)
 }
-
-
 
 // The blend operation assigned for the RGB data.
 //
@@ -336,8 +294,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SetRgbBlendOperation(value M
 	objc.Send[struct{}](r.ID, objc.Sel("setRgbBlendOperation:"), value)
 }
 
-
-
 // The destination blend factor (DBF) used by the alpha blend operation.
 //
 // # Discussion
@@ -352,8 +308,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) DestinationAlphaBlendFactor(
 func (r MTLRenderPipelineColorAttachmentDescriptor) SetDestinationAlphaBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDestinationAlphaBlendFactor:"), value)
 }
-
-
 
 // The destination blend factor (DBF) used by the RGB blend operation.
 //
@@ -370,8 +324,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SetDestinationRGBBlendFactor
 	objc.Send[struct{}](r.ID, objc.Sel("setDestinationRGBBlendFactor:"), value)
 }
 
-
-
 // The source blend factor (SBF) used by the alpha blend operation.
 //
 // # Discussion
@@ -386,8 +338,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SourceAlphaBlendFactor() MTL
 func (r MTLRenderPipelineColorAttachmentDescriptor) SetSourceAlphaBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSourceAlphaBlendFactor:"), value)
 }
-
-
 
 // The source blend factor (SBF) used by the RGB blend operation.
 //
@@ -404,8 +354,6 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) SetSourceRGBBlendFactor(valu
 	objc.Send[struct{}](r.ID, objc.Sel("setSourceRGBBlendFactor:"), value)
 }
 
-
-
 // All color channels are enabled.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcolorwritemask/all
@@ -416,27 +364,4 @@ func (r MTLRenderPipelineColorAttachmentDescriptor) All() MTLColorWriteMask {
 func (r MTLRenderPipelineColorAttachmentDescriptor) SetAll(value MTLColorWriteMask) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMTLColorWriteMaskAll:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (mc MeasurementFormatterClass) Alloc() MeasurementFormatter {
 	return rv
 }
 
-
-
-
-
-
-
 // A formatter that provides localized representations of units and
 // measurements.
 //
@@ -87,10 +81,6 @@ func NSMeasurementFormatterFromID(id objc.ID) MeasurementFormatter { return Meas
 // NOTE: MeasurementFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MeasurementFormatter] class.
 //
 // # Specifying the Format
@@ -112,6 +102,7 @@ func NSMeasurementFormatterFromID(id objc.ID) MeasurementFormatter { return Meas
 // See: https://developer.apple.com/documentation/Foundation/MeasurementFormatter
 type IMeasurementFormatter interface {
 	INSFormatter
+	NSSecureCoding
 
 	// Topic: Specifying the Format
 
@@ -136,10 +127,6 @@ type IMeasurementFormatter interface {
 	StringFromUnit(unit INSUnit) string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MeasurementFormatter) Init() MeasurementFormatter {
 	rv := objc.Send[MeasurementFormatter](m.ID, objc.Sel("init"))
@@ -159,11 +146,6 @@ func NewMeasurementFormatter() MeasurementFormatter {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMeasurementFormatterWithCoder(coder INSCoder) MeasurementFormatter {
@@ -171,12 +153,6 @@ func NewMeasurementFormatterWithCoder(coder INSCoder) MeasurementFormatter {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MeasurementFormatterFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates and returns a localized string representation of the provided
 // measurement.
@@ -209,17 +185,6 @@ func (m MeasurementFormatter) StringFromUnit(unit INSUnit) string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The options for how the unit is formatted.
 //
 // # Discussion
@@ -250,8 +215,6 @@ func (m MeasurementFormatter) SetUnitOptions(value NSMeasurementFormatterUnitOpt
 	objc.Send[struct{}](m.ID, objc.Sel("setUnitOptions:"), value)
 }
 
-
-
 // The unit style.
 //
 // # Discussion
@@ -269,8 +232,6 @@ func (m MeasurementFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUnitStyle:"), value)
 }
 
-
-
 // The locale of the formatter.
 //
 // # Discussion
@@ -286,8 +247,6 @@ func (m MeasurementFormatter) Locale() INSLocale {
 func (m MeasurementFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLocale:"), value)
 }
-
-
 
 // The number formatter used to format the quantity of a measurement.
 //
@@ -305,28 +264,6 @@ func (m MeasurementFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberFormatter:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

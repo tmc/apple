@@ -36,12 +36,6 @@ func (rc RemotePortClass) Alloc() RemotePort {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSPortMessage/remotePort
 type RemotePort struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type RemotePort struct {
 
 // RemotePortFromID constructs a [RemotePort] from an objc.ID.
 func RemotePortFromID(id objc.ID) RemotePort {
-	return RemotePort{objectivec.Object{id}}
+	return RemotePort{objectivec.Object{ID: id}}
 }
 // Ensure RemotePort implements IRemotePort.
 var _ IRemotePort = RemotePort{}
-
-
-
-
 
 // An interface definition for the [RemotePort] class.
 //
@@ -64,10 +54,6 @@ var _ IRemotePort = RemotePort{}
 type IRemotePort interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r RemotePort) Init() RemotePort {
@@ -87,38 +73,4 @@ func NewRemotePort() RemotePort {
 	rv := objc.Send[RemotePort](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

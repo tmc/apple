@@ -36,12 +36,6 @@ func (nc NotificationQueueClass) Alloc() NotificationQueue {
 	return rv
 }
 
-
-
-
-
-
-
 // A notification center buffer.
 //
 // # Overview
@@ -80,17 +74,13 @@ type NotificationQueue struct {
 //
 // A notification center buffer.
 func NotificationQueueFromID(id objc.ID) NotificationQueue {
-	return NSNotificationQueue{objectivec.Object{id}}
+	return NSNotificationQueue{objectivec.Object{ID: id}}
 }
 
 // NSNotificationQueueFromID is an alias for [NotificationQueueFromID] for cross-framework compatibility.
 func NSNotificationQueueFromID(id objc.ID) NotificationQueue { return NotificationQueueFromID(id) }
 // NOTE: NotificationQueue adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NotificationQueue] class.
 //
@@ -123,10 +113,6 @@ type INotificationQueue interface {
 	DequeueNotificationsMatchingCoalesceMask(notification INSNotification, coalesceMask uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n NotificationQueue) Init() NotificationQueue {
 	rv := objc.Send[NotificationQueue](n.ID, objc.Sel("init"))
@@ -145,11 +131,6 @@ func NewNotificationQueue() NotificationQueue {
 	rv := objc.Send[NotificationQueue](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes and returns a notification queue for the specified notification
 // center.
@@ -170,12 +151,6 @@ func NewNotificationQueueWithNotificationCenter(notificationCenter INSNotificati
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithNotificationCenter:"), notificationCenter)
 	return NotificationQueueFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a notification queue for the specified notification
 // center.
@@ -262,21 +237,6 @@ func (n NotificationQueue) DequeueNotificationsMatchingCoalesceMask(notification
 	objc.Send[objc.ID](n.ID, objc.Sel("dequeueNotificationsMatching:coalesceMask:"), notification, coalesceMask)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns the default notification queue for the current thread.
 //
 // # Return Value
@@ -292,22 +252,4 @@ func (_NotificationQueueClass NotificationQueueClass) DefaultQueue() Notificatio
 	rv := objc.Send[objc.ID](objc.ID(_NotificationQueueClass.class), objc.Sel("defaultQueue"))
 	return NSNotificationQueueFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -36,12 +36,6 @@ func (vc VNDetectContoursRequestClass) Alloc() VNDetectContoursRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // A request that detects the contours of the edges of an image.
 //
 // # Configuring the Request
@@ -72,10 +66,6 @@ func VNDetectContoursRequestFromID(id objc.ID) VNDetectContoursRequest {
 }
 // NOTE: VNDetectContoursRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNDetectContoursRequest] class.
 //
@@ -119,10 +109,6 @@ type IVNDetectContoursRequest interface {
 	VNDetectContourRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectContoursRequest) Init() VNDetectContoursRequest {
 	rv := objc.Send[VNDetectContoursRequest](d.ID, objc.Sel("init"))
@@ -142,11 +128,6 @@ func NewVNDetectContoursRequest() VNDetectContoursRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -163,23 +144,6 @@ func NewDetectContoursRequestWithCompletionHandler(completionHandler VNRequestCo
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNDetectContoursRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The amount by which to adjust the image contrast.
 //
@@ -200,8 +164,6 @@ func (d VNDetectContoursRequest) SetContrastAdjustment(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContrastAdjustment:"), value)
 }
 
-
-
 // The pixel value to use as a pivot for the contrast.
 //
 // # Discussion
@@ -221,8 +183,6 @@ func (d VNDetectContoursRequest) SetContrastPivot(value foundation.NSNumber) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContrastPivot:"), value)
 }
 
-
-
 // A Boolean value that indicates whether the request detects a dark object on
 // a light background to aid in detection.
 //
@@ -240,8 +200,6 @@ func (d VNDetectContoursRequest) DetectsDarkOnLight() bool {
 func (d VNDetectContoursRequest) SetDetectsDarkOnLight(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDetectsDarkOnLight:"), value)
 }
-
-
 
 // The maximum image dimension to use for contour detection.
 //
@@ -267,8 +225,6 @@ func (d VNDetectContoursRequest) SetMaximumImageDimension(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumImageDimension:"), value)
 }
 
-
-
 // A constant for specifying revision 1 of the contours detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectcontourrequestrevision1
@@ -276,27 +232,4 @@ func (d VNDetectContoursRequest) VNDetectContourRequestRevision1() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectContourRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

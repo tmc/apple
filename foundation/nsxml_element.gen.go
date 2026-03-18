@@ -37,12 +37,6 @@ func (xc XMLElementClass) Alloc() XMLElement {
 	return rv
 }
 
-
-
-
-
-
-
 // The element nodes in an XML tree structure.
 //
 // # Overview
@@ -152,10 +146,6 @@ func XMLElementFromID(id objc.ID) XMLElement {
 func NSXMLElementFromID(id objc.ID) XMLElement { return XMLElementFromID(id) }
 // NOTE: XMLElement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [XMLElement] class.
 //
@@ -270,10 +260,6 @@ type IXMLElement interface {
 	ResolvePrefixForNamespaceURI(namespaceURI string) string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (x XMLElement) Init() XMLElement {
 	rv := objc.Send[XMLElement](x.ID, objc.Sel("init"))
@@ -292,11 +278,6 @@ func NewXMLElement() XMLElement {
 	rv := objc.Send[XMLElement](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSXMLNode] instance initialized with the constant indicating
 // node kind.
@@ -329,7 +310,6 @@ func NewXMLElementWithKind(kind NSXMLNodeKind) XMLElement {
 	return XMLElementFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(kind:options:)
 func NewXMLElementWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) XMLElement {
@@ -337,7 +317,6 @@ func NewXMLElementWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOptions) 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKind:options:"), kind, options)
 	return XMLElementFromID(rv)
 }
-
 
 // Returns an [NSXMLElement] object initialized with the specified name.
 //
@@ -359,7 +338,6 @@ func NewXMLElementWithName(name string) XMLElement {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:"), objc.String(name))
 	return XMLElementFromID(rv)
 }
-
 
 // Returns an [NSXMLElement] object initialized with a specified name and a
 // single text-node child containing a specified value.
@@ -383,7 +361,6 @@ func NewXMLElementWithNameStringValue(name string, string_ string) XMLElement {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:stringValue:"), objc.String(name), objc.String(string_))
 	return XMLElementFromID(rv)
 }
-
 
 // Returns an [NSXMLElement] object initialized with the specified name and
 // URI.
@@ -410,7 +387,6 @@ func NewXMLElementWithNameURI(name string, URI string) XMLElement {
 	return XMLElementFromID(rv)
 }
 
-
 // Returns an [NSXMLElement] object created from a specified string containing
 // XML markup.
 //
@@ -434,12 +410,6 @@ func NewXMLElementWithXMLStringError(string_ string) (XMLElement, error) {
 	}
 	return XMLElementFromID(rv), nil
 }
-
-
-
-
-
-
 
 // Returns an [NSXMLElement] object initialized with the specified name.
 //
@@ -521,7 +491,7 @@ func (x XMLElement) InitWithNameURI(name string, URI string) XMLElement {
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLElement/init(xmlString:)
 func (x XMLElement) InitWithXMLStringError(string_ string) (XMLElement, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithXMLString:error:"), objc.String(string_), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -843,17 +813,6 @@ func (x XMLElement) ResolvePrefixForNamespaceURI(namespaceURI string) string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Sets all attributes of the receiver at once, replacing any existing
 // attribute nodes.
 //
@@ -873,8 +832,6 @@ func (x XMLElement) SetAttributes(value []NSXMLNode) {
 	objc.Send[struct{}](x.ID, objc.Sel("setAttributes:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Sets all of the namespace nodes of the receiver at once, replacing any
 // existing namespace nodes.
 //
@@ -888,31 +845,4 @@ func (x XMLElement) Namespaces() []NSXMLNode {
 func (x XMLElement) SetNamespaces(value []NSXMLNode) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNamespaces:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

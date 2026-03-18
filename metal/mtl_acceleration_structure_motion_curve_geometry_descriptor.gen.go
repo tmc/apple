@@ -36,12 +36,6 @@ func (mc MTLAccelerationStructureMotionCurveGeometryDescriptorClass) Alloc() MTL
 	return rv
 }
 
-
-
-
-
-
-
 //
 // # Instance Properties
 //
@@ -86,10 +80,6 @@ func MTLAccelerationStructureMotionCurveGeometryDescriptorFromID(id objc.ID) MTL
 }
 // NOTE: MTLAccelerationStructureMotionCurveGeometryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLAccelerationStructureMotionCurveGeometryDescriptor] class.
 //
@@ -164,10 +154,6 @@ type IMTLAccelerationStructureMotionCurveGeometryDescriptor interface {
 	SetSegmentCount(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) Init() MTLAccelerationStructureMotionCurveGeometryDescriptor {
 	rv := objc.Send[MTLAccelerationStructureMotionCurveGeometryDescriptor](a.ID, objc.Sel("init"))
@@ -187,31 +173,11 @@ func NewMTLAccelerationStructureMotionCurveGeometryDescriptor() MTLAccelerationS
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/descriptor
 func (_MTLAccelerationStructureMotionCurveGeometryDescriptorClass MTLAccelerationStructureMotionCurveGeometryDescriptorClass) Descriptor() MTLAccelerationStructureMotionCurveGeometryDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_MTLAccelerationStructureMotionCurveGeometryDescriptorClass.class), objc.Sel("descriptor"))
 	return MTLAccelerationStructureMotionCurveGeometryDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/controlPointBuffers
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) ControlPointBuffers() []MTLMotionKeyframeData {
@@ -224,8 +190,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetControlPointBu
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointBuffers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/controlPointCount
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) ControlPointCount() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("controlPointCount"))
@@ -234,8 +198,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) ControlPointCount
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetControlPointCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointCount:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/controlPointFormat
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) ControlPointFormat() MTLAttributeFormat {
@@ -246,8 +208,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetControlPointFo
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointFormat:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/controlPointStride
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) ControlPointStride() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("controlPointStride"))
@@ -256,8 +216,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) ControlPointStrid
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetControlPointStride(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setControlPointStride:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/curveBasis
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) CurveBasis() MTLCurveBasis {
@@ -268,8 +226,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetCurveBasis(val
 	objc.Send[struct{}](a.ID, objc.Sel("setCurveBasis:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/curveEndCaps
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) CurveEndCaps() MTLCurveEndCaps {
 	rv := objc.Send[MTLCurveEndCaps](a.ID, objc.Sel("curveEndCaps"))
@@ -278,8 +234,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) CurveEndCaps() MT
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetCurveEndCaps(value MTLCurveEndCaps) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurveEndCaps:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/curveType
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) CurveType() MTLCurveType {
@@ -290,8 +244,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetCurveType(valu
 	objc.Send[struct{}](a.ID, objc.Sel("setCurveType:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/indexBuffer
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) IndexBuffer() MTLBuffer {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexBuffer"))
@@ -300,8 +252,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) IndexBuffer() MTL
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetIndexBuffer(value MTLBuffer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIndexBuffer:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/indexBufferOffset
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) IndexBufferOffset() uint {
@@ -312,8 +262,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetIndexBufferOff
 	objc.Send[struct{}](a.ID, objc.Sel("setIndexBufferOffset:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/indexType
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) IndexType() MTLIndexType {
 	rv := objc.Send[MTLIndexType](a.ID, objc.Sel("indexType"))
@@ -322,8 +270,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) IndexType() MTLIn
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetIndexType(value MTLIndexType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIndexType:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/radiusBuffers
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) RadiusBuffers() []MTLMotionKeyframeData {
@@ -336,8 +282,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetRadiusBuffers(
 	objc.Send[struct{}](a.ID, objc.Sel("setRadiusBuffers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/radiusFormat
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) RadiusFormat() MTLAttributeFormat {
 	rv := objc.Send[MTLAttributeFormat](a.ID, objc.Sel("radiusFormat"))
@@ -346,8 +290,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) RadiusFormat() MT
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetRadiusFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRadiusFormat:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/radiusStride
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) RadiusStride() uint {
@@ -358,8 +300,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetRadiusStride(v
 	objc.Send[struct{}](a.ID, objc.Sel("setRadiusStride:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/segmentControlPointCount
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SegmentControlPointCount() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("segmentControlPointCount"))
@@ -369,8 +309,6 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetSegmentControl
 	objc.Send[struct{}](a.ID, objc.Sel("setSegmentControlPointCount:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionCurveGeometryDescriptor/segmentCount
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SegmentCount() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("segmentCount"))
@@ -379,27 +317,4 @@ func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SegmentCount() ui
 func (a MTLAccelerationStructureMotionCurveGeometryDescriptor) SetSegmentCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSegmentCount:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

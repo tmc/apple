@@ -36,12 +36,6 @@ func (mc MTLComputePassDescriptorClass) Alloc() MTLComputePassDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of how to dispatch execution of pass commands and GPU
 // performance sampling.
 //
@@ -64,14 +58,10 @@ type MTLComputePassDescriptor struct {
 // A description of how to dispatch execution of pass commands and GPU
 // performance sampling.
 func MTLComputePassDescriptorFromID(id objc.ID) MTLComputePassDescriptor {
-	return MTLComputePassDescriptor{objectivec.Object{id}}
+	return MTLComputePassDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLComputePassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLComputePassDescriptor] class.
 //
@@ -100,10 +90,6 @@ type IMTLComputePassDescriptor interface {
 	SampleBufferAttachments() IMTLComputePassSampleBufferAttachmentDescriptorArray
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MTLComputePassDescriptor) Init() MTLComputePassDescriptor {
 	rv := objc.Send[MTLComputePassDescriptor](c.ID, objc.Sel("init"))
@@ -123,19 +109,6 @@ func NewMTLComputePassDescriptor() MTLComputePassDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a default compute pass descriptor.
 //
 // # Return Value
@@ -147,13 +120,6 @@ func (_MTLComputePassDescriptorClass MTLComputePassDescriptorClass) ComputePassD
 	rv := objc.Send[objc.ID](objc.ID(_MTLComputePassDescriptorClass.class), objc.Sel("computePassDescriptor"))
 	return MTLComputePassDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The strategy for dispatching any compute commands encoded in the compute
 // pass.
@@ -171,8 +137,6 @@ func (c MTLComputePassDescriptor) SetDispatchType(value MTLDispatchType) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDispatchType:"), value)
 }
 
-
-
 // The sample buffers that the compute pass can access.
 //
 // # Discussion
@@ -189,27 +153,4 @@ func (c MTLComputePassDescriptor) SampleBufferAttachments() IMTLComputePassSampl
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLComputePassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

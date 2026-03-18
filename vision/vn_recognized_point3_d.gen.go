@@ -37,12 +37,6 @@ func (vc VNRecognizedPoint3DClass) Alloc() VNRecognizedPoint3D {
 	return rv
 }
 
-
-
-
-
-
-
 // A 3D point that includes an identifier to the point.
 //
 // # Getting the Identifier
@@ -63,10 +57,6 @@ func VNRecognizedPoint3DFromID(id objc.ID) VNRecognizedPoint3D {
 // NOTE: VNRecognizedPoint3D adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNRecognizedPoint3D] class.
 //
 // # Getting the Identifier
@@ -81,13 +71,7 @@ type IVNRecognizedPoint3D interface {
 
 	// The identifier that provides context about what kind of point the request recognizes.
 	Identifier() VNRecognizedPointKey
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r VNRecognizedPoint3D) Init() VNRecognizedPoint3D {
@@ -108,11 +92,6 @@ func NewVNRecognizedPoint3D() VNRecognizedPoint3D {
 	return rv
 }
 
-
-
-
-
-
 // Creates a point object with the position you specify.
 //
 // position: The three-dimensional position.
@@ -125,26 +104,6 @@ func NewRecognizedPoint3DWithPosition(position objectivec.IObject) VNRecognizedP
 	return VNRecognizedPoint3DFromID(rv)
 }
 
-
-
-
-
-
-func (r VNRecognizedPoint3D) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The identifier that provides context about what kind of point the request
 // recognizes.
 //
@@ -153,29 +112,4 @@ func (r VNRecognizedPoint3D) Identifier() VNRecognizedPointKey {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("identifier"))
 	return VNRecognizedPointKey(foundation.NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

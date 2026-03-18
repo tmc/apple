@@ -7,7 +7,9 @@ import (
 	"os"
 	"unsafe"
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -927,12 +929,12 @@ func CGColorSpaceCreateICCBased(nComponents uintptr, range_ *float64, profile CG
 	return _cGColorSpaceCreateICCBased(nComponents, range_, profile, alternate)
 }
 
-var _cGColorSpaceCreateIndexed func(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable *byte) CGColorSpaceRef
+var _cGColorSpaceCreateIndexed func(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable string) CGColorSpaceRef
 
 // CGColorSpaceCreateIndexed creates an indexed color space, consisting of colors specified by a color lookup table.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/init(indexedBaseSpace:last:colorTable:)
-func CGColorSpaceCreateIndexed(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable *byte) CGColorSpaceRef {
+func CGColorSpaceCreateIndexed(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable string) CGColorSpaceRef {
 	if _cGColorSpaceCreateIndexed == nil {
 		panic("CoreGraphics: symbol CGColorSpaceCreateIndexed not loaded")
 	}
@@ -1698,6 +1700,8 @@ func CGContextDrawLinearGradient(c CGContextRef, gradient CGGradientRef, startPo
 var _cGContextDrawPDFDocument func(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int)
 
 // CGContextDrawPDFDocument.
+//
+// Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawPDFDocument
 func CGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int) {
@@ -2907,12 +2911,12 @@ func CGDataProviderCreateWithData(info unsafe.Pointer, data unsafe.Pointer, size
 	return _cGDataProviderCreateWithData(info, data, size, releaseData)
 }
 
-var _cGDataProviderCreateWithFilename func(filename *byte) CGDataProviderRef
+var _cGDataProviderCreateWithFilename func(filename string) CGDataProviderRef
 
 // CGDataProviderCreateWithFilename creates a direct-access data provider that uses a file to supply data.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDataProvider/init(filename:)
-func CGDataProviderCreateWithFilename(filename *byte) CGDataProviderRef {
+func CGDataProviderCreateWithFilename(filename string) CGDataProviderRef {
 	if _cGDataProviderCreateWithFilename == nil {
 		panic("CoreGraphics: symbol CGDataProviderCreateWithFilename not loaded")
 	}
@@ -2984,11 +2988,12 @@ var _cGDirectDisplayCopyCurrentMetalDevice func(display uint32) unsafe.Pointer
 // CGDirectDisplayCopyCurrentMetalDevice returns the GPU device instance that’s currently driving a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDirectDisplayCopyCurrentMetalDevice(_:)
-func CGDirectDisplayCopyCurrentMetalDevice(display uint32) unsafe.Pointer {
+func CGDirectDisplayCopyCurrentMetalDevice(display uint32) metal.MTLDeviceObject {
 	if _cGDirectDisplayCopyCurrentMetalDevice == nil {
 		panic("CoreGraphics: symbol CGDirectDisplayCopyCurrentMetalDevice not loaded")
 	}
-	return _cGDirectDisplayCopyCurrentMetalDevice(display)
+	rv := _cGDirectDisplayCopyCurrentMetalDevice(display)
+	return metal.MTLDeviceObjectFromID(objc.IDFrom(rv))
 }
 
 var _cGDisplayBounds func(display uint32) corefoundation.CGRect
@@ -5491,12 +5496,12 @@ func CGPDFArrayGetInteger(array CGPDFArrayRef, index uintptr, value *CGPDFIntege
 	return _cGPDFArrayGetInteger(array, index, value)
 }
 
-var _cGPDFArrayGetName func(array CGPDFArrayRef, index uintptr, value *byte) bool
+var _cGPDFArrayGetName func(array CGPDFArrayRef, index uintptr, value string) bool
 
 // CGPDFArrayGetName returns whether an object at a given index in a PDF array is a PDF name reference (represented as a constant C string) and, if so, retrieves that name.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFArrayGetName(_:_:_:)
-func CGPDFArrayGetName(array CGPDFArrayRef, index uintptr, value *byte) bool {
+func CGPDFArrayGetName(array CGPDFArrayRef, index uintptr, value string) bool {
 	if _cGPDFArrayGetName == nil {
 		panic("CoreGraphics: symbol CGPDFArrayGetName not loaded")
 	}
@@ -5587,12 +5592,12 @@ func CGPDFContentStreamCreateWithStream(stream CGPDFStreamRef, streamResources C
 	return _cGPDFContentStreamCreateWithStream(stream, streamResources, parent)
 }
 
-var _cGPDFContentStreamGetResource func(cs CGPDFContentStreamRef, category *byte, name *byte) CGPDFObjectRef
+var _cGPDFContentStreamGetResource func(cs CGPDFContentStreamRef, category string, name string) CGPDFObjectRef
 
 // CGPDFContentStreamGetResource gets the specified resource from a PDF content stream object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFContentStreamGetResource(_:_:_:)
-func CGPDFContentStreamGetResource(cs CGPDFContentStreamRef, category *byte, name *byte) CGPDFObjectRef {
+func CGPDFContentStreamGetResource(cs CGPDFContentStreamRef, category string, name string) CGPDFObjectRef {
 	if _cGPDFContentStreamGetResource == nil {
 		panic("CoreGraphics: symbol CGPDFContentStreamGetResource not loaded")
 	}
@@ -5839,24 +5844,24 @@ func CGPDFDictionaryApplyFunction(dict CGPDFDictionaryRef, function CGPDFDiction
 	_cGPDFDictionaryApplyFunction(dict, function, info)
 }
 
-var _cGPDFDictionaryGetArray func(dict CGPDFDictionaryRef, key *byte, value *CGPDFArrayRef) bool
+var _cGPDFDictionaryGetArray func(dict CGPDFDictionaryRef, key string, value *CGPDFArrayRef) bool
 
 // CGPDFDictionaryGetArray returns whether there is a PDF array associated with a specified key in a PDF dictionary and, if so, retrieves that array.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetArray(_:_:_:)
-func CGPDFDictionaryGetArray(dict CGPDFDictionaryRef, key *byte, value *CGPDFArrayRef) bool {
+func CGPDFDictionaryGetArray(dict CGPDFDictionaryRef, key string, value *CGPDFArrayRef) bool {
 	if _cGPDFDictionaryGetArray == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetArray not loaded")
 	}
 	return _cGPDFDictionaryGetArray(dict, key, value)
 }
 
-var _cGPDFDictionaryGetBoolean func(dict CGPDFDictionaryRef, key *byte, value *CGPDFBoolean) bool
+var _cGPDFDictionaryGetBoolean func(dict CGPDFDictionaryRef, key string, value *CGPDFBoolean) bool
 
 // CGPDFDictionaryGetBoolean returns whether there is a PDF Boolean value associated with a specified key in a PDF dictionary and, if so, retrieves the Boolean value.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetBoolean(_:_:_:)
-func CGPDFDictionaryGetBoolean(dict CGPDFDictionaryRef, key *byte, value *CGPDFBoolean) bool {
+func CGPDFDictionaryGetBoolean(dict CGPDFDictionaryRef, key string, value *CGPDFBoolean) bool {
 	if _cGPDFDictionaryGetBoolean == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetBoolean not loaded")
 	}
@@ -5875,84 +5880,84 @@ func CGPDFDictionaryGetCount(dict CGPDFDictionaryRef) uintptr {
 	return _cGPDFDictionaryGetCount(dict)
 }
 
-var _cGPDFDictionaryGetDictionary func(dict CGPDFDictionaryRef, key *byte, value *CGPDFDictionaryRef) bool
+var _cGPDFDictionaryGetDictionary func(dict CGPDFDictionaryRef, key string, value *CGPDFDictionaryRef) bool
 
 // CGPDFDictionaryGetDictionary returns whether there is another PDF dictionary associated with a specified key in a PDF dictionary and, if so, retrieves that dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetDictionary(_:_:_:)
-func CGPDFDictionaryGetDictionary(dict CGPDFDictionaryRef, key *byte, value *CGPDFDictionaryRef) bool {
+func CGPDFDictionaryGetDictionary(dict CGPDFDictionaryRef, key string, value *CGPDFDictionaryRef) bool {
 	if _cGPDFDictionaryGetDictionary == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetDictionary not loaded")
 	}
 	return _cGPDFDictionaryGetDictionary(dict, key, value)
 }
 
-var _cGPDFDictionaryGetInteger func(dict CGPDFDictionaryRef, key *byte, value *CGPDFInteger) bool
+var _cGPDFDictionaryGetInteger func(dict CGPDFDictionaryRef, key string, value *CGPDFInteger) bool
 
 // CGPDFDictionaryGetInteger returns whether there is a PDF integer associated with a specified key in a PDF dictionary and, if so, retrieves that integer.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetInteger(_:_:_:)
-func CGPDFDictionaryGetInteger(dict CGPDFDictionaryRef, key *byte, value *CGPDFInteger) bool {
+func CGPDFDictionaryGetInteger(dict CGPDFDictionaryRef, key string, value *CGPDFInteger) bool {
 	if _cGPDFDictionaryGetInteger == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetInteger not loaded")
 	}
 	return _cGPDFDictionaryGetInteger(dict, key, value)
 }
 
-var _cGPDFDictionaryGetName func(dict CGPDFDictionaryRef, key *byte, value *byte) bool
+var _cGPDFDictionaryGetName func(dict CGPDFDictionaryRef, key string, value string) bool
 
 // CGPDFDictionaryGetName returns whether an object with a specified key in a PDF dictionary is a PDF name reference (represented as a constant C string) and, if so, retrieves that name.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetName(_:_:_:)
-func CGPDFDictionaryGetName(dict CGPDFDictionaryRef, key *byte, value *byte) bool {
+func CGPDFDictionaryGetName(dict CGPDFDictionaryRef, key string, value string) bool {
 	if _cGPDFDictionaryGetName == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetName not loaded")
 	}
 	return _cGPDFDictionaryGetName(dict, key, value)
 }
 
-var _cGPDFDictionaryGetNumber func(dict CGPDFDictionaryRef, key *byte, value *CGPDFReal) bool
+var _cGPDFDictionaryGetNumber func(dict CGPDFDictionaryRef, key string, value *CGPDFReal) bool
 
 // CGPDFDictionaryGetNumber returns whether there is a PDF number associated with a specified key in a PDF dictionary and, if so, retrieves that number.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetNumber(_:_:_:)
-func CGPDFDictionaryGetNumber(dict CGPDFDictionaryRef, key *byte, value *CGPDFReal) bool {
+func CGPDFDictionaryGetNumber(dict CGPDFDictionaryRef, key string, value *CGPDFReal) bool {
 	if _cGPDFDictionaryGetNumber == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetNumber not loaded")
 	}
 	return _cGPDFDictionaryGetNumber(dict, key, value)
 }
 
-var _cGPDFDictionaryGetObject func(dict CGPDFDictionaryRef, key *byte, value *CGPDFObjectRef) bool
+var _cGPDFDictionaryGetObject func(dict CGPDFDictionaryRef, key string, value *CGPDFObjectRef) bool
 
 // CGPDFDictionaryGetObject returns whether there is a PDF object associated with a specified key in a PDF dictionary and, if so, retrieves that object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetObject(_:_:_:)
-func CGPDFDictionaryGetObject(dict CGPDFDictionaryRef, key *byte, value *CGPDFObjectRef) bool {
+func CGPDFDictionaryGetObject(dict CGPDFDictionaryRef, key string, value *CGPDFObjectRef) bool {
 	if _cGPDFDictionaryGetObject == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetObject not loaded")
 	}
 	return _cGPDFDictionaryGetObject(dict, key, value)
 }
 
-var _cGPDFDictionaryGetStream func(dict CGPDFDictionaryRef, key *byte, value *CGPDFStreamRef) bool
+var _cGPDFDictionaryGetStream func(dict CGPDFDictionaryRef, key string, value *CGPDFStreamRef) bool
 
 // CGPDFDictionaryGetStream returns whether there is a PDF stream associated with a specified key in a PDF dictionary and, if so, retrieves that stream.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetStream(_:_:_:)
-func CGPDFDictionaryGetStream(dict CGPDFDictionaryRef, key *byte, value *CGPDFStreamRef) bool {
+func CGPDFDictionaryGetStream(dict CGPDFDictionaryRef, key string, value *CGPDFStreamRef) bool {
 	if _cGPDFDictionaryGetStream == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetStream not loaded")
 	}
 	return _cGPDFDictionaryGetStream(dict, key, value)
 }
 
-var _cGPDFDictionaryGetString func(dict CGPDFDictionaryRef, key *byte, value *CGPDFStringRef) bool
+var _cGPDFDictionaryGetString func(dict CGPDFDictionaryRef, key string, value *CGPDFStringRef) bool
 
 // CGPDFDictionaryGetString returns whether there is a PDF string associated with a specified key in a PDF dictionary and, if so, retrieves that string.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDictionaryGetString(_:_:_:)
-func CGPDFDictionaryGetString(dict CGPDFDictionaryRef, key *byte, value *CGPDFStringRef) bool {
+func CGPDFDictionaryGetString(dict CGPDFDictionaryRef, key string, value *CGPDFStringRef) bool {
 	if _cGPDFDictionaryGetString == nil {
 		panic("CoreGraphics: symbol CGPDFDictionaryGetString not loaded")
 	}
@@ -6023,6 +6028,8 @@ var _cGPDFDocumentGetArtBox func(document CGPDFDocumentRef, page int) corefounda
 
 // CGPDFDocumentGetArtBox returns the art box of a page in a PDF document.
 //
+// Deprecated: Deprecated since macOS 10.5.
+//
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetArtBox
 func CGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
 	if _cGPDFDocumentGetArtBox == nil {
@@ -6034,6 +6041,8 @@ func CGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int) corefoundation.
 var _cGPDFDocumentGetBleedBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
 // CGPDFDocumentGetBleedBox returns the bleed box of a page in a PDF document.
+//
+// Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetBleedBox
 func CGPDFDocumentGetBleedBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
@@ -6058,6 +6067,8 @@ func CGPDFDocumentGetCatalog(document CGPDFDocumentRef) CGPDFDictionaryRef {
 var _cGPDFDocumentGetCropBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
 // CGPDFDocumentGetCropBox returns the crop box of a page in a PDF document.
+//
+// Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetCropBox
 func CGPDFDocumentGetCropBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
@@ -6094,6 +6105,8 @@ func CGPDFDocumentGetInfo(document CGPDFDocumentRef) CGPDFDictionaryRef {
 var _cGPDFDocumentGetMediaBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
 // CGPDFDocumentGetMediaBox returns the media box of a page in a PDF document.
+//
+// Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetMediaBox
 func CGPDFDocumentGetMediaBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
@@ -6143,6 +6156,8 @@ var _cGPDFDocumentGetRotationAngle func(document CGPDFDocumentRef, page int) int
 
 // CGPDFDocumentGetRotationAngle returns the rotation angle of a page in a PDF document.
 //
+// Deprecated: Deprecated since macOS 10.5.
+//
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetRotationAngle
 func CGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int) int {
 	if _cGPDFDocumentGetRotationAngle == nil {
@@ -6154,6 +6169,8 @@ func CGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int) int {
 var _cGPDFDocumentGetTrimBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
 
 // CGPDFDocumentGetTrimBox returns the trim box of a page in a PDF document.
+//
+// Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetTrimBox
 func CGPDFDocumentGetTrimBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
@@ -6235,12 +6252,12 @@ func CGPDFDocumentRetain(document CGPDFDocumentRef) CGPDFDocumentRef {
 	return _cGPDFDocumentRetain(document)
 }
 
-var _cGPDFDocumentUnlockWithPassword func(document CGPDFDocumentRef, password *byte) bool
+var _cGPDFDocumentUnlockWithPassword func(document CGPDFDocumentRef, password string) bool
 
 // CGPDFDocumentUnlockWithPassword unlocks an encrypted PDF document when a valid password is supplied.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocument/unlockWithPassword(_:)
-func CGPDFDocumentUnlockWithPassword(document CGPDFDocumentRef, password *byte) bool {
+func CGPDFDocumentUnlockWithPassword(document CGPDFDocumentRef, password string) bool {
 	if _cGPDFDocumentUnlockWithPassword == nil {
 		panic("CoreGraphics: symbol CGPDFDocumentUnlockWithPassword not loaded")
 	}
@@ -6307,12 +6324,12 @@ func CGPDFOperatorTableRetain(table CGPDFOperatorTableRef) CGPDFOperatorTableRef
 	return _cGPDFOperatorTableRetain(table)
 }
 
-var _cGPDFOperatorTableSetCallback func(table CGPDFOperatorTableRef, name *byte, callback CGPDFOperatorCallback)
+var _cGPDFOperatorTableSetCallback func(table CGPDFOperatorTableRef, name string, callback CGPDFOperatorCallback)
 
 // CGPDFOperatorTableSetCallback sets a callback function for a PDF operator.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFOperatorTableSetCallback(_:_:_:)
-func CGPDFOperatorTableSetCallback(table CGPDFOperatorTableRef, name *byte, callback CGPDFOperatorCallback) {
+func CGPDFOperatorTableSetCallback(table CGPDFOperatorTableRef, name string, callback CGPDFOperatorCallback) {
 	if _cGPDFOperatorTableSetCallback == nil {
 		panic("CoreGraphics: symbol CGPDFOperatorTableSetCallback not loaded")
 	}
@@ -6499,12 +6516,12 @@ func CGPDFScannerPopInteger(scanner CGPDFScannerRef, value *CGPDFInteger) bool {
 	return _cGPDFScannerPopInteger(scanner, value)
 }
 
-var _cGPDFScannerPopName func(scanner CGPDFScannerRef, value *byte) bool
+var _cGPDFScannerPopName func(scanner CGPDFScannerRef, value string) bool
 
 // CGPDFScannerPopName retrieves a character string from the scanner stack.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFScannerPopName(_:_:)
-func CGPDFScannerPopName(scanner CGPDFScannerRef, value *byte) bool {
+func CGPDFScannerPopName(scanner CGPDFScannerRef, value string) bool {
 	if _cGPDFScannerPopName == nil {
 		panic("CoreGraphics: symbol CGPDFScannerPopName not loaded")
 	}
@@ -7237,6 +7254,8 @@ var _cGPostMouseEvent func(mouseCursorPosition corefoundation.CGPoint, updateMou
 
 // CGPostMouseEvent synthesizes a low-level mouse-button event on the local machine.
 //
+// Deprecated: Deprecated since macOS 10.6.
+//
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPostMouseEvent
 func CGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition uintptr, buttonCount CGButtonCount, mouseButtonDown uintptr) CGError {
 	if _cGPostMouseEvent == nil {
@@ -7248,6 +7267,8 @@ func CGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCur
 var _cGPostScrollWheelEvent func(wheelCount CGWheelCount, wheel1 int32) CGError
 
 // CGPostScrollWheelEvent synthesizes a low-level scrolling event on the local machine.
+//
+// Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPostScrollWheelEvent
 func CGPostScrollWheelEvent(wheelCount CGWheelCount, wheel1 int32) CGError {

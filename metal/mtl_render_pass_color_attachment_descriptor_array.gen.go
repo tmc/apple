@@ -36,12 +36,6 @@ func (mc MTLRenderPassColorAttachmentDescriptorArrayClass) Alloc() MTLRenderPass
 	return rv
 }
 
-
-
-
-
-
-
 // An array of render pass color attachment descriptor objects.
 //
 // # Accessing the description of a color attachment
@@ -57,14 +51,10 @@ type MTLRenderPassColorAttachmentDescriptorArray struct {
 //
 // An array of render pass color attachment descriptor objects.
 func MTLRenderPassColorAttachmentDescriptorArrayFromID(id objc.ID) MTLRenderPassColorAttachmentDescriptorArray {
-	return MTLRenderPassColorAttachmentDescriptorArray{objectivec.Object{id}}
+	return MTLRenderPassColorAttachmentDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRenderPassColorAttachmentDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRenderPassColorAttachmentDescriptorArray] class.
 //
@@ -85,10 +75,6 @@ type IMTLRenderPassColorAttachmentDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attachment IMTLRenderPassColorAttachmentDescriptor, attachmentIndex uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRenderPassColorAttachmentDescriptorArray) Init() MTLRenderPassColorAttachmentDescriptorArray {
 	rv := objc.Send[MTLRenderPassColorAttachmentDescriptorArray](r.ID, objc.Sel("init"))
@@ -107,15 +93,6 @@ func NewMTLRenderPassColorAttachmentDescriptorArray() MTLRenderPassColorAttachme
 	rv := objc.Send[MTLRenderPassColorAttachmentDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the descriptor object for the specified color attachment.
 //
@@ -149,35 +126,4 @@ func (r MTLRenderPassColorAttachmentDescriptorArray) ObjectAtIndexedSubscript(at
 func (r MTLRenderPassColorAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLRenderPassColorAttachmentDescriptor, attachmentIndex uint) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setObject:atIndexedSubscript:"), attachment, attachmentIndex)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

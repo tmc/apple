@@ -37,12 +37,6 @@ func (vc VNAnimalBodyPoseObservationClass) Alloc() VNAnimalBodyPoseObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that provides the animal body points the analysis
 // recognizes.
 //
@@ -68,10 +62,6 @@ func VNAnimalBodyPoseObservationFromID(id objc.ID) VNAnimalBodyPoseObservation {
 // NOTE: VNAnimalBodyPoseObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNAnimalBodyPoseObservation] class.
 //
 // # Accessing Points
@@ -95,13 +85,7 @@ type IVNAnimalBodyPoseObservation interface {
 	RecognizedPointForJointNameError(jointName VNAnimalBodyPoseObservationJointName) (IVNRecognizedPoint, error)
 	// Returns the points for a joint group name the observation recognizes.
 	RecognizedPointsForJointsGroupNameError(jointsGroupName VNAnimalBodyPoseObservationJointsGroupName) (foundation.INSDictionary, error)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a VNAnimalBodyPoseObservation) Init() VNAnimalBodyPoseObservation {
@@ -122,15 +106,6 @@ func NewVNAnimalBodyPoseObservation() VNAnimalBodyPoseObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Returns the point for a joint name the observation recognizes.
 //
 // jointName: The joint name to retrieve.
@@ -141,7 +116,7 @@ func NewVNAnimalBodyPoseObservation() VNAnimalBodyPoseObservation {
 //
 // See: https://developer.apple.com/documentation/Vision/VNAnimalBodyPoseObservation/recognizedPoint(_:)
 func (a VNAnimalBodyPoseObservation) RecognizedPointForJointNameError(jointName VNAnimalBodyPoseObservationJointName) (IVNRecognizedPoint, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("recognizedPointForJointName:error:"), jointName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -161,7 +136,7 @@ func (a VNAnimalBodyPoseObservation) RecognizedPointForJointNameError(jointName 
 //
 // See: https://developer.apple.com/documentation/Vision/VNAnimalBodyPoseObservation/recognizedPoints(_:)
 func (a VNAnimalBodyPoseObservation) RecognizedPointsForJointsGroupNameError(jointsGroupName VNAnimalBodyPoseObservationJointsGroupName) (foundation.INSDictionary, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("recognizedPointsForJointsGroupName:error:"), jointsGroupName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -170,20 +145,6 @@ func (a VNAnimalBodyPoseObservation) RecognizedPointsForJointsGroupNameError(joi
 	return foundation.NSDictionaryFromID(rv), nil
 
 }
-func (a VNAnimalBodyPoseObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The names of the available joints in the observation.
 //
@@ -193,8 +154,6 @@ func (a VNAnimalBodyPoseObservation) AvailableJointNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The available joint group names in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNAnimalBodyPoseObservation/availableJointGroupNames
@@ -202,30 +161,4 @@ func (a VNAnimalBodyPoseObservation) AvailableJointGroupNames() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("availableJointGroupNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

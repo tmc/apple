@@ -29,8 +29,6 @@ type NSURLAuthenticationChallengeSender interface {
 	UseCredentialForAuthenticationChallenge(credential INSURLCredential, challenge INSURLAuthenticationChallenge)
 }
 
-
-
 // NSURLAuthenticationChallengeSenderObject wraps an existing Objective-C object that conforms to the NSURLAuthenticationChallengeSender protocol.
 type NSURLAuthenticationChallengeSenderObject struct {
 	objectivec.Object
@@ -39,8 +37,6 @@ func (o NSURLAuthenticationChallengeSenderObject) BaseObject() objectivec.Object
 	return o.Object
 }
 
-
-
 // NSURLAuthenticationChallengeSenderObjectFromID constructs a [NSURLAuthenticationChallengeSenderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLAuthenticationChallengeSenderObjectFromID(id objc.ID) NSURLAuthenticationChallengeSenderObject {
@@ -48,9 +44,6 @@ func NSURLAuthenticationChallengeSenderObjectFromID(id objc.ID) NSURLAuthenticat
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Cancels a given authentication challenge.
 //
@@ -119,10 +112,4 @@ func (o NSURLAuthenticationChallengeSenderObject) RejectProtectionSpaceAndContin
 	
 	objc.Send[struct{}](o.ID, objc.Sel("rejectProtectionSpaceAndContinueWithChallenge:"), challenge)
 	}
-
-
-
-
-
-
 

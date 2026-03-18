@@ -36,12 +36,6 @@ func (nc NSSortDescriptorClass) Alloc() NSSortDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // An immutable description of how to order a collection of objects according
 // to a property common to all the objects.
 //
@@ -67,7 +61,6 @@ func (nc NSSortDescriptorClass) Alloc() NSSortDescriptor {
 //   - [NSSortDescriptor.InitWithKeyAscending]: Creates a sort descriptor with a specified string key path and sort order.
 //   - [NSSortDescriptor.InitWithKeyAscendingSelector]: Creates a sort descriptor with a specified string key path, ordering, and comparison selector.
 //   - [NSSortDescriptor.InitWithKeyAscendingComparator]: Creates a sort descriptor with a specified string key path and ordering, and a comparator block.
-//   - [NSSortDescriptor.InitWithCoder]: Creates a sort descriptor by decoding from the coder you specify.
 //
 // # Getting Information About a Sort Descriptor
 //
@@ -94,14 +87,10 @@ type NSSortDescriptor struct {
 // An immutable description of how to order a collection of objects according
 // to a property common to all the objects.
 func NSSortDescriptorFromID(id objc.ID) NSSortDescriptor {
-	return NSSortDescriptor{objectivec.Object{id}}
+	return NSSortDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: NSSortDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSortDescriptor] class.
 //
@@ -110,7 +99,6 @@ func NSSortDescriptorFromID(id objc.ID) NSSortDescriptor {
 //   - [INSSortDescriptor.InitWithKeyAscending]: Creates a sort descriptor with a specified string key path and sort order.
 //   - [INSSortDescriptor.InitWithKeyAscendingSelector]: Creates a sort descriptor with a specified string key path, ordering, and comparison selector.
 //   - [INSSortDescriptor.InitWithKeyAscendingComparator]: Creates a sort descriptor with a specified string key path and ordering, and a comparator block.
-//   - [INSSortDescriptor.InitWithCoder]: Creates a sort descriptor by decoding from the coder you specify.
 //
 // # Getting Information About a Sort Descriptor
 //
@@ -130,7 +118,9 @@ func NSSortDescriptorFromID(id objc.ID) NSSortDescriptor {
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor
 type INSSortDescriptor interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating a Sort Descriptor
 
@@ -140,8 +130,6 @@ type INSSortDescriptor interface {
 	InitWithKeyAscendingSelector(key string, ascending bool, selector objc.SEL) NSSortDescriptor
 	// Creates a sort descriptor with a specified string key path and ordering, and a comparator block.
 	InitWithKeyAscendingComparator(key string, ascending bool, cmptr NSComparator) NSSortDescriptor
-	// Creates a sort descriptor by decoding from the coder you specify.
-	InitWithCoder(coder INSCoder) NSSortDescriptor
 
 	// Topic: Getting Information About a Sort Descriptor
 
@@ -169,13 +157,7 @@ type INSSortDescriptor interface {
 	// The sort descriptors of the fetch request.
 	SortDescriptors() INSSortDescriptor
 	SetSortDescriptors(value INSSortDescriptor)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSortDescriptor) Init() NSSortDescriptor {
@@ -196,11 +178,6 @@ func NewNSSortDescriptor() NSSortDescriptor {
 	return rv
 }
 
-
-
-
-
-
 // Creates a sort descriptor by decoding from the coder you specify.
 //
 // coder: The coder to read data from.
@@ -211,7 +188,6 @@ func NewSortDescriptorWithCoder(coder INSCoder) NSSortDescriptor {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSSortDescriptorFromID(rv)
 }
-
 
 // Creates a sort descriptor with a specified string key path and sort order.
 //
@@ -241,7 +217,6 @@ func NewSortDescriptorWithKeyAscending(key string, ascending bool) NSSortDescrip
 	return NSSortDescriptorFromID(rv)
 }
 
-
 // Creates a sort descriptor with a specified string key path and ordering,
 // and a comparator block.
 //
@@ -270,7 +245,6 @@ func NewSortDescriptorWithKeyAscendingComparator(key string, ascending bool, cmp
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKey:ascending:comparator:"), objc.String(key), ascending, cmptr)
 	return NSSortDescriptorFromID(rv)
 }
-
 
 // Creates a sort descriptor with a specified string key path, ordering, and
 // comparison selector.
@@ -306,12 +280,6 @@ func NewSortDescriptorWithKeyAscendingSelector(key string, ascending bool, selec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKey:ascending:selector:"), objc.String(key), ascending, selector)
 	return NSSortDescriptorFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a sort descriptor with a specified string key path and sort order.
 //
@@ -465,10 +433,6 @@ func (s NSSortDescriptor) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Creates and returns a sort descriptor with the specified key path and
 // ordering.
 //
@@ -559,13 +523,6 @@ func (_NSSortDescriptorClass NSSortDescriptorClass) SortDescriptorWithKeyAscendi
 	return NSSortDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the receiver specifies sorting in
 // ascending order.
 //
@@ -583,8 +540,6 @@ func (s NSSortDescriptor) Ascending() bool {
 	return rv
 }
 
-
-
 // The key that specifies the property to compare during sorting.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/key
@@ -592,8 +547,6 @@ func (s NSSortDescriptor) Key() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("key"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The key path that specifies the property to compare during sorting.
 //
@@ -606,8 +559,6 @@ func (s NSSortDescriptor) SetKeyPath(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setKeyPath:"), value)
 }
 
-
-
 // The selector for comparing objects.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/selector
@@ -615,8 +566,6 @@ func (s NSSortDescriptor) Selector() objc.SEL {
 	rv := objc.Send[objc.SEL](s.ID, objc.Sel("selector"))
 	return rv
 }
-
-
 
 // The comparator for the sort descriptor.
 //
@@ -631,8 +580,6 @@ func (s NSSortDescriptor) Comparator() NSComparator {
 	return NSComparator(rv)
 }
 
-
-
 // Returns a sort descriptor that reverses the sort order.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSortDescriptor/reversedSortDescriptor
@@ -640,8 +587,6 @@ func (s NSSortDescriptor) ReversedSortDescriptor() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("reversedSortDescriptor"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The sort descriptors of the fetch request.
 //
@@ -654,33 +599,9 @@ func (s NSSortDescriptor) SetSortDescriptors(value INSSortDescriptor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSortDescriptors:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

@@ -36,12 +36,6 @@ func (nc NamesClass) Alloc() Names {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSHost/names-c.ivar
 type Names struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Names struct {
 
 // NamesFromID constructs a [Names] from an objc.ID.
 func NamesFromID(id objc.ID) Names {
-	return Names{objectivec.Object{id}}
+	return Names{objectivec.Object{ID: id}}
 }
 // Ensure Names implements INames.
 var _ INames = Names{}
-
-
-
-
 
 // An interface definition for the [Names] class.
 //
@@ -64,10 +54,6 @@ var _ INames = Names{}
 type INames interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n Names) Init() Names {
@@ -87,38 +73,4 @@ func NewNames() Names {
 	rv := objc.Send[Names](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

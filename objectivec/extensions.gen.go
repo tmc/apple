@@ -25,4 +25,3 @@ func (o Object) Autorelease() {
 	}
 }
 
-

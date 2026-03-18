@@ -35,12 +35,6 @@ func (nc NSMutableIndexSetClass) Alloc() NSMutableIndexSet {
 	return rv
 }
 
-
-
-
-
-
-
 // A mutable collection of unique integer values that represent indexes in
 // another collection.
 //
@@ -94,10 +88,6 @@ func NSMutableIndexSetFromID(id objc.ID) NSMutableIndexSet {
 // NOTE: NSMutableIndexSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMutableIndexSet] class.
 //
 // # Adding Indexes
@@ -147,10 +137,6 @@ type INSMutableIndexSet interface {
 	ShiftIndexesStartingAtIndexBy(index uint, delta int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMutableIndexSet) Init() NSMutableIndexSet {
 	rv := objc.Send[NSMutableIndexSet](m.ID, objc.Sel("init"))
@@ -170,11 +156,6 @@ func NewNSMutableIndexSet() NSMutableIndexSet {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMutableIndexSetWithCoder(coder INSCoder) NSMutableIndexSet {
@@ -182,7 +163,6 @@ func NewMutableIndexSetWithCoder(coder INSCoder) NSMutableIndexSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableIndexSetFromID(rv)
 }
-
 
 // Initializes an allocated [NSIndexSet] object with an index.
 //
@@ -198,7 +178,6 @@ func NewMutableIndexSetWithIndex(value uint) NSMutableIndexSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndex:"), value)
 	return NSMutableIndexSetFromID(rv)
 }
-
 
 // Initializes an allocated [NSIndexSet] object with an index set.
 //
@@ -218,7 +197,6 @@ func NewMutableIndexSetWithIndexSet(indexSet INSIndexSet) NSMutableIndexSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndexSet:"), indexSet)
 	return NSMutableIndexSetFromID(rv)
 }
-
 
 // Initializes an allocated [NSIndexSet] object with an index range.
 //
@@ -247,12 +225,6 @@ func NewMutableIndexSetWithIndexesInRange(range_ NSRange) NSMutableIndexSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIndexesInRange:"), range_)
 	return NSMutableIndexSetFromID(rv)
 }
-
-
-
-
-
-
 
 // Adds an index to the receiver.
 //
@@ -346,42 +318,4 @@ func (m NSMutableIndexSet) RemoveIndexesInRange(range_ NSRange) {
 func (m NSMutableIndexSet) ShiftIndexesStartingAtIndexBy(index uint, delta int) {
 	objc.Send[objc.ID](m.ID, objc.Sel("shiftIndexesStartingAtIndex:by:"), index, delta)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

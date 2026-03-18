@@ -36,12 +36,6 @@ func (vc VZMemoryBalloonDeviceClass) Alloc() VZMemoryBalloonDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // The common behavior for memory devices.
 //
 // # Overview
@@ -64,14 +58,10 @@ type VZMemoryBalloonDevice struct {
 //
 // The common behavior for memory devices.
 func VZMemoryBalloonDeviceFromID(id objc.ID) VZMemoryBalloonDevice {
-	return VZMemoryBalloonDevice{objectivec.Object{id}}
+	return VZMemoryBalloonDevice{objectivec.Object{ID: id}}
 }
 // NOTE: VZMemoryBalloonDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZMemoryBalloonDevice] class.
 //
@@ -83,10 +73,6 @@ type IVZMemoryBalloonDevice interface {
 	MemoryBalloonDevices() IVZMemoryBalloonDeviceConfiguration
 	SetMemoryBalloonDevices(value IVZMemoryBalloonDeviceConfiguration)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m VZMemoryBalloonDevice) Init() VZMemoryBalloonDevice {
@@ -107,26 +93,6 @@ func NewVZMemoryBalloonDevice() VZMemoryBalloonDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // An array that you configure with a memory balloon device, used to update
 // the memory in the VM.
 //
@@ -138,26 +104,4 @@ func (m VZMemoryBalloonDevice) MemoryBalloonDevices() IVZMemoryBalloonDeviceConf
 func (m VZMemoryBalloonDevice) SetMemoryBalloonDevices(value IVZMemoryBalloonDeviceConfiguration) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMemoryBalloonDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

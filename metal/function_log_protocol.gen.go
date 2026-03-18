@@ -35,8 +35,6 @@ type MTLFunctionLog interface {
 	Function() MTLFunction
 }
 
-
-
 // MTLFunctionLogObject wraps an existing Objective-C object that conforms to the MTLFunctionLog protocol.
 type MTLFunctionLogObject struct {
 	objectivec.Object
@@ -45,8 +43,6 @@ func (o MTLFunctionLogObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLFunctionLogObjectFromID constructs a [MTLFunctionLogObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLFunctionLogObjectFromID(id objc.ID) MTLFunctionLogObject {
@@ -54,9 +50,6 @@ func MTLFunctionLogObjectFromID(id objc.ID) MTLFunctionLogObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The type of message that was logged.
 //
@@ -97,18 +90,4 @@ func (o MTLFunctionLogObject) Function() MTLFunction {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("function"))
 	return MTLFunctionObjectFromID(rv)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

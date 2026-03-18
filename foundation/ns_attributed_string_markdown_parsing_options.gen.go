@@ -36,12 +36,6 @@ func (nc NSAttributedStringMarkdownParsingOptionsClass) Alloc() NSAttributedStri
 	return rv
 }
 
-
-
-
-
-
-
 // Options that affect the parsing of Markdown content into an attributed
 // string.
 //
@@ -68,14 +62,10 @@ type NSAttributedStringMarkdownParsingOptions struct {
 // Options that affect the parsing of Markdown content into an attributed
 // string.
 func NSAttributedStringMarkdownParsingOptionsFromID(id objc.ID) NSAttributedStringMarkdownParsingOptions {
-	return NSAttributedStringMarkdownParsingOptions{objectivec.Object{id}}
+	return NSAttributedStringMarkdownParsingOptions{objectivec.Object{ID: id}}
 }
 // NOTE: NSAttributedStringMarkdownParsingOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAttributedStringMarkdownParsingOptions] class.
 //
@@ -116,10 +106,6 @@ type INSAttributedStringMarkdownParsingOptions interface {
 	SetLanguageCode(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAttributedStringMarkdownParsingOptions) Init() NSAttributedStringMarkdownParsingOptions {
 	rv := objc.Send[NSAttributedStringMarkdownParsingOptions](a.ID, objc.Sel("init"))
@@ -139,27 +125,6 @@ func NewNSAttributedStringMarkdownParsingOptions() NSAttributedStringMarkdownPar
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether parsing allows extensions to
 // Markdown that specify extended attributes.
 //
@@ -177,8 +142,6 @@ func (a NSAttributedStringMarkdownParsingOptions) SetAllowsExtendedAttributes(va
 	objc.Send[struct{}](a.ID, objc.Sel("setAllowsExtendedAttributes:"), value)
 }
 
-
-
 // A Boolean value that indicates whether parsing applies attributes that
 // indicate the position of attributed text in the original Markdown string.
 //
@@ -191,8 +154,6 @@ func (a NSAttributedStringMarkdownParsingOptions) SetAppliesSourcePositionAttrib
 	objc.Send[struct{}](a.ID, objc.Sel("setAppliesSourcePositionAttributes:"), value)
 }
 
-
-
 // The policy for handling a parsing failure.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedStringMarkdownParsingOptions/failurePolicy
@@ -203,8 +164,6 @@ func (a NSAttributedStringMarkdownParsingOptions) FailurePolicy() NSAttributedSt
 func (a NSAttributedStringMarkdownParsingOptions) SetFailurePolicy(value NSAttributedStringMarkdownParsingFailurePolicy) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFailurePolicy:"), value)
 }
-
-
 
 // The syntax for intepreting a Markdown string.
 //
@@ -222,8 +181,6 @@ func (a NSAttributedStringMarkdownParsingOptions) InterpretedSyntax() NSAttribut
 func (a NSAttributedStringMarkdownParsingOptions) SetInterpretedSyntax(value NSAttributedStringMarkdownInterpretedSyntax) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInterpretedSyntax:"), value)
 }
-
-
 
 // The BCP-47 language code for this document.
 //
@@ -244,25 +201,6 @@ func (a NSAttributedStringMarkdownParsingOptions) SetLanguageCode(value string) 
 	objc.Send[struct{}](a.ID, objc.Sel("setLanguageCode:"), objc.String(value))
 }
 
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -32,8 +32,6 @@ type MTLVisibleFunctionTable interface {
 	SetFunctionsWithRange(functions []MTLFunctionHandle, range_ foundation.NSRange)
 }
 
-
-
 // MTLVisibleFunctionTableObject wraps an existing Objective-C object that conforms to the MTLVisibleFunctionTable protocol.
 type MTLVisibleFunctionTableObject struct {
 	objectivec.Object
@@ -42,8 +40,6 @@ func (o MTLVisibleFunctionTableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLVisibleFunctionTableObjectFromID constructs a [MTLVisibleFunctionTableObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLVisibleFunctionTableObjectFromID(id objc.ID) MTLVisibleFunctionTableObject {
@@ -51,9 +47,6 @@ func MTLVisibleFunctionTableObjectFromID(id objc.ID) MTLVisibleFunctionTableObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sets a table entry to point to a callable function.
 //
@@ -292,33 +285,7 @@ func (o MTLVisibleFunctionTableObject) SetOwnerWithIdentity(task_id_token object
 	return rv
 	}
 
-
-
-
-
-
-
-
-
-
 func (o MTLVisibleFunctionTableObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

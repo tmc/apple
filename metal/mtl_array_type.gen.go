@@ -35,12 +35,6 @@ func (mc MTLArrayTypeClass) Alloc() MTLArrayType {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of an array.
 //
 // # Overview
@@ -81,10 +75,6 @@ func MTLArrayTypeFromID(id objc.ID) MTLArrayType {
 }
 // NOTE: MTLArrayType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLArrayType] class.
 //
@@ -138,10 +128,6 @@ type IMTLArrayType interface {
 	ElementTensorReferenceType() IMTLTensorReferenceType
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a MTLArrayType) Init() MTLArrayType {
 	rv := objc.Send[MTLArrayType](a.ID, objc.Sel("init"))
@@ -160,15 +146,6 @@ func NewMTLArrayType() MTLArrayType {
 	rv := objc.Send[MTLArrayType](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Provides a description of the underlying type when an array holds other
 // arrays as its elements.
@@ -256,17 +233,6 @@ func (a MTLArrayType) ElementTensorReferenceType() IMTLTensorReferenceType {
 	return MTLTensorReferenceTypeFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The number of elements in the array.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/arrayLength
@@ -274,8 +240,6 @@ func (a MTLArrayType) ArrayLength() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("arrayLength"))
 	return rv
 }
-
-
 
 // The data type of the array’s elements.
 //
@@ -291,8 +255,6 @@ func (a MTLArrayType) ElementType() MTLDataType {
 	return MTLDataType(rv)
 }
 
-
-
 // The stride between array elements, in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/stride
@@ -301,8 +263,6 @@ func (a MTLArrayType) Stride() uint {
 	return rv
 }
 
-
-
 // The stride, in bytes, between argument indices.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArrayType/argumentIndexStride
@@ -310,26 +270,4 @@ func (a MTLArrayType) ArgumentIndexStride() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("argumentIndexStride"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

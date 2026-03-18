@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The interface a file manager’s delegate uses to intervene during operations or if an error occurs.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSFileManagerDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSFileManagerDelegateObject wraps an existing Objective-C object that conforms to the NSFileManagerDelegate protocol.
 type NSFileManagerDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSFileManagerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSFileManagerDelegateObjectFromID constructs a [NSFileManagerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSFileManagerDelegateObjectFromID(id objc.ID) NSFileManagerDelegateObject {
@@ -37,9 +31,6 @@ func NSFileManagerDelegateObjectFromID(id objc.ID) NSFileManagerDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Asks the delegate if the file manager should move the specified item to the
 // new URL.
@@ -648,10 +639,6 @@ func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorLinkingIt
 	return rv
 	}
 
-
-
-
-
 // NSFileManagerDelegateConfig holds optional typed callbacks for [NSFileManagerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -821,8 +808,4 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSFileManagerDelegateObjectFromID(instance)
 }
-
-
-
-
 

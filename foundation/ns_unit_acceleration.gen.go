@@ -35,12 +35,6 @@ func (uc UnitAccelerationClass) Alloc() UnitAcceleration {
 	return rv
 }
 
-
-
-
-
-
-
 // A unit of measure for acceleration.
 //
 // # Overview
@@ -77,20 +71,12 @@ func NSUnitAccelerationFromID(id objc.ID) UnitAcceleration { return UnitAccelera
 // NOTE: UnitAcceleration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [UnitAcceleration] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAcceleration
 type IUnitAcceleration interface {
 	INSDimension
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u UnitAcceleration) Init() UnitAcceleration {
@@ -111,11 +97,6 @@ func NewUnitAcceleration() UnitAcceleration {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitAccelerationWithCoder(coder INSCoder) UnitAcceleration {
@@ -123,7 +104,6 @@ func NewUnitAccelerationWithCoder(coder INSCoder) UnitAcceleration {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return UnitAccelerationFromID(rv)
 }
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -139,7 +119,6 @@ func NewUnitAccelerationWithSymbol(symbol string) UnitAcceleration {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return UnitAccelerationFromID(rv)
 }
-
 
 // Initializes a dimensional unit with the symbol and unit converter you
 // specify.
@@ -164,27 +143,6 @@ func NewUnitAccelerationWithSymbolConverter(symbol string, converter INSUnitConv
 	return UnitAccelerationFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns the meter per second squared unit of acceleration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAcceleration/metersPerSecondSquared
@@ -193,8 +151,6 @@ func (_UnitAccelerationClass UnitAccelerationClass) MetersPerSecondSquared() Uni
 	return NSUnitAccelerationFromID(objc.ID(rv))
 }
 
-
-
 // Returns the gravity unit of acceleration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAcceleration/gravity
@@ -202,27 +158,4 @@ func (_UnitAccelerationClass UnitAccelerationClass) Gravity() UnitAcceleration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAccelerationClass.class), objc.Sel("gravity"))
 	return NSUnitAccelerationFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

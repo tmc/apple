@@ -24,8 +24,6 @@ type VNFaceObservationAccepting interface {
 	SetInputFaceObservations(value []VNFaceObservation)
 }
 
-
-
 // VNFaceObservationAcceptingObject wraps an existing Objective-C object that conforms to the VNFaceObservationAccepting protocol.
 type VNFaceObservationAcceptingObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o VNFaceObservationAcceptingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // VNFaceObservationAcceptingObjectFromID constructs a [VNFaceObservationAcceptingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VNFaceObservationAcceptingObjectFromID(id objc.ID) VNFaceObservationAcceptingObject {
@@ -43,9 +39,6 @@ func VNFaceObservationAcceptingObjectFromID(id objc.ID) VNFaceObservationAccepti
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // An array of [VNFaceObservation] objects to process as part of the request.
 //
@@ -59,14 +52,7 @@ func (o VNFaceObservationAcceptingObject) InputFaceObservations() []VNFaceObserv
 	})
 	}
 
-
-
-
 func (o VNFaceObservationAcceptingObject) SetInputFaceObservations(value []VNFaceObservation) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInputFaceObservations:"), objectivec.IObjectSliceToNSArray(value))
 }
-
-
-
-
 

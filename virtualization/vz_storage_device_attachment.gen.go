@@ -36,12 +36,6 @@ func (vc VZStorageDeviceAttachmentClass) Alloc() VZStorageDeviceAttachment {
 	return rv
 }
 
-
-
-
-
-
-
 // The common behaviors for storage devices in the guest system.
 //
 // # Overview
@@ -64,14 +58,10 @@ type VZStorageDeviceAttachment struct {
 //
 // The common behaviors for storage devices in the guest system.
 func VZStorageDeviceAttachmentFromID(id objc.ID) VZStorageDeviceAttachment {
-	return VZStorageDeviceAttachment{objectivec.Object{id}}
+	return VZStorageDeviceAttachment{objectivec.Object{ID: id}}
 }
 // NOTE: VZStorageDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZStorageDeviceAttachment] class.
 //
@@ -79,10 +69,6 @@ func VZStorageDeviceAttachmentFromID(id objc.ID) VZStorageDeviceAttachment {
 type IVZStorageDeviceAttachment interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VZStorageDeviceAttachment) Init() VZStorageDeviceAttachment {
@@ -102,44 +88,4 @@ func NewVZStorageDeviceAttachment() VZStorageDeviceAttachment {
 	rv := objc.Send[VZStorageDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -29,11 +29,6 @@ rv := objc.Send[objc.ID](objc.ID(_NSIndexPathClass.class), objc.Sel("indexPathFo
 return NSIndexPathFromID(rv)
 }
 
-
-
-
-
-
 // An index number identifying a row in a section of a table view.
 //
 // # Discussion
@@ -45,11 +40,4 @@ func (i NSIndexPath) Row() int {
 rv := objc.Send[int](i.ID, objc.Sel("row"))
 		return rv
 }
-
-
-
-
-
-
-
 

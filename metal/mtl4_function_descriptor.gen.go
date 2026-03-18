@@ -36,12 +36,6 @@ func (mc MTL4FunctionDescriptorClass) Alloc() MTL4FunctionDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // Base interface for describing a Metal 4 shader function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4FunctionDescriptor
@@ -53,14 +47,10 @@ type MTL4FunctionDescriptor struct {
 //
 // Base interface for describing a Metal 4 shader function.
 func MTL4FunctionDescriptorFromID(id objc.ID) MTL4FunctionDescriptor {
-	return MTL4FunctionDescriptor{objectivec.Object{id}}
+	return MTL4FunctionDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4FunctionDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4FunctionDescriptor] class.
 //
@@ -68,10 +58,6 @@ func MTL4FunctionDescriptorFromID(id objc.ID) MTL4FunctionDescriptor {
 type IMTL4FunctionDescriptor interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MTL4FunctionDescriptor) Init() MTL4FunctionDescriptor {
@@ -91,45 +77,4 @@ func NewMTL4FunctionDescriptor() MTL4FunctionDescriptor {
 	rv := objc.Send[MTL4FunctionDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

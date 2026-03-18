@@ -36,12 +36,6 @@ func (nc NSClassDescriptionClass) Alloc() NSClassDescription {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that provides the interface for querying the
 // relationships and properties of a class.
 //
@@ -99,14 +93,10 @@ type NSClassDescription struct {
 // An abstract class that provides the interface for querying the
 // relationships and properties of a class.
 func NSClassDescriptionFromID(id objc.ID) NSClassDescription {
-	return NSClassDescription{objectivec.Object{id}}
+	return NSClassDescription{objectivec.Object{ID: id}}
 }
 // NOTE: NSClassDescription adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSClassDescription] class.
 //
@@ -148,10 +138,6 @@ type INSClassDescription interface {
 	NSClassDescriptionNeededForClass() NSNotificationName
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSClassDescription) Init() NSClassDescription {
 	rv := objc.Send[NSClassDescription](c.ID, objc.Sel("init"))
@@ -170,11 +156,6 @@ func NewNSClassDescription() NSClassDescription {
 	rv := objc.Send[NSClassDescription](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns the class description for a given class.
 //
@@ -204,12 +185,6 @@ func NewClassDescriptionForClass(aClass objc.Class) NSClassDescription {
 	rv := objc.Send[objc.ID](objc.ID(getNSClassDescriptionClass().class), objc.Sel("classDescriptionForClass:"), aClass)
 	return NSClassDescriptionFromID(rv)
 }
-
-
-
-
-
-
 
 // Overridden by subclasses to return the name of the inverse relationship
 // from a relationship specified by a given key.
@@ -241,10 +216,6 @@ func (c NSClassDescription) InverseForRelationshipKey(relationshipKey objectivec
 	return objectivec.Object{ID: rv}
 }
 
-
-
-
-
 // Removes all [NSClassDescription] objects from the cache.
 //
 // # Discussion
@@ -275,13 +246,6 @@ func (_NSClassDescriptionClass NSClassDescriptionClass) RegisterClassDescription
 	objc.Send[objc.ID](objc.ID(_NSClassDescriptionClass.class), objc.Sel("registerClassDescription:forClass:"), description, aClass)
 }
 
-
-
-
-
-
-
-
 // Overridden by subclasses to return the names of attributes of instances of
 // the described class.
 //
@@ -306,8 +270,6 @@ func (c NSClassDescription) AttributeKeys() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // Overridden by subclasses to return the keys for the to-many relationship
 // properties of instances of the described class.
 //
@@ -330,8 +292,6 @@ func (c NSClassDescription) ToManyRelationshipKeys() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("toManyRelationshipKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
 
 // Overridden by subclasses to return the keys for the to-one relationship
 // properties of instances of the described class.
@@ -356,8 +316,6 @@ func (c NSClassDescription) ToOneRelationshipKeys() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // Posted by
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsclassdescriptionneededforclass
@@ -365,26 +323,4 @@ func (c NSClassDescription) NSClassDescriptionNeededForClass() NSNotificationNam
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("NSClassDescriptionNeededForClassNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

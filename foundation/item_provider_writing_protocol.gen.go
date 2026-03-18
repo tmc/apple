@@ -24,8 +24,6 @@ type NSItemProviderWriting interface {
 	WritableTypeIdentifiersForItemProvider() []string
 }
 
-
-
 // NSItemProviderWritingObject wraps an existing Objective-C object that conforms to the NSItemProviderWriting protocol.
 type NSItemProviderWritingObject struct {
 	objectivec.Object
@@ -34,8 +32,6 @@ func (o NSItemProviderWritingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSItemProviderWritingObjectFromID constructs a [NSItemProviderWritingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSItemProviderWritingObjectFromID(id objc.ID) NSItemProviderWritingObject {
@@ -43,9 +39,6 @@ func NSItemProviderWritingObjectFromID(id objc.ID) NSItemProviderWritingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Loads data of a particular type, identified by the given UTI.
 //
@@ -97,12 +90,4 @@ func (o NSItemProviderWritingObject) ItemProviderVisibilityForRepresentationWith
 	rv := objc.Send[NSItemProviderRepresentationVisibility](o.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
 	return rv
 	}
-
-
-
-
-
-
-
-
 

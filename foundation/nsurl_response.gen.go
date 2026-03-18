@@ -36,12 +36,6 @@ func (uc URLResponseClass) Alloc() URLResponse {
 	return rv
 }
 
-
-
-
-
-
-
 // The metadata associated with the response to a URL load request,
 // independent of protocol and URL scheme.
 //
@@ -76,17 +70,13 @@ type URLResponse struct {
 // The metadata associated with the response to a URL load request,
 // independent of protocol and URL scheme.
 func URLResponseFromID(id objc.ID) URLResponse {
-	return NSURLResponse{objectivec.Object{id}}
+	return NSURLResponse{objectivec.Object{ID: id}}
 }
 
 // NSURLResponseFromID is an alias for [URLResponseFromID] for cross-framework compatibility.
 func NSURLResponseFromID(id objc.ID) URLResponse { return URLResponseFromID(id) }
 // NOTE: URLResponse adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLResponse] class.
 //
@@ -105,7 +95,9 @@ func NSURLResponseFromID(id objc.ID) URLResponse { return URLResponseFromID(id) 
 // See: https://developer.apple.com/documentation/Foundation/URLResponse
 type IURLResponse interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating a response
 
@@ -124,15 +116,7 @@ type IURLResponse interface {
 	TextEncodingName() string
 	// The URL for the response.
 	URL() INSURL
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) URLResponse
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u URLResponse) Init() URLResponse {
@@ -153,11 +137,6 @@ func NewURLResponse() URLResponse {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLResponseWithCoder(coder INSCoder) URLResponse {
@@ -165,7 +144,6 @@ func NewURLResponseWithCoder(coder INSCoder) URLResponse {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return URLResponseFromID(rv)
 }
-
 
 // Creates an initialized [NSURLResponse] object with the URL, MIME type,
 // length, and text encoding set to given values.
@@ -193,12 +171,6 @@ func NewURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSU
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:MIMEType:expectedContentLength:textEncodingName:"), URL, objc.String(MIMEType), length, objc.String(name))
 	return URLResponseFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates an initialized [NSURLResponse] object with the URL, MIME type,
 // length, and text encoding set to given values.
@@ -242,17 +214,6 @@ func (u URLResponse) InitWithCoder(coder INSCoder) URLResponse {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The expected length of the response’s content.
 //
 // # Discussion
@@ -271,8 +232,6 @@ func (u URLResponse) ExpectedContentLength() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("expectedContentLength"))
 	return rv
 }
-
-
 
 // A suggested filename for the response data.
 //
@@ -297,8 +256,6 @@ func (u URLResponse) SuggestedFilename() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The MIME type of the response.
 //
 // # Discussion
@@ -316,8 +273,6 @@ func (u URLResponse) MIMEType() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("MIMEType"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The name of the text encoding provided by the response’s originating
 // source.
@@ -341,8 +296,6 @@ func (u URLResponse) TextEncodingName() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The URL for the response.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLResponse/url
@@ -351,35 +304,9 @@ func (u URLResponse) URL() INSURL {
 	return NSURLFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

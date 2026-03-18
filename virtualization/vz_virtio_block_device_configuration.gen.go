@@ -38,12 +38,6 @@ func (vc VZVirtioBlockDeviceConfigurationClass) Alloc() VZVirtioBlockDeviceConfi
 	return rv
 }
 
-
-
-
-
-
-
 // The configuration object that requests the creation of a virtual storage
 // device in the guest system.
 //
@@ -87,10 +81,6 @@ func VZVirtioBlockDeviceConfigurationFromID(id objc.ID) VZVirtioBlockDeviceConfi
 // NOTE: VZVirtioBlockDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioBlockDeviceConfiguration] class.
 //
 // # Creating the configuration object
@@ -122,10 +112,6 @@ type IVZVirtioBlockDeviceConfiguration interface {
 	SetStorageDevices(value IVZStorageDeviceConfiguration)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioBlockDeviceConfiguration) Init() VZVirtioBlockDeviceConfiguration {
 	rv := objc.Send[VZVirtioBlockDeviceConfiguration](v.ID, objc.Sel("init"))
@@ -144,11 +130,6 @@ func NewVZVirtioBlockDeviceConfiguration() VZVirtioBlockDeviceConfiguration {
 	rv := objc.Send[VZVirtioBlockDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a block device configuration object that uses the specified storage
 // medium.
@@ -169,12 +150,6 @@ func NewVirtioBlockDeviceConfigurationWithAttachment(attachment IVZStorageDevice
 	return VZVirtioBlockDeviceConfigurationFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a block device configuration object that uses the specified storage
 // medium.
 //
@@ -193,10 +168,6 @@ func (v VZVirtioBlockDeviceConfiguration) InitWithAttachment(attachment IVZStora
 	return rv
 }
 
-
-
-
-
 // Checks the validity of a block device identifier.
 //
 // blockDeviceIdentifier: The device identifier to validate. In the case of an invalid identifier
@@ -211,7 +182,7 @@ func (v VZVirtioBlockDeviceConfiguration) InitWithAttachment(attachment IVZStora
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioBlockDeviceConfiguration/validateBlockDeviceIdentifier(_:)
 func (_VZVirtioBlockDeviceConfigurationClass VZVirtioBlockDeviceConfigurationClass) ValidateBlockDeviceIdentifierError(blockDeviceIdentifier string) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_VZVirtioBlockDeviceConfigurationClass.class), objc.Sel("validateBlockDeviceIdentifier:error:"), objc.String(blockDeviceIdentifier), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -223,13 +194,6 @@ func (_VZVirtioBlockDeviceConfigurationClass VZVirtioBlockDeviceConfigurationCla
 	return rv, nil
 
 }
-
-
-
-
-
-
-
 
 // The string that identifies the VIRTIO block device.
 //
@@ -254,8 +218,6 @@ func (v VZVirtioBlockDeviceConfiguration) SetBlockDeviceIdentifier(value string)
 	objc.Send[struct{}](v.ID, objc.Sel("setBlockDeviceIdentifier:"), objc.String(value))
 }
 
-
-
 // The array of storage devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/storagedevices
@@ -266,27 +228,4 @@ func (v VZVirtioBlockDeviceConfiguration) StorageDevices() IVZStorageDeviceConfi
 func (v VZVirtioBlockDeviceConfiguration) SetStorageDevices(value IVZStorageDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStorageDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

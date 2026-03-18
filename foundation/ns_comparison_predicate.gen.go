@@ -35,12 +35,6 @@ func (nc NSComparisonPredicateClass) Alloc() NSComparisonPredicate {
 	return rv
 }
 
-
-
-
-
-
-
 // A specialized predicate for comparing expressions.
 //
 // # Overview
@@ -79,10 +73,6 @@ func NSComparisonPredicateFromID(id objc.ID) NSComparisonPredicate {
 }
 // NOTE: NSComparisonPredicate adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSComparisonPredicate] class.
 //
@@ -127,10 +117,6 @@ type INSComparisonPredicate interface {
 	PredicateOperatorType() NSPredicateOperatorType
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c NSComparisonPredicate) Init() NSComparisonPredicate {
 	rv := objc.Send[NSComparisonPredicate](c.ID, objc.Sel("init"))
@@ -150,11 +136,6 @@ func NewNSComparisonPredicate() NSComparisonPredicate {
 	return rv
 }
 
-
-
-
-
-
 // Creates a predicate by decoding from the coder you specify.
 //
 // coder: The coder to read data from.
@@ -165,7 +146,6 @@ func NewComparisonPredicateWithCoder(coder INSCoder) NSComparisonPredicate {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSComparisonPredicateFromID(rv)
 }
-
 
 // Creates a predicate that you form by combining specified left and right
 // expressions using a specified selector.
@@ -188,7 +168,6 @@ func NewComparisonPredicateWithLeftExpressionRightExpressionCustomSelector(lhs I
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLeftExpression:rightExpression:customSelector:"), lhs, rhs, selector)
 	return NSComparisonPredicateFromID(rv)
 }
-
 
 // Creates a predicate to a specified type that you form by combining
 // specified left and right expressions using a specified modifier and
@@ -218,12 +197,6 @@ func NewComparisonPredicateWithLeftExpressionRightExpressionModifierTypeOptions(
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLeftExpression:rightExpression:modifier:type:options:"), lhs, rhs, modifier, type_, options)
 	return NSComparisonPredicateFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a predicate that you form by combining specified left and right
 // expressions using a specified selector.
@@ -274,10 +247,6 @@ func (c NSComparisonPredicate) InitWithLeftExpressionRightExpressionModifierType
 	return rv
 }
 
-
-
-
-
 // Returns a new predicate formed by combining the left and right expressions
 // using a given selector.
 //
@@ -326,13 +295,6 @@ func (_NSComparisonPredicateClass NSComparisonPredicateClass) PredicateWithLeftE
 	return NSComparisonPredicateFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The comparison predicate modifier for the receiver.
 //
 // # Discussion
@@ -344,8 +306,6 @@ func (c NSComparisonPredicate) ComparisonPredicateModifier() NSComparisonPredica
 	rv := objc.Send[NSComparisonPredicateModifier](c.ID, objc.Sel("comparisonPredicateModifier"))
 	return NSComparisonPredicateModifier(rv)
 }
-
-
 
 // The selector for the receiver.
 //
@@ -359,8 +319,6 @@ func (c NSComparisonPredicate) CustomSelector() objc.SEL {
 	return rv
 }
 
-
-
 // The right expression for the receiver.
 //
 // # Discussion
@@ -372,8 +330,6 @@ func (c NSComparisonPredicate) RightExpression() INSExpression {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("rightExpression"))
 	return NSExpressionFromID(objc.ID(rv))
 }
-
-
 
 // The left expression for the receiver.
 //
@@ -387,8 +343,6 @@ func (c NSComparisonPredicate) LeftExpression() INSExpression {
 	return NSExpressionFromID(objc.ID(rv))
 }
 
-
-
 // The options to use for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/options-swift.property
@@ -397,8 +351,6 @@ func (c NSComparisonPredicate) Options() NSComparisonPredicateOptions {
 	return NSComparisonPredicateOptions(rv)
 }
 
-
-
 // The predicate type for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/predicateOperatorType
@@ -406,31 +358,4 @@ func (c NSComparisonPredicate) PredicateOperatorType() NSPredicateOperatorType {
 	rv := objc.Send[NSPredicateOperatorType](c.ID, objc.Sel("predicateOperatorType"))
 	return NSPredicateOperatorType(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

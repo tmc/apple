@@ -41,8 +41,6 @@ func NewArrayErrorBlock(handler ArrayErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // ArrayHandler handles A completion handler that receives an array of cookies as its argument.
 //   - evaluatedObject: The object to be evaluated.
 //   - expressions: An array of predicate expressions that evaluates to a collection.
@@ -79,8 +77,6 @@ func NewArrayBlock(handler ArrayHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // CachedURLResponseHandler handles A completion handler that receives the cached URL response for the data task’s request, or `nil` if no response is found in the cache.
 //
 // Used by:
@@ -105,8 +101,6 @@ func NewCachedURLResponseBlock(handler CachedURLResponseHandler) (objc.ID, func(
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // DataErrorHandler handles The handler that’s called after the data is loaded.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -153,8 +147,6 @@ func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // DataHandler handles A completion handler that is called when the download has been successfully canceled.
 //
 // Used by:
@@ -179,8 +171,6 @@ func NewDataBlock(handler DataHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // DataURLResponseErrorHandler handles The completion handler to call when the load request is complete.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -224,15 +214,11 @@ func NewDataURLResponseErrorBlock(handler DataURLResponseErrorHandler) (objc.ID,
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // DictionaryErrorHandler handles A block that is called on an anonymous background queue.
 //
 // Used by:
 //   - [NSFileManager.GetFileProviderServicesForItemAtURLCompletionHandler]
 type DictionaryErrorHandler = func(*INSDictionary, error)
-
-
 
 // DictionaryHandler handles The block is applied to the object to be evaluated.
 //   - evaluatedObject: The object to be evaluated.
@@ -244,8 +230,6 @@ type DictionaryErrorHandler = func(*INSDictionary, error)
 //   - [NSPredicate.PredicateWithBlock]
 //   - [NSURLCredentialStorage.GetCredentialsForProtectionSpaceTaskCompletionHandler]
 type DictionaryHandler = func(*INSDictionary)
-
-
 
 // ErrorHandler handles A closure or block that the framework calls when the pause action completes.
 //   - expired: A Boolean value that indicates whether the system is terminating a previous invocation of the `completionHandler` block.
@@ -336,8 +320,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // FileHandleHandler is the signature for a completion handler block.
 type FileHandleHandler = func(*NSFileHandle)
 
@@ -354,8 +336,6 @@ func NewFileHandleBlock(handler FileHandleHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // FileVersionErrorHandler handles A closure or block that the framework calls when the fetch action completes.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -388,8 +368,6 @@ func NewFileVersionErrorBlock(handler FileVersionErrorHandler) (objc.ID, func())
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // InputStreamHandler handles A completion handler that your delegate method should call with the new body stream.
 //
 // Used by:
@@ -414,8 +392,6 @@ func NewInputStreamBlock(handler InputStreamHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // InputStreamOutputStreamErrorHandler handles The completion handler block that returns streams.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -451,8 +427,6 @@ func NewInputStreamOutputStreamErrorBlock(handler InputStreamOutputStreamErrorHa
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // NSItemProviderReadingErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -480,8 +454,6 @@ func NewNSItemProviderReadingErrorBlock(handler NSItemProviderReadingErrorHandle
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // NotificationHandler handles The block that executes when receiving a notification.
 //
 // Used by:
@@ -504,8 +476,6 @@ func NewNotificationBlock(handler NotificationHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // ObjectHandler handles A block to be executed when an operation is undone.
 //
@@ -530,8 +500,6 @@ func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // OrderedCollectionChangeHandler handles A block receives an ordered collection change and returns an updated change.
 //
 // Used by:
@@ -555,8 +523,6 @@ func NewOrderedCollectionChangeBlock(handler OrderedCollectionChangeHandler) (ob
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // TaskHandler handles The system invokes this completion block when the task has completed.
 //
 // Used by:
@@ -579,8 +545,6 @@ func NewTaskBlock(handler TaskHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // TimerHandler handles A block to be executed when the timer fires.
 //
@@ -609,8 +573,6 @@ func NewTimerBlock(handler TimerHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // URLCredentialHandler handles A completion handler that receives the default credential as its argument, or `nil` if there is no default credential for this combination of protection space and task.
 //
 // Used by:
@@ -633,8 +595,6 @@ func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // URLErrorHandler handles An optional error handler block for the file manager to call when an error occurs.
 //   - url: An [NSURL](<doc://com.apple.foundation/documentation/Foundation/NSURL>) object that identifies the item for which the error occurred.
@@ -673,8 +633,6 @@ func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // URLHandler handles A [Block object](<https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3>) containing the file operations you want to perform in a coordinated manner.
 //
 // Used by:
@@ -700,8 +658,6 @@ func NewURLBlock(handler URLHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // URLRequestHandler handles A block that your handler should call with either the value of the `request` parameter, a modified URL request object, or [NULL] to refuse the redirect and return the body of the redirect response.
 //
 // Used by:
@@ -724,8 +680,6 @@ func NewURLRequestBlock(handler URLRequestHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // URLSessionAuthChallengeDispositionURLCredentialHandler handles A handler that your delegate method must call.
 //
@@ -753,8 +707,6 @@ func NewURLSessionAuthChallengeDispositionURLCredentialBlock(handler URLSessionA
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // URLSessionDelayedRequestDispositionURLRequestHandler handles A completion handler to perform the request.
 //
 // Used by:
@@ -778,8 +730,6 @@ func NewURLSessionDelayedRequestDispositionURLRequestBlock(handler URLSessionDel
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // URLSessionWebSocketMessageErrorHandler handles A closure that receives two parameters: the WebSocket message, and an NSError that indicates an error encountered while receiving the message.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -810,8 +760,6 @@ func NewURLSessionWebSocketMessageErrorBlock(handler URLSessionWebSocketMessageE
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // URLURLHandler handles A [Block object](<https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3>) containing the read and write operations you want to perform in a coordinated manner.
 //
 // Used by:
@@ -841,8 +789,6 @@ func NewURLURLBlock(handler URLURLHandler) (objc.ID, func()) {
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // URLURLResponseErrorHandler handles The completion handler to call when the load request is complete.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -881,8 +827,6 @@ func NewURLURLResponseErrorBlock(handler URLURLResponseErrorHandler) (objc.ID, f
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // VoidHandler handles The block to add to the new block operation object’s list.
 //   - completionHandler: A completion handler block. The batch accessor must call the completion handler when it has finished its read and write calls.
@@ -953,8 +897,6 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // XPCConnectionErrorHandler handles A block that is called on an anonymous background queue.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -983,6 +925,4 @@ func NewXPCConnectionErrorBlock(handler XPCConnectionErrorHandler) (objc.ID, fun
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 

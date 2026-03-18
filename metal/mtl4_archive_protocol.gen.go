@@ -50,8 +50,6 @@ type MTL4Archive interface {
 	SetLabel(value string)
 }
 
-
-
 // MTL4ArchiveObject wraps an existing Objective-C object that conforms to the MTL4Archive protocol.
 type MTL4ArchiveObject struct {
 	objectivec.Object
@@ -60,8 +58,6 @@ func (o MTL4ArchiveObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4ArchiveObjectFromID constructs a [MTL4ArchiveObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4ArchiveObjectFromID(id objc.ID) MTL4ArchiveObject {
@@ -69,9 +65,6 @@ func MTL4ArchiveObjectFromID(id objc.ID) MTL4ArchiveObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A label that you can associate with this archive.
 //
@@ -214,14 +207,7 @@ func (o MTL4ArchiveObject) NewRenderPipelineStateWithDescriptorError(descriptor 
 	return MTLRenderPipelineStateObjectFromID(rv), nil
 	}
 
-
-
-
 func (o MTL4ArchiveObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

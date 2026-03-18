@@ -36,12 +36,6 @@ func (nc NSRecursiveLockClass) Alloc() NSRecursiveLock {
 	return rv
 }
 
-
-
-
-
-
-
 // A lock that may be acquired multiple times by the same thread without
 // causing a deadlock.
 //
@@ -73,14 +67,10 @@ type NSRecursiveLock struct {
 // A lock that may be acquired multiple times by the same thread without
 // causing a deadlock.
 func NSRecursiveLockFromID(id objc.ID) NSRecursiveLock {
-	return NSRecursiveLock{objectivec.Object{id}}
+	return NSRecursiveLock{objectivec.Object{ID: id}}
 }
 // NOTE: NSRecursiveLock adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSRecursiveLock] class.
 //
@@ -112,10 +102,6 @@ type INSRecursiveLock interface {
 	SetName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r NSRecursiveLock) Init() NSRecursiveLock {
 	rv := objc.Send[NSRecursiveLock](r.ID, objc.Sel("init"))
@@ -134,15 +120,6 @@ func NewNSRecursiveLock() NSRecursiveLock {
 	rv := objc.Send[NSRecursiveLock](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Attempts to acquire a lock before a given date.
 //
@@ -203,17 +180,6 @@ func (r NSRecursiveLock) Unlock() {
 	objc.Send[objc.ID](r.ID, objc.Sel("unlock"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The name associated with the receiver.
 //
 // # Discussion
@@ -229,29 +195,4 @@ func (r NSRecursiveLock) Name() string {
 func (r NSRecursiveLock) SetName(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

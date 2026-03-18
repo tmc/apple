@@ -36,12 +36,6 @@ func (hc HTTPCookieStorageClass) Alloc() HTTPCookieStorage {
 	return rv
 }
 
-
-
-
-
-
-
 // A container that manages the storage of cookies.
 //
 // # Overview
@@ -125,17 +119,13 @@ type HTTPCookieStorage struct {
 //
 // A container that manages the storage of cookies.
 func HTTPCookieStorageFromID(id objc.ID) HTTPCookieStorage {
-	return NSHTTPCookieStorage{objectivec.Object{id}}
+	return NSHTTPCookieStorage{objectivec.Object{ID: id}}
 }
 
 // NSHTTPCookieStorageFromID is an alias for [HTTPCookieStorageFromID] for cross-framework compatibility.
 func NSHTTPCookieStorageFromID(id objc.ID) HTTPCookieStorage { return HTTPCookieStorageFromID(id) }
 // NOTE: HTTPCookieStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [HTTPCookieStorage] class.
 //
@@ -210,10 +200,6 @@ type IHTTPCookieStorage interface {
 	SetIsSessionOnly(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (h HTTPCookieStorage) Init() HTTPCookieStorage {
 	rv := objc.Send[HTTPCookieStorage](h.ID, objc.Sel("init"))
@@ -232,15 +218,6 @@ func NewHTTPCookieStorage() HTTPCookieStorage {
 	rv := objc.Send[HTTPCookieStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Removes cookies that were stored after a given date.
 //
@@ -341,9 +318,9 @@ func (h HTTPCookieStorage) StoreCookiesForTask(cookies []NSHTTPCookie, task INSU
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/getCookiesFor(_:completionHandler:)
 func (h HTTPCookieStorage) GetCookiesForTaskCompletionHandler(task INSURLSessionTask, completionHandler ArrayHandler) {
-		_block1, _cleanup1 := NewArrayBlock(completionHandler)
+_block1, _cleanup1 := NewArrayBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](h.ID, objc.Sel("getCookiesForTask:completionHandler:"), task, _block1)
+	objc.Send[objc.ID](h.ID, objc.Sel("getCookiesForTask:completionHandler:"), task, _block1)
 }
 
 // Returns all the cookie storage’s cookies that are sent to a specified
@@ -393,10 +370,6 @@ func (h HTTPCookieStorage) SortedCookiesUsingDescriptors(sortOrder []NSSortDescr
 	})
 }
 
-
-
-
-
 // Returns the cookie storage instance for the container associated with the
 // specified app group identifier.
 //
@@ -420,13 +393,6 @@ func (_HTTPCookieStorageClass HTTPCookieStorageClass) SharedCookieStorageForGrou
 	return NSHTTPCookieStorageFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The cookie storage’s cookie accept policy.
 //
 // # Discussion
@@ -446,8 +412,6 @@ func (h HTTPCookieStorage) SetCookieAcceptPolicy(value NSHTTPCookieAcceptPolicy)
 	objc.Send[struct{}](h.ID, objc.Sel("setCookieAcceptPolicy:"), value)
 }
 
-
-
 // The cookie storage’s cookies.
 //
 // # Discussion
@@ -464,8 +428,6 @@ func (h HTTPCookieStorage) Cookies() []NSHTTPCookie {
 	})
 }
 
-
-
 // A notification posted when the cookies stored in the cookie storage have
 // changed.
 //
@@ -475,8 +437,6 @@ func (h HTTPCookieStorage) NSHTTPCookieManagerCookiesChanged() NSNotificationNam
 	return NSNotificationName(NSStringFromID(rv).String())
 }
 
-
-
 // A notification posted when the acceptance policy of the cookie storage has
 // changed.
 //
@@ -485,8 +445,6 @@ func (h HTTPCookieStorage) NSHTTPCookieManagerAcceptPolicyChanged() NSNotificati
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("NSHTTPCookieManagerAcceptPolicyChangedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
 
 // A Boolean value that indicates whether the cookie should be discarded at
 // the end of the session (regardless of expiration date).
@@ -500,12 +458,6 @@ func (h HTTPCookieStorage) SetIsSessionOnly(value bool) {
 	objc.Send[struct{}](h.ID, objc.Sel("setSessionOnly:"), value)
 }
 
-
-
-
-
-
-
 // The shared cookie storage instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/shared
@@ -513,24 +465,4 @@ func (_HTTPCookieStorageClass HTTPCookieStorageClass) SharedHTTPCookieStorage() 
 	rv := objc.Send[objc.ID](objc.ID(_HTTPCookieStorageClass.class), objc.Sel("sharedHTTPCookieStorage"))
 	return NSHTTPCookieStorageFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

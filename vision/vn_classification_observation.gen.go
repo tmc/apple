@@ -37,12 +37,6 @@ func (vc VNClassificationObservationClass) Alloc() VNClassificationObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents classification information that an image-analysis
 // request produces.
 //
@@ -82,10 +76,6 @@ func VNClassificationObservationFromID(id objc.ID) VNClassificationObservation {
 // NOTE: VNClassificationObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNClassificationObservation] class.
 //
 // # Determining Classification
@@ -122,12 +112,7 @@ type IVNClassificationObservation interface {
 	// The name of the primary prediction feature output description.
 	PredictedFeatureName() string
 	SetPredictedFeatureName(value string)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c VNClassificationObservation) Init() VNClassificationObservation {
@@ -147,15 +132,6 @@ func NewVNClassificationObservation() VNClassificationObservation {
 	rv := objc.Send[VNClassificationObservation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Determines whether the observation for a specific recall has a minimum
 // precision value.
@@ -195,20 +171,6 @@ func (c VNClassificationObservation) HasMinimumRecallForPrecision(minimumRecall 
 	rv := objc.Send[bool](c.ID, objc.Sel("hasMinimumRecall:forPrecision:"), minimumRecall, precision)
 	return rv
 }
-func (c VNClassificationObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // Classification label identifying the type of observation.
 //
@@ -224,8 +186,6 @@ func (c VNClassificationObservation) Identifier() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // A Boolean variable indicating whether the observation contains precision
 // and recall curves.
@@ -249,8 +209,6 @@ func (c VNClassificationObservation) HasPrecisionRecallCurve() bool {
 	return rv
 }
 
-
-
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -263,8 +221,6 @@ func (c VNClassificationObservation) SetModelDescription(value coreml.MLModelDes
 	objc.Send[struct{}](c.ID, objc.Sel("setModelDescription:"), value)
 }
 
-
-
 // The name of the primary prediction feature output description.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName
@@ -275,30 +231,4 @@ func (c VNClassificationObservation) PredictedFeatureName() string {
 func (c VNClassificationObservation) SetPredictedFeatureName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPredictedFeatureName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

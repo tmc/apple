@@ -37,12 +37,6 @@ func (nc NSPointerFunctionsClass) Alloc() NSPointerFunctions {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance of [NSPointerFunctions] defines callout functions appropriate
 // for managing a pointer reference held somewhere else.
 //
@@ -99,14 +93,10 @@ type NSPointerFunctions struct {
 // An instance of [NSPointerFunctions] defines callout functions appropriate
 // for managing a pointer reference held somewhere else.
 func NSPointerFunctionsFromID(id objc.ID) NSPointerFunctions {
-	return NSPointerFunctions{objectivec.Object{id}}
+	return NSPointerFunctions{objectivec.Object{ID: id}}
 }
 // NOTE: NSPointerFunctions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPointerFunctions] class.
 //
@@ -171,10 +161,6 @@ type INSPointerFunctions interface {
 	SetPointerFunctions(value INSPointerFunctions)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSPointerFunctions) Init() NSPointerFunctions {
 	rv := objc.Send[NSPointerFunctions](p.ID, objc.Sel("init"))
@@ -194,11 +180,6 @@ func NewNSPointerFunctions() NSPointerFunctions {
 	return rv
 }
 
-
-
-
-
-
 // Returns an [NSPointerFunctions] object initialized with the given options.
 //
 // options: The options for the new [NSPointerFunctions] object.
@@ -214,12 +195,6 @@ func NewPointerFunctionsWithOptions(options NSPointerFunctionsOptions) NSPointer
 	return NSPointerFunctionsFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns an [NSPointerFunctions] object initialized with the given options.
 //
 // options: The options for the new [NSPointerFunctions] object.
@@ -233,10 +208,6 @@ func (p NSPointerFunctions) InitWithOptions(options NSPointerFunctionsOptions) N
 	rv := objc.Send[NSPointerFunctions](p.ID, objc.Sel("initWithOptions:"), options)
 	return rv
 }
-
-
-
-
 
 // Returns a new [NSPointerFunctions] object initialized with the given
 // options.
@@ -253,13 +224,6 @@ func (_NSPointerFunctionsClass NSPointerFunctionsClass) PointerFunctionsWithOpti
 	return NSPointerFunctionsFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The hash function.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/hashfunction
@@ -270,8 +234,6 @@ func (p NSPointerFunctions) HashFunction() int {
 func (p NSPointerFunctions) SetHashFunction(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHashFunction:"), value)
 }
-
-
 
 // The function used to compare pointers.
 //
@@ -284,8 +246,6 @@ func (p NSPointerFunctions) SetIsEqualFunction(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIsEqualFunction:"), value)
 }
 
-
-
 // The function used to determine the size of pointers.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/sizefunction
@@ -296,8 +256,6 @@ func (p NSPointerFunctions) SizeFunction() int {
 func (p NSPointerFunctions) SetSizeFunction(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSizeFunction:"), value)
 }
-
-
 
 // The function used to describe elements.
 //
@@ -310,8 +268,6 @@ func (p NSPointerFunctions) SetDescriptionFunction(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDescriptionFunction:"), objc.String(value))
 }
 
-
-
 // The function used to acquire memory.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/acquirefunction
@@ -322,8 +278,6 @@ func (p NSPointerFunctions) AcquireFunction() unsafe.Pointer {
 func (p NSPointerFunctions) SetAcquireFunction(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAcquireFunction:"), value)
 }
-
-
 
 // The function used to relinquish memory.
 //
@@ -336,8 +290,6 @@ func (p NSPointerFunctions) SetRelinquishFunction(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRelinquishFunction:"), value)
 }
 
-
-
 // The pointer functions for the hash table.
 //
 // See: https://developer.apple.com/documentation/foundation/nshashtable/pointerfunctions
@@ -349,31 +301,6 @@ func (p NSPointerFunctions) SetPointerFunctions(value INSPointerFunctions) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPointerFunctions:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

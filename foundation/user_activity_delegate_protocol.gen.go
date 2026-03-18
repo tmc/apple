@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // The interface through which a user activity instance notifies its delegate of updates.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSUserActivityDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSUserActivityDelegateObject wraps an existing Objective-C object that conforms to the NSUserActivityDelegate protocol.
 type NSUserActivityDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSUserActivityDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSUserActivityDelegateObjectFromID constructs a [NSUserActivityDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSUserActivityDelegateObjectFromID(id objc.ID) NSUserActivityDelegateObject {
@@ -37,9 +31,6 @@ func NSUserActivityDelegateObjectFromID(id objc.ID) NSUserActivityDelegateObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Notifies the user activity delegate that an input and output streams are
 // available to open.
@@ -105,10 +96,6 @@ func (o NSUserActivityDelegateObject) UserActivityWillSave(userActivity INSUserA
 	
 	objc.Send[struct{}](o.ID, objc.Sel("userActivityWillSave:"), userActivity)
 	}
-
-
-
-
 
 // NSUserActivityDelegateConfig holds optional typed callbacks for [NSUserActivityDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -200,8 +187,4 @@ func NewNSUserActivityDelegate(config NSUserActivityDelegateConfig) NSUserActivi
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSUserActivityDelegateObjectFromID(instance)
 }
-
-
-
-
 

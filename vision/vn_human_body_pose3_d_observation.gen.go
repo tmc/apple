@@ -39,12 +39,6 @@ func (vc VNHumanBodyPose3DObservationClass) Alloc() VNHumanBodyPose3DObservation
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that provides the 3D body points the request recognizes.
 //
 // # Accessing Points
@@ -84,10 +78,6 @@ func VNHumanBodyPose3DObservationFromID(id objc.ID) VNHumanBodyPose3DObservation
 }
 // NOTE: VNHumanBodyPose3DObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNHumanBodyPose3DObservation] class.
 //
@@ -154,12 +144,7 @@ type IVNHumanBodyPose3DObservation interface {
 
 	// Gets a position relative to the camera for the body joint you specify.
 	GetCameraRelativePositionForJointNameError(modelPositionOut objectivec.IObject, jointName VNHumanBodyPose3DObservationJointName) (bool, error)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h VNHumanBodyPose3DObservation) Init() VNHumanBodyPose3DObservation {
@@ -180,15 +165,6 @@ func NewVNHumanBodyPose3DObservation() VNHumanBodyPose3DObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Returns the point for a joint name that the observation recognizes.
 //
 // jointName: The joint name to retrieve.
@@ -199,7 +175,7 @@ func NewVNHumanBodyPose3DObservation() VNHumanBodyPose3DObservation {
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/recognizedPoint(_:)
 func (h VNHumanBodyPose3DObservation) RecognizedPointForJointNameError(jointName VNHumanBodyPose3DObservationJointName) (IVNHumanBodyRecognizedPoint3D, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("recognizedPointForJointName:error:"), jointName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -219,7 +195,7 @@ func (h VNHumanBodyPose3DObservation) RecognizedPointForJointNameError(jointName
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/recognizedPoints(_:)
 func (h VNHumanBodyPose3DObservation) RecognizedPointsForJointsGroupNameError(jointsGroupName VNHumanBodyPose3DObservationJointsGroupName) (foundation.INSDictionary, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("recognizedPointsForJointsGroupName:error:"), jointsGroupName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -241,7 +217,7 @@ func (h VNHumanBodyPose3DObservation) RecognizedPointsForJointsGroupNameError(jo
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/pointInImage(_:)
 func (h VNHumanBodyPose3DObservation) PointInImageForJointNameError(jointName VNHumanBodyPose3DObservationJointName) (IVNPoint, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("pointInImageForJointName:error:"), jointName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -282,7 +258,7 @@ func (h VNHumanBodyPose3DObservation) ParentJointNameForJointName(jointName VNHu
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/getCameraRelativePosition:forJointName:error:
 func (h VNHumanBodyPose3DObservation) GetCameraRelativePositionForJointNameError(modelPositionOut objectivec.IObject, jointName VNHumanBodyPose3DObservationJointName) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](h.ID, objc.Sel("getCameraRelativePosition:forJointName:error:"), modelPositionOut, jointName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -294,20 +270,6 @@ func (h VNHumanBodyPose3DObservation) GetCameraRelativePositionForJointNameError
 	return rv, nil
 
 }
-func (h VNHumanBodyPose3DObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](h.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The names of the available joints in the observation.
 //
@@ -317,8 +279,6 @@ func (h VNHumanBodyPose3DObservation) AvailableJointNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The available joint group names in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/availableJointsGroupNames
@@ -327,8 +287,6 @@ func (h VNHumanBodyPose3DObservation) AvailableJointsGroupNames() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The technique the framework uses to estimate body height.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/heightEstimation-swift.property
@@ -336,8 +294,6 @@ func (h VNHumanBodyPose3DObservation) HeightEstimation() VNHumanBodyPose3DObserv
 	rv := objc.Send[VNHumanBodyPose3DObservationHeightEstimation](h.ID, objc.Sel("heightEstimation"))
 	return VNHumanBodyPose3DObservationHeightEstimation(rv)
 }
-
-
 
 // The estimated human body height, in meters.
 //
@@ -353,8 +309,6 @@ func (h VNHumanBodyPose3DObservation) BodyHeight() float32 {
 	return rv
 }
 
-
-
 // A transform from the skeleton hip to the camera.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/cameraOriginMatrix
@@ -362,30 +316,4 @@ func (h VNHumanBodyPose3DObservation) CameraOriginMatrix() objectivec.IObject {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("cameraOriginMatrix"))
 	return objectivec.Object{ID: rv}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

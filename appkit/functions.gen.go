@@ -194,12 +194,12 @@ func NSApplicationLoad() bool {
 	return _nSApplicationLoad()
 }
 
-var _nSApplicationMain func(argc int, argv *byte) int
+var _nSApplicationMain func(argc int, argv string) int
 
 // NSApplicationMain called by the main function to create and run the application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationMain
-func NSApplicationMain(argc int, argv *byte) int {
+func NSApplicationMain(argc int, argv string) int {
 	if _nSApplicationMain == nil {
 		panic("AppKit: symbol NSApplicationMain not loaded")
 	}
@@ -278,12 +278,14 @@ func NSColorSpaceFromDepth(depth NSWindowDepth) NSColorSpaceName {
 	return _nSColorSpaceFromDepth(depth)
 }
 
-var _nSConvertGlyphsToPackedGlyphs func(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs *byte) int
+var _nSConvertGlyphsToPackedGlyphs func(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int
 
 // NSConvertGlyphsToPackedGlyphs prepares a set of glyphs for processing by character-based routines.
 //
+// Deprecated: Deprecated since macOS 10.13.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSConvertGlyphsToPackedGlyphs(_:_:_:_:)
-func NSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs *byte) int {
+func NSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int {
 	if _nSConvertGlyphsToPackedGlyphs == nil {
 		panic("AppKit: symbol NSConvertGlyphsToPackedGlyphs not loaded")
 	}
@@ -293,6 +295,8 @@ func NSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyt
 var _nSCopyBits func(srcGState int, srcRect corefoundation.CGRect, destPoint corefoundation.CGPoint)
 
 // NSCopyBits copies a bitmap image to the location specified by a destination point.
+//
+// Deprecated: Deprecated since macOS 10.10.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCopyBits(_:_:_:)
 func NSCopyBits(srcGState int, srcRect corefoundation.CGRect, destPoint corefoundation.CGPoint) {
@@ -306,6 +310,8 @@ var _nSCountWindows func(count *int)
 
 // NSCountWindows counts the number of onscreen windows.
 //
+// Deprecated: Deprecated since macOS 10.6.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSCountWindows
 func NSCountWindows(count *int) {
 	if _nSCountWindows == nil {
@@ -317,6 +323,8 @@ func NSCountWindows(count *int) {
 var _nSCountWindowsForContext func(context int, count *int)
 
 // NSCountWindowsForContext counts the number of onscreen windows belonging to a particular application.
+//
+// Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCountWindowsForContext
 func NSCountWindowsForContext(context int, count *int) {
@@ -366,12 +374,12 @@ func NSDottedFrameRect(rect corefoundation.CGRect) {
 	_nSDottedFrameRect(rect)
 }
 
-var _nSDrawBitmap func(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data *byte)
+var _nSDrawBitmap func(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data string)
 
 // NSDrawBitmap draws a bitmap image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDrawBitmap(_:_:_:_:_:_:_:_:_:_:_:)
-func NSDrawBitmap(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data *byte) {
+func NSDrawBitmap(rect corefoundation.CGRect, width int, height int, bps int, spp int, bpp int, bpr int, isPlanar bool, hasAlpha bool, colorSpaceName NSColorSpaceName, data string) {
 	if _nSDrawBitmap == nil {
 		panic("AppKit: symbol NSDrawBitmap not loaded")
 	}
@@ -590,6 +598,8 @@ var _nSHighlightRect func(rect corefoundation.CGRect)
 
 // NSHighlightRect highlights the specified rect by filling it with white.
 //
+// Deprecated: Deprecated since macOS 10.0.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSHighlightRect
 func NSHighlightRect(rect corefoundation.CGRect) {
 	if _nSHighlightRect == nil {
@@ -601,6 +611,8 @@ func NSHighlightRect(rect corefoundation.CGRect) {
 var _nSInterfaceStyleForKey func(key foundation.NSString, responder *NSResponder) unsafe.Pointer
 
 // NSInterfaceStyleForKey returns an interface style value for the specified key and responder.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSInterfaceStyleForKey
 func NSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) unsafe.Pointer {
@@ -782,6 +794,8 @@ var _nSRunAlertPanelRelativeToWindow func(title foundation.NSString, msgFormat f
 
 // NSRunAlertPanelRelativeToWindow.
 //
+// Deprecated: Deprecated since macOS 10.0.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSRunAlertPanelRelativeToWindow
 func NSRunAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int {
 	if _nSRunAlertPanelRelativeToWindow == nil {
@@ -794,6 +808,8 @@ var _nSRunCriticalAlertPanelRelativeToWindow func(title foundation.NSString, msg
 
 // NSRunCriticalAlertPanelRelativeToWindow.
 //
+// Deprecated: Deprecated since macOS 10.0.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSRunCriticalAlertPanelRelativeToWindow
 func NSRunCriticalAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int {
 	if _nSRunCriticalAlertPanelRelativeToWindow == nil {
@@ -805,6 +821,8 @@ func NSRunCriticalAlertPanelRelativeToWindow(title foundation.NSString, msgForma
 var _nSRunInformationalAlertPanelRelativeToWindow func(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int
 
 // NSRunInformationalAlertPanelRelativeToWindow.
+//
+// Deprecated: Deprecated since macOS 10.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunInformationalAlertPanelRelativeToWindow
 func NSRunInformationalAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int {
@@ -880,6 +898,8 @@ var _nSWindowList func(size int, list int)
 
 // NSWindowList gets information about onscreen windows.
 //
+// Deprecated: Deprecated since macOS 10.6.
+//
 // See: https://developer.apple.com/documentation/AppKit/NSWindowList
 func NSWindowList(size int, list int) {
 	if _nSWindowList == nil {
@@ -891,6 +911,8 @@ func NSWindowList(size int, list int) {
 var _nSWindowListForContext func(context int, size int, list int)
 
 // NSWindowListForContext gets information about an application’s onscreen windows.
+//
+// Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowListForContext
 func NSWindowListForContext(context int, size int, list int) {

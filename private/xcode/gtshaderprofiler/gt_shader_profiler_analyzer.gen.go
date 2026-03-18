@@ -4,7 +4,6 @@ package gtshaderprofiler
 
 import (
 	"context"
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -74,7 +73,7 @@ type IGTShaderProfilerAnalyzer interface {
 
 	// Topic: Methods
 
-	Binary() unsafe.Pointer
+	Binary() objectivec.IObject
 	GenerateFullMCAReport(mCAReport VoidHandler)
 	GenerateMCAOutputCallback(mCAOutput bool, callback VoidHandler)
 	GenerateRegisterPressureView(view VoidHandler)
@@ -140,9 +139,9 @@ func (g GTShaderProfilerAnalyzer) InitWithToolchainBinaryGpu(toolchain objective
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/binary
-func (g GTShaderProfilerAnalyzer) Binary() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("binary"))
-	return rv
+func (g GTShaderProfilerAnalyzer) Binary() objectivec.IObject {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("binary"))
+	return objectivec.Object{ID: rv}
 }
 
 // GenerateFullMCAReportSync is a synchronous wrapper around [GTShaderProfilerAnalyzer.GenerateFullMCAReport].

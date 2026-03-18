@@ -3,9 +3,9 @@
 package espresso
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [EspressoBrickTensorMetal] class.
@@ -66,8 +66,8 @@ type IEspressoBrickTensorMetal interface {
 
 	// Topic: Methods
 
-	Texture() unsafe.Pointer
-	SetTexture(value unsafe.Pointer)
+	Texture() objectivec.IObject
+	SetTexture(value objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -90,11 +90,11 @@ func NewEspressoBrickTensorMetal() EspressoBrickTensorMetal {
 }
 
 // See: https://developer.apple.com/documentation/Espresso/EspressoBrickTensorMetal/texture
-func (e EspressoBrickTensorMetal) Texture() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("texture"))
-	return rv
+func (e EspressoBrickTensorMetal) Texture() objectivec.IObject {
+	rv := objc.Send[objc.ID](e.ID, objc.Sel("texture"))
+	return objectivec.Object{ID: rv}
 }
-func (e EspressoBrickTensorMetal) SetTexture(value unsafe.Pointer) {
+func (e EspressoBrickTensorMetal) SetTexture(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setTexture:"), value)
 }
 

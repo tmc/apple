@@ -36,12 +36,6 @@ func (mc MTLVertexAttributeDescriptorArrayClass) Alloc() MTLVertexAttributeDescr
 	return rv
 }
 
-
-
-
-
-
-
 // An array of vertex attribute descriptor instances.
 //
 // # Overview
@@ -65,14 +59,10 @@ type MTLVertexAttributeDescriptorArray struct {
 //
 // An array of vertex attribute descriptor instances.
 func MTLVertexAttributeDescriptorArrayFromID(id objc.ID) MTLVertexAttributeDescriptorArray {
-	return MTLVertexAttributeDescriptorArray{objectivec.Object{id}}
+	return MTLVertexAttributeDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLVertexAttributeDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLVertexAttributeDescriptorArray] class.
 //
@@ -94,10 +84,6 @@ type IMTLVertexAttributeDescriptorArray interface {
 	SetObjectAtIndexedSubscript(attributeDesc IMTLVertexAttributeDescriptor, index uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v MTLVertexAttributeDescriptorArray) Init() MTLVertexAttributeDescriptorArray {
 	rv := objc.Send[MTLVertexAttributeDescriptorArray](v.ID, objc.Sel("init"))
@@ -116,15 +102,6 @@ func NewMTLVertexAttributeDescriptorArray() MTLVertexAttributeDescriptorArray {
 	rv := objc.Send[MTLVertexAttributeDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the state of the specified vertex attribute.
 //
@@ -156,42 +133,9 @@ func (v MTLVertexAttributeDescriptorArray) SetObjectAtIndexedSubscript(attribute
 	objc.Send[objc.ID](v.ID, objc.Sel("setObject:atIndexedSubscript:"), attributeDesc, index)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexAttributeDescriptorArray) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

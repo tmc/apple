@@ -36,12 +36,6 @@ func (mc MTLComputePassSampleBufferAttachmentDescriptorClass) Alloc() MTLCompute
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration that instructs the GPU where to store counter data from the
 // beginning and end of a compute pass.
 //
@@ -74,14 +68,10 @@ type MTLComputePassSampleBufferAttachmentDescriptor struct {
 // A configuration that instructs the GPU where to store counter data from the
 // beginning and end of a compute pass.
 func MTLComputePassSampleBufferAttachmentDescriptorFromID(id objc.ID) MTLComputePassSampleBufferAttachmentDescriptor {
-	return MTLComputePassSampleBufferAttachmentDescriptor{objectivec.Object{id}}
+	return MTLComputePassSampleBufferAttachmentDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLComputePassSampleBufferAttachmentDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLComputePassSampleBufferAttachmentDescriptor] class.
 //
@@ -111,10 +101,6 @@ type IMTLComputePassSampleBufferAttachmentDescriptor interface {
 	SetEndOfEncoderSampleIndex(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c MTLComputePassSampleBufferAttachmentDescriptor) Init() MTLComputePassSampleBufferAttachmentDescriptor {
 	rv := objc.Send[MTLComputePassSampleBufferAttachmentDescriptor](c.ID, objc.Sel("init"))
@@ -133,26 +119,6 @@ func NewMTLComputePassSampleBufferAttachmentDescriptor() MTLComputePassSampleBuf
 	rv := objc.Send[MTLComputePassSampleBufferAttachmentDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A specialized memory buffer that the GPU uses to store its counter data
 // during a compute pass.
@@ -175,8 +141,6 @@ func (c MTLComputePassSampleBufferAttachmentDescriptor) SampleBuffer() MTLCounte
 func (c MTLComputePassSampleBufferAttachmentDescriptor) SetSampleBuffer(value MTLCounterSampleBuffer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSampleBuffer:"), value)
 }
-
-
 
 // An index within a counter sample buffer that tells the GPU where to store
 // counter data from the start of a compute pass.
@@ -201,8 +165,6 @@ func (c MTLComputePassSampleBufferAttachmentDescriptor) SetStartOfEncoderSampleI
 	objc.Send[struct{}](c.ID, objc.Sel("setStartOfEncoderSampleIndex:"), value)
 }
 
-
-
 // An index within a counter sample buffer that tells the GPU where to store
 // counter data from the end of a compute pass.
 //
@@ -225,27 +187,4 @@ func (c MTLComputePassSampleBufferAttachmentDescriptor) EndOfEncoderSampleIndex(
 func (c MTLComputePassSampleBufferAttachmentDescriptor) SetEndOfEncoderSampleIndex(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEndOfEncoderSampleIndex:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

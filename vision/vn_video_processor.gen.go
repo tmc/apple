@@ -39,12 +39,6 @@ func (vc VNVideoProcessorClass) Alloc() VNVideoProcessor {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that performs offline analysis of video content.
 //
 // # Creating a Video Processor
@@ -67,14 +61,10 @@ type VNVideoProcessor struct {
 //
 // An object that performs offline analysis of video content.
 func VNVideoProcessorFromID(id objc.ID) VNVideoProcessor {
-	return VNVideoProcessor{objectivec.Object{id}}
+	return VNVideoProcessor{objectivec.Object{ID: id}}
 }
 // NOTE: VNVideoProcessor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNVideoProcessor] class.
 //
@@ -110,10 +100,6 @@ type IVNVideoProcessor interface {
 	Cancel()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VNVideoProcessor) Init() VNVideoProcessor {
 	rv := objc.Send[VNVideoProcessor](v.ID, objc.Sel("init"))
@@ -133,11 +119,6 @@ func NewVNVideoProcessor() VNVideoProcessor {
 	return rv
 }
 
-
-
-
-
-
 // Creates a video processor to perform Vision requests against the specified
 // video asset.
 //
@@ -150,12 +131,6 @@ func NewVideoProcessorWithURL(videoURL foundation.INSURL) VNVideoProcessor {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), videoURL)
 	return VNVideoProcessorFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a video processor to perform Vision requests against the specified
 // video asset.
@@ -182,7 +157,7 @@ func (v VNVideoProcessor) InitWithURL(videoURL foundation.INSURL) VNVideoProcess
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/addRequest(_:processingOptions:)
 func (v VNVideoProcessor) AddRequestProcessingOptionsError(request IVNRequest, processingOptions IVNVideoProcessorRequestProcessingOptions) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("addRequest:processingOptions:error:"), request, processingOptions, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -201,7 +176,7 @@ func (v VNVideoProcessor) AddRequestProcessingOptionsError(request IVNRequest, p
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/removeRequest(_:)
 func (v VNVideoProcessor) RemoveRequestError(request IVNRequest) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("removeRequest:error:"), request, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -229,7 +204,7 @@ func (v VNVideoProcessor) RemoveRequestError(request IVNRequest) (bool, error) {
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/analyze(_:)
 func (v VNVideoProcessor) AnalyzeTimeRangeError(timeRange objectivec.IObject) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("analyzeTimeRange:error:"), timeRange, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -248,35 +223,4 @@ func (v VNVideoProcessor) AnalyzeTimeRangeError(timeRange objectivec.IObject) (b
 func (v VNVideoProcessor) Cancel() {
 	objc.Send[objc.ID](v.ID, objc.Sel("cancel"))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

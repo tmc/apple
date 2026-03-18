@@ -36,12 +36,6 @@ func (nc NSAutoreleasePoolClass) Alloc() NSAutoreleasePool {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that supports Cocoa’s reference-counted memory management
 // system.
 //
@@ -134,14 +128,10 @@ type NSAutoreleasePool struct {
 // An object that supports Cocoa’s reference-counted memory management
 // system.
 func NSAutoreleasePoolFromID(id objc.ID) NSAutoreleasePool {
-	return NSAutoreleasePool{objectivec.Object{id}}
+	return NSAutoreleasePool{objectivec.Object{ID: id}}
 }
 // Ensure NSAutoreleasePool implements INSAutoreleasePool.
 var _ INSAutoreleasePool = NSAutoreleasePool{}
-
-
-
-
 
 // An interface definition for the [NSAutoreleasePool] class.
 //
@@ -158,10 +148,6 @@ type INSAutoreleasePool interface {
 	// In a reference-counted environment, releases and pops the receiver; in a garbage-collected environment, triggers garbage collection if the memory allocated since the last collection is greater than the current threshold.
 	Drain()
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSAutoreleasePool) Init() NSAutoreleasePool {
@@ -181,15 +167,6 @@ func NewNSAutoreleasePool() NSAutoreleasePool {
 	rv := objc.Send[NSAutoreleasePool](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // In a reference-counted environment, releases and pops the receiver; in a
 // garbage-collected environment, triggers garbage collection if the memory
@@ -217,10 +194,6 @@ func NewNSAutoreleasePool() NSAutoreleasePool {
 func (a NSAutoreleasePool) Drain() {
 	objc.Send[objc.ID](a.ID, objc.Sel("drain"))
 }
-
-
-
-
 
 // Adds a given object to the active autorelease pool in the current thread.
 //
@@ -252,25 +225,4 @@ func (_NSAutoreleasePoolClass NSAutoreleasePoolClass) AddObjectWithAnObject(anOb
 func (_NSAutoreleasePoolClass NSAutoreleasePoolClass) ShowPools() {
 	objc.Send[objc.ID](objc.ID(_NSAutoreleasePoolClass.class), objc.Sel("showPools"))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

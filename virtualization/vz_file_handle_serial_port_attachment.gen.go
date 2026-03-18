@@ -36,12 +36,6 @@ func (vc VZFileHandleSerialPortAttachmentClass) Alloc() VZFileHandleSerialPortAt
 	return rv
 }
 
-
-
-
-
-
-
 // An attachment point that allows bidirectional communication using file
 // handles.
 //
@@ -80,10 +74,6 @@ func VZFileHandleSerialPortAttachmentFromID(id objc.ID) VZFileHandleSerialPortAt
 // NOTE: VZFileHandleSerialPortAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZFileHandleSerialPortAttachment] class.
 //
 // # Creating the attachment point
@@ -112,10 +102,6 @@ type IVZFileHandleSerialPortAttachment interface {
 	FileHandleForWriting() foundation.NSFileHandle
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f VZFileHandleSerialPortAttachment) Init() VZFileHandleSerialPortAttachment {
 	rv := objc.Send[VZFileHandleSerialPortAttachment](f.ID, objc.Sel("init"))
@@ -134,11 +120,6 @@ func NewVZFileHandleSerialPortAttachment() VZFileHandleSerialPortAttachment {
 	rv := objc.Send[VZFileHandleSerialPortAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a serial port attachment object from the specified file handles.
 //
@@ -161,12 +142,6 @@ func NewFileHandleSerialPortAttachmentWithFileHandleForReadingFileHandleForWriti
 	return VZFileHandleSerialPortAttachmentFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a serial port attachment object from the specified file handles.
 //
 // fileHandleForReading: The file handle that the guest operating system uses to read data. Your
@@ -187,17 +162,6 @@ func (f VZFileHandleSerialPortAttachment) InitWithFileHandleForReadingFileHandle
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The file handle that the guest operating system uses to read data.
 //
 // # Discussion
@@ -211,8 +175,6 @@ func (f VZFileHandleSerialPortAttachment) FileHandleForReading() foundation.NSFi
 	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
 
-
-
 // The file handle that the guest operating system uses to write data.
 //
 // # Discussion
@@ -225,26 +187,4 @@ func (f VZFileHandleSerialPortAttachment) FileHandleForWriting() foundation.NSFi
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandleForWriting"))
 	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

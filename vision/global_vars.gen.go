@@ -9,321 +9,353 @@ import (
 	"github.com/tmc/apple/corefoundation"
 )
 
+// uint values.
 const (
 
+	// VNCalculateImageAestheticsScoresRequestRevision1 is a value that indicates the first revision for an aesthetics scores request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNCalculateImageAestheticsScoresRequestRevision1
 	VNCalculateImageAestheticsScoresRequestRevision1 uint = 1
 
+	// VNClassifyImageRequestRevision1 is a constant for specifying the first revision of the image-classification request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNClassifyImageRequestRevision1
 	VNClassifyImageRequestRevision1 uint = 1
 
+	// VNClassifyImageRequestRevision2 is a value that indicates the second revision for an image-classification request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNClassifyImageRequestRevision2
 	VNClassifyImageRequestRevision2 uint = 2
 
+	// VNCoreMLRequestRevision1 is a constant for specifying revision 1 of a Core ML request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNCoreMLRequestRevision1
 	VNCoreMLRequestRevision1 uint = 1
 
+	// VNDetectAnimalBodyPoseRequestRevision1 is a value that indicates the first revision for an animal body-pose request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectAnimalBodyPoseRequestRevision1
 	VNDetectAnimalBodyPoseRequestRevision1 uint = 1
 
-//
-// Deprecated: Deprecated since macOS 14.0. Use [VNDetectBarcodesRequestRevision3](<doc://Vision/documentation/Vision/VNDetectBarcodesRequestRevision3>) instead.
-	VNDetectBarcodesRequestRevision1 uint = 1
-
-	VNDetectBarcodesRequestRevision2 uint = 2
-
+	// VNDetectBarcodesRequestRevision3 is a constant for specifying revision 3 of the barcode detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequestRevision3
 	VNDetectBarcodesRequestRevision3 uint = 3
 
+	// VNDetectBarcodesRequestRevision4 is a value that indicates the fourth revision for a barcode request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequestRevision4
 	VNDetectBarcodesRequestRevision4 uint = 4
 
+	// VNDetectContourRequestRevision1 is a constant for specifying revision 1 of the contours detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectContourRequestRevision1
 	VNDetectContourRequestRevision1 uint = 1
 
+	// VNDetectDocumentSegmentationRequestRevision1 is a constant for specifying revision 1 of the document segmentation request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectDocumentSegmentationRequestRevision1
 	VNDetectDocumentSegmentationRequestRevision1 uint = 1
 
+	// VNDetectFaceCaptureQualityRequestRevision1 is a constant for specifying revision 1 of the face capture detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectFaceCaptureQualityRequestRevision1
 	VNDetectFaceCaptureQualityRequestRevision1 uint = 1
 
+	// VNDetectFaceCaptureQualityRequestRevision2 is revision 2 of the request algorithm.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectFaceCaptureQualityRequestRevision2
 	VNDetectFaceCaptureQualityRequestRevision2 uint = 2
 
+	// VNDetectFaceCaptureQualityRequestRevision3 is a value that indicates the third revision for a face capture-quality request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectFaceCaptureQualityRequestRevision3
 	VNDetectFaceCaptureQualityRequestRevision3 uint = 3
 
+	// VNDetectFaceLandmarksRequestRevision2 is a constant for specifying revision 2 of the face landmarks detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectFaceLandmarksRequestRevision2
 	VNDetectFaceLandmarksRequestRevision2 uint = 2
 
+	// VNDetectFaceLandmarksRequestRevision3 is a constant for specifying revision 3 of the face landmarks detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectFaceLandmarksRequestRevision3
 	VNDetectFaceLandmarksRequestRevision3 uint = 3
 
+	// VNDetectFaceRectanglesRequestRevision2 is a constant for specifying revision 2 of the face rectangles detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectFaceRectanglesRequestRevision2
 	VNDetectFaceRectanglesRequestRevision2 uint = 2
 
+	// VNDetectFaceRectanglesRequestRevision3 is a constant for specifying revision 3 of the face rectangles detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectFaceRectanglesRequestRevision3
 	VNDetectFaceRectanglesRequestRevision3 uint = 3
 
+	// VNDetectHorizonRequestRevision1 is a constant for specifying revision 1 of the horizon detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectHorizonRequestRevision1
 	VNDetectHorizonRequestRevision1 uint = 1
 
+	// VNDetectHumanBodyPose3DRequestRevision1 is a value that indicates the first revision for a human 3D body pose request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectHumanBodyPose3DRequestRevision1
 	VNDetectHumanBodyPose3DRequestRevision1 uint = 1
 
+	// VNDetectHumanBodyPoseRequestRevision1 is a constant for specifying revision 1 of the body pose detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectHumanBodyPoseRequestRevision1
 	VNDetectHumanBodyPoseRequestRevision1 uint = 1
 
+	// VNDetectHumanHandPoseRequestRevision1 is a constant for specifying revision 1 of the hand pose detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectHumanHandPoseRequestRevision1
 	VNDetectHumanHandPoseRequestRevision1 uint = 1
 
+	// VNDetectHumanRectanglesRequestRevision1 is a constant for specifying revision 1 of the human rectangles detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectHumanRectanglesRequestRevision1
 	VNDetectHumanRectanglesRequestRevision1 uint = 1
 
+	// VNDetectHumanRectanglesRequestRevision2 is a constant for specifying revision 2 of the human rectangles detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectHumanRectanglesRequestRevision2
 	VNDetectHumanRectanglesRequestRevision2 uint = 2
 
+	// VNDetectRectanglesRequestRevision1 is a constant for specifying revision 1 of the rectangle detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectRectanglesRequestRevision1
 	VNDetectRectanglesRequestRevision1 uint = 1
 
+	// VNDetectTextRectanglesRequestRevision1 is a constant for specifying revision 1 of the text rectangles detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectTextRectanglesRequestRevision1
 	VNDetectTextRectanglesRequestRevision1 uint = 1
 
+	// VNDetectTrajectoriesRequestRevision1 is a constant for specifying revision 1 of the trajectories detection request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequestRevision1
 	VNDetectTrajectoriesRequestRevision1 uint = 1
 
+	// VNGenerateAttentionBasedSaliencyImageRequestRevision1 is a constant for specifying revision 1 of the image saliency request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateAttentionBasedSaliencyImageRequestRevision1
 	VNGenerateAttentionBasedSaliencyImageRequestRevision1 uint = 1
 
+	// VNGenerateAttentionBasedSaliencyImageRequestRevision2 is a value that indicates the second revision for an attention-saliency image request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateAttentionBasedSaliencyImageRequestRevision2
 	VNGenerateAttentionBasedSaliencyImageRequestRevision2 uint = 2
 
+	// VNGenerateForegroundInstanceMaskRequestRevision1 is a constant for specifying the first revision of the foreground instance mask request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateForegroundInstanceMaskRequestRevision1
 	VNGenerateForegroundInstanceMaskRequestRevision1 uint = 1
 
+	// VNGenerateImageFeaturePrintRequestRevision1 is a constant for specifying the first revision of the feature-print request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateImageFeaturePrintRequestRevision1
 	VNGenerateImageFeaturePrintRequestRevision1 uint = 1
 
+	// VNGenerateImageFeaturePrintRequestRevision2 is a value that indicates the second revision for a feature-print request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateImageFeaturePrintRequestRevision2
 	VNGenerateImageFeaturePrintRequestRevision2 uint = 2
 
+	// VNGenerateObjectnessBasedSaliencyImageRequestRevision1 is a constant for specifying revision 1 of the image saliency request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateObjectnessBasedSaliencyImageRequestRevision1
 	VNGenerateObjectnessBasedSaliencyImageRequestRevision1 uint = 1
 
+	// VNGenerateObjectnessBasedSaliencyImageRequestRevision2 is a value that indicates the second revision for an image-classification request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateObjectnessBasedSaliencyImageRequestRevision2
 	VNGenerateObjectnessBasedSaliencyImageRequestRevision2 uint = 2
 
+	// VNGenerateOpticalFlowRequestRevision1 is a constant for specifying revision 1 of the optical flow generation request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequestRevision1
 	VNGenerateOpticalFlowRequestRevision1 uint = 1
 
+	// VNGenerateOpticalFlowRequestRevision2 is a constant for specifying revision 2 of the optical flow generation request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequestRevision2
 	VNGenerateOpticalFlowRequestRevision2 uint = 2
 
+	// VNGeneratePersonInstanceMaskRequestRevision1 is a constant for specifying revision 1 of the person instance mask request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGeneratePersonInstanceMaskRequestRevision1
 	VNGeneratePersonInstanceMaskRequestRevision1 uint = 1
 
+	// VNGeneratePersonSegmentationRequestRevision1 is a constant for specifying revision 1 of the person segmentation generation request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequestRevision1
 	VNGeneratePersonSegmentationRequestRevision1 uint = 1
 
+	// VNHomographicImageRegistrationRequestRevision1 is a constant for specifying revision 1 of the homographic image registration request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNHomographicImageRegistrationRequestRevision1
 	VNHomographicImageRegistrationRequestRevision1 uint = 1
 
+	// VNRecognizeAnimalsRequestRevision1 is a constant for specifying revision 1 of the animal recognition request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequestRevision1
 	VNRecognizeAnimalsRequestRevision1 uint = 1
 
+	// VNRecognizeAnimalsRequestRevision2 is a constant for specifying revision 2 of the animal recognition request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNRecognizeAnimalsRequestRevision2
 	VNRecognizeAnimalsRequestRevision2 uint = 2
 
-	VNRecognizeTextRequestRevision1 uint = 1
-
-	VNRecognizeTextRequestRevision2 uint = 2
-
+	// VNRecognizeTextRequestRevision3 is a constant for specifying revision 3 of the text recognition request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequestRevision3
 	VNRecognizeTextRequestRevision3 uint = 3
 
+	// VNRequestRevisionUnspecified is a constant for specifying an unspecified request revision.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionUnspecified
 	VNRequestRevisionUnspecified uint = 0
 
+	// VNTrackHomographicImageRegistrationRequestRevision1 is a value that indicates the first revision for a homographic image-registration request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNTrackHomographicImageRegistrationRequestRevision1
 	VNTrackHomographicImageRegistrationRequestRevision1 uint = 1
 
+	// VNTrackObjectRequestRevision1 is a constant for specifying revision 1 of the object tracking request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequestRevision1
 	VNTrackObjectRequestRevision1 uint = 1
 
+	// VNTrackObjectRequestRevision2 is a constant for specifying revision 2 of the object tracking request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequestRevision2
 	VNTrackObjectRequestRevision2 uint = 2
 
+	// VNTrackOpticalFlowRequestRevision1 is a value that indicates the first revision for an optial-flow request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequestRevision1
 	VNTrackOpticalFlowRequestRevision1 uint = 1
 
+	// VNTrackRectangleRequestRevision1 is a constant for specifying revision 1 of the rectangling tracking request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNTrackRectangleRequestRevision1
 	VNTrackRectangleRequestRevision1 uint = 1
 
+	// VNTrackTranslationalImageRegistrationRequestRevision1 is a value that indicates the first revision for a translational image-registration request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNTrackTranslationalImageRegistrationRequestRevision1
 	VNTrackTranslationalImageRegistrationRequestRevision1 uint = 1
 
+	// VNTranslationalImageRegistrationRequestRevision1 is a constant for specifying revision 1 of the translational image registration request.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNTranslationalImageRegistrationRequestRevision1
 	VNTranslationalImageRegistrationRequestRevision1 uint = 1
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var VNErrorDomain string
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var VNNormalizedIdentityRect corefoundation.CGRect
-
-
-
-
-
-
-var VNRecognizedPoint3DGroupKeyAll VNRecognizedPointGroupKey
-
-var VNRecognizedPointGroupKeyAll VNRecognizedPointGroupKey
-
-
-
-
-
-
-
-
-
-var VNVisionVersionNumber float64
-
+// Deprecated uint values.
+const (
+
+	// VNDetectBarcodesRequestRevision1 is a constant for specifying revision 1 of the barcode detection request.
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use [VNDetectBarcodesRequestRevision3](<doc://Vision/documentation/Vision/VNDetectBarcodesRequestRevision3>) instead.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequestRevision1
+	VNDetectBarcodesRequestRevision1 uint = 1
+
+	// VNDetectBarcodesRequestRevision2 is a constant for specifying revision 2 of the barcode detection request.
+	//
+	// Deprecated: Deprecated since macOS 15.0.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequestRevision2
+	VNDetectBarcodesRequestRevision2 uint = 2
+
+	// VNRecognizeTextRequestRevision1 is a constant for specifying revision 1 of the text recognition request.
+	//
+	// Deprecated: Deprecated since macOS 15.0.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequestRevision1
+	VNRecognizeTextRequestRevision1 uint = 1
+
+	// VNRecognizeTextRequestRevision2 is a constant for specifying revision 2 of the text recognition request.
+	//
+	// Deprecated: Deprecated since macOS 15.0.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNRecognizeTextRequestRevision2
+	VNRecognizeTextRequestRevision2 uint = 2
+)
+
+var (
+)
+
+var (
+)
+
+var (
+)
+
+var (
+)
+
+var (
+)
+
+var (
+	// VNErrorDomain is the domain of errors that the framework generates.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNErrorDomain
+	VNErrorDomain string
+)
+
+var (
+)
+
+var (
+)
+
+var (
+)
+
+var (
+)
+
+var (
+)
+
+var (
+)
+
+var (
+)
+
+var (
+	// VNNormalizedIdentityRect is a normalized identity rectangle with an origin of zero and unit length and width.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNNormalizedIdentityRect
+	VNNormalizedIdentityRect corefoundation.CGRect
+)
+
+var (
+	// VNRecognizedPoint3DGroupKeyAll is a group key identifying all three-dimensional landmarks.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNRecognizedPointGroupKey/point3DGroupKeyAll
+	VNRecognizedPoint3DGroupKeyAll VNRecognizedPointGroupKey
+	// VNRecognizedPointGroupKeyAll is a group key identifying all landmarks.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNRecognizedPointGroupKey/all
+	VNRecognizedPointGroupKeyAll VNRecognizedPointGroupKey
+)
+
+var (
+	// VNVisionVersionNumber is the current version number of the Vision framework.
+	//
+	// See: https://developer.apple.com/documentation/Vision/VNVisionVersionNumber
+	VNVisionVersionNumber float64
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
-
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftBackElbow"); err == nil && ptr != 0 {
 		VNAnimalBodyPoseObservationJointNames.LeftBackElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
@@ -450,7 +482,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalIdentifierCat"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -460,7 +492,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalIdentifierDog"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -470,7 +502,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyAztec"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -480,7 +512,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyCodabar"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -490,7 +522,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyCode128"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -500,7 +532,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyCode39"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -510,7 +542,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyCode39Checksum"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -520,7 +552,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyCode39FullASCII"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -530,7 +562,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyCode39FullASCIIChecksum"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -540,7 +572,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyCode93"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -550,7 +582,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyCode93i"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -560,7 +592,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyDataMatrix"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -570,7 +602,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyEAN13"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -580,7 +612,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyEAN8"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -590,7 +622,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyGS1DataBar"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -600,7 +632,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyGS1DataBarExpanded"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -610,7 +642,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyGS1DataBarLimited"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -620,7 +652,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyI2of5"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -630,7 +662,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyI2of5Checksum"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -640,7 +672,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyITF14"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -650,7 +682,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyMSIPlessey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -660,7 +692,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyMicroPDF417"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -670,7 +702,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyMicroQR"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -680,7 +712,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyPDF417"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -690,7 +722,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyQR"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -700,7 +732,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNBarcodeSymbologyUPCE"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -709,11 +741,8 @@ func init() {
 		}
 	}
 
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNComputeStageMain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -723,7 +752,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNComputeStagePostProcessing"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -732,32 +761,8 @@ func init() {
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -765,18 +770,6 @@ func init() {
 			}
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameCenterHead"); err == nil && ptr != 0 {
 		VNHumanBodyPose3DObservationJointNames.CenterHead = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
@@ -1087,7 +1080,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNImageOptionCIContext"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1097,7 +1090,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNImageOptionCameraIntrinsics"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1107,7 +1100,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNImageOptionProperties"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1120,13 +1113,8 @@ func init() {
 		VNNormalizedIdentityRect = *(*corefoundation.CGRect)(unsafe.Pointer(ptr))
 	}
 
-
-
-
-
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNRecognizedPoint3DGroupKeyAll"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1136,7 +1124,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNRecognizedPointGroupKeyAll"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -1144,14 +1132,6 @@ func init() {
 			}
 		}
 	}
-
-
-
-
-
-
-
-
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNVisionVersionNumber"); err == nil && ptr != 0 {
 		VNVisionVersionNumber = *(*float64)(unsafe.Pointer(ptr))

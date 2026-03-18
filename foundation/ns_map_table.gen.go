@@ -36,12 +36,6 @@ func (nc NSMapTableClass) Alloc() NSMapTable {
 	return rv
 }
 
-
-
-
-
-
-
 // A collection similar to a dictionary, but with a broader range of available
 // memory semantics.
 //
@@ -111,14 +105,10 @@ type NSMapTable struct {
 // A collection similar to a dictionary, but with a broader range of available
 // memory semantics.
 func NSMapTableFromID(id objc.ID) NSMapTable {
-	return NSMapTable{objectivec.Object{id}}
+	return NSMapTable{objectivec.Object{ID: id}}
 }
 // NOTE: NSMapTable adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMapTable] class.
 //
@@ -152,7 +142,9 @@ func NSMapTableFromID(id objc.ID) NSMapTable {
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable
 type INSMapTable interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating and Initializing a Map Table
 
@@ -192,15 +184,7 @@ type INSMapTable interface {
 	KeyPointerFunctions() INSPointerFunctions
 	// The pointer functions the map table uses to manage values.
 	ValuePointerFunctions() INSPointerFunctions
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSMapTable
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMapTable) Init() NSMapTable {
@@ -221,11 +205,6 @@ func NewNSMapTable() NSMapTable {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMapTableWithCoder(coder INSCoder) NSMapTable {
@@ -233,7 +212,6 @@ func NewMapTableWithCoder(coder INSCoder) NSMapTable {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMapTableFromID(rv)
 }
-
 
 // Returns a map table, initialized with the given options.
 //
@@ -261,7 +239,6 @@ func NewMapTableWithKeyOptionsValueOptionsCapacity(keyOptions NSPointerFunctions
 	return NSMapTableFromID(rv)
 }
 
-
 // Returns a map table, initialized with the given functions.
 //
 // keyFunctions: The functions the map table uses to manage keys.
@@ -281,12 +258,6 @@ func NewMapTableWithKeyPointerFunctionsValuePointerFunctionsCapacity(keyFunction
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKeyPointerFunctions:valuePointerFunctions:capacity:"), keyFunctions, valueFunctions, initialCapacity)
 	return NSMapTableFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a map table, initialized with the given options.
 //
@@ -482,10 +453,6 @@ func (m NSMapTable) InitWithCoder(coder INSCoder) NSMapTable {
 	return rv
 }
 
-
-
-
-
 // Returns a new map table, initialized with the given options
 //
 // keyOptions: A bit field that specifies the options for the keys in the map table. For
@@ -564,13 +531,6 @@ func (_NSMapTableClass NSMapTableClass) WeakToWeakObjectsMapTable() NSMapTable {
 	return NSMapTableFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The number of key-value pairs in the map table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/count
@@ -578,8 +538,6 @@ func (m NSMapTable) Count() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("count"))
 	return rv
 }
-
-
 
 // The pointer functions the map table uses to manage keys.
 //
@@ -589,8 +547,6 @@ func (m NSMapTable) KeyPointerFunctions() INSPointerFunctions {
 	return NSPointerFunctionsFromID(objc.ID(rv))
 }
 
-
-
 // The pointer functions the map table uses to manage values.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable/valuePointerFunctions
@@ -599,34 +555,9 @@ func (m NSMapTable) ValuePointerFunctions() INSPointerFunctions {
 	return NSPointerFunctionsFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

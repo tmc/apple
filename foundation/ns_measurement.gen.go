@@ -36,12 +36,6 @@ func (nc NSMeasurementClass) Alloc() NSMeasurement {
 	return rv
 }
 
-
-
-
-
-
-
 // A numeric quantity labeled with a unit of measure, with support for unit
 // conversion and unit-aware calculations.
 //
@@ -91,14 +85,10 @@ type NSMeasurement struct {
 // A numeric quantity labeled with a unit of measure, with support for unit
 // conversion and unit-aware calculations.
 func NSMeasurementFromID(id objc.ID) NSMeasurement {
-	return NSMeasurement{objectivec.Object{id}}
+	return NSMeasurement{objectivec.Object{ID: id}}
 }
 // NOTE: NSMeasurement adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMeasurement] class.
 //
@@ -124,7 +114,9 @@ func NSMeasurementFromID(id objc.ID) NSMeasurement {
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement
 type INSMeasurement interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating Measurements
 
@@ -151,15 +143,7 @@ type INSMeasurement interface {
 	MeasurementByAddingMeasurement(measurement INSMeasurement) INSMeasurement
 	// Returns a new measurement by subtracting the specified measurement from the receiver.
 	MeasurementBySubtractingMeasurement(measurement INSMeasurement) INSMeasurement
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSMeasurement
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMeasurement) Init() NSMeasurement {
@@ -180,11 +164,6 @@ func NewNSMeasurement() NSMeasurement {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMeasurementWithCoder(coder INSCoder) NSMeasurement {
@@ -192,7 +171,6 @@ func NewMeasurementWithCoder(coder INSCoder) NSMeasurement {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMeasurementFromID(rv)
 }
-
 
 // Initializes a new measurement with a specified double-precision
 // floating-point value and unit.
@@ -212,12 +190,6 @@ func NewMeasurementWithDoubleValueUnit(doubleValue float64, unit objectivec.IObj
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDoubleValue:unit:"), doubleValue, unit)
 	return NSMeasurementFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a new measurement with a specified double-precision
 // floating-point value and unit.
@@ -337,17 +309,6 @@ func (m NSMeasurement) InitWithCoder(coder INSCoder) NSMeasurement {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The unit of measure.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/unit
@@ -355,8 +316,6 @@ func (m NSMeasurement) Unit() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("unit"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The measurement value, represented as a double-precision floating-point
 // number.
@@ -367,35 +326,9 @@ func (m NSMeasurement) DoubleValue() float64 {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

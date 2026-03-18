@@ -35,12 +35,6 @@ func (nc NSDeleteCommandClass) Alloc() NSDeleteCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that deletes a scriptable object.
 //
 // # Overview
@@ -80,10 +74,6 @@ func NSDeleteCommandFromID(id objc.ID) NSDeleteCommand {
 // NOTE: NSDeleteCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSDeleteCommand] class.
 //
 // # Working with specifiers
@@ -99,10 +89,6 @@ type INSDeleteCommand interface {
 	// Returns a specifier for the object or objects to be deleted.
 	KeySpecifier() INSScriptObjectSpecifier
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d NSDeleteCommand) Init() NSDeleteCommand {
@@ -123,11 +109,6 @@ func NewNSDeleteCommand() NSDeleteCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewDeleteCommandWithCoder(inCoder INSCoder) NSDeleteCommand {
@@ -135,7 +116,6 @@ func NewDeleteCommandWithCoder(inCoder INSCoder) NSDeleteCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSDeleteCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -158,23 +138,6 @@ func NewDeleteCommandWithCommandDescription(commandDef INSScriptCommandDescripti
 	return NSDeleteCommandFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns a specifier for the object or objects to be deleted.
 //
 // # Return Value
@@ -191,29 +154,4 @@ func (d NSDeleteCommand) KeySpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keySpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

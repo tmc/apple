@@ -36,12 +36,6 @@ func (mc MTLTextureDescriptorClass) Alloc() MTLTextureDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that you use to configure new Metal texture instances.
 //
 // # Overview
@@ -107,14 +101,10 @@ type MTLTextureDescriptor struct {
 //
 // An instance that you use to configure new Metal texture instances.
 func MTLTextureDescriptorFromID(id objc.ID) MTLTextureDescriptor {
-	return MTLTextureDescriptor{objectivec.Object{id}}
+	return MTLTextureDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLTextureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLTextureDescriptor] class.
 //
@@ -219,10 +209,6 @@ type IMTLTextureDescriptor interface {
 	SetPlacementSparsePageSize(value MTLSparsePageSize)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t MTLTextureDescriptor) Init() MTLTextureDescriptor {
 	rv := objc.Send[MTLTextureDescriptor](t.ID, objc.Sel("init"))
@@ -241,19 +227,6 @@ func NewMTLTextureDescriptor() MTLTextureDescriptor {
 	rv := objc.Send[MTLTextureDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Creates a texture descriptor object for a 2D texture.
 //
@@ -337,13 +310,6 @@ func (_MTLTextureDescriptorClass MTLTextureDescriptorClass) TextureBufferDescrip
 	return MTLTextureDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The dimension and arrangement of texture image data.
 //
 // # Discussion
@@ -359,8 +325,6 @@ func (t MTLTextureDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextureType:"), value)
 }
 
-
-
 // The size and bit layout of all pixels in the texture.
 //
 // # Discussion
@@ -375,8 +339,6 @@ func (t MTLTextureDescriptor) PixelFormat() MTLPixelFormat {
 func (t MTLTextureDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPixelFormat:"), value)
 }
-
-
 
 // The width of the texture image for the base level mipmap, in pixels.
 //
@@ -394,8 +356,6 @@ func (t MTLTextureDescriptor) SetWidth(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWidth:"), value)
 }
 
-
-
 // The height of the texture image for the base level mipmap, in pixels.
 //
 // # Discussion
@@ -411,8 +371,6 @@ func (t MTLTextureDescriptor) Height() uint {
 func (t MTLTextureDescriptor) SetHeight(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeight:"), value)
 }
-
-
 
 // The depth of the texture image for the base level mipmap, in pixels.
 //
@@ -430,8 +388,6 @@ func (t MTLTextureDescriptor) SetDepth(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDepth:"), value)
 }
 
-
-
 // The number of mipmap levels for this texture.
 //
 // # Discussion
@@ -447,8 +403,6 @@ func (t MTLTextureDescriptor) MipmapLevelCount() uint {
 func (t MTLTextureDescriptor) SetMipmapLevelCount(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMipmapLevelCount:"), value)
 }
-
-
 
 // The number of samples in each fragment.
 //
@@ -470,8 +424,6 @@ func (t MTLTextureDescriptor) SampleCount() uint {
 func (t MTLTextureDescriptor) SetSampleCount(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSampleCount:"), value)
 }
-
-
 
 // The number of array elements for this texture.
 //
@@ -497,8 +449,6 @@ func (t MTLTextureDescriptor) SetArrayLength(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setArrayLength:"), value)
 }
 
-
-
 // The behavior of a new memory allocation.
 //
 // # Discussion
@@ -521,8 +471,6 @@ func (t MTLTextureDescriptor) SetResourceOptions(value MTLResourceOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResourceOptions:"), value)
 }
 
-
-
 // The CPU cache mode used for the CPU mapping of the texture.
 //
 // # Discussion
@@ -537,8 +485,6 @@ func (t MTLTextureDescriptor) CpuCacheMode() MTLCPUCacheMode {
 func (t MTLTextureDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCpuCacheMode:"), value)
 }
-
-
 
 // The location and access permissions of the texture.
 //
@@ -556,8 +502,6 @@ func (t MTLTextureDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStorageMode:"), value)
 }
 
-
-
 // The texture’s hazard tracking mode.
 //
 // # Discussion
@@ -572,8 +516,6 @@ func (t MTLTextureDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 func (t MTLTextureDescriptor) SetHazardTrackingMode(value MTLHazardTrackingMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHazardTrackingMode:"), value)
 }
-
-
 
 // A Boolean value indicating whether the GPU is allowed to adjust the
 // texture’s contents to improve GPU performance.
@@ -595,8 +537,6 @@ func (t MTLTextureDescriptor) AllowGPUOptimizedContents() bool {
 func (t MTLTextureDescriptor) SetAllowGPUOptimizedContents(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowGPUOptimizedContents:"), value)
 }
-
-
 
 // Options that determine how you can use the texture.
 //
@@ -627,8 +567,6 @@ func (t MTLTextureDescriptor) SetUsage(value MTLTextureUsage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsage:"), value)
 }
 
-
-
 // The pattern you want the GPU to apply to pixels when you read or sample
 // pixels from the texture.
 //
@@ -646,8 +584,6 @@ func (t MTLTextureDescriptor) SetSwizzle(value MTLTextureSwizzleChannels) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSwizzle:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLTextureDescriptor/compressionType
 func (t MTLTextureDescriptor) CompressionType() MTLTextureCompressionType {
 	rv := objc.Send[MTLTextureCompressionType](t.ID, objc.Sel("compressionType"))
@@ -656,8 +592,6 @@ func (t MTLTextureDescriptor) CompressionType() MTLTextureCompressionType {
 func (t MTLTextureDescriptor) SetCompressionType(value MTLTextureCompressionType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCompressionType:"), value)
 }
-
-
 
 // Determines the page size for a placement sparse texture.
 //
@@ -682,27 +616,4 @@ func (t MTLTextureDescriptor) PlacementSparsePageSize() MTLSparsePageSize {
 func (t MTLTextureDescriptor) SetPlacementSparsePageSize(value MTLSparsePageSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlacementSparsePageSize:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

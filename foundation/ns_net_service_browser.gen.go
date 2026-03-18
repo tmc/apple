@@ -36,12 +36,6 @@ func (nc NetServiceBrowserClass) Alloc() NetServiceBrowser {
 	return rv
 }
 
-
-
-
-
-
-
 // A network service browser that finds published services on a network using
 // multicast DNS.
 //
@@ -94,17 +88,13 @@ type NetServiceBrowser struct {
 // A network service browser that finds published services on a network using
 // multicast DNS.
 func NetServiceBrowserFromID(id objc.ID) NetServiceBrowser {
-	return NSNetServiceBrowser{objectivec.Object{id}}
+	return NSNetServiceBrowser{objectivec.Object{ID: id}}
 }
 
 // NSNetServiceBrowserFromID is an alias for [NetServiceBrowserFromID] for cross-framework compatibility.
 func NSNetServiceBrowserFromID(id objc.ID) NetServiceBrowser { return NetServiceBrowserFromID(id) }
 // NOTE: NetServiceBrowser adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NetServiceBrowser] class.
 //
@@ -129,10 +119,6 @@ type INetServiceBrowser interface {
 	SetIncludesPeerToPeer(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n NetServiceBrowser) Init() NetServiceBrowser {
 	rv := objc.Send[NetServiceBrowser](n.ID, objc.Sel("init"))
@@ -152,27 +138,6 @@ func NewNetServiceBrowser() NetServiceBrowser {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The delegate object for this instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowser/delegate
@@ -183,8 +148,6 @@ func (n NetServiceBrowser) Delegate() NSNetServiceBrowserDelegate {
 func (n NetServiceBrowser) SetDelegate(value NSNetServiceBrowserDelegate) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDelegate:"), value)
 }
-
-
 
 // Whether to browse over peer-to-peer Bluetooth and Wi-Fi, if available.
 //
@@ -200,26 +163,4 @@ func (n NetServiceBrowser) IncludesPeerToPeer() bool {
 func (n NetServiceBrowser) SetIncludesPeerToPeer(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setIncludesPeerToPeer:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

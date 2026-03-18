@@ -36,12 +36,6 @@ func (mc MTLTypeClass) Alloc() MTLType {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a data type.
 //
 // # Identifying the data type
@@ -57,14 +51,10 @@ type MTLType struct {
 //
 // A description of a data type.
 func MTLTypeFromID(id objc.ID) MTLType {
-	return MTLType{objectivec.Object{id}}
+	return MTLType{objectivec.Object{ID: id}}
 }
 // NOTE: MTLType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLType] class.
 //
@@ -81,10 +71,6 @@ type IMTLType interface {
 	// The data type of the function argument.
 	DataType() MTLDataType
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t MTLType) Init() MTLType {
@@ -105,26 +91,6 @@ func NewMTLType() MTLType {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The data type of the function argument.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLType/dataType
@@ -132,26 +98,4 @@ func (t MTLType) DataType() MTLDataType {
 	rv := objc.Send[MTLDataType](t.ID, objc.Sel("dataType"))
 	return MTLDataType(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

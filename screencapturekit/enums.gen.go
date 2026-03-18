@@ -18,7 +18,6 @@ const (
 	SCCaptureDynamicRangeSDR SCCaptureDynamicRange = 0
 )
 
-
 func (e SCCaptureDynamicRange) String() string {
 	switch e {
 	case SCCaptureDynamicRangeHDRCanonicalDisplay:
@@ -32,8 +31,6 @@ func (e SCCaptureDynamicRange) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCCaptureResolutionType
 type SCCaptureResolutionType int
 
@@ -45,7 +42,6 @@ const (
 	// SCCaptureResolutionNominal: Capture streaming content with a one point to one pixel conversion factor.
 	SCCaptureResolutionNominal SCCaptureResolutionType = 2
 )
-
 
 func (e SCCaptureResolutionType) String() string {
 	switch e {
@@ -59,8 +55,6 @@ func (e SCCaptureResolutionType) String() string {
 		return fmt.Sprintf("SCCaptureResolutionType(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerMode
 type SCContentSharingPickerMode int
@@ -77,7 +71,6 @@ const (
 	// SCContentSharingPickerModeSingleWindow: The mode allowing the selection of a single window through the presented picker.
 	SCContentSharingPickerModeSingleWindow SCContentSharingPickerMode = 1
 )
-
 
 func (e SCContentSharingPickerMode) String() string {
 	switch e {
@@ -96,8 +89,6 @@ func (e SCContentSharingPickerMode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCFrameStatus
 type SCFrameStatus int
 
@@ -115,7 +106,6 @@ const (
 	// SCFrameStatusSuspended: A status that indicates the system didn’t generate a new frame because you suspended updates.
 	SCFrameStatusSuspended SCFrameStatus = 3
 )
-
 
 func (e SCFrameStatus) String() string {
 	switch e {
@@ -136,8 +126,6 @@ func (e SCFrameStatus) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCPresenterOverlayAlertSetting
 type SCPresenterOverlayAlertSetting int
 
@@ -149,7 +137,6 @@ const (
 	// SCPresenterOverlayAlertSettingSystem: Displays an alert when using Presenter Overlay based on the System Settings.
 	SCPresenterOverlayAlertSettingSystem SCPresenterOverlayAlertSetting = 0
 )
-
 
 func (e SCPresenterOverlayAlertSetting) String() string {
 	switch e {
@@ -164,8 +151,6 @@ func (e SCPresenterOverlayAlertSetting) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/DisplayIntent-swift.enum
 type SCScreenshotDisplayIntent int
 
@@ -175,7 +160,6 @@ const (
 	// SCScreenshotDisplayIntentLocal: Specifies that the screenshot renders with local display attributes optimizing output for presentation on the capture display.
 	SCScreenshotDisplayIntentLocal SCScreenshotDisplayIntent = 1
 )
-
 
 func (e SCScreenshotDisplayIntent) String() string {
 	switch e {
@@ -188,8 +172,6 @@ func (e SCScreenshotDisplayIntent) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/DynamicRange-swift.enum
 type SCScreenshotDynamicRange int
 
@@ -201,7 +183,6 @@ const (
 	// SCScreenshotDynamicRangeSDRAndHDR: Returns both standard dynamic range and high dynamic range image versions to the client.
 	SCScreenshotDynamicRangeSDRAndHDR SCScreenshotDynamicRange = 2
 )
-
 
 func (e SCScreenshotDynamicRange) String() string {
 	switch e {
@@ -216,8 +197,6 @@ func (e SCScreenshotDynamicRange) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContentStyle
 type SCShareableContentStyle int
 
@@ -231,7 +210,6 @@ const (
 	// SCShareableContentStyleWindow: The stream is currently presenting one or more windows.
 	SCShareableContentStyleWindow SCShareableContentStyle = 1
 )
-
 
 func (e SCShareableContentStyle) String() string {
 	switch e {
@@ -248,8 +226,6 @@ func (e SCShareableContentStyle) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/Preset
 type SCStreamConfigurationPreset int
 
@@ -260,7 +236,6 @@ const (
 	SCStreamConfigurationPresetCaptureHDRStreamCanonicalDisplay SCStreamConfigurationPreset = 1
 	SCStreamConfigurationPresetCaptureHDRStreamLocalDisplay SCStreamConfigurationPreset = 0
 )
-
 
 func (e SCStreamConfigurationPreset) String() string {
 	switch e {
@@ -278,8 +253,6 @@ func (e SCStreamConfigurationPreset) String() string {
 		return fmt.Sprintf("SCStreamConfigurationPreset(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamError/Code
 type SCStreamErrorCode int
@@ -328,7 +301,6 @@ const (
 	// SCStreamErrorUserStopped: An error message that indicates the user stopped the stream.
 	SCStreamErrorUserStopped SCStreamErrorCode = -3817
 )
-
 
 func (e SCStreamErrorCode) String() string {
 	switch e {
@@ -379,8 +351,6 @@ func (e SCStreamErrorCode) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamOutputType
 type SCStreamOutputType int
 
@@ -390,7 +360,6 @@ const (
 	// SCStreamOutputTypeScreen: An output type that represents a screen capture sample buffer.
 	SCStreamOutputTypeScreen SCStreamOutputType = 0
 )
-
 
 func (e SCStreamOutputType) String() string {
 	switch e {
@@ -403,8 +372,6 @@ func (e SCStreamOutputType) String() string {
 	}
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamType
 type SCStreamType int
 
@@ -414,7 +381,6 @@ const (
 	// SCStreamTypeWindow: The stream is currently presented as a window.
 	SCStreamTypeWindow SCStreamType = 0
 )
-
 
 func (e SCStreamType) String() string {
 	switch e {
@@ -426,8 +392,4 @@ func (e SCStreamType) String() string {
 		return fmt.Sprintf("SCStreamType(%d)", e)
 	}
 }
-
-
-
-
 

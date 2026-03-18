@@ -37,12 +37,6 @@ func (mc MTLRasterizationRateMapDescriptorClass) Alloc() MTLRasterizationRateMap
 	return rv
 }
 
-
-
-
-
-
-
 // An object that you use to configure new rasterization rate maps.
 //
 // # Overview
@@ -82,14 +76,10 @@ type MTLRasterizationRateMapDescriptor struct {
 //
 // An object that you use to configure new rasterization rate maps.
 func MTLRasterizationRateMapDescriptorFromID(id objc.ID) MTLRasterizationRateMapDescriptor {
-	return MTLRasterizationRateMapDescriptor{objectivec.Object{id}}
+	return MTLRasterizationRateMapDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRasterizationRateMapDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRasterizationRateMapDescriptor] class.
 //
@@ -138,10 +128,6 @@ type IMTLRasterizationRateMapDescriptor interface {
 	Layers() IMTLRasterizationRateLayerArray
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRasterizationRateMapDescriptor) Init() MTLRasterizationRateMapDescriptor {
 	rv := objc.Send[MTLRasterizationRateMapDescriptor](r.ID, objc.Sel("init"))
@@ -160,15 +146,6 @@ func NewMTLRasterizationRateMapDescriptor() MTLRasterizationRateMapDescriptor {
 	rv := objc.Send[MTLRasterizationRateMapDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the layer description for a layer in the rate map.
 //
@@ -204,10 +181,6 @@ func (r MTLRasterizationRateMapDescriptor) LayerAtIndex(layerIndex uint) IMTLRas
 func (r MTLRasterizationRateMapDescriptor) SetLayerAtIndex(layer IMTLRasterizationRateLayerDescriptor, layerIndex uint) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setLayer:atIndex:"), layer, layerIndex)
 }
-
-
-
-
 
 // Creates a rate map descriptor with a given size and identifier.
 //
@@ -260,13 +233,6 @@ func (_MTLRasterizationRateMapDescriptorClass MTLRasterizationRateMapDescriptorC
 	return MTLRasterizationRateMapDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A string used to identify the rate map you create with the descriptor.
 //
 // # Discussion
@@ -286,8 +252,6 @@ func (r MTLRasterizationRateMapDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // The size of the viewport coordinate system, in logical pixels.
 //
 // # Discussion
@@ -306,8 +270,6 @@ func (r MTLRasterizationRateMapDescriptor) SetScreenSize(value MTLSize) {
 	objc.Send[struct{}](r.ID, objc.Sel("setScreenSize:"), value)
 }
 
-
-
 // The number of layers in the rate map.
 //
 // # Discussion
@@ -322,8 +284,6 @@ func (r MTLRasterizationRateMapDescriptor) LayerCount() uint {
 	return rv
 }
 
-
-
 // The rasterization rates for one or more layers in the rate map.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMapDescriptor/layers
@@ -331,27 +291,4 @@ func (r MTLRasterizationRateMapDescriptor) Layers() IMTLRasterizationRateLayerAr
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("layers"))
 	return MTLRasterizationRateLayerArrayFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

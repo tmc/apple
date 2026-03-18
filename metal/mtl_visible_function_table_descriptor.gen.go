@@ -36,12 +36,6 @@ func (mc MTLVisibleFunctionTableDescriptorClass) Alloc() MTLVisibleFunctionTable
 	return rv
 }
 
-
-
-
-
-
-
 // A specification of how to create a visible function table.
 //
 // # Configuring the function table
@@ -58,14 +52,10 @@ type MTLVisibleFunctionTableDescriptor struct {
 //
 // A specification of how to create a visible function table.
 func MTLVisibleFunctionTableDescriptorFromID(id objc.ID) MTLVisibleFunctionTableDescriptor {
-	return MTLVisibleFunctionTableDescriptor{objectivec.Object{id}}
+	return MTLVisibleFunctionTableDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLVisibleFunctionTableDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLVisibleFunctionTableDescriptor] class.
 //
@@ -84,10 +74,6 @@ type IMTLVisibleFunctionTableDescriptor interface {
 	FunctionCount() uint
 	SetFunctionCount(value uint)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v MTLVisibleFunctionTableDescriptor) Init() MTLVisibleFunctionTableDescriptor {
@@ -108,19 +94,6 @@ func NewMTLVisibleFunctionTableDescriptor() MTLVisibleFunctionTableDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a default visible function table descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTableDescriptor/visibleFunctionTableDescriptor
@@ -128,13 +101,6 @@ func (_MTLVisibleFunctionTableDescriptorClass MTLVisibleFunctionTableDescriptorC
 	rv := objc.Send[objc.ID](objc.ID(_MTLVisibleFunctionTableDescriptorClass.class), objc.Sel("visibleFunctionTableDescriptor"))
 	return MTLVisibleFunctionTableDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The number of entries in the function table.
 //
@@ -146,29 +112,4 @@ func (v MTLVisibleFunctionTableDescriptor) FunctionCount() uint {
 func (v MTLVisibleFunctionTableDescriptor) SetFunctionCount(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFunctionCount:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

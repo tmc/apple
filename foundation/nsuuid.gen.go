@@ -37,12 +37,6 @@ func (nc NSUUIDClass) Alloc() NSUUID {
 	return rv
 }
 
-
-
-
-
-
-
 // A universally unique value that can be used to identify types, interfaces,
 // and other items.
 //
@@ -96,14 +90,10 @@ type NSUUID struct {
 // A universally unique value that can be used to identify types, interfaces,
 // and other items.
 func NSUUIDFromID(id objc.ID) NSUUID {
-	return NSUUID{objectivec.Object{id}}
+	return NSUUID{objectivec.Object{ID: id}}
 }
 // NOTE: NSUUID adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSUUID] class.
 //
@@ -124,7 +114,9 @@ func NSUUIDFromID(id objc.ID) NSUUID {
 // See: https://developer.apple.com/documentation/Foundation/NSUUID
 type INSUUID interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating UUIDs
 
@@ -143,15 +135,7 @@ type INSUUID interface {
 	// Topic: Instance Methods
 
 	Compare(otherUUID INSUUID) ComparisonResult
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSUUID
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u NSUUID) Init() NSUUID {
@@ -172,11 +156,6 @@ func NewNSUUID() NSUUID {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUUIDWithCoder(coder INSCoder) NSUUID {
@@ -184,7 +163,6 @@ func NewUUIDWithCoder(coder INSCoder) NSUUID {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSUUIDFromID(rv)
 }
-
 
 // Initializes a new UUID with the given bytes.
 //
@@ -200,7 +178,6 @@ func NewUUIDWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUIDBytes:"), bytes)
 	return NSUUIDFromID(rv)
 }
-
 
 // Initializes a new UUID with the formatted string.
 //
@@ -218,12 +195,6 @@ func NewUUIDWithUUIDString(string_ string) NSUUID {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUIDString:"), objc.String(string_))
 	return NSUUIDFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a new UUID with the formatted string.
 //
@@ -287,10 +258,6 @@ func (u NSUUID) InitWithCoder(coder INSCoder) NSUUID {
 	return rv
 }
 
-
-
-
-
 // Create and returns a new UUID with RFC 4122 version 4 random bytes.
 //
 // # Return Value
@@ -302,13 +269,6 @@ func (_NSUUIDClass NSUUIDClass) UUID() NSUUID {
 	rv := objc.Send[objc.ID](objc.ID(_NSUUIDClass.class), objc.Sel("UUID"))
 	return NSUUIDFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The UUID as a string.
 //
@@ -328,37 +288,9 @@ func (u NSUUID) UUIDString() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

@@ -37,12 +37,6 @@ func (mc MTLResourceViewPoolDescriptorClass) Alloc() MTLResourceViewPoolDescript
 	return rv
 }
 
-
-
-
-
-
-
 // Provides parameters for creating a resource view pool.
 //
 // # Instance Properties
@@ -61,14 +55,10 @@ type MTLResourceViewPoolDescriptor struct {
 //
 // Provides parameters for creating a resource view pool.
 func MTLResourceViewPoolDescriptorFromID(id objc.ID) MTLResourceViewPoolDescriptor {
-	return MTLResourceViewPoolDescriptor{objectivec.Object{id}}
+	return MTLResourceViewPoolDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLResourceViewPoolDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLResourceViewPoolDescriptor] class.
 //
@@ -93,10 +83,6 @@ type IMTLResourceViewPoolDescriptor interface {
 	SetResourceViewCount(value uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLResourceViewPoolDescriptor) Init() MTLResourceViewPoolDescriptor {
 	rv := objc.Send[MTLResourceViewPoolDescriptor](r.ID, objc.Sel("init"))
@@ -116,26 +102,6 @@ func NewMTLResourceViewPoolDescriptor() MTLResourceViewPoolDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Assigns an optional label you to the resource view pool for debugging
 // purposes.
 //
@@ -148,8 +114,6 @@ func (r MTLResourceViewPoolDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // Configures the number of resource views with which Metal creates the
 // resource view pool.
 //
@@ -161,27 +125,4 @@ func (r MTLResourceViewPoolDescriptor) ResourceViewCount() uint {
 func (r MTLResourceViewPoolDescriptor) SetResourceViewCount(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setResourceViewCount:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

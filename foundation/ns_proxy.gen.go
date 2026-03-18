@@ -36,12 +36,6 @@ func (nc NSProxyClass) Alloc() NSProxy {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract superclass defining an API for objects that act as stand-ins
 // for other objects or for objects that don’t exist yet.
 //
@@ -100,14 +94,10 @@ type NSProxy struct {
 // An abstract superclass defining an API for objects that act as stand-ins
 // for other objects or for objects that don’t exist yet.
 func NSProxyFromID(id objc.ID) NSProxy {
-	return NSProxy{objectivec.Object{id}}
+	return NSProxy{objectivec.Object{ID: id}}
 }
 // NOTE: NSProxy adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSProxy] class.
 //
@@ -159,10 +149,6 @@ type INSProxy interface {
 	RetainWeakReference() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p NSProxy) Init() NSProxy {
 	rv := objc.Send[NSProxy](p.ID, objc.Sel("init"))
@@ -181,15 +167,6 @@ func NewNSProxy() NSProxy {
 	rv := objc.Send[NSProxy](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Deallocates the memory occupied by the receiver.
 //
@@ -278,17 +255,6 @@ func (p NSProxy) RetainWeakReference() bool {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A string containing the real class name and the id of the receiver as a
 // hexadecimal number.
 //
@@ -298,28 +264,9 @@ func (p NSProxy) Description() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/debugDescription
 func (p NSProxy) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))
 	return NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

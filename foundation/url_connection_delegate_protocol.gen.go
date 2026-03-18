@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that delegates of a URL connection implement to receive status about and provide feedback to the connection object.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type NSURLConnectionDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // NSURLConnectionDelegateObject wraps an existing Objective-C object that conforms to the NSURLConnectionDelegate protocol.
 type NSURLConnectionDelegateObject struct {
@@ -28,8 +24,6 @@ func (o NSURLConnectionDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLConnectionDelegateObjectFromID constructs a [NSURLConnectionDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLConnectionDelegateObjectFromID(id objc.ID) NSURLConnectionDelegateObject {
@@ -37,9 +31,6 @@ func NSURLConnectionDelegateObjectFromID(id objc.ID) NSURLConnectionDelegateObje
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the connection will send a request for an
 // authentication challenge.
@@ -129,10 +120,6 @@ func (o NSURLConnectionDelegateObject) ConnectionDidFailWithError(connection INS
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)
 	}
-
-
-
-
 
 // NSURLConnectionDelegateConfig holds optional typed callbacks for [NSURLConnectionDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -226,8 +213,4 @@ func NewNSURLConnectionDelegate(config NSURLConnectionDelegateConfig) NSURLConne
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLConnectionDelegateObjectFromID(instance)
 }
-
-
-
-
 

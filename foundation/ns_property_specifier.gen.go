@@ -35,12 +35,6 @@ func (nc NSPropertySpecifierClass) Alloc() NSPropertySpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier for a simple attribute value, a one-to-one relationship, or all
 // elements of a to-many relationship.
 //
@@ -63,20 +57,12 @@ func NSPropertySpecifierFromID(id objc.ID) NSPropertySpecifier {
 // NOTE: NSPropertySpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSPropertySpecifier] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPropertySpecifier
 type INSPropertySpecifier interface {
 	INSScriptObjectSpecifier
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPropertySpecifier) Init() NSPropertySpecifier {
@@ -97,11 +83,6 @@ func NewNSPropertySpecifier() NSPropertySpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(coder:)
 func NewPropertySpecifierWithCoder(inCoder INSCoder) NSPropertySpecifier {
@@ -109,7 +90,6 @@ func NewPropertySpecifierWithCoder(inCoder INSCoder) NSPropertySpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSPropertySpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -134,7 +114,6 @@ func NewPropertySpecifierWithContainerClassDescriptionContainerSpecifierKey(clas
 	return NSPropertySpecifierFromID(rv)
 }
 
-
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
 //
@@ -153,44 +132,4 @@ func NewPropertySpecifierWithContainerSpecifierKey(container INSScriptObjectSpec
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSPropertySpecifierFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

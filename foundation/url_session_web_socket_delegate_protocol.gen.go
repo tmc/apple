@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that defines methods that URL session instances call on their delegates to handle task-level events specific to WebSocket tasks.
 //
@@ -20,8 +18,6 @@ type NSURLSessionWebSocketDelegate interface {
 	NSURLSessionTaskDelegate
 }
 
-
-
 // NSURLSessionWebSocketDelegateObject wraps an existing Objective-C object that conforms to the NSURLSessionWebSocketDelegate protocol.
 type NSURLSessionWebSocketDelegateObject struct {
 	objectivec.Object
@@ -30,8 +26,6 @@ func (o NSURLSessionWebSocketDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLSessionWebSocketDelegateObjectFromID constructs a [NSURLSessionWebSocketDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLSessionWebSocketDelegateObjectFromID(id objc.ID) NSURLSessionWebSocketDelegateObject {
@@ -39,9 +33,6 @@ func NSURLSessionWebSocketDelegateObjectFromID(id objc.ID) NSURLSessionWebSocket
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the WebSocket task successfully negotiated the
 // handshake with the endpoint, indicating the negotiated protocol.
@@ -459,10 +450,6 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskNeedNewBodyStreamFrom
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStreamFromOffset:completionHandler:"), session, task, offset, completionHandler)
 	}
 
-
-
-
-
 // NSURLSessionWebSocketDelegateConfig holds optional typed callbacks for [NSURLSessionWebSocketDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -525,9 +512,4 @@ func NewNSURLSessionWebSocketDelegate(config NSURLSessionWebSocketDelegateConfig
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLSessionWebSocketDelegateObjectFromID(instance)
 }
-
-
-
-
-
 

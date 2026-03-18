@@ -35,8 +35,6 @@ func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // CMSampleBufferRefErrorHandler handles Closure that processes the capture taken from streaming content.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -60,8 +58,6 @@ func NewCMSampleBufferRefErrorBlock(handler CMSampleBufferRefErrorHandler) (objc
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // ErrorHandler handles A completion handler the system calls when this method completes.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -93,8 +89,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-
-
 // SCScreenshotOutputErrorHandler handles Is the handler that will deliver the SCScreenshotOutput object to the client
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -125,8 +119,6 @@ func NewSCScreenshotOutputErrorBlock(handler SCScreenshotOutputErrorHandler) (ob
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 
 // SCShareableContentErrorHandler handles A callback the system invokes with the shareable content, or an error if a failure occurs.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -164,6 +156,4 @@ func NewSCShareableContentErrorBlock(handler SCShareableContentErrorHandler) (ob
 	})
 	return objc.ID(block), func() { block.Release() }
 }
-
-
 

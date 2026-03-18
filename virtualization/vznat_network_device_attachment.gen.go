@@ -35,12 +35,6 @@ func (vc VZNATNetworkDeviceAttachmentClass) Alloc() VZNATNetworkDeviceAttachment
 	return rv
 }
 
-
-
-
-
-
-
 // A device that routes network requests through the host computer and
 // performs network address translation on the resulting packets.
 //
@@ -80,10 +74,6 @@ func VZNATNetworkDeviceAttachmentFromID(id objc.ID) VZNATNetworkDeviceAttachment
 // NOTE: VZNATNetworkDeviceAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZNATNetworkDeviceAttachment] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNATNetworkDeviceAttachment
@@ -97,10 +87,6 @@ type IVZNATNetworkDeviceAttachment interface {
 	NetworkDevices() IVZNetworkDeviceConfiguration
 	SetNetworkDevices(value IVZNetworkDeviceConfiguration)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n VZNATNetworkDeviceAttachment) Init() VZNATNetworkDeviceAttachment {
@@ -121,27 +107,6 @@ func NewVZNATNetworkDeviceAttachment() VZNATNetworkDeviceAttachment {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The object that defines how the virtual network device communicates with
 // the host system.
 //
@@ -154,8 +119,6 @@ func (n VZNATNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttach
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
 
-
-
 // The array of network devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices
@@ -166,26 +129,4 @@ func (n VZNATNetworkDeviceAttachment) NetworkDevices() IVZNetworkDeviceConfigura
 func (n VZNATNetworkDeviceAttachment) SetNetworkDevices(value IVZNetworkDeviceConfiguration) {
 	objc.Send[struct{}](n.ID, objc.Sel("setNetworkDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

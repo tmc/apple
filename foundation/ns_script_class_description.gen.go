@@ -35,12 +35,6 @@ func (nc NSScriptClassDescriptionClass) Alloc() NSScriptClassDescription {
 	return rv
 }
 
-
-
-
-
-
-
 // A scriptable class that a macOS app supports.
 //
 // # Overview
@@ -128,10 +122,6 @@ func NSScriptClassDescriptionFromID(id objc.ID) NSScriptClassDescription {
 }
 // NOTE: NSScriptClassDescription adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScriptClassDescription] class.
 //
@@ -233,10 +223,6 @@ type INSScriptClassDescription interface {
 	SupportsCommand(commandDescription INSScriptCommandDescription) bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSScriptClassDescription) Init() NSScriptClassDescription {
 	rv := objc.Send[NSScriptClassDescription](s.ID, objc.Sel("init"))
@@ -256,11 +242,6 @@ func NewNSScriptClassDescription() NSScriptClassDescription {
 	return rv
 }
 
-
-
-
-
-
 // Returns the class description for the specified class or, if it is not
 // scriptable, for the first superclass that is.
 //
@@ -277,7 +258,6 @@ func NewScriptClassDescriptionForClass(aClass objc.Class) NSScriptClassDescripti
 	rv := objc.Send[objc.ID](objc.ID(getNSScriptClassDescriptionClass().class), objc.Sel("classDescriptionForClass:"), aClass)
 	return NSScriptClassDescriptionFromID(rv)
 }
-
 
 // Initializes and returns a newly allocated instance of
 // [NSScriptClassDescription].
@@ -309,12 +289,6 @@ func NewScriptClassDescriptionWithSuiteNameClassNameDictionary(suiteName string,
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSuiteName:className:dictionary:"), objc.String(suiteName), objc.String(className), classDeclaration)
 	return NSScriptClassDescriptionFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes and returns a newly allocated instance of
 // [NSScriptClassDescription].
@@ -593,17 +567,6 @@ func (s NSScriptClassDescription) SupportsCommand(commandDescription INSScriptCo
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the class description instance for the superclass of the
 // receiver’s class.
 //
@@ -623,8 +586,6 @@ func (s NSScriptClassDescription) SuperclassDescription() INSScriptClassDescript
 	return NSScriptClassDescriptionFromID(objc.ID(rv))
 }
 
-
-
 // Returns the name of the class the receiver describes, as provided at
 // initialization time.
 //
@@ -641,8 +602,6 @@ func (s NSScriptClassDescription) ClassName() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns the value of the [DefaultSubcontainerAttribute] entry of the class
 // dictionary from which the receiver was instantiated.
 //
@@ -656,8 +615,6 @@ func (s NSScriptClassDescription) DefaultSubcontainerAttributeKey() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("defaultSubcontainerAttributeKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Returns the name of the Objective-C class instantiated to implement the
 // scripting class.
@@ -680,8 +637,6 @@ func (s NSScriptClassDescription) ImplementationClassName() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns the name of the receiver’s suite.
 //
 // # Return Value
@@ -695,8 +650,6 @@ func (s NSScriptClassDescription) SuiteName() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // Returns the Apple event code associated with the receiver’s class.
 //
 // # Return Value
@@ -709,28 +662,4 @@ func (s NSScriptClassDescription) AppleEventCode() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCode"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

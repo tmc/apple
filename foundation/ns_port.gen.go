@@ -36,12 +36,6 @@ func (pc PortClass) Alloc() Port {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that represents a communication channel.
 //
 // # Overview
@@ -118,17 +112,13 @@ type Port struct {
 //
 // An abstract class that represents a communication channel.
 func PortFromID(id objc.ID) Port {
-	return NSPort{objectivec.Object{id}}
+	return NSPort{objectivec.Object{ID: id}}
 }
 
 // NSPortFromID is an alias for [PortFromID] for cross-framework compatibility.
 func NSPortFromID(id objc.ID) Port { return PortFromID(id) }
 // NOTE: Port adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Port] class.
 //
@@ -156,6 +146,7 @@ func NSPortFromID(id objc.ID) Port { return PortFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/Port
 type IPort interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 
 	// Topic: Validation
@@ -187,15 +178,7 @@ type IPort interface {
 	RemoveFromRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode)
 	// This method should be implemented by a subclass to set up monitoring of a port when added to a given run loop in a given input mode.
 	ScheduleInRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode)
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) Port
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p Port) Init() Port {
@@ -216,11 +199,6 @@ func NewPort() Port {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewPortWithCoder(coder INSCoder) Port {
@@ -228,12 +206,6 @@ func NewPortWithCoder(coder INSCoder) Port {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return PortFromID(rv)
 }
-
-
-
-
-
-
 
 // Marks the receiver as invalid and posts an [didBecomeInvalidNotification]
 // to the default notification center.
@@ -369,10 +341,6 @@ func (p Port) InitWithCoder(coder INSCoder) Port {
 	return rv
 }
 
-
-
-
-
 // Creates and returns a new [NSPort] object capable of both sending and
 // receiving messages.
 //
@@ -385,13 +353,6 @@ func (_PortClass PortClass) Port() Port {
 	rv := objc.Send[objc.ID](objc.ID(_PortClass.class), objc.Sel("port"))
 	return NSPortFromID(rv)
 }
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the receiver is valid.
 //
@@ -411,8 +372,6 @@ func (p Port) Valid() bool {
 	return rv
 }
 
-
-
 // The number of bytes of space reserved by the receiver for sending data.
 //
 // # Discussion
@@ -426,32 +385,9 @@ func (p Port) ReservedSpaceLength() uint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSCoding
+			
 
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

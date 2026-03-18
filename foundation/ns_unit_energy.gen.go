@@ -35,12 +35,6 @@ func (uc UnitEnergyClass) Alloc() UnitEnergy {
 	return rv
 }
 
-
-
-
-
-
-
 // A unit of measure for energy.
 //
 // # Overview
@@ -85,20 +79,12 @@ func NSUnitEnergyFromID(id objc.ID) UnitEnergy { return UnitEnergyFromID(id) }
 // NOTE: UnitEnergy adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [UnitEnergy] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy
 type IUnitEnergy interface {
 	INSDimension
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u UnitEnergy) Init() UnitEnergy {
@@ -119,11 +105,6 @@ func NewUnitEnergy() UnitEnergy {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitEnergyWithCoder(coder INSCoder) UnitEnergy {
@@ -131,7 +112,6 @@ func NewUnitEnergyWithCoder(coder INSCoder) UnitEnergy {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return UnitEnergyFromID(rv)
 }
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -147,7 +127,6 @@ func NewUnitEnergyWithSymbol(symbol string) UnitEnergy {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return UnitEnergyFromID(rv)
 }
-
 
 // Initializes a dimensional unit with the symbol and unit converter you
 // specify.
@@ -172,27 +151,6 @@ func NewUnitEnergyWithSymbolConverter(symbol string, converter INSUnitConverter)
 	return UnitEnergyFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The kilojoules unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/kilojoules
@@ -200,8 +158,6 @@ func (_UnitEnergyClass UnitEnergyClass) Kilojoules() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("kilojoules"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
-
-
 
 // The joules unit of energy.
 //
@@ -211,8 +167,6 @@ func (_UnitEnergyClass UnitEnergyClass) Joules() UnitEnergy {
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
 
-
-
 // The kilocalories unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/kilocalories
@@ -220,8 +174,6 @@ func (_UnitEnergyClass UnitEnergyClass) Kilocalories() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("kilocalories"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
-
-
 
 // The calories unit of energy.
 //
@@ -231,8 +183,6 @@ func (_UnitEnergyClass UnitEnergyClass) Calories() UnitEnergy {
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
 
-
-
 // The kilowatt hours unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/kilowattHours
@@ -240,27 +190,4 @@ func (_UnitEnergyClass UnitEnergyClass) KilowattHours() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("kilowattHours"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

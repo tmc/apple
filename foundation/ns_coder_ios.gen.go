@@ -315,15 +315,3 @@ rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeUIOffsetForKey:"), objc.String(ke
 return objectivec.Object{ID: rv}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-

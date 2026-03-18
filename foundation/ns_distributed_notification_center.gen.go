@@ -36,12 +36,6 @@ func (dc DistributedNotificationCenterClass) Alloc() DistributedNotificationCent
 	return rv
 }
 
-
-
-
-
-
-
 // A notification dispatch mechanism that enables the broadcast of
 // notifications across task boundaries.
 //
@@ -134,10 +128,6 @@ func NSDistributedNotificationCenterFromID(id objc.ID) DistributedNotificationCe
 // NOTE: DistributedNotificationCenter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [DistributedNotificationCenter] class.
 //
 // # Managing Observers
@@ -177,10 +167,6 @@ type IDistributedNotificationCenter interface {
 	SetSuspended(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d DistributedNotificationCenter) Init() DistributedNotificationCenter {
 	rv := objc.Send[DistributedNotificationCenter](d.ID, objc.Sel("init"))
@@ -199,15 +185,6 @@ func NewDistributedNotificationCenter() DistributedNotificationCenter {
 	rv := objc.Send[DistributedNotificationCenter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Adds an entry to the receiver’s dispatch table with a specific observer
 // and suspended-notifications behavior, and optional notification name and
@@ -300,10 +277,6 @@ func (d DistributedNotificationCenter) PostNotificationNameObjectUserInfoOptions
 	objc.Send[objc.ID](d.ID, objc.Sel("postNotificationName:object:userInfo:options:"), objc.String(string(name)), objc.String(object), userInfo, options)
 }
 
-
-
-
-
 // Returns the distributed notification center for a particular notification
 // center type.
 //
@@ -322,13 +295,6 @@ func (_DistributedNotificationCenterClass DistributedNotificationCenterClass) No
 	rv := objc.Send[objc.ID](objc.ID(_DistributedNotificationCenterClass.class), objc.Sel("notificationCenterForType:"), objc.String(string(notificationCenterType)))
 	return NSDistributedNotificationCenterFromID(rv)
 }
-
-
-
-
-
-
-
 
 // Suspends or resumes notification delivery.
 //
@@ -355,28 +321,4 @@ func (d DistributedNotificationCenter) Suspended() bool {
 func (d DistributedNotificationCenter) SetSuspended(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSuspended:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

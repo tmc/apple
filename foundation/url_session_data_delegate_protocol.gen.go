@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that defines methods that URL session instances call on their delegates to handle task-level events specific to data and upload tasks.
 //
@@ -20,8 +18,6 @@ type NSURLSessionDataDelegate interface {
 	NSURLSessionTaskDelegate
 }
 
-
-
 // NSURLSessionDataDelegateObject wraps an existing Objective-C object that conforms to the NSURLSessionDataDelegate protocol.
 type NSURLSessionDataDelegateObject struct {
 	objectivec.Object
@@ -30,8 +26,6 @@ func (o NSURLSessionDataDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLSessionDataDelegateObjectFromID constructs a [NSURLSessionDataDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLSessionDataDelegateObjectFromID(id objc.ID) NSURLSessionDataDelegateObject {
@@ -39,9 +33,6 @@ func NSURLSessionDataDelegateObjectFromID(id objc.ID) NSURLSessionDataDelegateOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the data task received the initial reply (headers)
 // from the server.
@@ -610,10 +601,6 @@ func (o NSURLSessionDataDelegateObject) URLSessionTaskNeedNewBodyStreamFromOffse
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStreamFromOffset:completionHandler:"), session, task, offset, completionHandler)
 	}
 
-
-
-
-
 // NSURLSessionDataDelegateConfig holds optional typed callbacks for [NSURLSessionDataDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -737,8 +724,4 @@ func NewNSURLSessionDataDelegate(config NSURLSessionDataDelegateConfig) NSURLSes
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLSessionDataDelegateObjectFromID(instance)
 }
-
-
-
-
 

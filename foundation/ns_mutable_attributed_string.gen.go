@@ -38,12 +38,6 @@ func (nc NSMutableAttributedStringClass) Alloc() NSMutableAttributedString {
 	return rv
 }
 
-
-
-
-
-
-
 // A mutable string with associated attributes (such as visual style,
 // hyperlinks, or accessibility data) for portions of its text.
 //
@@ -146,10 +140,6 @@ func NSMutableAttributedStringFromID(id objc.ID) NSMutableAttributedString {
 }
 // NOTE: NSMutableAttributedString adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMutableAttributedString] class.
 //
@@ -287,10 +277,6 @@ type INSMutableAttributedString interface {
 	AppendLocalizedFormat(format INSAttributedString)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMutableAttributedString) Init() NSMutableAttributedString {
 	rv := objc.Send[NSMutableAttributedString](m.ID, objc.Sel("init"))
@@ -309,11 +295,6 @@ func NewNSMutableAttributedString() NSMutableAttributedString {
 	rv := objc.Send[NSMutableAttributedString](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates an attributed string with an adaptive image glyph and applies the
 // specified attributes to it.
@@ -335,7 +316,6 @@ func NewMutableAttributedStringWithAdaptiveImageGlyphAttributes(adaptiveImageGly
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string with an attachment and applies the specified
 // attributes to it.
 //
@@ -355,7 +335,6 @@ func NewMutableAttributedStringWithAttachmentAttributes(attachment objectivec.IO
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 // Creates a new attributed string from the contents of another attributed
 // string.
 //
@@ -373,7 +352,6 @@ func NewMutableAttributedStringWithAttributedString(attrStr INSAttributedString)
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMutableAttributedStringWithCoder(coder INSCoder) NSMutableAttributedString {
@@ -381,7 +359,6 @@ func NewMutableAttributedStringWithCoder(coder INSCoder) NSMutableAttributedStri
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from the contents of a specified URL that
 // contains Markdown-formatted data using the provided options.
@@ -415,7 +392,6 @@ func NewMutableAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLErro
 	}
 	return NSMutableAttributedStringFromID(rv), nil
 }
-
 
 // Creates an attributed string from the contents of the specified data
 // object.
@@ -472,7 +448,6 @@ func NewMutableAttributedStringWithDataOptionsDocumentAttributesError(data INSDa
 	return NSMutableAttributedStringFromID(rv), nil
 }
 
-
 // Creates an attributed string from Microsoft Word format data in the
 // specified data object.
 //
@@ -493,7 +468,6 @@ func NewMutableAttributedStringWithDocFormatDocumentAttributes(data INSData, dic
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
 	return NSMutableAttributedStringFromID(rv)
 }
-
 
 // Initializes a new attributed string object from the data at the specified
 // URL.
@@ -543,7 +517,6 @@ func NewMutableAttributedStringWithFileURLOptionsDocumentAttributesError(url INS
 	return NSMutableAttributedStringFromID(rv), nil
 }
 
-
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string.
 //
@@ -574,7 +547,6 @@ func NewMutableAttributedStringWithFormatOptionsLocale(format INSAttributedStrin
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 // Initializes an attributed string by substituting a list of function
 // arguments into a specially formatted string.
 //
@@ -601,7 +573,6 @@ func NewMutableAttributedStringWithFormatOptionsLocaleArguments(format INSAttrib
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:options:locale:arguments:"), format, options, locale, arguments)
 	return NSMutableAttributedStringFromID(rv)
 }
-
 
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string and applying additional contextual information.
@@ -635,7 +606,6 @@ func NewMutableAttributedStringWithFormatOptionsLocaleContext(format INSAttribut
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 // Initializes an attributed string by substituting a list of function
 // arguments into a specially formatted string and applying additional
 // contextual information.
@@ -666,7 +636,6 @@ func NewMutableAttributedStringWithFormatOptionsLocaleContextArguments(format IN
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string from the HTML in the specified data object and
 // base URL.
 //
@@ -690,7 +659,6 @@ func NewMutableAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, b
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string from the HTML in the specified data object.
 //
 // data: A data object with text in HTML format. The method uses this data to create
@@ -710,7 +678,6 @@ func NewMutableAttributedStringWithHTMLDocumentAttributes(data INSData, dict INS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
 	return NSMutableAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from the HTML in the specified data object.
 //
@@ -736,7 +703,6 @@ func NewMutableAttributedStringWithHTMLOptionsDocumentAttributes(data INSData, o
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
 	return NSMutableAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from Markdown-formatted data using the
 // provided options.
@@ -771,7 +737,6 @@ func NewMutableAttributedStringWithMarkdownOptionsBaseURLError(markdown INSData,
 	return NSMutableAttributedStringFromID(rv), nil
 }
 
-
 // Creates an attributed string from a Markdown-formatted string using the
 // provided options.
 //
@@ -805,7 +770,6 @@ func NewMutableAttributedStringWithMarkdownStringOptionsBaseURLError(markdownStr
 	return NSMutableAttributedStringFromID(rv), nil
 }
 
-
 // Creates an attributed string by decoding the stream of RTFD commands and
 // data in the specified data object.
 //
@@ -826,7 +790,6 @@ func NewMutableAttributedStringWithRTFDDocumentAttributes(data INSData, dict INS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
 	return NSMutableAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from the specified file wrapper that contains
 // an RTFD document.
@@ -859,7 +822,6 @@ func NewMutableAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INS
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string by decoding the stream of RTF commands and
 // data in the specified data object.
 //
@@ -890,7 +852,6 @@ func NewMutableAttributedStringWithRTFDocumentAttributes(data INSData, dict INSD
 	return NSMutableAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string with the specified text and no attribute
 // information.
 //
@@ -907,7 +868,6 @@ func NewMutableAttributedStringWithString(str string) NSMutableAttributedString 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), objc.String(str))
 	return NSMutableAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string with the specified text and attributes.
 //
@@ -928,7 +888,6 @@ func NewMutableAttributedStringWithStringAttributes(str string, attrs INSDiction
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:attributes:"), objc.String(str), attrs)
 	return NSMutableAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from the contents of the specified URL.
 //
@@ -989,12 +948,6 @@ func NewMutableAttributedStringWithURLOptionsDocumentAttributesError(url INSURL,
 	}
 	return NSMutableAttributedStringFromID(rv), nil
 }
-
-
-
-
-
-
 
 // Replaces the characters in the given range with the characters of the given
 // string.
@@ -1491,7 +1444,7 @@ func (m NSMutableAttributedString) FixParagraphStyleAttributeInRange(range_ NSRa
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/read(from:options:documentAttributes:)-5mbcx
 func (m NSMutableAttributedString) ReadFromDataOptionsDocumentAttributesError(data INSData, opts INSDictionary, dict INSDictionary) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("readFromData:options:documentAttributes:error:"), data, opts, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1531,7 +1484,7 @@ func (m NSMutableAttributedString) ReadFromDataOptionsDocumentAttributesError(da
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/read(from:options:documentAttributes:)-54wth
 func (m NSMutableAttributedString) ReadFromURLOptionsDocumentAttributesError(url INSURL, opts INSDictionary, dict INSDictionary) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("readFromURL:options:documentAttributes:error:"), url, opts, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1552,17 +1505,6 @@ func (m NSMutableAttributedString) AppendLocalizedFormat(format INSAttributedStr
 	objc.Send[objc.ID](m.ID, objc.Sel("appendLocalizedFormat:"), format)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The character contents of the receiver as a mutable string object.
 //
 // # Return Value
@@ -1579,31 +1521,4 @@ func (m NSMutableAttributedString) MutableString() INSMutableString {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mutableString"))
 	return NSMutableStringFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

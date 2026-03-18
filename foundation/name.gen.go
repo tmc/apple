@@ -36,12 +36,6 @@ func (nc NameClass) Alloc() Name {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSException/name-c.ivar
 type Name struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Name struct {
 
 // NameFromID constructs a [Name] from an objc.ID.
 func NameFromID(id objc.ID) Name {
-	return Name{objectivec.Object{id}}
+	return Name{objectivec.Object{ID: id}}
 }
 // Ensure Name implements IName.
 var _ IName = Name{}
-
-
-
-
 
 // An interface definition for the [Name] class.
 //
@@ -64,10 +54,6 @@ var _ IName = Name{}
 type IName interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n Name) Init() Name {
@@ -87,38 +73,4 @@ func NewName() Name {
 	rv := objc.Send[Name](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

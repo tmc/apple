@@ -38,12 +38,6 @@ func (nc NSArrayClass) Alloc() NSArray {
 	return rv
 }
 
-
-
-
-
-
-
 // A static ordered collection of objects.
 //
 // # Overview
@@ -230,10 +224,6 @@ func (nc NSArrayClass) Alloc() NSArray {
 //   - [NSArray.ShuffledArray]: Returns a new array that lists this array’s elements in a random order.
 //   - [NSArray.ShuffledArrayWithRandomSource]: Returns a new array that lists this array’s elements in a random order, using the specified random source.
 //
-// # New Methods
-//
-//   - [NSArray.InitWithCoder]
-//
 // # Initializers
 //
 //   - [NSArray.InitWithContentsOfURLError]
@@ -251,14 +241,10 @@ type NSArray struct {
 //
 // A static ordered collection of objects.
 func NSArrayFromID(id objc.ID) NSArray {
-	return NSArray{objectivec.Object{id}}
+	return NSArray{objectivec.Object{ID: id}}
 }
 // NOTE: NSArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSArray] class.
 //
@@ -347,10 +333,6 @@ func NSArrayFromID(id objc.ID) NSArray {
 //   - [INSArray.ShuffledArray]: Returns a new array that lists this array’s elements in a random order.
 //   - [INSArray.ShuffledArrayWithRandomSource]: Returns a new array that lists this array’s elements in a random order, using the specified random source.
 //
-// # New Methods
-//
-//   - [INSArray.InitWithCoder]
-//
 // # Initializers
 //
 //   - [INSArray.InitWithContentsOfURLError]
@@ -362,8 +344,10 @@ func NSArrayFromID(id objc.ID) NSArray {
 // See: https://developer.apple.com/documentation/Foundation/NSArray
 type INSArray interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 	NSMutableCopying
+	NSSecureCoding
 
 	// Topic: Initializing an Array
 
@@ -406,28 +390,28 @@ type INSArray interface {
 	// Returns the lowest index within a specified range whose corresponding array value is equal to a given object .
 	IndexOfObjectIdenticalToInRange(anObject objectivec.IObject, range_ NSRange) uint
 	// Returns the index of the first object in the array that passes a test in a given block.
-	IndexOfObjectPassingTest(predicate bool) uint
+	IndexOfObjectPassingTest(predicate unsafe.Pointer) uint
 	// Returns the index of an object in the array that passes a test in a given block for a given set of enumeration options.
-	IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) uint
+	IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) uint
 	// Returns the index, from a given set of indexes, of the first object in the array that passes a test in a given block for a given set of enumeration options.
-	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate bool) uint
+	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate unsafe.Pointer) uint
 	// Returns the indexes of objects in the array that pass a test in a given block.
-	IndexesOfObjectsPassingTest(predicate bool) INSIndexSet
+	IndexesOfObjectsPassingTest(predicate unsafe.Pointer) INSIndexSet
 	// Returns the indexes of objects in the array that pass a test in a given block for a given set of enumeration options.
-	IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) INSIndexSet
+	IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet
 	// Returns the indexes, from a given set of indexes, of objects in the array that pass a test in a given block for a given set of enumeration options.
-	IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate bool) INSIndexSet
+	IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet
 	// Returns the index, within a specified range, of an object compared with elements in the array using a given [NSComparator] block.
 	IndexOfObjectInSortedRangeOptionsUsingComparator(obj objectivec.IObject, r NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint
 
 	// Topic: Sending Messages to Elements
 
 	// Executes a given closure or block using each object in the array, starting with the first object and continuing through the array to the last object.
-	EnumerateObjectsUsingBlock(block bool)
+	EnumerateObjectsUsingBlock(block unsafe.Pointer)
 	// Executes a given closure or block using each object in the array with the specified options.
-	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool)
+	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
 	// Executes a given block using the objects in the array at the specified indexes.
-	EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block bool)
+	EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block unsafe.Pointer)
 
 	// Topic: Comparing Arrays
 
@@ -499,10 +483,6 @@ type INSArray interface {
 	// Returns a new array that lists this array’s elements in a random order, using the specified random source.
 	ShuffledArrayWithRandomSource(randomSource objectivec.IObject) []objectivec.IObject
 
-	// Topic: New Methods
-
-	InitWithCoder(coder INSCoder) NSArray
-
 	// Topic: Initializers
 
 	InitWithContentsOfURLError(url INSURL) (NSArray, error)
@@ -519,8 +499,6 @@ type INSArray interface {
 	DifferenceFromArrayWithOptions(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions) INSOrderedCollectionDifference
 	// Compares two arrays, using the provided block and with options, to create a difference object that represents the changes between them.
 	DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block bool) INSOrderedCollectionDifference
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 	// Copies references to objects contained in the array that fall within the specified range to `aBuffer`.
 	GetObjectsRange(objects []objectivec.IObject, range_ NSRange)
 	// Initializes a newly allocated array by placing in it the objects in the argument list.
@@ -530,10 +508,6 @@ type INSArray interface {
 	// Sends the `aSelector` message to each object in the array, starting with the first object and continuing through the array to the last object.
 	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSArray) Init() NSArray {
@@ -553,11 +527,6 @@ func NewNSArray() NSArray {
 	rv := objc.Send[NSArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a newly allocated array by placing in it the objects contained
 // in a given array.
@@ -580,7 +549,6 @@ func NewArrayWithArray(array []objectivec.IObject) NSArray {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSArrayFromID(rv)
 }
-
 
 // Initializes a newly allocated array using `anArray` as the source of data
 // objects for the array.
@@ -629,7 +597,6 @@ func NewArrayWithArrayCopyItems(array []objectivec.IObject, flag bool) NSArray {
 	return NSArrayFromID(rv)
 }
 
-
 //
 // # Return Value
 //
@@ -641,7 +608,6 @@ func NewArrayWithCoder(coder INSCoder) NSArray {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSArrayFromID(rv)
 }
-
 
 // Creates and returns an array containing a given object.
 //
@@ -661,7 +627,6 @@ func NewArrayWithObject(anObject objectivec.IObject) NSArray {
 	rv := objc.Send[objc.ID](objc.ID(getNSArrayClass().class), objc.Sel("arrayWithObject:"), anObject)
 	return NSArrayFromID(rv)
 }
-
 
 // Initializes a newly allocated array by placing in it the objects in the
 // argument list.
@@ -689,12 +654,6 @@ func NewArrayWithObjects(firstObj objectivec.IObject) NSArray {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObjects:"), firstObj)
 	return NSArrayFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated array by placing in it the objects contained
 // in a given array.
@@ -1087,7 +1046,7 @@ func (a NSArray) IndexOfObjectIdenticalToInRange(anObject objectivec.IObject, ra
 // If the block parameter is `nil` this method will raise an exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(passingTest:)
-func (a NSArray) IndexOfObjectPassingTest(predicate bool) uint {
+func (a NSArray) IndexOfObjectPassingTest(predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectPassingTest:"), predicate)
 	return rv
 }
@@ -1133,7 +1092,7 @@ func (a NSArray) IndexOfObjectPassingTest(predicate bool) uint {
 // options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(options:passingTest:)
-func (a NSArray) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) uint {
+func (a NSArray) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectWithOptions:passingTest:"), opts, predicate)
 	return rv
 }
@@ -1180,7 +1139,7 @@ func (a NSArray) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, 
 // enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(at:options:passingTest:)
-func (a NSArray) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate bool) uint {
+func (a NSArray) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate unsafe.Pointer) uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectAtIndexes:options:passingTest:"), s, opts, predicate)
 	return rv
 }
@@ -1211,7 +1170,7 @@ func (a NSArray) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NS
 // index set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(passingTest:)
-func (a NSArray) IndexesOfObjectsPassingTest(predicate bool) INSIndexSet {
+func (a NSArray) IndexesOfObjectsPassingTest(predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsPassingTest:"), predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -1255,7 +1214,7 @@ func (a NSArray) IndexesOfObjectsPassingTest(predicate bool) INSIndexSet {
 // to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(options:passingTest:)
-func (a NSArray) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate bool) INSIndexSet {
+func (a NSArray) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsWithOptions:passingTest:"), opts, predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -1301,7 +1260,7 @@ func (a NSArray) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOption
 // enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(at:options:passingTest:)
-func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate bool) INSIndexSet {
+func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate unsafe.Pointer) INSIndexSet {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsAtIndexes:options:passingTest:"), s, opts, predicate)
 	return NSIndexSetFromID(rv)
 }
@@ -1390,7 +1349,7 @@ func (a NSArray) IndexOfObjectInSortedRangeOptionsUsingComparator(obj objectivec
 // deallocated after the block is executed.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(_:)
-func (a NSArray) EnumerateObjectsUsingBlock(block bool) {
+func (a NSArray) EnumerateObjectsUsingBlock(block unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsUsingBlock:"), block)
 }
 
@@ -1422,7 +1381,7 @@ func (a NSArray) EnumerateObjectsUsingBlock(block bool) {
 // as enumeration options to modify this behavior.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(options:using:)
-func (a NSArray) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block bool) {
+func (a NSArray) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, block)
 }
 
@@ -1460,7 +1419,7 @@ func (a NSArray) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions
 // This method executes synchronously.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(at:options:using:)
-func (a NSArray) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block bool) {
+func (a NSArray) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsAtIndexes:options:usingBlock:"), s, opts, block)
 }
 
@@ -2035,7 +1994,7 @@ func (a NSArray) InitWithCoder(coder INSCoder) NSArray {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/init(contentsOf:error:)
 func (a NSArray) InitWithContentsOfURLError(url INSURL) (NSArray, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -2048,7 +2007,7 @@ func (a NSArray) InitWithContentsOfURLError(url INSURL) (NSArray, error) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/write(to:)
 func (a NSArray) WriteToURLError(url INSURL) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](a.ID, objc.Sel("writeToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -2259,10 +2218,6 @@ func (a NSArray) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argume
 	objc.Send[objc.ID](a.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
 }
 
-
-
-
-
 // Creates and returns an array that includes a given number of objects from a
 // given C array.
 //
@@ -2320,7 +2275,7 @@ func (_NSArrayClass NSArrayClass) ArrayWithArray(array []objectivec.IObject) NSA
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/arrayWithContentsOfURL:error:
 func (_NSArrayClass NSArrayClass) ArrayWithContentsOfURLError(url INSURL) ([]objectivec.IObject, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[[]objc.ID](objc.ID(_NSArrayClass.class), objc.Sel("arrayWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -2357,13 +2312,6 @@ func (_NSArrayClass NSArrayClass) ArrayWithObjects(firstObj objectivec.IObject) 
 	return NSArrayFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The number of objects in the array.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/count
@@ -2371,8 +2319,6 @@ func (a NSArray) Count() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("count"))
 	return rv
 }
-
-
 
 // The first object in the array.
 //
@@ -2386,8 +2332,6 @@ func (a NSArray) FirstObject() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The last object in the array.
 //
 // # Discussion
@@ -2400,8 +2344,6 @@ func (a NSArray) LastObject() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // Analyzes the array and returns a “hint” that speeds the sorting of the
 // array when the hint is supplied to [SortedArrayUsingFunctionContextHint].
 //
@@ -2410,8 +2352,6 @@ func (a NSArray) SortedArrayHint() INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sortedArrayHint"))
 	return NSDataFromID(objc.ID(rv))
 }
-
-
 
 // A string that represents the contents of the array, formatted as a property
 // list.
@@ -2422,47 +2362,12 @@ func (a NSArray) Description() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
 
 			// Protocol methods for NSMutableCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

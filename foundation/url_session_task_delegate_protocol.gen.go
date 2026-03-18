@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that defines methods that URL session instances call on their delegates to handle task-level events.
 //
@@ -19,8 +17,6 @@ type NSURLSessionTaskDelegate interface {
 	NSURLSessionDelegate
 }
 
-
-
 // NSURLSessionTaskDelegateObject wraps an existing Objective-C object that conforms to the NSURLSessionTaskDelegate protocol.
 type NSURLSessionTaskDelegateObject struct {
 	objectivec.Object
@@ -29,8 +25,6 @@ func (o NSURLSessionTaskDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLSessionTaskDelegateObjectFromID constructs a [NSURLSessionTaskDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLSessionTaskDelegateObjectFromID(id objc.ID) NSURLSessionTaskDelegateObject {
@@ -38,9 +32,6 @@ func NSURLSessionTaskDelegateObjectFromID(id objc.ID) NSURLSessionTaskDelegateOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that the task finished transferring data.
 //
@@ -415,10 +406,6 @@ func (o NSURLSessionTaskDelegateObject) URLSessionDidReceiveChallengeCompletionH
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
 	}
 
-
-
-
-
 // NSURLSessionTaskDelegateConfig holds optional typed callbacks for [NSURLSessionTaskDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -630,8 +617,4 @@ func NewNSURLSessionTaskDelegate(config NSURLSessionTaskDelegateConfig) NSURLSes
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLSessionTaskDelegateObjectFromID(instance)
 }
-
-
-
-
 

@@ -38,12 +38,6 @@ func (vc VNFaceLandmarkRegion2DClass) Alloc() VNFaceLandmarkRegion2D {
 	return rv
 }
 
-
-
-
-
-
-
 // 2D geometry information for a specific facial feature.
 //
 // # Overview
@@ -69,10 +63,6 @@ func VNFaceLandmarkRegion2DFromID(id objc.ID) VNFaceLandmarkRegion2D {
 // NOTE: VNFaceLandmarkRegion2D adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNFaceLandmarkRegion2D] class.
 //
 // # Describing Region Points
@@ -94,12 +84,7 @@ type IVNFaceLandmarkRegion2D interface {
 	PrecisionEstimatesPerPoint() []foundation.NSNumber
 	// A buffer in memory containing landmark points in the coordinate space of the specified image size.
 	PointsInImageOfSize(imageSize corefoundation.CGSize) corefoundation.CGPoint
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f VNFaceLandmarkRegion2D) Init() VNFaceLandmarkRegion2D {
@@ -120,15 +105,6 @@ func NewVNFaceLandmarkRegion2D() VNFaceLandmarkRegion2D {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // A buffer in memory containing landmark points in the coordinate space of
 // the specified image size.
 //
@@ -146,20 +122,6 @@ func (f VNFaceLandmarkRegion2D) PointsInImageOfSize(imageSize corefoundation.CGS
 	rv := objc.Send[corefoundation.CGPoint](f.ID, objc.Sel("pointsInImageOfSize:"), imageSize)
 	return corefoundation.CGPoint(rv)
 }
-func (f VNFaceLandmarkRegion2D) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // An enumeration that describes how to interpret the points the region
 // provides.
@@ -169,8 +131,6 @@ func (f VNFaceLandmarkRegion2D) PointsClassification() VNPointsClassification {
 	rv := objc.Send[VNPointsClassification](f.ID, objc.Sel("pointsClassification"))
 	return VNPointsClassification(rv)
 }
-
-
 
 // A buffer in memory containing normalized landmark points.
 //
@@ -190,8 +150,6 @@ func (f VNFaceLandmarkRegion2D) NormalizedPoints() unsafe.Pointer {
 	return rv
 }
 
-
-
 // An array of precision estimates for each landmark point.
 //
 // # Discussion
@@ -208,30 +166,4 @@ func (f VNFaceLandmarkRegion2D) PrecisionEstimatesPerPoint() []foundation.NSNumb
 		return foundation.NSNumberFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

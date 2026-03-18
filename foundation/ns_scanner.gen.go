@@ -37,12 +37,6 @@ func (sc ScannerClass) Alloc() Scanner {
 	return rv
 }
 
-
-
-
-
-
-
 // A string parser that scans for substrings or characters in a character set,
 // and for numeric values from decimal, hexadecimal, and floating-point
 // representations.
@@ -117,17 +111,13 @@ type Scanner struct {
 // and for numeric values from decimal, hexadecimal, and floating-point
 // representations.
 func ScannerFromID(id objc.ID) Scanner {
-	return NSScanner{objectivec.Object{id}}
+	return NSScanner{objectivec.Object{ID: id}}
 }
 
 // NSScannerFromID is an alias for [ScannerFromID] for cross-framework compatibility.
 func NSScannerFromID(id objc.ID) Scanner { return ScannerFromID(id) }
 // NOTE: Scanner adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Scanner] class.
 //
@@ -202,7 +192,7 @@ type IScanner interface {
 	// Scans for a long long value from a hexadecimal representation, returning a found value by reference.
 	ScanHexLongLong() (uint64, bool)
 	// Scans for an NSInteger value from a decimal representation, returning a found value by reference
-	ScanInteger(result int) bool
+	ScanInteger() (int, bool)
 	// Scans for a long long value from a decimal representation, returning a found value by reference.
 	ScanLongLong() (int64, bool)
 	// Scans for an unsigned long long value from a decimal representation, returning a found value by reference.
@@ -223,10 +213,6 @@ type IScanner interface {
 	SetNSNotFound(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s Scanner) Init() Scanner {
 	rv := objc.Send[Scanner](s.ID, objc.Sel("init"))
@@ -246,11 +232,6 @@ func NewScanner() Scanner {
 	return rv
 }
 
-
-
-
-
-
 // Returns an [NSScanner] object initialized to scan a given string.
 //
 // string: The string to scan.
@@ -266,12 +247,6 @@ func NewScannerWithString(string_ string) Scanner {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), objc.String(string_))
 	return ScannerFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSScanner] object initialized to scan a given string.
 //
@@ -408,9 +383,10 @@ func (s Scanner) ScanHexLongLong() (uint64, bool) {
 // integer representation.
 //
 // See: https://developer.apple.com/documentation/Foundation/Scanner/scanInt(_:)
-func (s Scanner) ScanInteger(result int) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("scanInteger:"), result)
-	return rv
+func (s Scanner) ScanInteger() (int, bool) {
+	var result int
+	rv := objc.Send[bool](s.ID, objc.Sel("scanInteger:"), unsafe.Pointer(&result))
+	return result, rv
 }
 
 // Scans for a long long value from a decimal representation, returning a
@@ -474,10 +450,6 @@ func (s Scanner) ScanUnsignedLongLong() (uint64, bool) {
 	return result, rv
 }
 
-
-
-
-
 // Returns an [NSScanner] object that scans a given string according to the
 // user’s default locale.
 //
@@ -517,13 +489,6 @@ func (_ScannerClass ScannerClass) ScannerWithString(string_ string) Scanner {
 	return NSScannerFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The string the scanner will scan.
 //
 // See: https://developer.apple.com/documentation/Foundation/Scanner/string
@@ -531,8 +496,6 @@ func (s Scanner) String() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("string"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Flag that indicates whether the receiver distinguishes case in the
 // characters it scans.
@@ -554,8 +517,6 @@ func (s Scanner) CaseSensitive() bool {
 func (s Scanner) SetCaseSensitive(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCaseSensitive:"), value)
 }
-
-
 
 // Character set containing the characters the scanner ignores when looking
 // for a scannable element.
@@ -592,8 +553,6 @@ func (s Scanner) SetCharactersToBeSkipped(value INSCharacterSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCharactersToBeSkipped:"), value)
 }
 
-
-
 // The locale to use when scanning.
 //
 // # Discussion
@@ -612,8 +571,6 @@ func (s Scanner) Locale() objectivec.IObject {
 func (s Scanner) SetLocale(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLocale:"), value)
 }
-
-
 
 // Flag that indicates whether the receiver has exhausted all significant
 // characters.
@@ -634,8 +591,6 @@ func (s Scanner) AtEnd() bool {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/scanner/currentindex
 func (s Scanner) CurrentIndex() int32 {
 	rv := objc.Send[int32](s.ID, objc.Sel("currentIndex"))
@@ -644,8 +599,6 @@ func (s Scanner) CurrentIndex() int32 {
 func (s Scanner) SetCurrentIndex(value int32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCurrentIndex:"), value)
 }
-
-
 
 // A value indicating that a requested item couldn’t be found or doesn’t
 // exist.
@@ -659,31 +612,6 @@ func (s Scanner) SetNSNotFound(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNSNotFound:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (mc MTL4CommandAllocatorDescriptorClass) Alloc() MTL4CommandAllocatorDescri
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together parameters for creating a command allocator.
 //
 // # Instance Properties
@@ -59,14 +53,10 @@ type MTL4CommandAllocatorDescriptor struct {
 //
 // Groups together parameters for creating a command allocator.
 func MTL4CommandAllocatorDescriptorFromID(id objc.ID) MTL4CommandAllocatorDescriptor {
-	return MTL4CommandAllocatorDescriptor{objectivec.Object{id}}
+	return MTL4CommandAllocatorDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4CommandAllocatorDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4CommandAllocatorDescriptor] class.
 //
@@ -88,10 +78,6 @@ type IMTL4CommandAllocatorDescriptor interface {
 	MTL4CommandQueueErrorDomain() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4CommandAllocatorDescriptor) Init() MTL4CommandAllocatorDescriptor {
 	rv := objc.Send[MTL4CommandAllocatorDescriptor](m.ID, objc.Sel("init"))
@@ -111,26 +97,6 @@ func NewMTL4CommandAllocatorDescriptor() MTL4CommandAllocatorDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // An optional label you can assign to the command allocator to aid debugging.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocatorDescriptor/label
@@ -142,34 +108,9 @@ func (m MTL4CommandAllocatorDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommandAllocatorDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

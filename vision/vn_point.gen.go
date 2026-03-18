@@ -38,12 +38,6 @@ func (vc VNPointClass) Alloc() VNPoint {
 	return rv
 }
 
-
-
-
-
-
-
 // An immutable object that represents a single 2D point in an image.
 //
 // # Creating a Point
@@ -70,14 +64,10 @@ type VNPoint struct {
 //
 // An immutable object that represents a single 2D point in an image.
 func VNPointFromID(id objc.ID) VNPoint {
-	return VNPoint{objectivec.Object{id}}
+	return VNPoint{objectivec.Object{ID: id}}
 }
 // NOTE: VNPoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNPoint] class.
 //
@@ -124,10 +114,6 @@ type IVNPoint interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p VNPoint) Init() VNPoint {
 	rv := objc.Send[VNPoint](p.ID, objc.Sel("init"))
@@ -147,11 +133,6 @@ func NewVNPoint() VNPoint {
 	return rv
 }
 
-
-
-
-
-
 // Creates a point object from the specified Core Graphics point.
 //
 // location: The Core Graphics point.
@@ -162,7 +143,6 @@ func NewPointWithLocation(location corefoundation.CGPoint) VNPoint {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithLocation:"), location)
 	return VNPointFromID(rv)
 }
-
 
 // Creates a point object with the specified coordinates.
 //
@@ -176,12 +156,6 @@ func NewPointWithXY(x float64, y float64) VNPoint {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithX:y:"), x, y)
 	return VNPointFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a point object with the specified coordinates.
 //
@@ -222,10 +196,6 @@ func (p VNPoint) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Creates a point object that’s shifted by the X and Y offsets of the
 // specified vector.
 //
@@ -239,13 +209,6 @@ func (_VNPointClass VNPointClass) PointByApplyingVectorToPoint(vector IVNVector,
 	return VNPointFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The x-coordinate.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint/x
@@ -253,8 +216,6 @@ func (p VNPoint) X() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("x"))
 	return rv
 }
-
-
 
 // The y-coordinate.
 //
@@ -264,8 +225,6 @@ func (p VNPoint) Y() float64 {
 	return rv
 }
 
-
-
 // The Core Graphics point for this point.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint/location
@@ -273,12 +232,6 @@ func (p VNPoint) Location() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](p.ID, objc.Sel("location"))
 	return corefoundation.CGPoint(rv)
 }
-
-
-
-
-
-
 
 // A point object that represents the origin.
 //
@@ -291,25 +244,4 @@ func (_VNPointClass VNPointClass) ZeroPoint() VNPoint {
 	rv := objc.Send[objc.ID](objc.ID(_VNPointClass.class), objc.Sel("zeroPoint"))
 	return VNPointFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

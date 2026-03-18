@@ -36,10 +36,11 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
 var _nXCompareHashTables func(table1 *NXHashTable, table2 *NXHashTable) bool
 
 // NXCompareHashTables.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXCompareHashTables
 func NXCompareHashTables(table1 *NXHashTable, table2 *NXHashTable) bool {
@@ -49,10 +50,11 @@ func NXCompareHashTables(table1 *NXHashTable, table2 *NXHashTable) bool {
 	return _nXCompareHashTables(table1, table2)
 }
 
-
 var _nXCopyHashTable func(table *NXHashTable) *NXHashTable
 
 // NXCopyHashTable.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXCopyHashTable
 func NXCopyHashTable(table *NXHashTable) *NXHashTable {
@@ -62,10 +64,11 @@ func NXCopyHashTable(table *NXHashTable) *NXHashTable {
 	return _nXCopyHashTable(table)
 }
 
-
 var _nXCountHashTable func(table *NXHashTable) uint
 
 // NXCountHashTable.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXCountHashTable
 func NXCountHashTable(table *NXHashTable) uint {
@@ -75,10 +78,11 @@ func NXCountHashTable(table *NXHashTable) uint {
 	return _nXCountHashTable(table)
 }
 
-
 var _nXCreateHashTable func(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer) *NXHashTable
 
 // NXCreateHashTable.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXCreateHashTable
 func NXCreateHashTable(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer) *NXHashTable {
@@ -88,10 +92,11 @@ func NXCreateHashTable(prototype NXHashTablePrototype, capacity uint, info unsaf
 	return _nXCreateHashTable(prototype, capacity, info)
 }
 
-
 var _nXCreateHashTableFromZone func(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer, zone unsafe.Pointer) *NXHashTable
 
 // NXCreateHashTableFromZone.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXCreateHashTableFromZone
 func NXCreateHashTableFromZone(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer, zone unsafe.Pointer) *NXHashTable {
@@ -101,10 +106,11 @@ func NXCreateHashTableFromZone(prototype NXHashTablePrototype, capacity uint, in
 	return _nXCreateHashTableFromZone(prototype, capacity, info, zone)
 }
 
-
 var _nXEmptyHashTable func(table *NXHashTable)
 
 // NXEmptyHashTable.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXEmptyHashTable
 func NXEmptyHashTable(table *NXHashTable) {
@@ -114,10 +120,11 @@ func NXEmptyHashTable(table *NXHashTable) {
 	_nXEmptyHashTable(table)
 }
 
-
 var _nXFreeHashTable func(table *NXHashTable)
 
 // NXFreeHashTable.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXFreeHashTable
 func NXFreeHashTable(table *NXHashTable) {
@@ -127,10 +134,11 @@ func NXFreeHashTable(table *NXHashTable) {
 	_nXFreeHashTable(table)
 }
 
-
 var _nXHashGet func(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer
 
 // NXHashGet.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXHashGet
 func NXHashGet(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer {
@@ -140,10 +148,11 @@ func NXHashGet(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer {
 	return _nXHashGet(table, data)
 }
 
-
 var _nXHashInsert func(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer
 
 // NXHashInsert.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXHashInsert
 func NXHashInsert(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer {
@@ -153,10 +162,11 @@ func NXHashInsert(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer {
 	return _nXHashInsert(table, data)
 }
 
-
 var _nXHashInsertIfAbsent func(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer
 
 // NXHashInsertIfAbsent.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXHashInsertIfAbsent
 func NXHashInsertIfAbsent(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer {
@@ -166,10 +176,11 @@ func NXHashInsertIfAbsent(table *NXHashTable, data unsafe.Pointer) unsafe.Pointe
 	return _nXHashInsertIfAbsent(table, data)
 }
 
-
 var _nXHashMember func(table *NXHashTable, data unsafe.Pointer) int
 
 // NXHashMember.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXHashMember
 func NXHashMember(table *NXHashTable, data unsafe.Pointer) int {
@@ -179,10 +190,11 @@ func NXHashMember(table *NXHashTable, data unsafe.Pointer) int {
 	return _nXHashMember(table, data)
 }
 
-
 var _nXHashRemove func(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer
 
 // NXHashRemove.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXHashRemove
 func NXHashRemove(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer {
@@ -192,10 +204,11 @@ func NXHashRemove(table *NXHashTable, data unsafe.Pointer) unsafe.Pointer {
 	return _nXHashRemove(table, data)
 }
 
-
 var _nXInitHashState func(table *NXHashTable) NXHashState
 
 // NXInitHashState.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXInitHashState
 func NXInitHashState(table *NXHashTable) NXHashState {
@@ -205,10 +218,11 @@ func NXInitHashState(table *NXHashTable) NXHashState {
 	return _nXInitHashState(table)
 }
 
-
 var _nXNextHashState func(table *NXHashTable, state *NXHashState, data unsafe.Pointer) int
 
 // NXNextHashState.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXNextHashState
 func NXNextHashState(table *NXHashTable, state *NXHashState, data unsafe.Pointer) int {
@@ -218,10 +232,11 @@ func NXNextHashState(table *NXHashTable, state *NXHashState, data unsafe.Pointer
 	return _nXNextHashState(table, state, data)
 }
 
-
 var _nXNoEffectFree func(info unsafe.Pointer, data unsafe.Pointer)
 
 // NXNoEffectFree.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXNoEffectFree
 func NXNoEffectFree(info unsafe.Pointer, data unsafe.Pointer) {
@@ -231,10 +246,11 @@ func NXNoEffectFree(info unsafe.Pointer, data unsafe.Pointer) {
 	_nXNoEffectFree(info, data)
 }
 
-
 var _nXPtrHash func(info unsafe.Pointer, data unsafe.Pointer) uintptr
 
 // NXPtrHash.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXPtrHash
 func NXPtrHash(info unsafe.Pointer, data unsafe.Pointer) uintptr {
@@ -244,10 +260,11 @@ func NXPtrHash(info unsafe.Pointer, data unsafe.Pointer) uintptr {
 	return _nXPtrHash(info, data)
 }
 
-
 var _nXPtrIsEqual func(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int
 
 // NXPtrIsEqual.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXPtrIsEqual
 func NXPtrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int {
@@ -257,10 +274,11 @@ func NXPtrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointe
 	return _nXPtrIsEqual(info, data1, data2)
 }
 
-
 var _nXReallyFree func(info unsafe.Pointer, data unsafe.Pointer)
 
 // NXReallyFree.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXReallyFree
 func NXReallyFree(info unsafe.Pointer, data unsafe.Pointer) {
@@ -270,10 +288,11 @@ func NXReallyFree(info unsafe.Pointer, data unsafe.Pointer) {
 	_nXReallyFree(info, data)
 }
 
-
 var _nXResetHashTable func(table *NXHashTable)
 
 // NXResetHashTable.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXResetHashTable
 func NXResetHashTable(table *NXHashTable) {
@@ -283,10 +302,11 @@ func NXResetHashTable(table *NXHashTable) {
 	_nXResetHashTable(table)
 }
 
-
 var _nXStrHash func(info unsafe.Pointer, data unsafe.Pointer) uintptr
 
 // NXStrHash.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXStrHash
 func NXStrHash(info unsafe.Pointer, data unsafe.Pointer) uintptr {
@@ -296,10 +316,11 @@ func NXStrHash(info unsafe.Pointer, data unsafe.Pointer) uintptr {
 	return _nXStrHash(info, data)
 }
 
-
 var _nXStrIsEqual func(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int
 
 // NXStrIsEqual.
+//
+// Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXStrIsEqual
 func NXStrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int {
@@ -309,45 +330,41 @@ func NXStrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointe
 	return _nXStrIsEqual(info, data1, data2)
 }
 
-
-var _class_addIvar func(cls objc.Class, name *byte, size uintptr, alignment uint8, types *byte) bool
+var _class_addIvar func(cls objc.Class, name string, size uintptr, alignment uint8, types string) bool
 
 // Class_addIvar adds a new instance variable to a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_addIvar(_:_:_:_:_:)
-func Class_addIvar(cls objc.Class, name *byte, size uintptr, alignment uint8, types *byte) bool {
+func Class_addIvar(cls objc.Class, name string, size uintptr, alignment uint8, types string) bool {
 	if _class_addIvar == nil {
 		panic("ObjectiveC: symbol class_addIvar not loaded")
 	}
 	return _class_addIvar(cls, name, size, alignment, types)
 }
 
-
-var _class_addMethod func(cls objc.Class, name SEL, imp IMP, types *byte) bool
+var _class_addMethod func(cls objc.Class, name SEL, imp IMP, types string) bool
 
 // Class_addMethod adds a new method to a class with a given name and implementation.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_addMethod(_:_:_:_:)
-func Class_addMethod(cls objc.Class, name SEL, imp IMP, types *byte) bool {
+func Class_addMethod(cls objc.Class, name SEL, imp IMP, types string) bool {
 	if _class_addMethod == nil {
 		panic("ObjectiveC: symbol class_addMethod not loaded")
 	}
 	return _class_addMethod(cls, name, imp, types)
 }
 
-
-var _class_addProperty func(cls objc.Class, name *byte, attributes *Objc_property_attribute_t, attributeCount uint) bool
+var _class_addProperty func(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint) bool
 
 // Class_addProperty adds a property to a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_addProperty(_:_:_:_:)
-func Class_addProperty(cls objc.Class, name *byte, attributes *Objc_property_attribute_t, attributeCount uint) bool {
+func Class_addProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint) bool {
 	if _class_addProperty == nil {
 		panic("ObjectiveC: symbol class_addProperty not loaded")
 	}
 	return _class_addProperty(cls, name, attributes, attributeCount)
 }
-
 
 var _class_addProtocol func(cls objc.Class, protocol_ **Protocol) bool
 
@@ -361,7 +378,6 @@ func Class_addProtocol(cls objc.Class, protocol_ **Protocol) bool {
 	return _class_addProtocol(cls, protocol_)
 }
 
-
 var _class_conformsToProtocol func(cls objc.Class, protocol_ **Protocol) bool
 
 // Class_conformsToProtocol returns a Boolean value that indicates whether a class conforms to a given protocol.
@@ -373,7 +389,6 @@ func Class_conformsToProtocol(cls objc.Class, protocol_ **Protocol) bool {
 	}
 	return _class_conformsToProtocol(cls, protocol_)
 }
-
 
 var _class_copyIvarList func(cls objc.Class, outCount *uint) Ivar
 
@@ -387,7 +402,6 @@ func Class_copyIvarList(cls objc.Class, outCount *uint) Ivar {
 	return _class_copyIvarList(cls, outCount)
 }
 
-
 var _class_copyMethodList func(cls objc.Class, outCount *uint) Method
 
 // Class_copyMethodList describes the instance methods implemented by a class.
@@ -400,7 +414,17 @@ func Class_copyMethodList(cls objc.Class, outCount *uint) Method {
 	return _class_copyMethodList(cls, outCount)
 }
 
+var _class_copyPropertyList func(cls objc.Class, outCount *uint) *Objc_property_t
 
+// Class_copyPropertyList describes the properties declared by a class.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/class_copyPropertyList(_:_:)
+func Class_copyPropertyList(cls objc.Class, outCount *uint) *Objc_property_t {
+	if _class_copyPropertyList == nil {
+		panic("ObjectiveC: symbol class_copyPropertyList not loaded")
+	}
+	return _class_copyPropertyList(cls, outCount)
+}
 
 var _class_copyProtocolList func(cls objc.Class, outCount *uint) **Protocol
 
@@ -414,7 +438,6 @@ func Class_copyProtocolList(cls objc.Class, outCount *uint) **Protocol {
 	return _class_copyProtocolList(cls, outCount)
 }
 
-
 var _class_createInstance func(cls objc.Class, extraBytes uintptr) Object
 
 // Class_createInstance creates an instance of a class, allocating memory for the class in the default malloc memory zone.
@@ -427,10 +450,11 @@ func Class_createInstance(cls objc.Class, extraBytes uintptr) Object {
 	return _class_createInstance(cls, extraBytes)
 }
 
-
 var _class_createInstanceFromZone func(arg0 objc.Class, idxIvars uintptr, zone unsafe.Pointer) Object
 
 // Class_createInstanceFromZone.
+//
+// Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_createInstanceFromZone
 func Class_createInstanceFromZone(arg0 objc.Class, idxIvars uintptr, zone unsafe.Pointer) Object {
@@ -439,7 +463,6 @@ func Class_createInstanceFromZone(arg0 objc.Class, idxIvars uintptr, zone unsafe
 	}
 	return _class_createInstanceFromZone(arg0, idxIvars, zone)
 }
-
 
 var _class_getClassMethod func(cls objc.Class, name SEL) Method
 
@@ -453,19 +476,17 @@ func Class_getClassMethod(cls objc.Class, name SEL) Method {
 	return _class_getClassMethod(cls, name)
 }
 
-
-var _class_getClassVariable func(cls objc.Class, name *byte) Ivar
+var _class_getClassVariable func(cls objc.Class, name string) Ivar
 
 // Class_getClassVariable returns the [Ivar] for a specified class variable of a given class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_getClassVariable(_:_:)
-func Class_getClassVariable(cls objc.Class, name *byte) Ivar {
+func Class_getClassVariable(cls objc.Class, name string) Ivar {
 	if _class_getClassVariable == nil {
 		panic("ObjectiveC: symbol class_getClassVariable not loaded")
 	}
 	return _class_getClassVariable(cls, name)
 }
-
 
 var _class_getImageName func(cls objc.Class) *byte
 
@@ -479,7 +500,6 @@ func Class_getImageName(cls objc.Class) *byte {
 	return _class_getImageName(cls)
 }
 
-
 var _class_getInstanceMethod func(cls objc.Class, name SEL) Method
 
 // Class_getInstanceMethod returns a specified instance method for a given class.
@@ -491,7 +511,6 @@ func Class_getInstanceMethod(cls objc.Class, name SEL) Method {
 	}
 	return _class_getInstanceMethod(cls, name)
 }
-
 
 var _class_getInstanceSize func(cls objc.Class) uintptr
 
@@ -505,19 +524,17 @@ func Class_getInstanceSize(cls objc.Class) uintptr {
 	return _class_getInstanceSize(cls)
 }
 
-
-var _class_getInstanceVariable func(cls objc.Class, name *byte) Ivar
+var _class_getInstanceVariable func(cls objc.Class, name string) Ivar
 
 // Class_getInstanceVariable returns the [Ivar] for a specified instance variable of a given class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_getInstanceVariable(_:_:)
-func Class_getInstanceVariable(cls objc.Class, name *byte) Ivar {
+func Class_getInstanceVariable(cls objc.Class, name string) Ivar {
 	if _class_getInstanceVariable == nil {
 		panic("ObjectiveC: symbol class_getInstanceVariable not loaded")
 	}
 	return _class_getInstanceVariable(cls, name)
 }
-
 
 var _class_getIvarLayout func(cls objc.Class) *uint8
 
@@ -531,7 +548,6 @@ func Class_getIvarLayout(cls objc.Class) *uint8 {
 	return _class_getIvarLayout(cls)
 }
 
-
 var _class_getMethodImplementation func(cls objc.Class, name SEL) IMP
 
 // Class_getMethodImplementation returns the function pointer that would be called if a particular message were sent to an instance of a class.
@@ -543,7 +559,6 @@ func Class_getMethodImplementation(cls objc.Class, name SEL) IMP {
 	}
 	return _class_getMethodImplementation(cls, name)
 }
-
 
 var _class_getName func(cls objc.Class) *byte
 
@@ -557,19 +572,17 @@ func Class_getName(cls objc.Class) *byte {
 	return _class_getName(cls)
 }
 
-
-var _class_getProperty func(cls objc.Class, name *byte) unsafe.Pointer
+var _class_getProperty func(cls objc.Class, name string) unsafe.Pointer
 
 // Class_getProperty returns a property with a given name of a given class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_getProperty(_:_:)
-func Class_getProperty(cls objc.Class, name *byte) unsafe.Pointer {
+func Class_getProperty(cls objc.Class, name string) unsafe.Pointer {
 	if _class_getProperty == nil {
 		panic("ObjectiveC: symbol class_getProperty not loaded")
 	}
 	return _class_getProperty(cls, name)
 }
-
 
 var _class_getSuperclass func(cls objc.Class) objc.Class
 
@@ -583,7 +596,6 @@ func Class_getSuperclass(cls objc.Class) objc.Class {
 	return _class_getSuperclass(cls)
 }
 
-
 var _class_getVersion func(cls objc.Class) int
 
 // Class_getVersion returns the version number of a class definition.
@@ -595,7 +607,6 @@ func Class_getVersion(cls objc.Class) int {
 	}
 	return _class_getVersion(cls)
 }
-
 
 var _class_getWeakIvarLayout func(cls objc.Class) *uint8
 
@@ -609,7 +620,6 @@ func Class_getWeakIvarLayout(cls objc.Class) *uint8 {
 	return _class_getWeakIvarLayout(cls)
 }
 
-
 var _class_isMetaClass func(cls objc.Class) bool
 
 // Class_isMetaClass returns a Boolean value that indicates whether a class object is a metaclass.
@@ -622,32 +632,29 @@ func Class_isMetaClass(cls objc.Class) bool {
 	return _class_isMetaClass(cls)
 }
 
-
-var _class_replaceMethod func(cls objc.Class, name SEL, imp IMP, types *byte) IMP
+var _class_replaceMethod func(cls objc.Class, name SEL, imp IMP, types string) IMP
 
 // Class_replaceMethod replaces the implementation of a method for a given class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_replaceMethod(_:_:_:_:)
-func Class_replaceMethod(cls objc.Class, name SEL, imp IMP, types *byte) IMP {
+func Class_replaceMethod(cls objc.Class, name SEL, imp IMP, types string) IMP {
 	if _class_replaceMethod == nil {
 		panic("ObjectiveC: symbol class_replaceMethod not loaded")
 	}
 	return _class_replaceMethod(cls, name, imp, types)
 }
 
-
-var _class_replaceProperty func(cls objc.Class, name *byte, attributes *Objc_property_attribute_t, attributeCount uint)
+var _class_replaceProperty func(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint)
 
 // Class_replaceProperty replace a property of a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_replaceProperty(_:_:_:_:)
-func Class_replaceProperty(cls objc.Class, name *byte, attributes *Objc_property_attribute_t, attributeCount uint) {
+func Class_replaceProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint) {
 	if _class_replaceProperty == nil {
 		panic("ObjectiveC: symbol class_replaceProperty not loaded")
 	}
 	_class_replaceProperty(cls, name, attributes, attributeCount)
 }
-
 
 var _class_respondsToSelector func(cls objc.Class, sel SEL) bool
 
@@ -661,7 +668,6 @@ func Class_respondsToSelector(cls objc.Class, sel SEL) bool {
 	return _class_respondsToSelector(cls, sel)
 }
 
-
 var _class_setIvarLayout func(cls objc.Class, layout *uint8)
 
 // Class_setIvarLayout sets the [Ivar] layout for a given class.
@@ -673,7 +679,6 @@ func Class_setIvarLayout(cls objc.Class, layout *uint8) {
 	}
 	_class_setIvarLayout(cls, layout)
 }
-
 
 var _class_setVersion func(cls objc.Class, version int)
 
@@ -687,7 +692,6 @@ func Class_setVersion(cls objc.Class, version int) {
 	_class_setVersion(cls, version)
 }
 
-
 var _class_setWeakIvarLayout func(cls objc.Class, layout *uint8)
 
 // Class_setWeakIvarLayout sets the layout for weak [Ivar]s for a given class.
@@ -699,7 +703,6 @@ func Class_setWeakIvarLayout(cls objc.Class, layout *uint8) {
 	}
 	_class_setWeakIvarLayout(cls, layout)
 }
-
 
 var _imp_getBlock func(anImp IMP) Object
 
@@ -713,7 +716,6 @@ func Imp_getBlock(anImp IMP) Object {
 	return _imp_getBlock(anImp)
 }
 
-
 var _imp_implementationWithBlock func(block Object) IMP
 
 // Imp_implementationWithBlock creates a pointer to a function that calls the specified block when the method is called.
@@ -725,7 +727,6 @@ func Imp_implementationWithBlock(block Object) IMP {
 	}
 	return _imp_implementationWithBlock(block)
 }
-
 
 var _imp_removeBlock func(anImp IMP) bool
 
@@ -739,7 +740,6 @@ func Imp_removeBlock(anImp IMP) bool {
 	return _imp_removeBlock(anImp)
 }
 
-
 var _ivar_getName func(v Ivar) *byte
 
 // Ivar_getName returns the name of an instance variable.
@@ -751,7 +751,6 @@ func Ivar_getName(v Ivar) *byte {
 	}
 	return _ivar_getName(v)
 }
-
 
 var _ivar_getOffset func(v Ivar) int
 
@@ -765,7 +764,6 @@ func Ivar_getOffset(v Ivar) int {
 	return _ivar_getOffset(v)
 }
 
-
 var _ivar_getTypeEncoding func(v Ivar) *byte
 
 // Ivar_getTypeEncoding returns the type string of an instance variable.
@@ -777,7 +775,6 @@ func Ivar_getTypeEncoding(v Ivar) *byte {
 	}
 	return _ivar_getTypeEncoding(v)
 }
-
 
 var _method_copyArgumentType func(m Method, index uint) *byte
 
@@ -791,7 +788,6 @@ func Method_copyArgumentType(m Method, index uint) *byte {
 	return _method_copyArgumentType(m, index)
 }
 
-
 var _method_copyReturnType func(m Method) *byte
 
 // Method_copyReturnType returns a string describing a method’s return type.
@@ -803,7 +799,6 @@ func Method_copyReturnType(m Method) *byte {
 	}
 	return _method_copyReturnType(m)
 }
-
 
 var _method_exchangeImplementations func(m1 Method, m2 Method)
 
@@ -817,7 +812,6 @@ func Method_exchangeImplementations(m1 Method, m2 Method) {
 	_method_exchangeImplementations(m1, m2)
 }
 
-
 var _method_getArgumentType func(m Method, index uint, dst *byte, dst_len uintptr)
 
 // Method_getArgumentType returns by reference a string describing a single parameter type of a method.
@@ -829,7 +823,6 @@ func Method_getArgumentType(m Method, index uint, dst *byte, dst_len uintptr) {
 	}
 	_method_getArgumentType(m, index, dst, dst_len)
 }
-
 
 var _method_getDescription func(m Method) *Objc_method_description
 
@@ -843,7 +836,6 @@ func Method_getDescription(m Method) *Objc_method_description {
 	return _method_getDescription(m)
 }
 
-
 var _method_getImplementation func(m Method) IMP
 
 // Method_getImplementation returns the implementation of a method.
@@ -855,7 +847,6 @@ func Method_getImplementation(m Method) IMP {
 	}
 	return _method_getImplementation(m)
 }
-
 
 var _method_getName func(m Method) SEL
 
@@ -869,7 +860,6 @@ func Method_getName(m Method) SEL {
 	return _method_getName(m)
 }
 
-
 var _method_getNumberOfArguments func(m Method) uint
 
 // Method_getNumberOfArguments returns the number of arguments accepted by a method.
@@ -881,7 +871,6 @@ func Method_getNumberOfArguments(m Method) uint {
 	}
 	return _method_getNumberOfArguments(m)
 }
-
 
 var _method_getReturnType func(m Method, dst *byte, dst_len uintptr)
 
@@ -895,7 +884,6 @@ func Method_getReturnType(m Method, dst *byte, dst_len uintptr) {
 	_method_getReturnType(m, dst, dst_len)
 }
 
-
 var _method_getTypeEncoding func(m Method) *byte
 
 // Method_getTypeEncoding returns a string describing a method’s parameter and return types.
@@ -907,7 +895,6 @@ func Method_getTypeEncoding(m Method) *byte {
 	}
 	return _method_getTypeEncoding(m)
 }
-
 
 var _method_invoke func()
 
@@ -921,7 +908,6 @@ func Method_invoke() {
 	_method_invoke()
 }
 
-
 var _method_setImplementation func(m Method, imp IMP) IMP
 
 // Method_setImplementation sets the implementation of a method.
@@ -933,7 +919,6 @@ func Method_setImplementation(m Method, imp IMP) IMP {
 	}
 	return _method_setImplementation(m, imp)
 }
-
 
 var _objc_addExceptionHandler func(fn unsafe.Pointer, context unsafe.Pointer) uintptr
 
@@ -947,7 +932,6 @@ func Objc_addExceptionHandler(fn unsafe.Pointer, context unsafe.Pointer) uintptr
 	return _objc_addExceptionHandler(fn, context)
 }
 
-
 var _objc_addLoadImageFunc func(func_ unsafe.Pointer)
 
 // Objc_addLoadImageFunc.
@@ -960,45 +944,29 @@ func Objc_addLoadImageFunc(func_ unsafe.Pointer) {
 	_objc_addLoadImageFunc(func_)
 }
 
-
-var _objc_allocateClassPair func(superclass objc.Class, name *byte, extraBytes uintptr) objc.Class
+var _objc_allocateClassPair func(superclass objc.Class, name string, extraBytes uintptr) objc.Class
 
 // Objc_allocateClassPair creates a new class and metaclass.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_allocateClassPair(_:_:_:)
-func Objc_allocateClassPair(superclass objc.Class, name *byte, extraBytes uintptr) objc.Class {
+func Objc_allocateClassPair(superclass objc.Class, name string, extraBytes uintptr) objc.Class {
 	if _objc_allocateClassPair == nil {
 		panic("ObjectiveC: symbol objc_allocateClassPair not loaded")
 	}
 	return _objc_allocateClassPair(superclass, name, extraBytes)
 }
 
-
-var _objc_allocateProtocol func(name *byte) **Protocol
+var _objc_allocateProtocol func(name string) **Protocol
 
 // Objc_allocateProtocol creates a new protocol instance.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_allocateProtocol(_:)
-func Objc_allocateProtocol(name *byte) **Protocol {
+func Objc_allocateProtocol(name string) **Protocol {
 	if _objc_allocateProtocol == nil {
 		panic("ObjectiveC: symbol objc_allocateProtocol not loaded")
 	}
 	return _objc_allocateProtocol(name)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var _objc_begin_catch func(exc_buf unsafe.Pointer) Object
 
@@ -1012,12 +980,6 @@ func Objc_begin_catch(exc_buf unsafe.Pointer) Object {
 	return _objc_begin_catch(exc_buf)
 }
 
-
-
-
-
-
-
 var _objc_constructInstance func(cls objc.Class, bytes unsafe.Pointer) Object
 
 // Objc_constructInstance creates an instance of a class at the specified location.
@@ -1029,7 +991,6 @@ func Objc_constructInstance(cls objc.Class, bytes unsafe.Pointer) Object {
 	}
 	return _objc_constructInstance(cls, bytes)
 }
-
 
 var _objc_copyClassList func(outCount *uint) objc.Class
 
@@ -1043,19 +1004,17 @@ func Objc_copyClassList(outCount *uint) objc.Class {
 	return _objc_copyClassList(outCount)
 }
 
-
-var _objc_copyClassNamesForImage func(image *byte, outCount *uint) *byte
+var _objc_copyClassNamesForImage func(image string, outCount *uint) *byte
 
 // Objc_copyClassNamesForImage returns the names of all the classes within a specified library or framework.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_copyClassNamesForImage(_:_:)
-func Objc_copyClassNamesForImage(image *byte, outCount *uint) *byte {
+func Objc_copyClassNamesForImage(image string, outCount *uint) *byte {
 	if _objc_copyClassNamesForImage == nil {
 		panic("ObjectiveC: symbol objc_copyClassNamesForImage not loaded")
 	}
 	return _objc_copyClassNamesForImage(image, outCount)
 }
-
 
 var _objc_copyImageNames func(outCount *uint) *byte
 
@@ -1069,7 +1028,6 @@ func Objc_copyImageNames(outCount *uint) *byte {
 	return _objc_copyImageNames(outCount)
 }
 
-
 var _objc_copyProtocolList func(outCount *uint) **Protocol
 
 // Objc_copyProtocolList returns an array of all the protocols known to the runtime.
@@ -1081,7 +1039,6 @@ func Objc_copyProtocolList(outCount *uint) **Protocol {
 	}
 	return _objc_copyProtocolList(outCount)
 }
-
 
 var _objc_destructInstance func(obj Object) unsafe.Pointer
 
@@ -1095,7 +1052,6 @@ func Objc_destructInstance(obj Object) unsafe.Pointer {
 	return _objc_destructInstance(obj)
 }
 
-
 var _objc_disposeClassPair func(cls objc.Class)
 
 // Objc_disposeClassPair destroys a class and its associated metaclass.
@@ -1108,19 +1064,17 @@ func Objc_disposeClassPair(cls objc.Class) {
 	_objc_disposeClassPair(cls)
 }
 
-
-var _objc_duplicateClass func(original objc.Class, name *byte, extraBytes uintptr) objc.Class
+var _objc_duplicateClass func(original objc.Class, name string, extraBytes uintptr) objc.Class
 
 // Objc_duplicateClass used by Foundation’s Key-Value Observing.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_duplicateClass(_:_:_:)
-func Objc_duplicateClass(original objc.Class, name *byte, extraBytes uintptr) objc.Class {
+func Objc_duplicateClass(original objc.Class, name string, extraBytes uintptr) objc.Class {
 	if _objc_duplicateClass == nil {
 		panic("ObjectiveC: symbol objc_duplicateClass not loaded")
 	}
 	return _objc_duplicateClass(original, name, extraBytes)
 }
-
 
 var _objc_end_catch func()
 
@@ -1134,19 +1088,17 @@ func Objc_end_catch() {
 	_objc_end_catch()
 }
 
-
-var _objc_enumerateClasses func(image unsafe.Pointer, namePrefix *byte, conformingTo **Protocol, subclassing objc.Class)
+var _objc_enumerateClasses func(image unsafe.Pointer, namePrefix string, conformingTo **Protocol, subclassing objc.Class)
 
 // Objc_enumerateClasses.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_enumerateClasses
-func Objc_enumerateClasses(image unsafe.Pointer, namePrefix *byte, conformingTo **Protocol, subclassing objc.Class) {
+func Objc_enumerateClasses(image unsafe.Pointer, namePrefix string, conformingTo **Protocol, subclassing objc.Class) {
 	if _objc_enumerateClasses == nil {
 		panic("ObjectiveC: symbol objc_enumerateClasses not loaded")
 	}
 	_objc_enumerateClasses(image, namePrefix, conformingTo, subclassing)
 }
-
 
 var _objc_enumerationMutation func(obj Object)
 
@@ -1160,7 +1112,6 @@ func Objc_enumerationMutation(obj Object) {
 	_objc_enumerationMutation(obj)
 }
 
-
 var _objc_exception_rethrow func()
 
 // Objc_exception_rethrow.
@@ -1172,7 +1123,6 @@ func Objc_exception_rethrow() {
 	}
 	_objc_exception_rethrow()
 }
-
 
 var _objc_exception_throw func(exception Object)
 
@@ -1186,8 +1136,6 @@ func Objc_exception_throw(exception Object) {
 	_objc_exception_throw(exception)
 }
 
-
-
 var _objc_getAssociatedObject func(object Object, key unsafe.Pointer) Object
 
 // Objc_getAssociatedObject returns the value associated with a given object for a given key.
@@ -1200,19 +1148,17 @@ func Objc_getAssociatedObject(object Object, key unsafe.Pointer) Object {
 	return _objc_getAssociatedObject(object, key)
 }
 
-
-var _objc_getClass func(name *byte) Object
+var _objc_getClass func(name string) Object
 
 // Objc_getClass returns the class definition of a specified class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_getClass(_:)
-func Objc_getClass(name *byte) Object {
+func Objc_getClass(name string) Object {
 	if _objc_getClass == nil {
 		panic("ObjectiveC: symbol objc_getClass not loaded")
 	}
 	return _objc_getClass(name)
 }
-
 
 var _objc_getClassList func(buffer objc.Class, bufferCount int) int
 
@@ -1226,59 +1172,53 @@ func Objc_getClassList(buffer objc.Class, bufferCount int) int {
 	return _objc_getClassList(buffer, bufferCount)
 }
 
-
-var _objc_getFutureClass func(name *byte) objc.Class
+var _objc_getFutureClass func(name string) objc.Class
 
 // Objc_getFutureClass used by CoreFoundation’s toll-free bridging.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_getFutureClass
-func Objc_getFutureClass(name *byte) objc.Class {
+func Objc_getFutureClass(name string) objc.Class {
 	if _objc_getFutureClass == nil {
 		panic("ObjectiveC: symbol objc_getFutureClass not loaded")
 	}
 	return _objc_getFutureClass(name)
 }
 
-
-var _objc_getMetaClass func(name *byte) Object
+var _objc_getMetaClass func(name string) Object
 
 // Objc_getMetaClass returns the metaclass definition of a specified class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_getMetaClass(_:)
-func Objc_getMetaClass(name *byte) Object {
+func Objc_getMetaClass(name string) Object {
 	if _objc_getMetaClass == nil {
 		panic("ObjectiveC: symbol objc_getMetaClass not loaded")
 	}
 	return _objc_getMetaClass(name)
 }
 
-
-var _objc_getProtocol func(name *byte) **Protocol
+var _objc_getProtocol func(name string) **Protocol
 
 // Objc_getProtocol returns a specified protocol.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_getProtocol(_:)
-func Objc_getProtocol(name *byte) **Protocol {
+func Objc_getProtocol(name string) **Protocol {
 	if _objc_getProtocol == nil {
 		panic("ObjectiveC: symbol objc_getProtocol not loaded")
 	}
 	return _objc_getProtocol(name)
 }
 
-
-var _objc_getRequiredClass func(name *byte) objc.Class
+var _objc_getRequiredClass func(name string) objc.Class
 
 // Objc_getRequiredClass returns the class definition of a specified class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_getRequiredClass(_:)
-func Objc_getRequiredClass(name *byte) objc.Class {
+func Objc_getRequiredClass(name string) objc.Class {
 	if _objc_getRequiredClass == nil {
 		panic("ObjectiveC: symbol objc_getRequiredClass not loaded")
 	}
 	return _objc_getRequiredClass(name)
 }
-
-
 
 var _objc_loadWeak func(location uintptr) Object
 
@@ -1292,20 +1232,17 @@ func Objc_loadWeak(location uintptr) Object {
 	return _objc_loadWeak(location)
 }
 
-
-var _objc_lookUpClass func(name *byte) objc.Class
+var _objc_lookUpClass func(name string) objc.Class
 
 // Objc_lookUpClass returns the class definition of a specified class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_lookUpClass(_:)
-func Objc_lookUpClass(name *byte) objc.Class {
+func Objc_lookUpClass(name string) objc.Class {
 	if _objc_lookUpClass == nil {
 		panic("ObjectiveC: symbol objc_lookUpClass not loaded")
 	}
 	return _objc_lookUpClass(name)
 }
-
-
 
 var _objc_msgSend func()
 
@@ -1319,7 +1256,6 @@ func Objc_msgSend() {
 	_objc_msgSend()
 }
 
-
 var _objc_msgSendSuper func()
 
 // Objc_msgSendSuper sends a message with a simple return value to the superclass of an instance of a class.
@@ -1331,9 +1267,6 @@ func Objc_msgSendSuper() {
 	}
 	_objc_msgSendSuper()
 }
-
-
-
 
 var _objc_registerClassPair func(cls objc.Class)
 
@@ -1347,7 +1280,6 @@ func Objc_registerClassPair(cls objc.Class) {
 	_objc_registerClassPair(cls)
 }
 
-
 var _objc_registerProtocol func(proto **Protocol)
 
 // Objc_registerProtocol registers a newly created protocol with the Objective-C runtime.
@@ -1359,8 +1291,6 @@ func Objc_registerProtocol(proto **Protocol) {
 	}
 	_objc_registerProtocol(proto)
 }
-
-
 
 var _objc_removeAssociatedObjects func(object Object)
 
@@ -1374,7 +1304,6 @@ func Objc_removeAssociatedObjects(object Object) {
 	_objc_removeAssociatedObjects(object)
 }
 
-
 var _objc_removeExceptionHandler func(token uintptr)
 
 // Objc_removeExceptionHandler.
@@ -1386,7 +1315,6 @@ func Objc_removeExceptionHandler(token uintptr) {
 	}
 	_objc_removeExceptionHandler(token)
 }
-
 
 var _objc_setAssociatedObject func(object Object, key unsafe.Pointer, value Object, policy uintptr)
 
@@ -1400,9 +1328,6 @@ func Objc_setAssociatedObject(object Object, key unsafe.Pointer, value Object, p
 	_objc_setAssociatedObject(object, key, value, policy)
 }
 
-
-
-
 var _objc_setEnumerationMutationHandler func(handler func(Object))
 
 // Objc_setEnumerationMutationHandler sets the current mutation handler.
@@ -1414,7 +1339,6 @@ func Objc_setEnumerationMutationHandler(handler func(Object)) {
 	}
 	_objc_setEnumerationMutationHandler(handler)
 }
-
 
 var _objc_setExceptionMatcher func(fn unsafe.Pointer) unsafe.Pointer
 
@@ -1428,7 +1352,6 @@ func Objc_setExceptionMatcher(fn unsafe.Pointer) unsafe.Pointer {
 	return _objc_setExceptionMatcher(fn)
 }
 
-
 var _objc_setExceptionPreprocessor func(fn unsafe.Pointer) unsafe.Pointer
 
 // Objc_setExceptionPreprocessor.
@@ -1440,7 +1363,6 @@ func Objc_setExceptionPreprocessor(fn unsafe.Pointer) unsafe.Pointer {
 	}
 	return _objc_setExceptionPreprocessor(fn)
 }
-
 
 var _objc_setForwardHandler func(fwd unsafe.Pointer, fwd_stret unsafe.Pointer)
 
@@ -1454,9 +1376,41 @@ func Objc_setForwardHandler(fwd unsafe.Pointer, fwd_stret unsafe.Pointer) {
 	_objc_setForwardHandler(fwd, fwd_stret)
 }
 
+var _objc_setHook_getClass func(newValue unsafe.Pointer, outOldValue *Objc_hook_getClass)
 
+// Objc_setHook_getClass.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/objc_setHook_getClass(_:_:)
+func Objc_setHook_getClass(newValue unsafe.Pointer, outOldValue *Objc_hook_getClass) {
+	if _objc_setHook_getClass == nil {
+		panic("ObjectiveC: symbol objc_setHook_getClass not loaded")
+	}
+	_objc_setHook_getClass(newValue, outOldValue)
+}
 
+var _objc_setHook_getImageName func(newValue unsafe.Pointer, outOldValue *Objc_hook_getImageName)
 
+// Objc_setHook_getImageName.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/objc_setHook_getImageName(_:_:)
+func Objc_setHook_getImageName(newValue unsafe.Pointer, outOldValue *Objc_hook_getImageName) {
+	if _objc_setHook_getImageName == nil {
+		panic("ObjectiveC: symbol objc_setHook_getImageName not loaded")
+	}
+	_objc_setHook_getImageName(newValue, outOldValue)
+}
+
+var _objc_setHook_lazyClassNamer func(newValue unsafe.Pointer, oldOutValue *Objc_hook_lazyClassNamer)
+
+// Objc_setHook_lazyClassNamer.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/objc_setHook_lazyClassNamer(_:_:)
+func Objc_setHook_lazyClassNamer(newValue unsafe.Pointer, oldOutValue *Objc_hook_lazyClassNamer) {
+	if _objc_setHook_lazyClassNamer == nil {
+		panic("ObjectiveC: symbol objc_setHook_lazyClassNamer not loaded")
+	}
+	_objc_setHook_lazyClassNamer(newValue, oldOutValue)
+}
 
 var _objc_setUncaughtExceptionHandler func(fn unsafe.Pointer) unsafe.Pointer
 
@@ -1470,11 +1424,6 @@ func Objc_setUncaughtExceptionHandler(fn unsafe.Pointer) unsafe.Pointer {
 	return _objc_setUncaughtExceptionHandler(fn)
 }
 
-
-
-
-
-
 var _objc_storeWeak func(location uintptr, obj Object) Object
 
 // Objc_storeWeak stores a new value in a `__weak` variable.
@@ -1486,7 +1435,6 @@ func Objc_storeWeak(location uintptr, obj Object) Object {
 	}
 	return _objc_storeWeak(location, obj)
 }
-
 
 var _objc_sync_enter func(obj Object) int
 
@@ -1500,7 +1448,6 @@ func Objc_sync_enter(obj Object) int {
 	return _objc_sync_enter(obj)
 }
 
-
 var _objc_sync_exit func(obj Object) int
 
 // Objc_sync_exit end synchronizing on ‘obj’.
@@ -1512,7 +1459,6 @@ func Objc_sync_exit(obj Object) int {
 	}
 	return _objc_sync_exit(obj)
 }
-
 
 var _objc_terminate func()
 
@@ -1526,8 +1472,6 @@ func Objc_terminate() {
 	_objc_terminate()
 }
 
-
-
 var _object_copy func(obj Object, size uintptr) Object
 
 // Object_copy returns a copy of a given object.
@@ -1540,10 +1484,11 @@ func Object_copy(obj Object, size uintptr) Object {
 	return _object_copy(obj, size)
 }
 
-
 var _object_copyFromZone func(anObject Object, nBytes uintptr, zone unsafe.Pointer) Object
 
 // Object_copyFromZone.
+//
+// Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/object_copyFromZone
 func Object_copyFromZone(anObject Object, nBytes uintptr, zone unsafe.Pointer) Object {
@@ -1552,7 +1497,6 @@ func Object_copyFromZone(anObject Object, nBytes uintptr, zone unsafe.Pointer) O
 	}
 	return _object_copyFromZone(anObject, nBytes, zone)
 }
-
 
 var _object_dispose func(obj Object) Object
 
@@ -1566,7 +1510,6 @@ func Object_dispose(obj Object) Object {
 	return _object_dispose(obj)
 }
 
-
 var _object_getClass func(obj Object) objc.Class
 
 // Object_getClass returns the class of an object.
@@ -1578,7 +1521,6 @@ func Object_getClass(obj Object) objc.Class {
 	}
 	return _object_getClass(obj)
 }
-
 
 var _object_getClassName func(obj Object) *byte
 
@@ -1592,7 +1534,6 @@ func Object_getClassName(obj Object) *byte {
 	return _object_getClassName(obj)
 }
 
-
 var _object_getIndexedIvars func(obj Object) unsafe.Pointer
 
 // Object_getIndexedIvars returns a pointer to any extra bytes allocated with a instance given object.
@@ -1605,19 +1546,17 @@ func Object_getIndexedIvars(obj Object) unsafe.Pointer {
 	return _object_getIndexedIvars(obj)
 }
 
-
-var _object_getInstanceVariable func(obj Object, name *byte, outValue unsafe.Pointer) Ivar
+var _object_getInstanceVariable func(obj Object, name string, outValue unsafe.Pointer) Ivar
 
 // Object_getInstanceVariable obtains the value of an instance variable of a class instance.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/object_getInstanceVariable
-func Object_getInstanceVariable(obj Object, name *byte, outValue unsafe.Pointer) Ivar {
+func Object_getInstanceVariable(obj Object, name string, outValue unsafe.Pointer) Ivar {
 	if _object_getInstanceVariable == nil {
 		panic("ObjectiveC: symbol object_getInstanceVariable not loaded")
 	}
 	return _object_getInstanceVariable(obj, name, outValue)
 }
-
 
 var _object_getIvar func(obj Object, ivar Ivar) Object
 
@@ -1631,7 +1570,6 @@ func Object_getIvar(obj Object, ivar Ivar) Object {
 	return _object_getIvar(obj, ivar)
 }
 
-
 var _object_isClass func(obj Object) bool
 
 // Object_isClass.
@@ -1643,7 +1581,6 @@ func Object_isClass(obj Object) bool {
 	}
 	return _object_isClass(obj)
 }
-
 
 var _object_setClass func(obj Object, cls objc.Class) objc.Class
 
@@ -1657,32 +1594,29 @@ func Object_setClass(obj Object, cls objc.Class) objc.Class {
 	return _object_setClass(obj, cls)
 }
 
-
-var _object_setInstanceVariable func(obj Object, name *byte, value unsafe.Pointer) Ivar
+var _object_setInstanceVariable func(obj Object, name string, value unsafe.Pointer) Ivar
 
 // Object_setInstanceVariable changes the value of an instance variable of a class instance.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/object_setInstanceVariable
-func Object_setInstanceVariable(obj Object, name *byte, value unsafe.Pointer) Ivar {
+func Object_setInstanceVariable(obj Object, name string, value unsafe.Pointer) Ivar {
 	if _object_setInstanceVariable == nil {
 		panic("ObjectiveC: symbol object_setInstanceVariable not loaded")
 	}
 	return _object_setInstanceVariable(obj, name, value)
 }
 
-
-var _object_setInstanceVariableWithStrongDefault func(obj Object, name *byte, value unsafe.Pointer) Ivar
+var _object_setInstanceVariableWithStrongDefault func(obj Object, name string, value unsafe.Pointer) Ivar
 
 // Object_setInstanceVariableWithStrongDefault.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/object_setInstanceVariableWithStrongDefault
-func Object_setInstanceVariableWithStrongDefault(obj Object, name *byte, value unsafe.Pointer) Ivar {
+func Object_setInstanceVariableWithStrongDefault(obj Object, name string, value unsafe.Pointer) Ivar {
 	if _object_setInstanceVariableWithStrongDefault == nil {
 		panic("ObjectiveC: symbol object_setInstanceVariableWithStrongDefault not loaded")
 	}
 	return _object_setInstanceVariableWithStrongDefault(obj, name, value)
 }
-
 
 var _object_setIvar func(obj Object, ivar Ivar, value Object)
 
@@ -1696,7 +1630,6 @@ func Object_setIvar(obj Object, ivar Ivar, value Object) {
 	_object_setIvar(obj, ivar, value)
 }
 
-
 var _object_setIvarWithStrongDefault func(obj Object, ivar Ivar, value Object)
 
 // Object_setIvarWithStrongDefault.
@@ -1708,7 +1641,6 @@ func Object_setIvarWithStrongDefault(obj Object, ivar Ivar, value Object) {
 	}
 	_object_setIvarWithStrongDefault(obj, ivar, value)
 }
-
 
 var _property_copyAttributeList func(property unsafe.Pointer, outCount *uint) *Objc_property_attribute_t
 
@@ -1722,19 +1654,17 @@ func Property_copyAttributeList(property unsafe.Pointer, outCount *uint) *Objc_p
 	return _property_copyAttributeList(property, outCount)
 }
 
-
-var _property_copyAttributeValue func(property unsafe.Pointer, attributeName *byte) *byte
+var _property_copyAttributeValue func(property unsafe.Pointer, attributeName string) *byte
 
 // Property_copyAttributeValue returns the value of a property attribute given the attribute name.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/property_copyAttributeValue(_:_:)
-func Property_copyAttributeValue(property unsafe.Pointer, attributeName *byte) *byte {
+func Property_copyAttributeValue(property unsafe.Pointer, attributeName string) *byte {
 	if _property_copyAttributeValue == nil {
 		panic("ObjectiveC: symbol property_copyAttributeValue not loaded")
 	}
 	return _property_copyAttributeValue(property, attributeName)
 }
-
 
 var _property_getAttributes func(property unsafe.Pointer) *byte
 
@@ -1748,7 +1678,6 @@ func Property_getAttributes(property unsafe.Pointer) *byte {
 	return _property_getAttributes(property)
 }
 
-
 var _property_getName func(property unsafe.Pointer) *byte
 
 // Property_getName returns the name of a property.
@@ -1761,32 +1690,29 @@ func Property_getName(property unsafe.Pointer) *byte {
 	return _property_getName(property)
 }
 
-
-var _protocol_addMethodDescription func(proto **Protocol, name SEL, types *byte, isRequiredMethod bool, isInstanceMethod bool)
+var _protocol_addMethodDescription func(proto **Protocol, name SEL, types string, isRequiredMethod bool, isInstanceMethod bool)
 
 // Protocol_addMethodDescription adds a method to a protocol.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_addMethodDescription(_:_:_:_:_:)
-func Protocol_addMethodDescription(proto **Protocol, name SEL, types *byte, isRequiredMethod bool, isInstanceMethod bool) {
+func Protocol_addMethodDescription(proto **Protocol, name SEL, types string, isRequiredMethod bool, isInstanceMethod bool) {
 	if _protocol_addMethodDescription == nil {
 		panic("ObjectiveC: symbol protocol_addMethodDescription not loaded")
 	}
 	_protocol_addMethodDescription(proto, name, types, isRequiredMethod, isInstanceMethod)
 }
 
-
-var _protocol_addProperty func(proto **Protocol, name *byte, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool)
+var _protocol_addProperty func(proto **Protocol, name string, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool)
 
 // Protocol_addProperty adds a property to a protocol that is under construction.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_addProperty(_:_:_:_:_:_:)
-func Protocol_addProperty(proto **Protocol, name *byte, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool) {
+func Protocol_addProperty(proto **Protocol, name string, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool) {
 	if _protocol_addProperty == nil {
 		panic("ObjectiveC: symbol protocol_addProperty not loaded")
 	}
 	_protocol_addProperty(proto, name, attributes, attributeCount, isRequiredProperty, isInstanceProperty)
 }
-
 
 var _protocol_addProtocol func(proto **Protocol, addition **Protocol)
 
@@ -1800,7 +1726,6 @@ func Protocol_addProtocol(proto **Protocol, addition **Protocol) {
 	_protocol_addProtocol(proto, addition)
 }
 
-
 var _protocol_conformsToProtocol func(proto **Protocol, other **Protocol) bool
 
 // Protocol_conformsToProtocol returns a Boolean value that indicates whether one protocol conforms to another protocol.
@@ -1812,7 +1737,6 @@ func Protocol_conformsToProtocol(proto **Protocol, other **Protocol) bool {
 	}
 	return _protocol_conformsToProtocol(proto, other)
 }
-
 
 var _protocol_copyMethodDescriptionList func(proto **Protocol, isRequiredMethod bool, isInstanceMethod bool, outCount *uint) *Objc_method_description
 
@@ -1826,8 +1750,29 @@ func Protocol_copyMethodDescriptionList(proto **Protocol, isRequiredMethod bool,
 	return _protocol_copyMethodDescriptionList(proto, isRequiredMethod, isInstanceMethod, outCount)
 }
 
+var _protocol_copyPropertyList func(proto **Protocol, outCount *uint) *Objc_property_t
 
+// Protocol_copyPropertyList returns an array of the properties declared by a protocol.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/protocol_copyPropertyList(_:_:)
+func Protocol_copyPropertyList(proto **Protocol, outCount *uint) *Objc_property_t {
+	if _protocol_copyPropertyList == nil {
+		panic("ObjectiveC: symbol protocol_copyPropertyList not loaded")
+	}
+	return _protocol_copyPropertyList(proto, outCount)
+}
 
+var _protocol_copyPropertyList2 func(proto **Protocol, outCount *uint, isRequiredProperty bool, isInstanceProperty bool) *Objc_property_t
+
+// Protocol_copyPropertyList2.
+//
+// See: https://developer.apple.com/documentation/ObjectiveC/protocol_copyPropertyList2(_:_:_:_:)
+func Protocol_copyPropertyList2(proto **Protocol, outCount *uint, isRequiredProperty bool, isInstanceProperty bool) *Objc_property_t {
+	if _protocol_copyPropertyList2 == nil {
+		panic("ObjectiveC: symbol protocol_copyPropertyList2 not loaded")
+	}
+	return _protocol_copyPropertyList2(proto, outCount, isRequiredProperty, isInstanceProperty)
+}
 
 var _protocol_copyProtocolList func(proto **Protocol, outCount *uint) **Protocol
 
@@ -1841,7 +1786,6 @@ func Protocol_copyProtocolList(proto **Protocol, outCount *uint) **Protocol {
 	return _protocol_copyProtocolList(proto, outCount)
 }
 
-
 var _protocol_getMethodDescription func(proto **Protocol, aSel SEL, isRequiredMethod bool, isInstanceMethod bool) unsafe.Pointer
 
 // Protocol_getMethodDescription returns a method description structure for a specified method of a given protocol.
@@ -1853,7 +1797,6 @@ func Protocol_getMethodDescription(proto **Protocol, aSel SEL, isRequiredMethod 
 	}
 	return _protocol_getMethodDescription(proto, aSel, isRequiredMethod, isInstanceMethod)
 }
-
 
 var _protocol_getName func(proto **Protocol) *byte
 
@@ -1867,19 +1810,17 @@ func Protocol_getName(proto **Protocol) *byte {
 	return _protocol_getName(proto)
 }
 
-
-var _protocol_getProperty func(proto **Protocol, name *byte, isRequiredProperty bool, isInstanceProperty bool) unsafe.Pointer
+var _protocol_getProperty func(proto **Protocol, name string, isRequiredProperty bool, isInstanceProperty bool) unsafe.Pointer
 
 // Protocol_getProperty returns the specified property of a given protocol.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_getProperty(_:_:_:_:)
-func Protocol_getProperty(proto **Protocol, name *byte, isRequiredProperty bool, isInstanceProperty bool) unsafe.Pointer {
+func Protocol_getProperty(proto **Protocol, name string, isRequiredProperty bool, isInstanceProperty bool) unsafe.Pointer {
 	if _protocol_getProperty == nil {
 		panic("ObjectiveC: symbol protocol_getProperty not loaded")
 	}
 	return _protocol_getProperty(proto, name, isRequiredProperty, isInstanceProperty)
 }
-
 
 var _protocol_isEqual func(proto **Protocol, other **Protocol) bool
 
@@ -1893,7 +1834,6 @@ func Protocol_isEqual(proto **Protocol, other **Protocol) bool {
 	return _protocol_isEqual(proto, other)
 }
 
-
 var _sel_getName func(sel SEL) *byte
 
 // Sel_getName returns the name of the method specified by a given selector.
@@ -1906,19 +1846,17 @@ func Sel_getName(sel SEL) *byte {
 	return _sel_getName(sel)
 }
 
-
-var _sel_getUid func(str *byte) SEL
+var _sel_getUid func(str string) SEL
 
 // Sel_getUid registers a method name with the Objective-C runtime system.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/sel_getUid(_:)
-func Sel_getUid(str *byte) SEL {
+func Sel_getUid(str string) SEL {
 	if _sel_getUid == nil {
 		panic("ObjectiveC: symbol sel_getUid not loaded")
 	}
 	return _sel_getUid(str)
 }
-
 
 var _sel_isEqual func(lhs SEL, rhs SEL) bool
 
@@ -1932,7 +1870,6 @@ func Sel_isEqual(lhs SEL, rhs SEL) bool {
 	return _sel_isEqual(lhs, rhs)
 }
 
-
 var _sel_isMapped func(sel SEL) bool
 
 // Sel_isMapped identifies a selector as being valid or invalid.
@@ -1945,20 +1882,17 @@ func Sel_isMapped(sel SEL) bool {
 	return _sel_isMapped(sel)
 }
 
-
-var _sel_registerName func(str *byte) SEL
+var _sel_registerName func(str string) SEL
 
 // Sel_registerName registers a method with the Objective-C runtime system, maps the method name to a selector, and returns the selector value.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/sel_registerName(_:)
-func Sel_registerName(str *byte) SEL {
+func Sel_registerName(str string) SEL {
 	if _sel_registerName == nil {
 		panic("ObjectiveC: symbol sel_registerName not loaded")
 	}
 	return _sel_registerName(str)
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -1992,6 +1926,7 @@ func init() {
 		registerFunc(&_class_conformsToProtocol, frameworkHandle, "class_conformsToProtocol")
 		registerFunc(&_class_copyIvarList, frameworkHandle, "class_copyIvarList")
 		registerFunc(&_class_copyMethodList, frameworkHandle, "class_copyMethodList")
+		registerFunc(&_class_copyPropertyList, frameworkHandle, "class_copyPropertyList")
 		registerFunc(&_class_copyProtocolList, frameworkHandle, "class_copyProtocolList")
 		registerFunc(&_class_createInstance, frameworkHandle, "class_createInstance")
 		registerFunc(&_class_createInstanceFromZone, frameworkHandle, "class_createInstanceFromZone")
@@ -2071,6 +2006,9 @@ func init() {
 		registerFunc(&_objc_setExceptionMatcher, frameworkHandle, "objc_setExceptionMatcher")
 		registerFunc(&_objc_setExceptionPreprocessor, frameworkHandle, "objc_setExceptionPreprocessor")
 		registerFunc(&_objc_setForwardHandler, frameworkHandle, "objc_setForwardHandler")
+		registerFunc(&_objc_setHook_getClass, frameworkHandle, "objc_setHook_getClass")
+		registerFunc(&_objc_setHook_getImageName, frameworkHandle, "objc_setHook_getImageName")
+		registerFunc(&_objc_setHook_lazyClassNamer, frameworkHandle, "objc_setHook_lazyClassNamer")
 		registerFunc(&_objc_setUncaughtExceptionHandler, frameworkHandle, "objc_setUncaughtExceptionHandler")
 		registerFunc(&_objc_storeWeak, frameworkHandle, "objc_storeWeak")
 		registerFunc(&_objc_sync_enter, frameworkHandle, "objc_sync_enter")
@@ -2099,6 +2037,8 @@ func init() {
 		registerFunc(&_protocol_addProtocol, frameworkHandle, "protocol_addProtocol")
 		registerFunc(&_protocol_conformsToProtocol, frameworkHandle, "protocol_conformsToProtocol")
 		registerFunc(&_protocol_copyMethodDescriptionList, frameworkHandle, "protocol_copyMethodDescriptionList")
+		registerFunc(&_protocol_copyPropertyList, frameworkHandle, "protocol_copyPropertyList")
+		registerFunc(&_protocol_copyPropertyList2, frameworkHandle, "protocol_copyPropertyList2")
 		registerFunc(&_protocol_copyProtocolList, frameworkHandle, "protocol_copyProtocolList")
 		registerFunc(&_protocol_getMethodDescription, frameworkHandle, "protocol_getMethodDescription")
 		registerFunc(&_protocol_getName, frameworkHandle, "protocol_getName")
@@ -2110,5 +2050,4 @@ func init() {
 		registerFunc(&_sel_isMapped, frameworkHandle, "sel_isMapped")
 		registerFunc(&_sel_registerName, frameworkHandle, "sel_registerName")
 	}
-
 

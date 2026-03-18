@@ -38,12 +38,6 @@ func (nc NSTaskClass) Alloc() NSTask {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents a subprocess of the current process.
 //
 // # Overview
@@ -130,14 +124,10 @@ type NSTask struct {
 //
 // An object that represents a subprocess of the current process.
 func NSTaskFromID(id objc.ID) NSTask {
-	return NSTask{objectivec.Object{id}}
+	return NSTask{objectivec.Object{ID: id}}
 }
 // NOTE: NSTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTask] class.
 //
@@ -281,10 +271,6 @@ type INSTask interface {
 	SetLaunchRequirementData(value INSData)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t NSTask) Init() NSTask {
 	rv := objc.Send[NSTask](t.ID, objc.Sel("init"))
@@ -304,21 +290,11 @@ func NewNSTask() NSTask {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
 // Runs the process with the current environment.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/run()
 func (t NSTask) LaunchAndReturnError() (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](t.ID, objc.Sel("launchAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -427,10 +403,6 @@ func (t NSTask) WaitUntilExit() {
 	objc.Send[objc.ID](t.ID, objc.Sel("waitUntilExit"))
 }
 
-
-
-
-
 // Creates and runs a task with a specified executable and arguments.
 //
 // url: The URL for the executable.
@@ -446,18 +418,11 @@ func (t NSTask) WaitUntilExit() {
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/run(_:arguments:terminationHandler:)
 func (_NSTaskClass NSTaskClass) LaunchedTaskWithExecutableURLArgumentsErrorTerminationHandler(url INSURL, arguments []string, error_ INSError, terminationHandler TaskHandler) NSTask {
-		_block3, _cleanup3 := NewTaskBlock(terminationHandler)
+_block3, _cleanup3 := NewTaskBlock(terminationHandler)
 	defer _cleanup3()
-		rv := objc.Send[objc.ID](objc.ID(_NSTaskClass.class), objc.Sel("launchedTaskWithExecutableURL:arguments:error:terminationHandler:"), url, arguments, error_, _block3)
+	rv := objc.Send[objc.ID](objc.ID(_NSTaskClass.class), objc.Sel("launchedTaskWithExecutableURL:arguments:error:terminationHandler:"), url, arguments, error_, _block3)
 	return NSTaskFromID(rv)
 }
-
-
-
-
-
-
-
 
 // The receiver’s process identifier.
 //
@@ -470,8 +435,6 @@ func (t NSTask) ProcessIdentifier() int {
 	rv := objc.Send[int](t.ID, objc.Sel("processIdentifier"))
 	return rv
 }
-
-
 
 // A status that indicates whether the receiver is still running.
 //
@@ -488,8 +451,6 @@ func (t NSTask) Running() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRunning"))
 	return rv
 }
-
-
 
 // The exit status the receiver’s executable returns.
 //
@@ -513,8 +474,6 @@ func (t NSTask) TerminationStatus() int {
 	return rv
 }
 
-
-
 // The reason the system terminated the task.
 //
 // # Return Value
@@ -529,8 +488,6 @@ func (t NSTask) TerminationReason() NSTaskTerminationReason {
 	rv := objc.Send[NSTaskTerminationReason](t.ID, objc.Sel("terminationReason"))
 	return NSTaskTerminationReason(rv)
 }
-
-
 
 // The command arguments that the system uses to launch the executable.
 //
@@ -551,8 +508,6 @@ func (t NSTask) SetArguments(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setArguments:"), objectivec.StringSliceToNSArray(value))
 }
 
-
-
 // The current directory for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/currentDirectoryURL
@@ -563,8 +518,6 @@ func (t NSTask) CurrentDirectoryURL() INSURL {
 func (t NSTask) SetCurrentDirectoryURL(value INSURL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCurrentDirectoryURL:"), value)
 }
-
-
 
 // The environment for the receiver.
 //
@@ -583,8 +536,6 @@ func (t NSTask) SetEnvironment(value INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEnvironment:"), value)
 }
 
-
-
 // The receiver’s executable.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/executableURL
@@ -595,8 +546,6 @@ func (t NSTask) ExecutableURL() INSURL {
 func (t NSTask) SetExecutableURL(value INSURL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExecutableURL:"), value)
 }
-
-
 
 // The default quality of service level the system applies to operations the
 // task executes.
@@ -609,8 +558,6 @@ func (t NSTask) QualityOfService() QualityOfService {
 func (t NSTask) SetQualityOfService(value QualityOfService) {
 	objc.Send[struct{}](t.ID, objc.Sel("setQualityOfService:"), value)
 }
-
-
 
 // The standard error for the receiver.
 //
@@ -634,8 +581,6 @@ func (t NSTask) SetStandardError(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStandardError:"), value)
 }
 
-
-
 // The standard input for the receiver.
 //
 // # Discussion
@@ -657,8 +602,6 @@ func (t NSTask) StandardInput() objectivec.IObject {
 func (t NSTask) SetStandardInput(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStandardInput:"), value)
 }
-
-
 
 // The standard output for the receiver.
 //
@@ -682,8 +625,6 @@ func (t NSTask) SetStandardOutput(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStandardOutput:"), value)
 }
 
-
-
 // A completion block the system invokes when the task completes.
 //
 // # Discussion
@@ -706,8 +647,6 @@ func (t NSTask) SetTerminationHandler(value TaskHandler) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTerminationHandler:"), block)
 }
 
-
-
 // Sets the current directory for the receiver.
 //
 // # Discussion
@@ -725,8 +664,6 @@ func (t NSTask) SetCurrentDirectoryPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCurrentDirectoryPath:"), objc.String(value))
 }
 
-
-
 // Sets the receiver’s executable.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/launchPath
@@ -738,8 +675,6 @@ func (t NSTask) SetLaunchPath(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLaunchPath:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/foundation/process/launchrequirement
 func (t NSTask) LaunchRequirement() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("launchRequirement"))
@@ -749,8 +684,6 @@ func (t NSTask) SetLaunchRequirement(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLaunchRequirement:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/Process/launchRequirementData
 func (t NSTask) LaunchRequirementData() INSData {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("launchRequirementData"))
@@ -759,28 +692,4 @@ func (t NSTask) LaunchRequirementData() INSData {
 func (t NSTask) SetLaunchRequirementData(value INSData) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLaunchRequirementData:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

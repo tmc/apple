@@ -37,12 +37,6 @@ func (mc MTLDepthStencilDescriptorClass) Alloc() MTLDepthStencilDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that configures new [MTLDepthStencilState] instances.
 //
 // # Overview
@@ -97,14 +91,10 @@ type MTLDepthStencilDescriptor struct {
 //
 // An instance that configures new [MTLDepthStencilState] instances.
 func MTLDepthStencilDescriptorFromID(id objc.ID) MTLDepthStencilDescriptor {
-	return MTLDepthStencilDescriptor{objectivec.Object{id}}
+	return MTLDepthStencilDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLDepthStencilDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLDepthStencilDescriptor] class.
 //
@@ -156,10 +146,6 @@ type IMTLDepthStencilDescriptor interface {
 	SetLabel(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d MTLDepthStencilDescriptor) Init() MTLDepthStencilDescriptor {
 	rv := objc.Send[MTLDepthStencilDescriptor](d.ID, objc.Sel("init"))
@@ -178,26 +164,6 @@ func NewMTLDepthStencilDescriptor() MTLDepthStencilDescriptor {
 	rv := objc.Send[MTLDepthStencilDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The comparison that is performed between a fragment’s depth value and the
 // depth value in the attachment, which determines whether to discard the
@@ -221,8 +187,6 @@ func (d MTLDepthStencilDescriptor) SetDepthCompareFunction(value MTLCompareFunct
 	objc.Send[struct{}](d.ID, objc.Sel("setDepthCompareFunction:"), value)
 }
 
-
-
 // A Boolean value that indicates whether depth values can be written to the
 // depth attachment.
 //
@@ -242,8 +206,6 @@ func (d MTLDepthStencilDescriptor) SetDepthWriteEnabled(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDepthWriteEnabled:"), value)
 }
 
-
-
 // The stencil descriptor for back-facing primitives.
 //
 // # Discussion
@@ -260,8 +222,6 @@ func (d MTLDepthStencilDescriptor) BackFaceStencil() IMTLStencilDescriptor {
 func (d MTLDepthStencilDescriptor) SetBackFaceStencil(value IMTLStencilDescriptor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBackFaceStencil:"), value)
 }
-
-
 
 // The stencil descriptor for front-facing primitives.
 //
@@ -280,8 +240,6 @@ func (d MTLDepthStencilDescriptor) SetFrontFaceStencil(value IMTLStencilDescript
 	objc.Send[struct{}](d.ID, objc.Sel("setFrontFaceStencil:"), value)
 }
 
-
-
 // A string that identifies this object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilDescriptor/label
@@ -292,27 +250,4 @@ func (d MTLDepthStencilDescriptor) Label() string {
 func (d MTLDepthStencilDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

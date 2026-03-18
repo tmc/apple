@@ -36,12 +36,6 @@ func (uc UnitClass) Alloc() Unit {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class representing a unit of measure.
 //
 // # Overview
@@ -81,17 +75,13 @@ type Unit struct {
 //
 // An abstract class representing a unit of measure.
 func UnitFromID(id objc.ID) Unit {
-	return NSUnit{objectivec.Object{id}}
+	return NSUnit{objectivec.Object{ID: id}}
 }
 
 // NSUnitFromID is an alias for [UnitFromID] for cross-framework compatibility.
 func NSUnitFromID(id objc.ID) Unit { return UnitFromID(id) }
 // NOTE: Unit adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Unit] class.
 //
@@ -106,7 +96,9 @@ func NSUnitFromID(id objc.ID) Unit { return UnitFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/Unit
 type IUnit interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Accessing Properties
 
@@ -117,15 +109,7 @@ type IUnit interface {
 
 	// Initializes a new unit with the specified symbol.
 	InitWithSymbol(symbol string) Unit
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) Unit
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u Unit) Init() Unit {
@@ -146,11 +130,6 @@ func NewUnit() Unit {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitWithCoder(coder INSCoder) Unit {
@@ -158,7 +137,6 @@ func NewUnitWithCoder(coder INSCoder) Unit {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return UnitFromID(rv)
 }
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -174,12 +152,6 @@ func NewUnitWithSymbol(symbol string) Unit {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return UnitFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -211,17 +183,6 @@ func (u Unit) InitWithCoder(coder INSCoder) Unit {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The symbolic representation of the unit.
 //
 // # Discussion
@@ -247,35 +208,9 @@ func (u Unit) Symbol() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

@@ -35,12 +35,6 @@ func (vc VZVirtioSoundDeviceInputStreamConfigurationClass) Alloc() VZVirtioSound
 	return rv
 }
 
-
-
-
-
-
-
 // A PCM stream of input audio data, such as from a microphone.
 //
 // # Overview
@@ -69,10 +63,6 @@ func VZVirtioSoundDeviceInputStreamConfigurationFromID(id objc.ID) VZVirtioSound
 // NOTE: VZVirtioSoundDeviceInputStreamConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioSoundDeviceInputStreamConfiguration] class.
 //
 // # Accessing the sound source
@@ -90,10 +80,6 @@ type IVZVirtioSoundDeviceInputStreamConfiguration interface {
 	Source() IVZAudioInputStreamSource
 	SetSource(value IVZAudioInputStreamSource)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioSoundDeviceInputStreamConfiguration) Init() VZVirtioSoundDeviceInputStreamConfiguration {
@@ -114,27 +100,6 @@ func NewVZVirtioSoundDeviceInputStreamConfiguration() VZVirtioSoundDeviceInputSt
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // An audio stream source that defines how the host supplies audio data for
 // the guest.
 //
@@ -151,27 +116,4 @@ func (v VZVirtioSoundDeviceInputStreamConfiguration) Source() IVZAudioInputStrea
 func (v VZVirtioSoundDeviceInputStreamConfiguration) SetSource(value IVZAudioInputStreamSource) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSource:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

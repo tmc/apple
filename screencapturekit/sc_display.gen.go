@@ -37,12 +37,6 @@ func (sc SCDisplayClass) Alloc() SCDisplay {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that represents a display device.
 //
 // # Overview
@@ -74,14 +68,10 @@ type SCDisplay struct {
 //
 // An instance that represents a display device.
 func SCDisplayFromID(id objc.ID) SCDisplay {
-	return SCDisplay{objectivec.Object{id}}
+	return SCDisplay{objectivec.Object{ID: id}}
 }
 // NOTE: SCDisplay adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCDisplay] class.
 //
@@ -114,10 +104,6 @@ type ISCDisplay interface {
 	Height() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d SCDisplay) Init() SCDisplay {
 	rv := objc.Send[SCDisplay](d.ID, objc.Sel("init"))
@@ -137,26 +123,6 @@ func NewSCDisplay() SCDisplay {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The Core Graphics display identifier.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/displayID
@@ -164,8 +130,6 @@ func (d SCDisplay) DisplayID() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("displayID"))
 	return rv
 }
-
-
 
 // The frame of the display.
 //
@@ -175,8 +139,6 @@ func (d SCDisplay) Frame() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // The width of the display in points.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/width
@@ -185,8 +147,6 @@ func (d SCDisplay) Width() int {
 	return rv
 }
 
-
-
 // The height of the display in points.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/height
@@ -194,26 +154,4 @@ func (d SCDisplay) Height() int {
 	rv := objc.Send[int](d.ID, objc.Sel("height"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

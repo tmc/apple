@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNImageTranslationAlignmentObservation] class.
@@ -36,12 +35,6 @@ func (vc VNImageTranslationAlignmentObservationClass) Alloc() VNImageTranslation
 	rv := objc.Send[VNImageTranslationAlignmentObservation](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // Affine transform information that an image-alignment request produces.
 //
@@ -73,10 +66,6 @@ func VNImageTranslationAlignmentObservationFromID(id objc.ID) VNImageTranslation
 // NOTE: VNImageTranslationAlignmentObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNImageTranslationAlignmentObservation] class.
 //
 // # Determining Alignment
@@ -100,13 +89,7 @@ type IVNImageTranslationAlignmentObservation interface {
 
 	// A constant for specifying revision 1 of the translational image registration request.
 	VNTranslationalImageRegistrationRequestRevision1() int
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i VNImageTranslationAlignmentObservation) Init() VNImageTranslationAlignmentObservation {
@@ -127,29 +110,6 @@ func NewVNImageTranslationAlignmentObservation() VNImageTranslationAlignmentObse
 	return rv
 }
 
-
-
-
-
-
-
-
-
-func (i VNImageTranslationAlignmentObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The alignment transform to align the floating image with the reference
 // image.
 //
@@ -159,8 +119,6 @@ func (i VNImageTranslationAlignmentObservation) AlignmentTransform() corefoundat
 	return corefoundation.CGAffineTransform(rv)
 }
 
-
-
 // A constant for specifying revision 1 of the translational image
 // registration request.
 //
@@ -169,30 +127,4 @@ func (i VNImageTranslationAlignmentObservation) VNTranslationalImageRegistration
 	rv := objc.Send[int](i.ID, objc.Sel("VNTranslationalImageRegistrationRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

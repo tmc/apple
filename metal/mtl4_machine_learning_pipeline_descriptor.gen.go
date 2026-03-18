@@ -37,12 +37,6 @@ func (mc MTL4MachineLearningPipelineDescriptorClass) Alloc() MTL4MachineLearning
 	return rv
 }
 
-
-
-
-
-
-
 // Description for a machine learning pipeline state.
 //
 // # Instance Properties
@@ -69,10 +63,6 @@ func MTL4MachineLearningPipelineDescriptorFromID(id objc.ID) MTL4MachineLearning
 }
 // NOTE: MTL4MachineLearningPipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4MachineLearningPipelineDescriptor] class.
 //
@@ -110,10 +100,6 @@ type IMTL4MachineLearningPipelineDescriptor interface {
 	SetInputDimensionsWithRange(dimensions []MTLTensorExtents, range_ foundation.NSRange)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4MachineLearningPipelineDescriptor) Init() MTL4MachineLearningPipelineDescriptor {
 	rv := objc.Send[MTL4MachineLearningPipelineDescriptor](m.ID, objc.Sel("init"))
@@ -132,15 +118,6 @@ func NewMTL4MachineLearningPipelineDescriptor() MTL4MachineLearningPipelineDescr
 	rv := objc.Send[MTL4MachineLearningPipelineDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Obtains the dimensions of the input tensor at `bufferIndex` if set, `nil`
 // otherwise.
@@ -191,17 +168,6 @@ func (m MTL4MachineLearningPipelineDescriptor) SetInputDimensionsWithRange(dimen
 	objc.Send[objc.ID](m.ID, objc.Sel("setInputDimensions:withRange:"), objectivec.IObjectSliceToNSArray(dimensions), range_)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Assigns the function that the machine learning pipeline you create from
 // this descriptor executes.
 //
@@ -213,27 +179,4 @@ func (m MTL4MachineLearningPipelineDescriptor) MachineLearningFunctionDescriptor
 func (m MTL4MachineLearningPipelineDescriptor) SetMachineLearningFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMachineLearningFunctionDescriptor:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

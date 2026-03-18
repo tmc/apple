@@ -37,12 +37,6 @@ func (vc VZMacMachineIdentifierClass) Alloc() VZMacMachineIdentifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A unique identifier for a VM.
 //
 // # Overview
@@ -77,14 +71,10 @@ type VZMacMachineIdentifier struct {
 //
 // A unique identifier for a VM.
 func VZMacMachineIdentifierFromID(id objc.ID) VZMacMachineIdentifier {
-	return VZMacMachineIdentifier{objectivec.Object{id}}
+	return VZMacMachineIdentifier{objectivec.Object{ID: id}}
 }
 // NOTE: VZMacMachineIdentifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZMacMachineIdentifier] class.
 //
@@ -111,10 +101,6 @@ type IVZMacMachineIdentifier interface {
 	DataRepresentation() foundation.INSData
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m VZMacMachineIdentifier) Init() VZMacMachineIdentifier {
 	rv := objc.Send[VZMacMachineIdentifier](m.ID, objc.Sel("init"))
@@ -134,11 +120,6 @@ func NewVZMacMachineIdentifier() VZMacMachineIdentifier {
 	return rv
 }
 
-
-
-
-
-
 // Create a machine identifier described by the specified data representation.
 //
 // dataRepresentation: The opaque data representation of the machine identifier.
@@ -150,12 +131,6 @@ func NewMacMachineIdentifierWithDataRepresentation(dataRepresentation foundation
 	return VZMacMachineIdentifierFromID(rv)
 }
 
-
-
-
-
-
-
 // Create a machine identifier described by the specified data representation.
 //
 // dataRepresentation: The opaque data representation of the machine identifier.
@@ -165,17 +140,6 @@ func (m VZMacMachineIdentifier) InitWithDataRepresentation(dataRepresentation fo
 	rv := objc.Send[VZMacMachineIdentifier](m.ID, objc.Sel("initWithDataRepresentation:"), dataRepresentation)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Returns the opaque data representation of the machine identifier.
 //
@@ -189,27 +153,4 @@ func (m VZMacMachineIdentifier) DataRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

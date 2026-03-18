@@ -38,12 +38,6 @@ func (vc VZMacAuxiliaryStorageClass) Alloc() VZMacAuxiliaryStorage {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that contains information the boot loader needs for booting macOS
 // as a guest operating system.
 //
@@ -105,14 +99,10 @@ type VZMacAuxiliaryStorage struct {
 // An object that contains information the boot loader needs for booting macOS
 // as a guest operating system.
 func VZMacAuxiliaryStorageFromID(id objc.ID) VZMacAuxiliaryStorage {
-	return VZMacAuxiliaryStorage{objectivec.Object{id}}
+	return VZMacAuxiliaryStorage{objectivec.Object{ID: id}}
 }
 // NOTE: VZMacAuxiliaryStorage adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZMacAuxiliaryStorage] class.
 //
@@ -152,10 +142,6 @@ type IVZMacAuxiliaryStorage interface {
 	SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m VZMacAuxiliaryStorage) Init() VZMacAuxiliaryStorage {
 	rv := objc.Send[VZMacAuxiliaryStorage](m.ID, objc.Sel("init"))
@@ -174,11 +160,6 @@ func NewVZMacAuxiliaryStorage() VZMacAuxiliaryStorage {
 	rv := objc.Send[VZMacAuxiliaryStorage](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates an initialized Mac auxiliary storage instance that describes a
 // specific hardware model at a URL you specify.
@@ -219,7 +200,6 @@ func NewMacAuxiliaryStorageCreatingStorageAtURLHardwareModelOptionsError(URL fou
 	return VZMacAuxiliaryStorageFromID(rv), nil
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(contentsOf:)
 func NewMacAuxiliaryStorageWithContentsOfURL(URL foundation.INSURL) VZMacAuxiliaryStorage {
@@ -227,7 +207,6 @@ func NewMacAuxiliaryStorageWithContentsOfURL(URL foundation.INSURL) VZMacAuxilia
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:"), URL)
 	return VZMacAuxiliaryStorageFromID(rv)
 }
-
 
 // Initializes an auxiliary storage object with data from the location at the
 // URL you provide.
@@ -240,12 +219,6 @@ func NewMacAuxiliaryStorageWithURL(URL foundation.INSURL) VZMacAuxiliaryStorage 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
 	return VZMacAuxiliaryStorageFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes an auxiliary storage object with data from the location at the
 // URL you provide.
@@ -287,7 +260,7 @@ func (m VZMacAuxiliaryStorage) InitWithURL(URL foundation.INSURL) VZMacAuxiliary
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/init(creatingStorageAt:hardwareModel:options:)
 func (m VZMacAuxiliaryStorage) InitCreatingStorageAtURLHardwareModelOptionsError(URL foundation.INSURL, hardwareModel IVZMacHardwareModel, options VZMacAuxiliaryStorageInitializationOptions) (VZMacAuxiliaryStorage, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initCreatingStorageAtURL:hardwareModel:options:error:"), URL, hardwareModel, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -297,17 +270,6 @@ func (m VZMacAuxiliaryStorage) InitCreatingStorageAtURLHardwareModelOptionsError
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The URL of the auxiliary storage on the local file system.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/url
@@ -315,8 +277,6 @@ func (m VZMacAuxiliaryStorage) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
-
 
 // The Mac auxiliary storage.
 //
@@ -329,8 +289,6 @@ func (m VZMacAuxiliaryStorage) SetAuxiliaryStorage(value IVZMacAuxiliaryStorage)
 	objc.Send[struct{}](m.ID, objc.Sel("setAuxiliaryStorage:"), value)
 }
 
-
-
 // The Mac hardware model.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel
@@ -341,8 +299,6 @@ func (m VZMacAuxiliaryStorage) HardwareModel() IVZMacHardwareModel {
 func (m VZMacAuxiliaryStorage) SetHardwareModel(value IVZMacHardwareModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
 }
-
-
 
 // This object represents the most fully featured configuration that’s
 // supported by both the current host and by this restore image.
@@ -355,26 +311,4 @@ func (m VZMacAuxiliaryStorage) MostFeaturefulSupportedConfiguration() IVZMacOSCo
 func (m VZMacAuxiliaryStorage) SetMostFeaturefulSupportedConfiguration(value IVZMacOSConfigurationRequirements) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMostFeaturefulSupportedConfiguration:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (mc MTL4CommandQueueDescriptorClass) Alloc() MTL4CommandQueueDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // Groups together parameters for the creation of a new command queue.
 //
 // # Instance Properties
@@ -62,14 +56,10 @@ type MTL4CommandQueueDescriptor struct {
 //
 // Groups together parameters for the creation of a new command queue.
 func MTL4CommandQueueDescriptorFromID(id objc.ID) MTL4CommandQueueDescriptor {
-	return MTL4CommandQueueDescriptor{objectivec.Object{id}}
+	return MTL4CommandQueueDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4CommandQueueDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4CommandQueueDescriptor] class.
 //
@@ -96,10 +86,6 @@ type IMTL4CommandQueueDescriptor interface {
 	MTL4CommandQueueErrorDomain() string
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4CommandQueueDescriptor) Init() MTL4CommandQueueDescriptor {
 	rv := objc.Send[MTL4CommandQueueDescriptor](m.ID, objc.Sel("init"))
@@ -118,26 +104,6 @@ func NewMTL4CommandQueueDescriptor() MTL4CommandQueueDescriptor {
 	rv := objc.Send[MTL4CommandQueueDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Assigns a dispatch queue to which Metal submits feedback notification
 // blocks.
@@ -159,8 +125,6 @@ func (m MTL4CommandQueueDescriptor) SetFeedbackQueue(value dispatch.Queue) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFeedbackQueue:"), uintptr(value.Handle()))
 }
 
-
-
 // Assigns an optional label to the command queue instance for debugging
 // purposes.
 //
@@ -173,34 +137,9 @@ func (m MTL4CommandQueueDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommandQueueDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

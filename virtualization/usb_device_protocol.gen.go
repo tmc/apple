@@ -25,8 +25,6 @@ type VZUSBDevice interface {
 	Uuid() foundation.NSUUID
 }
 
-
-
 // VZUSBDeviceObject wraps an existing Objective-C object that conforms to the VZUSBDevice protocol.
 type VZUSBDeviceObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o VZUSBDeviceObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // VZUSBDeviceObjectFromID constructs a [VZUSBDeviceObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VZUSBDeviceObjectFromID(id objc.ID) VZUSBDeviceObject {
@@ -44,9 +40,6 @@ func VZUSBDeviceObjectFromID(id objc.ID) VZUSBDeviceObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // The USB controller that has an attachment to the device.
 //
@@ -67,14 +60,4 @@ func (o VZUSBDeviceObject) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(rv)
 	}
-
-
-
-
-
-
-
-
-
-
 

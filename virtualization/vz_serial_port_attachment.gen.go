@@ -36,12 +36,6 @@ func (vc VZSerialPortAttachmentClass) Alloc() VZSerialPortAttachment {
 	return rv
 }
 
-
-
-
-
-
-
 // The common behaviors for the serial attachment points of your virtual
 // machine.
 //
@@ -62,14 +56,10 @@ type VZSerialPortAttachment struct {
 // The common behaviors for the serial attachment points of your virtual
 // machine.
 func VZSerialPortAttachmentFromID(id objc.ID) VZSerialPortAttachment {
-	return VZSerialPortAttachment{objectivec.Object{id}}
+	return VZSerialPortAttachment{objectivec.Object{ID: id}}
 }
 // NOTE: VZSerialPortAttachment adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZSerialPortAttachment] class.
 //
@@ -77,10 +67,6 @@ func VZSerialPortAttachmentFromID(id objc.ID) VZSerialPortAttachment {
 type IVZSerialPortAttachment interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s VZSerialPortAttachment) Init() VZSerialPortAttachment {
@@ -100,44 +86,4 @@ func NewVZSerialPortAttachment() VZSerialPortAttachment {
 	rv := objc.Send[VZSerialPortAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

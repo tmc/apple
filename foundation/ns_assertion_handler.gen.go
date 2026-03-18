@@ -36,12 +36,6 @@ func (nc NSAssertionHandlerClass) Alloc() NSAssertionHandler {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that logs an assertion to the console.
 //
 // # Overview
@@ -74,14 +68,10 @@ type NSAssertionHandler struct {
 //
 // An object that logs an assertion to the console.
 func NSAssertionHandlerFromID(id objc.ID) NSAssertionHandler {
-	return NSAssertionHandler{objectivec.Object{id}}
+	return NSAssertionHandler{objectivec.Object{ID: id}}
 }
 // NOTE: NSAssertionHandler adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAssertionHandler] class.
 //
@@ -92,10 +82,6 @@ type INSAssertionHandler interface {
 	HandleFailureInFunctionFileLineNumberDescription(functionName string, fileName string, line int, format string)
 	HandleFailureInMethodObjectFileLineNumberDescription(selector objc.SEL, object objectivec.IObject, fileName string, line int, format string)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSAssertionHandler) Init() NSAssertionHandler {
@@ -116,15 +102,6 @@ func NewNSAssertionHandler() NSAssertionHandler {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAssertionHandler/handleFailureInFunction:file:lineNumber:description:
 func (a NSAssertionHandler) HandleFailureInFunctionFileLineNumberDescription(functionName string, fileName string, line int, format string) {
@@ -136,21 +113,6 @@ func (a NSAssertionHandler) HandleFailureInFunctionFileLineNumberDescription(fun
 func (a NSAssertionHandler) HandleFailureInMethodObjectFileLineNumberDescription(selector objc.SEL, object objectivec.IObject, fileName string, line int, format string) {
 	objc.Send[objc.ID](a.ID, objc.Sel("handleFailureInMethod:object:file:lineNumber:description:"), selector, object, objc.String(fileName), line, objc.String(format))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Returns the [NSAssertionHandler] object associated with the current thread.
 //
@@ -168,22 +130,4 @@ func (_NSAssertionHandlerClass NSAssertionHandlerClass) CurrentHandler() NSAsser
 	rv := objc.Send[objc.ID](objc.ID(_NSAssertionHandlerClass.class), objc.Sel("currentHandler"))
 	return NSAssertionHandlerFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

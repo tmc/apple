@@ -73,8 +73,6 @@ type NSObject interface {
 	Retain() IObject
 }
 
-
-
 // NSObjectObject wraps an existing Objective-C object that conforms to the NSObject protocol.
 type NSObjectObject struct {
 	Object
@@ -83,8 +81,6 @@ func (o NSObjectObject) BaseObject() Object {
 	return o.Object
 }
 
-
-
 // NSObjectObjectFromID constructs a [NSObjectObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSObjectObjectFromID(id objc.ID) NSObjectObject {
@@ -92,9 +88,6 @@ func NSObjectObjectFromID(id objc.ID) NSObjectObject {
 		Object: ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the class object for the receiver’s superclass.
 //
@@ -580,19 +573,4 @@ func (o NSObjectObject) Retain() IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("retain"))
 	return Object{ID: rv}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

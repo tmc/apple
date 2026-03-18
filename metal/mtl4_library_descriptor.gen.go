@@ -37,12 +37,6 @@ func (mc MTL4LibraryDescriptorClass) Alloc() MTL4LibraryDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // Serves as the base descriptor for creating a Metal library.
 //
 // # Instance Properties
@@ -63,14 +57,10 @@ type MTL4LibraryDescriptor struct {
 //
 // Serves as the base descriptor for creating a Metal library.
 func MTL4LibraryDescriptorFromID(id objc.ID) MTL4LibraryDescriptor {
-	return MTL4LibraryDescriptor{objectivec.Object{id}}
+	return MTL4LibraryDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4LibraryDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4LibraryDescriptor] class.
 //
@@ -100,10 +90,6 @@ type IMTL4LibraryDescriptor interface {
 	SetSource(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4LibraryDescriptor) Init() MTL4LibraryDescriptor {
 	rv := objc.Send[MTL4LibraryDescriptor](m.ID, objc.Sel("init"))
@@ -123,26 +109,6 @@ func NewMTL4LibraryDescriptor() MTL4LibraryDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Assigns an optional name to the Metal library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4LibraryDescriptor/name
@@ -153,8 +119,6 @@ func (m MTL4LibraryDescriptor) Name() string {
 func (m MTL4LibraryDescriptor) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
 
 // Provides compile-time options for the Metal library.
 //
@@ -167,8 +131,6 @@ func (m MTL4LibraryDescriptor) SetOptions(value IMTLCompileOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOptions:"), value)
 }
 
-
-
 // Assigns an optional string containing the source code of the shader
 // language program to compile into a Metal library.
 //
@@ -180,27 +142,4 @@ func (m MTL4LibraryDescriptor) Source() string {
 func (m MTL4LibraryDescriptor) SetSource(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSource:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

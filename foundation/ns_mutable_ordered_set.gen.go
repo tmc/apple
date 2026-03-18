@@ -36,12 +36,6 @@ func (nc NSMutableOrderedSetClass) Alloc() NSMutableOrderedSet {
 	return rv
 }
 
-
-
-
-
-
-
 // A dynamic, ordered collection of unique objects.
 //
 // # Overview
@@ -109,10 +103,6 @@ func NSMutableOrderedSetFromID(id objc.ID) NSMutableOrderedSet {
 }
 // NOTE: NSMutableOrderedSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMutableOrderedSet] class.
 //
@@ -236,10 +226,6 @@ type INSMutableOrderedSet interface {
 	SetObjectAtIndexedSubscript(obj objectivec.IObject, idx uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMutableOrderedSet) Init() NSMutableOrderedSet {
 	rv := objc.Send[NSMutableOrderedSet](m.ID, objc.Sel("init"))
@@ -258,11 +244,6 @@ func NewNSMutableOrderedSet() NSMutableOrderedSet {
 	rv := objc.Send[NSMutableOrderedSet](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a newly allocated set with the objects that are contained in a
 // given array.
@@ -283,7 +264,6 @@ func NewMutableOrderedSetWithArray(array []objectivec.IObject) NSMutableOrderedS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSMutableOrderedSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with the objects that are contained in a
 // given array, optionally copying the items.
@@ -309,7 +289,6 @@ func NewMutableOrderedSetWithArrayCopyItems(set []objectivec.IObject, flag bool)
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:copyItems:"), objectivec.IObjectSliceToNSArray(set), flag)
 	return NSMutableOrderedSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with the objects that are contained in
 // the specified range of an array, optionally copying the items.
@@ -338,7 +317,6 @@ func NewMutableOrderedSetWithArrayRangeCopyItems(set []objectivec.IObject, range
 	return NSMutableOrderedSetFromID(rv)
 }
 
-
 // Returns an initialized mutable ordered set with a given initial capacity.
 //
 // numItems: The initial capacity of the new ordered set.
@@ -362,7 +340,6 @@ func NewMutableOrderedSetWithCapacity(numItems uint) NSMutableOrderedSet {
 	return NSMutableOrderedSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/init(coder:)
 func NewMutableOrderedSetWithCoder(coder INSCoder) NSMutableOrderedSet {
@@ -370,7 +347,6 @@ func NewMutableOrderedSetWithCoder(coder INSCoder) NSMutableOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableOrderedSetFromID(rv)
 }
-
 
 // Initializes a new ordered set with the object.
 //
@@ -386,7 +362,6 @@ func NewMutableOrderedSetWithObject(object objectivec.IObject) NSMutableOrderedS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObject:"), object)
 	return NSMutableOrderedSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with members taken from the specified
 // list of objects.
@@ -411,7 +386,6 @@ func NewMutableOrderedSetWithObjects(firstObj objectivec.IObject) NSMutableOrder
 	return NSMutableOrderedSetFromID(rv)
 }
 
-
 // Initializes a new ordered set with the contents of a set.
 //
 // set: A set.
@@ -426,7 +400,6 @@ func NewMutableOrderedSetWithOrderedSet(set INSOrderedSet) NSMutableOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOrderedSet:"), set)
 	return NSMutableOrderedSetFromID(rv)
 }
-
 
 // Initializes a new ordered set with the contents of a set, optionally
 // copying the items.
@@ -448,7 +421,6 @@ func NewMutableOrderedSetWithOrderedSetCopyItems(set INSOrderedSet, flag bool) N
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithOrderedSet:copyItems:"), set, flag)
 	return NSMutableOrderedSetFromID(rv)
 }
-
 
 // Initializes a new ordered set with the contents of an ordered set,
 // optionally copying the items.
@@ -473,7 +445,6 @@ func NewMutableOrderedSetWithOrderedSetRangeCopyItems(set INSOrderedSet, range_ 
 	return NSMutableOrderedSetFromID(rv)
 }
 
-
 // Initializes a new ordered set with the contents of a set.
 //
 // set: The set.
@@ -488,7 +459,6 @@ func NewMutableOrderedSetWithSet(set INSSet) NSMutableOrderedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:"), set)
 	return NSMutableOrderedSetFromID(rv)
 }
-
 
 // Initializes a new ordered set with the contents of a set, optionally
 // copying the objects in the set.
@@ -510,12 +480,6 @@ func NewMutableOrderedSetWithSetCopyItems(set INSSet, flag bool) NSMutableOrdere
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:copyItems:"), set, flag)
 	return NSMutableOrderedSetFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an initialized mutable ordered set with a given initial capacity.
 //
@@ -938,10 +902,6 @@ func (m NSMutableOrderedSet) SetObjectAtIndexedSubscript(obj objectivec.IObject,
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:atIndexedSubscript:"), obj, idx)
 }
 
-
-
-
-
 // Creates and returns an mutable ordered set with a given initial capacity.
 //
 // numItems: The initial capacity of the new ordered set.
@@ -960,40 +920,4 @@ func (_NSMutableOrderedSetClass NSMutableOrderedSetClass) OrderedSetWithCapacity
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableOrderedSetClass.class), objc.Sel("orderedSetWithCapacity:"), numItems)
 	return NSMutableOrderedSetFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

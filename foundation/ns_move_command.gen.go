@@ -35,12 +35,6 @@ func (nc NSMoveCommandClass) Alloc() NSMoveCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that moves one or more scriptable objects.
 //
 // # Overview
@@ -81,10 +75,6 @@ func NSMoveCommandFromID(id objc.ID) NSMoveCommand {
 // NOTE: NSMoveCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMoveCommand] class.
 //
 // # Working with specifiers
@@ -100,10 +90,6 @@ type INSMoveCommand interface {
 	// Returns a specifier for the object or objects to be moved.
 	KeySpecifier() INSScriptObjectSpecifier
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMoveCommand) Init() NSMoveCommand {
@@ -124,11 +110,6 @@ func NewNSMoveCommand() NSMoveCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewMoveCommandWithCoder(inCoder INSCoder) NSMoveCommand {
@@ -136,7 +117,6 @@ func NewMoveCommandWithCoder(inCoder INSCoder) NSMoveCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSMoveCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -159,23 +139,6 @@ func NewMoveCommandWithCommandDescription(commandDef INSScriptCommandDescription
 	return NSMoveCommandFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns a specifier for the object or objects to be moved.
 //
 // # Return Value
@@ -196,29 +159,4 @@ func (m NSMoveCommand) KeySpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("keySpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

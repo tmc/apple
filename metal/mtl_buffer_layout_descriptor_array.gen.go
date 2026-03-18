@@ -36,12 +36,6 @@ func (mc MTLBufferLayoutDescriptorArrayClass) Alloc() MTLBufferLayoutDescriptorA
 	return rv
 }
 
-
-
-
-
-
-
 // An array of buffer layout descriptor objects.
 //
 // # Overview
@@ -62,14 +56,10 @@ type MTLBufferLayoutDescriptorArray struct {
 //
 // An array of buffer layout descriptor objects.
 func MTLBufferLayoutDescriptorArrayFromID(id objc.ID) MTLBufferLayoutDescriptorArray {
-	return MTLBufferLayoutDescriptorArray{objectivec.Object{id}}
+	return MTLBufferLayoutDescriptorArray{objectivec.Object{ID: id}}
 }
 // NOTE: MTLBufferLayoutDescriptorArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLBufferLayoutDescriptorArray] class.
 //
@@ -93,10 +83,6 @@ type IMTLBufferLayoutDescriptorArray interface {
 	SetObjectAtIndexedSubscript(bufferDesc IMTLBufferLayoutDescriptor, index uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (b MTLBufferLayoutDescriptorArray) Init() MTLBufferLayoutDescriptorArray {
 	rv := objc.Send[MTLBufferLayoutDescriptorArray](b.ID, objc.Sel("init"))
@@ -115,15 +101,6 @@ func NewMTLBufferLayoutDescriptorArray() MTLBufferLayoutDescriptorArray {
 	rv := objc.Send[MTLBufferLayoutDescriptorArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the state of the specified buffer layout.
 //
@@ -151,17 +128,6 @@ func (b MTLBufferLayoutDescriptorArray) SetObjectAtIndexedSubscript(bufferDesc I
 	objc.Send[objc.ID](b.ID, objc.Sel("setObject:atIndexedSubscript:"), bufferDesc, index)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The organization of input and output data for the next kernel call.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor
@@ -172,26 +138,4 @@ func (b MTLBufferLayoutDescriptorArray) StageInputDescriptor() IMTLStageInputOut
 func (b MTLBufferLayoutDescriptorArray) SetStageInputDescriptor(value IMTLStageInputOutputDescriptor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStageInputDescriptor:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (vc VZVirtioSocketDeviceConfigurationClass) Alloc() VZVirtioSocketDeviceCon
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration object that requests the creation of a socket device to
 // communicate with the guest system.
 //
@@ -69,10 +63,6 @@ func VZVirtioSocketDeviceConfigurationFromID(id objc.ID) VZVirtioSocketDeviceCon
 // NOTE: VZVirtioSocketDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioSocketDeviceConfiguration] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDeviceConfiguration
@@ -83,10 +73,6 @@ type IVZVirtioSocketDeviceConfiguration interface {
 	SocketDevices() IVZSocketDeviceConfiguration
 	SetSocketDevices(value IVZSocketDeviceConfiguration)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioSocketDeviceConfiguration) Init() VZVirtioSocketDeviceConfiguration {
@@ -107,27 +93,6 @@ func NewVZVirtioSocketDeviceConfiguration() VZVirtioSocketDeviceConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The socket device that you use to implement port-based communication with
 // the guest operating system.
 //
@@ -139,27 +104,4 @@ func (v VZVirtioSocketDeviceConfiguration) SocketDevices() IVZSocketDeviceConfig
 func (v VZVirtioSocketDeviceConfiguration) SetSocketDevices(value IVZSocketDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSocketDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

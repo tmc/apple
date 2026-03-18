@@ -35,12 +35,6 @@ func (lc LengthFormatterClass) Alloc() LengthFormatter {
 	return rv
 }
 
-
-
-
-
-
-
 // A formatter that provides localized descriptions of linear distances, such
 // as length and height measurements.
 //
@@ -76,10 +70,6 @@ func LengthFormatterFromID(id objc.ID) LengthFormatter {
 func NSLengthFormatterFromID(id objc.ID) LengthFormatter { return LengthFormatterFromID(id) }
 // NOTE: LengthFormatter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [LengthFormatter] class.
 //
@@ -121,10 +111,6 @@ type ILengthFormatter interface {
 	SetUnitStyle(value NSFormattingUnitStyle)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l LengthFormatter) Init() LengthFormatter {
 	rv := objc.Send[LengthFormatter](l.ID, objc.Sel("init"))
@@ -144,11 +130,6 @@ func NewLengthFormatter() LengthFormatter {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewLengthFormatterWithCoder(coder INSCoder) LengthFormatter {
@@ -156,12 +137,6 @@ func NewLengthFormatterWithCoder(coder INSCoder) LengthFormatter {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return LengthFormatterFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns a length string for the provided value.
 //
@@ -240,17 +215,6 @@ func (l LengthFormatter) UnitStringFromValueUnit(value float64, unit NSLengthFor
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the resulting string represents a
 // person’s height.
 //
@@ -275,8 +239,6 @@ func (l LengthFormatter) SetForPersonHeightUse(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setForPersonHeightUse:"), value)
 }
 
-
-
 // The number formatter used to format the numbers in length strings.
 //
 // # Discussion
@@ -293,8 +255,6 @@ func (l LengthFormatter) NumberFormatter() INSNumberFormatter {
 func (l LengthFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberFormatter:"), value)
 }
-
-
 
 // The unit style used by this formatter.
 //
@@ -313,28 +273,4 @@ func (l LengthFormatter) UnitStyle() NSFormattingUnitStyle {
 func (l LengthFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](l.ID, objc.Sel("setUnitStyle:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

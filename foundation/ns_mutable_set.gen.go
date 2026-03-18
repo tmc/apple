@@ -36,12 +36,6 @@ func (nc NSMutableSetClass) Alloc() NSMutableSet {
 	return rv
 }
 
-
-
-
-
-
-
 // A dynamic unordered collection of unique objects.
 //
 // # Overview
@@ -111,10 +105,6 @@ func NSMutableSetFromID(id objc.ID) NSMutableSet {
 // NOTE: NSMutableSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMutableSet] class.
 //
 // # Creating a mutable set
@@ -170,10 +160,6 @@ type INSMutableSet interface {
 	SetSet(otherSet INSSet)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMutableSet) Init() NSMutableSet {
 	rv := objc.Send[NSMutableSet](m.ID, objc.Sel("init"))
@@ -192,11 +178,6 @@ func NewNSMutableSet() NSMutableSet {
 	rv := objc.Send[NSMutableSet](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a newly allocated set with the objects that are contained in a
 // given array.
@@ -218,7 +199,6 @@ func NewMutableSetWithArray(array []objectivec.IObject) NSMutableSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSMutableSetFromID(rv)
 }
-
 
 // Returns an initialized mutable set with a given initial capacity.
 //
@@ -243,7 +223,6 @@ func NewMutableSetWithCapacity(numItems uint) NSMutableSet {
 	return NSMutableSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableSet/init(coder:)
 func NewMutableSetWithCoder(coder INSCoder) NSMutableSet {
@@ -252,7 +231,6 @@ func NewMutableSetWithCoder(coder INSCoder) NSMutableSet {
 	return NSMutableSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPath:)
 func NewMutableSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSMutableSet {
@@ -260,14 +238,12 @@ func NewMutableSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSMu
 	return NSMutableSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
 func NewMutableSetWithCollectionViewIndexPaths(indexPaths []objc.ID) NSMutableSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
 	return NSMutableSetFromID(rv)
 }
-
 
 // Creates and returns a set that contains a single given object.
 //
@@ -285,7 +261,6 @@ func NewMutableSetWithObject(object objectivec.IObject) NSMutableSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableSetClass().class), objc.Sel("setWithObject:"), object)
 	return NSMutableSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with members taken from the specified
 // list of objects.
@@ -314,7 +289,6 @@ func NewMutableSetWithObjects(firstObj objectivec.IObject) NSMutableSet {
 	return NSMutableSetFromID(rv)
 }
 
-
 // Initializes a newly allocated set and adds to it objects from another given
 // set.
 //
@@ -332,7 +306,6 @@ func NewMutableSetWithSet(set INSSet) NSMutableSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:"), set)
 	return NSMutableSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set and adds to it members of another given
 // set.
@@ -377,12 +350,6 @@ func NewMutableSetWithSetCopyItems(set INSSet, flag bool) NSMutableSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:copyItems:"), set, flag)
 	return NSMutableSetFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an initialized mutable set with a given initial capacity.
 //
@@ -494,10 +461,6 @@ func (m NSMutableSet) SetSet(otherSet INSSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setSet:"), otherSet)
 }
 
-
-
-
-
 // Creates and returns a mutable set with a given initial capacity.
 //
 // numItems: The initial capacity of the new set.
@@ -516,41 +479,4 @@ func (_NSMutableSetClass NSMutableSetClass) SetWithCapacity(numItems uint) NSMut
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableSetClass.class), objc.Sel("setWithCapacity:"), numItems)
 	return NSMutableSetFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

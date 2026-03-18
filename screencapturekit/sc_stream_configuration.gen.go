@@ -39,12 +39,6 @@ func (sc SCStreamConfigurationClass) Alloc() SCStreamConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // An instance that provides the output configuration for a stream.
 //
 // # Overview
@@ -147,14 +141,10 @@ type SCStreamConfiguration struct {
 //
 // An instance that provides the output configuration for a stream.
 func SCStreamConfigurationFromID(id objc.ID) SCStreamConfiguration {
-	return SCStreamConfiguration{objectivec.Object{id}}
+	return SCStreamConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: SCStreamConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCStreamConfiguration] class.
 //
@@ -361,10 +351,6 @@ type ISCStreamConfiguration interface {
 	SetShowMouseClicks(value bool)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s SCStreamConfiguration) Init() SCStreamConfiguration {
 	rv := objc.Send[SCStreamConfiguration](s.ID, objc.Sel("init"))
@@ -384,34 +370,12 @@ func NewSCStreamConfiguration() SCStreamConfiguration {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/init(preset:)
 func NewStreamConfigurationWithPreset(preset SCStreamConfigurationPreset) SCStreamConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(getSCStreamConfigurationClass().class), objc.Sel("streamConfigurationWithPreset:"), preset)
 	return SCStreamConfigurationFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The width of the output.
 //
@@ -424,8 +388,6 @@ func (s SCStreamConfiguration) SetWidth(value uintptr) {
 	objc.Send[struct{}](s.ID, objc.Sel("setWidth:"), value)
 }
 
-
-
 // The height of the output.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/height
@@ -436,8 +398,6 @@ func (s SCStreamConfiguration) Height() uintptr {
 func (s SCStreamConfiguration) SetHeight(value uintptr) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHeight:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to scale the output to fit the
 // configured width and height.
@@ -455,8 +415,6 @@ func (s SCStreamConfiguration) SetScalesToFit(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScalesToFit:"), value)
 }
 
-
-
 // A rectangle that specifies the source area to capture.
 //
 // # Discussion
@@ -472,8 +430,6 @@ func (s SCStreamConfiguration) SourceRect() corefoundation.CGRect {
 func (s SCStreamConfiguration) SetSourceRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSourceRect:"), value)
 }
-
-
 
 // A rectangle that specifies a destination into which to write the output.
 //
@@ -491,8 +447,6 @@ func (s SCStreamConfiguration) SetDestinationRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDestinationRect:"), value)
 }
 
-
-
 // A Boolean value that determines if the stream preserves aspect ratio.
 //
 // # Discussion
@@ -507,8 +461,6 @@ func (s SCStreamConfiguration) PreservesAspectRatio() bool {
 func (s SCStreamConfiguration) SetPreservesAspectRatio(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreservesAspectRatio:"), value)
 }
-
-
 
 // A pixel format for sample buffers that a stream outputs.
 //
@@ -529,8 +481,6 @@ func (s SCStreamConfiguration) SetPixelFormat(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPixelFormat:"), value)
 }
 
-
-
 // A color matrix to apply to the output surface.
 //
 // # Discussion
@@ -549,8 +499,6 @@ func (s SCStreamConfiguration) ColorMatrix() corefoundation.CFStringRef {
 func (s SCStreamConfiguration) SetColorMatrix(value corefoundation.CFStringRef) {
 	objc.Send[struct{}](s.ID, objc.Sel("setColorMatrix:"), value)
 }
-
-
 
 // A color space to use for the output buffer.
 //
@@ -571,8 +519,6 @@ func (s SCStreamConfiguration) SetColorSpaceName(value corefoundation.CFStringRe
 	objc.Send[struct{}](s.ID, objc.Sel("setColorSpaceName:"), value)
 }
 
-
-
 // A background color for the output.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/backgroundColor
@@ -583,8 +529,6 @@ func (s SCStreamConfiguration) BackgroundColor() coregraphics.CGColorRef {
 func (s SCStreamConfiguration) SetBackgroundColor(value coregraphics.CGColorRef) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
-
 
 // A Boolean value that determines whether the cursor is visible in the
 // stream.
@@ -601,8 +545,6 @@ func (s SCStreamConfiguration) ShowsCursor() bool {
 func (s SCStreamConfiguration) SetShowsCursor(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsCursor:"), value)
 }
-
-
 
 // A Boolean value that indicates if semitransparent content presents as
 // opaque.
@@ -622,8 +564,6 @@ func (s SCStreamConfiguration) SetShouldBeOpaque(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShouldBeOpaque:"), value)
 }
 
-
-
 // A Boolean value that indicates if the stream only captures shadows.
 //
 // # Discussion
@@ -639,8 +579,6 @@ func (s SCStreamConfiguration) SetCapturesShadowsOnly(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCapturesShadowsOnly:"), value)
 }
 
-
-
 // A Boolean value that indicates if the stream ignores the capturing of
 // window shadows when streaming in display style.
 //
@@ -653,8 +591,6 @@ func (s SCStreamConfiguration) SetIgnoreShadowsDisplay(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIgnoreShadowsDisplay:"), value)
 }
 
-
-
 // A Boolean value that indicates if the stream ignores the capturing of
 // window shadows when streaming in window style.
 //
@@ -666,8 +602,6 @@ func (s SCStreamConfiguration) IgnoreShadowsSingleWindow() bool {
 func (s SCStreamConfiguration) SetIgnoreShadowsSingleWindow(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIgnoreShadowsSingleWindow:"), value)
 }
-
-
 
 // A Boolean value that indicates if the stream ignores content clipped past
 // the edge of a display, when streaming in display style.
@@ -687,8 +621,6 @@ func (s SCStreamConfiguration) SetIgnoreGlobalClipDisplay(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIgnoreGlobalClipDisplay:"), value)
 }
 
-
-
 // A Boolean value that indicates if the stream ignores content clipped past
 // the edge of a display, when streaming in window style.
 //
@@ -707,8 +639,6 @@ func (s SCStreamConfiguration) SetIgnoreGlobalClipSingleWindow(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIgnoreGlobalClipSingleWindow:"), value)
 }
 
-
-
 // The maximum number of frames for the queue to store.
 //
 // # Discussion
@@ -725,8 +655,6 @@ func (s SCStreamConfiguration) QueueDepth() int {
 func (s SCStreamConfiguration) SetQueueDepth(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setQueueDepth:"), value)
 }
-
-
 
 // The desired minimum time between frame updates, in seconds.
 //
@@ -749,8 +677,6 @@ func (s SCStreamConfiguration) SetMinimumFrameInterval(value objectivec.IObject)
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumFrameInterval:"), value)
 }
 
-
-
 // The resolution at which to capture source content.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/captureResolution
@@ -761,8 +687,6 @@ func (s SCStreamConfiguration) CaptureResolution() SCCaptureResolutionType {
 func (s SCStreamConfiguration) SetCaptureResolution(value SCCaptureResolutionType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCaptureResolution:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to capture audio.
 //
@@ -782,8 +706,6 @@ func (s SCStreamConfiguration) SetCapturesAudio(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCapturesAudio:"), value)
 }
 
-
-
 // The sample rate for audio capture.
 //
 // # Discussion
@@ -801,8 +723,6 @@ func (s SCStreamConfiguration) SetSampleRate(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSampleRate:"), value)
 }
 
-
-
 // The number of audio channels to capture.
 //
 // # Discussion
@@ -819,8 +739,6 @@ func (s SCStreamConfiguration) ChannelCount() int {
 func (s SCStreamConfiguration) SetChannelCount(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setChannelCount:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to exclude audio from your app
 // during capture.
@@ -842,8 +760,6 @@ func (s SCStreamConfiguration) SetExcludesCurrentProcessAudio(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExcludesCurrentProcessAudio:"), value)
 }
 
-
-
 // A name that you provide for identifying the stream.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/streamName
@@ -854,8 +770,6 @@ func (s SCStreamConfiguration) StreamName() string {
 func (s SCStreamConfiguration) SetStreamName(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStreamName:"), objc.String(value))
 }
-
-
 
 // A value indicating if alerts appear to presenters while using Presenter
 // Overlay.
@@ -875,8 +789,6 @@ func (s SCStreamConfiguration) SetPresenterOverlayPrivacyAlertSetting(value SCPr
 	objc.Send[struct{}](s.ID, objc.Sel("setPresenterOverlayPrivacyAlertSetting:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/captureDynamicRange
 func (s SCStreamConfiguration) CaptureDynamicRange() SCCaptureDynamicRange {
 	rv := objc.Send[SCCaptureDynamicRange](s.ID, objc.Sel("captureDynamicRange"))
@@ -885,8 +797,6 @@ func (s SCStreamConfiguration) CaptureDynamicRange() SCCaptureDynamicRange {
 func (s SCStreamConfiguration) SetCaptureDynamicRange(value SCCaptureDynamicRange) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCaptureDynamicRange:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/captureMicrophone
 func (s SCStreamConfiguration) CaptureMicrophone() bool {
@@ -897,8 +807,6 @@ func (s SCStreamConfiguration) SetCaptureMicrophone(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCaptureMicrophone:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/includeChildWindows
 func (s SCStreamConfiguration) IncludeChildWindows() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("includeChildWindows"))
@@ -907,8 +815,6 @@ func (s SCStreamConfiguration) IncludeChildWindows() bool {
 func (s SCStreamConfiguration) SetIncludeChildWindows(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncludeChildWindows:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/microphoneCaptureDeviceID
 func (s SCStreamConfiguration) MicrophoneCaptureDeviceID() string {
@@ -919,8 +825,6 @@ func (s SCStreamConfiguration) SetMicrophoneCaptureDeviceID(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMicrophoneCaptureDeviceID:"), objc.String(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/showMouseClicks
 func (s SCStreamConfiguration) ShowMouseClicks() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("showMouseClicks"))
@@ -929,26 +833,4 @@ func (s SCStreamConfiguration) ShowMouseClicks() bool {
 func (s SCStreamConfiguration) SetShowMouseClicks(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowMouseClicks:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

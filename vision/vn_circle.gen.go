@@ -37,12 +37,6 @@ func (vc VNCircleClass) Alloc() VNCircle {
 	return rv
 }
 
-
-
-
-
-
-
 // An immutable 2D circle represented by its center point and radius.
 //
 // # Creating a Circle
@@ -67,14 +61,10 @@ type VNCircle struct {
 //
 // An immutable 2D circle represented by its center point and radius.
 func VNCircleFromID(id objc.ID) VNCircle {
-	return VNCircle{objectivec.Object{id}}
+	return VNCircle{objectivec.Object{ID: id}}
 }
 // NOTE: VNCircle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNCircle] class.
 //
@@ -118,10 +108,6 @@ type IVNCircle interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (c VNCircle) Init() VNCircle {
 	rv := objc.Send[VNCircle](c.ID, objc.Sel("init"))
@@ -141,11 +127,6 @@ func NewVNCircle() VNCircle {
 	return rv
 }
 
-
-
-
-
-
 // Creates a circle with the specified center and diameter.
 //
 // center: The circle center.
@@ -159,7 +140,6 @@ func NewCircleWithCenterDiameter(center IVNPoint, diameter float64) VNCircle {
 	return VNCircleFromID(rv)
 }
 
-
 // Creates a circle with the specified center and radius.
 //
 // center: The circle center.
@@ -172,12 +152,6 @@ func NewCircleWithCenterRadius(center IVNPoint, radius float64) VNCircle {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCenter:radius:"), center, radius)
 	return VNCircleFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a circle with the specified center and radius.
 //
@@ -244,17 +218,6 @@ func (c VNCircle) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The circle’s center point.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/center
@@ -262,8 +225,6 @@ func (c VNCircle) Center() IVNPoint {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("center"))
 	return VNPointFromID(objc.ID(rv))
 }
-
-
 
 // The circle’s diameter.
 //
@@ -273,8 +234,6 @@ func (c VNCircle) Diameter() float64 {
 	return rv
 }
 
-
-
 // The circle’s radius.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/radius
@@ -283,12 +242,6 @@ func (c VNCircle) Radius() float64 {
 	return rv
 }
 
-
-
-
-
-
-
 // A circle object centered at the origin, with a radius of zero.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/zero
@@ -296,25 +249,4 @@ func (_VNCircleClass VNCircleClass) ZeroCircle() VNCircle {
 	rv := objc.Send[objc.ID](objc.ID(_VNCircleClass.class), objc.Sel("zeroCircle"))
 	return VNCircleFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

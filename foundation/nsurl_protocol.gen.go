@@ -36,12 +36,6 @@ func (uc URLProtocolClass) Alloc() URLProtocol {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that handles the loading of protocol-specific URL data.
 //
 // # Overview
@@ -111,17 +105,13 @@ type URLProtocol struct {
 //
 // An abstract class that handles the loading of protocol-specific URL data.
 func URLProtocolFromID(id objc.ID) URLProtocol {
-	return NSURLProtocol{objectivec.Object{id}}
+	return NSURLProtocol{objectivec.Object{ID: id}}
 }
 
 // NSURLProtocolFromID is an alias for [URLProtocolFromID] for cross-framework compatibility.
 func NSURLProtocolFromID(id objc.ID) URLProtocol { return URLProtocolFromID(id) }
 // NOTE: URLProtocol adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLProtocol] class.
 //
@@ -176,10 +166,6 @@ type IURLProtocol interface {
 	SetProtocolClasses(value objc.Class)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u URLProtocol) Init() URLProtocol {
 	rv := objc.Send[URLProtocol](u.ID, objc.Sel("init"))
@@ -198,11 +184,6 @@ func NewURLProtocol() URLProtocol {
 	rv := objc.Send[URLProtocol](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a URL protocol instance to handle the request.
 //
@@ -234,7 +215,6 @@ func NewURLProtocolWithRequestCachedResponseClient(request INSURLRequest, cached
 	return URLProtocolFromID(rv)
 }
 
-
 // Creates a URL protocol instance to handle the task.
 //
 // task: A task containing a URL request to be performed by the protocol.
@@ -264,12 +244,6 @@ func NewURLProtocolWithTaskCachedResponseClient(task INSURLSessionTask, cachedRe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTask:cachedResponse:client:"), task, cachedResponse, client)
 	return URLProtocolFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a URL protocol instance to handle the request.
 //
@@ -360,10 +334,6 @@ func (u URLProtocol) StartLoading() {
 func (u URLProtocol) StopLoading() {
 	objc.Send[objc.ID](u.ID, objc.Sel("stopLoading"))
 }
-
-
-
-
 
 // Attempts to register a subclass of [NSURLProtocol], making it visible to
 // the URL loading system.
@@ -583,13 +553,6 @@ func (_URLProtocolClass URLProtocolClass) RequestIsCacheEquivalentToRequest(a IN
 	return rv
 }
 
-
-
-
-
-
-
-
 // The protocol’s cached response.
 //
 // # Discussion
@@ -603,8 +566,6 @@ func (u URLProtocol) CachedResponse() INSCachedURLResponse {
 	return NSCachedURLResponseFromID(objc.ID(rv))
 }
 
-
-
 // The object the protocol uses to communicate with the URL loading system.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocol/client
@@ -612,8 +573,6 @@ func (u URLProtocol) Client() NSURLProtocolClient {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("client"))
 	return NSURLProtocolClientObjectFromID(rv)
 }
-
-
 
 // The protocol’s request.
 //
@@ -623,8 +582,6 @@ func (u URLProtocol) Request() INSURLRequest {
 	return NSURLRequestFromID(objc.ID(rv))
 }
 
-
-
 // The protocol’s task.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocol/task
@@ -632,8 +589,6 @@ func (u URLProtocol) Task() INSURLSessionTask {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("task"))
 	return NSURLSessionTaskFromID(objc.ID(rv))
 }
-
-
 
 // An array of extra protocol subclasses that handle requests in a session.
 //
@@ -645,26 +600,4 @@ func (u URLProtocol) ProtocolClasses() objc.Class {
 func (u URLProtocol) SetProtocolClasses(value objc.Class) {
 	objc.Send[struct{}](u.ID, objc.Sel("setProtocolClasses:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

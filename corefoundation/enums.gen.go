@@ -895,7 +895,7 @@ func (e CFStreamStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringBuiltInEncodings
-type CFStringBuiltInEncodings int
+type CFStringBuiltInEncodings uint32
 
 const (
 	// KCFStringEncodingASCII: An encoding constant that identifies the ASCII encoding (decimal values 0 through 127).

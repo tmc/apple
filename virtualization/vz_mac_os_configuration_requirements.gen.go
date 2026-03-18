@@ -36,12 +36,6 @@ func (vc VZMacOSConfigurationRequirementsClass) Alloc() VZMacOSConfigurationRequ
 	return rv
 }
 
-
-
-
-
-
-
 // An object that describes the parameter constraints required by a specific
 // configuration of macOS.
 //
@@ -61,14 +55,10 @@ type VZMacOSConfigurationRequirements struct {
 // An object that describes the parameter constraints required by a specific
 // configuration of macOS.
 func VZMacOSConfigurationRequirementsFromID(id objc.ID) VZMacOSConfigurationRequirements {
-	return VZMacOSConfigurationRequirements{objectivec.Object{id}}
+	return VZMacOSConfigurationRequirements{objectivec.Object{ID: id}}
 }
 // NOTE: VZMacOSConfigurationRequirements adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZMacOSConfigurationRequirements] class.
 //
@@ -92,10 +82,6 @@ type IVZMacOSConfigurationRequirements interface {
 	MinimumSupportedMemorySize() uint64
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m VZMacOSConfigurationRequirements) Init() VZMacOSConfigurationRequirements {
 	rv := objc.Send[VZMacOSConfigurationRequirements](m.ID, objc.Sel("init"))
@@ -115,26 +101,6 @@ func NewVZMacOSConfigurationRequirements() VZMacOSConfigurationRequirements {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The hardware model for this configuration.
 //
 // # Discussion
@@ -152,8 +118,6 @@ func (m VZMacOSConfigurationRequirements) HardwareModel() IVZMacHardwareModel {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("hardwareModel"))
 	return VZMacHardwareModelFromID(objc.ID(rv))
 }
-
-
 
 // The minimum supported number of CPUs for this configuration.
 //
@@ -176,8 +140,6 @@ func (m VZMacOSConfigurationRequirements) MinimumSupportedCPUCount() uint {
 	return rv
 }
 
-
-
 // The minimum supported memory size for this configuration.
 //
 // # Discussion
@@ -197,26 +159,4 @@ func (m VZMacOSConfigurationRequirements) MinimumSupportedMemorySize() uint64 {
 	rv := objc.Send[uint64](m.ID, objc.Sel("minimumSupportedMemorySize"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

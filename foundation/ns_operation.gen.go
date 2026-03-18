@@ -36,12 +36,6 @@ func (oc OperationClass) Alloc() Operation {
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that represents the code and data associated with a
 // single task.
 //
@@ -349,17 +343,13 @@ type Operation struct {
 // An abstract class that represents the code and data associated with a
 // single task.
 func OperationFromID(id objc.ID) Operation {
-	return NSOperation{objectivec.Object{id}}
+	return NSOperation{objectivec.Object{ID: id}}
 }
 
 // NSOperationFromID is an alias for [OperationFromID] for cross-framework compatibility.
 func NSOperationFromID(id objc.ID) Operation { return OperationFromID(id) }
 // NOTE: Operation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Operation] class.
 //
@@ -463,10 +453,6 @@ type IOperation interface {
 	WaitUntilFinished()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (o Operation) Init() Operation {
 	rv := objc.Send[Operation](o.ID, objc.Sel("init"))
@@ -485,15 +471,6 @@ func NewOperation() Operation {
 	rv := objc.Send[Operation](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Begins the execution of the operation.
 //
@@ -648,17 +625,6 @@ func (o Operation) WaitUntilFinished() {
 	objc.Send[objc.ID](o.ID, objc.Sel("waitUntilFinished"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The block to execute after the operation’s main task is completed.
 //
 // # Discussion
@@ -706,8 +672,6 @@ func (o Operation) SetCompletionBlock(value VoidHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCompletionBlock:"), block)
 }
 
-
-
 // A Boolean value indicating whether the operation has been cancelled
 //
 // # Discussion
@@ -737,8 +701,6 @@ func (o Operation) Cancelled() bool {
 	return rv
 }
 
-
-
 // A Boolean value indicating whether the operation is currently executing.
 //
 // # Discussion
@@ -764,8 +726,6 @@ func (o Operation) Executing() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isExecuting"))
 	return rv
 }
-
-
 
 // A Boolean value indicating whether the operation has finished executing its
 // task.
@@ -794,8 +754,6 @@ func (o Operation) Finished() bool {
 	return rv
 }
 
-
-
 // A Boolean value indicating whether the operation executes its task
 // asynchronously.
 //
@@ -820,8 +778,6 @@ func (o Operation) Concurrent() bool {
 	return rv
 }
 
-
-
 // A Boolean value indicating whether the operation executes its task
 // asynchronously.
 //
@@ -844,8 +800,6 @@ func (o Operation) Asynchronous() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAsynchronous"))
 	return rv
 }
-
-
 
 // A Boolean value indicating whether the operation can be performed now.
 //
@@ -874,8 +828,6 @@ func (o Operation) Ready() bool {
 	return rv
 }
 
-
-
 // The name of the operation.
 //
 // # Discussion
@@ -890,8 +842,6 @@ func (o Operation) Name() string {
 func (o Operation) SetName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
 
 // An array of the operation objects that must finish executing before the
 // current object can begin executing.
@@ -915,8 +865,6 @@ func (o Operation) Dependencies() []NSOperation {
 		return NSOperationFromID(id)
 	})
 }
-
-
 
 // The relative amount of importance for granting system resources to the
 // operation.
@@ -958,8 +906,6 @@ func (o Operation) SetQualityOfService(value QualityOfService) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQualityOfService:"), value)
 }
 
-
-
 // The execution priority of the operation in an operation queue.
 //
 // # Discussion
@@ -996,28 +942,4 @@ func (o Operation) QueuePriority() NSOperationQueuePriority {
 func (o Operation) SetQueuePriority(value NSOperationQueuePriority) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQueuePriority:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

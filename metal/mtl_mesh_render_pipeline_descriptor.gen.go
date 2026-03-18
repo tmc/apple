@@ -37,12 +37,6 @@ func (mc MTLMeshRenderPipelineDescriptorClass) Alloc() MTLMeshRenderPipelineDesc
 	return rv
 }
 
-
-
-
-
-
-
 // An object that configures new render pipeline state objects for mesh
 // shading.
 //
@@ -117,14 +111,10 @@ type MTLMeshRenderPipelineDescriptor struct {
 // An object that configures new render pipeline state objects for mesh
 // shading.
 func MTLMeshRenderPipelineDescriptorFromID(id objc.ID) MTLMeshRenderPipelineDescriptor {
-	return MTLMeshRenderPipelineDescriptor{objectivec.Object{id}}
+	return MTLMeshRenderPipelineDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLMeshRenderPipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLMeshRenderPipelineDescriptor] class.
 //
@@ -256,10 +246,6 @@ type IMTLMeshRenderPipelineDescriptor interface {
 	Reset()
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTLMeshRenderPipelineDescriptor) Init() MTLMeshRenderPipelineDescriptor {
 	rv := objc.Send[MTLMeshRenderPipelineDescriptor](m.ID, objc.Sel("init"))
@@ -279,30 +265,10 @@ func NewMTLMeshRenderPipelineDescriptor() MTLMeshRenderPipelineDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/reset()
 func (m MTLMeshRenderPipelineDescriptor) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/binaryArchives
 func (m MTLMeshRenderPipelineDescriptor) BinaryArchives() []objectivec.IObject {
@@ -315,15 +281,11 @@ func (m MTLMeshRenderPipelineDescriptor) SetBinaryArchives(value []objectivec.IO
 	objc.Send[struct{}](m.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/colorAttachments
 func (m MTLMeshRenderPipelineDescriptor) ColorAttachments() IMTLRenderPipelineColorAttachmentDescriptorArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("colorAttachments"))
 	return MTLRenderPipelineColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/depthAttachmentPixelFormat
 func (m MTLMeshRenderPipelineDescriptor) DepthAttachmentPixelFormat() MTLPixelFormat {
@@ -334,15 +296,11 @@ func (m MTLMeshRenderPipelineDescriptor) SetDepthAttachmentPixelFormat(value MTL
 	objc.Send[struct{}](m.ID, objc.Sel("setDepthAttachmentPixelFormat:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/fragmentBuffers
 func (m MTLMeshRenderPipelineDescriptor) FragmentBuffers() IMTLPipelineBufferDescriptorArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("fragmentBuffers"))
 	return MTLPipelineBufferDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/fragmentFunction
 func (m MTLMeshRenderPipelineDescriptor) FragmentFunction() MTLFunction {
@@ -353,8 +311,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetFragmentFunction(value MTLFunction) 
 	objc.Send[struct{}](m.ID, objc.Sel("setFragmentFunction:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/fragmentLinkedFunctions
 func (m MTLMeshRenderPipelineDescriptor) FragmentLinkedFunctions() IMTLLinkedFunctions {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("fragmentLinkedFunctions"))
@@ -363,8 +319,6 @@ func (m MTLMeshRenderPipelineDescriptor) FragmentLinkedFunctions() IMTLLinkedFun
 func (m MTLMeshRenderPipelineDescriptor) SetFragmentLinkedFunctions(value IMTLLinkedFunctions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFragmentLinkedFunctions:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/isAlphaToCoverageEnabled
 func (m MTLMeshRenderPipelineDescriptor) AlphaToCoverageEnabled() bool {
@@ -375,8 +329,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetAlphaToCoverageEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAlphaToCoverageEnabled:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/isAlphaToOneEnabled
 func (m MTLMeshRenderPipelineDescriptor) AlphaToOneEnabled() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isAlphaToOneEnabled"))
@@ -385,8 +337,6 @@ func (m MTLMeshRenderPipelineDescriptor) AlphaToOneEnabled() bool {
 func (m MTLMeshRenderPipelineDescriptor) SetAlphaToOneEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAlphaToOneEnabled:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/isRasterizationEnabled
 func (m MTLMeshRenderPipelineDescriptor) RasterizationEnabled() bool {
@@ -397,8 +347,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetRasterizationEnabled(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRasterizationEnabled:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/label
 func (m MTLMeshRenderPipelineDescriptor) Label() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("label"))
@@ -407,8 +355,6 @@ func (m MTLMeshRenderPipelineDescriptor) Label() string {
 func (m MTLMeshRenderPipelineDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/maxTotalThreadgroupsPerMeshGrid
 func (m MTLMeshRenderPipelineDescriptor) MaxTotalThreadgroupsPerMeshGrid() uint {
@@ -419,8 +365,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetMaxTotalThreadgroupsPerMeshGrid(valu
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTotalThreadgroupsPerMeshGrid:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/maxTotalThreadsPerMeshThreadgroup
 func (m MTLMeshRenderPipelineDescriptor) MaxTotalThreadsPerMeshThreadgroup() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("maxTotalThreadsPerMeshThreadgroup"))
@@ -429,8 +373,6 @@ func (m MTLMeshRenderPipelineDescriptor) MaxTotalThreadsPerMeshThreadgroup() uin
 func (m MTLMeshRenderPipelineDescriptor) SetMaxTotalThreadsPerMeshThreadgroup(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTotalThreadsPerMeshThreadgroup:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/maxTotalThreadsPerObjectThreadgroup
 func (m MTLMeshRenderPipelineDescriptor) MaxTotalThreadsPerObjectThreadgroup() uint {
@@ -441,8 +383,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetMaxTotalThreadsPerObjectThreadgroup(
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTotalThreadsPerObjectThreadgroup:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/maxVertexAmplificationCount
 func (m MTLMeshRenderPipelineDescriptor) MaxVertexAmplificationCount() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("maxVertexAmplificationCount"))
@@ -452,15 +392,11 @@ func (m MTLMeshRenderPipelineDescriptor) SetMaxVertexAmplificationCount(value ui
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxVertexAmplificationCount:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/meshBuffers
 func (m MTLMeshRenderPipelineDescriptor) MeshBuffers() IMTLPipelineBufferDescriptorArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("meshBuffers"))
 	return MTLPipelineBufferDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/meshFunction
 func (m MTLMeshRenderPipelineDescriptor) MeshFunction() MTLFunction {
@@ -471,8 +407,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetMeshFunction(value MTLFunction) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMeshFunction:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/meshLinkedFunctions
 func (m MTLMeshRenderPipelineDescriptor) MeshLinkedFunctions() IMTLLinkedFunctions {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("meshLinkedFunctions"))
@@ -481,8 +415,6 @@ func (m MTLMeshRenderPipelineDescriptor) MeshLinkedFunctions() IMTLLinkedFunctio
 func (m MTLMeshRenderPipelineDescriptor) SetMeshLinkedFunctions(value IMTLLinkedFunctions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMeshLinkedFunctions:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/meshThreadgroupSizeIsMultipleOfThreadExecutionWidth
 func (m MTLMeshRenderPipelineDescriptor) MeshThreadgroupSizeIsMultipleOfThreadExecutionWidth() bool {
@@ -493,15 +425,11 @@ func (m MTLMeshRenderPipelineDescriptor) SetMeshThreadgroupSizeIsMultipleOfThrea
 	objc.Send[struct{}](m.ID, objc.Sel("setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/objectBuffers
 func (m MTLMeshRenderPipelineDescriptor) ObjectBuffers() IMTLPipelineBufferDescriptorArray {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectBuffers"))
 	return MTLPipelineBufferDescriptorArrayFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/objectFunction
 func (m MTLMeshRenderPipelineDescriptor) ObjectFunction() MTLFunction {
@@ -512,8 +440,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetObjectFunction(value MTLFunction) {
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectFunction:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/objectLinkedFunctions
 func (m MTLMeshRenderPipelineDescriptor) ObjectLinkedFunctions() IMTLLinkedFunctions {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectLinkedFunctions"))
@@ -522,8 +448,6 @@ func (m MTLMeshRenderPipelineDescriptor) ObjectLinkedFunctions() IMTLLinkedFunct
 func (m MTLMeshRenderPipelineDescriptor) SetObjectLinkedFunctions(value IMTLLinkedFunctions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectLinkedFunctions:"), value)
 }
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/objectThreadgroupSizeIsMultipleOfThreadExecutionWidth
 func (m MTLMeshRenderPipelineDescriptor) ObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth() bool {
@@ -534,8 +458,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetObjectThreadgroupSizeIsMultipleOfThr
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/payloadMemoryLength
 func (m MTLMeshRenderPipelineDescriptor) PayloadMemoryLength() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("payloadMemoryLength"))
@@ -545,8 +467,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetPayloadMemoryLength(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPayloadMemoryLength:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/rasterSampleCount
 func (m MTLMeshRenderPipelineDescriptor) RasterSampleCount() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("rasterSampleCount"))
@@ -555,8 +475,6 @@ func (m MTLMeshRenderPipelineDescriptor) RasterSampleCount() uint {
 func (m MTLMeshRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRasterSampleCount:"), value)
 }
-
-
 
 //
 // # Discussion
@@ -576,8 +494,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetRequiredThreadsPerMeshThreadgroup(va
 	objc.Send[struct{}](m.ID, objc.Sel("setRequiredThreadsPerMeshThreadgroup:"), value)
 }
 
-
-
 //
 // # Discussion
 // 
@@ -596,8 +512,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetRequiredThreadsPerObjectThreadgroup(
 	objc.Send[struct{}](m.ID, objc.Sel("setRequiredThreadsPerObjectThreadgroup:"), value)
 }
 
-
-
 // A value that enables or disables shader validation for the pipeline.
 //
 // # Discussion
@@ -615,8 +529,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetShaderValidation(value MTLShaderVali
 	objc.Send[struct{}](m.ID, objc.Sel("setShaderValidation:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/stencilAttachmentPixelFormat
 func (m MTLMeshRenderPipelineDescriptor) StencilAttachmentPixelFormat() MTLPixelFormat {
 	rv := objc.Send[MTLPixelFormat](m.ID, objc.Sel("stencilAttachmentPixelFormat"))
@@ -626,8 +538,6 @@ func (m MTLMeshRenderPipelineDescriptor) SetStencilAttachmentPixelFormat(value M
 	objc.Send[struct{}](m.ID, objc.Sel("setStencilAttachmentPixelFormat:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Metal/MTLMeshRenderPipelineDescriptor/supportIndirectCommandBuffers
 func (m MTLMeshRenderPipelineDescriptor) SupportIndirectCommandBuffers() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("supportIndirectCommandBuffers"))
@@ -636,27 +546,4 @@ func (m MTLMeshRenderPipelineDescriptor) SupportIndirectCommandBuffers() bool {
 func (m MTLMeshRenderPipelineDescriptor) SetSupportIndirectCommandBuffers(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportIndirectCommandBuffers:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

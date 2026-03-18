@@ -36,12 +36,6 @@ func (vc VZDirectorySharingDeviceClass) Alloc() VZDirectorySharingDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // The base class that represents a directory sharing device in a VM.
 //
 // # Overview
@@ -67,14 +61,10 @@ type VZDirectorySharingDevice struct {
 //
 // The base class that represents a directory sharing device in a VM.
 func VZDirectorySharingDeviceFromID(id objc.ID) VZDirectorySharingDevice {
-	return VZDirectorySharingDevice{objectivec.Object{id}}
+	return VZDirectorySharingDevice{objectivec.Object{ID: id}}
 }
 // NOTE: VZDirectorySharingDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZDirectorySharingDevice] class.
 //
@@ -82,10 +72,6 @@ func VZDirectorySharingDeviceFromID(id objc.ID) VZDirectorySharingDevice {
 type IVZDirectorySharingDevice interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d VZDirectorySharingDevice) Init() VZDirectorySharingDevice {
@@ -105,44 +91,4 @@ func NewVZDirectorySharingDevice() VZDirectorySharingDevice {
 	rv := objc.Send[VZDirectorySharingDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

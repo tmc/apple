@@ -36,12 +36,6 @@ func (nc NSAppleScriptClass) Alloc() NSAppleScript {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that provides the ability to load, compile, and execute scripts.
 //
 // # Overview
@@ -97,14 +91,10 @@ type NSAppleScript struct {
 //
 // An object that provides the ability to load, compile, and execute scripts.
 func NSAppleScriptFromID(id objc.ID) NSAppleScript {
-	return NSAppleScript{objectivec.Object{id}}
+	return NSAppleScript{objectivec.Object{ID: id}}
 }
 // NOTE: NSAppleScript adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAppleScript] class.
 //
@@ -162,10 +152,6 @@ type INSAppleScript interface {
 	RichTextSource() INSAttributedString
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAppleScript) Init() NSAppleScript {
 	rv := objc.Send[NSAppleScript](a.ID, objc.Sel("init"))
@@ -184,11 +170,6 @@ func NewNSAppleScript() NSAppleScript {
 	rv := objc.Send[NSAppleScript](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a newly allocated script instance from the source identified by
 // the passed URL.
@@ -213,7 +194,6 @@ func NewAppleScriptWithContentsOfURLError(url INSURL, errorInfo INSDictionary) N
 	return NSAppleScriptFromID(rv)
 }
 
-
 // Initializes a newly allocated script instance from the passed source.
 //
 // source: A string containing the source code of a script.
@@ -232,12 +212,6 @@ func NewAppleScriptWithSource(source string) NSAppleScript {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSource:"), objc.String(source))
 	return NSAppleScriptFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated script instance from the source identified by
 // the passed URL.
@@ -340,17 +314,6 @@ func (a NSAppleScript) ExecuteAppleEventError(event INSAppleEventDescriptor, err
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether the receiver’s script has been
 // compiled.
 //
@@ -359,8 +322,6 @@ func (a NSAppleScript) Compiled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isCompiled"))
 	return rv
 }
-
-
 
 // The script source for the receiver.
 //
@@ -375,8 +336,6 @@ func (a NSAppleScript) Source() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("source"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // Returns the syntax-highlighted source code of the receiver if the receiver
 // has been compiled and its source code is available.
@@ -393,31 +352,6 @@ func (a NSAppleScript) RichTextSource() INSAttributedString {
 	return NSAttributedStringFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
 

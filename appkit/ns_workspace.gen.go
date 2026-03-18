@@ -757,7 +757,7 @@ func (w NSWorkspace) GetFileSystemInfoForPathIsRemovableIsWritableIsUnmountableD
 	var removableFlag bool
 	var writableFlag bool
 	var unmountableFlag bool
-	rv := objc.Send[bool](w.ID, objc.Sel("getFileSystemInfoForPath:isRemovable:isWritable:isUnmountable:description:type:"), objc.String(fullPath), unsafe.Pointer(&removableFlag), unsafe.Pointer(&writableFlag), unsafe.Pointer(&unmountableFlag), objc.String(description), objc.String(fileSystemType))
+	rv := objc.Send[bool](w.ID, objc.Sel("getFileSystemInfoForPath:isRemovable:isWritable:isUnmountable:description:type:"), objc.String(fullPath), unsafe.Pointer(&removableFlag), unsafe.Pointer(&writableFlag), unsafe.Pointer(&unmountableFlag), description, fileSystemType)
 	return removableFlag, writableFlag, unmountableFlag, rv
 }
 

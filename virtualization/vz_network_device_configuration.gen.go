@@ -36,12 +36,6 @@ func (vc VZNetworkDeviceConfigurationClass) Alloc() VZNetworkDeviceConfiguration
 	return rv
 }
 
-
-
-
-
-
-
 // The common configuration traits for network devices.
 //
 // # Overview
@@ -67,14 +61,10 @@ type VZNetworkDeviceConfiguration struct {
 //
 // The common configuration traits for network devices.
 func VZNetworkDeviceConfigurationFromID(id objc.ID) VZNetworkDeviceConfiguration {
-	return VZNetworkDeviceConfiguration{objectivec.Object{id}}
+	return VZNetworkDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZNetworkDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZNetworkDeviceConfiguration] class.
 //
@@ -99,10 +89,6 @@ type IVZNetworkDeviceConfiguration interface {
 	SetMACAddress(value IVZMACAddress)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n VZNetworkDeviceConfiguration) Init() VZNetworkDeviceConfiguration {
 	rv := objc.Send[VZNetworkDeviceConfiguration](n.ID, objc.Sel("init"))
@@ -121,26 +107,6 @@ func NewVZNetworkDeviceConfiguration() VZNetworkDeviceConfiguration {
 	rv := objc.Send[VZNetworkDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The object that defines how the virtual network device communicates with
 // the host system.
@@ -162,8 +128,6 @@ func (n VZNetworkDeviceConfiguration) SetAttachment(value IVZNetworkDeviceAttach
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
 
-
-
 // The media access control (MAC) address to assign to the network device.
 //
 // # Discussion
@@ -180,27 +144,4 @@ func (n VZNetworkDeviceConfiguration) MACAddress() IVZMACAddress {
 func (n VZNetworkDeviceConfiguration) SetMACAddress(value IVZMACAddress) {
 	objc.Send[struct{}](n.ID, objc.Sel("setMACAddress:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

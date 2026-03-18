@@ -36,12 +36,6 @@ func (nc NSUserUnixTaskClass) Alloc() NSUserUnixTask {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that executes unix applications.
 //
 // # Overview
@@ -91,10 +85,6 @@ func NSUserUnixTaskFromID(id objc.ID) NSUserUnixTask {
 // NOTE: NSUserUnixTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSUserUnixTask] class.
 //
 // # Executing the Unix Script
@@ -132,10 +122,6 @@ type INSUserUnixTask interface {
 	SetStandardOutput(value INSFileHandle)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u NSUserUnixTask) Init() NSUserUnixTask {
 	rv := objc.Send[NSUserUnixTask](u.ID, objc.Sel("init"))
@@ -154,11 +140,6 @@ func NewNSUserUnixTask() NSUserUnixTask {
 	rv := objc.Send[NSUserUnixTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Return a user script task instance given a URL for a script file.
 //
@@ -189,12 +170,6 @@ func NewUserUnixTaskWithURLError(url INSURL) (NSUserUnixTask, error) {
 	return NSUserUnixTaskFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Execute the unix script with the specified arguments.
 //
 // arguments: An array of [NSString] objects containing the script arguments. The
@@ -214,21 +189,10 @@ func NewUserUnixTaskWithURLError(url INSURL) (NSUserUnixTask, error) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserUnixTask/execute(withArguments:completionHandler:)
 func (u NSUserUnixTask) ExecuteWithArgumentsCompletionHandler(arguments []string, handler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(handler)
+_block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
-		objc.Send[objc.ID](u.ID, objc.Sel("executeWithArguments:completionHandler:"), arguments, _block1)
+	objc.Send[objc.ID](u.ID, objc.Sel("executeWithArguments:completionHandler:"), arguments, _block1)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The standard error stream.
 //
@@ -247,8 +211,6 @@ func (u NSUserUnixTask) SetStandardError(value INSFileHandle) {
 	objc.Send[struct{}](u.ID, objc.Sel("setStandardError:"), value)
 }
 
-
-
 // The standard input stream.
 //
 // # Discussion
@@ -266,8 +228,6 @@ func (u NSUserUnixTask) SetStandardInput(value INSFileHandle) {
 	objc.Send[struct{}](u.ID, objc.Sel("setStandardInput:"), value)
 }
 
-
-
 // The standard output stream.
 //
 // # Discussion
@@ -284,28 +244,4 @@ func (u NSUserUnixTask) StandardOutput() INSFileHandle {
 func (u NSUserUnixTask) SetStandardOutput(value INSFileHandle) {
 	objc.Send[struct{}](u.ID, objc.Sel("setStandardOutput:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NotificationCenterClass) Alloc() NotificationCenter {
 	return rv
 }
 
-
-
-
-
-
-
 // A notification dispatch mechanism that enables the broadcast of information
 // to registered observers.
 //
@@ -108,17 +102,13 @@ type NotificationCenter struct {
 // A notification dispatch mechanism that enables the broadcast of information
 // to registered observers.
 func NotificationCenterFromID(id objc.ID) NotificationCenter {
-	return NSNotificationCenter{objectivec.Object{id}}
+	return NSNotificationCenter{objectivec.Object{ID: id}}
 }
 
 // NSNotificationCenterFromID is an alias for [NotificationCenterFromID] for cross-framework compatibility.
 func NSNotificationCenterFromID(id objc.ID) NotificationCenter { return NotificationCenterFromID(id) }
 // NOTE: NotificationCenter adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NotificationCenter] class.
 //
@@ -160,10 +150,6 @@ type INotificationCenter interface {
 	PostNotificationNameObject(aName NSNotificationName, anObject objectivec.IObject)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n NotificationCenter) Init() NotificationCenter {
 	rv := objc.Send[NotificationCenter](n.ID, objc.Sel("init"))
@@ -182,15 +168,6 @@ func NewNotificationCenter() NotificationCenter {
 	rv := objc.Send[NotificationCenter](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Adds an entry to the notification center to receive notifications that
 // passed to the provided block.
@@ -254,9 +231,9 @@ func NewNotificationCenter() NotificationCenter {
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/addObserver(forName:object:queue:using:)
 func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlock(name NSNotificationName, obj objectivec.IObject, queue INSOperationQueue, block NotificationHandler) objectivec.Object {
-		_block3, _cleanup3 := NewNotificationBlock(block)
+_block3, _cleanup3 := NewNotificationBlock(block)
 	defer _cleanup3()
-		rv := objc.Send[objc.ID](n.ID, objc.Sel("addObserverForName:object:queue:usingBlock:"), objc.String(string(name)), obj, queue, _block3)
+	rv := objc.Send[objc.ID](n.ID, objc.Sel("addObserverForName:object:queue:usingBlock:"), objc.String(string(name)), obj, queue, _block3)
 	return objectivec.ObjectFromID(rv)
 }
 
@@ -414,21 +391,6 @@ func (n NotificationCenter) PostNotificationNameObject(aName NSNotificationName,
 	objc.Send[objc.ID](n.ID, objc.Sel("postNotificationName:object:"), objc.String(string(aName)), anObject)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The app’s default notification center.
 //
 // # Discussion
@@ -451,21 +413,6 @@ func (_NotificationCenterClass NotificationCenterClass) DefaultCenter() Notifica
 	return NSNotificationCenterFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // AddObserverForNameObjectQueueUsingBlockSync is a synchronous wrapper around [NotificationCenter.AddObserverForNameObjectQueueUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
 func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlockSync(ctx context.Context, name NSNotificationName, obj objectivec.IObject, queue INSOperationQueue) (*NSNotification, error) {
@@ -480,9 +427,4 @@ func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlockSync(ctx cont
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
-
 

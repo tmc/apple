@@ -36,12 +36,6 @@ func (nc NSPersonNameComponentsClass) Alloc() NSPersonNameComponents {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that manages the separate parts of a person’s name to allow
 // locale-aware formatting.
 //
@@ -288,14 +282,10 @@ type NSPersonNameComponents struct {
 // An object that manages the separate parts of a person’s name to allow
 // locale-aware formatting.
 func NSPersonNameComponentsFromID(id objc.ID) NSPersonNameComponents {
-	return NSPersonNameComponents{objectivec.Object{id}}
+	return NSPersonNameComponents{objectivec.Object{ID: id}}
 }
 // NOTE: NSPersonNameComponents adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSPersonNameComponents] class.
 //
@@ -319,7 +309,9 @@ func NSPersonNameComponentsFromID(id objc.ID) NSPersonNameComponents {
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents
 type INSPersonNameComponents interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Accessing Person Name Components
 
@@ -344,15 +336,7 @@ type INSPersonNameComponents interface {
 	// The phonetic representation name components of the receiver.
 	PhoneticRepresentation() INSPersonNameComponents
 	SetPhoneticRepresentation(value INSPersonNameComponents)
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSPersonNameComponents
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p NSPersonNameComponents) Init() NSPersonNameComponents {
@@ -373,11 +357,6 @@ func NewNSPersonNameComponents() NSPersonNameComponents {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewPersonNameComponentsWithCoder(coder INSCoder) NSPersonNameComponents {
@@ -385,12 +364,6 @@ func NewPersonNameComponentsWithCoder(coder INSCoder) NSPersonNameComponents {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSPersonNameComponentsFromID(rv)
 }
-
-
-
-
-
-
 
 // Encodes the receiver using a given archiver.
 //
@@ -408,17 +381,6 @@ func (p NSPersonNameComponents) InitWithCoder(coder INSCoder) NSPersonNameCompon
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The portion of a name’s full form of address that precedes the name
 // itself .
 //
@@ -430,8 +392,6 @@ func (p NSPersonNameComponents) NamePrefix() string {
 func (p NSPersonNameComponents) SetNamePrefix(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNamePrefix:"), objc.String(value))
 }
-
-
 
 // Name bestowed upon an individual to differentiate them from other members
 // of a group that share a family name .
@@ -450,8 +410,6 @@ func (p NSPersonNameComponents) SetGivenName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setGivenName:"), objc.String(value))
 }
 
-
-
 // Secondary name bestowed upon an individual to differentiate them from
 // others that have the same given name .
 //
@@ -463,8 +421,6 @@ func (p NSPersonNameComponents) MiddleName() string {
 func (p NSPersonNameComponents) SetMiddleName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMiddleName:"), objc.String(value))
 }
-
-
 
 // Name bestowed upon an individual to denote membership in a group or family.
 // .
@@ -478,8 +434,6 @@ func (p NSPersonNameComponents) SetFamilyName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFamilyName:"), objc.String(value))
 }
 
-
-
 // The portion of a name’s full form of address that follows the name itself
 // .
 //
@@ -492,8 +446,6 @@ func (p NSPersonNameComponents) SetNameSuffix(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNameSuffix:"), objc.String(value))
 }
 
-
-
 // Name substituted for the purposes of familiarity .
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/nickname
@@ -504,8 +456,6 @@ func (p NSPersonNameComponents) Nickname() string {
 func (p NSPersonNameComponents) SetNickname(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNickname:"), objc.String(value))
 }
-
-
 
 // The phonetic representation name components of the receiver.
 //
@@ -526,35 +476,9 @@ func (p NSPersonNameComponents) SetPhoneticRepresentation(value INSPersonNameCom
 	objc.Send[struct{}](p.ID, objc.Sel("setPhoneticRepresentation:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

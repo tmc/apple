@@ -35,12 +35,6 @@ func (vc VNDetectHorizonRequestClass) Alloc() VNDetectHorizonRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // An image-analysis request that determines the horizon angle in an image.
 //
 // # Identifying Request Revisions
@@ -61,10 +55,6 @@ func VNDetectHorizonRequestFromID(id objc.ID) VNDetectHorizonRequest {
 // NOTE: VNDetectHorizonRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectHorizonRequest] class.
 //
 // # Identifying Request Revisions
@@ -80,10 +70,6 @@ type IVNDetectHorizonRequest interface {
 	// A constant for specifying revision 1 of the horizon detection request.
 	VNDetectHorizonRequestRevision1() int
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d VNDetectHorizonRequest) Init() VNDetectHorizonRequest {
@@ -104,11 +90,6 @@ func NewVNDetectHorizonRequest() VNDetectHorizonRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -126,23 +107,6 @@ func NewDetectHorizonRequestWithCompletionHandler(completionHandler VNRequestCom
 	return VNDetectHorizonRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying revision 1 of the horizon detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthorizonrequestrevision1
@@ -150,27 +114,4 @@ func (d VNDetectHorizonRequest) VNDetectHorizonRequestRevision1() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHorizonRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

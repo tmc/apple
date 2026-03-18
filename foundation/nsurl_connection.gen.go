@@ -36,12 +36,6 @@ func (nc NSURLConnectionClass) Alloc() NSURLConnection {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that enables you to start and stop URL requests.
 //
 // # Overview
@@ -128,14 +122,10 @@ type NSURLConnection struct {
 //
 // An object that enables you to start and stop URL requests.
 func NSURLConnectionFromID(id objc.ID) NSURLConnection {
-	return NSURLConnection{objectivec.Object{id}}
+	return NSURLConnection{objectivec.Object{ID: id}}
 }
 // NOTE: NSURLConnection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSURLConnection] class.
 //
@@ -189,10 +179,6 @@ type INSURLConnection interface {
 	UnscheduleFromRunLoopForMode(aRunLoop INSRunLoop, mode NSRunLoopMode)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u NSURLConnection) Init() NSURLConnection {
 	rv := objc.Send[NSURLConnection](u.ID, objc.Sel("init"))
@@ -211,15 +197,6 @@ func NewNSURLConnection() NSURLConnection {
 	rv := objc.Send[NSURLConnection](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Causes the connection to begin loading data, if it has not already.
 //
@@ -337,10 +314,6 @@ func (u NSURLConnection) UnscheduleFromRunLoopForMode(aRunLoop INSRunLoop, mode 
 	objc.Send[objc.ID](u.ID, objc.Sel("unscheduleFromRunLoop:forMode:"), aRunLoop, objc.String(string(mode)))
 }
 
-
-
-
-
 // Returns whether a request can be handled based on a preflight evaluation.
 //
 // request: The request to evaluate. The connection deep-copies the request on
@@ -367,13 +340,6 @@ func (_NSURLConnectionClass NSURLConnectionClass) CanHandleRequest(request INSUR
 	return rv
 }
 
-
-
-
-
-
-
-
 // A deep copy of the original connection request.
 //
 // # Discussion
@@ -388,8 +354,6 @@ func (u NSURLConnection) OriginalRequest() INSURLRequest {
 	return NSURLRequestFromID(objc.ID(rv))
 }
 
-
-
 // The current connection request.
 //
 // # Discussion
@@ -403,26 +367,4 @@ func (u NSURLConnection) CurrentRequest() INSURLRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("currentRequest"))
 	return NSURLRequestFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -37,12 +37,6 @@ func (nc NSAppleEventDescriptorClass) Alloc() NSAppleEventDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A wrapper for the Apple event descriptor data type.
 //
 // # Overview
@@ -178,14 +172,10 @@ type NSAppleEventDescriptor struct {
 //
 // A wrapper for the Apple event descriptor data type.
 func NSAppleEventDescriptorFromID(id objc.ID) NSAppleEventDescriptor {
-	return NSAppleEventDescriptor{objectivec.Object{id}}
+	return NSAppleEventDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: NSAppleEventDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAppleEventDescriptor] class.
 //
@@ -250,7 +240,9 @@ func NSAppleEventDescriptorFromID(id objc.ID) NSAppleEventDescriptor {
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor
 type INSAppleEventDescriptor interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating and Initializing Descriptors
 
@@ -341,15 +333,7 @@ type INSAppleEventDescriptor interface {
 	// Topic: Instance Methods
 
 	SendEventWithOptionsTimeoutError(sendOptions NSAppleEventSendOptions, timeoutInSeconds float64) (INSAppleEventDescriptor, error)
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSAppleEventDescriptor
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a NSAppleEventDescriptor) Init() NSAppleEventDescriptor {
@@ -370,11 +354,6 @@ func NewNSAppleEventDescriptor() NSAppleEventDescriptor {
 	return rv
 }
 
-
-
-
-
-
 // Initializes a newly allocated instance as an empty list descriptor.
 //
 // # Return Value
@@ -392,7 +371,6 @@ func NewAppleEventDescriptorListDescriptor() NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initListDescriptor"))
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 // Initializes a newly allocated instance as a descriptor that is an Apple
 // event record.
@@ -414,7 +392,6 @@ func NewAppleEventDescriptorRecordDescriptor() NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initRecordDescriptor"))
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 // Initializes a newly allocated instance as a descriptor for the specified
 // Carbon [AEDesc] structure.
@@ -439,14 +416,12 @@ func NewAppleEventDescriptorWithAEDescNoCopy(aeDesc objectivec.IObject) NSAppleE
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(applicationURL:)
 func NewAppleEventDescriptorWithApplicationURL(applicationURL INSURL) NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(getNSAppleEventDescriptorClass().class), objc.Sel("descriptorWithApplicationURL:"), applicationURL)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 // Creates a descriptor initialized with type `typeBoolean` that stores the
 // specified Boolean value.
@@ -463,14 +438,12 @@ func NewAppleEventDescriptorWithBoolean(boolean bool) NSAppleEventDescriptor {
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(bundleIdentifier:)
 func NewAppleEventDescriptorWithBundleIdentifier(bundleIdentifier string) NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(getNSAppleEventDescriptorClass().class), objc.Sel("descriptorWithBundleIdentifier:"), objc.String(bundleIdentifier))
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
@@ -480,14 +453,12 @@ func NewAppleEventDescriptorWithCoder(coder INSCoder) NSAppleEventDescriptor {
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(date:)
 func NewAppleEventDescriptorWithDate(date INSDate) NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(getNSAppleEventDescriptorClass().class), objc.Sel("descriptorWithDate:"), date)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 // Initializes a newly allocated instance as a descriptor with the specified
 // descriptor type and data (from an arbitrary sequence of bytes and a length
@@ -511,7 +482,6 @@ func NewAppleEventDescriptorWithDescriptorTypeBytesLength(descriptorType uint32,
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
 // Initializes a newly allocated instance as a descriptor with the specified
 // descriptor type and data (from an instance of [NSData]).
 //
@@ -531,14 +501,12 @@ func NewAppleEventDescriptorWithDescriptorTypeData(descriptorType uint32, data I
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(double:)
 func NewAppleEventDescriptorWithDouble(doubleValue float64) NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(getNSAppleEventDescriptorClass().class), objc.Sel("descriptorWithDouble:"), doubleValue)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 // Creates a descriptor initialized with type `typeEnumerated` that stores the
 // specified enumerator data type value.
@@ -556,7 +524,6 @@ func NewAppleEventDescriptorWithEnumCode(enumerator uint32) NSAppleEventDescript
 	rv := objc.Send[objc.ID](objc.ID(getNSAppleEventDescriptorClass().class), objc.Sel("descriptorWithEnumCode:"), enumerator)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 // Initializes a newly allocated instance as a descriptor for an Apple event,
 // initialized with the specified values.
@@ -594,14 +561,12 @@ func NewAppleEventDescriptorWithEventClassEventIDTargetDescriptorReturnIDTransac
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(fileURL:)
 func NewAppleEventDescriptorWithFileURL(fileURL INSURL) NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(getNSAppleEventDescriptorClass().class), objc.Sel("descriptorWithFileURL:"), fileURL)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 // Creates a descriptor initialized with Apple event type `typeSInt32` that
 // stores the specified integer value.
@@ -619,14 +584,12 @@ func NewAppleEventDescriptorWithInt32(signedInt int32) NSAppleEventDescriptor {
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/init(processIdentifier:)
 func NewAppleEventDescriptorWithProcessIdentifier(processIdentifier int32) NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(getNSAppleEventDescriptorClass().class), objc.Sel("descriptorWithProcessIdentifier:"), processIdentifier)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 
 // Creates a descriptor initialized with type `typeUnicodeText` that stores
 // the text from the specified string.
@@ -644,7 +607,6 @@ func NewAppleEventDescriptorWithString(string_ string) NSAppleEventDescriptor {
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
 // Creates a descriptor initialized with type `typeType` that stores the
 // specified type value.
 //
@@ -659,12 +621,6 @@ func NewAppleEventDescriptorWithTypeCode(typeCode uint32) NSAppleEventDescriptor
 	rv := objc.Send[objc.ID](objc.ID(getNSAppleEventDescriptorClass().class), objc.Sel("descriptorWithTypeCode:"), typeCode)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
-
-
-
-
-
 
 // Initializes a newly allocated instance as an empty list descriptor.
 //
@@ -1026,7 +982,7 @@ func (a NSAppleEventDescriptor) SetParamDescriptorForKeyword(descriptor INSApple
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/sendEvent(options:timeout:)
 func (a NSAppleEventDescriptor) SendEventWithOptionsTimeoutError(sendOptions NSAppleEventSendOptions, timeoutInSeconds float64) (INSAppleEventDescriptor, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sendEventWithOptions:timeout:error:"), sendOptions, timeoutInSeconds, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1051,10 +1007,6 @@ func (a NSAppleEventDescriptor) InitWithCoder(coder INSCoder) NSAppleEventDescri
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-
-
-
 
 // Creates a descriptor that represents an Apple event, initialized according
 // to the specified information.
@@ -1210,13 +1162,6 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) DescriptorWithDe
 	return NSAppleEventDescriptorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The [AEDesc] structure encapsulated by the receiver, if it has one.
 //
 // # Discussion
@@ -1229,8 +1174,6 @@ func (a NSAppleEventDescriptor) AeDesc() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("aeDesc"))
 	return objectivec.Object{ID: rv}
 }
-
-
 
 // The contents of the receiver as a Boolean value, coercing (to
 // `typeBoolean`) if necessary.
@@ -1246,8 +1189,6 @@ func (a NSAppleEventDescriptor) BooleanValue() bool {
 	return rv
 }
 
-
-
 // The receiver’s data.
 //
 // # Discussion
@@ -1261,8 +1202,6 @@ func (a NSAppleEventDescriptor) Data() INSData {
 	return NSDataFromID(objc.ID(rv))
 }
 
-
-
 // The descriptor type of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/descriptorType
@@ -1270,8 +1209,6 @@ func (a NSAppleEventDescriptor) DescriptorType() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("descriptorType"))
 	return rv
 }
-
-
 
 // The contents of the receiver as an enumeration type, coercing to
 // `typeEnumerated` if necessary.
@@ -1287,8 +1224,6 @@ func (a NSAppleEventDescriptor) EnumCodeValue() uint32 {
 	return rv
 }
 
-
-
 // The contents of the receiver as an integer, coercing (to `typeSInt32`) if
 // necessary.
 //
@@ -1303,8 +1238,6 @@ func (a NSAppleEventDescriptor) Int32Value() int32 {
 	return rv
 }
 
-
-
 // The number of descriptors in the receiver’s descriptor list.
 //
 // # Discussion
@@ -1317,8 +1250,6 @@ func (a NSAppleEventDescriptor) NumberOfItems() int {
 	rv := objc.Send[int](a.ID, objc.Sel("numberOfItems"))
 	return rv
 }
-
-
 
 // The contents of the receiver as a Unicode text string, coercing to
 // `typeUnicodeText` if necessary.
@@ -1333,8 +1264,6 @@ func (a NSAppleEventDescriptor) StringValue() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The contents of the receiver as a type, coercing to `typeType` if
 // necessary.
 //
@@ -1347,8 +1276,6 @@ func (a NSAppleEventDescriptor) TypeCodeValue() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("typeCodeValue"))
 	return rv
 }
-
-
 
 // The event class for the receiver.
 //
@@ -1371,8 +1298,6 @@ func (a NSAppleEventDescriptor) EventClass() uint32 {
 	return rv
 }
 
-
-
 // The event ID for the receiver.
 //
 // # Discussion
@@ -1392,8 +1317,6 @@ func (a NSAppleEventDescriptor) EventID() uint32 {
 	return rv
 }
 
-
-
 // The receiver’s return ID (the ID for a reply Apple event).
 //
 // # Discussion
@@ -1407,8 +1330,6 @@ func (a NSAppleEventDescriptor) ReturnID() int16 {
 	rv := objc.Send[int16](a.ID, objc.Sel("returnID"))
 	return rv
 }
-
-
 
 // The receiver’s transaction ID, if any.
 //
@@ -1427,15 +1348,11 @@ func (a NSAppleEventDescriptor) TransactionID() int32 {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/dateValue
 func (a NSAppleEventDescriptor) DateValue() INSDate {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dateValue"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/doubleValue
 func (a NSAppleEventDescriptor) DoubleValue() float64 {
@@ -1443,15 +1360,11 @@ func (a NSAppleEventDescriptor) DoubleValue() float64 {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/fileURLValue
 func (a NSAppleEventDescriptor) FileURLValue() INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fileURLValue"))
 	return NSURLFromID(objc.ID(rv))
 }
-
-
 
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/isRecordDescriptor
 func (a NSAppleEventDescriptor) IsRecordDescriptor() bool {
@@ -1459,33 +1372,9 @@ func (a NSAppleEventDescriptor) IsRecordDescriptor() bool {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

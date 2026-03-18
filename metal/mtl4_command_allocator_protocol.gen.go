@@ -35,8 +35,6 @@ type MTL4CommandAllocator interface {
 	Reset()
 }
 
-
-
 // MTL4CommandAllocatorObject wraps an existing Objective-C object that conforms to the MTL4CommandAllocator protocol.
 type MTL4CommandAllocatorObject struct {
 	objectivec.Object
@@ -45,8 +43,6 @@ func (o MTL4CommandAllocatorObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4CommandAllocatorObjectFromID constructs a [MTL4CommandAllocatorObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4CommandAllocatorObjectFromID(id objc.ID) MTL4CommandAllocatorObject {
@@ -54,9 +50,6 @@ func MTL4CommandAllocatorObjectFromID(id objc.ID) MTL4CommandAllocatorObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns the GPU device that this command allocator belongs to.
 //
@@ -111,14 +104,4 @@ func (o MTL4CommandAllocatorObject) Reset() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
 	}
-
-
-
-
-
-
-
-
-
-
 

@@ -35,12 +35,6 @@ func (nc NSDirectoryEnumeratorClass) Alloc() NSDirectoryEnumerator {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that enumerates the contents of a directory.
 //
 // # Overview
@@ -82,10 +76,6 @@ func NSDirectoryEnumeratorFromID(id objc.ID) NSDirectoryEnumerator {
 }
 // NOTE: NSDirectoryEnumerator adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSDirectoryEnumerator] class.
 //
@@ -129,10 +119,6 @@ type INSDirectoryEnumerator interface {
 	IsEnumeratingDirectoryPostOrder() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDirectoryEnumerator) Init() NSDirectoryEnumerator {
 	rv := objc.Send[NSDirectoryEnumerator](d.ID, objc.Sel("init"))
@@ -151,15 +137,6 @@ func NewNSDirectoryEnumerator() NSDirectoryEnumerator {
 	rv := objc.Send[NSDirectoryEnumerator](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Causes the receiver to skip recursion into the most recently obtained
 // subdirectory.
@@ -181,17 +158,6 @@ func (d NSDirectoryEnumerator) SkipDescendants() {
 	objc.Send[objc.ID](d.ID, objc.Sel("skipDescendants"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A dictionary with the attributes of the directory at which enumeration
 // started.
 //
@@ -206,8 +172,6 @@ func (d NSDirectoryEnumerator) DirectoryAttributes() INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("directoryAttributes"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
-
 
 // A dictionary with the attributes of the most recently returned file or
 // subdirectory (as referenced by the pathname).
@@ -224,8 +188,6 @@ func (d NSDirectoryEnumerator) FileAttributes() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The number of levels deep the current object is in the directory hierarchy
 // being enumerated.
 //
@@ -241,37 +203,9 @@ func (d NSDirectoryEnumerator) Level() uint {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerator/isEnumeratingDirectoryPostOrder
 func (d NSDirectoryEnumerator) IsEnumeratingDirectoryPostOrder() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEnumeratingDirectoryPostOrder"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

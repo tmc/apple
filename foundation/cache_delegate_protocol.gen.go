@@ -14,8 +14,6 @@ type NSCacheDelegate interface {
 	objectivec.IObject
 }
 
-
-
 // NSCacheDelegateObject wraps an existing Objective-C object that conforms to the NSCacheDelegate protocol.
 type NSCacheDelegateObject struct {
 	objectivec.Object
@@ -24,8 +22,6 @@ func (o NSCacheDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSCacheDelegateObjectFromID constructs a [NSCacheDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSCacheDelegateObjectFromID(id objc.ID) NSCacheDelegateObject {
@@ -33,9 +29,6 @@ func NSCacheDelegateObjectFromID(id objc.ID) NSCacheDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Called when an object is about to be evicted or removed from the cache.
 //
@@ -54,10 +47,4 @@ func (o NSCacheDelegateObject) CacheWillEvictObject(cache INSCache, obj objectiv
 	
 	objc.Send[struct{}](o.ID, objc.Sel("cache:willEvictObject:"), cache, obj)
 	}
-
-
-
-
-
-
 

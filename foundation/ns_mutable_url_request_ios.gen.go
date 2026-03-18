@@ -30,15 +30,3 @@ func (m NSMutableURLRequest) BindToHotspotHelperCommand(command objectivec.IObje
 objc.Send[objc.ID](m.ID, objc.Sel("bindToHotspotHelperCommand:"), command)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-

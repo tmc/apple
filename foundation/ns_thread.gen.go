@@ -37,12 +37,6 @@ func (tc ThreadClass) Alloc() Thread {
 	return rv
 }
 
-
-
-
-
-
-
 // A thread of execution.
 //
 // # Overview
@@ -127,17 +121,13 @@ type Thread struct {
 //
 // A thread of execution.
 func ThreadFromID(id objc.ID) Thread {
-	return NSThread{objectivec.Object{id}}
+	return NSThread{objectivec.Object{ID: id}}
 }
 
 // NSThreadFromID is an alias for [ThreadFromID] for cross-framework compatibility.
 func NSThreadFromID(id objc.ID) Thread { return ThreadFromID(id) }
 // NOTE: Thread adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [Thread] class.
 //
@@ -260,10 +250,6 @@ type IThread interface {
 	InitWithBlock(block VoidHandler) Thread
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t Thread) Init() Thread {
 	rv := objc.Send[Thread](t.ID, objc.Sel("init"))
@@ -282,11 +268,6 @@ func NewThread() Thread {
 	rv := objc.Send[Thread](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns an [NSThread] object initialized with the given arguments.
 //
@@ -312,12 +293,6 @@ func NewThreadWithTargetSelectorObject(target objectivec.IObject, selector objc.
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTarget:selector:object:"), target, selector, argument)
 	return ThreadFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an [NSThread] object initialized with the given arguments.
 //
@@ -407,15 +382,11 @@ func (t Thread) Cancel() {
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/init(block:)
 func (t Thread) InitWithBlock(block VoidHandler) Thread {
-		_block0, _cleanup0 := NewVoidBlock(block)
+_block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
-		rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithBlock:"), _block0)
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithBlock:"), _block0)
 	return NSThreadFromID(rv)
 }
-
-
-
-
 
 // Detaches a new thread and uses the specified selector as the thread entry
 // point.
@@ -566,17 +537,10 @@ func (_ThreadClass ThreadClass) SetThreadPriority(p float64) bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/detachNewThread(_:)
 func (_ThreadClass ThreadClass) DetachNewThreadWithBlock(block VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(block)
+_block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
-		objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("detachNewThreadWithBlock:"), _block0)
+	objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("detachNewThreadWithBlock:"), _block0)
 }
-
-
-
-
-
-
-
 
 // A Boolean value that indicates whether the receiver is executing.
 //
@@ -593,8 +557,6 @@ func (t Thread) Executing() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the receiver has finished execution.
 //
 // # Discussion
@@ -609,8 +571,6 @@ func (t Thread) Finished() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isFinished"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the receiver is cancelled.
 //
@@ -630,8 +590,6 @@ func (t Thread) Cancelled() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the receiver is the main thread.
 //
 // # Discussion
@@ -646,8 +604,6 @@ func (t Thread) IsMainThread() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isMainThread"))
 	return rv
 }
-
-
 
 // The thread object’s dictionary.
 //
@@ -666,8 +622,6 @@ func (t Thread) ThreadDictionary() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // A key with a corresponding value in the thread dictionary.
 //
 // See: https://developer.apple.com/documentation/foundation/nsassertionhandlerkey
@@ -675,8 +629,6 @@ func (t Thread) NSAssertionHandlerKey() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSAssertionHandlerKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The name of the receiver.
 //
@@ -688,8 +640,6 @@ func (t Thread) Name() string {
 func (t Thread) SetName(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
 
 // The stack size of the receiver, in bytes.
 //
@@ -711,8 +661,6 @@ func (t Thread) SetStackSize(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStackSize:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/Thread/qualityOfService
 func (t Thread) QualityOfService() QualityOfService {
 	rv := objc.Send[QualityOfService](t.ID, objc.Sel("qualityOfService"))
@@ -721,8 +669,6 @@ func (t Thread) QualityOfService() QualityOfService {
 func (t Thread) SetQualityOfService(value QualityOfService) {
 	objc.Send[struct{}](t.ID, objc.Sel("setQualityOfService:"), value)
 }
-
-
 
 // The receiver’s priority
 //
@@ -745,8 +691,6 @@ func (t Thread) SetThreadPriority(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setThreadPriority:"), value)
 }
 
-
-
 // Not implemented.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsdidbecomesinglethreaded
@@ -754,8 +698,6 @@ func (t Thread) NSDidBecomeSingleThreaded() NSNotificationName {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSDidBecomeSingleThreadedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
 
 // An
 //
@@ -765,8 +707,6 @@ func (t Thread) NSThreadWillExit() NSNotificationName {
 	return NSNotificationName(NSStringFromID(rv).String())
 }
 
-
-
 // Posted when the first thread is detached from the current thread. The
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nswillbecomemultithreaded
@@ -774,12 +714,6 @@ func (t Thread) NSWillBecomeMultiThreaded() NSNotificationName {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("NSWillBecomeMultiThreadedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
 
 // Returns the [NSThread] object representing the main thread.
 //
@@ -793,8 +727,6 @@ func (_ThreadClass ThreadClass) MainThread() Thread {
 	return NSThreadFromID(objc.ID(rv))
 }
 
-
-
 // Returns the thread object representing the current thread of execution.
 //
 // # Return Value
@@ -806,8 +738,6 @@ func (_ThreadClass ThreadClass) CurrentThread() Thread {
 	rv := objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("currentThread"))
 	return NSThreadFromID(objc.ID(rv))
 }
-
-
 
 // Returns an array containing the call stack return addresses.
 //
@@ -823,8 +753,6 @@ func (_ThreadClass ThreadClass) CallStackReturnAddresses() []NSNumber {
 		return NSNumberFromID(id)
 	})
 }
-
-
 
 // Returns an array containing the call stack symbols.
 //
@@ -845,19 +773,6 @@ func (_ThreadClass ThreadClass) CallStackSymbols() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_ThreadClass.class), objc.Sel("callStackSymbols"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // InitWithBlockSync is a synchronous wrapper around [Thread.InitWithBlock].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -888,9 +803,4 @@ func (tc ThreadClass) DetachNewThreadWithBlockSync(ctx context.Context) error {
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

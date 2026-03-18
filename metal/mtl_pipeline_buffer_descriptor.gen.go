@@ -36,12 +36,6 @@ func (mc MTLPipelineBufferDescriptorClass) Alloc() MTLPipelineBufferDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // The mutability options for a buffer that a render or compute pipeline uses.
 //
 // # Overview
@@ -69,14 +63,10 @@ type MTLPipelineBufferDescriptor struct {
 //
 // The mutability options for a buffer that a render or compute pipeline uses.
 func MTLPipelineBufferDescriptorFromID(id objc.ID) MTLPipelineBufferDescriptor {
-	return MTLPipelineBufferDescriptor{objectivec.Object{id}}
+	return MTLPipelineBufferDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLPipelineBufferDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLPipelineBufferDescriptor] class.
 //
@@ -96,10 +86,6 @@ type IMTLPipelineBufferDescriptor interface {
 	SetMutability(value MTLMutability)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (p MTLPipelineBufferDescriptor) Init() MTLPipelineBufferDescriptor {
 	rv := objc.Send[MTLPipelineBufferDescriptor](p.ID, objc.Sel("init"))
@@ -118,26 +104,6 @@ func NewMTLPipelineBufferDescriptor() MTLPipelineBufferDescriptor {
 	rv := objc.Send[MTLPipelineBufferDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // A mutability option that determines whether you can update a buffer’s
 // contents before related commands use the buffer.
@@ -162,27 +128,4 @@ func (p MTLPipelineBufferDescriptor) Mutability() MTLMutability {
 func (p MTLPipelineBufferDescriptor) SetMutability(value MTLMutability) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMutability:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

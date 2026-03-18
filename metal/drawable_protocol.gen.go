@@ -44,8 +44,6 @@ type MTLDrawable interface {
 	PresentedTime() float64
 }
 
-
-
 // MTLDrawableObject wraps an existing Objective-C object that conforms to the MTLDrawable protocol.
 type MTLDrawableObject struct {
 	objectivec.Object
@@ -54,8 +52,6 @@ func (o MTLDrawableObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLDrawableObjectFromID constructs a [MTLDrawableObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLDrawableObjectFromID(id objc.ID) MTLDrawableObject {
@@ -63,9 +59,6 @@ func MTLDrawableObjectFromID(id objc.ID) MTLDrawableObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A positive integer that identifies the drawable.
 //
@@ -168,14 +161,4 @@ func (o MTLDrawableObject) PresentedTime() float64 {
 	rv := objc.Send[float64](o.ID, objc.Sel("presentedTime"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
 

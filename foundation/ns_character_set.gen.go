@@ -36,12 +36,6 @@ func (nc NSCharacterSetClass) Alloc() NSCharacterSet {
 	return rv
 }
 
-
-
-
-
-
-
 // An object representing a fixed set of Unicode character values for use in
 // search operations.
 //
@@ -86,10 +80,6 @@ func (nc NSCharacterSetClass) Alloc() NSCharacterSet {
 // [CharacterSet]: https://developer.apple.com/documentation/Foundation/CharacterSet
 // [Toll-Free Bridging]: https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Toll-FreeBridgin/Toll-FreeBridgin.html#//apple_ref/doc/uid/TP40010810-CH2
 //
-// # Creating a Custom Character Set
-//
-//   - [NSCharacterSet.InitWithCoder]
-//
 // # Creating and Managing Character Sets as Bitmap Representations
 //
 //   - [NSCharacterSet.BitmapRepresentation]: An [NSData] object encoding the receiver in binary format.
@@ -115,20 +105,12 @@ type NSCharacterSet struct {
 // An object representing a fixed set of Unicode character values for use in
 // search operations.
 func NSCharacterSetFromID(id objc.ID) NSCharacterSet {
-	return NSCharacterSet{objectivec.Object{id}}
+	return NSCharacterSet{objectivec.Object{ID: id}}
 }
 // NOTE: NSCharacterSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCharacterSet] class.
-//
-// # Creating a Custom Character Set
-//
-//   - [INSCharacterSet.InitWithCoder]
 //
 // # Creating and Managing Character Sets as Bitmap Representations
 //
@@ -148,12 +130,10 @@ func NSCharacterSetFromID(id objc.ID) NSCharacterSet {
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet
 type INSCharacterSet interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 	NSMutableCopying
-
-	// Topic: Creating a Custom Character Set
-
-	InitWithCoder(coder INSCoder) NSCharacterSet
+	NSSecureCoding
 
 	// Topic: Creating and Managing Character Sets as Bitmap Representations
 
@@ -175,14 +155,7 @@ type INSCharacterSet interface {
 	IsSupersetOfSet(theOtherSet INSCharacterSet) bool
 	// Returns a Boolean value that indicates whether a given long character is a member of the receiver.
 	LongCharacterIsMember(theLongChar uint32) bool
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCharacterSet) Init() NSCharacterSet {
@@ -202,11 +175,6 @@ func NewNSCharacterSet() NSCharacterSet {
 	rv := objc.Send[NSCharacterSet](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Returns a character set containing characters determined by a given bitmap
 // representation.
@@ -242,7 +210,6 @@ func NewCharacterSetWithBitmapRepresentation(data INSData) NSCharacterSet {
 	return NSCharacterSetFromID(rv)
 }
 
-
 // Returns a character set containing the characters in a given string.
 //
 // aString: A string containing characters for the new character set.
@@ -258,7 +225,6 @@ func NewCharacterSetWithCharactersInString(aString string) NSCharacterSet {
 	return NSCharacterSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/init(coder:)
 func NewCharacterSetWithCoder(coder INSCoder) NSCharacterSet {
@@ -266,7 +232,6 @@ func NewCharacterSetWithCoder(coder INSCoder) NSCharacterSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSCharacterSetFromID(rv)
 }
-
 
 // Returns a character set read from the bitmap representation stored in the
 // file a given path.
@@ -296,7 +261,6 @@ func NewCharacterSetWithContentsOfFile(fName string) NSCharacterSet {
 	return NSCharacterSetFromID(rv)
 }
 
-
 // Returns a character set containing characters with Unicode values in a
 // given range.
 //
@@ -319,12 +283,6 @@ func NewCharacterSetWithRange(aRange NSRange) NSCharacterSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSCharacterSetClass().class), objc.Sel("characterSetWithRange:"), aRange)
 	return NSCharacterSetFromID(rv)
 }
-
-
-
-
-
-
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/init(coder:)
@@ -425,17 +383,6 @@ func (c NSCharacterSet) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An [NSData] object encoding the receiver in binary format.
 //
 // # Discussion
@@ -471,8 +418,6 @@ func (c NSCharacterSet) BitmapRepresentation() INSData {
 	return NSDataFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing only characters that don’t exist in the
 // receiver.
 //
@@ -486,12 +431,6 @@ func (c NSCharacterSet) InvertedSet() INSCharacterSet {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("invertedSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
-
-
-
-
 
 // A character set containing the characters in Unicode General Categories L*,
 // M*, and N*.
@@ -511,8 +450,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) AlphanumericCharacterSet() NSCha
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing the characters in Unicode General Category Lt.
 //
 // # Return Value
@@ -524,8 +461,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) CapitalizedLetterCharacterSet() 
 	rv := objc.Send[objc.ID](objc.ID(_NSCharacterSetClass.class), objc.Sel("capitalizedLetterCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
 
 // A character set containing the characters in Unicode General Category Cc
 // and Cf.
@@ -546,8 +481,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) ControlCharacterSet() NSCharacte
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing the characters in the category of Decimal
 // Numbers.
 //
@@ -566,8 +499,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) DecimalDigitCharacterSet() NSCha
 	rv := objc.Send[objc.ID](objc.ID(_NSCharacterSetClass.class), objc.Sel("decimalDigitCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
 
 // A character set containing individual Unicode characters that can also be
 // represented as composed character sequences (such as for letters with
@@ -589,8 +520,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) DecomposableCharacterSet() NSCha
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing values in the category of Non-Characters or that
 // have not yet been defined in version 3.2 of the Unicode standard.
 //
@@ -603,8 +532,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) IllegalCharacterSet() NSCharacte
 	rv := objc.Send[objc.ID](objc.ID(_NSCharacterSetClass.class), objc.Sel("illegalCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
 
 // A character set containing the characters in Unicode General Category L* &
 // M*.
@@ -624,8 +551,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) LetterCharacterSet() NSCharacter
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing the characters in Unicode General Category Ll.
 //
 // # Return Value
@@ -643,8 +568,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) LowercaseLetterCharacterSet() NS
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing the newline characters (`U+000A` ~ `U+000D`,
 // `U+0085`, `U+2028`, and `U+2029`).
 //
@@ -657,8 +580,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) NewlineCharacterSet() NSCharacte
 	rv := objc.Send[objc.ID](objc.ID(_NSCharacterSetClass.class), objc.Sel("newlineCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
 
 // A character set containing the characters in Unicode General Category M*.
 //
@@ -678,8 +599,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) NonBaseCharacterSet() NSCharacte
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing the characters in Unicode General Category P*.
 //
 // # Return Value
@@ -698,8 +617,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) PunctuationCharacterSet() NSChar
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing the characters in Unicode General Category S*.
 //
 // # Return Value
@@ -716,8 +633,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) SymbolCharacterSet() NSCharacter
 	rv := objc.Send[objc.ID](objc.ID(_NSCharacterSetClass.class), objc.Sel("symbolCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
 
 // A character set containing the characters in Unicode General Category Lu
 // and Lt.
@@ -737,8 +652,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) UppercaseLetterCharacterSet() NS
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // A character set containing characters in Unicode General Category Z*,
 // `U+000A` ~ `U+000D`, and `U+0085`.
 //
@@ -751,8 +664,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) WhitespaceAndNewlineCharacterSet
 	rv := objc.Send[objc.ID](objc.ID(_NSCharacterSetClass.class), objc.Sel("whitespaceAndNewlineCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
 
 // A character set containing the characters in Unicode General Category Zs
 // and `CHARACTER TABULATION` (`U+0009`).
@@ -771,8 +682,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) WhitespaceCharacterSet() NSChara
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // Returns the character set for characters allowed in a fragment URL
 // component.
 //
@@ -788,8 +697,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLFragmentAllowedCharacterSet()
 	rv := objc.Send[objc.ID](objc.ID(_NSCharacterSetClass.class), objc.Sel("URLFragmentAllowedCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
 
 // Returns the character set for characters allowed in a host URL
 // subcomponent.
@@ -808,8 +715,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLHostAllowedCharacterSet() NSC
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // Returns the character set for characters allowed in a password URL
 // subcomponent.
 //
@@ -827,8 +732,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLPasswordAllowedCharacterSet()
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // Returns the character set for characters allowed in a path URL component.
 //
 // # Discussion
@@ -845,8 +748,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLPathAllowedCharacterSet() NSC
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
 // Returns the character set for characters allowed in a query URL component.
 //
 // # Discussion
@@ -861,8 +762,6 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLQueryAllowedCharacterSet() NS
 	rv := objc.Send[objc.ID](objc.ID(_NSCharacterSetClass.class), objc.Sel("URLQueryAllowedCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
-
 
 // Returns the character set for characters allowed in a user URL
 // subcomponent.
@@ -881,37 +780,12 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLUserAllowedCharacterSet() NSC
 	return NSCharacterSetFromID(objc.ID(rv))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
 
 			// Protocol methods for NSMutableCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

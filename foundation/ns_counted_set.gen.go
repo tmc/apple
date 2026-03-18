@@ -36,12 +36,6 @@ func (nc NSCountedSetClass) Alloc() NSCountedSet {
 	return rv
 }
 
-
-
-
-
-
-
 // A mutable, unordered collection of distinct objects that may appear more
 // than once in the collection.
 //
@@ -105,10 +99,6 @@ func NSCountedSetFromID(id objc.ID) NSCountedSet {
 // NOTE: NSCountedSet adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCountedSet] class.
 //
 // # Examining a Counted Set
@@ -124,10 +114,6 @@ type INSCountedSet interface {
 	// Returns the count associated with a given object in the set.
 	CountForObject(object objectivec.IObject) uint
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCountedSet) Init() NSCountedSet {
@@ -148,11 +134,6 @@ func NewNSCountedSet() NSCountedSet {
 	return rv
 }
 
-
-
-
-
-
 // Returns a counted set object initialized with the contents of a given
 // array.
 //
@@ -169,7 +150,6 @@ func NewCountedSetWithArray(array []objectivec.IObject) NSCountedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSCountedSetFromID(rv)
 }
-
 
 // Returns a counted set object initialized with enough memory to hold a given
 // number of objects.
@@ -197,7 +177,6 @@ func NewCountedSetWithCapacity(numItems uint) NSCountedSet {
 	return NSCountedSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableSet/init(coder:)
 func NewCountedSetWithCoder(coder INSCoder) NSCountedSet {
@@ -206,7 +185,6 @@ func NewCountedSetWithCoder(coder INSCoder) NSCountedSet {
 	return NSCountedSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPath:)
 func NewCountedSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSCountedSet {
@@ -214,14 +192,12 @@ func NewCountedSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSCo
 	return NSCountedSetFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
 func NewCountedSetWithCollectionViewIndexPaths(indexPaths []objc.ID) NSCountedSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSCountedSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IDSliceToNSArray(indexPaths))
 	return NSCountedSetFromID(rv)
 }
-
 
 // Creates and returns a set that contains a single given object.
 //
@@ -239,7 +215,6 @@ func NewCountedSetWithObject(object objectivec.IObject) NSCountedSet {
 	rv := objc.Send[objc.ID](objc.ID(getNSCountedSetClass().class), objc.Sel("setWithObject:"), object)
 	return NSCountedSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set with members taken from the specified
 // list of objects.
@@ -268,7 +243,6 @@ func NewCountedSetWithObjects(firstObj objectivec.IObject) NSCountedSet {
 	return NSCountedSetFromID(rv)
 }
 
-
 // Returns a counted set object initialized with the contents of a given set.
 //
 // set: An set of objects to add to the new set.
@@ -284,7 +258,6 @@ func NewCountedSetWithSet(set INSSet) NSCountedSet {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSet:"), set)
 	return NSCountedSetFromID(rv)
 }
-
 
 // Initializes a newly allocated set and adds to it members of another given
 // set.
@@ -330,12 +303,6 @@ func NewCountedSetWithSetCopyItems(set INSSet, flag bool) NSCountedSet {
 	return NSCountedSetFromID(rv)
 }
 
-
-
-
-
-
-
 // Returns the count associated with a given object in the set.
 //
 // object: The object for which to return the count.
@@ -350,45 +317,4 @@ func (c NSCountedSet) CountForObject(object objectivec.IObject) uint {
 	rv := objc.Send[uint](c.ID, objc.Sel("countForObject:"), object)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

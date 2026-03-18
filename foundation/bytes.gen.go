@@ -36,12 +36,6 @@ func (bc BytesClass) Alloc() Bytes {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSSimpleCString/bytes
 type Bytes struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Bytes struct {
 
 // BytesFromID constructs a [Bytes] from an objc.ID.
 func BytesFromID(id objc.ID) Bytes {
-	return Bytes{objectivec.Object{id}}
+	return Bytes{objectivec.Object{ID: id}}
 }
 // Ensure Bytes implements IBytes.
 var _ IBytes = Bytes{}
-
-
-
-
 
 // An interface definition for the [Bytes] class.
 //
@@ -64,10 +54,6 @@ var _ IBytes = Bytes{}
 type IBytes interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b Bytes) Init() Bytes {
@@ -87,38 +73,4 @@ func NewBytes() Bytes {
 	rv := objc.Send[Bytes](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

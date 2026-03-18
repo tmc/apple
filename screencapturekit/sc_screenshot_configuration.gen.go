@@ -39,12 +39,6 @@ func (sc SCScreenshotConfigurationClass) Alloc() SCScreenshotConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that contains screenshot properties such as output width, height,
 // and image quality specifications.
 //
@@ -93,14 +87,10 @@ type SCScreenshotConfiguration struct {
 // An object that contains screenshot properties such as output width, height,
 // and image quality specifications.
 func SCScreenshotConfigurationFromID(id objc.ID) SCScreenshotConfiguration {
-	return SCScreenshotConfiguration{objectivec.Object{id}}
+	return SCScreenshotConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: SCScreenshotConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [SCScreenshotConfiguration] class.
 //
@@ -175,10 +165,6 @@ type ISCScreenshotConfiguration interface {
 	SetWidth(value int)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s SCScreenshotConfiguration) Init() SCScreenshotConfiguration {
 	rv := objc.Send[SCScreenshotConfiguration](s.ID, objc.Sel("init"))
@@ -198,26 +184,6 @@ func NewSCScreenshotConfiguration() SCScreenshotConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A uniform type identifier that specifies the screenshot’s file format;
 // HEIC, JPEG, or PNG.
 //
@@ -229,8 +195,6 @@ func (s SCScreenshotConfiguration) ContentType() uniformtypeidentifiers.UTType {
 func (s SCScreenshotConfiguration) SetContentType(value uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContentType:"), value)
 }
-
-
 
 // A rectangle that specifies whether to output screenshots in a subset of the
 // output image.
@@ -250,8 +214,6 @@ func (s SCScreenshotConfiguration) SetDestinationRect(value corefoundation.CGRec
 	objc.Send[struct{}](s.ID, objc.Sel("setDestinationRect:"), value)
 }
 
-
-
 // Specifies whether the screen capture uses attributes of the local or
 // canonical display.
 //
@@ -270,8 +232,6 @@ func (s SCScreenshotConfiguration) SetDisplayIntent(value SCScreenshotDisplayInt
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayIntent:"), value)
 }
 
-
-
 // Specifies the type of image returned to the client; standard dynamic range,
 // high dynamic range, or both.
 //
@@ -283,8 +243,6 @@ func (s SCScreenshotConfiguration) DynamicRange() SCScreenshotDynamicRange {
 func (s SCScreenshotConfiguration) SetDynamicRange(value SCScreenshotDynamicRange) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDynamicRange:"), value)
 }
-
-
 
 // Specifies the URL where the screenshot process saves the output.
 //
@@ -301,8 +259,6 @@ func (s SCScreenshotConfiguration) SetFileURL(value foundation.INSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFileURL:"), value)
 }
 
-
-
 // An integer value that specifies the output height, measured in pixels.
 //
 // # Discussion
@@ -317,8 +273,6 @@ func (s SCScreenshotConfiguration) Height() int {
 func (s SCScreenshotConfiguration) SetHeight(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHeight:"), value)
 }
-
-
 
 // A Boolean value that specifies whether to ignore framing on windows when
 // using content filters.
@@ -338,8 +292,6 @@ func (s SCScreenshotConfiguration) SetIgnoreClipping(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIgnoreClipping:"), value)
 }
 
-
-
 // A Boolean value that specifies whether to ignore framing on windows.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/ignoreShadows
@@ -350,8 +302,6 @@ func (s SCScreenshotConfiguration) IgnoreShadows() bool {
 func (s SCScreenshotConfiguration) SetIgnoreShadows(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIgnoreShadows:"), value)
 }
-
-
 
 // A Boolean that specifies whether the screenshot captures subwindows of the
 // included apps and windows.
@@ -370,8 +320,6 @@ func (s SCScreenshotConfiguration) SetIncludeChildWindows(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncludeChildWindows:"), value)
 }
 
-
-
 // A Boolean value that specifies whether the pointer appears in the
 // screenshot.
 //
@@ -387,8 +335,6 @@ func (s SCScreenshotConfiguration) ShowsCursor() bool {
 func (s SCScreenshotConfiguration) SetShowsCursor(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsCursor:"), value)
 }
-
-
 
 // A rectangle that specifies that the screenshot only samples a subset of the
 // frame input.
@@ -407,8 +353,6 @@ func (s SCScreenshotConfiguration) SetSourceRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSourceRect:"), value)
 }
 
-
-
 // An integer value that specifies the output width in pixels.
 //
 // # Discussion
@@ -423,12 +367,6 @@ func (s SCScreenshotConfiguration) Width() int {
 func (s SCScreenshotConfiguration) SetWidth(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setWidth:"), value)
 }
-
-
-
-
-
-
 
 // An array of uniform type identifiers that correspond to file formats the
 // output image supports.
@@ -446,22 +384,4 @@ func (_SCScreenshotConfigurationClass SCScreenshotConfigurationClass) SupportedC
 		return uniformtypeidentifiers.UTTypeFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

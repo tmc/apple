@@ -36,12 +36,6 @@ func (vc VNTrackOpticalFlowRequestClass) Alloc() VNTrackOpticalFlowRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that determines the direction change of vectors for each pixel
 // from a previous to current image.
 //
@@ -77,10 +71,6 @@ func VNTrackOpticalFlowRequestFromID(id objc.ID) VNTrackOpticalFlowRequest {
 // NOTE: VNTrackOpticalFlowRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNTrackOpticalFlowRequest] class.
 //
 // # Configuring the Request
@@ -109,10 +99,6 @@ type IVNTrackOpticalFlowRequest interface {
 	SetOutputPixelFormat(value uint32)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (t VNTrackOpticalFlowRequest) Init() VNTrackOpticalFlowRequest {
 	rv := objc.Send[VNTrackOpticalFlowRequest](t.ID, objc.Sel("init"))
@@ -132,11 +118,6 @@ func NewVNTrackOpticalFlowRequest() VNTrackOpticalFlowRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new request that tracks the optical from one image to another,
 // with a system callback on completion.
 //
@@ -148,7 +129,6 @@ func NewTrackOpticalFlowRequestWithCompletionHandler(completionHandler VNRequest
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNTrackOpticalFlowRequestFromID(rv)
 }
-
 
 // Initializes a video-based request.
 //
@@ -171,23 +151,6 @@ func NewTrackOpticalFlowRequestWithFrameAnalysisSpacingCompletionHandler(frameAn
 	return VNTrackOpticalFlowRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The level of accuracy to compute the optical flow.
 //
 // # Discussion
@@ -203,8 +166,6 @@ func (t VNTrackOpticalFlowRequest) ComputationAccuracy() VNTrackOpticalFlowReque
 func (t VNTrackOpticalFlowRequest) SetComputationAccuracy(value VNTrackOpticalFlowRequestComputationAccuracy) {
 	objc.Send[struct{}](t.ID, objc.Sel("setComputationAccuracy:"), value)
 }
-
-
 
 // A Boolean value that indicates the raw pixel buffer continues to emit from
 // the network.
@@ -225,8 +186,6 @@ func (t VNTrackOpticalFlowRequest) SetKeepNetworkOutput(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setKeepNetworkOutput:"), value)
 }
 
-
-
 // The pixel format type of the output value.
 //
 // # Discussion
@@ -246,27 +205,4 @@ func (t VNTrackOpticalFlowRequest) OutputPixelFormat() uint32 {
 func (t VNTrackOpticalFlowRequest) SetOutputPixelFormat(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setOutputPixelFormat:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

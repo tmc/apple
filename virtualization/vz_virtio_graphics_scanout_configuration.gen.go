@@ -35,12 +35,6 @@ func (vc VZVirtioGraphicsScanoutConfigurationClass) Alloc() VZVirtioGraphicsScan
 	return rv
 }
 
-
-
-
-
-
-
 // The configuration for a Virtio graphics device that configures the
 // dimensions of the graphics device for a Linux VM.
 //
@@ -74,10 +68,6 @@ func VZVirtioGraphicsScanoutConfigurationFromID(id objc.ID) VZVirtioGraphicsScan
 }
 // NOTE: VZVirtioGraphicsScanoutConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZVirtioGraphicsScanoutConfiguration] class.
 //
@@ -115,10 +105,6 @@ type IVZVirtioGraphicsScanoutConfiguration interface {
 	SetScanouts(value IVZVirtioGraphicsScanoutConfiguration)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioGraphicsScanoutConfiguration) Init() VZVirtioGraphicsScanoutConfiguration {
 	rv := objc.Send[VZVirtioGraphicsScanoutConfiguration](v.ID, objc.Sel("init"))
@@ -138,11 +124,6 @@ func NewVZVirtioGraphicsScanoutConfiguration() VZVirtioGraphicsScanoutConfigurat
 	return rv
 }
 
-
-
-
-
-
 // Creates a Virtio graphics device with the specified dimensions.
 //
 // widthInPixels: The graphics device width in pixels.
@@ -156,12 +137,6 @@ func NewVirtioGraphicsScanoutConfigurationWithWidthInPixelsHeightInPixels(widthI
 	return VZVirtioGraphicsScanoutConfigurationFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a Virtio graphics device with the specified dimensions.
 //
 // widthInPixels: The graphics device width in pixels.
@@ -173,17 +148,6 @@ func (v VZVirtioGraphicsScanoutConfiguration) InitWithWidthInPixelsHeightInPixel
 	rv := objc.Send[VZVirtioGraphicsScanoutConfiguration](v.ID, objc.Sel("initWithWidthInPixels:heightInPixels:"), widthInPixels, heightInPixels)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // An integer value that describes the height of the graphics device in
 // pixels.
@@ -197,8 +161,6 @@ func (v VZVirtioGraphicsScanoutConfiguration) SetHeightInPixels(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHeightInPixels:"), value)
 }
 
-
-
 // An integer value that describes the width of the graphics device in pixels.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanoutConfiguration/widthInPixels
@@ -210,8 +172,6 @@ func (v VZVirtioGraphicsScanoutConfiguration) SetWidthInPixels(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWidthInPixels:"), value)
 }
 
-
-
 // The array of output devices.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtiographicsdeviceconfiguration/scanouts
@@ -222,27 +182,4 @@ func (v VZVirtioGraphicsScanoutConfiguration) Scanouts() IVZVirtioGraphicsScanou
 func (v VZVirtioGraphicsScanoutConfiguration) SetScanouts(value IVZVirtioGraphicsScanoutConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setScanouts:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

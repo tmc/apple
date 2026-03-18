@@ -39,12 +39,6 @@ func (vc VNGenerateOpticalFlowRequestClass) Alloc() VNGenerateOpticalFlowRequest
 	return rv
 }
 
-
-
-
-
-
-
 // An object that generates directional change vectors for each pixel in the
 // targeted image.
 //
@@ -87,10 +81,6 @@ func VNGenerateOpticalFlowRequestFromID(id objc.ID) VNGenerateOpticalFlowRequest
 // NOTE: VNGenerateOpticalFlowRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNGenerateOpticalFlowRequest] class.
 //
 // # Configuring the Request
@@ -131,10 +121,6 @@ type IVNGenerateOpticalFlowRequest interface {
 	VNGenerateOpticalFlowRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (g VNGenerateOpticalFlowRequest) Init() VNGenerateOpticalFlowRequest {
 	rv := objc.Send[VNGenerateOpticalFlowRequest](g.ID, objc.Sel("init"))
@@ -154,11 +140,6 @@ func NewVNGenerateOpticalFlowRequest() VNGenerateOpticalFlowRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -176,7 +157,6 @@ func NewGenerateOpticalFlowRequestWithCompletionHandler(completionHandler VNRequ
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
-
 // Creates a new request targeting a Core Graphics image.
 //
 // cgImage: The targeted Core Graphics image.
@@ -189,7 +169,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOptions(cgImage coregraphic
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:"), cgImage, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image, executing the
 // completion handler when done.
@@ -206,7 +185,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOptionsCompletionHandler(cg
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, completionHandler)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image of known orientation.
 //
@@ -227,7 +205,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptions(cgImage 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Graphics image of known orientation,
 // executing the completion handler when done.
@@ -252,7 +229,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptionsCompletio
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
-
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
@@ -268,7 +244,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage objectivec.
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image.
 //
@@ -287,7 +262,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ci
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image of known orientation.
 //
@@ -311,7 +285,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a Core Image image of known orientation,
 // executing the completion handler when done.
@@ -339,7 +312,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptionsCompletio
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
-
 // Creates a new request that targets an image in a sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
@@ -355,7 +327,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptions(sampleBuffer
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:"), sampleBuffer, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request with a completion handler that targets an image in a
 // sample buffer.
@@ -375,7 +346,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptionsCompletionHan
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, completionHandler)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request that targets an image of a known orientation in a
 // sample buffer.
@@ -399,7 +369,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptions(s
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request with a completion handler that targets an image of a
 // known orientation in a sample buffer.
@@ -426,7 +395,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptionsCo
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image in a pixel buffer.
 //
 // pixelBuffer: The pixel buffer containing the targeted image.
@@ -439,7 +407,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOptions(pixelBuffer c
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:"), pixelBuffer, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer.
 //
@@ -455,7 +422,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOptionsCompletionHand
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, completionHandler)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer of known
 // orientation.
@@ -477,7 +443,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptions(pi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image in a pixel buffer of known
 // orientation.
@@ -502,7 +467,6 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptionsCom
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image as raw data.
 //
 // imageData: The data containing the targeted image.
@@ -515,7 +479,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOptions(imageData foundat
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:"), imageData, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image as raw data, executing the
 // completion handler when done.
@@ -532,7 +495,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOptionsCompletionHandler(
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, completionHandler)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a raw data image of known orientation.
 //
@@ -553,7 +515,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptions(imageD
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting a raw data image of known orientation,
 // executing the completion handler when done.
@@ -578,7 +539,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptionsComplet
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
-
 // Creates a new request targeting an image at the specified URL.
 //
 // imageURL: The URL of the targeted image.
@@ -591,7 +551,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOptions(imageURL foundatio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:"), imageURL, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image at the specified URL, executing
 // the completion handler when done.
@@ -608,7 +567,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOptionsCompletionHandler(i
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, completionHandler)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image of known orientation, at the
 // specified URL.
@@ -630,7 +588,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptions(imageUR
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:"), imageURL, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
-
 
 // Creates a new request targeting an image of known orientation, at the
 // specified URL, executing the completion handler when done.
@@ -655,23 +612,6 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptionsCompleti
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The accuracy level for computing optical flow.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest/computationAccuracy-swift.property
@@ -683,8 +623,6 @@ func (g VNGenerateOpticalFlowRequest) SetComputationAccuracy(value VNGenerateOpt
 	objc.Send[struct{}](g.ID, objc.Sel("setComputationAccuracy:"), value)
 }
 
-
-
 // The output buffer’s pixel format.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest/outputPixelFormat
@@ -695,8 +633,6 @@ func (g VNGenerateOpticalFlowRequest) OutputPixelFormat() uint32 {
 func (g VNGenerateOpticalFlowRequest) SetOutputPixelFormat(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setOutputPixelFormat:"), value)
 }
-
-
 
 // A Boolean value that indicates whether to keep the raw pixel buffer coming
 // from the machine learning network.
@@ -719,8 +655,6 @@ func (g VNGenerateOpticalFlowRequest) SetKeepNetworkOutput(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setKeepNetworkOutput:"), value)
 }
 
-
-
 // A constant for specifying revision 2 of the optical flow generation
 // request.
 //
@@ -730,8 +664,6 @@ func (g VNGenerateOpticalFlowRequest) VNGenerateOpticalFlowRequestRevision2() in
 	return rv
 }
 
-
-
 // A constant for specifying revision 1 of the optical flow generation
 // request.
 //
@@ -740,27 +672,4 @@ func (g VNGenerateOpticalFlowRequest) VNGenerateOpticalFlowRequestRevision1() in
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateOpticalFlowRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

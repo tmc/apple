@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that most delegates of a URL connection implement to receive data associated with the connection.
 //
@@ -19,8 +17,6 @@ type NSURLConnectionDataDelegate interface {
 	NSURLConnectionDelegate
 }
 
-
-
 // NSURLConnectionDataDelegateObject wraps an existing Objective-C object that conforms to the NSURLConnectionDataDelegate protocol.
 type NSURLConnectionDataDelegateObject struct {
 	objectivec.Object
@@ -29,8 +25,6 @@ func (o NSURLConnectionDataDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLConnectionDataDelegateObjectFromID constructs a [NSURLConnectionDataDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLConnectionDataDelegateObjectFromID(id objc.ID) NSURLConnectionDataDelegateObject {
@@ -38,9 +32,6 @@ func NSURLConnectionDataDelegateObjectFromID(id objc.ID) NSURLConnectionDataDele
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Sent when the connection has received sufficient data to construct the URL
 // response for its request.
@@ -331,10 +322,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidFailWithError(connection
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)
 	}
 
-
-
-
-
 // NSURLConnectionDataDelegateConfig holds optional typed callbacks for [NSURLConnectionDataDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -485,8 +472,4 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLConnectionDataDelegateObjectFromID(instance)
 }
-
-
-
-
 

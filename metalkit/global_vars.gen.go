@@ -3,35 +3,35 @@
 package metalkit
 
 import (
-	"unsafe"
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
 
-var MTKTextureLoaderCubeLayoutVertical MTKTextureLoaderCubeLayout
+var (
+)
 
+var (
+	// MTKTextureLoaderCubeLayoutVertical is specifies that the source 2D image is a vertical arrangement of six cube faces.
+	//
+	// See: https://developer.apple.com/documentation/MetalKit/MTKTextureLoader/CubeLayout/vertical
+	MTKTextureLoaderCubeLayoutVertical MTKTextureLoaderCubeLayout
+)
 
+var (
+)
 
+var (
+)
 
-
-
-
-
-
-
-
-
-
-
-
+var (
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
 	}
 
-
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKModelErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -41,7 +41,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKModelErrorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -51,7 +51,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderCubeLayoutVertical"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -61,7 +61,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderErrorDomain"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -71,7 +71,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderErrorKey"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -81,7 +81,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionAllocateMipmaps"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -91,7 +91,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionCubeLayout"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -101,7 +101,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionGenerateMipmaps"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -111,7 +111,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionLoadAsArray"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -121,7 +121,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionOrigin"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -131,7 +131,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionSRGB"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -141,7 +141,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionTextureCPUCacheMode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -151,7 +151,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionTextureStorageMode"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -161,7 +161,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOptionTextureUsage"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -171,7 +171,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOriginBottomLeft"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -181,7 +181,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOriginFlippedVertically"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
@@ -191,7 +191,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTKTextureLoaderOriginTopLeft"); err == nil && ptr != 0 {
-		nsStringID := *(*objc.ID)(unsafe.Pointer(ptr))
+		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {

@@ -268,9 +268,8 @@ func NewNSSharingServiceDelegate(config NSSharingServiceDelegateConfig) NSSharin
 		fn := config.AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, positioningRect *corefoundation.CGRect, preferredEdgeID objc.ID) objc.ID {
+			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) objc.ID {
 				sharingService := NSSharingServiceFromID(sharingServiceID)
-				preferredEdge := foundation.NSRectEdgeFromID(preferredEdgeID)
 				return fn(sharingService, positioningRect, preferredEdge).GetID()
 			},
 		})

@@ -9,2106 +9,4352 @@ import (
 	"github.com/tmc/apple/foundation"
 )
 
-var AbortModalException foundation.NSExceptionName
-
-var AbortPrintingException foundation.NSExceptionName
-
-var AccessibilityActivationPointAttribute string
-
-var AccessibilityAlternateUIVisibleAttribute string
-
-var AccessibilityAnnotationElement NSAccessibilityAnnotationAttributeKey
-
-var AccessibilityAnnotationLabel NSAccessibilityAnnotationAttributeKey
-
-var AccessibilityAnnotationLocation NSAccessibilityAnnotationAttributeKey
-
-var AccessibilityAnnotationTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityAnnouncementKey NSAccessibilityNotificationUserInfoKey
-
-var AccessibilityAnnouncementRequestedNotification NSAccessibilityNotificationName
-
-var AccessibilityAnyTypeSearchKey NSAccessibilitySearchKey
-
-var AccessibilityApplicationActivatedNotification NSAccessibilityNotificationName
-
-var AccessibilityApplicationDeactivatedNotification NSAccessibilityNotificationName
-
-var AccessibilityApplicationHiddenNotification NSAccessibilityNotificationName
-
-var AccessibilityApplicationRole NSAccessibilityRole
-
-var AccessibilityApplicationShownNotification NSAccessibilityNotificationName
-
-var AccessibilityArticleSearchKey NSAccessibilitySearchKey
-
-var AccessibilityAttributedStringForRangeParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityAutoInteractableAttribute string
-
-var AccessibilityAutocorrectedTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityAutocorrectionOccurredNotification NSAccessibilityNotificationName
-
-var AccessibilityBackgroundColorTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityBlockQuoteLevelAttribute string
-
-var AccessibilityBlockquoteSameLevelSearchKey NSAccessibilitySearchKey
-
-var AccessibilityBlockquoteSearchKey NSAccessibilitySearchKey
-
-var AccessibilityBoldFontSearchKey NSAccessibilitySearchKey
-
-var AccessibilityBoundsForRangeParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityBrowserRole NSAccessibilityRole
-
-var AccessibilityBusyIndicatorRole NSAccessibilityRole
-
-var AccessibilityButtonRole NSAccessibilityRole
-
-var AccessibilityButtonSearchKey NSAccessibilitySearchKey
-
-var AccessibilityCancelAction NSAccessibilityActionName
-
-var AccessibilityCancelButtonAttribute string
-
-var AccessibilityCellRole NSAccessibilityRole
-
-var AccessibilityCenterTabStopMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
-
-var AccessibilityCentimetersUnitValue NSAccessibilityRulerUnitValue
-
-var AccessibilityCheckBoxRole NSAccessibilityRole
-
-var AccessibilityCheckBoxSearchKey NSAccessibilitySearchKey
-
-var AccessibilityChildrenInNavigationOrderAttribute string
-
-var AccessibilityCloseButtonSubrole NSAccessibilitySubrole
-
-var AccessibilityCollectionListSubrole NSAccessibilitySubrole
-
-var AccessibilityColorWellRole NSAccessibilityRole
-
-var AccessibilityColumnHeaderUIElementsAttribute string
-
-var AccessibilityColumnIndexRangeAttribute string
-
-var AccessibilityColumnRole NSAccessibilityRole
-
-var AccessibilityColumnTitlesAttribute string
-
-var AccessibilityColumnsAttribute string
-
-var AccessibilityComboBoxRole NSAccessibilityRole
-
-var AccessibilityContainsProtectedContentAttribute string
-
-var AccessibilityContentListSubrole NSAccessibilitySubrole
-
-var AccessibilityContentsAttribute string
-
-var AccessibilityControlSearchKey NSAccessibilitySearchKey
-
-var AccessibilityCreatedNotification NSAccessibilityNotificationName
-
-var AccessibilityCriticalValueAttribute string
-
-var AccessibilityCustomTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityDateTimeAreaRole NSAccessibilityRole
-
-var AccessibilityDateTimeComponentsAttribute string
-
-var AccessibilityDecimalTabStopMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
-
-var AccessibilityDecrementAction NSAccessibilityActionName
-
-var AccessibilityDecrementArrowSubrole NSAccessibilitySubrole
-
-var AccessibilityDecrementButtonAttribute string
-
-var AccessibilityDecrementPageSubrole NSAccessibilitySubrole
-
-var AccessibilityDefaultButtonAttribute string
-
-var AccessibilityDefinitionListSubrole NSAccessibilitySubrole
-
-var AccessibilityDeleteAction NSAccessibilityActionName
-
-var AccessibilityDescendingSortDirectionValue NSAccessibilitySortDirectionValue
-
-var AccessibilityDescriptionAttribute string
-
-var AccessibilityDescriptionListSubrole NSAccessibilitySubrole
-
-var AccessibilityDialogSubrole NSAccessibilitySubrole
-
-var AccessibilityDifferentTypeSearchKey NSAccessibilitySearchKey
-
-var AccessibilityDisclosedRowsAttribute string
-
-var AccessibilityDisclosingAttribute string
-
-var AccessibilityDisclosureLevelAttribute string
-
-var AccessibilityDisclosureTriangleRole NSAccessibilityRole
-
-var AccessibilityDocumentAttribute string
-
-var AccessibilityDraggingDestinationDragAcceptedNotification NSAccessibilityNotificationName
-
-var AccessibilityDraggingDestinationDragNotAcceptedNotification NSAccessibilityNotificationName
-
-var AccessibilityDraggingDestinationDropAllowedNotification NSAccessibilityNotificationName
-
-var AccessibilityDraggingDestinationDropNotAllowedNotification NSAccessibilityNotificationName
-
-var AccessibilityDraggingSourceDragBeganNotification NSAccessibilityNotificationName
-
-var AccessibilityDraggingSourceDragEndedNotification NSAccessibilityNotificationName
-
-var AccessibilityDrawerCreatedNotification NSAccessibilityNotificationName
-
-var AccessibilityDrawerRole NSAccessibilityRole
-
-var AccessibilityEditedAttribute string
-
-var AccessibilityEmbeddedImageDescriptionAttribute string
-
-var AccessibilityEnabledAttribute string
-
-var AccessibilityErrorCodeExceptionInfo string
-
-var AccessibilityExpandedAttribute string
-
-var AccessibilityExtrasMenuBarAttribute string
-
-var AccessibilityFilenameAttribute string
-
-var AccessibilityFirstLineIndentMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
-
-var AccessibilityFloatingWindowSubrole NSAccessibilitySubrole
-
-var AccessibilityFocusedAttribute string
-
-var AccessibilityFocusedUIElementChangedNotification NSAccessibilityNotificationName
-
-var AccessibilityFocusedWindowAttribute string
-
-var AccessibilityFocusedWindowChangedNotification NSAccessibilityNotificationName
-
-var AccessibilityFontBoldAttribute foundation.NSAttributedStringKey
-
-var AccessibilityFontChangeSearchKey NSAccessibilitySearchKey
-
-var AccessibilityFontColorChangeSearchKey NSAccessibilitySearchKey
-
-var AccessibilityFontFamilyKey NSAccessibilityFontAttributeKey
-
-var AccessibilityFontItalicAttribute foundation.NSAttributedStringKey
-
-var AccessibilityFontNameKey NSAccessibilityFontAttributeKey
-
-var AccessibilityFontSizeKey NSAccessibilityFontAttributeKey
-
-var AccessibilityFontTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityForegroundColorTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityFrameSearchKey NSAccessibilitySearchKey
-
-var AccessibilityFrontmostAttribute string
-
-var AccessibilityFullScreenButtonAttribute string
-
-var AccessibilityFullScreenButtonSubrole NSAccessibilitySubrole
-
-var AccessibilityGraphicSearchKey NSAccessibilitySearchKey
-
-var AccessibilityGridRole NSAccessibilityRole
-
-var AccessibilityGroupRole NSAccessibilityRole
-
-var AccessibilityGrowAreaAttribute string
-
-var AccessibilityGrowAreaRole NSAccessibilityRole
-
-var AccessibilityHandleRole NSAccessibilityRole
-
-var AccessibilityHeadIndentMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
-
-var AccessibilityHeaderAttribute string
-
-var AccessibilityHeadingLevel1SearchKey NSAccessibilitySearchKey
-
-var AccessibilityHeadingLevel2SearchKey NSAccessibilitySearchKey
-
-var AccessibilityHeadingLevel3SearchKey NSAccessibilitySearchKey
-
-var AccessibilityHeadingLevel4SearchKey NSAccessibilitySearchKey
-
-var AccessibilityHeadingLevel5SearchKey NSAccessibilitySearchKey
-
-var AccessibilityHeadingLevel6SearchKey NSAccessibilitySearchKey
-
-var AccessibilityHeadingLevelAttribute string
-
-var AccessibilityHeadingRole NSAccessibilityRole
-
-var AccessibilityHeadingSameLevelSearchKey NSAccessibilitySearchKey
-
-var AccessibilityHeadingSearchKey NSAccessibilitySearchKey
-
-var AccessibilityHelpAttribute string
-
-var AccessibilityHelpTagCreatedNotification NSAccessibilityNotificationName
-
-var AccessibilityHelpTagRole NSAccessibilityRole
-
-var AccessibilityHiddenAttribute string
-
-var AccessibilityHorizontalScrollBarAttribute string
-
-var AccessibilityHorizontalUnitDescriptionAttribute string
-
-var AccessibilityIdentifierAttribute string
-
-var AccessibilityImageRole NSAccessibilityRole
-
-var AccessibilityIncrementAction NSAccessibilityActionName
-
-var AccessibilityIncrementArrowSubrole NSAccessibilitySubrole
-
-var AccessibilityIncrementButtonAttribute string
-
-var AccessibilityIncrementPageSubrole NSAccessibilitySubrole
-
-var AccessibilityIncrementorRole NSAccessibilityRole
-
-var AccessibilityIndexForChildUIElementAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityIndexForChildUIElementInNavigationOrderAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityItalicFontSearchKey NSAccessibilitySearchKey
-
-var AccessibilityKeyboardFocusableSearchKey NSAccessibilitySearchKey
-
-var AccessibilityLabelUIElementsAttribute string
-
-var AccessibilityLabelValueAttribute string
-
-var AccessibilityLandmarkSearchKey NSAccessibilitySearchKey
-
-var AccessibilityLanguageAttribute string
-
-var AccessibilityLanguageTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityLayoutAreaRole NSAccessibilityRole
-
-var AccessibilityLayoutChangedNotification NSAccessibilityNotificationName
-
-var AccessibilityLayoutItemRole NSAccessibilityRole
-
-var AccessibilityLayoutSizeForScreenSizeParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityLevelIndicatorRole NSAccessibilityRole
-
-var AccessibilityLinkRole NSAccessibilityRole
-
-var AccessibilityLinkSearchKey NSAccessibilitySearchKey
-
-var AccessibilityLinkTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityListItemIndexTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityListItemLevelTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityListItemPrefixTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityListMarkerRole NSAccessibilityRole
-
-var AccessibilityListRole NSAccessibilityRole
-
-var AccessibilityListSearchKey NSAccessibilitySearchKey
-
-var AccessibilityLiveRegionSearchKey NSAccessibilitySearchKey
-
-var AccessibilityMainAttribute string
-
-var AccessibilityMainWindowAttribute string
-
-var AccessibilityMainWindowChangedNotification NSAccessibilityNotificationName
-
-var AccessibilityMarkedMisspelledTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityMarkerTypeAttribute string
-
-var AccessibilityMarkerTypeDescriptionAttribute string
-
-var AccessibilityMarkerUIElementsAttribute string
-
-var AccessibilityMarkerValuesAttribute string
-
-var AccessibilityMatteRole NSAccessibilityRole
-
-var AccessibilityMaxValueAttribute string
-
-var AccessibilityMenuBarAttribute string
-
-var AccessibilityMenuBarItemRole NSAccessibilityRole
-
-var AccessibilityMenuBarRole NSAccessibilityRole
-
-var AccessibilityMenuButtonRole NSAccessibilityRole
-
-var AccessibilityMenuItemRole NSAccessibilityRole
-
-var AccessibilityMenuRole NSAccessibilityRole
-
-var AccessibilityMinValueAttribute string
-
-var AccessibilityMinimizeButtonAttribute string
-
-var AccessibilityMinimizeButtonSubrole NSAccessibilitySubrole
-
-var AccessibilityMinimizedAttribute string
-
-var AccessibilityMisspelledTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityMisspelledWordSearchKey NSAccessibilitySearchKey
-
-var AccessibilityModalAttribute string
-
-var AccessibilityMovedNotification NSAccessibilityNotificationName
-
-var AccessibilityNextContentsAttribute string
-
-var AccessibilityNumberOfCharactersAttribute string
-
-var AccessibilityOrderedByRowAttribute string
-
-var AccessibilityOrientationAttribute string
-
-var AccessibilityOutlineRole NSAccessibilityRole
-
-var AccessibilityOutlineRowSubrole NSAccessibilitySubrole
-
-var AccessibilityOutlineSearchKey NSAccessibilitySearchKey
-
-var AccessibilityOverflowButtonAttribute string
-
-var AccessibilityPageRole NSAccessibilityRole
-
-var AccessibilityParentAttribute string
-
-var AccessibilityPathAttribute string
-
-var AccessibilityPicasUnitValue NSAccessibilityRulerUnitValue
-
-var AccessibilityPickAction NSAccessibilityActionName
-
-var AccessibilityPlaceholderValueAttribute string
-
-var AccessibilityPlainTextSearchKey NSAccessibilitySearchKey
-
-var AccessibilityPointsUnitValue NSAccessibilityRulerUnitValue
-
-var AccessibilityPopUpButtonRole NSAccessibilityRole
-
-var AccessibilityPopoverRole NSAccessibilityRole
-
-var AccessibilityPositionAttribute string
-
-var AccessibilityPressAction NSAccessibilityActionName
-
-var AccessibilityPreviousContentsAttribute string
-
-var AccessibilityPriorityKey NSAccessibilityNotificationUserInfoKey
-
-var AccessibilityProgressIndicatorRole NSAccessibilityRole
-
-var AccessibilityProxyAttribute string
-
-var AccessibilityRTFForRangeParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityRadioButtonRole NSAccessibilityRole
-
-var AccessibilityRadioGroupRole NSAccessibilityRole
-
-var AccessibilityRadioGroupSearchKey NSAccessibilitySearchKey
-
-var AccessibilityRaiseAction NSAccessibilityActionName
-
-var AccessibilityRangeForIndexParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityRangeForLineParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityRangeForPositionParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityRatingIndicatorSubrole NSAccessibilitySubrole
-
-var AccessibilityRelevanceIndicatorRole NSAccessibilityRole
-
-var AccessibilityRequiredAttribute string
-
-var AccessibilityResizedNotification NSAccessibilityNotificationName
-
-var AccessibilityResultsForSearchPredicateParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityRightTabStopMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
-
-var AccessibilityRoleAttribute string
-
-var AccessibilityRoleDescriptionAttribute string
-
-var AccessibilityRowCollapsedNotification NSAccessibilityNotificationName
-
-var AccessibilityRowCountAttribute string
-
-var AccessibilityRowCountChangedNotification NSAccessibilityNotificationName
-
-var AccessibilityRowExpandedNotification NSAccessibilityNotificationName
-
-var AccessibilityRowHeaderUIElementsAttribute string
-
-var AccessibilityRowRole NSAccessibilityRole
-
-var AccessibilityRowsAttribute string
-
-var AccessibilityRulerMarkerRole NSAccessibilityRole
-
-var AccessibilityRulerRole NSAccessibilityRole
-
-var AccessibilitySameTypeSearchKey NSAccessibilitySearchKey
-
-var AccessibilityScreenPointForLayoutPointParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityScreenSizeForLayoutSizeParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityScrollAreaRole NSAccessibilityRole
-
-var AccessibilityScrollBarRole NSAccessibilityRole
-
-var AccessibilityScrollToVisibleAction NSAccessibilityActionName
-
-var AccessibilitySearchButtonAttribute string
-
-var AccessibilitySearchCurrentElementKey string
-
-var AccessibilitySearchCurrentRangeKey string
-
-var AccessibilitySearchDirectionKey string
-
-var AccessibilitySearchDirectionNext string
-
-var AccessibilitySearchDirectionPrevious string
-
-var AccessibilitySearchFieldSubrole NSAccessibilitySubrole
-
-var AccessibilitySearchIdentifiersKey string
-
-var AccessibilitySearchMenuAttribute string
-
-var AccessibilitySearchResultDescriptionOverrideKey string
-
-var AccessibilitySearchResultElementKey string
-
-var AccessibilitySearchResultLoaderKey string
-
-var AccessibilitySearchResultRangeKey string
-
-var AccessibilitySearchResultsLimitKey string
-
-var AccessibilitySearchTextKey string
-
-var AccessibilitySectionListSubrole NSAccessibilitySubrole
-
-var AccessibilitySecureTextFieldSubrole NSAccessibilitySubrole
-
-var AccessibilitySelectedAttribute string
-
-var AccessibilitySelectedCellsChangedNotification NSAccessibilityNotificationName
-
-var AccessibilitySelectedChildrenAttribute string
-
-var AccessibilitySelectedChildrenChangedNotification NSAccessibilityNotificationName
-
-var AccessibilitySelectedChildrenMovedNotification NSAccessibilityNotificationName
-
-var AccessibilitySelectedColumnsAttribute string
-
-var AccessibilitySelectedColumnsChangedNotification NSAccessibilityNotificationName
-
-var AccessibilitySelectedRowsAttribute string
-
-var AccessibilitySelectedRowsChangedNotification NSAccessibilityNotificationName
-
-var AccessibilitySelectedTextAttribute string
-
-var AccessibilitySelectedTextChangedNotification NSAccessibilityNotificationName
-
-var AccessibilitySelectedTextRangeAttribute string
-
-var AccessibilitySelectedTextRangesAttribute string
-
-var AccessibilityServesAsTitleForUIElementsAttribute string
-
-var AccessibilityShadowTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilitySharedCharacterRangeAttribute string
-
-var AccessibilitySharedFocusElementsAttribute string
-
-var AccessibilitySharedTextUIElementsAttribute string
-
-var AccessibilitySheetCreatedNotification NSAccessibilityNotificationName
-
-var AccessibilitySheetRole NSAccessibilityRole
-
-var AccessibilityShowAlternateUIAction NSAccessibilityActionName
-
-var AccessibilityShowDefaultUIAction NSAccessibilityActionName
-
-var AccessibilityShowMenuAction NSAccessibilityActionName
-
-var AccessibilityShownMenuAttribute string
-
-var AccessibilitySizeAttribute string
-
-var AccessibilitySliderRole NSAccessibilityRole
-
-var AccessibilitySortButtonSubrole NSAccessibilitySubrole
-
-var AccessibilitySortDirectionAttribute string
-
-var AccessibilitySplitGroupRole NSAccessibilityRole
-
-var AccessibilitySplitterRole NSAccessibilityRole
-
-var AccessibilitySplittersAttribute string
-
-var AccessibilityStandardWindowSubrole NSAccessibilitySubrole
-
-var AccessibilityStaticTextRole NSAccessibilityRole
-
-var AccessibilityStaticTextSearchKey NSAccessibilitySearchKey
-
-var AccessibilityStrikethroughColorTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityStrikethroughTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityStringForRangeParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityStyleChangeSearchKey NSAccessibilitySearchKey
-
-var AccessibilityStyleRangeForIndexParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilitySubroleAttribute string
-
-var AccessibilitySuggestionSubrole NSAccessibilitySubrole
-
-var AccessibilitySuperscriptTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilitySwitchSubrole NSAccessibilitySubrole
-
-var AccessibilitySystemDialogSubrole NSAccessibilitySubrole
-
-var AccessibilitySystemFloatingWindowSubrole NSAccessibilitySubrole
-
-var AccessibilitySystemWideRole NSAccessibilityRole
-
-var AccessibilityTabButtonSubrole NSAccessibilitySubrole
-
-var AccessibilityTabGroupRole NSAccessibilityRole
-
-var AccessibilityTableRole NSAccessibilityRole
-
-var AccessibilityTableRowSubrole NSAccessibilitySubrole
-
-var AccessibilityTableSameLevelSearchKey NSAccessibilitySearchKey
-
-var AccessibilityTableSearchKey NSAccessibilitySearchKey
-
-var AccessibilityTabsAttribute string
-
-var AccessibilityTailIndentMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
-
-var AccessibilityTextAlignmentAttribute foundation.NSAttributedStringKey
-
-var AccessibilityTextAreaRole NSAccessibilityRole
-
-var AccessibilityTextAttachmentSubrole NSAccessibilitySubrole
-
-var AccessibilityTextCompletionAttribute string
-
-var AccessibilityTextFieldRole NSAccessibilityRole
-
-var AccessibilityTextFieldSearchKey NSAccessibilitySearchKey
-
-var AccessibilityTextInputMarkedRangeAttribute string
-
-var AccessibilityTextInputMarkingSessionBeganNotification NSAccessibilityNotificationName
-
-var AccessibilityTextInputMarkingSessionEndedNotification NSAccessibilityNotificationName
-
-var AccessibilityTextLinkSubrole NSAccessibilitySubrole
-
-var AccessibilityTextStateChangeTypeKey NSAccessibilitySearchKey
-
-var AccessibilityTextStateSyncKey NSAccessibilitySearchKey
-
-var AccessibilityTimelineSubrole NSAccessibilitySubrole
-
-var AccessibilityTitleAttribute string
-
-var AccessibilityTitleChangedNotification NSAccessibilityNotificationName
-
-var AccessibilityTitleUIElementAttribute string
-
-var AccessibilityToggleSubrole NSAccessibilitySubrole
-
-var AccessibilityToolbarButtonAttribute string
-
-var AccessibilityToolbarButtonSubrole NSAccessibilitySubrole
-
-var AccessibilityToolbarRole NSAccessibilityRole
-
-var AccessibilityTopLevelUIElementAttribute string
-
-var AccessibilityUIElementDestroyedNotification NSAccessibilityNotificationName
-
-var AccessibilityUIElementsForSearchPredicateParameterizedAttribute NSAccessibilityParameterizedAttributeName
-
-var AccessibilityUIElementsKey NSAccessibilityNotificationUserInfoKey
-
-var AccessibilityURLAttribute string
-
-var AccessibilityUnderlineColorTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityUnderlineSearchKey NSAccessibilitySearchKey
-
-var AccessibilityUnderlineTextAttribute foundation.NSAttributedStringKey
-
-var AccessibilityUnitDescriptionAttribute string
-
-var AccessibilityUnitsAttribute string
-
-var AccessibilityUnitsChangedNotification NSAccessibilityNotificationName
-
-var AccessibilityUnknownMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
-
-var AccessibilityUnknownOrientationValue NSAccessibilityOrientationValue
-
-var AccessibilityUnknownRole NSAccessibilityRole
-
-var AccessibilityUnknownSortDirectionValue NSAccessibilitySortDirectionValue
-
-var AccessibilityUnknownSubrole NSAccessibilitySubrole
-
-var AccessibilityUnknownUnitValue NSAccessibilityRulerUnitValue
-
-var AccessibilityUnvisitedLinkSearchKey NSAccessibilitySearchKey
-
-var AccessibilityValueAttribute string
-
-var AccessibilityValueChangedNotification NSAccessibilityNotificationName
-
-var AccessibilityValueDescriptionAttribute string
-
-var AccessibilityValueIndicatorRole NSAccessibilityRole
-
-var AccessibilityVerticalOrientationValue NSAccessibilityOrientationValue
-
-var AccessibilityVerticalScrollBarAttribute string
-
-var AccessibilityVerticalUnitDescriptionAttribute string
-
-var AccessibilityVerticalUnitsAttribute string
-
-var AccessibilityVisibleCellsAttribute string
-
-var AccessibilityVisibleCharacterRangeAttribute string
-
-var AccessibilityVisibleChildrenAttribute string
-
-var AccessibilityVisibleColumnsAttribute string
-
-var AccessibilityVisibleNameKey NSAccessibilityFontAttributeKey
-
-var AccessibilityVisibleRowsAttribute string
-
-var AccessibilityVisitedAttribute string
-
-var AccessibilityVisitedLinkSearchKey NSAccessibilitySearchKey
-
-var AccessibilityWarningValueAttribute string
-
-var AccessibilityWebAreaRole NSAccessibilityRole
-
-var AccessibilityWindowAttribute string
-
-var AccessibilityWindowCreatedNotification NSAccessibilityNotificationName
-
-var AccessibilityWindowDeminiaturizedNotification NSAccessibilityNotificationName
-
-var AccessibilityWindowMiniaturizedNotification NSAccessibilityNotificationName
-
-var AccessibilityWindowMovedNotification NSAccessibilityNotificationName
-
-var AccessibilityWindowResizedNotification NSAccessibilityNotificationName
-
-var AccessibilityWindowRole NSAccessibilityRole
-
-var AccessibilityWindowsAttribute string
-
-var AccessibilityZoomButtonAttribute string
-
-var AccessibilityZoomButtonSubrole NSAccessibilitySubrole
-
-var AdaptiveImageGlyphAttributeName foundation.NSAttributedStringKey
-
-var AlignmentBinding string
-
-var AllRomanInputSourcesLocaleIdentifier string
-
-var AllowsEditingMultipleValuesSelectionBindingOption NSBindingOption
-
-var AllowsNullArgumentBindingOption NSBindingOption
-
-var AlternateImageBinding string
-
-var AlternateTitleBinding string
-
-var AlwaysPresentsApplicationModalAlertsBindingOption NSBindingOption
-
-var AnimateBinding string
-
-var AnimationDelayBinding string
-
-var NSAnimationProgressMark foundation.NSString
-
-var AnimationProgressMarkNotification foundation.NSNotificationName
-
-var AnimationTriggerOrderIn NSAnimatablePropertyKey
-
-var AnimationTriggerOrderOut NSAnimatablePropertyKey
-
-var AntialiasThresholdChangedNotification foundation.NSNotificationName
-
-var App NSApplication
-
-var AppKitIgnoredException foundation.NSExceptionName
-
-var AppKitVersionNumber NSAppKitVersion
-
-var AppKitVirtualMemoryException foundation.NSExceptionName
-
-var AppearanceDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var ApplicationDidBecomeActiveNotification foundation.NSNotificationName
-
-var ApplicationDidChangeOcclusionStateNotification foundation.NSNotificationName
-
-var ApplicationDidChangeScreenParametersNotification foundation.NSNotificationName
-
-var ApplicationDidFinishLaunchingNotification foundation.NSNotificationName
-
-var ApplicationDidFinishRestoringWindowsNotification foundation.NSNotificationName
-
-var ApplicationDidHideNotification foundation.NSNotificationName
-
-var ApplicationDidResignActiveNotification foundation.NSNotificationName
-
-var ApplicationDidUnhideNotification foundation.NSNotificationName
-
-var ApplicationDidUpdateNotification foundation.NSNotificationName
-
-var ApplicationProtectedDataDidBecomeAvailableNotification foundation.NSNotificationName
-
-var ApplicationProtectedDataWillBecomeUnavailableNotification foundation.NSNotificationName
-
-var ApplicationShouldBeginSuppressingHighDynamicRangeContentNotification foundation.NSNotificationName
-
-var ApplicationShouldEndSuppressingHighDynamicRangeContentNotification foundation.NSNotificationName
-
-var ApplicationWillBecomeActiveNotification foundation.NSNotificationName
-
-var ApplicationWillFinishLaunchingNotification foundation.NSNotificationName
-
-var ApplicationWillHideNotification foundation.NSNotificationName
-
-var ApplicationWillResignActiveNotification foundation.NSNotificationName
-
-var ApplicationWillTerminateNotification foundation.NSNotificationName
-
-var ApplicationWillUnhideNotification foundation.NSNotificationName
-
-var ApplicationWillUpdateNotification foundation.NSNotificationName
-
-var ArgumentBinding string
-
-var AttachmentAttributeName foundation.NSAttributedStringKey
-
-var AttributedStringBinding string
-
-var AuthorDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var BackgroundColorAttributeName foundation.NSAttributedStringKey
-
-var BackgroundColorDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var BadBitmapParametersException foundation.NSExceptionName
-
-var BadComparisonException foundation.NSExceptionName
-
-var BadRTFColorTableException foundation.NSExceptionName
-
-var BadRTFDirectiveException foundation.NSExceptionName
-
-var BadRTFFontTableException foundation.NSExceptionName
-
-var BadRTFStyleSheetException foundation.NSExceptionName
-
-var BaseURLDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var BaselineOffsetAttributeName foundation.NSAttributedStringKey
-
-var Black float64
-
-var BottomMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var BrowserColumnConfigurationDidChangeNotification foundation.NSNotificationName
-
-var BrowserIllegalDelegateException foundation.NSExceptionName
-
-var CalibratedRGBColorSpace NSColorSpaceName
-
-var CalibratedWhiteColorSpace NSColorSpaceName
-
-var CategoryDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var CharacterEncodingDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var CharacterEncodingDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var CocoaVersionDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var CollectionElementKindInterItemGapIndicator NSCollectionViewSupplementaryElementKind
-
-var CollectionElementKindSectionFooter NSCollectionViewSupplementaryElementKind
-
-var CollectionElementKindSectionHeader NSCollectionViewSupplementaryElementKind
-
-var ColorListDidChangeNotification foundation.NSNotificationName
-
-var ColorListIOException foundation.NSExceptionName
-
-var ColorListNotEditableException foundation.NSExceptionName
-
-var ColorPanelColorDidChangeNotification foundation.NSNotificationName
-
-var ComboBoxSelectionDidChangeNotification foundation.NSNotificationName
-
-var ComboBoxSelectionIsChangingNotification foundation.NSNotificationName
-
-var ComboBoxWillDismissNotification foundation.NSNotificationName
-
-var ComboBoxWillPopUpNotification foundation.NSNotificationName
-
-var CommentDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var CompanyDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var ConditionallySetsEditableBindingOption NSBindingOption
-
-var ConditionallySetsEnabledBindingOption NSBindingOption
-
-var ConditionallySetsHiddenBindingOption NSBindingOption
-
-var ContentArrayBinding string
-
-var ContentArrayForMultipleSelectionBinding string
-
-var ContentBinding string
-
-var ContentDictionaryBinding string
-
-var ContentHeightBinding string
-
-var ContentObjectBinding string
-
-var ContentObjectsBinding string
-
-var ContentPlacementTagBindingOption NSBindingOption
-
-var ContentSetBinding string
-
-var ContentValuesBinding string
-
-var ContentWidthBinding string
-
-var ContextHelpModeDidActivateNotification foundation.NSNotificationName
-
-var ContextHelpModeDidDeactivateNotification foundation.NSNotificationName
-
-var ContinuouslyUpdatesValueBindingOption NSBindingOption
-
-var ControlTextDidBeginEditingNotification foundation.NSNotificationName
-
-var ControlTextDidChangeNotification foundation.NSNotificationName
-
-var ControlTextDidEndEditingNotification foundation.NSNotificationName
-
-var ConvertedDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var CopyrightDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var CreatesSortDescriptorBindingOption NSBindingOption
-
-var CreationTimeDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var CriticalValueBinding string
-
-var CursorAttributeName foundation.NSAttributedStringKey
-
-var CustomColorSpace NSColorSpaceName
-
-var DarkGray float64
-
-var DataBinding string
-
-var DefaultAttributesDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var DefaultAttributesDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var DefaultFontExcludedDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var DefaultTabIntervalDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var DeletesObjectsOnRemoveBindingsOption NSBindingOption
-
-var DeviceBitsPerSample NSDeviceDescriptionKey
-
-var DeviceCMYKColorSpace NSColorSpaceName
-
-var DeviceColorSpaceName NSDeviceDescriptionKey
-
-var DeviceIsPrinter NSDeviceDescriptionKey
-
-var DeviceIsScreen NSDeviceDescriptionKey
-
-var DeviceRGBColorSpace NSColorSpaceName
-
-var DeviceResolution NSDeviceDescriptionKey
-
-var DeviceSize NSDeviceDescriptionKey
-
-var DeviceWhiteColorSpace NSColorSpaceName
-
-var DirectionalEdgeInsetsZero NSDirectionalEdgeInsets
-
-var DisplayNameBindingOption NSBindingOption
-
-var DisplayPatternBindingOption NSBindingOption
-
-var DisplayPatternTitleBinding string
-
-var DisplayPatternValueBinding string
-
-var DocFormatTextDocumentType NSAttributedStringDocumentType
-
-var DocumentEditedBinding string
-
-var DocumentTypeDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var DocumentTypeDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var DoubleClickArgumentBinding string
-
-var DoubleClickTargetBinding string
-
-var DraggingException foundation.NSExceptionName
-
-var DraggingImageComponentIconKey NSDraggingImageComponentKey
-
-var DraggingImageComponentLabelKey NSDraggingImageComponentKey
-
-var EditableBinding string
-
-var EditorDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var EnabledBinding string
-
-var EventTrackingRunLoopMode foundation.NSRunLoopMode
-
-var ExcludedElementsDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var ExcludedKeysBinding string
-
-var ExpansionAttributeName foundation.NSAttributedStringKey
-
-var FileContentsPboardType NSPasteboardType
-
-var FileTypeDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var FileTypeDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var FilterPredicateBinding string
-
-var FindPanelCaseInsensitiveSearch NSPasteboardTypeFindPanelSearchOptionKey
-
-var FindPanelSearchOptionsPboardType NSPasteboardType
-
-var FindPanelSubstringMatch NSPasteboardTypeFindPanelSearchOptionKey
-
-var FontAttributeName foundation.NSAttributedStringKey
-
-var FontBinding string
-
-var FontBoldBinding string
-
-var FontCascadeListAttribute NSFontDescriptorAttributeName
-
-var FontCharacterSetAttribute NSFontDescriptorAttributeName
-
-var FontCollectionActionKey NSFontCollectionUserInfoKey
-
-var FontCollectionAllFonts NSFontCollectionName
-
-var FontCollectionDidChangeNotification foundation.NSNotificationName
-
-var FontCollectionDisallowAutoActivationOption NSFontCollectionMatchingOptionKey
-
-var FontCollectionFavorites NSFontCollectionName
-
-var FontCollectionIncludeDisabledFontsOption NSFontCollectionMatchingOptionKey
-
-var FontCollectionNameKey NSFontCollectionUserInfoKey
-
-var FontCollectionOldNameKey NSFontCollectionUserInfoKey
-
-var FontCollectionRecentlyUsed NSFontCollectionName
-
-var FontCollectionRemoveDuplicatesOption NSFontCollectionMatchingOptionKey
-
-var FontCollectionUser NSFontCollectionName
-
-var FontCollectionVisibilityKey NSFontCollectionUserInfoKey
-
-var FontCollectionWasHidden NSFontCollectionActionTypeKey
-
-var FontCollectionWasRenamed NSFontCollectionActionTypeKey
-
-var FontCollectionWasShown NSFontCollectionActionTypeKey
-
-var FontFaceAttribute NSFontDescriptorAttributeName
-
-var FontFamilyAttribute NSFontDescriptorAttributeName
-
-var FontFamilyNameBinding string
-
-var FontFeatureSelectorIdentifierKey NSFontDescriptorFeatureKey
-
-var FontFeatureSettingsAttribute NSFontDescriptorAttributeName
-
-var FontFeatureTypeIdentifierKey NSFontDescriptorFeatureKey
-
-var FontFixedAdvanceAttribute NSFontDescriptorAttributeName
-
-var NSFontIdentityMatrix unsafe.Pointer
-
-var FontItalicBinding string
-
-var FontMatrixAttribute NSFontDescriptorAttributeName
-
-var FontNameAttribute NSFontDescriptorAttributeName
-
-var FontNameBinding string
-
-var FontSetChangedNotification foundation.NSNotificationName
-
-var FontSizeAttribute NSFontDescriptorAttributeName
-
-var FontSizeBinding string
-
-var FontSlantTrait NSFontDescriptorTraitKey
-
-var FontSymbolicTrait NSFontDescriptorTraitKey
-
-var FontTraitsAttribute NSFontDescriptorAttributeName
-
-var FontUnavailableException foundation.NSExceptionName
-
-var FontVariationAttribute NSFontDescriptorAttributeName
-
-var FontVariationAxisDefaultValueKey NSFontDescriptorVariationKey
-
-var FontVariationAxisIdentifierKey NSFontDescriptorVariationKey
-
-var FontVariationAxisMaximumValueKey NSFontDescriptorVariationKey
-
-var FontVariationAxisMinimumValueKey NSFontDescriptorVariationKey
-
-var FontVariationAxisNameKey NSFontDescriptorVariationKey
-
-var FontVisibleNameAttribute NSFontDescriptorAttributeName
-
-var FontWeightTrait NSFontDescriptorTraitKey
-
-var FontWidthTrait NSFontDescriptorTraitKey
-
-var ForegroundColorAttributeName foundation.NSAttributedStringKey
-
-var GlyphInfoAttributeName foundation.NSAttributedStringKey
-
-var GraphicsContextDestinationAttributeName string
-
-var GraphicsContextPDFFormat NSGraphicsContextRepresentationFormatName
-
-var GraphicsContextPSFormat NSGraphicsContextRepresentationFormatName
-
-var GraphicsContextRepresentationFormatAttributeName string
-
-var GridViewSizeForContent float64
-
-var HTMLTextDocumentType NSAttributedStringDocumentType
-
-var HandlesContentAsCompoundValueBindingOption NSBindingOption
-
-var HeaderTitleBinding string
-
-var HiddenBinding string
-
-var HyphenationFactorDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var IllegalSelectorException foundation.NSExceptionName
-
-var ImageBinding string
-
-var ImageCacheException foundation.NSExceptionName
-
-var ImageColorSyncProfileData NSBitmapImageRepPropertyKey
-
-var ImageCompressionFactor NSBitmapImageRepPropertyKey
-
-var ImageCompressionMethod NSBitmapImageRepPropertyKey
-
-var ImageCurrentFrame NSBitmapImageRepPropertyKey
-
-var ImageCurrentFrameDuration NSBitmapImageRepPropertyKey
-
-var ImageDitherTransparency NSBitmapImageRepPropertyKey
-
-var ImageEXIFData NSBitmapImageRepPropertyKey
-
-var ImageFallbackBackgroundColor NSBitmapImageRepPropertyKey
-
-var ImageFrameCount NSBitmapImageRepPropertyKey
-
-var ImageGamma NSBitmapImageRepPropertyKey
-
-var ImageHintCTM NSImageHintKey
-
-var ImageHintInterpolation NSImageHintKey
-
-var ImageHintUserInterfaceLayoutDirection NSImageHintKey
-
-var ImageIPTCData NSBitmapImageRepPropertyKey
-
-var ImageInterlaced NSBitmapImageRepPropertyKey
-
-var ImageLoopCount NSBitmapImageRepPropertyKey
-
-var ImageProgressive NSBitmapImageRepPropertyKey
-
-var ImageRGBColorTable NSBitmapImageRepPropertyKey
-
-var ImageRepRegistryDidChangeNotification foundation.NSNotificationName
-
-var IncludedKeysBinding string
-
-var InitialKeyBinding string
-
-var InitialValueBinding string
-
-var InsertsNullPlaceholderBindingOption NSBindingOption
-
-var InvokesSeparatelyWithArrayObjectsBindingOption NSBindingOption
-
-var IsIndeterminateBinding string
-
-var KernAttributeName foundation.NSAttributedStringKey
-
-var KeywordsDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var LabelBinding string
-
-var LeftMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var LigatureAttributeName foundation.NSAttributedStringKey
-
-var LightGray float64
-
-var LinkAttributeName foundation.NSAttributedStringKey
-
-var LocalizedKeyDictionaryBinding string
-
-var MacSimpleTextDocumentType NSAttributedStringDocumentType
-
-var ManagedObjectContextBinding string
-
-var ManagerDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var MarkedClauseSegmentAttributeName foundation.NSAttributedStringKey
-
-var MaxValueBinding string
-
-var MaxWidthBinding string
-
-var MaximumRecentsBinding string
-
-var MenuDidAddItemNotification foundation.NSNotificationName
-
-var MenuDidBeginTrackingNotification foundation.NSNotificationName
-
-var MenuDidChangeItemNotification foundation.NSNotificationName
-
-var MenuDidEndTrackingNotification foundation.NSNotificationName
-
-var MenuDidRemoveItemNotification foundation.NSNotificationName
-
-var MenuDidSendActionNotification foundation.NSNotificationName
-
-var MenuItemImportFromDeviceIdentifier NSUserInterfaceItemIdentifier
-
-var MenuWillSendActionNotification foundation.NSNotificationName
-
-var MinValueBinding string
-
-var MinWidthBinding string
-
-var MixedStateImageBinding string
-
-var ModalPanelRunLoopMode foundation.NSRunLoopMode
-
-var ModificationTimeDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var MultipleValuesPlaceholderBindingOption NSBindingOption
-
-var NamedColorSpace NSColorSpaceName
-
-var NibLoadingException foundation.NSExceptionName
-
-var NoSelectionPlaceholderBindingOption NSBindingOption
-
-var NotApplicablePlaceholderBindingOption NSBindingOption
-
-var NullPlaceholderBindingOption NSBindingOption
-
-var ObliquenessAttributeName foundation.NSAttributedStringKey
-
-var OffStateImageBinding string
-
-var OfficeOpenXMLTextDocumentType NSAttributedStringDocumentType
-
-var OnStateImageBinding string
-
-var OpenDocumentTextDocumentType NSAttributedStringDocumentType
-
-var OutlineViewColumnDidMoveNotification foundation.NSNotificationName
-
-var OutlineViewColumnDidResizeNotification foundation.NSNotificationName
-
-var NSOutlineViewDisclosureButtonKey NSUserInterfaceItemIdentifier
-
-var OutlineViewItemDidCollapseNotification foundation.NSNotificationName
-
-var OutlineViewItemDidExpandNotification foundation.NSNotificationName
-
-var OutlineViewItemWillCollapseNotification foundation.NSNotificationName
-
-var OutlineViewItemWillExpandNotification foundation.NSNotificationName
-
-var OutlineViewSelectionDidChangeNotification foundation.NSNotificationName
-
-var OutlineViewSelectionIsChangingNotification foundation.NSNotificationName
-
-var NSOutlineViewShowHideButtonKey NSUserInterfaceItemIdentifier
-
-var PPDIncludeNotFoundException foundation.NSExceptionName
-
-var PPDIncludeStackOverflowException foundation.NSExceptionName
-
-var PPDIncludeStackUnderflowException foundation.NSExceptionName
-
-var PPDParseException foundation.NSExceptionName
-
-var PaperSizeDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var ParagraphStyleAttributeName foundation.NSAttributedStringKey
-
-var PasteboardCommunicationException foundation.NSExceptionName
-
-var PasteboardMetadataTypeContentType NSPasteboardMetadataType
-
-var PasteboardURLReadingContentsConformToTypesKey NSPasteboardReadingOptionKey
-
-var PasteboardURLReadingFileURLsOnlyKey NSPasteboardReadingOptionKey
-
-var PatternColorSpace NSColorSpaceName
-
-var PlainTextDocumentType NSAttributedStringDocumentType
-
-var PopUpButtonCellWillPopUpNotification foundation.NSNotificationName
-
-var PopUpButtonWillPopUpNotification foundation.NSNotificationName
-
-var PopoverCloseReasonDetachToWindow NSPopoverCloseReasonValue
-
-var PopoverCloseReasonKey string
-
-var PopoverCloseReasonStandard NSPopoverCloseReasonValue
-
-var PopoverDidCloseNotification foundation.NSNotificationName
-
-var PopoverDidShowNotification foundation.NSNotificationName
-
-var PopoverWillCloseNotification foundation.NSNotificationName
-
-var PopoverWillShowNotification foundation.NSNotificationName
-
-var PositioningRectBinding string
-
-var PredicateBinding string
-
-var PredicateFormatBindingOption NSBindingOption
-
-var PreferredScrollerStyleDidChangeNotification foundation.NSNotificationName
-
-var PrefixSpacesDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var PrintAllPages NSPrintInfoAttributeKey
-
-var PrintAllPresetsJobStyleHint NSPrintPanelJobStyleHint
-
-var PrintBottomMargin NSPrintInfoAttributeKey
-
-var PrintCancelJob NSPrintJobDispositionValue
-
-var PrintCopies NSPrintInfoAttributeKey
-
-var PrintDetailedErrorReporting NSPrintInfoAttributeKey
-
-var PrintFaxNumber NSPrintInfoAttributeKey
-
-var PrintFirstPage NSPrintInfoAttributeKey
-
-var PrintHeaderAndFooter NSPrintInfoAttributeKey
-
-var PrintHorizontalPagination NSPrintInfoAttributeKey
-
-var PrintHorizontallyCentered NSPrintInfoAttributeKey
-
-var PrintJobDisposition NSPrintInfoAttributeKey
-
-var PrintJobSavingFileNameExtensionHidden NSPrintInfoAttributeKey
-
-var PrintJobSavingURL NSPrintInfoAttributeKey
-
-var PrintLastPage NSPrintInfoAttributeKey
-
-var PrintLeftMargin NSPrintInfoAttributeKey
-
-var PrintMustCollate NSPrintInfoAttributeKey
-
-var PrintNoPresetsJobStyleHint NSPrintPanelJobStyleHint
-
-var PrintOperationExistsException foundation.NSExceptionName
-
-var PrintOrientation NSPrintInfoAttributeKey
-
-var PrintPackageException foundation.NSExceptionName
-
-var PrintPagesAcross NSPrintInfoAttributeKey
-
-var PrintPagesDown NSPrintInfoAttributeKey
-
-var PrintPanelAccessorySummaryItemDescriptionKey NSPrintPanelAccessorySummaryKey
-
-var PrintPanelAccessorySummaryItemNameKey NSPrintPanelAccessorySummaryKey
-
-var PrintPaperName NSPrintInfoAttributeKey
-
-var PrintPaperSize NSPrintInfoAttributeKey
-
-var PrintPhotoJobStyleHint NSPrintPanelJobStyleHint
-
-var PrintPreviewJob NSPrintJobDispositionValue
-
-var PrintPrinter NSPrintInfoAttributeKey
-
-var PrintPrinterName NSPrintInfoAttributeKey
-
-var PrintReversePageOrder NSPrintInfoAttributeKey
-
-var PrintRightMargin NSPrintInfoAttributeKey
-
-var PrintSaveJob NSPrintJobDispositionValue
-
-var PrintScalingFactor NSPrintInfoAttributeKey
-
-var PrintSelectionOnly NSPrintInfoAttributeKey
-
-var PrintSpoolJob NSPrintJobDispositionValue
-
-var PrintTime NSPrintInfoAttributeKey
-
-var PrintTopMargin NSPrintInfoAttributeKey
-
-var PrintVerticalPagination NSPrintInfoAttributeKey
-
-var PrintVerticallyCentered NSPrintInfoAttributeKey
-
-var PrintingCommunicationException foundation.NSExceptionName
-
-var RTFDTextDocumentType NSAttributedStringDocumentType
-
-var RTFPropertyStackOverflowException foundation.NSExceptionName
-
-var RTFTextDocumentType NSAttributedStringDocumentType
-
-var RaisesForNotApplicableKeysBindingOption NSBindingOption
-
-var ReadOnlyDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var RecentSearchesBinding string
-
-var RepresentedFilenameBinding string
-
-var RightMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var RowHeightBinding string
-
-var RuleEditorPredicateComparisonModifier NSRuleEditorPredicatePartKey
-
-var RuleEditorPredicateCompoundType NSRuleEditorPredicatePartKey
-
-var RuleEditorPredicateCustomSelector NSRuleEditorPredicatePartKey
-
-var RuleEditorPredicateLeftExpression NSRuleEditorPredicatePartKey
-
-var RuleEditorPredicateOperatorType NSRuleEditorPredicatePartKey
-
-var RuleEditorPredicateOptions NSRuleEditorPredicatePartKey
-
-var RuleEditorPredicateRightExpression NSRuleEditorPredicatePartKey
-
-var RuleEditorRowsDidChangeNotification foundation.NSNotificationName
-
-var RulerViewUnitCentimeters NSRulerViewUnitName
-
-var RulerViewUnitInches NSRulerViewUnitName
-
-var RulerViewUnitPicas NSRulerViewUnitName
-
-var RulerViewUnitPoints NSRulerViewUnitName
-
-var ScreenColorSpaceDidChangeNotification foundation.NSNotificationName
-
-var ScrollViewDidEndLiveMagnifyNotification foundation.NSNotificationName
-
-var ScrollViewDidEndLiveScrollNotification foundation.NSNotificationName
-
-var ScrollViewDidLiveScrollNotification foundation.NSNotificationName
-
-var ScrollViewWillStartLiveMagnifyNotification foundation.NSNotificationName
-
-var ScrollViewWillStartLiveScrollNotification foundation.NSNotificationName
-
-var SelectedIdentifierBinding string
-
-var SelectedIndexBinding string
-
-var SelectedLabelBinding string
-
-var SelectedObjectBinding string
-
-var SelectedObjectsBinding string
-
-var SelectedTagBinding string
-
-var SelectedValueBinding string
-
-var SelectedValuesBinding string
-
-var SelectionIndexPathsBinding string
-
-var SelectionIndexesBinding string
-
-var SelectorNameBindingOption NSBindingOption
-
-var SelectsAllWhenSettingContentBindingOption NSBindingOption
-
-var ShadowAttributeName foundation.NSAttributedStringKey
-
-var SortDescriptorsBinding string
-
-var SoundPboardType NSPasteboardType
-
-var SourceTextScalingDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var SourceTextScalingDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var SpeechCharacterModeProperty NSSpeechPropertyKey
-
-var SpeechCommandDelimiterProperty NSSpeechPropertyKey
-
-var SpeechCommandPrefix NSSpeechCommandDelimiterKey
-
-var SpeechCommandSuffix NSSpeechCommandDelimiterKey
-
-var SpeechCurrentVoiceProperty NSSpeechPropertyKey
-
-var SpeechDictionaryAbbreviations NSSpeechDictionaryKey
-
-var SpeechDictionaryEntryPhonemes NSSpeechDictionaryKey
-
-var SpeechDictionaryEntrySpelling NSSpeechDictionaryKey
-
-var SpeechDictionaryLocaleIdentifier NSSpeechDictionaryKey
-
-var SpeechDictionaryModificationDate NSSpeechDictionaryKey
-
-var SpeechDictionaryPronunciations NSSpeechDictionaryKey
-
-var SpeechErrorCount NSSpeechErrorKey
-
-var SpeechErrorNewestCharacterOffset NSSpeechErrorKey
-
-var SpeechErrorNewestCode NSSpeechErrorKey
-
-var SpeechErrorOldestCharacterOffset NSSpeechErrorKey
-
-var SpeechErrorOldestCode NSSpeechErrorKey
-
-var SpeechErrorsProperty NSSpeechPropertyKey
-
-var SpeechInputModeProperty NSSpeechPropertyKey
-
-var SpeechNumberModeProperty NSSpeechPropertyKey
-
-var SpeechOutputToFileURLProperty NSSpeechPropertyKey
-
-var SpeechPhonemeInfoExample NSSpeechPhonemeInfoKey
-
-var SpeechPhonemeInfoHiliteEnd NSSpeechPhonemeInfoKey
-
-var SpeechPhonemeInfoHiliteStart NSSpeechPhonemeInfoKey
-
-var SpeechPhonemeInfoOpcode NSSpeechPhonemeInfoKey
-
-var SpeechPhonemeInfoSymbol NSSpeechPhonemeInfoKey
-
-var SpeechPhonemeSymbolsProperty NSSpeechPropertyKey
-
-var SpeechPitchBaseProperty NSSpeechPropertyKey
-
-var SpeechPitchModProperty NSSpeechPropertyKey
-
-var SpeechRateProperty NSSpeechPropertyKey
-
-var SpeechRecentSyncProperty NSSpeechPropertyKey
-
-var SpeechResetProperty NSSpeechPropertyKey
-
-var SpeechStatusNumberOfCharactersLeft NSSpeechStatusKey
-
-var SpeechStatusOutputBusy NSSpeechStatusKey
-
-var SpeechStatusOutputPaused NSSpeechStatusKey
-
-var SpeechStatusPhonemeCode NSSpeechStatusKey
-
-var SpeechStatusProperty NSSpeechPropertyKey
-
-var SpeechSynthesizerInfoIdentifier NSSpeechSynthesizerInfoKey
-
-var SpeechSynthesizerInfoProperty NSSpeechPropertyKey
-
-var SpeechSynthesizerInfoVersion NSSpeechSynthesizerInfoKey
-
-var SpeechVolumeProperty NSSpeechPropertyKey
-
-var SpellCheckerDidChangeAutomaticCapitalizationNotification foundation.NSNotificationName
-
-var SpellCheckerDidChangeAutomaticDashSubstitutionNotification foundation.NSNotificationName
-
-var SpellCheckerDidChangeAutomaticInlinePredictionNotification foundation.NSNotificationName
-
-var SpellCheckerDidChangeAutomaticPeriodSubstitutionNotification foundation.NSNotificationName
-
-var SpellCheckerDidChangeAutomaticQuoteSubstitutionNotification foundation.NSNotificationName
-
-var SpellCheckerDidChangeAutomaticSpellingCorrectionNotification foundation.NSNotificationName
-
-var SpellCheckerDidChangeAutomaticTextCompletionNotification foundation.NSNotificationName
-
-var SpellCheckerDidChangeAutomaticTextReplacementNotification foundation.NSNotificationName
-
-var SpellingStateAttributeName foundation.NSAttributedStringKey
-
-var SplitViewControllerAutomaticDimension float64
-
-var SplitViewDidResizeSubviewsNotification foundation.NSNotificationName
-
-var SplitViewItemUnspecifiedDimension float64
-
-var SplitViewWillResizeSubviewsNotification foundation.NSNotificationName
-
-var StrikethroughColorAttributeName foundation.NSAttributedStringKey
-
-var StrikethroughStyleAttributeName foundation.NSAttributedStringKey
-
-var StrokeColorAttributeName foundation.NSAttributedStringKey
-
-var StrokeWidthAttributeName foundation.NSAttributedStringKey
-
-var SubjectDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var SuperscriptAttributeName foundation.NSAttributedStringKey
-
-var SystemColorsDidChangeNotification foundation.NSNotificationName
-
-var TIFFException foundation.NSExceptionName
-
-var TabColumnTerminatorsAttributeName NSTextTabOptionKey
-
-var TableViewColumnDidMoveNotification foundation.NSNotificationName
-
-var TableViewColumnDidResizeNotification foundation.NSNotificationName
-
-var NSTableViewRowViewKey NSUserInterfaceItemIdentifier
-
-var TableViewSelectionDidChangeNotification foundation.NSNotificationName
-
-var TableViewSelectionIsChangingNotification foundation.NSNotificationName
-
-var TargetBinding string
-
-var TargetTextScalingDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var TextAlternativesAttributeName foundation.NSAttributedStringKey
-
-var TextAlternativesSelectedAlternativeStringNotification foundation.NSNotificationName
-
-var TextCheckingDocumentAuthorKey NSTextCheckingOptionKey
-
-var TextCheckingDocumentTitleKey NSTextCheckingOptionKey
-
-var TextCheckingDocumentURLKey NSTextCheckingOptionKey
-
-var TextCheckingGenerateInlinePredictionsKey NSTextCheckingOptionKey
-
-var TextCheckingOrthographyKey NSTextCheckingOptionKey
-
-var TextCheckingQuotesKey NSTextCheckingOptionKey
-
-var TextCheckingReferenceDateKey NSTextCheckingOptionKey
-
-var TextCheckingReferenceTimeZoneKey NSTextCheckingOptionKey
-
-var TextCheckingRegularExpressionsKey NSTextCheckingOptionKey
-
-var TextCheckingReplacementsKey NSTextCheckingOptionKey
-
-var TextCheckingSelectedRangeKey NSTextCheckingOptionKey
-
-var TextColorBinding string
-
-var TextContentStorageUnsupportedAttributeAddedNotification foundation.NSNotificationName
-
-var TextDidBeginEditingNotification foundation.NSNotificationName
-
-var TextDidChangeNotification foundation.NSNotificationName
-
-var TextDidEndEditingNotification foundation.NSNotificationName
-
-var TextEffectAttributeName foundation.NSAttributedStringKey
-
-var TextEffectLetterpressStyle NSTextEffectStyle
-
-var TextEncodingNameDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var TextEncodingNameDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var TextFinderCaseInsensitiveKey NSPasteboardTypeTextFinderOptionKey
-
-var TextFinderMatchingTypeKey NSPasteboardTypeTextFinderOptionKey
-
-var TextHighlightColorSchemeAttributeName foundation.NSAttributedStringKey
-
-var TextHighlightStyleAttributeName foundation.NSAttributedStringKey
-
-var TextHighlightStyleDefault NSTextHighlightStyle
-
-var TextInputContextKeyboardSelectionDidChangeNotification foundation.NSNotificationName
-
-var TextKit1ListMarkerFormatDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var TextLayoutSectionOrientation NSTextLayoutSectionKey
-
-var TextLayoutSectionRange NSTextLayoutSectionKey
-
-var TextLayoutSectionsAttribute NSAttributedStringDocumentAttributeKey
-
-var TextLineTooLongException foundation.NSExceptionName
-
-var TextListMarkerBox NSTextListMarkerFormat
-
-var TextListMarkerCheck NSTextListMarkerFormat
-
-var TextListMarkerCircle NSTextListMarkerFormat
-
-var TextListMarkerDecimal NSTextListMarkerFormat
-
-var TextListMarkerDiamond NSTextListMarkerFormat
-
-var TextListMarkerDisc NSTextListMarkerFormat
-
-var TextListMarkerHyphen NSTextListMarkerFormat
-
-var TextListMarkerLowercaseAlpha NSTextListMarkerFormat
-
-var TextListMarkerLowercaseHexadecimal NSTextListMarkerFormat
-
-var TextListMarkerLowercaseLatin NSTextListMarkerFormat
-
-var TextListMarkerLowercaseRoman NSTextListMarkerFormat
-
-var TextListMarkerOctal NSTextListMarkerFormat
-
-var TextListMarkerSquare NSTextListMarkerFormat
-
-var TextListMarkerUppercaseAlpha NSTextListMarkerFormat
-
-var TextListMarkerUppercaseHexadecimal NSTextListMarkerFormat
-
-var TextListMarkerUppercaseLatin NSTextListMarkerFormat
-
-var TextListMarkerUppercaseRoman NSTextListMarkerFormat
-
-var TextMovementUserInfoKey string
-
-var TextNoSelectionException foundation.NSExceptionName
-
-var TextReadException foundation.NSExceptionName
-
-var TextScalingDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var TextSizeMultiplierDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var TextStorageDidProcessEditingNotification foundation.NSNotificationName
-
-var TextStorageWillProcessEditingNotification foundation.NSNotificationName
-
-var TextViewDidChangeSelectionNotification foundation.NSNotificationName
-
-var TextViewDidChangeTypingAttributesNotification foundation.NSNotificationName
-
-var TextViewDidSwitchToNSLayoutManagerNotification foundation.NSNotificationName
-
-var TextViewWillChangeNotifyingTextViewNotification foundation.NSNotificationName
-
-var TextViewWillSwitchToNSLayoutManagerNotification foundation.NSNotificationName
-
-var TextWriteException foundation.NSExceptionName
-
-var TimeoutDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var TitleBinding string
-
-var TitleDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var ToolTipAttributeName foundation.NSAttributedStringKey
-
-var ToolTipBinding string
-
-var ToolbarCloudSharingItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarDidRemoveItemNotification foundation.NSNotificationName
-
-var ToolbarFlexibleSpaceItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarInspectorTrackingSeparatorItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarItemKey NSToolbarUserInfoKey
-
-var ToolbarNewIndexKey NSToolbarUserInfoKey
-
-var ToolbarPrintItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarShowColorsItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarShowFontsItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarSidebarTrackingSeparatorItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarSpaceItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarToggleInspectorItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarToggleSidebarItemIdentifier NSToolbarItemIdentifier
-
-var ToolbarWillAddItemNotification foundation.NSNotificationName
-
-var TopMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var TrackingAttributeName foundation.NSAttributedStringKey
-
-var TransparentBinding string
-
-var TypeIdentifierAddressText string
-
-var TypeIdentifierDateText string
-
-var TypeIdentifierPhoneNumberText string
-
-var TypeIdentifierTransitInformationText string
-
-var TypedStreamVersionException foundation.NSExceptionName
-
-var UnderlineColorAttributeName foundation.NSAttributedStringKey
-
-var UnderlineStyleAttributeName foundation.NSAttributedStringKey
-
-var UserActivityDocumentURLKey string
-
-var ValidatesImmediatelyBindingOption NSBindingOption
-
-var ValueBinding string
-
-var ValuePathBinding string
-
-var ValueTransformerBindingOption NSBindingOption
-
-var ValueTransformerNameBindingOption NSBindingOption
-
-var ValueURLBinding string
-
-var VerticalGlyphFormAttributeName foundation.NSAttributedStringKey
-
-var ViewAnimationEffectKey NSViewAnimationKey
-
-var ViewAnimationEndFrameKey NSViewAnimationKey
-
-var ViewAnimationFadeInEffect NSViewAnimationEffectName
-
-var ViewAnimationFadeOutEffect NSViewAnimationEffectName
-
-var ViewAnimationStartFrameKey NSViewAnimationKey
-
-var ViewAnimationTargetKey NSViewAnimationKey
-
-var ViewBoundsDidChangeNotification foundation.NSNotificationName
-
-var ViewDidUpdateTrackingAreasNotification foundation.NSNotificationName
-
-var ViewFrameDidChangeNotification foundation.NSNotificationName
-
-var ViewModeDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var NSViewNoIntrinsicMetric float64
-
-var ViewSizeDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var ViewZoomDocumentAttribute NSAttributedStringDocumentAttributeKey
-
-var VisibleBinding string
-
-//
-// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
-var VoiceAge NSVoiceAttributeKey
-
-//
-// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
-var VoiceDemoText NSVoiceAttributeKey
-
-//
-// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
-var VoiceGender NSVoiceAttributeKey
-
-//
-// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
-var VoiceGenderFemale NSVoiceGenderName
-
-//
-// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
-var VoiceGenderMale NSVoiceGenderName
-
-//
-// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
-var VoiceGenderNeuter NSVoiceGenderName
-
-var VoiceGenderNeutral NSVoiceGenderName
-
-//
-// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
-var VoiceIdentifier NSVoiceAttributeKey
-
-var VoiceIndividuallySpokenCharacters NSVoiceAttributeKey
-
-var VoiceLocaleIdentifier NSVoiceAttributeKey
-
-//
-// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
-var VoiceName NSVoiceAttributeKey
-
-var VoiceSupportedCharacters NSVoiceAttributeKey
-
-var WarningValueBinding string
-
-var WebArchiveTextDocumentType NSAttributedStringDocumentType
-
-var WebPreferencesDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var WebResourceLoadDelegateDocumentOption NSAttributedStringDocumentReadingOptionKey
-
-var White float64
-
-var WidthBinding string
-
-var WindowDidBecomeKeyNotification foundation.NSNotificationName
-
-var WindowDidBecomeMainNotification foundation.NSNotificationName
-
-var WindowDidChangeBackingPropertiesNotification foundation.NSNotificationName
-
-var WindowDidChangeOcclusionStateNotification foundation.NSNotificationName
-
-var WindowDidChangeScreenNotification foundation.NSNotificationName
-
-var WindowDidChangeScreenProfileNotification foundation.NSNotificationName
-
-var WindowDidDeminiaturizeNotification foundation.NSNotificationName
-
-var WindowDidEndLiveResizeNotification foundation.NSNotificationName
-
-var WindowDidEndSheetNotification foundation.NSNotificationName
-
-var WindowDidEnterFullScreenNotification foundation.NSNotificationName
-
-var WindowDidEnterVersionBrowserNotification foundation.NSNotificationName
-
-var WindowDidExitFullScreenNotification foundation.NSNotificationName
-
-var WindowDidExitVersionBrowserNotification foundation.NSNotificationName
-
-var WindowDidExposeNotification foundation.NSNotificationName
-
-var WindowDidMiniaturizeNotification foundation.NSNotificationName
-
-var WindowDidMoveNotification foundation.NSNotificationName
-
-var WindowDidResignKeyNotification foundation.NSNotificationName
-
-var WindowDidResignMainNotification foundation.NSNotificationName
-
-var WindowDidResizeNotification foundation.NSNotificationName
-
-var WindowDidUpdateNotification foundation.NSNotificationName
-
-var WindowServerCommunicationException foundation.NSExceptionName
-
-var WindowWillBeginSheetNotification foundation.NSNotificationName
-
-var WindowWillCloseNotification foundation.NSNotificationName
-
-var WindowWillEnterFullScreenNotification foundation.NSNotificationName
-
-var WindowWillEnterVersionBrowserNotification foundation.NSNotificationName
-
-var WindowWillExitFullScreenNotification foundation.NSNotificationName
-
-var WindowWillExitVersionBrowserNotification foundation.NSNotificationName
-
-var WindowWillMiniaturizeNotification foundation.NSNotificationName
-
-var WindowWillMoveNotification foundation.NSNotificationName
-
-var WindowWillStartLiveResizeNotification foundation.NSNotificationName
-
-var WordMLTextDocumentType NSAttributedStringDocumentType
-
-var WordTablesReadException foundation.NSExceptionName
-
-var WordTablesWriteException foundation.NSExceptionName
-
-var WorkspaceAccessibilityDisplayOptionsDidChangeNotification foundation.NSNotificationName
-
-var WorkspaceActiveSpaceDidChangeNotification foundation.NSNotificationName
-
-var NSWorkspaceApplicationKey foundation.NSString
-
-var WorkspaceDesktopImageAllowClippingKey NSWorkspaceDesktopImageOptionKey
-
-var WorkspaceDesktopImageFillColorKey NSWorkspaceDesktopImageOptionKey
-
-var WorkspaceDesktopImageScalingKey NSWorkspaceDesktopImageOptionKey
-
-var WorkspaceDidActivateApplicationNotification foundation.NSNotificationName
-
-var WorkspaceDidChangeFileLabelsNotification foundation.NSNotificationName
-
-var WorkspaceDidDeactivateApplicationNotification foundation.NSNotificationName
-
-var WorkspaceDidHideApplicationNotification foundation.NSNotificationName
-
-var WorkspaceDidLaunchApplicationNotification foundation.NSNotificationName
-
-var WorkspaceDidMountNotification foundation.NSNotificationName
-
-var WorkspaceDidRenameVolumeNotification foundation.NSNotificationName
-
-var WorkspaceDidTerminateApplicationNotification foundation.NSNotificationName
-
-var WorkspaceDidUnhideApplicationNotification foundation.NSNotificationName
-
-var WorkspaceDidUnmountNotification foundation.NSNotificationName
-
-var WorkspaceDidWakeNotification foundation.NSNotificationName
-
-var WorkspaceScreensDidSleepNotification foundation.NSNotificationName
-
-var WorkspaceScreensDidWakeNotification foundation.NSNotificationName
-
-var WorkspaceSessionDidBecomeActiveNotification foundation.NSNotificationName
-
-var WorkspaceSessionDidResignActiveNotification foundation.NSNotificationName
-
-var WorkspaceVolumeLocalizedNameKey string
-
-var WorkspaceVolumeOldLocalizedNameKey string
-
-var WorkspaceVolumeOldURLKey string
-
-var WorkspaceVolumeURLKey string
-
-var WorkspaceWillLaunchApplicationNotification foundation.NSNotificationName
-
-var WorkspaceWillPowerOffNotification foundation.NSNotificationName
-
-var WorkspaceWillSleepNotification foundation.NSNotificationName
-
-var WorkspaceWillUnmountNotification foundation.NSNotificationName
-
-var WritingDirectionAttributeName foundation.NSAttributedStringKey
-
-var WritingToolsExclusionAttributeName foundation.NSAttributedStringKey
-
+// NSModalResponse values.
+const (
+
+	// AlertFirstButtonReturn is the user clicked the first (rightmost) button on the dialog or sheet.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/alertFirstButtonReturn
+	AlertFirstButtonReturn NSModalResponse = 1000
+
+	// AlertSecondButtonReturn is the user clicked the second button from the right edge of the dialog or sheet.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/alertSecondButtonReturn
+	AlertSecondButtonReturn NSModalResponse = 1001
+
+	// AlertThirdButtonReturn is the user clicked the third button from the right edge of the dialog or sheet.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/ModalResponse/alertThirdButtonReturn
+	AlertThirdButtonReturn NSModalResponse = 1002
+)
+
+// float64 values.
+const (
+
+	// EventDurationForever is the longest time duration possible.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSEvent/foreverDuration
+	EventDurationForever float64 = 1.7976931348623157
+
+	// SquareStatusItemLength is a status item length that is equal to the status bar’s thickness.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStatusItem/squareLength
+	SquareStatusItemLength float64 = -2.0
+
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStackView/useDefaultSpacing
+	StackViewSpacingUseDefault float64 = 3.40282347
+
+	// VariableStatusItemLength is a status item length that dynamically adjusts to the width of its contents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStatusItem/variableLength
+	VariableStatusItemLength float64 = -1.0
+)
+
+// NSWindowLevel values.
+const (
+
+	// FloatingWindowLevel is useful for floating palettes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/floating
+	FloatingWindowLevel NSWindowLevel = 3
+
+	// MainMenuWindowLevel is reserved for the application’s main menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/mainMenu
+	MainMenuWindowLevel NSWindowLevel = 24
+
+	// ModalPanelWindowLevel is the level for a modal panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/modalPanel
+	ModalPanelWindowLevel NSWindowLevel = 8
+
+	// NormalWindowLevel is the default level for [NSWindow] objects.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/normal
+	NormalWindowLevel NSWindowLevel = 0
+
+	// PopUpMenuWindowLevel is the level for a pop-up menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/popUpMenu
+	PopUpMenuWindowLevel NSWindowLevel = 101
+
+	// ScreenSaverWindowLevel is the level for a screen saver.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/screenSaver
+	ScreenSaverWindowLevel NSWindowLevel = 1000
+
+	// StatusWindowLevel is the level for a status window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/statusBar
+	StatusWindowLevel NSWindowLevel = 25
+
+	// SubmenuWindowLevel is reserved for submenus. Synonymous with [NSTornOffMenuWindowLevel], which is preferred.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/submenu
+	SubmenuWindowLevel NSWindowLevel = 3
+
+	// TornOffMenuWindowLevel is the level for a torn-off menu. Synonymous with [NSSubmenuWindowLevel].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/Level-swift.struct/tornOffMenu
+	TornOffMenuWindowLevel NSWindowLevel = 3
+)
+
+// int values.
+const (
+
+	// SearchFieldClearRecentsMenuItemTag is the menu item for clearing the current set of recent string searches in the menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSearchField/clearRecentsMenuItemTag
+	SearchFieldClearRecentsMenuItemTag int = 1002
+
+	// SearchFieldNoRecentsMenuItemTag is the menu item that describes a lack of recent search strings.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSearchField/noRecentsMenuItemTag
+	SearchFieldNoRecentsMenuItemTag int = 1003
+
+	// SearchFieldRecentsMenuItemTag is the location of recent search strings in the “recents” menu group.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSearchField/recentsMenuItemTag
+	SearchFieldRecentsMenuItemTag int = 1001
+
+	// SearchFieldRecentsTitleMenuItemTag is the menu item that provides the title of the menu group for recent search strings.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSearchField/recentsTitleMenuItemTag
+	SearchFieldRecentsTitleMenuItemTag int = 1000
+)
+
+var (
+	// See: https://developer.apple.com/documentation/AppKit/NSAbortModalException
+	AbortModalException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSAbortPrintingException
+	AbortPrintingException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAnnotationTextAttribute
+	AccessibilityAnnotationTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityAutocorrectedTextAttribute is autocorrected text ([NSNumber] as a Boolean value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAutocorrectedTextAttribute
+	AccessibilityAutocorrectedTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityBackgroundColorTextAttribute is text background color ([CGColorRef]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityBackgroundColorTextAttribute
+	AccessibilityBackgroundColorTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomTextAttribute
+	AccessibilityCustomTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontBoldAttribute
+	AccessibilityFontBoldAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontItalicAttribute
+	AccessibilityFontItalicAttribute foundation.NSAttributedStringKey
+	// AccessibilityFontTextAttribute is font keys ([NSDictionary]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityFontTextAttribute
+	AccessibilityFontTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityForegroundColorTextAttribute is text foreground color ([CGColorRef]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityForegroundColorTextAttribute
+	AccessibilityForegroundColorTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLanguageTextAttribute
+	AccessibilityLanguageTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityLinkTextAttribute is text link (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLinkTextAttribute
+	AccessibilityLinkTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemIndexTextAttribute
+	AccessibilityListItemIndexTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemLevelTextAttribute
+	AccessibilityListItemLevelTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityListItemPrefixTextAttribute
+	AccessibilityListItemPrefixTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityMarkedMisspelledTextAttribute is misspelled text that is visibly marked as misspelled ([NSNumber] as a Boolean value). If you’re implementing a custom text-editing app, use [NSAccessibilityMarkedMisspelledTextAttribute] to ensure that VoiceOver properly identifies misspelled text to users.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityMarkedMisspelledTextAttribute
+	AccessibilityMarkedMisspelledTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityMisspelledTextAttribute is misspelled text that isn’t necessarily visibly marked as misspelled ([NSNumber] as a Boolean value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityMisspelledTextAttribute
+	AccessibilityMisspelledTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityShadowTextAttribute is text shadow ([NSNumber] as a Boolean value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityShadowTextAttribute
+	AccessibilityShadowTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityStrikethroughColorTextAttribute is text strikethrough color ([CGColorRef]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStrikethroughColorTextAttribute
+	AccessibilityStrikethroughColorTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityStrikethroughTextAttribute is text strikethrough ([NSNumber] as a Boolean value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStrikethroughTextAttribute
+	AccessibilityStrikethroughTextAttribute foundation.NSAttributedStringKey
+	// AccessibilitySuperscriptTextAttribute is text superscript style ([NSNumber]). Values > 0 are superscript; values < 0 are subscript.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySuperscriptTextAttribute
+	AccessibilitySuperscriptTextAttribute foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTextAlignmentAttribute
+	AccessibilityTextAlignmentAttribute foundation.NSAttributedStringKey
+	// AccessibilityUnderlineColorTextAttribute is text underline color ([CGColorRef]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnderlineColorTextAttribute
+	AccessibilityUnderlineColorTextAttribute foundation.NSAttributedStringKey
+	// AccessibilityUnderlineTextAttribute is text underline style ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityUnderlineTextAttribute
+	AccessibilityUnderlineTextAttribute foundation.NSAttributedStringKey
+	// AdaptiveImageGlyphAttributeName is the adaptive image glyph for the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAdaptiveImageGlyphAttributeName
+	AdaptiveImageGlyphAttributeName foundation.NSAttributedStringKey
+	// AnimationProgressMarkNotification is posted when the current progress of a running animation reaches one of its progress marks.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
+	AnimationProgressMarkNotification foundation.NSNotificationName
+	// AntialiasThresholdChangedNotification is posted after the threshold for antialiasing changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFont/antialiasThresholdChangedNotification
+	AntialiasThresholdChangedNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAppKitIgnoredException
+	AppKitIgnoredException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSAppKitVirtualMemoryException
+	AppKitVirtualMemoryException foundation.NSExceptionName
+	// ApplicationDidBecomeActiveNotification is posted immediately after the app becomes active.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didBecomeActiveNotification
+	ApplicationDidBecomeActiveNotification foundation.NSNotificationName
+	// ApplicationDidChangeOcclusionStateNotification is posted when the app’s occlusion state changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didChangeOcclusionStateNotification
+	ApplicationDidChangeOcclusionStateNotification foundation.NSNotificationName
+	// ApplicationDidChangeScreenParametersNotification is posted when the configuration of the displays attached to the computer is changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didChangeScreenParametersNotification
+	ApplicationDidChangeScreenParametersNotification foundation.NSNotificationName
+	// ApplicationDidFinishLaunchingNotification is posted at the end of the [finishLaunching()] method to indicate that the app has completed launching and is ready to run.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishLaunchingNotification
+	ApplicationDidFinishLaunchingNotification foundation.NSNotificationName
+	// ApplicationDidFinishRestoringWindowsNotification is posted when the app has finished restoring windows.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didFinishRestoringWindowsNotification
+	ApplicationDidFinishRestoringWindowsNotification foundation.NSNotificationName
+	// ApplicationDidHideNotification is posted at the end of the [hide(_:)] method to indicate that the app is now hidden.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didHideNotification
+	ApplicationDidHideNotification foundation.NSNotificationName
+	// ApplicationDidResignActiveNotification is posted immediately after the app gives up its active status to another app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didResignActiveNotification
+	ApplicationDidResignActiveNotification foundation.NSNotificationName
+	// ApplicationDidUnhideNotification is posted at the end of the [unhideWithoutActivation()] method to indicate that the app is now visible.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didUnhideNotification
+	ApplicationDidUnhideNotification foundation.NSNotificationName
+	// ApplicationDidUpdateNotification is posted at the end of the [updateWindows()] method to indicate that the app has finished updating its windows.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/didUpdateNotification
+	ApplicationDidUpdateNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSApplicationProtectedDataDidBecomeAvailableNotification
+	ApplicationProtectedDataDidBecomeAvailableNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSApplicationProtectedDataWillBecomeUnavailableNotification
+	ApplicationProtectedDataWillBecomeUnavailableNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSApplicationShouldBeginSuppressingHighDynamicRangeContentNotification
+	ApplicationShouldBeginSuppressingHighDynamicRangeContentNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSApplicationShouldEndSuppressingHighDynamicRangeContentNotification
+	ApplicationShouldEndSuppressingHighDynamicRangeContentNotification foundation.NSNotificationName
+	// ApplicationWillBecomeActiveNotification is posted immediately before the app becomes active.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willBecomeActiveNotification
+	ApplicationWillBecomeActiveNotification foundation.NSNotificationName
+	// ApplicationWillFinishLaunchingNotification is posted at the start of the [finishLaunching()] method to indicate that the app has completed its initialization process and is about to finish launching.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willFinishLaunchingNotification
+	ApplicationWillFinishLaunchingNotification foundation.NSNotificationName
+	// ApplicationWillHideNotification is posted at the start of the [hide(_:)] method to indicate that the app is about to be hidden.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willHideNotification
+	ApplicationWillHideNotification foundation.NSNotificationName
+	// ApplicationWillResignActiveNotification is posted immediately before the app gives up its active status to another app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willResignActiveNotification
+	ApplicationWillResignActiveNotification foundation.NSNotificationName
+	// ApplicationWillTerminateNotification is sends a notification to terminate the app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willTerminateNotification
+	ApplicationWillTerminateNotification foundation.NSNotificationName
+	// ApplicationWillUnhideNotification is posted at the start of the [unhideWithoutActivation()] method to indicate that the app is about to become visible.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willUnhideNotification
+	ApplicationWillUnhideNotification foundation.NSNotificationName
+	// ApplicationWillUpdateNotification is posted at the start of the [updateWindows()] method to indicate that the app is about to update its windows.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApplication/willUpdateNotification
+	ApplicationWillUpdateNotification foundation.NSNotificationName
+	// AttachmentAttributeName is the attachment for the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAttachmentAttributeName
+	AttachmentAttributeName foundation.NSAttributedStringKey
+	// BackgroundColorAttributeName is the color of the background behind the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBackgroundColorAttributeName
+	BackgroundColorAttributeName foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSBadBitmapParametersException
+	BadBitmapParametersException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSBadComparisonException
+	BadComparisonException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSBadRTFColorTableException
+	BadRTFColorTableException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSBadRTFDirectiveException
+	BadRTFDirectiveException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSBadRTFFontTableException
+	BadRTFFontTableException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSBadRTFStyleSheetException
+	BadRTFStyleSheetException foundation.NSExceptionName
+	// BaselineOffsetAttributeName is the vertical offset for the position of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBaselineOffsetAttributeName
+	BaselineOffsetAttributeName foundation.NSAttributedStringKey
+	// BrowserColumnConfigurationDidChangeNotification is notifies the delegate when the width of a browser column has changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBrowser/columnConfigurationDidChangeNotification
+	BrowserColumnConfigurationDidChangeNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSBrowserIllegalDelegateException
+	BrowserIllegalDelegateException foundation.NSExceptionName
+	// ColorListDidChangeNotification is posted whenever a color list changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorList/didChangeNotification
+	ColorListDidChangeNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSColorListIOException
+	ColorListIOException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSColorListNotEditableException
+	ColorListNotEditableException foundation.NSExceptionName
+	// ColorPanelColorDidChangeNotification is posted when the color of the [NSColorPanel] is set, as when [NSColorPanel] is invoked.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorPanel/colorDidChangeNotification
+	ColorPanelColorDidChangeNotification foundation.NSNotificationName
+	// ComboBoxSelectionDidChangeNotification is posted after the pop-up list selection of the [NSComboBox] changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionDidChangeNotification
+	ComboBoxSelectionDidChangeNotification foundation.NSNotificationName
+	// ComboBoxSelectionIsChangingNotification is posted whenever the pop-up list selection of the [NSComboBox] is changing.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/selectionIsChangingNotification
+	ComboBoxSelectionIsChangingNotification foundation.NSNotificationName
+	// ComboBoxWillDismissNotification is posted whenever the pop-up list of the [NSComboBox] is about to be dismissed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/willDismissNotification
+	ComboBoxWillDismissNotification foundation.NSNotificationName
+	// ComboBoxWillPopUpNotification is posted whenever the pop-up list of the [NSComboBox] is going to be displayed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSComboBox/willPopUpNotification
+	ComboBoxWillPopUpNotification foundation.NSNotificationName
+	// ContextHelpModeDidActivateNotification is posted when the application enters context-sensitive help mode. This typically happens when the user holds down the Help key.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSHelpManager/contextHelpModeDidActivateNotification
+	ContextHelpModeDidActivateNotification foundation.NSNotificationName
+	// ContextHelpModeDidDeactivateNotification is posted when the application exits context-sensitive help mode. This happens when the user clicks the mouse button while the cursor is anywhere on the screen after displaying a context-sensitive help topic.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSHelpManager/contextHelpModeDidDeactivateNotification
+	ContextHelpModeDidDeactivateNotification foundation.NSNotificationName
+	// ControlTextDidBeginEditingNotification is sent when a control with editable cells begins an edit session.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidBeginEditingNotification
+	ControlTextDidBeginEditingNotification foundation.NSNotificationName
+	// ControlTextDidChangeNotification is sent when the text in the receiving control changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidChangeNotification
+	ControlTextDidChangeNotification foundation.NSNotificationName
+	// ControlTextDidEndEditingNotification is sent when a control with editable cells ends an editing session.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSControl/textDidEndEditingNotification
+	ControlTextDidEndEditingNotification foundation.NSNotificationName
+	// CursorAttributeName is the cursor object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCursorAttributeName
+	CursorAttributeName foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingException
+	DraggingException foundation.NSExceptionName
+	// EventTrackingRunLoopMode is the mode set when tracking events modally, such as a mouse-dragging loop.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSEventTrackingRunLoopMode
+	EventTrackingRunLoopMode foundation.NSRunLoopMode
+	// ExpansionAttributeName is the expansion factor of the text.
+	//
+	// Deprecated: Deprecated since macOS 26.2.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSExpansionAttributeName
+	ExpansionAttributeName foundation.NSAttributedStringKey
+	// FontAttributeName is the font of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontAttributeName
+	FontAttributeName foundation.NSAttributedStringKey
+	// FontCollectionDidChangeNotification is posted whenever a font collection is changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/didChangeNotification
+	FontCollectionDidChangeNotification foundation.NSNotificationName
+	// FontSetChangedNotification is posted after the currently-set font changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFont/fontSetChangedNotification
+	FontSetChangedNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSFontUnavailableException
+	FontUnavailableException foundation.NSExceptionName
+	// ForegroundColorAttributeName is the color of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSForegroundColorAttributeName
+	ForegroundColorAttributeName foundation.NSAttributedStringKey
+	// GlyphInfoAttributeName is the name of a glyph info object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSGlyphInfoAttributeName
+	GlyphInfoAttributeName foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSIllegalSelectorException
+	IllegalSelectorException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSImageCacheException
+	ImageCacheException foundation.NSExceptionName
+	// ImageRepRegistryDidChangeNotification is posted whenever the image representation class registry changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSImageRep/registryDidChangeNotification
+	ImageRepRegistryDidChangeNotification foundation.NSNotificationName
+	// KernAttributeName is the kerning of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSKernAttributeName
+	KernAttributeName foundation.NSAttributedStringKey
+	// LigatureAttributeName is the ligature of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSLigatureAttributeName
+	LigatureAttributeName foundation.NSAttributedStringKey
+	// LinkAttributeName is the link for the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSLinkAttributeName
+	LinkAttributeName foundation.NSAttributedStringKey
+	// MarkedClauseSegmentAttributeName is the index of the marked clause segment.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMarkedClauseSegmentAttributeName
+	MarkedClauseSegmentAttributeName foundation.NSAttributedStringKey
+	// MenuDidAddItemNotification is posted after a menu item is added to the menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didAddItemNotification
+	MenuDidAddItemNotification foundation.NSNotificationName
+	// MenuDidBeginTrackingNotification is posted when menu tracking begins.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didBeginTrackingNotification
+	MenuDidBeginTrackingNotification foundation.NSNotificationName
+	// MenuDidChangeItemNotification is posted after a menu item in the menu changes appearance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didChangeItemNotification
+	MenuDidChangeItemNotification foundation.NSNotificationName
+	// MenuDidEndTrackingNotification is posted when menu tracking ends, even if no action is sent.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didEndTrackingNotification
+	MenuDidEndTrackingNotification foundation.NSNotificationName
+	// MenuDidRemoveItemNotification is posted after a menu item is removed from the menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didRemoveItemNotification
+	MenuDidRemoveItemNotification foundation.NSNotificationName
+	// MenuDidSendActionNotification is posted just after the application dispatches a menu item’s action method to the menu item’s target.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/didSendActionNotification
+	MenuDidSendActionNotification foundation.NSNotificationName
+	// MenuWillSendActionNotification is posted just before the application dispatches a menu item’s action method to the menu item’s target.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenu/willSendActionNotification
+	MenuWillSendActionNotification foundation.NSNotificationName
+	// ModalPanelRunLoopMode is the mode set when waiting for input from a modal panel, such as a save or open panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSModalPanelRunLoopMode
+	ModalPanelRunLoopMode foundation.NSRunLoopMode
+	// See: https://developer.apple.com/documentation/AppKit/NSNibLoadingException
+	NibLoadingException foundation.NSExceptionName
+	// ObliquenessAttributeName is the obliqueness of the text.
+	//
+	// Deprecated: Deprecated since macOS 26.2.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSObliquenessAttributeName
+	ObliquenessAttributeName foundation.NSAttributedStringKey
+	// OutlineViewColumnDidMoveNotification is posted whenever a column is moved by user action in an [NSOutlineView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/columnDidMoveNotification
+	OutlineViewColumnDidMoveNotification foundation.NSNotificationName
+	// OutlineViewColumnDidResizeNotification is posted whenever a column is resized in an [NSOutlineView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/columnDidResizeNotification
+	OutlineViewColumnDidResizeNotification foundation.NSNotificationName
+	// OutlineViewItemDidCollapseNotification is posted whenever an item is collapsed in an [NSOutlineView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemDidCollapseNotification
+	OutlineViewItemDidCollapseNotification foundation.NSNotificationName
+	// OutlineViewItemDidExpandNotification is posted whenever an item is expanded in an [NSOutlineView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemDidExpandNotification
+	OutlineViewItemDidExpandNotification foundation.NSNotificationName
+	// OutlineViewItemWillCollapseNotification is posted before an item is collapsed (after the user clicks the arrow but before the item is collapsed).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemWillCollapseNotification
+	OutlineViewItemWillCollapseNotification foundation.NSNotificationName
+	// OutlineViewItemWillExpandNotification is posted before an item is expanded (after the user clicks the arrow but before the item is collapsed).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemWillExpandNotification
+	OutlineViewItemWillExpandNotification foundation.NSNotificationName
+	// OutlineViewSelectionDidChangeNotification is posted after the outline view’s selection changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/selectionDidChangeNotification
+	OutlineViewSelectionDidChangeNotification foundation.NSNotificationName
+	// OutlineViewSelectionIsChangingNotification is posted as the outline view’s selection changes (while the mouse button is still down).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOutlineView/selectionIsChangingNotification
+	OutlineViewSelectionIsChangingNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSPPDIncludeNotFoundException
+	PPDIncludeNotFoundException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSPPDIncludeStackOverflowException
+	PPDIncludeStackOverflowException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSPPDIncludeStackUnderflowException
+	PPDIncludeStackUnderflowException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSPPDParseException
+	PPDParseException foundation.NSExceptionName
+	// ParagraphStyleAttributeName is the paragraph style of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSParagraphStyleAttributeName
+	ParagraphStyleAttributeName foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboardCommunicationException
+	PasteboardCommunicationException foundation.NSExceptionName
+	// PopUpButtonCellWillPopUpNotification is this notification is posted just before a pop-up menu is attached to its window frame.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopUpButtonCell/willPopUpNotification
+	PopUpButtonCellWillPopUpNotification foundation.NSNotificationName
+	// PopUpButtonWillPopUpNotification is posted when an [NSPopUpButton] object receives a mouse-down event—that is, when the user is about to select an item from the menu.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/willPopUpNotification
+	PopUpButtonWillPopUpNotification foundation.NSNotificationName
+	// PopoverDidCloseNotification is sent after the popover has finished animating offscreen.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/didCloseNotification
+	PopoverDidCloseNotification foundation.NSNotificationName
+	// PopoverDidShowNotification is sent after the popover has finished animating onscreen.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/didShowNotification
+	PopoverDidShowNotification foundation.NSNotificationName
+	// PopoverWillCloseNotification is sent before the popover is closed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/willCloseNotification
+	PopoverWillCloseNotification foundation.NSNotificationName
+	// PopoverWillShowNotification is sent before the popover is shown.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/willShowNotification
+	PopoverWillShowNotification foundation.NSNotificationName
+	// PreferredScrollerStyleDidChangeNotification is posted if the preferred scroller style changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScroller/preferredScrollerStyleDidChangeNotification
+	PreferredScrollerStyleDidChangeNotification foundation.NSNotificationName
+	// PrintOperationExistsException is the name of an exception raised when there is already a print operation in process.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintOperationExistsException
+	PrintOperationExistsException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintPackageException
+	PrintPackageException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintingCommunicationException
+	PrintingCommunicationException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSRTFPropertyStackOverflowException
+	RTFPropertyStackOverflowException foundation.NSExceptionName
+	// RuleEditorRowsDidChangeNotification is this notification is posted to the default notification center whenever the view’s rows change.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/rowsDidChangeNotification
+	RuleEditorRowsDidChangeNotification foundation.NSNotificationName
+	// ScreenColorSpaceDidChangeNotification is posted when the color space of the screen has changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScreen/colorSpaceDidChangeNotification
+	ScreenColorSpaceDidChangeNotification foundation.NSNotificationName
+	// ScrollViewDidEndLiveMagnifyNotification is posted at the end of a magnify gesture.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didEndLiveMagnifyNotification
+	ScrollViewDidEndLiveMagnifyNotification foundation.NSNotificationName
+	// ScrollViewDidEndLiveScrollNotification is posted on the main thread at the end of live scroll tracking.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didEndLiveScrollNotification
+	ScrollViewDidEndLiveScrollNotification foundation.NSNotificationName
+	// ScrollViewDidLiveScrollNotification is posted on the main thread after changing the clipview bounds origin due to a user-initiated event.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/didLiveScrollNotification
+	ScrollViewDidLiveScrollNotification foundation.NSNotificationName
+	// ScrollViewWillStartLiveMagnifyNotification is posted at the beginning of a magnify gesture.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/willStartLiveMagnifyNotification
+	ScrollViewWillStartLiveMagnifyNotification foundation.NSNotificationName
+	// ScrollViewWillStartLiveScrollNotification is posted on the main thread at the beginning of user-initiated live scroll tracking (gesture scroll or scroller tracking, for example, thumb dragging).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSScrollView/willStartLiveScrollNotification
+	ScrollViewWillStartLiveScrollNotification foundation.NSNotificationName
+	// ShadowAttributeName is the shadow of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSShadowAttributeName
+	ShadowAttributeName foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticCapitalizationNotification
+	SpellCheckerDidChangeAutomaticCapitalizationNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticDashSubstitutionNotification
+	SpellCheckerDidChangeAutomaticDashSubstitutionNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellCheckerDidChangeAutomaticInlinePredictionNotification
+	SpellCheckerDidChangeAutomaticInlinePredictionNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticPeriodSubstitutionNotification
+	SpellCheckerDidChangeAutomaticPeriodSubstitutionNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticQuoteSubstitutionNotification
+	SpellCheckerDidChangeAutomaticQuoteSubstitutionNotification foundation.NSNotificationName
+	// SpellCheckerDidChangeAutomaticSpellingCorrectionNotification is this notification is posted when the spell checker did change text using automatic spell checking correction. The are posted to the application’s default notification center.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticSpellingCorrectionNotification
+	SpellCheckerDidChangeAutomaticSpellingCorrectionNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticTextCompletionNotification
+	SpellCheckerDidChangeAutomaticTextCompletionNotification foundation.NSNotificationName
+	// SpellCheckerDidChangeAutomaticTextReplacementNotification is posted when the spell checker changed text using automatic text replacement. This notification is posted to the app’s default notification center.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/didChangeAutomaticTextReplacementNotification
+	SpellCheckerDidChangeAutomaticTextReplacementNotification foundation.NSNotificationName
+	// SpellingStateAttributeName is the spelling state of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellingStateAttributeName
+	SpellingStateAttributeName foundation.NSAttributedStringKey
+	// SplitViewDidResizeSubviewsNotification is a notification that posts after a change to the size of some or all subviews of a split view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSplitView/didResizeSubviewsNotification
+	SplitViewDidResizeSubviewsNotification foundation.NSNotificationName
+	// SplitViewWillResizeSubviewsNotification is a notification that posts before a change to the size of some or all subviews of a split view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSplitView/willResizeSubviewsNotification
+	SplitViewWillResizeSubviewsNotification foundation.NSNotificationName
+	// StrikethroughColorAttributeName is the color of the strikethrough.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStrikethroughColorAttributeName
+	StrikethroughColorAttributeName foundation.NSAttributedStringKey
+	// StrikethroughStyleAttributeName is the strikethrough style of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStrikethroughStyleAttributeName
+	StrikethroughStyleAttributeName foundation.NSAttributedStringKey
+	// StrokeColorAttributeName is the color of the stroke.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStrokeColorAttributeName
+	StrokeColorAttributeName foundation.NSAttributedStringKey
+	// StrokeWidthAttributeName is the width of the stroke.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSStrokeWidthAttributeName
+	StrokeWidthAttributeName foundation.NSAttributedStringKey
+	// SuperscriptAttributeName is the superscript of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSuperscriptAttributeName
+	SuperscriptAttributeName foundation.NSAttributedStringKey
+	// SystemColorsDidChangeNotification is sent when the system colors have changed, such as through a system control panel interface.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColor/systemColorsDidChangeNotification
+	SystemColorsDidChangeNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSTIFFException
+	TIFFException foundation.NSExceptionName
+	// TableViewColumnDidMoveNotification is posted whenever a column is moved by user action in an [NSTableView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/columnDidMoveNotification
+	TableViewColumnDidMoveNotification foundation.NSNotificationName
+	// TableViewColumnDidResizeNotification is posted whenever a column is resized in an [NSTableView] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/columnDidResizeNotification
+	TableViewColumnDidResizeNotification foundation.NSNotificationName
+	// TableViewSelectionDidChangeNotification is posted after an [NSTableView] object’s selection changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/selectionDidChangeNotification
+	TableViewSelectionDidChangeNotification foundation.NSNotificationName
+	// TableViewSelectionIsChangingNotification is posted as an [NSTableView] object’s selection changes (while the mouse button is still down).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTableView/selectionIsChangingNotification
+	TableViewSelectionIsChangingNotification foundation.NSNotificationName
+	// TextAlternativesAttributeName is the alternatives for the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextAlternativesAttributeName
+	TextAlternativesAttributeName foundation.NSAttributedStringKey
+	// TextAlternativesSelectedAlternativeStringNotification is posted when the user selects an alternate string.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextAlternatives/selectedAlternativeStringNotification
+	TextAlternativesSelectedAlternativeStringNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSTextContentStorageUnsupportedAttributeAddedNotification
+	TextContentStorageUnsupportedAttributeAddedNotification foundation.NSNotificationName
+	// TextDidBeginEditingNotification is posted when an [NSText] object begins any operation that changes characters or formatting attributes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
+	TextDidBeginEditingNotification foundation.NSNotificationName
+	// TextDidChangeNotification is posted after an [NSText] object performs any operation that changes characters or formatting attributes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSText/didChangeNotification
+	TextDidChangeNotification foundation.NSNotificationName
+	// TextDidEndEditingNotification is posted when focus leaves an [NSText] object, whether or not any operation has changed characters or formatting attributes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
+	TextDidEndEditingNotification foundation.NSNotificationName
+	// TextEffectAttributeName is an attribute that applies a text effect to the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextEffectAttributeName
+	TextEffectAttributeName foundation.NSAttributedStringKey
+	// TextHighlightColorSchemeAttributeName is the custom highlight color to apply to the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextHighlightColorSchemeAttributeName
+	TextHighlightColorSchemeAttributeName foundation.NSAttributedStringKey
+	// TextHighlightStyleAttributeName is an attribute that adds a highlight color to the text to emphasize it.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextHighlightStyleAttributeName
+	TextHighlightStyleAttributeName foundation.NSAttributedStringKey
+	// TextInputContextKeyboardSelectionDidChangeNotification is posted after the selected text input source changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/keyboardSelectionDidChangeNotification
+	TextInputContextKeyboardSelectionDidChangeNotification foundation.NSNotificationName
+	// TextLineTooLongException is exception generated if a line is too long in an [NSText] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextLineTooLongException
+	TextLineTooLongException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSTextNoSelectionException
+	TextNoSelectionException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSTextReadException
+	TextReadException foundation.NSExceptionName
+	// TextStorageDidProcessEditingNotification is a notification that posts after a text storage finishes processing edits.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextStorage/didProcessEditingNotification
+	TextStorageDidProcessEditingNotification foundation.NSNotificationName
+	// TextStorageWillProcessEditingNotification is a notification that posts before a text storage begins processing edits.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextStorage/willProcessEditingNotification
+	TextStorageWillProcessEditingNotification foundation.NSNotificationName
+	// TextViewDidChangeSelectionNotification is posted when the selected range of characters changes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeSelectionNotification
+	TextViewDidChangeSelectionNotification foundation.NSNotificationName
+	// TextViewDidChangeTypingAttributesNotification is posted when there is a change in the typing attributes within a text view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didChangeTypingAttributesNotification
+	TextViewDidChangeTypingAttributesNotification foundation.NSNotificationName
+	// TextViewDidSwitchToNSLayoutManagerNotification is posted by the framework after switching to using the compatibility mode layout manager.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/didSwitchToNSLayoutManagerNotification
+	TextViewDidSwitchToNSLayoutManagerNotification foundation.NSNotificationName
+	// TextViewWillChangeNotifyingTextViewNotification is posted when a new text view is established as the text view that sends notifications.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/willChangeNotifyingTextViewNotification
+	TextViewWillChangeNotifyingTextViewNotification foundation.NSNotificationName
+	// TextViewWillSwitchToNSLayoutManagerNotification is posted by the framework before switching to the compatibility mode layout manager.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextView/willSwitchToNSLayoutManagerNotification
+	TextViewWillSwitchToNSLayoutManagerNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSTextWriteException
+	TextWriteException foundation.NSExceptionName
+	// ToolTipAttributeName is the tooltip text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolTipAttributeName
+	ToolTipAttributeName foundation.NSAttributedStringKey
+	// ToolbarDidRemoveItemNotification is posted after an item is removed from a toolbar.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbar/didRemoveItemNotification
+	ToolbarDidRemoveItemNotification foundation.NSNotificationName
+	// ToolbarWillAddItemNotification is posts before the toolbar adds a new item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbar/willAddItemNotification
+	ToolbarWillAddItemNotification foundation.NSNotificationName
+	// TrackingAttributeName is the amount to modify the default tracking.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTrackingAttributeName
+	TrackingAttributeName foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSTypedStreamVersionException
+	TypedStreamVersionException foundation.NSExceptionName
+	// UnderlineColorAttributeName is the color of the underline.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSUnderlineColorAttributeName
+	UnderlineColorAttributeName foundation.NSAttributedStringKey
+	// UnderlineStyleAttributeName is the underline style of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSUnderlineStyleAttributeName
+	UnderlineStyleAttributeName foundation.NSAttributedStringKey
+	// VerticalGlyphFormAttributeName is the vertical glyph form of the text.
+	//
+	// Deprecated: Deprecated since macOS 26.2.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSVerticalGlyphFormAttributeName
+	VerticalGlyphFormAttributeName foundation.NSAttributedStringKey
+	// ViewBoundsDidChangeNotification is a notification that posts when the view’s bounds rectangle changes to a new value independently of the frame rectangle.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification
+	ViewBoundsDidChangeNotification foundation.NSNotificationName
+	// ViewDidUpdateTrackingAreasNotification is posted whenever a view recalculates its tracking areas.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/didUpdateTrackingAreasNotification
+	ViewDidUpdateTrackingAreasNotification foundation.NSNotificationName
+	// ViewFrameDidChangeNotification is a notification that posts when the view’s frame rectangle changes to a new value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification
+	ViewFrameDidChangeNotification foundation.NSNotificationName
+	// WindowDidBecomeKeyNotification is a notification that the window object became the key window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeKeyNotification
+	WindowDidBecomeKeyNotification foundation.NSNotificationName
+	// WindowDidBecomeMainNotification is a notification that the window object became the main window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didBecomeMainNotification
+	WindowDidBecomeMainNotification foundation.NSNotificationName
+	// WindowDidChangeBackingPropertiesNotification is a notification that the window object backing properties changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeBackingPropertiesNotification
+	WindowDidChangeBackingPropertiesNotification foundation.NSNotificationName
+	// WindowDidChangeOcclusionStateNotification is a notification that the window object’s occlusion state changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeOcclusionStateNotification
+	WindowDidChangeOcclusionStateNotification foundation.NSNotificationName
+	// WindowDidChangeScreenNotification is a notification that a portion of the window object’s frame moved onto or off of a screen.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenNotification
+	WindowDidChangeScreenNotification foundation.NSNotificationName
+	// WindowDidChangeScreenProfileNotification is a notification that the screen containing the window changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didChangeScreenProfileNotification
+	WindowDidChangeScreenProfileNotification foundation.NSNotificationName
+	// WindowDidDeminiaturizeNotification is a notification that the window is no longer minimized.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didDeminiaturizeNotification
+	WindowDidDeminiaturizeNotification foundation.NSNotificationName
+	// WindowDidEndLiveResizeNotification is a notification that the user resized the window object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEndLiveResizeNotification
+	WindowDidEndLiveResizeNotification foundation.NSNotificationName
+	// WindowDidEndSheetNotification is a notification that the window object closed an attached sheet.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEndSheetNotification
+	WindowDidEndSheetNotification foundation.NSNotificationName
+	// WindowDidEnterFullScreenNotification is a notification that the window entered full-screen mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterFullScreenNotification
+	WindowDidEnterFullScreenNotification foundation.NSNotificationName
+	// WindowDidEnterVersionBrowserNotification is a notification that the window object entered version browser mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didEnterVersionBrowserNotification
+	WindowDidEnterVersionBrowserNotification foundation.NSNotificationName
+	// WindowDidExitFullScreenNotification is a notification that the window object exited full-screen mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExitFullScreenNotification
+	WindowDidExitFullScreenNotification foundation.NSNotificationName
+	// WindowDidExitVersionBrowserNotification is a notification that the window object exited version browser mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExitVersionBrowserNotification
+	WindowDidExitVersionBrowserNotification foundation.NSNotificationName
+	// WindowDidExposeNotification is a notification that a window exposed a portion of its nonretained content.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didExposeNotification
+	WindowDidExposeNotification foundation.NSNotificationName
+	// WindowDidMiniaturizeNotification is a notification that the window object minimized.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didMiniaturizeNotification
+	WindowDidMiniaturizeNotification foundation.NSNotificationName
+	// WindowDidMoveNotification is a notification that the window object moved.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didMoveNotification
+	WindowDidMoveNotification foundation.NSNotificationName
+	// WindowDidResignKeyNotification is a notification that the window object resigned its status as key window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResignKeyNotification
+	WindowDidResignKeyNotification foundation.NSNotificationName
+	// WindowDidResignMainNotification is a notification that the window object resigned its status as main window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResignMainNotification
+	WindowDidResignMainNotification foundation.NSNotificationName
+	// WindowDidResizeNotification is a notification that the window object size changed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didResizeNotification
+	WindowDidResizeNotification foundation.NSNotificationName
+	// WindowDidUpdateNotification is a notification that the window object received an update message.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/didUpdateNotification
+	WindowDidUpdateNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSWindowServerCommunicationException
+	WindowServerCommunicationException foundation.NSExceptionName
+	// WindowWillBeginSheetNotification is a notification that the window object is about to open a sheet.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willBeginSheetNotification
+	WindowWillBeginSheetNotification foundation.NSNotificationName
+	// WindowWillCloseNotification is a notification that the window object is about to close.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willCloseNotification
+	WindowWillCloseNotification foundation.NSNotificationName
+	// WindowWillEnterFullScreenNotification is a notification that the window will enter full-screen mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterFullScreenNotification
+	WindowWillEnterFullScreenNotification foundation.NSNotificationName
+	// WindowWillEnterVersionBrowserNotification is a notification that the window object will enter version browser mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willEnterVersionBrowserNotification
+	WindowWillEnterVersionBrowserNotification foundation.NSNotificationName
+	// WindowWillExitFullScreenNotification is a notification that the window object will exit full-screen mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willExitFullScreenNotification
+	WindowWillExitFullScreenNotification foundation.NSNotificationName
+	// WindowWillExitVersionBrowserNotification is a notification that the window object will exit version browser mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willExitVersionBrowserNotification
+	WindowWillExitVersionBrowserNotification foundation.NSNotificationName
+	// WindowWillMiniaturizeNotification is a notification that the window object is about to minimize.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willMiniaturizeNotification
+	WindowWillMiniaturizeNotification foundation.NSNotificationName
+	// WindowWillMoveNotification is a notification that the window object is about to move.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willMoveNotification
+	WindowWillMoveNotification foundation.NSNotificationName
+	// WindowWillStartLiveResizeNotification is a notification that the user is about to resize the window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWindow/willStartLiveResizeNotification
+	WindowWillStartLiveResizeNotification foundation.NSNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSWordTablesReadException
+	WordTablesReadException foundation.NSExceptionName
+	// See: https://developer.apple.com/documentation/AppKit/NSWordTablesWriteException
+	WordTablesWriteException foundation.NSExceptionName
+	// WorkspaceAccessibilityDisplayOptionsDidChangeNotification is a notification that the workspace posts when any of the accessibility display options change.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/accessibilityDisplayOptionsDidChangeNotification
+	WorkspaceAccessibilityDisplayOptionsDidChangeNotification foundation.NSNotificationName
+	// WorkspaceActiveSpaceDidChangeNotification is a notification that the workspace posts when a Spaces change occurs.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/activeSpaceDidChangeNotification
+	WorkspaceActiveSpaceDidChangeNotification foundation.NSNotificationName
+	// WorkspaceDidActivateApplicationNotification is a notification that the workspace posts when the Finder is about to activate an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didActivateApplicationNotification
+	WorkspaceDidActivateApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidChangeFileLabelsNotification is a notification that the workspace posts when the Finder file labels or colors change.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didChangeFileLabelsNotification
+	WorkspaceDidChangeFileLabelsNotification foundation.NSNotificationName
+	// WorkspaceDidDeactivateApplicationNotification is a notification that the workspace posts when the Finder deactivates an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didDeactivateApplicationNotification
+	WorkspaceDidDeactivateApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidHideApplicationNotification is a notification that the workspace posts when the Finder hides an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didHideApplicationNotification
+	WorkspaceDidHideApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidLaunchApplicationNotification is a notification that the workspace posts when a new app starts up.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didLaunchApplicationNotification
+	WorkspaceDidLaunchApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidMountNotification is a notification that the workspace posts when a new device mounts.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didMountNotification
+	WorkspaceDidMountNotification foundation.NSNotificationName
+	// WorkspaceDidRenameVolumeNotification is a notification that the workspace posts when a volume changes its name or mount path.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didRenameVolumeNotification
+	WorkspaceDidRenameVolumeNotification foundation.NSNotificationName
+	// WorkspaceDidTerminateApplicationNotification is a notification that the workspace posts when an app finishes executing.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didTerminateApplicationNotification
+	WorkspaceDidTerminateApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidUnhideApplicationNotification is a notification that the workspace posts when the Finder unhides an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didUnhideApplicationNotification
+	WorkspaceDidUnhideApplicationNotification foundation.NSNotificationName
+	// WorkspaceDidUnmountNotification is a notification that the workspace posts when the Finder unmounts a device.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didUnmountNotification
+	WorkspaceDidUnmountNotification foundation.NSNotificationName
+	// WorkspaceDidWakeNotification is a notification that the workspace posts when the device wakes from sleep.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/didWakeNotification
+	WorkspaceDidWakeNotification foundation.NSNotificationName
+	// WorkspaceScreensDidSleepNotification is a notification that the workspace posts when the device’s screen goes to sleep.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/screensDidSleepNotification
+	WorkspaceScreensDidSleepNotification foundation.NSNotificationName
+	// WorkspaceScreensDidWakeNotification is a notification that the workspace posts when the device’s screens wake.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/screensDidWakeNotification
+	WorkspaceScreensDidWakeNotification foundation.NSNotificationName
+	// WorkspaceSessionDidBecomeActiveNotification is a notification that the workspace posts after a user session switches in.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/sessionDidBecomeActiveNotification
+	WorkspaceSessionDidBecomeActiveNotification foundation.NSNotificationName
+	// WorkspaceSessionDidResignActiveNotification is a notification that the workspace posts before a user session switches out.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/sessionDidResignActiveNotification
+	WorkspaceSessionDidResignActiveNotification foundation.NSNotificationName
+	// WorkspaceWillLaunchApplicationNotification is a notification that the workspace posts when the Finder is about to launch an app.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willLaunchApplicationNotification
+	WorkspaceWillLaunchApplicationNotification foundation.NSNotificationName
+	// WorkspaceWillPowerOffNotification is a notification that the workspace posts when the user requests a logout or powers off the device.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willPowerOffNotification
+	WorkspaceWillPowerOffNotification foundation.NSNotificationName
+	// WorkspaceWillSleepNotification is a notification that the workspace posts before the device goes to sleep.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willSleepNotification
+	WorkspaceWillSleepNotification foundation.NSNotificationName
+	// WorkspaceWillUnmountNotification is a notification that the workspace posts when the Finder is about to unmount a device.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/willUnmountNotification
+	WorkspaceWillUnmountNotification foundation.NSNotificationName
+	// WritingDirectionAttributeName is the writing direction of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWritingDirectionAttributeName
+	WritingDirectionAttributeName foundation.NSAttributedStringKey
+	// See: https://developer.apple.com/documentation/AppKit/NSWritingToolsExclusionAttributeName
+	WritingToolsExclusionAttributeName foundation.NSAttributedStringKey
+)
+
+var (
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/activationPoint
+	AccessibilityActivationPointAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/alternateUIVisible
+	AccessibilityAlternateUIVisibleAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/autoInteractableAttribute
+	AccessibilityAutoInteractableAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/blockQuoteLevelAttribute
+	AccessibilityBlockQuoteLevelAttribute string
+	// AccessibilityCancelButtonAttribute is the element that represents the cancel button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/cancelButton
+	AccessibilityCancelButtonAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/childrenInNavigationOrderAttribute
+	AccessibilityChildrenInNavigationOrderAttribute string
+	// AccessibilityColumnHeaderUIElementsAttribute is the table’s column headers ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/columnHeaderUIElements
+	AccessibilityColumnHeaderUIElementsAttribute string
+	// AccessibilityColumnIndexRangeAttribute is the column index range of the cell (an [NSValue] instance that contains the row’s starting index and index span in the table).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/columnIndexRange
+	AccessibilityColumnIndexRangeAttribute string
+	// AccessibilityColumnTitlesAttribute is the elements that represent the column titles ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/columnTitles
+	AccessibilityColumnTitlesAttribute string
+	// AccessibilityColumnsAttribute is the table’s columns ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/columns
+	AccessibilityColumnsAttribute string
+	// AccessibilityContainsProtectedContentAttribute is a flag that indicates whether the object contains protected content.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/containsProtectedContent
+	AccessibilityContainsProtectedContentAttribute string
+	// AccessibilityContentsAttribute is elements that represent the contents in the current element, such as the document view of a scroll view ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/contents
+	AccessibilityContentsAttribute string
+	// AccessibilityCriticalValueAttribute is the critical value in a level indicator (typically, [NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/criticalValue
+	AccessibilityCriticalValueAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/dateTimeComponentsAttribute
+	AccessibilityDateTimeComponentsAttribute string
+	// AccessibilityDecrementButtonAttribute is the element that represents a stepper’s decrement button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/decrementButton
+	AccessibilityDecrementButtonAttribute string
+	// AccessibilityDefaultButtonAttribute is the element that represents the default button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/defaultButton
+	AccessibilityDefaultButtonAttribute string
+	// AccessibilityDescriptionAttribute is the purpose of the element, not including the role ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/description
+	AccessibilityDescriptionAttribute string
+	// AccessibilityDisclosedRowsAttribute is the rows disclosed by this row ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/disclosedRows
+	AccessibilityDisclosedRowsAttribute string
+	// AccessibilityDisclosingAttribute is a flag that indicates whether a row is disclosing other rows ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/disclosing
+	AccessibilityDisclosingAttribute string
+	// AccessibilityDisclosureLevelAttribute is the indentation level of this row ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/disclosureLevel
+	AccessibilityDisclosureLevelAttribute string
+	// AccessibilityDocumentAttribute is the URL for the file represented by the element ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/document
+	AccessibilityDocumentAttribute string
+	// AccessibilityEditedAttribute is a flag that indicates whether the element has been modified ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/edited
+	AccessibilityEditedAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/embeddedImageDescriptionAttribute
+	AccessibilityEmbeddedImageDescriptionAttribute string
+	// AccessibilityEnabledAttribute is a flag that indicates the enabled state of the element ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/enabled
+	AccessibilityEnabledAttribute string
+	// AccessibilityErrorCodeExceptionInfo is an integer error code for debugging.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ErrorCodeExceptionInfo
+	AccessibilityErrorCodeExceptionInfo string
+	// AccessibilityExpandedAttribute is a flag that indicates whether the element is expanded ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/expanded
+	AccessibilityExpandedAttribute string
+	// AccessibilityExtrasMenuBarAttribute is the app extras menu bar (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/extrasMenuBar
+	AccessibilityExtrasMenuBarAttribute string
+	// AccessibilityFilenameAttribute is the filename associated with the element ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/filename
+	AccessibilityFilenameAttribute string
+	// AccessibilityFocusedAttribute is a flag that indicates the presence of keyboard focus ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/focused
+	AccessibilityFocusedAttribute string
+	// AccessibilityFocusedWindowAttribute is the app’s window that has current focus (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/focusedWindow
+	AccessibilityFocusedWindowAttribute string
+	// AccessibilityFrontmostAttribute is a flag that indicates whether the app is frontmost ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/frontmost
+	AccessibilityFrontmostAttribute string
+	// AccessibilityFullScreenButtonAttribute is the element that represents the full-screen button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/fullScreenButton
+	AccessibilityFullScreenButtonAttribute string
+	// AccessibilityGrowAreaAttribute is the element representing the grow area (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/growArea
+	AccessibilityGrowAreaAttribute string
+	// AccessibilityHeaderAttribute is the element that represents a table view’s header (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/header
+	AccessibilityHeaderAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/headingLevelAttribute
+	AccessibilityHeadingLevelAttribute string
+	// AccessibilityHelpAttribute is the help text for the element ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/help
+	AccessibilityHelpAttribute string
+	// AccessibilityHiddenAttribute is a flag that indicates whether the app is hidden ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/hidden
+	AccessibilityHiddenAttribute string
+	// AccessibilityHorizontalScrollBarAttribute is the element that represents a scroll view’s horizontal scroll bar (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/horizontalScrollBar
+	AccessibilityHorizontalScrollBarAttribute string
+	// AccessibilityHorizontalUnitDescriptionAttribute is the description of the layout view’s horizontal units ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/horizontalUnitDescription
+	AccessibilityHorizontalUnitDescriptionAttribute string
+	// AccessibilityIdentifierAttribute is the identity of the element ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/identifier
+	AccessibilityIdentifierAttribute string
+	// AccessibilityIncrementButtonAttribute is the element that represents a stepper’s increment button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/incrementButton
+	AccessibilityIncrementButtonAttribute string
+	// See: https://developer.apple.com/documentation/appkit/nsaccessibility-swift.struct/attribute/index
+	NSAccessibilityIndexAttribute string
+	// AccessibilityLabelUIElementsAttribute is the elements that represent the slider’s labels ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/labelUIElements
+	AccessibilityLabelUIElementsAttribute string
+	// AccessibilityLabelValueAttribute is the value of the label represented by this element ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/labelValue
+	AccessibilityLabelValueAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/languageAttribute
+	AccessibilityLanguageAttribute string
+	// AccessibilityMainAttribute is a flag that indicates whether the window is the main window ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/main
+	AccessibilityMainAttribute string
+	// AccessibilityMainWindowAttribute is the app’s main window (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/mainWindow
+	AccessibilityMainWindowAttribute string
+	// AccessibilityMarkerTypeAttribute is the type of the marker ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/markerType
+	AccessibilityMarkerTypeAttribute string
+	// AccessibilityMarkerTypeDescriptionAttribute is the description of the marker type ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/markerTypeDescription
+	AccessibilityMarkerTypeDescriptionAttribute string
+	// AccessibilityMarkerUIElementsAttribute is an array of marker user interface elements ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/markerUIElements
+	AccessibilityMarkerUIElementsAttribute string
+	// AccessibilityMarkerValuesAttribute is the marker values ([NSArray] of [NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/markerValues
+	AccessibilityMarkerValuesAttribute string
+	// AccessibilityMaxValueAttribute is the element’s maximum value (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/maxValue
+	AccessibilityMaxValueAttribute string
+	// AccessibilityMenuBarAttribute is the app’s menu bar (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/menuBar
+	AccessibilityMenuBarAttribute string
+	// AccessibilityMinValueAttribute is the element’s minimum value (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/minValue
+	AccessibilityMinValueAttribute string
+	// AccessibilityMinimizeButtonAttribute is the element that represents the minimize button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/minimizeButton
+	AccessibilityMinimizeButtonAttribute string
+	// AccessibilityMinimizedAttribute is a flag that indicates whether the window is minimized ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/minimized
+	AccessibilityMinimizedAttribute string
+	// AccessibilityModalAttribute is a flag that indicates whether the window represented by this element is modal ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/modal
+	AccessibilityModalAttribute string
+	// AccessibilityNextContentsAttribute is the elements representing the contents that follow the current divider element, such as a subview adjacent to a split view’s splitter element ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/nextContents
+	AccessibilityNextContentsAttribute string
+	// AccessibilityNumberOfCharactersAttribute is the number of characters in the text ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/numberOfCharacters
+	AccessibilityNumberOfCharactersAttribute string
+	// AccessibilityOrderedByRowAttribute is a flag that indicates whether the grid is in row major or column major order.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/orderedByRow
+	AccessibilityOrderedByRowAttribute string
+	// AccessibilityOrientationAttribute is the element’s orientation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/orientation
+	AccessibilityOrientationAttribute string
+	// AccessibilityOverflowButtonAttribute is the element that represents a toolbar’s overflow button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/overflowButton
+	AccessibilityOverflowButtonAttribute string
+	// AccessibilityParentAttribute is the element’s parent element in the accessibility hierarchy (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/parent
+	AccessibilityParentAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/pathAttribute
+	AccessibilityPathAttribute string
+	// AccessibilityPlaceholderValueAttribute is the placeholder value for a control, such as a text field ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/placeholderValue
+	AccessibilityPlaceholderValueAttribute string
+	// AccessibilityPositionAttribute is the position in points of the element’s lower-left corner in screen-relative coordinates ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
+	AccessibilityPositionAttribute string
+	// AccessibilityPreviousContentsAttribute is the elements representing the contents that precede the current divider element, such as a subview adjacent to a split view’s splitter bar element ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/previousContents
+	AccessibilityPreviousContentsAttribute string
+	// AccessibilityProxyAttribute is the element that represents the window’s proxy icon (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/proxy
+	AccessibilityProxyAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/required
+	AccessibilityRequiredAttribute string
+	// AccessibilityRoleAttribute is the element’s type, such as [NSAccessibilityRadioButtonRole] ([NSString]). See Roles for a list of available roles.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/role
+	AccessibilityRoleAttribute string
+	// AccessibilityRoleDescriptionAttribute is a localized, human-intelligible description of the element’s role, such as `radio button` ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/roleDescription
+	AccessibilityRoleDescriptionAttribute string
+	// AccessibilityRowCountAttribute is the number of rows in the grid ([NSNumber] as `intValue`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/rowCount
+	AccessibilityRowCountAttribute string
+	// AccessibilityRowHeaderUIElementsAttribute is the table’s row headers ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/rowHeaderUIElements
+	AccessibilityRowHeaderUIElementsAttribute string
+	// AccessibilityRowsAttribute is the table’s rows ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/rows
+	AccessibilityRowsAttribute string
+	// AccessibilitySearchButtonAttribute is the element that represents the search button in a search field (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/searchButton
+	AccessibilitySearchButtonAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchCurrentElementKey
+	AccessibilitySearchCurrentElementKey string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchCurrentRangeKey
+	AccessibilitySearchCurrentRangeKey string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchDirectionKey
+	AccessibilitySearchDirectionKey string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchDirectionNext
+	AccessibilitySearchDirectionNext string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchDirectionPrevious
+	AccessibilitySearchDirectionPrevious string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchIdentifiersKey
+	AccessibilitySearchIdentifiersKey string
+	// AccessibilitySearchMenuAttribute is the element that represents the menu in a search field (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/searchMenu
+	AccessibilitySearchMenuAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchResultDescriptionOverrideKey
+	AccessibilitySearchResultDescriptionOverrideKey string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchResultElementKey
+	AccessibilitySearchResultElementKey string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchResultLoaderKey
+	AccessibilitySearchResultLoaderKey string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchResultRangeKey
+	AccessibilitySearchResultRangeKey string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchResultsLimitKey
+	AccessibilitySearchResultsLimitKey string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchTextKey
+	AccessibilitySearchTextKey string
+	// AccessibilitySelectedAttribute is a flag that indicates whether the element is selected ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/selected
+	AccessibilitySelectedAttribute string
+	// AccessibilitySelectedChildrenAttribute is the currently selected children of the element ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/selectedChildren
+	AccessibilitySelectedChildrenAttribute string
+	// AccessibilitySelectedColumnsAttribute is the table’s selected columns ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/selectedColumns
+	AccessibilitySelectedColumnsAttribute string
+	// AccessibilitySelectedRowsAttribute is the table’s selected rows ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/selectedRows
+	AccessibilitySelectedRowsAttribute string
+	// AccessibilitySelectedTextAttribute is the currently selected text ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/selectedText
+	AccessibilitySelectedTextAttribute string
+	// AccessibilitySelectedTextRangeAttribute is the range of selected text ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/selectedTextRange
+	AccessibilitySelectedTextRangeAttribute string
+	// AccessibilitySelectedTextRangesAttribute is an array of [NSValue] (`rangeValue`) ranges of selected text ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/selectedTextRanges
+	AccessibilitySelectedTextRangesAttribute string
+	// AccessibilityServesAsTitleForUIElementsAttribute is the elements for which this element serves as the title ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/servesAsTitleForUIElements
+	AccessibilityServesAsTitleForUIElementsAttribute string
+	// AccessibilitySharedCharacterRangeAttribute is the (`rangeValue`) part of shared text in this view ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/sharedCharacterRange
+	AccessibilitySharedCharacterRangeAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/sharedFocusElements
+	AccessibilitySharedFocusElementsAttribute string
+	// AccessibilitySharedTextUIElementsAttribute is the elements with which the text of this element is shared ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/sharedTextUIElements
+	AccessibilitySharedTextUIElementsAttribute string
+	// AccessibilityShownMenuAttribute is the menu currently being displayed (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/shownMenu
+	AccessibilityShownMenuAttribute string
+	// AccessibilitySizeAttribute is the element’s size in points ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
+	AccessibilitySizeAttribute string
+	// AccessibilitySortDirectionAttribute is the column’s sort direction ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/sortDirection
+	AccessibilitySortDirectionAttribute string
+	// AccessibilitySplittersAttribute is the views and splitter bar in a split view ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/splitters
+	AccessibilitySplittersAttribute string
+	// AccessibilitySubroleAttribute is the element’s subrole, such as [NSAccessibilityTableRowSubrole] ([NSString]). See Subroles for a list of available subroles.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/subrole
+	AccessibilitySubroleAttribute string
+	// AccessibilityTabsAttribute is the tab elements in a tab view ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/tabs
+	AccessibilityTabsAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTextCompletionAttribute
+	AccessibilityTextCompletionAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/textInputMarkedRangeAttribute
+	AccessibilityTextInputMarkedRangeAttribute string
+	// AccessibilityTitleAttribute is the title of the element, such as a button’s visible text ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/title
+	AccessibilityTitleAttribute string
+	// AccessibilityTitleUIElementAttribute is an element that represents another element’s static text title (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/titleUIElement
+	AccessibilityTitleUIElementAttribute string
+	// AccessibilityToolbarButtonAttribute is the element that represents the toolbar button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/toolbarButton
+	AccessibilityToolbarButtonAttribute string
+	// AccessibilityTopLevelUIElementAttribute is the top-level element that contains this element (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/topLevelUIElement
+	AccessibilityTopLevelUIElementAttribute string
+	// AccessibilityURLAttribute is the URL associated with the element ([NSURL]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/url
+	AccessibilityURLAttribute string
+	// AccessibilityUnitDescriptionAttribute is the description of ruler units ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/unitDescription
+	AccessibilityUnitDescriptionAttribute string
+	// AccessibilityUnitsAttribute is the ruler units ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/units
+	AccessibilityUnitsAttribute string
+	// AccessibilityValueAttribute is the element’s value (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/value
+	AccessibilityValueAttribute string
+	// AccessibilityValueDescriptionAttribute is the description of the element’s value ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/valueDescription
+	AccessibilityValueDescriptionAttribute string
+	// AccessibilityVerticalScrollBarAttribute is the element that represents the vertical scroll bar in a scroll view (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/verticalScrollBar
+	AccessibilityVerticalScrollBarAttribute string
+	// AccessibilityVerticalUnitDescriptionAttribute is the description of the layout view’s vertical units ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/verticalUnitDescription
+	AccessibilityVerticalUnitDescriptionAttribute string
+	// AccessibilityVerticalUnitsAttribute is the units that the layout view uses for vertical values ([NSString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/verticalUnits
+	AccessibilityVerticalUnitsAttribute string
+	// AccessibilityVisibleCellsAttribute is the table’s visible cells ([NSArray]). This attribute is required for cell-based tables.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/visibleCells
+	AccessibilityVisibleCellsAttribute string
+	// AccessibilityVisibleCharacterRangeAttribute is the range of visible text ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/visibleCharacterRange
+	AccessibilityVisibleCharacterRangeAttribute string
+	// AccessibilityVisibleChildrenAttribute is the element’s child elements that are visible ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/visibleChildren
+	AccessibilityVisibleChildrenAttribute string
+	// AccessibilityVisibleColumnsAttribute is the table’s visible columns ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/visibleColumns
+	AccessibilityVisibleColumnsAttribute string
+	// AccessibilityVisibleRowsAttribute is the table’s visible rows ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/visibleRows
+	AccessibilityVisibleRowsAttribute string
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/visitedAttribute
+	AccessibilityVisitedAttribute string
+	// AccessibilityWarningValueAttribute is the warning value in a level indicator (typically, [NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/warningValue
+	AccessibilityWarningValueAttribute string
+	// AccessibilityWindowAttribute is the window containing the current element (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/window
+	AccessibilityWindowAttribute string
+	// AccessibilityWindowsAttribute is the app’s windows ([NSArray]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/windows
+	AccessibilityWindowsAttribute string
+	// AccessibilityZoomButtonAttribute is the element that represents the zoom button (`id`).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/zoomButton
+	AccessibilityZoomButtonAttribute string
+	// AlignmentBinding is a constant that identifies an alignment binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/alignment
+	AlignmentBinding string
+	// AllRomanInputSourcesLocaleIdentifier is a meta-locale identifier representing the set of Roman input sources available. You can pass `[NSArray NSAllRomanInputSourcesLocaleIdentifier]` to the [allowedInputSourceLocales] property to restrict allowed input sources to Roman only.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAllRomanInputSourcesLocaleIdentifier
+	AllRomanInputSourcesLocaleIdentifier string
+	// AlternateImageBinding is a constant that identifies an alternate image binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/alternateImage
+	AlternateImageBinding string
+	// AlternateTitleBinding is a constant that identifies an alternate title binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/alternateTitle
+	AlternateTitleBinding string
+	// AnimateBinding is a constant that identifies an animate binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/animate
+	AnimateBinding string
+	// AnimationDelayBinding is a constant that identifies an animation delay binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/animationDelay
+	AnimationDelayBinding string
+	// See: https://developer.apple.com/documentation/appkit/nsanimation/progressmarkuserinfokey
+	NSAnimationProgressMark foundation.NSString
+	// ArgumentBinding is a constant that identifies an argument binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/argument
+	ArgumentBinding string
+	// AttributedStringBinding is a constant that identifies an attributed string binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/attributedString
+	AttributedStringBinding string
+	// ContentArrayBinding is a constant that identifies a content array binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentArray
+	ContentArrayBinding string
+	// ContentArrayForMultipleSelectionBinding is a constant that identifies a content array for multiple selection binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentArrayForMultipleSelection
+	ContentArrayForMultipleSelectionBinding string
+	// ContentBinding is a constant that identifies a content binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/content
+	ContentBinding string
+	// ContentDictionaryBinding is a constant that identifies a content dictionary binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentDictionary
+	ContentDictionaryBinding string
+	// ContentHeightBinding is a constant that identifies a content height binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentHeight
+	ContentHeightBinding string
+	// ContentObjectBinding is a constant that identifies a content object binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentObject
+	ContentObjectBinding string
+	// ContentObjectsBinding is a constant that identifies a content objects binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentObjects
+	ContentObjectsBinding string
+	// ContentSetBinding is a constant that identifies a content set binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentSet
+	ContentSetBinding string
+	// ContentValuesBinding is a constant that identifies a content values binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentValues
+	ContentValuesBinding string
+	// ContentWidthBinding is a constant that identifies a content width binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/contentWidth
+	ContentWidthBinding string
+	// CriticalValueBinding is a constant that identifies a critical value binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/criticalValue
+	CriticalValueBinding string
+	// DataBinding is a constant that identifies a data binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/data
+	DataBinding string
+	// DisplayPatternTitleBinding is a constant that identifies a display pattern title binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/displayPatternTitle
+	DisplayPatternTitleBinding string
+	// DisplayPatternValueBinding is a constant that identifies a display pattern value binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/displayPatternValue
+	DisplayPatternValueBinding string
+	// DocumentEditedBinding is a constant that identifies a document edited binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/documentEdited
+	DocumentEditedBinding string
+	// DoubleClickArgumentBinding is a constant that identifies a double-click argument binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/doubleClickArgument
+	DoubleClickArgumentBinding string
+	// DoubleClickTargetBinding is a constant that identifies a double-click target binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/doubleClickTarget
+	DoubleClickTargetBinding string
+	// EditableBinding is a constant that identifies an editable binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/editable
+	EditableBinding string
+	// EnabledBinding is a constant that identifies an enabled binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/enabled
+	EnabledBinding string
+	// ExcludedKeysBinding is a constant that identifies an excluded keys binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/excludedKeys
+	ExcludedKeysBinding string
+	// FilterPredicateBinding is a constant that identifies a filter predicate binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/filterPredicate
+	FilterPredicateBinding string
+	// FontBinding is a constant that identifies a font binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/font
+	FontBinding string
+	// FontBoldBinding is a constant that identifies a font bold binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/fontBold
+	FontBoldBinding string
+	// FontFamilyNameBinding is a constant that identifies a font family name binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/fontFamilyName
+	FontFamilyNameBinding string
+	// FontItalicBinding is a constant that identifies a font italic binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/fontItalic
+	FontItalicBinding string
+	// FontNameBinding is a constant that identifies a font name binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/fontName
+	FontNameBinding string
+	// FontSizeBinding is a constant that identifies a font size binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/fontSize
+	FontSizeBinding string
+	// GraphicsContextDestinationAttributeName is specifies the destination.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/AttributeKey/destination
+	GraphicsContextDestinationAttributeName string
+	// GraphicsContextRepresentationFormatAttributeName is specifies the destination file format.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/AttributeKey/representationFormat
+	GraphicsContextRepresentationFormatAttributeName string
+	// HeaderTitleBinding is a constant that identifies a header title binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/headerTitle
+	HeaderTitleBinding string
+	// HiddenBinding is a constant that identifies a hidden binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/hidden
+	HiddenBinding string
+	// ImageBinding is a constant that identifies an image binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/image
+	ImageBinding string
+	// See: https://developer.apple.com/documentation/appkit/nsimage/actiontemplatename
+	NSImageNameActionTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/addtemplatename
+	NSImageNameAddTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/advancedname
+	NSImageNameAdvanced foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/applicationiconname
+	NSImageNameApplicationIcon foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/bluetoothtemplatename
+	NSImageNameBluetoothTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/bonjourname
+	NSImageNameBonjour foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/bookmarkstemplatename
+	NSImageNameBookmarksTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/cautionname
+	NSImageNameCaution foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/colorpanelname
+	NSImageNameColorPanel foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/columnviewtemplatename
+	NSImageNameColumnViewTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/computername
+	NSImageNameComputer foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/enterfullscreentemplatename
+	NSImageNameEnterFullScreenTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/everyonename
+	NSImageNameEveryone foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/exitfullscreentemplatename
+	NSImageNameExitFullScreenTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/flowviewtemplatename
+	NSImageNameFlowViewTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/foldername
+	NSImageNameFolder foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/folderburnablename
+	NSImageNameFolderBurnable foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/foldersmartname
+	NSImageNameFolderSmart foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/followlinkfreestandingtemplatename
+	NSImageNameFollowLinkFreestandingTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/fontpanelname
+	NSImageNameFontPanel foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/gobacktemplatename
+	NSImageNameGoBackTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/goforwardtemplatename
+	NSImageNameGoForwardTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/golefttemplatename
+	NSImageNameGoLeftTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/gorighttemplatename
+	NSImageNameGoRightTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/hometemplatename
+	NSImageNameHomeTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/ichattheatertemplatename
+	NSImageNameIChatTheaterTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/iconviewtemplatename
+	NSImageNameIconViewTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/infoname
+	NSImageNameInfo foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/invaliddatafreestandingtemplatename
+	NSImageNameInvalidDataFreestandingTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/leftfacingtriangletemplatename
+	NSImageNameLeftFacingTriangleTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/listviewtemplatename
+	NSImageNameListViewTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/locklockedtemplatename
+	NSImageNameLockLockedTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/lockunlockedtemplatename
+	NSImageNameLockUnlockedTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/menumixedstatetemplatename
+	NSImageNameMenuMixedStateTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/menuonstatetemplatename
+	NSImageNameMenuOnStateTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/mobilemename
+	NSImageNameMobileMe foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/multipledocumentsname
+	NSImageNameMultipleDocuments foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/networkname
+	NSImageNameNetwork foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/pathtemplatename
+	NSImageNamePathTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/preferencesgeneralname
+	NSImageNamePreferencesGeneral foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/quicklooktemplatename
+	NSImageNameQuickLookTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/refreshfreestandingtemplatename
+	NSImageNameRefreshFreestandingTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/refreshtemplatename
+	NSImageNameRefreshTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/removetemplatename
+	NSImageNameRemoveTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/revealfreestandingtemplatename
+	NSImageNameRevealFreestandingTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/rightfacingtriangletemplatename
+	NSImageNameRightFacingTriangleTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/sharetemplatename
+	NSImageNameShareTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/slideshowtemplatename
+	NSImageNameSlideshowTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/smartbadgetemplatename
+	NSImageNameSmartBadgeTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/statusavailablename
+	NSImageNameStatusAvailable foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/statusnonename
+	NSImageNameStatusNone foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/statuspartiallyavailablename
+	NSImageNameStatusPartiallyAvailable foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/statusunavailablename
+	NSImageNameStatusUnavailable foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/stopprogressfreestandingtemplatename
+	NSImageNameStopProgressFreestandingTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/stopprogresstemplatename
+	NSImageNameStopProgressTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/touchbarremovetemplatename
+	NSImageNameTouchBarRemoveTemplate foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/trashemptyname
+	NSImageNameTrashEmpty foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/trashfullname
+	NSImageNameTrashFull foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/username
+	NSImageNameUser foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/useraccountsname
+	NSImageNameUserAccounts foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/usergroupname
+	NSImageNameUserGroup foundation.NSString
+	// See: https://developer.apple.com/documentation/appkit/nsimage/userguestname
+	NSImageNameUserGuest foundation.NSString
+	// IncludedKeysBinding is a constant that identifies an included keys binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/includedKeys
+	IncludedKeysBinding string
+	// InitialKeyBinding is a constant that identifies an initial key binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/initialKey
+	InitialKeyBinding string
+	// InitialValueBinding is a constant that identifies an initial value binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/initialValue
+	InitialValueBinding string
+	// IsIndeterminateBinding is a constant that identifies an is indeterminate binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/isIndeterminate
+	IsIndeterminateBinding string
+	// LabelBinding is a constant that identifies a label binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/label
+	LabelBinding string
+	// LocalizedKeyDictionaryBinding is a constant that identifies a localized key dictionary binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/localizedKeyDictionary
+	LocalizedKeyDictionaryBinding string
+	// ManagedObjectContextBinding is a constant that identifies a managed object context binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/managedObjectContext
+	ManagedObjectContextBinding string
+	// MaxValueBinding is a constant that identifies a maximum value binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/maxValue
+	MaxValueBinding string
+	// MaxWidthBinding is a constant that identifies a maximum width binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/maxWidth
+	MaxWidthBinding string
+	// MaximumRecentsBinding is a constant that identifies a maximum recents binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/maximumRecents
+	MaximumRecentsBinding string
+	// MinValueBinding is a constant that identifies a minimum value binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/minValue
+	MinValueBinding string
+	// MinWidthBinding is a constant that identifies a minimum width binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/minWidth
+	MinWidthBinding string
+	// MixedStateImageBinding is a constant that identifies a mixed state image binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/mixedStateImage
+	MixedStateImageBinding string
+	// OffStateImageBinding is a constant that identifies an off state image binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/offStateImage
+	OffStateImageBinding string
+	// OnStateImageBinding is a constant that identifies an on state image binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/onStateImage
+	OnStateImageBinding string
+	// PopoverCloseReasonKey is the `userInfo` key containing the reason for the [willCloseNotification].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/closeReasonUserInfoKey
+	PopoverCloseReasonKey string
+	// PositioningRectBinding is a constant that identifies a positioning rectangle binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/positioningRect
+	PositioningRectBinding string
+	// PredicateBinding is a constant that identifies a predicate binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/predicate
+	PredicateBinding string
+	// RecentSearchesBinding is a constant that identifies a recent searches binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/recentSearches
+	RecentSearchesBinding string
+	// RepresentedFilenameBinding is a constant that identifies a represented filename binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/representedFilename
+	RepresentedFilenameBinding string
+	// RowHeightBinding is a constant that identifies a row height binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/rowHeight
+	RowHeightBinding string
+	// SelectedIdentifierBinding is a constant that identifies a selected identifier binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectedIdentifier
+	SelectedIdentifierBinding string
+	// SelectedIndexBinding is a constant that identifies a selected index binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectedIndex
+	SelectedIndexBinding string
+	// SelectedLabelBinding is a constant that identifies a selected label binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectedLabel
+	SelectedLabelBinding string
+	// SelectedObjectBinding is a constant that identifies a selected object binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectedObject
+	SelectedObjectBinding string
+	// SelectedObjectsBinding is a constant that identifies a selected objects binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectedObjects
+	SelectedObjectsBinding string
+	// SelectedTagBinding is a constant that identifies a selected tag binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectedTag
+	SelectedTagBinding string
+	// SelectedValueBinding is a constant that identifies a selected value binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectedValue
+	SelectedValueBinding string
+	// SelectedValuesBinding is a constant that identifies a selected values binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectedValues
+	SelectedValuesBinding string
+	// SelectionIndexPathsBinding is a constant that identifies a selection index paths binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectionIndexPaths
+	SelectionIndexPathsBinding string
+	// SelectionIndexesBinding is a constant that identifies a selection indexes binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/selectionIndexes
+	SelectionIndexesBinding string
+	// SortDescriptorsBinding is a constant that identifies a sort descriptors binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/sortDescriptors
+	SortDescriptorsBinding string
+	// TargetBinding is a constant that identifies a target binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/target
+	TargetBinding string
+	// TextColorBinding is a constant that identifies a text color binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/textColor
+	TextColorBinding string
+	// TextMovementUserInfoKey is the `userInfo` dictionary key for the [didEndEditingNotification] notification.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSText/movementUserInfoKey
+	TextMovementUserInfoKey string
+	// TitleBinding is a constant that identifies a title binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/title
+	TitleBinding string
+	// ToolTipBinding is a constant that identifies a tool tip binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/toolTip
+	ToolTipBinding string
+	// TransparentBinding is a constant that identifies a transparent binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/transparent
+	TransparentBinding string
+	// See: https://developer.apple.com/documentation/AppKit/NSTypeIdentifierAddressText
+	TypeIdentifierAddressText string
+	// See: https://developer.apple.com/documentation/AppKit/NSTypeIdentifierDateText
+	TypeIdentifierDateText string
+	// See: https://developer.apple.com/documentation/AppKit/NSTypeIdentifierPhoneNumberText
+	TypeIdentifierPhoneNumberText string
+	// See: https://developer.apple.com/documentation/AppKit/NSTypeIdentifierTransitInformationText
+	TypeIdentifierTransitInformationText string
+	// UserActivityDocumentURLKey is the key that identifies the document associated with a user activity.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSUserActivityDocumentURLKey
+	UserActivityDocumentURLKey string
+	// ValueBinding is a constant that identifies a value binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/value
+	ValueBinding string
+	// ValuePathBinding is a constant that identifies a value path binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/valuePath
+	ValuePathBinding string
+	// ValueURLBinding is a constant that identifies a value URL binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/valueURL
+	ValueURLBinding string
+	// VisibleBinding is a constant that identifies a visible binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/visible
+	VisibleBinding string
+	// WarningValueBinding is a constant that identifies a warning value binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/warningValue
+	WarningValueBinding string
+	// WidthBinding is a constant that identifies a width binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingName/width
+	WidthBinding string
+	// See: https://developer.apple.com/documentation/appkit/nsworkspace/applicationuserinfokey
+	NSWorkspaceApplicationKey foundation.NSString
+	// WorkspaceVolumeLocalizedNameKey is a string containing the user-visible name of the volume.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/localizedVolumeNameUserInfoKey
+	WorkspaceVolumeLocalizedNameKey string
+	// WorkspaceVolumeOldLocalizedNameKey is a string containing the old user-visible name of the volume.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/oldLocalizedVolumeNameUserInfoKey
+	WorkspaceVolumeOldLocalizedNameKey string
+	// WorkspaceVolumeOldURLKey is a URL containing the old mount path of the volume.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/oldVolumeURLUserInfoKey
+	WorkspaceVolumeOldURLKey string
+	// WorkspaceVolumeURLKey is a URL containing the mount path of the volume.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/volumeURLUserInfoKey
+	WorkspaceVolumeURLKey string
+)
+
+var (
+	// AccessibilityAnnotationElement is the user interface element for the annotation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/AnnotationAttributeKey/element
+	AccessibilityAnnotationElement NSAccessibilityAnnotationAttributeKey
+	// AccessibilityAnnotationLabel is a description of the annotation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/AnnotationAttributeKey/label
+	AccessibilityAnnotationLabel NSAccessibilityAnnotationAttributeKey
+	// AccessibilityAnnotationLocation is the position where the annotation applies.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/AnnotationAttributeKey/location
+	AccessibilityAnnotationLocation NSAccessibilityAnnotationAttributeKey
+)
+
+var (
+	// AccessibilityAnnouncementKey is the announcement as a localized string.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/NotificationUserInfoKey/announcement
+	AccessibilityAnnouncementKey NSAccessibilityNotificationUserInfoKey
+	// AccessibilityPriorityKey is a priority level that can help an assistive app determine how to handle the corresponding notification.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/NotificationUserInfoKey/priority
+	AccessibilityPriorityKey NSAccessibilityNotificationUserInfoKey
+	// AccessibilityUIElementsKey is an array of elements for the notification.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/NotificationUserInfoKey/uiElements
+	AccessibilityUIElementsKey NSAccessibilityNotificationUserInfoKey
+)
+
+var (
+	// AccessibilityAnnouncementRequestedNotification is this notification is posted whenever an accessibility element needs to make an announcement to the user. This notification requires a `userInfo` dictionary with the key [announcement] and a localized string containing the announcement. To help an assistive app determine the importance of the announcement, add the appropriate [priority] to the `userInfo` dictionary.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/announcementRequested
+	AccessibilityAnnouncementRequestedNotification NSAccessibilityNotificationName
+	// AccessibilityApplicationActivatedNotification is this notification is posted after the app has been activated. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/applicationActivated
+	AccessibilityApplicationActivatedNotification NSAccessibilityNotificationName
+	// AccessibilityApplicationDeactivatedNotification is this notification is posted after the app has been deactivated. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/applicationDeactivated
+	AccessibilityApplicationDeactivatedNotification NSAccessibilityNotificationName
+	// AccessibilityApplicationHiddenNotification is this notification is posted after the app is hidden. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/applicationHidden
+	AccessibilityApplicationHiddenNotification NSAccessibilityNotificationName
+	// AccessibilityApplicationShownNotification is this notification is posted after the app is shown. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/applicationShown
+	AccessibilityApplicationShownNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityAutocorrectionOccurred
+	AccessibilityAutocorrectionOccurredNotification NSAccessibilityNotificationName
+	// AccessibilityCreatedNotification is this notification is posted after an accessibility element is created. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/created
+	AccessibilityCreatedNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityDraggingDestinationDragAccepted
+	AccessibilityDraggingDestinationDragAcceptedNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityDraggingDestinationDragNotAccepted
+	AccessibilityDraggingDestinationDragNotAcceptedNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityDraggingDestinationDropAllowed
+	AccessibilityDraggingDestinationDropAllowedNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityDraggingDestinationDropNotAllowed
+	AccessibilityDraggingDestinationDropNotAllowedNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityDraggingSourceDragBegan
+	AccessibilityDraggingSourceDragBeganNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityDraggingSourceDragEnded
+	AccessibilityDraggingSourceDragEndedNotification NSAccessibilityNotificationName
+	// AccessibilityDrawerCreatedNotification is this notification is posted after a drawer appears. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/drawerCreated
+	AccessibilityDrawerCreatedNotification NSAccessibilityNotificationName
+	// AccessibilityFocusedUIElementChangedNotification is this notification is posted after an accessibility element gains focus. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/focusedUIElementChanged
+	AccessibilityFocusedUIElementChangedNotification NSAccessibilityNotificationName
+	// AccessibilityFocusedWindowChangedNotification is this notification is posted after the key window changes. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/focusedWindowChanged
+	AccessibilityFocusedWindowChangedNotification NSAccessibilityNotificationName
+	// AccessibilityHelpTagCreatedNotification is this notification is posted after a help tag appears. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/helpTagCreated
+	AccessibilityHelpTagCreatedNotification NSAccessibilityNotificationName
+	// AccessibilityLayoutChangedNotification is this notification is posted after the UI changes in a way that requires the attention of an accessibility client. This notification should be accompanied by a `userInfo` dictionary with the key [uiElements] and an array containing the UI elements that have been added or changed. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/layoutChanged
+	AccessibilityLayoutChangedNotification NSAccessibilityNotificationName
+	// AccessibilityMainWindowChangedNotification is this notification is posted after the main window changes. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/mainWindowChanged
+	AccessibilityMainWindowChangedNotification NSAccessibilityNotificationName
+	// AccessibilityMovedNotification is this notification is posted after an accessibility element moves. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/moved
+	AccessibilityMovedNotification NSAccessibilityNotificationName
+	// AccessibilityResizedNotification is this notification is posted after an accessibility element’s size changes. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/resized
+	AccessibilityResizedNotification NSAccessibilityNotificationName
+	// AccessibilityRowCollapsedNotification is this notification is posted after a row collapses. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/rowCollapsed
+	AccessibilityRowCollapsedNotification NSAccessibilityNotificationName
+	// AccessibilityRowCountChangedNotification is this notification is posted after a row is added or deleted. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/rowCountChanged
+	AccessibilityRowCountChangedNotification NSAccessibilityNotificationName
+	// AccessibilityRowExpandedNotification is this notification is posted after a row expands. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/rowExpanded
+	AccessibilityRowExpandedNotification NSAccessibilityNotificationName
+	// AccessibilitySelectedCellsChangedNotification is this notification is posted after one or more cells in a cell-based table are selected or deselected. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedCellsChanged
+	AccessibilitySelectedCellsChangedNotification NSAccessibilityNotificationName
+	// AccessibilitySelectedChildrenChangedNotification is this notification is posted after one or more child elements are selected or deselected. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedChildrenChanged
+	AccessibilitySelectedChildrenChangedNotification NSAccessibilityNotificationName
+	// AccessibilitySelectedChildrenMovedNotification is this notification is posted after the selected items in a layout area move. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedChildrenMoved
+	AccessibilitySelectedChildrenMovedNotification NSAccessibilityNotificationName
+	// AccessibilitySelectedColumnsChangedNotification is this notification is posted after one or more columns are selected or deselected. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedColumnsChanged
+	AccessibilitySelectedColumnsChangedNotification NSAccessibilityNotificationName
+	// AccessibilitySelectedRowsChangedNotification is this notification is posted after one or more rows are selected or deselected. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
+	AccessibilitySelectedRowsChangedNotification NSAccessibilityNotificationName
+	// AccessibilitySelectedTextChangedNotification is this notification is posted after text is selected or deselected. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedTextChanged
+	AccessibilitySelectedTextChangedNotification NSAccessibilityNotificationName
+	// AccessibilitySheetCreatedNotification is this notification is posted after a sheet appears. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/sheetCreated
+	AccessibilitySheetCreatedNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityTextInputMarkingSessionBegan
+	AccessibilityTextInputMarkingSessionBeganNotification NSAccessibilityNotificationName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/NSAccessibilityTextInputMarkingSessionEnded
+	AccessibilityTextInputMarkingSessionEndedNotification NSAccessibilityNotificationName
+	// AccessibilityTitleChangedNotification is this notification is posted after an accessibility element’s title changes. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/titleChanged
+	AccessibilityTitleChangedNotification NSAccessibilityNotificationName
+	// AccessibilityUIElementDestroyedNotification is this notification is posted after an accessibility element is destroyed. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/uiElementDestroyed
+	AccessibilityUIElementDestroyedNotification NSAccessibilityNotificationName
+	// AccessibilityUnitsChangedNotification is this notification is posted after the units in a layout area change. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/unitsChanged
+	AccessibilityUnitsChangedNotification NSAccessibilityNotificationName
+	// AccessibilityValueChangedNotification is this notification is posted after an accessibility element’s value changes. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
+	AccessibilityValueChangedNotification NSAccessibilityNotificationName
+	// AccessibilityWindowCreatedNotification is this notification is posted after a new window appears. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/windowCreated
+	AccessibilityWindowCreatedNotification NSAccessibilityNotificationName
+	// AccessibilityWindowDeminiaturizedNotification is this notification is posted after a window is restored to full size from the Dock. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/windowDeminiaturized
+	AccessibilityWindowDeminiaturizedNotification NSAccessibilityNotificationName
+	// AccessibilityWindowMiniaturizedNotification is this notification is posted after a window is put in the Dock. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/windowMiniaturized
+	AccessibilityWindowMiniaturizedNotification NSAccessibilityNotificationName
+	// AccessibilityWindowMovedNotification is this notification is posted after a window moves. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/windowMoved
+	AccessibilityWindowMovedNotification NSAccessibilityNotificationName
+	// AccessibilityWindowResizedNotification is this notification is posted after a window’s size changes. Post this notification using the [post(element:notification:)] function instead of an [NSNotificationCenter] instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/windowResized
+	AccessibilityWindowResizedNotification NSAccessibilityNotificationName
+)
+
+var (
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/anyTypeSearchKey
+	AccessibilityAnyTypeSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/articleSearchKey
+	AccessibilityArticleSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/blockquoteSameLevelSearchKey
+	AccessibilityBlockquoteSameLevelSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/blockquoteSearchKey
+	AccessibilityBlockquoteSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/boldFontSearchKey
+	AccessibilityBoldFontSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/buttonSearchKey
+	AccessibilityButtonSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/checkBoxSearchKey
+	AccessibilityCheckBoxSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/controlSearchKey
+	AccessibilityControlSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/differentTypeSearchKey
+	AccessibilityDifferentTypeSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/fontChangeSearchKey
+	AccessibilityFontChangeSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/fontColorChangeSearchKey
+	AccessibilityFontColorChangeSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/frameSearchKey
+	AccessibilityFrameSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/graphicSearchKey
+	AccessibilityGraphicSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/headingLevel1SearchKey
+	AccessibilityHeadingLevel1SearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/headingLevel2SearchKey
+	AccessibilityHeadingLevel2SearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/headingLevel3SearchKey
+	AccessibilityHeadingLevel3SearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/headingLevel4SearchKey
+	AccessibilityHeadingLevel4SearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/headingLevel5SearchKey
+	AccessibilityHeadingLevel5SearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/headingLevel6SearchKey
+	AccessibilityHeadingLevel6SearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/headingSameLevelSearchKey
+	AccessibilityHeadingSameLevelSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/headingSearchKey
+	AccessibilityHeadingSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/italicFontSearchKey
+	AccessibilityItalicFontSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/keyboardFocusableSearchKey
+	AccessibilityKeyboardFocusableSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/landmarkSearchKey
+	AccessibilityLandmarkSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/linkSearchKey
+	AccessibilityLinkSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/listSearchKey
+	AccessibilityListSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/liveRegionSearchKey
+	AccessibilityLiveRegionSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/misspelledWordSearchKey
+	AccessibilityMisspelledWordSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/outlineSearchKey
+	AccessibilityOutlineSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/plainTextSearchKey
+	AccessibilityPlainTextSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/radioGroupSearchKey
+	AccessibilityRadioGroupSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/sameTypeSearchKey
+	AccessibilitySameTypeSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/staticTextSearchKey
+	AccessibilityStaticTextSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/styleChangeSearchKey
+	AccessibilityStyleChangeSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/tableSameLevelSearchKey
+	AccessibilityTableSameLevelSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/tableSearchKey
+	AccessibilityTableSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/textFieldSearchKey
+	AccessibilityTextFieldSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/textStateChangeTypeKey
+	AccessibilityTextStateChangeTypeKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/textStateSyncKey
+	AccessibilityTextStateSyncKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/underlineSearchKey
+	AccessibilityUnderlineSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/unvisitedLinkSearchKey
+	AccessibilityUnvisitedLinkSearchKey NSAccessibilitySearchKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySearchKey/visitedLinkSearchKey
+	AccessibilityVisitedLinkSearchKey NSAccessibilitySearchKey
+)
+
+var (
+	// AccessibilityApplicationRole is the app role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/application
+	AccessibilityApplicationRole NSAccessibilityRole
+	// AccessibilityBrowserRole is the browser role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/browser
+	AccessibilityBrowserRole NSAccessibilityRole
+	// AccessibilityBusyIndicatorRole is the busy indicator role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/busyIndicator
+	AccessibilityBusyIndicatorRole NSAccessibilityRole
+	// AccessibilityButtonRole is the button role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/button
+	AccessibilityButtonRole NSAccessibilityRole
+	// AccessibilityCellRole is the cell role in a table or matrix.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/cell
+	AccessibilityCellRole NSAccessibilityRole
+	// AccessibilityCheckBoxRole is the checkbox role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/checkBox
+	AccessibilityCheckBoxRole NSAccessibilityRole
+	// AccessibilityColorWellRole is the color well role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/colorWell
+	AccessibilityColorWellRole NSAccessibilityRole
+	// AccessibilityColumnRole is the column role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/column
+	AccessibilityColumnRole NSAccessibilityRole
+	// AccessibilityComboBoxRole is the combo box role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/comboBox
+	AccessibilityComboBoxRole NSAccessibilityRole
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/dateTimeAreaRole
+	AccessibilityDateTimeAreaRole NSAccessibilityRole
+	// AccessibilityDisclosureTriangleRole is the disclosure triangle role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/disclosureTriangle
+	AccessibilityDisclosureTriangleRole NSAccessibilityRole
+	// AccessibilityDrawerRole is the drawer role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/drawer
+	AccessibilityDrawerRole NSAccessibilityRole
+	// AccessibilityGridRole is the grid role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/grid
+	AccessibilityGridRole NSAccessibilityRole
+	// AccessibilityGroupRole is the group role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/group
+	AccessibilityGroupRole NSAccessibilityRole
+	// AccessibilityGrowAreaRole is the grow (resize) area role in a window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/growArea
+	AccessibilityGrowAreaRole NSAccessibilityRole
+	// AccessibilityHandleRole is the drag handle role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/handle
+	AccessibilityHandleRole NSAccessibilityRole
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/headingRole
+	AccessibilityHeadingRole NSAccessibilityRole
+	// AccessibilityHelpTagRole is the help tag role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/helpTag
+	AccessibilityHelpTagRole NSAccessibilityRole
+	// AccessibilityImageRole is the image role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/image
+	AccessibilityImageRole NSAccessibilityRole
+	// AccessibilityIncrementorRole is the stepper role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/incrementor
+	AccessibilityIncrementorRole NSAccessibilityRole
+	// AccessibilityLayoutAreaRole is the layout area role (a view, such as a graphic view, that contains visual elements that may not have any accessibility representation).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/layoutArea
+	AccessibilityLayoutAreaRole NSAccessibilityRole
+	// AccessibilityLayoutItemRole is the role for an item in a layout area.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/layoutItem
+	AccessibilityLayoutItemRole NSAccessibilityRole
+	// AccessibilityLevelIndicatorRole is the level indicator role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/levelIndicator
+	AccessibilityLevelIndicatorRole NSAccessibilityRole
+	// AccessibilityLinkRole is the link role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/link
+	AccessibilityLinkRole NSAccessibilityRole
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/listMarkerRole
+	AccessibilityListMarkerRole NSAccessibilityRole
+	// AccessibilityListRole is the list role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/list
+	AccessibilityListRole NSAccessibilityRole
+	// AccessibilityMatteRole is the matte role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/matte
+	AccessibilityMatteRole NSAccessibilityRole
+	// AccessibilityMenuBarItemRole is the menu bar item role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/menuBarItem
+	AccessibilityMenuBarItemRole NSAccessibilityRole
+	// AccessibilityMenuBarRole is the menu bar role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/menuBar
+	AccessibilityMenuBarRole NSAccessibilityRole
+	// AccessibilityMenuButtonRole is the menu button role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/menuButton
+	AccessibilityMenuButtonRole NSAccessibilityRole
+	// AccessibilityMenuItemRole is the menu item role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/menuItem
+	AccessibilityMenuItemRole NSAccessibilityRole
+	// AccessibilityMenuRole is the menu role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/menu
+	AccessibilityMenuRole NSAccessibilityRole
+	// AccessibilityOutlineRole is the outline role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/outline
+	AccessibilityOutlineRole NSAccessibilityRole
+	// AccessibilityPageRole is the page role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/pageRole
+	AccessibilityPageRole NSAccessibilityRole
+	// AccessibilityPopUpButtonRole is the pop-up button role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/popUpButton
+	AccessibilityPopUpButtonRole NSAccessibilityRole
+	// AccessibilityPopoverRole is the popover role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/popover
+	AccessibilityPopoverRole NSAccessibilityRole
+	// AccessibilityProgressIndicatorRole is the progress indicator role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/progressIndicator
+	AccessibilityProgressIndicatorRole NSAccessibilityRole
+	// AccessibilityRadioButtonRole is the radio button role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/radioButton
+	AccessibilityRadioButtonRole NSAccessibilityRole
+	// AccessibilityRadioGroupRole is the radio button group role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/radioGroup
+	AccessibilityRadioGroupRole NSAccessibilityRole
+	// AccessibilityRelevanceIndicatorRole is the relevance indicator role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/relevanceIndicator
+	AccessibilityRelevanceIndicatorRole NSAccessibilityRole
+	// AccessibilityRowRole is the row role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/row
+	AccessibilityRowRole NSAccessibilityRole
+	// AccessibilityRulerMarkerRole is the ruler marker role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/rulerMarker
+	AccessibilityRulerMarkerRole NSAccessibilityRole
+	// AccessibilityRulerRole is the ruler role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/ruler
+	AccessibilityRulerRole NSAccessibilityRole
+	// AccessibilityScrollAreaRole is the scroll view role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/scrollArea
+	AccessibilityScrollAreaRole NSAccessibilityRole
+	// AccessibilityScrollBarRole is the scroll bar role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/scrollBar
+	AccessibilityScrollBarRole NSAccessibilityRole
+	// AccessibilitySheetRole is the sheet role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/sheet
+	AccessibilitySheetRole NSAccessibilityRole
+	// AccessibilitySliderRole is the slider role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/slider
+	AccessibilitySliderRole NSAccessibilityRole
+	// AccessibilitySplitGroupRole is the split view role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/splitGroup
+	AccessibilitySplitGroupRole NSAccessibilityRole
+	// AccessibilitySplitterRole is the splitter bar role for a split view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/splitter
+	AccessibilitySplitterRole NSAccessibilityRole
+	// AccessibilityStaticTextRole is the uneditable text role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/staticText
+	AccessibilityStaticTextRole NSAccessibilityRole
+	// AccessibilitySystemWideRole is the systemwide accessibility object role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/systemWide
+	AccessibilitySystemWideRole NSAccessibilityRole
+	// AccessibilityTabGroupRole is the tab group role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/tabGroup
+	AccessibilityTabGroupRole NSAccessibilityRole
+	// AccessibilityTableRole is the table role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/table
+	AccessibilityTableRole NSAccessibilityRole
+	// AccessibilityTextAreaRole is the text view role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/textArea
+	AccessibilityTextAreaRole NSAccessibilityRole
+	// AccessibilityTextFieldRole is the text field role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/textField
+	AccessibilityTextFieldRole NSAccessibilityRole
+	// AccessibilityToolbarRole is the toolbar role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/toolbar
+	AccessibilityToolbarRole NSAccessibilityRole
+	// AccessibilityUnknownRole is an object with an unknown role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/unknown
+	AccessibilityUnknownRole NSAccessibilityRole
+	// AccessibilityValueIndicatorRole is the value indicator role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/valueIndicator
+	AccessibilityValueIndicatorRole NSAccessibilityRole
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/webAreaRole
+	AccessibilityWebAreaRole NSAccessibilityRole
+	// AccessibilityWindowRole is the window role.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/window
+	AccessibilityWindowRole NSAccessibilityRole
+)
+
+var (
+	// AccessibilityAttributedStringForRangeParameterizedAttribute is does not use attributes from Appkit/AttributedString.h ([NSAttributedString]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/attributedStringForRange
+	AccessibilityAttributedStringForRangeParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityBoundsForRangeParameterizedAttribute is the rectangle ([NSValue] containing an [NSRect] value) enclosing the specified range of characters ([NSValue] containing an [NSRange] value). If the range crosses a line boundary, the returned rectangle will fully enclose all the lines of characters.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/boundsForRange
+	AccessibilityBoundsForRangeParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/indexForChildUIElementAttribute
+	AccessibilityIndexForChildUIElementAttribute NSAccessibilityParameterizedAttributeName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/indexForChildUIElementInNavigationOrderAttribute
+	AccessibilityIndexForChildUIElementInNavigationOrderAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityLayoutSizeForScreenSizeParameterizedAttribute is the size of the layout area in points ([NSValue]) corresponding to the specified screen size ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/layoutSizeForScreenSize
+	AccessibilityLayoutSizeForScreenSizeParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityRTFForRangeParameterizedAttribute is the RTF data ([NSData]) describing the specified range of characters ([NSValue] containing an [NSRange] value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/rtfForRange
+	AccessibilityRTFForRangeParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityRangeForIndexParameterizedAttribute is the full range of characters ([NSValue] containing an [NSRange] value), including the specified character, which compose a single glyph ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/rangeForIndex
+	AccessibilityRangeForIndexParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityRangeForLineParameterizedAttribute is the range of characters ([NSValue] containing an [NSRange] value) corresponding to the specified line number ([NSNumber]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/rangeForLine
+	AccessibilityRangeForLineParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityRangeForPositionParameterizedAttribute is the range of characters ([NSValue] containing an [NSRange] value) composing the glyph at the specified point ([NSValue] containing an [NSPoint] value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/rangeForPosition
+	AccessibilityRangeForPositionParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/resultsForSearchPredicateParameterizedAttribute
+	AccessibilityResultsForSearchPredicateParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityScreenPointForLayoutPointParameterizedAttribute is the screen point ([NSValue]) corresponding to the specified point in the layout area ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/screenPointForLayoutPoint
+	AccessibilityScreenPointForLayoutPointParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityScreenSizeForLayoutSizeParameterizedAttribute is the size of the screen in points ([NSValue]) corresponding to the specified size of the layout area ([NSValue]).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/screenSizeForLayoutSize
+	AccessibilityScreenSizeForLayoutSizeParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityStringForRangeParameterizedAttribute is the substring ([NSString]) specified by the range ([NSValue] containing an [NSRange] value).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/stringForRange
+	AccessibilityStringForRangeParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// AccessibilityStyleRangeForIndexParameterizedAttribute is the full range of characters ([NSValue] containing an [NSRange] value), including the specified character ([NSNumber]), which have the same style.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/styleRangeForIndex
+	AccessibilityStyleRangeForIndexParameterizedAttribute NSAccessibilityParameterizedAttributeName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/ParameterizedAttribute/uiElementsForSearchPredicateParameterizedAttribute
+	AccessibilityUIElementsForSearchPredicateParameterizedAttribute NSAccessibilityParameterizedAttributeName
+)
+
+var (
+	// AccessibilityCancelAction is an action that cancels the operation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/cancel
+	AccessibilityCancelAction NSAccessibilityActionName
+	// AccessibilityDecrementAction is an action that decrements the value of the object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/decrement
+	AccessibilityDecrementAction NSAccessibilityActionName
+	// AccessibilityDeleteAction is an action that deletes the value of the object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/delete
+	AccessibilityDeleteAction NSAccessibilityActionName
+	// AccessibilityIncrementAction is an action that increments the value of the object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/increment
+	AccessibilityIncrementAction NSAccessibilityActionName
+	// AccessibilityPickAction is an action that selects the object, such as a menu item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/pick
+	AccessibilityPickAction NSAccessibilityActionName
+	// AccessibilityPressAction is an action that simulates clicking an object, such as a button.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/press
+	AccessibilityPressAction NSAccessibilityActionName
+	// AccessibilityRaiseAction is an action that simulates bringing a window forward by clicking on its title bar.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/raise
+	AccessibilityRaiseAction NSAccessibilityActionName
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/scrollToVisibleAction
+	AccessibilityScrollToVisibleAction NSAccessibilityActionName
+	// AccessibilityShowAlternateUIAction is an action that shows an alternate UI, for example, during a mouse-hover event.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/showAlternateUI
+	AccessibilityShowAlternateUIAction NSAccessibilityActionName
+	// AccessibilityShowDefaultUIAction is an action that shows the original or default UI; for example, during a mouse-hover event.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/showDefaultUI
+	AccessibilityShowDefaultUIAction NSAccessibilityActionName
+	// AccessibilityShowMenuAction is an action that simulates showing a menu by clicking on it.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/showMenu
+	AccessibilityShowMenuAction NSAccessibilityActionName
+)
+
+var (
+	// AccessibilityCenterTabStopMarkerTypeValue is center tab stop.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerMarkerTypeValue/centerTabStop
+	AccessibilityCenterTabStopMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
+	// AccessibilityDecimalTabStopMarkerTypeValue is decimal tab stop.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerMarkerTypeValue/decimalTabStop
+	AccessibilityDecimalTabStopMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
+	// AccessibilityFirstLineIndentMarkerTypeValue is first line indent marker.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerMarkerTypeValue/firstLineIndent
+	AccessibilityFirstLineIndentMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
+	// AccessibilityHeadIndentMarkerTypeValue is head indent marker.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerMarkerTypeValue/headIndent
+	AccessibilityHeadIndentMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
+	// AccessibilityRightTabStopMarkerTypeValue is right tab stop.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerMarkerTypeValue/rightTabStop
+	AccessibilityRightTabStopMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
+	// AccessibilityTailIndentMarkerTypeValue is tail indent marker.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerMarkerTypeValue/tailIndent
+	AccessibilityTailIndentMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
+	// AccessibilityUnknownMarkerTypeValue is unknown marker type.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerMarkerTypeValue/unknown
+	AccessibilityUnknownMarkerTypeValue NSAccessibilityRulerMarkerTypeValue
+)
+
+var (
+	// AccessibilityCentimetersUnitValue is the units are centimeters.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerUnitValue/centimeters
+	AccessibilityCentimetersUnitValue NSAccessibilityRulerUnitValue
+	// AccessibilityPicasUnitValue is the units are picas.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerUnitValue/picas
+	AccessibilityPicasUnitValue NSAccessibilityRulerUnitValue
+	// AccessibilityPointsUnitValue is the units are points.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerUnitValue/points
+	AccessibilityPointsUnitValue NSAccessibilityRulerUnitValue
+	// AccessibilityUnknownUnitValue is the units are unknown.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/RulerUnitValue/unknown
+	AccessibilityUnknownUnitValue NSAccessibilityRulerUnitValue
+)
+
+var (
+	// AccessibilityCloseButtonSubrole is a window’s close button subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/closeButton
+	AccessibilityCloseButtonSubrole NSAccessibilitySubrole
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/collectionListSubrole
+	AccessibilityCollectionListSubrole NSAccessibilitySubrole
+	// AccessibilityContentListSubrole is a subrole for content that is organized in a list, but is not in a list control or table view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/contentList
+	AccessibilityContentListSubrole NSAccessibilitySubrole
+	// AccessibilityDecrementArrowSubrole is a decrement arrow subrole (the down arrow in a scroll bar).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/decrementArrow
+	AccessibilityDecrementArrowSubrole NSAccessibilitySubrole
+	// AccessibilityDecrementPageSubrole is a decrement page subrole (the decrement area in the scroll track of a scroll bar).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/decrementPage
+	AccessibilityDecrementPageSubrole NSAccessibilitySubrole
+	// AccessibilityDefinitionListSubrole is a subrole for a content list in a webpage.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/definitionList
+	AccessibilityDefinitionListSubrole NSAccessibilitySubrole
+	// AccessibilityDescriptionListSubrole is a description list subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/descriptionList
+	AccessibilityDescriptionListSubrole NSAccessibilitySubrole
+	// AccessibilityDialogSubrole is a dialog subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/dialog
+	AccessibilityDialogSubrole NSAccessibilitySubrole
+	// AccessibilityFloatingWindowSubrole is a floating window subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/floatingWindow
+	AccessibilityFloatingWindowSubrole NSAccessibilitySubrole
+	// AccessibilityFullScreenButtonSubrole is a window’s full-screen button subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/fullScreenButton
+	AccessibilityFullScreenButtonSubrole NSAccessibilitySubrole
+	// AccessibilityIncrementArrowSubrole is an increment arrow subrole (the up arrow in a scroll bar).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/incrementArrow
+	AccessibilityIncrementArrowSubrole NSAccessibilitySubrole
+	// AccessibilityIncrementPageSubrole is an increment page subrole (the increment area in the scroll track of a scroll bar).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/incrementPage
+	AccessibilityIncrementPageSubrole NSAccessibilitySubrole
+	// AccessibilityMinimizeButtonSubrole is a window’s minimize button subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/minimizeButton
+	AccessibilityMinimizeButtonSubrole NSAccessibilitySubrole
+	// AccessibilityOutlineRowSubrole is an outline row subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/outlineRow
+	AccessibilityOutlineRowSubrole NSAccessibilitySubrole
+	// AccessibilityRatingIndicatorSubrole is a rating indicator subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/ratingIndicator
+	AccessibilityRatingIndicatorSubrole NSAccessibilitySubrole
+	// AccessibilitySearchFieldSubrole is a search field subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/searchField
+	AccessibilitySearchFieldSubrole NSAccessibilitySubrole
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/sectionListSubrole
+	AccessibilitySectionListSubrole NSAccessibilitySubrole
+	// AccessibilitySecureTextFieldSubrole is a secure text field subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/secureTextField
+	AccessibilitySecureTextFieldSubrole NSAccessibilitySubrole
+	// AccessibilitySortButtonSubrole is a sort button subrole for a table or outline view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/sortButton
+	AccessibilitySortButtonSubrole NSAccessibilitySubrole
+	// AccessibilityStandardWindowSubrole is a standard window subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/standardWindow
+	AccessibilityStandardWindowSubrole NSAccessibilitySubrole
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/suggestionSubrole
+	AccessibilitySuggestionSubrole NSAccessibilitySubrole
+	// AccessibilitySwitchSubrole is a switch subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/switch
+	AccessibilitySwitchSubrole NSAccessibilitySubrole
+	// AccessibilitySystemDialogSubrole is a system dialog subrole (a system-generated dialog that floats on the top layer, regardless of which app is frontmost).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/systemDialog
+	AccessibilitySystemDialogSubrole NSAccessibilitySubrole
+	// AccessibilitySystemFloatingWindowSubrole is a system floating window subrole (a system-generated panel).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/systemFloatingWindow
+	AccessibilitySystemFloatingWindowSubrole NSAccessibilitySubrole
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/tabButtonSubrole
+	AccessibilityTabButtonSubrole NSAccessibilitySubrole
+	// AccessibilityTableRowSubrole is a table row subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/tableRow
+	AccessibilityTableRowSubrole NSAccessibilitySubrole
+	// AccessibilityTextAttachmentSubrole is a text attachment subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/textAttachment
+	AccessibilityTextAttachmentSubrole NSAccessibilitySubrole
+	// AccessibilityTextLinkSubrole is a text link subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/textLink
+	AccessibilityTextLinkSubrole NSAccessibilitySubrole
+	// AccessibilityTimelineSubrole is a timeline subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/timeline
+	AccessibilityTimelineSubrole NSAccessibilitySubrole
+	// AccessibilityToggleSubrole is a toggle subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/toggle
+	AccessibilityToggleSubrole NSAccessibilitySubrole
+	// AccessibilityToolbarButtonSubrole is a window’s toolbar button subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/toolbarButton
+	AccessibilityToolbarButtonSubrole NSAccessibilitySubrole
+	// AccessibilityUnknownSubrole is an unknown subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/unknown
+	AccessibilityUnknownSubrole NSAccessibilitySubrole
+	// AccessibilityZoomButtonSubrole is a window’s zoom button subrole.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Subrole/zoomButton
+	AccessibilityZoomButtonSubrole NSAccessibilitySubrole
+)
+
+var (
+	// AccessibilityDescendingSortDirectionValue is the column is sorted in descending values.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/SortDirectionValue/descending
+	AccessibilityDescendingSortDirectionValue NSAccessibilitySortDirectionValue
+	// AccessibilityUnknownSortDirectionValue is the sort direction is unknown.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/SortDirectionValue/unknown
+	AccessibilityUnknownSortDirectionValue NSAccessibilitySortDirectionValue
+)
+
+var (
+	// AccessibilityFontFamilyKey is an optional key for a font family.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/FontAttributeKey/fontFamily
+	AccessibilityFontFamilyKey NSAccessibilityFontAttributeKey
+	// AccessibilityFontNameKey is a required key for a font name.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/FontAttributeKey/fontName
+	AccessibilityFontNameKey NSAccessibilityFontAttributeKey
+	// AccessibilityFontSizeKey is a required key for a font size.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/FontAttributeKey/fontSize
+	AccessibilityFontSizeKey NSAccessibilityFontAttributeKey
+	// AccessibilityVisibleNameKey is an optional key for font visibility.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/FontAttributeKey/visibleName
+	AccessibilityVisibleNameKey NSAccessibilityFontAttributeKey
+)
+
+var (
+	// AccessibilityUnknownOrientationValue is the element has unknown orientation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/OrientationValue/unknown
+	AccessibilityUnknownOrientationValue NSAccessibilityOrientationValue
+	// AccessibilityVerticalOrientationValue is the element is oriented vertically.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/OrientationValue/vertical
+	AccessibilityVerticalOrientationValue NSAccessibilityOrientationValue
+)
+
+var (
+	// AllowsEditingMultipleValuesSelectionBindingOption is an [NSNumber] object containing a Boolean value that determines if the binding allows editing when the value represents a multiple selection.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/allowsEditingMultipleValuesSelection
+	AllowsEditingMultipleValuesSelectionBindingOption NSBindingOption
+	// AllowsNullArgumentBindingOption is an [NSNumber] object containing a Boolean value that determines if the argument bindings allows passing argument values of `nil`.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/allowsNullArgument
+	AllowsNullArgumentBindingOption NSBindingOption
+	// AlwaysPresentsApplicationModalAlertsBindingOption is a number containing a Boolean value that determines if validation and error alert panels displayed as a result of this binding are displayed as application modal alerts.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/alwaysPresentsApplicationModalAlerts
+	AlwaysPresentsApplicationModalAlertsBindingOption NSBindingOption
+	// ConditionallySetsEditableBindingOption is an [NSNumber] object containing a Boolean value that determines if the editable state of the user interface item is automatically configured based on the controller’s selection.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/conditionallySetsEditable
+	ConditionallySetsEditableBindingOption NSBindingOption
+	// ConditionallySetsEnabledBindingOption is an [NSNumber] object containing a Boolean value that determines if the enabled state of the user interface item is automatically configured based on the controller’s selection.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/conditionallySetsEnabled
+	ConditionallySetsEnabledBindingOption NSBindingOption
+	// ConditionallySetsHiddenBindingOption is an [NSNumber] object containing a Boolean value that determines if the hidden state of the user interface item is automatically configured based on the controller’s selection.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/conditionallySetsHidden
+	ConditionallySetsHiddenBindingOption NSBindingOption
+	// ContentPlacementTagBindingOption is a number that specifies the tag id of the popup menu item to replace with the content of the array.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/contentPlacementTag
+	ContentPlacementTagBindingOption NSBindingOption
+	// ContinuouslyUpdatesValueBindingOption is an [NSNumber] object containing a Boolean value that determines whether the value of the binding is updated as edits are made to the user interface item or is updated only when the user interface item resigns as the responder.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/continuouslyUpdatesValue
+	ContinuouslyUpdatesValueBindingOption NSBindingOption
+	// CreatesSortDescriptorBindingOption is an [NSNumber] object containing a Boolean value that determines if a sort descriptor is created for a table column.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/createsSortDescriptor
+	CreatesSortDescriptorBindingOption NSBindingOption
+	// DeletesObjectsOnRemoveBindingsOption is an [NSNumber] object containing a Boolean value that determines if an object is deleted from the managed context immediately upon being removed from a relationship.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/deletesObjectsOnRemove
+	DeletesObjectsOnRemoveBindingsOption NSBindingOption
+	// DisplayNameBindingOption is an [NSString] object containing a human readable string to be displayed for a predicate.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/displayName
+	DisplayNameBindingOption NSBindingOption
+	// DisplayPatternBindingOption is an [NSString] object that specifies a format string used to construct the final value of a string.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/displayPattern
+	DisplayPatternBindingOption NSBindingOption
+	// HandlesContentAsCompoundValueBindingOption is an [NSNumber] object containing a Boolean value that determines if the content is treated as a compound value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/handlesContentAsCompoundValue
+	HandlesContentAsCompoundValueBindingOption NSBindingOption
+	// InsertsNullPlaceholderBindingOption is an [NSNumber] object containing a Boolean value that determines if an additional item which represents `nil` is inserted into a matrix or pop-up menu before the items in the content array.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/insertsNullPlaceholder
+	InsertsNullPlaceholderBindingOption NSBindingOption
+	// InvokesSeparatelyWithArrayObjectsBindingOption is an [NSNumber] object containing a Boolean value that determines whether the specified selector is invoked with the array as the argument or is invoked repeatedly with each array item as an argument.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/invokesSeparatelyWithArrayObjects
+	InvokesSeparatelyWithArrayObjectsBindingOption NSBindingOption
+	// MultipleValuesPlaceholderBindingOption is an object that is used as a placeholder when the key path of the bound controller returns the [NSMultipleValuesMarker] marker for a binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/multipleValuesPlaceholder
+	MultipleValuesPlaceholderBindingOption NSBindingOption
+	// NoSelectionPlaceholderBindingOption is an object that is used as a placeholder when the key path of the bound controller returns the [NSNoSelectionMarker] marker for a binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/noSelectionPlaceholder
+	NoSelectionPlaceholderBindingOption NSBindingOption
+	// NotApplicablePlaceholderBindingOption is an object that is used as a placeholder when the key path of the bound controller returns the [NSNotApplicableMarker] marker for a binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/notApplicablePlaceholder
+	NotApplicablePlaceholderBindingOption NSBindingOption
+	// NullPlaceholderBindingOption is an object that is used as a placeholder when the key path of the bound controller returns `nil` for a binding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/nullPlaceholder
+	NullPlaceholderBindingOption NSBindingOption
+	// PredicateFormatBindingOption is an [NSString] object containing the predicate pattern string for the predicate bindings. Use `$value` to refer to the value in the search field.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/predicateFormat
+	PredicateFormatBindingOption NSBindingOption
+	// RaisesForNotApplicableKeysBindingOption is an [NSNumber] object containing a Boolean value that specifies if an exception is raised when the binding is bound to a key that is not applicable—for example when an object is not key-value coding compliant for a key.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/raisesForNotApplicableKeys
+	RaisesForNotApplicableKeysBindingOption NSBindingOption
+	// SelectorNameBindingOption is an [NSString] object that specifies the method selector invoked by the target binding when the user interface item is clicked.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/selectorName
+	SelectorNameBindingOption NSBindingOption
+	// SelectsAllWhenSettingContentBindingOption is an [NSNumber] object containing a Boolean value that specifies if all the items in the array controller are selected when the content is set.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/selectsAllWhenSettingContent
+	SelectsAllWhenSettingContentBindingOption NSBindingOption
+	// ValidatesImmediatelyBindingOption is an [NSNumber] object containing a Boolean value that determines if the contents of the binding are validated immediately.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/validatesImmediately
+	ValidatesImmediatelyBindingOption NSBindingOption
+	// ValueTransformerBindingOption is an [NSValueTransformer] instance that is applied to the bound value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/valueTransformer
+	ValueTransformerBindingOption NSBindingOption
+	// ValueTransformerNameBindingOption is the value for this key is an identifier of a registered [NSValueTransformer] instance that is applied to the bound value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBindingOption/valueTransformerName
+	ValueTransformerNameBindingOption NSBindingOption
+)
+
+var (
+	// See: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderIn
+	AnimationTriggerOrderIn NSAnimatablePropertyKey
+	// See: https://developer.apple.com/documentation/AppKit/NSAnimationTriggerOrderOut
+	AnimationTriggerOrderOut NSAnimatablePropertyKey
+)
+
+var (
+	// App is the global variable for the shared app instance.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSApp
+	App NSApplication
+)
+
+var (
+)
+
+var (
+	// AppearanceDocumentAttribute is the appearance of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAppearanceDocumentAttribute
+	AppearanceDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// AuthorDocumentAttribute is the author of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAuthorDocumentAttribute
+	AuthorDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// BackgroundColorDocumentAttribute is the background color of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBackgroundColorDocumentAttribute
+	BackgroundColorDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// BottomMarginDocumentAttribute is the bottom margin of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBottomMarginDocumentAttribute
+	BottomMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// CategoryDocumentAttribute is the document’s category.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCategoryDocumentAttribute
+	CategoryDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// CharacterEncodingDocumentAttribute is the string encoding for the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCharacterEncodingDocumentAttribute
+	CharacterEncodingDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// CocoaVersionDocumentAttribute is the version of Cocoa that created the file.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCocoaVersionDocumentAttribute
+	CocoaVersionDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// CommentDocumentAttribute is the document comments.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCommentDocumentAttribute
+	CommentDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// CompanyDocumentAttribute is the company or organization name associated with the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCompanyDocumentAttribute
+	CompanyDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// ConvertedDocumentAttribute is a value that indicates whether a filter service converted the file.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSConvertedDocumentAttribute
+	ConvertedDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// CopyrightDocumentAttribute is the document’s copyright information.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCopyrightDocumentAttribute
+	CopyrightDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// CreationTimeDocumentAttribute is the creation date of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCreationTimeDocumentAttribute
+	CreationTimeDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// DefaultAttributesDocumentAttribute is the default document attributes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDefaultAttributesDocumentAttribute
+	DefaultAttributesDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// See: https://developer.apple.com/documentation/AppKit/NSDefaultFontExcludedDocumentAttribute
+	DefaultFontExcludedDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// DefaultTabIntervalDocumentAttribute is the default tab stop interval for the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDefaultTabIntervalDocumentAttribute
+	DefaultTabIntervalDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// DocumentTypeDocumentAttribute is the document type.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDocumentTypeDocumentAttribute
+	DocumentTypeDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// EditorDocumentAttribute is the name of person who last edited the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSEditorDocumentAttribute
+	EditorDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// ExcludedElementsDocumentAttribute is the HTML elements to exclude in generated HTML.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSExcludedElementsDocumentAttribute
+	ExcludedElementsDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// FileTypeDocumentAttribute is the document type for interpreting the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFileTypeDocumentAttribute
+	FileTypeDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// HyphenationFactorDocumentAttribute is the hyphenation factor of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSHyphenationFactorDocumentAttribute
+	HyphenationFactorDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// KeywordsDocumentAttribute is the document keywords.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSKeywordsDocumentAttribute
+	KeywordsDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// LeftMarginDocumentAttribute is the left margin of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSLeftMarginDocumentAttribute
+	LeftMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// ManagerDocumentAttribute is the name of the author’s manager.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSManagerDocumentAttribute
+	ManagerDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// ModificationTimeDocumentAttribute is the modification date of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSModificationTimeDocumentAttribute
+	ModificationTimeDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// PaperSizeDocumentAttribute is the paper size for the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPaperSizeDocumentAttribute
+	PaperSizeDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// PrefixSpacesDocumentAttribute is the number of spaces for indenting nested HTML elements.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrefixSpacesDocumentAttribute
+	PrefixSpacesDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// ReadOnlyDocumentAttribute is an indication of whether the document is read-only.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSReadOnlyDocumentAttribute
+	ReadOnlyDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// RightMarginDocumentAttribute is the right margin of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRightMarginDocumentAttribute
+	RightMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// SourceTextScalingDocumentAttribute is the text-scaling mode you used when creating the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSourceTextScalingDocumentAttribute
+	SourceTextScalingDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// SubjectDocumentAttribute is the subject of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSubjectDocumentAttribute
+	SubjectDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// TextEncodingNameDocumentAttribute is the name of the text encoding to use.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextEncodingNameDocumentAttribute
+	TextEncodingNameDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// TextLayoutSectionsAttribute is the layout orientations for each section.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutSectionsAttribute
+	TextLayoutSectionsAttribute NSAttributedStringDocumentAttributeKey
+	// TextScalingDocumentAttribute is the text-scaling mode to use when displaying the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextScalingDocumentAttribute
+	TextScalingDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// TitleDocumentAttribute is the document title.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTitleDocumentAttribute
+	TitleDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// TopMarginDocumentAttribute is the top margin of the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTopMarginDocumentAttribute
+	TopMarginDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// ViewModeDocumentAttribute is the view mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewModeDocumentAttribute
+	ViewModeDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// ViewSizeDocumentAttribute is the view size.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewSizeDocumentAttribute
+	ViewSizeDocumentAttribute NSAttributedStringDocumentAttributeKey
+	// ViewZoomDocumentAttribute is the view zoom.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewZoomDocumentAttribute
+	ViewZoomDocumentAttribute NSAttributedStringDocumentAttributeKey
+)
+
+var (
+)
+
+var (
+	// BaseURLDocumentOption is the base URL for HTML documents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBaseURLDocumentOption
+	BaseURLDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// CharacterEncodingDocumentOption is the string encoding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCharacterEncodingDocumentOption
+	CharacterEncodingDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// DefaultAttributesDocumentOption is the default attributes to apply to plain files.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDefaultAttributesDocumentOption
+	DefaultAttributesDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// DocumentTypeDocumentOption is the document type.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDocumentTypeDocumentOption
+	DocumentTypeDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// FileTypeDocumentOption is the file type.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFileTypeDocumentOption
+	FileTypeDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// SourceTextScalingDocumentOption is the text-scaling mode to associate with the document’s content.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSourceTextScalingDocumentOption
+	SourceTextScalingDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// TargetTextScalingDocumentOption is the text scaling mode to use after reading the text from disk.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTargetTextScalingDocumentOption
+	TargetTextScalingDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// TextEncodingNameDocumentOption is the text encoding to use.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextEncodingNameDocumentOption
+	TextEncodingNameDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// See: https://developer.apple.com/documentation/AppKit/NSTextKit1ListMarkerFormatDocumentOption
+	TextKit1ListMarkerFormatDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// TextSizeMultiplierDocumentOption is the scale factor for font sizes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextSizeMultiplierDocumentOption
+	TextSizeMultiplierDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// TimeoutDocumentOption is the time, in seconds, to wait for a document to finish loading.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTimeoutDocumentOption
+	TimeoutDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// WebPreferencesDocumentOption is a WebPreferences object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWebPreferencesDocumentOption
+	WebPreferencesDocumentOption NSAttributedStringDocumentReadingOptionKey
+	// WebResourceLoadDelegateDocumentOption is an object to serve as the web resource loading delegate.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWebResourceLoadDelegateDocumentOption
+	WebResourceLoadDelegateDocumentOption NSAttributedStringDocumentReadingOptionKey
+)
+
+var (
+	// Black is a constant that specifies the black shade in the 2-bit deep grayscale color space.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBlack
+	Black float64
+	// DarkGray is a constant that specifies the dark gray shade in the 2-bit deep grayscale color space.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDarkGray
+	DarkGray float64
+	// GridViewSizeForContent is the default value for row and column sizes.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSGridView/sizedForContent
+	GridViewSizeForContent float64
+	// LightGray is a constant that specifies the light gray shade in the 2-bit deep grayscale color space.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSLightGray
+	LightGray float64
+	// SplitViewControllerAutomaticDimension is the default value to apply to a dimension.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/automaticDimension
+	SplitViewControllerAutomaticDimension float64
+	// SplitViewItemUnspecifiedDimension is a constant that resets a dimension’s value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSplitViewItem/unspecifiedDimension
+	SplitViewItemUnspecifiedDimension float64
+	// See: https://developer.apple.com/documentation/appkit/nsview/nointrinsicmetric
+	NSViewNoIntrinsicMetric float64
+	// White is a constant that specifies the white shade in the 2-bit deep grayscale color space.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWhite
+	White float64
+)
+
+var (
+	// CalibratedRGBColorSpace is calibrated color space with red, green, blue, and alpha components.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/calibratedRGB
+	CalibratedRGBColorSpace NSColorSpaceName
+	// CalibratedWhiteColorSpace is calibrated color space with white and alpha components (pure white is 1.0).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/calibratedWhite
+	CalibratedWhiteColorSpace NSColorSpaceName
+	// CustomColorSpace is custom [NSColorSpace] object and floating-point components describing a color in that space.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/custom
+	CustomColorSpace NSColorSpaceName
+	// DeviceCMYKColorSpace is device-dependent color space with cyan, magenta, yellow, black, and alpha components.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/deviceCMYK
+	DeviceCMYKColorSpace NSColorSpaceName
+	// DeviceRGBColorSpace is device-dependent color space with red, green, blue, and alpha components.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/deviceRGB
+	DeviceRGBColorSpace NSColorSpaceName
+	// DeviceWhiteColorSpace is device-dependent color space with white and alpha components (pure white is 1.0).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/deviceWhite
+	DeviceWhiteColorSpace NSColorSpaceName
+	// NamedColorSpace is catalog name and color name components.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/named
+	NamedColorSpace NSColorSpaceName
+	// PatternColorSpace is pattern image (tiled).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorSpaceName/pattern
+	PatternColorSpace NSColorSpaceName
+)
+
+var (
+	// CollectionElementKindInterItemGapIndicator is the element kind string assigned to the attributes object when it represents an inter-item gap.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindInterItemGapIndicator
+	CollectionElementKindInterItemGapIndicator NSCollectionViewSupplementaryElementKind
+	// CollectionElementKindSectionFooter is a supplementary view that acts as a footer for a given section.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindSectionFooter
+	CollectionElementKindSectionFooter NSCollectionViewSupplementaryElementKind
+	// CollectionElementKindSectionHeader is a supplementary view that acts as a header for a given section.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindSectionHeader
+	CollectionElementKindSectionHeader NSCollectionViewSupplementaryElementKind
+)
+
+var (
+	// DeviceBitsPerSample is the corresponding value is an [NSNumber] object containing an integer that gives the bit depth of the window’s raster image (2-bit, 8-bit, and so forth).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDeviceDescriptionKey/bitsPerSample
+	DeviceBitsPerSample NSDeviceDescriptionKey
+	// DeviceColorSpaceName is the corresponding value is an [NSString] object giving the name of the window’s color space.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDeviceDescriptionKey/colorSpaceName
+	DeviceColorSpaceName NSDeviceDescriptionKey
+	// DeviceIsPrinter is if there is a corresponding value, this indicates that the display device is a printer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDeviceDescriptionKey/isPrinter
+	DeviceIsPrinter NSDeviceDescriptionKey
+	// DeviceIsScreen is if there is a corresponding value, this indicates that the display device is a screen.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDeviceDescriptionKey/isScreen
+	DeviceIsScreen NSDeviceDescriptionKey
+	// DeviceResolution is the corresponding value is an [NSValue] object containing a value of type [NSSize] that describes the window’s raster resolution in dots per inch (dpi).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDeviceDescriptionKey/resolution
+	DeviceResolution NSDeviceDescriptionKey
+	// DeviceSize is the corresponding value is an [NSValue] object containing a value of type [NSSize] that gives the size of the window’s frame rectangle.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDeviceDescriptionKey/size
+	DeviceSize NSDeviceDescriptionKey
+)
+
+var (
+	// DirectionalEdgeInsetsZero is a directional edge insets structure whose top, leading, bottom, and trailing fields all have a value of `0`.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDirectionalEdgeInsetsZero
+	DirectionalEdgeInsetsZero NSDirectionalEdgeInsets
+)
+
+var (
+	// DocFormatTextDocumentType is microsoft Word document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDocFormatTextDocumentType
+	DocFormatTextDocumentType NSAttributedStringDocumentType
+	// HTMLTextDocumentType is hypertext markup language (HTML) document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSHTMLTextDocumentType
+	HTMLTextDocumentType NSAttributedStringDocumentType
+	// MacSimpleTextDocumentType is macintosh SimpleText document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMacSimpleTextDocumentType
+	MacSimpleTextDocumentType NSAttributedStringDocumentType
+	// OfficeOpenXMLTextDocumentType is eCMA Office Open XML text document format.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOfficeOpenXMLTextDocumentType
+	OfficeOpenXMLTextDocumentType NSAttributedStringDocumentType
+	// OpenDocumentTextDocumentType is oASIS Open Document text document format.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSOpenDocumentTextDocumentType
+	OpenDocumentTextDocumentType NSAttributedStringDocumentType
+	// PlainTextDocumentType is plain text document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPlainTextDocumentType
+	PlainTextDocumentType NSAttributedStringDocumentType
+	// RTFDTextDocumentType is rich text format with attachments document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRTFDTextDocumentType
+	RTFDTextDocumentType NSAttributedStringDocumentType
+	// RTFTextDocumentType is rich text format document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRTFTextDocumentType
+	RTFTextDocumentType NSAttributedStringDocumentType
+	// WebArchiveTextDocumentType is webKit WebArchive document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWebArchiveTextDocumentType
+	WebArchiveTextDocumentType NSAttributedStringDocumentType
+	// WordMLTextDocumentType is microsoft Word XML (WordML schema) document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWordMLTextDocumentType
+	WordMLTextDocumentType NSAttributedStringDocumentType
+)
+
+var (
+	// DraggingImageComponentIconKey is a key for a corresponding value that is a dragging item’s image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingItem/ImageComponentKey/icon
+	DraggingImageComponentIconKey NSDraggingImageComponentKey
+	// DraggingImageComponentLabelKey is a key for a corresponding value that represents a textual label for a dragging item, for example, a file name.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSDraggingItem/ImageComponentKey/label
+	DraggingImageComponentLabelKey NSDraggingImageComponentKey
+)
+
+var (
+	// FileContentsPboardType is a representation of a file’s contents.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/fileContents
+	FileContentsPboardType NSPasteboardType
+	// FindPanelSearchOptionsPboardType is type for the find panel metadata property list.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/findPanelSearchOptions
+	FindPanelSearchOptionsPboardType NSPasteboardType
+	// SoundPboardType is [NSSound] data.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSoundPboardType
+	SoundPboardType NSPasteboardType
+)
+
+var (
+	// FindPanelCaseInsensitiveSearch is a Boolean value indicating whether the search is case-insensitive.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/FindPanelSearchOptionKey/findPanelCaseInsensitiveSearch
+	FindPanelCaseInsensitiveSearch NSPasteboardTypeFindPanelSearchOptionKey
+	// FindPanelSubstringMatch is a number object containing the match type to use in the find panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/FindPanelSearchOptionKey/findPanelSubstringMatch
+	FindPanelSubstringMatch NSPasteboardTypeFindPanelSearchOptionKey
+)
+
+var (
+	// FontCascadeListAttribute is an array, each member of which is a sub-descriptor.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/cascadeList
+	FontCascadeListAttribute NSFontDescriptorAttributeName
+	// FontCharacterSetAttribute is the set of Unicode characters covered by the font.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/characterSet
+	FontCharacterSetAttribute NSFontDescriptorAttributeName
+	// FontFaceAttribute is an optional string object that specifies the font face.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/face
+	FontFaceAttribute NSFontDescriptorAttributeName
+	// FontFamilyAttribute is an optional string object that specifies the font family.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/family
+	FontFamilyAttribute NSFontDescriptorAttributeName
+	// FontFeatureSettingsAttribute is an array of dictionaries representing non-default font feature settings.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/featureSettings
+	FontFeatureSettingsAttribute NSFontDescriptorAttributeName
+	// FontFixedAdvanceAttribute is a floating-point value that overrides the glyph advancement specified by the font.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/fixedAdvance
+	FontFixedAdvanceAttribute NSFontDescriptorAttributeName
+	// FontMatrixAttribute is an affine transform that specifies the font’s transformation matrix.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/matrix
+	FontMatrixAttribute NSFontDescriptorAttributeName
+	// FontNameAttribute is an optional string object that specifies the font name.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/name
+	FontNameAttribute NSFontDescriptorAttributeName
+	// FontSizeAttribute is an optional floating-point number that specifies the font size.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/size
+	FontSizeAttribute NSFontDescriptorAttributeName
+	// FontTraitsAttribute is a dictionary that fully describes the font traits.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/traits
+	FontTraitsAttribute NSFontDescriptorAttributeName
+	// FontVariationAttribute is a dictionary that describes the font’s variation axis.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/variation
+	FontVariationAttribute NSFontDescriptorAttributeName
+	// FontVisibleNameAttribute is an optional string object that specifies the font’s visible name.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/AttributeName/visibleName
+	FontVisibleNameAttribute NSFontDescriptorAttributeName
+)
+
+var (
+	// FontCollectionActionKey is an action was taken. See `NSFontCollectionAction Key Values` for the possible values. An [NSString].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/actionUserInfoKey
+	FontCollectionActionKey NSFontCollectionUserInfoKey
+	// FontCollectionNameKey is the font collection’s name. If renamed, this is the new name. An [NSString].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/nameUserInfoKey
+	FontCollectionNameKey NSFontCollectionUserInfoKey
+	// FontCollectionOldNameKey is included as a value for the [oldNameUserInfoKey] key, if present. This is the previous name. An [NSString].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/oldNameUserInfoKey
+	FontCollectionOldNameKey NSFontCollectionUserInfoKey
+	// FontCollectionVisibilityKey is the visibly of the font collection. An NSNumber containing a value from the [NSFontCollection.Visibility] enum.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/visibilityUserInfoKey
+	FontCollectionVisibilityKey NSFontCollectionUserInfoKey
+)
+
+var (
+	// FontCollectionAllFonts is all fonts in the system.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/Name/allFonts
+	FontCollectionAllFonts NSFontCollectionName
+	// FontCollectionFavorites is font collection of the user’s preferred font descriptors.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/Name/favorites
+	FontCollectionFavorites NSFontCollectionName
+	// FontCollectionRecentlyUsed is font collection automatically maintained by NSFontManager.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/Name/recentlyUsed
+	FontCollectionRecentlyUsed NSFontCollectionName
+	// FontCollectionUser is per-user unmodifiable collection.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/Name/user
+	FontCollectionUser NSFontCollectionName
+)
+
+var (
+	// FontCollectionDisallowAutoActivationOption is an NSNumber object containing a Boolean value specifying that auto-activation should not be used to find missing fonts.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollectionMatchingOptionKey/disallowAutoActivationOption
+	FontCollectionDisallowAutoActivationOption NSFontCollectionMatchingOptionKey
+	// FontCollectionIncludeDisabledFontsOption is an NSNumber object containing a Boolean value specifying whether disabled fonts should be included in the list of matching descriptors.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollectionMatchingOptionKey/includeDisabledFontsOption
+	FontCollectionIncludeDisabledFontsOption NSFontCollectionMatchingOptionKey
+	// FontCollectionRemoveDuplicatesOption is an NSNumber object containing a Boolean value controlling whether more than one copy of a font with the same PostScript name should be included in the list of matching descriptors.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollectionMatchingOptionKey/removeDuplicatesOption
+	FontCollectionRemoveDuplicatesOption NSFontCollectionMatchingOptionKey
+)
+
+var (
+	// FontCollectionWasHidden is the font collection was hidden.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/ActionTypeKey/hidden
+	FontCollectionWasHidden NSFontCollectionActionTypeKey
+	// FontCollectionWasRenamed is the font collection was renamed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/ActionTypeKey/renamed
+	FontCollectionWasRenamed NSFontCollectionActionTypeKey
+	// FontCollectionWasShown is the font collection was shown.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontCollection/ActionTypeKey/shown
+	FontCollectionWasShown NSFontCollectionActionTypeKey
+)
+
+var (
+)
+
+var (
+	// FontFeatureSelectorIdentifierKey is a key that indicates the selector of the font feature.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/FeatureKey/selectorIdentifier
+	FontFeatureSelectorIdentifierKey NSFontDescriptorFeatureKey
+	// FontFeatureTypeIdentifierKey is a key that indicates the type of the font feature.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/FeatureKey/typeIdentifier
+	FontFeatureTypeIdentifierKey NSFontDescriptorFeatureKey
+)
+
+var (
+	// See: https://developer.apple.com/documentation/appkit/nsfont/identitymatrix
+	NSFontIdentityMatrix unsafe.Pointer
+)
+
+var (
+	// FontSlantTrait is the relative slant angle value as a number object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/TraitKey/slant
+	FontSlantTrait NSFontDescriptorTraitKey
+	// FontSymbolicTrait is the symbolic traits value as a number object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/TraitKey/symbolic
+	FontSymbolicTrait NSFontDescriptorTraitKey
+	// FontWeightTrait is the normalized weight value as a number object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/TraitKey/weight
+	FontWeightTrait NSFontDescriptorTraitKey
+	// FontWidthTrait is the relative inter-glyph spacing value as a number object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/TraitKey/width
+	FontWidthTrait NSFontDescriptorTraitKey
+)
+
+var (
+)
+
+var (
+	// FontVariationAxisDefaultValueKey is the default axis value as a number object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/VariationKey/defaultValue
+	FontVariationAxisDefaultValueKey NSFontDescriptorVariationKey
+	// FontVariationAxisIdentifierKey is the axis identifier value as a number object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/VariationKey/identifier
+	FontVariationAxisIdentifierKey NSFontDescriptorVariationKey
+	// FontVariationAxisMaximumValueKey is the maximum axis value as a number object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/VariationKey/maximumValue
+	FontVariationAxisMaximumValueKey NSFontDescriptorVariationKey
+	// FontVariationAxisMinimumValueKey is the minimum axis value as a number object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/VariationKey/minimumValue
+	FontVariationAxisMinimumValueKey NSFontDescriptorVariationKey
+	// FontVariationAxisNameKey is the localized variation axis name.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/VariationKey/name
+	FontVariationAxisNameKey NSFontDescriptorVariationKey
+)
+
+var (
+)
+
+var (
+)
+
+var (
+	// GraphicsContextPDFFormat is destination file format is PDF.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/RepresentationFormatName/pdf
+	GraphicsContextPDFFormat NSGraphicsContextRepresentationFormatName
+	// GraphicsContextPSFormat is destination file format is PostScript.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/RepresentationFormatName/postScript
+	GraphicsContextPSFormat NSGraphicsContextRepresentationFormatName
+)
+
+var (
+	// ImageColorSyncProfileData is identifies an [NSData] object containing the ColorSync profile data.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/colorSyncProfileData
+	ImageColorSyncProfileData NSBitmapImageRepPropertyKey
+	// ImageCompressionFactor is identifies an [NSNumber] object containing the compression factor of the image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/compressionFactor
+	ImageCompressionFactor NSBitmapImageRepPropertyKey
+	// ImageCompressionMethod is identifies an [NSNumber] object identifying the compression method of the image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/compressionMethod
+	ImageCompressionMethod NSBitmapImageRepPropertyKey
+	// ImageCurrentFrame is identifies an [NSNumber] object containing the current frame for an animated GIF file.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/currentFrame
+	ImageCurrentFrame NSBitmapImageRepPropertyKey
+	// ImageCurrentFrameDuration is identifies an [NSNumber] object containing the duration (in seconds) of the current frame for an animated GIF image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/currentFrameDuration
+	ImageCurrentFrameDuration NSBitmapImageRepPropertyKey
+	// ImageDitherTransparency is identifies an [NSNumber] object containing a Boolean that indicates whether the image is dithered.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/ditherTransparency
+	ImageDitherTransparency NSBitmapImageRepPropertyKey
+	// ImageEXIFData is identifies an [NSDictionary] object containing the EXIF data for the image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/exifData
+	ImageEXIFData NSBitmapImageRepPropertyKey
+	// ImageFallbackBackgroundColor is specifies the background color to use when writing to an image format (such as JPEG) that doesn’t support alpha.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/fallbackBackgroundColor
+	ImageFallbackBackgroundColor NSBitmapImageRepPropertyKey
+	// ImageFrameCount is identifies an [NSNumber] object containing the number of frames in an animated GIF file.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/frameCount
+	ImageFrameCount NSBitmapImageRepPropertyKey
+	// ImageGamma is identifies an [NSNumber] object containing the gamma value for the image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/gamma
+	ImageGamma NSBitmapImageRepPropertyKey
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/imageIPTCData
+	ImageIPTCData NSBitmapImageRepPropertyKey
+	// ImageInterlaced is identifies an [NSNumber] object containing a Boolean value that indicates whether the image is interlaced.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/interlaced
+	ImageInterlaced NSBitmapImageRepPropertyKey
+	// ImageLoopCount is identifies an [NSNumber] object containing the number of loops to make when animating a GIF image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/loopCount
+	ImageLoopCount NSBitmapImageRepPropertyKey
+	// ImageProgressive is identifies an [NSNumber] object containing a Boolean that indicates whether the image uses progressive encoding.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/progressive
+	ImageProgressive NSBitmapImageRepPropertyKey
+	// ImageRGBColorTable is identifies an [NSData] object containing the RGB color table.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/PropertyKey/rgbColorTable
+	ImageRGBColorTable NSBitmapImageRepPropertyKey
+)
+
+var (
+	// ImageHintCTM is a context transform hint.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSImageRep/HintKey/ctm
+	ImageHintCTM NSImageHintKey
+	// ImageHintInterpolation is an interpolation hint.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSImageRep/HintKey/interpolation
+	ImageHintInterpolation NSImageHintKey
+	// ImageHintUserInterfaceLayoutDirection is a layout direction hint.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSImageRep/HintKey/userInterfaceLayoutDirection
+	ImageHintUserInterfaceLayoutDirection NSImageHintKey
+)
+
+var (
+)
+
+var (
+	// MenuItemImportFromDeviceIdentifier is the identifier for a Continuity Camera menu item, which takes pictures or scans documents using an iOS device.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSMenuItem/importFromDeviceIdentifier
+	MenuItemImportFromDeviceIdentifier NSUserInterfaceItemIdentifier
+	// See: https://developer.apple.com/documentation/appkit/nsoutlineview/disclosurebuttonidentifier
+	NSOutlineViewDisclosureButtonKey NSUserInterfaceItemIdentifier
+	// See: https://developer.apple.com/documentation/appkit/nsoutlineview/showhidebuttonidentifier
+	NSOutlineViewShowHideButtonKey NSUserInterfaceItemIdentifier
+	// See: https://developer.apple.com/documentation/appkit/nstableview/rowviewidentifier
+	NSTableViewRowViewKey NSUserInterfaceItemIdentifier
+)
+
+var (
+	// See: https://developer.apple.com/documentation/appkit/nsbindinginfokey/options
+	NSOptionsKey NSBindingInfoKey
+)
+
+var (
+)
+
+var (
+	// PasteboardMetadataTypeContentType is a metadata type that returns the content type if the pasteboard detects a reference to a file.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboardMetadataTypeContentType
+	PasteboardMetadataTypeContentType NSPasteboardMetadataType
+)
+
+var (
+)
+
+var (
+	// PasteboardURLReadingContentsConformToTypesKey is option for reading URLs to restrict the results to URLs with contents that conform to any of the provided UTI types.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboard/ReadingOptionKey/urlReadingContentsConformToTypes
+	PasteboardURLReadingContentsConformToTypesKey NSPasteboardReadingOptionKey
+	// PasteboardURLReadingFileURLsOnlyKey is option for reading URLs to restrict the results to file URLs only.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboard/ReadingOptionKey/urlReadingFileURLsOnly
+	PasteboardURLReadingFileURLsOnlyKey NSPasteboardReadingOptionKey
+)
+
+var (
+	// PopoverCloseReasonDetachToWindow is specifies that the popover has been closed because it is being detached to a window.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/CloseReason/detachToWindow
+	PopoverCloseReasonDetachToWindow NSPopoverCloseReasonValue
+	// PopoverCloseReasonStandard is specifies that the popover has been closed in a standard way.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPopover/CloseReason/standard
+	PopoverCloseReasonStandard NSPopoverCloseReasonValue
+)
+
+var (
+	// PrintAllPages is an [NSNumber] object containing a Boolean value that specifies whether to include all pages.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/allPages
+	PrintAllPages NSPrintInfoAttributeKey
+	// PrintBottomMargin is [NSNumber], containing a floating-point value that specifies the bottom margin, in points.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/bottomMargin
+	PrintBottomMargin NSPrintInfoAttributeKey
+	// PrintCopies is an [NSNumber] object containing an integer—the number of copies to spool.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/copies
+	PrintCopies NSPrintInfoAttributeKey
+	// PrintDetailedErrorReporting is an [NSNumber] object containing a Boolean value that specifies whether to produce detailed error reports.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/detailedErrorReporting
+	PrintDetailedErrorReporting NSPrintInfoAttributeKey
+	// PrintFaxNumber is an [NSString] object that specifies a fax number.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/faxNumber
+	PrintFaxNumber NSPrintInfoAttributeKey
+	// PrintFirstPage is an [NSNumber] object containing an integer value that specifies the first page in the print job.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/firstPage
+	PrintFirstPage NSPrintInfoAttributeKey
+	// PrintHeaderAndFooter is an [NSNumber] object containing a Boolean value that specifies whether to include a header and footer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/headerAndFooter
+	PrintHeaderAndFooter NSPrintInfoAttributeKey
+	// PrintHorizontalPagination is [NSNumber], containing a [NSPrintingPaginationMode] value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/horizontalPagination
+	PrintHorizontalPagination NSPrintInfoAttributeKey
+	// PrintHorizontallyCentered is an [NSNumber] object containing a Boolean value that specifies whether to horizontally center pages.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/horizontallyCentered
+	PrintHorizontallyCentered NSPrintInfoAttributeKey
+	// PrintJobDisposition is an [NSString] object that specifies the job disposition.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/jobDisposition
+	PrintJobDisposition NSPrintInfoAttributeKey
+	// PrintJobSavingFileNameExtensionHidden is an [NSNumber] object containing a Boolean value that specifies whether to hide the job’s file name extension.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/jobSavingFileNameExtensionHidden
+	PrintJobSavingFileNameExtensionHidden NSPrintInfoAttributeKey
+	// PrintJobSavingURL is an [NSURL] containing the location to which the job file will be saved when the [jobDisposition] is [save].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/jobSavingURL
+	PrintJobSavingURL NSPrintInfoAttributeKey
+	// PrintLastPage is an [NSNumber] object containing an integer value that specifies the last page in the print job.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/lastPage
+	PrintLastPage NSPrintInfoAttributeKey
+	// PrintLeftMargin is [NSNumber], containing a floating-point value that specifies the left margin, in points.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/leftMargin
+	PrintLeftMargin NSPrintInfoAttributeKey
+	// PrintMustCollate is an [NSNumber] object containing a Boolean value that specifies whether to collate output.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/mustCollate
+	PrintMustCollate NSPrintInfoAttributeKey
+	// PrintOrientation is an [NSNumber] object containing an [NSPrintingOrientation].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/orientation
+	PrintOrientation NSPrintInfoAttributeKey
+	// PrintPagesAcross is an [NSNumber] object that specifies the number of logical pages to be tiled horizontally on a physical sheet of paper.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/pagesAcross
+	PrintPagesAcross NSPrintInfoAttributeKey
+	// PrintPagesDown is an [NSNumber] object that specifies the number of logical pages to be tiled vertically on a physical sheet of paper.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/pagesDown
+	PrintPagesDown NSPrintInfoAttributeKey
+	// PrintPaperName is an [NSString] object containing the paper name.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/paperName
+	PrintPaperName NSPrintInfoAttributeKey
+	// PrintPaperSize is an [NSSize] value specifying the height and width of paper in points.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/paperSize
+	PrintPaperSize NSPrintInfoAttributeKey
+	// PrintPrinter is an [NSPrinter] object—the printer to use.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/printer
+	PrintPrinter NSPrintInfoAttributeKey
+	// PrintPrinterName is an [NSString] object that specifies the name of a printer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/printerName
+	PrintPrinterName NSPrintInfoAttributeKey
+	// PrintReversePageOrder is an [NSNumber] object containing a Boolean value that specifies whether to print pages in reverse order.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/reversePageOrder
+	PrintReversePageOrder NSPrintInfoAttributeKey
+	// PrintRightMargin is [NSNumber], containing a floating-point value that specifies the right margin, in points.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/rightMargin
+	PrintRightMargin NSPrintInfoAttributeKey
+	// PrintScalingFactor is scale factor percentage before pagination.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/scalingFactor
+	PrintScalingFactor NSPrintInfoAttributeKey
+	// PrintSelectionOnly is an [NSNumber] object containing a Boolean value that specifies whether to print the current selection.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/selectionOnly
+	PrintSelectionOnly NSPrintInfoAttributeKey
+	// PrintTime is an [NSDate] object that specifies the time at which printing should begin.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/time
+	PrintTime NSPrintInfoAttributeKey
+	// PrintTopMargin is [NSNumber], containing a floating-point value that specifies the top margin, in points.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/topMargin
+	PrintTopMargin NSPrintInfoAttributeKey
+	// PrintVerticalPagination is [NSNumber], containing a [NSPrintingPaginationMode] value.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/verticalPagination
+	PrintVerticalPagination NSPrintInfoAttributeKey
+	// PrintVerticallyCentered is an [NSNumber] object containing a Boolean value that specifies whether to vertically center pages.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/AttributeKey/verticallyCentered
+	PrintVerticallyCentered NSPrintInfoAttributeKey
+)
+
+var (
+	// PrintAllPresetsJobStyleHint is output appropriate to all graphics types.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/JobStyleHint-swift.struct/allPresets
+	PrintAllPresetsJobStyleHint NSPrintPanelJobStyleHint
+	// PrintNoPresetsJobStyleHint is output excludes all graphics printing.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/JobStyleHint-swift.struct/noPresets
+	PrintNoPresetsJobStyleHint NSPrintPanelJobStyleHint
+	// PrintPhotoJobStyleHint is output contains photographic data.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/JobStyleHint-swift.struct/photo
+	PrintPhotoJobStyleHint NSPrintPanelJobStyleHint
+)
+
+var (
+	// PrintCancelJob is cancel print job.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/JobDisposition-swift.struct/cancel
+	PrintCancelJob NSPrintJobDispositionValue
+	// PrintPreviewJob is send to Preview application.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/JobDisposition-swift.struct/preview
+	PrintPreviewJob NSPrintJobDispositionValue
+	// PrintSaveJob is save to a file.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/JobDisposition-swift.struct/save
+	PrintSaveJob NSPrintJobDispositionValue
+	// PrintSpoolJob is normal print job.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/JobDisposition-swift.struct/spool
+	PrintSpoolJob NSPrintJobDispositionValue
+)
+
+var (
+	// PrintPanelAccessorySummaryItemDescriptionKey is a key that identfies the current value of the accessory panel setting.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/AccessorySummaryKey/itemDescription
+	PrintPanelAccessorySummaryItemDescriptionKey NSPrintPanelAccessorySummaryKey
+	// PrintPanelAccessorySummaryItemNameKey is a key that specifies the name of the accessory panel setting.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/AccessorySummaryKey/itemName
+	PrintPanelAccessorySummaryItemNameKey NSPrintPanelAccessorySummaryKey
+)
+
+var (
+	// RuleEditorPredicateComparisonModifier is the corresponding value is an [NSNumber] object representing a [NSComparisonPredicateModifier] constant the of the predicate.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/PredicatePartKey/comparisonModifier
+	RuleEditorPredicateComparisonModifier NSRuleEditorPredicatePartKey
+	// RuleEditorPredicateCompoundType is the corresponding value is an [NSNumber] object representing a [NSCompoundPredicateType] constant.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/PredicatePartKey/compoundType
+	RuleEditorPredicateCompoundType NSRuleEditorPredicatePartKey
+	// RuleEditorPredicateCustomSelector is the corresponding value is an [NSString] object representing a custom selector.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/PredicatePartKey/customSelector
+	RuleEditorPredicateCustomSelector NSRuleEditorPredicatePartKey
+	// RuleEditorPredicateLeftExpression is the corresponding value is an [NSExpression] object representing the left expression in the predicate.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/PredicatePartKey/leftExpression
+	RuleEditorPredicateLeftExpression NSRuleEditorPredicatePartKey
+	// RuleEditorPredicateOperatorType is the corresponding value is an [NSNumber] object representing a [NSPredicateOperatorType] constant.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/PredicatePartKey/operatorType
+	RuleEditorPredicateOperatorType NSRuleEditorPredicatePartKey
+	// RuleEditorPredicateOptions is the corresponding value is an [NSNumber] object representing an [NSComparisonPredicateOptions] bitfield.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/PredicatePartKey/options
+	RuleEditorPredicateOptions NSRuleEditorPredicatePartKey
+	// RuleEditorPredicateRightExpression is the corresponding value is an [NSExpression] object representing the right expression in the predicate.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/PredicatePartKey/rightExpression
+	RuleEditorPredicateRightExpression NSRuleEditorPredicatePartKey
+)
+
+var (
+	// See: https://developer.apple.com/documentation/AppKit/NSRulerView/UnitName/centimeters
+	RulerViewUnitCentimeters NSRulerViewUnitName
+	// See: https://developer.apple.com/documentation/AppKit/NSRulerView/UnitName/inches
+	RulerViewUnitInches NSRulerViewUnitName
+	// See: https://developer.apple.com/documentation/AppKit/NSRulerView/UnitName/picas
+	RulerViewUnitPicas NSRulerViewUnitName
+	// See: https://developer.apple.com/documentation/AppKit/NSRulerView/UnitName/points
+	RulerViewUnitPoints NSRulerViewUnitName
+)
+
+var (
+)
+
+var (
+)
+
+var (
+	// SpeechCharacterModeProperty is get or set the synthesizer’s current text-processing mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/characterMode
+	SpeechCharacterModeProperty NSSpeechPropertyKey
+	// SpeechCommandDelimiterProperty is set the embedded speech command delimiter characters to be used for the synthesizer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/commandDelimiter
+	SpeechCommandDelimiterProperty NSSpeechPropertyKey
+	// SpeechCurrentVoiceProperty is set the current voice on the synthesizer to the specified voice.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/currentVoice
+	SpeechCurrentVoiceProperty NSSpeechPropertyKey
+	// SpeechErrorsProperty is get speech-error information for the synthesizer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/errors
+	SpeechErrorsProperty NSSpeechPropertyKey
+	// SpeechInputModeProperty is get or set the synthesizer’s current text-processing mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/inputMode
+	SpeechInputModeProperty NSSpeechPropertyKey
+	// SpeechNumberModeProperty is get or set the synthesizer’s current number-processing mode.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/numberMode
+	SpeechNumberModeProperty NSSpeechPropertyKey
+	// SpeechOutputToFileURLProperty is set the speech output destination to a file or to the computer’s speakers.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/outputToFileURL
+	SpeechOutputToFileURLProperty NSSpeechPropertyKey
+	// SpeechPhonemeSymbolsProperty is get a list of phoneme symbols and example words defined for the synthesizer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/phonemeSymbols
+	SpeechPhonemeSymbolsProperty NSSpeechPropertyKey
+	// SpeechPitchBaseProperty is get or set a synthesizer’s baseline speech pitch.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/pitchBase
+	SpeechPitchBaseProperty NSSpeechPropertyKey
+	// SpeechPitchModProperty is get or set a synthesizer’s pitch modulation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/pitchMod
+	SpeechPitchModProperty NSSpeechPropertyKey
+	// SpeechRateProperty is get or set a synthesizer’s speech rate.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/rate
+	SpeechRateProperty NSSpeechPropertyKey
+	// SpeechRecentSyncProperty is get the message code for the most recently encountered synchronization command.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/recentSync
+	SpeechRecentSyncProperty NSSpeechPropertyKey
+	// SpeechResetProperty is set a synthesizer back to its default state.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/reset
+	SpeechResetProperty NSSpeechPropertyKey
+	// SpeechStatusProperty is get speech-status information for the synthesizer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/status
+	SpeechStatusProperty NSSpeechPropertyKey
+	// SpeechSynthesizerInfoProperty is get information about the speech synthesizer being used on the specified synthesizer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/synthesizerInfo
+	SpeechSynthesizerInfoProperty NSSpeechPropertyKey
+	// SpeechVolumeProperty is get or set the speech volume for a synthesizer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/volume
+	SpeechVolumeProperty NSSpeechPropertyKey
+)
+
+var (
+	// SpeechCommandPrefix is the command delimiter string that prefixes a command, by default, this is `[[`.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/CommandDelimiterKey/prefix
+	SpeechCommandPrefix NSSpeechCommandDelimiterKey
+	// SpeechCommandSuffix is the command delimiter string that suffixes a command,by default, this is `]]`.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/CommandDelimiterKey/suffix
+	SpeechCommandSuffix NSSpeechCommandDelimiterKey
+)
+
+var (
+	// SpeechDictionaryAbbreviations is an array of dictionary objects containing the keys [NSSpeechDictionaryEntrySpelling] and [NSSpeechDictionaryEntryPhonemes].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/DictionaryKey/abbreviations
+	SpeechDictionaryAbbreviations NSSpeechDictionaryKey
+	// SpeechDictionaryEntryPhonemes is the phonemic representation of an entry. An [NSString].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/DictionaryKey/entryPhonemes
+	SpeechDictionaryEntryPhonemes NSSpeechDictionaryKey
+	// SpeechDictionaryEntrySpelling is the spelling of an entry. An [NSString].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/DictionaryKey/entrySpelling
+	SpeechDictionaryEntrySpelling NSSpeechDictionaryKey
+	// SpeechDictionaryLocaleIdentifier is the canonical locale identifier string describing the dictionary’s locale.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/DictionaryKey/localeIdentifier
+	SpeechDictionaryLocaleIdentifier NSSpeechDictionaryKey
+	// SpeechDictionaryModificationDate is a string representation of the dictionary’s last modification date in the international format (YYYY-MM-DD HH:MM:SS ±HHMM). If the same word appears across multiple dictionaries, the one from the dictionary with the most recent date will be used.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/DictionaryKey/modificationDate
+	SpeechDictionaryModificationDate NSSpeechDictionaryKey
+	// SpeechDictionaryPronunciations is an array of dictionary objects containing the keys [NSSpeechDictionaryEntrySpelling] and [NSSpeechDictionaryEntryPhonemes].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/DictionaryKey/pronunciations
+	SpeechDictionaryPronunciations NSSpeechDictionaryKey
+)
+
+var (
+	// SpeechErrorCount is the number of errors that have occurred in processing the current text string, since the last call to [object(forProperty:)] with the [errors] property. An [NSNumber].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/ErrorKey/count
+	SpeechErrorCount NSSpeechErrorKey
+	// SpeechErrorNewestCharacterOffset is the position in the text string of the most recent error that occurred since the last call to [object(forProperty:)] with the [errors] property. An [NSNumber].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/ErrorKey/newestCharacterOffset
+	SpeechErrorNewestCharacterOffset NSSpeechErrorKey
+	// SpeechErrorNewestCode is the error code of the most recent error that occurred since the last call to [object(forProperty:)] with the [errors] property. An [NSNumber].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/ErrorKey/newestCode
+	SpeechErrorNewestCode NSSpeechErrorKey
+	// SpeechErrorOldestCharacterOffset is the position in the text string of the first error that occurred since the last call to [object(forProperty:)] with the [errors] property. An [NSNumber].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/ErrorKey/oldestCharacterOffset
+	SpeechErrorOldestCharacterOffset NSSpeechErrorKey
+	// SpeechErrorOldestCode is the error code of the first error that occurred since the last call to [object(forProperty:)] with the [errors] property. An [NSNumber].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/ErrorKey/oldestCode
+	SpeechErrorOldestCode NSSpeechErrorKey
+)
+
+var (
+)
+
+var (
+	// SpeechPhonemeInfoExample is an example word that illustrates the use of the phoneme.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/PhonemeInfoKey/example
+	SpeechPhonemeInfoExample NSSpeechPhonemeInfoKey
+	// SpeechPhonemeInfoHiliteEnd is the character offset into the example word that identifies the location of the end of the phoneme.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/PhonemeInfoKey/hiliteEnd
+	SpeechPhonemeInfoHiliteEnd NSSpeechPhonemeInfoKey
+	// SpeechPhonemeInfoHiliteStart is the character offset into the example word that identifies the location of the beginning of the phoneme.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/PhonemeInfoKey/hiliteStart
+	SpeechPhonemeInfoHiliteStart NSSpeechPhonemeInfoKey
+	// SpeechPhonemeInfoOpcode is nSNumber.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/PhonemeInfoKey/opcode
+	SpeechPhonemeInfoOpcode NSSpeechPhonemeInfoKey
+	// SpeechPhonemeInfoSymbol is the symbol used to represent the phoneme.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/PhonemeInfoKey/symbol
+	SpeechPhonemeInfoSymbol NSSpeechPhonemeInfoKey
+)
+
+var (
+	// SpeechStatusNumberOfCharactersLeft is the number of characters left in the input string of text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/StatusKey/numberOfCharactersLeft
+	SpeechStatusNumberOfCharactersLeft NSSpeechStatusKey
+	// SpeechStatusOutputBusy is indicates whether the synthesizer is currently producing speech.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/StatusKey/outputBusy
+	SpeechStatusOutputBusy NSSpeechStatusKey
+	// SpeechStatusOutputPaused is indicates whether speech output in the synthesizer has been paused by sending the message [pauseSpeaking(at:)].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/StatusKey/outputPaused
+	SpeechStatusOutputPaused NSSpeechStatusKey
+	// SpeechStatusPhonemeCode is indicates that the synthesizer is in phoneme-processing mode. When in phoneme-processing mode, a text buffer is interpreted to be a series of characters representing various phonemes and prosodic controls.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/StatusKey/phonemeCode
+	SpeechStatusPhonemeCode NSSpeechStatusKey
+)
+
+var (
+	// SpeechSynthesizerInfoIdentifier is the identifier of the speech synthesizer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/SynthesizerInfoKey/identifier
+	SpeechSynthesizerInfoIdentifier NSSpeechSynthesizerInfoKey
+	// SpeechSynthesizerInfoVersion is the version of the speech synthesizer.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/SpeechPropertyKey/SynthesizerInfoKey/version
+	SpeechSynthesizerInfoVersion NSSpeechSynthesizerInfoKey
+)
+
+var (
+	// TabColumnTerminatorsAttributeName is the value is an [NSCharacterSet] object.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextTab/OptionKey/columnTerminators
+	TabColumnTerminatorsAttributeName NSTextTabOptionKey
+)
+
+var (
+	// TextCheckingDocumentAuthorKey is an NSString containing the name of an author to be associated with the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/documentAuthor
+	TextCheckingDocumentAuthorKey NSTextCheckingOptionKey
+	// TextCheckingDocumentTitleKey is an NSString containing the title to be associated with the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/documentTitle
+	TextCheckingDocumentTitleKey NSTextCheckingOptionKey
+	// TextCheckingDocumentURLKey is an NSURL to be associated with the document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/documentURL
+	TextCheckingDocumentURLKey NSTextCheckingOptionKey
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/generateInlinePredictionsKey
+	TextCheckingGenerateInlinePredictionsKey NSTextCheckingOptionKey
+	// TextCheckingOrthographyKey is an [NSOrthography] instance indicating an orthography to be used as a starting point for orthography checking, or as the orthography if orthography checking is not enabled.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/orthography
+	TextCheckingOrthographyKey NSTextCheckingOptionKey
+	// TextCheckingQuotesKey is an [NSArray] containing four strings to be used with `quoteCheckingResult()` (opening double quote, closing double quote, opening single quote, and closing single quote in that order).
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/quotes
+	TextCheckingQuotesKey NSTextCheckingOptionKey
+	// TextCheckingReferenceDateKey is an NSDate to be associated with the document, used as a referent for relative dates; if not specified, the current date will be used.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/referenceDate
+	TextCheckingReferenceDateKey NSTextCheckingOptionKey
+	// TextCheckingReferenceTimeZoneKey is an NSTimeZone to be associated with the document, used as a reference for dates without time zones; if not specified, the current time zone will be used.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/referenceTimeZone
+	TextCheckingReferenceTimeZoneKey NSTextCheckingOptionKey
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/regularExpressions
+	TextCheckingRegularExpressionsKey NSTextCheckingOptionKey
+	// TextCheckingReplacementsKey is an NSDictionary containing replacements to be used with NSTextCheckingTypeReplacement; if not specified, values will be taken from user’s preferences.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/replacements
+	TextCheckingReplacementsKey NSTextCheckingOptionKey
+	// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/OptionKey/selectedRange
+	TextCheckingSelectedRangeKey NSTextCheckingOptionKey
+)
+
+var (
+)
+
+var (
+	// TextEffectLetterpressStyle is a graphical text effect that gives glyphs the appearance of letterpress printing, which involves pressing the type into the paper.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextEffectLetterpressStyle
+	TextEffectLetterpressStyle NSTextEffectStyle
+)
+
+var (
+	// TextFinderCaseInsensitiveKey is a Boolean value indicating whether the search is case insensitive.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/TextFinderOptionKey/textFinderCaseInsensitiveKey
+	TextFinderCaseInsensitiveKey NSPasteboardTypeTextFinderOptionKey
+	// TextFinderMatchingTypeKey is a number object containing the match type to use.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/TextFinderOptionKey/textFinderMatchingTypeKey
+	TextFinderMatchingTypeKey NSPasteboardTypeTextFinderOptionKey
+)
+
+var (
+)
+
+var (
+	// TextHighlightStyleDefault is the default highlight style to apply to text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextHighlightStyleDefault
+	TextHighlightStyleDefault NSTextHighlightStyle
+)
+
+var (
+	// TextLayoutSectionOrientation is the orientation of the text.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutSectionOrientation
+	TextLayoutSectionOrientation NSTextLayoutSectionKey
+	// TextLayoutSectionRange is the character range.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextLayoutSectionRange
+	TextLayoutSectionRange NSTextLayoutSectionKey
+)
+
+var (
+	// TextListMarkerBox is the value that represents a square-shaped marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/box
+	TextListMarkerBox NSTextListMarkerFormat
+	// TextListMarkerCheck is the value that represents a checkmark-shaped marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/check
+	TextListMarkerCheck NSTextListMarkerFormat
+	// TextListMarkerCircle is the value that represents a circle-shaped marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/circle
+	TextListMarkerCircle NSTextListMarkerFormat
+	// TextListMarkerDecimal is the value that represents a decimal annotation marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/decimal
+	TextListMarkerDecimal NSTextListMarkerFormat
+	// TextListMarkerDiamond is the value that represents a diamond-shaped marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/diamond
+	TextListMarkerDiamond NSTextListMarkerFormat
+	// TextListMarkerDisc is the value that represents a disc-shaped marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/disc
+	TextListMarkerDisc NSTextListMarkerFormat
+	// TextListMarkerHyphen is the value that represents a hyphen-shaped marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/hyphen
+	TextListMarkerHyphen NSTextListMarkerFormat
+	// TextListMarkerLowercaseAlpha is the value that represents a lowercase localized alphabetical marker you that can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/lowercaseAlpha
+	TextListMarkerLowercaseAlpha NSTextListMarkerFormat
+	// TextListMarkerLowercaseHexadecimal is the value that represents a lowercase hexadecimal (base 16) numerical marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/lowercaseHexadecimal
+	TextListMarkerLowercaseHexadecimal NSTextListMarkerFormat
+	// TextListMarkerLowercaseLatin is the value that represents a lowercase Latin alphabetical marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/lowercaseLatin
+	TextListMarkerLowercaseLatin NSTextListMarkerFormat
+	// TextListMarkerLowercaseRoman is the value that represents a lowercase Roman numeral marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/lowercaseRoman
+	TextListMarkerLowercaseRoman NSTextListMarkerFormat
+	// TextListMarkerOctal is the value that represents an octal (base 8) numerical marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/octal
+	TextListMarkerOctal NSTextListMarkerFormat
+	// TextListMarkerSquare is the value that represents a square-shaped marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/square
+	TextListMarkerSquare NSTextListMarkerFormat
+	// TextListMarkerUppercaseAlpha is the value that represents an uppercase localized alphabetical marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/uppercaseAlpha
+	TextListMarkerUppercaseAlpha NSTextListMarkerFormat
+	// TextListMarkerUppercaseHexadecimal is the value that represents an uppercase hexadecimal (base 16) numerical marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/uppercaseHexadecimal
+	TextListMarkerUppercaseHexadecimal NSTextListMarkerFormat
+	// TextListMarkerUppercaseLatin is the value that represents an uppercase Latin alphabetical marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/uppercaseLatin
+	TextListMarkerUppercaseLatin NSTextListMarkerFormat
+	// TextListMarkerUppercaseRoman is the value that represents an uppercase Roman numeral marker that you can apply to a text list item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct/uppercaseRoman
+	TextListMarkerUppercaseRoman NSTextListMarkerFormat
+)
+
+var (
+	// ToolbarCloudSharingItemIdentifier is the identifier for a toolbar item that tells your app to display the iCloud sharing interface.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/cloudSharing
+	ToolbarCloudSharingItemIdentifier NSToolbarItemIdentifier
+	// ToolbarFlexibleSpaceItemIdentifier is the identifier for a toolbar item that displays an empty space with a flexible width.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/flexibleSpace
+	ToolbarFlexibleSpaceItemIdentifier NSToolbarItemIdentifier
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/inspectorTrackingSeparator
+	ToolbarInspectorTrackingSeparatorItemIdentifier NSToolbarItemIdentifier
+	// ToolbarPrintItemIdentifier is the identifier for a toolbar item that tells your app to print the current document.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/print
+	ToolbarPrintItemIdentifier NSToolbarItemIdentifier
+	// ToolbarShowColorsItemIdentifier is the identifier for a toolbar item that shows the standard color panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/showColors
+	ToolbarShowColorsItemIdentifier NSToolbarItemIdentifier
+	// ToolbarShowFontsItemIdentifier is the identifier for a toolbar item that shows the standard font panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/showFonts
+	ToolbarShowFontsItemIdentifier NSToolbarItemIdentifier
+	// ToolbarSidebarTrackingSeparatorItemIdentifier is the identifier for a toolbar item that displays a tracking separator aligned with the sidebar divider in a split view.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/sidebarTrackingSeparator
+	ToolbarSidebarTrackingSeparatorItemIdentifier NSToolbarItemIdentifier
+	// ToolbarSpaceItemIdentifier is the identifier for a toolbar item that displays an empty space with a standard fixed size.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/space
+	ToolbarSpaceItemIdentifier NSToolbarItemIdentifier
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/toggleInspector
+	ToolbarToggleInspectorItemIdentifier NSToolbarItemIdentifier
+	// ToolbarToggleSidebarItemIdentifier is the identifier for a toolbar item that displays a sidebar.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/Identifier/toggleSidebar
+	ToolbarToggleSidebarItemIdentifier NSToolbarItemIdentifier
+)
+
+var (
+	// ToolbarItemKey is a key that specifies the toolbar item associated with the notification.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarUserInfoKey/itemKey
+	ToolbarItemKey NSToolbarUserInfoKey
+	// See: https://developer.apple.com/documentation/AppKit/NSToolbarUserInfoKey/newIndexKey
+	ToolbarNewIndexKey NSToolbarUserInfoKey
+)
+
+var (
+)
+
+var (
+	// ViewAnimationEffectKey is an effect to apply to the animation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/Key/effect
+	ViewAnimationEffectKey NSViewAnimationKey
+	// ViewAnimationEndFrameKey is the size and location of the window or view at the end of the animation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/Key/endFrame
+	ViewAnimationEndFrameKey NSViewAnimationKey
+	// ViewAnimationStartFrameKey is the size and location of the window or view at the start of the animation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/Key/startFrame
+	ViewAnimationStartFrameKey NSViewAnimationKey
+	// ViewAnimationTargetKey is the target of the animation.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/Key/target
+	ViewAnimationTargetKey NSViewAnimationKey
+)
+
+var (
+	// ViewAnimationFadeInEffect is specifies a fade-in type of effect.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/EffectName/fadeIn
+	ViewAnimationFadeInEffect NSViewAnimationEffectName
+	// ViewAnimationFadeOutEffect is specifies a fade-out type of effect.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSViewAnimation/EffectName/fadeOut
+	ViewAnimationFadeOutEffect NSViewAnimationEffectName
+)
+
+var (
+	// VoiceAge is the perceived age (in years) of the voice. An [NSString].
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceAttributeKey/age
+	VoiceAge NSVoiceAttributeKey
+	// VoiceDemoText is a demonstration string to speak. An [NSString].
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceAttributeKey/demoText
+	VoiceDemoText NSVoiceAttributeKey
+	// VoiceGender is the perceived gender of the voice. The supported values are listed in `Voice Gender Keys`. An [NSString].
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceAttributeKey/gender
+	VoiceGender NSVoiceAttributeKey
+	// VoiceIdentifier is a unique string identifying the voice. The identifiers of the system voices are listed in `Listing 1`.
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceAttributeKey/identifier
+	VoiceIdentifier NSVoiceAttributeKey
+	// VoiceIndividuallySpokenCharacters is a list of Unicode character id ranges that define the Unicode characters that can be spoken in character-by-character mode by this voice.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceAttributeKey/individuallySpokenCharacters
+	VoiceIndividuallySpokenCharacters NSVoiceAttributeKey
+	// VoiceLocaleIdentifier is the language of the voice. An [NSString].
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceAttributeKey/localeIdentifier
+	VoiceLocaleIdentifier NSVoiceAttributeKey
+	// VoiceName is the name of the voice suitable for display. An [NSString].
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceAttributeKey/name
+	VoiceName NSVoiceAttributeKey
+	// VoiceSupportedCharacters is a list of Unicode character id ranges that define the Unicode characters supported by this voice.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceAttributeKey/supportedCharacters
+	VoiceSupportedCharacters NSVoiceAttributeKey
+)
+
+var (
+	// VoiceGenderFemale is a female voice.
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceGender/female
+	VoiceGenderFemale NSVoiceGenderName
+	// VoiceGenderMale is a male voice.
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceGender/male
+	VoiceGenderMale NSVoiceGenderName
+	// VoiceGenderNeuter is a neutral voice (or a novelty voice with a humorous or whimsical quality).
+	//
+	// Deprecated: Deprecated since macOS 14.0. Use AVSpeechSynthesizer in AVFoundation instead
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceGender/neuter
+	VoiceGenderNeuter NSVoiceGenderName
+	// See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/VoiceGender/neutral
+	VoiceGenderNeutral NSVoiceGenderName
+)
+
+var (
+	// WorkspaceDesktopImageAllowClippingKey is a key that contains the behavior to use when clipping the image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/DesktopImageOptionKey/allowClipping
+	WorkspaceDesktopImageAllowClippingKey NSWorkspaceDesktopImageOptionKey
+	// WorkspaceDesktopImageFillColorKey is a key that contains the behavior to use when filling the empty space around the image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/DesktopImageOptionKey/fillColor
+	WorkspaceDesktopImageFillColorKey NSWorkspaceDesktopImageOptionKey
+	// WorkspaceDesktopImageScalingKey is a key that contains the behavior to use when scaling the image.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSWorkspace/DesktopImageOptionKey/imageScaling
+	WorkspaceDesktopImageScalingKey NSWorkspaceDesktopImageOptionKey
+)
 func init() {
 	if frameworkHandle == 0 {
 		return
@@ -3510,6 +5756,16 @@ func init() {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
 				AccessibilityIncrementorRole = NSAccessibilityRole(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSAccessibilityIndexAttribute"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSAccessibilityIndexAttribute = string(objc.GoString(cstr))
 			}
 		}
 	}
@@ -6073,7 +8329,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitVersionNumber"); err == nil && ptr != 0 {
-		AppKitVersionNumber = *(*NSAppKitVersion)(unsafe.Pointer(ptr))
+		NSAppKitVersions.Number = *(*NSAppKitVersion)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitVirtualMemoryException"); err == nil && ptr != 0 {
@@ -8418,6 +10674,226 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameActionTemplate"); err == nil && ptr != 0 {
+		NSImageNameActionTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameAddTemplate"); err == nil && ptr != 0 {
+		NSImageNameAddTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameAdvanced"); err == nil && ptr != 0 {
+		NSImageNameAdvanced = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameApplicationIcon"); err == nil && ptr != 0 {
+		NSImageNameApplicationIcon = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameBluetoothTemplate"); err == nil && ptr != 0 {
+		NSImageNameBluetoothTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameBonjour"); err == nil && ptr != 0 {
+		NSImageNameBonjour = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameBookmarksTemplate"); err == nil && ptr != 0 {
+		NSImageNameBookmarksTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameCaution"); err == nil && ptr != 0 {
+		NSImageNameCaution = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameColorPanel"); err == nil && ptr != 0 {
+		NSImageNameColorPanel = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameColumnViewTemplate"); err == nil && ptr != 0 {
+		NSImageNameColumnViewTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameComputer"); err == nil && ptr != 0 {
+		NSImageNameComputer = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameEnterFullScreenTemplate"); err == nil && ptr != 0 {
+		NSImageNameEnterFullScreenTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameEveryone"); err == nil && ptr != 0 {
+		NSImageNameEveryone = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameExitFullScreenTemplate"); err == nil && ptr != 0 {
+		NSImageNameExitFullScreenTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFlowViewTemplate"); err == nil && ptr != 0 {
+		NSImageNameFlowViewTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFolder"); err == nil && ptr != 0 {
+		NSImageNameFolder = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFolderBurnable"); err == nil && ptr != 0 {
+		NSImageNameFolderBurnable = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFolderSmart"); err == nil && ptr != 0 {
+		NSImageNameFolderSmart = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFollowLinkFreestandingTemplate"); err == nil && ptr != 0 {
+		NSImageNameFollowLinkFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameFontPanel"); err == nil && ptr != 0 {
+		NSImageNameFontPanel = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameGoBackTemplate"); err == nil && ptr != 0 {
+		NSImageNameGoBackTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameGoForwardTemplate"); err == nil && ptr != 0 {
+		NSImageNameGoForwardTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameGoLeftTemplate"); err == nil && ptr != 0 {
+		NSImageNameGoLeftTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameGoRightTemplate"); err == nil && ptr != 0 {
+		NSImageNameGoRightTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameHomeTemplate"); err == nil && ptr != 0 {
+		NSImageNameHomeTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameIChatTheaterTemplate"); err == nil && ptr != 0 {
+		NSImageNameIChatTheaterTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameIconViewTemplate"); err == nil && ptr != 0 {
+		NSImageNameIconViewTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameInfo"); err == nil && ptr != 0 {
+		NSImageNameInfo = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameInvalidDataFreestandingTemplate"); err == nil && ptr != 0 {
+		NSImageNameInvalidDataFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameLeftFacingTriangleTemplate"); err == nil && ptr != 0 {
+		NSImageNameLeftFacingTriangleTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameListViewTemplate"); err == nil && ptr != 0 {
+		NSImageNameListViewTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameLockLockedTemplate"); err == nil && ptr != 0 {
+		NSImageNameLockLockedTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameLockUnlockedTemplate"); err == nil && ptr != 0 {
+		NSImageNameLockUnlockedTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameMenuMixedStateTemplate"); err == nil && ptr != 0 {
+		NSImageNameMenuMixedStateTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameMenuOnStateTemplate"); err == nil && ptr != 0 {
+		NSImageNameMenuOnStateTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameMobileMe"); err == nil && ptr != 0 {
+		NSImageNameMobileMe = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameMultipleDocuments"); err == nil && ptr != 0 {
+		NSImageNameMultipleDocuments = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameNetwork"); err == nil && ptr != 0 {
+		NSImageNameNetwork = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNamePathTemplate"); err == nil && ptr != 0 {
+		NSImageNamePathTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNamePreferencesGeneral"); err == nil && ptr != 0 {
+		NSImageNamePreferencesGeneral = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameQuickLookTemplate"); err == nil && ptr != 0 {
+		NSImageNameQuickLookTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRefreshFreestandingTemplate"); err == nil && ptr != 0 {
+		NSImageNameRefreshFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRefreshTemplate"); err == nil && ptr != 0 {
+		NSImageNameRefreshTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRemoveTemplate"); err == nil && ptr != 0 {
+		NSImageNameRemoveTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRevealFreestandingTemplate"); err == nil && ptr != 0 {
+		NSImageNameRevealFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameRightFacingTriangleTemplate"); err == nil && ptr != 0 {
+		NSImageNameRightFacingTriangleTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameShareTemplate"); err == nil && ptr != 0 {
+		NSImageNameShareTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameSlideshowTemplate"); err == nil && ptr != 0 {
+		NSImageNameSlideshowTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameSmartBadgeTemplate"); err == nil && ptr != 0 {
+		NSImageNameSmartBadgeTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStatusAvailable"); err == nil && ptr != 0 {
+		NSImageNameStatusAvailable = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStatusNone"); err == nil && ptr != 0 {
+		NSImageNameStatusNone = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStatusPartiallyAvailable"); err == nil && ptr != 0 {
+		NSImageNameStatusPartiallyAvailable = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStatusUnavailable"); err == nil && ptr != 0 {
+		NSImageNameStatusUnavailable = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStopProgressFreestandingTemplate"); err == nil && ptr != 0 {
+		NSImageNameStopProgressFreestandingTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameStopProgressTemplate"); err == nil && ptr != 0 {
+		NSImageNameStopProgressTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarAddDetailTemplate"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -8868,6 +11344,10 @@ func init() {
 		}
 	}
 
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRemoveTemplate"); err == nil && ptr != 0 {
+		NSImageNameTouchBarRemoveTemplate = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTouchBarRewindTemplate"); err == nil && ptr != 0 {
 		nsStringID := objc.IDValueAt(ptr)
 		if nsStringID != 0 {
@@ -9176,6 +11656,30 @@ func init() {
 				NSImageNames.TouchBarVolumeUpTemplate = NSImageName(objc.GoString(cstr))
 			}
 		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTrashEmpty"); err == nil && ptr != 0 {
+		NSImageNameTrashEmpty = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameTrashFull"); err == nil && ptr != 0 {
+		NSImageNameTrashFull = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameUser"); err == nil && ptr != 0 {
+		NSImageNameUser = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameUserAccounts"); err == nil && ptr != 0 {
+		NSImageNameUserAccounts = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameUserGroup"); err == nil && ptr != 0 {
+		NSImageNameUserGroup = *(*foundation.NSString)(unsafe.Pointer(ptr))
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageNameUserGuest"); err == nil && ptr != 0 {
+		NSImageNameUserGuest = *(*foundation.NSString)(unsafe.Pointer(ptr))
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSImageProgressive"); err == nil && ptr != 0 {
@@ -9648,6 +12152,16 @@ func init() {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
 				OpenDocumentTextDocumentType = NSAttributedStringDocumentType(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "NSOptionsKey"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				NSOptionsKey = NSBindingInfoKey(objc.GoString(cstr))
 			}
 		}
 	}
@@ -14542,6 +17056,128 @@ func init() {
 
 }
 
+// NSAppKitVersions provides typed accessors for [NSAppKitVersion] constants.
+var NSAppKitVersions struct {
+	// Number: The most recent version of AppKit.
+	Number NSAppKitVersion
+	// Number10_0: The AppKit framework included in OS X v10.0.
+	Number10_0 NSAppKitVersion
+	// Number10_1: The AppKit framework included in OS X v10.1.
+	Number10_1 NSAppKitVersion
+	Number10_10 NSAppKitVersion
+	Number10_10_2 NSAppKitVersion
+	Number10_10_3 NSAppKitVersion
+	Number10_10_4 NSAppKitVersion
+	Number10_10_5 NSAppKitVersion
+	Number10_10_Max NSAppKitVersion
+	Number10_11 NSAppKitVersion
+	Number10_11_1 NSAppKitVersion
+	Number10_11_2 NSAppKitVersion
+	Number10_11_3 NSAppKitVersion
+	Number10_12 NSAppKitVersion
+	Number10_12_1 NSAppKitVersion
+	Number10_12_2 NSAppKitVersion
+	Number10_13 NSAppKitVersion
+	Number10_13_1 NSAppKitVersion
+	Number10_13_2 NSAppKitVersion
+	Number10_13_4 NSAppKitVersion
+	Number10_14 NSAppKitVersion
+	Number10_14_1 NSAppKitVersion
+	Number10_14_2 NSAppKitVersion
+	Number10_14_3 NSAppKitVersion
+	Number10_14_4 NSAppKitVersion
+	Number10_14_5 NSAppKitVersion
+	Number10_15 NSAppKitVersion
+	Number10_15_1 NSAppKitVersion
+	Number10_15_2 NSAppKitVersion
+	Number10_15_3 NSAppKitVersion
+	Number10_15_4 NSAppKitVersion
+	Number10_15_5 NSAppKitVersion
+	Number10_15_6 NSAppKitVersion
+	// Number10_2: The AppKit framework included in OS X v10.2.
+	Number10_2 NSAppKitVersion
+	// Number10_2_3: The AppKit framework included in OS X v10.2.3.
+	Number10_2_3 NSAppKitVersion
+	// Number10_3: The AppKit framework included in OS X v10.3.
+	Number10_3 NSAppKitVersion
+	// Number10_3_2: The AppKit framework included in OS X v10.3.2.
+	Number10_3_2 NSAppKitVersion
+	// Number10_3_3: The AppKit framework included in OS X v10.3.3.
+	Number10_3_3 NSAppKitVersion
+	// Number10_3_5: The AppKit framework included in OS X v10.3.5.
+	Number10_3_5 NSAppKitVersion
+	// Number10_3_7: The AppKit framework included in OS X v10.3.7.
+	Number10_3_7 NSAppKitVersion
+	// Number10_3_9: The AppKit framework included in OS X v10.3.9.
+	Number10_3_9 NSAppKitVersion
+	// Number10_4: The AppKit framework included in OS X v10.4.
+	Number10_4 NSAppKitVersion
+	// Number10_4_1: The AppKit framework included in OS X v10.4.1.
+	Number10_4_1 NSAppKitVersion
+	// Number10_4_3: The AppKit framework included in OS X v10.4.3.
+	Number10_4_3 NSAppKitVersion
+	// Number10_4_4: The AppKit framework included in OS X v10.4.4.
+	Number10_4_4 NSAppKitVersion
+	// Number10_4_7: The AppKit framework included in OS X v10.4.7.
+	Number10_4_7 NSAppKitVersion
+	// Number10_5: The AppKit framework included in OS X v10.5.
+	Number10_5 NSAppKitVersion
+	// Number10_5_2: The AppKit framework included in OS X v10.5.2.
+	Number10_5_2 NSAppKitVersion
+	// Number10_5_3: The AppKit framework included in OS X v10.5.3.
+	Number10_5_3 NSAppKitVersion
+	// Number10_6: The AppKit framework included in OS X v10.6.
+	Number10_6 NSAppKitVersion
+	// Number10_7: The AppKit framework included in OS X v10.7.
+	Number10_7 NSAppKitVersion
+	// Number10_7_2: The AppKit framework included in OS X v10.7.2.
+	Number10_7_2 NSAppKitVersion
+	// Number10_7_3: The AppKit framework included in OS X v10.7.3.
+	Number10_7_3 NSAppKitVersion
+	// Number10_7_4: The AppKit framework included in OS X v10.7.4.
+	Number10_7_4 NSAppKitVersion
+	// Number10_8: The AppKit framework included in OS X v10.8.
+	Number10_8 NSAppKitVersion
+	Number10_9 NSAppKitVersion
+	Number11_0 NSAppKitVersion
+	Number11_1 NSAppKitVersion
+	Number11_2 NSAppKitVersion
+	Number11_3 NSAppKitVersion
+	Number11_4 NSAppKitVersion
+	Number11_5 NSAppKitVersion
+	Number12_0 NSAppKitVersion
+	Number12_1 NSAppKitVersion
+	Number12_2 NSAppKitVersion
+	Number12_3 NSAppKitVersion
+	Number12_4 NSAppKitVersion
+	Number12_5 NSAppKitVersion
+	Number13_0 NSAppKitVersion
+	Number13_1 NSAppKitVersion
+	Number13_2 NSAppKitVersion
+	Number13_3 NSAppKitVersion
+	Number13_4 NSAppKitVersion
+	Number13_5 NSAppKitVersion
+	Number13_6 NSAppKitVersion
+	Number14_0 NSAppKitVersion
+	Number14_1 NSAppKitVersion
+	// NumberWithColumnResizingBrowser: The specific version of the AppKit framework that introduced support for resizing individual browser columns.
+	NumberWithColumnResizingBrowser NSAppKitVersion
+	// NumberWithContinuousScrollingBrowser: The specific version of the AppKit framework that introduced support the continuous scrolling in a browser view.
+	NumberWithContinuousScrollingBrowser NSAppKitVersion
+	// NumberWithCursorSizeSupport: The specific version of the AppKit framework that introduced support for cursors larger than 16 x 16 pixels in size.
+	NumberWithCursorSizeSupport NSAppKitVersion
+	// NumberWithCustomSheetPosition: The specific version of the AppKit framework that introduced custom sheet positioning.
+	NumberWithCustomSheetPosition NSAppKitVersion
+	// NumberWithDeferredWindowDisplaySupport: The specific version of the AppKit framework that introduced support for deferred window display.
+	NumberWithDeferredWindowDisplaySupport NSAppKitVersion
+	// NumberWithDirectionalTabs: The specific version of the AppKit framework that introduced support for directional tab items.
+	NumberWithDirectionalTabs NSAppKitVersion
+	// NumberWithDockTilePlugInSupport: The specific version of the AppKit framework that introduced support for dock tile plug-ins.
+	NumberWithDockTilePlugInSupport NSAppKitVersion
+	// NumberWithPatternColorLeakFix: The specific version of the AppKit framework from OS X 10.1 that correctly autoreleases color objects.
+	NumberWithPatternColorLeakFix NSAppKitVersion
+}
+
 // NSAppearanceNames provides typed accessors for [NSAppearanceName] constants.
 var NSAppearanceNames struct {
 	// AccessibilityHighContrastAqua: A high-contrast version of the standard light system appearance.
@@ -14560,6 +17196,16 @@ var NSAppearanceNames struct {
 	VibrantDark NSAppearanceName
 	// VibrantLight: The light vibrant appearance, available only in visual effect views.
 	VibrantLight NSAppearanceName
+}
+
+// NSControlStateValues provides typed accessors for [NSControlStateValue] constants.
+var NSControlStateValues struct {
+	// Mixed: A constant value that indicates a control is in a mixed state, neither on nor off.
+	Mixed NSControlStateValue
+	// Off: A constant value that indicates a control is off or unselected.
+	Off NSControlStateValue
+	// On: A constant value that indicates a control is on or selected.
+	On NSControlStateValue
 }
 
 // NSFontDescriptorSystemDesigns provides typed accessors for [NSFontDescriptorSystemDesign] constants.
@@ -14786,6 +17432,38 @@ var NSImageNames struct {
 	TouchBarVolumeUpTemplate NSImageName
 }
 
+// NSLayoutPrioritys provides typed accessors for [NSLayoutPriority] constants.
+var NSLayoutPrioritys struct {
+	// DefaultHigh: Priority level with which a button resists compressing its content.
+	DefaultHigh NSLayoutPriority
+	// DefaultLow: Priority level at which a button hugs its contents horizontally.
+	DefaultLow NSLayoutPriority
+	// DragThatCanResizeWindow: Appropriate priority level for a drag that may end up resizing the window.
+	DragThatCanResizeWindow NSLayoutPriority
+	// DragThatCannotResizeWindow: Priority level at which a split view divider, say, is dragged.
+	DragThatCannotResizeWindow NSLayoutPriority
+	// FittingSizeCompression: When you send a [fittingSize](<doc://com.apple.appkit/documentation/AppKit/NSView/fittingSize>) message to a view, the smallest size that is large enough for the view’s contents is computed.
+	FittingSizeCompression NSLayoutPriority
+	// Required: A required constraint.
+	Required NSLayoutPriority
+	// WindowSizeStayPut: Priority level for the window’s current size.
+	WindowSizeStayPut NSLayoutPriority
+}
+
+// NSModalResponses provides typed accessors for [NSModalResponse] constants.
+var NSModalResponses struct {
+	// Abort: Modal session was broken with [abortModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/abortModal()>).
+	Abort NSModalResponse
+	// Cancel: The presentation or dismissal of the sheet has been canceled.
+	Cancel NSModalResponse
+	// Continue: Modal session is continuing (returned by [runModalSession(_:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/runModalSession(_:)>) only).
+	Continue NSModalResponse
+	// OK: The presentation or dismissal of the sheet has finished.
+	OK NSModalResponse
+	// Stop: Modal session was broken with [stopModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/stopModal()>).
+	Stop NSModalResponse
+}
+
 // NSPasteboardDetectionPatterns provides typed accessors for [NSPasteboardDetectionPattern] constants.
 var NSPasteboardDetectionPatterns struct {
 	// CalendarEvent: A pattern that indicates the pasteboard detects a string that contains a calendar event.
@@ -14900,6 +17578,16 @@ var NSSpeechModes struct {
 	Text NSSpeechMode
 }
 
+// NSStackViewVisibilityPrioritys provides typed accessors for [NSStackViewVisibilityPriority] constants.
+var NSStackViewVisibilityPrioritys struct {
+	// DetachOnlyIfNecessary: The Auto Layout priority that results in detachment of a view when there is insufficient space in the stack view to display it fully.
+	DetachOnlyIfNecessary NSStackViewVisibilityPriority
+	// MustHold: The default value, and maximum Auto Layout priority, that results in a view never detaching from the stack view.
+	MustHold NSStackViewVisibilityPriority
+	// NotVisible: The minimum Auto Layout priority that forces a view to detach from the stack view.
+	NotVisible NSStackViewVisibilityPriority
+}
+
 // NSTextContentTypes provides typed accessors for [NSTextContentType] constants.
 var NSTextContentTypes struct {
 	// AddressCity: A property that defines the content in a text input area as a city name.
@@ -15006,6 +17694,18 @@ var NSTextHighlightColorSchemes struct {
 	Purple NSTextHighlightColorScheme
 }
 
+// NSToolbarItemVisibilityPrioritys provides typed accessors for [NSToolbarItemVisibilityPriority] constants.
+var NSToolbarItemVisibilityPrioritys struct {
+	// High: A high priority that makes it less likely for the toolbar item to move to the overflow item.
+	High NSToolbarItemVisibilityPriority
+	// Low: The lowest-priority for a toolbar item.
+	Low NSToolbarItemVisibilityPriority
+	// Standard: The default visibility priority.
+	Standard NSToolbarItemVisibilityPriority
+	// User: The highest priority for items in the toolbar.
+	User NSToolbarItemVisibilityPriority
+}
+
 // NSTouchBarItemIdentifiers provides typed accessors for [NSTouchBarItemIdentifier] constants.
 var NSTouchBarItemIdentifiers struct {
 	// CandidateList: The standard identifier for a candidate list bar item.
@@ -15030,5 +17730,15 @@ var NSTouchBarItemIdentifiers struct {
 	TextList NSTouchBarItemIdentifier
 	// TextStyle: The identifier for a Touch Bar item used to control the text style.
 	TextStyle NSTouchBarItemIdentifier
+}
+
+// NSTouchBarItemPrioritys provides typed accessors for [NSTouchBarItemPriority] constants.
+var NSTouchBarItemPrioritys struct {
+	// High: A constant indicating a high visibility priority.
+	High NSTouchBarItemPriority
+	// Low: A constant indicating a low visibility priority.
+	Low NSTouchBarItemPriority
+	// Normal: A constant indicating a normal visibility priority.
+	Normal NSTouchBarItemPriority
 }
 

@@ -36,12 +36,6 @@ func (uc URLSessionWebSocketTaskClass) Alloc() URLSessionWebSocketTask {
 	return rv
 }
 
-
-
-
-
-
-
 // A URL session task that communicates over the WebSockets protocol standard.
 //
 // # Overview
@@ -107,10 +101,6 @@ func NSURLSessionWebSocketTaskFromID(id objc.ID) URLSessionWebSocketTask { retur
 // NOTE: URLSessionWebSocketTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [URLSessionWebSocketTask] class.
 //
 // # Sending and receiving data
@@ -161,10 +151,6 @@ type IURLSessionWebSocketTask interface {
 	SendMessageCompletionHandler(message INSURLSessionWebSocketMessage, completionHandler ErrorHandler)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u URLSessionWebSocketTask) Init() URLSessionWebSocketTask {
 	rv := objc.Send[URLSessionWebSocketTask](u.ID, objc.Sel("init"))
@@ -184,15 +170,6 @@ func NewURLSessionWebSocketTask() URLSessionWebSocketTask {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Sends a ping frame from the client side, with a closure to receive the pong
 // from the server endpoint.
 //
@@ -207,9 +184,9 @@ func NewURLSessionWebSocketTask() URLSessionWebSocketTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/sendPing(pongReceiveHandler:)
 func (u URLSessionWebSocketTask) SendPingWithPongReceiveHandler(pongReceiveHandler ErrorHandler) {
-		_block0, _cleanup0 := NewErrorBlock(pongReceiveHandler)
+_block0, _cleanup0 := NewErrorBlock(pongReceiveHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](u.ID, objc.Sel("sendPingWithPongReceiveHandler:"), _block0)
+	objc.Send[objc.ID](u.ID, objc.Sel("sendPingWithPongReceiveHandler:"), _block0)
 }
 
 // Sends a close frame with the given close code and optional close reason.
@@ -245,9 +222,9 @@ func (u URLSessionWebSocketTask) CancelWithCloseCodeReason(closeCode NSURLSessio
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketTask/receiveMessageWithCompletionHandler:
 func (u URLSessionWebSocketTask) ReceiveMessageWithCompletionHandler(completionHandler URLSessionWebSocketMessageErrorHandler) {
-		_block0, _cleanup0 := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
+_block0, _cleanup0 := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
 	defer _cleanup0()
-		objc.Send[objc.ID](u.ID, objc.Sel("receiveMessageWithCompletionHandler:"), _block0)
+	objc.Send[objc.ID](u.ID, objc.Sel("receiveMessageWithCompletionHandler:"), _block0)
 }
 
 // Sends a WebSocket message, receiving the result in a completion handler.
@@ -264,21 +241,10 @@ func (u URLSessionWebSocketTask) ReceiveMessageWithCompletionHandler(completionH
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketTask/sendMessage:completionHandler:
 func (u URLSessionWebSocketTask) SendMessageCompletionHandler(message INSURLSessionWebSocketMessage, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](u.ID, objc.Sel("sendMessage:completionHandler:"), message, _block1)
+	objc.Send[objc.ID](u.ID, objc.Sel("sendMessage:completionHandler:"), message, _block1)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The maximum number of bytes to buffer before the receive call fails with an
 // error.
@@ -297,8 +263,6 @@ func (u URLSessionWebSocketTask) SetMaximumMessageSize(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setMaximumMessageSize:"), value)
 }
 
-
-
 // A code that indicates the reason a connection closed.
 //
 // # Discussion
@@ -311,8 +275,6 @@ func (u URLSessionWebSocketTask) CloseCode() NSURLSessionWebSocketCloseCode {
 	rv := objc.Send[NSURLSessionWebSocketCloseCode](u.ID, objc.Sel("closeCode"))
 	return NSURLSessionWebSocketCloseCode(rv)
 }
-
-
 
 // A block of data that provides further information about why a connection
 // closed.
@@ -334,8 +296,6 @@ func (u URLSessionWebSocketTask) CloseReason() INSData {
 	return NSDataFromID(objc.ID(rv))
 }
 
-
-
 // The cookie store for storing cookies within this session.
 //
 // See: https://developer.apple.com/documentation/foundation/urlsessionconfiguration/httpcookiestorage
@@ -346,27 +306,6 @@ func (u URLSessionWebSocketTask) HttpCookieStorage() INSHTTPCookieStorage {
 func (u URLSessionWebSocketTask) SetHttpCookieStorage(value INSHTTPCookieStorage) {
 	objc.Send[struct{}](u.ID, objc.Sel("setHTTPCookieStorage:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // SendPingWithPongReceiveHandlerSync is a synchronous wrapper around [URLSessionWebSocketTask.SendPingWithPongReceiveHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -416,9 +355,4 @@ func (u URLSessionWebSocketTask) SendMessage(ctx context.Context, message INSURL
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

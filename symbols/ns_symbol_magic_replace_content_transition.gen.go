@@ -35,12 +35,6 @@ func (nc NSSymbolMagicReplaceContentTransitionClass) Alloc() NSSymbolMagicReplac
 	return rv
 }
 
-
-
-
-
-
-
 // A symbol effect applies the MagicReplace animation to symbol images.
 //
 // # Overview
@@ -61,20 +55,12 @@ func NSSymbolMagicReplaceContentTransitionFromID(id objc.ID) NSSymbolMagicReplac
 // Ensure NSSymbolMagicReplaceContentTransition implements INSSymbolMagicReplaceContentTransition.
 var _ INSSymbolMagicReplaceContentTransition = NSSymbolMagicReplaceContentTransition{}
 
-
-
-
-
 // An interface definition for the [NSSymbolMagicReplaceContentTransition] class.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolMagicReplaceContentTransition
 type INSSymbolMagicReplaceContentTransition interface {
 	INSSymbolContentTransition
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSymbolMagicReplaceContentTransition) Init() NSSymbolMagicReplaceContentTransition {
@@ -94,38 +80,4 @@ func NewNSSymbolMagicReplaceContentTransition() NSSymbolMagicReplaceContentTrans
 	rv := objc.Send[NSSymbolMagicReplaceContentTransition](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

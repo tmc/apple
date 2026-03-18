@@ -31,8 +31,6 @@ type MTLTextureViewPool interface {
 	SetTextureViewAtIndex(texture MTLTexture, index uint) MTLResourceID
 }
 
-
-
 // MTLTextureViewPoolObject wraps an existing Objective-C object that conforms to the MTLTextureViewPool protocol.
 type MTLTextureViewPoolObject struct {
 	objectivec.Object
@@ -41,8 +39,6 @@ func (o MTLTextureViewPoolObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLTextureViewPoolObjectFromID constructs a [MTLTextureViewPoolObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLTextureViewPoolObjectFromID(id objc.ID) MTLTextureViewPoolObject {
@@ -50,9 +46,6 @@ func MTLTextureViewPoolObjectFromID(id objc.ID) MTLTextureViewPoolObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Creates a new lightweight texture view of a buffer.
 //
@@ -206,18 +199,4 @@ func (o MTLTextureViewPoolObject) CopyResourceViewsFromPoolSourceRangeDestinatio
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("copyResourceViewsFromPool:sourceRange:destinationIndex:"), sourcePool, sourceRange, destinationIndex)
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

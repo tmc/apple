@@ -35,12 +35,6 @@ func (nc NSRandomSpecifierClass) Alloc() NSRandomSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier for an arbitrary object in a collection or, if not a
 // one-to-many relationship, the sole object.
 //
@@ -59,20 +53,12 @@ func NSRandomSpecifierFromID(id objc.ID) NSRandomSpecifier {
 // NOTE: NSRandomSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSRandomSpecifier] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRandomSpecifier
 type INSRandomSpecifier interface {
 	INSScriptObjectSpecifier
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r NSRandomSpecifier) Init() NSRandomSpecifier {
@@ -93,11 +79,6 @@ func NewNSRandomSpecifier() NSRandomSpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(coder:)
 func NewRandomSpecifierWithCoder(inCoder INSCoder) NSRandomSpecifier {
@@ -105,7 +86,6 @@ func NewRandomSpecifierWithCoder(inCoder INSCoder) NSRandomSpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSRandomSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -130,7 +110,6 @@ func NewRandomSpecifierWithContainerClassDescriptionContainerSpecifierKey(classD
 	return NSRandomSpecifierFromID(rv)
 }
 
-
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
 //
@@ -149,44 +128,4 @@ func NewRandomSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecif
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return NSRandomSpecifierFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

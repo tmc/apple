@@ -39,12 +39,6 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 	return rv
 }
 
-
-
-
-
-
-
 // A string of text that manages data, layout, and stylistic information for
 // ranges of characters to support rendering.
 //
@@ -223,14 +217,10 @@ type NSAttributedString struct {
 // A string of text that manages data, layout, and stylistic information for
 // ranges of characters to support rendering.
 func NSAttributedStringFromID(id objc.ID) NSAttributedString {
-	return NSAttributedString{objectivec.Object{id}}
+	return NSAttributedString{objectivec.Object{ID: id}}
 }
 // NOTE: NSAttributedString adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSAttributedString] class.
 //
@@ -304,10 +294,12 @@ func NSAttributedStringFromID(id objc.ID) NSAttributedString {
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString
 type INSAttributedString interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
 	NSItemProviderReading
 	NSItemProviderWriting
 	NSMutableCopying
+	NSSecureCoding
 
 	// Topic: Exporting the string as data
 
@@ -351,9 +343,9 @@ type INSAttributedString interface {
 	// Returns the value for the attribute with the specified name of the character at the specified index and, by reference, the range where the attribute applies.
 	AttributeAtIndexLongestEffectiveRangeInRange(attrName NSAttributedStringKey, location uint, range_ NSRangePointer, rangeLimit NSRange) objectivec.IObject
 	// Executes the specified closure or block for each range of a particular attribute in the attributed string.
-	EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block bool)
+	EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block unsafe.Pointer)
 	// Executes the specified closure or block for each range of attributes in the attributed string.
-	EnumerateAttributesInRangeOptionsUsingBlock(enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block bool)
+	EnumerateAttributesInRangeOptionsUsingBlock(enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block unsafe.Pointer)
 
 	// Topic: Comparing strings
 
@@ -426,11 +418,8 @@ type INSAttributedString interface {
 	BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect
 	// Draws the attributed string with the specified options within the specified rectangle in the current graphics context.
 	DrawWithRectOptions(rect corefoundation.CGRect, options NSStringDrawingOptions)
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 	// Creates a new attributed string from the contents of another attributed string.
 	InitWithAttributedString(attrStr INSAttributedString) NSAttributedString
-	InitWithCoder(coder INSCoder) NSAttributedString
 	// Creates an attributed string from the contents of a specified URL that contains Markdown-formatted data using the provided options.
 	InitWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markdownFile INSURL, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error)
 	// Creates an attributed string from the contents of the specified data object.
@@ -469,10 +458,6 @@ type INSAttributedString interface {
 	InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (a NSAttributedString) Init() NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("init"))
@@ -491,11 +476,6 @@ func NewNSAttributedString() NSAttributedString {
 	rv := objc.Send[NSAttributedString](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates an attributed string with an adaptive image glyph and applies the
 // specified attributes to it.
@@ -516,7 +496,6 @@ func NewAttributedStringWithAdaptiveImageGlyphAttributes(adaptiveImageGlyph obje
 	rv := objc.Send[objc.ID](objc.ID(getNSAttributedStringClass().class), objc.Sel("attributedStringWithAdaptiveImageGlyph:attributes:"), adaptiveImageGlyph, attributes)
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string with an attachment.
 //
@@ -540,7 +519,6 @@ func NewAttributedStringWithAttachment(attachment objectivec.IObject) NSAttribut
 	return NSAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string with an attachment and applies the specified
 // attributes to it.
 //
@@ -560,7 +538,6 @@ func NewAttributedStringWithAttachmentAttributes(attachment objectivec.IObject, 
 	return NSAttributedStringFromID(rv)
 }
 
-
 // Creates a new attributed string from the contents of another attributed
 // string.
 //
@@ -578,7 +555,6 @@ func NewAttributedStringWithAttributedString(attrStr INSAttributedString) NSAttr
 	return NSAttributedStringFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewAttributedStringWithCoder(coder INSCoder) NSAttributedString {
@@ -586,7 +562,6 @@ func NewAttributedStringWithCoder(coder INSCoder) NSAttributedString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from the contents of a specified URL that
 // contains Markdown-formatted data using the provided options.
@@ -620,7 +595,6 @@ func NewAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markd
 	}
 	return NSAttributedStringFromID(rv), nil
 }
-
 
 // Creates an attributed string from the contents of the specified data
 // object.
@@ -677,7 +651,6 @@ func NewAttributedStringWithDataOptionsDocumentAttributesError(data INSData, opt
 	return NSAttributedStringFromID(rv), nil
 }
 
-
 // Creates an attributed string from Microsoft Word format data in the
 // specified data object.
 //
@@ -698,7 +671,6 @@ func NewAttributedStringWithDocFormatDocumentAttributes(data INSData, dict INSDi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Initializes a new attributed string object from the data at the specified
 // URL.
@@ -748,7 +720,6 @@ func NewAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, op
 	return NSAttributedStringFromID(rv), nil
 }
 
-
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string.
 //
@@ -779,7 +750,6 @@ func NewAttributedStringWithFormatOptionsLocale(format INSAttributedString, opti
 	return NSAttributedStringFromID(rv)
 }
 
-
 // Initializes an attributed string by substituting a list of function
 // arguments into a specially formatted string.
 //
@@ -806,7 +776,6 @@ func NewAttributedStringWithFormatOptionsLocaleArguments(format INSAttributedStr
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:options:locale:arguments:"), format, options, locale, arguments)
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string and applying additional contextual information.
@@ -840,7 +809,6 @@ func NewAttributedStringWithFormatOptionsLocaleContext(format INSAttributedStrin
 	return NSAttributedStringFromID(rv)
 }
 
-
 // Initializes an attributed string by substituting a list of function
 // arguments into a specially formatted string and applying additional
 // contextual information.
@@ -871,7 +839,6 @@ func NewAttributedStringWithFormatOptionsLocaleContextArguments(format INSAttrib
 	return NSAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string from the HTML in the specified data object and
 // base URL.
 //
@@ -895,7 +862,6 @@ func NewAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, base INS
 	return NSAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string from the HTML in the specified data object.
 //
 // data: A data object with text in HTML format. The method uses this data to create
@@ -915,7 +881,6 @@ func NewAttributedStringWithHTMLDocumentAttributes(data INSData, dict INSDiction
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from the HTML in the specified data object.
 //
@@ -941,7 +906,6 @@ func NewAttributedStringWithHTMLOptionsDocumentAttributes(data INSData, options 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from Markdown-formatted data using the
 // provided options.
@@ -976,7 +940,6 @@ func NewAttributedStringWithMarkdownOptionsBaseURLError(markdown INSData, option
 	return NSAttributedStringFromID(rv), nil
 }
 
-
 // Creates an attributed string from a Markdown-formatted string using the
 // provided options.
 //
@@ -1010,7 +973,6 @@ func NewAttributedStringWithMarkdownStringOptionsBaseURLError(markdownString str
 	return NSAttributedStringFromID(rv), nil
 }
 
-
 // Creates an attributed string by decoding the stream of RTFD commands and
 // data in the specified data object.
 //
@@ -1031,7 +993,6 @@ func NewAttributedStringWithRTFDDocumentAttributes(data INSData, dict INSDiction
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from the specified file wrapper that contains
 // an RTFD document.
@@ -1064,7 +1025,6 @@ func NewAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWra
 	return NSAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string by decoding the stream of RTF commands and
 // data in the specified data object.
 //
@@ -1095,7 +1055,6 @@ func NewAttributedStringWithRTFDocumentAttributes(data INSData, dict INSDictiona
 	return NSAttributedStringFromID(rv)
 }
 
-
 // Creates an attributed string with the specified text and no attribute
 // information.
 //
@@ -1112,7 +1071,6 @@ func NewAttributedStringWithString(str string) NSAttributedString {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), objc.String(str))
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string with the specified text and attributes.
 //
@@ -1133,7 +1091,6 @@ func NewAttributedStringWithStringAttributes(str string, attrs INSDictionary) NS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:attributes:"), objc.String(str), attrs)
 	return NSAttributedStringFromID(rv)
 }
-
 
 // Creates an attributed string from the contents of the specified URL.
 //
@@ -1195,12 +1152,6 @@ func NewAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, option
 	return NSAttributedStringFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Returns a data object that contains a text stream corresponding to the
 // characters and attributes within the specified range.
 //
@@ -1226,7 +1177,7 @@ func NewAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, option
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/data(from:documentAttributes:)
 func (a NSAttributedString) DataFromRangeDocumentAttributesError(range_ NSRange, dict INSDictionary) (INSData, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dataFromRange:documentAttributes:error:"), range_, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1261,7 +1212,7 @@ func (a NSAttributedString) DataFromRangeDocumentAttributesError(range_ NSRange,
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/fileWrapper(from:documentAttributes:)
 func (a NSAttributedString) FileWrapperFromRangeDocumentAttributesError(range_ NSRange, dict INSDictionary) (INSFileWrapper, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fileWrapperFromRange:documentAttributes:error:"), range_, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -1675,7 +1626,7 @@ func (a NSAttributedString) AttributeAtIndexLongestEffectiveRangeInRange(attrNam
 // pass [N] as the location of the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/enumerateAttribute(_:in:options:using:)
-func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block bool) {
+func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateAttribute:inRange:options:usingBlock:"), objc.String(string(attrName)), enumerationRange, opts, block)
 }
 
@@ -1711,7 +1662,7 @@ func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlock(attrName 
 // pass [N] as the location of the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/enumerateAttributes(in:options:using:)
-func (a NSAttributedString) EnumerateAttributesInRangeOptionsUsingBlock(enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block bool) {
+func (a NSAttributedString) EnumerateAttributesInRangeOptionsUsingBlock(enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block unsafe.Pointer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateAttributesInRange:options:usingBlock:"), enumerationRange, opts, block)
 }
 
@@ -2292,7 +2243,7 @@ func (a NSAttributedString) InitWithCoder(coder INSCoder) NSAttributedString {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithContentsOfMarkdownFileAtURL:options:baseURL:error:
 func (a NSAttributedString) InitWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markdownFile INSURL, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithContentsOfMarkdownFileAtURL:options:baseURL:error:"), markdownFile, options, baseURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -2347,7 +2298,7 @@ func (a NSAttributedString) InitWithContentsOfMarkdownFileAtURLOptionsBaseURLErr
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(data:options:documentAttributes:)
 func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -2580,7 +2531,7 @@ func (a NSAttributedString) InitWithHTMLOptionsDocumentAttributes(data INSData, 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithMarkdown:options:baseURL:error:
 func (a NSAttributedString) InitWithMarkdownOptionsBaseURLError(markdown INSData, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithMarkdown:options:baseURL:error:"), markdown, options, baseURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -2613,7 +2564,7 @@ func (a NSAttributedString) InitWithMarkdownOptionsBaseURLError(markdown INSData
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/initWithMarkdownString:options:baseURL:error:
 func (a NSAttributedString) InitWithMarkdownStringOptionsBaseURLError(markdownString string, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithMarkdownString:options:baseURL:error:"), objc.String(markdownString), options, baseURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -2787,7 +2738,7 @@ func (a NSAttributedString) InitWithStringAttributes(str string, attrs INSDictio
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(URL:options:documentAttributes:)
 func (a NSAttributedString) InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -2829,15 +2780,11 @@ func (a NSAttributedString) ItemProviderVisibilityForRepresentationWithTypeIdent
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-		_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
+_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 	defer _cleanup1()
-		rv := objc.Send[objc.ID](a.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
-
-
-
-
 
 // Creates an attributed string from the specified HTML data.
 //
@@ -2853,9 +2800,9 @@ func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProviderCompletionH
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(data:options:completionHandler:)
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOptionsCompletionHandler(data INSData, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, _block2)
+	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, _block2)
 }
 
 // Creates an attributed string by converting the content of a local HTML file
@@ -2872,9 +2819,9 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOpti
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(fileURL:options:completionHandler:)
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLOptionsCompletionHandler(fileURL INSURL, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, _block2)
+	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, _block2)
 }
 
 // Creates an attributed string by converting the contents of the specified
@@ -2891,9 +2838,9 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLO
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(request:options:completionHandler:)
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestOptionsCompletionHandler(request INSURLRequest, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, _block2)
+	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, _block2)
 }
 
 // Creates an attributed string from the specified HTML string.
@@ -2909,9 +2856,9 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestO
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(string:options:completionHandler:)
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithStringOptionsCompletionHandler(string_ string, options INSDictionary, completionHandler ErrorHandler) {
-		_block2, _cleanup2 := NewErrorBlock(completionHandler)
+_block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
-		objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, _block2)
+	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, _block2)
 }
 
 // Creates an attributed string by substituting arguments into a specially
@@ -3031,7 +2978,7 @@ func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStrin
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderReading/object(withItemProviderData:typeIdentifier:)
 func (_NSAttributedStringClass NSAttributedStringClass) ObjectWithItemProviderDataTypeIdentifierError(data INSData, typeIdentifier string) (NSAttributedString, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("objectWithItemProviderData:typeIdentifier:error:"), data, objc.String(typeIdentifier), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -3040,13 +2987,6 @@ func (_NSAttributedStringClass NSAttributedStringClass) ObjectWithItemProviderDa
 	return NSAttributedStringFromID(rv), nil
 
 }
-
-
-
-
-
-
-
 
 // The character contents of the attributed string as a string.
 //
@@ -3069,8 +3009,6 @@ func (a NSAttributedString) String() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The length of the attributed string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/length
@@ -3079,8 +3017,6 @@ func (a NSAttributedString) Length() uint {
 	return rv
 }
 
-
-
 // The string encoding for the document.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/characterencoding
@@ -3088,8 +3024,6 @@ func (a NSAttributedString) CharacterEncoding() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("characterEncoding"))
 	return NSStringFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the attribute string contains any
 // attachment attributes.
@@ -3110,8 +3044,6 @@ func (a NSAttributedString) ContainsAttachments() bool {
 	return rv
 }
 
-
-
 // The HTML elements to exclude in generated HTML.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/excludedelements
@@ -3119,8 +3051,6 @@ func (a NSAttributedString) ExcludedElements() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("excludedElements"))
 	return NSStringFromID(objc.ID(rv))
 }
-
-
 
 // The link for the text.
 //
@@ -3130,8 +3060,6 @@ func (a NSAttributedString) Link() NSAttributedStringKey {
 	return NSAttributedStringKey(NSStringFromID(rv).String())
 }
 
-
-
 // The number of spaces for indenting nested HTML elements.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/prefixspaces
@@ -3140,8 +3068,6 @@ func (a NSAttributedString) PrefixSpaces() INSString {
 	return NSStringFromID(objc.ID(rv))
 }
 
-
-
 // The name of the text encoding to use.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/textencodingname
@@ -3149,8 +3075,6 @@ func (a NSAttributedString) TextEncodingName() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("textEncodingName"))
 	return NSStringFromID(objc.ID(rv))
 }
-
-
 
 // An array of UTI strings representing the types of data that can be loaded
 // for an item provider.
@@ -3174,12 +3098,6 @@ func (a NSAttributedString) WritableTypeIdentifiersForItemProvider() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
 // An array of UTI strings that identify the file types that attributed
 // strings support, either directly or through a user-installed filter
 // service.
@@ -3202,8 +3120,6 @@ func (_NSAttributedStringClass NSAttributedStringClass) TextTypes() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // An array of UTI strings that identify the file types that attributed
 // strings support directly.
 //
@@ -3225,48 +3141,20 @@ func (_NSAttributedStringClass NSAttributedStringClass) TextUnfilteredTypes() []
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
-
-
-
 
 			// Protocol methods for NSItemProviderReading
 			
 
-
-
-
 			// Protocol methods for NSItemProviderWriting
 			
-
-
-
 
 			// Protocol methods for NSMutableCopying
 			
 
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 
 // LoadDataWithTypeIdentifierForItemProvider is a synchronous wrapper around [NSAttributedString.LoadDataWithTypeIdentifierForItemProviderCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -3286,8 +3174,4 @@ func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProvider(ctx contex
 		return nil, ctx.Err()
 	}
 }
-
-
-
-
 

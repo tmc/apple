@@ -39,12 +39,6 @@ func (vc VNContoursObservationClass) Alloc() VNContoursObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that represents the detected contours in an image.
 //
 // # Inspecting the Observation
@@ -69,10 +63,6 @@ func VNContoursObservationFromID(id objc.ID) VNContoursObservation {
 }
 // NOTE: VNContoursObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNContoursObservation] class.
 //
@@ -107,12 +97,7 @@ type IVNContoursObservation interface {
 	// The results of the request to detect contours.
 	Results() IVNContoursObservation
 	SetResults(value IVNContoursObservation)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c VNContoursObservation) Init() VNContoursObservation {
@@ -133,15 +118,6 @@ func NewVNContoursObservation() VNContoursObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Retrieves the contour object at the specified index, irrespective of
 // hierarchy.
 //
@@ -154,7 +130,7 @@ func NewVNContoursObservation() VNContoursObservation {
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/contour(at:)-9on0y
 func (c VNContoursObservation) ContourAtIndexError(contourIndex int) (IVNContour, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("contourAtIndex:error:"), contourIndex, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -174,7 +150,7 @@ func (c VNContoursObservation) ContourAtIndexError(contourIndex int) (IVNContour
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/contour(at:)-52odo
 func (c VNContoursObservation) ContourAtIndexPathError(indexPath objectivec.IObject) (IVNContour, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("contourAtIndexPath:error:"), indexPath, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -183,20 +159,6 @@ func (c VNContoursObservation) ContourAtIndexPathError(indexPath objectivec.IObj
 	return VNContourFromID(rv), nil
 
 }
-func (c VNContoursObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The total number of detected contours.
 //
@@ -211,8 +173,6 @@ func (c VNContoursObservation) ContourCount() int {
 	return rv
 }
 
-
-
 // The detected contours as a path object in normalized coordinates.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/normalizedPath
@@ -220,8 +180,6 @@ func (c VNContoursObservation) NormalizedPath() coregraphics.CGPathRef {
 	rv := objc.Send[coregraphics.CGPathRef](c.ID, objc.Sel("normalizedPath"))
 	return coregraphics.CGPathRef(rv)
 }
-
-
 
 // An array of contours that don’t have another contour enclosing them.
 //
@@ -238,8 +196,6 @@ func (c VNContoursObservation) TopLevelContours() []VNContour {
 	})
 }
 
-
-
 // The total number of detected top-level contours.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/topLevelContourCount
@@ -247,8 +203,6 @@ func (c VNContoursObservation) TopLevelContourCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("topLevelContourCount"))
 	return rv
 }
-
-
 
 // The results of the request to detect contours.
 //
@@ -260,30 +214,4 @@ func (c VNContoursObservation) Results() IVNContoursObservation {
 func (c VNContoursObservation) SetResults(value IVNContoursObservation) {
 	objc.Send[struct{}](c.ID, objc.Sel("setResults:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

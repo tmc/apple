@@ -35,12 +35,6 @@ func (nc NSCreateCommandClass) Alloc() NSCreateCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that creates a scriptable object.
 //
 // # Overview
@@ -96,10 +90,6 @@ func NSCreateCommandFromID(id objc.ID) NSCreateCommand {
 // NOTE: NSCreateCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSCreateCommand] class.
 //
 // # Getting information about a create command
@@ -118,10 +108,6 @@ type INSCreateCommand interface {
 	// Returns a dictionary that contains the properties that were specified in the `make` Apple event command that has been converted to this [NSCreateCommand] object.
 	ResolvedKeyDictionary() INSDictionary
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c NSCreateCommand) Init() NSCreateCommand {
@@ -142,11 +128,6 @@ func NewNSCreateCommand() NSCreateCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewCreateCommandWithCoder(inCoder INSCoder) NSCreateCommand {
@@ -154,7 +135,6 @@ func NewCreateCommandWithCoder(inCoder INSCoder) NSCreateCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSCreateCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -177,23 +157,6 @@ func NewCreateCommandWithCommandDescription(commandDef INSScriptCommandDescripti
 	return NSCreateCommandFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Returns the class description for the class that is to be created.
 //
 // # Return Value
@@ -205,8 +168,6 @@ func (c NSCreateCommand) CreateClassDescription() INSScriptClassDescription {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("createClassDescription"))
 	return NSScriptClassDescriptionFromID(objc.ID(rv))
 }
-
-
 
 // Returns a dictionary that contains the properties that were specified in
 // the `make` Apple event command that has been converted to this
@@ -232,29 +193,4 @@ func (c NSCreateCommand) ResolvedKeyDictionary() INSDictionary {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("resolvedKeyDictionary"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

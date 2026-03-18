@@ -36,12 +36,6 @@ func (ac AddressesClass) Alloc() Addresses {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSHost/addresses-c.ivar
 type Addresses struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type Addresses struct {
 
 // AddressesFromID constructs a [Addresses] from an objc.ID.
 func AddressesFromID(id objc.ID) Addresses {
-	return Addresses{objectivec.Object{id}}
+	return Addresses{objectivec.Object{ID: id}}
 }
 // Ensure Addresses implements IAddresses.
 var _ IAddresses = Addresses{}
-
-
-
-
 
 // An interface definition for the [Addresses] class.
 //
@@ -64,10 +54,6 @@ var _ IAddresses = Addresses{}
 type IAddresses interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (a Addresses) Init() Addresses {
@@ -87,38 +73,4 @@ func NewAddresses() Addresses {
 	rv := objc.Send[Addresses](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

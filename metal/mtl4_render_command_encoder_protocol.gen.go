@@ -221,8 +221,6 @@ type MTL4RenderCommandEncoder interface {
 	SetViewportsCount(viewports []MTLViewport, count uint)
 }
 
-
-
 // MTL4RenderCommandEncoderObject wraps an existing Objective-C object that conforms to the MTL4RenderCommandEncoder protocol.
 type MTL4RenderCommandEncoderObject struct {
 	objectivec.Object
@@ -231,8 +229,6 @@ func (o MTL4RenderCommandEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4RenderCommandEncoderObjectFromID constructs a [MTL4RenderCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4RenderCommandEncoderObjectFromID(id objc.ID) MTL4RenderCommandEncoderObject {
@@ -240,9 +236,6 @@ func MTL4RenderCommandEncoderObjectFromID(id objc.ID) MTL4RenderCommandEncoderOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Configures this encoder with a render pipeline state that applies to your
 // subsequent draw commands.
@@ -1573,20 +1566,7 @@ func (o MTL4RenderCommandEncoderObject) BarrierAfterStagesBeforeQueueStagesVisib
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterStages:beforeQueueStages:visibilityOptions:"), afterStages, beforeQueueStages, visibilityOptions)
 	}
 
-
-
-
-
-
-
-
-
-
 func (o MTL4RenderCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

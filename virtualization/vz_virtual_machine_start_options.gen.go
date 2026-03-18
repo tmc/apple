@@ -36,12 +36,6 @@ func (vc VZVirtualMachineStartOptionsClass) Alloc() VZVirtualMachineStartOptions
 	return rv
 }
 
-
-
-
-
-
-
 // The abstract class for VM start options.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineStartOptions
@@ -53,14 +47,10 @@ type VZVirtualMachineStartOptions struct {
 //
 // The abstract class for VM start options.
 func VZVirtualMachineStartOptionsFromID(id objc.ID) VZVirtualMachineStartOptions {
-	return VZVirtualMachineStartOptions{objectivec.Object{id}}
+	return VZVirtualMachineStartOptions{objectivec.Object{ID: id}}
 }
 // NOTE: VZVirtualMachineStartOptions adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZVirtualMachineStartOptions] class.
 //
@@ -68,10 +58,6 @@ func VZVirtualMachineStartOptionsFromID(id objc.ID) VZVirtualMachineStartOptions
 type IVZVirtualMachineStartOptions interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtualMachineStartOptions) Init() VZVirtualMachineStartOptions {
@@ -91,44 +77,4 @@ func NewVZVirtualMachineStartOptions() VZVirtualMachineStartOptions {
 	rv := objc.Send[VZVirtualMachineStartOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

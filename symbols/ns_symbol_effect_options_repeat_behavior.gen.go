@@ -37,12 +37,6 @@ func (nc NSSymbolEffectOptionsRepeatBehaviorClass) Alloc() NSSymbolEffectOptions
 	return rv
 }
 
-
-
-
-
-
-
 // The behavior of repetition to use when a symbol effect is animating.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolEffectOptionsRepeatBehavior
@@ -54,14 +48,10 @@ type NSSymbolEffectOptionsRepeatBehavior struct {
 //
 // The behavior of repetition to use when a symbol effect is animating.
 func NSSymbolEffectOptionsRepeatBehaviorFromID(id objc.ID) NSSymbolEffectOptionsRepeatBehavior {
-	return NSSymbolEffectOptionsRepeatBehavior{objectivec.Object{id}}
+	return NSSymbolEffectOptionsRepeatBehavior{objectivec.Object{ID: id}}
 }
 // NOTE: NSSymbolEffectOptionsRepeatBehavior adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSSymbolEffectOptionsRepeatBehavior] class.
 //
@@ -71,10 +61,6 @@ type INSSymbolEffectOptionsRepeatBehavior interface {
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (s NSSymbolEffectOptionsRepeatBehavior) Init() NSSymbolEffectOptionsRepeatBehavior {
@@ -95,21 +81,9 @@ func NewNSSymbolEffectOptionsRepeatBehavior() NSSymbolEffectOptionsRepeatBehavio
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (s NSSymbolEffectOptionsRepeatBehavior) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
 
 // Creates and returns a repeat behavior that prefers to repeat indefinitely,
 // using continuous animations if available. Continuous animations have an
@@ -196,27 +170,4 @@ func (_NSSymbolEffectOptionsRepeatBehaviorClass NSSymbolEffectOptionsRepeatBehav
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolEffectOptionsRepeatBehaviorClass.class), objc.Sel("behaviorPeriodicWithDelay:"), delay)
 	return NSSymbolEffectOptionsRepeatBehaviorFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

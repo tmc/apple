@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNDetectedObjectObservation] class.
@@ -36,12 +35,6 @@ func (vc VNDetectedObjectObservationClass) Alloc() VNDetectedObjectObservation {
 	rv := objc.Send[VNDetectedObjectObservation](objc.ID(vc.class), objc.Sel("alloc"))
 	return rv
 }
-
-
-
-
-
-
 
 // An observation that provides the position and extent of an image feature
 // that an image- analysis request detects.
@@ -74,10 +67,6 @@ func VNDetectedObjectObservationFromID(id objc.ID) VNDetectedObjectObservation {
 // NOTE: VNDetectedObjectObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectedObjectObservation] class.
 //
 // # Locating a Detected Object
@@ -101,13 +90,7 @@ type IVNDetectedObjectObservation interface {
 
 	// A resulting pixel buffer from a request to generate a segmentation mask for an image.
 	GlobalSegmentationMask() IVNPixelBufferObservation
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (d VNDetectedObjectObservation) Init() VNDetectedObjectObservation {
@@ -128,11 +111,6 @@ func NewVNDetectedObjectObservation() VNDetectedObjectObservation {
 	return rv
 }
 
-
-
-
-
-
 // Creates an observation with a bounding box.
 //
 // boundingBox: The observation’s bounding box, in coordinates normalized to the
@@ -144,7 +122,6 @@ func NewDetectedObjectObservationWithBoundingBox(boundingBox corefoundation.CGRe
 	rv := objc.Send[objc.ID](objc.ID(getVNDetectedObjectObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
 	return VNDetectedObjectObservationFromID(rv)
 }
-
 
 // Creates an observation with a revision number and bounding box.
 //
@@ -160,26 +137,6 @@ func NewDetectedObjectObservationWithRequestRevisionBoundingBox(requestRevision 
 	return VNDetectedObjectObservationFromID(rv)
 }
 
-
-
-
-
-
-func (d VNDetectedObjectObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The bounding box of the object that the request detects.
 //
 // # Discussion
@@ -193,8 +150,6 @@ func (d VNDetectedObjectObservation) BoundingBox() corefoundation.CGRect {
 	return corefoundation.CGRect(rv)
 }
 
-
-
 // A resulting pixel buffer from a request to generate a segmentation mask for
 // an image.
 //
@@ -203,30 +158,4 @@ func (d VNDetectedObjectObservation) GlobalSegmentationMask() IVNPixelBufferObse
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("globalSegmentationMask"))
 	return VNPixelBufferObservationFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

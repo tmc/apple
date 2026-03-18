@@ -35,12 +35,6 @@ func (vc VNVideoProcessorTimeIntervalCadenceClass) Alloc() VNVideoProcessorTimeI
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines a time-based cadence for processing a video stream.
 //
 // # Creating a Cadence
@@ -64,10 +58,6 @@ func VNVideoProcessorTimeIntervalCadenceFromID(id objc.ID) VNVideoProcessorTimeI
 }
 // NOTE: VNVideoProcessorTimeIntervalCadence adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNVideoProcessorTimeIntervalCadence] class.
 //
@@ -94,10 +84,6 @@ type IVNVideoProcessorTimeIntervalCadence interface {
 	TimeInterval() float64
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VNVideoProcessorTimeIntervalCadence) Init() VNVideoProcessorTimeIntervalCadence {
 	rv := objc.Send[VNVideoProcessorTimeIntervalCadence](v.ID, objc.Sel("init"))
@@ -117,11 +103,6 @@ func NewVNVideoProcessorTimeIntervalCadence() VNVideoProcessorTimeIntervalCadenc
 	return rv
 }
 
-
-
-
-
-
 // Creates a new time-based cadence with a time interval.
 //
 // timeInterval: The time interval at which to process video.
@@ -133,12 +114,6 @@ func NewVideoProcessorTimeIntervalCadenceWithTimeInterval(timeInterval float64) 
 	return VNVideoProcessorTimeIntervalCadenceFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new time-based cadence with a time interval.
 //
 // timeInterval: The time interval at which to process video.
@@ -149,17 +124,6 @@ func (v VNVideoProcessorTimeIntervalCadence) InitWithTimeInterval(timeInterval f
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The time interval of the cadence.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/TimeIntervalCadence/timeInterval
@@ -167,29 +131,4 @@ func (v VNVideoProcessorTimeIntervalCadence) TimeInterval() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("timeInterval"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

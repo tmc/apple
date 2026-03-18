@@ -19,8 +19,6 @@ type NSExtensionRequestHandling interface {
 	BeginRequestWithExtensionContext(context INSExtensionContext)
 }
 
-
-
 // NSExtensionRequestHandlingObject wraps an existing Objective-C object that conforms to the NSExtensionRequestHandling protocol.
 type NSExtensionRequestHandlingObject struct {
 	objectivec.Object
@@ -29,8 +27,6 @@ func (o NSExtensionRequestHandlingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSExtensionRequestHandlingObjectFromID constructs a [NSExtensionRequestHandlingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSExtensionRequestHandlingObjectFromID(id objc.ID) NSExtensionRequestHandlingObject {
@@ -38,9 +34,6 @@ func NSExtensionRequestHandlingObjectFromID(id objc.ID) NSExtensionRequestHandli
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the extension to prepare for a host app’s request.
 //
@@ -71,10 +64,4 @@ func (o NSExtensionRequestHandlingObject) BeginRequestWithExtensionContext(conte
 	
 	objc.Send[struct{}](o.ID, objc.Sel("beginRequestWithExtensionContext:"), context)
 	}
-
-
-
-
-
-
 

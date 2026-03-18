@@ -35,12 +35,6 @@ func (vc VNVideoProcessorFrameRateCadenceClass) Alloc() VNVideoProcessorFrameRat
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines a frame-based cadence for processing a video stream.
 //
 // # Creating a Cadence
@@ -64,10 +58,6 @@ func VNVideoProcessorFrameRateCadenceFromID(id objc.ID) VNVideoProcessorFrameRat
 }
 // NOTE: VNVideoProcessorFrameRateCadence adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNVideoProcessorFrameRateCadence] class.
 //
@@ -94,10 +84,6 @@ type IVNVideoProcessorFrameRateCadence interface {
 	FrameRate() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VNVideoProcessorFrameRateCadence) Init() VNVideoProcessorFrameRateCadence {
 	rv := objc.Send[VNVideoProcessorFrameRateCadence](v.ID, objc.Sel("init"))
@@ -117,11 +103,6 @@ func NewVNVideoProcessorFrameRateCadence() VNVideoProcessorFrameRateCadence {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new frame-based cadence with a frame rate.
 //
 // frameRate: The frame rate at which to process video.
@@ -133,12 +114,6 @@ func NewVideoProcessorFrameRateCadenceWithFrameRate(frameRate int) VNVideoProces
 	return VNVideoProcessorFrameRateCadenceFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new frame-based cadence with a frame rate.
 //
 // frameRate: The frame rate at which to process video.
@@ -149,17 +124,6 @@ func (v VNVideoProcessorFrameRateCadence) InitWithFrameRate(frameRate int) VNVid
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The frame rate at which to process video.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/FrameRateCadence/frameRate
@@ -167,27 +131,4 @@ func (v VNVideoProcessorFrameRateCadence) FrameRate() int {
 	rv := objc.Send[int](v.ID, objc.Sel("frameRate"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

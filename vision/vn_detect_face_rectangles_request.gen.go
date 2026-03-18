@@ -35,12 +35,6 @@ func (vc VNDetectFaceRectanglesRequestClass) Alloc() VNDetectFaceRectanglesReque
 	return rv
 }
 
-
-
-
-
-
-
 // A request that finds faces within an image.
 //
 // # Overview
@@ -68,10 +62,6 @@ func VNDetectFaceRectanglesRequestFromID(id objc.ID) VNDetectFaceRectanglesReque
 // NOTE: VNDetectFaceRectanglesRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNDetectFaceRectanglesRequest] class.
 //
 // # Identifying Request Revisions
@@ -94,10 +84,6 @@ type IVNDetectFaceRectanglesRequest interface {
 	VNDetectFaceRectanglesRequestRevision1() int
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d VNDetectFaceRectanglesRequest) Init() VNDetectFaceRectanglesRequest {
 	rv := objc.Send[VNDetectFaceRectanglesRequest](d.ID, objc.Sel("init"))
@@ -117,11 +103,6 @@ func NewVNDetectFaceRectanglesRequest() VNDetectFaceRectanglesRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -139,23 +120,6 @@ func NewDetectFaceRectanglesRequestWithCompletionHandler(completionHandler VNReq
 	return VNDetectFaceRectanglesRequestFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A constant for specifying revision 3 of the face rectangles detection
 // request.
 //
@@ -164,8 +128,6 @@ func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision3() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision3"))
 	return rv
 }
-
-
 
 // A constant for specifying revision 2 of the face rectangles detection
 // request.
@@ -176,8 +138,6 @@ func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision2() 
 	return rv
 }
 
-
-
 // A constant for specifying revision 1 of the face rectangles detection
 // request.
 //
@@ -186,27 +146,4 @@ func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision1() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision1"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

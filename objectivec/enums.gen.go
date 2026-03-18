@@ -17,7 +17,6 @@ const (
 	OBJC_WAIT_UNTIL_DONE ObjC = 16
 )
 
-
 func (e ObjC) String() string {
 	switch e {
 	case OBJC_COLLECT_IF_NEEDED:
@@ -37,15 +36,11 @@ func (e ObjC) String() string {
 	}
 }
 
-
-
-
 type ObjCClearResidentStack uint
 
 const (
 	OBJC_CLEAR_RESIDENT_STACK ObjCClearResidentStack = 1
 )
-
 
 func (e ObjCClearResidentStack) String() string {
 	switch e {
@@ -56,16 +51,12 @@ func (e ObjCClearResidentStack) String() string {
 	}
 }
 
-
-
-
 type ObjCSync uint
 
 const (
 	OBJC_SYNC_NOT_OWNING_THREAD_ERROR ObjCSync = 0
 	OBJC_SYNC_SUCCESS ObjCSync = 0
 )
-
 
 func (e ObjCSync) String() string {
 	switch e {
@@ -75,8 +66,6 @@ func (e ObjCSync) String() string {
 		return fmt.Sprintf("ObjCSync(%d)", e)
 	}
 }
-
-
 
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_AssociationPolicy
 type Objc_AssociationPolicy int
@@ -94,7 +83,6 @@ const (
 	OBJC_ASSOCIATION_RETAIN_NONATOMIC Objc_AssociationPolicy = 1
 )
 
-
 func (e Objc_AssociationPolicy) String() string {
 	switch e {
 	case OBJC_ASSOCIATION_ASSIGN:
@@ -111,8 +99,4 @@ func (e Objc_AssociationPolicy) String() string {
 		return fmt.Sprintf("Objc_AssociationPolicy(%d)", e)
 	}
 }
-
-
-
-
 

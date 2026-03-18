@@ -35,12 +35,6 @@ func (vc VZVirtioConsoleDeviceClass) Alloc() VZVirtioConsoleDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a Virtio console device in a virtual machine.
 //
 // # Configuring the console
@@ -63,10 +57,6 @@ func VZVirtioConsoleDeviceFromID(id objc.ID) VZVirtioConsoleDevice {
 // NOTE: VZVirtioConsoleDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioConsoleDevice] class.
 //
 // # Configuring the console
@@ -88,10 +78,6 @@ type IVZVirtioConsoleDevice interface {
 	SetDelegate(value VZVirtioConsoleDeviceDelegate)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioConsoleDevice) Init() VZVirtioConsoleDevice {
 	rv := objc.Send[VZVirtioConsoleDevice](v.ID, objc.Sel("init"))
@@ -111,26 +97,6 @@ func NewVZVirtioConsoleDevice() VZVirtioConsoleDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The array of console ports that a specific device uses.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDevice/ports
@@ -138,8 +104,6 @@ func (v VZVirtioConsoleDevice) Ports() IVZVirtioConsolePortArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("ports"))
 	return VZVirtioConsolePortArrayFromID(objc.ID(rv))
 }
-
-
 
 // The delegate object for the console device.
 //
@@ -151,26 +115,4 @@ func (v VZVirtioConsoleDevice) Delegate() VZVirtioConsoleDeviceDelegate {
 func (v VZVirtioConsoleDevice) SetDelegate(value VZVirtioConsoleDeviceDelegate) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDelegate:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

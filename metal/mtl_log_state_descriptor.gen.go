@@ -36,12 +36,6 @@ func (mc MTLLogStateDescriptorClass) Alloc() MTLLogStateDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // An interface that represents a log state configuration.
 //
 // # Overview
@@ -70,14 +64,10 @@ type MTLLogStateDescriptor struct {
 //
 // An interface that represents a log state configuration.
 func MTLLogStateDescriptorFromID(id objc.ID) MTLLogStateDescriptor {
-	return MTLLogStateDescriptor{objectivec.Object{id}}
+	return MTLLogStateDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLLogStateDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLLogStateDescriptor] class.
 //
@@ -102,10 +92,6 @@ type IMTLLogStateDescriptor interface {
 	SetLevel(value MTLLogLevel)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (l MTLLogStateDescriptor) Init() MTLLogStateDescriptor {
 	rv := objc.Send[MTLLogStateDescriptor](l.ID, objc.Sel("init"))
@@ -124,26 +110,6 @@ func NewMTLLogStateDescriptor() MTLLogStateDescriptor {
 	rv := objc.Send[MTLLogStateDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The size of the internal buffer the log state uses, specified in bytes.
 //
@@ -167,8 +133,6 @@ func (l MTLLogStateDescriptor) SetBufferSize(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBufferSize:"), value)
 }
 
-
-
 // The minimum level of messages that the shader can log.
 //
 // # Discussion
@@ -187,27 +151,4 @@ func (l MTLLogStateDescriptor) Level() MTLLogLevel {
 func (l MTLLogStateDescriptor) SetLevel(value MTLLogLevel) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLevel:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

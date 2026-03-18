@@ -202,8 +202,6 @@ type MTLComputeCommandEncoder interface {
 	UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage)
 }
 
-
-
 // MTLComputeCommandEncoderObject wraps an existing Objective-C object that conforms to the MTLComputeCommandEncoder protocol.
 type MTLComputeCommandEncoderObject struct {
 	objectivec.Object
@@ -212,8 +210,6 @@ func (o MTLComputeCommandEncoderObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLComputeCommandEncoderObjectFromID constructs a [MTLComputeCommandEncoderObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLComputeCommandEncoderObjectFromID(id objc.ID) MTLComputeCommandEncoderObject {
@@ -221,9 +217,6 @@ func MTLComputeCommandEncoderObjectFromID(id objc.ID) MTLComputeCommandEncoderOb
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Configures the compute encoder with a pipeline state for subsequent kernel
 // calls.
@@ -1334,18 +1327,7 @@ func (o MTLComputeCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afte
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 
-
-
-
-
-
-
-
 func (o MTLComputeCommandEncoderObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

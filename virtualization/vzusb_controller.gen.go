@@ -37,12 +37,6 @@ func (vc VZUSBControllerClass) Alloc() VZUSBController {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a USB controller in a VM.
 //
 // # Overview
@@ -75,14 +69,10 @@ type VZUSBController struct {
 //
 // A class that represents a USB controller in a VM.
 func VZUSBControllerFromID(id objc.ID) VZUSBController {
-	return VZUSBController{objectivec.Object{id}}
+	return VZUSBController{objectivec.Object{ID: id}}
 }
 // NOTE: VZUSBController adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZUSBController] class.
 //
@@ -116,10 +106,6 @@ type IVZUSBController interface {
 	SetUsbControllers(value IVZUSBController)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (u VZUSBController) Init() VZUSBController {
 	rv := objc.Send[VZUSBController](u.ID, objc.Sel("init"))
@@ -138,15 +124,6 @@ func NewVZUSBController() VZUSBController {
 	rv := objc.Send[VZUSBController](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Attaches a USB device to the controller.
 //
@@ -173,9 +150,9 @@ func NewVZUSBController() VZUSBController {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/attach(device:completionHandler:)
 func (u VZUSBController) AttachDeviceCompletionHandler(device VZUSBDevice, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](u.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
+	objc.Send[objc.ID](u.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
 }
 
 // Detaches a USB device from the controller.
@@ -199,21 +176,10 @@ func (u VZUSBController) AttachDeviceCompletionHandler(device VZUSBDevice, compl
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/detach(device:completionHandler:)
 func (u VZUSBController) DetachDeviceCompletionHandler(device VZUSBDevice, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](u.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
+	objc.Send[objc.ID](u.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The list of attached USB devices for the controller.
 //
@@ -231,8 +197,6 @@ func (u VZUSBController) UsbDevices() []objectivec.IObject {
 	})
 }
 
-
-
 // The list of runtime USB controller objects.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/usbcontrollers
@@ -243,23 +207,6 @@ func (u VZUSBController) UsbControllers() IVZUSBController {
 func (u VZUSBController) SetUsbControllers(value IVZUSBController) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUsbControllers:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // AttachDevice is a synchronous wrapper around [VZUSBController.AttachDeviceCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -290,9 +237,4 @@ func (u VZUSBController) DetachDevice(ctx context.Context, device VZUSBDevice) e
 		return ctx.Err()
 	}
 }
-
-
-
-
-
 

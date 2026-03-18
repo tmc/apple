@@ -37,12 +37,6 @@ func (mc MTLFunctionConstantClass) Alloc() MTLFunctionConstant {
 	return rv
 }
 
-
-
-
-
-
-
 // A constant that specializes the behavior of a shader.
 //
 // # Overview
@@ -75,14 +69,10 @@ type MTLFunctionConstant struct {
 //
 // A constant that specializes the behavior of a shader.
 func MTLFunctionConstantFromID(id objc.ID) MTLFunctionConstant {
-	return MTLFunctionConstant{objectivec.Object{id}}
+	return MTLFunctionConstant{objectivec.Object{ID: id}}
 }
 // NOTE: MTLFunctionConstant adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLFunctionConstant] class.
 //
@@ -109,10 +99,6 @@ type IMTLFunctionConstant interface {
 	Required() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f MTLFunctionConstant) Init() MTLFunctionConstant {
 	rv := objc.Send[MTLFunctionConstant](f.ID, objc.Sel("init"))
@@ -132,26 +118,6 @@ func NewMTLFunctionConstant() MTLFunctionConstant {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The name of the function constant.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstant/name
@@ -159,8 +125,6 @@ func (f MTLFunctionConstant) Name() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // The data type of the function constant.
 //
@@ -170,8 +134,6 @@ func (f MTLFunctionConstant) Type() MTLDataType {
 	return MTLDataType(rv)
 }
 
-
-
 // The index of the function constant.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstant/index
@@ -179,8 +141,6 @@ func (f MTLFunctionConstant) Index() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("index"))
 	return rv
 }
-
-
 
 // A Boolean value indicating whether the function constant needs to be
 // provided to specialize the function.
@@ -201,26 +161,4 @@ func (f MTLFunctionConstant) Required() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("required"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

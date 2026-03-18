@@ -36,12 +36,6 @@ func (vc VZVirtioSoundDeviceConfigurationClass) Alloc() VZVirtioSoundDeviceConfi
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines a Virtio sound device configuration.
 //
 // # Overview
@@ -73,10 +67,6 @@ func VZVirtioSoundDeviceConfigurationFromID(id objc.ID) VZVirtioSoundDeviceConfi
 // NOTE: VZVirtioSoundDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioSoundDeviceConfiguration] class.
 //
 // # Accessing the sound streams
@@ -99,10 +89,6 @@ type IVZVirtioSoundDeviceConfiguration interface {
 	SetAudioDevices(value IVZAudioDeviceConfiguration)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioSoundDeviceConfiguration) Init() VZVirtioSoundDeviceConfiguration {
 	rv := objc.Send[VZVirtioSoundDeviceConfiguration](v.ID, objc.Sel("init"))
@@ -122,27 +108,6 @@ func NewVZVirtioSoundDeviceConfiguration() VZVirtioSoundDeviceConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // List of audio streams exposed by this device.
 //
 // # Discussion
@@ -160,8 +125,6 @@ func (v VZVirtioSoundDeviceConfiguration) SetStreams(value []VZVirtioSoundDevice
 	objc.Send[struct{}](v.ID, objc.Sel("setStreams:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // The list of audio devices.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/audiodevices
@@ -172,27 +135,4 @@ func (v VZVirtioSoundDeviceConfiguration) AudioDevices() IVZAudioDeviceConfigura
 func (v VZVirtioSoundDeviceConfiguration) SetAudioDevices(value IVZAudioDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAudioDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

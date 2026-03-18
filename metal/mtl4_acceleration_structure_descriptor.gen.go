@@ -35,12 +35,6 @@ func (mc MTL4AccelerationStructureDescriptorClass) Alloc() MTL4AccelerationStruc
 	return rv
 }
 
-
-
-
-
-
-
 // Base class for Metal 4 acceleration structure descriptors.
 //
 // # Overview
@@ -61,20 +55,12 @@ func MTL4AccelerationStructureDescriptorFromID(id objc.ID) MTL4AccelerationStruc
 // NOTE: MTL4AccelerationStructureDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MTL4AccelerationStructureDescriptor] class.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureDescriptor
 type IMTL4AccelerationStructureDescriptor interface {
 	IMTLAccelerationStructureDescriptor
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MTL4AccelerationStructureDescriptor) Init() MTL4AccelerationStructureDescriptor {
@@ -94,45 +80,4 @@ func NewMTL4AccelerationStructureDescriptor() MTL4AccelerationStructureDescripto
 	rv := objc.Send[MTL4AccelerationStructureDescriptor](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

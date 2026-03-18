@@ -35,12 +35,6 @@ func (nc NSMutableURLRequestClass) Alloc() NSMutableURLRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // A mutable URL load request that is independent of protocol or URL scheme.
 //
 // # Overview
@@ -85,10 +79,6 @@ func NSMutableURLRequestFromID(id objc.ID) NSMutableURLRequest {
 // NOTE: NSMutableURLRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSMutableURLRequest] class.
 //
 // # Accessing header fields
@@ -107,10 +97,6 @@ type INSMutableURLRequest interface {
 	// Sets a value for the header field.
 	SetValueForHTTPHeaderField(value string, field string)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m NSMutableURLRequest) Init() NSMutableURLRequest {
@@ -131,11 +117,6 @@ func NewNSMutableURLRequest() NSMutableURLRequest {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewMutableURLRequestWithCoder(coder INSCoder) NSMutableURLRequest {
@@ -143,7 +124,6 @@ func NewMutableURLRequestWithCoder(coder INSCoder) NSMutableURLRequest {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableURLRequestFromID(rv)
 }
-
 
 // Creates a URL request for a specified URL.
 //
@@ -165,7 +145,6 @@ func NewMutableURLRequestWithURL(URL INSURL) NSMutableURLRequest {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
 	return NSMutableURLRequestFromID(rv)
 }
-
 
 // Creates a URL request with the specified URL, cache policy, and timeout
 // values.
@@ -190,12 +169,6 @@ func NewMutableURLRequestWithURLCachePolicyTimeoutInterval(URL INSURL, cachePoli
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:cachePolicy:timeoutInterval:"), URL, cachePolicy, timeoutInterval)
 	return NSMutableURLRequestFromID(rv)
 }
-
-
-
-
-
-
 
 // Adds a value to the header field.
 //
@@ -237,40 +210,4 @@ func (m NSMutableURLRequest) AddValueForHTTPHeaderField(value string, field stri
 func (m NSMutableURLRequest) SetValueForHTTPHeaderField(value string, field string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setValue:forHTTPHeaderField:"), objc.String(value), objc.String(field))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

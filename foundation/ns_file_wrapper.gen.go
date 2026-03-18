@@ -38,12 +38,6 @@ func (fc FileWrapperClass) Alloc() FileWrapper {
 	return rv
 }
 
-
-
-
-
-
-
 // A representation of a node (a file, directory, or symbolic link) in the
 // file system.
 //
@@ -123,10 +117,6 @@ func (fc FileWrapperClass) Alloc() FileWrapper {
 //   - [FileWrapper.Icon]: The icon that represents the file wrapper.
 //   - [FileWrapper.SetIcon]
 //
-// # Initializers
-//
-//   - [FileWrapper.InitWithCoder]
-//
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper
 type FileWrapper struct {
 	objectivec.Object
@@ -137,17 +127,13 @@ type FileWrapper struct {
 // A representation of a node (a file, directory, or symbolic link) in the
 // file system.
 func FileWrapperFromID(id objc.ID) FileWrapper {
-	return NSFileWrapper{objectivec.Object{id}}
+	return NSFileWrapper{objectivec.Object{ID: id}}
 }
 
 // NSFileWrapperFromID is an alias for [FileWrapperFromID] for cross-framework compatibility.
 func NSFileWrapperFromID(id objc.ID) FileWrapper { return FileWrapperFromID(id) }
 // NOTE: FileWrapper adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [FileWrapper] class.
 //
@@ -202,13 +188,11 @@ func NSFileWrapperFromID(id objc.ID) FileWrapper { return FileWrapperFromID(id) 
 //   - [IFileWrapper.Icon]: The icon that represents the file wrapper.
 //   - [IFileWrapper.SetIcon]
 //
-// # Initializers
-//
-//   - [IFileWrapper.InitWithCoder]
-//
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper
 type IFileWrapper interface {
 	objectivec.IObject
+	NSCoding
+	NSSecureCoding
 
 	// Topic: Creating File Wrappers
 
@@ -283,18 +267,7 @@ type IFileWrapper interface {
 	// The icon that represents the file wrapper.
 	Icon() objc.ID
 	SetIcon(value objc.ID)
-
-	// Topic: Initializers
-
-	InitWithCoder(inCoder INSCoder) FileWrapper
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f FileWrapper) Init() FileWrapper {
@@ -314,11 +287,6 @@ func NewFileWrapper() FileWrapper {
 	rv := objc.Send[FileWrapper](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes the receiver as a directory file wrapper, with a given
 // file-wrapper list.
@@ -355,7 +323,6 @@ func NewFileWrapperDirectoryWithFileWrappers(childrenByPreferredName INSDictiona
 	return FileWrapperFromID(rv)
 }
 
-
 // Initializes the receiver as a regular-file file wrapper.
 //
 // contents: Contents of the file.
@@ -378,7 +345,6 @@ func NewFileWrapperRegularFileWithContents(contents INSData) FileWrapper {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initRegularFileWithContents:"), contents)
 	return FileWrapperFromID(rv)
 }
-
 
 // Initializes the receiver as a symbolic-link file wrapper that links to a
 // specified file.
@@ -404,7 +370,6 @@ func NewFileWrapperSymbolicLinkWithDestinationURL(url INSURL) FileWrapper {
 	return FileWrapperFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(coder:)
 func NewFileWrapperWithCoder(inCoder INSCoder) FileWrapper {
@@ -412,7 +377,6 @@ func NewFileWrapperWithCoder(inCoder INSCoder) FileWrapper {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return FileWrapperFromID(rv)
 }
-
 
 // Initializes the receiver as a regular-file file wrapper from given
 // serialized data.
@@ -437,7 +401,6 @@ func NewFileWrapperWithSerializedRepresentation(serializeRepresentation INSData)
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSerializedRepresentation:"), serializeRepresentation)
 	return FileWrapperFromID(rv)
 }
-
 
 // Initializes a file wrapper instance whose kind is determined by the type of
 // file-system node located by the URL.
@@ -475,12 +438,6 @@ func NewFileWrapperWithURLOptionsError(url INSURL, options NSFileWrapperReadingO
 	return FileWrapperFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Initializes a file wrapper instance whose kind is determined by the type of
 // file-system node located by the URL.
 //
@@ -507,7 +464,7 @@ func NewFileWrapperWithURLOptionsError(url INSURL, options NSFileWrapperReadingO
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(url:options:)
 func (f FileWrapper) InitWithURLOptionsError(url INSURL, options NSFileWrapperReadingOptions) (FileWrapper, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("initWithURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -801,7 +758,7 @@ func (f FileWrapper) MatchesContentsOfURL(url INSURL) bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/read(from:options:)
 func (f FileWrapper) ReadFromURLOptionsError(url INSURL, options NSFileWrapperReadingOptions) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](f.ID, objc.Sel("readFromURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -841,7 +798,7 @@ func (f FileWrapper) ReadFromURLOptionsError(url INSURL, options NSFileWrapperRe
 //
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/write(to:options:originalContentsURL:)
 func (f FileWrapper) WriteToURLOptionsOriginalContentsURLError(url INSURL, options NSFileWrapperWritingOptions, originalContentsURL INSURL) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](f.ID, objc.Sel("writeToURL:options:originalContentsURL:error:"), url, options, originalContentsURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -870,17 +827,6 @@ func (f FileWrapper) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // This property contains a boolean value that indicates whether the file
 // wrapper object is a regular-file.
 //
@@ -900,8 +846,6 @@ func (f FileWrapper) RegularFile() bool {
 	return rv
 }
 
-
-
 // This property contains a boolean value indicating whether the file wrapper
 // is a directory file wrapper.
 //
@@ -915,8 +859,6 @@ func (f FileWrapper) Directory() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isDirectory"))
 	return rv
 }
-
-
 
 // A boolean that indicates whether the file wrapper object is a symbolic-link
 // file wrapper.
@@ -937,8 +879,6 @@ func (f FileWrapper) SymbolicLink() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isSymbolicLink"))
 	return rv
 }
-
-
 
 // The file wrappers contained by a directory file wrapper.
 //
@@ -969,8 +909,6 @@ func (f FileWrapper) FileWrappers() INSDictionary {
 	return NSDictionaryFromID(objc.ID(rv))
 }
 
-
-
 // The URL referenced by the file wrapper object, which must be a
 // symbolic-link file wrapper.
 //
@@ -993,8 +931,6 @@ func (f FileWrapper) SymbolicLinkDestinationURL() INSURL {
 	return NSURLFromID(objc.ID(rv))
 }
 
-
-
 // The contents of the file wrapper as an opaque data object.
 //
 // # Discussion
@@ -1016,8 +952,6 @@ func (f FileWrapper) SerializedRepresentation() INSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("serializedRepresentation"))
 	return NSDataFromID(objc.ID(rv))
 }
-
-
 
 // The filename of the file wrapper object
 //
@@ -1048,8 +982,6 @@ func (f FileWrapper) SetFilename(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFilename:"), objc.String(value))
 }
 
-
-
 // The preferred filename for the file wrapper object.
 //
 // # Discussion
@@ -1077,8 +1009,6 @@ func (f FileWrapper) SetPreferredFilename(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPreferredFilename:"), objc.String(value))
 }
 
-
-
 // A dictionary of file attributes.
 //
 // # Discussion
@@ -1094,8 +1024,6 @@ func (f FileWrapper) FileAttributes() INSDictionary {
 func (f FileWrapper) SetFileAttributes(value INSDictionary) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFileAttributes:"), value)
 }
-
-
 
 // The contents of the file-system node associated with a regular-file file
 // wrapper.
@@ -1118,8 +1046,6 @@ func (f FileWrapper) RegularFileContents() INSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("regularFileContents"))
 	return NSDataFromID(objc.ID(rv))
 }
-
-
 
 // The icon that represents the file wrapper.
 //
@@ -1148,27 +1074,6 @@ func (f FileWrapper) SetIcon(value objc.ID) {
 	objc.Send[struct{}](f.ID, objc.Sel("setIcon:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

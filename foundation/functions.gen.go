@@ -38,9 +38,6 @@ func registerSymbol(dst *uintptr, handle uintptr, name string) {
 	*dst = sym
 }
 
-
-
-
 var _nSAllHashTableObjects func(table *NSHashTable) NSArray
 
 // NSAllHashTableObjects returns all of the elements in the specified hash table.
@@ -52,7 +49,6 @@ func NSAllHashTableObjects(table *NSHashTable) NSArray {
 	}
 	return _nSAllHashTableObjects(table)
 }
-
 
 var _nSAllMapTableKeys func(table *NSMapTable) NSArray
 
@@ -66,7 +62,6 @@ func NSAllMapTableKeys(table *NSMapTable) NSArray {
 	return _nSAllMapTableKeys(table)
 }
 
-
 var _nSAllMapTableValues func(table *NSMapTable) NSArray
 
 // NSAllMapTableValues returns all of the values in the specified table.
@@ -78,7 +73,6 @@ func NSAllMapTableValues(table *NSMapTable) NSArray {
 	}
 	return _nSAllMapTableValues(table)
 }
-
 
 var _nSAllocateCollectable func(size uint, options uint) unsafe.Pointer
 
@@ -94,7 +88,6 @@ func NSAllocateCollectable(size uint, options uint) unsafe.Pointer {
 	return _nSAllocateCollectable(size, options)
 }
 
-
 var _nSAllocateMemoryPages func(bytes uint) unsafe.Pointer
 
 // NSAllocateMemoryPages allocates a new block of memory.
@@ -106,7 +99,6 @@ func NSAllocateMemoryPages(bytes uint) unsafe.Pointer {
 	}
 	return _nSAllocateMemoryPages(bytes)
 }
-
 
 var _nSAllocateObject func(aClass objc.Class, extraBytes uint, zone *NSZone) objectivec.Object
 
@@ -120,7 +112,6 @@ func NSAllocateObject(aClass objc.Class, extraBytes uint, zone *NSZone) objectiv
 	return _nSAllocateObject(aClass, extraBytes, zone)
 }
 
-
 var _nSClassFromString func(aClassName NSString) objc.Class
 
 // NSClassFromString obtains a class by name.
@@ -132,7 +123,6 @@ func NSClassFromString(aClassName NSString) objc.Class {
 	}
 	return _nSClassFromString(aClassName)
 }
-
 
 var _nSCompareHashTables func(table1 *NSHashTable, table2 *NSHashTable) bool
 
@@ -146,7 +136,6 @@ func NSCompareHashTables(table1 *NSHashTable, table2 *NSHashTable) bool {
 	return _nSCompareHashTables(table1, table2)
 }
 
-
 var _nSCompareMapTables func(table1 *NSMapTable, table2 *NSMapTable) bool
 
 // NSCompareMapTables compares the elements of two map tables for equality.
@@ -159,18 +148,12 @@ func NSCompareMapTables(table1 *NSMapTable, table2 *NSMapTable) bool {
 	return _nSCompareMapTables(table1, table2)
 }
 
-
 // NSContainsRect returns a Boolean value that indicates whether one rectangle completely encloses another.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSContainsRect(_:_:)
 func NSContainsRect(aRect corefoundation.CGRect, bRect corefoundation.CGRect) bool {
 	return nsContainsRect(aRect, bRect)
 }
-
-
-
-
-
 
 var _nSCopyHashTableWithZone func(table *NSHashTable, zone *NSZone) *NSHashTable
 
@@ -184,7 +167,6 @@ func NSCopyHashTableWithZone(table *NSHashTable, zone *NSZone) *NSHashTable {
 	return _nSCopyHashTableWithZone(table, zone)
 }
 
-
 var _nSCopyMapTableWithZone func(table *NSMapTable, zone *NSZone) *NSMapTable
 
 // NSCopyMapTableWithZone performs a shallow copy of the specified map table.
@@ -196,7 +178,6 @@ func NSCopyMapTableWithZone(table *NSMapTable, zone *NSZone) *NSMapTable {
 	}
 	return _nSCopyMapTableWithZone(table, zone)
 }
-
 
 var _nSCopyMemoryPages func(source unsafe.Pointer, dest unsafe.Pointer, bytes uint)
 
@@ -210,10 +191,11 @@ func NSCopyMemoryPages(source unsafe.Pointer, dest unsafe.Pointer, bytes uint) {
 	_nSCopyMemoryPages(source, dest, bytes)
 }
 
-
 var _nSCopyObject func(object objectivec.Object, extraBytes uint, zone *NSZone) objectivec.Object
 
 // NSCopyObject creates an exact copy of an object.
+//
+// Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCopyObject
 func NSCopyObject(object objectivec.Object, extraBytes uint, zone *NSZone) objectivec.Object {
@@ -222,7 +204,6 @@ func NSCopyObject(object objectivec.Object, extraBytes uint, zone *NSZone) objec
 	}
 	return _nSCopyObject(object, extraBytes, zone)
 }
-
 
 var _nSCountFrames func() uint
 
@@ -236,7 +217,6 @@ func NSCountFrames() uint {
 	return _nSCountFrames()
 }
 
-
 var _nSCountHashTable func(table *NSHashTable) uint
 
 // NSCountHashTable returns the number of elements in a hash table.
@@ -248,7 +228,6 @@ func NSCountHashTable(table *NSHashTable) uint {
 	}
 	return _nSCountHashTable(table)
 }
-
 
 var _nSCountMapTable func(table *NSMapTable) uint
 
@@ -262,7 +241,6 @@ func NSCountMapTable(table *NSMapTable) uint {
 	return _nSCountMapTable(table)
 }
 
-
 var _nSCreateHashTable func(callBacks NSHashTableCallBacks, capacity uint) *NSHashTable
 
 // NSCreateHashTable creates and returns a new hash table.
@@ -274,7 +252,6 @@ func NSCreateHashTable(callBacks NSHashTableCallBacks, capacity uint) *NSHashTab
 	}
 	return _nSCreateHashTable(callBacks, capacity)
 }
-
 
 var _nSCreateHashTableWithZone func(callBacks NSHashTableCallBacks, capacity uint, zone *NSZone) *NSHashTable
 
@@ -288,7 +265,6 @@ func NSCreateHashTableWithZone(callBacks NSHashTableCallBacks, capacity uint, zo
 	return _nSCreateHashTableWithZone(callBacks, capacity, zone)
 }
 
-
 var _nSCreateMapTable func(keyCallBacks NSMapTableKeyCallBacks, valueCallBacks NSMapTableValueCallBacks, capacity uint) *NSMapTable
 
 // NSCreateMapTable creates a new map table in the default zone.
@@ -301,7 +277,6 @@ func NSCreateMapTable(keyCallBacks NSMapTableKeyCallBacks, valueCallBacks NSMapT
 	return _nSCreateMapTable(keyCallBacks, valueCallBacks, capacity)
 }
 
-
 var _nSCreateMapTableWithZone func(keyCallBacks NSMapTableKeyCallBacks, valueCallBacks NSMapTableValueCallBacks, capacity uint, zone *NSZone) *NSMapTable
 
 // NSCreateMapTableWithZone creates a new map table in the specified zone.
@@ -313,7 +288,6 @@ func NSCreateMapTableWithZone(keyCallBacks NSMapTableKeyCallBacks, valueCallBack
 	}
 	return _nSCreateMapTableWithZone(keyCallBacks, valueCallBacks, capacity, zone)
 }
-
 
 var _nSCreateZone func(startSize uint, granularity uint, canFree bool) *NSZone
 
@@ -329,7 +303,6 @@ func NSCreateZone(startSize uint, granularity uint, canFree bool) *NSZone {
 	return _nSCreateZone(startSize, granularity, canFree)
 }
 
-
 var _nSDeallocateMemoryPages func(ptr unsafe.Pointer, bytes uint)
 
 // NSDeallocateMemoryPages deallocates the specified block of memory.
@@ -341,7 +314,6 @@ func NSDeallocateMemoryPages(ptr unsafe.Pointer, bytes uint) {
 	}
 	_nSDeallocateMemoryPages(ptr, bytes)
 }
-
 
 var _nSDeallocateObject func(object objectivec.Object)
 
@@ -355,7 +327,6 @@ func NSDeallocateObject(object objectivec.Object) {
 	_nSDeallocateObject(object)
 }
 
-
 var _nSDecimalAdd func(result *NSDecimal, leftOperand *NSDecimal, rightOperand *NSDecimal, roundingMode NSRoundingMode) NSCalculationError
 
 // NSDecimalAdd adds two decimal values.
@@ -367,7 +338,6 @@ func NSDecimalAdd(result *NSDecimal, leftOperand *NSDecimal, rightOperand *NSDec
 	}
 	return _nSDecimalAdd(result, leftOperand, rightOperand, roundingMode)
 }
-
 
 var _nSDecimalCompact func(number *NSDecimal)
 
@@ -381,7 +351,6 @@ func NSDecimalCompact(number *NSDecimal) {
 	_nSDecimalCompact(number)
 }
 
-
 var _nSDecimalCompare func(leftOperand *NSDecimal, rightOperand *NSDecimal) NSComparisonResult
 
 // NSDecimalCompare compares two decimal values.
@@ -393,7 +362,6 @@ func NSDecimalCompare(leftOperand *NSDecimal, rightOperand *NSDecimal) NSCompari
 	}
 	return _nSDecimalCompare(leftOperand, rightOperand)
 }
-
 
 var _nSDecimalCopy func(destination *NSDecimal, source *NSDecimal)
 
@@ -407,7 +375,6 @@ func NSDecimalCopy(destination *NSDecimal, source *NSDecimal) {
 	_nSDecimalCopy(destination, source)
 }
 
-
 var _nSDecimalDivide func(result *NSDecimal, leftOperand *NSDecimal, rightOperand *NSDecimal, roundingMode NSRoundingMode) NSCalculationError
 
 // NSDecimalDivide divides one decimal value by another.
@@ -419,8 +386,6 @@ func NSDecimalDivide(result *NSDecimal, leftOperand *NSDecimal, rightOperand *NS
 	}
 	return _nSDecimalDivide(result, leftOperand, rightOperand, roundingMode)
 }
-
-
 
 var _nSDecimalMultiply func(result *NSDecimal, leftOperand *NSDecimal, rightOperand *NSDecimal, roundingMode NSRoundingMode) NSCalculationError
 
@@ -434,7 +399,6 @@ func NSDecimalMultiply(result *NSDecimal, leftOperand *NSDecimal, rightOperand *
 	return _nSDecimalMultiply(result, leftOperand, rightOperand, roundingMode)
 }
 
-
 var _nSDecimalMultiplyByPowerOf10 func(result *NSDecimal, number *NSDecimal, power int16, roundingMode NSRoundingMode) NSCalculationError
 
 // NSDecimalMultiplyByPowerOf10 multiplies a decimal by the specified power of 10.
@@ -446,7 +410,6 @@ func NSDecimalMultiplyByPowerOf10(result *NSDecimal, number *NSDecimal, power in
 	}
 	return _nSDecimalMultiplyByPowerOf10(result, number, power, roundingMode)
 }
-
 
 var _nSDecimalNormalize func(number1 *NSDecimal, number2 *NSDecimal, roundingMode NSRoundingMode) NSCalculationError
 
@@ -460,7 +423,6 @@ func NSDecimalNormalize(number1 *NSDecimal, number2 *NSDecimal, roundingMode NSR
 	return _nSDecimalNormalize(number1, number2, roundingMode)
 }
 
-
 var _nSDecimalPower func(result *NSDecimal, number *NSDecimal, power uint, roundingMode NSRoundingMode) NSCalculationError
 
 // NSDecimalPower raises the decimal value to the specified power.
@@ -472,7 +434,6 @@ func NSDecimalPower(result *NSDecimal, number *NSDecimal, power uint, roundingMo
 	}
 	return _nSDecimalPower(result, number, power, roundingMode)
 }
-
 
 var _nSDecimalRound func(result *NSDecimal, number *NSDecimal, scale int, roundingMode NSRoundingMode)
 
@@ -486,7 +447,6 @@ func NSDecimalRound(result *NSDecimal, number *NSDecimal, scale int, roundingMod
 	_nSDecimalRound(result, number, scale, roundingMode)
 }
 
-
 var _nSDecimalString func(dcm *NSDecimal, locale objectivec.Object) NSString
 
 // NSDecimalString returns a string representation of the decimal value appropriate for the specified locale.
@@ -498,7 +458,6 @@ func NSDecimalString(dcm *NSDecimal, locale objectivec.Object) NSString {
 	}
 	return _nSDecimalString(dcm, locale)
 }
-
 
 var _nSDecimalSubtract func(result *NSDecimal, leftOperand *NSDecimal, rightOperand *NSDecimal, roundingMode NSRoundingMode) NSCalculationError
 
@@ -512,7 +471,6 @@ func NSDecimalSubtract(result *NSDecimal, leftOperand *NSDecimal, rightOperand *
 	return _nSDecimalSubtract(result, leftOperand, rightOperand, roundingMode)
 }
 
-
 var _nSDecrementExtraRefCountWasZero func(object objectivec.Object) bool
 
 // NSDecrementExtraRefCountWasZero decrements the specified object’s reference count.
@@ -524,7 +482,6 @@ func NSDecrementExtraRefCountWasZero(object objectivec.Object) bool {
 	}
 	return _nSDecrementExtraRefCountWasZero(object)
 }
-
 
 var _nSDefaultMallocZone func() *NSZone
 
@@ -540,7 +497,6 @@ func NSDefaultMallocZone() *NSZone {
 	return _nSDefaultMallocZone()
 }
 
-
 // NSDivideRect divides a rectangle into two new rectangles.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDivideRect(_:_:_:_:_:)
@@ -548,15 +504,12 @@ func NSDivideRect(inRect corefoundation.CGRect, slice *corefoundation.CGRect, re
 	nsDivideRect(inRect, slice, rem, amount, edge)
 }
 
-
 // NSEdgeInsetsEqual returns a Boolean value that indicates whether two edge insets structures are equal.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSEdgeInsetsEqual(_:_:)
 func NSEdgeInsetsEqual(aInsets NSEdgeInsets, bInsets NSEdgeInsets) bool {
 	return nsEdgeInsetsEqual(aInsets, bInsets)
 }
-
-
 
 var _nSEndHashTableEnumeration func(enumerator *NSHashEnumerator)
 
@@ -570,7 +523,6 @@ func NSEndHashTableEnumeration(enumerator *NSHashEnumerator) {
 	_nSEndHashTableEnumeration(enumerator)
 }
 
-
 var _nSEndMapTableEnumeration func(enumerator *NSMapEnumerator)
 
 // NSEndMapTableEnumeration used when finished with an enumerator.
@@ -582,7 +534,6 @@ func NSEndMapTableEnumeration(enumerator *NSMapEnumerator) {
 	}
 	_nSEndMapTableEnumeration(enumerator)
 }
-
 
 var _nSEnumerateHashTable func(table *NSHashTable) NSHashEnumerator
 
@@ -596,7 +547,6 @@ func NSEnumerateHashTable(table *NSHashTable) NSHashEnumerator {
 	return _nSEnumerateHashTable(table)
 }
 
-
 var _nSEnumerateMapTable func(table *NSMapTable) NSMapEnumerator
 
 // NSEnumerateMapTable creates an enumerator for the specified map table.
@@ -609,15 +559,12 @@ func NSEnumerateMapTable(table *NSMapTable) NSMapEnumerator {
 	return _nSEnumerateMapTable(table)
 }
 
-
 // NSEqualPoints returns a Boolean value that indicates whether two points are equal.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSEqualPoints(_:_:)
 func NSEqualPoints(aPoint corefoundation.CGPoint, bPoint corefoundation.CGPoint) bool {
 	return nsEqualPoints(aPoint, bPoint)
 }
-
-
 
 // NSEqualRects returns a Boolean value that indicates whether the two rectangles are equal.
 //
@@ -626,14 +573,12 @@ func NSEqualRects(aRect corefoundation.CGRect, bRect corefoundation.CGRect) bool
 	return nsEqualRects(aRect, bRect)
 }
 
-
 // NSEqualSizes returns a Boolean that indicates whether two size values are equal.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSEqualSizes(_:_:)
 func NSEqualSizes(aSize corefoundation.CGSize, bSize corefoundation.CGSize) bool {
 	return nsEqualSizes(aSize, bSize)
 }
-
 
 var _nSExtraRefCount func(object objectivec.Object) uint
 
@@ -647,7 +592,6 @@ func NSExtraRefCount(object objectivec.Object) uint {
 	return _nSExtraRefCount(object)
 }
 
-
 var _nSFileTypeForHFSTypeCode func(hfsFileTypeCode uint32) NSString
 
 // NSFileTypeForHFSTypeCode returns a string encoding a file type code.
@@ -659,7 +603,6 @@ func NSFileTypeForHFSTypeCode(hfsFileTypeCode uint32) NSString {
 	}
 	return _nSFileTypeForHFSTypeCode(hfsFileTypeCode)
 }
-
 
 var _nSFrameAddress func(frame uint) unsafe.Pointer
 
@@ -673,7 +616,6 @@ func NSFrameAddress(frame uint) unsafe.Pointer {
 	return _nSFrameAddress(frame)
 }
 
-
 var _nSFreeHashTable func(table *NSHashTable)
 
 // NSFreeHashTable deletes the specified hash table.
@@ -685,7 +627,6 @@ func NSFreeHashTable(table *NSHashTable) {
 	}
 	_nSFreeHashTable(table)
 }
-
 
 var _nSFreeMapTable func(table *NSMapTable)
 
@@ -699,7 +640,6 @@ func NSFreeMapTable(table *NSMapTable) {
 	_nSFreeMapTable(table)
 }
 
-
 var _nSFullUserName func() NSString
 
 // NSFullUserName returns a string containing the full name of the current user.
@@ -712,19 +652,17 @@ func NSFullUserName() NSString {
 	return _nSFullUserName()
 }
 
-
-var _nSGetSizeAndAlignment func(typePtr *byte, sizep *uint, alignp *uint) *byte
+var _nSGetSizeAndAlignment func(typePtr string, sizep *uint, alignp *uint) *byte
 
 // NSGetSizeAndAlignment obtains the actual size and the aligned size of an encoded type.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSGetSizeAndAlignment(_:_:_:)
-func NSGetSizeAndAlignment(typePtr *byte, sizep *uint, alignp *uint) *byte {
+func NSGetSizeAndAlignment(typePtr string, sizep *uint, alignp *uint) *byte {
 	if _nSGetSizeAndAlignment == nil {
 		panic("Foundation: symbol NSGetSizeAndAlignment not loaded")
 	}
 	return _nSGetSizeAndAlignment(typePtr, sizep, alignp)
 }
-
 
 var _nSGetUncaughtExceptionHandler func() func(unsafe.Pointer)
 
@@ -738,7 +676,6 @@ func NSGetUncaughtExceptionHandler() func(unsafe.Pointer) {
 	return _nSGetUncaughtExceptionHandler()
 }
 
-
 var _nSHFSTypeCodeFromFileType func(fileTypeString NSString) uint32
 
 // NSHFSTypeCodeFromFileType returns a file type code.
@@ -750,7 +687,6 @@ func NSHFSTypeCodeFromFileType(fileTypeString NSString) uint32 {
 	}
 	return _nSHFSTypeCodeFromFileType(fileTypeString)
 }
-
 
 var _nSHFSTypeOfFile func(fullFilePath NSString) NSString
 
@@ -764,7 +700,6 @@ func NSHFSTypeOfFile(fullFilePath NSString) NSString {
 	return _nSHFSTypeOfFile(fullFilePath)
 }
 
-
 var _nSHashGet func(table *NSHashTable, pointer unsafe.Pointer) unsafe.Pointer
 
 // NSHashGet returns an element of the hash table.
@@ -776,7 +711,6 @@ func NSHashGet(table *NSHashTable, pointer unsafe.Pointer) unsafe.Pointer {
 	}
 	return _nSHashGet(table, pointer)
 }
-
 
 var _nSHashInsert func(table *NSHashTable, pointer unsafe.Pointer)
 
@@ -790,7 +724,6 @@ func NSHashInsert(table *NSHashTable, pointer unsafe.Pointer) {
 	_nSHashInsert(table, pointer)
 }
 
-
 var _nSHashInsertIfAbsent func(table *NSHashTable, pointer unsafe.Pointer) unsafe.Pointer
 
 // NSHashInsertIfAbsent adds an element to the specified hash table only if the table does not already contain the element.
@@ -802,7 +735,6 @@ func NSHashInsertIfAbsent(table *NSHashTable, pointer unsafe.Pointer) unsafe.Poi
 	}
 	return _nSHashInsertIfAbsent(table, pointer)
 }
-
 
 var _nSHashInsertKnownAbsent func(table *NSHashTable, pointer unsafe.Pointer)
 
@@ -816,7 +748,6 @@ func NSHashInsertKnownAbsent(table *NSHashTable, pointer unsafe.Pointer) {
 	_nSHashInsertKnownAbsent(table, pointer)
 }
 
-
 var _nSHashRemove func(table *NSHashTable, pointer unsafe.Pointer)
 
 // NSHashRemove removes an element from the specified hash table.
@@ -828,8 +759,6 @@ func NSHashRemove(table *NSHashTable, pointer unsafe.Pointer) {
 	}
 	_nSHashRemove(table, pointer)
 }
-
-
 
 var _nSHomeDirectory func() NSString
 
@@ -843,7 +772,6 @@ func NSHomeDirectory() NSString {
 	return _nSHomeDirectory()
 }
 
-
 var _nSHomeDirectoryForUser func(userName NSString) NSString
 
 // NSHomeDirectoryForUser returns the path to a given user’s home directory.
@@ -855,8 +783,6 @@ func NSHomeDirectoryForUser(userName NSString) NSString {
 	}
 	return _nSHomeDirectoryForUser(userName)
 }
-
-
 
 var _nSIncrementExtraRefCount func(object objectivec.Object)
 
@@ -870,14 +796,12 @@ func NSIncrementExtraRefCount(object objectivec.Object) {
 	_nSIncrementExtraRefCount(object)
 }
 
-
 // NSInsetRect insets a rectangle by a specified amount.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInsetRect(_:_:_:)
 func NSInsetRect(aRect corefoundation.CGRect, dX float64, dY float64) corefoundation.CGRect {
 	return nsInsetRect(aRect, dX, dY)
 }
-
 
 // NSIntegralRect adjusts the sides of a rectangle to integer values.
 //
@@ -886,14 +810,12 @@ func NSIntegralRect(aRect corefoundation.CGRect) corefoundation.CGRect {
 	return nsIntegralRect(aRect)
 }
 
-
 // NSIntegralRectWithOptions adjusts the sides of a rectangle to integral values using the specified options.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIntegralRectWithOptions(_:_:)
 func NSIntegralRectWithOptions(aRect corefoundation.CGRect, opts NSAlignmentOptions) corefoundation.CGRect {
 	return nsIntegralRectWithOptions(aRect, opts)
 }
-
 
 // NSIntersectionRange returns the intersection of the specified ranges.
 //
@@ -902,14 +824,12 @@ func NSIntersectionRange(range1 NSRange, range2 NSRange) NSRange {
 	return nsIntersectionRange(range1, range2)
 }
 
-
 // NSIntersectionRect calculates the intersection of two rectangles.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIntersectionRect(_:_:)
 func NSIntersectionRect(aRect corefoundation.CGRect, bRect corefoundation.CGRect) corefoundation.CGRect {
 	return nsIntersectionRect(aRect, bRect)
 }
-
 
 // NSIntersectsRect returns a Boolean value that indicates whether two rectangles intersect.
 //
@@ -918,14 +838,12 @@ func NSIntersectsRect(aRect corefoundation.CGRect, bRect corefoundation.CGRect) 
 	return nsIntersectsRect(aRect, bRect)
 }
 
-
 // NSIsEmptyRect returns a Boolean value that indicates whether a given rectangle is empty.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIsEmptyRect(_:)
 func NSIsEmptyRect(aRect corefoundation.CGRect) bool {
 	return nsIsEmptyRect(aRect)
 }
-
 
 var _nSIsFreedObject func(anObject objectivec.Object) bool
 
@@ -939,8 +857,6 @@ func NSIsFreedObject(anObject objectivec.Object) bool {
 	return _nSIsFreedObject(anObject)
 }
 
-
-
 var _nSLog func(format NSString)
 
 // NSLog logs an error message to the Apple System Log facility.
@@ -952,7 +868,6 @@ func NSLog(format NSString) {
 	}
 	_nSLog(format)
 }
-
 
 var _nSLogPageSize func() uint
 
@@ -966,7 +881,6 @@ func NSLogPageSize() uint {
 	return _nSLogPageSize()
 }
 
-
 var _nSLogv func(format NSString, args uintptr)
 
 // NSLogv logs an error message to the Apple System Log facility.
@@ -978,12 +892,6 @@ func NSLogv(format NSString, args uintptr) {
 	}
 	_nSLogv(format, args)
 }
-
-
-
-
-
-
 
 var _nSMapGet func(table *NSMapTable, key unsafe.Pointer) unsafe.Pointer
 
@@ -997,7 +905,6 @@ func NSMapGet(table *NSMapTable, key unsafe.Pointer) unsafe.Pointer {
 	return _nSMapGet(table, key)
 }
 
-
 var _nSMapInsert func(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer)
 
 // NSMapInsert inserts a key-value pair into the specified table.
@@ -1009,7 +916,6 @@ func NSMapInsert(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer) {
 	}
 	_nSMapInsert(table, key, value)
 }
-
 
 var _nSMapInsertIfAbsent func(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer) unsafe.Pointer
 
@@ -1023,7 +929,6 @@ func NSMapInsertIfAbsent(table *NSMapTable, key unsafe.Pointer, value unsafe.Poi
 	return _nSMapInsertIfAbsent(table, key, value)
 }
 
-
 var _nSMapInsertKnownAbsent func(table *NSMapTable, key unsafe.Pointer, value unsafe.Pointer)
 
 // NSMapInsertKnownAbsent inserts a key-value pair into the specified table if the pair had not been previously added.
@@ -1035,7 +940,6 @@ func NSMapInsertKnownAbsent(table *NSMapTable, key unsafe.Pointer, value unsafe.
 	}
 	_nSMapInsertKnownAbsent(table, key, value)
 }
-
 
 var _nSMapMember func(table *NSMapTable, key unsafe.Pointer, originalKey unsafe.Pointer, value unsafe.Pointer) bool
 
@@ -1049,7 +953,6 @@ func NSMapMember(table *NSMapTable, key unsafe.Pointer, originalKey unsafe.Point
 	return _nSMapMember(table, key, originalKey, value)
 }
 
-
 var _nSMapRemove func(table *NSMapTable, key unsafe.Pointer)
 
 // NSMapRemove removes a key and corresponding value from the specified table.
@@ -1062,21 +965,12 @@ func NSMapRemove(table *NSMapTable, key unsafe.Pointer) {
 	_nSMapRemove(table, key)
 }
 
-
-
-
-
-
-
-
-
 // NSMouseInRect returns a Boolean value that indicates whether the point is in the specified rectangle.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMouseInRect(_:_:_:)
 func NSMouseInRect(aPoint corefoundation.CGPoint, aRect corefoundation.CGRect, flipped bool) bool {
 	return nsMouseInRect(aPoint, aRect, flipped)
 }
-
 
 var _nSNextHashEnumeratorItem func(enumerator *NSHashEnumerator) unsafe.Pointer
 
@@ -1090,7 +984,6 @@ func NSNextHashEnumeratorItem(enumerator *NSHashEnumerator) unsafe.Pointer {
 	return _nSNextHashEnumeratorItem(enumerator)
 }
 
-
 var _nSNextMapEnumeratorPair func(enumerator *NSMapEnumerator, key unsafe.Pointer, value unsafe.Pointer) bool
 
 // NSNextMapEnumeratorPair returns a Boolean value that indicates whether the next map-table pair in the enumeration are set.
@@ -1103,14 +996,12 @@ func NSNextMapEnumeratorPair(enumerator *NSMapEnumerator, key unsafe.Pointer, va
 	return _nSNextMapEnumeratorPair(enumerator, key, value)
 }
 
-
 // NSOffsetRect offsets the rectangle by the specified amount.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOffsetRect(_:_:_:)
 func NSOffsetRect(aRect corefoundation.CGRect, dX float64, dY float64) corefoundation.CGRect {
 	return nsOffsetRect(aRect, dX, dY)
 }
-
 
 var _nSOpenStepRootDirectory func() NSString
 
@@ -1124,7 +1015,6 @@ func NSOpenStepRootDirectory() NSString {
 	return _nSOpenStepRootDirectory()
 }
 
-
 var _nSPageSize func() uint
 
 // NSPageSize returns the number of bytes in a page.
@@ -1136,8 +1026,6 @@ func NSPageSize() uint {
 	}
 	return _nSPageSize()
 }
-
-
 
 var _nSPointFromString func(aString NSString) corefoundation.CGPoint
 
@@ -1151,15 +1039,12 @@ func NSPointFromString(aString NSString) corefoundation.CGPoint {
 	return _nSPointFromString(aString)
 }
 
-
 // NSPointInRect returns a Boolean value that indicates whether a given point is in a given rectangle.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointInRect(_:_:)
 func NSPointInRect(aPoint corefoundation.CGPoint, aRect corefoundation.CGRect) bool {
 	return nsPointInRect(aPoint, aRect)
 }
-
-
 
 var _nSProtocolFromString func(namestr NSString) **objectivec.Protocol
 
@@ -1173,7 +1058,6 @@ func NSProtocolFromString(namestr NSString) **objectivec.Protocol {
 	return _nSProtocolFromString(namestr)
 }
 
-
 var _nSRangeFromString func(aString NSString) NSRange
 
 // NSRangeFromString returns a range from a textual representation.
@@ -1185,7 +1069,6 @@ func NSRangeFromString(aString NSString) NSRange {
 	}
 	return _nSRangeFromString(aString)
 }
-
 
 var _nSReallocateCollectable func(ptr unsafe.Pointer, size uint, options uint) unsafe.Pointer
 
@@ -1201,7 +1084,6 @@ func NSReallocateCollectable(ptr unsafe.Pointer, size uint, options uint) unsafe
 	return _nSReallocateCollectable(ptr, size, options)
 }
 
-
 var _nSRecordAllocationEvent func(eventType int, object objectivec.Object)
 
 // NSRecordAllocationEvent notes an object or zone allocation event and various other statistics, such as the time and current thread.
@@ -1214,8 +1096,6 @@ func NSRecordAllocationEvent(eventType int, object objectivec.Object) {
 	_nSRecordAllocationEvent(eventType, object)
 }
 
-
-
 var _nSRectFromString func(aString NSString) corefoundation.CGRect
 
 // NSRectFromString returns a rectangle from a text-based representation.
@@ -1227,8 +1107,6 @@ func NSRectFromString(aString NSString) corefoundation.CGRect {
 	}
 	return _nSRectFromString(aString)
 }
-
-
 
 var _nSRecycleZone func(zone *NSZone)
 
@@ -1244,7 +1122,6 @@ func NSRecycleZone(zone *NSZone) {
 	_nSRecycleZone(zone)
 }
 
-
 var _nSResetHashTable func(table *NSHashTable)
 
 // NSResetHashTable deletes the elements of the specified hash table.
@@ -1256,7 +1133,6 @@ func NSResetHashTable(table *NSHashTable) {
 	}
 	_nSResetHashTable(table)
 }
-
 
 var _nSResetMapTable func(table *NSMapTable)
 
@@ -1270,7 +1146,6 @@ func NSResetMapTable(table *NSMapTable) {
 	_nSResetMapTable(table)
 }
 
-
 var _nSReturnAddress func(frame uint) unsafe.Pointer
 
 // NSReturnAddress returns the value of the return address of the specified frame.
@@ -1282,7 +1157,6 @@ func NSReturnAddress(frame uint) unsafe.Pointer {
 	}
 	return _nSReturnAddress(frame)
 }
-
 
 var _nSRoundDownToMultipleOfPageSize func(bytes uint) uint
 
@@ -1296,7 +1170,6 @@ func NSRoundDownToMultipleOfPageSize(bytes uint) uint {
 	return _nSRoundDownToMultipleOfPageSize(bytes)
 }
 
-
 var _nSRoundUpToMultipleOfPageSize func(bytes uint) uint
 
 // NSRoundUpToMultipleOfPageSize returns the specified number of bytes rounded up to a multiple of the page size.
@@ -1308,7 +1181,6 @@ func NSRoundUpToMultipleOfPageSize(bytes uint) uint {
 	}
 	return _nSRoundUpToMultipleOfPageSize(bytes)
 }
-
 
 var _nSSearchPathForDirectoriesInDomains func(directory NSSearchPathDirectory, domainMask NSSearchPathDomainMask, expandTilde bool) []NSString
 
@@ -1322,7 +1194,6 @@ func NSSearchPathForDirectoriesInDomains(directory NSSearchPathDirectory, domain
 	return _nSSearchPathForDirectoriesInDomains(directory, domainMask, expandTilde)
 }
 
-
 var _nSSelectorFromString func(aSelectorName NSString) objectivec.SEL
 
 // NSSelectorFromString returns the selector with a given name.
@@ -1335,7 +1206,6 @@ func NSSelectorFromString(aSelectorName NSString) objectivec.SEL {
 	return _nSSelectorFromString(aSelectorName)
 }
 
-
 var _nSSetUncaughtExceptionHandler func(arg0 func(*NSException))
 
 // NSSetUncaughtExceptionHandler changes the top-level error handler.
@@ -1347,7 +1217,6 @@ func NSSetUncaughtExceptionHandler(arg0 func(*NSException)) {
 	}
 	_nSSetUncaughtExceptionHandler(arg0)
 }
-
 
 var _nSSetZoneName func(zone *NSZone, name NSString)
 
@@ -1363,7 +1232,6 @@ func NSSetZoneName(zone *NSZone, name NSString) {
 	_nSSetZoneName(zone, name)
 }
 
-
 var _nSShouldRetainWithZone func(anObject objectivec.Object, requestedZone *NSZone) bool
 
 // NSShouldRetainWithZone indicates whether an object should be retained.
@@ -1375,8 +1243,6 @@ func NSShouldRetainWithZone(anObject objectivec.Object, requestedZone *NSZone) b
 	}
 	return _nSShouldRetainWithZone(anObject, requestedZone)
 }
-
-
 
 var _nSSizeFromString func(aString NSString) corefoundation.CGSize
 
@@ -1390,8 +1256,6 @@ func NSSizeFromString(aString NSString) corefoundation.CGSize {
 	return _nSSizeFromString(aString)
 }
 
-
-
 var _nSStringFromClass func(aClass objc.Class) NSString
 
 // NSStringFromClass returns the name of a class as a string.
@@ -1403,7 +1267,6 @@ func NSStringFromClass(aClass objc.Class) NSString {
 	}
 	return _nSStringFromClass(aClass)
 }
-
 
 var _nSStringFromHashTable func(table *NSHashTable) NSString
 
@@ -1417,7 +1280,6 @@ func NSStringFromHashTable(table *NSHashTable) NSString {
 	return _nSStringFromHashTable(table)
 }
 
-
 var _nSStringFromMapTable func(table *NSMapTable) NSString
 
 // NSStringFromMapTable returns a string describing the map table’s contents.
@@ -1429,7 +1291,6 @@ func NSStringFromMapTable(table *NSMapTable) NSString {
 	}
 	return _nSStringFromMapTable(table)
 }
-
 
 var _nSStringFromPoint func(aPoint corefoundation.CGPoint) NSString
 
@@ -1443,7 +1304,6 @@ func NSStringFromPoint(aPoint corefoundation.CGPoint) NSString {
 	return _nSStringFromPoint(aPoint)
 }
 
-
 var _nSStringFromProtocol func(proto **objectivec.Protocol) NSString
 
 // NSStringFromProtocol returns the name of a protocol as a string.
@@ -1455,7 +1315,6 @@ func NSStringFromProtocol(proto **objectivec.Protocol) NSString {
 	}
 	return _nSStringFromProtocol(proto)
 }
-
 
 var _nSStringFromRange func(range_ NSRange) NSString
 
@@ -1469,7 +1328,6 @@ func NSStringFromRange(range_ NSRange) NSString {
 	return _nSStringFromRange(range_)
 }
 
-
 var _nSStringFromRect func(aRect corefoundation.CGRect) NSString
 
 // NSStringFromRect returns a string representation of a rectangle.
@@ -1481,7 +1339,6 @@ func NSStringFromRect(aRect corefoundation.CGRect) NSString {
 	}
 	return _nSStringFromRect(aRect)
 }
-
 
 var _nSStringFromSelector func(aSelector objectivec.SEL) NSString
 
@@ -1495,7 +1352,6 @@ func NSStringFromSelector(aSelector objectivec.SEL) NSString {
 	return _nSStringFromSelector(aSelector)
 }
 
-
 var _nSStringFromSize func(aSize corefoundation.CGSize) NSString
 
 // NSStringFromSize returns a string representation of a size.
@@ -1507,37 +1363,6 @@ func NSStringFromSize(aSize corefoundation.CGSize) NSString {
 	}
 	return _nSStringFromSize(aSize)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var _nSTemporaryDirectory func() NSString
 
@@ -1551,7 +1376,6 @@ func NSTemporaryDirectory() NSString {
 	return _nSTemporaryDirectory()
 }
 
-
 // NSUnionRange returns the union of the specified ranges.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUnionRange(_:_:)
@@ -1559,14 +1383,12 @@ func NSUnionRange(range1 NSRange, range2 NSRange) NSRange {
 	return nsUnionRange(range1, range2)
 }
 
-
 // NSUnionRect calculates the union of two rectangles.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUnionRect(_:_:)
 func NSUnionRect(aRect corefoundation.CGRect, bRect corefoundation.CGRect) corefoundation.CGRect {
 	return nsUnionRect(aRect, bRect)
 }
-
 
 var _nSUserName func() NSString
 
@@ -1579,8 +1401,6 @@ func NSUserName() NSString {
 	}
 	return _nSUserName()
 }
-
-
 
 var _nSZoneCalloc func(zone *NSZone, numElems uint, byteSize uint) unsafe.Pointer
 
@@ -1596,7 +1416,6 @@ func NSZoneCalloc(zone *NSZone, numElems uint, byteSize uint) unsafe.Pointer {
 	return _nSZoneCalloc(zone, numElems, byteSize)
 }
 
-
 var _nSZoneFree func(zone *NSZone, ptr unsafe.Pointer)
 
 // NSZoneFree deallocates a block of memory in the specified zone.
@@ -1610,7 +1429,6 @@ func NSZoneFree(zone *NSZone, ptr unsafe.Pointer) {
 	}
 	_nSZoneFree(zone, ptr)
 }
-
 
 var _nSZoneFromPointer func(ptr unsafe.Pointer) *NSZone
 
@@ -1626,7 +1444,6 @@ func NSZoneFromPointer(ptr unsafe.Pointer) *NSZone {
 	return _nSZoneFromPointer(ptr)
 }
 
-
 var _nSZoneMalloc func(zone *NSZone, size uint) unsafe.Pointer
 
 // NSZoneMalloc allocates memory in a zone.
@@ -1640,7 +1457,6 @@ func NSZoneMalloc(zone *NSZone, size uint) unsafe.Pointer {
 	}
 	return _nSZoneMalloc(zone, size)
 }
-
 
 var _nSZoneName func(zone *NSZone) NSString
 
@@ -1656,7 +1472,6 @@ func NSZoneName(zone *NSZone) NSString {
 	return _nSZoneName(zone)
 }
 
-
 var _nSZoneRealloc func(zone *NSZone, ptr unsafe.Pointer, size uint) unsafe.Pointer
 
 // NSZoneRealloc allocates memory in a zone.
@@ -1671,10 +1486,11 @@ func NSZoneRealloc(zone *NSZone, ptr unsafe.Pointer, size uint) unsafe.Pointer {
 	return _nSZoneRealloc(zone, ptr, size)
 }
 
-
 var _nXReadNSObjectFromCoder func(decoder *NSCoder) *objectivec.Object
 
 // NXReadNSObjectFromCoder returns the next object from the coder.
+//
+// Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/Foundation/NXReadNSObjectFromCoder
 func NXReadNSObjectFromCoder(decoder *NSCoder) *objectivec.Object {
@@ -1683,8 +1499,6 @@ func NXReadNSObjectFromCoder(decoder *NSCoder) *objectivec.Object {
 	}
 	return _nXReadNSObjectFromCoder(decoder)
 }
-
-
 
 func init() {
 	if frameworkHandle == 0 {
@@ -1800,5 +1614,4 @@ func init() {
 		registerFunc(&_nSZoneRealloc, frameworkHandle, "NSZoneRealloc")
 		registerFunc(&_nXReadNSObjectFromCoder, frameworkHandle, "NXReadNSObjectFromCoder")
 	}
-
 

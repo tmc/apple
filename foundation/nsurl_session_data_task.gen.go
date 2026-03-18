@@ -35,12 +35,6 @@ func (uc URLSessionDataTaskClass) Alloc() URLSessionDataTask {
 	return rv
 }
 
-
-
-
-
-
-
 // A URL session task that returns downloaded data directly to the app in
 // memory.
 //
@@ -90,20 +84,12 @@ func NSURLSessionDataTaskFromID(id objc.ID) URLSessionDataTask { return URLSessi
 // NOTE: URLSessionDataTask adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [URLSessionDataTask] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDataTask
 type IURLSessionDataTask interface {
 	INSURLSessionTask
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u URLSessionDataTask) Init() URLSessionDataTask {
@@ -123,48 +109,4 @@ func NewURLSessionDataTask() URLSessionDataTask {
 	rv := objc.Send[URLSessionDataTask](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

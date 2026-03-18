@@ -36,12 +36,6 @@ func (mc MTLBlitPassDescriptorClass) Alloc() MTLBlitPassDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration you create to customize a blit command encoder, which
 // affects the runtime behavior of the blit pass you encode with it.
 //
@@ -65,14 +59,10 @@ type MTLBlitPassDescriptor struct {
 // A configuration you create to customize a blit command encoder, which
 // affects the runtime behavior of the blit pass you encode with it.
 func MTLBlitPassDescriptorFromID(id objc.ID) MTLBlitPassDescriptor {
-	return MTLBlitPassDescriptor{objectivec.Object{id}}
+	return MTLBlitPassDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLBlitPassDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLBlitPassDescriptor] class.
 //
@@ -89,10 +79,6 @@ type IMTLBlitPassDescriptor interface {
 	// An array of counter sample buffer attachments that you configure for a blit pass.
 	SampleBufferAttachments() IMTLBlitPassSampleBufferAttachmentDescriptorArray
 }
-
-
-
-
 
 // Init initializes the instance.
 func (b MTLBlitPassDescriptor) Init() MTLBlitPassDescriptor {
@@ -113,19 +99,6 @@ func NewMTLBlitPassDescriptor() MTLBlitPassDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Creates a new blit pass descriptor with a default configuration.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitPassDescriptor/blitPassDescriptor
@@ -133,13 +106,6 @@ func (_MTLBlitPassDescriptorClass MTLBlitPassDescriptorClass) BlitPassDescriptor
 	rv := objc.Send[objc.ID](objc.ID(_MTLBlitPassDescriptorClass.class), objc.Sel("blitPassDescriptor"))
 	return MTLBlitPassDescriptorFromID(rv)
 }
-
-
-
-
-
-
-
 
 // An array of counter sample buffer attachments that you configure for a blit
 // pass.
@@ -158,27 +124,4 @@ func (b MTLBlitPassDescriptor) SampleBufferAttachments() IMTLBlitPassSampleBuffe
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLBlitPassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

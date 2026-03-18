@@ -36,12 +36,6 @@ func (nc NSDataDetectorClass) Alloc() NSDataDetector {
 	return rv
 }
 
-
-
-
-
-
-
 // A specialized regular expression object that matches natural language text
 // for predefined data patterns.
 //
@@ -114,10 +108,6 @@ func NSDataDetectorFromID(id objc.ID) NSDataDetector {
 // NOTE: NSDataDetector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSDataDetector] class.
 //
 // # Creating data detector instances
@@ -159,10 +149,6 @@ type INSDataDetector interface {
 	SetUrl(value INSURL)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (d NSDataDetector) Init() NSDataDetector {
 	rv := objc.Send[NSDataDetector](d.ID, objc.Sel("init"))
@@ -182,11 +168,6 @@ func NewNSDataDetector() NSDataDetector {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewDataDetectorWithCoder(coder INSCoder) NSDataDetector {
@@ -194,7 +175,6 @@ func NewDataDetectorWithCoder(coder INSCoder) NSDataDetector {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSDataDetectorFromID(rv)
 }
-
 
 // Returns an initialized NSRegularExpression instance with the specified
 // regular expression pattern and options.
@@ -224,7 +204,6 @@ func NewDataDetectorWithPatternOptionsError(pattern string, options NSRegularExp
 	}
 	return NSDataDetectorFromID(rv), nil
 }
-
 
 // Initializes and returns a data detector instance.
 //
@@ -258,12 +237,6 @@ func NewDataDetectorWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDet
 	return NSDataDetectorFromID(rv), nil
 }
 
-
-
-
-
-
-
 // Initializes and returns a data detector instance.
 //
 // checkingTypes: The checking types. The supported checking types are a subset of the types
@@ -286,7 +259,7 @@ func NewDataDetectorWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDet
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDataDetector/init(types:)
 func (d NSDataDetector) InitWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDetector, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithTypes:error:"), checkingTypes, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -295,10 +268,6 @@ func (d NSDataDetector) InitWithTypesError(checkingTypes NSTextCheckingTypes) (N
 	return NSDataDetectorFromID(rv), nil
 
 }
-
-
-
-
 
 // Creates and returns a new data detector instance.
 //
@@ -325,7 +294,7 @@ func (d NSDataDetector) InitWithTypesError(checkingTypes NSTextCheckingTypes) (N
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDataDetector/dataDetectorWithTypes:error:
 func (_NSDataDetectorClass NSDataDetectorClass) DataDetectorWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDetector, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSDataDetectorClass.class), objc.Sel("dataDetectorWithTypes:error:"), checkingTypes, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -334,13 +303,6 @@ func (_NSDataDetectorClass NSDataDetectorClass) DataDetectorWithTypesError(check
 	return NSDataDetectorFromID(rv), nil
 
 }
-
-
-
-
-
-
-
 
 // Returns the checking types for the data detector.
 //
@@ -363,8 +325,6 @@ func (d NSDataDetector) CheckingTypes() NSTextCheckingTypes {
 	return NSTextCheckingTypes(rv)
 }
 
-
-
 // Attempts to locate dates.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/date
@@ -375,8 +335,6 @@ func (d NSDataDetector) Date() NSTextCheckingType {
 func (d NSDataDetector) SetDate(value NSTextCheckingType) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeDate:"), value)
 }
-
-
 
 // The duration component of a type checking result.
 //
@@ -389,8 +347,6 @@ func (d NSDataDetector) SetDuration(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDuration:"), value)
 }
 
-
-
 // Attempts to locate URL links.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/link
@@ -401,8 +357,6 @@ func (d NSDataDetector) Link() NSTextCheckingType {
 func (d NSDataDetector) SetLink(value NSTextCheckingType) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSTextCheckingTypeLink:"), value)
 }
-
-
 
 // The time zone component of a type checking result.
 //
@@ -415,8 +369,6 @@ func (d NSDataDetector) SetTimeZone(value INSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
 
-
-
 // The URL of a type checking result.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/url
@@ -427,31 +379,4 @@ func (d NSDataDetector) Url() INSURL {
 func (d NSDataDetector) SetUrl(value INSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setURL:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

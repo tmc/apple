@@ -36,12 +36,6 @@ func (nc NSScriptSuiteRegistryClass) Alloc() NSScriptSuiteRegistry {
 	return rv
 }
 
-
-
-
-
-
-
 // The top-level repository of scriptability information for an app at
 // runtime.
 //
@@ -123,14 +117,10 @@ type NSScriptSuiteRegistry struct {
 // The top-level repository of scriptability information for an app at
 // runtime.
 func NSScriptSuiteRegistryFromID(id objc.ID) NSScriptSuiteRegistry {
-	return NSScriptSuiteRegistry{objectivec.Object{id}}
+	return NSScriptSuiteRegistry{objectivec.Object{ID: id}}
 }
 // NOTE: NSScriptSuiteRegistry adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSScriptSuiteRegistry] class.
 //
@@ -208,10 +198,6 @@ type INSScriptSuiteRegistry interface {
 	LoadSuitesFromBundle(bundle INSBundle)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSScriptSuiteRegistry) Init() NSScriptSuiteRegistry {
 	rv := objc.Send[NSScriptSuiteRegistry](s.ID, objc.Sel("init"))
@@ -230,15 +216,6 @@ func NewNSScriptSuiteRegistry() NSScriptSuiteRegistry {
 	rv := objc.Send[NSScriptSuiteRegistry](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns the name of the suite definition associated with the given
 // four-character Apple event code, `code`.
@@ -406,10 +383,6 @@ func (s NSScriptSuiteRegistry) LoadSuitesFromBundle(bundle INSBundle) {
 	objc.Send[objc.ID](s.ID, objc.Sel("loadSuitesFromBundle:"), bundle)
 }
 
-
-
-
-
 // Sets the single, shared instance of [NSScriptSuiteRegistry] to `registry`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptSuiteRegistry/setShared(_:)
@@ -437,13 +410,6 @@ func (_NSScriptSuiteRegistryClass NSScriptSuiteRegistryClass) SharedScriptSuiteR
 	return NSScriptSuiteRegistryFromID(rv)
 }
 
-
-
-
-
-
-
-
 // Returns the names of the suite definitions currently loaded by the
 // application.
 //
@@ -452,26 +418,4 @@ func (s NSScriptSuiteRegistry) SuiteNames() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("suiteNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

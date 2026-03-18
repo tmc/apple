@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // An interface you use to manage connections between the guest operating system and host computer.
 //
@@ -17,8 +15,6 @@ var _ = fmt.Sprintf
 type VZVirtioSocketListenerDelegate interface {
 	objectivec.IObject
 }
-
-
 
 // VZVirtioSocketListenerDelegateObject wraps an existing Objective-C object that conforms to the VZVirtioSocketListenerDelegate protocol.
 type VZVirtioSocketListenerDelegateObject struct {
@@ -28,8 +24,6 @@ func (o VZVirtioSocketListenerDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // VZVirtioSocketListenerDelegateObjectFromID constructs a [VZVirtioSocketListenerDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func VZVirtioSocketListenerDelegateObjectFromID(id objc.ID) VZVirtioSocketListenerDelegateObject {
@@ -37,9 +31,6 @@ func VZVirtioSocketListenerDelegateObjectFromID(id objc.ID) VZVirtioSocketListen
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a Boolean value that indicates whether to accept a new connection
 // from the guest operating system.
@@ -78,10 +69,6 @@ func (o VZVirtioSocketListenerDelegateObject) ListenerShouldAcceptNewConnectionF
 	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:fromSocketDevice:"), listener, connection, socketDevice)
 	return rv
 	}
-
-
-
-
 
 // VZVirtioSocketListenerDelegateConfig holds optional typed callbacks for [VZVirtioSocketListenerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -145,8 +132,4 @@ func NewVZVirtioSocketListenerDelegate(config VZVirtioSocketListenerDelegateConf
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return VZVirtioSocketListenerDelegateObjectFromID(instance)
 }
-
-
-
-
 

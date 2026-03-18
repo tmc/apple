@@ -36,12 +36,6 @@ func (hc HasEvaluatedArgumentsClass) Alloc() HasEvaluatedArguments {
 	return rv
 }
 
-
-
-
-
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/struct_(unnamed)/hasEvaluatedArguments
 type HasEvaluatedArguments struct {
 	objectivec.Object
@@ -49,14 +43,10 @@ type HasEvaluatedArguments struct {
 
 // HasEvaluatedArgumentsFromID constructs a [HasEvaluatedArguments] from an objc.ID.
 func HasEvaluatedArgumentsFromID(id objc.ID) HasEvaluatedArguments {
-	return HasEvaluatedArguments{objectivec.Object{id}}
+	return HasEvaluatedArguments{objectivec.Object{ID: id}}
 }
 // Ensure HasEvaluatedArguments implements IHasEvaluatedArguments.
 var _ IHasEvaluatedArguments = HasEvaluatedArguments{}
-
-
-
-
 
 // An interface definition for the [HasEvaluatedArguments] class.
 //
@@ -64,10 +54,6 @@ var _ IHasEvaluatedArguments = HasEvaluatedArguments{}
 type IHasEvaluatedArguments interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (h HasEvaluatedArguments) Init() HasEvaluatedArguments {
@@ -87,38 +73,4 @@ func NewHasEvaluatedArguments() HasEvaluatedArguments {
 	rv := objc.Send[HasEvaluatedArguments](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

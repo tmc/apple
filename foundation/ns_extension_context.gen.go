@@ -37,12 +37,6 @@ func (nc NSExtensionContextClass) Alloc() NSExtensionContext {
 	return rv
 }
 
-
-
-
-
-
-
 // The host app context from which an app extension is invoked.
 //
 // # Overview
@@ -99,14 +93,10 @@ type NSExtensionContext struct {
 //
 // The host app context from which an app extension is invoked.
 func NSExtensionContextFromID(id objc.ID) NSExtensionContext {
-	return NSExtensionContext{objectivec.Object{id}}
+	return NSExtensionContext{objectivec.Object{ID: id}}
 }
 // NOTE: NSExtensionContext adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSExtensionContext] class.
 //
@@ -202,10 +192,6 @@ type INSExtensionContext interface {
 	NSExtensionHostWillEnterForeground() NSNotificationName
 }
 
-
-
-
-
 // Init initializes the instance.
 func (e NSExtensionContext) Init() NSExtensionContext {
 	rv := objc.Send[NSExtensionContext](e.ID, objc.Sel("init"))
@@ -224,15 +210,6 @@ func NewNSExtensionContext() NSExtensionContext {
 	rv := objc.Send[NSExtensionContext](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Tells the host app to complete the app extension request with an array of
 // result items.
@@ -261,9 +238,9 @@ func NewNSExtensionContext() NSExtensionContext {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/completeRequest(returningItems:completionHandler:)
 func (e NSExtensionContext) CompleteRequestReturningItemsCompletionHandler(items INSArray, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](e.ID, objc.Sel("completeRequestReturningItems:completionHandler:"), items, _block1)
+	objc.Send[objc.ID](e.ID, objc.Sel("completeRequestReturningItems:completionHandler:"), items, _block1)
 }
 
 // Tells the host app to cancel the app extension request, with a supplied
@@ -302,9 +279,9 @@ func (e NSExtensionContext) CancelRequestWithError(error_ INSError) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/open(_:completionHandler:)
 func (e NSExtensionContext) OpenURLCompletionHandler(URL INSURL, completionHandler ErrorHandler) {
-		_block1, _cleanup1 := NewErrorBlock(completionHandler)
+_block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](e.ID, objc.Sel("openURL:completionHandler:"), URL, _block1)
+	objc.Send[objc.ID](e.ID, objc.Sel("openURL:completionHandler:"), URL, _block1)
 }
 
 // Tells the system that the Notification Content app extension began playing
@@ -349,9 +326,9 @@ func (e NSExtensionContext) MediaPlayingPaused() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/loadBroadcastingApplicationInfo(completion:)
 func (e NSExtensionContext) LoadBroadcastingApplicationInfoWithCompletion(handler VoidHandler) {
-		_block0, _cleanup0 := NewVoidBlock(handler)
+_block0, _cleanup0 := NewVoidBlock(handler)
 	defer _cleanup0()
-		objc.Send[objc.ID](e.ID, objc.Sel("loadBroadcastingApplicationInfoWithCompletion:"), _block0)
+	objc.Send[objc.ID](e.ID, objc.Sel("loadBroadcastingApplicationInfoWithCompletion:"), _block0)
 }
 
 //
@@ -370,17 +347,6 @@ func (e NSExtensionContext) DismissNotificationContentExtension() {
 	objc.Send[objc.ID](e.ID, objc.Sel("dismissNotificationContentExtension"))
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The extension items and errors key.
 //
 // See: https://developer.apple.com/documentation/foundation/nsextensionitemsanderrorskey
@@ -388,8 +354,6 @@ func (e NSExtensionContext) NSExtensionItemsAndErrorsKey() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSExtensionItemsAndErrorsKey"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The list of input [NSExtensionItem] objects associated with the context.
 //
@@ -403,8 +367,6 @@ func (e NSExtensionContext) InputItems() INSArray {
 	return NSArrayFromID(objc.ID(rv))
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/notificationActions
 func (e NSExtensionContext) NotificationActions() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("notificationActions"))
@@ -416,8 +378,6 @@ func (e NSExtensionContext) SetNotificationActions(value []objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNotificationActions:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // Posted when the extension’s host app moves from the inactive to the
 // active state.
 //
@@ -426,8 +386,6 @@ func (e NSExtensionContext) NSExtensionHostDidBecomeActive() NSNotificationName 
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSExtensionHostDidBecomeActiveNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
 
 // Posted when the extension’s host app moves from the active to the
 // inactive state.
@@ -438,8 +396,6 @@ func (e NSExtensionContext) NSExtensionHostWillResignActive() NSNotificationName
 	return NSNotificationName(NSStringFromID(rv).String())
 }
 
-
-
 // Posted when the extension’s host app begins running in the background.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsextensionhostdidenterbackground
@@ -448,8 +404,6 @@ func (e NSExtensionContext) NSExtensionHostDidEnterBackground() NSNotificationNa
 	return NSNotificationName(NSStringFromID(rv).String())
 }
 
-
-
 // Posted when the extension’s host app begins running in the foreground.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsextensionhostwillenterforeground
@@ -457,23 +411,6 @@ func (e NSExtensionContext) NSExtensionHostWillEnterForeground() NSNotificationN
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSExtensionHostWillEnterForegroundNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // LoadBroadcastingApplicationInfo is a synchronous wrapper around [NSExtensionContext.LoadBroadcastingApplicationInfoWithCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
@@ -489,8 +426,4 @@ func (e NSExtensionContext) LoadBroadcastingApplicationInfo(ctx context.Context)
 		return ctx.Err()
 	}
 }
-
-
-
-
 

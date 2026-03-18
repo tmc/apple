@@ -25,8 +25,6 @@ type MTL4BinaryFunction interface {
 	Name() string
 }
 
-
-
 // MTL4BinaryFunctionObject wraps an existing Objective-C object that conforms to the MTL4BinaryFunction protocol.
 type MTL4BinaryFunctionObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o MTL4BinaryFunctionObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTL4BinaryFunctionObjectFromID constructs a [MTL4BinaryFunctionObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTL4BinaryFunctionObjectFromID(id objc.ID) MTL4BinaryFunctionObject {
@@ -44,9 +40,6 @@ func MTL4BinaryFunctionObjectFromID(id objc.ID) MTL4BinaryFunctionObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Describes the type of this binary function.
 //
@@ -67,14 +60,4 @@ func (o MTL4BinaryFunctionObject) Name() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
-
-
-
-
-
-
-
-
-
 

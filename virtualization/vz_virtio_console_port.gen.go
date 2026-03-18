@@ -37,12 +37,6 @@ func (vc VZVirtioConsolePortClass) Alloc() VZVirtioConsolePort {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a Virtio console port in a VM.
 //
 // # Overview
@@ -65,14 +59,10 @@ type VZVirtioConsolePort struct {
 //
 // A class that represents a Virtio console port in a VM.
 func VZVirtioConsolePortFromID(id objc.ID) VZVirtioConsolePort {
-	return VZVirtioConsolePort{objectivec.Object{id}}
+	return VZVirtioConsolePort{objectivec.Object{ID: id}}
 }
 // NOTE: VZVirtioConsolePort adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZVirtioConsolePort] class.
 //
@@ -99,10 +89,6 @@ type IVZVirtioConsolePort interface {
 	SetPorts(value IVZVirtioConsolePortArray)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioConsolePort) Init() VZVirtioConsolePort {
 	rv := objc.Send[VZVirtioConsolePort](v.ID, objc.Sel("init"))
@@ -122,26 +108,6 @@ func NewVZVirtioConsolePort() VZVirtioConsolePort {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The name of the port.
 //
 // # Discussion
@@ -154,8 +120,6 @@ func (v VZVirtioConsolePort) Name() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // An array of serial port attachments.
 //
@@ -172,8 +136,6 @@ func (v VZVirtioConsolePort) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
 
-
-
 // The array of console ports that a specific device uses.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtioconsoledevice/ports
@@ -184,26 +146,4 @@ func (v VZVirtioConsolePort) Ports() IVZVirtioConsolePortArray {
 func (v VZVirtioConsolePort) SetPorts(value IVZVirtioConsolePortArray) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPorts:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

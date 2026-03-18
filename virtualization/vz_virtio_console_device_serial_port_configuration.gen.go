@@ -35,12 +35,6 @@ func (vc VZVirtioConsoleDeviceSerialPortConfigurationClass) Alloc() VZVirtioCons
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration object that requests the creation of a console device to
 // communicate with the guest system.
 //
@@ -70,20 +64,12 @@ func VZVirtioConsoleDeviceSerialPortConfigurationFromID(id objc.ID) VZVirtioCons
 // NOTE: VZVirtioConsoleDeviceSerialPortConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioConsoleDeviceSerialPortConfiguration] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceSerialPortConfiguration
 type IVZVirtioConsoleDeviceSerialPortConfiguration interface {
 	IVZSerialPortConfiguration
 }
-
-
-
-
 
 // Init initializes the instance.
 func (v VZVirtioConsoleDeviceSerialPortConfiguration) Init() VZVirtioConsoleDeviceSerialPortConfiguration {
@@ -103,46 +89,4 @@ func NewVZVirtioConsoleDeviceSerialPortConfiguration() VZVirtioConsoleDeviceSeri
 	rv := objc.Send[VZVirtioConsoleDeviceSerialPortConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

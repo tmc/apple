@@ -37,12 +37,6 @@ func (vc VNVectorClass) Alloc() VNVector {
 	return rv
 }
 
-
-
-
-
-
-
 // An immutable 2D vector represented by its x-axis and y-axis projections.
 //
 // # Creating a Vector
@@ -69,14 +63,10 @@ type VNVector struct {
 //
 // An immutable 2D vector represented by its x-axis and y-axis projections.
 func VNVectorFromID(id objc.ID) VNVector {
-	return VNVector{objectivec.Object{id}}
+	return VNVector{objectivec.Object{ID: id}}
 }
 // NOTE: VNVector adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNVector] class.
 //
@@ -126,10 +116,6 @@ type IVNVector interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VNVector) Init() VNVector {
 	rv := objc.Send[VNVector](v.ID, objc.Sel("init"))
@@ -149,11 +135,6 @@ func NewVNVector() VNVector {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new vector by adding the specified vectors.
 //
 // v1: The first vector.
@@ -165,7 +146,6 @@ func NewVectorByAddingVectorToVector(v1 IVNVector, v2 IVNVector) VNVector {
 	rv := objc.Send[objc.ID](objc.ID(getVNVectorClass().class), objc.Sel("vectorByAddingVector:toVector:"), v1, v2)
 	return VNVectorFromID(rv)
 }
-
 
 // Creates a new vector by multiplying the specified vector’s x-axis and
 // y-axis projections by the scalar value.
@@ -180,7 +160,6 @@ func NewVectorByMultiplyingVectorByScalar(vector IVNVector, scalar float64) VNVe
 	return VNVectorFromID(rv)
 }
 
-
 // Creates a new vector by subtracting the first vector from the second
 // vector.
 //
@@ -193,7 +172,6 @@ func NewVectorBySubtractingVectorFromVector(v1 IVNVector, v2 IVNVector) VNVector
 	rv := objc.Send[objc.ID](objc.ID(getVNVectorClass().class), objc.Sel("vectorBySubtractingVector:fromVector:"), v1, v2)
 	return VNVectorFromID(rv)
 }
-
 
 // Creates a new vector in polar coordinate space.
 //
@@ -208,7 +186,6 @@ func NewVectorWithRTheta(r float64, theta float64) VNVector {
 	return VNVectorFromID(rv)
 }
 
-
 // Creates a new vector in Cartesian coordinate space.
 //
 // head: The vector’s head point.
@@ -221,7 +198,6 @@ func NewVectorWithVectorHeadTail(head IVNPoint, tail IVNPoint) VNVector {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithVectorHead:tail:"), head, tail)
 	return VNVectorFromID(rv)
 }
-
 
 // Creates a new vector in Cartesian coordinate space, based on its x-axis and
 // y-axis projections.
@@ -236,12 +212,6 @@ func NewVectorWithXComponentYComponent(x float64, y float64) VNVector {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXComponent:yComponent:"), x, y)
 	return VNVectorFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a new vector in polar coordinate space.
 //
@@ -283,10 +253,6 @@ func (v VNVector) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](v.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
 // Caclulates the dot product of two vectors.
 //
 // v1: The first vector.
@@ -318,13 +284,6 @@ func (_VNVectorClass VNVectorClass) UnitVectorForVector(vector IVNVector) VNVect
 	return VNVectorFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The length, or absolute value, of the vector.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/length
@@ -333,8 +292,6 @@ func (v VNVector) Length() float64 {
 	return rv
 }
 
-
-
 // The radius, absolute value, or length of the vector.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/r
@@ -342,8 +299,6 @@ func (v VNVector) R() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("r"))
 	return rv
 }
-
-
 
 // The angle between the vector direction and the positive direction of the
 // x-axis.
@@ -354,8 +309,6 @@ func (v VNVector) Theta() float64 {
 	return rv
 }
 
-
-
 // The squared length of the vector.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/squaredLength
@@ -363,8 +316,6 @@ func (v VNVector) SquaredLength() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("squaredLength"))
 	return rv
 }
-
-
 
 // A signed projection that indicates the vector’s direction on the x-axis.
 //
@@ -374,8 +325,6 @@ func (v VNVector) X() float64 {
 	return rv
 }
 
-
-
 // A signed projection that indicates the vector’s direction on the y-axis.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/y
@@ -384,12 +333,6 @@ func (v VNVector) Y() float64 {
 	return rv
 }
 
-
-
-
-
-
-
 // A vector object with zero length.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/zero
@@ -397,25 +340,4 @@ func (_VNVectorClass VNVectorClass) ZeroVector() VNVector {
 	rv := objc.Send[objc.ID](objc.ID(_VNVectorClass.class), objc.Sel("zeroVector"))
 	return VNVectorFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

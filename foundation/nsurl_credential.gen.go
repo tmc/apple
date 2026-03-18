@@ -36,12 +36,6 @@ func (uc URLCredentialClass) Alloc() URLCredential {
 	return rv
 }
 
-
-
-
-
-
-
 // [A]n authentication credential consisting of information specific to the
 // type of credential and the type of persistent storage to use, if any.
 //
@@ -82,17 +76,13 @@ type URLCredential struct {
 // [A]n authentication credential consisting of information specific to the
 // type of credential and the type of persistent storage to use, if any.
 func URLCredentialFromID(id objc.ID) URLCredential {
-	return NSURLCredential{objectivec.Object{id}}
+	return NSURLCredential{objectivec.Object{ID: id}}
 }
 
 // NSURLCredentialFromID is an alias for [URLCredentialFromID] for cross-framework compatibility.
 func NSURLCredentialFromID(id objc.ID) URLCredential { return URLCredentialFromID(id) }
 // NOTE: URLCredential adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [URLCredential] class.
 //
@@ -114,7 +104,9 @@ func NSURLCredentialFromID(id objc.ID) URLCredential { return URLCredentialFromI
 // See: https://developer.apple.com/documentation/Foundation/URLCredential
 type IURLCredential interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Creating a credential
 
@@ -139,15 +131,7 @@ type IURLCredential interface {
 	Identity() objectivec.IObject
 	// The credential’s persistence setting.
 	Persistence() NSURLCredentialPersistence
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) URLCredential
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u URLCredential) Init() URLCredential {
@@ -168,11 +152,6 @@ func NewURLCredential() URLCredential {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewURLCredentialWithCoder(coder INSCoder) URLCredential {
@@ -180,7 +159,6 @@ func NewURLCredentialWithCoder(coder INSCoder) URLCredential {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return URLCredentialFromID(rv)
 }
-
 
 // Creates a URL credential instance for resolving a client certificate
 // authentication challenge.
@@ -225,7 +203,6 @@ func NewURLCredentialWithIdentityCertificatesPersistence(identity objectivec.IOb
 	return URLCredentialFromID(rv)
 }
 
-
 // Creates a URL credential instance for server trust authentication,
 // initialized with a accepted trust.
 //
@@ -258,7 +235,6 @@ func NewURLCredentialWithTrust(trust objectivec.IObject) URLCredential {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTrust:"), trust)
 	return URLCredentialFromID(rv)
 }
-
 
 // Creates a URL credential instance initialized with a given user name and
 // password, using a given persistence setting.
@@ -293,12 +269,6 @@ func NewURLCredentialWithUserPasswordPersistence(user string, password string, p
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUser:password:persistence:"), objc.String(user), objc.String(password), persistence)
 	return URLCredentialFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a URL credential instance for resolving a client certificate
 // authentication challenge.
@@ -425,10 +395,6 @@ func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
 	return rv
 }
 
-
-
-
-
 //
 // trust is a [security.SecTrustRef].
 //
@@ -523,13 +489,6 @@ func (_URLCredentialClass URLCredentialClass) CredentialWithUserPasswordPersiste
 	return NSURLCredentialFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The credential’s user name.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/user
@@ -537,8 +496,6 @@ func (u URLCredential) User() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("user"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The intermediate certificates of the credential, if it is a client
 // certificate credential.
@@ -557,8 +514,6 @@ func (u URLCredential) Certificates() INSArray {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("certificates"))
 	return NSArrayFromID(objc.ID(rv))
 }
-
-
 
 // A Boolean value that indicates whether the credential has a password.
 //
@@ -581,8 +536,6 @@ func (u URLCredential) HasPassword() bool {
 	return rv
 }
 
-
-
 // The credential’s password.
 //
 // # Discussion
@@ -598,8 +551,6 @@ func (u URLCredential) Password() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The identity of this credential if it is a client certificate credential.
 //
 // # Discussion
@@ -613,8 +564,6 @@ func (u URLCredential) Identity() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-
-
 // The credential’s persistence setting.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/persistence-swift.property
@@ -623,35 +572,9 @@ func (u URLCredential) Persistence() NSURLCredentialPersistence {
 	return NSURLCredentialPersistence(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

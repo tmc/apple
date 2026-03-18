@@ -37,12 +37,6 @@ func (mc MTL4PipelineDescriptorClass) Alloc() MTL4PipelineDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // Base type for descriptors you use for building pipeline state objects.
 //
 // # Instance Properties
@@ -61,14 +55,10 @@ type MTL4PipelineDescriptor struct {
 //
 // Base type for descriptors you use for building pipeline state objects.
 func MTL4PipelineDescriptorFromID(id objc.ID) MTL4PipelineDescriptor {
-	return MTL4PipelineDescriptor{objectivec.Object{id}}
+	return MTL4PipelineDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4PipelineDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4PipelineDescriptor] class.
 //
@@ -93,10 +83,6 @@ type IMTL4PipelineDescriptor interface {
 	SetOptions(value IMTL4PipelineOptions)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m MTL4PipelineDescriptor) Init() MTL4PipelineDescriptor {
 	rv := objc.Send[MTL4PipelineDescriptor](m.ID, objc.Sel("init"))
@@ -116,26 +102,6 @@ func NewMTL4PipelineDescriptor() MTL4PipelineDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Assigns an optional string that uniquely identifies a pipeline descriptor.
 //
 // # Discussion
@@ -152,8 +118,6 @@ func (m MTL4PipelineDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
 
-
-
 // Provides compile-time options when you build the pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PipelineDescriptor/options
@@ -164,27 +128,4 @@ func (m MTL4PipelineDescriptor) Options() IMTL4PipelineOptions {
 func (m MTL4PipelineDescriptor) SetOptions(value IMTL4PipelineOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOptions:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

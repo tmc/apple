@@ -45,8 +45,6 @@ type MTLBinding interface {
 	Type() MTLBindingType
 }
 
-
-
 // MTLBindingObject wraps an existing Objective-C object that conforms to the MTLBinding protocol.
 type MTLBindingObject struct {
 	objectivec.Object
@@ -55,8 +53,6 @@ func (o MTLBindingObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLBindingObjectFromID constructs a [MTLBindingObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLBindingObjectFromID(id objc.ID) MTLBindingObject {
@@ -64,9 +60,6 @@ func MTLBindingObjectFromID(id objc.ID) MTLBindingObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/access
 
@@ -115,22 +108,4 @@ func (o MTLBindingObject) Type() MTLBindingType {
 	rv := objc.Send[MTLBindingType](o.ID, objc.Sel("type"))
 	return rv
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

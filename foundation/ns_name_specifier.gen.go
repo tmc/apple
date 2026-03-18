@@ -35,12 +35,6 @@ func (nc NSNameSpecifierClass) Alloc() NSNameSpecifier {
 	return rv
 }
 
-
-
-
-
-
-
 // A specifier for an object in a collection (or container) by name.
 //
 // # Overview
@@ -92,10 +86,6 @@ func NSNameSpecifierFromID(id objc.ID) NSNameSpecifier {
 // NOTE: NSNameSpecifier adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSNameSpecifier] class.
 //
 // # Initializing a name specifier
@@ -123,10 +113,6 @@ type INSNameSpecifier interface {
 	SetName(value string)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (n NSNameSpecifier) Init() NSNameSpecifier {
 	rv := objc.Send[NSNameSpecifier](n.ID, objc.Sel("init"))
@@ -146,11 +132,6 @@ func NewNSNameSpecifier() NSNameSpecifier {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNameSpecifier/init(coder:)
 func NewNameSpecifierWithCoder(inCoder INSCoder) NSNameSpecifier {
@@ -158,7 +139,6 @@ func NewNameSpecifierWithCoder(inCoder INSCoder) NSNameSpecifier {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSNameSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with the given
 // attributes.
@@ -183,7 +163,6 @@ func NewNameSpecifierWithContainerClassDescriptionContainerSpecifierKey(classDes
 	return NSNameSpecifierFromID(rv)
 }
 
-
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] method and then
 // sets the name instance variable to `name`.
@@ -194,7 +173,6 @@ func NewNameSpecifierWithContainerClassDescriptionContainerSpecifierKeyName(clas
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:name:"), classDesc, container, objc.String(property), objc.String(name))
 	return NSNameSpecifierFromID(rv)
 }
-
 
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
@@ -215,12 +193,6 @@ func NewNameSpecifierWithContainerSpecifierKey(container INSScriptObjectSpecifie
 	return NSNameSpecifierFromID(rv)
 }
 
-
-
-
-
-
-
 // Invokes the super class’s
 // [InitWithContainerClassDescriptionContainerSpecifierKey] method and then
 // sets the name instance variable to `name`.
@@ -230,17 +202,6 @@ func (n NSNameSpecifier) InitWithContainerClassDescriptionContainerSpecifierKeyN
 	rv := objc.Send[NSNameSpecifier](n.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:name:"), classDesc, container, objc.String(property), objc.String(name))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Sets the name encapsulated with the receiver for the specified object in
 // the container.
@@ -253,29 +214,4 @@ func (n NSNameSpecifier) Name() string {
 func (n NSNameSpecifier) SetName(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setName:"), objc.String(value))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

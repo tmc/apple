@@ -36,12 +36,6 @@ func (vc VZVirtioConsolePortConfigurationClass) Alloc() VZVirtioConsolePortConfi
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents the configuration options you can set on a Virtio
 // console port.
 //
@@ -75,10 +69,6 @@ func VZVirtioConsolePortConfigurationFromID(id objc.ID) VZVirtioConsolePortConfi
 // NOTE: VZVirtioConsolePortConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZVirtioConsolePortConfiguration] class.
 //
 // # Configuring the port
@@ -106,10 +96,6 @@ type IVZVirtioConsolePortConfiguration interface {
 	SetConsoleDevices(value IVZConsoleDeviceConfiguration)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (v VZVirtioConsolePortConfiguration) Init() VZVirtioConsolePortConfiguration {
 	rv := objc.Send[VZVirtioConsolePortConfiguration](v.ID, objc.Sel("init"))
@@ -129,27 +115,6 @@ func NewVZVirtioConsolePortConfiguration() VZVirtioConsolePortConfiguration {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // A Boolean value that indicates whether this port is a console.
 //
 // # Discussion
@@ -166,8 +131,6 @@ func (v VZVirtioConsolePortConfiguration) SetIsConsole(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIsConsole:"), value)
 }
 
-
-
 // The name of the port.
 //
 // # Discussion
@@ -183,8 +146,6 @@ func (v VZVirtioConsolePortConfiguration) SetName(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setName:"), objc.String(value))
 }
 
-
-
 // The array of console devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/consoledevices
@@ -195,27 +156,4 @@ func (v VZVirtioConsolePortConfiguration) ConsoleDevices() IVZConsoleDeviceConfi
 func (v VZVirtioConsolePortConfiguration) SetConsoleDevices(value IVZConsoleDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConsoleDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

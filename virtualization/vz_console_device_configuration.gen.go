@@ -36,12 +36,6 @@ func (vc VZConsoleDeviceConfigurationClass) Alloc() VZConsoleDeviceConfiguration
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a console device configuration.
 //
 // # Overview
@@ -58,14 +52,10 @@ type VZConsoleDeviceConfiguration struct {
 //
 // The base class for a console device configuration.
 func VZConsoleDeviceConfigurationFromID(id objc.ID) VZConsoleDeviceConfiguration {
-	return VZConsoleDeviceConfiguration{objectivec.Object{id}}
+	return VZConsoleDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZConsoleDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZConsoleDeviceConfiguration] class.
 //
@@ -73,10 +63,6 @@ func VZConsoleDeviceConfigurationFromID(id objc.ID) VZConsoleDeviceConfiguration
 type IVZConsoleDeviceConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c VZConsoleDeviceConfiguration) Init() VZConsoleDeviceConfiguration {
@@ -96,45 +82,4 @@ func NewVZConsoleDeviceConfiguration() VZConsoleDeviceConfiguration {
 	rv := objc.Send[VZConsoleDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

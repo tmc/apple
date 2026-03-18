@@ -35,12 +35,6 @@ func (nc NSGetCommandClass) Alloc() NSGetCommand {
 	return rv
 }
 
-
-
-
-
-
-
 // A command that retrieves a value or object from a scriptable object.
 //
 // # Overview
@@ -77,20 +71,12 @@ func NSGetCommandFromID(id objc.ID) NSGetCommand {
 // NOTE: NSGetCommand adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [NSGetCommand] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSGetCommand
 type INSGetCommand interface {
 	INSScriptCommand
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g NSGetCommand) Init() NSGetCommand {
@@ -111,11 +97,6 @@ func NewNSGetCommand() NSGetCommand {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func NewGetCommandWithCoder(inCoder INSCoder) NSGetCommand {
@@ -123,7 +104,6 @@ func NewGetCommandWithCoder(inCoder INSCoder) NSGetCommand {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), inCoder)
 	return NSGetCommandFromID(rv)
 }
-
 
 // Returns an a script command object initialized from the passed command
 // description.
@@ -145,44 +125,4 @@ func NewGetCommandWithCommandDescription(commandDef INSScriptCommandDescription)
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCommandDescription:"), commandDef)
 	return NSGetCommandFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

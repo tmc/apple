@@ -36,12 +36,6 @@ func (mc MTLRenderPipelineReflectionClass) Alloc() MTLRenderPipelineReflection {
 	return rv
 }
 
-
-
-
-
-
-
 // Information about the arguments of a graphics function.
 //
 // # Overview
@@ -78,14 +72,10 @@ type MTLRenderPipelineReflection struct {
 //
 // Information about the arguments of a graphics function.
 func MTLRenderPipelineReflectionFromID(id objc.ID) MTLRenderPipelineReflection {
-	return MTLRenderPipelineReflection{objectivec.Object{id}}
+	return MTLRenderPipelineReflection{objectivec.Object{ID: id}}
 }
 // NOTE: MTLRenderPipelineReflection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLRenderPipelineReflection] class.
 //
@@ -115,10 +105,6 @@ type IMTLRenderPipelineReflection interface {
 	VertexBindings() []objectivec.IObject
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r MTLRenderPipelineReflection) Init() MTLRenderPipelineReflection {
 	rv := objc.Send[MTLRenderPipelineReflection](r.ID, objc.Sel("init"))
@@ -138,26 +124,6 @@ func NewMTLRenderPipelineReflection() MTLRenderPipelineReflection {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s fragment shader.
 //
@@ -173,8 +139,6 @@ func (r MTLRenderPipelineReflection) FragmentBindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
-
 
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s mesh shader.
@@ -192,8 +156,6 @@ func (r MTLRenderPipelineReflection) MeshBindings() []objectivec.IObject {
 	})
 }
 
-
-
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s object shader.
 //
@@ -209,8 +171,6 @@ func (r MTLRenderPipelineReflection) ObjectBindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
-
 
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s tile shader.
@@ -228,8 +188,6 @@ func (r MTLRenderPipelineReflection) TileBindings() []objectivec.IObject {
 	})
 }
 
-
-
 // An array of binding instances, each of which represents a parameter of the
 // pipeline state’s vertex shader.
 //
@@ -245,28 +203,4 @@ func (r MTLRenderPipelineReflection) VertexBindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

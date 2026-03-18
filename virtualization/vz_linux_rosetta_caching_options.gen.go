@@ -36,12 +36,6 @@ func (vc VZLinuxRosettaCachingOptionsClass) Alloc() VZLinuxRosettaCachingOptions
 	return rv
 }
 
-
-
-
-
-
-
 // An abstract class that defines UNIX socket-based caching options for
 // Rosetta.
 //
@@ -64,14 +58,10 @@ type VZLinuxRosettaCachingOptions struct {
 // An abstract class that defines UNIX socket-based caching options for
 // Rosetta.
 func VZLinuxRosettaCachingOptionsFromID(id objc.ID) VZLinuxRosettaCachingOptions {
-	return VZLinuxRosettaCachingOptions{objectivec.Object{id}}
+	return VZLinuxRosettaCachingOptions{objectivec.Object{ID: id}}
 }
 // Ensure VZLinuxRosettaCachingOptions implements IVZLinuxRosettaCachingOptions.
 var _ IVZLinuxRosettaCachingOptions = VZLinuxRosettaCachingOptions{}
-
-
-
-
 
 // An interface definition for the [VZLinuxRosettaCachingOptions] class.
 //
@@ -79,10 +69,6 @@ var _ IVZLinuxRosettaCachingOptions = VZLinuxRosettaCachingOptions{}
 type IVZLinuxRosettaCachingOptions interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (l VZLinuxRosettaCachingOptions) Init() VZLinuxRosettaCachingOptions {
@@ -102,38 +88,4 @@ func NewVZLinuxRosettaCachingOptions() VZLinuxRosettaCachingOptions {
 	rv := objc.Send[VZLinuxRosettaCachingOptions](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

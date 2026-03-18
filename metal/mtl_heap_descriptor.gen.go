@@ -36,12 +36,6 @@ func (mc MTLHeapDescriptorClass) Alloc() MTLHeapDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
 // A configuration that customizes the behavior for a Metal memory heap.
 //
 // # Overview
@@ -84,14 +78,10 @@ type MTLHeapDescriptor struct {
 //
 // A configuration that customizes the behavior for a Metal memory heap.
 func MTLHeapDescriptorFromID(id objc.ID) MTLHeapDescriptor {
-	return MTLHeapDescriptor{objectivec.Object{id}}
+	return MTLHeapDescriptor{objectivec.Object{ID: id}}
 }
 // NOTE: MTLHeapDescriptor adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLHeapDescriptor] class.
 //
@@ -152,10 +142,6 @@ type IMTLHeapDescriptor interface {
 	SetMaxCompatiblePlacementSparsePageSize(value MTLSparsePageSize)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (h MTLHeapDescriptor) Init() MTLHeapDescriptor {
 	rv := objc.Send[MTLHeapDescriptor](h.ID, objc.Sel("init"))
@@ -175,26 +161,6 @@ func NewMTLHeapDescriptor() MTLHeapDescriptor {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The memory placement strategy for any resources you allocate from the heaps
 // you create with this descriptor.
 //
@@ -210,8 +176,6 @@ func (h MTLHeapDescriptor) Type() MTLHeapType {
 func (h MTLHeapDescriptor) SetType(value MTLHeapType) {
 	objc.Send[struct{}](h.ID, objc.Sel("setType:"), value)
 }
-
-
 
 // The storage mode for the heaps you create with this descriptor.
 //
@@ -234,8 +198,6 @@ func (h MTLHeapDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setStorageMode:"), value)
 }
 
-
-
 // The CPU cache behavior for any resources you allocate from the heaps you
 // create with this descriptor.
 //
@@ -254,8 +216,6 @@ func (h MTLHeapDescriptor) CpuCacheMode() MTLCPUCacheMode {
 func (h MTLHeapDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setCpuCacheMode:"), value)
 }
-
-
 
 // The hazard tracking behavior for any resources you allocate from the heaps
 // you create with this descriptor.
@@ -277,8 +237,6 @@ func (h MTLHeapDescriptor) SetHazardTrackingMode(value MTLHazardTrackingMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setHazardTrackingMode:"), value)
 }
 
-
-
 // The combined behavior for any resources you allocate from the heaps you
 // create with this descriptor.
 //
@@ -296,8 +254,6 @@ func (h MTLHeapDescriptor) ResourceOptions() MTLResourceOptions {
 func (h MTLHeapDescriptor) SetResourceOptions(value MTLResourceOptions) {
 	objc.Send[struct{}](h.ID, objc.Sel("setResourceOptions:"), value)
 }
-
-
 
 // The total amount of memory, in bytes, for the heaps you create with this
 // descriptor.
@@ -323,8 +279,6 @@ func (h MTLHeapDescriptor) SetSize(value uint) {
 	objc.Send[struct{}](h.ID, objc.Sel("setSize:"), value)
 }
 
-
-
 // The page size for any resources you allocate from the heaps you create with
 // this descriptor.
 //
@@ -349,8 +303,6 @@ func (h MTLHeapDescriptor) SetSparsePageSize(value MTLSparsePageSize) {
 	objc.Send[struct{}](h.ID, objc.Sel("setSparsePageSize:"), value)
 }
 
-
-
 // Specifies the largest sparse page size that the Metal heap supports.
 //
 // # Discussion
@@ -371,27 +323,4 @@ func (h MTLHeapDescriptor) MaxCompatiblePlacementSparsePageSize() MTLSparsePageS
 func (h MTLHeapDescriptor) SetMaxCompatiblePlacementSparsePageSize(value MTLSparsePageSize) {
 	objc.Send[struct{}](h.ID, objc.Sel("setMaxCompatiblePlacementSparsePageSize:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

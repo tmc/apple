@@ -35,12 +35,6 @@ func (uc UnitAngleClass) Alloc() UnitAngle {
 	return rv
 }
 
-
-
-
-
-
-
 // A unit of measure for planar angle and rotation.
 //
 // # Overview
@@ -78,20 +72,12 @@ func NSUnitAngleFromID(id objc.ID) UnitAngle { return UnitAngleFromID(id) }
 // NOTE: UnitAngle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [UnitAngle] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAngle
 type IUnitAngle interface {
 	INSDimension
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u UnitAngle) Init() UnitAngle {
@@ -112,11 +98,6 @@ func NewUnitAngle() UnitAngle {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitAngleWithCoder(coder INSCoder) UnitAngle {
@@ -124,7 +105,6 @@ func NewUnitAngleWithCoder(coder INSCoder) UnitAngle {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return UnitAngleFromID(rv)
 }
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -140,7 +120,6 @@ func NewUnitAngleWithSymbol(symbol string) UnitAngle {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return UnitAngleFromID(rv)
 }
-
 
 // Initializes a dimensional unit with the symbol and unit converter you
 // specify.
@@ -165,27 +144,6 @@ func NewUnitAngleWithSymbolConverter(symbol string, converter INSUnitConverter) 
 	return UnitAngleFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The degrees unit of angle.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAngle/degrees
@@ -193,8 +151,6 @@ func (_UnitAngleClass UnitAngleClass) Degrees() UnitAngle {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAngleClass.class), objc.Sel("degrees"))
 	return NSUnitAngleFromID(objc.ID(rv))
 }
-
-
 
 // The arc minutes unit of angle.
 //
@@ -204,8 +160,6 @@ func (_UnitAngleClass UnitAngleClass) ArcMinutes() UnitAngle {
 	return NSUnitAngleFromID(objc.ID(rv))
 }
 
-
-
 // The arc seconds unit of angle.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAngle/arcSeconds
@@ -213,8 +167,6 @@ func (_UnitAngleClass UnitAngleClass) ArcSeconds() UnitAngle {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAngleClass.class), objc.Sel("arcSeconds"))
 	return NSUnitAngleFromID(objc.ID(rv))
 }
-
-
 
 // The radians unit of angle.
 //
@@ -224,8 +176,6 @@ func (_UnitAngleClass UnitAngleClass) Radians() UnitAngle {
 	return NSUnitAngleFromID(objc.ID(rv))
 }
 
-
-
 // The gradians unit of angle.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAngle/gradians
@@ -234,8 +184,6 @@ func (_UnitAngleClass UnitAngleClass) Gradians() UnitAngle {
 	return NSUnitAngleFromID(objc.ID(rv))
 }
 
-
-
 // The revolutions unit of angle.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAngle/revolutions
@@ -243,27 +191,4 @@ func (_UnitAngleClass UnitAngleClass) Revolutions() UnitAngle {
 	rv := objc.Send[objc.ID](objc.ID(_UnitAngleClass.class), objc.Sel("revolutions"))
 	return NSUnitAngleFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

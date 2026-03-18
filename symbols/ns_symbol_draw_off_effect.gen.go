@@ -35,12 +35,6 @@ func (nc NSSymbolDrawOffEffectClass) Alloc() NSSymbolDrawOffEffect {
 	return rv
 }
 
-
-
-
-
-
-
 // A symbol effect that applies the DrawOff animation to symbol images.
 //
 // # Overview
@@ -70,10 +64,6 @@ func NSSymbolDrawOffEffectFromID(id objc.ID) NSSymbolDrawOffEffect {
 // Ensure NSSymbolDrawOffEffect implements INSSymbolDrawOffEffect.
 var _ INSSymbolDrawOffEffect = NSSymbolDrawOffEffect{}
 
-
-
-
-
 // An interface definition for the [NSSymbolDrawOffEffect] class.
 //
 // # Instance Methods
@@ -102,10 +92,6 @@ type INSSymbolDrawOffEffect interface {
 	EffectWithWholeSymbol() INSSymbolDrawOffEffect
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s NSSymbolDrawOffEffect) Init() NSSymbolDrawOffEffect {
 	rv := objc.Send[NSSymbolDrawOffEffect](s.ID, objc.Sel("init"))
@@ -124,15 +110,6 @@ func NewNSSymbolDrawOffEffect() NSSymbolDrawOffEffect {
 	rv := objc.Send[NSSymbolDrawOffEffect](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Returns a copy of the effect requesting an animation that applies
 // separately to each motion group.
@@ -180,10 +157,6 @@ func (s NSSymbolDrawOffEffect) EffectWithWholeSymbol() INSSymbolDrawOffEffect {
 	return NSSymbolDrawOffEffectFromID(rv)
 }
 
-
-
-
-
 // The default draw off effect, determined by the system.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolDrawOffEffect/effect
@@ -191,25 +164,4 @@ func (_NSSymbolDrawOffEffectClass NSSymbolDrawOffEffectClass) Effect() NSSymbolD
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolDrawOffEffectClass.class), objc.Sel("effect"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

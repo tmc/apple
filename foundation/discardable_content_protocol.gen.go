@@ -34,8 +34,6 @@ type NSDiscardableContent interface {
 	IsContentDiscarded() bool
 }
 
-
-
 // NSDiscardableContentObject wraps an existing Objective-C object that conforms to the NSDiscardableContent protocol.
 type NSDiscardableContentObject struct {
 	objectivec.Object
@@ -44,8 +42,6 @@ func (o NSDiscardableContentObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSDiscardableContentObjectFromID constructs a [NSDiscardableContentObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSDiscardableContentObjectFromID(id objc.ID) NSDiscardableContentObject {
@@ -53,9 +49,6 @@ func NSDiscardableContentObjectFromID(id objc.ID) NSDiscardableContentObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Returns a Boolean value indicating whether the discardable contents are
 // still available and have been successfully accessed.
@@ -132,10 +125,4 @@ func (o NSDiscardableContentObject) IsContentDiscarded() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isContentDiscarded"))
 	return rv
 	}
-
-
-
-
-
-
 

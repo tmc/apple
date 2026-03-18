@@ -36,12 +36,6 @@ func (nc NSTermOfAddressClass) Alloc() NSTermOfAddress {
 	return rv
 }
 
-
-
-
-
-
-
 // The type for representing grammatical gender in localized text.
 //
 // # Overview
@@ -89,14 +83,10 @@ type NSTermOfAddress struct {
 //
 // The type for representing grammatical gender in localized text.
 func NSTermOfAddressFromID(id objc.ID) NSTermOfAddress {
-	return NSTermOfAddress{objectivec.Object{id}}
+	return NSTermOfAddress{objectivec.Object{ID: id}}
 }
 // NOTE: NSTermOfAddress adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSTermOfAddress] class.
 //
@@ -112,6 +102,7 @@ func NSTermOfAddressFromID(id objc.ID) NSTermOfAddress {
 type INSTermOfAddress interface {
 	objectivec.IObject
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Defining your own terms of address
 
@@ -127,10 +118,6 @@ type INSTermOfAddress interface {
 	// Encodes the receiver using a given archiver.
 	EncodeWithCoder(coder INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t NSTermOfAddress) Init() NSTermOfAddress {
@@ -151,15 +138,6 @@ func NewNSTermOfAddress() NSTermOfAddress {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (t NSTermOfAddress) InitWithCoder(coder INSCoder) NSTermOfAddress {
@@ -175,10 +153,6 @@ func (t NSTermOfAddress) InitWithCoder(coder INSCoder) NSTermOfAddress {
 func (t NSTermOfAddress) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](t.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
 
 // Term of address that uses feminine pronouns (e.g. she/her/hers in English),
 // and a feminine grammatical gender when inflecting verbs and adjectives
@@ -236,13 +210,6 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) LocalizedForLanguageIdentifier
 	return NSTermOfAddressFromID(rv)
 }
 
-
-
-
-
-
-
-
 // A list of pronouns for a localized term of address
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTermOfAddress/pronouns
@@ -253,8 +220,6 @@ func (t NSTermOfAddress) Pronouns() []NSMorphologyPronoun {
 	})
 }
 
-
-
 // The ISO language code if this is a localized term of address
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTermOfAddress/languageIdentifier
@@ -263,26 +228,9 @@ func (t NSTermOfAddress) LanguageIdentifier() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

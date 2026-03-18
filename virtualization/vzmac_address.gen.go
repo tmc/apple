@@ -38,12 +38,6 @@ func (vc VZMACAddressClass) Alloc() VZMACAddress {
 	return rv
 }
 
-
-
-
-
-
-
 // The media access control (MAC) address for a network interface in your
 // virtual machine.
 //
@@ -86,14 +80,10 @@ type VZMACAddress struct {
 // The media access control (MAC) address for a network interface in your
 // virtual machine.
 func VZMACAddressFromID(id objc.ID) VZMACAddress {
-	return VZMACAddress{objectivec.Object{id}}
+	return VZMACAddress{objectivec.Object{ID: id}}
 }
 // NOTE: VZMACAddress adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZMACAddress] class.
 //
@@ -147,10 +137,6 @@ type IVZMACAddress interface {
 	IsUniversallyAdministeredAddress() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m VZMACAddress) Init() VZMACAddress {
 	rv := objc.Send[VZMACAddress](m.ID, objc.Sel("init"))
@@ -170,11 +156,6 @@ func NewVZMACAddress() VZMACAddress {
 	return rv
 }
 
-
-
-
-
-
 // Creates a MAC address from the specified 48-bit Ethernet address.
 //
 // ethernetAddress: A 48-bit Ethernet address.
@@ -189,7 +170,6 @@ func NewMACAddressWithEthernetAddress(ethernetAddress unsafe.Pointer) VZMACAddre
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithEthernetAddress:"), ethernetAddress)
 	return VZMACAddressFromID(rv)
 }
-
 
 // Creates a MAC address object from a specially formatted string.
 //
@@ -209,12 +189,6 @@ func NewMACAddressWithString(string_ string) VZMACAddress {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithString:"), objc.String(string_))
 	return VZMACAddressFromID(rv)
 }
-
-
-
-
-
-
 
 // Creates a MAC address object from a specially formatted string.
 //
@@ -248,10 +222,6 @@ func (m VZMACAddress) InitWithEthernetAddress(ethernetAddress unsafe.Pointer) VZ
 	return rv
 }
 
-
-
-
-
 // Returns a valid, random, locally administered, unicast MAC address.
 //
 // # Return Value
@@ -268,13 +238,6 @@ func (_VZMACAddressClass VZMACAddressClass) RandomLocallyAdministeredAddress() V
 	return VZMACAddressFromID(rv)
 }
 
-
-
-
-
-
-
-
 // The MAC address as a formatted string.
 //
 // # Discussion
@@ -289,8 +252,6 @@ func (m VZMACAddress) String() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-
-
 // The MAC address as an Ethernet data structure.
 //
 // # Discussion
@@ -303,8 +264,6 @@ func (m VZMACAddress) EthernetAddress() [6]byte {
 	rv := objc.Send[[6]byte](m.ID, objc.Sel("ethernetAddress"))
 	return [6]byte(rv)
 }
-
-
 
 // A Boolean value that indicates whether the address is a broadcast address.
 //
@@ -322,8 +281,6 @@ func (m VZMACAddress) IsBroadcastAddress() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the address is a multicast address.
 //
 // # Discussion
@@ -340,8 +297,6 @@ func (m VZMACAddress) IsMulticastAddress() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the address is a unicast address.
 //
 // # Discussion
@@ -357,8 +312,6 @@ func (m VZMACAddress) IsUnicastAddress() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isUnicastAddress"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates whether the address is a locally
 // administered address (LAA).
@@ -378,8 +331,6 @@ func (m VZMACAddress) IsLocallyAdministeredAddress() bool {
 	return rv
 }
 
-
-
 // A Boolean value that indicates whether the address is a universally
 // adminstered address (UAA).
 //
@@ -398,27 +349,4 @@ func (m VZMACAddress) IsUniversallyAdministeredAddress() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isUniversallyAdministeredAddress"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

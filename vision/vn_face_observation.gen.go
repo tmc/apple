@@ -37,12 +37,6 @@ func (vc VNFaceObservationClass) Alloc() VNFaceObservation {
 	return rv
 }
 
-
-
-
-
-
-
 // Face or facial-feature information that an image analysis request detects.
 //
 // # Overview
@@ -74,10 +68,6 @@ func VNFaceObservationFromID(id objc.ID) VNFaceObservation {
 }
 // NOTE: VNFaceObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNFaceObservation] class.
 //
@@ -114,12 +104,7 @@ type IVNFaceObservation interface {
 	// The results of the face-capture quality request.
 	Results() IVNFaceObservation
 	SetResults(value IVNFaceObservation)
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (f VNFaceObservation) Init() VNFaceObservation {
@@ -140,11 +125,6 @@ func NewVNFaceObservation() VNFaceObservation {
 	return rv
 }
 
-
-
-
-
-
 // Creates an observation with a bounding box.
 //
 // boundingBox: The observation’s bounding box, in coordinates normalized to the
@@ -156,7 +136,6 @@ func NewFaceObservationWithBoundingBox(boundingBox corefoundation.CGRect) VNFace
 	rv := objc.Send[objc.ID](objc.ID(getVNFaceObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
 	return VNFaceObservationFromID(rv)
 }
-
 
 // Creates an observation with a revision number and bounding box.
 //
@@ -171,7 +150,6 @@ func NewFaceObservationWithRequestRevisionBoundingBox(requestRevision uint, boun
 	rv := objc.Send[objc.ID](objc.ID(getVNFaceObservationClass().class), objc.Sel("observationWithRequestRevision:boundingBox:"), requestRevision, boundingBox)
 	return VNFaceObservationFromID(rv)
 }
-
 
 // Creates an observation that contains the roll, yaw, and pitch of the face.
 //
@@ -191,26 +169,6 @@ func NewFaceObservationWithRequestRevisionBoundingBoxRollYawPitch(requestRevisio
 	return VNFaceObservationFromID(rv)
 }
 
-
-
-
-
-
-func (f VNFaceObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // The facial features of the detected face.
 //
 // # Discussion
@@ -224,8 +182,6 @@ func (f VNFaceObservation) Landmarks() IVNFaceLandmarks2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("landmarks"))
 	return VNFaceLandmarks2DFromID(objc.ID(rv))
 }
-
-
 
 // The roll angle of a face in radians.
 //
@@ -241,8 +197,6 @@ func (f VNFaceObservation) Roll() foundation.NSNumber {
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
-
-
 // The yaw angle of a face in radians.
 //
 // # Discussion
@@ -257,8 +211,6 @@ func (f VNFaceObservation) Yaw() foundation.NSNumber {
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
-
-
 // The pitch angle of a face in radians.
 //
 // # Discussion
@@ -272,8 +224,6 @@ func (f VNFaceObservation) Pitch() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("pitch"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
-
 
 // A value that indicates the quality of the face capture.
 //
@@ -294,8 +244,6 @@ func (f VNFaceObservation) FaceCaptureQuality() foundation.NSNumber {
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
 
-
-
 // The results of the face-capture quality request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectfacecapturequalityrequest/results
@@ -306,30 +254,4 @@ func (f VNFaceObservation) Results() IVNFaceObservation {
 func (f VNFaceObservation) SetResults(value IVNFaceObservation) {
 	objc.Send[struct{}](f.ID, objc.Sel("setResults:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

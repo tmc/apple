@@ -36,12 +36,6 @@ func (nc NSExtensionItemClass) Alloc() NSExtensionItem {
 	return rv
 }
 
-
-
-
-
-
-
 // An immutable collection of values representing different aspects of an item
 // for an extension to act upon.
 //
@@ -69,14 +63,10 @@ type NSExtensionItem struct {
 // An immutable collection of values representing different aspects of an item
 // for an extension to act upon.
 func NSExtensionItemFromID(id objc.ID) NSExtensionItem {
-	return NSExtensionItem{objectivec.Object{id}}
+	return NSExtensionItem{objectivec.Object{ID: id}}
 }
 // NOTE: NSExtensionItem adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSExtensionItem] class.
 //
@@ -97,7 +87,9 @@ func NSExtensionItemFromID(id objc.ID) NSExtensionItem {
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionItem
 type INSExtensionItem interface {
 	objectivec.IObject
+	NSCoding
 	NSCopying
+	NSSecureCoding
 
 	// Topic: Identifying the Item
 
@@ -116,15 +108,7 @@ type INSExtensionItem interface {
 	// An optional string describing the extension item content.
 	AttributedContentText() INSAttributedString
 	SetAttributedContentText(value INSAttributedString)
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSExtensionItem
 }
-
-
-
-
 
 // Init initializes the instance.
 func (e NSExtensionItem) Init() NSExtensionItem {
@@ -145,11 +129,6 @@ func NewNSExtensionItem() NSExtensionItem {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewExtensionItemWithCoder(coder INSCoder) NSExtensionItem {
@@ -157,12 +136,6 @@ func NewExtensionItemWithCoder(coder INSCoder) NSExtensionItem {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSExtensionItemFromID(rv)
 }
-
-
-
-
-
-
 
 // Encodes the receiver using a given archiver.
 //
@@ -180,17 +153,6 @@ func (e NSExtensionItem) InitWithCoder(coder INSCoder) NSExtensionItem {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // An optional title for the item.
 //
 // # Discussion
@@ -203,8 +165,6 @@ func (e NSExtensionItem) AttributedTitle() INSAttributedString {
 func (e NSExtensionItem) SetAttributedTitle(value INSAttributedString) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAttributedTitle:"), value)
 }
-
-
 
 // An optional dictionary of keys and values corresponding to the extension
 // item’s properties.
@@ -230,8 +190,6 @@ func (e NSExtensionItem) SetUserInfo(value INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setUserInfo:"), value)
 }
 
-
-
 // An optional array of media data associated with the extension item.
 //
 // # Discussion
@@ -252,8 +210,6 @@ func (e NSExtensionItem) SetAttachments(value []NSItemProvider) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAttachments:"), objectivec.IObjectSliceToNSArray(value))
 }
 
-
-
 // An optional string describing the extension item content.
 //
 // # Discussion
@@ -267,33 +223,9 @@ func (e NSExtensionItem) SetAttributedContentText(value INSAttributedString) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAttributedContentText:"), value)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for NSCopying
 			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

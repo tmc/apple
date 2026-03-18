@@ -36,12 +36,6 @@ func (vc VNImageBasedRequestClass) Alloc() VNImageBasedRequest {
 	return rv
 }
 
-
-
-
-
-
-
 // The abstract superclass for image-analysis requests that focus on a
 // specific part of an image.
 //
@@ -70,10 +64,6 @@ func VNImageBasedRequestFromID(id objc.ID) VNImageBasedRequest {
 // NOTE: VNImageBasedRequest adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNImageBasedRequest] class.
 //
 // # Configuring a Request
@@ -91,10 +81,6 @@ type IVNImageBasedRequest interface {
 	RegionOfInterest() corefoundation.CGRect
 	SetRegionOfInterest(value corefoundation.CGRect)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (i VNImageBasedRequest) Init() VNImageBasedRequest {
@@ -115,11 +101,6 @@ func NewVNImageBasedRequest() VNImageBasedRequest {
 	return rv
 }
 
-
-
-
-
-
 // Creates a new Vision request with an optional completion handler.
 //
 // completionHandler: The block to invoke after the request finishes processing.
@@ -136,23 +117,6 @@ func NewImageBasedRequestWithCompletionHandler(completionHandler VNRequestComple
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
 	return VNImageBasedRequestFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // The region of the image in which Vision will perform the request.
 //
@@ -171,27 +135,4 @@ func (i VNImageBasedRequest) RegionOfInterest() corefoundation.CGRect {
 func (i VNImageBasedRequest) SetRegionOfInterest(value corefoundation.CGRect) {
 	objc.Send[struct{}](i.ID, objc.Sel("setRegionOfInterest:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

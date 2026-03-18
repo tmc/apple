@@ -36,12 +36,6 @@ func (mc MTL4MachineLearningPipelineReflectionClass) Alloc() MTL4MachineLearning
 	return rv
 }
 
-
-
-
-
-
-
 // Represents reflection information for a machine learning pipeline state.
 //
 // # Instance Properties
@@ -57,14 +51,10 @@ type MTL4MachineLearningPipelineReflection struct {
 //
 // Represents reflection information for a machine learning pipeline state.
 func MTL4MachineLearningPipelineReflectionFromID(id objc.ID) MTL4MachineLearningPipelineReflection {
-	return MTL4MachineLearningPipelineReflection{objectivec.Object{id}}
+	return MTL4MachineLearningPipelineReflection{objectivec.Object{ID: id}}
 }
 // NOTE: MTL4MachineLearningPipelineReflection adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTL4MachineLearningPipelineReflection] class.
 //
@@ -81,10 +71,6 @@ type IMTL4MachineLearningPipelineReflection interface {
 	// Describes every input and output of the pipeline.
 	Bindings() []objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (m MTL4MachineLearningPipelineReflection) Init() MTL4MachineLearningPipelineReflection {
@@ -105,26 +91,6 @@ func NewMTL4MachineLearningPipelineReflection() MTL4MachineLearningPipelineRefle
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Describes every input and output of the pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineReflection/bindings
@@ -134,28 +100,4 @@ func (m MTL4MachineLearningPipelineReflection) Bindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

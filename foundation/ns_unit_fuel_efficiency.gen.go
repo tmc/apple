@@ -35,12 +35,6 @@ func (uc UnitFuelEfficiencyClass) Alloc() UnitFuelEfficiency {
 	return rv
 }
 
-
-
-
-
-
-
 // A unit of measure for fuel efficiency.
 //
 // # Overview
@@ -78,20 +72,12 @@ func NSUnitFuelEfficiencyFromID(id objc.ID) UnitFuelEfficiency { return UnitFuel
 // NOTE: UnitFuelEfficiency adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [UnitFuelEfficiency] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFuelEfficiency
 type IUnitFuelEfficiency interface {
 	INSDimension
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u UnitFuelEfficiency) Init() UnitFuelEfficiency {
@@ -112,11 +98,6 @@ func NewUnitFuelEfficiency() UnitFuelEfficiency {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewUnitFuelEfficiencyWithCoder(coder INSCoder) UnitFuelEfficiency {
@@ -124,7 +105,6 @@ func NewUnitFuelEfficiencyWithCoder(coder INSCoder) UnitFuelEfficiency {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return UnitFuelEfficiencyFromID(rv)
 }
-
 
 // Initializes a new unit with the specified symbol.
 //
@@ -140,7 +120,6 @@ func NewUnitFuelEfficiencyWithSymbol(symbol string) UnitFuelEfficiency {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSymbol:"), objc.String(symbol))
 	return UnitFuelEfficiencyFromID(rv)
 }
-
 
 // Initializes a dimensional unit with the symbol and unit converter you
 // specify.
@@ -165,27 +144,6 @@ func NewUnitFuelEfficiencyWithSymbolConverter(symbol string, converter INSUnitCo
 	return UnitFuelEfficiencyFromID(rv)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The miles per imperial gallon unit of fuel efficiency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFuelEfficiency/milesPerImperialGallon
@@ -193,8 +151,6 @@ func (_UnitFuelEfficiencyClass UnitFuelEfficiencyClass) MilesPerImperialGallon()
 	rv := objc.Send[objc.ID](objc.ID(_UnitFuelEfficiencyClass.class), objc.Sel("milesPerImperialGallon"))
 	return NSUnitFuelEfficiencyFromID(objc.ID(rv))
 }
-
-
 
 // The liters per 100 kilometers unit of fuel efficiency.
 //
@@ -204,8 +160,6 @@ func (_UnitFuelEfficiencyClass UnitFuelEfficiencyClass) LitersPer100Kilometers()
 	return NSUnitFuelEfficiencyFromID(objc.ID(rv))
 }
 
-
-
 // The miles per gallon unit of fuel efficiency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFuelEfficiency/milesPerGallon
@@ -213,27 +167,4 @@ func (_UnitFuelEfficiencyClass UnitFuelEfficiencyClass) MilesPerGallon() UnitFue
 	rv := objc.Send[objc.ID](objc.ID(_UnitFuelEfficiencyClass.class), objc.Sel("milesPerGallon"))
 	return NSUnitFuelEfficiencyFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

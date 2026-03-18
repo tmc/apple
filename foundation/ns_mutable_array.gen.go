@@ -37,12 +37,6 @@ func (nc NSMutableArrayClass) Alloc() NSMutableArray {
 	return rv
 }
 
-
-
-
-
-
-
 // A dynamic ordered collection of objects.
 //
 // # Overview
@@ -149,10 +143,6 @@ func NSMutableArrayFromID(id objc.ID) NSMutableArray {
 }
 // NOTE: NSMutableArray adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSMutableArray] class.
 //
@@ -282,10 +272,6 @@ type INSMutableArray interface {
 	SetObjectAtIndexedSubscript(obj objectivec.IObject, idx uint)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (m NSMutableArray) Init() NSMutableArray {
 	rv := objc.Send[NSMutableArray](m.ID, objc.Sel("init"))
@@ -304,11 +290,6 @@ func NewNSMutableArray() NSMutableArray {
 	rv := objc.Send[NSMutableArray](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Initializes a newly allocated array by placing in it the objects contained
 // in a given array.
@@ -331,7 +312,6 @@ func NewMutableArrayWithArray(array []objectivec.IObject) NSMutableArray {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSMutableArrayFromID(rv)
 }
-
 
 // Initializes a newly allocated array using `anArray` as the source of data
 // objects for the array.
@@ -380,7 +360,6 @@ func NewMutableArrayWithArrayCopyItems(array []objectivec.IObject, flag bool) NS
 	return NSMutableArrayFromID(rv)
 }
 
-
 // Returns an array, initialized with enough memory to initially hold a given
 // number of objects.
 //
@@ -405,7 +384,6 @@ func NewMutableArrayWithCapacity(numItems uint) NSMutableArray {
 	return NSMutableArrayFromID(rv)
 }
 
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/init(coder:)
 func NewMutableArrayWithCoder(coder INSCoder) NSMutableArray {
@@ -413,7 +391,6 @@ func NewMutableArrayWithCoder(coder INSCoder) NSMutableArray {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSMutableArrayFromID(rv)
 }
-
 
 // Creates and returns an array containing a given object.
 //
@@ -433,7 +410,6 @@ func NewMutableArrayWithObject(anObject objectivec.IObject) NSMutableArray {
 	rv := objc.Send[objc.ID](objc.ID(getNSMutableArrayClass().class), objc.Sel("arrayWithObject:"), anObject)
 	return NSMutableArrayFromID(rv)
 }
-
 
 // Initializes a newly allocated array by placing in it the objects in the
 // argument list.
@@ -461,12 +437,6 @@ func NewMutableArrayWithObjects(firstObj objectivec.IObject) NSMutableArray {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithObjects:"), firstObj)
 	return NSMutableArrayFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns an array, initialized with enough memory to initially hold a given
 // number of objects.
@@ -949,10 +919,6 @@ func (m NSMutableArray) SetObjectAtIndexedSubscript(obj objectivec.IObject, idx 
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:atIndexedSubscript:"), obj, idx)
 }
 
-
-
-
-
 // Creates and returns an [NSMutableArray] object with enough allocated memory
 // to initially hold a given number of objects.
 //
@@ -973,40 +939,4 @@ func (_NSMutableArrayClass NSMutableArrayClass) ArrayWithCapacity(numItems uint)
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableArrayClass.class), objc.Sel("arrayWithCapacity:"), numItems)
 	return NSMutableArrayFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

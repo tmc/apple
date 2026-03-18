@@ -36,12 +36,6 @@ func (nc NSXPCListenerEndpointClass) Alloc() NSXPCListenerEndpoint {
 	return rv
 }
 
-
-
-
-
-
-
 // An object that names a specific XPC listener.
 //
 // # Overview
@@ -65,29 +59,19 @@ type NSXPCListenerEndpoint struct {
 //
 // An object that names a specific XPC listener.
 func NSXPCListenerEndpointFromID(id objc.ID) NSXPCListenerEndpoint {
-	return NSXPCListenerEndpoint{objectivec.Object{id}}
+	return NSXPCListenerEndpoint{objectivec.Object{ID: id}}
 }
 // NOTE: NSXPCListenerEndpoint adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSXPCListenerEndpoint] class.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint
 type INSXPCListenerEndpoint interface {
 	objectivec.IObject
-
-	// Encodes the receiver using a given archiver.
-	EncodeWithCoder(coder INSCoder)
-	InitWithCoder(coder INSCoder) NSXPCListenerEndpoint
+	NSCoding
+	NSSecureCoding
 }
-
-
-
-
 
 // Init initializes the instance.
 func (x NSXPCListenerEndpoint) Init() NSXPCListenerEndpoint {
@@ -108,11 +92,6 @@ func NewNSXPCListenerEndpoint() NSXPCListenerEndpoint {
 	return rv
 }
 
-
-
-
-
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func NewXPCListenerEndpointWithCoder(coder INSCoder) NSXPCListenerEndpoint {
@@ -120,12 +99,6 @@ func NewXPCListenerEndpointWithCoder(coder INSCoder) NSXPCListenerEndpoint {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NSXPCListenerEndpointFromID(rv)
 }
-
-
-
-
-
-
 
 // Encodes the receiver using a given archiver.
 //
@@ -143,38 +116,6 @@ func (x NSXPCListenerEndpoint) InitWithCoder(coder INSCoder) NSXPCListenerEndpoi
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// Protocol methods for NSSecureCoding
+			
 

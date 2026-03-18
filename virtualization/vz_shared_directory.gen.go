@@ -37,12 +37,6 @@ func (vc VZSharedDirectoryClass) Alloc() VZSharedDirectory {
 	return rv
 }
 
-
-
-
-
-
-
 // A directory on the host that you can expose to a guest.
 //
 // # Overview
@@ -67,14 +61,10 @@ type VZSharedDirectory struct {
 //
 // A directory on the host that you can expose to a guest.
 func VZSharedDirectoryFromID(id objc.ID) VZSharedDirectory {
-	return VZSharedDirectory{objectivec.Object{id}}
+	return VZSharedDirectory{objectivec.Object{ID: id}}
 }
 // NOTE: VZSharedDirectory adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZSharedDirectory] class.
 //
@@ -104,10 +94,6 @@ type IVZSharedDirectory interface {
 	ReadOnly() bool
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s VZSharedDirectory) Init() VZSharedDirectory {
 	rv := objc.Send[VZSharedDirectory](s.ID, objc.Sel("init"))
@@ -127,11 +113,6 @@ func NewVZSharedDirectory() VZSharedDirectory {
 	return rv
 }
 
-
-
-
-
-
 // Initialize with a host directory.
 //
 // url: A local file URL to expose to the guest.
@@ -148,12 +129,6 @@ func NewSharedDirectoryWithURLReadOnly(url foundation.INSURL, readOnly bool) VZS
 	return VZSharedDirectoryFromID(rv)
 }
 
-
-
-
-
-
-
 // Initialize with a host directory.
 //
 // url: A local file URL to expose to the guest.
@@ -169,17 +144,6 @@ func (s VZSharedDirectory) InitWithURLReadOnly(url foundation.INSURL, readOnly b
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // A file URL to a directory on the host system to expose to the guest.
 //
 // # Discussion
@@ -192,8 +156,6 @@ func (s VZSharedDirectory) URL() foundation.INSURL {
 	return foundation.NSURLFromID(objc.ID(rv))
 }
 
-
-
 // A Boolean value that indicates whether the directory is read-only to the
 // guest.
 //
@@ -202,26 +164,4 @@ func (s VZSharedDirectory) ReadOnly() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isReadOnly"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -25,8 +25,6 @@ type MTLIOFileHandle interface {
 	SetLabel(value string)
 }
 
-
-
 // MTLIOFileHandleObject wraps an existing Objective-C object that conforms to the MTLIOFileHandle protocol.
 type MTLIOFileHandleObject struct {
 	objectivec.Object
@@ -35,8 +33,6 @@ func (o MTLIOFileHandleObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLIOFileHandleObjectFromID constructs a [MTLIOFileHandleObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLIOFileHandleObjectFromID(id objc.ID) MTLIOFileHandleObject {
@@ -44,9 +40,6 @@ func MTLIOFileHandleObjectFromID(id objc.ID) MTLIOFileHandleObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // An optional name for the file that the handle represents.
 //
@@ -58,14 +51,7 @@ func (o MTLIOFileHandleObject) Label() string {
 	return foundation.NSStringFromID(rv).String()
 	}
 
-
-
-
 func (o MTLIOFileHandleObject) SetLabel(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
-
-
-
 

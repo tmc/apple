@@ -35,12 +35,6 @@ func (vc VZUSBScreenCoordinatePointingDeviceConfigurationClass) Alloc() VZUSBScr
 	return rv
 }
 
-
-
-
-
-
-
 // An object that defines the configuration for a USB pointing device that
 // reports absolute coordinates.
 //
@@ -64,20 +58,12 @@ func VZUSBScreenCoordinatePointingDeviceConfigurationFromID(id objc.ID) VZUSBScr
 // NOTE: VZUSBScreenCoordinatePointingDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZUSBScreenCoordinatePointingDeviceConfiguration] class.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBScreenCoordinatePointingDeviceConfiguration
 type IVZUSBScreenCoordinatePointingDeviceConfiguration interface {
 	IVZPointingDeviceConfiguration
 }
-
-
-
-
 
 // Init initializes the instance.
 func (u VZUSBScreenCoordinatePointingDeviceConfiguration) Init() VZUSBScreenCoordinatePointingDeviceConfiguration {
@@ -97,46 +83,4 @@ func NewVZUSBScreenCoordinatePointingDeviceConfiguration() VZUSBScreenCoordinate
 	rv := objc.Send[VZUSBScreenCoordinatePointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

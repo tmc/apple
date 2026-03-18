@@ -38,12 +38,6 @@ func (nc NSFileVersionClass) Alloc() NSFileVersion {
 	return rv
 }
 
-
-
-
-
-
-
 // A snapshot of a file at a specific point in time.
 //
 // # Overview
@@ -108,14 +102,10 @@ type NSFileVersion struct {
 //
 // A snapshot of a file at a specific point in time.
 func NSFileVersionFromID(id objc.ID) NSFileVersion {
-	return NSFileVersion{objectivec.Object{id}}
+	return NSFileVersion{objectivec.Object{ID: id}}
 }
 // NOTE: NSFileVersion adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [NSFileVersion] class.
 //
@@ -188,10 +178,6 @@ type INSFileVersion interface {
 	OriginatorNameComponents() INSPersonNameComponents
 }
 
-
-
-
-
 // Init initializes the instance.
 func (f NSFileVersion) Init() NSFileVersion {
 	rv := objc.Send[NSFileVersion](f.ID, objc.Sel("init"))
@@ -210,15 +196,6 @@ func NewNSFileVersion() NSFileVersion {
 	rv := objc.Send[NSFileVersion](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Replace the contents of the specified file with the contents of the current
 // version’s file.
@@ -248,7 +225,7 @@ func NewNSFileVersion() NSFileVersion {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/replaceItem(at:options:)
 func (f NSFileVersion) ReplaceItemAtURLOptionsError(url INSURL, options NSFileVersionReplacingOptions) (INSURL, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("replaceItemAtURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -280,7 +257,7 @@ func (f NSFileVersion) ReplaceItemAtURLOptionsError(url INSURL, options NSFileVe
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/remove()
 func (f NSFileVersion) RemoveAndReturnError() (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](f.ID, objc.Sel("removeAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -292,10 +269,6 @@ func (f NSFileVersion) RemoveAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
-
-
-
 
 // Returns the most recent version object for the file at the specified URL.
 //
@@ -414,7 +387,7 @@ func (_NSFileVersionClass NSFileVersionClass) TemporaryDirectoryURLForNewVersion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/addOfItem(at:withContentsOf:options:)
 func (_NSFileVersionClass NSFileVersionClass) AddVersionOfItemAtURLWithContentsOfURLOptionsError(url INSURL, contentsURL INSURL, options NSFileVersionAddingOptions) (NSFileVersion, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_NSFileVersionClass.class), objc.Sel("addVersionOfItemAtURL:withContentsOfURL:options:error:"), url, contentsURL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -465,7 +438,7 @@ func (_NSFileVersionClass NSFileVersionClass) UnresolvedConflictVersionsOfItemAt
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/removeOtherVersionsOfItem(at:)
 func (_NSFileVersionClass NSFileVersionClass) RemoveOtherVersionsOfItemAtURLError(url INSURL) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_NSFileVersionClass.class), objc.Sel("removeOtherVersionsOfItemAtURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -481,17 +454,10 @@ func (_NSFileVersionClass NSFileVersionClass) RemoveOtherVersionsOfItemAtURLErro
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/getNonlocalVersionsOfItem(at:completionHandler:)
 func (_NSFileVersionClass NSFileVersionClass) GetNonlocalVersionsOfItemAtURLCompletionHandler(url INSURL, completionHandler ArrayErrorHandler) {
-		_block1, _cleanup1 := NewArrayErrorBlock(completionHandler)
+_block1, _cleanup1 := NewArrayErrorBlock(completionHandler)
 	defer _cleanup1()
-		objc.Send[objc.ID](objc.ID(_NSFileVersionClass.class), objc.Sel("getNonlocalVersionsOfItemAtURL:completionHandler:"), url, _block1)
+	objc.Send[objc.ID](objc.ID(_NSFileVersionClass.class), objc.Sel("getNonlocalVersionsOfItemAtURL:completionHandler:"), url, _block1)
 }
-
-
-
-
-
-
-
 
 // The URL identifying the location of the file associated with the file
 // version object.
@@ -513,8 +479,6 @@ func (f NSFileVersion) URL() INSURL {
 	return NSURLFromID(objc.ID(rv))
 }
 
-
-
 // The string containing the user-presentable name of the file version.
 //
 // # Discussion
@@ -527,8 +491,6 @@ func (f NSFileVersion) LocalizedName() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("localizedName"))
 	return NSStringFromID(rv).String()
 }
-
-
 
 // The user-presentable name of the computer on which the revision was saved.
 //
@@ -547,8 +509,6 @@ func (f NSFileVersion) LocalizedNameOfSavingComputer() string {
 	return NSStringFromID(rv).String()
 }
 
-
-
 // The modification date of the version.
 //
 // # Discussion
@@ -560,8 +520,6 @@ func (f NSFileVersion) ModificationDate() INSDate {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("modificationDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
-
 
 // The identifier for this version of the file.
 //
@@ -577,8 +535,6 @@ func (f NSFileVersion) PersistentIdentifier() NSCoding {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("persistentIdentifier"))
 	return NSCodingObjectFromID(rv)
 }
-
-
 
 // A Boolean value that specifies whether the system can delete the associated
 // file at some future time.
@@ -606,8 +562,6 @@ func (f NSFileVersion) SetDiscardable(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setDiscardable:"), value)
 }
 
-
-
 // A Boolean value indicating whether the contents of the version are in
 // conflict with the contents of another version.
 //
@@ -627,8 +581,6 @@ func (f NSFileVersion) Conflict() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isConflict"))
 	return rv
 }
-
-
 
 // A Boolean value that indicates if the version object is in conflict or not.
 //
@@ -660,15 +612,11 @@ func (f NSFileVersion) SetResolved(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setResolved:"), value)
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/hasLocalContents
 func (f NSFileVersion) HasLocalContents() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("hasLocalContents"))
 	return rv
 }
-
-
 
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/hasThumbnail
 func (f NSFileVersion) HasThumbnail() bool {
@@ -676,33 +624,9 @@ func (f NSFileVersion) HasThumbnail() bool {
 	return rv
 }
 
-
-
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/originatorNameComponents
 func (f NSFileVersion) OriginatorNameComponents() INSPersonNameComponents {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("originatorNameComponents"))
 	return NSPersonNameComponentsFromID(objc.ID(rv))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

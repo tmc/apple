@@ -35,8 +35,6 @@ type MTLCounterSampleBuffer interface {
 	ResolveCounterRange(range_ foundation.NSRange) foundation.INSData
 }
 
-
-
 // MTLCounterSampleBufferObject wraps an existing Objective-C object that conforms to the MTLCounterSampleBuffer protocol.
 type MTLCounterSampleBufferObject struct {
 	objectivec.Object
@@ -45,8 +43,6 @@ func (o MTLCounterSampleBufferObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTLCounterSampleBufferObjectFromID constructs a [MTLCounterSampleBufferObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLCounterSampleBufferObjectFromID(id objc.ID) MTLCounterSampleBufferObject {
@@ -54,9 +50,6 @@ func MTLCounterSampleBufferObjectFromID(id objc.ID) MTLCounterSampleBufferObject
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // A string that identifies the counter sample buffer.
 //
@@ -117,16 +110,4 @@ func (o MTLCounterSampleBufferObject) ResolveCounterRange(range_ foundation.NSRa
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resolveCounterRange:"), range_)
 	return foundation.NSDataFromID(rv)
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -16,8 +16,6 @@ type MTLLogContainer interface {
 	foundation.NSFastEnumeration
 }
 
-
-
 // MTLLogContainerObject wraps an existing Objective-C object that conforms to the MTLLogContainer protocol.
 type MTLLogContainerObject struct {
 	foundation.NSFastEnumerationObject
@@ -26,8 +24,6 @@ func (o MTLLogContainerObject) BaseObject() objectivec.Object {
 	return o.NSFastEnumerationObject.BaseObject()
 }
 
-
-
 // MTLLogContainerObjectFromID constructs a [MTLLogContainerObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTLLogContainerObjectFromID(id objc.ID) MTLLogContainerObject {
@@ -35,13 +31,4 @@ func MTLLogContainerObjectFromID(id objc.ID) MTLLogContainerObject {
 		NSFastEnumerationObject: foundation.NSFastEnumerationObjectFromID(id),
 	}
 }
-
-
-
-
-
-
-
-
-
 

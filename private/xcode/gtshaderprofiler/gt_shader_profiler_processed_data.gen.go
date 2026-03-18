@@ -96,8 +96,8 @@ type IGTShaderProfilerProcessedData interface {
 	GpuGeneration() uint32
 	SetGpuGeneration(value uint32)
 	MioData() unsafe.Pointer
-	ShaderProfilerResult() unsafe.Pointer
-	SetShaderProfilerResult(value unsafe.Pointer)
+	ShaderProfilerResult() objectivec.IObject
+	SetShaderProfilerResult(value objectivec.IObject)
 	StreamData() IGTShaderProfilerStreamData
 	SetStreamData(value IGTShaderProfilerStreamData)
 	TimelineInfo() unsafe.Pointer
@@ -225,11 +225,11 @@ func (g GTShaderProfilerProcessedData) MioData() unsafe.Pointer {
 }
 
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/shaderProfilerResult
-func (g GTShaderProfilerProcessedData) ShaderProfilerResult() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("shaderProfilerResult"))
-	return rv
+func (g GTShaderProfilerProcessedData) ShaderProfilerResult() objectivec.IObject {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("shaderProfilerResult"))
+	return objectivec.Object{ID: rv}
 }
-func (g GTShaderProfilerProcessedData) SetShaderProfilerResult(value unsafe.Pointer) {
+func (g GTShaderProfilerProcessedData) SetShaderProfilerResult(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShaderProfilerResult:"), value)
 }
 

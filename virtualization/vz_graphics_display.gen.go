@@ -40,12 +40,6 @@ func (vc VZGraphicsDisplayClass) Alloc() VZGraphicsDisplay {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a graphics display in a VM.
 //
 // # Overview
@@ -79,14 +73,10 @@ type VZGraphicsDisplay struct {
 //
 // A class that represents a graphics display in a VM.
 func VZGraphicsDisplayFromID(id objc.ID) VZGraphicsDisplay {
-	return VZGraphicsDisplay{objectivec.Object{id}}
+	return VZGraphicsDisplay{objectivec.Object{ID: id}}
 }
 // NOTE: VZGraphicsDisplay adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZGraphicsDisplay] class.
 //
@@ -132,10 +122,6 @@ type IVZGraphicsDisplay interface {
 	SetDisplays(value IVZGraphicsDisplay)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (g VZGraphicsDisplay) Init() VZGraphicsDisplay {
 	rv := objc.Send[VZGraphicsDisplay](g.ID, objc.Sel("init"))
@@ -154,15 +140,6 @@ func NewVZGraphicsDisplay() VZGraphicsDisplay {
 	rv := objc.Send[VZGraphicsDisplay](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Adds an observer to notify about display configuration changes.
 //
@@ -199,7 +176,7 @@ func (g VZGraphicsDisplay) RemoveObserver(observer VZGraphicsDisplayObserver) {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/reconfigure(sizeInPixels:)
 func (g VZGraphicsDisplay) ReconfigureWithSizeInPixelsError(sizeInPixels corefoundation.CGSize) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](g.ID, objc.Sel("reconfigureWithSizeInPixels:error:"), sizeInPixels, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -228,7 +205,7 @@ func (g VZGraphicsDisplay) ReconfigureWithSizeInPixelsError(sizeInPixels corefou
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/reconfigure(configuration:)
 func (g VZGraphicsDisplay) ReconfigureWithConfigurationError(configuration IVZGraphicsDisplayConfiguration) (bool, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[bool](g.ID, objc.Sel("reconfigureWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -241,17 +218,6 @@ func (g VZGraphicsDisplay) ReconfigureWithConfigurationError(configuration IVZGr
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // Returns the size of the display, in pixels.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplay/sizeInPixels
@@ -259,8 +225,6 @@ func (g VZGraphicsDisplay) SizeInPixels() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](g.ID, objc.Sel("sizeInPixels"))
 	return corefoundation.CGSize(rv)
 }
-
-
 
 // The list of graphics displays configured for this graphics device.
 //
@@ -272,26 +236,4 @@ func (g VZGraphicsDisplay) Displays() IVZGraphicsDisplay {
 func (g VZGraphicsDisplay) SetDisplays(value IVZGraphicsDisplay) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDisplays:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

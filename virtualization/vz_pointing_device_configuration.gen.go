@@ -36,12 +36,6 @@ func (vc VZPointingDeviceConfigurationClass) Alloc() VZPointingDeviceConfigurati
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a pointing device configuration.
 //
 // # Overview
@@ -59,14 +53,10 @@ type VZPointingDeviceConfiguration struct {
 //
 // The base class for a pointing device configuration.
 func VZPointingDeviceConfigurationFromID(id objc.ID) VZPointingDeviceConfiguration {
-	return VZPointingDeviceConfiguration{objectivec.Object{id}}
+	return VZPointingDeviceConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZPointingDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZPointingDeviceConfiguration] class.
 //
@@ -74,10 +64,6 @@ func VZPointingDeviceConfigurationFromID(id objc.ID) VZPointingDeviceConfigurati
 type IVZPointingDeviceConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (p VZPointingDeviceConfiguration) Init() VZPointingDeviceConfiguration {
@@ -97,45 +83,4 @@ func NewVZPointingDeviceConfiguration() VZPointingDeviceConfiguration {
 	rv := objc.Send[VZPointingDeviceConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -38,12 +38,6 @@ func (vc VNRecognizedPointsObservationClass) Alloc() VNRecognizedPointsObservati
 	return rv
 }
 
-
-
-
-
-
-
 // An observation that provides the points the analysis recognized.
 //
 // # Inspecting the Observation
@@ -70,10 +64,6 @@ func VNRecognizedPointsObservationFromID(id objc.ID) VNRecognizedPointsObservati
 }
 // NOTE: VNRecognizedPointsObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNRecognizedPointsObservation] class.
 //
@@ -107,13 +97,7 @@ type IVNRecognizedPointsObservation interface {
 
 	// Retrieves the grouping of normalized point coordinates and confidence scores in a format compatible with Core ML.
 	KeypointsMultiArrayAndReturnError() (coreml.MLMultiArray, error)
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r VNRecognizedPointsObservation) Init() VNRecognizedPointsObservation {
@@ -134,15 +118,6 @@ func NewVNRecognizedPointsObservation() VNRecognizedPointsObservation {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Retrieves a recognized point for a key.
 //
 // pointKey: The key of the point to retrieve.
@@ -153,7 +128,7 @@ func NewVNRecognizedPointsObservation() VNRecognizedPointsObservation {
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/recognizedPoint(forKey:)
 func (r VNRecognizedPointsObservation) RecognizedPointForKeyError(pointKey VNRecognizedPointKey) (IVNRecognizedPoint, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recognizedPointForKey:error:"), objc.String(string(pointKey)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -173,7 +148,7 @@ func (r VNRecognizedPointsObservation) RecognizedPointForKeyError(pointKey VNRec
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/recognizedPoints(forGroupKey:)
 func (r VNRecognizedPointsObservation) RecognizedPointsForGroupKeyError(groupKey VNRecognizedPointGroupKey) (foundation.INSDictionary, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recognizedPointsForGroupKey:error:"), objc.String(string(groupKey)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -194,7 +169,7 @@ func (r VNRecognizedPointsObservation) RecognizedPointsForGroupKeyError(groupKey
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/keypointsMultiArray()
 func (r VNRecognizedPointsObservation) KeypointsMultiArrayAndReturnError() (coreml.MLMultiArray, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("keypointsMultiArrayAndReturnError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -203,20 +178,6 @@ func (r VNRecognizedPointsObservation) KeypointsMultiArrayAndReturnError() (core
 	return coreml.MLMultiArrayFromID(rv), nil
 
 }
-func (r VNRecognizedPointsObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // The available point keys in the observation.
 //
@@ -226,8 +187,6 @@ func (r VNRecognizedPointsObservation) AvailableKeys() []string {
 	return objc.ConvertSliceToStrings(rv)
 }
 
-
-
 // The available point group keys in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/availableGroupKeys
@@ -235,30 +194,4 @@ func (r VNRecognizedPointsObservation) AvailableGroupKeys() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableGroupKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

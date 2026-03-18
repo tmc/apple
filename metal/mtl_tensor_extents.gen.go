@@ -3,6 +3,7 @@
 package metal
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
@@ -37,12 +38,6 @@ func (mc MTLTensorExtentsClass) Alloc() MTLTensorExtents {
 	return rv
 }
 
-
-
-
-
-
-
 // An array of length matching the rank, holding the dimensions of a tensor.
 //
 // # Overview
@@ -66,14 +61,10 @@ type MTLTensorExtents struct {
 //
 // An array of length matching the rank, holding the dimensions of a tensor.
 func MTLTensorExtentsFromID(id objc.ID) MTLTensorExtents {
-	return MTLTensorExtents{objectivec.Object{id}}
+	return MTLTensorExtents{objectivec.Object{ID: id}}
 }
 // NOTE: MTLTensorExtents adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLTensorExtents] class.
 //
@@ -102,12 +93,8 @@ type IMTLTensorExtents interface {
 	// Returns the extent at an index.
 	ExtentAtDimensionIndex(dimensionIndex uint) int
 	// Creates a new tensor extents with the rank and extent values you provide.
-	InitWithRankValues(rank uint, values int) MTLTensorExtents
+	InitWithRankValues(rank uint, values unsafe.Pointer) MTLTensorExtents
 }
-
-
-
-
 
 // Init initializes the instance.
 func (t MTLTensorExtents) Init() MTLTensorExtents {
@@ -127,11 +114,6 @@ func NewMTLTensorExtents() MTLTensorExtents {
 	rv := objc.Send[MTLTensorExtents](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
 
 // Creates a new tensor extents with the rank and extent values you provide.
 //
@@ -154,17 +136,11 @@ func NewMTLTensorExtents() MTLTensorExtents {
 // 0.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorExtents/initWithRank:values:
-func NewTensorExtentsWithRankValues(rank uint, values int) MTLTensorExtents {
+func NewTensorExtentsWithRankValues(rank uint, values unsafe.Pointer) MTLTensorExtents {
 	instance := getMTLTensorExtentsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRank:values:"), rank, values)
 	return MTLTensorExtentsFromID(rv)
 }
-
-
-
-
-
-
 
 // Returns the extent at an index.
 //
@@ -202,21 +178,10 @@ func (t MTLTensorExtents) ExtentAtDimensionIndex(dimensionIndex uint) int {
 // 0.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorExtents/initWithRank:values:
-func (t MTLTensorExtents) InitWithRankValues(rank uint, values int) MTLTensorExtents {
+func (t MTLTensorExtents) InitWithRankValues(rank uint, values unsafe.Pointer) MTLTensorExtents {
 	rv := objc.Send[MTLTensorExtents](t.ID, objc.Sel("initWithRank:values:"), rank, values)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // Retrieves the extents for this object.
 //
@@ -228,8 +193,6 @@ func (t MTLTensorExtents) Extents() int {
 func (t MTLTensorExtents) SetExtents(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExtents:"), value)
 }
-
-
 
 // Obtains the rank of the tensor.
 //
@@ -243,8 +206,6 @@ func (t MTLTensorExtents) Rank() uint {
 	return rv
 }
 
-
-
 // An error domain for errors that pertain to creating a tensor.
 //
 // See: https://developer.apple.com/documentation/metal/mtltensordomain
@@ -252,8 +213,6 @@ func (t MTLTensorExtents) MTLTensorDomain() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTLTensorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
 func (t MTLTensorExtents) MTL_TENSOR_MAX_RANK() objectivec.IObject {
@@ -263,26 +222,4 @@ func (t MTLTensorExtents) MTL_TENSOR_MAX_RANK() objectivec.IObject {
 func (t MTLTensorExtents) SetMTL_TENSOR_MAX_RANK(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMTL_TENSOR_MAX_RANK:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

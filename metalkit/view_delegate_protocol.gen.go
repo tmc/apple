@@ -8,9 +8,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // Methods for responding to a MetalKit view’s drawing and resizing events.
 //
@@ -29,8 +27,6 @@ type MTKViewDelegate interface {
 	DrawInMTKView(view IMTKView)
 }
 
-
-
 // MTKViewDelegateObject wraps an existing Objective-C object that conforms to the MTKViewDelegate protocol.
 type MTKViewDelegateObject struct {
 	objectivec.Object
@@ -39,8 +35,6 @@ func (o MTKViewDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // MTKViewDelegateObjectFromID constructs a [MTKViewDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func MTKViewDelegateObjectFromID(id objc.ID) MTKViewDelegateObject {
@@ -48,9 +42,6 @@ func MTKViewDelegateObjectFromID(id objc.ID) MTKViewDelegateObject {
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Updates the view’s contents upon receiving a change in layout,
 // resolution, or size.
@@ -86,10 +77,6 @@ func (o MTKViewDelegateObject) DrawInMTKView(view IMTKView) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("drawInMTKView:"), view)
 	}
-
-
-
-
 
 // MTKViewDelegateConfig holds optional typed callbacks for [MTKViewDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
@@ -151,9 +138,4 @@ func NewMTKViewDelegate(config MTKViewDelegateConfig) MTKViewDelegateObject {
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return MTKViewDelegateObjectFromID(instance)
 }
-
-
-
-
-
 

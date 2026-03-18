@@ -7,9 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
 var _ = fmt.Sprintf
-
 
 // A protocol that defines methods that URL session instances call on their delegates to handle task-level events specific to download tasks.
 //
@@ -25,8 +23,6 @@ type NSURLSessionDownloadDelegate interface {
 	URLSessionDownloadTaskDidFinishDownloadingToURL(session INSURLSession, downloadTask INSURLSessionDownloadTask, location INSURL)
 }
 
-
-
 // NSURLSessionDownloadDelegateObject wraps an existing Objective-C object that conforms to the NSURLSessionDownloadDelegate protocol.
 type NSURLSessionDownloadDelegateObject struct {
 	objectivec.Object
@@ -35,8 +31,6 @@ func (o NSURLSessionDownloadDelegateObject) BaseObject() objectivec.Object {
 	return o.Object
 }
 
-
-
 // NSURLSessionDownloadDelegateObjectFromID constructs a [NSURLSessionDownloadDelegateObject] from an objc.ID.
 // The object is determined to conform to the protocol at runtime.
 func NSURLSessionDownloadDelegateObjectFromID(id objc.ID) NSURLSessionDownloadDelegateObject {
@@ -44,9 +38,6 @@ func NSURLSessionDownloadDelegateObjectFromID(id objc.ID) NSURLSessionDownloadDe
 		Object: objectivec.ObjectFromID(id),
 	}
 }
-
-
-
 
 // Tells the delegate that a download task has finished downloading.
 //
@@ -501,10 +492,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskNeedNewBodyStreamFromO
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStreamFromOffset:completionHandler:"), session, task, offset, completionHandler)
 	}
 
-
-
-
-
 // NSURLSessionDownloadDelegateConfig holds optional typed callbacks for [NSURLSessionDownloadDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -595,8 +582,4 @@ func NewNSURLSessionDownloadDelegate(config NSURLSessionDownloadDelegateConfig) 
 	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
 	return NSURLSessionDownloadDelegateObjectFromID(instance)
 }
-
-
-
-
 

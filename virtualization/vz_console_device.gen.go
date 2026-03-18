@@ -36,12 +36,6 @@ func (vc VZConsoleDeviceClass) Alloc() VZConsoleDevice {
 	return rv
 }
 
-
-
-
-
-
-
 // A class that represents a console device in a VM.
 //
 // # Overview
@@ -65,14 +59,10 @@ type VZConsoleDevice struct {
 //
 // A class that represents a console device in a VM.
 func VZConsoleDeviceFromID(id objc.ID) VZConsoleDevice {
-	return VZConsoleDevice{objectivec.Object{id}}
+	return VZConsoleDevice{objectivec.Object{ID: id}}
 }
 // NOTE: VZConsoleDevice adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZConsoleDevice] class.
 //
@@ -84,10 +74,6 @@ type IVZConsoleDevice interface {
 	ConsoleDevices() IVZConsoleDevice
 	SetConsoleDevices(value IVZConsoleDevice)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (c VZConsoleDevice) Init() VZConsoleDevice {
@@ -108,26 +94,6 @@ func NewVZConsoleDevice() VZConsoleDevice {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The list of configured console devices on the VM.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/consoledevices
@@ -138,26 +104,4 @@ func (c VZConsoleDevice) ConsoleDevices() IVZConsoleDevice {
 func (c VZConsoleDevice) SetConsoleDevices(value IVZConsoleDevice) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConsoleDevices:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

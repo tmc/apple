@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/foundation"
 )
 
 // The class instance for the [VNRecognizedObjectObservation] class.
@@ -37,12 +36,6 @@ func (vc VNRecognizedObjectObservationClass) Alloc() VNRecognizedObjectObservati
 	return rv
 }
 
-
-
-
-
-
-
 // A detected object observation with an array of classification labels that
 // classify the recognized object.
 //
@@ -70,10 +63,6 @@ func VNRecognizedObjectObservationFromID(id objc.ID) VNRecognizedObjectObservati
 // NOTE: VNRecognizedObjectObservation adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VNRecognizedObjectObservation] class.
 //
 // # Classifying a Recognized Object
@@ -88,13 +77,7 @@ type IVNRecognizedObjectObservation interface {
 
 	// An array of observations that classify the recognized object.
 	Labels() []VNClassificationObservation
-
-	EncodeWithCoder(coder foundation.INSCoder)
 }
-
-
-
-
 
 // Init initializes the instance.
 func (r VNRecognizedObjectObservation) Init() VNRecognizedObjectObservation {
@@ -115,11 +98,6 @@ func NewVNRecognizedObjectObservation() VNRecognizedObjectObservation {
 	return rv
 }
 
-
-
-
-
-
 // Creates an observation with a bounding box.
 //
 // boundingBox: The observation’s bounding box, in coordinates normalized to the
@@ -131,7 +109,6 @@ func NewRecognizedObjectObservationWithBoundingBox(boundingBox corefoundation.CG
 	rv := objc.Send[objc.ID](objc.ID(getVNRecognizedObjectObservationClass().class), objc.Sel("observationWithBoundingBox:"), boundingBox)
 	return VNRecognizedObjectObservationFromID(rv)
 }
-
 
 // Creates an observation with a revision number and bounding box.
 //
@@ -147,26 +124,6 @@ func NewRecognizedObjectObservationWithRequestRevisionBoundingBox(requestRevisio
 	return VNRecognizedObjectObservationFromID(rv)
 }
 
-
-
-
-
-
-func (r VNRecognizedObjectObservation) EncodeWithCoder(coder foundation.INSCoder) {
-	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // An array of observations that classify the recognized object.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedObjectObservation/labels
@@ -176,30 +133,4 @@ func (r VNRecognizedObjectObservation) Labels() []VNClassificationObservation {
 		return VNClassificationObservationFromID(id)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

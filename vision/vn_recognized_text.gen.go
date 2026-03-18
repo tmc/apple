@@ -38,12 +38,6 @@ func (vc VNRecognizedTextClass) Alloc() VNRecognizedText {
 	return rv
 }
 
-
-
-
-
-
-
 // Text recognized in an image through a text recognition request.
 //
 // # Overview
@@ -65,14 +59,10 @@ type VNRecognizedText struct {
 //
 // Text recognized in an image through a text recognition request.
 func VNRecognizedTextFromID(id objc.ID) VNRecognizedText {
-	return VNRecognizedText{objectivec.Object{id}}
+	return VNRecognizedText{objectivec.Object{ID: id}}
 }
 // NOTE: VNRecognizedText adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VNRecognizedText] class.
 //
@@ -98,10 +88,6 @@ type IVNRecognizedText interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (r VNRecognizedText) Init() VNRecognizedText {
 	rv := objc.Send[VNRecognizedText](r.ID, objc.Sel("init"))
@@ -120,15 +106,6 @@ func NewVNRecognizedText() VNRecognizedText {
 	rv := objc.Send[VNRecognizedText](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
 
 // Calculates the bounding box around the characters in the range of a string.
 //
@@ -151,7 +128,7 @@ func NewVNRecognizedText() VNRecognizedText {
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedText/boundingBoxForRange:error:
 func (r VNRecognizedText) BoundingBoxForRangeError(range_ foundation.NSRange) (IVNRectangleObservation, error) {
-			var errorPtr objc.ID
+	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("boundingBoxForRange:error:"), range_, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
@@ -164,17 +141,6 @@ func (r VNRecognizedText) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // The top candidate for recognized text.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedText/string
@@ -182,8 +148,6 @@ func (r VNRecognizedText) String() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
 
 // A normalized confidence score for the text recognition result.
 //
@@ -198,8 +162,6 @@ func (r VNRecognizedText) Confidence() VNConfidence {
 	return VNConfidence(rv)
 }
 
-
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -209,34 +171,6 @@ func (r VNRecognizedText) RequestRevision() uint {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			// Protocol methods for VNRequestRevisionProviding
 			
-
-
-
-
-
-
-
-
-
-
-
-
 

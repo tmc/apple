@@ -36,12 +36,6 @@ func (vc VZGraphicsDisplayConfigurationClass) Alloc() VZGraphicsDisplayConfigura
 	return rv
 }
 
-
-
-
-
-
-
 // The base class for a graphics display configuration.
 //
 // # Overview
@@ -58,14 +52,10 @@ type VZGraphicsDisplayConfiguration struct {
 //
 // The base class for a graphics display configuration.
 func VZGraphicsDisplayConfigurationFromID(id objc.ID) VZGraphicsDisplayConfiguration {
-	return VZGraphicsDisplayConfiguration{objectivec.Object{id}}
+	return VZGraphicsDisplayConfiguration{objectivec.Object{ID: id}}
 }
 // NOTE: VZGraphicsDisplayConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [VZGraphicsDisplayConfiguration] class.
 //
@@ -73,10 +63,6 @@ func VZGraphicsDisplayConfigurationFromID(id objc.ID) VZGraphicsDisplayConfigura
 type IVZGraphicsDisplayConfiguration interface {
 	objectivec.IObject
 }
-
-
-
-
 
 // Init initializes the instance.
 func (g VZGraphicsDisplayConfiguration) Init() VZGraphicsDisplayConfiguration {
@@ -96,45 +82,4 @@ func NewVZGraphicsDisplayConfiguration() VZGraphicsDisplayConfiguration {
 	rv := objc.Send[VZGraphicsDisplayConfiguration](objc.ID(class.class), objc.Sel("new"))
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

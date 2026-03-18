@@ -35,12 +35,6 @@ func (mc MTLStructTypeClass) Alloc() MTLStructType {
 	return rv
 }
 
-
-
-
-
-
-
 // A description of a structure.
 //
 // # Overview
@@ -77,10 +71,6 @@ func MTLStructTypeFromID(id objc.ID) MTLStructType {
 // NOTE: MTLStructType adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [MTLStructType] class.
 //
 // # Obtaining information about struct members
@@ -104,10 +94,6 @@ type IMTLStructType interface {
 	SetBufferStructType(value IMTLStructType)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MTLStructType) Init() MTLStructType {
 	rv := objc.Send[MTLStructType](s.ID, objc.Sel("init"))
@@ -127,15 +113,6 @@ func NewMTLStructType() MTLStructType {
 	return rv
 }
 
-
-
-
-
-
-
-
-
-
 // Provides a representation of a struct member.
 //
 // name: The name of a member in the struct.
@@ -150,17 +127,6 @@ func (s MTLStructType) MemberByName(name string) IMTLStructMember {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("memberByName:"), objc.String(name))
 	return MTLStructMemberFromID(rv)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // An array of instances that describe the fields in the struct.
 //
@@ -177,8 +143,6 @@ func (s MTLStructType) Members() []MTLStructMember {
 	})
 }
 
-
-
 // A description of the structure data of a buffer argument.
 //
 // See: https://developer.apple.com/documentation/metal/mtlargument/bufferstructtype
@@ -189,26 +153,4 @@ func (s MTLStructType) BufferStructType() IMTLStructType {
 func (s MTLStructType) SetBufferStructType(value IMTLStructType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBufferStructType:"), value)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

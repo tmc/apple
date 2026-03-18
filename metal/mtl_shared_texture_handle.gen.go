@@ -37,12 +37,6 @@ func (mc MTLSharedTextureHandleClass) Alloc() MTLSharedTextureHandle {
 	return rv
 }
 
-
-
-
-
-
-
 // A texture handle that can be shared across process address space
 // boundaries.
 //
@@ -70,14 +64,10 @@ type MTLSharedTextureHandle struct {
 // A texture handle that can be shared across process address space
 // boundaries.
 func MTLSharedTextureHandleFromID(id objc.ID) MTLSharedTextureHandle {
-	return MTLSharedTextureHandle{objectivec.Object{id}}
+	return MTLSharedTextureHandle{objectivec.Object{ID: id}}
 }
 // NOTE: MTLSharedTextureHandle adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
-
-
-
-
 
 // An interface definition for the [MTLSharedTextureHandle] class.
 //
@@ -100,10 +90,6 @@ type IMTLSharedTextureHandle interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
-
-
-
-
 // Init initializes the instance.
 func (s MTLSharedTextureHandle) Init() MTLSharedTextureHandle {
 	rv := objc.Send[MTLSharedTextureHandle](s.ID, objc.Sel("init"))
@@ -123,28 +109,9 @@ func NewMTLSharedTextureHandle() MTLSharedTextureHandle {
 	return rv
 }
 
-
-
-
-
-
-
-
-
 func (s MTLSharedTextureHandle) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // The device object that created the texture.
 //
@@ -158,8 +125,6 @@ func (s MTLSharedTextureHandle) Device() MTLDevice {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 }
-
-
 
 // A string that identifies the texture.
 //
@@ -176,28 +141,4 @@ func (s MTLSharedTextureHandle) Label() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

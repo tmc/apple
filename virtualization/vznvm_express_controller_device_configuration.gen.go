@@ -35,12 +35,6 @@ func (vc VZNVMExpressControllerDeviceConfigurationClass) Alloc() VZNVMExpressCon
 	return rv
 }
 
-
-
-
-
-
-
 // The configuration object that represents an NVM Express Controller storage
 // device.
 //
@@ -73,10 +67,6 @@ func VZNVMExpressControllerDeviceConfigurationFromID(id objc.ID) VZNVMExpressCon
 // NOTE: VZNVMExpressControllerDeviceConfiguration adopts protocols; skip strict compile-time interface assertion.
 // Protocol method surfaces are generated separately and may include optional methods.
 
-
-
-
-
 // An interface definition for the [VZNVMExpressControllerDeviceConfiguration] class.
 //
 // # Creating a new device configuration
@@ -92,10 +82,6 @@ type IVZNVMExpressControllerDeviceConfiguration interface {
 	// Creates a new NVM Express controller configuration with the storage device attachment you provide.
 	InitWithAttachment(attachment IVZStorageDeviceAttachment) VZNVMExpressControllerDeviceConfiguration
 }
-
-
-
-
 
 // Init initializes the instance.
 func (n VZNVMExpressControllerDeviceConfiguration) Init() VZNVMExpressControllerDeviceConfiguration {
@@ -116,11 +102,6 @@ func NewVZNVMExpressControllerDeviceConfiguration() VZNVMExpressControllerDevice
 	return rv
 }
 
-
-
-
-
-
 // Creates a new NVM Express controller configuration with the storage device
 // attachment you provide.
 //
@@ -134,12 +115,6 @@ func NewNVMExpressControllerDeviceConfigurationWithAttachment(attachment IVZStor
 	return VZNVMExpressControllerDeviceConfigurationFromID(rv)
 }
 
-
-
-
-
-
-
 // Creates a new NVM Express controller configuration with the storage device
 // attachment you provide.
 //
@@ -151,36 +126,4 @@ func (n VZNVMExpressControllerDeviceConfiguration) InitWithAttachment(attachment
 	rv := objc.Send[VZNVMExpressControllerDeviceConfiguration](n.ID, objc.Sel("initWithAttachment:"), attachment)
 	return rv
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
