@@ -119,8 +119,7 @@ func pageAlign(n int) int {
 //
 //go:nosplit
 func cfString(s string) unsafe.Pointer {
-	b := append([]byte(s), 0)                                             // null-terminated
-	ref := corefoundation.CFStringCreateWithCString(0, &b[0], 0x08000100) // kCFStringEncodingUTF8
+	ref := corefoundation.CFStringCreateWithCString(0, s, 0x08000100) // kCFStringEncodingUTF8
 	p := uintptr(ref)
 	return *(*unsafe.Pointer)(unsafe.Pointer(&p))
 }

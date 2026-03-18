@@ -145,8 +145,7 @@ func (c *stringCache) get(s string) uintptr {
 		return ref
 	}
 
-	cStr := append([]byte(s), 0)
-	ref := corefoundation.CFStringCreateWithCString(0, &cStr[0], cfStringEncodingUTF8)
+	ref := corefoundation.CFStringCreateWithCString(0, s, cfStringEncodingUTF8)
 	if ref != 0 {
 		c.cache[s] = uintptr(ref)
 	}

@@ -715,8 +715,7 @@ func fp16ToFloat32(h uint16) float32 {
 }
 
 func cfString(s string) unsafe.Pointer {
-	b := append([]byte(s), 0)
-	ref := corefoundation.CFStringCreateWithCString(0, &b[0], 0x08000100)
+	ref := corefoundation.CFStringCreateWithCString(0, s, 0x08000100)
 	p := uintptr(ref)
 	return *(*unsafe.Pointer)(unsafe.Pointer(&p))
 }

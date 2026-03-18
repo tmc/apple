@@ -144,12 +144,11 @@ func buildMainWindow() {
 	scrollView.SetBorderType(appkit.NSNoBorder)
 	scrollView.SetDrawsBackground(false)
 
-	todoListView = appkit.GetNSViewClass().Alloc().InitWithFrame(
-		corefoundation.CGRect{
-			Origin: corefoundation.CGPoint{X: 0, Y: 0},
-			Size:   corefoundation.CGSize{Width: contentWidth, Height: listHeight},
-		},
-	)
+	todoListView = appkit.GetNSViewClass().Alloc().Init()
+	todoListView.SetFrame(corefoundation.CGRect{
+		Origin: corefoundation.CGPoint{X: 0, Y: 0},
+		Size:   corefoundation.CGSize{Width: contentWidth, Height: listHeight},
+	})
 	scrollView.SetDocumentView(todoListView)
 	contentView.AddSubview(scrollView)
 
@@ -346,7 +345,8 @@ func refreshTodoList() {
 		idx := i
 		text := todos[i]
 
-		row := appkit.GetNSViewClass().Alloc().InitWithFrame(corefoundation.CGRect{
+		row := appkit.GetNSViewClass().Alloc().Init()
+		row.SetFrame(corefoundation.CGRect{
 			Origin: corefoundation.CGPoint{X: 0, Y: y},
 			Size:   corefoundation.CGSize{Width: contentWidth, Height: rowHeight},
 		})

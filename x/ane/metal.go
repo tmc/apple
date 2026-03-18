@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/metal"
-	"github.com/tmc/apple/objc"
 )
 
 // MetalDevice wraps a Metal GPU device for zero-copy interop with ANE.
@@ -18,11 +17,10 @@ type MetalDevice struct {
 
 // OpenMetal opens the system default Metal device.
 func OpenMetal() (*MetalDevice, error) {
-	ptr := metal.MTLCreateSystemDefaultDevice()
-	if ptr == nil {
+	dev := metal.MTLCreateSystemDefaultDevice()
+	if dev.GetID() == 0 {
 		return nil, fmt.Errorf("ane: no Metal device available")
 	}
-	dev := metal.MTLDeviceObjectFromID(objc.ID(uintptr(ptr)))
 	return &MetalDevice{device: dev}, nil
 }
 
@@ -76,7 +74,7 @@ func metalBufferFromSurface(d *MetalDevice, ref coregraphics.IOSurfaceRef) (meta
 		base,
 		uint(length),
 		metal.MTLResourceStorageModeShared,
-		0, // no deallocator — IOSurface owns the memory
+		nil, // no deallocator — IOSurface owns the memory
 	)
 	if buf == nil || buf.GetID() == 0 {
 		return metal.MTLBufferObject{}, &ANEError{Op: "metal", Err: fmt.Errorf("failed to create MTLBuffer")}

@@ -25,11 +25,10 @@ type MetalDevice struct {
 
 // OpenMetal opens the system default Metal device.
 func OpenMetal() (*MetalDevice, error) {
-	ptr := metal.MTLCreateSystemDefaultDevice()
-	if ptr == nil {
+	dev := metal.MTLCreateSystemDefaultDevice()
+	if dev.GetID() == 0 {
 		return nil, fmt.Errorf("espresso: no Metal device available")
 	}
-	dev := metal.MTLDeviceObjectFromID(objc.ID(uintptr(ptr)))
 	d := &MetalDevice{device: dev}
 	runtime.SetFinalizer(d, (*MetalDevice).Close)
 	return d, nil

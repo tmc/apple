@@ -291,8 +291,7 @@ func (e *Element) SetValue(value string) error {
 		return ErrInvalidElement
 	}
 
-	cStr := append([]byte(value), 0)
-	cfValue := corefoundation.CFStringCreateWithCString(0, &cStr[0], cfStringEncodingUTF8)
+	cfValue := corefoundation.CFStringCreateWithCString(0, value, cfStringEncodingUTF8)
 	if cfValue == 0 {
 		return &Error{Message: "failed to create CFString"}
 	}
