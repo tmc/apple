@@ -20,6 +20,7 @@
 //go:generate applegen-bootstrap -f "metal"
 //go:generate applegen-bootstrap -f "metalkit"
 //go:generate applegen-bootstrap -f "objectivec"
+//go:generate applegen-bootstrap -f "security"
 //go:generate applegen-bootstrap -f "symbols"
 //go:generate applegen-bootstrap -f "screencapturekit"
 //go:generate applegen-bootstrap -f "uniformtypeidentifiers"
