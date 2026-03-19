@@ -3,6 +3,7 @@
 package metal
 
 import (
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -57,7 +58,7 @@ type MTLArgumentEncoder interface {
 	// Returns a pointer to an inline, constant-data argument within the argument buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/constantData(at:)
-	ConstantDataAtIndex(index uint)
+	ConstantDataAtIndex(index uint) unsafe.Pointer
 
 	// Encodes a reference to an indirect command buffer into the argument buffer.
 	//
@@ -298,9 +299,10 @@ func (o MTLArgumentEncoderObject) SetComputePipelineStateAtIndex(pipeline MTLCom
 // destination pointer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/constantData(at:)
-func (o MTLArgumentEncoderObject) ConstantDataAtIndex(index uint) {
+func (o MTLArgumentEncoderObject) ConstantDataAtIndex(index uint) unsafe.Pointer {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("constantDataAtIndex:"), index)
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("constantDataAtIndex:"), index)
+	return rv
 	}
 // Encodes a reference to an indirect command buffer into the argument buffer.
 //

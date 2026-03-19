@@ -3,6 +3,7 @@
 package metal
 
 import (
+	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -24,7 +25,7 @@ type MTLBuffer interface {
 	// Gets the system address of the buffer’s storage allocation.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/contents()
-	Contents()
+	Contents() unsafe.Pointer
 
 	// Removes all debug marker strings from the buffer.
 	//
@@ -160,9 +161,10 @@ func (o MTLBufferObject) NewTextureWithDescriptorOffsetBytesPerRow(descriptor IM
 // Private resources aren’t CPU-accessible.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/contents()
-func (o MTLBufferObject) Contents() {
+func (o MTLBufferObject) Contents() unsafe.Pointer {
 	
-	objc.Send[struct{}](o.ID, objc.Sel("contents"))
+	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("contents"))
+	return rv
 	}
 // Removes all debug marker strings from the buffer.
 //
