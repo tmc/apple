@@ -363,7 +363,7 @@ func (r *triangleRenderer) waitOnSharedEvent(earlierFrame uint64) {
 
 func (r *triangleRenderer) updateViewportSize(width, height uint32) {
 	viewport := viewportSize{Width: width, Height: height}
-	dst := bufferContents(r.viewportSizeBuffer)
+	dst := r.viewportSizeBuffer.Contents()
 	if dst != nil {
 		copyBytes(dst, unsafe.Pointer(&viewport), unsafe.Sizeof(viewport))
 	}
@@ -371,15 +371,10 @@ func (r *triangleRenderer) updateViewportSize(width, height uint32) {
 
 func (r *triangleRenderer) updateTriangleVertexData(frameIndex int) {
 	data := currentTriangleData(r.frameNumber)
-	dst := bufferContents(r.triangleVertexBufs[frameIndex])
+	dst := r.triangleVertexBufs[frameIndex].Contents()
 	if dst != nil {
 		copyBytes(dst, unsafe.Pointer(&data), unsafe.Sizeof(data))
 	}
-}
-
-// bufferContents returns the CPU-accessible pointer for a shared Metal buffer.
-func bufferContents(buf metal.MTLBuffer) unsafe.Pointer {
-	return objc.Send[unsafe.Pointer](buf.GetID(), objc.Sel("contents"))
 }
 
 // copyBytes copies n bytes from src to dst.
