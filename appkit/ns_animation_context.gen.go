@@ -7,6 +7,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/quartzcore"
 )
 
 // The class instance for the [NSAnimationContext] class.
@@ -121,8 +122,8 @@ type INSAnimationContext interface {
 	Duration() float64
 	SetDuration(value float64)
 	// The timing function used for all animations within this animation proxy group.
-	TimingFunction() objectivec.IObject
-	SetTimingFunction(value objectivec.IObject)
+	TimingFunction() quartzcore.CAMediaTimingFunction
+	SetTimingFunction(value quartzcore.CAMediaTimingFunction)
 
 	// Topic: Implicit Animation
 
@@ -284,11 +285,11 @@ func (a NSAnimationContext) SetDuration(value float64) {
 // [setAnimationTimingFunction(_:)]: https://developer.apple.com/documentation/QuartzCore/CATransaction/setAnimationTimingFunction(_:)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/timingFunction
-func (a NSAnimationContext) TimingFunction() objectivec.IObject {
+func (a NSAnimationContext) TimingFunction() quartzcore.CAMediaTimingFunction {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("timingFunction"))
-	return objectivec.Object{ID: rv}
+	return quartzcore.CAMediaTimingFunctionFromID(objc.ID(rv))
 }
-func (a NSAnimationContext) SetTimingFunction(value objectivec.IObject) {
+func (a NSAnimationContext) SetTimingFunction(value quartzcore.CAMediaTimingFunction) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimingFunction:"), value)
 }
 // Determine if animations are enabled or not for animations that occur as a

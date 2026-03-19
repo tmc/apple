@@ -10,6 +10,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/quartzcore"
 )
 
 // The class instance for the [NSWindow] class.
@@ -1106,7 +1107,7 @@ type INSWindow interface {
 	// The window’s backing store type.
 	BackingType() NSBackingStoreType
 	SetBackingType(value NSBackingStoreType)
-	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject
+	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) quartzcore.CADisplayLink
 
 	// Topic: Getting Layout Information
 
@@ -2164,9 +2165,9 @@ func (w NSWindow) SetContentBorderThicknessForEdge(thickness float64, edge found
 }
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/displayLink(target:selector:)
-func (w NSWindow) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject {
+func (w NSWindow) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) quartzcore.CADisplayLink {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("displayLinkWithTarget:selector:"), target, selector)
-	return objectivec.Object{ID: rv}
+	return quartzcore.CADisplayLinkFromID(rv)
 }
 // Returns the window’s content rectangle with a given frame rectangle.
 //

@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/quartzcore"
 )
 
 // The class instance for the [NSScreen] class.
@@ -240,7 +241,7 @@ type INSScreen interface {
 
 	// Topic: Synchronizing with the display’s refresh rate
 
-	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject
+	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) quartzcore.CADisplayLink
 
 	// Topic: Instance Properties
 
@@ -335,9 +336,9 @@ func (s NSScreen) ConvertRectToBacking(rect corefoundation.CGRect) corefoundatio
 }
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScreen/displayLink(target:selector:)
-func (s NSScreen) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject {
+func (s NSScreen) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) quartzcore.CADisplayLink {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("displayLinkWithTarget:selector:"), target, selector)
-	return objectivec.Object{ID: rv}
+	return quartzcore.CADisplayLinkFromID(rv)
 }
 
 // The current bit depth and colorspace information of the screen.

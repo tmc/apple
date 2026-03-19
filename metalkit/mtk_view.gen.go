@@ -11,7 +11,7 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
-	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/quartzcore"
 )
 
 // The class instance for the [MTKView] class.
@@ -378,7 +378,7 @@ type IMTKView interface {
 	// A render pass descriptor to draw into the current drawable.
 	CurrentRenderPassDescriptor() metal.MTLRenderPassDescriptor
 	// The drawable to use for the current frame.
-	CurrentDrawable() objectivec.IObject
+	CurrentDrawable() quartzcore.CAMetalDrawable
 	// A packed depth and stencil texture associated with the current drawable object’s texture.
 	DepthStencilTexture() metal.MTLTexture
 	// The storage mode that the packed depth and stencil texture use.
@@ -877,9 +877,9 @@ func (v MTKView) CurrentRenderPassDescriptor() metal.MTLRenderPassDescriptor {
 // [present(_:)]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/present(_:)
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/currentDrawable
-func (v MTKView) CurrentDrawable() objectivec.IObject {
+func (v MTKView) CurrentDrawable() quartzcore.CAMetalDrawable {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("currentDrawable"))
-	return objectivec.Object{ID: rv}
+	return quartzcore.CAMetalDrawableObjectFromID(rv)
 }
 // A packed depth and stencil texture associated with the current drawable
 // object’s texture.

@@ -10,6 +10,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/quartzcore"
 )
 
 // The class instance for the [NSView] class.
@@ -333,8 +334,8 @@ type INSView interface {
 	LastBaselineOffsetFromBottom() float64
 	SetLastBaselineOffsetFromBottom(value float64)
 	// The Core Animation layer that the view uses as its backing store.
-	Layer() objectivec.IObject
-	SetLayer(value objectivec.IObject)
+	Layer() quartzcore.CALayer
+	SetLayer(value quartzcore.CALayer)
 	// The current layer contents placement policy.
 	LayerContentsPlacement() objectivec.IObject
 	SetLayerContentsPlacement(value objectivec.IObject)
@@ -601,7 +602,7 @@ type INSView interface {
 	DisplayIfNeededInRect(rect corefoundation.CGRect)
 	// Acts as [displayIfNeeded()](<doc://com.apple.appkit/documentation/AppKit/NSView/displayIfNeeded()>), but confining drawing to `aRect` and not backing up to the first opaque ancestor—it simply causes the view and its descendants to execute their drawing code.
 	DisplayIfNeededInRectIgnoringOpacity(rect corefoundation.CGRect)
-	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject
+	DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) quartzcore.CADisplayLink
 	// Acts as [display()](<doc://com.apple.appkit/documentation/AppKit/NSView/display()>), but confining drawing to a rectangular region of the view.
 	DisplayRect(rect corefoundation.CGRect)
 	// Displays the view but confines drawing to a specified region and does not back up to the first opaque ancestor—it simply causes the view and its descendants to execute their drawing code.
@@ -645,7 +646,7 @@ type INSView interface {
 	// Invoked by [printView(_:)](<doc://com.apple.appkit/documentation/AppKit/NSView/printView(_:)>) to determine the location of the region of the view being printed on the physical page.
 	LocationOfPrintRect(rect corefoundation.CGRect) corefoundation.CGPoint
 	// Creates the view’s backing layer.
-	MakeBackingLayer() objectivec.IObject
+	MakeBackingLayer() quartzcore.CALayer
 	// Overridden by subclasses to return a context-sensitive pop-up menu for a given mouse-down event.
 	MenuForEvent(event INSEvent) INSMenu
 	// Returns whether a region of the view contains a specified point, accounting for whether the view is flipped or not.
@@ -2147,9 +2148,9 @@ func (v NSView) DisplayIfNeededInRectIgnoringOpacity(rect corefoundation.CGRect)
 }
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/displayLink(target:selector:)
-func (v NSView) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject {
+func (v NSView) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) quartzcore.CADisplayLink {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("displayLinkWithTarget:selector:"), target, selector)
-	return objectivec.Object{ID: rv}
+	return quartzcore.CADisplayLinkFromID(rv)
 }
 // Acts as [Display], but confining drawing to a rectangular region of the
 // view.
@@ -2746,9 +2747,9 @@ func (v NSView) LocationOfPrintRect(rect corefoundation.CGRect) corefoundation.C
 // The layer to use as the view’s backing layer.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/makeBackingLayer()
-func (v NSView) MakeBackingLayer() objectivec.IObject {
+func (v NSView) MakeBackingLayer() quartzcore.CALayer {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeBackingLayer"))
-	return objectivec.Object{ID: rv}
+	return quartzcore.CALayerFromID(rv)
 }
 // Overridden by subclasses to return a context-sensitive pop-up menu for a
 // given mouse-down event.
@@ -5101,11 +5102,11 @@ func (v NSView) SetLastBaselineOffsetFromBottom(value float64) {
 // The Core Animation layer that the view uses as its backing store.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/layer
-func (v NSView) Layer() objectivec.IObject {
+func (v NSView) Layer() quartzcore.CALayer {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("layer"))
-	return objectivec.Object{ID: rv}
+	return quartzcore.CALayerFromID(objc.ID(rv))
 }
-func (v NSView) SetLayer(value objectivec.IObject) {
+func (v NSView) SetLayer(value quartzcore.CALayer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLayer:"), value)
 }
 // The current layer contents placement policy.
