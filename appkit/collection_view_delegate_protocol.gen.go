@@ -66,13 +66,11 @@ func NSCollectionViewDelegateObjectFromID(id objc.ID) NSCollectionViewDelegateOb
 // parameter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:shouldSelectItemsAt:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewShouldSelectItemsAtIndexPaths(collectionView INSCollectionView, indexPaths foundation.INSSet) foundation.INSSet {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:shouldSelectItemsAtIndexPaths:"), collectionView, indexPaths)
 	return foundation.NSSetFromID(rv)
 	}
-
 // Notifies the delegate object that one or more items were selected.
 //
 // collectionView: The collection view notifying you of the selection change.
@@ -93,12 +91,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewShouldSelectItemsAtIndexPa
 // the methods of the [NSCollectionView] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didSelectItemsAt:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewDidSelectItemsAtIndexPaths(collectionView INSCollectionView, indexPaths foundation.INSSet) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didSelectItemsAtIndexPaths:"), collectionView, indexPaths)
 	}
-
 // Asks the delegate object to approve the pending deselection of items.
 //
 // collectionView: The collection view making the request.
@@ -131,13 +127,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidSelectItemsAtIndexPaths
 // `indexPaths` parameter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:shouldDeselectItemsAt:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewShouldDeselectItemsAtIndexPaths(collectionView INSCollectionView, indexPaths foundation.INSSet) foundation.INSSet {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:shouldDeselectItemsAtIndexPaths:"), collectionView, indexPaths)
 	return foundation.NSSetFromID(rv)
 	}
-
 // Notifies the delegate object that one or more items were deselected.
 //
 // collectionView: The collection view notifying you of the selection change.
@@ -158,12 +152,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewShouldDeselectItemsAtIndex
 // the methods of the [NSCollectionView] class.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didDeselectItemsAt:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewDidDeselectItemsAtIndexPaths(collectionView INSCollectionView, indexPaths foundation.INSSet) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didDeselectItemsAtIndexPaths:"), collectionView, indexPaths)
 	}
-
 // Asks the delegate to approve the pending highlighting of the specified
 // items.
 //
@@ -199,13 +191,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidDeselectItemsAtIndexPat
 // highlight state for the items specified by the `indexPaths` parameter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:shouldChangeItemsAt:to:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewShouldChangeItemsAtIndexPathsToHighlightState(collectionView INSCollectionView, indexPaths foundation.INSSet, highlightState NSCollectionViewItemHighlightState) foundation.INSSet {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:shouldChangeItemsAtIndexPaths:toHighlightState:"), collectionView, indexPaths, highlightState)
 	return foundation.NSSetFromID(rv)
 	}
-
 // Notifies the delegate that the highlight state of the specified items
 // changed.
 //
@@ -226,12 +216,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewShouldChangeItemsAtIndexPa
 // or the collection view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didChangeItemsAt:to:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewDidChangeItemsAtIndexPathsToHighlightState(collectionView INSCollectionView, indexPaths foundation.INSSet, highlightState NSCollectionViewItemHighlightState) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didChangeItemsAtIndexPaths:toHighlightState:"), collectionView, indexPaths, highlightState)
 	}
-
 // Notifies the delegate that the specified item is about to be displayed by
 // the collection view.
 //
@@ -248,12 +236,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidChangeItemsAtIndexPaths
 // related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:willDisplay:forRepresentedObjectAt:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewWillDisplayItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:willDisplayItem:forRepresentedObjectAtIndexPath:"), collectionView, item, indexPath)
 	}
-
 // Notifies the delegate that the specified item was removed from the
 // collection view.
 //
@@ -270,12 +256,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewWillDisplayItemForRepresen
 // related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didEndDisplaying:forRepresentedObjectAt:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didEndDisplayingItem:forRepresentedObjectAtIndexPath:"), collectionView, item, indexPath)
 	}
-
 // Notifies the delegate that the specified supplementary view is about to be
 // displayed by the collection view.
 //
@@ -295,12 +279,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingItemForRep
 // views and perform related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:willDisplaySupplementaryView:forElementKind:at:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewWillDisplaySupplementaryViewForElementKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:willDisplaySupplementaryView:forElementKind:atIndexPath:"), collectionView, view, objc.String(string(elementKind)), indexPath)
 	}
-
 // Notifies the delegate that the specified supplementary view was removed
 // from the collection view.
 //
@@ -320,12 +302,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewWillDisplaySupplementaryVi
 // perform related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didEndDisplayingSupplementaryView:forElementOfKind:at:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingSupplementaryViewForElementOfKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didEndDisplayingSupplementaryView:forElementOfKind:atIndexPath:"), collectionView, view, objc.String(string(elementKind)), indexPath)
 	}
-
 // Returns the transition layout object to use when performing an animated
 // change between different layouts.
 //
@@ -364,13 +344,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingSupplement
 // [UICollectionViewTransitionLayout]: https://developer.apple.com/documentation/UIKit/UICollectionViewTransitionLayout
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:transitionLayoutForOldLayout:newLayout:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewTransitionLayoutForOldLayoutNewLayout(collectionView INSCollectionView, fromLayout INSCollectionViewLayout, toLayout INSCollectionViewLayout) INSCollectionViewTransitionLayout {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:transitionLayoutForOldLayout:newLayout:"), collectionView, fromLayout, toLayout)
 	return NSCollectionViewTransitionLayoutFromID(rv)
 	}
-
 // Returns a Boolean indicating whether a drag operation involving the
 // specified items can begin.
 //
@@ -398,13 +376,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewTransitionLayoutForOldLayo
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:canDragItemsAt:with:)-49wix
-
 func (o NSCollectionViewDelegateObject) CollectionViewCanDragItemsAtIndexPathsWithEvent(collectionView INSCollectionView, indexPaths foundation.INSSet, event INSEvent) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("collectionView:canDragItemsAtIndexPaths:withEvent:"), collectionView, indexPaths, event)
 	return rv
 	}
-
 // Provides the pasteboard writer for the item at the specified index path.
 //
 // collectionView: The collection view making the request.
@@ -442,13 +418,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewCanDragItemsAtIndexPathsWi
 // [collectionView(_:writeItemsAt:to:)]: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:writeItemsAt:to:)-23ozm
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:pasteboardWriterForItemAt:)-5eyyl
-
 func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtIndexPath(collectionView INSCollectionView, indexPath objectivec.IObject) NSPasteboardWriting {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:pasteboardWriterForItemAtIndexPath:"), collectionView, indexPath)
 	return NSPasteboardWritingObjectFromID(rv)
 	}
-
 // Creates and returns a drag image to represent the specified items during a
 // drag.
 //
@@ -484,13 +458,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtI
 // method instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingImageForItemsAt:with:offset:)-898js
-
 func (o NSCollectionViewDelegateObject) CollectionViewDraggingImageForItemsAtIndexPathsWithEventOffset(collectionView INSCollectionView, indexPaths foundation.INSSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:draggingImageForItemsAtIndexPaths:withEvent:offset:"), collectionView, indexPaths, event, dragImageOffset)
 	return NSImageFromID(rv)
 	}
-
 // Notifies your delegate that a drag session is about to begin.
 //
 // collectionView: The collection view notifying your delegate object.
@@ -507,12 +479,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewDraggingImageForItemsAtInd
 // tasks related to the beginning of a drag session.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingSession:willBeginAt:forItemsAt:)-68x2y
-
 func (o NSCollectionViewDelegateObject) CollectionViewDraggingSessionWillBeginAtPointForItemsAtIndexPaths(collectionView INSCollectionView, session INSDraggingSession, screenPoint corefoundation.CGPoint, indexPaths foundation.INSSet) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:draggingSession:willBeginAtPoint:forItemsAtIndexPaths:"), collectionView, session, screenPoint, indexPaths)
 	}
-
 // Notifies your delegate that a drag session ended.
 //
 // collectionView: The collection view notifying your delegate object.
@@ -531,12 +501,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewDraggingSessionWillBeginAt
 // session.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingSession:endedAt:dragOperation:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewDraggingSessionEndedAtPointDragOperation(collectionView INSCollectionView, session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:draggingSession:endedAtPoint:dragOperation:"), collectionView, session, screenPoint, operation)
 	}
-
 // Asks your delegate to update the dragging items during a drag operation.
 //
 // collectionView: The collection view asking you to update the dragging items.
@@ -556,12 +524,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewDraggingSessionEndedAtPoin
 // update them as appropriate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:updateDraggingItemsForDrag:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewUpdateDraggingItemsForDrag(collectionView INSCollectionView, draggingInfo NSDraggingInfo) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:updateDraggingItemsForDrag:"), collectionView, draggingInfo)
 	}
-
 // Validates whether a drop operation is possible at the specified location.
 //
 // collectionView: The collection view asking you to validate the drop operation.
@@ -608,13 +574,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewUpdateDraggingItemsForDrag
 // [NSCollectionView.DropOperation.on]: https://developer.apple.com/documentation/AppKit/NSCollectionView/DropOperation/on
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:validateDrop:proposedIndexPath:dropOperation:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndexPath objectivec.IObject, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
 	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("collectionView:validateDrop:proposedIndexPath:dropOperation:"), collectionView, draggingInfo, proposedDropIndexPath, proposedDropOperation)
 	return rv
 	}
-
 // Incorporates the dropped content into the collection view.
 //
 // collectionView: The collection view receiving the dropped content.
@@ -658,13 +622,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexP
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:acceptDrop:indexPath:dropOperation:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewAcceptDropIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, indexPath objectivec.IObject, dropOperation NSCollectionViewDropOperation) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("collectionView:acceptDrop:indexPath:dropOperation:"), collectionView, draggingInfo, indexPath, dropOperation)
 	return rv
 	}
-
 // Returns a Boolean indicating whether the collection view can begin dragging
 // the specified items.
 //
@@ -697,13 +659,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewAcceptDropIndexPathDropOpe
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:canDragItemsAt:with:)-39rjh
-
 func (o NSCollectionViewDelegateObject) CollectionViewCanDragItemsAtIndexesWithEvent(collectionView INSCollectionView, indexes foundation.NSIndexSet, event INSEvent) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("collectionView:canDragItemsAtIndexes:withEvent:"), collectionView, indexes, event)
 	return rv
 	}
-
 // Provides the pasteboard writer for the item at the specified index
 //
 // collectionView: The collection view making the request.
@@ -733,13 +693,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewCanDragItemsAtIndexesWithE
 // [NSCollectionView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:pasteboardWriterForItemAt:)-7ldvs
-
 func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtIndex(collectionView INSCollectionView, index uint) NSPasteboardWriting {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:pasteboardWriterForItemAtIndex:"), collectionView, index)
 	return NSPasteboardWritingObjectFromID(rv)
 	}
-
 // Creates and returns a drag image to represent the specified items during a
 // drag.
 //
@@ -768,13 +726,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtI
 // drag source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingImageForItemsAt:with:offset:)-4yvk5
-
 func (o NSCollectionViewDelegateObject) CollectionViewDraggingImageForItemsAtIndexesWithEventOffset(collectionView INSCollectionView, indexes foundation.NSIndexSet, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:draggingImageForItemsAtIndexes:withEvent:offset:"), collectionView, indexes, event, dragImageOffset)
 	return NSImageFromID(rv)
 	}
-
 // Notifies your delegate that a drag session is about to begin.
 //
 // collectionView: The collection view notifying your delegate object.
@@ -791,12 +747,10 @@ func (o NSCollectionViewDelegateObject) CollectionViewDraggingImageForItemsAtInd
 // tasks related to the beginning of a drag session.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:draggingSession:willBeginAt:forItemsAt:)-cpuq
-
 func (o NSCollectionViewDelegateObject) CollectionViewDraggingSessionWillBeginAtPointForItemsAtIndexes(collectionView INSCollectionView, session INSDraggingSession, screenPoint corefoundation.CGPoint, indexes foundation.NSIndexSet) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:draggingSession:willBeginAtPoint:forItemsAtIndexes:"), collectionView, session, screenPoint, indexes)
 	}
-
 // Validates the specified location to see if it is a valid drop target.
 //
 // collectionView: The collection view that send the message.
@@ -835,13 +789,11 @@ func (o NSCollectionViewDelegateObject) CollectionViewDraggingSessionWillBeginAt
 // destination.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:validateDrop:proposedIndex:dropOperation:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, proposedDropIndex unsafe.Pointer, proposedDropOperation NSCollectionViewDropOperation) NSDragOperation {
 	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("collectionView:validateDrop:proposedIndex:dropOperation:"), collectionView, draggingInfo, proposedDropIndex, proposedDropOperation)
 	return rv
 	}
-
 // Invoked when the mouse is released over a collection view that previously
 // allowed a drop.
 //
@@ -872,7 +824,6 @@ func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexD
 // destination
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:acceptDrop:index:dropOperation:)
-
 func (o NSCollectionViewDelegateObject) CollectionViewAcceptDropIndexDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, index int, dropOperation NSCollectionViewDropOperation) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("collectionView:acceptDrop:index:dropOperation:"), collectionView, draggingInfo, index, dropOperation)

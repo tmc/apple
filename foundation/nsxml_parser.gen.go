@@ -293,7 +293,6 @@ func (x XMLParser) InitWithContentsOfURL(url INSURL) XMLParser {
 	rv := objc.Send[XMLParser](x.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return rv
 }
-
 // Initializes a parser with the XML contents encapsulated in a given data
 // object.
 //
@@ -312,7 +311,6 @@ func (x XMLParser) InitWithData(data INSData) XMLParser {
 	rv := objc.Send[XMLParser](x.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
-
 // Initializes a parser with the XML contents from the specified stream and
 // parses it.
 //
@@ -329,7 +327,6 @@ func (x XMLParser) InitWithStream(stream INSInputStream) XMLParser {
 	rv := objc.Send[XMLParser](x.ID, objc.Sel("initWithStream:"), stream)
 	return rv
 }
-
 // Starts the event-driven parsing operation.
 //
 // # Return Value
@@ -345,7 +342,6 @@ func (x XMLParser) Parse() bool {
 	rv := objc.Send[bool](x.ID, objc.Sel("parse"))
 	return rv
 }
-
 // Stops the parser object.
 //
 // # Discussion
@@ -372,7 +368,6 @@ func (x XMLParser) Delegate() NSXMLParserDelegate {
 func (x XMLParser) SetDelegate(value NSXMLParserDelegate) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDelegate:"), value)
 }
-
 // A Boolean value that determines whether the parser reports the namespaces
 // and qualified names of elements.
 //
@@ -396,7 +391,6 @@ func (x XMLParser) ShouldProcessNamespaces() bool {
 func (x XMLParser) SetShouldProcessNamespaces(value bool) {
 	objc.Send[struct{}](x.ID, objc.Sel("setShouldProcessNamespaces:"), value)
 }
-
 // A Boolean value that determines whether the parser reports the prefixes
 // indicating the scope of namespace declarations.
 //
@@ -419,7 +413,6 @@ func (x XMLParser) ShouldReportNamespacePrefixes() bool {
 func (x XMLParser) SetShouldReportNamespacePrefixes(value bool) {
 	objc.Send[struct{}](x.ID, objc.Sel("setShouldReportNamespacePrefixes:"), value)
 }
-
 // A Boolean value that determines whether the parser reports declarations of
 // external entities.
 //
@@ -444,7 +437,6 @@ func (x XMLParser) ShouldResolveExternalEntities() bool {
 func (x XMLParser) SetShouldResolveExternalEntities(value bool) {
 	objc.Send[struct{}](x.ID, objc.Sel("setShouldResolveExternalEntities:"), value)
 }
-
 // An [NSError] object from which you can obtain information about a parsing
 // error.
 //
@@ -458,7 +450,6 @@ func (x XMLParser) ParserError() INSError {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("parserError"))
 	return NSErrorFromID(objc.ID(rv))
 }
-
 // The column number of the XML document being processed by the parser.
 //
 // # Discussion
@@ -472,7 +463,6 @@ func (x XMLParser) ColumnNumber() int {
 	rv := objc.Send[int](x.ID, objc.Sel("columnNumber"))
 	return rv
 }
-
 // The line number of the XML document being processed by the parser.
 //
 // # Discussion
@@ -485,7 +475,6 @@ func (x XMLParser) LineNumber() int {
 	rv := objc.Send[int](x.ID, objc.Sel("lineNumber"))
 	return rv
 }
-
 // The public identifier of the external entity referenced in the XML
 // document.
 //
@@ -499,7 +488,6 @@ func (x XMLParser) PublicID() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("publicID"))
 	return NSStringFromID(rv).String()
 }
-
 // The system identifier of the external entity referenced in the XML
 // document.
 //
@@ -513,7 +501,6 @@ func (x XMLParser) SystemID() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("systemID"))
 	return NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/Foundation/XMLParser/allowedExternalEntityURLs
 func (x XMLParser) AllowedExternalEntityURLs() INSSet {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("allowedExternalEntityURLs"))
@@ -522,7 +509,6 @@ func (x XMLParser) AllowedExternalEntityURLs() INSSet {
 func (x XMLParser) SetAllowedExternalEntityURLs(value INSSet) {
 	objc.Send[struct{}](x.ID, objc.Sel("setAllowedExternalEntityURLs:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/XMLParser/externalEntityResolvingPolicy-swift.property
 func (x XMLParser) ExternalEntityResolvingPolicy() NSXMLParserExternalEntityResolvingPolicy {
 	rv := objc.Send[NSXMLParserExternalEntityResolvingPolicy](x.ID, objc.Sel("externalEntityResolvingPolicy"))

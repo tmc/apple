@@ -158,7 +158,6 @@ func (_UnitEnergyClass UnitEnergyClass) Kilojoules() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("kilojoules"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
-
 // The joules unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/joules
@@ -166,7 +165,6 @@ func (_UnitEnergyClass UnitEnergyClass) Joules() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("joules"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
-
 // The kilocalories unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/kilocalories
@@ -174,7 +172,6 @@ func (_UnitEnergyClass UnitEnergyClass) Kilocalories() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("kilocalories"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
-
 // The calories unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/calories
@@ -182,7 +179,6 @@ func (_UnitEnergyClass UnitEnergyClass) Calories() UnitEnergy {
 	rv := objc.Send[objc.ID](objc.ID(_UnitEnergyClass.class), objc.Sel("calories"))
 	return NSUnitEnergyFromID(objc.ID(rv))
 }
-
 // The kilowatt hours unit of energy.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitEnergy/kilowattHours

@@ -141,7 +141,6 @@ func (a NSAttributedStringMarkdownParsingOptions) AllowsExtendedAttributes() boo
 func (a NSAttributedStringMarkdownParsingOptions) SetAllowsExtendedAttributes(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAllowsExtendedAttributes:"), value)
 }
-
 // A Boolean value that indicates whether parsing applies attributes that
 // indicate the position of attributed text in the original Markdown string.
 //
@@ -153,7 +152,6 @@ func (a NSAttributedStringMarkdownParsingOptions) AppliesSourcePositionAttribute
 func (a NSAttributedStringMarkdownParsingOptions) SetAppliesSourcePositionAttributes(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAppliesSourcePositionAttributes:"), value)
 }
-
 // The policy for handling a parsing failure.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedStringMarkdownParsingOptions/failurePolicy
@@ -164,7 +162,6 @@ func (a NSAttributedStringMarkdownParsingOptions) FailurePolicy() NSAttributedSt
 func (a NSAttributedStringMarkdownParsingOptions) SetFailurePolicy(value NSAttributedStringMarkdownParsingFailurePolicy) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFailurePolicy:"), value)
 }
-
 // The syntax for intepreting a Markdown string.
 //
 // # Discussion
@@ -181,7 +178,6 @@ func (a NSAttributedStringMarkdownParsingOptions) InterpretedSyntax() NSAttribut
 func (a NSAttributedStringMarkdownParsingOptions) SetInterpretedSyntax(value NSAttributedStringMarkdownInterpretedSyntax) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInterpretedSyntax:"), value)
 }
-
 // The BCP-47 language code for this document.
 //
 // # Discussion

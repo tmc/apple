@@ -130,7 +130,6 @@ func (r MTLRenderPassDepthAttachmentDescriptor) ClearDepth() float64 {
 func (r MTLRenderPassDepthAttachmentDescriptor) SetClearDepth(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setClearDepth:"), value)
 }
-
 // The filter used for an MSAA depth resolve operation.
 //
 // # Discussion

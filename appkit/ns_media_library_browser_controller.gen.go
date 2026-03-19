@@ -220,7 +220,6 @@ func (m NSMediaLibraryBrowserController) Frame() corefoundation.CGRect {
 func (m NSMediaLibraryBrowserController) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFrame:"), value)
 }
-
 // A Boolean value that determines whether the Media Library Browser panel is
 // visible.
 //
@@ -243,7 +242,6 @@ func (m NSMediaLibraryBrowserController) Visible() bool {
 func (m NSMediaLibraryBrowserController) SetVisible(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVisible:"), value)
 }
-
 // The media library that is in use.
 //
 // # Discussion

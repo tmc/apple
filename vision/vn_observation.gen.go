@@ -128,7 +128,6 @@ func (o VNObservation) Uuid() foundation.NSUUID {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(objc.ID(rv))
 }
-
 // The time range of the reported observation.
 //
 // # Discussion
@@ -145,7 +144,6 @@ func (o VNObservation) TimeRange() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("timeRange"))
 	return objectivec.Object{ID: rv}
 }
-
 // The level of confidence in the observation’s accuracy.
 //
 // # Discussion
@@ -160,7 +158,6 @@ func (o VNObservation) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](o.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
 }
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //

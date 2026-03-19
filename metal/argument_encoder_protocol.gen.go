@@ -178,12 +178,10 @@ func MTLArgumentEncoderObjectFromID(id objc.ID) MTLArgumentEncoderObject {
 // offset: The byte offset of the buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setArgumentBuffer(_:offset:)
-
 func (o MTLArgumentEncoderObject) SetArgumentBufferOffset(argumentBuffer MTLBuffer, offset uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setArgumentBuffer:offset:"), argumentBuffer, offset)
 	}
-
 // Specifies an array element within a buffer where the encoder writes
 // argument data.
 //
@@ -194,23 +192,19 @@ func (o MTLArgumentEncoderObject) SetArgumentBufferOffset(argumentBuffer MTLBuff
 // arrayElement: The desired element of the argument buffer array targeted by encoding.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setArgumentBuffer(_:startOffset:arrayElement:)
-
 func (o MTLArgumentEncoderObject) SetArgumentBufferStartOffsetArrayElement(argumentBuffer MTLBuffer, startOffset uint, arrayElement uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setArgumentBuffer:startOffset:arrayElement:"), argumentBuffer, startOffset, arrayElement)
 	}
-
 // The number of bytes required to store the encoded resources of an argument
 // buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/encodedLength
-
 func (o MTLArgumentEncoderObject) EncodedLength() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("encodedLength"))
 	return rv
 	}
-
 // Encodes a reference to a buffer into the argument buffer.
 //
 // buffer: A buffer the method encodes.
@@ -222,12 +216,10 @@ func (o MTLArgumentEncoderObject) EncodedLength() uint {
 // [Index] property of an [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setBuffer(_:offset:index:)
-
 func (o MTLArgumentEncoderObject) SetBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
 	}
-
 // Encodes a reference to a texture into the argument buffer.
 //
 // texture: A texture the method encodes.
@@ -237,12 +229,10 @@ func (o MTLArgumentEncoderObject) SetBufferOffsetAtIndex(buffer MTLBuffer, offse
 // [Index] property of an [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setTexture(_:index:)
-
 func (o MTLArgumentEncoderObject) SetTextureAtIndex(texture MTLTexture, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setTexture:atIndex:"), texture, index)
 	}
-
 // Encodes a sampler into the argument buffer.
 //
 // sampler: A sampler the method encodes.
@@ -252,12 +242,10 @@ func (o MTLArgumentEncoderObject) SetTextureAtIndex(texture MTLTexture, index ui
 // [Index] property of an [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setSamplerState(_:index:)
-
 func (o MTLArgumentEncoderObject) SetSamplerStateAtIndex(sampler MTLSamplerState, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setSamplerState:atIndex:"), sampler, index)
 	}
-
 // Encodes a reference to a render pipeline state into the argument buffer.
 //
 // pipeline: A pipeline state the method encodes.
@@ -268,12 +256,10 @@ func (o MTLArgumentEncoderObject) SetSamplerStateAtIndex(sampler MTLSamplerState
 // instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setRenderPipelineState(_:index:)
-
 func (o MTLArgumentEncoderObject) SetRenderPipelineStateAtIndex(pipeline MTLRenderPipelineState, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setRenderPipelineState:atIndex:"), pipeline, index)
 	}
-
 // Encodes a reference to a compute pipeline state into the argument buffer.
 //
 // pipeline: A pipeline state the method encodes.
@@ -284,12 +270,10 @@ func (o MTLArgumentEncoderObject) SetRenderPipelineStateAtIndex(pipeline MTLRend
 // instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setComputePipelineState(_:index:)
-
 func (o MTLArgumentEncoderObject) SetComputePipelineStateAtIndex(pipeline MTLComputePipelineState, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setComputePipelineState:atIndex:"), pipeline, index)
 	}
-
 // Returns a pointer to an inline, constant-data argument within the argument
 // buffer.
 //
@@ -314,12 +298,10 @@ func (o MTLArgumentEncoderObject) SetComputePipelineStateAtIndex(pipeline MTLCom
 // destination pointer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/constantData(at:)
-
 func (o MTLArgumentEncoderObject) ConstantDataAtIndex(index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("constantDataAtIndex:"), index)
 	}
-
 // Encodes a reference to an indirect command buffer into the argument buffer.
 //
 // indirectCommandBuffer: An indirect command-buffer the method encodes.
@@ -330,12 +312,10 @@ func (o MTLArgumentEncoderObject) ConstantDataAtIndex(index uint) {
 // [MTLArgumentDescriptor] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setIndirectCommandBuffer(_:index:)
-
 func (o MTLArgumentEncoderObject) SetIndirectCommandBufferAtIndex(indirectCommandBuffer MTLIndirectCommandBuffer, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setIndirectCommandBuffer:atIndex:"), indirectCommandBuffer, index)
 	}
-
 // Encodes a reference to an acceleration structure into the argument buffer.
 //
 // accelerationStructure: An acceleration structure the method encodes.
@@ -346,12 +326,10 @@ func (o MTLArgumentEncoderObject) SetIndirectCommandBufferAtIndex(indirectComman
 // instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setAccelerationStructure(_:index:)
-
 func (o MTLArgumentEncoderObject) SetAccelerationStructureAtIndex(accelerationStructure MTLAccelerationStructure, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccelerationStructure:atIndex:"), accelerationStructure, index)
 	}
-
 // Encodes a reference to a visible-function table into the argument buffer.
 //
 // visibleFunctionTable: A visible-function table the method encodes.
@@ -362,12 +340,10 @@ func (o MTLArgumentEncoderObject) SetAccelerationStructureAtIndex(accelerationSt
 // instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setVisibleFunctionTable(_:index:)
-
 func (o MTLArgumentEncoderObject) SetVisibleFunctionTableAtIndex(visibleFunctionTable MTLVisibleFunctionTable, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTable:atIndex:"), visibleFunctionTable, index)
 	}
-
 // Encodes a reference to a ray-tracing intersection-function table into the
 // argument buffer.
 //
@@ -379,12 +355,10 @@ func (o MTLArgumentEncoderObject) SetVisibleFunctionTableAtIndex(visibleFunction
 // instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setIntersectionFunctionTable(_:index:)
-
 func (o MTLArgumentEncoderObject) SetIntersectionFunctionTableAtIndex(intersectionFunctionTable MTLIntersectionFunctionTable, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setIntersectionFunctionTable:atIndex:"), intersectionFunctionTable, index)
 	}
-
 // Creates a new argument encoder for a nested argument buffer.
 //
 // index: The index of a nested argument-buffer within the argument buffer. The value
@@ -403,56 +377,46 @@ func (o MTLArgumentEncoderObject) SetIntersectionFunctionTableAtIndex(intersecti
 // object to encode its individual resources.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/makeArgumentEncoderForBuffer(atIndex:)
-
 func (o MTLArgumentEncoderObject) NewArgumentEncoderForBufferAtIndex(index uint) MTLArgumentEncoder {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newArgumentEncoderForBufferAtIndex:"), index)
 	return MTLArgumentEncoderObjectFromID(rv)
 	}
-
 // The alignment, in bytes, required for storing the encoded resources of an
 // argument buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/alignment
-
 func (o MTLArgumentEncoderObject) Alignment() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("alignment"))
 	return rv
 	}
-
 // A string that identifies the argument buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/label
-
 func (o MTLArgumentEncoderObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // The device object that created the argument encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/device
-
 func (o MTLArgumentEncoderObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 //
 // # Discussion
 // 
 // Sets a depth stencil state at a given bind point index
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setDepthStencilState(_:index:)
-
 func (o MTLArgumentEncoderObject) SetDepthStencilStateAtIndex(depthStencilState MTLDepthStencilState, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthStencilState:atIndex:"), depthStencilState, index)
 	}
-
 // Encodes references to an array of buffers into the argument buffer.
 //
 // buffers: An array of buffers the method encodes.
@@ -465,12 +429,10 @@ func (o MTLArgumentEncoderObject) SetDepthStencilStateAtIndex(depthStencilState 
 // [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setBuffers:offsets:withRange:
-
 func (o MTLArgumentEncoderObject) SetBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), buffers, offsets, range_)
 	}
-
 // Encodes references to an array of compute pipeline states into the argument
 // buffer.
 //
@@ -482,24 +444,20 @@ func (o MTLArgumentEncoderObject) SetBuffersOffsetsWithRange(buffers []MTLBuffer
 // [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setComputePipelineStates:withRange:
-
 func (o MTLArgumentEncoderObject) SetComputePipelineStatesWithRange(pipelines []MTLComputePipelineState, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setComputePipelineStates:withRange:"), pipelines, range_)
 	}
-
 //
 // # Discussion
 // 
 // Sets an array of depth stencil states at a given buffer index range
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setDepthStencilStates:withRange:
-
 func (o MTLArgumentEncoderObject) SetDepthStencilStatesWithRange(depthStencilStates []MTLDepthStencilState, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthStencilStates:withRange:"), depthStencilStates, range_)
 	}
-
 // Encodes an array of indirect command buffers into the argument buffer.
 //
 // buffers: An array of indirect command buffers the method encodes.
@@ -510,12 +468,10 @@ func (o MTLArgumentEncoderObject) SetDepthStencilStatesWithRange(depthStencilSta
 // [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setIndirectCommandBuffers:withRange:
-
 func (o MTLArgumentEncoderObject) SetIndirectCommandBuffersWithRange(buffers []MTLIndirectCommandBuffer, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setIndirectCommandBuffers:withRange:"), buffers, range_)
 	}
-
 // Encodes references to an array of ray-tracing intersection-function tables
 // into the argument buffer.
 //
@@ -527,12 +483,10 @@ func (o MTLArgumentEncoderObject) SetIndirectCommandBuffersWithRange(buffers []M
 // [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setIntersectionFunctionTables:withRange:
-
 func (o MTLArgumentEncoderObject) SetIntersectionFunctionTablesWithRange(intersectionFunctionTables []MTLIntersectionFunctionTable, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setIntersectionFunctionTables:withRange:"), intersectionFunctionTables, range_)
 	}
-
 // Encodes references to an array of render pipeline states into the argument
 // buffer.
 //
@@ -544,12 +498,10 @@ func (o MTLArgumentEncoderObject) SetIntersectionFunctionTablesWithRange(interse
 // [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setRenderPipelineStates:withRange:
-
 func (o MTLArgumentEncoderObject) SetRenderPipelineStatesWithRange(pipelines []MTLRenderPipelineState, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setRenderPipelineStates:withRange:"), pipelines, range_)
 	}
-
 // Encodes an array of samplers into the argument buffer.
 //
 // samplers: An array of samplers the method encodes.
@@ -560,12 +512,10 @@ func (o MTLArgumentEncoderObject) SetRenderPipelineStatesWithRange(pipelines []M
 // [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setSamplerStates:withRange:
-
 func (o MTLArgumentEncoderObject) SetSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setSamplerStates:withRange:"), samplers, range_)
 	}
-
 // Encodes references to an array of textures into the argument buffer.
 //
 // textures: An array of textures the method encodes.
@@ -576,12 +526,10 @@ func (o MTLArgumentEncoderObject) SetSamplerStatesWithRange(samplers []MTLSample
 // [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setTextures:withRange:
-
 func (o MTLArgumentEncoderObject) SetTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setTextures:withRange:"), textures, range_)
 	}
-
 // Encodes references to an array of visible function tables into the argument
 // buffer.
 //
@@ -593,7 +541,6 @@ func (o MTLArgumentEncoderObject) SetTexturesWithRange(textures []MTLTexture, ra
 // [MTLArgumentDescriptor] instances.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentEncoder/setVisibleFunctionTables:withRange:
-
 func (o MTLArgumentEncoderObject) SetVisibleFunctionTablesWithRange(visibleFunctionTables []MTLVisibleFunctionTable, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTables:withRange:"), visibleFunctionTables, range_)

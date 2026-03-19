@@ -197,7 +197,6 @@ func (s NSSplitViewItemAccessoryViewController) AnimationForKey(key NSAnimatable
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
@@ -280,7 +279,6 @@ func (s NSSplitViewItemAccessoryViewController) PreferredScrollEdgeEffectStyle()
 func (s NSSplitViewItemAccessoryViewController) SetPreferredScrollEdgeEffectStyle(value INSScrollEdgeEffectStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreferredScrollEdgeEffectStyle:"), value)
 }
-
 // Whether or not standard content insets should be applied to the view.
 // Defaults to YES.
 //
@@ -292,7 +290,6 @@ func (s NSSplitViewItemAccessoryViewController) AutomaticallyAppliesContentInset
 func (s NSSplitViewItemAccessoryViewController) SetAutomaticallyAppliesContentInsets(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutomaticallyAppliesContentInsets:"), value)
 }
-
 // When set, this property will collapse the accessory view to 0 height
 // (animatable) but not remove it from the window. Set through the animator
 // object to animate it.
@@ -305,7 +302,6 @@ func (s NSSplitViewItemAccessoryViewController) Hidden() bool {
 func (s NSSplitViewItemAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHidden:"), value)
 }
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -317,7 +313,6 @@ func (s NSSplitViewItemAccessoryViewController) Animations() foundation.INSDicti
 func (s NSSplitViewItemAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAnimations:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nssplitviewitem/bottomalignedaccessoryviewcontrollers
 func (s NSSplitViewItemAccessoryViewController) BottomAlignedAccessoryViewControllers() INSSplitViewItemAccessoryViewController {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("bottomAlignedAccessoryViewControllers"))
@@ -326,7 +321,6 @@ func (s NSSplitViewItemAccessoryViewController) BottomAlignedAccessoryViewContro
 func (s NSSplitViewItemAccessoryViewController) SetBottomAlignedAccessoryViewControllers(value INSSplitViewItemAccessoryViewController) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBottomAlignedAccessoryViewControllers:"), value)
 }
-
 // The following methods allow you to add accessory views to the top/bottom of
 // this splitViewItem. See
 //

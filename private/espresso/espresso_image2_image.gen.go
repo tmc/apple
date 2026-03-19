@@ -192,173 +192,146 @@ func NewEspressoImage2ImageWithQueue(queue objectivec.IObject) EspressoImage2Ima
 func (e EspressoImage2Image) AddNoiseLayer() {
 	objc.Send[objc.ID](e.ID, objc.Sel("addNoiseLayer"))
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/aggregateWisdom:
 func (e EspressoImage2Image) AggregateWisdom(wisdom unsafe.Pointer) {
 	objc.Send[objc.ID](e.ID, objc.Sel("aggregateWisdom:"), wisdom)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/benchmark
 func (e EspressoImage2Image) Benchmark() float32 {
 	rv := objc.Send[float32](e.ID, objc.Sel("benchmark"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:
 func (e EspressoImage2Image) EncodeToCommandBufferSourceTextureDestinationTextureCropRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect objectivec.IObject) int {
 	rv := objc.Send[int](e.ID, objc.Sel("encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:"), buffer, texture, texture2, rect)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:destinationRect:
 func (e EspressoImage2Image) EncodeToCommandBufferSourceTextureDestinationTextureCropRectDestinationRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect objectivec.IObject, rect2 objectivec.IObject) int {
 	rv := objc.Send[int](e.ID, objc.Sel("encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:destinationRect:"), buffer, texture, texture2, rect, rect2)
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/getEspressoNetwork
 func (e EspressoImage2Image) GetEspressoNetwork() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getEspressoNetwork"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/getInternalDataForKey:
 func (e EspressoImage2Image) GetInternalDataForKey(key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getInternalDataForKey:"), key)
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/height
 func (e EspressoImage2Image) Height() int {
 	rv := objc.Send[int](e.ID, objc.Sel("height"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/load:
 func (e EspressoImage2Image) Load(load objectivec.IObject) int {
 	rv := objc.Send[int](e.ID, objc.Sel("load:"), load)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/load:resolutionPreset:
 func (e EspressoImage2Image) LoadResolutionPreset(load objectivec.IObject, preset int64) int {
 	rv := objc.Send[int](e.ID, objc.Sel("load:resolutionPreset:"), load, preset)
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/newOutputTexture
 func (e EspressoImage2Image) NewOutputTexture() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("newOutputTexture"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/postProcess:cameraSourceTexture:inputTexture:destinationTexture:
 func (e EspressoImage2Image) PostProcessCameraSourceTextureInputTextureDestinationTexture(process objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, texture3 objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("postProcess:cameraSourceTexture:inputTexture:destinationTexture:"), process, texture, texture2, texture3)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/reload
 func (e EspressoImage2Image) Reload() int {
 	rv := objc.Send[int](e.ID, objc.Sel("reload"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/resetTemporalState
 func (e EspressoImage2Image) ResetTemporalState() {
 	objc.Send[objc.ID](e.ID, objc.Sel("resetTemporalState"))
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/reshapeToResolutionPreset:
 func (e EspressoImage2Image) ReshapeToResolutionPreset(preset int64) int {
 	rv := objc.Send[int](e.ID, objc.Sel("reshapeToResolutionPreset:"), preset)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/reshapeToResolutionPreset:aspectRatio:
 func (e EspressoImage2Image) ReshapeToResolutionPresetAspectRatio(preset int64, ratio float32) int {
 	rv := objc.Send[int](e.ID, objc.Sel("reshapeToResolutionPreset:aspectRatio:"), preset, ratio)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/reshapeToWidth:andHeight:
 func (e EspressoImage2Image) ReshapeToWidthAndHeight(width int, height int) int {
 	rv := objc.Send[int](e.ID, objc.Sel("reshapeToWidth:andHeight:"), width, height)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/resolutionForPreset:
 func (e EspressoImage2Image) ResolutionForPreset(preset int64) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("resolutionForPreset:"), preset)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/setupWithQueue:
 func (e EspressoImage2Image) SetupWithQueue(queue objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("setupWithQueue:"), queue)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/simpleLinearResize:sourceTexture:destinationTexture:
 func (e EspressoImage2Image) SimpleLinearResizeSourceTextureDestinationTexture(resize objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("simpleLinearResize:sourceTexture:destinationTexture:"), resize, texture, texture2)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/styleName
 func (e EspressoImage2Image) StyleName() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("styleName"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/submitToQueueWithSourceTexture:destinationTexture:
 func (e EspressoImage2Image) SubmitToQueueWithSourceTextureDestinationTexture(texture objectivec.IObject, texture2 objectivec.IObject) int {
 	rv := objc.Send[int](e.ID, objc.Sel("submitToQueueWithSourceTexture:destinationTexture:"), texture, texture2)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/submitToQueueWithSourceTexture:destinationTexture:cropRect:
 func (e EspressoImage2Image) SubmitToQueueWithSourceTextureDestinationTextureCropRect(texture objectivec.IObject, texture2 objectivec.IObject, rect objectivec.IObject) int {
 	rv := objc.Send[int](e.ID, objc.Sel("submitToQueueWithSourceTexture:destinationTexture:cropRect:"), texture, texture2, rect)
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/tune
 func (e EspressoImage2Image) Tune() {
 	objc.Send[objc.ID](e.ID, objc.Sel("tune"))
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/tweak:value:
 func (e EspressoImage2Image) TweakValue(tweak objectivec.IObject, value float32) {
 	objc.Send[objc.ID](e.ID, objc.Sel("tweak:value:"), tweak, value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/wasReshaped
 func (e EspressoImage2Image) WasReshaped() int {
 	rv := objc.Send[int](e.ID, objc.Sel("wasReshaped"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/width
 func (e EspressoImage2Image) Width() int {
 	rv := objc.Send[int](e.ID, objc.Sel("width"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/initWithQueue:
 func (e EspressoImage2Image) InitWithQueue(queue objectivec.IObject) EspressoImage2Image {
@@ -371,45 +344,38 @@ func (_EspressoImage2ImageClass EspressoImage2ImageClass) FeatureVersion() int {
 	rv := objc.Send[int](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("featureVersion"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/getStylesKeys
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) GetStylesKeys() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("getStylesKeys"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/gpuSync:tex:
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) GpuSyncTex(sync objectivec.IObject, tex objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("gpuSync:tex:"), sync, tex)
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/loadStylesConfigAtDefaultsKey:
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) LoadStylesConfigAtDefaultsKey(key objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("loadStylesConfigAtDefaultsKey:"), key)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/loadStylesConfigAtPath:
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) LoadStylesConfigAtPath(path objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("loadStylesConfigAtPath:"), path)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/setDefaultOption:toValue:
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) SetDefaultOptionToValue(option objectivec.IObject, value objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("setDefaultOption:toValue:"), option, value)
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/tuneNetworks:
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) TuneNetworks(networks objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("tuneNetworks:"), networks)
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/tuneNetworksWGWindowSize:
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) TuneNetworksWGWindowSize(size objectivec.IObject) {
@@ -424,7 +390,6 @@ func (e EspressoImage2Image) Flip_y() int {
 func (e EspressoImage2Image) SetFlip_y(value int) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFlip_y:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/rotation_degrees
 func (e EspressoImage2Image) Rotation_degrees() int {
 	rv := objc.Send[int](e.ID, objc.Sel("rotation_degrees"))

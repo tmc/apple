@@ -124,7 +124,6 @@ func (s MLSequenceConstraint) ValueDescription() IMLFeatureDescription {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("valueDescription"))
 	return MLFeatureDescriptionFromID(objc.ID(rv))
 }
-
 // The range of values allowed for the sequence’s length.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLSequenceConstraint/countRange
@@ -132,7 +131,6 @@ func (s MLSequenceConstraint) CountRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](s.ID, objc.Sel("countRange"))
 	return foundation.NSRange(rv)
 }
-
 // The constraint for a dictionary feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/dictionaryconstraint
@@ -143,7 +141,6 @@ func (s MLSequenceConstraint) DictionaryConstraint() IMLDictionaryConstraint {
 func (s MLSequenceConstraint) SetDictionaryConstraint(value IMLDictionaryConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDictionaryConstraint:"), value)
 }
-
 // The size and format constraints for an image feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/imageconstraint
@@ -154,7 +151,6 @@ func (s MLSequenceConstraint) ImageConstraint() IMLImageConstraint {
 func (s MLSequenceConstraint) SetImageConstraint(value IMLImageConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImageConstraint:"), value)
 }
-
 // The constraints on a multidimensional array feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/multiarrayconstraint
@@ -165,7 +161,6 @@ func (s MLSequenceConstraint) MultiArrayConstraint() IMLMultiArrayConstraint {
 func (s MLSequenceConstraint) SetMultiArrayConstraint(value IMLMultiArrayConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMultiArrayConstraint:"), value)
 }
-
 // The constraints for a sequence feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/sequenceconstraint
@@ -176,7 +171,6 @@ func (s MLSequenceConstraint) SequenceConstraint() IMLSequenceConstraint {
 func (s MLSequenceConstraint) SetSequenceConstraint(value IMLSequenceConstraint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSequenceConstraint:"), value)
 }
-
 // The state feature value constraint.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/stateconstraint

@@ -638,7 +638,6 @@ func (a NSAppleEventDescriptor) InitListDescriptor() NSAppleEventDescriptor {
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initListDescriptor"))
 	return rv
 }
-
 // Initializes a newly allocated instance as a descriptor that is an Apple
 // event record.
 //
@@ -658,7 +657,6 @@ func (a NSAppleEventDescriptor) InitRecordDescriptor() NSAppleEventDescriptor {
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initRecordDescriptor"))
 	return rv
 }
-
 // Initializes a newly allocated instance as a descriptor for the specified
 // Carbon [AEDesc] structure.
 //
@@ -680,7 +678,6 @@ func (a NSAppleEventDescriptor) InitWithAEDescNoCopy(aeDesc objectivec.IObject) 
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithAEDescNoCopy:"), aeDesc)
 	return rv
 }
-
 // Initializes a newly allocated instance as a descriptor with the specified
 // descriptor type and data (from an arbitrary sequence of bytes and a length
 // count).
@@ -701,7 +698,6 @@ func (a NSAppleEventDescriptor) InitWithDescriptorTypeBytesLength(descriptorType
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithDescriptorType:bytes:length:"), descriptorType, bytes, byteCount)
 	return rv
 }
-
 // Initializes a newly allocated instance as a descriptor with the specified
 // descriptor type and data (from an instance of [NSData]).
 //
@@ -719,7 +715,6 @@ func (a NSAppleEventDescriptor) InitWithDescriptorTypeData(descriptorType uint32
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithDescriptorType:data:"), descriptorType, data)
 	return rv
 }
-
 // Initializes a newly allocated instance as a descriptor for an Apple event,
 // initialized with the specified values.
 //
@@ -754,7 +749,6 @@ func (a NSAppleEventDescriptor) InitWithEventClassEventIDTargetDescriptorReturnI
 	rv := objc.Send[NSAppleEventDescriptor](a.ID, objc.Sel("initWithEventClass:eventID:targetDescriptor:returnID:transactionID:"), eventClass, eventID, targetDescriptor, returnID, transactionID)
 	return rv
 }
-
 // Returns a descriptor obtained by coercing the receiver to the specified
 // type.
 //
@@ -769,7 +763,6 @@ func (a NSAppleEventDescriptor) CoerceToDescriptorType(descriptorType uint32) IN
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("coerceToDescriptorType:"), descriptorType)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Returns the descriptor at the specified (one-based) position in the
 // receiving descriptor list.
 //
@@ -785,7 +778,6 @@ func (a NSAppleEventDescriptor) DescriptorAtIndex(index int) INSAppleEventDescri
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("descriptorAtIndex:"), index)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Inserts a descriptor at the specified (one-based) position in the receiving
 // descriptor list, replacing the existing descriptor, if any, at that
 // position.
@@ -806,7 +798,6 @@ func (a NSAppleEventDescriptor) DescriptorAtIndex(index int) INSAppleEventDescri
 func (a NSAppleEventDescriptor) InsertDescriptorAtIndex(descriptor INSAppleEventDescriptor, index int) {
 	objc.Send[objc.ID](a.ID, objc.Sel("insertDescriptor:atIndex:"), descriptor, index)
 }
-
 // Removes the descriptor at the specified (one-based) position in the
 // receiving descriptor list.
 //
@@ -821,7 +812,6 @@ func (a NSAppleEventDescriptor) InsertDescriptorAtIndex(descriptor INSAppleEvent
 func (a NSAppleEventDescriptor) RemoveDescriptorAtIndex(index int) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeDescriptorAtIndex:"), index)
 }
-
 // Returns the receiver’s descriptor for the specified keyword.
 //
 // keyword: A keyword (a four-character code) that identifies the descriptor to obtain.
@@ -835,7 +825,6 @@ func (a NSAppleEventDescriptor) DescriptorForKeyword(keyword uint32) INSAppleEve
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("descriptorForKeyword:"), keyword)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Returns the keyword for the descriptor at the specified (one-based)
 // position in the receiver.
 //
@@ -852,7 +841,6 @@ func (a NSAppleEventDescriptor) KeywordForDescriptorAtIndex(index int) uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("keywordForDescriptorAtIndex:"), index)
 	return rv
 }
-
 // Removes the receiver’s descriptor identified by the specified keyword.
 //
 // keyword: A keyword (a four-character code) that identifies the descriptor to remove.
@@ -866,7 +854,6 @@ func (a NSAppleEventDescriptor) KeywordForDescriptorAtIndex(index int) uint32 {
 func (a NSAppleEventDescriptor) RemoveDescriptorWithKeyword(keyword uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeDescriptorWithKeyword:"), keyword)
 }
-
 // Adds a descriptor, identified by a keyword, to the receiver.
 //
 // descriptor: The descriptor to add to the receiver.
@@ -884,7 +871,6 @@ func (a NSAppleEventDescriptor) RemoveDescriptorWithKeyword(keyword uint32) {
 func (a NSAppleEventDescriptor) SetDescriptorForKeyword(descriptor INSAppleEventDescriptor, keyword uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setDescriptor:forKeyword:"), descriptor, keyword)
 }
-
 // Returns a descriptor for the receiver’s Apple event attribute identified
 // by the specified keyword.
 //
@@ -904,7 +890,6 @@ func (a NSAppleEventDescriptor) AttributeDescriptorForKeyword(keyword uint32) IN
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributeDescriptorForKeyword:"), keyword)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Returns a descriptor for the receiver’s Apple event parameter identified
 // by the specified keyword.
 //
@@ -924,7 +909,6 @@ func (a NSAppleEventDescriptor) ParamDescriptorForKeyword(keyword uint32) INSApp
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("paramDescriptorForKeyword:"), keyword)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Removes the receiver’s parameter descriptor identified by the specified
 // keyword.
 //
@@ -940,7 +924,6 @@ func (a NSAppleEventDescriptor) ParamDescriptorForKeyword(keyword uint32) INSApp
 func (a NSAppleEventDescriptor) RemoveParamDescriptorWithKeyword(keyword uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeParamDescriptorWithKeyword:"), keyword)
 }
-
 // Adds a descriptor to the receiver as an attribute identified by the
 // specified keyword.
 //
@@ -959,7 +942,6 @@ func (a NSAppleEventDescriptor) RemoveParamDescriptorWithKeyword(keyword uint32)
 func (a NSAppleEventDescriptor) SetAttributeDescriptorForKeyword(descriptor INSAppleEventDescriptor, keyword uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setAttributeDescriptor:forKeyword:"), descriptor, keyword)
 }
-
 // Adds a descriptor to the receiver as an Apple event parameter identified by
 // the specified keyword.
 //
@@ -978,7 +960,6 @@ func (a NSAppleEventDescriptor) SetAttributeDescriptorForKeyword(descriptor INSA
 func (a NSAppleEventDescriptor) SetParamDescriptorForKeyword(descriptor INSAppleEventDescriptor, keyword uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setParamDescriptor:forKeyword:"), descriptor, keyword)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/sendEvent(options:timeout:)
 func (a NSAppleEventDescriptor) SendEventWithOptionsTimeoutError(sendOptions NSAppleEventSendOptions, timeoutInSeconds float64) (INSAppleEventDescriptor, error) {
@@ -991,7 +972,6 @@ func (a NSAppleEventDescriptor) SendEventWithOptionsTimeoutError(sendOptions NSA
 	return NSAppleEventDescriptorFromID(rv), nil
 
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1000,7 +980,6 @@ func (a NSAppleEventDescriptor) SendEventWithOptionsTimeoutError(sendOptions NSA
 func (a NSAppleEventDescriptor) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (a NSAppleEventDescriptor) InitWithCoder(coder INSCoder) NSAppleEventDescriptor {
@@ -1048,7 +1027,6 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) AppleEventWithEv
 	rv := objc.Send[objc.ID](objc.ID(_NSAppleEventDescriptorClass.class), objc.Sel("appleEventWithEventClass:eventID:targetDescriptor:returnID:transactionID:"), eventClass, eventID, targetDescriptor, returnID, transactionID)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Creates and initializes an empty list descriptor.
 //
 // # Return Value
@@ -1069,7 +1047,6 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) ListDescriptor()
 	rv := objc.Send[objc.ID](objc.ID(_NSAppleEventDescriptorClass.class), objc.Sel("listDescriptor"))
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Creates and initializes a descriptor with no parameter or attribute values
 // set.
 //
@@ -1088,7 +1065,6 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) NullDescriptor()
 	rv := objc.Send[objc.ID](objc.ID(_NSAppleEventDescriptorClass.class), objc.Sel("nullDescriptor"))
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Creates and initializes a descriptor for an Apple event record whose data
 // has yet to be set.
 //
@@ -1112,13 +1088,11 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) RecordDescriptor
 	rv := objc.Send[objc.ID](objc.ID(_NSAppleEventDescriptorClass.class), objc.Sel("recordDescriptor"))
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/currentProcess()
 func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) CurrentProcessDescriptor() NSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](objc.ID(_NSAppleEventDescriptorClass.class), objc.Sel("currentProcessDescriptor"))
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Creates a descriptor initialized with the specified event type that stores
 // the specified data (from a series of bytes).
 //
@@ -1137,7 +1111,6 @@ func (_NSAppleEventDescriptorClass NSAppleEventDescriptorClass) DescriptorWithDe
 	rv := objc.Send[objc.ID](objc.ID(_NSAppleEventDescriptorClass.class), objc.Sel("descriptorWithDescriptorType:bytes:length:"), descriptorType, bytes, byteCount)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Creates a descriptor initialized with the specified event type that stores
 // the specified data (from an instance of [NSData]).
 //
@@ -1174,7 +1147,6 @@ func (a NSAppleEventDescriptor) AeDesc() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("aeDesc"))
 	return objectivec.Object{ID: rv}
 }
-
 // The contents of the receiver as a Boolean value, coercing (to
 // `typeBoolean`) if necessary.
 //
@@ -1188,7 +1160,6 @@ func (a NSAppleEventDescriptor) BooleanValue() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("booleanValue"))
 	return rv
 }
-
 // The receiver’s data.
 //
 // # Discussion
@@ -1201,7 +1172,6 @@ func (a NSAppleEventDescriptor) Data() INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("data"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // The descriptor type of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/descriptorType
@@ -1209,7 +1179,6 @@ func (a NSAppleEventDescriptor) DescriptorType() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("descriptorType"))
 	return rv
 }
-
 // The contents of the receiver as an enumeration type, coercing to
 // `typeEnumerated` if necessary.
 //
@@ -1223,7 +1192,6 @@ func (a NSAppleEventDescriptor) EnumCodeValue() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("enumCodeValue"))
 	return rv
 }
-
 // The contents of the receiver as an integer, coercing (to `typeSInt32`) if
 // necessary.
 //
@@ -1237,7 +1205,6 @@ func (a NSAppleEventDescriptor) Int32Value() int32 {
 	rv := objc.Send[int32](a.ID, objc.Sel("int32Value"))
 	return rv
 }
-
 // The number of descriptors in the receiver’s descriptor list.
 //
 // # Discussion
@@ -1250,7 +1217,6 @@ func (a NSAppleEventDescriptor) NumberOfItems() int {
 	rv := objc.Send[int](a.ID, objc.Sel("numberOfItems"))
 	return rv
 }
-
 // The contents of the receiver as a Unicode text string, coercing to
 // `typeUnicodeText` if necessary.
 //
@@ -1263,7 +1229,6 @@ func (a NSAppleEventDescriptor) StringValue() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("stringValue"))
 	return NSStringFromID(rv).String()
 }
-
 // The contents of the receiver as a type, coercing to `typeType` if
 // necessary.
 //
@@ -1276,7 +1241,6 @@ func (a NSAppleEventDescriptor) TypeCodeValue() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("typeCodeValue"))
 	return rv
 }
-
 // The event class for the receiver.
 //
 // # Discussion
@@ -1297,7 +1261,6 @@ func (a NSAppleEventDescriptor) EventClass() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("eventClass"))
 	return rv
 }
-
 // The event ID for the receiver.
 //
 // # Discussion
@@ -1316,7 +1279,6 @@ func (a NSAppleEventDescriptor) EventID() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("eventID"))
 	return rv
 }
-
 // The receiver’s return ID (the ID for a reply Apple event).
 //
 // # Discussion
@@ -1330,7 +1292,6 @@ func (a NSAppleEventDescriptor) ReturnID() int16 {
 	rv := objc.Send[int16](a.ID, objc.Sel("returnID"))
 	return rv
 }
-
 // The receiver’s transaction ID, if any.
 //
 // # Discussion
@@ -1347,25 +1308,21 @@ func (a NSAppleEventDescriptor) TransactionID() int32 {
 	rv := objc.Send[int32](a.ID, objc.Sel("transactionID"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/dateValue
 func (a NSAppleEventDescriptor) DateValue() INSDate {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dateValue"))
 	return NSDateFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/doubleValue
 func (a NSAppleEventDescriptor) DoubleValue() float64 {
 	rv := objc.Send[float64](a.ID, objc.Sel("doubleValue"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/fileURLValue
 func (a NSAppleEventDescriptor) FileURLValue() INSURL {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fileURLValue"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/isRecordDescriptor
 func (a NSAppleEventDescriptor) IsRecordDescriptor() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRecordDescriptor"))

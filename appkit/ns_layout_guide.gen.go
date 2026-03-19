@@ -256,7 +256,6 @@ func (l NSLayoutGuide) Identifier() NSUserInterfaceItemIdentifier {
 func (l NSLayoutGuide) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](l.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-
 // The layout guide’s frame in its owning view’s coordinate system.
 //
 // # Discussion
@@ -272,7 +271,6 @@ func (l NSLayoutGuide) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
-
 // The view that owns this layout guide.
 //
 // # Discussion
@@ -291,7 +289,6 @@ func (l NSLayoutGuide) OwningView() INSView {
 func (l NSLayoutGuide) SetOwningView(value INSView) {
 	objc.Send[struct{}](l.ID, objc.Sel("setOwningView:"), value)
 }
-
 // A layout anchor representing the bottom edge of the layout guide’s frame.
 //
 // # Discussion
@@ -308,7 +305,6 @@ func (l NSLayoutGuide) BottomAnchor() INSLayoutYAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("bottomAnchor"))
 	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the horizontal center of the layout guide’s
 // frame.
 //
@@ -326,7 +322,6 @@ func (l NSLayoutGuide) CenterXAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("centerXAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the vertical center of the layout guide’s
 // frame.
 //
@@ -344,7 +339,6 @@ func (l NSLayoutGuide) CenterYAnchor() INSLayoutYAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("centerYAnchor"))
 	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the height of the layout guide’s frame.
 //
 // # Discussion
@@ -361,7 +355,6 @@ func (l NSLayoutGuide) HeightAnchor() INSLayoutDimension {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("heightAnchor"))
 	return NSLayoutDimensionFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the leading edge of the layout guide’s
 // frame.
 //
@@ -381,7 +374,6 @@ func (l NSLayoutGuide) LeadingAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("leadingAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the left edge of the layout guide’s frame.
 //
 // # Discussion
@@ -400,7 +392,6 @@ func (l NSLayoutGuide) LeftAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("leftAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the right edge of the layout guide’s frame.
 //
 // # Discussion
@@ -419,7 +410,6 @@ func (l NSLayoutGuide) RightAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("rightAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the top edge of the layout guide’s frame.
 //
 // # Discussion
@@ -436,7 +426,6 @@ func (l NSLayoutGuide) TopAnchor() INSLayoutYAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("topAnchor"))
 	return NSLayoutYAxisAnchorFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the trailing edge of the layout guide’s
 // frame.
 //
@@ -456,7 +445,6 @@ func (l NSLayoutGuide) TrailingAnchor() INSLayoutXAxisAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("trailingAnchor"))
 	return NSLayoutXAxisAnchorFromID(objc.ID(rv))
 }
-
 // A layout anchor representing the width of the layout guide’s frame.
 //
 // # Discussion
@@ -473,7 +461,6 @@ func (l NSLayoutGuide) WidthAnchor() INSLayoutDimension {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("widthAnchor"))
 	return NSLayoutDimensionFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutGuide/hasAmbiguousLayout
 func (l NSLayoutGuide) HasAmbiguousLayout() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("hasAmbiguousLayout"))

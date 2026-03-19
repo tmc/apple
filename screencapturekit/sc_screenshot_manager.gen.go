@@ -95,7 +95,6 @@ _block2, _cleanup2 := NewCGImageRefErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
-
 // Captures a single frame directly from a stream’s buffer, using a filter.
 //
 // contentFilter: The content filter used to select the stream.
@@ -110,7 +109,6 @@ _block2, _cleanup2 := NewCMSampleBufferRefErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureSampleBufferWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
-
 //
 // rect: The rect for the region in points on the screen space for the screen shot,
 // this is display agnostic and supports multiple displays
@@ -130,7 +128,6 @@ _block1, _cleanup1 := NewCGImageRefErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageInRect:completionHandler:"), rect, _block1)
 }
-
 //
 // contentFilter: Is the filter containing the content to take a screenshot of
 //
@@ -153,7 +150,6 @@ _block2, _cleanup2 := NewSCScreenshotOutputErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
-
 //
 // rect: The rect for the region in points on the screen space for the screen shot,
 // this is display agnostic and supports multiple displays

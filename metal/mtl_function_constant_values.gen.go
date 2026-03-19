@@ -154,7 +154,6 @@ func NewMTLFunctionConstantValues() MTLFunctionConstantValues {
 func (f MTLFunctionConstantValues) SetConstantValueTypeAtIndex(value unsafe.Pointer, type_ MTLDataType, index uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setConstantValue:type:atIndex:"), value, type_, index)
 }
-
 // Sets a value for a function constant with a specific name.
 //
 // value: A pointer to the constant value.
@@ -174,7 +173,6 @@ func (f MTLFunctionConstantValues) SetConstantValueTypeAtIndex(value unsafe.Poin
 func (f MTLFunctionConstantValues) SetConstantValueTypeWithName(value unsafe.Pointer, type_ MTLDataType, name string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setConstantValue:type:withName:"), value, type_, objc.String(name))
 }
-
 // Deletes all previously set constant values.
 //
 // # Discussion
@@ -186,7 +184,6 @@ func (f MTLFunctionConstantValues) SetConstantValueTypeWithName(value unsafe.Poi
 func (f MTLFunctionConstantValues) Reset() {
 	objc.Send[objc.ID](f.ID, objc.Sel("reset"))
 }
-
 // Sets values for a group of function constants within a specific index
 // range.
 //

@@ -200,7 +200,6 @@ func (n NSNotification) InitWithCoder(coder INSCoder) NSNotification {
 	rv := objc.Send[NSNotification](n.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Initializes a notification with a specified name, object, and user
 // information.
 //
@@ -215,7 +214,6 @@ func (n NSNotification) InitWithNameObjectUserInfo(name NSNotificationName, obje
 	rv := objc.Send[NSNotification](n.ID, objc.Sel("initWithName:object:userInfo:"), objc.String(string(name)), object, userInfo)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -257,7 +255,6 @@ func (n NSNotification) Name() NSNotificationName {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("name"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // The object associated with the notification.
 //
 // # Discussion
@@ -280,7 +277,6 @@ func (n NSNotification) GetObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("object"))
 	return objectivec.Object{ID: rv}
 }
-
 // The user information dictionary associated with the notification.
 //
 // # Discussion

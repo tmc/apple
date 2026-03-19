@@ -215,7 +215,6 @@ func (a NSAutoreleasePool) Drain() {
 func (_NSAutoreleasePoolClass NSAutoreleasePoolClass) AddObjectWithAnObject(anObject objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_NSAutoreleasePoolClass.class), objc.Sel("addObject:"), anObject)
 }
-
 // Displays the state of the current thread’s autorelease pool stack to
 // `stderr`.
 //

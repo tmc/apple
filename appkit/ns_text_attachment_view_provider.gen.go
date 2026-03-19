@@ -199,7 +199,6 @@ func (t NSTextAttachmentViewProvider) InitWithTextAttachmentParentViewTextLayout
 	rv := objc.Send[NSTextAttachmentViewProvider](t.ID, objc.Sel("initWithTextAttachment:parentView:textLayoutManager:location:"), textAttachment, parentView, textLayoutManager, location)
 	return rv
 }
-
 // Draws the custom view hierarchy that text attachment view subclasses
 // implement.
 //
@@ -212,7 +211,6 @@ func (t NSTextAttachmentViewProvider) InitWithTextAttachmentParentViewTextLayout
 func (t NSTextAttachmentViewProvider) LoadView() {
 	objc.Send[objc.ID](t.ID, objc.Sel("loadView"))
 }
-
 // Returns the layout bounds for an attachment at a specific text location
 // that contains the text attributes you specify.
 //
@@ -255,7 +253,6 @@ func (t NSTextAttachmentViewProvider) Location() NSTextLocation {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("location"))
 	return NSTextLocationObjectFromID(rv)
 }
-
 // The text attachment for this view.
 //
 // # Discussion
@@ -268,7 +265,6 @@ func (t NSTextAttachmentViewProvider) TextAttachment() INSTextAttachment {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textAttachment"))
 	return NSTextAttachmentFromID(objc.ID(rv))
 }
-
 // The text layout manager for this view.
 //
 // # Discussion
@@ -281,7 +277,6 @@ func (t NSTextAttachmentViewProvider) TextLayoutManager() INSTextLayoutManager {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLayoutManager"))
 	return NSTextLayoutManagerFromID(objc.ID(rv))
 }
-
 // A Boolean value that determines the text attachment’s bounds policy.
 //
 // # Discussion
@@ -300,7 +295,6 @@ func (t NSTextAttachmentViewProvider) TracksTextAttachmentViewBounds() bool {
 func (t NSTextAttachmentViewProvider) SetTracksTextAttachmentViewBounds(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTracksTextAttachmentViewBounds:"), value)
 }
-
 // The text attachment’s view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentViewProvider/view

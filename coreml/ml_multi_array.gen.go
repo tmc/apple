@@ -150,7 +150,7 @@ type IMLMultiArray interface {
 	// Creates a multidimensional array with a shape and type.
 	InitWithShapeDataTypeError(shape []foundation.NSNumber, dataType MLMultiArrayDataType) (MLMultiArray, error)
 	// Creates a multiarray from a data pointer.
-	InitWithDataPointerShapeDataTypeStridesDeallocatorError(dataPointer unsafe.Pointer, shape []foundation.NSNumber, dataType MLMultiArrayDataType, strides []foundation.NSNumber, deallocator objectivec.IObject) (MLMultiArray, error)
+	InitWithDataPointerShapeDataTypeStridesDeallocatorError(dataPointer unsafe.Pointer, shape []foundation.NSNumber, dataType MLMultiArrayDataType, strides []foundation.NSNumber, deallocator func(unsafe.Pointer)) (MLMultiArray, error)
 	// Creates a multiarray sharing the surface of a pixel buffer.
 	InitWithPixelBufferShape(pixelBuffer corevideo.CVImageBufferRef, shape []foundation.NSNumber) MLMultiArray
 
@@ -333,7 +333,6 @@ func (m MLMultiArray) InitWithShapeDataTypeError(shape []foundation.NSNumber, da
 	return MLMultiArrayFromID(rv), nil
 
 }
-
 // Creates a multiarray from a data pointer.
 //
 // dataPointer: A pointer to data in memory.
@@ -361,7 +360,7 @@ func (m MLMultiArray) InitWithShapeDataTypeError(shape []foundation.NSNumber, da
 // to, by providing a `deallocator` closure.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/init(dataPointer:shape:dataType:strides:deallocator:)
-func (m MLMultiArray) InitWithDataPointerShapeDataTypeStridesDeallocatorError(dataPointer unsafe.Pointer, shape []foundation.NSNumber, dataType MLMultiArrayDataType, strides []foundation.NSNumber, deallocator objectivec.IObject) (MLMultiArray, error) {
+func (m MLMultiArray) InitWithDataPointerShapeDataTypeStridesDeallocatorError(dataPointer unsafe.Pointer, shape []foundation.NSNumber, dataType MLMultiArrayDataType, strides []foundation.NSNumber, deallocator func(unsafe.Pointer)) (MLMultiArray, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithDataPointer:shape:dataType:strides:deallocator:error:"), dataPointer, objectivec.IObjectSliceToNSArray(shape), dataType, objectivec.IObjectSliceToNSArray(strides), deallocator, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -371,7 +370,6 @@ func (m MLMultiArray) InitWithDataPointerShapeDataTypeStridesDeallocatorError(da
 	return MLMultiArrayFromID(rv), nil
 
 }
-
 // Creates a multiarray sharing the surface of a pixel buffer.
 //
 // pixelBuffer: The pixel buffer owned by the instance.
@@ -401,7 +399,6 @@ func (m MLMultiArray) InitWithPixelBufferShape(pixelBuffer corevideo.CVImageBuff
 	rv := objc.Send[MLMultiArray](m.ID, objc.Sel("initWithPixelBuffer:shape:"), pixelBuffer, objectivec.IObjectSliceToNSArray(shape))
 	return rv
 }
-
 // Transfer the contents to the destination multi-array.
 //
 // destinationMultiArray: The transfer destination.
@@ -426,7 +423,6 @@ func (m MLMultiArray) Count() int {
 	rv := objc.Send[int](m.ID, objc.Sel("count"))
 	return rv
 }
-
 // The underlying type of the multiarray.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/dataType
@@ -434,7 +430,6 @@ func (m MLMultiArray) DataType() MLMultiArrayDataType {
 	rv := objc.Send[MLMultiArrayDataType](m.ID, objc.Sel("dataType"))
 	return MLMultiArrayDataType(rv)
 }
-
 // The multiarray’s multidimensional shape as a number array in which each
 // element’s value is the size of the corresponding dimension.
 //
@@ -445,7 +440,6 @@ func (m MLMultiArray) Shape() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
-
 // A number array in which each element is the number of memory locations that
 // span the length of the corresponding dimension.
 //
@@ -463,7 +457,6 @@ func (m MLMultiArray) Strides() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
-
 // A reference to the multiarray’s underlying pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/pixelBuffer
@@ -471,7 +464,6 @@ func (m MLMultiArray) PixelBuffer() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](m.ID, objc.Sel("pixelBuffer"))
 	return corevideo.CVImageBufferRef(rv)
 }
-
 // A dictionary of input feature descriptions, which the model keys by the
 // input’s name.
 //
@@ -483,7 +475,6 @@ func (m MLMultiArray) InputDescriptionsByName() IMLFeatureDescription {
 func (m MLMultiArray) SetInputDescriptionsByName(value IMLFeatureDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInputDescriptionsByName:"), value)
 }
-
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -495,7 +486,6 @@ func (m MLMultiArray) ModelDescription() IMLModelDescription {
 func (m MLMultiArray) SetModelDescription(value IMLModelDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDescription:"), value)
 }
-
 // The constraints on a multidimensional array feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/multiarrayconstraint
@@ -506,7 +496,6 @@ func (m MLMultiArray) MultiArrayConstraint() IMLMultiArrayConstraint {
 func (m MLMultiArray) SetMultiArrayConstraint(value IMLMultiArrayConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMultiArrayConstraint:"), value)
 }
-
 // A dictionary of output feature descriptions, which the model keys by the
 // output’s name.
 //
@@ -518,7 +507,6 @@ func (m MLMultiArray) OutputDescriptionsByName() IMLFeatureDescription {
 func (m MLMultiArray) SetOutputDescriptionsByName(value IMLFeatureDescription) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }
-
 // The constraint on the shape of the multiarray.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmultiarrayconstraint/shapeconstraint

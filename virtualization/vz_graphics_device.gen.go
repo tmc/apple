@@ -125,7 +125,6 @@ func (g VZGraphicsDevice) Displays() []VZGraphicsDisplay {
 		return VZGraphicsDisplayFromID(id)
 	})
 }
-
 // The list of configured graphics devices on the virtual machine.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/graphicsdevices

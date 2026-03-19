@@ -53,13 +53,11 @@ func NSServicesMenuRequestorObjectFromID(id objc.ID) NSServicesMenuRequestorObje
 // previously received a [WriteSelectionToPasteboardTypes] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSServicesMenuRequestor/readSelection(from:)
-
 func (o NSServicesMenuRequestorObject) ReadSelectionFromPasteboard(pboard INSPasteboard) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("readSelectionFromPasteboard:"), pboard)
 	return rv
 	}
-
 // Writes the current selection to the pasteboard.
 //
 // pboard: The pasteboard to receive your data.
@@ -89,7 +87,6 @@ func (o NSServicesMenuRequestorObject) ReadSelectionFromPasteboard(pboard INSPas
 // first responder will then receive a [ReadSelectionFromPasteboard] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSServicesMenuRequestor/writeSelection(to:types:)
-
 func (o NSServicesMenuRequestorObject) WriteSelectionToPasteboardTypes(pboard INSPasteboard, types []string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("writeSelectionToPasteboard:types:"), pboard, objectivec.StringSliceToNSArray(types))

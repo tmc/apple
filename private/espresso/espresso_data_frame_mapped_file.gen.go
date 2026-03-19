@@ -122,7 +122,6 @@ func (e EspressoDataFrameMappedFile) BasePtr() string {
 func (e EspressoDataFrameMappedFile) SetBasePtr(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBasePtr:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameMappedFile/path
 func (e EspressoDataFrameMappedFile) Path() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("path"))

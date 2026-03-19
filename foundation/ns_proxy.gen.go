@@ -181,7 +181,6 @@ func NewNSProxy() NSProxy {
 func (p NSProxy) Dealloc() {
 	objc.Send[objc.ID](p.ID, objc.Sel("dealloc"))
 }
-
 // The garbage collector invokes this method on the receiver before disposing
 // of the memory it uses.
 //
@@ -197,7 +196,6 @@ func (p NSProxy) Dealloc() {
 func (p NSProxy) Finalize() {
 	objc.Send[objc.ID](p.ID, objc.Sel("finalize"))
 }
-
 // Passes a given invocation to the real object the proxy represents.
 //
 // invocation: The invocation to forward.
@@ -215,13 +213,11 @@ func (p NSProxy) Finalize() {
 func (p NSProxy) ForwardInvocation(invocation INSInvocation) {
 	objc.Send[objc.ID](p.ID, objc.Sel("forwardInvocation:"), invocation)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/allowsWeakReference
 func (p NSProxy) AllowsWeakReference() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("allowsWeakReference"))
 	return rv
 }
-
 // Raises [NSInvalidArgumentException]. Override this method in your concrete
 // subclass to return a proper [NSMethodSignature] object for the given
 // selector and the class your proxy objects stand in for.
@@ -248,7 +244,6 @@ func (p NSProxy) MethodSignatureForSelector(sel objc.SEL) INSMethodSignature {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("methodSignatureForSelector:"), sel)
 	return NSMethodSignatureFromID(rv)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/retainWeakReference
 func (p NSProxy) RetainWeakReference() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("retainWeakReference"))
@@ -263,7 +258,6 @@ func (p NSProxy) Description() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSProxy/debugDescription
 func (p NSProxy) DebugDescription() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("debugDescription"))

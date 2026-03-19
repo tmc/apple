@@ -126,14 +126,12 @@ func NewGTShaderProfilerTimingInfoWithTimeVertexTimeFragmentTimeComputeTime(time
 func (g GTShaderProfilerTimingInfo) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/initWithCoder:
 func (g GTShaderProfilerTimingInfo) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerTimingInfo {
 	rv := objc.Send[GTShaderProfilerTimingInfo](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/initWithTime:vertexTime:fragmentTime:computeTime:
 func (g GTShaderProfilerTimingInfo) InitWithTimeVertexTimeFragmentTimeComputeTime(time uint64, time2 uint64, time3 uint64, time4 uint64) GTShaderProfilerTimingInfo {
@@ -152,19 +150,16 @@ func (g GTShaderProfilerTimingInfo) ComputeTime() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("computeTime"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/fragmentTime
 func (g GTShaderProfilerTimingInfo) FragmentTime() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("fragmentTime"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/time
 func (g GTShaderProfilerTimingInfo) Time() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("time"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerTimingInfo/vertexTime
 func (g GTShaderProfilerTimingInfo) VertexTime() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("vertexTime"))

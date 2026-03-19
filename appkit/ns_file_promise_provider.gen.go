@@ -168,7 +168,6 @@ func (f NSFilePromiseProvider) InitWithFileTypeDelegate(fileType string, delegat
 	rv := objc.Send[NSFilePromiseProvider](f.ID, objc.Sel("initWithFileType:delegate:"), objc.String(fileType), delegate)
 	return rv
 }
-
 // Returns a property list object to represent the receiver on a pasteboard as
 // an object of a specified type.
 //
@@ -192,7 +191,6 @@ func (f NSFilePromiseProvider) PasteboardPropertyListForType(type_ NSPasteboardT
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("pasteboardPropertyListForType:"), objc.String(string(type_)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an array of UTI strings of data types the receiver can write to a
 // given pasteboard.
 //
@@ -223,7 +221,6 @@ func (f NSFilePromiseProvider) WritableTypesForPasteboard(pasteboard INSPasteboa
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("writableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for writing data of a specified type to a given pasteboard.
 //
 // type: One of the types the receiver supports for writing (one of the UTIs
@@ -259,7 +256,6 @@ func (f NSFilePromiseProvider) Delegate() NSFilePromiseProviderDelegate {
 func (f NSFilePromiseProvider) SetDelegate(value NSFilePromiseProviderDelegate) {
 	objc.Send[struct{}](f.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The file type of the file promise provider.
 //
 // # Discussion
@@ -274,7 +270,6 @@ func (f NSFilePromiseProvider) FileType() string {
 func (f NSFilePromiseProvider) SetFileType(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFileType:"), objc.String(value))
 }
-
 // Optional user information to pass to the file promise provider.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProvider/userInfo

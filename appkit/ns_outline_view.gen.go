@@ -387,7 +387,6 @@ func (o NSOutlineView) IsExpandable(item objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isExpandable:"), item)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether a given item is expanded.
 //
 // item: An item in the receiver.
@@ -404,7 +403,6 @@ func (o NSOutlineView) IsItemExpanded(item objectivec.IObject) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isItemExpanded:"), item)
 	return rv
 }
-
 // Expands a given item.
 //
 // item: An item in the receiver.
@@ -419,7 +417,6 @@ func (o NSOutlineView) IsItemExpanded(item objectivec.IObject) bool {
 func (o NSOutlineView) ExpandItem(item objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("expandItem:"), item)
 }
-
 // Expands a specified item and, optionally, its children.
 //
 // item: An item in the receiver.
@@ -447,7 +444,6 @@ func (o NSOutlineView) ExpandItem(item objectivec.IObject) {
 func (o NSOutlineView) ExpandItemExpandChildren(item objectivec.IObject, expandChildren bool) {
 	objc.Send[objc.ID](o.ID, objc.Sel("expandItem:expandChildren:"), item, expandChildren)
 }
-
 // Collapses a given item.
 //
 // item: An item in the receiver.
@@ -462,7 +458,6 @@ func (o NSOutlineView) ExpandItemExpandChildren(item objectivec.IObject, expandC
 func (o NSOutlineView) CollapseItem(item objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("collapseItem:"), item)
 }
-
 // Collapses a given item and, optionally, its children.
 //
 // item: An item in the receiver.
@@ -490,7 +485,6 @@ func (o NSOutlineView) CollapseItem(item objectivec.IObject) {
 func (o NSOutlineView) CollapseItemCollapseChildren(item objectivec.IObject, collapseChildren bool) {
 	objc.Send[objc.ID](o.ID, objc.Sel("collapseItem:collapseChildren:"), item, collapseChildren)
 }
-
 // Reloads and redisplays the data for the given item.
 //
 // item: The item to reload and display.
@@ -507,7 +501,6 @@ func (o NSOutlineView) CollapseItemCollapseChildren(item objectivec.IObject, col
 func (o NSOutlineView) ReloadItem(item objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("reloadItem:"), item)
 }
-
 // Reloads a given item and, optionally, its children.
 //
 // item: An item in the receiver.
@@ -528,7 +521,6 @@ func (o NSOutlineView) ReloadItem(item objectivec.IObject) {
 func (o NSOutlineView) ReloadItemReloadChildren(item objectivec.IObject, reloadChildren bool) {
 	objc.Send[objc.ID](o.ID, objc.Sel("reloadItem:reloadChildren:"), item, reloadChildren)
 }
-
 // Returns the item associated with a given row.
 //
 // row: The index of a row in the receiver.
@@ -542,7 +534,6 @@ func (o NSOutlineView) ItemAtRow(row int) objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("itemAtRow:"), row)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the row associated with a given item.
 //
 // item: An item in the receiver.
@@ -557,7 +548,6 @@ func (o NSOutlineView) RowForItem(item objectivec.IObject) int {
 	rv := objc.Send[int](o.ID, objc.Sel("rowForItem:"), item)
 	return rv
 }
-
 // Returns the indentation level for a given item.
 //
 // item: An item in the receiver.
@@ -577,7 +567,6 @@ func (o NSOutlineView) LevelForItem(item objectivec.IObject) int {
 	rv := objc.Send[int](o.ID, objc.Sel("levelForItem:"), item)
 	return rv
 }
-
 // Returns the indentation level for a given row.
 //
 // row: The index of a row in the receiver.
@@ -596,7 +585,6 @@ func (o NSOutlineView) LevelForRow(row int) int {
 	rv := objc.Send[int](o.ID, objc.Sel("levelForRow:"), row)
 	return rv
 }
-
 // Used to “retarget” a proposed drop.
 //
 // item: The target item.
@@ -616,7 +604,6 @@ func (o NSOutlineView) LevelForRow(row int) int {
 func (o NSOutlineView) SetDropItemDropChildIndex(item objectivec.IObject, index int) {
 	objc.Send[objc.ID](o.ID, objc.Sel("setDropItem:dropChildIndex:"), item, index)
 }
-
 // Returns a Boolean value that indicates whether auto-expanded items should
 // return to their original collapsed state.
 //
@@ -655,7 +642,6 @@ func (o NSOutlineView) ShouldCollapseAutoExpandedItemsForDeposited(deposited boo
 	rv := objc.Send[bool](o.ID, objc.Sel("shouldCollapseAutoExpandedItemsForDeposited:"), deposited)
 	return rv
 }
-
 // Returns the parent for a given item.
 //
 // item: The item for which to return the parent.
@@ -669,7 +655,6 @@ func (o NSOutlineView) ParentForItem(item objectivec.IObject) objectivec.IObject
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("parentForItem:"), item)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the child index of the specified item within its parent.
 //
 // # Discussion
@@ -681,7 +666,6 @@ func (o NSOutlineView) ChildIndexForItem(item objectivec.IObject) int {
 	rv := objc.Send[int](o.ID, objc.Sel("childIndexForItem:"), item)
 	return rv
 }
-
 // Returns the specified child of an item.
 //
 // index: The index of the child item in the parent.
@@ -704,7 +688,6 @@ func (o NSOutlineView) ChildOfItem(index int, item objectivec.IObject) objective
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("child:ofItem:"), index, item)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the number of children for the specified parent item.
 //
 // item: The parent item.
@@ -725,7 +708,6 @@ func (o NSOutlineView) NumberOfChildrenOfItem(item objectivec.IObject) int {
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfChildrenOfItem:"), item)
 	return rv
 }
-
 // Returns the frame of the outline cell for a given row.
 //
 // row: The index of the row for which to return the frame.
@@ -750,7 +732,6 @@ func (o NSOutlineView) FrameOfOutlineCellAtRow(row int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("frameOfOutlineCellAtRow:"), row)
 	return corefoundation.CGRect(rv)
 }
-
 // Inserts new items at the given indexes in the given parent with the
 // specified optional animations.
 //
@@ -781,7 +762,6 @@ func (o NSOutlineView) FrameOfOutlineCellAtRow(row int) corefoundation.CGRect {
 func (o NSOutlineView) InsertItemsAtIndexesInParentWithAnimation(indexes foundation.NSIndexSet, parent objectivec.IObject, animationOptions NSTableViewAnimationOptions) {
 	objc.Send[objc.ID](o.ID, objc.Sel("insertItemsAtIndexes:inParent:withAnimation:"), indexes, parent, animationOptions)
 }
-
 // Moves an item at a given index in the given parent to a new index in a new
 // parent.
 //
@@ -807,7 +787,6 @@ func (o NSOutlineView) InsertItemsAtIndexesInParentWithAnimation(indexes foundat
 func (o NSOutlineView) MoveItemAtIndexInParentToIndexInParent(fromIndex int, oldParent objectivec.IObject, toIndex int, newParent objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("moveItemAtIndex:inParent:toIndex:inParent:"), fromIndex, oldParent, toIndex, newParent)
 }
-
 // Removes items at the given indexes in the given parent with the specified
 // optional animations.
 //
@@ -864,7 +843,6 @@ func (o NSOutlineView) StronglyReferencesItems() bool {
 func (o NSOutlineView) SetStronglyReferencesItems(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setStronglyReferencesItems:"), value)
 }
-
 // The table column in which hierarchical data is displayed.
 //
 // # Discussion
@@ -885,7 +863,6 @@ func (o NSOutlineView) OutlineTableColumn() INSTableColumn {
 func (o NSOutlineView) SetOutlineTableColumn(value INSTableColumn) {
 	objc.Send[struct{}](o.ID, objc.Sel("setOutlineTableColumn:"), value)
 }
-
 // A Boolean value that indicates whether the outline view resizes its outline
 // column when the user expands or collapses items.
 //
@@ -910,7 +887,6 @@ func (o NSOutlineView) AutoresizesOutlineColumn() bool {
 func (o NSOutlineView) SetAutoresizesOutlineColumn(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAutoresizesOutlineColumn:"), value)
 }
-
 // The per-level indentation, measured in points.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineView/indentationPerLevel
@@ -921,7 +897,6 @@ func (o NSOutlineView) IndentationPerLevel() float64 {
 func (o NSOutlineView) SetIndentationPerLevel(value float64) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIndentationPerLevel:"), value)
 }
-
 // A Boolean value indicating whether the indentation marker symbol displayed
 // in the outline column should be indented along with the cell contents.
 //
@@ -943,7 +918,6 @@ func (o NSOutlineView) IndentationMarkerFollowsCell() bool {
 func (o NSOutlineView) SetIndentationMarkerFollowsCell(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setIndentationMarkerFollowsCell:"), value)
 }
-
 // A Boolean value indicating whether the expanded items are automatically
 // saved across launches of the app.
 //
@@ -977,7 +951,6 @@ func (o NSOutlineView) SetAutosaveExpandedItems(value bool) {
 
 			// Protocol methods for NSAccessibilityOutline
 			
-
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
@@ -995,13 +968,11 @@ func (o NSOutlineView) SetAutosaveExpandedItems(value bool) {
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-
 func (o NSOutlineView) AccessibilityFrame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
-
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
@@ -1017,13 +988,11 @@ func (o NSOutlineView) AccessibilityFrame() corefoundation.CGRect {
 // [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-
 func (o NSOutlineView) AccessibilityParent() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the accessibility element’s identity.
 //
 // # Return Value
@@ -1039,13 +1008,11 @@ func (o NSOutlineView) AccessibilityParent() objectivec.IObject {
 // [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-
 func (o NSOutlineView) AccessibilityIdentifier() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
@@ -1064,7 +1031,6 @@ func (o NSOutlineView) AccessibilityIdentifier() string {
 // [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-
 func (o NSOutlineView) IsAccessibilityFocused() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))

@@ -420,7 +420,6 @@ func (x XMLNode) InitWithKind(kind NSXMLNodeKind) XMLNode {
 	rv := objc.Send[XMLNode](x.ID, objc.Sel("initWithKind:"), kind)
 	return rv
 }
-
 // Returns an [NSXMLNode] instance initialized with the constant indicating
 // node kind and one or more initialization options.
 //
@@ -454,7 +453,6 @@ func (x XMLNode) InitWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOption
 	rv := objc.Send[XMLNode](x.ID, objc.Sel("initWithKind:options:"), kind, options)
 	return rv
 }
-
 // Sets the content of the receiver as a string value and, optionally,
 // resolves character references, predefined entities, and user-defined
 // entities as declared in the associated DTD.
@@ -483,7 +481,6 @@ func (x XMLNode) InitWithKindOptions(kind NSXMLNodeKind, options NSXMLNodeOption
 func (x XMLNode) SetStringValueResolvingEntities(string_ string, resolve bool) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setStringValue:resolvingEntities:"), objc.String(string_), resolve)
 }
-
 // Returns the child node of the receiver at the specified location.
 //
 // index: An integer specifying a node position in the receiver’s array of
@@ -504,7 +501,6 @@ func (x XMLNode) ChildAtIndex(index uint) INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("childAtIndex:"), index)
 	return NSXMLNodeFromID(rv)
 }
-
 // Detaches the receiver from its parent node.
 //
 // # Discussion
@@ -518,7 +514,6 @@ func (x XMLNode) ChildAtIndex(index uint) INSXMLNode {
 func (x XMLNode) Detach() {
 	objc.Send[objc.ID](x.ID, objc.Sel("detach"))
 }
-
 // Returns the string representation of the receiver as it would appear in an
 // XML document, with one or more output options specified.
 //
@@ -535,7 +530,6 @@ func (x XMLNode) XMLStringWithOptions(options NSXMLNodeOptions) string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("XMLStringWithOptions:"), options)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a string object encapsulating the receiver’s XML in canonical
 // form.
 //
@@ -576,7 +570,6 @@ func (x XMLNode) CanonicalXMLStringPreservingComments(comments bool) string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("canonicalXMLStringPreservingComments:"), comments)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the nodes resulting from executing an XPath query upon the
 // receiver.
 //
@@ -613,7 +606,6 @@ func (x XMLNode) NodesForXPathError(xpath string) ([]NSXMLNode, error) {
 	}), nil
 
 }
-
 // Returns the objects resulting from executing an XQuery query upon the
 // receiver.
 //
@@ -641,7 +633,6 @@ func (x XMLNode) ObjectsForXQueryError(xquery string) (INSArray, error) {
 	return NSArrayFromID(rv), nil
 
 }
-
 // Returns the objects resulting from executing an XQuery query upon the
 // receiver.
 //
@@ -685,7 +676,6 @@ func (_XMLNodeClass XMLNodeClass) Document() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("document"))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLDocument] object initialized with a given root element.
 //
 // element: An [NSXMLElement] object representing an element.
@@ -700,7 +690,6 @@ func (_XMLNodeClass XMLNodeClass) DocumentWithRootElement(element INSXMLElement)
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("documentWithRootElement:"), element)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLElement] object with a given tag identifier, or name
 //
 // name: A string that is the name (or tag identifier) of an element.
@@ -718,7 +707,6 @@ func (_XMLNodeClass XMLNodeClass) ElementWithName(name string) objectivec.IObjec
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("elementWithName:"), objc.String(name))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLElement] object with the given tag (name), attributes, and
 // children.
 //
@@ -748,7 +736,6 @@ func (_XMLNodeClass XMLNodeClass) ElementWithNameChildrenAttributes(name string,
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("elementWithName:children:attributes:"), objc.String(name), objectivec.IObjectSliceToNSArray(children), objectivec.IObjectSliceToNSArray(attributes))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLElement] object with a single text-node child containing
 // the specified text.
 //
@@ -773,7 +760,6 @@ func (_XMLNodeClass XMLNodeClass) ElementWithNameStringValue(name string, string
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("elementWithName:stringValue:"), objc.String(name), objc.String(string_))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an element whose fully qualified name is specified.
 //
 // name: A string that is the name (or tag identifier) of an element.
@@ -793,7 +779,6 @@ func (_XMLNodeClass XMLNodeClass) ElementWithNameURI(name string, URI string) ob
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("elementWithName:URI:"), objc.String(name), objc.String(URI))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLNode] object representing an attribute node with a given
 // name and string.
 //
@@ -818,7 +803,6 @@ func (_XMLNodeClass XMLNodeClass) AttributeWithNameStringValue(name string, stri
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("attributeWithName:stringValue:"), objc.String(name), objc.String(stringValue))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLNode] object representing an attribute node with a given
 // qualified name and string.
 //
@@ -846,7 +830,6 @@ func (_XMLNodeClass XMLNodeClass) AttributeWithNameURIStringValue(name string, U
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("attributeWithName:URI:stringValue:"), objc.String(name), objc.String(URI), objc.String(stringValue))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLNode] object representing a text node with specified
 // content.
 //
@@ -864,7 +847,6 @@ func (_XMLNodeClass XMLNodeClass) TextWithStringValue(stringValue string) object
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("textWithStringValue:"), objc.String(stringValue))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLNode] object representing a comment node containing given
 // text.
 //
@@ -885,7 +867,6 @@ func (_XMLNodeClass XMLNodeClass) CommentWithStringValue(stringValue string) obj
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("commentWithStringValue:"), objc.String(stringValue))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLNode] object representing a namespace with a specified
 // name and URI.
 //
@@ -916,7 +897,6 @@ func (_XMLNodeClass XMLNodeClass) NamespaceWithNameStringValue(name string, stri
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("namespaceWithName:stringValue:"), objc.String(name), objc.String(stringValue))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns a [NSXMLDTDNode] object representing the DTD declaration for an
 // element, attribute, entity, or notation based on a given string.
 //
@@ -946,7 +926,6 @@ func (_XMLNodeClass XMLNodeClass) DTDNodeWithXMLString(string_ string) objective
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("DTDNodeWithXMLString:"), objc.String(string_))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSXMLNode] object representing one of the predefined namespaces
 // with the specified prefix.
 //
@@ -966,7 +945,6 @@ func (_XMLNodeClass XMLNodeClass) PredefinedNamespaceForPrefix(name string) XMLN
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("predefinedNamespaceForPrefix:"), objc.String(name))
 	return NSXMLNodeFromID(rv)
 }
-
 // Returns an [NSXMLNode] object representing a processing instruction with a
 // specified name and value.
 //
@@ -990,7 +968,6 @@ func (_XMLNodeClass XMLNodeClass) ProcessingInstructionWithNameStringValue(name 
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("processingInstructionWithName:stringValue:"), objc.String(name), objc.String(stringValue))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the local name from the specified qualified name.
 //
 // name: A string that is a qualified name.
@@ -1005,7 +982,6 @@ func (_XMLNodeClass XMLNodeClass) LocalNameForName(name string) string {
 	rv := objc.Send[objc.ID](objc.ID(_XMLNodeClass.class), objc.Sel("localNameForName:"), objc.String(name))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the prefix from the specified qualified name.
 //
 // name: A string that is a qualified name.
@@ -1032,7 +1008,6 @@ func (x XMLNode) Index() int {
 func (x XMLNode) SetIndex(value int) {
 	objc.Send[struct{}](x.ID, objc.Sel("setIndex:"), value)
 }
-
 // Returns the kind of node the receiver is as a constant of type
 // [XMLNode.Kind].
 //
@@ -1050,7 +1025,6 @@ func (x XMLNode) Kind() NSXMLNodeKind {
 	rv := objc.Send[NSXMLNodeKind](x.ID, objc.Sel("kind"))
 	return NSXMLNodeKind(rv)
 }
-
 // Returns the nesting level of the receiver within the tree hierarchy.
 //
 // # Return Value
@@ -1066,7 +1040,6 @@ func (x XMLNode) Level() uint {
 	rv := objc.Send[uint](x.ID, objc.Sel("level"))
 	return rv
 }
-
 // Returns the name of the receiver.
 //
 // # Return Value
@@ -1096,7 +1069,6 @@ func (x XMLNode) Name() string {
 func (x XMLNode) SetName(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // Returns the object value of the receiver.
 //
 // # Return Value
@@ -1114,7 +1086,6 @@ func (x XMLNode) ObjectValue() objectivec.IObject {
 func (x XMLNode) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](x.ID, objc.Sel("setObjectValue:"), value)
 }
-
 // Returns the content of the receiver as a string value.
 //
 // # Discussion
@@ -1141,7 +1112,6 @@ func (x XMLNode) StringValue() string {
 func (x XMLNode) SetStringValue(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setStringValue:"), objc.String(value))
 }
-
 // Returns the URI associated with the receiver.
 //
 // # Discussion
@@ -1159,7 +1129,6 @@ func (x XMLNode) URI() string {
 func (x XMLNode) SetURI(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setURI:"), objc.String(value))
 }
-
 // Returns the [NSXMLDocument] object containing the root element and
 // representing the XML document as a whole.
 //
@@ -1173,7 +1142,6 @@ func (x XMLNode) RootDocument() INSXMLDocument {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("rootDocument"))
 	return NSXMLDocumentFromID(objc.ID(rv))
 }
-
 // Returns the parent node of the receiver.
 //
 // # Discussion
@@ -1189,7 +1157,6 @@ func (x XMLNode) Parent() INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("parent"))
 	return NSXMLNodeFromID(objc.ID(rv))
 }
-
 // Returns the number of child nodes the receiver has.
 //
 // # Discussion
@@ -1204,7 +1171,6 @@ func (x XMLNode) ChildCount() uint {
 	rv := objc.Send[uint](x.ID, objc.Sel("childCount"))
 	return rv
 }
-
 // Returns an immutable array containing the child nodes of the receiver (as
 // [NSXMLNode] objects).
 //
@@ -1215,7 +1181,6 @@ func (x XMLNode) Children() []NSXMLNode {
 		return NSXMLNodeFromID(id)
 	})
 }
-
 // Returns the next [NSXMLNode] object in document order.
 //
 // # Discussion
@@ -1232,7 +1197,6 @@ func (x XMLNode) NextNode() INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("nextNode"))
 	return NSXMLNodeFromID(objc.ID(rv))
 }
-
 // Returns the next [NSXMLNode] object that is a sibling node to the receiver.
 //
 // # Discussion
@@ -1248,7 +1212,6 @@ func (x XMLNode) NextSibling() INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("nextSibling"))
 	return NSXMLNodeFromID(objc.ID(rv))
 }
-
 // Returns the previous [NSXMLNode] object in document order.
 //
 // # Discussion
@@ -1266,7 +1229,6 @@ func (x XMLNode) PreviousNode() INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("previousNode"))
 	return NSXMLNodeFromID(objc.ID(rv))
 }
-
 // Returns the previous [NSXMLNode] object that is a sibling node to the
 // receiver.
 //
@@ -1283,7 +1245,6 @@ func (x XMLNode) PreviousSibling() INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("previousSibling"))
 	return NSXMLNodeFromID(objc.ID(rv))
 }
-
 // Returns the string representation of the receiver as it would appear in an
 // XML document.
 //
@@ -1298,7 +1259,6 @@ func (x XMLNode) XMLString() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("XMLString"))
 	return NSStringFromID(rv).String()
 }
-
 //
 // # Discussion
 // 
@@ -1309,7 +1269,6 @@ func (x XMLNode) Description() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the XPath expression identifying the receiver’s location in the
 // document tree.
 //
@@ -1324,7 +1283,6 @@ func (x XMLNode) XPath() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("XPath"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the local name of the receiver.
 //
 // # Return Value
@@ -1343,7 +1301,6 @@ func (x XMLNode) LocalName() string {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("localName"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the prefix of the receiver’s name.
 //
 // # Return Value

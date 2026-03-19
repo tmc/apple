@@ -139,7 +139,6 @@ func (c VNContoursObservation) ContourAtIndexError(contourIndex int) (IVNContour
 	return VNContourFromID(rv), nil
 
 }
-
 // Retrieves the contour object at the specified index path.
 //
 // indexPath: The hierarchical index path to the contour.
@@ -172,7 +171,6 @@ func (c VNContoursObservation) ContourCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("contourCount"))
 	return rv
 }
-
 // The detected contours as a path object in normalized coordinates.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/normalizedPath
@@ -180,7 +178,6 @@ func (c VNContoursObservation) NormalizedPath() coregraphics.CGPathRef {
 	rv := objc.Send[coregraphics.CGPathRef](c.ID, objc.Sel("normalizedPath"))
 	return coregraphics.CGPathRef(rv)
 }
-
 // An array of contours that don’t have another contour enclosing them.
 //
 // # Discussion
@@ -195,7 +192,6 @@ func (c VNContoursObservation) TopLevelContours() []VNContour {
 		return VNContourFromID(id)
 	})
 }
-
 // The total number of detected top-level contours.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/topLevelContourCount
@@ -203,7 +199,6 @@ func (c VNContoursObservation) TopLevelContourCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("topLevelContourCount"))
 	return rv
 }
-
 // The results of the request to detect contours.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectcontoursrequest/results

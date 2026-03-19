@@ -182,7 +182,6 @@ _block3, _cleanup3 := NewURLErrorBlock(reader)
 	defer _cleanup3()
 	objc.Send[objc.ID](f.ID, objc.Sel("receivePromisedFilesAtDestination:options:operationQueue:reader:"), destinationDir, options, operationQueue, _block3)
 }
-
 // Initializes an instance with a property list object and a type string.
 //
 // propertyList: A property list containing data to initialize the receiver.
@@ -242,7 +241,6 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadableTypesForPa
 	rv := objc.Send[[]objc.ID](objc.ID(_NSFilePromiseReceiverClass.class), objc.Sel("readableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for reading data of a specified type from a given
 // pasteboard.
 //
@@ -284,7 +282,6 @@ func (f NSFilePromiseReceiver) FileNames() []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("fileNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // An array containing types of the promised files being written to the
 // destination location.
 //

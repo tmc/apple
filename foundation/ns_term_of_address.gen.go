@@ -144,7 +144,6 @@ func (t NSTermOfAddress) InitWithCoder(coder INSCoder) NSTermOfAddress {
 	rv := objc.Send[NSTermOfAddress](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -163,7 +162,6 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) Feminine() NSTermOfAddress {
 	rv := objc.Send[objc.ID](objc.ID(_NSTermOfAddressClass.class), objc.Sel("feminine"))
 	return NSTermOfAddressFromID(rv)
 }
-
 // Term of address that uses masculine pronouns (e.g. he/him/his in English),
 // and a masculine grammatical gender when inflecting verbs and adjectives
 // referring to the person
@@ -173,7 +171,6 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) Masculine() NSTermOfAddress {
 	rv := objc.Send[objc.ID](objc.ID(_NSTermOfAddressClass.class), objc.Sel("masculine"))
 	return NSTermOfAddressFromID(rv)
 }
-
 // Term of address that uses gender-neutral pronouns (e.g. they/them/theirs in
 // English), and an epicene grammatical gender when inflecting verbs and
 // adjectives referring to the person
@@ -183,7 +180,6 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) Neutral() NSTermOfAddress {
 	rv := objc.Send[objc.ID](objc.ID(_NSTermOfAddressClass.class), objc.Sel("neutral"))
 	return NSTermOfAddressFromID(rv)
 }
-
 // The term of address that should be used for addressing the user
 //
 // # Discussion
@@ -196,7 +192,6 @@ func (_NSTermOfAddressClass NSTermOfAddressClass) CurrentUser() NSTermOfAddress 
 	rv := objc.Send[objc.ID](objc.ID(_NSTermOfAddressClass.class), objc.Sel("currentUser"))
 	return NSTermOfAddressFromID(rv)
 }
-
 // A term of address restricted to a given language
 //
 // language: ISO language code identifier for the language
@@ -219,7 +214,6 @@ func (t NSTermOfAddress) Pronouns() []NSMorphologyPronoun {
 		return NSMorphologyPronounFromID(id)
 	})
 }
-
 // The ISO language code if this is a localized term of address
 //
 // See: https://developer.apple.com/documentation/Foundation/NSTermOfAddress/languageIdentifier

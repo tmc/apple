@@ -39,7 +39,6 @@ func MTLIOScratchBufferObjectFromID(id objc.ID) MTLIOScratchBufferObject {
 // queue.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOScratchBuffer/buffer
-
 func (o MTLIOScratchBufferObject) Buffer() MTLBuffer {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))

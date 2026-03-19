@@ -283,7 +283,6 @@ func (p NSPredicate) PredicateWithSubstitutionVariables(variables INSDictionary)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("predicateWithSubstitutionVariables:"), variables)
 	return NSPredicateFromID(rv)
 }
-
 // Returns a Boolean value that indicates whether the specified object matches
 // the conditions that the predicate specifies.
 //
@@ -302,7 +301,6 @@ func (p NSPredicate) EvaluateWithObject(object objectivec.IObject) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("evaluateWithObject:"), object)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the specified object matches
 // the conditions that the predicate specifies after substituting in the
 // values from a specified variables dictionary.
@@ -334,7 +332,6 @@ func (p NSPredicate) EvaluateWithObjectSubstitutionVariables(object objectivec.I
 	rv := objc.Send[bool](p.ID, objc.Sel("evaluateWithObject:substitutionVariables:"), object, bindings)
 	return rv
 }
-
 // Forces a securely decoded predicate to allow evaluation.
 //
 // # Discussion
@@ -352,7 +349,6 @@ func (p NSPredicate) EvaluateWithObjectSubstitutionVariables(object objectivec.I
 func (p NSPredicate) AllowEvaluation() {
 	objc.Send[objc.ID](p.ID, objc.Sel("allowEvaluation"))
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicate/allowEvaluation(validator:)
 func (p NSPredicate) AllowEvaluationWithValidatorError(validator NSPredicateValidating) (bool, error) {
@@ -368,7 +364,6 @@ func (p NSPredicate) AllowEvaluationWithValidatorError(validator NSPredicateVali
 	return rv, nil
 
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -377,7 +372,6 @@ func (p NSPredicate) AllowEvaluationWithValidatorError(validator NSPredicateVali
 func (p NSPredicate) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (p NSPredicate) InitWithCoder(coder INSCoder) NSPredicate {

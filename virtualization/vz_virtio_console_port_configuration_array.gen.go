@@ -132,7 +132,6 @@ func (v VZVirtioConsolePortConfigurationArray) ObjectAtIndexedSubscript(portInde
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("objectAtIndexedSubscript:"), portIndex)
 	return VZVirtioConsolePortConfigurationFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsolePortConfigurationArray/setObject:atIndexedSubscript:
 func (v VZVirtioConsolePortConfigurationArray) SetObjectAtIndexedSubscript(configuration IVZVirtioConsolePortConfiguration, portIndex uint) {

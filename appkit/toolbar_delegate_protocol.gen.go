@@ -65,13 +65,11 @@ func NSToolbarDelegateObjectFromID(id objc.ID) NSToolbarDelegateObject {
 // toolbar previously asked for an item with the same identifier.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbar(_:itemForItemIdentifier:willBeInsertedIntoToolbar:)
-
 func (o NSToolbarDelegateObject) ToolbarItemForItemIdentifierWillBeInsertedIntoToolbar(toolbar INSToolbar, itemIdentifier NSToolbarItemIdentifier, flag bool) INSToolbarItem {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:"), toolbar, objc.String(string(itemIdentifier)), flag)
 	return NSToolbarItemFromID(rv)
 	}
-
 // Tells the delegate that the toolbar is about to add the specified item.
 //
 // notification: A notification named [willAddItemNotification].
@@ -84,12 +82,10 @@ func (o NSToolbarDelegateObject) ToolbarItemForItemIdentifierWillBeInsertedIntoT
 // tasks related to the addition of those items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarWillAddItem(_:)
-
 func (o NSToolbarDelegateObject) ToolbarWillAddItem(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("toolbarWillAddItem:"), notification)
 	}
-
 // Tells the delegate that the toolbar removed the specified item.
 //
 // notification: A notification named [didRemoveItemNotification].
@@ -101,12 +97,10 @@ func (o NSToolbarDelegateObject) ToolbarWillAddItem(notification foundation.NSNo
 // Use this method to update data structures related to your toolbar items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarDidRemoveItem(_:)
-
 func (o NSToolbarDelegateObject) ToolbarDidRemoveItem(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("toolbarDidRemoveItem:"), notification)
 	}
-
 // Asks the delegate to provide the items allowed on the toolbar.
 //
 // toolbar: The toolbar whose allowed item identifiers are to be returned.
@@ -125,13 +119,11 @@ func (o NSToolbarDelegateObject) ToolbarDidRemoveItem(notification foundation.NS
 // in your toolbar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarAllowedItemIdentifiers(_:)
-
 func (o NSToolbarDelegateObject) ToolbarAllowedItemIdentifiers(toolbar INSToolbar) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("toolbarAllowedItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // Asks the delegate to provide the default items to display on the toolbar.
 //
 // toolbar: The toolbar whose default item identifiers are to be returned.
@@ -150,13 +142,11 @@ func (o NSToolbarDelegateObject) ToolbarAllowedItemIdentifiers(toolbar INSToolba
 // the customization palette’s contents.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarDefaultItemIdentifiers(_:)
-
 func (o NSToolbarDelegateObject) ToolbarDefaultItemIdentifiers(toolbar INSToolbar) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("toolbarDefaultItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // Asks the delegate to provide the items that people can’t remove from the
 // toolbar or rearrange during the customization process.
 //
@@ -175,13 +165,11 @@ func (o NSToolbarDelegateObject) ToolbarDefaultItemIdentifiers(toolbar INSToolba
 // the toolbar lets people rearrange and remove all toolbar items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarImmovableItemIdentifiers(_:)
-
 func (o NSToolbarDelegateObject) ToolbarImmovableItemIdentifiers(toolbar INSToolbar) foundation.INSSet {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("toolbarImmovableItemIdentifiers:"), toolbar)
 	return foundation.NSSetFromID(rv)
 	}
-
 // Asks the delegate to provide the set of selectable items in the toolbar.
 //
 // toolbar: The toolbar that contains the items.
@@ -201,13 +189,11 @@ func (o NSToolbarDelegateObject) ToolbarImmovableItemIdentifiers(toolbar INSTool
 // property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarSelectableItemIdentifiers(_:)
-
 func (o NSToolbarDelegateObject) ToolbarSelectableItemIdentifiers(toolbar INSToolbar) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("toolbarSelectableItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // Asks the delegate for a Boolean value that indicates whether the toolbar
 // can place the item at the specified position.
 //
@@ -240,7 +226,6 @@ func (o NSToolbarDelegateObject) ToolbarSelectableItemIdentifiers(toolbar INSToo
 // multiple times, so the index value can change later.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbar(_:itemIdentifier:canBeInsertedAt:)
-
 func (o NSToolbarDelegateObject) ToolbarItemIdentifierCanBeInsertedAtIndex(toolbar INSToolbar, itemIdentifier NSToolbarItemIdentifier, index int) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("toolbar:itemIdentifier:canBeInsertedAtIndex:"), toolbar, objc.String(string(itemIdentifier)), index)

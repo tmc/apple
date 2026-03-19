@@ -88,7 +88,6 @@ func (_ANECompilerClass ANECompilerClass) CompileModelOptionsOkError(model objec
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler/compileModelJIT:ok:error:
 func (_ANECompilerClass ANECompilerClass) CompileModelJITOkError(jit objectivec.IObject, ok unsafe.Pointer) (objectivec.IObject, error) {
@@ -101,28 +100,24 @@ func (_ANECompilerClass ANECompilerClass) CompileModelJITOkError(jit objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler/createErrorWithUnderlyingError:
 func (_ANECompilerClass ANECompilerClass) CreateErrorWithUnderlyingError(error_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANECompilerClass.class), objc.Sel("createErrorWithUnderlyingError:"), error_)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler/createInMemoryConstants:
 func (_ANECompilerClass ANECompilerClass) CreateInMemoryConstants(constants objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANECompilerClass.class), objc.Sel("createInMemoryConstants:"), constants)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler/createJITNetworkFromModelAtPath:modelFilename:aotModelAtPath:aotModelFilename:
 func (_ANECompilerClass ANECompilerClass) CreateJITNetworkFromModelAtPathModelFilenameAotModelAtPathAotModelFilename(path objectivec.IObject, filename objectivec.IObject, path2 objectivec.IObject, filename2 objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANECompilerClass.class), objc.Sel("createJITNetworkFromModelAtPath:modelFilename:aotModelAtPath:aotModelFilename:"), path, filename, path2, filename2)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompiler/createNetworkFromModelAtPath:modelFilename:
 func (_ANECompilerClass ANECompilerClass) CreateNetworkFromModelAtPathModelFilename(path objectivec.IObject, filename objectivec.IObject) objectivec.IObject {

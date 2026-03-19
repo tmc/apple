@@ -197,7 +197,6 @@ func (u URLResponse) InitWithURLMIMETypeExpectedContentLengthTextEncodingName(UR
 	rv := objc.Send[URLResponse](u.ID, objc.Sel("initWithURL:MIMEType:expectedContentLength:textEncodingName:"), URL, objc.String(MIMEType), length, objc.String(name))
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -206,7 +205,6 @@ func (u URLResponse) InitWithURLMIMETypeExpectedContentLengthTextEncodingName(UR
 func (u URLResponse) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u URLResponse) InitWithCoder(coder INSCoder) URLResponse {
@@ -232,7 +230,6 @@ func (u URLResponse) ExpectedContentLength() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("expectedContentLength"))
 	return rv
 }
-
 // A suggested filename for the response data.
 //
 // # Discussion
@@ -255,7 +252,6 @@ func (u URLResponse) SuggestedFilename() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("suggestedFilename"))
 	return NSStringFromID(rv).String()
 }
-
 // The MIME type of the response.
 //
 // # Discussion
@@ -273,7 +269,6 @@ func (u URLResponse) MIMEType() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("MIMEType"))
 	return NSStringFromID(rv).String()
 }
-
 // The name of the text encoding provided by the response’s originating
 // source.
 //
@@ -295,7 +290,6 @@ func (u URLResponse) TextEncodingName() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("textEncodingName"))
 	return NSStringFromID(rv).String()
 }
-
 // The URL for the response.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLResponse/url

@@ -196,7 +196,6 @@ _block3, _cleanup3 := NewDataErrorBlock(completionHandler)
 	defer _cleanup3()
 	objc.Send[objc.ID](u.ID, objc.Sel("readDataOfMinLength:maxLength:timeout:completionHandler:"), minBytes, maxBytes, timeout, _block3)
 }
-
 // Asynchronously writes the specified data to the stream, and calls a handler
 // upon completion.
 //
@@ -226,7 +225,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](u.ID, objc.Sel("writeData:timeout:completionHandler:"), data, timeout, _block2)
 }
-
 // Completes any already enqueued reads and writes, and then invokes the
 // [URLSessionStreamTaskDidBecomeInputStreamOutputStream] delegate message.
 //
@@ -234,7 +232,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 func (u URLSessionStreamTask) CaptureStreams() {
 	objc.Send[objc.ID](u.ID, objc.Sel("captureStreams"))
 }
-
 // Completes any enqueued reads and writes, and then closes the read side of
 // the underlying socket.
 //
@@ -249,7 +246,6 @@ func (u URLSessionStreamTask) CaptureStreams() {
 func (u URLSessionStreamTask) CloseRead() {
 	objc.Send[objc.ID](u.ID, objc.Sel("closeRead"))
 }
-
 // Completes any enqueued reads and writes, and then closes the write side of
 // the underlying socket.
 //
@@ -268,7 +264,6 @@ func (u URLSessionStreamTask) CloseRead() {
 func (u URLSessionStreamTask) CloseWrite() {
 	objc.Send[objc.ID](u.ID, objc.Sel("closeWrite"))
 }
-
 // Completes any enqueued reads and writes, and establishes a secure
 // connection.
 //

@@ -146,7 +146,6 @@ func (d VNDetectTextRectanglesRequest) ReportCharacterBoxes() bool {
 func (d VNDetectTextRectanglesRequest) SetReportCharacterBoxes(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setReportCharacterBoxes:"), value)
 }
-
 // A constant for specifying revision 1 of the text rectangles detection
 // request.
 //

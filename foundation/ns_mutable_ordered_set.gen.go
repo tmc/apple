@@ -502,7 +502,6 @@ func (m NSMutableOrderedSet) InitWithCapacity(numItems uint) NSMutableOrderedSet
 	rv := objc.Send[NSMutableOrderedSet](m.ID, objc.Sel("initWithCapacity:"), numItems)
 	return rv
 }
-
 // Appends a given object to the end of the mutable ordered set, if it is not
 // already a member.
 //
@@ -512,7 +511,6 @@ func (m NSMutableOrderedSet) InitWithCapacity(numItems uint) NSMutableOrderedSet
 func (m NSMutableOrderedSet) AddObject(object objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addObject:"), object)
 }
-
 // Appends the given number of objects from a given C array to the end of the
 // mutable ordered set.
 //
@@ -526,7 +524,6 @@ func (m NSMutableOrderedSet) AddObject(object objectivec.IObject) {
 func (m NSMutableOrderedSet) AddObjectsCount(objects []objectivec.IObject, count uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addObjects:count:"), objc.CArray(objects), count)
 }
-
 // Appends to the end of the mutable ordered set each object contained in a
 // given array that is not already a member.
 //
@@ -536,7 +533,6 @@ func (m NSMutableOrderedSet) AddObjectsCount(objects []objectivec.IObject, count
 func (m NSMutableOrderedSet) AddObjectsFromArray(array []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addObjectsFromArray:"), objectivec.IObjectSliceToNSArray(array))
 }
-
 // Inserts the given object at the specified index of the mutable ordered set,
 // if it is not already a member.
 //
@@ -556,7 +552,6 @@ func (m NSMutableOrderedSet) AddObjectsFromArray(array []objectivec.IObject) {
 func (m NSMutableOrderedSet) InsertObjectAtIndex(object objectivec.IObject, idx uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertObject:atIndex:"), object, idx)
 }
-
 // Inserts the objects in the array at the specified indexes.
 //
 // objects: An array of objects to insert into the mutable ordered set.
@@ -574,7 +569,6 @@ func (m NSMutableOrderedSet) InsertObjectAtIndex(object objectivec.IObject, idx 
 func (m NSMutableOrderedSet) InsertObjectsAtIndexes(objects []objectivec.IObject, indexes INSIndexSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertObjects:atIndexes:"), objectivec.IObjectSliceToNSArray(objects), indexes)
 }
-
 // Removes a given object from the mutable ordered set.
 //
 // object: The object to remove from the mutable ordered set.
@@ -583,7 +577,6 @@ func (m NSMutableOrderedSet) InsertObjectsAtIndexes(objects []objectivec.IObject
 func (m NSMutableOrderedSet) RemoveObject(object objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObject:"), object)
 }
-
 // Removes a the object at the specified index from the mutable ordered set.
 //
 // idx: The index of the object to remove from the mutable ordered set. The value
@@ -598,7 +591,6 @@ func (m NSMutableOrderedSet) RemoveObject(object objectivec.IObject) {
 func (m NSMutableOrderedSet) RemoveObjectAtIndex(idx uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectAtIndex:"), idx)
 }
-
 // Removes the objects at the specified indexes from the mutable ordered set.
 //
 // indexes: The indexes of the objects to remove from the mutable ordered set. The
@@ -614,7 +606,6 @@ func (m NSMutableOrderedSet) RemoveObjectAtIndex(idx uint) {
 func (m NSMutableOrderedSet) RemoveObjectsAtIndexes(indexes INSIndexSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectsAtIndexes:"), indexes)
 }
-
 // Removes the objects in the array from the mutable ordered set.
 //
 // array: An array containing the objects to be removed from the receiving mutable
@@ -636,7 +627,6 @@ func (m NSMutableOrderedSet) RemoveObjectsAtIndexes(indexes INSIndexSet) {
 func (m NSMutableOrderedSet) RemoveObjectsInArray(array []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectsInArray:"), objectivec.IObjectSliceToNSArray(array))
 }
-
 // Removes from the mutable ordered set each of the objects within a given
 // range.
 //
@@ -650,14 +640,12 @@ func (m NSMutableOrderedSet) RemoveObjectsInArray(array []objectivec.IObject) {
 func (m NSMutableOrderedSet) RemoveObjectsInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectsInRange:"), range_)
 }
-
 // Removes all the objects from the mutable ordered set.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/removeAllObjects()
 func (m NSMutableOrderedSet) RemoveAllObjects() {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAllObjects"))
 }
-
 // Replaces the object at the specified index with the new object.
 //
 // idx: The index of the object to be replaced. This value must not exceed the
@@ -670,7 +658,6 @@ func (m NSMutableOrderedSet) RemoveAllObjects() {
 func (m NSMutableOrderedSet) ReplaceObjectAtIndexWithObject(idx uint, object objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectAtIndex:withObject:"), idx, object)
 }
-
 // Replaces the objects at the specified indexes with the new objects.
 //
 // indexes: The indexes of the objects to be replaced.
@@ -689,7 +676,6 @@ func (m NSMutableOrderedSet) ReplaceObjectAtIndexWithObject(idx uint, object obj
 func (m NSMutableOrderedSet) ReplaceObjectsAtIndexesWithObjects(indexes INSIndexSet, objects []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectsAtIndexes:withObjects:"), indexes, objectivec.IObjectSliceToNSArray(objects))
 }
-
 // Replaces the objects in the receiving mutable ordered set at the range with
 // the specified number of objects from a given C array.
 //
@@ -710,7 +696,6 @@ func (m NSMutableOrderedSet) ReplaceObjectsAtIndexesWithObjects(indexes INSIndex
 func (m NSMutableOrderedSet) ReplaceObjectsInRangeWithObjectsCount(range_ NSRange, objects []objectivec.IObject, count uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectsInRange:withObjects:count:"), range_, objc.CArray(objects), count)
 }
-
 // Appends or replaces the object at the specified index.
 //
 // obj: The object to insert or append.
@@ -723,7 +708,6 @@ func (m NSMutableOrderedSet) ReplaceObjectsInRangeWithObjectsCount(range_ NSRang
 func (m NSMutableOrderedSet) SetObjectAtIndex(obj objectivec.IObject, idx uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setObject:atIndex:"), obj, idx)
 }
-
 // Moves the objects at the specified indexes to the new location.
 //
 // indexes: The indexes of the objects to move.
@@ -741,7 +725,6 @@ func (m NSMutableOrderedSet) SetObjectAtIndex(obj objectivec.IObject, idx uint) 
 func (m NSMutableOrderedSet) MoveObjectsAtIndexesToIndex(indexes INSIndexSet, idx uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("moveObjectsAtIndexes:toIndex:"), indexes, idx)
 }
-
 // Exchanges the object at the specified index with the object at the other
 // index.
 //
@@ -753,7 +736,6 @@ func (m NSMutableOrderedSet) MoveObjectsAtIndexesToIndex(indexes INSIndexSet, id
 func (m NSMutableOrderedSet) ExchangeObjectAtIndexWithObjectAtIndex(idx1 uint, idx2 uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("exchangeObjectAtIndex:withObjectAtIndex:"), idx1, idx2)
 }
-
 // Evaluates a given predicate against the mutable ordered set’s content and
 // leaves only objects that match.
 //
@@ -763,7 +745,6 @@ func (m NSMutableOrderedSet) ExchangeObjectAtIndexWithObjectAtIndex(idx1 uint, i
 func (m NSMutableOrderedSet) FilterUsingPredicate(p INSPredicate) {
 	objc.Send[objc.ID](m.ID, objc.Sel("filterUsingPredicate:"), p)
 }
-
 // Sorts the receiving ordered set using a given array of sort descriptors.
 //
 // sortDescriptors: An array containing the [NSSortDescriptor] objects to use to sort the
@@ -777,7 +758,6 @@ func (m NSMutableOrderedSet) FilterUsingPredicate(p INSPredicate) {
 func (m NSMutableOrderedSet) SortUsingDescriptors(sortDescriptors []NSSortDescriptor) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingDescriptors:"), objectivec.IObjectSliceToNSArray(sortDescriptors))
 }
-
 // Sorts the mutable ordered set using the comparison method specified by the
 // comparator block.
 //
@@ -787,7 +767,6 @@ func (m NSMutableOrderedSet) SortUsingDescriptors(sortDescriptors []NSSortDescri
 func (m NSMutableOrderedSet) SortUsingComparator(cmptr NSComparator) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), cmptr)
 }
-
 // Sorts the mutable ordered set using the specified options and the
 // comparison method specified by a given comparator block.
 //
@@ -800,7 +779,6 @@ func (m NSMutableOrderedSet) SortUsingComparator(cmptr NSComparator) {
 func (m NSMutableOrderedSet) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, cmptr)
 }
-
 // Sorts the specified range of the mutable ordered set using the specified
 // options and the comparison method specified by a given comparator block.
 //
@@ -815,7 +793,6 @@ func (m NSMutableOrderedSet) SortWithOptionsUsingComparator(opts NSSortOptions, 
 func (m NSMutableOrderedSet) SortRangeOptionsUsingComparator(range_ NSRange, opts NSSortOptions, cmptr NSComparator) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortRange:options:usingComparator:"), range_, opts, cmptr)
 }
-
 // Removes from the receiving ordered set each object that isn’t a member of
 // another ordered set.
 //
@@ -825,7 +802,6 @@ func (m NSMutableOrderedSet) SortRangeOptionsUsingComparator(range_ NSRange, opt
 func (m NSMutableOrderedSet) IntersectOrderedSet(other INSOrderedSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("intersectOrderedSet:"), other)
 }
-
 // Removes from the receiving ordered set each object that isn’t a member of
 // another set.
 //
@@ -835,7 +811,6 @@ func (m NSMutableOrderedSet) IntersectOrderedSet(other INSOrderedSet) {
 func (m NSMutableOrderedSet) IntersectSet(other INSSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("intersectSet:"), other)
 }
-
 // Removes each object in another given ordered set from the receiving mutable
 // ordered set, if present.
 //
@@ -845,7 +820,6 @@ func (m NSMutableOrderedSet) IntersectSet(other INSSet) {
 func (m NSMutableOrderedSet) MinusOrderedSet(other INSOrderedSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("minusOrderedSet:"), other)
 }
-
 // Removes each object in another given set from the receiving mutable ordered
 // set, if present.
 //
@@ -855,7 +829,6 @@ func (m NSMutableOrderedSet) MinusOrderedSet(other INSOrderedSet) {
 func (m NSMutableOrderedSet) MinusSet(other INSSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("minusSet:"), other)
 }
-
 // Adds each object in another given ordered set to the receiving mutable
 // ordered set, if not present.
 //
@@ -865,7 +838,6 @@ func (m NSMutableOrderedSet) MinusSet(other INSSet) {
 func (m NSMutableOrderedSet) UnionOrderedSet(other INSOrderedSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("unionOrderedSet:"), other)
 }
-
 // Adds each object in another given set to the receiving mutable ordered set,
 // if not present.
 //
@@ -875,13 +847,11 @@ func (m NSMutableOrderedSet) UnionOrderedSet(other INSOrderedSet) {
 func (m NSMutableOrderedSet) UnionSet(other INSSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("unionSet:"), other)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/applyDifference:
 func (m NSMutableOrderedSet) ApplyDifference(difference INSOrderedCollectionDifference) {
 	objc.Send[objc.ID](m.ID, objc.Sel("applyDifference:"), difference)
 }
-
 // Replaces the given object at the specified index of the mutable ordered
 // set.
 //

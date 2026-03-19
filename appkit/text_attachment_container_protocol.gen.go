@@ -69,13 +69,11 @@ func NSTextAttachmentContainerObjectFromID(id objc.ID) NSTextAttachmentContainer
 // line fragment rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentContainer/attachmentBounds(for:proposedLineFragment:glyphPosition:characterIndex:)
-
 func (o NSTextAttachmentContainerObject) AttachmentBoundsForTextContainerProposedLineFragmentGlyphPositionCharacterIndex(textContainer INSTextContainer, lineFrag corefoundation.CGRect, position corefoundation.CGPoint, charIndex uint) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("attachmentBoundsForTextContainer:proposedLineFragment:glyphPosition:characterIndex:"), textContainer, lineFrag, position, charIndex)
 	return rv
 	}
-
 // Returns the image object that the layout manager renders in the specified
 // image bounds rectangle inside the text container.
 //
@@ -99,7 +97,6 @@ func (o NSTextAttachmentContainerObject) AttachmentBoundsForTextContainerPropose
 // text attachment’s [Contents] and [FileType] properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentContainer/image(forBounds:textContainer:characterIndex:)
-
 func (o NSTextAttachmentContainerObject) ImageForBoundsTextContainerCharacterIndex(imageBounds corefoundation.CGRect, textContainer INSTextContainer, charIndex uint) INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageForBounds:textContainer:characterIndex:"), imageBounds, textContainer, charIndex)

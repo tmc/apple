@@ -48,18 +48,15 @@ func NSAppearanceCustomizationObjectFromID(id objc.ID) NSAppearanceCustomization
 // The appearance of the receiver, in an [NSAppearance] object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
-
 func (o NSAppearanceCustomizationObject) Appearance() INSAppearance {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("appearance"))
 	return NSAppearanceFromID(rv)
 	}
-
 // The appearance that will be used when the receiver is drawn onscreen, in an
 // [NSAppearance] object. (read-only)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
-
 func (o NSAppearanceCustomizationObject) EffectiveAppearance() INSAppearance {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("effectiveAppearance"))

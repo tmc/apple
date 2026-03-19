@@ -41,12 +41,10 @@ func NSSharingServiceDelegateObjectFromID(id objc.ID) NSSharingServiceDelegateOb
 // items: The items being shared.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:willShareItems:)
-
 func (o NSSharingServiceDelegateObject) SharingServiceWillShareItems(sharingService INSSharingService, items foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:willShareItems:"), sharingService, items)
 	}
-
 // Invoked when the sharing service has finished sharing the items.
 //
 // sharingService: The sharing service.
@@ -54,12 +52,10 @@ func (o NSSharingServiceDelegateObject) SharingServiceWillShareItems(sharingServ
 // items: The items being shared.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:didShareItems:)
-
 func (o NSSharingServiceDelegateObject) SharingServiceDidShareItems(sharingService INSSharingService, items foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didShareItems:"), sharingService, items)
 	}
-
 // Invoked when the sharing service encountered an error when sharing items.
 //
 // sharingService: The sharing service.
@@ -72,12 +68,10 @@ func (o NSSharingServiceDelegateObject) SharingServiceDidShareItems(sharingServi
 // [NSUserCancelledError]: https://developer.apple.com/documentation/Foundation/NSUserCancelledError-swift.var
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:didFailToShareItems:error:)
-
 func (o NSSharingServiceDelegateObject) SharingServiceDidFailToShareItemsError(sharingService INSSharingService, items foundation.INSArray, error_ foundation.INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didFailToShareItems:error:"), sharingService, items, error_)
 	}
-
 // Invoked when the sharing service is performed and the sharing window is
 // displayed, to present a transition between the original items and the
 // sharing window.
@@ -95,13 +89,11 @@ func (o NSSharingServiceDelegateObject) SharingServiceDidFailToShareItemsError(s
 // The following is an example implementation of this method:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:sourceFrameOnScreenForShareItem:)
-
 func (o NSSharingServiceDelegateObject) SharingServiceSourceFrameOnScreenForShareItem(sharingService INSSharingService, item objectivec.IObject) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("sharingService:sourceFrameOnScreenForShareItem:"), sharingService, item)
 	return rv
 	}
-
 // Invoked to allow returning a custom transition image when sharing an item.
 //
 // sharingService: The sharing service.
@@ -123,13 +115,11 @@ func (o NSSharingServiceDelegateObject) SharingServiceSourceFrameOnScreenForShar
 // A sample implementation of this method:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:transitionImageForShareItem:contentRect:)
-
 func (o NSSharingServiceDelegateObject) SharingServiceTransitionImageForShareItemContentRect(sharingService INSSharingService, item objectivec.IObject, contentRect *corefoundation.CGRect) INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:transitionImageForShareItem:contentRect:"), sharingService, item, contentRect)
 	return NSImageFromID(rv)
 	}
-
 // Returns the window that contained the share items.
 //
 // sharingService: The sharing service.
@@ -155,16 +145,13 @@ func (o NSSharingServiceDelegateObject) SharingServiceTransitionImageForShareIte
 // within.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:sourceWindowForShareItems:sharingContentScope:)
-
 func (o NSSharingServiceDelegateObject) SharingServiceSourceWindowForShareItemsSharingContentScope(sharingService INSSharingService, items foundation.INSArray, sharingContentScope NSSharingContentScope) INSWindow {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:sourceWindowForShareItems:sharingContentScope:"), sharingService, items, sharingContentScope)
 	return NSWindowFromID(rv)
 	}
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/anchoringView(for:showRelativeTo:preferredEdge:)
-
 func (o NSSharingServiceDelegateObject) AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge(sharingService INSSharingService, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) INSView {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"), sharingService, positioningRect, preferredEdge)

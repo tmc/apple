@@ -43,12 +43,10 @@ func NSTextDelegateObjectFromID(id objc.ID) NSTextDelegateObject {
 // [didChangeNotification]: https://developer.apple.com/documentation/AppKit/NSText/didChangeNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidChange(_:)
-
 func (o NSTextDelegateObject) TextDidChange(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textDidChange:"), notification)
 	}
-
 // Invoked when a text object begins to change its text, this method requests
 // permission for `aTextObject` to begin editing.
 //
@@ -63,13 +61,11 @@ func (o NSTextDelegateObject) TextDidChange(notification foundation.NSNotificati
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldBeginEditing(_:)
-
 func (o NSTextDelegateObject) TextShouldBeginEditing(textObject INSText) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("textShouldBeginEditing:"), textObject)
 	return rv
 	}
-
 // Informs the delegate that the text object has begun editing (that the user
 // has begun changing it).
 //
@@ -80,12 +76,10 @@ func (o NSTextDelegateObject) TextShouldBeginEditing(textObject INSText) bool {
 // [didBeginEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didBeginEditingNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidBeginEditing(_:)
-
 func (o NSTextDelegateObject) TextDidBeginEditing(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textDidBeginEditing:"), notification)
 	}
-
 // Invoked from a text object’s implementation of [ResignFirstResponder],
 // this method requests permission for `aTextObject` to end editing.
 //
@@ -99,13 +93,11 @@ func (o NSTextDelegateObject) TextDidBeginEditing(notification foundation.NSNoti
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldEndEditing(_:)
-
 func (o NSTextDelegateObject) TextShouldEndEditing(textObject INSText) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("textShouldEndEditing:"), textObject)
 	return rv
 	}
-
 // Informs the delegate that the text object has finished editing (that it has
 // resigned first responder status).
 //
@@ -116,7 +108,6 @@ func (o NSTextDelegateObject) TextShouldEndEditing(textObject INSText) bool {
 // [didEndEditingNotification]: https://developer.apple.com/documentation/AppKit/NSText/didEndEditingNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidEndEditing(_:)
-
 func (o NSTextDelegateObject) TextDidEndEditing(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textDidEndEditing:"), notification)

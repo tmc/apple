@@ -50,7 +50,6 @@ func NSAlertDelegateObjectFromID(id objc.ID) NSAlertDelegateObject {
 // behavior.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlertDelegate/alertShowHelp(_:)
-
 func (o NSAlertDelegateObject) AlertShowHelp(alert NSAlert) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("alertShowHelp:"), alert)

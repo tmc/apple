@@ -108,7 +108,6 @@ func NewXPCListenerEndpointWithCoder(coder INSCoder) NSXPCListenerEndpoint {
 func (x NSXPCListenerEndpoint) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (x NSXPCListenerEndpoint) InitWithCoder(coder INSCoder) NSXPCListenerEndpoint {

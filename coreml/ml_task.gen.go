@@ -143,7 +143,6 @@ func NewMLTask() MLTask {
 func (t MLTask) Resume() {
 	objc.Send[objc.ID](t.ID, objc.Sel("resume"))
 }
-
 // Cancels a machine learning task before it completes.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/cancel()
@@ -159,7 +158,6 @@ func (t MLTask) TaskIdentifier() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("taskIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The current state of the machine learning task.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/state
@@ -167,7 +165,6 @@ func (t MLTask) State() MLTaskState {
 	rv := objc.Send[MLTaskState](t.ID, objc.Sel("state"))
 	return MLTaskState(rv)
 }
-
 // The underlying error if the task is in a failed state.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLTask/error

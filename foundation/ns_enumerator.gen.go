@@ -134,7 +134,6 @@ func (e NSEnumerator) NextObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("nextObject"))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //

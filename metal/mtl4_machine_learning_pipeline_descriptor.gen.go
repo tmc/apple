@@ -127,14 +127,12 @@ func (m MTL4MachineLearningPipelineDescriptor) InputDimensionsAtBufferIndex(buff
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputDimensionsAtBufferIndex:"), bufferIndex)
 	return MTLTensorExtentsFromID(rv)
 }
-
 // Resets the descriptor to its default values.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineDescriptor/reset()
 func (m MTL4MachineLearningPipelineDescriptor) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
 // Sets the dimension of an input tensor at a buffer index.
 //
 // dimensions: The dimensions of the tensor.
@@ -145,7 +143,6 @@ func (m MTL4MachineLearningPipelineDescriptor) Reset() {
 func (m MTL4MachineLearningPipelineDescriptor) SetInputDimensionsAtBufferIndex(dimensions IMTLTensorExtents, bufferIndex int) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setInputDimensions:atBufferIndex:"), dimensions, bufferIndex)
 }
-
 // Sets the dimensions of multiple input tensors on a range of buffer
 // bindings.
 //

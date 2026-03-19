@@ -178,7 +178,6 @@ func (t NSTreeNode) InitWithRepresentedObject(modelObject objectivec.IObject) NS
 	rv := objc.Send[NSTreeNode](t.ID, objc.Sel("initWithRepresentedObject:"), modelObject)
 	return rv
 }
-
 // Returns the receiver’s descendant at the specified index path.
 //
 // indexPath: An index path specifying a descendant of the receiver.
@@ -192,7 +191,6 @@ func (t NSTreeNode) DescendantNodeAtIndexPath(indexPath objectivec.IObject) INST
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("descendantNodeAtIndexPath:"), indexPath)
 	return NSTreeNodeFromID(rv)
 }
-
 // Sorts the receiver’s subtree using the values of the represented objects
 // with the specified sort descriptors.
 //
@@ -218,7 +216,6 @@ func (t NSTreeNode) RepresentedObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("representedObject"))
 	return objectivec.Object{ID: rv}
 }
-
 // The position of the receiver relative to its root parent.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/indexPath
@@ -226,7 +223,6 @@ func (t NSTreeNode) IndexPath() objc.ID {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("indexPath"))
 	return rv
 }
-
 // A Boolean that indicates whether the receiver is a leaf node.
 //
 // # Discussion
@@ -242,7 +238,6 @@ func (t NSTreeNode) Leaf() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isLeaf"))
 	return rv
 }
-
 // An array containing receiver’s child nodes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/children
@@ -252,7 +247,6 @@ func (t NSTreeNode) ChildNodes() []NSTreeNode {
 		return NSTreeNodeFromID(id)
 	})
 }
-
 // A mutable array that provides read-write access to the receiver’s child
 // nodes.
 //
@@ -268,7 +262,6 @@ func (t NSTreeNode) MutableChildNodes() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("mutableChildNodes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // The receiver’s parent node.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTreeNode/parent

@@ -143,7 +143,6 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxCount(
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxCount(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxCount:"), value)
 }
-
 // A buffer that contains an array of bounding box structures.
 //
 // # Discussion
@@ -161,7 +160,6 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxBuffer
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxBuffer(value MTLBuffer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxBuffer:"), value)
 }
-
 // The offset, in bytes, to the first bounding box in the buffer.
 //
 // # Discussion
@@ -177,7 +175,6 @@ func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) BoundingBoxBuffer
 func (a MTLAccelerationStructureBoundingBoxGeometryDescriptor) SetBoundingBoxBufferOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBoundingBoxBufferOffset:"), value)
 }
-
 // The stride, in bytes, between bounding boxes in the buffer.
 //
 // # Discussion

@@ -309,7 +309,6 @@ func (h NSHashTable) InitWithOptionsCapacity(options NSPointerFunctionsOptions, 
 	rv := objc.Send[NSHashTable](h.ID, objc.Sel("initWithOptions:capacity:"), options, initialCapacity)
 	return rv
 }
-
 // Returns a hash table initialized with the given functions and capacity.
 //
 // functions: The pointer functions for the new hash table.
@@ -330,7 +329,6 @@ func (h NSHashTable) InitWithPointerFunctionsCapacity(functions INSPointerFuncti
 	rv := objc.Send[NSHashTable](h.ID, objc.Sel("initWithPointerFunctions:capacity:"), functions, initialCapacity)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the hash table contains a
 // given object.
 //
@@ -357,7 +355,6 @@ func (h NSHashTable) ContainsObject(anObject objectivec.IObject) bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("containsObject:"), anObject)
 	return rv
 }
-
 // Determines whether the hash table contains a given object, and returns that
 // object if it is present
 //
@@ -382,7 +379,6 @@ func (h NSHashTable) Member(object objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("member:"), object)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an enumerator object that lets you access each object in the hash
 // table.
 //
@@ -404,7 +400,6 @@ func (h NSHashTable) ObjectEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("objectEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
-
 // Adds a given object to the hash table.
 //
 // object: The object to add to the hash table.
@@ -413,7 +408,6 @@ func (h NSHashTable) ObjectEnumerator() INSEnumerator {
 func (h NSHashTable) AddObject(object objectivec.IObject) {
 	objc.Send[objc.ID](h.ID, objc.Sel("addObject:"), object)
 }
-
 // Removes a given object from the hash table.
 //
 // object: The object to remove from the hash table.
@@ -422,14 +416,12 @@ func (h NSHashTable) AddObject(object objectivec.IObject) {
 func (h NSHashTable) RemoveObject(object objectivec.IObject) {
 	objc.Send[objc.ID](h.ID, objc.Sel("removeObject:"), object)
 }
-
 // Removes all objects from the hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable/removeAllObjects()
 func (h NSHashTable) RemoveAllObjects() {
 	objc.Send[objc.ID](h.ID, objc.Sel("removeAllObjects"))
 }
-
 // Removes from the receiving hash table each element that isn’t a member of
 // another given hash table.
 //
@@ -449,7 +441,6 @@ func (h NSHashTable) RemoveAllObjects() {
 func (h NSHashTable) IntersectHashTable(other INSHashTable) {
 	objc.Send[objc.ID](h.ID, objc.Sel("intersectHashTable:"), other)
 }
-
 // Returns a Boolean value that indicates whether a given hash table
 // intersects with the receiving hash table.
 //
@@ -478,7 +469,6 @@ func (h NSHashTable) IntersectsHashTable(other INSHashTable) bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("intersectsHashTable:"), other)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether every element in the
 // receiving hash table is also present in another given hash table.
 //
@@ -507,7 +497,6 @@ func (h NSHashTable) IsSubsetOfHashTable(other INSHashTable) bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isSubsetOfHashTable:"), other)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether a given hash table is equal
 // to the receiving hash table.
 //
@@ -539,7 +528,6 @@ func (h NSHashTable) IsEqualToHashTable(other INSHashTable) bool {
 	rv := objc.Send[bool](h.ID, objc.Sel("isEqualToHashTable:"), other)
 	return rv
 }
-
 // Removes each element in another given hash table from the receiving hash
 // table, if present.
 //
@@ -559,7 +547,6 @@ func (h NSHashTable) IsEqualToHashTable(other INSHashTable) bool {
 func (h NSHashTable) MinusHashTable(other INSHashTable) {
 	objc.Send[objc.ID](h.ID, objc.Sel("minusHashTable:"), other)
 }
-
 // Adds each element in another given hash table to the receiving hash table,
 // if not present.
 //
@@ -579,7 +566,6 @@ func (h NSHashTable) MinusHashTable(other INSHashTable) {
 func (h NSHashTable) UnionHashTable(other INSHashTable) {
 	objc.Send[objc.ID](h.ID, objc.Sel("unionHashTable:"), other)
 }
-
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -606,7 +592,6 @@ func (h NSHashTable) CountByEnumeratingWithStateObjectsCount(state NSFastEnumera
 	rv := objc.Send[uint](h.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -615,7 +600,6 @@ func (h NSHashTable) CountByEnumeratingWithStateObjectsCount(state NSFastEnumera
 func (h NSHashTable) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](h.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (h NSHashTable) InitWithCoder(coder INSCoder) NSHashTable {
@@ -635,7 +619,6 @@ func (_NSHashTableClass NSHashTableClass) WeakObjectsHashTable() NSHashTable {
 	rv := objc.Send[objc.ID](objc.ID(_NSHashTableClass.class), objc.Sel("weakObjectsHashTable"))
 	return NSHashTableFromID(rv)
 }
-
 // Returns a hash table with given pointer functions options.
 //
 // options: A bit field that specifies the options for the elements in the hash table.
@@ -666,7 +649,6 @@ func (h NSHashTable) AnyObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("anyObject"))
 	return objectivec.Object{ID: rv}
 }
-
 // The hash table’s members.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable/allObjects
@@ -676,7 +658,6 @@ func (h NSHashTable) AllObjects() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // A set that contains the hash table’s members.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable/setRepresentation
@@ -684,7 +665,6 @@ func (h NSHashTable) SetRepresentation() INSSet {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("setRepresentation"))
 	return NSSetFromID(objc.ID(rv))
 }
-
 // The number of elements in the hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable/count
@@ -692,7 +672,6 @@ func (h NSHashTable) Count() uint {
 	rv := objc.Send[uint](h.ID, objc.Sel("count"))
 	return rv
 }
-
 // The pointer functions for the hash table.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable/pointerFunctions

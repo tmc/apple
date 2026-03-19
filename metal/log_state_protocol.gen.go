@@ -49,7 +49,6 @@ func MTLLogStateObjectFromID(id objc.ID) MTLLogStateObject {
 // [Generating Log Messages from Your Code]: https://developer.apple.com/documentation/os/generating-log-messages-from-your-code#Create-a-Log-Object-to-Organize-Messages
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLogState/addLogHandler(_:)
-
 func (o MTLLogStateObject) AddLogHandler(block VoidHandler) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("addLogHandler:"), block)

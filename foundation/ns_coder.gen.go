@@ -541,7 +541,6 @@ func (c NSCoder) ContainsValueForKey(key string) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("containsValueForKey:"), objc.String(key))
 	return rv
 }
-
 // Encodes an array of the given Objective-C type, provided the number of
 // items and a pointer.
 //
@@ -570,7 +569,6 @@ func (c NSCoder) ContainsValueForKey(key string) bool {
 func (c NSCoder) EncodeArrayOfObjCTypeCountAt(type_ []byte, count uint, array unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeArrayOfObjCType:count:at:"), objc.CArray(type_), count, array)
 }
-
 // Encodes a Boolean value and associates it with the string `key`.
 //
 // # Discussion
@@ -581,7 +579,6 @@ func (c NSCoder) EncodeArrayOfObjCTypeCountAt(type_ []byte, count uint, array un
 func (c NSCoder) EncodeBoolForKey(value bool, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeBool:forKey:"), value, objc.String(key))
 }
-
 // An encoding method for subclasses to override such that it creates a copy,
 // rather than a proxy, when decoded.
 //
@@ -595,7 +592,6 @@ func (c NSCoder) EncodeBoolForKey(value bool, key string) {
 func (c NSCoder) EncodeBycopyObject(anObject objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeBycopyObject:"), anObject)
 }
-
 // An encoding method for subclasses to override such that it creates a proxy,
 // rather than a copy, when decoded.
 //
@@ -609,7 +605,6 @@ func (c NSCoder) EncodeBycopyObject(anObject objectivec.IObject) {
 func (c NSCoder) EncodeByrefObject(anObject objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeByrefObject:"), anObject)
 }
-
 // Encodes a buffer of data of an unspecified type.
 //
 // # Discussion
@@ -624,7 +619,6 @@ func (c NSCoder) EncodeByrefObject(anObject objectivec.IObject) {
 func (c NSCoder) EncodeBytesLength(byteaddr unsafe.Pointer, length uint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeBytes:length:"), byteaddr, length)
 }
-
 // Encodes a buffer of data, given its length and a pointer, and associates it
 // with a string key.
 //
@@ -636,7 +630,6 @@ func (c NSCoder) EncodeBytesLength(byteaddr unsafe.Pointer, length uint) {
 func (c NSCoder) EncodeBytesLengthForKey(bytes []byte, length uint, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeBytes:length:forKey:"), unsafe.Pointer(unsafe.SliceData(bytes)), length, objc.String(key))
 }
-
 // An encoding method for subclasses to override to conditionally encode an
 // object, preserving common references to it.
 //
@@ -657,7 +650,6 @@ func (c NSCoder) EncodeBytesLengthForKey(bytes []byte, length uint, key string) 
 func (c NSCoder) EncodeConditionalObject(object objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeConditionalObject:"), object)
 }
-
 // An encoding method for subclasses to override to conditionally encode an
 // object, preserving common references to it, only if it has been
 // unconditionally encoded.
@@ -674,7 +666,6 @@ func (c NSCoder) EncodeConditionalObject(object objectivec.IObject) {
 func (c NSCoder) EncodeConditionalObjectForKey(object objectivec.IObject, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeConditionalObject:forKey:"), object, objc.String(key))
 }
-
 // Encodes a given data object.
 //
 // # Discussion
@@ -687,7 +678,6 @@ func (c NSCoder) EncodeConditionalObjectForKey(object objectivec.IObject, key st
 func (c NSCoder) EncodeDataObject(data INSData) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeDataObject:"), data)
 }
-
 // Encodes a double-precision floating point value and associates it with the
 // string key.
 //
@@ -699,7 +689,6 @@ func (c NSCoder) EncodeDataObject(data INSData) {
 func (c NSCoder) EncodeDoubleForKey(value float64, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeDouble:forKey:"), value, objc.String(key))
 }
-
 // Encodes a floating point value and associates it with the string key.
 //
 // # Discussion
@@ -710,7 +699,6 @@ func (c NSCoder) EncodeDoubleForKey(value float64, key string) {
 func (c NSCoder) EncodeFloatForKey(value float32, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeFloat:forKey:"), value, objc.String(key))
 }
-
 // Encodes a C integer value and associates it with the string key.
 //
 // # Discussion
@@ -721,7 +709,6 @@ func (c NSCoder) EncodeFloatForKey(value float32, key string) {
 func (c NSCoder) EncodeIntForKey(value int, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeInt:forKey:"), value, objc.String(key))
 }
-
 // Encodes an integer value and associates it with the string key.
 //
 // # Discussion
@@ -732,7 +719,6 @@ func (c NSCoder) EncodeIntForKey(value int, key string) {
 func (c NSCoder) EncodeIntegerForKey(value int, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeInteger:forKey:"), value, objc.String(key))
 }
-
 // Encodes a 32-bit integer value and associates it with the string key.
 //
 // # Discussion
@@ -743,7 +729,6 @@ func (c NSCoder) EncodeIntegerForKey(value int, key string) {
 func (c NSCoder) EncodeInt32ForKey(value int32, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeInt32:forKey:"), value, objc.String(key))
 }
-
 // Encodes a 64-bit integer value and associates it with the string key.
 //
 // # Discussion
@@ -754,7 +739,6 @@ func (c NSCoder) EncodeInt32ForKey(value int32, key string) {
 func (c NSCoder) EncodeInt64ForKey(value int64, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeInt64:forKey:"), value, objc.String(key))
 }
-
 // Encodes an object.
 //
 // # Discussion
@@ -771,7 +755,6 @@ func (c NSCoder) EncodeInt64ForKey(value int64, key string) {
 func (c NSCoder) EncodeObject(object objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeObject:"), object)
 }
-
 // Encodes an object and associates it with the string key.
 //
 // # Discussion
@@ -785,7 +768,6 @@ func (c NSCoder) EncodeObject(object objectivec.IObject) {
 func (c NSCoder) EncodeObjectForKey(object objectivec.IObject, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeObject:forKey:"), object, objc.String(key))
 }
-
 // Encodes a point.
 //
 // # Discussion
@@ -799,14 +781,12 @@ func (c NSCoder) EncodeObjectForKey(object objectivec.IObject, key string) {
 func (c NSCoder) EncodePoint(point corefoundation.CGPoint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodePoint:"), point)
 }
-
 // Encodes a point and associates it with the string key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif
 func (c NSCoder) EncodePointForKey(point corefoundation.CGPoint, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodePoint:forKey:"), point, objc.String(key))
 }
-
 // Encodes a property list.
 //
 // # Discussion
@@ -820,7 +800,6 @@ func (c NSCoder) EncodePointForKey(point corefoundation.CGPoint, key string) {
 func (c NSCoder) EncodePropertyList(aPropertyList objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodePropertyList:"), aPropertyList)
 }
-
 // Encodes a rectangle structure.
 //
 // # Discussion
@@ -834,14 +813,12 @@ func (c NSCoder) EncodePropertyList(aPropertyList objectivec.IObject) {
 func (c NSCoder) EncodeRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeRect:"), rect)
 }
-
 // Encodes a rectangle structure and associates it with the string key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx
 func (c NSCoder) EncodeRectForKey(rect corefoundation.CGRect, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeRect:forKey:"), rect, objc.String(key))
 }
-
 // An encoding method for subclasses to override to encode an interconnected
 // group of objects, starting with the provided root object.
 //
@@ -855,7 +832,6 @@ func (c NSCoder) EncodeRectForKey(rect corefoundation.CGRect, key string) {
 func (c NSCoder) EncodeRootObject(rootObject objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeRootObject:"), rootObject)
 }
-
 // Encodes a size structure.
 //
 // # Discussion
@@ -869,14 +845,12 @@ func (c NSCoder) EncodeRootObject(rootObject objectivec.IObject) {
 func (c NSCoder) EncodeSize(size corefoundation.CGSize) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeSize:"), size)
 }
-
 // Encodes a size structure and associates it with the given string key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu
 func (c NSCoder) EncodeSizeForKey(size corefoundation.CGSize, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeSize:forKey:"), size, objc.String(key))
 }
-
 // Encodes a value of the given type at the given address.
 //
 // # Discussion
@@ -900,7 +874,6 @@ func (c NSCoder) EncodeSizeForKey(size corefoundation.CGSize, key string) {
 func (c NSCoder) EncodeValueOfObjCTypeAt(type_ []byte, addr unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeValueOfObjCType:at:"), unsafe.Pointer(unsafe.SliceData(type_)), addr)
 }
-
 // Encodes a given Core Media time structure and associates it with a
 // specified key.
 //
@@ -912,7 +885,6 @@ func (c NSCoder) EncodeValueOfObjCTypeAt(type_ []byte, addr unsafe.Pointer) {
 func (c NSCoder) EncodeCMTimeForKey(time objectivec.IObject, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTime:forKey:"), time, objc.String(key))
 }
-
 // Encodes a given Core Media time range structure and associates it with a
 // specified key.
 //
@@ -924,7 +896,6 @@ func (c NSCoder) EncodeCMTimeForKey(time objectivec.IObject, key string) {
 func (c NSCoder) EncodeCMTimeRangeForKey(timeRange objectivec.IObject, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTimeRange:forKey:"), timeRange, objc.String(key))
 }
-
 // Encodes a given Core Media time mapping structure and associates it with a
 // specified key.
 //
@@ -936,7 +907,6 @@ func (c NSCoder) EncodeCMTimeRangeForKey(timeRange objectivec.IObject, key strin
 func (c NSCoder) EncodeCMTimeMappingForKey(timeMapping objectivec.IObject, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTimeMapping:forKey:"), timeMapping, objc.String(key))
 }
-
 // Decodes an array of `count` items, whose Objective-C type is given by
 // `itemType`.
 //
@@ -966,7 +936,6 @@ func (c NSCoder) EncodeCMTimeMappingForKey(timeMapping objectivec.IObject, key s
 func (c NSCoder) DecodeArrayOfObjCTypeCountAt(itemType []byte, count uint, array unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("decodeArrayOfObjCType:count:at:"), objc.CArray(itemType), count, array)
 }
-
 // Decodes and returns a boolean value that was previously encoded with
 // [EncodeBoolForKey] and associated with the string `key`.
 //
@@ -979,7 +948,6 @@ func (c NSCoder) DecodeBoolForKey(key string) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("decodeBoolForKey:"), objc.String(key))
 	return rv
 }
-
 // Decodes a buffer of data that was previously encoded with
 // [EncodeBytesLengthForKey] and associated with the string `key`.
 //
@@ -994,7 +962,6 @@ func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Poin
 	rv := objc.Send[uint8](c.ID, objc.Sel("decodeBytesForKey:returnedLength:"), objc.String(key), lengthp)
 	return rv
 }
-
 // Decodes a buffer of data whose types are unspecified.
 //
 // # Discussion
@@ -1011,7 +978,6 @@ func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Poin
 func (c NSCoder) DecodeBytesWithReturnedLength(lengthp unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("decodeBytesWithReturnedLength:"), lengthp)
 }
-
 // Decodes and returns an [NSData] object that was previously encoded with
 // [EncodeDataObject]. Subclasses must override this method.
 //
@@ -1029,7 +995,6 @@ func (c NSCoder) DecodeDataObject() INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeDataObject"))
 	return NSDataFromID(rv)
 }
-
 // Decodes and returns a double value that was previously encoded with either
 // [EncodeFloatForKey] or [EncodeDoubleForKey] and associated with the string
 // `key`.
@@ -1043,7 +1008,6 @@ func (c NSCoder) DecodeDoubleForKey(key string) float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("decodeDoubleForKey:"), objc.String(key))
 	return rv
 }
-
 // Decodes and returns a float value that was previously encoded with
 // [EncodeFloatForKey] or [EncodeDoubleForKey] and associated with the string
 // `key`.
@@ -1060,7 +1024,6 @@ func (c NSCoder) DecodeFloatForKey(key string) float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("decodeFloatForKey:"), objc.String(key))
 	return rv
 }
-
 // Decodes and returns an int value that was previously encoded with
 // [EncodeIntForKey], [EncodeIntegerForKey], [EncodeInt32ForKey], or
 // [EncodeInt64ForKey] and associated with the string `key`.
@@ -1076,7 +1039,6 @@ func (c NSCoder) DecodeIntForKey(key string) int {
 	rv := objc.Send[int](c.ID, objc.Sel("decodeIntForKey:"), objc.String(key))
 	return rv
 }
-
 // Decodes and returns an NSInteger value that was previously encoded with
 // [EncodeIntForKey], [EncodeIntegerForKey], [EncodeInt32ForKey], or
 // [EncodeInt64ForKey] and associated with the string `key`.
@@ -1092,7 +1054,6 @@ func (c NSCoder) DecodeIntegerForKey(key string) int {
 	rv := objc.Send[int](c.ID, objc.Sel("decodeIntegerForKey:"), objc.String(key))
 	return rv
 }
-
 // Decodes and returns a 32-bit integer value that was previously encoded with
 // [EncodeIntForKey], [EncodeIntegerForKey], [EncodeInt32ForKey], or
 // [EncodeInt64ForKey] and associated with the string `key`.
@@ -1108,7 +1069,6 @@ func (c NSCoder) DecodeInt32ForKey(key string) int32 {
 	rv := objc.Send[int32](c.ID, objc.Sel("decodeInt32ForKey:"), objc.String(key))
 	return rv
 }
-
 // Decodes and returns a 64-bit integer value that was previously encoded with
 // [EncodeIntForKey], [EncodeIntegerForKey], [EncodeInt32ForKey], or
 // [EncodeInt64ForKey] and associated with the string `key`.
@@ -1122,7 +1082,6 @@ func (c NSCoder) DecodeInt64ForKey(key string) int64 {
 	rv := objc.Send[int64](c.ID, objc.Sel("decodeInt64ForKey:"), objc.String(key))
 	return rv
 }
-
 // Decodes and returns an object that was previously encoded with any of the
 // `encode…Object` methods.
 //
@@ -1141,7 +1100,6 @@ func (c NSCoder) DecodeObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeObject"))
 	return objectivec.Object{ID: rv}
 }
-
 // Decodes and returns a previously-encoded object that was previously encoded
 // with [EncodeObjectForKey] or [EncodeConditionalObjectForKey] and associated
 // with the string `key`.
@@ -1155,7 +1113,6 @@ func (c NSCoder) DecodeObjectForKey(key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeObjectForKey:"), objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-
 // Decodes and returns an NSPoint structure that was previously encoded with
 // [EncodePoint].
 //
@@ -1164,7 +1121,6 @@ func (c NSCoder) DecodePoint() NSPoint {
 	rv := objc.Send[NSPoint](c.ID, objc.Sel("decodePoint"))
 	return NSPoint(rv)
 }
-
 // Decodes and returns an NSPoint structure that was previously encoded with
 // [EncodePointForKey].
 //
@@ -1173,7 +1129,6 @@ func (c NSCoder) DecodePointForKey(key string) NSPoint {
 	rv := objc.Send[NSPoint](c.ID, objc.Sel("decodePointForKey:"), objc.String(key))
 	return NSPoint(rv)
 }
-
 // Decodes a property list that was previously encoded with
 // [EncodePropertyList].
 //
@@ -1182,7 +1137,6 @@ func (c NSCoder) DecodePropertyList() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodePropertyList"))
 	return objectivec.Object{ID: rv}
 }
-
 // Decodes and returns an NSRect structure that was previously encoded with
 // [EncodeRect].
 //
@@ -1191,7 +1145,6 @@ func (c NSCoder) DecodeRect() NSRect {
 	rv := objc.Send[NSRect](c.ID, objc.Sel("decodeRect"))
 	return NSRect(rv)
 }
-
 // Decodes and returns an NSRect structure that was previously encoded with
 // [EncodeRectForKey].
 //
@@ -1200,7 +1153,6 @@ func (c NSCoder) DecodeRectForKey(key string) NSRect {
 	rv := objc.Send[NSRect](c.ID, objc.Sel("decodeRectForKey:"), objc.String(key))
 	return NSRect(rv)
 }
-
 // Decodes and returns an NSSize structure that was previously encoded with
 // [EncodeSize].
 //
@@ -1209,7 +1161,6 @@ func (c NSCoder) DecodeSize() NSSize {
 	rv := objc.Send[NSSize](c.ID, objc.Sel("decodeSize"))
 	return NSSize(rv)
 }
-
 // Decodes and returns an NSSize structure that was previously encoded with
 // [EncodeSizeForKey].
 //
@@ -1218,7 +1169,6 @@ func (c NSCoder) DecodeSizeForKey(key string) NSSize {
 	rv := objc.Send[NSSize](c.ID, objc.Sel("decodeSizeForKey:"), objc.String(key))
 	return NSSize(rv)
 }
-
 // Decodes a single value of a known type from the specified data buffer.
 //
 // type: The Objective-C type to decode.
@@ -1245,7 +1195,6 @@ func (c NSCoder) DecodeSizeForKey(key string) NSSize {
 func (c NSCoder) DecodeValueOfObjCTypeAtSize(type_ []byte, data unsafe.Pointer, size uint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("decodeValueOfObjCType:at:size:"), unsafe.Pointer(unsafe.SliceData(type_)), data, size)
 }
-
 // Returns a decoded property list for the specified key.
 //
 // key: The coder key.
@@ -1264,7 +1213,6 @@ func (c NSCoder) DecodePropertyListForKey(key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodePropertyListForKey:"), objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the Core Media time structure associated with a given key.
 //
 // key: The key for a [CMTime] structure encoded in the receiver.
@@ -1278,7 +1226,6 @@ func (c NSCoder) DecodeCMTimeForKey(key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeCMTimeForKey:"), objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the Core Media time range structure associated with a given key.
 //
 // key: The key for a [CMTimeRange] structure encoded in the receiver.
@@ -1292,7 +1239,6 @@ func (c NSCoder) DecodeCMTimeRangeForKey(key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeCMTimeRangeForKey:"), objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the Core Media time mapping structure associated with a given key.
 //
 // key: The key for a [CMTimeMapping] structure encoded in the receiver.
@@ -1306,7 +1252,6 @@ func (c NSCoder) DecodeCMTimeMappingForKey(key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeCMTimeMappingForKey:"), objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-
 // Signals to this coder that the decode operation has failed.
 //
 // error: An error that indicates why decoding failed.
@@ -1333,7 +1278,6 @@ func (c NSCoder) DecodeCMTimeMappingForKey(key string) objectivec.IObject {
 func (c NSCoder) FailWithError(error_ INSError) {
 	objc.Send[objc.ID](c.ID, objc.Sel("failWithError:"), error_)
 }
-
 // This method is present for historical reasons and is not used with keyed
 // archivers.
 //
@@ -1352,7 +1296,6 @@ func (c NSCoder) VersionForClassName(className string) int {
 	rv := objc.Send[int](c.ID, objc.Sel("versionForClassName:"), objc.String(className))
 	return rv
 }
-
 // Decode bytes from the decoder for a given key. The length of the bytes must
 // be greater than or equal to the `length` parameter. If the result exists,
 // but is of insufficient length, then the decoder uses `failWithError` to
@@ -1364,7 +1307,6 @@ func (c NSCoder) DecodeBytesForKeyMinimumLength(key string, length uint) uint8 {
 	rv := objc.Send[uint8](c.ID, objc.Sel("decodeBytesForKey:minimumLength:"), objc.String(key), length)
 	return rv
 }
-
 // Decode bytes from the decoder. The length of the bytes must be greater than
 // or equal to the `length` parameter. If the result exists, but is of
 // insufficient length, then the decoder uses `failWithError` to fail the
@@ -1375,7 +1317,6 @@ func (c NSCoder) DecodeBytesForKeyMinimumLength(key string, length uint) uint8 {
 func (c NSCoder) DecodeBytesWithMinimumLength(length uint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("decodeBytesWithMinimumLength:"), length)
 }
-
 // Decodes the \c NSArray object for the given \c key, which should be an \c
 // NSArray, containing the given non-collection class (no nested arrays or
 // arrays of dictionaries, etc) from the coder.
@@ -1393,7 +1334,6 @@ func (c NSCoder) DecodeArrayOfObjectsOfClassForKey(cls objc.Class, key string) I
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeArrayOfObjectsOfClass:forKey:"), cls, objc.String(key))
 	return NSArrayFromID(rv)
 }
-
 // Decodes the \c NSArray object for the given \c key, which should be an \c
 // NSArray, containing the given non-collection classes (no nested arrays or
 // arrays of dictionaries, etc) from the coder.
@@ -1411,7 +1351,6 @@ func (c NSCoder) DecodeArrayOfObjectsOfClassesForKey(classes INSSet, key string)
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeArrayOfObjectsOfClasses:forKey:"), classes, objc.String(key))
 	return NSArrayFromID(rv)
 }
-
 // Decodes the \c NSDictionary object for the given \c key, which should be an
 // \c NSDictionary , with keys of type given in \c keyCls and objects of the
 // given non-collection class \c objectCls (no nested dictionaries or other
@@ -1430,7 +1369,6 @@ func (c NSCoder) DecodeDictionaryWithKeysOfClassObjectsOfClassForKey(keyCls objc
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeDictionaryWithKeysOfClass:objectsOfClass:forKey:"), keyCls, objectCls, objc.String(key))
 	return NSDictionaryFromID(rv)
 }
-
 // Decodes the \c NSDictionary object for the given \c key, which should be an
 // \c NSDictionary, with keys of the types given in \c keyClasses and objects
 // of the given non-collection classes in \c objectClasses (no nested
@@ -1450,7 +1388,6 @@ func (c NSCoder) DecodeDictionaryWithKeysOfClassesObjectsOfClassesForKey(keyClas
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeDictionaryWithKeysOfClasses:objectsOfClasses:forKey:"), keyClasses, objectClasses, objc.String(key))
 	return NSDictionaryFromID(rv)
 }
-
 // Decodes an object for the key, restricted to the specified class.
 //
 // aClass: The expect class type.
@@ -1480,7 +1417,6 @@ func (c NSCoder) DecodeObjectOfClassForKey(aClass objc.Class, key string) object
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeObjectOfClass:forKey:"), aClass, objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-
 // Decodes an object for the key, restricted to the specified classes.
 //
 // classes: A set of the expected classes.
@@ -1502,7 +1438,6 @@ func (c NSCoder) DecodeObjectOfClassesForKey(classes INSSet, key string) objecti
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeObjectOfClasses:forKey:"), classes, objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-
 // Decodes the previously-encoded object associated by a key, populating an
 // error if decoding fails.
 //
@@ -1526,7 +1461,6 @@ func (c NSCoder) DecodeTopLevelObjectForKeyError(key string) (objectivec.IObject
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Decode an object as an expected type, failing if the archived type does not
 // match.
 //
@@ -1565,7 +1499,6 @@ func (c NSCoder) DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key s
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Decodes a series of potentially different Objective-C types.
 //
 // # Discussion
@@ -1597,7 +1530,6 @@ func (c NSCoder) DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key s
 func (c NSCoder) DecodeValuesOfObjCTypes(types []byte) {
 	objc.Send[objc.ID](c.ID, objc.Sel("decodeValuesOfObjCTypes:"), unsafe.Pointer(unsafe.SliceData(types)))
 }
-
 // Encodes a series of values of potentially differing Objective-C types.
 //
 // # Discussion
@@ -1631,7 +1563,6 @@ func (c NSCoder) DecodeValuesOfObjCTypes(types []byte) {
 func (c NSCoder) EncodeValuesOfObjCTypes(types []byte) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeValuesOfObjCTypes:"), unsafe.Pointer(unsafe.SliceData(types)))
 }
-
 // This method is present for historical reasons and has no effect.
 //
 // # Discussion
@@ -1661,7 +1592,6 @@ func (c NSCoder) AllowsKeyedCoding() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("allowsKeyedCoding"))
 	return rv
 }
-
 // The action the coder should take when decoding fails.
 //
 // # Discussion
@@ -1684,7 +1614,6 @@ func (c NSCoder) DecodingFailurePolicy() NSDecodingFailurePolicy {
 	rv := objc.Send[NSDecodingFailurePolicy](c.ID, objc.Sel("decodingFailurePolicy"))
 	return NSDecodingFailurePolicy(rv)
 }
-
 // Indicates whether the archiver requires all archived classes to resist
 // object substitution attacks.
 //
@@ -1703,7 +1632,6 @@ func (c NSCoder) RequiresSecureCoding() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("requiresSecureCoding"))
 	return rv
 }
-
 // The set of coded classes allowed for secure coding.
 //
 // # Discussion
@@ -1716,7 +1644,6 @@ func (c NSCoder) AllowedClasses() INSSet {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("allowedClasses"))
 	return NSSetFromID(objc.ID(rv))
 }
-
 // An error in the top-level encode.
 //
 // # Discussion
@@ -1732,7 +1659,6 @@ func (c NSCoder) Error() INSError {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("error"))
 	return NSErrorFromID(objc.ID(rv))
 }
-
 // The system version in effect for the archive.
 //
 // # Discussion
@@ -1748,7 +1674,6 @@ func (c NSCoder) SystemVersion() uint32 {
 	rv := objc.Send[uint32](c.ID, objc.Sel("systemVersion"))
 	return rv
 }
-
 // The end of the range of error codes reserved for coder errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nscodererrormaximum-swift.var
@@ -1759,7 +1684,6 @@ func (c NSCoder) NSCoderErrorMaximum() int {
 func (c NSCoder) SetNSCoderErrorMaximum(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderErrorMaximum:"), value)
 }
-
 // The start of the range of error codes reserved for coder errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nscodererrorminimum-swift.var
@@ -1770,7 +1694,6 @@ func (c NSCoder) NSCoderErrorMinimum() int {
 func (c NSCoder) SetNSCoderErrorMinimum(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderErrorMinimum:"), value)
 }
-
 // Decoding failed due to corrupt data.
 //
 // See: https://developer.apple.com/documentation/foundation/nscoderreadcorrupterror-swift.var
@@ -1781,7 +1704,6 @@ func (c NSCoder) NSCoderReadCorruptError() int {
 func (c NSCoder) SetNSCoderReadCorruptError(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderReadCorruptError:"), value)
 }
-
 // The requested data wasn’t found.
 //
 // See: https://developer.apple.com/documentation/foundation/nscodervaluenotfounderror-swift.var
@@ -1792,7 +1714,6 @@ func (c NSCoder) NSCoderValueNotFoundError() int {
 func (c NSCoder) SetNSCoderValueNotFoundError(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNSCoderValueNotFoundError:"), value)
 }
-
 // Data wasn’t valid to encode.
 //
 // See: https://developer.apple.com/documentation/foundation/nscoderinvalidvalueerror-swift.var

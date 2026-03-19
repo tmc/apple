@@ -190,7 +190,6 @@ func (f VZFileHandleNetworkDeviceAttachment) FileHandle() foundation.NSFileHandl
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandle"))
 	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
-
 // An integer value that indicates the maximum transmission unit (MTU)
 // associated with this attachment.
 //
@@ -215,7 +214,6 @@ func (f VZFileHandleNetworkDeviceAttachment) MaximumTransmissionUnit() int {
 func (f VZFileHandleNetworkDeviceAttachment) SetMaximumTransmissionUnit(value int) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMaximumTransmissionUnit:"), value)
 }
-
 // The object that defines how the virtual network device communicates with
 // the host system.
 //
@@ -227,7 +225,6 @@ func (f VZFileHandleNetworkDeviceAttachment) Attachment() IVZNetworkDeviceAttach
 func (f VZFileHandleNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAttachment:"), value)
 }
-
 // The array of network devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices

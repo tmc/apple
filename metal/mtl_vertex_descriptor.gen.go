@@ -164,7 +164,6 @@ func (v MTLVertexDescriptor) Attributes() IMTLVertexAttributeDescriptorArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("attributes"))
 	return MTLVertexAttributeDescriptorArrayFromID(objc.ID(rv))
 }
-
 // An array of state data that describes how data are fetched by a vertex
 // shader function when rendering primitives.
 //
@@ -173,13 +172,11 @@ func (v MTLVertexDescriptor) Layouts() IMTLVertexBufferLayoutDescriptorArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("layouts"))
 	return MTLVertexBufferLayoutDescriptorArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))
 	return rv
 }
-
 // The organization of vertex data in an attribute’s argument table.
 //
 // See: https://developer.apple.com/documentation/metal/mtlrenderpipelinedescriptor/vertexdescriptor

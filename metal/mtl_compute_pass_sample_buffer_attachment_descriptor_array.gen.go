@@ -119,7 +119,6 @@ func (c MTLComputePassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubs
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLComputePassSampleBufferAttachmentDescriptorFromID(rv)
 }
-
 // Sets the descriptor object for the specified sample buffer attachment.
 //
 // attachment: A sample buffer attachment descriptor. When set to `nil`, removes any

@@ -202,7 +202,6 @@ func (x NSXPCListener) InitWithMachServiceName(name string) NSXPCListener {
 	rv := objc.Send[NSXPCListener](x.ID, objc.Sel("initWithMachServiceName:"), objc.String(name))
 	return rv
 }
-
 // Activates the listener.
 //
 // # Discussion
@@ -220,7 +219,6 @@ func (x NSXPCListener) InitWithMachServiceName(name string) NSXPCListener {
 func (x NSXPCListener) Activate() {
 	objc.Send[objc.ID](x.ID, objc.Sel("activate"))
 }
-
 // Starts processing of incoming requests.
 //
 // # Discussion
@@ -240,7 +238,6 @@ func (x NSXPCListener) Activate() {
 func (x NSXPCListener) Resume() {
 	objc.Send[objc.ID](x.ID, objc.Sel("resume"))
 }
-
 // Invalidates the listener.
 //
 // # Discussion
@@ -252,7 +249,6 @@ func (x NSXPCListener) Resume() {
 func (x NSXPCListener) Invalidate() {
 	objc.Send[objc.ID](x.ID, objc.Sel("invalidate"))
 }
-
 // Suspends the listener.
 //
 // # Discussion
@@ -264,7 +260,6 @@ func (x NSXPCListener) Invalidate() {
 func (x NSXPCListener) Suspend() {
 	objc.Send[objc.ID](x.ID, objc.Sel("suspend"))
 }
-
 // Sets the code signing requirement for connections to this listener.
 //
 // requirement: A string that describes requirements expected of the connection peer. See
@@ -299,7 +294,6 @@ func (_NSXPCListenerClass NSXPCListenerClass) ServiceListener() NSXPCListener {
 	rv := objc.Send[objc.ID](objc.ID(_NSXPCListenerClass.class), objc.Sel("serviceListener"))
 	return NSXPCListenerFromID(rv)
 }
-
 // Returns a new anonymous listener connection.
 //
 // # Discussion
@@ -329,7 +323,6 @@ func (x NSXPCListener) Delegate() NSXPCListenerDelegate {
 func (x NSXPCListener) SetDelegate(value NSXPCListenerDelegate) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDelegate:"), value)
 }
-
 // Returns an endpoint object that may be sent over an existing connection.
 //
 // # Discussion

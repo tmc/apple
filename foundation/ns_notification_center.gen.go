@@ -236,7 +236,6 @@ _block3, _cleanup3 := NewNotificationBlock(block)
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("addObserverForName:object:queue:usingBlock:"), objc.String(string(name)), obj, queue, _block3)
 	return objectivec.ObjectFromID(rv)
 }
-
 // Adds an entry to the notification center to call the provided selector with
 // the notification.
 //
@@ -277,7 +276,6 @@ _block3, _cleanup3 := NewNotificationBlock(block)
 func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IObject, aSelector objc.SEL, aName NSNotificationName, anObject objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("addObserver:selector:name:object:"), observer, aSelector, objc.String(string(aName)), anObject)
 }
-
 // Removes matching entries from the notification center’s dispatch table.
 //
 // observer: The observer to remove from the dispatch table. Specify an observer to
@@ -314,7 +312,6 @@ func (n NotificationCenter) AddObserverSelectorNameObject(observer objectivec.IO
 func (n NotificationCenter) RemoveObserverNameObject(observer objectivec.IObject, aName NSNotificationName, anObject objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("removeObserver:name:object:"), observer, objc.String(string(aName)), anObject)
 }
-
 // Removes all entries specifying an observer from the notification center’s
 // dispatch table.
 //
@@ -350,7 +347,6 @@ func (n NotificationCenter) RemoveObserverNameObject(observer objectivec.IObject
 func (n NotificationCenter) RemoveObserver(observer objectivec.IObject) {
 	objc.Send[objc.ID](n.ID, objc.Sel("removeObserver:"), observer)
 }
-
 // Posts a given notification to the notification center.
 //
 // notification: The notification to post.
@@ -359,7 +355,6 @@ func (n NotificationCenter) RemoveObserver(observer objectivec.IObject) {
 func (n NotificationCenter) PostNotification(notification INSNotification) {
 	objc.Send[objc.ID](n.ID, objc.Sel("postNotification:"), notification)
 }
-
 // Creates a notification with a given name, sender, and information and posts
 // it to the notification center.
 //
@@ -373,7 +368,6 @@ func (n NotificationCenter) PostNotification(notification INSNotification) {
 func (n NotificationCenter) PostNotificationNameObjectUserInfo(aName NSNotificationName, anObject objectivec.IObject, aUserInfo INSDictionary) {
 	objc.Send[objc.ID](n.ID, objc.Sel("postNotificationName:object:userInfo:"), objc.String(string(aName)), anObject, aUserInfo)
 }
-
 // Creates a notification with a given name and sender and posts it to the
 // notification center.
 //

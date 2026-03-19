@@ -80,7 +80,6 @@ func (_NSViewLayoutRegionClass NSViewLayoutRegionClass) MarginsLayoutRegionWithC
 	rv := objc.Send[objc.ID](objc.ID(_NSViewLayoutRegionClass.class), objc.Sel("marginsLayoutRegionWithCornerAdaptation:"), adaptivityAxis)
 	return NSViewLayoutRegionFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewLayoutRegion/safeAreaLayoutRegionWithCornerAdaptation:
 func (_NSViewLayoutRegionClass NSViewLayoutRegionClass) SafeAreaLayoutRegionWithCornerAdaptation(adaptivityAxis NSViewLayoutRegionAdaptivityAxis) NSViewLayoutRegion {

@@ -122,14 +122,12 @@ func NewEspressoNetworkWithJSFileContextComputePath(jSFile []byte, context objec
 func (e EspressoNetwork) Wipe_layers_blobs() {
 	objc.Send[objc.ID](e.ID, objc.Sel("wipe_layers_blobs"))
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:binSerializerId:context:computePath:
 func (e EspressoNetwork) InitWithJSFileBinSerializerIdContextComputePath(jSFile []byte, id []byte, context objectivec.IObject, path int) EspressoNetwork {
 	rv := objc.Send[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.SliceData(jSFile)), unsafe.Pointer(unsafe.SliceData(id)), context, path)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/initWithJSFile:context:computePath:
 func (e EspressoNetwork) InitWithJSFileContextComputePath(jSFile []byte, context objectivec.IObject, path int) EspressoNetwork {
@@ -142,13 +140,11 @@ func (e EspressoNetwork) Ctx() IEspressoContext {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("ctx"))
 	return EspressoContextFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/layers_size
 func (e EspressoNetwork) Layers_size() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("layers_size"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoNetwork/net
 func (e EspressoNetwork) Net() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("net"))

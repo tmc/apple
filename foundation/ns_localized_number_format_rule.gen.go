@@ -86,7 +86,6 @@ func (l NSLocalizedNumberFormatRule) InitWithCoder(coder INSCoder) NSLocalizedNu
 	rv := objc.Send[NSLocalizedNumberFormatRule](l.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.

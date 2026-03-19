@@ -110,13 +110,11 @@ func NSTextInputClientObjectFromID(id objc.ID) NSTextInputClientObject {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/hasMarkedText()
-
 func (o NSTextInputClientObject) HasMarkedText() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("hasMarkedText"))
 	return rv
 	}
-
 // Returns the range of the marked text.
 //
 // # Return Value
@@ -132,13 +130,11 @@ func (o NSTextInputClientObject) HasMarkedText() bool {
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/markedRange()
-
 func (o NSTextInputClientObject) MarkedRange() foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("markedRange"))
 	return rv
 	}
-
 // Returns the range of selected text.
 //
 // # Return Value
@@ -151,13 +147,11 @@ func (o NSTextInputClientObject) MarkedRange() foundation.NSRange {
 // storage, that is, from 0 to the document length.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/selectedRange()
-
 func (o NSTextInputClientObject) SelectedRange() foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("selectedRange"))
 	return rv
 	}
-
 // Replaces a specified range in the receiver’s text storage with the given
 // string and sets the selection.
 //
@@ -179,12 +173,10 @@ func (o NSTextInputClientObject) SelectedRange() foundation.NSRange {
 // renders with [MarkedTextAttributes]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/setMarkedText(_:selectedRange:replacementRange:)
-
 func (o NSTextInputClientObject) SetMarkedTextSelectedRangeReplacementRange(string_ objectivec.IObject, selectedRange foundation.NSRange, replacementRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setMarkedText:selectedRange:replacementRange:"), string_, selectedRange, replacementRange)
 	}
-
 // Unmarks the marked text.
 //
 // # Discussion
@@ -195,12 +187,10 @@ func (o NSTextInputClientObject) SetMarkedTextSelectedRangeReplacementRange(stri
 // invocation of this method has no effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unmarkText()
-
 func (o NSTextInputClientObject) UnmarkText() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("unmarkText"))
 	}
-
 // Returns an array of attribute names recognized by the receiver.
 //
 // # Return Value
@@ -215,13 +205,11 @@ func (o NSTextInputClientObject) UnmarkText() {
 // string constants representing standard attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/validAttributesForMarkedText()
-
 func (o NSTextInputClientObject) ValidAttributesForMarkedText() []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("validAttributesForMarkedText"))
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // Returns an attributed string derived from the given range in the
 // receiver’s text storage.
 //
@@ -245,13 +233,11 @@ func (o NSTextInputClientObject) ValidAttributesForMarkedText() []string {
 // the document’s range, return `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
-
 func (o NSTextInputClientObject) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("attributedSubstringForProposedRange:actualRange:"), range_, actualRange)
 	return foundation.NSAttributedStringFromID(rv)
 	}
-
 // Inserts the given string into the receiver, replacing the specified
 // content.
 //
@@ -268,12 +254,10 @@ func (o NSTextInputClientObject) AttributedSubstringForProposedRangeActualRange(
 // for the insertion to work.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/insertText(_:replacementRange:)
-
 func (o NSTextInputClientObject) InsertTextReplacementRange(string_ objectivec.IObject, replacementRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("insertText:replacementRange:"), string_, replacementRange)
 	}
-
 // Returns the index of the character whose bounding rectangle includes the
 // given point.
 //
@@ -286,13 +270,11 @@ func (o NSTextInputClientObject) InsertTextReplacementRange(string_ objectivec.I
 // if the cursor is not within a character’s bounding rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/characterIndex(for:)
-
 func (o NSTextInputClientObject) CharacterIndexForPoint(point corefoundation.CGPoint) uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("characterIndexForPoint:"), point)
 	return rv
 	}
-
 // Returns the first logical boundary rectangle for characters in the given
 // range.
 //
@@ -319,29 +301,23 @@ func (o NSTextInputClientObject) CharacterIndexForPoint(point corefoundation.CGP
 // width is 0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
-
 func (o NSTextInputClientObject) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("firstRectForCharacterRange:actualRange:"), range_, actualRange)
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
-
 func (o NSTextInputClientObject) DocumentVisibleRect() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("documentVisibleRect"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
-
 func (o NSTextInputClientObject) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("unionRectInVisibleSelectedRange"))
 	return rv
 	}
-
 // Invokes the action specified by the given selector.
 //
 // selector: The selector to invoke.
@@ -357,23 +333,19 @@ func (o NSTextInputClientObject) UnionRectInVisibleSelectedRange() corefoundatio
 // `super`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/doCommand(by:)
-
 func (o NSTextInputClientObject) DoCommandBySelector(selector objc.SEL) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("doCommandBySelector:"), selector)
 	}
-
 // A Boolean value that indicates whether the document supports adaptive
 // images in the input.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/supportsAdaptiveImageGlyph
-
 func (o NSTextInputClientObject) SupportsAdaptiveImageGlyph() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsAdaptiveImageGlyph"))
 	return rv
 	}
-
 // Returns an attributed string representing the receiver’s text storage.
 //
 // # Return Value
@@ -388,13 +360,11 @@ func (o NSTextInputClientObject) SupportsAdaptiveImageGlyph() bool {
 // portions of the receiver’s content more efficiently.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedString()
-
 func (o NSTextInputClientObject) AttributedString() foundation.NSAttributedString {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(rv)
 	}
-
 // Returns the baseline position of a given character relative to the origin
 // of rectangle returned by [FirstRectForCharacterRangeActualRange].
 //
@@ -412,13 +382,11 @@ func (o NSTextInputClientObject) AttributedString() foundation.NSAttributedStrin
 // storage of the text view adopting [NSTextInputClient].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/baselineDeltaForCharacter(at:)
-
 func (o NSTextInputClientObject) BaselineDeltaForCharacterAtIndex(anIndex uint) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("baselineDeltaForCharacterAtIndex:"), anIndex)
 	return rv
 	}
-
 // Informs the text input management system whether the protocol-conforming
 // client renders the character at the given index vertically.
 //
@@ -432,13 +400,11 @@ func (o NSTextInputClientObject) BaselineDeltaForCharacterAtIndex(anIndex uint) 
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/drawsVerticallyForCharacter(at:)
-
 func (o NSTextInputClientObject) DrawsVerticallyForCharacterAtIndex(charIndex uint) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("drawsVerticallyForCharacterAtIndex:"), charIndex)
 	return rv
 	}
-
 // Returns the fraction of the distance from the left side of the character to
 // the right side that a given point lies.
 //
@@ -472,21 +438,17 @@ func (o NSTextInputClientObject) DrawsVerticallyForCharacterAtIndex(charIndex ui
 // placing the insertion point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/fractionOfDistanceThroughGlyph(for:)
-
 func (o NSTextInputClientObject) FractionOfDistanceThroughGlyphForPoint(point corefoundation.CGPoint) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("fractionOfDistanceThroughGlyphForPoint:"), point)
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/preferredTextAccessoryPlacement()
-
 func (o NSTextInputClientObject) PreferredTextAccessoryPlacement() NSTextCursorAccessoryPlacement {
 	
 	rv := objc.Send[NSTextCursorAccessoryPlacement](o.ID, objc.Sel("preferredTextAccessoryPlacement"))
 	return rv
 	}
-
 // Returns the window level of the receiver.
 //
 // # Return Value
@@ -500,13 +462,11 @@ func (o NSTextInputClientObject) PreferredTextAccessoryPlacement() NSTextCursorA
 // level if it is higher than [NSFloatingWindowLevel].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/windowLevel()
-
 func (o NSTextInputClientObject) WindowLevel() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("windowLevel"))
 	return rv
 	}
-
 // Inserts an adaptive image into the text at the specifed location.
 //
 // adaptiveImageGlyph: The adaptive image to add to the text.
@@ -514,7 +474,6 @@ func (o NSTextInputClientObject) WindowLevel() int {
 // replacementRange: The text range at which to insert the image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/insert(_:replacementRange:)
-
 func (o NSTextInputClientObject) InsertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph INSAdaptiveImageGlyph, replacementRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("insertAdaptiveImageGlyph:replacementRange:"), adaptiveImageGlyph, replacementRange)

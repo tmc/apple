@@ -159,7 +159,6 @@ func (d DIImageInfoParams) RetrieveWithError() (bool, error) {
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/initWithURL:error:
 func (d DIImageInfoParams) InitWithURLError(url foundation.INSURL) (DIImageInfoParams, error) {
@@ -172,7 +171,6 @@ func (d DIImageInfoParams) InitWithURLError(url foundation.INSURL) (DIImageInfoP
 	return DIImageInfoParamsFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/initWithExistingParams:error:
 func (d DIImageInfoParams) InitWithExistingParamsError(params IDIImageInfoParams) (DIImageInfoParams, error) {
@@ -191,7 +189,6 @@ func (_DIImageInfoParamsClass DIImageInfoParamsClass) SupportsSecureCoding() boo
 	rv := objc.Send[bool](objc.ID(_DIImageInfoParamsClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/isDiskImageWithURL:
 func (_DIImageInfoParamsClass DIImageInfoParamsClass) IsDiskImageWithURL(url foundation.INSURL) bool {
@@ -207,7 +204,6 @@ func (d DIImageInfoParams) EncryptionInfoOnly() bool {
 func (d DIImageInfoParams) SetEncryptionInfoOnly(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEncryptionInfoOnly:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/extraInfo
 func (d DIImageInfoParams) ExtraInfo() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("extraInfo"))
@@ -216,7 +212,6 @@ func (d DIImageInfoParams) ExtraInfo() bool {
 func (d DIImageInfoParams) SetExtraInfo(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setExtraInfo:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/imageInfo
 func (d DIImageInfoParams) ImageInfo() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("imageInfo"))
@@ -225,7 +220,6 @@ func (d DIImageInfoParams) ImageInfo() foundation.INSDictionary {
 func (d DIImageInfoParams) SetImageInfo(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setImageInfo:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIImageInfoParams/openEncryption
 func (d DIImageInfoParams) OpenEncryption() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("openEncryption"))

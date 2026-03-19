@@ -126,26 +126,22 @@ func (a ANETask) ExecutionCriteria() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("executionCriteria"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/handler
 func (a ANETask) Handler() VoidHandler {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("handler"))
 	_ = rv
 	return nil
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/name
 func (a ANETask) Name() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/periodSeconds
 func (a ANETask) PeriodSeconds() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("periodSeconds"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETask/queue
 func (a ANETask) Queue() objectivec.Object {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("queue"))

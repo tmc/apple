@@ -302,7 +302,6 @@ func (l NSLevelIndicator) TickMarkValueAtIndex(index int) float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("tickMarkValueAtIndex:"), index)
 	return rv
 }
-
 // Returns the bounding rectangle of the tick mark identified by the specified
 // index (the minimum-value tick mark is at index 0).
 //
@@ -327,7 +326,6 @@ func (l NSLevelIndicator) MinValue() float64 {
 func (l NSLevelIndicator) SetMinValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setMinValue:"), value)
 }
-
 // The receiver’s maximum value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/maxValue
@@ -338,7 +336,6 @@ func (l NSLevelIndicator) MaxValue() float64 {
 func (l NSLevelIndicator) SetMaxValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setMaxValue:"), value)
 }
-
 // The receiver’s warning value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/warningValue
@@ -349,7 +346,6 @@ func (l NSLevelIndicator) WarningValue() float64 {
 func (l NSLevelIndicator) SetWarningValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setWarningValue:"), value)
 }
-
 // The receiver’s critical value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/criticalValue
@@ -360,7 +356,6 @@ func (l NSLevelIndicator) CriticalValue() float64 {
 func (l NSLevelIndicator) SetCriticalValue(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCriticalValue:"), value)
 }
-
 // Determines how the receiver’s tick marks are aligned with it.
 //
 // # Discussion
@@ -377,7 +372,6 @@ func (l NSLevelIndicator) TickMarkPosition() NSTickMarkPosition {
 func (l NSLevelIndicator) SetTickMarkPosition(value NSTickMarkPosition) {
 	objc.Send[struct{}](l.ID, objc.Sel("setTickMarkPosition:"), value)
 }
-
 // The number of tick marks associated with the receiver.
 //
 // # Discussion
@@ -394,7 +388,6 @@ func (l NSLevelIndicator) NumberOfTickMarks() int {
 func (l NSLevelIndicator) SetNumberOfTickMarks(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberOfTickMarks:"), value)
 }
-
 // The number of major tick marks associated with the receiver.
 //
 // # Discussion
@@ -415,7 +408,6 @@ func (l NSLevelIndicator) NumberOfMajorTickMarks() int {
 func (l NSLevelIndicator) SetNumberOfMajorTickMarks(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberOfMajorTickMarks:"), value)
 }
-
 // The appearance of the indicator.
 //
 // # Discussion
@@ -432,7 +424,6 @@ func (l NSLevelIndicator) LevelIndicatorStyle() NSLevelIndicatorStyle {
 func (l NSLevelIndicator) SetLevelIndicatorStyle(value NSLevelIndicatorStyle) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLevelIndicatorStyle:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/ratingImage
 func (l NSLevelIndicator) RatingImage() INSImage {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("ratingImage"))
@@ -441,7 +432,6 @@ func (l NSLevelIndicator) RatingImage() INSImage {
 func (l NSLevelIndicator) SetRatingImage(value INSImage) {
 	objc.Send[struct{}](l.ID, objc.Sel("setRatingImage:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/drawsTieredCapacityLevels
 func (l NSLevelIndicator) DrawsTieredCapacityLevels() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("drawsTieredCapacityLevels"))
@@ -450,7 +440,6 @@ func (l NSLevelIndicator) DrawsTieredCapacityLevels() bool {
 func (l NSLevelIndicator) SetDrawsTieredCapacityLevels(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setDrawsTieredCapacityLevels:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/fillColor
 func (l NSLevelIndicator) FillColor() INSColor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("fillColor"))
@@ -459,7 +448,6 @@ func (l NSLevelIndicator) FillColor() INSColor {
 func (l NSLevelIndicator) SetFillColor(value INSColor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setFillColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/warningFillColor
 func (l NSLevelIndicator) WarningFillColor() INSColor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("warningFillColor"))
@@ -468,7 +456,6 @@ func (l NSLevelIndicator) WarningFillColor() INSColor {
 func (l NSLevelIndicator) SetWarningFillColor(value INSColor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setWarningFillColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/criticalFillColor
 func (l NSLevelIndicator) CriticalFillColor() INSColor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("criticalFillColor"))
@@ -477,7 +464,6 @@ func (l NSLevelIndicator) CriticalFillColor() INSColor {
 func (l NSLevelIndicator) SetCriticalFillColor(value INSColor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCriticalFillColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/ratingPlaceholderImage
 func (l NSLevelIndicator) RatingPlaceholderImage() INSImage {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("ratingPlaceholderImage"))
@@ -486,7 +472,6 @@ func (l NSLevelIndicator) RatingPlaceholderImage() INSImage {
 func (l NSLevelIndicator) SetRatingPlaceholderImage(value INSImage) {
 	objc.Send[struct{}](l.ID, objc.Sel("setRatingPlaceholderImage:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/placeholderVisibility-swift.property
 func (l NSLevelIndicator) PlaceholderVisibility() NSLevelIndicatorPlaceholderVisibility {
 	rv := objc.Send[NSLevelIndicatorPlaceholderVisibility](l.ID, objc.Sel("placeholderVisibility"))
@@ -495,7 +480,6 @@ func (l NSLevelIndicator) PlaceholderVisibility() NSLevelIndicatorPlaceholderVis
 func (l NSLevelIndicator) SetPlaceholderVisibility(value NSLevelIndicatorPlaceholderVisibility) {
 	objc.Send[struct{}](l.ID, objc.Sel("setPlaceholderVisibility:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/isEditable
 func (l NSLevelIndicator) Editable() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isEditable"))

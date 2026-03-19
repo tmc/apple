@@ -112,7 +112,6 @@ func NewNullWithCoder(coder INSCoder) NSNull {
 func (n NSNull) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (n NSNull) InitWithCoder(coder INSCoder) NSNull {

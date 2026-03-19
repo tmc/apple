@@ -83,13 +83,11 @@ func (_ANEEspressoIRTranslatorClass ANEEspressoIRTranslatorClass) CreateErrorFor
 	rv := objc.Send[objc.ID](objc.ID(_ANEEspressoIRTranslatorClass.class), objc.Sel("createErrorForPlan:status:"), plan, status)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEEspressoIRTranslator/destroyEspresso:ctx:
 func (_ANEEspressoIRTranslatorClass ANEEspressoIRTranslatorClass) DestroyEspressoCtx(espresso unsafe.Pointer, ctx unsafe.Pointer) {
 	objc.Send[objc.ID](objc.ID(_ANEEspressoIRTranslatorClass.class), objc.Sel("destroyEspresso:ctx:"), espresso, ctx)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEEspressoIRTranslator/translateModelAt:key:outputPath:isEncryptedModel:translationOptions:error:
 func (_ANEEspressoIRTranslatorClass ANEEspressoIRTranslatorClass) TranslateModelAtKeyOutputPathIsEncryptedModelTranslationOptionsError(at objectivec.IObject, key objectivec.IObject, path objectivec.IObject, model bool, options objectivec.IObject) (bool, error) {

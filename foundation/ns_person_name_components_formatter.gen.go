@@ -302,7 +302,6 @@ func (p PersonNameComponentsFormatter) StringFromPersonNameComponents(components
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("stringFromPersonNameComponents:"), components)
 	return NSStringFromID(rv).String()
 }
-
 // Returns an attributed string formatted for a given [NSPersonNameComponents]
 // object, with attribute annotations for each component.
 //
@@ -326,7 +325,6 @@ func (p PersonNameComponentsFormatter) AnnotatedStringFromPersonNameComponents(c
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("annotatedStringFromPersonNameComponents:"), components)
 	return NSAttributedStringFromID(rv)
 }
-
 // Returns a person name components object from a given string.
 //
 // string: A string that is parsed to create a person name components object.
@@ -415,7 +413,6 @@ func (p PersonNameComponentsFormatter) Style() NSPersonNameComponentsFormatterSt
 func (p PersonNameComponentsFormatter) SetStyle(value NSPersonNameComponentsFormatterStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setStyle:"), value)
 }
-
 // A Boolean value that specifies whether the receiver should use only the
 // phonetic representations of name components.
 //
@@ -433,7 +430,6 @@ func (p PersonNameComponentsFormatter) Phonetic() bool {
 func (p PersonNameComponentsFormatter) SetPhonetic(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPhonetic:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/PersonNameComponentsFormatter/locale
 func (p PersonNameComponentsFormatter) Locale() INSLocale {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("locale"))

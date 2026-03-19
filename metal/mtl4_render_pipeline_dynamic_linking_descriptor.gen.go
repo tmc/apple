@@ -116,7 +116,6 @@ func (m MTL4RenderPipelineDynamicLinkingDescriptor) FragmentLinkingDescriptor() 
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("fragmentLinkingDescriptor"))
 	return MTL4PipelineStageDynamicLinkingDescriptorFromID(objc.ID(rv))
 }
-
 // Controls properties for linking the mesh stage of the render pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDynamicLinkingDescriptor/meshLinkingDescriptor
@@ -124,7 +123,6 @@ func (m MTL4RenderPipelineDynamicLinkingDescriptor) MeshLinkingDescriptor() IMTL
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("meshLinkingDescriptor"))
 	return MTL4PipelineStageDynamicLinkingDescriptorFromID(objc.ID(rv))
 }
-
 // Controls properties for link the object stage of the render pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDynamicLinkingDescriptor/objectLinkingDescriptor
@@ -132,7 +130,6 @@ func (m MTL4RenderPipelineDynamicLinkingDescriptor) ObjectLinkingDescriptor() IM
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectLinkingDescriptor"))
 	return MTL4PipelineStageDynamicLinkingDescriptorFromID(objc.ID(rv))
 }
-
 // Controls properties for linking the tile stage of the render pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDynamicLinkingDescriptor/tileLinkingDescriptor
@@ -140,7 +137,6 @@ func (m MTL4RenderPipelineDynamicLinkingDescriptor) TileLinkingDescriptor() IMTL
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("tileLinkingDescriptor"))
 	return MTL4PipelineStageDynamicLinkingDescriptorFromID(objc.ID(rv))
 }
-
 // Controls properties for linking the vertex stage of the render pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPipelineDynamicLinkingDescriptor/vertexLinkingDescriptor

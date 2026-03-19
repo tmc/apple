@@ -209,7 +209,6 @@ func (g VNGeneratePersonSegmentationRequest) OutputPixelFormat() uint32 {
 func (g VNGeneratePersonSegmentationRequest) SetOutputPixelFormat(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setOutputPixelFormat:"), value)
 }
-
 // A value that indicates how the request balances accuracy and performance.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/qualityLevel-swift.property
@@ -220,7 +219,6 @@ func (g VNGeneratePersonSegmentationRequest) QualityLevel() VNGeneratePersonSegm
 func (g VNGeneratePersonSegmentationRequest) SetQualityLevel(value VNGeneratePersonSegmentationRequestQualityLevel) {
 	objc.Send[struct{}](g.ID, objc.Sel("setQualityLevel:"), value)
 }
-
 // A constant for specifying revision 1 of the person segmentation generation
 // request.
 //

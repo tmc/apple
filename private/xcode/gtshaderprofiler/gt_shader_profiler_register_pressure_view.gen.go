@@ -111,20 +111,17 @@ func NewGTShaderProfilerRegisterPressureViewWithDictBinaryGpu(dict objectivec.IO
 func (g GTShaderProfilerRegisterPressureView) LoadFromDict(dict objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("loadFromDict:"), dict)
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterPressureView/maxTheoriticalOccupancy
 func (g GTShaderProfilerRegisterPressureView) MaxTheoriticalOccupancy() float32 {
 	rv := objc.Send[float32](g.ID, objc.Sel("maxTheoriticalOccupancy"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterPressureView/registerPressureForAddress:
 func (g GTShaderProfilerRegisterPressureView) RegisterPressureForAddress(address uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("registerPressureForAddress:"), address)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterPressureView/initWithDict:binary:gpu:
 func (g GTShaderProfilerRegisterPressureView) InitWithDictBinaryGpu(dict objectivec.IObject, binary objectivec.IObject, gpu uint32) GTShaderProfilerRegisterPressureView {

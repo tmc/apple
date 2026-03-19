@@ -210,7 +210,6 @@ func (i NSImageCell) ImageAlignment() NSImageAlignment {
 func (i NSImageCell) SetImageAlignment(value NSImageAlignment) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageAlignment:"), value)
 }
-
 // The scaling mode used to fit the receiver’s image into the frame.
 //
 // # Discussion
@@ -229,7 +228,6 @@ func (i NSImageCell) ImageScaling() NSImageScaling {
 func (i NSImageCell) SetImageScaling(value NSImageScaling) {
 	objc.Send[struct{}](i.ID, objc.Sel("setImageScaling:"), value)
 }
-
 // The style of the frame that borders the image.
 //
 // # Discussion

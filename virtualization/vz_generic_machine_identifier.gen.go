@@ -146,7 +146,6 @@ func (g VZGenericMachineIdentifier) DataRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether nested virtualization is in an
 // enabled state.
 //
@@ -158,7 +157,6 @@ func (g VZGenericMachineIdentifier) IsNestedVirtualizationEnabled() bool {
 func (g VZGenericMachineIdentifier) SetIsNestedVirtualizationEnabled(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setNestedVirtualizationEnabled:"), value)
 }
-
 // A value that represents a unique identifier for the virtual machine.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzgenericplatformconfiguration/machineidentifier

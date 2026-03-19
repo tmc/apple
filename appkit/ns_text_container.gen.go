@@ -312,7 +312,6 @@ func (t NSTextContainer) InitWithSize(size corefoundation.CGSize) NSTextContaine
 	rv := objc.Send[NSTextContainer](t.ID, objc.Sel("initWithSize:"), size)
 	return rv
 }
-
 // Creates a text container from data in an unarchiver.
 //
 // coder: A coder that implements [NSCoder].
@@ -324,7 +323,6 @@ func (t NSTextContainer) InitWithCoder(coder foundation.INSCoder) NSTextContaine
 	rv := objc.Send[NSTextContainer](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Replaces the layout manager for the group of text system objects that
 // contains the text container.
 //
@@ -341,7 +339,6 @@ func (t NSTextContainer) InitWithCoder(coder foundation.INSCoder) NSTextContaine
 func (t NSTextContainer) ReplaceLayoutManager(newLayoutManager INSLayoutManager) {
 	objc.Send[objc.ID](t.ID, objc.Sel("replaceLayoutManager:"), newLayoutManager)
 }
-
 // Returns the bounds of a line fragment rectangle inside the text container
 // for the proposed rectangle.
 //
@@ -376,7 +373,6 @@ func (t NSTextContainer) LineFragmentRectForProposedRectAtIndexWritingDirectionR
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("lineFragmentRectForProposedRect:atIndex:writingDirection:remainingRect:"), proposedRect, characterIndex, baseWritingDirection, remainingRect)
 	return corefoundation.CGRect(rv)
 }
-
 // Initializes a text container with a specified bounding rectangle.
 //
 // aContainerSize: The size of the text container’s bounding rectangle.
@@ -397,7 +393,6 @@ func (t NSTextContainer) InitWithContainerSize(aContainerSize corefoundation.CGS
 	rv := objc.Send[NSTextContainer](t.ID, objc.Sel("initWithContainerSize:"), aContainerSize)
 	return rv
 }
-
 // Calculates and returns the longest rectangle available in the proposed
 // rectangle for displaying text.
 //
@@ -461,13 +456,11 @@ func (t NSTextContainer) LayoutManager() INSLayoutManager {
 func (t NSTextContainer) SetLayoutManager(value INSLayoutManager) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutManager:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer/textLayoutManager
 func (t NSTextContainer) TextLayoutManager() INSTextLayoutManager {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLayoutManager"))
 	return NSTextLayoutManagerFromID(objc.ID(rv))
 }
-
 // The text container’s text view.
 //
 // # Discussion
@@ -487,7 +480,6 @@ func (t NSTextContainer) TextView() INSTextView {
 func (t NSTextContainer) SetTextView(value INSTextView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextView:"), value)
 }
-
 // The size of the text container’s bounding rectangle.
 //
 // # Discussion
@@ -508,7 +500,6 @@ func (t NSTextContainer) Size() corefoundation.CGSize {
 func (t NSTextContainer) SetSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSize:"), value)
 }
-
 // An array of path objects that represents the regions where text doesn’t
 // display in the text container.
 //
@@ -534,7 +525,6 @@ func (t NSTextContainer) ExclusionPaths() []NSBezierPath {
 func (t NSTextContainer) SetExclusionPaths(value []NSBezierPath) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExclusionPaths:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The behavior of the last line inside the text container.
 //
 // # Discussion
@@ -556,7 +546,6 @@ func (t NSTextContainer) LineBreakMode() NSLineBreakMode {
 func (t NSTextContainer) SetLineBreakMode(value NSLineBreakMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLineBreakMode:"), value)
 }
-
 // A Boolean that controls whether the text container adjusts the width of its
 // bounding rectangle when its text view resizes.
 //
@@ -581,7 +570,6 @@ func (t NSTextContainer) WidthTracksTextView() bool {
 func (t NSTextContainer) SetWidthTracksTextView(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWidthTracksTextView:"), value)
 }
-
 // A Boolean that controls whether the text container adjusts the height of
 // its bounding rectangle when its text view resizes.
 //
@@ -606,7 +594,6 @@ func (t NSTextContainer) HeightTracksTextView() bool {
 func (t NSTextContainer) SetHeightTracksTextView(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeightTracksTextView:"), value)
 }
-
 // The maximum number of lines that the text container can store.
 //
 // # Discussion
@@ -623,7 +610,6 @@ func (t NSTextContainer) MaximumNumberOfLines() uint {
 func (t NSTextContainer) SetMaximumNumberOfLines(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaximumNumberOfLines:"), value)
 }
-
 // The value for the text inset within line fragment rectangles.
 //
 // # Discussion
@@ -644,7 +630,6 @@ func (t NSTextContainer) LineFragmentPadding() float64 {
 func (t NSTextContainer) SetLineFragmentPadding(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLineFragmentPadding:"), value)
 }
-
 // A Boolean that indicates whether the text container’s region is a
 // rectangle with no holes or gaps, and whose edges are parallel to the text
 // view’s coordinate system axes.
@@ -667,7 +652,6 @@ func (t NSTextContainer) SimpleRectangularTextContainer() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSimpleRectangularTextContainer"))
 	return rv
 }
-
 // The size of the text container’s bounding rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer/containerSize
@@ -678,7 +662,6 @@ func (t NSTextContainer) ContainerSize() corefoundation.CGSize {
 func (t NSTextContainer) SetContainerSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContainerSize:"), value)
 }
-
 // The default layout orientation.
 //
 // # Discussion

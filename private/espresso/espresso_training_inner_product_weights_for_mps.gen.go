@@ -129,7 +129,6 @@ func (e EspressoTrainingInnerProductWeightsForMPS) BiasesBuffer() objectivec.IOb
 func (e EspressoTrainingInnerProductWeightsForMPS) SetBiasesBuffer(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingInnerProductWeightsForMPS/weightsBuffer
 func (e EspressoTrainingInnerProductWeightsForMPS) WeightsBuffer() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("weightsBuffer"))

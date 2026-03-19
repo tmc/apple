@@ -214,7 +214,6 @@ func (t NSTextInsertionIndicator) Color() INSColor {
 func (t NSTextInsertionIndicator) SetColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setColor:"), value)
 }
-
 // An optional closure the system calls during dictation.
 //
 // # Discussion
@@ -238,7 +237,6 @@ func (t NSTextInsertionIndicator) SetEffectsViewInserter(value ViewHandler) {
 	defer cleanup()
 	objc.Send[struct{}](t.ID, objc.Sel("setEffectsViewInserter:"), block)
 }
-
 // A value that describes the display mode of an indicator.
 //
 // # Discussion
@@ -260,7 +258,6 @@ func (t NSTextInsertionIndicator) DisplayMode() NSTextInsertionIndicatorDisplayM
 func (t NSTextInsertionIndicator) SetDisplayMode(value NSTextInsertionIndicatorDisplayMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDisplayMode:"), value)
 }
-
 // Options that affect the automatic display mode.
 //
 // # Discussion

@@ -135,7 +135,6 @@ func (e NSEPSImageRep) BoundingBox() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](e.ID, objc.Sel("boundingBox"))
 	return corefoundation.CGRect(rv)
 }
-
 // The EPS representation of the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEPSImageRep/epsRepresentation

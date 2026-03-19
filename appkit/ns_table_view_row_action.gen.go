@@ -3,7 +3,6 @@
 package appkit
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
@@ -179,8 +178,10 @@ func NewNSTableViewRowAction() NSTableViewRowAction {
 // You can assign the same row action object to multiple rows of your table.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewRowAction/init(style:title:handler:)
-func NewTableViewRowActionWithStyleTitleHandler(style NSTableViewRowActionStyle, title string, handler unsafe.Pointer) NSTableViewRowAction {
-	rv := objc.Send[objc.ID](objc.ID(getNSTableViewRowActionClass().class), objc.Sel("rowActionWithStyle:title:handler:"), style, objc.String(title), handler)
+func (_NSTableViewRowActionClass NSTableViewRowActionClass) RowActionWithStyleTitleHandler(style NSTableViewRowActionStyle, title string, handler TableViewRowActionHandler) NSTableViewRowAction {
+_block2, _cleanup2 := NewTableViewRowActionBlock(handler)
+	defer _cleanup2()
+	rv := objc.Send[objc.ID](objc.ID(_NSTableViewRowActionClass.class), objc.Sel("rowActionWithStyle:title:handler:"), style, objc.String(title), _block2)
 	return NSTableViewRowActionFromID(rv)
 }
 
@@ -196,7 +197,6 @@ func (t NSTableViewRowAction) Style() NSTableViewRowActionStyle {
 	rv := objc.Send[NSTableViewRowActionStyle](t.ID, objc.Sel("style"))
 	return NSTableViewRowActionStyle(rv)
 }
-
 // The title of the action button.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewRowAction/title
@@ -207,7 +207,6 @@ func (t NSTableViewRowAction) Title() string {
 func (t NSTableViewRowAction) SetTitle(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // The background color of the action button.
 //
 // # Discussion
@@ -225,7 +224,6 @@ func (t NSTableViewRowAction) BackgroundColor() INSColor {
 func (t NSTableViewRowAction) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewRowAction/image
 func (t NSTableViewRowAction) Image() INSImage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("image"))

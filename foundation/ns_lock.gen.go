@@ -150,7 +150,6 @@ func (l NSLock) LockBeforeDate(limit INSDate) bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("lockBeforeDate:"), limit)
 	return rv
 }
-
 // Attempts to acquire a lock and immediately returns a Boolean value that
 // indicates whether the attempt was successful.
 //
@@ -166,7 +165,6 @@ func (l NSLock) TryLock() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("tryLock"))
 	return rv
 }
-
 // Attempts to acquire a lock, blocking a thread’s execution until the lock
 // can be acquired.
 //
@@ -180,7 +178,6 @@ func (l NSLock) TryLock() bool {
 func (l NSLock) Lock() {
 	objc.Send[objc.ID](l.ID, objc.Sel("lock"))
 }
-
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()

@@ -59,12 +59,10 @@ func NSTextViewportLayoutControllerDelegateObjectFromID(id objc.ID) NSTextViewpo
 // call.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutControllerDelegate/textViewportLayoutController(_:configureRenderingSurfaceFor:)
-
 func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControllerConfigureRenderingSurfaceForTextLayoutFragment(textViewportLayoutController INSTextViewportLayoutController, textLayoutFragment INSTextLayoutFragment) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textViewportLayoutController:configureRenderingSurfaceForTextLayoutFragment:"), textViewportLayoutController, textLayoutFragment)
 	}
-
 // Returns the current viewport, which is the view visible bounds plus the
 // overdraw area.
 //
@@ -77,13 +75,11 @@ func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControll
 // [CGRect]: https://developer.apple.com/documentation/CoreFoundation/CGRect
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutControllerDelegate/viewportBounds(for:)
-
 func (o NSTextViewportLayoutControllerDelegateObject) ViewportBoundsForTextViewportLayoutController(textViewportLayoutController INSTextViewportLayoutController) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("viewportBoundsForTextViewportLayoutController:"), textViewportLayoutController)
 	return rv
 	}
-
 // The method the framework calls when the text viewport layout controller
 // finishes its layout process.
 //
@@ -95,19 +91,16 @@ func (o NSTextViewportLayoutControllerDelegateObject) ViewportBoundsForTextViewp
 // point of this call.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutControllerDelegate/textViewportLayoutControllerDidLayout(_:)
-
 func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControllerDidLayout(textViewportLayoutController INSTextViewportLayoutController) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textViewportLayoutControllerDidLayout:"), textViewportLayoutController)
 	}
-
 // The method the framework calls before the text viewport layout controller
 // starts its layout process.
 //
 // textViewportLayoutController: The [NSTextViewportLayoutController].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutControllerDelegate/textViewportLayoutControllerWillLayout(_:)
-
 func (o NSTextViewportLayoutControllerDelegateObject) TextViewportLayoutControllerWillLayout(textViewportLayoutController INSTextViewportLayoutController) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textViewportLayoutControllerWillLayout:"), textViewportLayoutController)

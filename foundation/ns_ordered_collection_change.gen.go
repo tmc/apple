@@ -203,7 +203,6 @@ func (o NSOrderedCollectionChange) InitWithObjectTypeIndex(anObject objectivec.I
 	rv := objc.Send[NSOrderedCollectionChange](o.ID, objc.Sel("initWithObject:type:index:"), anObject, type_, index)
 	return rv
 }
-
 // Creates a change object that represents inserting, removing, or moving an
 // object from an ordered collection at a specific index.
 //
@@ -258,7 +257,6 @@ func (_NSOrderedCollectionChangeClass NSOrderedCollectionChangeClass) ChangeWith
 	rv := objc.Send[objc.ID](objc.ID(_NSOrderedCollectionChangeClass.class), objc.Sel("changeWithObject:type:index:"), anObject, type_, index)
 	return NSOrderedCollectionChangeFromID(rv)
 }
-
 // Creates an change object that represents inserting or removing an object
 // from an ordered collection at a specific index, matched with an associated
 // location that infers a move within the collection.
@@ -308,7 +306,6 @@ func (o NSOrderedCollectionChange) ChangeType() NSCollectionChangeType {
 	rv := objc.Send[NSCollectionChangeType](o.ID, objc.Sel("changeType"))
 	return NSCollectionChangeType(rv)
 }
-
 // The index location of the change.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/index
@@ -316,7 +313,6 @@ func (o NSOrderedCollectionChange) Index() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("index"))
 	return rv
 }
-
 // An object the change inserts or removes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange/object
@@ -324,7 +320,6 @@ func (o NSOrderedCollectionChange) GetObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("object"))
 	return objectivec.Object{ID: rv}
 }
-
 // When this property is set to a value other than [NSNotFound], the receiver
 // is one half of a move, and this value is the index of the change’s
 // counterpart of the opposite type in the diff.
@@ -352,13 +347,11 @@ func (o NSOrderedCollectionChange) AssociatedIndex() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("associatedIndex"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/foundation/nsnotfound-9t5v2
 func (o NSOrderedCollectionChange) NSNotFound() int {
 	rv := objc.Send[int](o.ID, objc.Sel("NSNotFound"))
 	return rv
 }
-
 // A Boolean value that indicates if the difference has changes.
 //
 // See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/haschanges
@@ -369,7 +362,6 @@ func (o NSOrderedCollectionChange) HasChanges() bool {
 func (o NSOrderedCollectionChange) SetHasChanges(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setHasChanges:"), value)
 }
-
 // A collection of insertion change objects.
 //
 // See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/insertions
@@ -380,7 +372,6 @@ func (o NSOrderedCollectionChange) Insertions() INSOrderedCollectionChange {
 func (o NSOrderedCollectionChange) SetInsertions(value INSOrderedCollectionChange) {
 	objc.Send[struct{}](o.ID, objc.Sel("setInsertions:"), value)
 }
-
 // A collection of removal change objects.
 //
 // See: https://developer.apple.com/documentation/foundation/nsorderedcollectiondifference/removals

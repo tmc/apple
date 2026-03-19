@@ -125,7 +125,6 @@ func (s MTLSharedTextureHandle) Device() MTLDevice {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 }
-
 // A string that identifies the texture.
 //
 // # Discussion

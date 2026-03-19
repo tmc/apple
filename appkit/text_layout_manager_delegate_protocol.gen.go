@@ -49,13 +49,11 @@ func NSTextLayoutManagerDelegateObjectFromID(id objc.ID) NSTextLayoutManagerDele
 // A dictionary of attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManagerDelegate/textLayoutManager(_:renderingAttributesForLink:at:defaultAttributes:)
-
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerRenderingAttributesForLinkAtLocationDefaultAttributes(textLayoutManager INSTextLayoutManager, link objectivec.IObject, location NSTextLocation, renderingAttributes foundation.INSDictionary) foundation.INSDictionary {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textLayoutManager:renderingAttributesForLink:atLocation:defaultAttributes:"), textLayoutManager, link, location, renderingAttributes)
 	return foundation.NSDictionaryFromID(rv)
 	}
-
 // The method the framework calls to determine the soft line break point.
 //
 // textLayoutManager: The text layout manager.
@@ -76,13 +74,11 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerRenderingAttributesF
 // an auto-hyphenation point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManagerDelegate/textLayoutManager(_:shouldBreakLineBefore:hyphenating:)
-
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerShouldBreakLineBeforeLocationHyphenating(textLayoutManager INSTextLayoutManager, location NSTextLocation, hyphenating bool) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("textLayoutManager:shouldBreakLineBeforeLocation:hyphenating:"), textLayoutManager, location, hyphenating)
 	return rv
 	}
-
 // The method the framework calls to give the delegate an opportunity to
 // return a custom text layout fragment.
 //
@@ -103,7 +99,6 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerShouldBreakLineBefor
 // [NSTextElement] subclass targeted for the rendering surface.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManagerDelegate/textLayoutManager(_:textLayoutFragmentFor:in:)
-
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerTextLayoutFragmentForLocationInTextElement(textLayoutManager INSTextLayoutManager, location NSTextLocation, textElement INSTextElement) INSTextLayoutFragment {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textLayoutManager:textLayoutFragmentForLocation:inTextElement:"), textLayoutManager, location, textElement)

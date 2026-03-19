@@ -113,7 +113,6 @@ func (r MLRSandboxExtensionRequest) URLs() foundation.INSArray {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("URLs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRSandboxExtensionRequest/requireWrite
 func (r MLRSandboxExtensionRequest) RequireWrite() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("requireWrite"))

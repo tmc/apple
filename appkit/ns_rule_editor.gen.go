@@ -388,7 +388,6 @@ func NewRuleEditorWithFrame(frameRect corefoundation.CGRect) NSRuleEditor {
 func (r NSRuleEditor) ReloadCriteria() {
 	objc.Send[objc.ID](r.ID, objc.Sel("reloadCriteria"))
 }
-
 // Modifies the row at a given index to contain the given items and values.
 //
 // criteria: The array of criteria for the row at `rowIndex`. Pass an empty array to
@@ -414,7 +413,6 @@ func (r NSRuleEditor) ReloadCriteria() {
 func (r NSRuleEditor) SetCriteriaAndDisplayValuesForRowAtIndex(criteria foundation.INSArray, values foundation.INSArray, rowIndex int) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setCriteria:andDisplayValues:forRowAtIndex:"), criteria, values, rowIndex)
 }
-
 // Returns the currently chosen items for a given row.
 //
 // row: The index of a row in the receiver.
@@ -434,7 +432,6 @@ func (r NSRuleEditor) CriteriaForRow(row int) foundation.INSArray {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("criteriaForRow:"), row)
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the chosen values for a given row.
 //
 // row: The index of a row in the receiver.
@@ -453,7 +450,6 @@ func (r NSRuleEditor) DisplayValuesForRow(row int) foundation.INSArray {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("displayValuesForRow:"), row)
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the index of the parent of a given row.
 //
 // rowIndex: The index of a row in the receiver.
@@ -468,7 +464,6 @@ func (r NSRuleEditor) ParentRowForRow(rowIndex int) int {
 	rv := objc.Send[int](r.ID, objc.Sel("parentRowForRow:"), rowIndex)
 	return rv
 }
-
 // Returns the index of the row containing a given value.
 //
 // displayValue: The display value (string, view, or menu item) of an item in the receiver.
@@ -488,7 +483,6 @@ func (r NSRuleEditor) RowForDisplayValue(displayValue objectivec.IObject) int {
 	rv := objc.Send[int](r.ID, objc.Sel("rowForDisplayValue:"), displayValue)
 	return rv
 }
-
 // Returns the type of a given row.
 //
 // rowIndex: The index of a row in the receiver.
@@ -502,7 +496,6 @@ func (r NSRuleEditor) RowTypeForRow(rowIndex int) NSRuleEditorRowType {
 	rv := objc.Send[NSRuleEditorRowType](r.ID, objc.Sel("rowTypeForRow:"), rowIndex)
 	return NSRuleEditorRowType(rv)
 }
-
 // Returns the immediate subrows of a given row.
 //
 // rowIndex: The index of a row in the receiver, or `-1` to get the top-level rows.
@@ -520,7 +513,6 @@ func (r NSRuleEditor) SubrowIndexesForRow(rowIndex int) foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("subrowIndexesForRow:"), rowIndex)
 	return foundation.NSIndexSetFromID(rv)
 }
-
 // Sets in the receiver the indexes of rows that are selected.
 //
 // indexes: The indexes of rows in the receiver to select.
@@ -536,7 +528,6 @@ func (r NSRuleEditor) SubrowIndexesForRow(rowIndex int) foundation.NSIndexSet {
 func (r NSRuleEditor) SelectRowIndexesByExtendingSelection(indexes foundation.NSIndexSet, extend bool) {
 	objc.Send[objc.ID](r.ID, objc.Sel("selectRowIndexes:byExtendingSelection:"), indexes, extend)
 }
-
 // Adds a row to the receiver.
 //
 // sender: Typically the object that sent the message.
@@ -545,7 +536,6 @@ func (r NSRuleEditor) SelectRowIndexesByExtendingSelection(indexes foundation.NS
 func (r NSRuleEditor) AddRow(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("addRow:"), sender)
 }
-
 // Adds a new row of a given type at a given location.
 //
 // rowIndex: The index at which the new row should be inserted. `rowIndex` must be
@@ -568,7 +558,6 @@ func (r NSRuleEditor) AddRow(sender objectivec.IObject) {
 func (r NSRuleEditor) InsertRowAtIndexWithTypeAsSubrowOfRowAnimate(rowIndex int, rowType NSRuleEditorRowType, parentRow int, shouldAnimate bool) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertRowAtIndex:withType:asSubrowOfRow:animate:"), rowIndex, rowType, parentRow, shouldAnimate)
 }
-
 // Removes the row at a given index.
 //
 // rowIndex: The index of a row in the receiver.
@@ -582,7 +571,6 @@ func (r NSRuleEditor) InsertRowAtIndexWithTypeAsSubrowOfRowAnimate(rowIndex int,
 func (r NSRuleEditor) RemoveRowAtIndex(rowIndex int) {
 	objc.Send[objc.ID](r.ID, objc.Sel("removeRowAtIndex:"), rowIndex)
 }
-
 // Removes the rows at given indexes.
 //
 // rowIndexes: Indexes of one or more rows in the receiver.
@@ -598,7 +586,6 @@ func (r NSRuleEditor) RemoveRowAtIndex(rowIndex int) {
 func (r NSRuleEditor) RemoveRowsAtIndexesIncludeSubrows(rowIndexes foundation.NSIndexSet, includeSubrows bool) {
 	objc.Send[objc.ID](r.ID, objc.Sel("removeRowsAtIndexes:includeSubrows:"), rowIndexes, includeSubrows)
 }
-
 // Instructs the receiver to regenerate its predicate by invoking the
 // corresponding delegate method.
 //
@@ -611,7 +598,6 @@ func (r NSRuleEditor) RemoveRowsAtIndexesIncludeSubrows(rowIndexes foundation.NS
 func (r NSRuleEditor) ReloadPredicate() {
 	objc.Send[objc.ID](r.ID, objc.Sel("reloadPredicate"))
 }
-
 // Returns the predicate for a given row.
 //
 // row: The index of a row in the receiver.
@@ -642,7 +628,6 @@ func (r NSRuleEditor) Delegate() NSRuleEditorDelegate {
 func (r NSRuleEditor) SetDelegate(value NSRuleEditorDelegate) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDelegate:"), value)
 }
-
 // A Boolean value that determines whether the rule editor is editable.
 //
 // # Discussion
@@ -659,7 +644,6 @@ func (r NSRuleEditor) Editable() bool {
 func (r NSRuleEditor) SetEditable(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEditable:"), value)
 }
-
 // The rule editor’s nesting mode.
 //
 // # Discussion
@@ -676,7 +660,6 @@ func (r NSRuleEditor) NestingMode() NSRuleEditorNestingMode {
 func (r NSRuleEditor) SetNestingMode(value NSRuleEditorNestingMode) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNestingMode:"), value)
 }
-
 // A Boolean value that indicates whether all the rows can be removed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/canRemoveAllRows
@@ -687,7 +670,6 @@ func (r NSRuleEditor) CanRemoveAllRows() bool {
 func (r NSRuleEditor) SetCanRemoveAllRows(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCanRemoveAllRows:"), value)
 }
-
 // The rule editor’s row height.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/rowHeight
@@ -698,7 +680,6 @@ func (r NSRuleEditor) RowHeight() float64 {
 func (r NSRuleEditor) SetRowHeight(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRowHeight:"), value)
 }
-
 // The formatting dictionary for the rule editor.
 //
 // # Discussion
@@ -714,7 +695,6 @@ func (r NSRuleEditor) FormattingDictionary() foundation.INSDictionary {
 func (r NSRuleEditor) SetFormattingDictionary(value foundation.INSDictionary) {
 	objc.Send[struct{}](r.ID, objc.Sel("setFormattingDictionary:"), value)
 }
-
 // The name of the rule editor’s strings file.
 //
 // # Discussion
@@ -737,7 +717,6 @@ func (r NSRuleEditor) FormattingStringsFilename() string {
 func (r NSRuleEditor) SetFormattingStringsFilename(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setFormattingStringsFilename:"), objc.String(value))
 }
-
 // The number of rows in the rule editor.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/numberOfRows
@@ -745,7 +724,6 @@ func (r NSRuleEditor) NumberOfRows() int {
 	rv := objc.Send[int](r.ID, objc.Sel("numberOfRows"))
 	return rv
 }
-
 // The indexes of the rule editor’s selected rows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/selectedRowIndexes
@@ -753,7 +731,6 @@ func (r NSRuleEditor) SelectedRowIndexes() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("selectedRowIndexes"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-
 // The rule editor’s predicate.
 //
 // # Discussion
@@ -768,7 +745,6 @@ func (r NSRuleEditor) Predicate() foundation.INSPredicate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("predicate"))
 	return foundation.NSPredicateFromID(objc.ID(rv))
 }
-
 // The class used to create a new row in the “rows” binding.
 //
 // # Discussion
@@ -783,7 +759,6 @@ func (r NSRuleEditor) RowClass() objc.Class {
 func (r NSRuleEditor) SetRowClass(value objc.Class) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRowClass:"), value)
 }
-
 // The key path for the row type.
 //
 // # Discussion
@@ -802,7 +777,6 @@ func (r NSRuleEditor) RowTypeKeyPath() string {
 func (r NSRuleEditor) SetRowTypeKeyPath(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRowTypeKeyPath:"), objc.String(value))
 }
-
 // The key path for the subrows.
 //
 // # Discussion
@@ -821,7 +795,6 @@ func (r NSRuleEditor) SubrowsKeyPath() string {
 func (r NSRuleEditor) SetSubrowsKeyPath(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSubrowsKeyPath:"), objc.String(value))
 }
-
 // The criteria key path.
 //
 // # Discussion
@@ -842,7 +815,6 @@ func (r NSRuleEditor) CriteriaKeyPath() string {
 func (r NSRuleEditor) SetCriteriaKeyPath(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCriteriaKeyPath:"), objc.String(value))
 }
-
 // The display values key path.
 //
 // # Discussion

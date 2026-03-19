@@ -155,7 +155,6 @@ func (s VZSharedDirectory) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the directory is read-only to the
 // guest.
 //

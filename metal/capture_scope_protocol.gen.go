@@ -69,58 +69,47 @@ func MTLCaptureScopeObjectFromID(id objc.ID) MTLCaptureScopeObject {
 // Tells Metal to begin recording command information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/begin()
-
 func (o MTLCaptureScopeObject) BeginScope() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("beginScope"))
 	}
-
 // Tells Metal to stop recording command information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/end()
-
 func (o MTLCaptureScopeObject) EndScope() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("endScope"))
 	}
-
 // A string that helps you identify the capture scope.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/label
-
 func (o MTLCaptureScopeObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // The device object from which you created the capture scope.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/device
-
 func (o MTLCaptureScopeObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // The command queue that this capture scope uses to limit which commands are
 // recorded.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/commandQueue
-
 func (o MTLCaptureScopeObject) CommandQueue() MTLCommandQueue {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandQueue"))
 	return MTLCommandQueueObjectFromID(rv)
 	}
-
 // If set, this scope will only capture Metal commands from the associated
 // Metal 4 command queue. Defaults to nil (all command queues from the
 // associated device are captured).
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureScope/mtl4CommandQueue
-
 func (o MTLCaptureScopeObject) Mtl4CommandQueue() MTL4CommandQueue {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("mtl4CommandQueue"))

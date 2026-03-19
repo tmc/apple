@@ -180,7 +180,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) AlphaBlendOperation() MTLBl
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetAlphaBlendOperation(value MTLBlendOperation) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAlphaBlendOperation:"), value)
 }
-
 // Configure the blend state for color attachments the pipeline state uses.
 //
 // # Discussion
@@ -195,7 +194,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) BlendingState() MTL4BlendSt
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetBlendingState(value MTL4BlendState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBlendingState:"), value)
 }
-
 // Configures the destination-alpha blend factor.
 //
 // # Discussion
@@ -210,7 +208,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) DestinationAlphaBlendFactor
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetDestinationAlphaBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationAlphaBlendFactor:"), value)
 }
-
 // Configures the destination RGB blend factor.
 //
 // # Discussion
@@ -225,7 +222,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) DestinationRGBBlendFactor()
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetDestinationRGBBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationRGBBlendFactor:"), value)
 }
-
 // Configures the pixel format.
 //
 // # Discussion
@@ -240,7 +236,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) PixelFormat() MTLPixelForma
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPixelFormat:"), value)
 }
-
 // Configures the RGB blend operation.
 //
 // # Discussion
@@ -255,7 +250,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) RgbBlendOperation() MTLBlen
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetRgbBlendOperation(value MTLBlendOperation) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRgbBlendOperation:"), value)
 }
-
 // Configures the source-alpha blend factor.
 //
 // # Discussion
@@ -270,7 +264,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SourceAlphaBlendFactor() MT
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetSourceAlphaBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSourceAlphaBlendFactor:"), value)
 }
-
 // Configures the source RGB blend factor.
 //
 // # Discussion
@@ -285,7 +278,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptor) SourceRGBBlendFactor() MTLB
 func (m MTL4RenderPipelineColorAttachmentDescriptor) SetSourceRGBBlendFactor(value MTLBlendFactor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSourceRGBBlendFactor:"), value)
 }
-
 // Configures the color write mask.
 //
 // # Discussion

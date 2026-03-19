@@ -239,7 +239,6 @@ func (m MTKMesh) Submeshes() []MTKSubmesh {
 		return MTKSubmeshFromID(id)
 	})
 }
-
 // An array of buffers in which mesh vertex data resides.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexBuffers
@@ -249,7 +248,6 @@ func (m MTKMesh) VertexBuffers() []MTKMeshBuffer {
 		return MTKMeshBufferFromID(id)
 	})
 }
-
 // The number of vertices in the vertex buffers.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/vertexCount
@@ -257,7 +255,6 @@ func (m MTKMesh) VertexCount() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("vertexCount"))
 	return rv
 }
-
 // A Model I/O vertex descriptor specifying the data layout in the vertex
 // buffers.
 //
@@ -277,7 +274,6 @@ func (m MTKMesh) VertexDescriptor() objc.ID {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("vertexDescriptor"))
 	return rv
 }
-
 // The name of the mesh.
 //
 // # Discussion

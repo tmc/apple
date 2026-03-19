@@ -102,7 +102,6 @@ _block4, _cleanup4 := NewErrorBlock(completion)
 	defer _cleanup4()
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeAndUploadToDediscoWithIdentifier:measurements:withEncodingSchemas:metadata:completion:"), identifier, measurements, schemas, metadata, _block4)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRDonationManager/record:data:encodingSchema:metadata:errorOut:
 func (r MLRDonationManager) RecordDataEncodingSchemaMetadataErrorOut(record objectivec.IObject, data objectivec.IObject, schema objectivec.IObject, metadata objectivec.IObject, out []objectivec.IObject) bool {

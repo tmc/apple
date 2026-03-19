@@ -158,7 +158,6 @@ func (r VNRecognizeAnimalsRequest) VNRecognizeAnimalsRequestRevision2() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeAnimalsRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the animal recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizeanimalsrequestrevision1

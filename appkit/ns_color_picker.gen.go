@@ -219,7 +219,6 @@ func (c NSColorPicker) InitWithPickerMaskColorPanel(mask uint, owningColorPanel 
 	rv := objc.Send[NSColorPicker](c.ID, objc.Sel("initWithPickerMask:colorPanel:"), mask, owningColorPanel)
 	return rv
 }
-
 // Sets the image used for the specified button cell.
 //
 // newButtonImage: The image used for the specified button cell.
@@ -236,7 +235,6 @@ func (c NSColorPicker) InitWithPickerMaskColorPanel(mask uint, owningColorPanel 
 func (c NSColorPicker) InsertNewButtonImageIn(newButtonImage INSImage, buttonCell INSButtonCell) {
 	objc.Send[objc.ID](c.ID, objc.Sel("insertNewButtonImage:in:"), newButtonImage, buttonCell)
 }
-
 // Overriden to set the color picker’s mode.
 //
 // mode: A constant specifying the color picking mode. These constants are defined
@@ -257,7 +255,6 @@ func (c NSColorPicker) InsertNewButtonImageIn(newButtonImage INSImage, buttonCel
 func (c NSColorPicker) SetMode(mode NSColorPanelMode) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setMode:"), mode)
 }
-
 // Overriden to attach a color list to a color picker.
 //
 // colorList: The color list to attach to the color picker.
@@ -266,7 +263,6 @@ func (c NSColorPicker) SetMode(mode NSColorPanelMode) {
 func (c NSColorPicker) AttachColorList(colorList INSColorList) {
 	objc.Send[objc.ID](c.ID, objc.Sel("attachColorList:"), colorList)
 }
-
 // Overriden to detach a color list from a color picker.
 //
 // colorList: The color list to detach.
@@ -275,14 +271,12 @@ func (c NSColorPicker) AttachColorList(colorList INSColorList) {
 func (c NSColorPicker) DetachColorList(colorList INSColorList) {
 	objc.Send[objc.ID](c.ID, objc.Sel("detachColorList:"), colorList)
 }
-
 // Overriden to respond to a size change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPicker/viewSizeChanged(_:)
 func (c NSColorPicker) ViewSizeChanged(sender objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("viewSizeChanged:"), sender)
 }
-
 // Sent when the color panel’s opacity controls have been hidden or
 // displayed.
 //
@@ -312,7 +306,6 @@ func (c NSColorPicker) ColorPanel() INSColorPanel {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorPanel"))
 	return NSColorPanelFromID(objc.ID(rv))
 }
-
 // The button image used by the color picker.
 //
 // # Discussion
@@ -329,7 +322,6 @@ func (c NSColorPicker) ProvideNewButtonImage() INSImage {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("provideNewButtonImage"))
 	return NSImageFromID(objc.ID(rv))
 }
-
 // The tool tip that is shown when the mouse cursor is over the color
 // picker’s button image.
 //
@@ -344,7 +336,6 @@ func (c NSColorPicker) ButtonToolTip() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("buttonToolTip"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The minimum content size.
 //
 // # Discussion

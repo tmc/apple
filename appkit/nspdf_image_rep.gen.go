@@ -176,7 +176,6 @@ func (p NSPDFImageRep) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](p.ID, objc.Sel("bounds"))
 	return corefoundation.CGRect(rv)
 }
-
 // The page currently displayed by the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/currentPage
@@ -187,7 +186,6 @@ func (p NSPDFImageRep) CurrentPage() int {
 func (p NSPDFImageRep) SetCurrentPage(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCurrentPage:"), value)
 }
-
 // The number of pages in the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/pageCount
@@ -195,7 +193,6 @@ func (p NSPDFImageRep) PageCount() int {
 	rv := objc.Send[int](p.ID, objc.Sel("pageCount"))
 	return rv
 }
-
 // The PDF representation of the representation’s image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFImageRep/pdfRepresentation

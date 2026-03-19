@@ -105,101 +105,82 @@ func NSCollectionLayoutVisibleItemObjectFromID(id objc.ID) NSCollectionLayoutVis
 // The name of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/name
-
 func (o NSCollectionLayoutVisibleItemObject) Name() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // A string that identifies the type of item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/representedElementKind
-
 func (o NSCollectionLayoutVisibleItemObject) RepresentedElementKind() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("representedElementKind"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // A category that identifies the item, such as decoration or supplementary
 // view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/representedElementCategory
-
 func (o NSCollectionLayoutVisibleItemObject) RepresentedElementCategory() NSCollectionElementCategory {
 	
 	rv := objc.Send[NSCollectionElementCategory](o.ID, objc.Sel("representedElementCategory"))
 	return rv
 	}
-
 // The index path of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/indexPath
-
 func (o NSCollectionLayoutVisibleItemObject) IndexPath() objc.ID {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexPath"))
 	return rv
 	}
-
 // The transparency of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/alpha
-
 func (o NSCollectionLayoutVisibleItemObject) Alpha() float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("alpha"))
 	return rv
 	}
-
 // A Boolean value that determines whether the item is hidden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-
 func (o NSCollectionLayoutVisibleItemObject) IsHidden() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isHidden"))
 	return rv
 	}
-
 // The frame rectangle, which describes the item’s location and size in its
 // section’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/frame
-
 func (o NSCollectionLayoutVisibleItemObject) Frame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("frame"))
 	return rv
 	}
-
 // The bounds rectangle, which describes the item’s location and size in its
 // own coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/bounds
-
 func (o NSCollectionLayoutVisibleItemObject) Bounds() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("bounds"))
 	return rv
 	}
-
 // The center point of the item’s frame rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/center
-
 func (o NSCollectionLayoutVisibleItemObject) Center() corefoundation.CGPoint {
 	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
-
 // The vertical stacking order of the item in relation to other items in the
 // section.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/zIndex
-
 func (o NSCollectionLayoutVisibleItemObject) ZIndex() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("zIndex"))

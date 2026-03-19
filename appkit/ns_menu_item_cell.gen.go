@@ -224,7 +224,6 @@ func NewMenuItemCellWithCoder(coder foundation.INSCoder) NSMenuItemCell {
 func (m NSMenuItemCell) CalcSize() {
 	objc.Send[objc.ID](m.ID, objc.Sel("calcSize"))
 }
-
 // Returns the rectangle into which the menu item’s key equivalent should be
 // drawn.
 //
@@ -240,7 +239,6 @@ func (m NSMenuItemCell) KeyEquivalentRectForBounds(cellFrame corefoundation.CGRe
 	rv := objc.Send[corefoundation.CGRect](m.ID, objc.Sel("keyEquivalentRectForBounds:"), cellFrame)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the rectangle into which the menu item’s state image should be
 // drawn.
 //
@@ -256,7 +254,6 @@ func (m NSMenuItemCell) StateImageRectForBounds(cellFrame corefoundation.CGRect)
 	rv := objc.Send[corefoundation.CGRect](m.ID, objc.Sel("stateImageRectForBounds:"), cellFrame)
 	return corefoundation.CGRect(rv)
 }
-
 // Draws the borders and background associated with the receiver’s menu item
 // (if any).
 //
@@ -275,7 +272,6 @@ func (m NSMenuItemCell) StateImageRectForBounds(cellFrame corefoundation.CGRect)
 func (m NSMenuItemCell) DrawBorderAndBackgroundWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](m.ID, objc.Sel("drawBorderAndBackgroundWithFrame:inView:"), cellFrame, controlView)
 }
-
 // Draws the key equivalent associated with the menu item.
 //
 // cellFrame: A rectangle defining the receiver’s frame area.
@@ -294,7 +290,6 @@ func (m NSMenuItemCell) DrawBorderAndBackgroundWithFrameInView(cellFrame corefou
 func (m NSMenuItemCell) DrawKeyEquivalentWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](m.ID, objc.Sel("drawKeyEquivalentWithFrame:inView:"), cellFrame, controlView)
 }
-
 // Draws a menu item separator.
 //
 // cellFrame: A rectangle defining the receiver’s frame area.
@@ -315,7 +310,6 @@ func (m NSMenuItemCell) DrawKeyEquivalentWithFrameInView(cellFrame corefoundatio
 func (m NSMenuItemCell) DrawSeparatorItemWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](m.ID, objc.Sel("drawSeparatorItemWithFrame:inView:"), cellFrame, controlView)
 }
-
 // Draws the state image associated with the menu item.
 //
 // cellFrame: A rectangle defining the receiver’s frame area.
@@ -345,7 +339,6 @@ func (m NSMenuItemCell) MenuItem() INSMenuItem {
 func (m NSMenuItemCell) SetMenuItem(value INSMenuItem) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMenuItem:"), value)
 }
-
 // A Boolean value indicating whether the size of the menu needs to be
 // calculated.
 //
@@ -373,7 +366,6 @@ func (m NSMenuItemCell) NeedsSizing() bool {
 func (m NSMenuItemCell) SetNeedsSizing(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNeedsSizing:"), value)
 }
-
 // The width of the image associated with the menu item.
 //
 // # Discussion
@@ -386,7 +378,6 @@ func (m NSMenuItemCell) ImageWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("imageWidth"))
 	return rv
 }
-
 // The width of the menu item’s text, measured in points.
 //
 // # Discussion
@@ -398,7 +389,6 @@ func (m NSMenuItemCell) TitleWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("titleWidth"))
 	return rv
 }
-
 // The width of the menu item’s key equivalent string.
 //
 // # Discussion
@@ -411,7 +401,6 @@ func (m NSMenuItemCell) KeyEquivalentWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("keyEquivalentWidth"))
 	return rv
 }
-
 // The width of the image used to indicate the state of the menu item.
 //
 // # Discussion
@@ -430,7 +419,6 @@ func (m NSMenuItemCell) StateImageWidth() float64 {
 	rv := objc.Send[float64](m.ID, objc.Sel("stateImageWidth"))
 	return rv
 }
-
 // A Boolean value indicating whether the menu item needs to be displayed.
 //
 // # Discussion

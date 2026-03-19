@@ -221,7 +221,6 @@ func NewMutableCharacterSetWithRange(aRange NSRange) NSMutableCharacterSet {
 func (m NSMutableCharacterSet) AddCharactersInRange(aRange NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addCharactersInRange:"), aRange)
 }
-
 // Removes from the receiver the characters whose Unicode values are in a
 // given range.
 //
@@ -234,7 +233,6 @@ func (m NSMutableCharacterSet) AddCharactersInRange(aRange NSRange) {
 func (m NSMutableCharacterSet) RemoveCharactersInRange(aRange NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeCharactersInRange:"), aRange)
 }
-
 // Adds to the receiver the characters in a given string.
 //
 // aString: The characters to add to the receiver.
@@ -247,7 +245,6 @@ func (m NSMutableCharacterSet) RemoveCharactersInRange(aRange NSRange) {
 func (m NSMutableCharacterSet) AddCharactersInString(aString string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addCharactersInString:"), objc.String(aString))
 }
-
 // Removes from the receiver the characters in a given string.
 //
 // aString: The characters to remove from the receiver.
@@ -260,7 +257,6 @@ func (m NSMutableCharacterSet) AddCharactersInString(aString string) {
 func (m NSMutableCharacterSet) RemoveCharactersInString(aString string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeCharactersInString:"), objc.String(aString))
 }
-
 // Modifies the receiver so it contains only characters that exist in both the
 // receiver and another set.
 //
@@ -270,7 +266,6 @@ func (m NSMutableCharacterSet) RemoveCharactersInString(aString string) {
 func (m NSMutableCharacterSet) FormIntersectionWithCharacterSet(otherSet INSCharacterSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("formIntersectionWithCharacterSet:"), otherSet)
 }
-
 // Modifies the receiver so it contains all characters that exist in either
 // the receiver or another set.
 //
@@ -278,7 +273,6 @@ func (m NSMutableCharacterSet) FormIntersectionWithCharacterSet(otherSet INSChar
 func (m NSMutableCharacterSet) FormUnionWithCharacterSet(otherSet INSCharacterSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("formUnionWithCharacterSet:"), otherSet)
 }
-
 // Replaces all the characters in the receiver with all the characters it
 // didn’t previously contain.
 //

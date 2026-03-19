@@ -190,7 +190,6 @@ func (t VNTrackingRequest) InputObservation() IVNDetectedObjectObservation {
 func (t VNTrackingRequest) SetInputObservation(value IVNDetectedObjectObservation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setInputObservation:"), value)
 }
-
 // A value for specifying whether to prioritize speed or location accuracy.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackingRequest/trackingLevel
@@ -201,7 +200,6 @@ func (t VNTrackingRequest) TrackingLevel() VNRequestTrackingLevel {
 func (t VNTrackingRequest) SetTrackingLevel(value VNRequestTrackingLevel) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTrackingLevel:"), value)
 }
-
 // A Boolean that indicates the last frame in a tracking sequence.
 //
 // # Discussion

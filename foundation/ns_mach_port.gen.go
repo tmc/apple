@@ -208,7 +208,6 @@ func (m NSMachPort) InitWithMachPort(machPort uint32) NSMachPort {
 	rv := objc.Send[NSMachPort](m.ID, objc.Sel("initWithMachPort:"), machPort)
 	return rv
 }
-
 // Initializes a newly allocated [NSMachPort] object with a given Mach port
 // and the specified options.
 //
@@ -257,7 +256,6 @@ func (_NSMachPortClass NSMachPortClass) PortWithMachPort(machPort uint32) Port {
 	rv := objc.Send[objc.ID](objc.ID(_NSMachPortClass.class), objc.Sel("portWithMachPort:"), machPort)
 	return NSPortFromID(rv)
 }
-
 // Creates and returns a port object configured with the specified options and
 // the given Mach port.
 //

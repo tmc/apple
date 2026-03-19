@@ -100,14 +100,6 @@ func NewSimpleCStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSSimp
 	return NSSimpleCStringFromID(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func NewSimpleCStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSSimpleCString {
-	instance := getNSSimpleCStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, deallocator)
-	return NSSimpleCStringFromID(rv)
-}
-
 // Returns an initialized [NSString] object that contains a given number of
 // bytes from a given buffer of bytes interpreted in a given encoding, and
 // optionally frees the buffer.
@@ -196,14 +188,6 @@ func NewSimpleCStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length ui
 func NewSimpleCStringWithCharactersLength(characters unsafe.Pointer, length uint) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
-	return NSSimpleCStringFromID(rv)
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:deallocator:)
-func NewSimpleCStringWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSSimpleCString {
-	instance := getNSSimpleCStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:deallocator:"), chars, len_, deallocator)
 	return NSSimpleCStringFromID(rv)
 }
 

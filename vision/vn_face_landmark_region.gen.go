@@ -113,7 +113,6 @@ func (f VNFaceLandmarkRegion) PointCount() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("pointCount"))
 	return rv
 }
-
 // The facial features of the detected face.
 //
 // See: https://developer.apple.com/documentation/vision/vnfaceobservation/landmarks
@@ -124,7 +123,6 @@ func (f VNFaceLandmarkRegion) Landmarks() IVNFaceLandmarks2D {
 func (f VNFaceLandmarkRegion) SetLandmarks(value IVNFaceLandmarks2D) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
 }
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //

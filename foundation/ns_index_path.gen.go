@@ -294,7 +294,6 @@ func (i NSIndexPath) InitWithIndex(index uint) NSIndexPath {
 	rv := objc.Send[NSIndexPath](i.ID, objc.Sel("initWithIndex:"), index)
 	return rv
 }
-
 // Initializes an index path with the given nodes and length.
 //
 // indexes: Array of indexes to make up the index path.
@@ -314,7 +313,6 @@ func (i NSIndexPath) InitWithIndexesLength(indexes uint, length uint) NSIndexPat
 	rv := objc.Send[NSIndexPath](i.ID, objc.Sel("initWithIndexes:length:"), indexes, length)
 	return rv
 }
-
 // Returns an index path containing the nodes in the receiving index path plus
 // another given index.
 //
@@ -330,7 +328,6 @@ func (i NSIndexPath) IndexPathByAddingIndex(index uint) objc.ID {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("indexPathByAddingIndex:"), index)
 	return rv
 }
-
 // Returns an index path with the nodes in the receiving index path, excluding
 // the last one.
 //
@@ -355,7 +352,6 @@ func (i NSIndexPath) IndexPathByRemovingLastIndex() objc.ID {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("indexPathByRemovingLastIndex"))
 	return rv
 }
-
 // Indicates the depth-first traversal order of the receiving index path and
 // another index path.
 //
@@ -381,7 +377,6 @@ func (i NSIndexPath) Compare(otherObject objectivec.IObject) ComparisonResult {
 	rv := objc.Send[ComparisonResult](i.ID, objc.Sel("compare:"), otherObject)
 	return ComparisonResult(rv)
 }
-
 // Provides the value at a particular node in the index path.
 //
 // position: Index value of the desired node. Node numbering starts at zero.
@@ -396,7 +391,6 @@ func (i NSIndexPath) IndexAtPosition(position uint) uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("indexAtPosition:"), position)
 	return rv
 }
-
 // Copies the indexes stored in the index path from the positions specified by
 // the position range into the specified indexes.
 //
@@ -420,7 +414,6 @@ func (i NSIndexPath) IndexAtPosition(position uint) uint {
 func (i NSIndexPath) GetIndexesRange(indexes unsafe.Pointer, positionRange NSRange) {
 	objc.Send[objc.ID](i.ID, objc.Sel("getIndexes:range:"), indexes, positionRange)
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -429,7 +422,6 @@ func (i NSIndexPath) GetIndexesRange(indexes unsafe.Pointer, positionRange NSRan
 func (i NSIndexPath) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (i NSIndexPath) InitWithCoder(coder INSCoder) NSIndexPath {
@@ -450,7 +442,6 @@ func (_NSIndexPathClass NSIndexPathClass) IndexPathWithIndex(index uint) NSIndex
 	rv := objc.Send[objc.ID](objc.ID(_NSIndexPathClass.class), objc.Sel("indexPathWithIndex:"), index)
 	return NSIndexPathFromID(rv)
 }
-
 // Creates an index path with one or more nodes.
 //
 // indexes: Array of indexes to make up the index path.
@@ -474,7 +465,6 @@ func (i NSIndexPath) Section() int {
 	rv := objc.Send[int](i.ID, objc.Sel("section"))
 	return rv
 }
-
 // An index number identifying an item in a section of a collection view.
 //
 // # Discussion
@@ -486,7 +476,6 @@ func (i NSIndexPath) Item() int {
 	rv := objc.Send[int](i.ID, objc.Sel("item"))
 	return rv
 }
-
 // The number of nodes in the index path.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath/length

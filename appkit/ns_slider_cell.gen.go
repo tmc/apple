@@ -327,7 +327,6 @@ func (s NSSliderCell) BarRectFlipped(flipped bool) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("barRectFlipped:"), flipped)
 	return corefoundation.CGRect(rv)
 }
-
 // Draws the slider’s tick marks.
 //
 // # Discussion
@@ -339,7 +338,6 @@ func (s NSSliderCell) BarRectFlipped(flipped bool) corefoundation.CGRect {
 func (s NSSliderCell) DrawTickMarks() {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawTickMarks"))
 }
-
 // Returns the rectangle in which the slider knob is drawn.
 //
 // flipped: [true] if the coordinate system of the associated [NSSlider] or [NSMatrix]
@@ -368,7 +366,6 @@ func (s NSSliderCell) KnobRectFlipped(flipped bool) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("knobRectFlipped:"), flipped)
 	return corefoundation.CGRect(rv)
 }
-
 // Draws the slider’s bar—but not its bezel or knob—inside the specified
 // rectangle.
 //
@@ -387,7 +384,6 @@ func (s NSSliderCell) KnobRectFlipped(flipped bool) corefoundation.CGRect {
 func (s NSSliderCell) DrawBarInsideFlipped(rect corefoundation.CGRect, flipped bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawBarInside:flipped:"), rect, flipped)
 }
-
 // Calculates the rectangle in which the knob should be drawn, then calls
 // [DrawKnob] to actually draw the knob.
 //
@@ -408,7 +404,6 @@ func (s NSSliderCell) DrawBarInsideFlipped(rect corefoundation.CGRect, flipped b
 func (s NSSliderCell) DrawKnob() {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawKnob"))
 }
-
 // Draws the slider knob in the given rectangle.
 //
 // knobRect: The rectangle in which to draw the slider knob.
@@ -427,7 +422,6 @@ func (s NSSliderCell) DrawKnob() {
 func (s NSSliderCell) DrawKnobWithKnobRect(knobRect corefoundation.CGRect) {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawKnob:"), knobRect)
 }
-
 // Returns the value of the tick mark closest to the specified value.
 //
 // value: The value for which to obtain the closest tick mark.
@@ -441,7 +435,6 @@ func (s NSSliderCell) ClosestTickMarkValueToValue(value float64) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("closestTickMarkValueToValue:"), value)
 	return rv
 }
-
 // Returns the index of the tick mark closest to the location of the slider
 // represented by the specified point.
 //
@@ -463,7 +456,6 @@ func (s NSSliderCell) IndexOfTickMarkAtPoint(point corefoundation.CGPoint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("indexOfTickMarkAtPoint:"), point)
 	return rv
 }
-
 // Returns the bounding rectangle of the tick mark at the specified index.
 //
 // index: The index of the tick mark for which to return the bounding rectangle. The
@@ -483,7 +475,6 @@ func (s NSSliderCell) RectOfTickMarkAtIndex(index int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rectOfTickMarkAtIndex:"), index)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the receiver’s value represented by the tick mark at the
 // specified index.
 //
@@ -519,7 +510,6 @@ func (s NSSliderCell) AltIncrementValue() float64 {
 func (s NSSliderCell) SetAltIncrementValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAltIncrementValue:"), value)
 }
-
 // The rectangle within which the cell tracks the pointer while the mouse
 // button is down.
 //
@@ -532,7 +522,6 @@ func (s NSSliderCell) TrackRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("trackRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The slider type, either linear or circular.
 //
 // # Discussion
@@ -561,7 +550,6 @@ func (s NSSliderCell) SliderType() NSSliderType {
 func (s NSSliderCell) SetSliderType(value NSSliderType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSliderType:"), value)
 }
-
 // The thickness of the slider knob, in pixels.
 //
 // # Discussion
@@ -575,7 +563,6 @@ func (s NSSliderCell) KnobThickness() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("knobThickness"))
 	return rv
 }
-
 // An integer indicating the orientation (vertical or horizontal) of the
 // slider.
 //
@@ -594,7 +581,6 @@ func (s NSSliderCell) Vertical() bool {
 func (s NSSliderCell) SetVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
-
 // The maximum value the slider can send to its target.
 //
 // # Discussion
@@ -613,7 +599,6 @@ func (s NSSliderCell) MaxValue() float64 {
 func (s NSSliderCell) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
-
 // The minimum value the slider can send to its target.
 //
 // # Discussion
@@ -630,7 +615,6 @@ func (s NSSliderCell) MinValue() float64 {
 func (s NSSliderCell) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
-
 // A Boolean value indicating whether the receiver fixes its values to those
 // values represented by its tick marks.
 //
@@ -655,7 +639,6 @@ func (s NSSliderCell) AllowsTickMarkValuesOnly() bool {
 func (s NSSliderCell) SetAllowsTickMarkValuesOnly(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsTickMarkValuesOnly:"), value)
 }
-
 // The number of tick marks associated with the slider, including the tick
 // marks assigned to the minimum and maximum values.
 //
@@ -673,7 +656,6 @@ func (s NSSliderCell) NumberOfTickMarks() int {
 func (s NSSliderCell) SetNumberOfTickMarks(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNumberOfTickMarks:"), value)
 }
-
 // The position of the tick marks relative to the receiver.
 //
 // # Discussion

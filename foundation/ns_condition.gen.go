@@ -193,7 +193,6 @@ func NewNSCondition() NSCondition {
 func (c NSCondition) Wait() {
 	objc.Send[objc.ID](c.ID, objc.Sel("wait"))
 }
-
 // Blocks the current thread until the condition is signaled or the specified
 // time limit is reached.
 //
@@ -217,7 +216,6 @@ func (c NSCondition) WaitUntilDate(limit INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("waitUntilDate:"), limit)
 	return rv
 }
-
 // Signals the condition, waking up one thread waiting on it.
 //
 // # Discussion
@@ -233,7 +231,6 @@ func (c NSCondition) WaitUntilDate(limit INSDate) bool {
 func (c NSCondition) Signal() {
 	objc.Send[objc.ID](c.ID, objc.Sel("signal"))
 }
-
 // Signals the condition, waking up all threads waiting on it.
 //
 // # Discussion
@@ -247,7 +244,6 @@ func (c NSCondition) Signal() {
 func (c NSCondition) Broadcast() {
 	objc.Send[objc.ID](c.ID, objc.Sel("broadcast"))
 }
-
 // Attempts to acquire a lock, blocking a thread’s execution until the lock
 // can be acquired.
 //
@@ -261,7 +257,6 @@ func (c NSCondition) Broadcast() {
 func (c NSCondition) Lock() {
 	objc.Send[objc.ID](c.ID, objc.Sel("lock"))
 }
-
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()

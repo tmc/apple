@@ -159,7 +159,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) AllowDuplicateIntersectionF
 func (m MTL4AccelerationStructureGeometryDescriptor) SetAllowDuplicateIntersectionFunctionInvocation(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowDuplicateIntersectionFunctionInvocation:"), value)
 }
-
 // Sets the offset that this geometry contributes to determining the
 // intersection function to invoke when a ray intersects it.
 //
@@ -195,7 +194,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) IntersectionFunctionTableOf
 func (m MTL4AccelerationStructureGeometryDescriptor) SetIntersectionFunctionTableOffset(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIntersectionFunctionTableOffset:"), value)
 }
-
 // Assigns an optional label you can assign to this geometry for debugging
 // purposes.
 //
@@ -207,7 +205,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) Label() string {
 func (m MTL4AccelerationStructureGeometryDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // Provides a hint to Metal that this geometry is opaque, potentially
 // accelerating the ray/primitive intersection process.
 //
@@ -219,7 +216,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) Opaque() bool {
 func (m MTL4AccelerationStructureGeometryDescriptor) SetOpaque(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOpaque:"), value)
 }
-
 // Assigns optional buffer containing data to associate with each primitive in
 // this geometry.
 //
@@ -235,7 +231,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) PrimitiveDataBuffer() MTL4B
 func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrimitiveDataBuffer:"), value)
 }
-
 // Sets the size, in bytes, of the data for each primitive in the primitive
 // data buffer [PrimitiveDataBuffer] references.
 //
@@ -254,7 +249,6 @@ func (m MTL4AccelerationStructureGeometryDescriptor) PrimitiveDataElementSize() 
 func (m MTL4AccelerationStructureGeometryDescriptor) SetPrimitiveDataElementSize(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPrimitiveDataElementSize:"), value)
 }
-
 // Defines the stride, in bytes, between each primitive’s data in the
 // primitive data buffer [PrimitiveDataBuffer] references.
 //

@@ -174,7 +174,6 @@ func NewPopoverTouchBarItemWithIdentifier(identifier NSTouchBarItemIdentifier) N
 func (p NSPopoverTouchBarItem) ShowPopover(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("showPopover:"), sender)
 }
-
 // Restores the previously visible main bar.
 //
 // # Discussion
@@ -186,7 +185,6 @@ func (p NSPopoverTouchBarItem) ShowPopover(sender objectivec.IObject) {
 func (p NSPopoverTouchBarItem) DismissPopover(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("dismissPopover:"), sender)
 }
-
 // Returns a gesture recognizer, configured to invoke the [ShowPopover]
 // method.
 //
@@ -216,7 +214,6 @@ func (p NSPopoverTouchBarItem) CollapsedRepresentationImage() objectivec.Object 
 func (p NSPopoverTouchBarItem) SetCollapsedRepresentationImage(value objectivec.Object) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationImage:"), value)
 }
-
 // The localized string displayed by the button for the default collapsed
 // representation.
 //
@@ -233,7 +230,6 @@ func (p NSPopoverTouchBarItem) CollapsedRepresentationLabel() string {
 func (p NSPopoverTouchBarItem) SetCollapsedRepresentationLabel(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationLabel:"), objc.String(value))
 }
-
 // A Boolean value that determines whether a close button should be shown on
 // the popover bar.
 //

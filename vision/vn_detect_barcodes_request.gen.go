@@ -183,7 +183,6 @@ func (d VNDetectBarcodesRequest) Symbologies() []string {
 func (d VNDetectBarcodesRequest) SetSymbologies(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSymbologies:"), objectivec.StringSliceToNSArray(value))
 }
-
 // A Boolean value that indicates whether to coalesce multiple codes based on
 // the symbology.
 //
@@ -195,7 +194,6 @@ func (d VNDetectBarcodesRequest) CoalesceCompositeSymbologies() bool {
 func (d VNDetectBarcodesRequest) SetCoalesceCompositeSymbologies(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCoalesceCompositeSymbologies:"), value)
 }
-
 // A constant for specifying revision 3 of the barcode detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision3
@@ -203,7 +201,6 @@ func (d VNDetectBarcodesRequest) VNDetectBarcodesRequestRevision3() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectBarcodesRequestRevision3"))
 	return rv
 }
-
 // A constant for specifying revision 2 of the barcode detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision2
@@ -211,7 +208,6 @@ func (d VNDetectBarcodesRequest) VNDetectBarcodesRequestRevision2() int {
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectBarcodesRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the barcode detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectbarcodesrequestrevision1

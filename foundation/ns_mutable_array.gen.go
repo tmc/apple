@@ -460,7 +460,6 @@ func (m NSMutableArray) InitWithCapacity(numItems uint) NSMutableArray {
 	rv := objc.Send[NSMutableArray](m.ID, objc.Sel("initWithCapacity:"), numItems)
 	return rv
 }
-
 // Inserts a given object at the end of the array.
 //
 // anObject: The object to add to the end of the array’s content. This value must not
@@ -470,7 +469,6 @@ func (m NSMutableArray) InitWithCapacity(numItems uint) NSMutableArray {
 func (m NSMutableArray) AddObject(anObject objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addObject:"), anObject)
 }
-
 // Adds the objects contained in another given array to the end of the
 // receiving array’s content.
 //
@@ -480,7 +478,6 @@ func (m NSMutableArray) AddObject(anObject objectivec.IObject) {
 func (m NSMutableArray) AddObjectsFromArray(otherArray []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addObjectsFromArray:"), objectivec.IObjectSliceToNSArray(otherArray))
 }
-
 // Inserts a given object into the array’s contents at a given index.
 //
 // anObject: The object to add to the array’s content. This value must not be `nil`.
@@ -506,7 +503,6 @@ func (m NSMutableArray) AddObjectsFromArray(otherArray []objectivec.IObject) {
 func (m NSMutableArray) InsertObjectAtIndex(anObject objectivec.IObject, index uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertObject:atIndex:"), anObject, index)
 }
-
 // Inserts the objects in the provided array into the receiving array at the
 // specified indexes.
 //
@@ -549,21 +545,18 @@ func (m NSMutableArray) InsertObjectAtIndex(anObject objectivec.IObject, index u
 func (m NSMutableArray) InsertObjectsAtIndexes(objects []objectivec.IObject, indexes INSIndexSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertObjects:atIndexes:"), objectivec.IObjectSliceToNSArray(objects), indexes)
 }
-
 // Empties the array of all its elements.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/removeAllObjects()
 func (m NSMutableArray) RemoveAllObjects() {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAllObjects"))
 }
-
 // Removes the object with the highest-valued index in the array
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/removeLastObject()
 func (m NSMutableArray) RemoveLastObject() {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeLastObject"))
 }
-
 // Removes all occurrences in the array of a given object.
 //
 // anObject: The object to remove from the array.
@@ -579,7 +572,6 @@ func (m NSMutableArray) RemoveLastObject() {
 func (m NSMutableArray) RemoveObject(anObject objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObject:"), anObject)
 }
-
 // Removes all occurrences within a specified range in the array of a given
 // object.
 //
@@ -598,7 +590,6 @@ func (m NSMutableArray) RemoveObject(anObject objectivec.IObject) {
 func (m NSMutableArray) RemoveObjectInRange(anObject objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObject:inRange:"), anObject, range_)
 }
-
 // Removes the object at `index` .
 //
 // index: The index from which to remove the object in the array. The value must not
@@ -613,7 +604,6 @@ func (m NSMutableArray) RemoveObjectInRange(anObject objectivec.IObject, range_ 
 func (m NSMutableArray) RemoveObjectAtIndex(index uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectAtIndex:"), index)
 }
-
 // Removes the objects at the specified indexes from the array.
 //
 // indexes: The indexes of the objects to remove from the array. The locations
@@ -632,7 +622,6 @@ func (m NSMutableArray) RemoveObjectAtIndex(index uint) {
 func (m NSMutableArray) RemoveObjectsAtIndexes(indexes INSIndexSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectsAtIndexes:"), indexes)
 }
-
 // Removes all occurrences of a given object in the array.
 //
 // anObject: The object to remove from the array.
@@ -648,7 +637,6 @@ func (m NSMutableArray) RemoveObjectsAtIndexes(indexes INSIndexSet) {
 func (m NSMutableArray) RemoveObjectIdenticalTo(anObject objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectIdenticalTo:"), anObject)
 }
-
 // Removes all occurrences of `anObject` within the specified range in the
 // array.
 //
@@ -667,7 +655,6 @@ func (m NSMutableArray) RemoveObjectIdenticalTo(anObject objectivec.IObject) {
 func (m NSMutableArray) RemoveObjectIdenticalToInRange(anObject objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectIdenticalTo:inRange:"), anObject, range_)
 }
-
 // Removes from the receiving array the objects in another given array.
 //
 // otherArray: An array containing the objects to be removed from the receiving array.
@@ -686,7 +673,6 @@ func (m NSMutableArray) RemoveObjectIdenticalToInRange(anObject objectivec.IObje
 func (m NSMutableArray) RemoveObjectsInArray(otherArray []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectsInArray:"), objectivec.IObjectSliceToNSArray(otherArray))
 }
-
 // Removes from the array each of the objects within a given range.
 //
 // range: The range of the objects to be removed from the array.
@@ -699,7 +685,6 @@ func (m NSMutableArray) RemoveObjectsInArray(otherArray []objectivec.IObject) {
 func (m NSMutableArray) RemoveObjectsInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObjectsInRange:"), range_)
 }
-
 // Replaces the object at `index` with `anObject`.
 //
 // index: The index of the object to be replaced. This value must not exceed the
@@ -712,7 +697,6 @@ func (m NSMutableArray) RemoveObjectsInRange(range_ NSRange) {
 func (m NSMutableArray) ReplaceObjectAtIndexWithObject(index uint, anObject objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectAtIndex:withObject:"), index, anObject)
 }
-
 // Replaces the objects in the receiving array at locations specified with the
 // objects from a given array.
 //
@@ -733,7 +717,6 @@ func (m NSMutableArray) ReplaceObjectAtIndexWithObject(index uint, anObject obje
 func (m NSMutableArray) ReplaceObjectsAtIndexesWithObjects(indexes INSIndexSet, objects []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectsAtIndexes:withObjects:"), indexes, objectivec.IObjectSliceToNSArray(objects))
 }
-
 // Replaces the objects in the receiving array specified by one given range
 // with the objects in another array specified by another range.
 //
@@ -757,7 +740,6 @@ func (m NSMutableArray) ReplaceObjectsAtIndexesWithObjects(indexes INSIndexSet, 
 func (m NSMutableArray) ReplaceObjectsInRangeWithObjectsFromArrayRange(range_ NSRange, otherArray []objectivec.IObject, otherRange NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectsInRange:withObjectsFromArray:range:"), range_, objectivec.IObjectSliceToNSArray(otherArray), otherRange)
 }
-
 // Replaces the objects in the receiving array specified by a given range with
 // all of the objects from a given array.
 //
@@ -778,7 +760,6 @@ func (m NSMutableArray) ReplaceObjectsInRangeWithObjectsFromArrayRange(range_ NS
 func (m NSMutableArray) ReplaceObjectsInRangeWithObjectsFromArray(range_ NSRange, otherArray []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectsInRange:withObjectsFromArray:"), range_, objectivec.IObjectSliceToNSArray(otherArray))
 }
-
 // Sets the receiving array’s elements to those in another given array.
 //
 // otherArray: The array of objects with which to replace the receiving array’s content.
@@ -787,7 +768,6 @@ func (m NSMutableArray) ReplaceObjectsInRangeWithObjectsFromArray(range_ NSRange
 func (m NSMutableArray) SetArray(otherArray []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setArray:"), objectivec.IObjectSliceToNSArray(otherArray))
 }
-
 // Evaluates a given predicate against the array’s content and leaves only
 // objects that match.
 //
@@ -797,7 +777,6 @@ func (m NSMutableArray) SetArray(otherArray []objectivec.IObject) {
 func (m NSMutableArray) FilterUsingPredicate(predicate INSPredicate) {
 	objc.Send[objc.ID](m.ID, objc.Sel("filterUsingPredicate:"), predicate)
 }
-
 // Exchanges the objects in the array at given indexes.
 //
 // idx1: The index of the object with which to replace the object at index `idx2`.
@@ -808,7 +787,6 @@ func (m NSMutableArray) FilterUsingPredicate(predicate INSPredicate) {
 func (m NSMutableArray) ExchangeObjectAtIndexWithObjectAtIndex(idx1 uint, idx2 uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("exchangeObjectAtIndex:withObjectAtIndex:"), idx1, idx2)
 }
-
 // Sorts the receiver using a given array of sort descriptors.
 //
 // sortDescriptors: An array containing the [NSSortDescriptor] objects to use to sort the
@@ -822,7 +800,6 @@ func (m NSMutableArray) ExchangeObjectAtIndexWithObjectAtIndex(idx1 uint, idx2 u
 func (m NSMutableArray) SortUsingDescriptors(sortDescriptors []NSSortDescriptor) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingDescriptors:"), objectivec.IObjectSliceToNSArray(sortDescriptors))
 }
-
 // Sorts the receiver in ascending order using the comparison method specified
 // by a given [NSComparator] block.
 //
@@ -832,7 +809,6 @@ func (m NSMutableArray) SortUsingDescriptors(sortDescriptors []NSSortDescriptor)
 func (m NSMutableArray) SortUsingComparator(cmptr NSComparator) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), cmptr)
 }
-
 // Sorts the receiver in ascending order using the specified options and the
 // comparison method specified by a given [NSComparator] block.
 //
@@ -845,7 +821,6 @@ func (m NSMutableArray) SortUsingComparator(cmptr NSComparator) {
 func (m NSMutableArray) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, cmptr)
 }
-
 // Sorts the receiver in ascending order as defined by the comparison function
 // `compare`.
 //
@@ -868,7 +843,6 @@ func (m NSMutableArray) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr
 func (m NSMutableArray) SortUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingFunction:context:"), compare, context)
 }
-
 // Sorts the receiver in ascending order, as determined by the comparison
 // method specified by a given selector.
 //
@@ -885,13 +859,11 @@ func (m NSMutableArray) SortUsingFunctionContext(compare objectivec.IObject, con
 func (m NSMutableArray) SortUsingSelector(comparator objc.SEL) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingSelector:"), comparator)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/applyDifference:
 func (m NSMutableArray) ApplyDifference(difference INSOrderedCollectionDifference) {
 	objc.Send[objc.ID](m.ID, objc.Sel("applyDifference:"), difference)
 }
-
 // Replaces the object at the index with the new object, possibly adding the
 // object.
 //

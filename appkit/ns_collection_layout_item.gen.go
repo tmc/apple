@@ -175,7 +175,6 @@ func (c NSCollectionLayoutItem) LayoutSize() INSCollectionLayoutSize {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutSize"))
 	return NSCollectionLayoutSizeFromID(objc.ID(rv))
 }
-
 // An array of the supplementary items attached to the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutItem/supplementaryItems
@@ -185,7 +184,6 @@ func (c NSCollectionLayoutItem) SupplementaryItems() []NSCollectionLayoutSupplem
 		return NSCollectionLayoutSupplementaryItemFromID(id)
 	})
 }
-
 // The amount of space added around the boundaries of the item between other
 // items and this item’s container.
 //
@@ -209,7 +207,6 @@ func (c NSCollectionLayoutItem) EdgeSpacing() INSCollectionLayoutEdgeSpacing {
 func (c NSCollectionLayoutItem) SetEdgeSpacing(value INSCollectionLayoutEdgeSpacing) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEdgeSpacing:"), value)
 }
-
 // The amount of space added around the content of the item to adjust its
 // final size after its position is computed.
 //

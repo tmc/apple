@@ -255,7 +255,6 @@ func (i InputStream) InitWithData(data INSData) InputStream {
 	rv := objc.Send[InputStream](i.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
-
 // Initializes and returns an [NSInputStream] object that reads data from the
 // file at a given path.
 //
@@ -275,7 +274,6 @@ func (i InputStream) InitWithFileAtPath(path string) InputStream {
 	rv := objc.Send[InputStream](i.ID, objc.Sel("initWithFileAtPath:"), objc.String(path))
 	return rv
 }
-
 // Initializes and returns an [NSInputStream] object that reads data from the
 // file at a given URL.
 //
@@ -295,7 +293,6 @@ func (i InputStream) InitWithURL(url INSURL) InputStream {
 	rv := objc.Send[InputStream](i.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
-
 // Reads up to a given number of bytes into a given buffer.
 //
 // buffer: A data buffer. The buffer must be large enough to contain the number of
@@ -319,7 +316,6 @@ func (i InputStream) ReadMaxLength(buffer unsafe.Pointer, len_ uint) int {
 	rv := objc.Send[int](i.ID, objc.Sel("read:maxLength:"), buffer, len_)
 	return rv
 }
-
 // Returns by reference a pointer to a read buffer and, by reference, the
 // number of bytes available, and returns a Boolean value that indicates
 // whether the buffer is available.
@@ -369,7 +365,6 @@ func (_InputStreamClass InputStreamClass) InputStreamWithData(data INSData) Inpu
 	rv := objc.Send[objc.ID](objc.ID(_InputStreamClass.class), objc.Sel("inputStreamWithData:"), data)
 	return NSInputStreamFromID(rv)
 }
-
 // Creates and returns an initialized [NSInputStream] object that reads data
 // from the file at a given path.
 //
@@ -389,7 +384,6 @@ func (_InputStreamClass InputStreamClass) InputStreamWithFileAtPath(path string)
 	rv := objc.Send[objc.ID](objc.ID(_InputStreamClass.class), objc.Sel("inputStreamWithFileAtPath:"), objc.String(path))
 	return NSInputStreamFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInputStream/inputStreamWithURL:
 func (_InputStreamClass InputStreamClass) InputStreamWithURL(url INSURL) InputStream {

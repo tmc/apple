@@ -221,7 +221,6 @@ func (c NSCollectionLayoutSection) OrthogonalScrollingBehavior() NSCollectionLay
 func (c NSCollectionLayoutSection) SetOrthogonalScrollingBehavior(value NSCollectionLayoutSectionOrthogonalScrollingBehavior) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOrthogonalScrollingBehavior:"), value)
 }
-
 // The amount of space between the groups in the section.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSection/interGroupSpacing
@@ -232,7 +231,6 @@ func (c NSCollectionLayoutSection) InterGroupSpacing() float64 {
 func (c NSCollectionLayoutSection) SetInterGroupSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInterGroupSpacing:"), value)
 }
-
 // The amount of space between the content of the section and its boundaries.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSection/contentInsets
@@ -243,7 +241,6 @@ func (c NSCollectionLayoutSection) ContentInsets() NSDirectionalEdgeInsets {
 func (c NSCollectionLayoutSection) SetContentInsets(value NSDirectionalEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContentInsets:"), value)
 }
-
 // An array of the supplementary items that are associated with the boundary
 // edges of the section, such as headers and footers.
 //
@@ -257,7 +254,6 @@ func (c NSCollectionLayoutSection) BoundarySupplementaryItems() []NSCollectionLa
 func (c NSCollectionLayoutSection) SetBoundarySupplementaryItems(value []NSCollectionLayoutBoundarySupplementaryItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // An array of the decoration items that are anchored to the section, such as
 // background decoration views.
 //
@@ -271,7 +267,6 @@ func (c NSCollectionLayoutSection) DecorationItems() []NSCollectionLayoutDecorat
 func (c NSCollectionLayoutSection) SetDecorationItems(value []NSCollectionLayoutDecorationItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDecorationItems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // A closure called before each layout cycle to allow modification of the
 // items in the section immediately before they’re displayed.
 //
@@ -283,7 +278,6 @@ func (c NSCollectionLayoutSection) VisibleItemsInvalidationHandler() NSCollectio
 func (c NSCollectionLayoutSection) SetVisibleItemsInvalidationHandler(value NSCollectionLayoutSectionVisibleItemsInvalidationHandler) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVisibleItemsInvalidationHandler:"), value)
 }
-
 // A Boolean value that indicates whether the section’s supplementary items
 // follow the specified content insets for the section.
 //

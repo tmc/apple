@@ -706,7 +706,7 @@ type INSTableView interface {
 	// Topic: Enumerating Table Rows
 
 	// Allows the enumeration of all the table rows that are known to the table view.
-	EnumerateAvailableRowViewsUsingBlock(handler ErrorHandler)
+	EnumerateAvailableRowViewsUsingBlock(handler TableRowViewHandler)
 
 	// Topic: Managing Type Select
 
@@ -913,7 +913,6 @@ func NewTableViewWithFrame(frameRect corefoundation.CGRect) NSTableView {
 func (t NSTableView) ReloadData() {
 	objc.Send[objc.ID](t.ID, objc.Sel("reloadData"))
 }
-
 // Reloads the data for only the specified rows and columns.
 //
 // rowIndexes: The indexes of the rows to update.
@@ -933,7 +932,6 @@ func (t NSTableView) ReloadData() {
 func (t NSTableView) ReloadDataForRowIndexesColumnIndexes(rowIndexes foundation.NSIndexSet, columnIndexes foundation.NSIndexSet) {
 	objc.Send[objc.ID](t.ID, objc.Sel("reloadDataForRowIndexes:columnIndexes:"), rowIndexes, columnIndexes)
 }
-
 // Returns a new or existing view with the specified identifier.
 //
 // identifier: The view identifier. Must not be `nil`.
@@ -975,7 +973,6 @@ func (t NSTableView) MakeViewWithIdentifierOwner(identifier NSUserInterfaceItemI
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("makeViewWithIdentifier:owner:"), objc.String(string(identifier)), owner)
 	return NSViewFromID(rv)
 }
-
 // Returns a row view at the specified index, creating one if necessary.
 //
 // row: The row index.
@@ -1017,7 +1014,6 @@ func (t NSTableView) RowViewAtRowMakeIfNecessary(row int, makeIfNecessary bool) 
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("rowViewAtRow:makeIfNecessary:"), row, makeIfNecessary)
 	return NSTableRowViewFromID(rv)
 }
-
 // Returns a view at the specified row and column indexes, creating one if
 // necessary.
 //
@@ -1059,7 +1055,6 @@ func (t NSTableView) ViewAtColumnRowMakeIfNecessary(column int, row int, makeIfN
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("viewAtColumn:row:makeIfNecessary:"), column, row, makeIfNecessary)
 	return NSViewFromID(rv)
 }
-
 // Begins a group of updates for the table view.
 //
 // # Discussion
@@ -1090,7 +1085,6 @@ func (t NSTableView) ViewAtColumnRowMakeIfNecessary(column int, row int, makeIfN
 func (t NSTableView) BeginUpdates() {
 	objc.Send[objc.ID](t.ID, objc.Sel("beginUpdates"))
 }
-
 // Ends the group of updates for the table view.
 //
 // # Discussion
@@ -1102,7 +1096,6 @@ func (t NSTableView) BeginUpdates() {
 func (t NSTableView) EndUpdates() {
 	objc.Send[objc.ID](t.ID, objc.Sel("endUpdates"))
 }
-
 // Moves the specified row to the new row location using animation.
 //
 // oldIndex: Initial row index.
@@ -1126,7 +1119,6 @@ func (t NSTableView) EndUpdates() {
 func (t NSTableView) MoveRowAtIndexToIndex(oldIndex int, newIndex int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("moveRowAtIndex:toIndex:"), oldIndex, newIndex)
 }
-
 // Inserts the rows using the specified animation.
 //
 // indexes: The final positions of the new rows to be inserted.
@@ -1149,7 +1141,6 @@ func (t NSTableView) MoveRowAtIndexToIndex(oldIndex int, newIndex int) {
 func (t NSTableView) InsertRowsAtIndexesWithAnimation(indexes foundation.NSIndexSet, animationOptions NSTableViewAnimationOptions) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertRowsAtIndexes:withAnimation:"), indexes, animationOptions)
 }
-
 // Removes the rows using the specified animation.
 //
 // indexes: An index set containing the rows to remove.
@@ -1181,7 +1172,6 @@ func (t NSTableView) InsertRowsAtIndexesWithAnimation(indexes foundation.NSIndex
 func (t NSTableView) RemoveRowsAtIndexesWithAnimation(indexes foundation.NSIndexSet, animationOptions NSTableViewAnimationOptions) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeRowsAtIndexes:withAnimation:"), indexes, animationOptions)
 }
-
 // Returns the index of the row for the specified view.
 //
 // view: The view for which to retrieve the row.
@@ -1207,7 +1197,6 @@ func (t NSTableView) RowForView(view INSView) int {
 	rv := objc.Send[int](t.ID, objc.Sel("rowForView:"), view)
 	return rv
 }
-
 // Returns the column index for the specified view.
 //
 // view: The view for which to retrieve the column.
@@ -1233,7 +1222,6 @@ func (t NSTableView) ColumnForView(view INSView) int {
 	rv := objc.Send[int](t.ID, objc.Sel("columnForView:"), view)
 	return rv
 }
-
 // Registers a NIB for the specified identifier, so that view-based table
 // views can use it to instantiate views.
 //
@@ -1257,7 +1245,6 @@ func (t NSTableView) ColumnForView(view INSView) int {
 func (t NSTableView) RegisterNibForIdentifier(nib INSNib, identifier NSUserInterfaceItemIdentifier) {
 	objc.Send[objc.ID](t.ID, objc.Sel("registerNib:forIdentifier:"), nib, objc.String(string(identifier)))
 }
-
 // Returns the indicator image of the specified table column.
 //
 // tableColumn: A table column in the table view.
@@ -1273,7 +1260,6 @@ func (t NSTableView) IndicatorImageInTableColumn(tableColumn INSTableColumn) INS
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("indicatorImageInTableColumn:"), tableColumn)
 	return NSImageFromID(rv)
 }
-
 // Sets the indicator image of the specified column.
 //
 // image: The indicator image for the column.
@@ -1291,7 +1277,6 @@ func (t NSTableView) IndicatorImageInTableColumn(tableColumn INSTableColumn) INS
 func (t NSTableView) SetIndicatorImageInTableColumn(image INSImage, tableColumn INSTableColumn) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setIndicatorImage:inTableColumn:"), image, tableColumn)
 }
-
 // Adds the specified column as the last column of the table view.
 //
 // tableColumn: The column to add to the table view.
@@ -1300,7 +1285,6 @@ func (t NSTableView) SetIndicatorImageInTableColumn(image INSImage, tableColumn 
 func (t NSTableView) AddTableColumn(tableColumn INSTableColumn) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addTableColumn:"), tableColumn)
 }
-
 // Removes the specified column from the table view.
 //
 // tableColumn: The column to remove from the table view.
@@ -1309,7 +1293,6 @@ func (t NSTableView) AddTableColumn(tableColumn INSTableColumn) {
 func (t NSTableView) RemoveTableColumn(tableColumn INSTableColumn) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeTableColumn:"), tableColumn)
 }
-
 // Moves the column and heading at the specified index to the new specified
 // index.
 //
@@ -1328,7 +1311,6 @@ func (t NSTableView) RemoveTableColumn(tableColumn INSTableColumn) {
 func (t NSTableView) MoveColumnToColumn(oldIndex int, newIndex int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("moveColumn:toColumn:"), oldIndex, newIndex)
 }
-
 // Returns the index of the first column in the table view whose identifier is
 // equal to the specified identifier.
 //
@@ -1345,7 +1327,6 @@ func (t NSTableView) ColumnWithIdentifier(identifier NSUserInterfaceItemIdentifi
 	rv := objc.Send[int](t.ID, objc.Sel("columnWithIdentifier:"), objc.String(string(identifier)))
 	return rv
 }
-
 // Returns the [NSTableColumn] object for the first column whose identifier is
 // equal to the specified object.
 //
@@ -1362,7 +1343,6 @@ func (t NSTableView) TableColumnWithIdentifier(identifier NSUserInterfaceItemIde
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tableColumnWithIdentifier:"), objc.String(string(identifier)))
 	return NSTableColumnFromID(rv)
 }
-
 // Sets the column selection using `indexes` possibly extending the selection.
 //
 // indexes: The column indexes to select.
@@ -1383,7 +1363,6 @@ func (t NSTableView) TableColumnWithIdentifier(identifier NSUserInterfaceItemIde
 func (t NSTableView) SelectColumnIndexesByExtendingSelection(indexes foundation.NSIndexSet, extend bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectColumnIndexes:byExtendingSelection:"), indexes, extend)
 }
-
 // Deselects the column at the specified index if it’s selected.
 //
 // column: The index in the [TableColumns] array of the column to deselect.
@@ -1409,7 +1388,6 @@ func (t NSTableView) SelectColumnIndexesByExtendingSelection(indexes foundation.
 func (t NSTableView) DeselectColumn(column int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("deselectColumn:"), column)
 }
-
 // Returns a Boolean value that indicates whether the column at the specified
 // index is selected.
 //
@@ -1427,7 +1405,6 @@ func (t NSTableView) IsColumnSelected(column int) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isColumnSelected:"), column)
 	return rv
 }
-
 // Sets the row selection using `indexes` extending the selection if
 // specified.
 //
@@ -1449,7 +1426,6 @@ func (t NSTableView) IsColumnSelected(column int) bool {
 func (t NSTableView) SelectRowIndexesByExtendingSelection(indexes foundation.NSIndexSet, extend bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("selectRowIndexes:byExtendingSelection:"), indexes, extend)
 }
-
 // Deselects the row at the specified index if it’s selected.
 //
 // row: The index of the row to deselect.
@@ -1475,7 +1451,6 @@ func (t NSTableView) SelectRowIndexesByExtendingSelection(indexes foundation.NSI
 func (t NSTableView) DeselectRow(row int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("deselectRow:"), row)
 }
-
 // Returns a Boolean value that indicates whether the row at the specified
 // index is selected.
 //
@@ -1493,7 +1468,6 @@ func (t NSTableView) IsRowSelected(row int) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isRowSelected:"), row)
 	return rv
 }
-
 // Deselects all selected rows or columns if empty selection is allowed;
 // otherwise does nothing.
 //
@@ -1513,7 +1487,6 @@ func (t NSTableView) IsRowSelected(row int) bool {
 func (t NSTableView) DeselectAll(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("deselectAll:"), sender)
 }
-
 // Allows the enumeration of all the table rows that are known to the table
 // view.
 //
@@ -1536,12 +1509,11 @@ func (t NSTableView) DeselectAll(sender objectivec.IObject) {
 // [visibleRect]: https://developer.apple.com/documentation/AppKit/NSView/visibleRect
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/enumerateAvailableRowViews(_:)
-func (t NSTableView) EnumerateAvailableRowViewsUsingBlock(handler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(handler)
+func (t NSTableView) EnumerateAvailableRowViewsUsingBlock(handler TableRowViewHandler) {
+_block0, _cleanup0 := NewTableRowViewBlock(handler)
 	defer _cleanup0()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateAvailableRowViewsUsingBlock:"), _block0)
 }
-
 // Edits the cell at the specified column and row using the specified event
 // and selection behavior.
 //
@@ -1580,7 +1552,6 @@ _block0, _cleanup0 := NewErrorBlock(handler)
 func (t NSTableView) EditColumnRowWithEventSelect(column int, row int, event INSEvent, select_ bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("editColumn:row:withEvent:select:"), column, row, event, select_)
 }
-
 // Invoked when a row view is added to the table.
 //
 // rowView: The row view.
@@ -1598,7 +1569,6 @@ func (t NSTableView) EditColumnRowWithEventSelect(column int, row int, event INS
 func (t NSTableView) DidAddRowViewForRow(rowView INSTableRowView, row int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("didAddRowView:forRow:"), rowView, row)
 }
-
 // Invoked when a row view is removed from the table.
 //
 // rowView: The row view.
@@ -1618,7 +1588,6 @@ func (t NSTableView) DidAddRowViewForRow(rowView INSTableRowView, row int) {
 func (t NSTableView) DidRemoveRowViewForRow(rowView INSTableRowView, row int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("didRemoveRowView:forRow:"), rowView, row)
 }
-
 // Returns the rectangle containing the column at the specified index.
 //
 // column: The index in the [TableColumns] array of a column in the table view.
@@ -1639,7 +1608,6 @@ func (t NSTableView) RectOfColumn(column int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("rectOfColumn:"), column)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the rectangle containing the row at the specified index.
 //
 // # Return Value
@@ -1657,7 +1625,6 @@ func (t NSTableView) RectOfRow(row int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("rectOfRow:"), row)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns a range of indexes for the rows that lie wholly or partially within
 // the vertical boundaries of the specified rectangle.
 //
@@ -1679,7 +1646,6 @@ func (t NSTableView) RowsInRect(rect corefoundation.CGRect) foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("rowsInRect:"), rect)
 	return foundation.NSRange(rv)
 }
-
 // Returns the indexes of the table view’s columns that intersect the
 // specified rectangle.
 //
@@ -1705,7 +1671,6 @@ func (t NSTableView) ColumnIndexesInRect(rect corefoundation.CGRect) foundation.
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("columnIndexesInRect:"), rect)
 	return foundation.NSIndexSetFromID(rv)
 }
-
 // Returns the index of the column the specified point lies in.
 //
 // point: A point in the coordinate system of the table view.
@@ -1720,7 +1685,6 @@ func (t NSTableView) ColumnAtPoint(point corefoundation.CGPoint) int {
 	rv := objc.Send[int](t.ID, objc.Sel("columnAtPoint:"), point)
 	return rv
 }
-
 // Returns the index of the row the specified point lies in.
 //
 // point: A point in the coordinate system of the table view.
@@ -1735,7 +1699,6 @@ func (t NSTableView) RowAtPoint(point corefoundation.CGPoint) int {
 	rv := objc.Send[int](t.ID, objc.Sel("rowAtPoint:"), point)
 	return rv
 }
-
 // Returns a rectangle locating the cell that lies at the intersection of the
 // specified column and row.
 //
@@ -1772,7 +1735,6 @@ func (t NSTableView) FrameOfCellAtColumnRow(column int, row int) corefoundation.
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("frameOfCellAtColumn:row:"), column, row)
 	return corefoundation.CGRect(rv)
 }
-
 // Resizes the last column so the table view fits exactly within its enclosing
 // clip view.
 //
@@ -1780,7 +1742,6 @@ func (t NSTableView) FrameOfCellAtColumnRow(column int, row int) corefoundation.
 func (t NSTableView) SizeLastColumnToFit() {
 	objc.Send[objc.ID](t.ID, objc.Sel("sizeLastColumnToFit"))
 }
-
 // Informs the table view that the number of records in its data source has
 // changed.
 //
@@ -1799,7 +1760,6 @@ func (t NSTableView) SizeLastColumnToFit() {
 func (t NSTableView) NoteNumberOfRowsChanged() {
 	objc.Send[objc.ID](t.ID, objc.Sel("noteNumberOfRowsChanged"))
 }
-
 // Properly sizes the table view and its header view and marks it as needing
 // display.
 //
@@ -1815,7 +1775,6 @@ func (t NSTableView) NoteNumberOfRowsChanged() {
 func (t NSTableView) Tile() {
 	objc.Send[objc.ID](t.ID, objc.Sel("tile"))
 }
-
 // Informs the table view that the rows specified in `indexSet` have changed
 // height.
 //
@@ -1837,7 +1796,6 @@ func (t NSTableView) Tile() {
 func (t NSTableView) NoteHeightOfRowsWithIndexesChanged(indexSet foundation.NSIndexSet) {
 	objc.Send[objc.ID](t.ID, objc.Sel("noteHeightOfRowsWithIndexesChanged:"), indexSet)
 }
-
 // Draws the cells for the row at `rowIndex` in the columns that intersect
 // `clipRect`.
 //
@@ -1854,7 +1812,6 @@ func (t NSTableView) NoteHeightOfRowsWithIndexesChanged(indexSet foundation.NSIn
 func (t NSTableView) DrawRowClipRect(row int, clipRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawRow:clipRect:"), row, clipRect)
 }
-
 // Draws the grid lines within the supplied rectangle.
 //
 // clipRect: The rectangle in the table view’s coordinate system.
@@ -1872,7 +1829,6 @@ func (t NSTableView) DrawRowClipRect(row int, clipRect corefoundation.CGRect) {
 func (t NSTableView) DrawGridInClipRect(clipRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawGridInClipRect:"), clipRect)
 }
-
 // Highlights the region of the table view in the specified rectangle.
 //
 // clipRect: The rectangle, in the table view view’s coordinate system.
@@ -1888,7 +1844,6 @@ func (t NSTableView) DrawGridInClipRect(clipRect corefoundation.CGRect) {
 func (t NSTableView) HighlightSelectionInClipRect(clipRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("highlightSelectionInClipRect:"), clipRect)
 }
-
 // Draws the background of the table view in the clip rect specified by the
 // rectangle.
 //
@@ -1898,7 +1853,6 @@ func (t NSTableView) HighlightSelectionInClipRect(clipRect corefoundation.CGRect
 func (t NSTableView) DrawBackgroundInClipRect(clipRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawBackgroundInClipRect:"), clipRect)
 }
-
 // Scrolls the view so the specified row is visible.
 //
 // row: The row index.
@@ -1907,7 +1861,6 @@ func (t NSTableView) DrawBackgroundInClipRect(clipRect corefoundation.CGRect) {
 func (t NSTableView) ScrollRowToVisible(row int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("scrollRowToVisible:"), row)
 }
-
 // Scrolls the view so the specified column is visible.
 //
 // column: The index of the column in the [TableColumns] array.
@@ -1916,7 +1869,6 @@ func (t NSTableView) ScrollRowToVisible(row int) {
 func (t NSTableView) ScrollColumnToVisible(column int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("scrollColumnToVisible:"), column)
 }
-
 // Computes and returns an image to use for dragging.
 //
 // dragRows: An index set containing the row indexes that should be in the image.
@@ -1941,7 +1893,6 @@ func (t NSTableView) DragImageForRowsWithIndexesTableColumnsEventOffset(dragRows
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("dragImageForRowsWithIndexes:tableColumns:event:offset:"), dragRows, objectivec.IObjectSliceToNSArray(tableColumns), dragEvent, dragImageOffset)
 	return NSImageFromID(rv)
 }
-
 // Returns a Boolean value indicating whether the table view allows dragging
 // the rows with the drag initiated at the specified point.
 //
@@ -1960,7 +1911,6 @@ func (t NSTableView) CanDragRowsWithIndexesAtPoint(rowIndexes foundation.NSIndex
 	rv := objc.Send[bool](t.ID, objc.Sel("canDragRowsWithIndexes:atPoint:"), rowIndexes, mouseDownPoint)
 	return rv
 }
-
 // Sets the default operation mask returned by `` to `mask`.
 //
 // mask: The drag operation mask. See [NSDragOperation] for the supported values.
@@ -1977,7 +1927,6 @@ func (t NSTableView) CanDragRowsWithIndexesAtPoint(rowIndexes foundation.NSIndex
 func (t NSTableView) SetDraggingSourceOperationMaskForLocal(mask NSDragOperation, isLocal bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setDraggingSourceOperationMask:forLocal:"), mask, isLocal)
 }
-
 // Retargets the proposed drop operation.
 //
 // row: The target row index.
@@ -2003,7 +1952,6 @@ func (t NSTableView) SetDraggingSourceOperationMaskForLocal(mask NSDragOperation
 func (t NSTableView) SetDropRowDropOperation(row int, dropOperation NSTableViewDropOperation) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setDropRow:dropOperation:"), row, dropOperation)
 }
-
 // Hides the specified table rows.
 //
 // indexes: An index set containing indexes of the rows to be hidden.
@@ -2024,7 +1972,6 @@ func (t NSTableView) SetDropRowDropOperation(row int, dropOperation NSTableViewD
 func (t NSTableView) HideRowsAtIndexesWithAnimation(indexes foundation.NSIndexSet, rowAnimation NSTableViewAnimationOptions) {
 	objc.Send[objc.ID](t.ID, objc.Sel("hideRowsAtIndexes:withAnimation:"), indexes, rowAnimation)
 }
-
 // Unhides the specified table rows.
 //
 // indexes: An index set containing indexes of the hidden rows to be shown again.
@@ -2040,7 +1987,6 @@ func (t NSTableView) HideRowsAtIndexesWithAnimation(indexes foundation.NSIndexSe
 func (t NSTableView) UnhideRowsAtIndexesWithAnimation(indexes foundation.NSIndexSet, rowAnimation NSTableViewAnimationOptions) {
 	objc.Send[objc.ID](t.ID, objc.Sel("unhideRowsAtIndexes:withAnimation:"), indexes, rowAnimation)
 }
-
 // Returns the column header accessibility elements for the table.
 //
 // # Return Value
@@ -2059,7 +2005,6 @@ func (t NSTableView) AccessibilityColumnHeaderUIElements() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the column accessibility elements for the table.
 //
 // # Return Value
@@ -2078,7 +2023,6 @@ func (t NSTableView) AccessibilityColumns() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityColumns"))
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the row header accessibility elements for the table.
 //
 // # Return Value
@@ -2097,7 +2041,6 @@ func (t NSTableView) AccessibilityRowHeaderUIElements() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityRowHeaderUIElements"))
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the row accessibility elements for the table.
 //
 // # Return Value
@@ -2118,7 +2061,6 @@ func (t NSTableView) AccessibilityRows() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // The currently selected cells for the table.
 //
 // # Return Value
@@ -2140,7 +2082,6 @@ func (t NSTableView) AccessibilitySelectedCells() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilitySelectedCells"))
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the currently selected columns for the table.
 //
 // # Return Value
@@ -2162,7 +2103,6 @@ func (t NSTableView) AccessibilitySelectedColumns() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilitySelectedColumns"))
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the currently selected rows for the table.
 //
 // # Return Value
@@ -2186,7 +2126,6 @@ func (t NSTableView) AccessibilitySelectedRows() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Returns the visible cells for the table.
 //
 // # Return Value
@@ -2205,7 +2144,6 @@ func (t NSTableView) AccessibilityVisibleCells() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityVisibleCells"))
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the visible columns for the table.
 //
 // # Return Value
@@ -2224,7 +2162,6 @@ func (t NSTableView) AccessibilityVisibleColumns() foundation.INSArray {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityVisibleColumns"))
 	return foundation.NSArrayFromID(rv)
 }
-
 // Returns the visible rows for the table.
 //
 // # Return Value
@@ -2245,7 +2182,6 @@ func (t NSTableView) AccessibilityVisibleRows() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Invoked when the dragging session has completed.
 //
 // session: The dragging session.
@@ -2260,7 +2196,6 @@ func (t NSTableView) AccessibilityVisibleRows() []objectivec.IObject {
 func (t NSTableView) DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
 	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:endedAtPoint:operation:"), session, screenPoint, operation)
 }
-
 // Invoked when the drag moves on the screen.
 //
 // session: The dragging session.
@@ -2271,7 +2206,6 @@ func (t NSTableView) DraggingSessionEndedAtPointOperation(session INSDraggingSes
 func (t NSTableView) DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:movedToPoint:"), session, screenPoint)
 }
-
 // Declares the types of operations the source allows to be performed.
 //
 // session: The dragging session.
@@ -2296,7 +2230,6 @@ func (t NSTableView) DraggingSessionSourceOperationMaskForDraggingContext(sessio
 	rv := objc.Send[NSDragOperation](t.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
 	return NSDragOperation(rv)
 }
-
 // Invoked when the drag will begin.
 //
 // session: The dragging session.
@@ -2307,7 +2240,6 @@ func (t NSTableView) DraggingSessionSourceOperationMaskForDraggingContext(sessio
 func (t NSTableView) DraggingSessionWillBeginAtPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("draggingSession:willBeginAtPoint:"), session, screenPoint)
 }
-
 // Returns whether the modifier keys will be ignored for this dragging
 // session.
 //
@@ -2325,7 +2257,6 @@ func (t NSTableView) IgnoreModifierKeysForDraggingSession(session INSDraggingSes
 	rv := objc.Send[bool](t.ID, objc.Sel("ignoreModifierKeysForDraggingSession:"), session)
 	return rv
 }
-
 // Sets the table’s currently selected rows.
 //
 // selectedRows: An array containing the row elements to be selected.
@@ -2345,7 +2276,6 @@ func (t NSTableView) IgnoreModifierKeysForDraggingSession(session INSDraggingSes
 func (t NSTableView) SetAccessibilitySelectedRows(selectedRows []objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setAccessibilitySelectedRows:"), objectivec.IObjectSliceToNSArray(selectedRows))
 }
-
 // Informs the delegate that the text object has begun editing (that the user
 // has begun changing it).
 //
@@ -2359,7 +2289,6 @@ func (t NSTableView) SetAccessibilitySelectedRows(selectedRows []objectivec.IObj
 func (t NSTableView) TextDidBeginEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidBeginEditing:"), notification)
 }
-
 // Informs the delegate that the text object has changed its characters or
 // formatting attributes.
 //
@@ -2373,7 +2302,6 @@ func (t NSTableView) TextDidBeginEditing(notification foundation.NSNotification)
 func (t NSTableView) TextDidChange(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidChange:"), notification)
 }
-
 // Informs the delegate that the text object has finished editing (that it has
 // resigned first responder status).
 //
@@ -2387,7 +2315,6 @@ func (t NSTableView) TextDidChange(notification foundation.NSNotification) {
 func (t NSTableView) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidEndEditing:"), notification)
 }
-
 // Invoked when a text object begins to change its text, this method requests
 // permission for `aTextObject` to begin editing.
 //
@@ -2406,7 +2333,6 @@ func (t NSTableView) TextShouldBeginEditing(textObject INSText) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("textShouldBeginEditing:"), textObject)
 	return rv
 }
-
 // Invoked from a text object’s implementation of [ResignFirstResponder],
 // this method requests permission for `aTextObject` to end editing.
 //
@@ -2424,7 +2350,6 @@ func (t NSTableView) TextShouldEndEditing(textObject INSText) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("textShouldEndEditing:"), textObject)
 	return rv
 }
-
 // Returns an array of objects that represent the elements of a selection.
 //
 // # Return Value
@@ -2436,7 +2361,6 @@ func (t NSTableView) TextViewCandidatesForSelectedRange(textView INSTextView, se
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:candidatesForSelectedRange:"), textView, selectedRange)
 	return foundation.NSArrayFromID(rv)
 }
-
 // Sent when the user clicks a cell.
 //
 // textView: The text view sending the message.
@@ -2462,7 +2386,6 @@ func (t NSTableView) TextViewCandidatesForSelectedRange(textView INSTextView, se
 func (t NSTableView) TextViewClickedOnCellInRectAtIndex(textView INSTextView, cell NSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textView:clickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
 }
-
 // Sent after the user clicks a link.
 //
 // textView: The text view sending the message.
@@ -2498,7 +2421,6 @@ func (t NSTableView) TextViewClickedOnLinkAtIndex(textView INSTextView, link obj
 	rv := objc.Send[bool](t.ID, objc.Sel("textView:clickedOnLink:atIndex:"), textView, link, charIndex)
 	return rv
 }
-
 // Returns the actual completions for a partial word.
 //
 // textView: The text view sending the message.
@@ -2521,7 +2443,6 @@ func (t NSTableView) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(t
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:completions:forPartialWordRange:indexOfSelectedItem:"), textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Sent when the selection changes in the text view.
 //
 // notification: A notification named [didChangeSelectionNotification].
@@ -2532,7 +2453,6 @@ func (t NSTableView) TextViewCompletionsForPartialWordRangeIndexOfSelectedItem(t
 func (t NSTableView) TextViewDidChangeSelection(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textViewDidChangeSelection:"), notification)
 }
-
 // Sent when a text view’s typing attributes change.
 //
 // notification: A notification named [didChangeTypingAttributesNotification].
@@ -2543,7 +2463,6 @@ func (t NSTableView) TextViewDidChangeSelection(notification foundation.NSNotifi
 func (t NSTableView) TextViewDidChangeTypingAttributes(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textViewDidChangeTypingAttributes:"), notification)
 }
-
 // Invoked to allow the delegate to modify the text checking results after
 // checking has occurred.
 //
@@ -2588,7 +2507,6 @@ func (t NSTableView) TextViewDidCheckTextInRangeTypesOptionsResultsOrthographyWo
 		return foundation.NSTextCheckingResultFromID(id)
 	})
 }
-
 // Sent to allow the delegate to perform the command for the text view.
 //
 // textView: The text view sending the message. This is the first text view in a series
@@ -2614,7 +2532,6 @@ func (t NSTableView) TextViewDoCommandBySelector(textView INSTextView, commandSe
 	rv := objc.Send[bool](t.ID, objc.Sel("textView:doCommandBySelector:"), textView, commandSelector)
 	return rv
 }
-
 // Sent when the user double-clicks a cell.
 //
 // textView: The text view sending the message.
@@ -2636,7 +2553,6 @@ func (t NSTableView) TextViewDoCommandBySelector(textView INSTextView, commandSe
 func (t NSTableView) TextViewDoubleClickedOnCellInRectAtIndex(textView INSTextView, cell NSTextAttachmentCell, cellFrame corefoundation.CGRect, charIndex uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textView:doubleClickedOnCell:inRect:atIndex:"), textView, cell, cellFrame, charIndex)
 }
-
 // Sent when the user attempts to drag a cell.
 //
 // view: The text view sending the message.
@@ -2658,7 +2574,6 @@ func (t NSTableView) TextViewDoubleClickedOnCellInRectAtIndex(textView INSTextVi
 func (t NSTableView) TextViewDraggedCellInRectEventAtIndex(view INSTextView, cell NSTextAttachmentCell, rect corefoundation.CGRect, event INSEvent, charIndex uint) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textView:draggedCell:inRect:event:atIndex:"), view, cell, rect, event, charIndex)
 }
-
 // Allows delegate to control the context menu returned by the text view.
 //
 // view: The text view sending the message.
@@ -2684,7 +2599,6 @@ func (t NSTableView) TextViewMenuForEventAtIndex(view INSTextView, menu INSMenu,
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:menu:forEvent:atIndex:"), view, menu, event, charIndex)
 	return NSMenuFromID(rv)
 }
-
 // Sent when a text view needs to determine if text in a specified range
 // should be changed.
 //
@@ -2716,7 +2630,6 @@ func (t NSTableView) TextViewShouldChangeTextInRangeReplacementString(textView I
 	rv := objc.Send[bool](t.ID, objc.Sel("textView:shouldChangeTextInRange:replacementString:"), textView, affectedCharRange, objc.String(replacementString))
 	return rv
 }
-
 // Sent when a text view needs to determine if text in an array of specified
 // ranges should be changed.
 //
@@ -2745,7 +2658,6 @@ func (t NSTableView) TextViewShouldChangeTextInRangesReplacementStrings(textView
 	rv := objc.Send[bool](t.ID, objc.Sel("textView:shouldChangeTextInRanges:replacementStrings:"), textView, objectivec.IObjectSliceToNSArray(affectedRanges), objectivec.StringSliceToNSArray(replacementStrings))
 	return rv
 }
-
 // Sent when the typing attributes are changed.
 //
 // textView: The text view sending the message.
@@ -2763,7 +2675,6 @@ func (t NSTableView) TextViewShouldChangeTypingAttributesToAttributes(textView I
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:shouldChangeTypingAttributes:toAttributes:"), textView, oldTypingAttributes, newTypingAttributes)
 	return foundation.NSDictionaryFromID(rv)
 }
-
 // Returns a Boolean value that indicates whether to select the text object at
 // the index.
 //
@@ -2782,7 +2693,6 @@ func (t NSTableView) TextViewShouldSelectCandidateAtIndex(textView INSTextView, 
 	rv := objc.Send[bool](t.ID, objc.Sel("textView:shouldSelectCandidateAtIndex:"), textView, index)
 	return rv
 }
-
 // Sent when the spelling state is changed.
 //
 // textView: The text view sending the message.
@@ -2813,7 +2723,6 @@ func (t NSTableView) TextViewShouldSetSpellingStateRange(textView INSTextView, v
 	rv := objc.Send[int](t.ID, objc.Sel("textView:shouldSetSpellingState:range:"), textView, value, affectedCharRange)
 	return rv
 }
-
 // Returns and array of touch bar elements for the framework to update.
 //
 // textView: The text view that sent the message.
@@ -2830,7 +2739,6 @@ func (t NSTableView) TextViewShouldUpdateTouchBarItemIdentifiers(textView INSTex
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:shouldUpdateTouchBarItemIdentifiers:"), textView, objectivec.StringSliceToNSArray(identifiers))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns a URL representing the document contents for a text attachment.
 //
 // textView: The text view sending the message.
@@ -2860,7 +2768,6 @@ func (t NSTableView) TextViewURLForContentsOfTextAttachmentAtIndex(textView INST
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:URLForContentsOfTextAttachment:atIndex:"), textView, textAttachment, charIndex)
 	return foundation.NSURLFromID(rv)
 }
-
 // Returns the actual range to select.
 //
 // textView: The text view sending the message. This is the first text view in a series
@@ -2903,7 +2810,6 @@ func (t NSTableView) TextViewWillChangeSelectionFromCharacterRangeToCharacterRan
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("textView:willChangeSelectionFromCharacterRange:toCharacterRange:"), textView, oldSelectedCharRange, newSelectedCharRange)
 	return foundation.NSRange(rv)
 }
-
 // Returns the actual character ranges to select.
 //
 // textView: The text view sending the message. This is the first text view in a series
@@ -2952,7 +2858,6 @@ func (t NSTableView) TextViewWillChangeSelectionFromCharacterRangesToCharacterRa
 		return foundation.NSValueFromID(id)
 	})
 }
-
 // Invoked to allow the delegate to modify the text checking process before it
 // occurs.
 //
@@ -2987,7 +2892,6 @@ func (t NSTableView) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, 
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willCheckTextInRange:options:types:"), view, range_, options, checkingTypes)
 	return foundation.NSDictionaryFromID(rv)
 }
-
 // Returns the actual tooltip to display.
 //
 // textView: The text view sending the message.
@@ -3012,7 +2916,6 @@ func (t NSTableView) TextViewWillDisplayToolTipForCharacterAtIndex(textView INST
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willDisplayToolTip:forCharacterAtIndex:"), textView, objc.String(tooltip), characterIndex)
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Returns a sharing service picker for the current selection.
 //
 // textView: The text view.
@@ -3040,7 +2943,6 @@ func (t NSTableView) TextViewWillShowSharingServicePickerForItems(textView INSTe
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willShowSharingServicePicker:forItems:"), textView, servicePicker, items)
 	return NSSharingServicePickerFromID(rv)
 }
-
 // Returns the writable pasteboard types for a given cell.
 //
 // view: The text view sending the message.
@@ -3067,7 +2969,6 @@ func (t NSTableView) TextViewWritablePasteboardTypesForCellAtIndex(view INSTextV
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:writablePasteboardTypesForCell:atIndex:"), view, cell, charIndex)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns whether data of the specified type for the given cell could be
 // written to the specified pasteboard.
 //
@@ -3098,13 +2999,11 @@ func (t NSTableView) TextViewWriteCellAtIndexToPasteboardType(view INSTextView, 
 	rv := objc.Send[bool](t.ID, objc.Sel("textView:writeCell:atIndex:toPasteboard:type:"), view, cell, charIndex, pboard, objc.String(string(type_)))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewWritingToolsDidEnd(_:)
 func (t NSTableView) TextViewWritingToolsDidEnd(textView INSTextView) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textViewWritingToolsDidEnd:"), textView)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:writingToolsIgnoredRangesInEnclosingRange:)
 func (t NSTableView) TextViewWritingToolsIgnoredRangesInEnclosingRange(textView INSTextView, enclosingRange foundation.NSRange) []foundation.NSValue {
@@ -3113,13 +3012,11 @@ func (t NSTableView) TextViewWritingToolsIgnoredRangesInEnclosingRange(textView 
 		return foundation.NSValueFromID(id)
 	})
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textViewWritingToolsWillBegin(_:)
 func (t NSTableView) TextViewWritingToolsWillBegin(textView INSTextView) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textViewWritingToolsWillBegin:"), textView)
 }
-
 // Returns the undo manager for the specified text view.
 //
 // view: The text view whose undo manager should be returned.
@@ -3140,7 +3037,6 @@ func (t NSTableView) UndoManagerForTextView(view INSTextView) foundation.NSUndoM
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("undoManagerForTextView:"), view)
 	return foundation.NSUndoManagerFromID(rv)
 }
-
 // Returns a Boolean value that indicates whether the sender should be
 // enabled.
 //
@@ -3187,7 +3083,6 @@ func (t NSTableView) DataSource() NSTableViewDataSource {
 func (t NSTableView) SetDataSource(value NSTableViewDataSource) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDataSource:"), value)
 }
-
 // A Boolean value indicating whether the table uses static data.
 //
 // # Discussion
@@ -3214,7 +3109,6 @@ func (t NSTableView) UsesStaticContents() bool {
 func (t NSTableView) SetUsesStaticContents(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesStaticContents:"), value)
 }
-
 // The dictionary of all registered nib files for view-based table view
 // identifiers.
 //
@@ -3230,7 +3124,6 @@ func (t NSTableView) RegisteredNibsByIdentifier() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("registeredNibsByIdentifier"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // The message sent to the table view’s target when the user double-clicks a
 // cell or column header.
 //
@@ -3260,7 +3153,6 @@ func (t NSTableView) DoubleAction() objc.SEL {
 func (t NSTableView) SetDoubleAction(value objc.SEL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDoubleAction:"), value)
 }
-
 // The index of the column the user clicked.
 //
 // # Discussion
@@ -3286,7 +3178,6 @@ func (t NSTableView) ClickedColumn() int {
 	rv := objc.Send[int](t.ID, objc.Sel("clickedColumn"))
 	return rv
 }
-
 // The index of the row the user clicked.
 //
 // # Return Value
@@ -3318,7 +3209,6 @@ func (t NSTableView) ClickedRow() int {
 	rv := objc.Send[int](t.ID, objc.Sel("clickedRow"))
 	return rv
 }
-
 // A Boolean value indicating whether the table view allows the user to
 // rearrange columns by dragging their headers.
 //
@@ -3338,7 +3228,6 @@ func (t NSTableView) AllowsColumnReordering() bool {
 func (t NSTableView) SetAllowsColumnReordering(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsColumnReordering:"), value)
 }
-
 // A Boolean value indicating whether the table view allows the user to resize
 // columns by dragging between their headers.
 //
@@ -3358,7 +3247,6 @@ func (t NSTableView) AllowsColumnResizing() bool {
 func (t NSTableView) SetAllowsColumnResizing(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsColumnResizing:"), value)
 }
-
 // A Boolean value indicating whether the table view allows the user to select
 // more than one column or row at a time.
 //
@@ -3378,7 +3266,6 @@ func (t NSTableView) AllowsMultipleSelection() bool {
 func (t NSTableView) SetAllowsMultipleSelection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsMultipleSelection:"), value)
 }
-
 // A Boolean value indicating whether the table view allows the user to select
 // zero columns or rows.
 //
@@ -3397,7 +3284,6 @@ func (t NSTableView) AllowsEmptySelection() bool {
 func (t NSTableView) SetAllowsEmptySelection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsEmptySelection:"), value)
 }
-
 // A Boolean value indicating whether the table view allows the user to select
 // columns by clicking their headers.
 //
@@ -3419,7 +3305,6 @@ func (t NSTableView) AllowsColumnSelection() bool {
 func (t NSTableView) SetAllowsColumnSelection(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsColumnSelection:"), value)
 }
-
 // A Boolean value that indicates whether the table view uses autolayout to
 // calculate the height of rows.
 //
@@ -3431,7 +3316,6 @@ func (t NSTableView) UsesAutomaticRowHeights() bool {
 func (t NSTableView) SetUsesAutomaticRowHeights(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesAutomaticRowHeights:"), value)
 }
-
 // The horizontal and vertical spacing between cells.
 //
 // # Discussion
@@ -3453,7 +3337,6 @@ func (t NSTableView) IntercellSpacing() corefoundation.CGSize {
 func (t NSTableView) SetIntercellSpacing(value corefoundation.CGSize) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIntercellSpacing:"), value)
 }
-
 // The height of each row in the table.
 //
 // # Discussion
@@ -3475,7 +3358,6 @@ func (t NSTableView) RowHeight() float64 {
 func (t NSTableView) SetRowHeight(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRowHeight:"), value)
 }
-
 // The color used to draw the background of the table.
 //
 // # Discussion
@@ -3490,7 +3372,6 @@ func (t NSTableView) BackgroundColor() INSColor {
 func (t NSTableView) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
 // A Boolean value indicating whether the table view uses alternating row
 // colors for its background.
 //
@@ -3516,7 +3397,6 @@ func (t NSTableView) UsesAlternatingRowBackgroundColors() bool {
 func (t NSTableView) SetUsesAlternatingRowBackgroundColors(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsesAlternatingRowBackgroundColors:"), value)
 }
-
 // The style that the table view uses.
 //
 // # Discussion
@@ -3536,7 +3416,6 @@ func (t NSTableView) Style() NSTableViewStyle {
 func (t NSTableView) SetStyle(value NSTableViewStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStyle:"), value)
 }
-
 // The effective style that the table uses.
 //
 // # Discussion
@@ -3551,7 +3430,6 @@ func (t NSTableView) EffectiveStyle() NSTableViewStyle {
 	rv := objc.Send[NSTableViewStyle](t.ID, objc.Sel("effectiveStyle"))
 	return NSTableViewStyle(rv)
 }
-
 // The selection highlight style used by the table view to indicate row and
 // column selection.
 //
@@ -3574,7 +3452,6 @@ func (t NSTableView) SelectionHighlightStyle() NSTableViewSelectionHighlightStyl
 func (t NSTableView) SetSelectionHighlightStyle(value NSTableViewSelectionHighlightStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectionHighlightStyle:"), value)
 }
-
 // The color used to draw grid lines.
 //
 // # Discussion
@@ -3589,7 +3466,6 @@ func (t NSTableView) GridColor() INSColor {
 func (t NSTableView) SetGridColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGridColor:"), value)
 }
-
 // The grid lines drawn by the table view.
 //
 // # Discussion
@@ -3609,7 +3485,6 @@ func (t NSTableView) GridStyleMask() NSTableViewGridLineStyle {
 func (t NSTableView) SetGridStyleMask(value NSTableViewGridLineStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGridStyleMask:"), value)
 }
-
 // The effective row size style for the table.
 //
 // # Discussion
@@ -3626,7 +3501,6 @@ func (t NSTableView) EffectiveRowSizeStyle() NSTableViewRowSizeStyle {
 	rv := objc.Send[NSTableViewRowSizeStyle](t.ID, objc.Sel("effectiveRowSizeStyle"))
 	return NSTableViewRowSizeStyle(rv)
 }
-
 // The row size style (small, medium, large, or custom) used by the table
 // view.
 //
@@ -3651,7 +3525,6 @@ func (t NSTableView) RowSizeStyle() NSTableViewRowSizeStyle {
 func (t NSTableView) SetRowSizeStyle(value NSTableViewRowSizeStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRowSizeStyle:"), value)
 }
-
 // An array containing the current table column objects.
 //
 // # Discussion
@@ -3667,7 +3540,6 @@ func (t NSTableView) TableColumns() []NSTableColumn {
 		return NSTableColumnFromID(id)
 	})
 }
-
 // The index of the last selected column (or the last column added to the
 // selection).
 //
@@ -3682,7 +3554,6 @@ func (t NSTableView) SelectedColumn() int {
 	rv := objc.Send[int](t.ID, objc.Sel("selectedColumn"))
 	return rv
 }
-
 // An index set containing the indexes of the selected columns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/selectedColumnIndexes
@@ -3690,7 +3561,6 @@ func (t NSTableView) SelectedColumnIndexes() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("selectedColumnIndexes"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-
 // The number of selected columns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/numberOfSelectedColumns
@@ -3698,7 +3568,6 @@ func (t NSTableView) NumberOfSelectedColumns() int {
 	rv := objc.Send[int](t.ID, objc.Sel("numberOfSelectedColumns"))
 	return rv
 }
-
 // The index of the last selected row (or the last row added to the
 // selection).
 //
@@ -3713,7 +3582,6 @@ func (t NSTableView) SelectedRow() int {
 	rv := objc.Send[int](t.ID, objc.Sel("selectedRow"))
 	return rv
 }
-
 // An index set containing the indexes of the selected rows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/selectedRowIndexes
@@ -3721,7 +3589,6 @@ func (t NSTableView) SelectedRowIndexes() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("selectedRowIndexes"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-
 // The number of selected rows.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/numberOfSelectedRows
@@ -3729,7 +3596,6 @@ func (t NSTableView) NumberOfSelectedRows() int {
 	rv := objc.Send[int](t.ID, objc.Sel("numberOfSelectedRows"))
 	return rv
 }
-
 // A Boolean value indicating whether the table view allows the user to type
 // characters to select rows.
 //
@@ -3749,7 +3615,6 @@ func (t NSTableView) AllowsTypeSelect() bool {
 func (t NSTableView) SetAllowsTypeSelect(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsTypeSelect:"), value)
 }
-
 // The number of columns in the table.
 //
 // # Discussion
@@ -3762,7 +3627,6 @@ func (t NSTableView) NumberOfColumns() int {
 	rv := objc.Send[int](t.ID, objc.Sel("numberOfColumns"))
 	return rv
 }
-
 // The number of rows in the table.
 //
 // # Discussion
@@ -3775,7 +3639,6 @@ func (t NSTableView) NumberOfRows() int {
 	rv := objc.Send[int](t.ID, objc.Sel("numberOfRows"))
 	return rv
 }
-
 // A Boolean value indicating whether the table view draws grouped rows as if
 // they are floating.
 //
@@ -3797,7 +3660,6 @@ func (t NSTableView) FloatsGroupRows() bool {
 func (t NSTableView) SetFloatsGroupRows(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFloatsGroupRows:"), value)
 }
-
 // The index of the column being edited.
 //
 // # Return Value
@@ -3818,7 +3680,6 @@ func (t NSTableView) EditedColumn() int {
 	rv := objc.Send[int](t.ID, objc.Sel("editedColumn"))
 	return rv
 }
-
 // The index of the row being edited.
 //
 // # Discussion
@@ -3833,7 +3694,6 @@ func (t NSTableView) EditedRow() int {
 	rv := objc.Send[int](t.ID, objc.Sel("editedRow"))
 	return rv
 }
-
 // The view object used to draw headers over columns.
 //
 // # Discussion
@@ -3850,7 +3710,6 @@ func (t NSTableView) HeaderView() INSTableHeaderView {
 func (t NSTableView) SetHeaderView(value INSTableHeaderView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeaderView:"), value)
 }
-
 // The view used to draw the area to the right of the column headers and above
 // the vertical scroller of the enclosing scroll view.
 //
@@ -3876,7 +3735,6 @@ func (t NSTableView) CornerView() INSView {
 func (t NSTableView) SetCornerView(value INSView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCornerView:"), value)
 }
-
 // The table view’s column autoresizing style.
 //
 // # Discussion
@@ -3895,7 +3753,6 @@ func (t NSTableView) ColumnAutoresizingStyle() NSTableViewColumnAutoresizingStyl
 func (t NSTableView) SetColumnAutoresizingStyle(value NSTableViewColumnAutoresizingStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setColumnAutoresizingStyle:"), value)
 }
-
 // A Boolean value indicating whether the order and width of the table
 // view’s columns are automatically saved.
 //
@@ -3924,7 +3781,6 @@ func (t NSTableView) AutosaveTableColumns() bool {
 func (t NSTableView) SetAutosaveTableColumns(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutosaveTableColumns:"), value)
 }
-
 // The name under which table information is automatically saved.
 //
 // # Discussion
@@ -3950,7 +3806,6 @@ func (t NSTableView) AutosaveName() NSTableViewAutosaveName {
 func (t NSTableView) SetAutosaveName(value NSTableViewAutosaveName) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutosaveName:"), objc.String(string(value)))
 }
-
 // The table view’s delegate.
 //
 // # Discussion
@@ -3992,7 +3847,6 @@ func (t NSTableView) Delegate() NSTableViewDelegate {
 func (t NSTableView) SetDelegate(value NSTableViewDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The column highlighted in the table.
 //
 // # Discussion
@@ -4010,7 +3864,6 @@ func (t NSTableView) HighlightedTableColumn() INSTableColumn {
 func (t NSTableView) SetHighlightedTableColumn(value INSTableColumn) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHighlightedTableColumn:"), value)
 }
-
 // A Boolean value indicating whether vertical motion is treated as a drag or
 // selection change.
 //
@@ -4031,7 +3884,6 @@ func (t NSTableView) VerticalMotionCanBeginDrag() bool {
 func (t NSTableView) SetVerticalMotionCanBeginDrag(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVerticalMotionCanBeginDrag:"), value)
 }
-
 // The feedback style displayed when the user drags over the table view.
 //
 // # Discussion
@@ -4055,7 +3907,6 @@ func (t NSTableView) DraggingDestinationFeedbackStyle() NSTableViewDraggingDesti
 func (t NSTableView) SetDraggingDestinationFeedbackStyle(value NSTableViewDraggingDestinationFeedbackStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDraggingDestinationFeedbackStyle:"), value)
 }
-
 // The table view’s sort descriptors.
 //
 // # Discussion
@@ -4082,7 +3933,6 @@ func (t NSTableView) SortDescriptors() []foundation.NSSortDescriptor {
 func (t NSTableView) SetSortDescriptors(value []foundation.NSSortDescriptor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSortDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // A Boolean value indicating whether a table row’s actions are visible.
 //
 // # Discussion
@@ -4104,7 +3954,6 @@ func (t NSTableView) RowActionsVisible() bool {
 func (t NSTableView) SetRowActionsVisible(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRowActionsVisible:"), value)
 }
-
 // The indexes of all hidden table rows.
 //
 // # Discussion
@@ -4119,7 +3968,6 @@ func (t NSTableView) HiddenRowIndexes() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("hiddenRowIndexes"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the receiver reacts to mouse events.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrol/isenabled
@@ -4138,7 +3986,6 @@ func (_NSTableViewClass NSTableViewClass) TextDidBeginEditingNotification() foun
 	rv := objc.Send[objc.ID](objc.ID(_NSTableViewClass.class), objc.Sel("NSControlTextDidBeginEditingNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
 // Sent when the text in the receiving control changes.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrol/textdidchangenotification
@@ -4149,7 +3996,6 @@ func (_NSTableViewClass NSTableViewClass) TextDidChangeNotification() foundation
 
 			// Protocol methods for NSAccessibilityTable
 			
-
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
@@ -4167,13 +4013,11 @@ func (_NSTableViewClass NSTableViewClass) TextDidChangeNotification() foundation
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-
 func (o NSTableView) AccessibilityFrame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
-
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
@@ -4189,13 +4033,11 @@ func (o NSTableView) AccessibilityFrame() corefoundation.CGRect {
 // [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-
 func (o NSTableView) AccessibilityParent() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the accessibility element’s identity.
 //
 // # Return Value
@@ -4211,13 +4053,11 @@ func (o NSTableView) AccessibilityParent() objectivec.IObject {
 // [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-
 func (o NSTableView) AccessibilityIdentifier() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
@@ -4236,7 +4076,6 @@ func (o NSTableView) AccessibilityIdentifier() string {
 // [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-
 func (o NSTableView) IsAccessibilityFocused() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))

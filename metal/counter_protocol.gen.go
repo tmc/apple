@@ -39,7 +39,6 @@ func MTLCounterObjectFromID(id objc.ID) MTLCounterObject {
 // The name of a GPU’s counter instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounter/name
-
 func (o MTLCounterObject) Name() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))

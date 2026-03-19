@@ -191,7 +191,6 @@ func NewMutableURLRequestWithURLCachePolicyTimeoutInterval(URL INSURL, cachePoli
 func (m NSMutableURLRequest) AddValueForHTTPHeaderField(value string, field string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addValue:forHTTPHeaderField:"), objc.String(value), objc.String(field))
 }
-
 // Sets a value for the header field.
 //
 // value: The new value for the header field. Any existing value for the field is

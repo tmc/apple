@@ -154,7 +154,6 @@ func (t NSTrackingSeparatorToolbarItem) DividerIndex() int {
 func (t NSTrackingSeparatorToolbarItem) SetDividerIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDividerIndex:"), value)
 }
-
 // The vertical split view to align with the toolbar separator.
 //
 // # Discussion

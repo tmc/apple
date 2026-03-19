@@ -228,7 +228,6 @@ func (r VNRecognizeTextRequest) MinimumTextHeight() float32 {
 func (r VNRecognizeTextRequest) SetMinimumTextHeight(value float32) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMinimumTextHeight:"), value)
 }
-
 // A value that determines whether the request prioritizes accuracy or speed
 // in text recognition.
 //
@@ -248,7 +247,6 @@ func (r VNRecognizeTextRequest) RecognitionLevel() VNRequestTextRecognitionLevel
 func (r VNRecognizeTextRequest) SetRecognitionLevel(value VNRequestTextRecognitionLevel) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRecognitionLevel:"), value)
 }
-
 // A Boolean value that indicates whether to attempt detecting the language to
 // use the appropriate model for recognition and language correction.
 //
@@ -260,7 +258,6 @@ func (r VNRecognizeTextRequest) AutomaticallyDetectsLanguage() bool {
 func (r VNRecognizeTextRequest) SetAutomaticallyDetectsLanguage(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAutomaticallyDetectsLanguage:"), value)
 }
-
 // An array of languages to detect, in priority order.
 //
 // # Discussion
@@ -278,7 +275,6 @@ func (r VNRecognizeTextRequest) RecognitionLanguages() []string {
 func (r VNRecognizeTextRequest) SetRecognitionLanguages(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRecognitionLanguages:"), objectivec.StringSliceToNSArray(value))
 }
-
 // A Boolean value that indicates whether the request applies language
 // correction during the recognition process.
 //
@@ -298,7 +294,6 @@ func (r VNRecognizeTextRequest) UsesLanguageCorrection() bool {
 func (r VNRecognizeTextRequest) SetUsesLanguageCorrection(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUsesLanguageCorrection:"), value)
 }
-
 // An array of strings to supplement the recognized languages at the
 // word-recognition stage.
 //
@@ -317,7 +312,6 @@ func (r VNRecognizeTextRequest) CustomWords() []string {
 func (r VNRecognizeTextRequest) SetCustomWords(value []string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCustomWords:"), objectivec.StringSliceToNSArray(value))
 }
-
 // A constant for specifying revision 3 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision3
@@ -325,7 +319,6 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision3() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision3"))
 	return rv
 }
-
 // A constant for specifying revision 2 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision2
@@ -333,7 +326,6 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision2() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the text recognition request.
 //
 // See: https://developer.apple.com/documentation/vision/vnrecognizetextrequestrevision1
@@ -341,7 +333,6 @@ func (r VNRecognizeTextRequest) VNRecognizeTextRequestRevision1() int {
 	rv := objc.Send[int](r.ID, objc.Sel("VNRecognizeTextRequestRevision1"))
 	return rv
 }
-
 // A Boolean set to true when a request can’t determine its progress in
 // fractions completed.
 //
@@ -359,7 +350,6 @@ func (r VNRecognizeTextRequest) Indeterminate() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("indeterminate"))
 	return rv
 }
-
 // A block of code executed periodically during a Vision request to report
 // progress on long-running tasks.
 //

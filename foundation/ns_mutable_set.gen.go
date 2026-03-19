@@ -372,7 +372,6 @@ func (m NSMutableSet) InitWithCapacity(numItems uint) NSMutableSet {
 	rv := objc.Send[NSMutableSet](m.ID, objc.Sel("initWithCapacity:"), numItems)
 	return rv
 }
-
 // Adds a given object to the set, if it is not already a member.
 //
 // object: The object to add to the set.
@@ -381,7 +380,6 @@ func (m NSMutableSet) InitWithCapacity(numItems uint) NSMutableSet {
 func (m NSMutableSet) AddObject(object objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addObject:"), object)
 }
-
 // Evaluates a given predicate against the set’s content and removes from
 // the set those objects for which the predicate returns false.
 //
@@ -395,7 +393,6 @@ func (m NSMutableSet) AddObject(object objectivec.IObject) {
 func (m NSMutableSet) FilterUsingPredicate(predicate INSPredicate) {
 	objc.Send[objc.ID](m.ID, objc.Sel("filterUsingPredicate:"), predicate)
 }
-
 // Removes a given object from the set.
 //
 // object: The object to remove from the set.
@@ -404,14 +401,12 @@ func (m NSMutableSet) FilterUsingPredicate(predicate INSPredicate) {
 func (m NSMutableSet) RemoveObject(object objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeObject:"), object)
 }
-
 // Empties the set of all of its members.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableSet/removeAllObjects()
 func (m NSMutableSet) RemoveAllObjects() {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAllObjects"))
 }
-
 // Adds to the set each object contained in a given array that is not already
 // a member.
 //
@@ -421,7 +416,6 @@ func (m NSMutableSet) RemoveAllObjects() {
 func (m NSMutableSet) AddObjectsFromArray(array []objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addObjectsFromArray:"), objectivec.IObjectSliceToNSArray(array))
 }
-
 // Adds each object in another given set to the receiving set, if not present.
 //
 // otherSet: The set of objects to add to the receiving set.
@@ -430,7 +424,6 @@ func (m NSMutableSet) AddObjectsFromArray(array []objectivec.IObject) {
 func (m NSMutableSet) UnionSet(otherSet INSSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("unionSet:"), otherSet)
 }
-
 // Removes each object in another given set from the receiving set, if
 // present.
 //
@@ -440,7 +433,6 @@ func (m NSMutableSet) UnionSet(otherSet INSSet) {
 func (m NSMutableSet) MinusSet(otherSet INSSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("minusSet:"), otherSet)
 }
-
 // Removes from the receiving set each object that isn’t a member of another
 // given set.
 //
@@ -450,7 +442,6 @@ func (m NSMutableSet) MinusSet(otherSet INSSet) {
 func (m NSMutableSet) IntersectSet(otherSet INSSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("intersectSet:"), otherSet)
 }
-
 // Empties the receiving set, then adds each object contained in another given
 // set.
 //

@@ -50,12 +50,10 @@ func NSPasteboardItemDataProviderObjectFromID(id objc.ID) NSPasteboardItemDataPr
 // [SetDataProviderForTypes].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItemDataProvider/pasteboard(_:item:provideDataForType:)
-
 func (o NSPasteboardItemDataProviderObject) PasteboardItemProvideDataForType(pasteboard INSPasteboard, item INSPasteboardItem, type_ NSPasteboardType) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboard:item:provideDataForType:"), pasteboard, item, objc.String(string(type_)))
 	}
-
 // Informs the receiver that the pasteboard no longer needs the data provider
 // for any of its pasteboard items.
 //
@@ -70,7 +68,6 @@ func (o NSPasteboardItemDataProviderObject) PasteboardItemProvideDataForType(pas
 // changed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardItemDataProvider/pasteboardFinishedWithDataProvider(_:)
-
 func (o NSPasteboardItemDataProviderObject) PasteboardFinishedWithDataProvider(pasteboard INSPasteboard) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboardFinishedWithDataProvider:"), pasteboard)

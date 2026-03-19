@@ -129,7 +129,6 @@ func (f NSFontAssetRequest) InitWithFontDescriptorsOptions(fontDescriptors []NSF
 	rv := objc.Send[NSFontAssetRequest](f.ID, objc.Sel("initWithFontDescriptors:options:"), objectivec.IObjectSliceToNSArray(fontDescriptors), options)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/download(withCompletionHandler:)
 func (f NSFontAssetRequest) DownloadFontAssetsWithCompletionHandler(completionHandler ErrorHandler) {
@@ -145,7 +144,6 @@ func (f NSFontAssetRequest) DownloadedFontDescriptors() []NSFontDescriptor {
 		return NSFontDescriptorFromID(id)
 	})
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/progress
 func (f NSFontAssetRequest) Progress() foundation.NSProgress {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("progress"))

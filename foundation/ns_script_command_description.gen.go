@@ -267,7 +267,6 @@ func (s NSScriptCommandDescription) InitWithSuiteNameCommandNameDictionary(suite
 	rv := objc.Send[NSScriptCommandDescription](s.ID, objc.Sel("initWithSuiteName:commandName:dictionary:"), objc.String(suiteName), objc.String(commandName), commandDeclaration)
 	return rv
 }
-
 // Returns the Apple event code for the specified command argument of the
 // receiver.
 //
@@ -283,7 +282,6 @@ func (s NSScriptCommandDescription) AppleEventCodeForArgumentWithName(argumentNa
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCodeForArgumentWithName:"), objc.String(argumentName))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the command argument
 // identified by the specified argument key is an optional argument.
 //
@@ -303,7 +301,6 @@ func (s NSScriptCommandDescription) IsOptionalArgumentWithName(argumentName stri
 	rv := objc.Send[bool](s.ID, objc.Sel("isOptionalArgumentWithName:"), objc.String(argumentName))
 	return rv
 }
-
 // Returns the type of the command argument identified by the specified key.
 //
 // argumentName: Argument name (used as a key) that identifies the command argument to
@@ -319,7 +316,6 @@ func (s NSScriptCommandDescription) TypeForArgumentWithName(argumentName string)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("typeForArgumentWithName:"), objc.String(argumentName))
 	return NSStringFromID(rv).String()
 }
-
 // Creates and returns an instance of the command object described by the
 // receiver.
 //
@@ -332,7 +328,6 @@ func (s NSScriptCommandDescription) CreateCommandInstance() INSScriptCommand {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCommandInstance"))
 	return NSScriptCommandFromID(rv)
 }
-
 // Creates and returns an instance of the command object described by the
 // receiver in the specified memory zone.
 //
@@ -347,14 +342,12 @@ func (s NSScriptCommandDescription) CreateCommandInstanceWithZone(zone NSZone) I
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCommandInstanceWithZone:"), zone)
 	return NSScriptCommandFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/init(coder:)
 func (s NSScriptCommandDescription) InitWithCoder(inCoder INSCoder) NSScriptCommandDescription {
 	rv := objc.Send[NSScriptCommandDescription](s.ID, objc.Sel("initWithCoder:"), inCoder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -389,7 +382,6 @@ func (s NSScriptCommandDescription) AppleEventClassCode() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventClassCode"))
 	return rv
 }
-
 // Returns the four-character code for the Apple event ID of the receiver’s
 // command.
 //
@@ -408,7 +400,6 @@ func (s NSScriptCommandDescription) AppleEventCode() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCode"))
 	return rv
 }
-
 // Returns the name of the class that will be instantiated to handle the
 // command.
 //
@@ -422,7 +413,6 @@ func (s NSScriptCommandDescription) CommandClassName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandClassName"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the name of the command.
 //
 // # Return Value
@@ -435,7 +425,6 @@ func (s NSScriptCommandDescription) CommandName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandName"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the name of the suite that contains the command described by the
 // receiver.
 //
@@ -449,7 +438,6 @@ func (s NSScriptCommandDescription) SuiteName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("suiteName"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the names (or keys) for all arguments of the receiver’s command.
 //
 // # Return Value
@@ -462,7 +450,6 @@ func (s NSScriptCommandDescription) ArgumentNames() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("argumentNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the Apple event code that identifies the command’s return type.
 //
 // # Return Value
@@ -474,7 +461,6 @@ func (s NSScriptCommandDescription) AppleEventCodeForReturnType() uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCodeForReturnType"))
 	return rv
 }
-
 // Returns the return type of the command.
 //
 // # Return Value

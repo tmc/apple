@@ -157,7 +157,6 @@ func (t NSTextParagraph) AttributedString() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
 }
-
 // Returns the range of the paragraph in the containing text’s attributed
 // string.
 //
@@ -170,7 +169,6 @@ func (t NSTextParagraph) ParagraphContentRange() INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("paragraphContentRange"))
 	return NSTextRangeFromID(objc.ID(rv))
 }
-
 // Returns the range of the paragraph separator in the containing text’s
 // attributed string.
 //

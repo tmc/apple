@@ -111,7 +111,6 @@ func NewNSMutableParagraphStyle() NSMutableParagraphStyle {
 func (m NSMutableParagraphStyle) AddTabStop(anObject INSTextTab) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addTabStop:"), anObject)
 }
-
 // Removes the first text tab with a location and type equal to the specified
 // tab stop.
 //

@@ -131,7 +131,6 @@ func (b MTLBufferLayoutDescriptor) Stride() uint {
 func (b MTLBufferLayoutDescriptor) SetStride(value uint) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStride:"), value)
 }
-
 // Determines how and when compute functions fetch data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBufferLayoutDescriptor/stepFunction
@@ -142,7 +141,6 @@ func (b MTLBufferLayoutDescriptor) StepFunction() MTLStepFunction {
 func (b MTLBufferLayoutDescriptor) SetStepFunction(value MTLStepFunction) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStepFunction:"), value)
 }
-
 // How frequently the step function should load data.
 //
 // # Discussion
@@ -157,7 +155,6 @@ func (b MTLBufferLayoutDescriptor) StepRate() uint {
 func (b MTLBufferLayoutDescriptor) SetStepRate(value uint) {
 	objc.Send[struct{}](b.ID, objc.Sel("setStepRate:"), value)
 }
-
 // The organization of input and output data for the next kernel call.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor

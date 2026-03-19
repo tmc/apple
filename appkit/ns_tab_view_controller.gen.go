@@ -263,7 +263,6 @@ func (t NSTabViewController) TabViewItemForViewController(viewController INSView
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tabViewItemForViewController:"), viewController)
 	return NSTabViewItemFromID(rv)
 }
-
 // Adds the specified tab to the end of the tab view controller’s list of
 // tabs.
 //
@@ -286,7 +285,6 @@ func (t NSTabViewController) TabViewItemForViewController(viewController INSView
 func (t NSTabViewController) AddTabViewItem(tabViewItem INSTabViewItem) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addTabViewItem:"), tabViewItem)
 }
-
 // Inserts a tab view into the tab view controller’s list of tabs.
 //
 // tabViewItem: The tab view item to insert. The tab view item must have an associated view
@@ -315,7 +313,6 @@ func (t NSTabViewController) AddTabViewItem(tabViewItem INSTabViewItem) {
 func (t NSTabViewController) InsertTabViewItemAtIndex(tabViewItem INSTabViewItem, index int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertTabViewItem:atIndex:"), tabViewItem, index)
 }
-
 // Removes the specified tab view item from the tab view controller.
 //
 // tabViewItem: The tab view item to remove. If this parameter is `nil` or the item does
@@ -334,7 +331,6 @@ func (t NSTabViewController) InsertTabViewItemAtIndex(tabViewItem INSTabViewItem
 func (t NSTabViewController) RemoveTabViewItem(tabViewItem INSTabViewItem) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeTabViewItem:"), tabViewItem)
 }
-
 // Asks the tab view controller if the specified tab should be selected.
 //
 // tabView: The tab view object making the request.
@@ -363,7 +359,6 @@ func (t NSTabViewController) TabViewShouldSelectTabViewItem(tabView INSTabView, 
 	rv := objc.Send[bool](t.ID, objc.Sel("tabView:shouldSelectTabViewItem:"), tabView, tabViewItem)
 	return rv
 }
-
 // Informs the tab view controller that the specified tab is about to be
 // selected.
 //
@@ -384,7 +379,6 @@ func (t NSTabViewController) TabViewShouldSelectTabViewItem(tabView INSTabView, 
 func (t NSTabViewController) TabViewWillSelectTabViewItem(tabView INSTabView, tabViewItem INSTabViewItem) {
 	objc.Send[objc.ID](t.ID, objc.Sel("tabView:willSelectTabViewItem:"), tabView, tabViewItem)
 }
-
 // Informs the tab view controller that the specified tab was selected.
 //
 // tabView: The tab view object whose tab was selected.
@@ -404,7 +398,6 @@ func (t NSTabViewController) TabViewWillSelectTabViewItem(tabView INSTabView, ta
 func (t NSTabViewController) TabViewDidSelectTabViewItem(tabView INSTabView, tabViewItem INSTabViewItem) {
 	objc.Send[objc.ID](t.ID, objc.Sel("tabView:didSelectTabViewItem:"), tabView, tabViewItem)
 }
-
 // Returns the toolbar item for the specified identifier.
 //
 // toolbar: The toolbar making the request.
@@ -448,7 +441,6 @@ func (t NSTabViewController) ToolbarItemForItemIdentifierWillBeInsertedIntoToolb
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:"), toolbar, objc.String(string(itemIdentifier)), flag)
 	return NSToolbarItemFromID(rv)
 }
-
 // Returns the array of identifier strings for the allowed toolbar items.
 //
 // toolbar: The toolbar making the request.
@@ -484,7 +476,6 @@ func (t NSTabViewController) ToolbarAllowedItemIdentifiers(toolbar INSToolbar) [
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("toolbarAllowedItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the array of identifier strings for the default toolbar items.
 //
 // toolbar: The toolbar making the request.
@@ -521,7 +512,6 @@ func (t NSTabViewController) ToolbarDefaultItemIdentifiers(toolbar INSToolbar) [
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("toolbarDefaultItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the array of identifier strings for the selectable toolbar items
 //
 // toolbar: The toolbar making the request.
@@ -555,7 +545,6 @@ func (t NSTabViewController) ToolbarSelectableItemIdentifiers(toolbar INSToolbar
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("toolbarSelectableItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Informs the delegate that the number of tab view items in `tabView` has
 // changed.
 //
@@ -565,7 +554,6 @@ func (t NSTabViewController) ToolbarSelectableItemIdentifiers(toolbar INSToolbar
 func (t NSTabViewController) TabViewDidChangeNumberOfTabViewItems(tabView INSTabView) {
 	objc.Send[objc.ID](t.ID, objc.Sel("tabViewDidChangeNumberOfTabViewItems:"), tabView)
 }
-
 // Tells the delegate that the toolbar removed the specified item.
 //
 // notification: A notification named [didRemoveItemNotification].
@@ -580,7 +568,6 @@ func (t NSTabViewController) TabViewDidChangeNumberOfTabViewItems(tabView INSTab
 func (t NSTabViewController) ToolbarDidRemoveItem(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("toolbarDidRemoveItem:"), notification)
 }
-
 // Asks the delegate to provide the items that people can’t remove from the
 // toolbar or rearrange during the customization process.
 //
@@ -603,7 +590,6 @@ func (t NSTabViewController) ToolbarImmovableItemIdentifiers(toolbar INSToolbar)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("toolbarImmovableItemIdentifiers:"), toolbar)
 	return foundation.NSSetFromID(rv)
 }
-
 // Asks the delegate for a Boolean value that indicates whether the toolbar
 // can place the item at the specified position.
 //
@@ -640,7 +626,6 @@ func (t NSTabViewController) ToolbarItemIdentifierCanBeInsertedAtIndex(toolbar I
 	rv := objc.Send[bool](t.ID, objc.Sel("toolbar:itemIdentifier:canBeInsertedAtIndex:"), toolbar, objc.String(string(itemIdentifier)), index)
 	return rv
 }
-
 // Tells the delegate that the toolbar is about to add the specified item.
 //
 // notification: A notification named [willAddItemNotification].
@@ -675,7 +660,6 @@ func (t NSTabViewController) TabStyle() NSTabViewControllerTabStyle {
 func (t NSTabViewController) SetTabStyle(value NSTabViewControllerTabStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabStyle:"), value)
 }
-
 // The tab view that manages the views of the interface.
 //
 // # Discussion
@@ -706,7 +690,6 @@ func (t NSTabViewController) TabView() INSTabView {
 func (t NSTabViewController) SetTabView(value INSTabView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabView:"), value)
 }
-
 // The animation options to use when switching between tabs.
 //
 // # Discussion
@@ -727,7 +710,6 @@ func (t NSTabViewController) TransitionOptions() NSViewControllerTransitionOptio
 func (t NSTabViewController) SetTransitionOptions(value NSViewControllerTransitionOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTransitionOptions:"), value)
 }
-
 // A Boolean value indicating whether the tab view controller gets its title
 // from the selected child view controller.
 //
@@ -750,7 +732,6 @@ func (t NSTabViewController) CanPropagateSelectedChildViewControllerTitle() bool
 func (t NSTabViewController) SetCanPropagateSelectedChildViewControllerTitle(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCanPropagateSelectedChildViewControllerTitle:"), value)
 }
-
 // The array of tab view items used to manage each of the child view
 // controllers.
 //
@@ -773,7 +754,6 @@ func (t NSTabViewController) TabViewItems() []NSTabViewItem {
 func (t NSTabViewController) SetTabViewItems(value []NSTabViewItem) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTabViewItems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The index of the selected tab.
 //
 // # Discussion
@@ -789,7 +769,6 @@ func (t NSTabViewController) SelectedTabViewItemIndex() int {
 func (t NSTabViewController) SetSelectedTabViewItemIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedTabViewItemIndex:"), value)
 }
-
 // An array of view controllers that are hierarchical children of the view
 // controller.
 //

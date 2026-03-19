@@ -613,7 +613,6 @@ func (e NSExpression) InitWithExpressionType(type_ NSExpressionType) NSExpressio
 	rv := objc.Send[NSExpression](e.ID, objc.Sel("initWithExpressionType:"), type_)
 	return rv
 }
-
 // Creates an expression by decoding from the coder you specify.
 //
 // coder: The coder to read data from.
@@ -623,7 +622,6 @@ func (e NSExpression) InitWithCoder(coder INSCoder) NSExpression {
 	rv := objc.Send[NSExpression](e.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Evaluates an expression using a specified object and context.
 //
 // object: The object against which the expression is evaluated.
@@ -644,7 +642,6 @@ func (e NSExpression) ExpressionValueWithObjectContext(object objectivec.IObject
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("expressionValueWithObject:context:"), object, context)
 	return objectivec.Object{ID: rv}
 }
-
 // Forces a securely decoded expression to allow evaluation.
 //
 // # Discussion
@@ -662,7 +659,6 @@ func (e NSExpression) ExpressionValueWithObjectContext(object objectivec.IObject
 func (e NSExpression) AllowEvaluation() {
 	objc.Send[objc.ID](e.ID, objc.Sel("allowEvaluation"))
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -683,7 +679,6 @@ func (_NSExpressionClass NSExpressionClass) ExpressionForEvaluatedObject() NSExp
 	rv := objc.Send[objc.ID](objc.ID(_NSExpressionClass.class), objc.Sel("expressionForEvaluatedObject"))
 	return NSExpressionFromID(rv)
 }
-
 // Creates an expression that represents any key for a Spotlight query.
 //
 // # Return Value
@@ -695,7 +690,6 @@ func (_NSExpressionClass NSExpressionClass) ExpressionForAnyKey() NSExpression {
 	rv := objc.Send[objc.ID](objc.ID(_NSExpressionClass.class), objc.Sel("expressionForAnyKey"))
 	return NSExpressionFromID(rv)
 }
-
 // Creates an expression object that uses the block for evaluating objects.
 //
 // block: The Block is applied to the object to be evaluated.
@@ -739,7 +733,6 @@ _block0, _cleanup0 := NewArrayBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_NSExpressionClass.class), objc.Sel("expressionForBlock:arguments:"), _block0, arguments)
 	return NSExpressionFromID(rv)
 }
-
 // Creates the expression with the specified expression arguments.
 //
 // expressionFormat: The expression format.
@@ -778,7 +771,6 @@ func (e NSExpression) Arguments() []NSExpression {
 		return NSExpressionFromID(id)
 	})
 }
-
 // The collection of expressions in an aggregate expression, or the collection
 // element of a subquery expression.
 //
@@ -792,7 +784,6 @@ func (e NSExpression) Collection() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("collection"))
 	return objectivec.Object{ID: rv}
 }
-
 // The constant value of the expression.
 //
 // # Discussion
@@ -805,7 +796,6 @@ func (e NSExpression) ConstantValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("constantValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // The expression type for the expression.
 //
 // # Discussion
@@ -818,7 +808,6 @@ func (e NSExpression) ExpressionType() NSExpressionType {
 	rv := objc.Send[NSExpressionType](e.ID, objc.Sel("expressionType"))
 	return NSExpressionType(rv)
 }
-
 // The function for the expression.
 //
 // # Discussion
@@ -831,7 +820,6 @@ func (e NSExpression) Function() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("function"))
 	return NSStringFromID(rv).String()
 }
-
 // The key path for the expression.
 //
 // # Discussion
@@ -844,7 +832,6 @@ func (e NSExpression) KeyPath() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("keyPath"))
 	return NSStringFromID(rv).String()
 }
-
 // The operand for the expression.
 //
 // # Discussion
@@ -859,7 +846,6 @@ func (e NSExpression) Operand() INSExpression {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("operand"))
 	return NSExpressionFromID(objc.ID(rv))
 }
-
 // The predicate of a subquery expression.
 //
 // # Discussion
@@ -872,7 +858,6 @@ func (e NSExpression) Predicate() INSPredicate {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("predicate"))
 	return NSPredicateFromID(objc.ID(rv))
 }
-
 // The left expression of an aggregate expression.
 //
 // # Discussion
@@ -885,7 +870,6 @@ func (e NSExpression) LeftExpression() INSExpression {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("leftExpression"))
 	return NSExpressionFromID(objc.ID(rv))
 }
-
 // The right expression of an aggregate expression.
 //
 // # Discussion
@@ -898,7 +882,6 @@ func (e NSExpression) RightExpression() INSExpression {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("rightExpression"))
 	return NSExpressionFromID(objc.ID(rv))
 }
-
 // The variable for the expression.
 //
 // # Discussion
@@ -911,7 +894,6 @@ func (e NSExpression) Variable() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("variable"))
 	return NSStringFromID(rv).String()
 }
-
 // An expression to evalutate if a conditional expression’s predicate
 // evaluates to false.
 //
@@ -925,7 +907,6 @@ func (e NSExpression) FalseExpression() INSExpression {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("falseExpression"))
 	return NSExpressionFromID(objc.ID(rv))
 }
-
 // An expression to evalutate if a conditional expression’s predicate
 // evaluates to true.
 //
@@ -939,7 +920,6 @@ func (e NSExpression) TrueExpression() INSExpression {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("trueExpression"))
 	return NSExpressionFromID(objc.ID(rv))
 }
-
 // The block that executes to evaluate the expression.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExpression/expressionBlock

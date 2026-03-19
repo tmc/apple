@@ -49,17 +49,14 @@ func MTLFenceObjectFromID(id objc.ID) MTLFenceObject {
 // The device object that created the fence.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFence/device
-
 func (o MTLFenceObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that identifies the fence.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFence/label
-
 func (o MTLFenceObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))

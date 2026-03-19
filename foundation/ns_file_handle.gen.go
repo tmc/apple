@@ -524,7 +524,6 @@ func (f FileHandle) InitWithFileDescriptor(fd int) FileHandle {
 	rv := objc.Send[FileHandle](f.ID, objc.Sel("initWithFileDescriptor:"), fd)
 	return rv
 }
-
 // Creates and returns a file handle object associated with the specified file
 // descriptor and deallocation policy.
 //
@@ -557,7 +556,6 @@ func (f FileHandle) InitWithFileDescriptorCloseOnDealloc(fd int, closeopt bool) 
 	rv := objc.Send[FileHandle](f.ID, objc.Sel("initWithFileDescriptor:closeOnDealloc:"), fd, closeopt)
 	return rv
 }
-
 // Returns a file handle initialized from data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/init(coder:)
@@ -565,7 +563,6 @@ func (f FileHandle) InitWithCoder(coder INSCoder) FileHandle {
 	rv := objc.Send[FileHandle](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Accepts a socket connection (for stream-type sockets only) in the
 // background and creates a file handle for the “near” (client) end of the
 // communications channel.
@@ -602,7 +599,6 @@ func (f FileHandle) InitWithCoder(coder INSCoder) FileHandle {
 func (f FileHandle) AcceptConnectionInBackgroundAndNotify() {
 	objc.Send[objc.ID](f.ID, objc.Sel("acceptConnectionInBackgroundAndNotify"))
 }
-
 // Accepts a socket connection (for stream-type sockets only) in the
 // background and creates a file handle for the “near” (client) end of the
 // communications channel.
@@ -625,7 +621,6 @@ func (f FileHandle) AcceptConnectionInBackgroundAndNotify() {
 func (f FileHandle) AcceptConnectionInBackgroundAndNotifyForModes(modes []string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("acceptConnectionInBackgroundAndNotifyForModes:"), objectivec.StringSliceToNSArray(modes))
 }
-
 // Reads from the file or communications channel in the background and posts a
 // notification when finished.
 //
@@ -657,7 +652,6 @@ func (f FileHandle) AcceptConnectionInBackgroundAndNotifyForModes(modes []string
 func (f FileHandle) ReadInBackgroundAndNotify() {
 	objc.Send[objc.ID](f.ID, objc.Sel("readInBackgroundAndNotify"))
 }
-
 // Reads from the file or communications channel in the background and posts a
 // notification when finished.
 //
@@ -678,7 +672,6 @@ func (f FileHandle) ReadInBackgroundAndNotify() {
 func (f FileHandle) ReadInBackgroundAndNotifyForModes(modes []string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("readInBackgroundAndNotifyForModes:"), objectivec.StringSliceToNSArray(modes))
 }
-
 // Reads to the end of file from the file or communications channel in the
 // background and posts a notification when finished.
 //
@@ -704,7 +697,6 @@ func (f FileHandle) ReadInBackgroundAndNotifyForModes(modes []string) {
 func (f FileHandle) ReadToEndOfFileInBackgroundAndNotify() {
 	objc.Send[objc.ID](f.ID, objc.Sel("readToEndOfFileInBackgroundAndNotify"))
 }
-
 // Reads to the end of file from the file or communications channel in the
 // background and posts a notification when finished.
 //
@@ -725,7 +717,6 @@ func (f FileHandle) ReadToEndOfFileInBackgroundAndNotify() {
 func (f FileHandle) ReadToEndOfFileInBackgroundAndNotifyForModes(modes []string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("readToEndOfFileInBackgroundAndNotifyForModes:"), objectivec.StringSliceToNSArray(modes))
 }
-
 // Asynchronously checks to see if data is available.
 //
 // # Discussion
@@ -741,7 +732,6 @@ func (f FileHandle) ReadToEndOfFileInBackgroundAndNotifyForModes(modes []string)
 func (f FileHandle) WaitForDataInBackgroundAndNotify() {
 	objc.Send[objc.ID](f.ID, objc.Sel("waitForDataInBackgroundAndNotify"))
 }
-
 // Asynchronously checks to see if data is available.
 //
 // modes: The runloop modes in which the data available notification can be posted.
@@ -762,7 +752,6 @@ func (f FileHandle) WaitForDataInBackgroundAndNotify() {
 func (f FileHandle) WaitForDataInBackgroundAndNotifyForModes(modes []string) {
 	objc.Send[objc.ID](f.ID, objc.Sel("waitForDataInBackgroundAndNotifyForModes:"), objectivec.StringSliceToNSArray(modes))
 }
-
 // Moves the file pointer to the specified offset within the file.
 //
 // offset: The offset to seek to.
@@ -783,7 +772,6 @@ func (f FileHandle) SeekToOffsetError(offset uint64) (bool, error) {
 	return rv, nil
 
 }
-
 // Disallows further access to the represented file or communications channel
 // and signals end of file on communications channels that permit writing.
 //
@@ -817,7 +805,6 @@ func (f FileHandle) CloseAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
 // Causes all in-memory data and attributes of the file represented by the
 // file handle to write to permanent storage.
 //
@@ -841,7 +828,6 @@ func (f FileHandle) SynchronizeAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
 // Truncates or extends the file represented by the file handle to a specified
 // offset within the file and puts the file pointer at that position.
 //
@@ -866,7 +852,6 @@ func (f FileHandle) TruncateAtOffsetError(offset uint64) (bool, error) {
 	return rv, nil
 
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -875,7 +860,6 @@ func (f FileHandle) TruncateAtOffsetError(offset uint64) (bool, error) {
 func (f FileHandle) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 // Get the current position of the file pointer within the file.
 //
 // offsetInFile: When the return value is [true], this provides the current position of the
@@ -918,7 +902,6 @@ func (f FileHandle) GetOffsetError() (uint64, error) {
 	}
 	return offsetInFile, nil
 }
-
 // Reads the available data synchronously up to the end of file or maximum
 // number of bytes.
 //
@@ -946,7 +929,6 @@ func (f FileHandle) ReadDataToEndOfFileAndReturnError() (INSData, error) {
 	return NSDataFromID(rv), nil
 
 }
-
 // Reads data synchronously up to the specified number of bytes.
 //
 // length: The number of bytes to read from the file handle.
@@ -984,7 +966,6 @@ func (f FileHandle) ReadDataUpToLengthError(length uint) (INSData, error) {
 	return NSDataFromID(rv), nil
 
 }
-
 // Places the file pointer at the end of the file referenced by the file
 // handle and returns the new file offset.
 //
@@ -1029,7 +1010,6 @@ func (f FileHandle) SeekToEndReturningOffsetError() (uint64, error) {
 	}
 	return offsetInFile, nil
 }
-
 // Writes the specified data synchronously to the file handle.
 //
 // data: The data to write to the file handle.
@@ -1084,7 +1064,6 @@ func (f FileHandle) FileDescriptor() int {
 	rv := objc.Send[int](f.ID, objc.Sel("fileDescriptor"))
 	return rv
 }
-
 // The file’s contents, as an asynchronous sequence of bytes.
 //
 // See: https://developer.apple.com/documentation/foundation/filehandle/bytes
@@ -1095,7 +1074,6 @@ func (f FileHandle) Bytes() objectivec.IObject {
 func (f FileHandle) SetBytes(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setBytes:"), value)
 }
-
 // The data currently available in the receiver.
 //
 // # Discussion
@@ -1116,7 +1094,6 @@ func (f FileHandle) AvailableData() INSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("availableData"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // The block to use for reading the contents of the file handle
 // asynchronously.
 //
@@ -1150,7 +1127,6 @@ func (f FileHandle) SetReadabilityHandler(value FileHandleHandler) {
 	defer cleanup()
 	objc.Send[struct{}](f.ID, objc.Sel("setReadabilityHandler:"), block)
 }
-
 // The block to use for writing the contents of the file handle
 // asynchronously.
 //
@@ -1185,7 +1161,6 @@ func (f FileHandle) SetWriteabilityHandler(value FileHandleHandler) {
 	defer cleanup()
 	objc.Send[struct{}](f.ID, objc.Sel("setWriteabilityHandler:"), block)
 }
-
 // Posted when a file handle object establishes a socket connection between
 // two processes, creates a file handle object for one end of the connection,
 // and makes this object available to observers.
@@ -1195,7 +1170,6 @@ func (f FileHandle) NSFileHandleConnectionAccepted() NSNotificationName {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileHandleConnectionAcceptedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // Posted when the file handle determines that data is currently available for
 // reading in a file or at a communications channel.
 //
@@ -1204,7 +1178,6 @@ func (f FileHandle) NSFileHandleDataAvailable() NSNotificationName {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileHandleDataAvailableNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // Posted when the file handle reads all data in the file or, in a
 // communications channel, until the other process signals the end of data.
 //
@@ -1213,7 +1186,6 @@ func (f FileHandle) NSFileHandleReadToEndOfFileCompletion() NSNotificationName {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileHandleReadToEndOfFileCompletionNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // The position of the file pointer within the file represented by the file
 // handle.
 //
@@ -1229,7 +1201,6 @@ func (f FileHandle) OffsetInFile() uint64 {
 	rv := objc.Send[uint64](f.ID, objc.Sel("offsetInFile"))
 	return rv
 }
-
 // Currently unused.
 //
 // See: https://developer.apple.com/documentation/foundation/nsfilehandlenotificationmonitormodes
@@ -1258,7 +1229,6 @@ func (_FileHandleClass FileHandleClass) FileHandleWithStandardError() FileHandle
 	rv := objc.Send[objc.ID](objc.ID(_FileHandleClass.class), objc.Sel("fileHandleWithStandardError"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
-
 // The file handle associated with the standard input file.
 //
 // # Return Value
@@ -1279,7 +1249,6 @@ func (_FileHandleClass FileHandleClass) FileHandleWithStandardInput() FileHandle
 	rv := objc.Send[objc.ID](objc.ID(_FileHandleClass.class), objc.Sel("fileHandleWithStandardInput"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
-
 // The file handle associated with the standard output file.
 //
 // # Return Value
@@ -1300,7 +1269,6 @@ func (_FileHandleClass FileHandleClass) FileHandleWithStandardOutput() FileHandl
 	rv := objc.Send[objc.ID](objc.ID(_FileHandleClass.class), objc.Sel("fileHandleWithStandardOutput"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
-
 // The file handle associated with a null device.
 //
 // # Return Value

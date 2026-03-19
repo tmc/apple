@@ -376,7 +376,6 @@ func (u NSURLRequest) InitWithURL(URL INSURL) NSURLRequest {
 	rv := objc.Send[NSURLRequest](u.ID, objc.Sel("initWithURL:"), URL)
 	return rv
 }
-
 // Creates a URL request with the specified URL, cache policy, and timeout
 // values.
 //
@@ -399,7 +398,6 @@ func (u NSURLRequest) InitWithURLCachePolicyTimeoutInterval(URL INSURL, cachePol
 	rv := objc.Send[NSURLRequest](u.ID, objc.Sel("initWithURL:cachePolicy:timeoutInterval:"), URL, cachePolicy, timeoutInterval)
 	return rv
 }
-
 // Returns the value of the specified HTTP header field.
 //
 // field: The name of the header field whose value is to be returned. In keeping with
@@ -415,7 +413,6 @@ func (u NSURLRequest) ValueForHTTPHeaderField(field string) string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("valueForHTTPHeaderField:"), objc.String(field))
 	return NSStringFromID(rv).String()
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -424,7 +421,6 @@ func (u NSURLRequest) ValueForHTTPHeaderField(field string) string {
 func (u NSURLRequest) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u NSURLRequest) InitWithCoder(coder INSCoder) NSURLRequest {
@@ -451,7 +447,6 @@ func (_NSURLRequestClass NSURLRequestClass) RequestWithURL(URL INSURL) NSURLRequ
 	rv := objc.Send[objc.ID](objc.ID(_NSURLRequestClass.class), objc.Sel("requestWithURL:"), URL)
 	return NSURLRequestFromID(rv)
 }
-
 // Creates and returns an initialized URL request with specified URL, cache
 // policy, and timeout values.
 //
@@ -478,7 +473,6 @@ func (u NSURLRequest) CachePolicy() NSURLRequestCachePolicy {
 	rv := objc.Send[NSURLRequestCachePolicy](u.ID, objc.Sel("cachePolicy"))
 	return NSURLRequestCachePolicy(rv)
 }
-
 // The HTTP request method.
 //
 // # Discussion
@@ -490,7 +484,6 @@ func (u NSURLRequest) HTTPMethod() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("HTTPMethod"))
 	return NSStringFromID(rv).String()
 }
-
 // The URL being requested.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/url
@@ -498,7 +491,6 @@ func (u NSURLRequest) URL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The request body.
 //
 // # Discussion
@@ -511,7 +503,6 @@ func (u NSURLRequest) HTTPBody() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("HTTPBody"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // The request body as an input stream.
 //
 // # Discussion
@@ -529,7 +520,6 @@ func (u NSURLRequest) HTTPBodyStream() INSInputStream {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("HTTPBodyStream"))
 	return NSInputStreamFromID(objc.ID(rv))
 }
-
 // The main document URL associated with the request.
 //
 // # Discussion
@@ -541,7 +531,6 @@ func (u NSURLRequest) MainDocumentURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("mainDocumentURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // A dictionary containing all of the HTTP header fields for a request.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/allHTTPHeaderFields
@@ -549,7 +538,6 @@ func (u NSURLRequest) AllHTTPHeaderFields() INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("allHTTPHeaderFields"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // The request’s timeout interval, in seconds.
 //
 // # Discussion
@@ -562,7 +550,6 @@ func (u NSURLRequest) TimeoutInterval() float64 {
 	rv := objc.Send[NSTimeInterval](u.ID, objc.Sel("timeoutInterval"))
 	return float64(rv)
 }
-
 // A Boolean value that indicates whether the default cookie handling will be
 // used for this request.
 //
@@ -579,7 +566,6 @@ func (u NSURLRequest) HTTPShouldHandleCookies() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("HTTPShouldHandleCookies"))
 	return rv
 }
-
 // A Boolean value that indicates whether the request should continue
 // transmitting data before receiving a response from an earlier transmission.
 //
@@ -596,7 +582,6 @@ func (u NSURLRequest) HTTPShouldUsePipelining() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("HTTPShouldUsePipelining"))
 	return rv
 }
-
 // A Boolean value that indicates whether the request is allowed to use the
 // cellular radio (if present).
 //
@@ -612,7 +597,6 @@ func (u NSURLRequest) AllowsCellularAccess() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("allowsCellularAccess"))
 	return rv
 }
-
 // A Boolean value that indicates whether connections may use the network when
 // the user has specified Low Data Mode.
 //
@@ -640,7 +624,6 @@ func (u NSURLRequest) AllowsConstrainedNetworkAccess() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("allowsConstrainedNetworkAccess"))
 	return rv
 }
-
 // A Boolean value that indicates whether connections may use a network
 // interface that the system considers expensive.
 //
@@ -667,7 +650,6 @@ func (u NSURLRequest) AllowsExpensiveNetworkAccess() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("allowsExpensiveNetworkAccess"))
 	return rv
 }
-
 // The network service type of the request.
 //
 // # Discussion
@@ -684,7 +666,6 @@ func (u NSURLRequest) NetworkServiceType() NSURLRequestNetworkServiceType {
 	rv := objc.Send[NSURLRequestNetworkServiceType](u.ID, objc.Sel("networkServiceType"))
 	return NSURLRequestNetworkServiceType(rv)
 }
-
 // The entity that initiates the network request.
 //
 // # Discussion
@@ -710,7 +691,6 @@ func (u NSURLRequest) Attribution() NSURLRequestAttribution {
 	rv := objc.Send[NSURLRequestAttribution](u.ID, objc.Sel("attribution"))
 	return NSURLRequestAttribution(rv)
 }
-
 //
 // # Discussion
 // 
@@ -726,7 +706,6 @@ func (u NSURLRequest) AllowsPersistentDNS() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("allowsPersistentDNS"))
 	return rv
 }
-
 //
 // # Return Value
 // 
@@ -743,7 +722,6 @@ func (u NSURLRequest) AllowsUltraConstrainedNetworkAccess() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("allowsUltraConstrainedNetworkAccess"))
 	return rv
 }
-
 //
 // # Return Value
 // 
@@ -760,13 +738,11 @@ func (u NSURLRequest) AssumesHTTP3Capable() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("assumesHTTP3Capable"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/cookiePartitionIdentifier
 func (u NSURLRequest) CookiePartitionIdentifier() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("cookiePartitionIdentifier"))
 	return NSStringFromID(rv).String()
 }
-
 //
 // # Discussion
 // 

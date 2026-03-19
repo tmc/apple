@@ -202,7 +202,6 @@ func (d NSDraggingItem) InitWithPasteboardWriter(pasteboardWriter NSPasteboardWr
 	rv := objc.Send[NSDraggingItem](d.ID, objc.Sel("initWithPasteboardWriter:"), pasteboardWriter)
 	return rv
 }
-
 // Sets the item’s dragging frame and contents.
 //
 // frame: The item content frame, which is in the same coordinate space as the value
@@ -262,7 +261,6 @@ func (d NSDraggingItem) DraggingFrame() corefoundation.CGRect {
 func (d NSDraggingItem) SetDraggingFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDraggingFrame:"), value)
 }
-
 // An array of dragging image components to use to create the drag image.
 //
 // # Discussion
@@ -278,7 +276,6 @@ func (d NSDraggingItem) ImageComponents() []NSDraggingImageComponent {
 		return NSDraggingImageComponentFromID(id)
 	})
 }
-
 // An array of blocks that provide the dragging image components.
 //
 // # Discussion
@@ -308,7 +305,6 @@ func (d NSDraggingItem) SetImageComponentsProvider(value VoidHandler) {
 	defer cleanup()
 	objc.Send[struct{}](d.ID, objc.Sel("setImageComponentsProvider:"), block)
 }
-
 // The pasteboard reader or writer object dependent on the context where you
 // use the dragging item.
 //

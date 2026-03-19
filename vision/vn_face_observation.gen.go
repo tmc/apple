@@ -182,7 +182,6 @@ func (f VNFaceObservation) Landmarks() IVNFaceLandmarks2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("landmarks"))
 	return VNFaceLandmarks2DFromID(objc.ID(rv))
 }
-
 // The roll angle of a face in radians.
 //
 // # Discussion
@@ -196,7 +195,6 @@ func (f VNFaceObservation) Roll() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("roll"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // The yaw angle of a face in radians.
 //
 // # Discussion
@@ -210,7 +208,6 @@ func (f VNFaceObservation) Yaw() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("yaw"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // The pitch angle of a face in radians.
 //
 // # Discussion
@@ -224,7 +221,6 @@ func (f VNFaceObservation) Pitch() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("pitch"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // A value that indicates the quality of the face capture.
 //
 // # Discussion
@@ -243,7 +239,6 @@ func (f VNFaceObservation) FaceCaptureQuality() foundation.NSNumber {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("faceCaptureQuality"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // The results of the face-capture quality request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectfacecapturequalityrequest/results

@@ -52,7 +52,6 @@ func NSToolbarItemValidationObjectFromID(id objc.ID) NSToolbarItemValidationObje
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemValidation/validateToolbarItem(_:)
-
 func (o NSToolbarItemValidationObject) ValidateToolbarItem(item INSToolbarItem) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("validateToolbarItem:"), item)

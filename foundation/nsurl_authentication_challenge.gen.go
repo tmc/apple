@@ -290,7 +290,6 @@ func (u URLAuthenticationChallenge) InitWithAuthenticationChallengeSender(challe
 	rv := objc.Send[URLAuthenticationChallenge](u.ID, objc.Sel("initWithAuthenticationChallenge:sender:"), challenge, sender)
 	return rv
 }
-
 // Initializes an authentication challenge from parameters you provide.
 //
 // space: The protection space for the authentication challenge. This provides
@@ -332,7 +331,6 @@ func (u URLAuthenticationChallenge) InitWithProtectionSpaceProposedCredentialPre
 	rv := objc.Send[URLAuthenticationChallenge](u.ID, objc.Sel("initWithProtectionSpace:proposedCredential:previousFailureCount:failureResponse:error:sender:"), space, credential, previousFailureCount, response, error_, sender)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -341,7 +339,6 @@ func (u URLAuthenticationChallenge) InitWithProtectionSpaceProposedCredentialPre
 func (u URLAuthenticationChallenge) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u URLAuthenticationChallenge) InitWithCoder(coder INSCoder) URLAuthenticationChallenge {
@@ -364,7 +361,6 @@ func (u URLAuthenticationChallenge) ProtectionSpace() INSURLProtectionSpace {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("protectionSpace"))
 	return NSURLProtectionSpaceFromID(objc.ID(rv))
 }
-
 // The URL response object representing the last authentication failure.
 //
 // # Discussion
@@ -377,7 +373,6 @@ func (u URLAuthenticationChallenge) FailureResponse() INSURLResponse {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("failureResponse"))
 	return NSURLResponseFromID(objc.ID(rv))
 }
-
 // The receiver’s count of failed authentication attempts.
 //
 // # Discussion
@@ -390,7 +385,6 @@ func (u URLAuthenticationChallenge) PreviousFailureCount() int {
 	rv := objc.Send[int](u.ID, objc.Sel("previousFailureCount"))
 	return rv
 }
-
 // The proposed credential for this challenge.
 //
 // # Discussion
@@ -415,7 +409,6 @@ func (u URLAuthenticationChallenge) ProposedCredential() INSURLCredential {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("proposedCredential"))
 	return NSURLCredentialFromID(objc.ID(rv))
 }
-
 // The error object representing the last authentication failure.
 //
 // # Discussion
@@ -428,7 +421,6 @@ func (u URLAuthenticationChallenge) Error() INSError {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("error"))
 	return NSErrorFromID(objc.ID(rv))
 }
-
 // The sender of the challenge.
 //
 // # Discussion

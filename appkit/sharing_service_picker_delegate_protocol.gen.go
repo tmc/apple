@@ -57,7 +57,6 @@ func NSSharingServicePickerDelegateObjectFromID(id objc.ID) NSSharingServicePick
 // the proposed list of services.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:sharingServicesForItems:proposedSharingServices:)
-
 func (o NSSharingServicePickerDelegateObject) SharingServicePickerSharingServicesForItemsProposedSharingServices(sharingServicePicker INSSharingServicePicker, items foundation.INSArray, proposedServices []NSSharingService) []NSSharingService {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sharingServicePicker:sharingServicesForItems:proposedSharingServices:"), sharingServicePicker, items, objectivec.IObjectSliceToNSArray(proposedServices))
@@ -65,7 +64,6 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerSharingService
 		return NSSharingServiceFromID(id)
 	})
 	}
-
 // Tells the delegate that the person selected a sharing service for the
 // current item.
 //
@@ -81,12 +79,10 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerSharingService
 // receives the item sometime after this method returns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:didChoose:)
-
 func (o NSSharingServicePickerDelegateObject) SharingServicePickerDidChooseSharingService(sharingServicePicker INSSharingServicePicker, service INSSharingService) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingServicePicker:didChooseSharingService:"), sharingServicePicker, service)
 	}
-
 // Asks your delegate to provide an object that the selected sharing service
 // can use as its delegate.
 //
@@ -103,19 +99,16 @@ func (o NSSharingServicePickerDelegateObject) SharingServicePickerDidChooseShari
 // The sharing service assigns the returned object to its [Delegate] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePicker(_:delegateFor:)
-
 func (o NSSharingServicePickerDelegateObject) SharingServicePickerDelegateForSharingService(sharingServicePicker INSSharingServicePicker, sharingService INSSharingService) NSSharingServiceDelegate {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingServicePicker:delegateForSharingService:"), sharingServicePicker, sharingService)
 	return NSSharingServiceDelegateObjectFromID(rv)
 	}
-
 // Used to specify the case where the share picker should not support some
 // modes of sharing even if they are supported by the items being shared.
 // Disabling all possible modes at the same time is not supported behavior.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePickerDelegate/sharingServicePickerCollaborationModeRestrictions(_:)
-
 func (o NSSharingServicePickerDelegateObject) SharingServicePickerCollaborationModeRestrictions(sharingServicePicker INSSharingServicePicker) []NSSharingCollaborationModeRestriction {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sharingServicePickerCollaborationModeRestrictions:"), sharingServicePicker)

@@ -113,7 +113,6 @@ func (i VNImageAestheticsScoresObservation) OverallScore() float32 {
 	rv := objc.Send[float32](i.ID, objc.Sel("overallScore"))
 	return rv
 }
-
 // A Boolean value that represents images that are not necessarily of poor
 // image quality, but may not have memorable or exciting content.
 //
@@ -122,7 +121,6 @@ func (i VNImageAestheticsScoresObservation) IsUtility() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isUtility"))
 	return rv
 }
-
 // The results of the aesthetics request.
 //
 // See: https://developer.apple.com/documentation/vision/vncalculateimageaestheticsscoresrequest/results

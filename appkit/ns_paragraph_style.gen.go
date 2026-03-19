@@ -272,7 +272,6 @@ func (p NSParagraphStyle) Alignment() NSTextAlignment {
 	rv := objc.Send[NSTextAlignment](p.ID, objc.Sel("alignment"))
 	return NSTextAlignment(rv)
 }
-
 // The indentation of the first line of the paragraph.
 //
 // # Discussion
@@ -286,7 +285,6 @@ func (p NSParagraphStyle) FirstLineHeadIndent() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("firstLineHeadIndent"))
 	return rv
 }
-
 // The indentation of the paragraph’s lines other than the first.
 //
 // # Discussion
@@ -300,7 +298,6 @@ func (p NSParagraphStyle) HeadIndent() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("headIndent"))
 	return rv
 }
-
 // The trailing indentation of the paragraph.
 //
 // # Discussion
@@ -319,7 +316,6 @@ func (p NSParagraphStyle) TailIndent() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("tailIndent"))
 	return rv
 }
-
 // The line height multiple.
 //
 // # Discussion
@@ -333,7 +329,6 @@ func (p NSParagraphStyle) LineHeightMultiple() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("lineHeightMultiple"))
 	return rv
 }
-
 // The paragraph’s maximum line height.
 //
 // # Discussion
@@ -352,7 +347,6 @@ func (p NSParagraphStyle) MaximumLineHeight() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("maximumLineHeight"))
 	return rv
 }
-
 // The paragraph’s minimum line height.
 //
 // # Discussion
@@ -366,7 +360,6 @@ func (p NSParagraphStyle) MinimumLineHeight() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("minimumLineHeight"))
 	return rv
 }
-
 // The distance in points between the bottom of one line fragment and the top
 // of the next.
 //
@@ -380,7 +373,6 @@ func (p NSParagraphStyle) LineSpacing() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("lineSpacing"))
 	return rv
 }
-
 // Distance between the bottom of this paragraph and top of next.
 //
 // # Discussion
@@ -395,7 +387,6 @@ func (p NSParagraphStyle) ParagraphSpacing() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("paragraphSpacing"))
 	return rv
 }
-
 // The distance between the paragraph’s top and the beginning of its text
 // content.
 //
@@ -409,7 +400,6 @@ func (p NSParagraphStyle) ParagraphSpacingBefore() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("paragraphSpacingBefore"))
 	return rv
 }
-
 // The text tab objects that represent the paragraph’s tab stops.
 //
 // # Discussion
@@ -425,7 +415,6 @@ func (p NSParagraphStyle) TabStops() []NSTextTab {
 		return NSTextTabFromID(id)
 	})
 }
-
 // The documentwide default tab interval.
 //
 // # Discussion
@@ -439,7 +428,6 @@ func (p NSParagraphStyle) DefaultTabInterval() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("defaultTabInterval"))
 	return rv
 }
-
 // The text blocks that contain the paragraph.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/textBlocks
@@ -449,7 +437,6 @@ func (p NSParagraphStyle) TextBlocks() []NSTextBlock {
 		return NSTextBlockFromID(id)
 	})
 }
-
 // The text lists that contain the paragraph.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/textLists
@@ -459,7 +446,6 @@ func (p NSParagraphStyle) TextLists() []NSTextList {
 		return NSTextListFromID(id)
 	})
 }
-
 // The mode for breaking lines in the paragraph that don’t fit within a
 // container.
 //
@@ -477,7 +463,6 @@ func (p NSParagraphStyle) LineBreakMode() NSLineBreakMode {
 	rv := objc.Send[NSLineBreakMode](p.ID, objc.Sel("lineBreakMode"))
 	return NSLineBreakMode(rv)
 }
-
 // The strategy for breaking lines while laying out paragraphs.
 //
 // # Discussion
@@ -499,7 +484,6 @@ func (p NSParagraphStyle) LineBreakStrategy() NSLineBreakStrategy {
 	rv := objc.Send[NSLineBreakStrategy](p.ID, objc.Sel("lineBreakStrategy"))
 	return NSLineBreakStrategy(rv)
 }
-
 // The paragraph’s threshold for hyphenation.
 //
 // # Discussion
@@ -518,7 +502,6 @@ func (p NSParagraphStyle) HyphenationFactor() float32 {
 	rv := objc.Send[float32](p.ID, objc.Sel("hyphenationFactor"))
 	return rv
 }
-
 // A Boolean value that indicates whether the paragraph style uses the system
 // hyphenation settings.
 //
@@ -527,7 +510,6 @@ func (p NSParagraphStyle) UsesDefaultHyphenation() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("usesDefaultHyphenation"))
 	return rv
 }
-
 // The threshold for using tightening as an alternative to truncation.
 //
 // # Discussion
@@ -544,7 +526,6 @@ func (p NSParagraphStyle) TighteningFactorForTruncation() float32 {
 	rv := objc.Send[float32](p.ID, objc.Sel("tighteningFactorForTruncation"))
 	return rv
 }
-
 // A Boolean value that indicates whether the system tightens character
 // spacing before truncating text.
 //
@@ -566,7 +547,6 @@ func (p NSParagraphStyle) AllowsDefaultTighteningForTruncation() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("allowsDefaultTighteningForTruncation"))
 	return rv
 }
-
 // The paragraph’s header level for HTML generation.
 //
 // # Discussion
@@ -582,7 +562,6 @@ func (p NSParagraphStyle) HeaderLevel() int {
 	rv := objc.Send[int](p.ID, objc.Sel("headerLevel"))
 	return rv
 }
-
 // The base writing direction for the paragraph.
 //
 // # Discussion
@@ -599,7 +578,6 @@ func (p NSParagraphStyle) BaseWritingDirection() NSWritingDirection {
 	rv := objc.Send[NSWritingDirection](p.ID, objc.Sel("baseWritingDirection"))
 	return NSWritingDirection(rv)
 }
-
 // The paragraph style of the text.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/paragraphStyle

@@ -79,37 +79,31 @@ func (_ANELogClass ANELogClass) Common() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANELogClass.class), objc.Sel("common"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog/compiler
 func (_ANELogClass ANELogClass) Compiler() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANELogClass.class), objc.Sel("compiler"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog/daemon
 func (_ANELogClass ANELogClass) Daemon() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANELogClass.class), objc.Sel("daemon"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog/framework
 func (_ANELogClass ANELogClass) Framework() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANELogClass.class), objc.Sel("framework"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog/maintenance
 func (_ANELogClass ANELogClass) Maintenance() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANELogClass.class), objc.Sel("maintenance"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog/tests
 func (_ANELogClass ANELogClass) Tests() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANELogClass.class), objc.Sel("tests"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANELog/tool
 func (_ANELogClass ANELogClass) Tool() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANELogClass.class), objc.Sel("tool"))

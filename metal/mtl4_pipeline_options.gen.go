@@ -116,7 +116,6 @@ func (m MTL4PipelineOptions) ShaderReflection() MTL4ShaderReflection {
 func (m MTL4PipelineOptions) SetShaderReflection(value MTL4ShaderReflection) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShaderReflection:"), value)
 }
-
 // Controls whether to enable or disable Metal Shader Validation for the
 // pipeline.
 //

@@ -203,7 +203,6 @@ func (c NSCollectionViewGridLayout) MaximumNumberOfRows() uint {
 func (c NSCollectionViewGridLayout) SetMaximumNumberOfRows(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumNumberOfRows:"), value)
 }
-
 // The maximum number of columns to display in the collection view’s visible
 // area.
 //
@@ -223,7 +222,6 @@ func (c NSCollectionViewGridLayout) MaximumNumberOfColumns() uint {
 func (c NSCollectionViewGridLayout) SetMaximumNumberOfColumns(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumNumberOfColumns:"), value)
 }
-
 // The smallest allowable size for an item’s view.
 //
 // # Discussion
@@ -240,7 +238,6 @@ func (c NSCollectionViewGridLayout) MinimumItemSize() corefoundation.CGSize {
 func (c NSCollectionViewGridLayout) SetMinimumItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumItemSize:"), value)
 }
-
 // The largest allowable size for an item’s view.
 //
 // # Discussion
@@ -257,7 +254,6 @@ func (c NSCollectionViewGridLayout) MaximumItemSize() corefoundation.CGSize {
 func (c NSCollectionViewGridLayout) SetMaximumItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumItemSize:"), value)
 }
-
 // The minimum spacing (in points) to use between items in the same row or
 // column.
 //
@@ -280,7 +276,6 @@ func (c NSCollectionViewGridLayout) MinimumInteritemSpacing() float64 {
 func (c NSCollectionViewGridLayout) SetMinimumInteritemSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumInteritemSpacing:"), value)
 }
-
 // The minimum spacing (in points) to use between rows or columns.
 //
 // # Discussion
@@ -301,7 +296,6 @@ func (c NSCollectionViewGridLayout) MinimumLineSpacing() float64 {
 func (c NSCollectionViewGridLayout) SetMinimumLineSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumLineSpacing:"), value)
 }
-
 // The amount of empty space (in points) around the grid’s content.
 //
 // # Discussion
@@ -317,7 +311,6 @@ func (c NSCollectionViewGridLayout) Margins() foundation.NSEdgeInsets {
 func (c NSCollectionViewGridLayout) SetMargins(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMargins:"), value)
 }
-
 // The array of background colors to use when drawing the grid.
 //
 // # Discussion

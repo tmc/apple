@@ -38,7 +38,6 @@ func NSTextLayoutOrientationProviderObjectFromID(id objc.ID) NSTextLayoutOrienta
 // The default layout orientation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutOrientationProvider/layoutOrientation
-
 func (o NSTextLayoutOrientationProviderObject) LayoutOrientation() NSTextLayoutOrientation {
 	
 	rv := objc.Send[NSTextLayoutOrientation](o.ID, objc.Sel("layoutOrientation"))

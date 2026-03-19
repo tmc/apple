@@ -107,7 +107,6 @@ func (s SCShareableContentInfo) ContentRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("contentRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The scaling from points to output pixel resolution for the stream.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContentInfo/pointPixelScale
@@ -115,7 +114,6 @@ func (s SCShareableContentInfo) PointPixelScale() float32 {
 	rv := objc.Send[float32](s.ID, objc.Sel("pointPixelScale"))
 	return rv
 }
-
 // The current presentation style of the stream.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCShareableContentInfo/style

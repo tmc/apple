@@ -79,27 +79,23 @@ func NewANEDataReporter() ANEDataReporter {
 func (_ANEDataReporterClass ANEDataReporterClass) AddValueForScalarKey(value int64, key objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("addValue:forScalarKey:"), value, key)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter/analyticsKey:
 func (_ANEDataReporterClass ANEDataReporterClass) AnalyticsKey(key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("analyticsKey:"), key)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter/reportClient:modelName:
 func (_ANEDataReporterClass ANEDataReporterClass) ReportClientModelName(client objectivec.IObject, name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportClient:modelName:"), client, name)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter/reportErrorMsg:status:
 func (_ANEDataReporterClass ANEDataReporterClass) ReportErrorMsgStatus(msg uint32, status uint32) {
 	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportErrorMsg:status:"), msg, status)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter/reportTelemetryToPPS:playload:
 func (_ANEDataReporterClass ANEDataReporterClass) ReportTelemetryToPPSPlayload(pps objectivec.IObject, playload objectivec.IObject) {

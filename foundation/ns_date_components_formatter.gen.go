@@ -244,7 +244,6 @@ func (d DateComponentsFormatter) StringFromDateComponents(components INSDateComp
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stringFromDateComponents:"), components)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a formatted string based on the time difference between two dates.
 //
 // startDate: The start time. This parameter must not be `nil`.
@@ -268,7 +267,6 @@ func (d DateComponentsFormatter) StringFromDateToDate(startDate INSDate, endDate
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stringFromDate:toDate:"), startDate, endDate)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a formatted string based on the specified number of seconds.
 //
 // ti: The time interval, measured in seconds. The value must be a finite number.
@@ -337,7 +335,6 @@ func (d DateComponentsFormatter) AllowedUnits() NSCalendarUnit {
 func (d DateComponentsFormatter) SetAllowedUnits(value NSCalendarUnit) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAllowedUnits:"), value)
 }
-
 // A Boolean indicating whether non-integer units may be used for values.
 //
 // # Discussion
@@ -358,7 +355,6 @@ func (d DateComponentsFormatter) AllowsFractionalUnits() bool {
 func (d DateComponentsFormatter) SetAllowsFractionalUnits(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAllowsFractionalUnits:"), value)
 }
-
 // The default calendar to use when formatting date components.
 //
 // # Discussion
@@ -380,7 +376,6 @@ func (d DateComponentsFormatter) Calendar() INSCalendar {
 func (d DateComponentsFormatter) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
-
 // A Boolean value indicating whether to collapse the largest unit into
 // smaller units when a certain threshold is met.
 //
@@ -404,7 +399,6 @@ func (d DateComponentsFormatter) CollapsesLargestUnit() bool {
 func (d DateComponentsFormatter) SetCollapsesLargestUnit(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCollapsesLargestUnit:"), value)
 }
-
 // A Boolean value indicating whether the resulting phrase reflects an inexact
 // time value.
 //
@@ -428,7 +422,6 @@ func (d DateComponentsFormatter) IncludesApproximationPhrase() bool {
 func (d DateComponentsFormatter) SetIncludesApproximationPhrase(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludesApproximationPhrase:"), value)
 }
-
 // A Boolean value indicating whether output strings reflect the amount of
 // time remaining.
 //
@@ -450,7 +443,6 @@ func (d DateComponentsFormatter) IncludesTimeRemainingPhrase() bool {
 func (d DateComponentsFormatter) SetIncludesTimeRemainingPhrase(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludesTimeRemainingPhrase:"), value)
 }
-
 // The maximum number of time units to include in the output string.
 //
 // # Discussion
@@ -472,7 +464,6 @@ func (d DateComponentsFormatter) MaximumUnitCount() int {
 func (d DateComponentsFormatter) SetMaximumUnitCount(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumUnitCount:"), value)
 }
-
 // The formatting style for unit names.
 //
 // # Discussion
@@ -493,7 +484,6 @@ func (d DateComponentsFormatter) UnitsStyle() NSDateComponentsFormatterUnitsStyl
 func (d DateComponentsFormatter) SetUnitsStyle(value NSDateComponentsFormatterUnitsStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUnitsStyle:"), value)
 }
-
 // The formatting style for units whose value is 0.
 //
 // # Discussion
@@ -515,7 +505,6 @@ func (d DateComponentsFormatter) ZeroFormattingBehavior() NSDateComponentsFormat
 func (d DateComponentsFormatter) SetZeroFormattingBehavior(value NSDateComponentsFormatterZeroFormattingBehavior) {
 	objc.Send[struct{}](d.ID, objc.Sel("setZeroFormattingBehavior:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/formattingContext
 func (d DateComponentsFormatter) FormattingContext() NSFormattingContext {
 	rv := objc.Send[NSFormattingContext](d.ID, objc.Sel("formattingContext"))
@@ -524,7 +513,6 @@ func (d DateComponentsFormatter) FormattingContext() NSFormattingContext {
 func (d DateComponentsFormatter) SetFormattingContext(value NSFormattingContext) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFormattingContext:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/referenceDate
 func (d DateComponentsFormatter) ReferenceDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("referenceDate"))

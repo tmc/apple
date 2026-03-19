@@ -3,7 +3,7 @@
 package foundation
 
 import (
-	"unsafe"
+	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -142,10 +142,6 @@ func (nc NSSetClass) Alloc() NSSet {
 //   - [NSSet.Description]: A string that represents the contents of the set, formatted as a property list.
 //   - [NSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
-// # Instance Methods
-//
-//   - [NSSet.EnumerateIndexPathsWithOptionsUsingBlock]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet
 type NSSet struct {
 	objectivec.Object
@@ -207,10 +203,6 @@ func NSSetFromID(id objc.ID) NSSet {
 //   - [INSSet.Description]: A string that represents the contents of the set, formatted as a property list.
 //   - [INSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
-// # Instance Methods
-//
-//   - [INSSet.EnumerateIndexPathsWithOptionsUsingBlock]
-//
 // See: https://developer.apple.com/documentation/Foundation/NSSet
 type INSSet interface {
 	objectivec.IObject
@@ -259,13 +251,13 @@ type INSSet interface {
 	// Returns an enumerator object that lets you access each object in the set.
 	ObjectEnumerator() INSEnumerator
 	// Executes a given block using each object in the set.
-	EnumerateObjectsUsingBlock(block unsafe.Pointer)
+	EnumerateObjectsUsingBlock(block ObjectTypeHandler)
 	// Executes a given block using each object in the set, using the specified enumeration options.
-	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
+	EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler)
 	// Returns a set of objects that pass a test in a given block.
-	ObjectsPassingTest(predicate unsafe.Pointer) INSSet
+	ObjectsPassingTest(predicate ObjectTypeHandler) INSSet
 	// Returns a set of objects that pass a test in a given block, using the specified enumeration options.
-	ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSSet
+	ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSSet
 
 	// Topic: Comparing Sets
 
@@ -287,10 +279,6 @@ type INSSet interface {
 	Description() string
 	// Returns a string that represents the contents of the set, formatted as a property list.
 	DescriptionWithLocale(locale objectivec.IObject) string
-
-	// Topic: Instance Methods
-
-	EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
 
 	// Initializes a newly allocated set with members taken from the specified list of objects.
 	InitWithObjects(firstObj objectivec.IObject) NSSet
@@ -481,7 +469,6 @@ func (s NSSet) SetByAddingObject(anObject objectivec.IObject) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("setByAddingObject:"), anObject)
 	return NSSetFromID(rv)
 }
-
 // Returns a new set formed by adding the objects in a given set to the
 // receiving set.
 //
@@ -496,7 +483,6 @@ func (s NSSet) SetByAddingObjectsFromSet(other INSSet) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("setByAddingObjectsFromSet:"), other)
 	return NSSetFromID(rv)
 }
-
 // Returns a new set formed by adding the objects in a given array to the
 // receiving set.
 //
@@ -511,7 +497,6 @@ func (s NSSet) SetByAddingObjectsFromArray(other []objectivec.IObject) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("setByAddingObjectsFromArray:"), objectivec.IObjectSliceToNSArray(other))
 	return NSSetFromID(rv)
 }
-
 // Initializes a newly allocated set with the objects that are contained in a
 // given array.
 //
@@ -531,7 +516,6 @@ func (s NSSet) InitWithArray(array []objectivec.IObject) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return rv
 }
-
 // Initializes a newly allocated set with a specified number of objects from a
 // given C array of objects.
 //
@@ -558,7 +542,6 @@ func (s NSSet) InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSe
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithObjects:count:"), objc.CArray(objects), cnt)
 	return rv
 }
-
 // Initializes a newly allocated set and adds to it objects from another given
 // set.
 //
@@ -575,7 +558,6 @@ func (s NSSet) InitWithSet(set INSSet) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithSet:"), set)
 	return rv
 }
-
 // Initializes a newly allocated set and adds to it members of another given
 // set.
 //
@@ -618,7 +600,6 @@ func (s NSSet) InitWithSetCopyItems(set INSSet, flag bool) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithSet:copyItems:"), set, flag)
 	return rv
 }
-
 // Returns one of the objects in the set, or `nil` if the set contains no
 // objects.
 //
@@ -633,7 +614,6 @@ func (s NSSet) AnyObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("anyObject"))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns a Boolean value that indicates whether a given object is present in
 // the set.
 //
@@ -660,7 +640,6 @@ func (s NSSet) ContainsObject(anObject objectivec.IObject) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("containsObject:"), anObject)
 	return rv
 }
-
 // Evaluates a given predicate against each object in the receiving set and
 // returns a new set containing the objects for which the predicate returns
 // true.
@@ -681,7 +660,6 @@ func (s NSSet) FilteredSetUsingPredicate(predicate INSPredicate) INSSet {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("filteredSetUsingPredicate:"), predicate)
 	return NSSetFromID(rv)
 }
-
 // Determines whether a given object is present in the set, and returns that
 // object if it is.
 //
@@ -706,7 +684,6 @@ func (s NSSet) Member(object objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("member:"), object)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an enumerator object that lets you access each object in the set.
 //
 // # Return Value
@@ -734,7 +711,6 @@ func (s NSSet) ObjectEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
-
 // Executes a given block using each object in the set.
 //
 // block: The block to apply to elements in the set.
@@ -749,10 +725,11 @@ func (s NSSet) ObjectEnumerator() INSEnumerator {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(_:)
-func (s NSSet) EnumerateObjectsUsingBlock(block unsafe.Pointer) {
-	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsUsingBlock:"), block)
+func (s NSSet) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
+_block0, _cleanup0 := NewObjectTypeBlock(block)
+	defer _cleanup0()
+	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
-
 // Executes a given block using each object in the set, using the specified
 // enumeration options.
 //
@@ -770,10 +747,11 @@ func (s NSSet) EnumerateObjectsUsingBlock(block unsafe.Pointer) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(options:using:)
-func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
-	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, block)
+func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler) {
+_block1, _cleanup1 := NewObjectTypeBlock(block)
+	defer _cleanup1()
+	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
-
 // Returns a set of objects that pass a test in a given block.
 //
 // predicate: The block to apply to elements in the array.
@@ -795,11 +773,12 @@ func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, 
 // An [NSSet] containing objects that pass the test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(passingTest:)
-func (s NSSet) ObjectsPassingTest(predicate unsafe.Pointer) INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsPassingTest:"), predicate)
+func (s NSSet) ObjectsPassingTest(predicate ObjectTypeHandler) INSSet {
+_block0, _cleanup0 := NewObjectTypeBlock(predicate)
+	defer _cleanup0()
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
-
 // Returns a set of objects that pass a test in a given block, using the
 // specified enumeration options.
 //
@@ -824,11 +803,12 @@ func (s NSSet) ObjectsPassingTest(predicate unsafe.Pointer) INSSet {
 // An [NSSet] containing objects that pass the test.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(options:passingTest:)
-func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSSet {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsWithOptions:passingTest:"), opts, predicate)
+func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSSet {
+_block1, _cleanup1 := NewObjectTypeBlock(predicate)
+	defer _cleanup1()
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }
-
 // Returns a Boolean value that indicates whether every object in the
 // receiving set is also present in another given set.
 //
@@ -851,7 +831,6 @@ func (s NSSet) IsSubsetOfSet(otherSet INSSet) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSubsetOfSet:"), otherSet)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether at least one object in the
 // receiving set is also present in another given set.
 //
@@ -874,7 +853,6 @@ func (s NSSet) IntersectsSet(otherSet INSSet) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("intersectsSet:"), otherSet)
 	return rv
 }
-
 // Compares the receiving set to another set.
 //
 // otherSet: The set with which to compare the receiving set.
@@ -898,7 +876,6 @@ func (s NSSet) IsEqualToSet(otherSet INSSet) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEqualToSet:"), otherSet)
 	return rv
 }
-
 // Returns an array of the set’s content sorted as specified by a given
 // array of sort descriptors.
 //
@@ -923,7 +900,6 @@ func (s NSSet) SortedArrayUsingDescriptors(sortDescriptors []NSSortDescriptor) [
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Returns a string that represents the contents of the set, formatted as a
 // property list.
 //
@@ -949,20 +925,12 @@ func (s NSSet) DescriptionWithLocale(locale objectivec.IObject) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("descriptionWithLocale:"), locale)
 	return NSStringFromID(rv).String()
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(coder:)
 func (s NSSet) InitWithCoder(coder INSCoder) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateIndexPaths(options:using:)
-func (s NSSet) EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
-	objc.Send[objc.ID](s.ID, objc.Sel("enumerateIndexPathsWithOptions:usingBlock:"), opts, block)
-}
-
 // Returns by reference a C array of objects over which the sender should
 // iterate, and as the return value the number of objects in the array.
 //
@@ -989,7 +957,6 @@ func (s NSSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationSt
 	rv := objc.Send[uint](s.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -998,7 +965,6 @@ func (s NSSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationSt
 func (s NSSet) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](s.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 // Initializes a newly allocated set with members taken from the specified
 // list of objects.
 //
@@ -1024,7 +990,6 @@ func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithObjects:"), firstObj)
 	return rv
 }
-
 // Sends a message specified by a given selector to each object in the set.
 //
 // aSelector: A selector that specifies the message to send to the members of the set.
@@ -1041,7 +1006,6 @@ func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
-
 // Sends a message specified by a given selector to each object in the set.
 //
 // aSelector: A selector that specifies the message to send to the set’s members. The
@@ -1082,7 +1046,6 @@ func (_NSSetClass NSSetClass) SetWithObjectsCount(objects []objectivec.IObject, 
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithObjects:count:"), objc.CArray(objects), cnt)
 	return NSSetFromID(rv)
 }
-
 // Creates and returns an empty set.
 //
 // # Return Value
@@ -1099,7 +1062,6 @@ func (_NSSetClass NSSetClass) Set() NSSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("set"))
 	return NSSetFromID(rv)
 }
-
 // Creates and returns a set containing a uniqued collection of the objects
 // contained in a given array.
 //
@@ -1119,7 +1081,6 @@ func (_NSSetClass NSSetClass) SetWithArray(array []objectivec.IObject) NSSet {
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithArray:"), objectivec.IObjectSliceToNSArray(array))
 	return NSSetFromID(rv)
 }
-
 // Creates and returns a set containing the objects in a given argument list.
 //
 // firstObj: The first object to add to the new set.
@@ -1146,7 +1107,6 @@ func (_NSSetClass NSSetClass) SetWithObjects(firstObj objectivec.IObject) NSSet 
 	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithObjects:"), firstObj)
 	return NSSetFromID(rv)
 }
-
 // Creates and returns a set containing the objects from another set.
 //
 // set: A set containing the objects to add to the new set. Each object receives a
@@ -1171,7 +1131,6 @@ func (s NSSet) Count() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("count"))
 	return rv
 }
-
 // An array containing the set’s members, or an empty array if the set has
 // no members.
 //
@@ -1186,7 +1145,6 @@ func (s NSSet) AllObjects() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // A string that represents the contents of the set, formatted as a property
 // list.
 //
@@ -1204,4 +1162,64 @@ func (s NSSet) Description() string {
 
 			// Protocol methods for NSSecureCoding
 			
+
+// EnumerateObjectsUsingBlockSync is a synchronous wrapper around [NSSet.EnumerateObjectsUsingBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s NSSet) EnumerateObjectsUsingBlockSync(ctx context.Context) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	s.EnumerateObjectsUsingBlock(func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// EnumerateObjectsWithOptionsUsingBlockSync is a synchronous wrapper around [NSSet.EnumerateObjectsWithOptionsUsingBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s NSSet) EnumerateObjectsWithOptionsUsingBlockSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	s.EnumerateObjectsWithOptionsUsingBlock(opts, func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// ObjectsPassingTestSync is a synchronous wrapper around [NSSet.ObjectsPassingTest].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s NSSet) ObjectsPassingTestSync(ctx context.Context) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	s.ObjectsPassingTest(func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// ObjectsWithOptionsPassingTestSync is a synchronous wrapper around [NSSet.ObjectsWithOptionsPassingTest].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s NSSet) ObjectsWithOptionsPassingTestSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	s.ObjectsWithOptionsPassingTest(opts, func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
 

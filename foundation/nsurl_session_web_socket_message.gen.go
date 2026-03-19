@@ -129,7 +129,6 @@ func (u NSURLSessionWebSocketMessage) InitWithData(data INSData) NSURLSessionWeb
 	rv := objc.Send[NSURLSessionWebSocketMessage](u.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/initWithString:
 func (u NSURLSessionWebSocketMessage) InitWithString(string_ string) NSURLSessionWebSocketMessage {
@@ -142,13 +141,11 @@ func (u NSURLSessionWebSocketMessage) Data() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("data"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/string
 func (u NSURLSessionWebSocketMessage) String() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("string"))
 	return NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketMessage/type
 func (u NSURLSessionWebSocketMessage) Type() NSURLSessionWebSocketMessageType {
 	rv := objc.Send[NSURLSessionWebSocketMessageType](u.ID, objc.Sel("type"))

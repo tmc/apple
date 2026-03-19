@@ -285,7 +285,6 @@ func NewOperationQueue() OperationQueue {
 func (o OperationQueue) AddOperation(op INSOperation) {
 	objc.Send[objc.ID](o.ID, objc.Sel("addOperation:"), op)
 }
-
 // Adds the specified operations to the queue.
 //
 // ops: The operations to be added to the queue.
@@ -313,7 +312,6 @@ func (o OperationQueue) AddOperation(op INSOperation) {
 func (o OperationQueue) AddOperationsWaitUntilFinished(ops []NSOperation, wait bool) {
 	objc.Send[objc.ID](o.ID, objc.Sel("addOperations:waitUntilFinished:"), objectivec.IObjectSliceToNSArray(ops), wait)
 }
-
 // Wraps the specified block in an operation and adds it to the receiver.
 //
 // block: The block to execute from the operation. The block takes no parameters and
@@ -331,7 +329,6 @@ _block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
 	objc.Send[objc.ID](o.ID, objc.Sel("addOperationWithBlock:"), _block0)
 }
-
 // Invokes a block when the queue finishes all enqueued operations, and
 // prevents subsequent operations from starting until the block has completed.
 //
@@ -351,7 +348,6 @@ _block0, _cleanup0 := NewVoidBlock(barrier)
 	defer _cleanup0()
 	objc.Send[objc.ID](o.ID, objc.Sel("addBarrierBlock:"), _block0)
 }
-
 // Cancels all queued and executing operations.
 //
 // # Discussion
@@ -373,7 +369,6 @@ _block0, _cleanup0 := NewVoidBlock(barrier)
 func (o OperationQueue) CancelAllOperations() {
 	objc.Send[objc.ID](o.ID, objc.Sel("cancelAllOperations"))
 }
-
 // Blocks the current thread until all the receiver’s queued and executing
 // operations finish executing.
 //
@@ -420,7 +415,6 @@ func (o OperationQueue) Operations() []NSOperation {
 		return NSOperationFromID(id)
 	})
 }
-
 // The number of operations currently in the queue.
 //
 // # Discussion
@@ -443,7 +437,6 @@ func (o OperationQueue) OperationCount() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("operationCount"))
 	return rv
 }
-
 // The default service level to apply to operations that the queue invokes.
 //
 // # Discussion
@@ -472,7 +465,6 @@ func (o OperationQueue) QualityOfService() QualityOfService {
 func (o OperationQueue) SetQualityOfService(value QualityOfService) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQualityOfService:"), value)
 }
-
 // The maximum number of queued operations that can run at the same time.
 //
 // # Discussion
@@ -503,7 +495,6 @@ func (o OperationQueue) MaxConcurrentOperationCount() int {
 func (o OperationQueue) SetMaxConcurrentOperationCount(value int) {
 	objc.Send[struct{}](o.ID, objc.Sel("setMaxConcurrentOperationCount:"), value)
 }
-
 // An object that represents the total progress of the operations executing in
 // the queue.
 //
@@ -526,7 +517,6 @@ func (o OperationQueue) Progress() INSProgress {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("progress"))
 	return NSProgressFromID(objc.ID(rv))
 }
-
 // A Boolean value indicating whether the queue is actively scheduling
 // operations for execution.
 //
@@ -563,7 +553,6 @@ func (o OperationQueue) Suspended() bool {
 func (o OperationQueue) SetSuspended(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSuspended:"), value)
 }
-
 // The name of the operation queue.
 //
 // # Discussion
@@ -587,7 +576,6 @@ func (o OperationQueue) Name() string {
 func (o OperationQueue) SetName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // The dispatch queue that the operation queue uses to invoke operations.
 //
 // # Discussion
@@ -614,7 +602,6 @@ func (o OperationQueue) UnderlyingQueue() dispatch.Queue {
 func (o OperationQueue) SetUnderlyingQueue(value dispatch.Queue) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUnderlyingQueue:"), uintptr(value.Handle()))
 }
-
 // A Boolean value indicating whether the operation can be performed now.
 //
 // See: https://developer.apple.com/documentation/foundation/operation/isready
@@ -625,7 +612,6 @@ func (o OperationQueue) IsReady() bool {
 func (o OperationQueue) SetIsReady(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setReady:"), value)
 }
-
 // The execution priority of the operation in an operation queue.
 //
 // See: https://developer.apple.com/documentation/foundation/operation/queuepriority-swift.property
@@ -661,7 +647,6 @@ func (_OperationQueueClass OperationQueueClass) MainQueue() OperationQueue {
 	rv := objc.Send[objc.ID](objc.ID(_OperationQueueClass.class), objc.Sel("mainQueue"))
 	return NSOperationQueueFromID(objc.ID(rv))
 }
-
 // Returns the operation queue that launched the current operation.
 //
 // # Return Value

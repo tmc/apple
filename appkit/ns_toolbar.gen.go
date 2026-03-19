@@ -372,7 +372,6 @@ func (t NSToolbar) InitWithIdentifier(identifier NSToolbarIdentifier) NSToolbar 
 	rv := objc.Send[NSToolbar](t.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return rv
 }
-
 // Inserts an item into the toolbar at the specified index.
 //
 // itemIdentifier: The identifier of the toolbar item to insert.
@@ -396,7 +395,6 @@ func (t NSToolbar) InitWithIdentifier(identifier NSToolbarIdentifier) NSToolbar 
 func (t NSToolbar) InsertItemWithItemIdentifierAtIndex(itemIdentifier NSToolbarItemIdentifier, index int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertItemWithItemIdentifier:atIndex:"), objc.String(string(itemIdentifier)), index)
 }
-
 // Removes the item at the specified index in the toolbar.
 //
 // index: The index of the item to remove.
@@ -416,7 +414,6 @@ func (t NSToolbar) InsertItemWithItemIdentifierAtIndex(itemIdentifier NSToolbarI
 func (t NSToolbar) RemoveItemAtIndex(index int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeItemAtIndex:"), index)
 }
-
 // Displays the toolbar’s customization palette and handles any
 // user-initiated customizations.
 //
@@ -431,7 +428,6 @@ func (t NSToolbar) RemoveItemAtIndex(index int) {
 func (t NSToolbar) RunCustomizationPalette(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("runCustomizationPalette:"), sender)
 }
-
 // Validates the toolbar’s visible items during a window update.
 //
 // # Discussion
@@ -470,7 +466,6 @@ func (t NSToolbar) RunCustomizationPalette(sender objectivec.IObject) {
 func (t NSToolbar) ValidateVisibleItems() {
 	objc.Send[objc.ID](t.ID, objc.Sel("validateVisibleItems"))
 }
-
 // Removes the item with matching `itemIdentifier` in the receiving toolbar.
 // If multiple items share the same identifier (as is the case with space
 // items) all matching items will be removed. To remove only a single space
@@ -502,7 +497,6 @@ func (t NSToolbar) Delegate() NSToolbarDelegate {
 func (t NSToolbar) SetDelegate(value NSToolbarDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The value you use to identify the toolbar in your app.
 //
 // # Discussion
@@ -520,7 +514,6 @@ func (t NSToolbar) Identifier() NSToolbarIdentifier {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
 	return NSToolbarIdentifier(foundation.NSStringFromID(rv).String())
 }
-
 // A Boolean value that indicates whether the toolbar is visible.
 //
 // # Discussion
@@ -539,7 +532,6 @@ func (t NSToolbar) Visible() bool {
 func (t NSToolbar) SetVisible(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVisible:"), value)
 }
-
 // A value that indicates whether the toolbar displays items using a name,
 // icon, or combination of elements.
 //
@@ -559,7 +551,6 @@ func (t NSToolbar) DisplayMode() NSToolbarDisplayMode {
 func (t NSToolbar) SetDisplayMode(value NSToolbarDisplayMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDisplayMode:"), value)
 }
-
 // A Boolean value that indicates whether the toolbar shows the separator
 // between the toolbar and the main window contents.
 //
@@ -580,7 +571,6 @@ func (t NSToolbar) ShowsBaselineSeparator() bool {
 func (t NSToolbar) SetShowsBaselineSeparator(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setShowsBaselineSeparator:"), value)
 }
-
 // A Boolean value that indicates whether users can modify the contents of the
 // toolbar.
 //
@@ -610,7 +600,6 @@ func (t NSToolbar) AllowsUserCustomization() bool {
 func (t NSToolbar) SetAllowsUserCustomization(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsUserCustomization:"), value)
 }
-
 // A Boolean value that indicates whether the toolbar can add items for Action
 // extensions.
 //
@@ -634,7 +623,6 @@ func (t NSToolbar) AllowsExtensionItems() bool {
 func (t NSToolbar) SetAllowsExtensionItems(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsExtensionItems:"), value)
 }
-
 // An array containing the toolbar’s current items, in order.
 //
 // # Discussion
@@ -651,7 +639,6 @@ func (t NSToolbar) Items() []NSToolbarItem {
 		return NSToolbarItemFromID(id)
 	})
 }
-
 // An array containing the toolbar’s currently visible items.
 //
 // # Discussion
@@ -666,7 +653,6 @@ func (t NSToolbar) VisibleItems() []NSToolbarItem {
 		return NSToolbarItemFromID(id)
 	})
 }
-
 // The set of custom items to display in the center of the toolbar.
 //
 // # Discussion
@@ -683,7 +669,6 @@ func (t NSToolbar) CenteredItemIdentifiers() foundation.INSSet {
 func (t NSToolbar) SetCenteredItemIdentifiers(value foundation.INSSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCenteredItemIdentifiers:"), value)
 }
-
 // The identifier of the toolbar’s currently selected item.
 //
 // # Discussion
@@ -699,7 +684,6 @@ func (t NSToolbar) SelectedItemIdentifier() NSToolbarItemIdentifier {
 func (t NSToolbar) SetSelectedItemIdentifier(value NSToolbarItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedItemIdentifier:"), objc.String(string(value)))
 }
-
 // A Boolean value that indicates whether the toolbar autosaves its
 // configuration.
 //
@@ -725,7 +709,6 @@ func (t NSToolbar) AutosavesConfiguration() bool {
 func (t NSToolbar) SetAutosavesConfiguration(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutosavesConfiguration:"), value)
 }
-
 // A dictionary containing the current configuration details for the toolbar.
 //
 // # Discussion
@@ -740,7 +723,6 @@ func (t NSToolbar) ConfigurationDictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("configurationDictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the toolbar’s customization
 // palette is in use.
 //
@@ -757,7 +739,6 @@ func (t NSToolbar) CustomizationPaletteIsRunning() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("customizationPaletteIsRunning"))
 	return rv
 }
-
 // The item to display in the center of the toolbar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/centeredItemIdentifier
@@ -768,7 +749,6 @@ func (t NSToolbar) CenteredItemIdentifier() NSToolbarItemIdentifier {
 func (t NSToolbar) SetCenteredItemIdentifier(value NSToolbarItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCenteredItemIdentifier:"), objc.String(string(value)))
 }
-
 // The toolbar’s size mode.
 //
 // # Discussion
@@ -784,7 +764,6 @@ func (t NSToolbar) SizeMode() NSToolbarSizeMode {
 func (t NSToolbar) SetSizeMode(value NSToolbarSizeMode) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSizeMode:"), value)
 }
-
 // Whether or not the user is allowed to change display modes at run time.
 // This functionality is independent of customizing the order of the items
 // themselves. Only disable when the functionality or legibility of your
@@ -801,7 +780,6 @@ func (t NSToolbar) AllowsDisplayModeCustomization() bool {
 func (t NSToolbar) SetAllowsDisplayModeCustomization(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsDisplayModeCustomization:"), value)
 }
-
 // An array of itemIdentifiers that represent the current items in the
 // toolbar. Setting this property will set the current items in the toolbar by
 // diffing against items that already exist. Use this with great caution if

@@ -259,7 +259,6 @@ func (d VNDetectTrajectoriesRequest) TargetFrameTime() objectivec.IObject {
 func (d VNDetectTrajectoriesRequest) SetTargetFrameTime(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTargetFrameTime:"), value)
 }
-
 // The number of points to detect before calculating a trajectory.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/trajectoryLength
@@ -267,7 +266,6 @@ func (d VNDetectTrajectoriesRequest) TrajectoryLength() int {
 	rv := objc.Send[int](d.ID, objc.Sel("trajectoryLength"))
 	return rv
 }
-
 // The minimum radius of the bounding circle of the object to track.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/objectMinimumNormalizedRadius
@@ -278,7 +276,6 @@ func (d VNDetectTrajectoriesRequest) ObjectMinimumNormalizedRadius() float32 {
 func (d VNDetectTrajectoriesRequest) SetObjectMinimumNormalizedRadius(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setObjectMinimumNormalizedRadius:"), value)
 }
-
 // The maximum radius of the bounding circle of the object to track.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/objectMaximumNormalizedRadius
@@ -289,7 +286,6 @@ func (d VNDetectTrajectoriesRequest) ObjectMaximumNormalizedRadius() float32 {
 func (d VNDetectTrajectoriesRequest) SetObjectMaximumNormalizedRadius(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setObjectMaximumNormalizedRadius:"), value)
 }
-
 // A constant for specifying revision 1 of the trajectories detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecttrajectoriesrequestrevision1

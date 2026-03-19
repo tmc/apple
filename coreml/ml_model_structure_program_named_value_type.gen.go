@@ -103,7 +103,6 @@ func (m MLModelStructureProgramNamedValueType) Name() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The type of the parameter.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramNamedValueType/type

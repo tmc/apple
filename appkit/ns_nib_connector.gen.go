@@ -127,7 +127,6 @@ func NewNSNibConnector() NSNibConnector {
 func (n NSNibConnector) EstablishConnection() {
 	objc.Send[objc.ID](n.ID, objc.Sel("establishConnection"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/replaceObject:withObject:
 func (n NSNibConnector) ReplaceObjectWithObject(oldObject objectivec.IObject, newObject objectivec.IObject) {
@@ -145,7 +144,6 @@ func (n NSNibConnector) Destination() objectivec.IObject {
 func (n NSNibConnector) SetDestination(value objectivec.IObject) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDestination:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/label
 func (n NSNibConnector) Label() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("label"))
@@ -154,7 +152,6 @@ func (n NSNibConnector) Label() string {
 func (n NSNibConnector) SetLabel(value string) {
 	objc.Send[struct{}](n.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSNibConnector/source
 func (n NSNibConnector) Source() objectivec.IObject {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("source"))

@@ -196,7 +196,6 @@ func (c NSCollectionViewDiffableDataSource) InitWithCollectionViewItemProvider(c
 	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, itemProvider)
 	return rv
 }
-
 // Returns an identifier for the item at the specified index path in the
 // collection view.
 //
@@ -218,7 +217,6 @@ func (c NSCollectionViewDiffableDataSource) ItemIdentifierForIndexPath(indexPath
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemIdentifierForIndexPath:"), indexPath)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an index path for the item with the specified identifier in the
 // collection view.
 //
@@ -240,7 +238,6 @@ func (c NSCollectionViewDiffableDataSource) IndexPathForItemIdentifier(identifie
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathForItemIdentifier:"), identifier)
 	return rv
 }
-
 // Returns a representation of the current state of the data in the collection
 // view.
 //
@@ -254,7 +251,6 @@ func (c NSCollectionViewDiffableDataSource) Snapshot() INSDiffableDataSourceSnap
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("snapshot"))
 	return NSDiffableDataSourceSnapshotFromID(rv)
 }
-
 // Updates the UI to reflect the state of the data in the specified snapshot,
 // optionally animating the UI changes.
 //
@@ -282,7 +278,6 @@ func (c NSCollectionViewDiffableDataSource) Snapshot() INSDiffableDataSourceSnap
 func (c NSCollectionViewDiffableDataSource) ApplySnapshotAnimatingDifferences(snapshot INSDiffableDataSourceSnapshot, animatingDifferences bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("applySnapshot:animatingDifferences:"), snapshot, animatingDifferences)
 }
-
 // Asks your data source object to provide the item at the specified location
 // in the collection view.
 //
@@ -314,7 +309,6 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewItemForRepresentedObje
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView:itemForRepresentedObjectAtIndexPath:"), collectionView, indexPath)
 	return NSCollectionViewItemFromID(rv)
 }
-
 // Asks your data source object to provide the number of items in the
 // specified section.
 //
@@ -341,7 +335,6 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewNumberOfItemsInSection
 	rv := objc.Send[int](c.ID, objc.Sel("collectionView:numberOfItemsInSection:"), collectionView, section)
 	return rv
 }
-
 // Asks your data source object to provide the supplementary view at the
 // specified location in a section of the collection view.
 //
@@ -379,7 +372,6 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewViewForSupplementaryEl
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView:viewForSupplementaryElementOfKind:atIndexPath:"), collectionView, objc.String(string(kind)), indexPath)
 	return NSViewFromID(rv)
 }
-
 // Asks your data source object to provide the total number of sections.
 //
 // collectionView: The collection view requesting the information.

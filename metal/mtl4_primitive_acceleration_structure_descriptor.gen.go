@@ -156,7 +156,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) GeometryDescriptors() []MT
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetGeometryDescriptors(value []MTL4AccelerationStructureGeometryDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGeometryDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Configures the motion border mode.
 //
 // # Discussion
@@ -174,7 +173,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionEndBorderMode() MTLM
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionEndBorderMode(value MTLMotionBorderMode) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionEndBorderMode:"), value)
 }
-
 // Configures the motion end time for this geometry.
 //
 // # Discussion
@@ -189,7 +187,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionEndTime() float32 {
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionEndTime(value float32) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionEndTime:"), value)
 }
-
 // Sets the motion keyframe count.
 //
 // # Discussion
@@ -204,7 +201,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionKeyframeCount() uint
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionKeyframeCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionKeyframeCount:"), value)
 }
-
 // Configures the behavior when the ray-tracing system samples the
 // acceleration structure before the motion start time.
 //
@@ -224,7 +220,6 @@ func (m MTL4PrimitiveAccelerationStructureDescriptor) MotionStartBorderMode() MT
 func (m MTL4PrimitiveAccelerationStructureDescriptor) SetMotionStartBorderMode(value MTLMotionBorderMode) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMotionStartBorderMode:"), value)
 }
-
 // Configures the motion start time for this geometry.
 //
 // # Discussion

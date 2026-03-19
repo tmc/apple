@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -107,7 +108,7 @@ type INSPageLayout interface {
 
 	// Topic: Running the page setup dialog
 
-	BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler ErrorHandler)
+	BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler PageLayoutResultHandler)
 	// Displays the page layout panel and begins the modal loop using the shared print info object.
 	RunModal() int
 	// Displays the page layout panel and begins the modal loop using the specified print info object.
@@ -149,12 +150,11 @@ func NewNSPageLayout() NSPageLayout {
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageLayout/beginSheet(using:on:completionHandler:)
-func (p NSPageLayout) BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(handler)
+func (p NSPageLayout) BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler PageLayoutResultHandler) {
+_block2, _cleanup2 := NewPageLayoutResultBlock(handler)
 	defer _cleanup2()
 	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetUsingPrintInfo:onWindow:completionHandler:"), printInfo, parentWindow, _block2)
 }
-
 // Displays the page layout panel and begins the modal loop using the shared
 // print info object.
 //
@@ -172,7 +172,6 @@ func (p NSPageLayout) RunModal() int {
 	rv := objc.Send[int](p.ID, objc.Sel("runModal"))
 	return rv
 }
-
 // Displays the page layout panel and begins the modal loop using the
 // specified print info object.
 //
@@ -192,7 +191,6 @@ func (p NSPageLayout) RunModalWithPrintInfo(printInfo INSPrintInfo) int {
 	rv := objc.Send[int](p.ID, objc.Sel("runModalWithPrintInfo:"), printInfo)
 	return rv
 }
-
 // Adds the specified controller of an accessory view to be presented in the
 // page setup panel.
 //
@@ -202,7 +200,6 @@ func (p NSPageLayout) RunModalWithPrintInfo(printInfo INSPrintInfo) int {
 func (p NSPageLayout) AddAccessoryController(accessoryController INSViewController) {
 	objc.Send[objc.ID](p.ID, objc.Sel("addAccessoryController:"), accessoryController)
 }
-
 // Removes the specified controller of an accessory view.
 //
 // accessoryController: The controller to remove.
@@ -226,7 +223,6 @@ func (p NSPageLayout) AccessoryControllers() []NSViewController {
 		return NSViewControllerFromID(id)
 	})
 }
-
 // The printing information object used when the page layout panel is run.
 //
 // # Discussion
@@ -240,5 +236,20 @@ func (p NSPageLayout) AccessoryControllers() []NSViewController {
 func (p NSPageLayout) PrintInfo() INSPrintInfo {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("printInfo"))
 	return NSPrintInfoFromID(objc.ID(rv))
+}
+
+// BeginSheetUsingPrintInfoOnWindow is a synchronous wrapper around [NSPageLayout.BeginSheetUsingPrintInfoOnWindowCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (p NSPageLayout) BeginSheetUsingPrintInfoOnWindow(ctx context.Context, printInfo INSPrintInfo, parentWindow INSWindow) (NSPageLayoutResult, error) {
+	done := make(chan NSPageLayoutResult, 1)
+	p.BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo, parentWindow, func(val NSPageLayoutResult) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
 }
 

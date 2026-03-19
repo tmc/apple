@@ -181,7 +181,6 @@ func (a NSAttributedStringMarkdownSourcePosition) InitWithStartLineStartColumnEn
 	rv := objc.Send[NSAttributedStringMarkdownSourcePosition](a.ID, objc.Sel("initWithStartLine:startColumn:endLine:endColumn:"), startLine, startColumn, endLine, endColumn)
 	return rv
 }
-
 // Returns a range indicating the source portion within a Markdown string.
 //
 // string: The Markdown source string that this source position object refers to.
@@ -200,14 +199,12 @@ func (a NSAttributedStringMarkdownSourcePosition) RangeInString(string_ string) 
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeInString:"), objc.String(string_))
 	return NSRange(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (a NSAttributedStringMarkdownSourcePosition) InitWithCoder(coder INSCoder) NSAttributedStringMarkdownSourcePosition {
 	rv := objc.Send[NSAttributedStringMarkdownSourcePosition](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -228,7 +225,6 @@ func (a NSAttributedStringMarkdownSourcePosition) StartLine() int {
 	rv := objc.Send[int](a.ID, objc.Sel("startLine"))
 	return rv
 }
-
 // The column where the text begins in the Markdown source.
 //
 // # Discussion
@@ -241,7 +237,6 @@ func (a NSAttributedStringMarkdownSourcePosition) StartColumn() int {
 	rv := objc.Send[int](a.ID, objc.Sel("startColumn"))
 	return rv
 }
-
 // The line where the text ends in the Markdown source.
 //
 // # Discussion
@@ -253,7 +248,6 @@ func (a NSAttributedStringMarkdownSourcePosition) EndLine() int {
 	rv := objc.Send[int](a.ID, objc.Sel("endLine"))
 	return rv
 }
-
 // The column where the text ends in the Markdown source.
 //
 // # Discussion

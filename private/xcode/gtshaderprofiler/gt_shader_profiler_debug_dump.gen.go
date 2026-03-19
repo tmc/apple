@@ -106,13 +106,11 @@ func (g GTShaderProfilerDebugDump) FilePathFromFileName(name objectivec.IObject)
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("filePathFromFileName:"), name)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump/setDirectory:
 func (g GTShaderProfilerDebugDump) SetDirectory(directory objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("setDirectory:"), directory)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerDebugDump/initWithDirectory:
 func (g GTShaderProfilerDebugDump) InitWithDirectory(directory objectivec.IObject) GTShaderProfilerDebugDump {

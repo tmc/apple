@@ -322,7 +322,6 @@ func (l NSLayoutConstraint) AnimationForKey(key NSAnimatablePropertyKey) objecti
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
@@ -392,7 +391,6 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) ConstraintsWithVisualFor
 		return NSLayoutConstraintFromID(id)
 	})
 }
-
 // Activates each constraint in the specified array.
 //
 // constraints: An array of constraints to activate.
@@ -410,7 +408,6 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) ConstraintsWithVisualFor
 func (_NSLayoutConstraintClass NSLayoutConstraintClass) ActivateConstraints(constraints []NSLayoutConstraint) {
 	objc.Send[objc.ID](objc.ID(_NSLayoutConstraintClass.class), objc.Sel("activateConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
 }
-
 // Deactivates each constraint in the specified array.
 //
 // constraints: An array of constraints to deactivate.
@@ -429,7 +426,6 @@ func (_NSLayoutConstraintClass NSLayoutConstraintClass) ActivateConstraints(cons
 func (_NSLayoutConstraintClass NSLayoutConstraintClass) DeactivateConstraints(constraints []NSLayoutConstraint) {
 	objc.Send[objc.ID](objc.ID(_NSLayoutConstraintClass.class), objc.Sel("deactivateConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
 }
-
 // Returns the default animation that should be performed for the specified
 // key.
 //
@@ -496,7 +492,6 @@ func (l NSLayoutConstraint) Active() bool {
 func (l NSLayoutConstraint) SetActive(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setActive:"), value)
 }
-
 // The first object participating in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/firstItem
@@ -504,7 +499,6 @@ func (l NSLayoutConstraint) FirstItem() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("firstItem"))
 	return objectivec.Object{ID: rv}
 }
-
 // The attribute of the first object participating in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/firstAttribute
@@ -512,7 +506,6 @@ func (l NSLayoutConstraint) FirstAttribute() NSLayoutAttribute {
 	rv := objc.Send[NSLayoutAttribute](l.ID, objc.Sel("firstAttribute"))
 	return NSLayoutAttribute(rv)
 }
-
 // The relation between the two attributes in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/relation-swift.property
@@ -520,7 +513,6 @@ func (l NSLayoutConstraint) Relation() NSLayoutRelation {
 	rv := objc.Send[NSLayoutRelation](l.ID, objc.Sel("relation"))
 	return NSLayoutRelation(rv)
 }
-
 // The second object participating in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/secondItem
@@ -528,7 +520,6 @@ func (l NSLayoutConstraint) SecondItem() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("secondItem"))
 	return objectivec.Object{ID: rv}
 }
-
 // The attribute of the second object participating in the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/secondAttribute
@@ -536,7 +527,6 @@ func (l NSLayoutConstraint) SecondAttribute() NSLayoutAttribute {
 	rv := objc.Send[NSLayoutAttribute](l.ID, objc.Sel("secondAttribute"))
 	return NSLayoutAttribute(rv)
 }
-
 // The multiplier applied to the second attribute participating in the
 // constraint.
 //
@@ -545,7 +535,6 @@ func (l NSLayoutConstraint) Multiplier() float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("multiplier"))
 	return rv
 }
-
 // The constant added to the multiplied second attribute participating in the
 // constraint.
 //
@@ -564,7 +553,6 @@ func (l NSLayoutConstraint) Constant() float64 {
 func (l NSLayoutConstraint) SetConstant(value float64) {
 	objc.Send[struct{}](l.ID, objc.Sel("setConstant:"), value)
 }
-
 // The first anchor that defines the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/firstAnchor
@@ -572,7 +560,6 @@ func (l NSLayoutConstraint) FirstAnchor() INSLayoutAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("firstAnchor"))
 	return NSLayoutAnchorFromID(objc.ID(rv))
 }
-
 // The second anchor that defines the constraint.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/secondAnchor
@@ -580,7 +567,6 @@ func (l NSLayoutConstraint) SecondAnchor() INSLayoutAnchor {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("secondAnchor"))
 	return NSLayoutAnchorFromID(objc.ID(rv))
 }
-
 // The priority of the constraint.
 //
 // # Discussion
@@ -616,7 +602,6 @@ func (l NSLayoutConstraint) Priority() NSLayoutPriority {
 func (l NSLayoutConstraint) SetPriority(value NSLayoutPriority) {
 	objc.Send[struct{}](l.ID, objc.Sel("setPriority:"), value)
 }
-
 // The name that identifies the constraint.
 //
 // # Discussion
@@ -632,7 +617,6 @@ func (l NSLayoutConstraint) Identifier() string {
 func (l NSLayoutConstraint) SetIdentifier(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
-
 // A Boolean value that determines whether the constraint should be archived
 // by its owning view.
 //
@@ -658,7 +642,6 @@ func (l NSLayoutConstraint) ShouldBeArchived() bool {
 func (l NSLayoutConstraint) SetShouldBeArchived(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setShouldBeArchived:"), value)
 }
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //

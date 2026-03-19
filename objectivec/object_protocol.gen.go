@@ -92,13 +92,11 @@ func NSObjectObjectFromID(id objc.ID) NSObjectObject {
 // Returns the class object for the receiver’s superclass.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/superclass
-
 func (o NSObjectObject) Superclass() objc.Class {
 	
 	rv := objc.Send[objc.Class](o.ID, objc.Sel("superclass"))
 	return rv
 	}
-
 // Returns a Boolean value that indicates whether the receiver and a given
 // object are equal.
 //
@@ -134,24 +132,20 @@ func (o NSObjectObject) Superclass() objc.Class {
 // [YES]: https://developer.apple.com/documentation/ObjectiveC/YES
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
-
 func (o NSObjectObject) IsEqual(object IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isEqual:"), object)
 	return rv
 	}
-
 // Returns an integer that can be used as a table address in a hash table
 // structure.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
-
 func (o NSObjectObject) Hash() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("hash"))
 	return rv
 	}
-
 // Returns the receiver.
 //
 // # Return Value
@@ -159,13 +153,11 @@ func (o NSObjectObject) Hash() uint {
 // The receiver.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/self()
-
 func (o NSObjectObject) Self() IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("self"))
 	return Object{ID: rv}
 	}
-
 // Returns a Boolean value that indicates whether the receiver is an instance
 // of given class or an instance of any class that inherits from that class.
 //
@@ -207,13 +199,11 @@ func (o NSObjectObject) Self() IObject {
 // [YES]: https://developer.apple.com/documentation/ObjectiveC/YES
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
-
 func (o NSObjectObject) IsKindOfClass(aClass objc.Class) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isKindOfClass:"), aClass)
 	return rv
 	}
-
 // Returns a Boolean value that indicates whether the receiver is an instance
 // of a given class.
 //
@@ -237,13 +227,11 @@ func (o NSObjectObject) IsKindOfClass(aClass objc.Class) bool {
 // [NO]: https://developer.apple.com/documentation/ObjectiveC/NO
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isMember(of:)
-
 func (o NSObjectObject) IsMemberOfClass(aClass objc.Class) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isMemberOfClass:"), aClass)
 	return rv
 	}
-
 // Returns a Boolean value that indicates whether the receiver implements or
 // inherits a method that can respond to a specified message.
 //
@@ -281,13 +269,11 @@ func (o NSObjectObject) IsMemberOfClass(aClass objc.Class) bool {
 // [instancesRespond(to:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/instancesRespond(to:)
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/responds(to:)
-
 func (o NSObjectObject) RespondsToSelector(aSelector objc.SEL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("respondsToSelector:"), aSelector)
 	return rv
 	}
-
 // Returns a Boolean value that indicates whether the receiver conforms to a
 // given protocol.
 //
@@ -311,33 +297,27 @@ func (o NSObjectObject) RespondsToSelector(aSelector objc.SEL) bool {
 // [conforms(to:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/conforms(to:)
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/conforms(to:)
-
 func (o NSObjectObject) ConformsToProtocol(aProtocol unsafe.Pointer) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("conformsToProtocol:"), aProtocol)
 	return rv
 	}
-
 // A textual representation of the receiver.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
-
 func (o NSObjectObject) Description() IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("description"))
 	return Object{ID: rv}
 	}
-
 // A textual representation of the receiver to use with a debugger.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/debugDescription
-
 func (o NSObjectObject) DebugDescription() IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("debugDescription"))
 	return Object{ID: rv}
 	}
-
 // Sends a specified message to the receiver and returns the result of the
 // message.
 //
@@ -405,13 +385,11 @@ func (o NSObjectObject) DebugDescription() IObject {
 // [takeUnretainedValue()]: https://developer.apple.com/documentation/Swift/Unmanaged/takeUnretainedValue()
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:)
-
 func (o NSObjectObject) PerformSelector(aSelector objc.SEL) IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:"), aSelector)
 	return Object{ID: rv}
 	}
-
 // Sends a message to the receiver with an object as the argument.
 //
 // aSelector: A selector identifying the message to send. If `aSelector` is [NULL], an
@@ -435,13 +413,11 @@ func (o NSObjectObject) PerformSelector(aSelector objc.SEL) IObject {
 // [NSInvocation]: https://developer.apple.com/documentation/Foundation/NSInvocation
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:with:)
-
 func (o NSObjectObject) PerformSelectorWithObject(aSelector objc.SEL, object IObject) IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:withObject:"), aSelector, object)
 	return Object{ID: rv}
 	}
-
 // Sends a message to the receiver with two objects as arguments.
 //
 // aSelector: A selector identifying the message to send. If `aSelector` is [NULL], an
@@ -467,13 +443,11 @@ func (o NSObjectObject) PerformSelectorWithObject(aSelector objc.SEL, object IOb
 // [NSInvocation]: https://developer.apple.com/documentation/Foundation/NSInvocation
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:with:with:)
-
 func (o NSObjectObject) PerformSelectorWithObjectWithObject(aSelector objc.SEL, object1 IObject, object2 IObject) IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:withObject:withObject:"), aSelector, object1, object2)
 	return Object{ID: rv}
 	}
-
 // Returns a Boolean value that indicates whether the receiver does not
 // descend from [NSObject].
 //
@@ -497,13 +471,11 @@ func (o NSObjectObject) PerformSelectorWithObjectWithObject(aSelector objc.SEL, 
 // [NSProxy]: https://developer.apple.com/documentation/Foundation/NSProxy
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isProxy()
-
 func (o NSObjectObject) IsProxy() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isProxy"))
 	return rv
 	}
-
 // Decrements the receiver’s reference count.
 //
 // # Discussion
@@ -528,12 +500,10 @@ func (o NSObjectObject) IsProxy() bool {
 // [dealloc]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/dealloc
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
-
 func (o NSObjectObject) Release() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("release"))
 	}
-
 // Increments the receiver’s reference count.
 //
 // # Return Value
@@ -567,7 +537,6 @@ func (o NSObjectObject) Release() {
 // [Transitioning to ARC Release Notes]: https://developer.apple.com/library/archive/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-
 func (o NSObjectObject) Retain() IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("retain"))

@@ -102,7 +102,6 @@ func (m MLModelStructurePipeline) SubModelNames() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("subModelNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The structure of the sub models in the pipeline.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructurePipeline/subModels

@@ -180,7 +180,6 @@ func (l NSLinguisticTagger) String() string {
 func (l NSLinguisticTagger) SetString(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setString:"), objc.String(value))
 }
-
 // Returns the tag schemes configured for this linguistic tagger. For possible
 // values, see [NSLinguisticTagScheme].
 //
@@ -189,7 +188,6 @@ func (l NSLinguisticTagger) TagSchemes() []string {
 	rv := objc.Send[[]objc.ID](l.ID, objc.Sel("tagSchemes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the dominant language of the string set for the linguistic tagger.
 //
 // # Return Value

@@ -196,7 +196,6 @@ _block0, _cleanup0 := NewErrorBlock(handler)
 	defer _cleanup0()
 	objc.Send[objc.ID](m.ID, objc.Sel("functionNamesWithCompletionHandler:"), _block0)
 }
-
 // The default model descripton.
 //
 // # Discussion
@@ -214,7 +213,6 @@ _block0, _cleanup0 := NewMLModelDescriptionErrorBlock(handler)
 	defer _cleanup0()
 	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionWithCompletionHandler:"), _block0)
 }
-
 // The model descripton for a specified function.
 //
 // # Discussion

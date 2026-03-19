@@ -280,7 +280,6 @@ func (o OutputStream) InitToMemory() OutputStream {
 	rv := objc.Send[OutputStream](o.ID, objc.Sel("initToMemory"))
 	return rv
 }
-
 // Returns an initialized output stream that can write to a provided buffer.
 //
 // buffer: The buffer the output stream will write to.
@@ -303,7 +302,6 @@ func (o OutputStream) InitToBufferCapacity(buffer unsafe.Pointer, capacity uint)
 	rv := objc.Send[OutputStream](o.ID, objc.Sel("initToBuffer:capacity:"), buffer, capacity)
 	return rv
 }
-
 // Returns an initialized output stream for writing to a specified file.
 //
 // path: The path to the file the output stream will write to.
@@ -327,7 +325,6 @@ func (o OutputStream) InitToFileAtPathAppend(path string, shouldAppend bool) Out
 	rv := objc.Send[OutputStream](o.ID, objc.Sel("initToFileAtPath:append:"), objc.String(path), shouldAppend)
 	return rv
 }
-
 // Returns an initialized output stream for writing to a specified URL.
 //
 // url: The URL to the file the output stream will write to.
@@ -351,7 +348,6 @@ func (o OutputStream) InitWithURLAppend(url INSURL, shouldAppend bool) OutputStr
 	rv := objc.Send[OutputStream](o.ID, objc.Sel("initWithURL:append:"), url, shouldAppend)
 	return rv
 }
-
 // Writes the contents of a provided data buffer to the receiver.
 //
 // buffer: The data to write.
@@ -393,7 +389,6 @@ func (_OutputStreamClass OutputStreamClass) OutputStreamToMemory() OutputStream 
 	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamToMemory"))
 	return NSOutputStreamFromID(rv)
 }
-
 // Creates and returns an initialized output stream that can write to a
 // provided buffer.
 //
@@ -417,7 +412,6 @@ func (_OutputStreamClass OutputStreamClass) OutputStreamToBufferCapacity(buffer 
 	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamToBuffer:capacity:"), buffer, capacity)
 	return NSOutputStreamFromID(rv)
 }
-
 // Creates and returns an initialized output stream for writing to a specified
 // file.
 //
@@ -442,7 +436,6 @@ func (_OutputStreamClass OutputStreamClass) OutputStreamToFileAtPathAppend(path 
 	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamToFileAtPath:append:"), objc.String(path), shouldAppend)
 	return NSOutputStreamFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOutputStream/outputStreamWithURL:append:
 func (_OutputStreamClass OutputStreamClass) OutputStreamWithURLAppend(url INSURL, shouldAppend bool) OutputStream {

@@ -142,7 +142,6 @@ func (r NSRecursiveLock) LockBeforeDate(limit INSDate) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("lockBeforeDate:"), limit)
 	return rv
 }
-
 // Attempts to acquire a lock, and immediately returns a Boolean value that
 // indicates whether the attempt was successful.
 //
@@ -158,7 +157,6 @@ func (r NSRecursiveLock) TryLock() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("tryLock"))
 	return rv
 }
-
 // Attempts to acquire a lock, blocking a thread’s execution until the lock
 // can be acquired.
 //
@@ -172,7 +170,6 @@ func (r NSRecursiveLock) TryLock() bool {
 func (r NSRecursiveLock) Lock() {
 	objc.Send[objc.ID](r.ID, objc.Sel("lock"))
 }
-
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()

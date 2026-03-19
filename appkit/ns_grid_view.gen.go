@@ -296,7 +296,6 @@ func (g NSGridView) IndexOfColumn(column INSGridColumn) int {
 	rv := objc.Send[int](g.ID, objc.Sel("indexOfColumn:"), column)
 	return rv
 }
-
 // Returns the grid row object at the specified index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/row(at:)
@@ -304,7 +303,6 @@ func (g NSGridView) RowAtIndex(index int) INSGridRow {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("rowAtIndex:"), index)
 	return NSGridRowFromID(rv)
 }
-
 // Returns the grid column object at the specified index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/column(at:)
@@ -312,7 +310,6 @@ func (g NSGridView) ColumnAtIndex(index int) INSGridColumn {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("columnAtIndex:"), index)
 	return NSGridColumnFromID(rv)
 }
-
 // Returns the index of the specified grid row.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/index(of:)-6zs2o
@@ -320,7 +317,6 @@ func (g NSGridView) IndexOfRow(row INSGridRow) int {
 	rv := objc.Send[int](g.ID, objc.Sel("indexOfRow:"), row)
 	return rv
 }
-
 // Adds an array of views to a new row.
 //
 // # Discussion
@@ -333,7 +329,6 @@ func (g NSGridView) AddRowWithViews(views []NSView) INSGridRow {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("addRowWithViews:"), objectivec.IObjectSliceToNSArray(views))
 	return NSGridRowFromID(rv)
 }
-
 // Inserts the array of view objects into the grid view at the index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/insertRow(at:with:)
@@ -341,21 +336,18 @@ func (g NSGridView) InsertRowAtIndexWithViews(index int, views []NSView) INSGrid
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("insertRowAtIndex:withViews:"), index, objectivec.IObjectSliceToNSArray(views))
 	return NSGridRowFromID(rv)
 }
-
 // Removes the row from the grid view at the index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/removeRow(at:)
 func (g NSGridView) RemoveRowAtIndex(index int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("removeRowAtIndex:"), index)
 }
-
 // Moves the specified row to the new row location.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/moveRow(at:to:)
 func (g NSGridView) MoveRowAtIndexToIndex(fromIndex int, toIndex int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("moveRowAtIndex:toIndex:"), fromIndex, toIndex)
 }
-
 // Adds a new column containing the array of views.
 //
 // # Return Value
@@ -367,7 +359,6 @@ func (g NSGridView) AddColumnWithViews(views []NSView) INSGridColumn {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("addColumnWithViews:"), objectivec.IObjectSliceToNSArray(views))
 	return NSGridColumnFromID(rv)
 }
-
 // Inserts the array of view objects at the specified index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/insertColumn(at:with:)
@@ -375,21 +366,18 @@ func (g NSGridView) InsertColumnAtIndexWithViews(index int, views []NSView) INSG
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("insertColumnAtIndex:withViews:"), index, objectivec.IObjectSliceToNSArray(views))
 	return NSGridColumnFromID(rv)
 }
-
 // Removes the column from the grid view at the specified index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/removeColumn(at:)
 func (g NSGridView) RemoveColumnAtIndex(index int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("removeColumnAtIndex:"), index)
 }
-
 // Moves the specified column to a new column location.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/moveColumn(at:to:)
 func (g NSGridView) MoveColumnAtIndexToIndex(fromIndex int, toIndex int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("moveColumnAtIndex:toIndex:"), fromIndex, toIndex)
 }
-
 // Returns the grid cell object at the specified column and row index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/cell(atColumnIndex:rowIndex:)
@@ -397,7 +385,6 @@ func (g NSGridView) CellAtColumnIndexRowIndex(columnIndex int, rowIndex int) INS
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cellAtColumnIndex:rowIndex:"), columnIndex, rowIndex)
 	return NSGridCellFromID(rv)
 }
-
 // Returns the grid cell object that contains the given view or one of its
 // ancestors.
 //
@@ -406,7 +393,6 @@ func (g NSGridView) CellForView(view INSView) INSGridCell {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cellForView:"), view)
 	return NSGridCellFromID(rv)
 }
-
 // Expands the cell at the top-leading corner of the horizontal and vertical
 // range to cover the entire area.
 //
@@ -433,7 +419,6 @@ func (g NSGridView) NumberOfRows() int {
 	rv := objc.Send[int](g.ID, objc.Sel("numberOfRows"))
 	return rv
 }
-
 // The number of columns in the grid view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/numberOfColumns
@@ -441,7 +426,6 @@ func (g NSGridView) NumberOfColumns() int {
 	rv := objc.Send[int](g.ID, objc.Sel("numberOfColumns"))
 	return rv
 }
-
 // The column spacing for the grid view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/columnSpacing
@@ -452,7 +436,6 @@ func (g NSGridView) ColumnSpacing() float64 {
 func (g NSGridView) SetColumnSpacing(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setColumnSpacing:"), value)
 }
-
 // The row spacing for the grid view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/rowSpacing
@@ -463,7 +446,6 @@ func (g NSGridView) RowSpacing() float64 {
 func (g NSGridView) SetRowSpacing(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setRowSpacing:"), value)
 }
-
 // The row alignment for the grid view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/rowAlignment
@@ -474,7 +456,6 @@ func (g NSGridView) RowAlignment() NSGridRowAlignment {
 func (g NSGridView) SetRowAlignment(value NSGridRowAlignment) {
 	objc.Send[struct{}](g.ID, objc.Sel("setRowAlignment:"), value)
 }
-
 // The placement of the cell within the grid column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/xPlacement
@@ -485,7 +466,6 @@ func (g NSGridView) XPlacement() NSGridCellPlacement {
 func (g NSGridView) SetXPlacement(value NSGridCellPlacement) {
 	objc.Send[struct{}](g.ID, objc.Sel("setXPlacement:"), value)
 }
-
 // The placement of the cell within the grid row.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridView/yPlacement

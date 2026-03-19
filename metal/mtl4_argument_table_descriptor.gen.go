@@ -153,7 +153,6 @@ func (m MTL4ArgumentTableDescriptor) InitializeBindings() bool {
 func (m MTL4ArgumentTableDescriptor) SetInitializeBindings(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInitializeBindings:"), value)
 }
-
 // Assigns an optional label with the argument table for debug purposes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTableDescriptor/label
@@ -164,7 +163,6 @@ func (m MTL4ArgumentTableDescriptor) Label() string {
 func (m MTL4ArgumentTableDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // Determines the number of buffer-binding slots for the argument table.
 //
 // # Discussion
@@ -179,7 +177,6 @@ func (m MTL4ArgumentTableDescriptor) MaxBufferBindCount() uint {
 func (m MTL4ArgumentTableDescriptor) SetMaxBufferBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxBufferBindCount:"), value)
 }
-
 // Determines the number of sampler state-binding slots for the argument
 // table.
 //
@@ -195,7 +192,6 @@ func (m MTL4ArgumentTableDescriptor) MaxSamplerStateBindCount() uint {
 func (m MTL4ArgumentTableDescriptor) SetMaxSamplerStateBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxSamplerStateBindCount:"), value)
 }
-
 // Determines the number of texture-binding slots for the argument table.
 //
 // # Discussion
@@ -210,7 +206,6 @@ func (m MTL4ArgumentTableDescriptor) MaxTextureBindCount() uint {
 func (m MTL4ArgumentTableDescriptor) SetMaxTextureBindCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTextureBindCount:"), value)
 }
-
 // Controls whether Metal should reserve memory for attribute strides in the
 // argument table.
 //
@@ -232,7 +227,6 @@ func (m MTL4ArgumentTableDescriptor) SupportAttributeStrides() bool {
 func (m MTL4ArgumentTableDescriptor) SetSupportAttributeStrides(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportAttributeStrides:"), value)
 }
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4ArgumentTableDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))

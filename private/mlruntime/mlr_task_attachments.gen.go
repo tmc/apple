@@ -152,20 +152,17 @@ func (r MLRTaskAttachments) AttachmentURLsForBasename(basename objectivec.IObjec
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("attachmentURLsForBasename:"), basename)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/encodeWithCoder:
 func (r MLRTaskAttachments) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithCoder:
 func (r MLRTaskAttachments) InitWithCoder(coder foundation.INSCoder) MLRTaskAttachments {
 	rv := objc.Send[MLRTaskAttachments](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithContentsOfURL:error:
 func (r MLRTaskAttachments) InitWithContentsOfURLError(url foundation.INSURL) (MLRTaskAttachments, error) {
@@ -178,14 +175,12 @@ func (r MLRTaskAttachments) InitWithContentsOfURLError(url foundation.INSURL) (M
 	return MLRTaskAttachmentsFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithDESRecipe:
 func (r MLRTaskAttachments) InitWithDESRecipe(dESRecipe objectivec.IObject) MLRTaskAttachments {
 	rv := objc.Send[MLRTaskAttachments](r.ID, objc.Sel("initWithDESRecipe:"), dESRecipe)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/initWithURLs:
 func (r MLRTaskAttachments) InitWithURLs(uRLs objectivec.IObject) MLRTaskAttachments {
@@ -204,7 +199,6 @@ func (r MLRTaskAttachments) AttachmentURLs() foundation.INSArray {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("attachmentURLs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskAttachments/count
 func (r MLRTaskAttachments) Count() uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("count"))

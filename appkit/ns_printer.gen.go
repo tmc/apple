@@ -202,7 +202,6 @@ func (p NSPrinter) Name() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A description of the printer’s make and model.
 //
 // # Return Value
@@ -214,7 +213,6 @@ func (p NSPrinter) Type() NSPrinterTypeName {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("type"))
 	return NSPrinterTypeName(foundation.NSStringFromID(rv).String())
 }
-
 // The PostScript language level recognized by the printer.
 //
 // # Return Value
@@ -227,7 +225,6 @@ func (p NSPrinter) LanguageLevel() int {
 	rv := objc.Send[int](p.ID, objc.Sel("languageLevel"))
 	return rv
 }
-
 // A dictionary of keys and values that describe the device.
 //
 // # Return Value
@@ -259,7 +256,6 @@ func (_NSPrinterClass NSPrinterClass) PrinterNames() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSPrinterClass.class), objc.Sel("printerNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns descriptions of the makes and models of all available printers.
 //
 // # Return Value

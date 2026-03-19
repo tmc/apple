@@ -441,7 +441,6 @@ _block2, _cleanup2 := NewRunningApplicationErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](w.ID, objc.Sel("openURL:configuration:completionHandler:"), url, configuration, _block2)
 }
-
 // Opens one or more URLs asynchronously in the specified app using the
 // provided options.
 //
@@ -473,7 +472,6 @@ _block3, _cleanup3 := NewRunningApplicationErrorBlock(completionHandler)
 	defer _cleanup3()
 	objc.Send[objc.ID](w.ID, objc.Sel("openURLs:withApplicationAtURL:configuration:completionHandler:"), urls, applicationURL, configuration, _block3)
 }
-
 // Opens the location at the specified URL.
 //
 // url: A URL specifying the location to open.
@@ -494,7 +492,6 @@ func (w NSWorkspace) OpenURL(url foundation.INSURL) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("openURL:"), url)
 	return rv
 }
-
 // Launches the app at the specified URL and asynchronously reports back on
 // the app’s status.
 //
@@ -521,7 +518,6 @@ _block2, _cleanup2 := NewRunningApplicationErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](w.ID, objc.Sel("openApplicationAtURL:configuration:completionHandler:"), applicationURL, configuration, _block2)
 }
-
 // Hides all applications other than the sender.
 //
 // # Discussion
@@ -535,7 +531,6 @@ _block2, _cleanup2 := NewRunningApplicationErrorBlock(completionHandler)
 func (w NSWorkspace) HideOtherApplications() {
 	objc.Send[objc.ID](w.ID, objc.Sel("hideOtherApplications"))
 }
-
 // Activates the Finder, and opens one or more windows selecting the specified
 // files.
 //
@@ -549,7 +544,6 @@ func (w NSWorkspace) HideOtherApplications() {
 func (w NSWorkspace) ActivateFileViewerSelectingURLs(fileURLs []foundation.NSURL) {
 	objc.Send[objc.ID](w.ID, objc.Sel("activateFileViewerSelectingURLs:"), objectivec.IObjectSliceToNSArray(fileURLs))
 }
-
 // Selects the file at the specified path.
 //
 // fullPath: The full path of the file to select.
@@ -582,7 +576,6 @@ func (w NSWorkspace) SelectFileInFileViewerRootedAtPath(fullPath string, rootFul
 	rv := objc.Send[bool](w.ID, objc.Sel("selectFile:inFileViewerRootedAtPath:"), objc.String(fullPath), objc.String(rootFullPath))
 	return rv
 }
-
 // Returns the URL to the default app to open the specified URL.
 //
 // url: The URL of the file to open.
@@ -604,7 +597,6 @@ func (w NSWorkspace) URLForApplicationToOpenURL(url foundation.INSURL) foundatio
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationToOpenURL:"), url)
 	return foundation.NSURLFromID(rv)
 }
-
 // Returns the URL to the default app to open the specified content type.
 //
 // contentType: The content type to open.
@@ -619,7 +611,6 @@ func (w NSWorkspace) URLForApplicationToOpenContentType(contentType uniformtypei
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationToOpenContentType:"), contentType)
 	return foundation.NSURLFromID(rv)
 }
-
 // Returns the URL to the default app with the specified bundle identifier.
 //
 // bundleIdentifier: The bundle identifier for the app.
@@ -640,7 +631,6 @@ func (w NSWorkspace) URLForApplicationWithBundleIdentifier(bundleIdentifier stri
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("URLForApplicationWithBundleIdentifier:"), objc.String(bundleIdentifier))
 	return foundation.NSURLFromID(rv)
 }
-
 // Returns an array of URLs to all available applications that can open the
 // URL.
 //
@@ -664,7 +654,6 @@ func (w NSWorkspace) URLsForApplicationsToOpenURL(url foundation.INSURL) []found
 		return foundation.NSURLFromID(id)
 	})
 }
-
 // Returns an array of URLs to all available applications that can open the
 // specified content type.
 //
@@ -687,7 +676,6 @@ func (w NSWorkspace) URLsForApplicationsToOpenContentType(contentType uniformtyp
 		return foundation.NSURLFromID(id)
 	})
 }
-
 // Returns an array of URLs to all available applications that can open the
 // specified bundle identifier.
 //
@@ -711,7 +699,6 @@ func (w NSWorkspace) URLsForApplicationsWithBundleIdentifier(bundleIdentifier st
 		return foundation.NSURLFromID(id)
 	})
 }
-
 // Returns information about the file system at the specified path.
 //
 // fullPath: The path to the file system mount point.
@@ -760,7 +747,6 @@ func (w NSWorkspace) GetFileSystemInfoForPathIsRemovableIsWritableIsUnmountableD
 	rv := objc.Send[bool](w.ID, objc.Sel("getFileSystemInfoForPath:isRemovable:isWritable:isUnmountable:description:type:"), objc.String(fullPath), unsafe.Pointer(&removableFlag), unsafe.Pointer(&writableFlag), unsafe.Pointer(&unmountableFlag), description, fileSystemType)
 	return removableFlag, writableFlag, unmountableFlag, rv
 }
-
 // Determines whether the specified path is a file package.
 //
 // fullPath: The full path to examine.
@@ -782,7 +768,6 @@ func (w NSWorkspace) IsFilePackageAtPath(fullPath string) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isFilePackageAtPath:"), objc.String(fullPath))
 	return rv
 }
-
 // Sets the default app to use when opening a specific file.
 //
 // applicationURL: The URL of the default app to use when opening the file.
@@ -807,7 +792,6 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenFileAtURLCompletionHandler(
 _block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenFileAtURL:completionHandler:"), applicationURL, url, _block2)
 }
-
 // Sets the default app to use when opening files of a specific content type.
 //
 // applicationURL: The URL of the default application.
@@ -827,7 +811,6 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeCompletionHandle
 _block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenContentType:completionHandler:"), applicationURL, contentType, _block2)
 }
-
 // Sets the default app to use when opening files of a specific content type
 // defined by a file URL.
 //
@@ -848,7 +831,6 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenContentTypeOfFileAtURLCompl
 _block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenContentTypeOfFileAtURL:completionHandler:"), applicationURL, url, _block2)
 }
-
 // Sets the default app to use when opening files of a specific scheme.
 //
 // applicationURL: The URL of the default application.
@@ -868,7 +850,6 @@ func (w NSWorkspace) SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHan
 _block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("setDefaultApplicationAtURL:toOpenURLsWithScheme:completionHandler:"), applicationURL, objc.String(urlScheme), _block2)
 }
-
 // Returns an image containing the icon for the specified file.
 //
 // fullPath: The full path to the file.
@@ -888,7 +869,6 @@ func (w NSWorkspace) IconForFile(fullPath string) INSImage {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("iconForFile:"), objc.String(fullPath))
 	return NSImageFromID(rv)
 }
-
 // Returns an image containing the icon for the specified files.
 //
 // fullPaths: An array of [NSString] objects, each of which contains the full path to a
@@ -911,7 +891,6 @@ func (w NSWorkspace) IconForFiles(fullPaths []string) INSImage {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("iconForFiles:"), objectivec.StringSliceToNSArray(fullPaths))
 	return NSImageFromID(rv)
 }
-
 // Returns an image containing the icon for the specified content type.
 //
 // contentType: An object representing a uniform type of content.
@@ -929,7 +908,6 @@ func (w NSWorkspace) IconForContentType(contentType uniformtypeidentifiers.UTTyp
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("iconForContentType:"), contentType)
 	return NSImageFromID(rv)
 }
-
 // Sets the icon for the file or directory at the specified path.
 //
 // image: The image to use as the icon for the file or directory.
@@ -969,7 +947,6 @@ func (w NSWorkspace) SetIconForFileOptions(image INSImage, fullPath string, opti
 	rv := objc.Send[bool](w.ID, objc.Sel("setIcon:forFile:options:"), image, objc.String(fullPath), options)
 	return rv
 }
-
 // Unmounts and ejects the device at the specified path.
 //
 // path: The path to the device.
@@ -1000,7 +977,6 @@ func (w NSWorkspace) UnmountAndEjectDeviceAtPath(path string) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("unmountAndEjectDeviceAtPath:"), objc.String(path))
 	return rv
 }
-
 // Attempts to eject the volume mounted at the given path.
 //
 // url: The URL of the volume to eject.
@@ -1023,7 +999,6 @@ func (w NSWorkspace) UnmountAndEjectDeviceAtURLError(url foundation.INSURL) (boo
 	return rv, nil
 
 }
-
 // Returns the URL for the desktop image for the given screen.
 //
 // screen: The screen for which to get the desktop image.
@@ -1041,7 +1016,6 @@ func (w NSWorkspace) DesktopImageURLForScreen(screen INSScreen) foundation.INSUR
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("desktopImageURLForScreen:"), screen)
 	return foundation.NSURLFromID(rv)
 }
-
 // Sets the desktop image for the given screen to the image at the specified
 // URL.
 //
@@ -1075,7 +1049,6 @@ func (w NSWorkspace) SetDesktopImageURLForScreenOptionsError(url foundation.INSU
 	return rv, nil
 
 }
-
 // Returns the desktop image options for the given screen.
 //
 // screen: The screen for which to get the desktop image options.
@@ -1094,7 +1067,6 @@ func (w NSWorkspace) DesktopImageOptionsForScreen(screen INSScreen) foundation.I
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("desktopImageOptionsForScreen:"), screen)
 	return foundation.NSDictionaryFromID(rv)
 }
-
 // Displays a Spotlight search results window in Finder for the specified
 // query string.
 //
@@ -1120,7 +1092,6 @@ func (w NSWorkspace) ShowSearchResultsForQueryString(queryString string) bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("showSearchResultsForQueryString:"), objc.String(queryString))
 	return rv
 }
-
 // Informs the workspace object that the file system changed at the specified
 // path.
 //
@@ -1138,7 +1109,6 @@ func (w NSWorkspace) ShowSearchResultsForQueryString(queryString string) bool {
 func (w NSWorkspace) NoteFileSystemChanged(path string) {
 	objc.Send[objc.ID](w.ID, objc.Sel("noteFileSystemChanged:"), objc.String(path))
 }
-
 // Requests the system wait for the specified amount of time before turning
 // off the power or logging out the user.
 //
@@ -1159,7 +1129,6 @@ func (w NSWorkspace) ExtendPowerOffBy(requested int) int {
 	rv := objc.Send[int](w.ID, objc.Sel("extendPowerOffBy:"), requested)
 	return rv
 }
-
 // Requests authorization to perform a privileged file operation.
 //
 // type: The type of file operation to perform.
@@ -1203,7 +1172,6 @@ func (w NSWorkspace) NotificationCenter() foundation.NSNotificationCenter {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("notificationCenter"))
 	return foundation.NSNotificationCenterFromID(objc.ID(rv))
 }
-
 // Returns the frontmost app, which is the app that receives key events.
 //
 // # Return Value
@@ -1219,7 +1187,6 @@ func (w NSWorkspace) FrontmostApplication() INSRunningApplication {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("frontmostApplication"))
 	return NSRunningApplicationFromID(objc.ID(rv))
 }
-
 // Returns an array of running apps.
 //
 // # Return Value
@@ -1249,7 +1216,6 @@ func (w NSWorkspace) RunningApplications() []NSRunningApplication {
 		return NSRunningApplicationFromID(id)
 	})
 }
-
 // Returns the app that owns the currently displayed menu bar.
 //
 // # Discussion
@@ -1262,7 +1228,6 @@ func (w NSWorkspace) MenuBarOwningApplication() INSRunningApplication {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("menuBarOwningApplication"))
 	return NSRunningApplicationFromID(objc.ID(rv))
 }
-
 // The array of file labels, returned as strings.
 //
 // # Return Value
@@ -1283,7 +1248,6 @@ func (w NSWorkspace) FileLabels() []string {
 	rv := objc.Send[[]objc.ID](w.ID, objc.Sel("fileLabels"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The array of colors for the file labels.
 //
 // # Return Value
@@ -1310,7 +1274,6 @@ func (w NSWorkspace) FileLabelColors() []NSColor {
 		return NSColorFromID(id)
 	})
 }
-
 // A Boolean value that indicates whether the app avoids conveying information
 // through color alone.
 //
@@ -1334,7 +1297,6 @@ func (w NSWorkspace) AccessibilityDisplayShouldDifferentiateWithoutColor() bool 
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldDifferentiateWithoutColor"))
 	return rv
 }
-
 // A Boolean value that indicates whether the app presents a high-contrast
 // user interface.
 //
@@ -1357,7 +1319,6 @@ func (w NSWorkspace) AccessibilityDisplayShouldIncreaseContrast() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldIncreaseContrast"))
 	return rv
 }
-
 // A Boolean value that indicates whether the app avoids using semitransparent
 // backgrounds.
 //
@@ -1380,7 +1341,6 @@ func (w NSWorkspace) AccessibilityDisplayShouldReduceTransparency() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldReduceTransparency"))
 	return rv
 }
-
 // A Boolean value that indicates whether the accessibility option to invert
 // colors is in an enabled state.
 //
@@ -1400,7 +1360,6 @@ func (w NSWorkspace) AccessibilityDisplayShouldInvertColors() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldInvertColors"))
 	return rv
 }
-
 // A Boolean value that indicates whether the accessibility option to reduce
 // motion is in an enabled state.
 //
@@ -1420,7 +1379,6 @@ func (w NSWorkspace) AccessibilityDisplayShouldReduceMotion() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("accessibilityDisplayShouldReduceMotion"))
 	return rv
 }
-
 // A Boolean value that indicates whether Switch Control is currently running.
 //
 // # Discussion
@@ -1432,7 +1390,6 @@ func (w NSWorkspace) SwitchControlEnabled() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isSwitchControlEnabled"))
 	return rv
 }
-
 // A Boolean value that indicates whether VoiceOver is currently running.
 //
 // # Discussion

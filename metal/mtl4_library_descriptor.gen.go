@@ -119,7 +119,6 @@ func (m MTL4LibraryDescriptor) Name() string {
 func (m MTL4LibraryDescriptor) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // Provides compile-time options for the Metal library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4LibraryDescriptor/options
@@ -130,7 +129,6 @@ func (m MTL4LibraryDescriptor) Options() IMTLCompileOptions {
 func (m MTL4LibraryDescriptor) SetOptions(value IMTLCompileOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOptions:"), value)
 }
-
 // Assigns an optional string containing the source code of the shader
 // language program to compile into a Metal library.
 //

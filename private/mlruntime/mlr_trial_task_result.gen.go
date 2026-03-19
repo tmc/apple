@@ -118,7 +118,6 @@ func (r MLRTrialTaskResult) SubmitForTaskError(task objectivec.IObject) (bool, e
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialTaskResult/initWithJSONResult:
 func (r MLRTrialTaskResult) InitWithJSONResult(jSONResult objectivec.IObject) MLRTrialTaskResult {

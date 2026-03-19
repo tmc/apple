@@ -160,7 +160,6 @@ func (f VNFeaturePrintObservation) Data() foundation.INSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
 // The total number of elements in the data.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/elementCount
@@ -168,7 +167,6 @@ func (f VNFeaturePrintObservation) ElementCount() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("elementCount"))
 	return rv
 }
-
 // The type of each element in the data.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFeaturePrintObservation/elementType

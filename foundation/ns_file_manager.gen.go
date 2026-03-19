@@ -605,7 +605,6 @@ func (f FileManager) HomeDirectoryForUser(userName string) INSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("homeDirectoryForUser:"), objc.String(userName))
 	return NSURLFromID(rv)
 }
-
 // Locates and optionally creates the specified common directory in a domain.
 //
 // directory: The search path directory. The supported values are described in
@@ -667,7 +666,6 @@ func (f FileManager) URLForDirectoryInDomainAppropriateForURLCreateError(directo
 	return NSURLFromID(rv), nil
 
 }
-
 // Returns an array of URLs for the specified common directory in the
 // requested domains.
 //
@@ -706,7 +704,6 @@ func (f FileManager) URLsForDirectoryInDomains(directory NSSearchPathDirectory, 
 		return NSURLFromID(id)
 	})
 }
-
 // Returns the container directory associated with the specified security
 // application group identifier.
 //
@@ -789,7 +786,6 @@ func (f FileManager) ContainerURLForSecurityApplicationGroupIdentifier(groupIden
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("containerURLForSecurityApplicationGroupIdentifier:"), objc.String(groupIdentifier))
 	return NSURLFromID(rv)
 }
-
 // Performs a shallow search of the specified directory and returns URLs for
 // the contained items.
 //
@@ -845,7 +841,6 @@ func (f FileManager) ContentsOfDirectoryAtURLIncludingPropertiesForKeysOptionsEr
 	}), nil
 
 }
-
 // Performs a shallow search of the specified directory and returns the paths
 // of any contained items.
 //
@@ -883,7 +878,6 @@ func (f FileManager) ContentsOfDirectoryAtPathError(path string) ([]string, erro
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
-
 // Returns a directory enumerator object that can be used to perform a deep
 // enumeration of the directory at the specified path.
 //
@@ -918,7 +912,6 @@ func (f FileManager) EnumeratorAtPath(path string) INSDirectoryEnumerator {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("enumeratorAtPath:"), objc.String(path))
 	return NSDirectoryEnumeratorFromID(rv)
 }
-
 // Returns an array of URLs that identify the mounted volumes available on the
 // device.
 //
@@ -949,7 +942,6 @@ func (f FileManager) MountedVolumeURLsIncludingResourceValuesForKeysOptions(prop
 		return NSURLFromID(id)
 	})
 }
-
 // Performs a deep enumeration of the specified directory and returns the
 // paths of all of the contained subdirectories.
 //
@@ -986,7 +978,6 @@ func (f FileManager) SubpathsOfDirectoryAtPathError(path string) ([]string, erro
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
-
 // Returns an array of strings identifying the paths for all items in the
 // specified directory.
 //
@@ -1019,7 +1010,6 @@ func (f FileManager) SubpathsAtPath(path string) []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("subpathsAtPath:"), objc.String(path))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Creates a directory with the given attributes at the specified URL.
 //
 // url: A file URL that specifies the directory to create. If you want to specify a
@@ -1073,7 +1063,6 @@ func (f FileManager) CreateDirectoryAtURLWithIntermediateDirectoriesAttributesEr
 	return rv, nil
 
 }
-
 // Creates a directory with given attributes at the specified path.
 //
 // path: A path string identifying the directory to create. You may specify a full
@@ -1126,7 +1115,6 @@ func (f FileManager) CreateDirectoryAtPathWithIntermediateDirectoriesAttributesE
 	return rv, nil
 
 }
-
 // Creates a file with the specified content and attributes at the given
 // location.
 //
@@ -1168,7 +1156,6 @@ func (f FileManager) CreateFileAtPathContentsAttributes(path string, data INSDat
 	rv := objc.Send[bool](f.ID, objc.Sel("createFileAtPath:contents:attributes:"), objc.String(path), data, attr)
 	return rv
 }
-
 // Removes the file or directory at the specified URL.
 //
 // URL: A file URL specifying the file or directory to remove. If the URL specifies
@@ -1210,7 +1197,6 @@ func (f FileManager) RemoveItemAtURLError(URL INSURL) (bool, error) {
 	return rv, nil
 
 }
-
 // Removes the file or directory at the specified path.
 //
 // path: A path string indicating the file or directory to remove. If the path
@@ -1252,7 +1238,6 @@ func (f FileManager) RemoveItemAtPathError(path string) (bool, error) {
 	return rv, nil
 
 }
-
 // Moves an item to the trash.
 //
 // url: The item to move to the trash.
@@ -1276,7 +1261,6 @@ func (f FileManager) TrashItemAtURLResultingItemURLError(url INSURL, outResultin
 	return rv, nil
 
 }
-
 // Replaces the contents of the item at the specified URL in a manner that
 // ensures no data loss occurs.
 //
@@ -1351,7 +1335,6 @@ func (f FileManager) ReplaceItemAtURLWithItemAtURLBackupItemNameOptionsResulting
 	return rv, nil
 
 }
-
 // Copies the file at the specified URL to a new location synchronously.
 //
 // srcURL: The file URL that identifies the file you want to copy. The URL in this
@@ -1401,7 +1384,6 @@ func (f FileManager) CopyItemAtURLToURLError(srcURL INSURL, dstURL INSURL) (bool
 	return rv, nil
 
 }
-
 // Copies the item at the specified path to a new location synchronously.
 //
 // srcPath: The path to the file or directory you want to move. This parameter must not
@@ -1449,7 +1431,6 @@ func (f FileManager) CopyItemAtPathToPathError(srcPath string, dstPath string) (
 	return rv, nil
 
 }
-
 // Moves the file or directory at the specified URL to a new location
 // synchronously.
 //
@@ -1507,7 +1488,6 @@ func (f FileManager) MoveItemAtURLToURLError(srcURL INSURL, dstURL INSURL) (bool
 	return rv, nil
 
 }
-
 // Moves the file or directory at the specified path to a new location
 // synchronously.
 //
@@ -1564,7 +1544,6 @@ func (f FileManager) MoveItemAtPathToPathError(srcPath string, dstPath string) (
 	return rv, nil
 
 }
-
 // Returns the URL for the iCloud container associated with the specified
 // identifier and establishes access to that container.
 //
@@ -1624,7 +1603,6 @@ func (f FileManager) URLForUbiquityContainerIdentifier(containerIdentifier strin
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("URLForUbiquityContainerIdentifier:"), objc.String(containerIdentifier))
 	return NSURLFromID(rv)
 }
-
 // Returns a Boolean indicating whether the item is targeted for storage in
 // iCloud.
 //
@@ -1655,7 +1633,6 @@ func (f FileManager) IsUbiquitousItemAtURL(url INSURL) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isUbiquitousItemAtURL:"), url)
 	return rv
 }
-
 // Indicates whether the item at the specified URL should be stored in iCloud.
 //
 // flag: [true] to move the item to iCloud or [false] to remove it from iCloud (if
@@ -1708,7 +1685,6 @@ func (f FileManager) SetUbiquitousItemAtURLDestinationURLError(flag bool, url IN
 	return rv, nil
 
 }
-
 // Starts downloading (if necessary) the specified item to the local system.
 //
 // url: The URL for the file or directory in the cloud that you want to download.
@@ -1741,7 +1717,6 @@ func (f FileManager) StartDownloadingUbiquitousItemAtURLError(url INSURL) (bool,
 	return rv, nil
 
 }
-
 // Removes the local copy of the specified item that’s stored in iCloud.
 //
 // url: The URL to a file or directory in iCloud storage.
@@ -1778,7 +1753,6 @@ func (f FileManager) EvictUbiquitousItemAtURLError(url INSURL) (bool, error) {
 	return rv, nil
 
 }
-
 // Returns a URL that can be emailed to users to allow them to download a copy
 // of a flat file item from iCloud.
 //
@@ -1826,7 +1800,6 @@ func (f FileManager) URLForPublishingUbiquitousItemAtURLExpirationDateError(url 
 	return NSURLFromID(rv), nil
 
 }
-
 // Asynchronously pauses sync of an item at the given URL.
 //
 // url: The URL of the item for which to pause sync.
@@ -1871,7 +1844,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](f.ID, objc.Sel("pauseSyncForUbiquitousItemAtURL:completionHandler:"), url, _block1)
 }
-
 // Asynchronously resumes the sync on a paused item using the given resume
 // behavior.
 //
@@ -1910,7 +1882,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](f.ID, objc.Sel("resumeSyncForUbiquitousItemAtURL:withBehavior:completionHandler:"), url, behavior, _block2)
 }
-
 // Asynchronously fetches the latest remote version of a given item from the
 // server.
 //
@@ -1951,7 +1922,6 @@ _block1, _cleanup1 := NewFileVersionErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](f.ID, objc.Sel("fetchLatestRemoteVersionOfItemAtURL:completionHandler:"), url, _block1)
 }
-
 // Asynchronously uploads the local version of the item using the provided
 // conflict resolution policy.
 //
@@ -1991,7 +1961,6 @@ _block2, _cleanup2 := NewFileVersionErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](f.ID, objc.Sel("uploadLocalVersionOfUbiquitousItemAtURL:withConflictResolutionPolicy:completionHandler:"), url, conflictResolutionPolicy, _block2)
 }
-
 // Creates a symbolic link at the specified URL that points to an item at the
 // given URL.
 //
@@ -2022,7 +1991,6 @@ func (f FileManager) CreateSymbolicLinkAtURLWithDestinationURLError(url INSURL, 
 	return rv, nil
 
 }
-
 // Creates a symbolic link that points to the specified destination.
 //
 // path: The path at which to create the new symbolic link. The last path component
@@ -2052,7 +2020,6 @@ func (f FileManager) CreateSymbolicLinkAtPathWithDestinationPathError(path strin
 	return rv, nil
 
 }
-
 // Creates a hard link between the items at the specified URLs.
 //
 // srcURL: The file URL that identifies the source of the link. The URL in this
@@ -2099,7 +2066,6 @@ func (f FileManager) LinkItemAtURLToURLError(srcURL INSURL, dstURL INSURL) (bool
 	return rv, nil
 
 }
-
 // Creates a hard link between the items at the specified paths.
 //
 // srcPath: The path that specifies the item you wish to link to. The value in this
@@ -2144,7 +2110,6 @@ func (f FileManager) LinkItemAtPathToPathError(srcPath string, dstPath string) (
 	return rv, nil
 
 }
-
 // Returns the path of the item pointed to by a symbolic link.
 //
 // path: The path of a file or directory.
@@ -2169,7 +2134,6 @@ func (f FileManager) DestinationOfSymbolicLinkAtPathError(path string) (string, 
 	return objc.IDToString(rv), nil
 
 }
-
 // Returns a Boolean value that indicates whether a file or directory exists
 // at a specified path.
 //
@@ -2206,7 +2170,6 @@ func (f FileManager) FileExistsAtPath(path string) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("fileExistsAtPath:"), objc.String(path))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether a file or directory exists
 // at a specified path.
 //
@@ -2257,7 +2220,6 @@ func (f FileManager) FileExistsAtPathIsDirectory(path string) (bool, bool) {
 	rv := objc.Send[bool](f.ID, objc.Sel("fileExistsAtPath:isDirectory:"), objc.String(path), unsafe.Pointer(&isDirectory))
 	return isDirectory, rv
 }
-
 // Returns a Boolean value that indicates whether the invoking object appears
 // able to read a specified file.
 //
@@ -2287,7 +2249,6 @@ func (f FileManager) IsReadableFileAtPath(path string) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isReadableFileAtPath:"), objc.String(path))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the invoking object appears
 // able to write to a specified file.
 //
@@ -2317,7 +2278,6 @@ func (f FileManager) IsWritableFileAtPath(path string) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isWritableFileAtPath:"), objc.String(path))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the operating system appears
 // able to execute a specified file.
 //
@@ -2347,7 +2307,6 @@ func (f FileManager) IsExecutableFileAtPath(path string) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isExecutableFileAtPath:"), objc.String(path))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the invoking object appears
 // able to delete a specified file.
 //
@@ -2381,7 +2340,6 @@ func (f FileManager) IsDeletableFileAtPath(path string) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isDeletableFileAtPath:"), objc.String(path))
 	return rv
 }
-
 // Returns an array of strings representing the user-visible components of a
 // given path.
 //
@@ -2403,7 +2361,6 @@ func (f FileManager) ComponentsToDisplayForPath(path string) []string {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("componentsToDisplayForPath:"), objc.String(path))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the display name of the file or directory at a specified path.
 //
 // path: The path of a file or directory.
@@ -2431,7 +2388,6 @@ func (f FileManager) DisplayNameAtPath(path string) string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("displayNameAtPath:"), objc.String(path))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the attributes of the item at a given path.
 //
 // path: The path of a file or directory.
@@ -2474,7 +2430,6 @@ func (f FileManager) AttributesOfItemAtPathError(path string) (INSDictionary, er
 	return NSDictionaryFromID(rv), nil
 
 }
-
 // Returns a dictionary that describes the attributes of the mounted file
 // system on which a given path resides.
 //
@@ -2501,7 +2456,6 @@ func (f FileManager) AttributesOfFileSystemForPathError(path string) (INSDiction
 	return NSDictionaryFromID(rv), nil
 
 }
-
 // Sets the attributes of the specified file or directory.
 //
 // attributes: A dictionary containing as keys the attributes to set for `path` and as
@@ -2558,7 +2512,6 @@ func (f FileManager) SetAttributesOfItemAtPathError(attributes INSDictionary, pa
 	return rv, nil
 
 }
-
 // Returns the contents of the file at the specified path.
 //
 // path: The path of the file whose contents you want.
@@ -2573,7 +2526,6 @@ func (f FileManager) ContentsAtPath(path string) INSData {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("contentsAtPath:"), objc.String(path))
 	return NSDataFromID(rv)
 }
-
 // Returns a Boolean value that indicates whether the files or directories in
 // specified paths have the same contents.
 //
@@ -2602,7 +2554,6 @@ func (f FileManager) ContentsEqualAtPathAndPath(path1 string, path2 string) bool
 	rv := objc.Send[bool](f.ID, objc.Sel("contentsEqualAtPath:andPath:"), objc.String(path1), objc.String(path2))
 	return rv
 }
-
 // Determines the type of relationship that exists between a directory and an
 // item.
 //
@@ -2642,7 +2593,6 @@ func (f FileManager) GetRelationshipOfDirectoryAtURLToItemAtURLError(outRelation
 	return rv, nil
 
 }
-
 // Determines the type of relationship that exists between a system directory
 // and the specified item.
 //
@@ -2688,7 +2638,6 @@ func (f FileManager) GetRelationshipOfDirectoryInDomainToItemAtURLError(outRelat
 	return rv, nil
 
 }
-
 // Returns a C-string representation of a given path that properly encodes
 // Unicode strings for use by the file system.
 //
@@ -2715,7 +2664,6 @@ func (f FileManager) FileSystemRepresentationWithPath(path string) int8 {
 	rv := objc.Send[int8](f.ID, objc.Sel("fileSystemRepresentationWithPath:"), objc.String(path))
 	return rv
 }
-
 // Returns an [NSString] object whose contents are derived from the specified
 // C-string path.
 //
@@ -2738,7 +2686,6 @@ func (f FileManager) StringWithFileSystemRepresentationLength(str []byte, len_ u
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("stringWithFileSystemRepresentation:length:"), unsafe.Pointer(unsafe.SliceData(str)), len_)
 	return NSStringFromID(rv).String()
 }
-
 // Changes the path of the current working directory to the specified path.
 //
 // path: The path of the directory to which to change.
@@ -2759,7 +2706,6 @@ func (f FileManager) ChangeCurrentDirectoryPath(path string) bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("changeCurrentDirectoryPath:"), objc.String(path))
 	return rv
 }
-
 // Starts the process of unmounting the specified volume.
 //
 // url: A file URL specifying the volume to be unmounted.
@@ -2783,7 +2729,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](f.ID, objc.Sel("unmountVolumeAtURL:options:completionHandler:"), url, mask, _block2)
 }
-
 // Returns a directory enumerator object that can be used to perform a deep
 // enumeration of the directory at the specified URL.
 //
@@ -2867,7 +2812,6 @@ func (f FileManager) HomeDirectoryForCurrentUser() INSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("homeDirectoryForCurrentUser"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The temporary directory for the current user.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/temporaryDirectory
@@ -2875,7 +2819,6 @@ func (f FileManager) TemporaryDirectory() INSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("temporaryDirectory"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // An opaque token that represents the current user’s iCloud Drive Documents
 // identity.
 //
@@ -2916,7 +2859,6 @@ func (f FileManager) UbiquityIdentityToken() objectivec.IObject {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("ubiquityIdentityToken"))
 	return objectivec.Object{ID: rv}
 }
-
 // The delegate of the file manager object.
 //
 // # Discussion
@@ -2938,7 +2880,6 @@ func (f FileManager) Delegate() NSFileManagerDelegate {
 func (f FileManager) SetDelegate(value NSFileManagerDelegate) {
 	objc.Send[struct{}](f.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The path to the program’s current directory.
 //
 // # Discussion
@@ -2959,7 +2900,6 @@ func (f FileManager) CurrentDirectoryPath() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("currentDirectoryPath"))
 	return NSStringFromID(rv).String()
 }
-
 // The process identifier of the process that prevented a volume from
 // unmounting.
 //
@@ -2968,7 +2908,6 @@ func (f FileManager) NSFileManagerUnmountDissentingProcessIdentifierErrorKey() s
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("NSFileManagerUnmountDissentingProcessIdentifierErrorKey"))
 	return NSStringFromID(rv).String()
 }
-
 // The version of the Foundation framework in which
 //
 // See: https://developer.apple.com/documentation/foundation/nsfoundationversionwithfilemanagerresourceforksupport
@@ -2979,7 +2918,6 @@ func (f FileManager) NSFoundationVersionWithFileManagerResourceForkSupport() obj
 func (f FileManager) SetNSFoundationVersionWithFileManagerResourceForkSupport(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNSFoundationVersionWithFileManagerResourceForkSupport:"), value)
 }
-
 // Sent after the iCloud (“ubiquity”) identity has changed.
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsubiquityidentitydidchange

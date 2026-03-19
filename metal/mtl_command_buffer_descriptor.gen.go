@@ -136,7 +136,6 @@ func (c MTLCommandBufferDescriptor) LogState() MTLLogState {
 func (c MTLCommandBufferDescriptor) SetLogState(value MTLLogState) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLogState:"), value)
 }
-
 // A Boolean value that indicates whether the command buffer the descriptor
 // creates maintains strong references to the resources it uses.
 //
@@ -170,7 +169,6 @@ func (c MTLCommandBufferDescriptor) RetainedReferences() bool {
 func (c MTLCommandBufferDescriptor) SetRetainedReferences(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRetainedReferences:"), value)
 }
-
 // The reporting configuration that indicates which information the GPU driver
 // stores in a command buffer’s error property.
 //
@@ -194,7 +192,6 @@ func (c MTLCommandBufferDescriptor) ErrorOptions() MTLCommandBufferErrorOption {
 func (c MTLCommandBufferDescriptor) SetErrorOptions(value MTLCommandBufferErrorOption) {
 	objc.Send[struct{}](c.ID, objc.Sel("setErrorOptions:"), value)
 }
-
 // The domain for Metal command buffer errors.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcommandbuffererrordomain
@@ -202,7 +199,6 @@ func (c MTLCommandBufferDescriptor) MTLCommandBufferErrorDomain() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("MTLCommandBufferErrorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // An option that instructs a command buffer to save additional details about
 // a GPU runtime error.
 //

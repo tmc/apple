@@ -258,7 +258,6 @@ func (t NSTextList) InitWithCoder(coder foundation.INSCoder) NSTextList {
 	rv := objc.Send[NSTextList](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Returns an initialized text list.
 //
 // markerFormat: The marker format for the text list.
@@ -291,7 +290,6 @@ func (t NSTextList) InitWithMarkerFormatOptions(markerFormat NSTextListMarkerFor
 	rv := objc.Send[NSTextList](t.ID, objc.Sel("initWithMarkerFormat:options:"), objc.String(string(markerFormat)), options)
 	return rv
 }
-
 // Returns a new text list with the format, options, and starting item number
 // you provide.
 //
@@ -308,7 +306,6 @@ func (t NSTextList) InitWithMarkerFormatOptionsStartingItemNumber(markerFormat N
 	rv := objc.Send[NSTextList](t.ID, objc.Sel("initWithMarkerFormat:options:startingItemNumber:"), objc.String(string(markerFormat)), options, startingItemNumber)
 	return rv
 }
-
 // Returns the computed value for a specific ordinal position in the list.
 //
 // itemNumber: The ordinal position in the list whose computed marker value is desired.
@@ -337,13 +334,11 @@ func (t NSTextList) MarkerFormat() NSTextListMarkerFormat {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("markerFormat"))
 	return NSTextListMarkerFormat(foundation.NSStringFromID(rv).String())
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextList/isOrdered
 func (t NSTextList) Ordered() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isOrdered"))
 	return rv
 }
-
 // Returns the list options mask value of the receiver.
 //
 // # Return Value
@@ -355,7 +350,6 @@ func (t NSTextList) ListOptions() NSTextListOptions {
 	rv := objc.Send[NSTextListOptions](t.ID, objc.Sel("listOptions"))
 	return NSTextListOptions(rv)
 }
-
 // Sets the starting item number for the text list.
 //
 // # Discussion
@@ -371,7 +365,6 @@ func (t NSTextList) StartingItemNumber() int {
 func (t NSTextList) SetStartingItemNumber(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setStartingItemNumber:"), value)
 }
-
 // The text lists that contain the paragraph.
 //
 // See: https://developer.apple.com/documentation/appkit/nsmutableparagraphstyle/textlists

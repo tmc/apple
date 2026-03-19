@@ -118,7 +118,6 @@ func (u URLSessionTaskMetrics) TransactionMetrics() []NSURLSessionTaskTransactio
 		return NSURLSessionTaskTransactionMetricsFromID(id)
 	})
 }
-
 // The time interval between when a task is instantiated and when the task is
 // completed.
 //
@@ -127,7 +126,6 @@ func (u URLSessionTaskMetrics) TaskInterval() INSDateInterval {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("taskInterval"))
 	return NSDateIntervalFromID(objc.ID(rv))
 }
-
 // The number of redirects that occurred during the execution of the task.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskMetrics/redirectCount

@@ -250,7 +250,6 @@ func (t NSTokenField) TokenStyle() NSTokenStyle {
 func (t NSTokenField) SetTokenStyle(value NSTokenStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenStyle:"), value)
 }
-
 // The recevier’s tokenizing character set to `characterSet`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/tokenizingCharacterSet
@@ -261,7 +260,6 @@ func (t NSTokenField) TokenizingCharacterSet() foundation.NSCharacterSet {
 func (t NSTokenField) SetTokenizingCharacterSet(value foundation.NSCharacterSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTokenizingCharacterSet:"), value)
 }
-
 // The receiver’s completion delay.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/completionDelay
@@ -284,7 +282,6 @@ func (_NSTokenFieldClass NSTokenFieldClass) DefaultTokenizingCharacterSet() foun
 	rv := objc.Send[objc.ID](objc.ID(_NSTokenFieldClass.class), objc.Sel("defaultTokenizingCharacterSet"))
 	return foundation.NSCharacterSetFromID(objc.ID(rv))
 }
-
 // Returns the default completion delay.
 //
 // # Discussion

@@ -301,7 +301,6 @@ func (d Dimension) Converter() INSUnitConverter {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("converter"))
 	return NSUnitConverterFromID(objc.ID(rv))
 }
-
 // The coefficient to use in the linear unit conversion calculation.
 //
 // See: https://developer.apple.com/documentation/foundation/unitconverterlinear/coefficient
@@ -323,7 +322,6 @@ func (_DimensionClass DimensionClass) Lux() UnitIlluminance {
 func (_DimensionClass DimensionClass) SetLux(value UnitIlluminance) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setLux:"), value)
 }
-
 // The meters unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/meters
@@ -334,7 +332,6 @@ func (_DimensionClass DimensionClass) Meters() UnitLength {
 func (_DimensionClass DimensionClass) SetMeters(value UnitLength) {
 	objc.Send[struct{}](objc.ID(_DimensionClass.class), objc.Sel("setMeters:"), value)
 }
-
 // The miles unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/miles

@@ -81,7 +81,6 @@ func NSSpellServerDelegateObjectFromID(id objc.ID) NSSpellServerDelegateObject {
 // [requestChecking(of:range:types:options:inSpellDocumentWithTag:completionHandler:)]: https://developer.apple.com/documentation/AppKit/NSSpellChecker/requestChecking(of:range:types:options:inSpellDocumentWithTag:completionHandler:)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:check:offset:types:options:orthography:wordCount:)
-
 func (o NSSpellServerDelegateObject) SpellServerCheckStringOffsetTypesOptionsOrthographyWordCount(sender INSSpellServer, stringToCheck string, offset uint, checkingTypes NSTextCheckingTypes, options INSDictionary, orthography INSOrthography, wordCount unsafe.Pointer) []NSTextCheckingResult {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("spellServer:checkString:offset:types:options:orthography:wordCount:"), sender, objc.String(stringToCheck), offset, checkingTypes, options, orthography, wordCount)
@@ -89,7 +88,6 @@ func (o NSSpellServerDelegateObject) SpellServerCheckStringOffsetTypesOptionsOrt
 		return NSTextCheckingResultFromID(id)
 	})
 	}
-
 // Gives the delegate the opportunity to suggest guesses to the sender for the
 // correct spelling of the given misspelled word in the specified language.
 //
@@ -104,13 +102,11 @@ func (o NSSpellServerDelegateObject) SpellServerCheckStringOffsetTypesOptionsOrt
 // An array of [NSString] objects indicating possible correct spellings.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:suggestGuessesForWord:inLanguage:)
-
 func (o NSSpellServerDelegateObject) SpellServerSuggestGuessesForWordInLanguage(sender INSSpellServer, word string, language string) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("spellServer:suggestGuessesForWord:inLanguage:"), sender, objc.String(word), objc.String(language))
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // Gives the delegate the opportunity to customize the grammatical analysis of
 // a given string.
 //
@@ -130,13 +126,11 @@ func (o NSSpellServerDelegateObject) SpellServerSuggestGuessesForWordInLanguage(
 // Location of the first flagged grammatical unit within `string`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:checkGrammarIn:language:details:)
-
 func (o NSSpellServerDelegateObject) SpellServerCheckGrammarInStringLanguageDetails(sender INSSpellServer, stringToCheck string, language string, details INSDictionary) NSRange {
 	
 	rv := objc.Send[NSRange](o.ID, objc.Sel("spellServer:checkGrammarInString:language:details:"), sender, objc.String(stringToCheck), objc.String(language), details)
 	return rv
 	}
-
 // Asks the delegate to search for a misspelled word in a given string, using
 // the specified language, and marking the first misspelled word found by
 // returning its range within the string.
@@ -165,13 +159,11 @@ func (o NSSpellServerDelegateObject) SpellServerCheckGrammarInStringLanguageDeta
 // determine if the word exists in the user’s language dictionaries.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:findMisspelledWordIn:language:wordCount:countOnly:)
-
 func (o NSSpellServerDelegateObject) SpellServerFindMisspelledWordInStringLanguageWordCountCountOnly(sender INSSpellServer, stringToCheck string, language string, wordCount unsafe.Pointer, countOnly bool) NSRange {
 	
 	rv := objc.Send[NSRange](o.ID, objc.Sel("spellServer:findMisspelledWordInString:language:wordCount:countOnly:"), sender, objc.String(stringToCheck), objc.String(language), wordCount, countOnly)
 	return rv
 	}
-
 // Notifies the delegate that the sender has removed the specified word from
 // the user’s list of acceptable words in the specified language.
 //
@@ -187,12 +179,10 @@ func (o NSSpellServerDelegateObject) SpellServerFindMisspelledWordInStringLangua
 // edit the list accordingly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:didForgetWord:inLanguage:)
-
 func (o NSSpellServerDelegateObject) SpellServerDidForgetWordInLanguage(sender INSSpellServer, word string, language string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("spellServer:didForgetWord:inLanguage:"), sender, objc.String(word), objc.String(language))
 	}
-
 // Notifies the delegate that the sender has added the specified word to the
 // user’s list of acceptable words in the specified language.
 //
@@ -208,12 +198,10 @@ func (o NSSpellServerDelegateObject) SpellServerDidForgetWordInLanguage(sender I
 // edit the list accordingly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:didLearnWord:inLanguage:)
-
 func (o NSSpellServerDelegateObject) SpellServerDidLearnWordInLanguage(sender INSSpellServer, word string, language string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("spellServer:didLearnWord:inLanguage:"), sender, objc.String(word), objc.String(language))
 	}
-
 // This delegate method returns an array of possible word completions from the
 // spell checker, based on a partially completed string and a given range.
 //
@@ -230,13 +218,11 @@ func (o NSSpellServerDelegateObject) SpellServerDidLearnWordInLanguage(sender IN
 // An array of [NSString] objects indicating possible completions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:suggestCompletionsForPartialWordRange:in:language:)
-
 func (o NSSpellServerDelegateObject) SpellServerSuggestCompletionsForPartialWordRangeInStringLanguage(sender INSSpellServer, range_ NSRange, string_ string, language string) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("spellServer:suggestCompletionsForPartialWordRange:inString:language:"), sender, range_, objc.String(string_), objc.String(language))
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // Notifies the spell checker of the users’s response to a correction.
 //
 // sender: The spell server.
@@ -260,7 +246,6 @@ func (o NSSpellServerDelegateObject) SpellServerSuggestCompletionsForPartialWord
 // [NSSpellChecker]: https://developer.apple.com/documentation/AppKit/NSSpellChecker
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:recordResponse:toCorrection:forWord:language:)
-
 func (o NSSpellServerDelegateObject) SpellServerRecordResponseToCorrectionForWordLanguage(sender INSSpellServer, response uint, correction string, word string, language string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("spellServer:recordResponse:toCorrection:forWord:language:"), sender, response, objc.String(correction), objc.String(word), objc.String(language))

@@ -541,7 +541,6 @@ func (f MLFeatureValue) Type() MLFeatureType {
 	rv := objc.Send[MLFeatureType](f.ID, objc.Sel("type"))
 	return MLFeatureType(rv)
 }
-
 // A Boolean value that indicates whether the feature value is undefined or
 // missing.
 //
@@ -550,7 +549,6 @@ func (f MLFeatureValue) Undefined() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isUndefined"))
 	return rv
 }
-
 // The underlying integer of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/int64Value
@@ -558,7 +556,6 @@ func (f MLFeatureValue) Int64Value() int64 {
 	rv := objc.Send[int64](f.ID, objc.Sel("int64Value"))
 	return rv
 }
-
 // The underlying double of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/doubleValue
@@ -566,7 +563,6 @@ func (f MLFeatureValue) DoubleValue() float64 {
 	rv := objc.Send[float64](f.ID, objc.Sel("doubleValue"))
 	return rv
 }
-
 // The underlying string of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/stringValue
@@ -574,7 +570,6 @@ func (f MLFeatureValue) StringValue() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("stringValue"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The underlying image of the feature value as a pixel buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/imageBufferValue
@@ -582,7 +577,6 @@ func (f MLFeatureValue) ImageBufferValue() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](f.ID, objc.Sel("imageBufferValue"))
 	return corevideo.CVImageBufferRef(rv)
 }
-
 // The underlying multiarray of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/multiArrayValue
@@ -590,7 +584,6 @@ func (f MLFeatureValue) MultiArrayValue() IMLMultiArray {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("multiArrayValue"))
 	return MLMultiArrayFromID(objc.ID(rv))
 }
-
 // The underlying sequence of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/sequenceValue
@@ -598,7 +591,6 @@ func (f MLFeatureValue) SequenceValue() IMLSequence {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sequenceValue"))
 	return MLSequenceFromID(objc.ID(rv))
 }
-
 // The underlying dictionary of the feature value.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureValue/dictionaryValue

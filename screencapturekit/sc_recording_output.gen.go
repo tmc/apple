@@ -121,7 +121,6 @@ func (r SCRecordingOutput) RecordedDuration() objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recordedDuration"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/recordedFileSize
 func (r SCRecordingOutput) RecordedFileSize() int {
 	rv := objc.Send[int](r.ID, objc.Sel("recordedFileSize"))

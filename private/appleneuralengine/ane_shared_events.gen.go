@@ -129,7 +129,6 @@ func (a ANESharedEvents) SignalEvents() foundation.INSArray {
 func (a ANESharedEvents) SetSignalEvents(value foundation.INSArray) {
 	objc.Send[struct{}](a.ID, objc.Sel("setSignalEvents:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedEvents/waitEvents
 func (a ANESharedEvents) WaitEvents() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("waitEvents"))

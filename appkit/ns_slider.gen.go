@@ -320,7 +320,6 @@ func (s NSSlider) ClosestTickMarkValueToValue(value float64) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("closestTickMarkValueToValue:"), value)
 	return rv
 }
-
 // Returns the index of the tick mark closest to the location of the slider
 // represented by the given point.
 //
@@ -344,7 +343,6 @@ func (s NSSlider) IndexOfTickMarkAtPoint(point corefoundation.CGPoint) int {
 	rv := objc.Send[int](s.ID, objc.Sel("indexOfTickMarkAtPoint:"), point)
 	return rv
 }
-
 // Returns the bounding rectangle of the tick mark at the given index.
 //
 // index: The index of the tick mark for which to retrieve the bounds. The
@@ -366,7 +364,6 @@ func (s NSSlider) RectOfTickMarkAtIndex(index int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rectOfTickMarkAtIndex:"), index)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the slider’s value represented by the tick mark at the specified
 // index.
 //
@@ -387,7 +384,6 @@ func (s NSSlider) TickMarkValueAtIndex(index int) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("tickMarkValueAtIndex:"), index)
 	return rv
 }
-
 // Decrements the slider’s value.
 //
 // # Return Value
@@ -411,7 +407,6 @@ func (s NSSlider) AccessibilityPerformDecrement() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformDecrement"))
 	return rv
 }
-
 // Increments the slider’s value.
 //
 // # Return Value
@@ -435,7 +430,6 @@ func (s NSSlider) AccessibilityPerformIncrement() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformIncrement"))
 	return rv
 }
-
 // Returns the slider’s value.
 //
 // # Return Value
@@ -471,7 +465,6 @@ func (s NSSlider) SliderType() NSSliderType {
 func (s NSSlider) SetSliderType(value NSSliderType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSliderType:"), value)
 }
-
 // The amount by which the slider changes its value when the user Option-drags
 // the slider knob.
 //
@@ -491,7 +484,6 @@ func (s NSSlider) AltIncrementValue() float64 {
 func (s NSSlider) SetAltIncrementValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAltIncrementValue:"), value)
 }
-
 // The knob’s thickness, in pixels.
 //
 // # Discussion
@@ -505,7 +497,6 @@ func (s NSSlider) KnobThickness() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("knobThickness"))
 	return rv
 }
-
 // An integer indicating the orientation (horizontal or vertical) of the
 // slider.
 //
@@ -524,7 +515,6 @@ func (s NSSlider) Vertical() bool {
 func (s NSSlider) SetVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
-
 // The color of the filled portion of the slider track, in appearances that
 // support it.
 //
@@ -536,7 +526,6 @@ func (s NSSlider) TrackFillColor() INSColor {
 func (s NSSlider) SetTrackFillColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTrackFillColor:"), value)
 }
-
 // The tint prominence of the slider. The automatic behavior for a regular
 // slider tints its track fill, while a slider with tick marks is untinted.
 // Setting the tint prominence will override this default behavior and choose
@@ -553,7 +542,6 @@ func (s NSSlider) TintProminence() NSTintProminence {
 func (s NSSlider) SetTintProminence(value NSTintProminence) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTintProminence:"), value)
 }
-
 // The maximum value the slider can send to its target.
 //
 // # Discussion
@@ -570,7 +558,6 @@ func (s NSSlider) MaxValue() float64 {
 func (s NSSlider) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
-
 // The minimum value the slider can send to its target.
 //
 // # Discussion
@@ -587,7 +574,6 @@ func (s NSSlider) MinValue() float64 {
 func (s NSSlider) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
-
 // A Boolean value that indicates whether the slider fixes its values to those
 // values represented by its tick marks.
 //
@@ -614,7 +600,6 @@ func (s NSSlider) AllowsTickMarkValuesOnly() bool {
 func (s NSSlider) SetAllowsTickMarkValuesOnly(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsTickMarkValuesOnly:"), value)
 }
-
 // The number of tick marks associated with the slider.
 //
 // # Discussion
@@ -634,7 +619,6 @@ func (s NSSlider) NumberOfTickMarks() int {
 func (s NSSlider) SetNumberOfTickMarks(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNumberOfTickMarks:"), value)
 }
-
 // Determines where the slider’s tick marks are displayed.
 //
 // # Discussion
@@ -660,7 +644,6 @@ func (s NSSlider) TickMarkPosition() NSTickMarkPosition {
 func (s NSSlider) SetTickMarkPosition(value NSTickMarkPosition) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTickMarkPosition:"), value)
 }
-
 // The value this slider will be filled from. This slider will be filled from
 // its `neutralValue` to its current value. If `neutralValue` has not been
 // explicitly set before, access to `neutralValue` will return `minValue`.
@@ -676,7 +659,6 @@ func (s NSSlider) SetNeutralValue(value float64) {
 
 			// Protocol methods for NSAccessibilitySlider
 			
-
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
@@ -694,13 +676,11 @@ func (s NSSlider) SetNeutralValue(value float64) {
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-
 func (o NSSlider) AccessibilityFrame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
-
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
@@ -716,13 +696,11 @@ func (o NSSlider) AccessibilityFrame() corefoundation.CGRect {
 // [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-
 func (o NSSlider) AccessibilityParent() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the accessibility element’s identity.
 //
 // # Return Value
@@ -738,13 +716,11 @@ func (o NSSlider) AccessibilityParent() objectivec.IObject {
 // [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-
 func (o NSSlider) AccessibilityIdentifier() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
@@ -763,7 +739,6 @@ func (o NSSlider) AccessibilityIdentifier() string {
 // [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-
 func (o NSSlider) IsAccessibilityFocused() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))

@@ -185,7 +185,6 @@ func (c NSCollectionLayoutSupplementaryItem) ItemAnchor() INSCollectionLayoutAnc
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemAnchor"))
 	return NSCollectionLayoutAnchorFromID(objc.ID(rv))
 }
-
 // The anchor between the supplementary item and the container it’s attached
 // to.
 //
@@ -194,7 +193,6 @@ func (c NSCollectionLayoutSupplementaryItem) ContainerAnchor() INSCollectionLayo
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("containerAnchor"))
 	return NSCollectionLayoutAnchorFromID(objc.ID(rv))
 }
-
 // A string that identifies the type of supplementary item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSupplementaryItem/elementKind
@@ -202,7 +200,6 @@ func (c NSCollectionLayoutSupplementaryItem) ElementKind() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("elementKind"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The vertical stacking order of the supplementary item in relation to other
 // items in the section.
 //

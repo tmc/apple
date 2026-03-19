@@ -174,7 +174,6 @@ func (t NSTextAlternatives) InitWithPrimaryStringAlternativeStrings(primaryStrin
 	rv := objc.Send[NSTextAlternatives](t.ID, objc.Sel("initWithPrimaryString:alternativeStrings:"), objc.String(primaryString), objectivec.StringSliceToNSArray(alternativeStrings))
 	return rv
 }
-
 // Sent to the [NSTextAlternatives] object by the text view when the user
 // chooses one of the alternative strings.
 //
@@ -208,7 +207,6 @@ func (t NSTextAlternatives) PrimaryString() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("primaryString"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // An array of alternative possible interpretations that the user might
 // select.
 //

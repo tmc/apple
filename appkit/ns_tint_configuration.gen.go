@@ -160,7 +160,6 @@ func (t NSTintConfiguration) AdaptsToUserAccentColor() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("adaptsToUserAccentColor"))
 	return rv
 }
-
 // The color the system supplies when you create a tint configuration.
 //
 // # Discussion
@@ -173,7 +172,6 @@ func (t NSTintConfiguration) BaseTintColor() INSColor {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("baseTintColor"))
 	return NSColorFromID(objc.ID(rv))
 }
-
 // A color object that matches the effective content tint.
 //
 // # Discussion
@@ -196,7 +194,6 @@ func (_NSTintConfigurationClass NSTintConfigurationClass) DefaultTintConfigurati
 	rv := objc.Send[objc.ID](objc.ID(_NSTintConfigurationClass.class), objc.Sel("defaultTintConfiguration"))
 	return NSTintConfigurationFromID(objc.ID(rv))
 }
-
 // The content always displays in monochrome.
 //
 // # Discussion

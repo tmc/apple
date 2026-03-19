@@ -208,7 +208,6 @@ func (i NSInvocationOperation) InitWithTargetSelectorObject(target objectivec.IO
 	rv := objc.Send[NSInvocationOperation](i.ID, objc.Sel("initWithTarget:selector:object:"), target, sel, arg)
 	return rv
 }
-
 // Returns an [NSInvocationOperation] object initialized with the specified
 // invocation object.
 //
@@ -243,7 +242,6 @@ func (i NSInvocationOperation) Invocation() INSInvocation {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("invocation"))
 	return NSInvocationFromID(objc.ID(rv))
 }
-
 // The result of the invocation or method.
 //
 // # Discussion

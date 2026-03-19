@@ -42,12 +42,10 @@ func NSAnimationDelegateObjectFromID(id objc.ID) NSAnimationDelegateObject {
 // has a progress value of 1.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidEnd(_:)
-
 func (o NSAnimationDelegateObject) AnimationDidEnd(animation INSAnimation) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidEnd:"), animation)
 	}
-
 // Sent to the delegate when the specified animation is stopped before it
 // completes its run.
 //
@@ -59,12 +57,10 @@ func (o NSAnimationDelegateObject) AnimationDidEnd(animation INSAnimation) {
 // message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidStop(_:)
-
 func (o NSAnimationDelegateObject) AnimationDidStop(animation INSAnimation) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidStop:"), animation)
 	}
-
 // Sent to the delegate just after an animation is started.
 //
 // animation: The [NSAnimation] object that was just started.
@@ -83,13 +79,11 @@ func (o NSAnimationDelegateObject) AnimationDidStop(animation INSAnimation) {
 // objects and resources for the effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationShouldStart(_:)
-
 func (o NSAnimationDelegateObject) AnimationShouldStart(animation INSAnimation) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("animationShouldStart:"), animation)
 	return rv
 	}
-
 // Requests a custom curve value for the current progress value.
 //
 // animation: An [NSAnimation] object that is running.
@@ -117,13 +111,11 @@ func (o NSAnimationDelegateObject) AnimationShouldStart(animation INSAnimation) 
 // See the description of [CurrentValue] for more information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:valueForProgress:)
-
 func (o NSAnimationDelegateObject) AnimationValueForProgress(animation INSAnimation, progress NSAnimationProgress) float32 {
 	
 	rv := objc.Send[float32](o.ID, objc.Sel("animation:valueForProgress:"), animation, progress)
 	return rv
 	}
-
 // Sent to the delegate when an animation reaches a specific progress mark.
 //
 // animation: A running [NSAnimation] object that has reached a progress mark.
@@ -142,7 +134,6 @@ func (o NSAnimationDelegateObject) AnimationValueForProgress(animation INSAnimat
 // [progressMarkNotification]: https://developer.apple.com/documentation/AppKit/NSAnimation/progressMarkNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:didReachProgressMark:)
-
 func (o NSAnimationDelegateObject) AnimationDidReachProgressMark(animation INSAnimation, progress NSAnimationProgress) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("animation:didReachProgressMark:"), animation, progress)

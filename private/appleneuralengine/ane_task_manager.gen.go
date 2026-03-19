@@ -79,7 +79,6 @@ func NewANETaskManager() ANETaskManager {
 func (_ANETaskManagerClass ANETaskManagerClass) RegisterTask(task objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ANETaskManagerClass.class), objc.Sel("registerTask:"), task)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANETaskManager/unregisterTask:
 func (_ANETaskManagerClass ANETaskManagerClass) UnregisterTask(task objectivec.IObject) {

@@ -143,7 +143,6 @@ func (v VNVideoProcessor) InitWithURL(videoURL foundation.INSURL) VNVideoProcess
 	rv := objc.Send[VNVideoProcessor](v.ID, objc.Sel("initWithURL:"), videoURL)
 	return rv
 }
-
 // Adds a request with processing options to the video processor.
 //
 // request: The Vision request to add.
@@ -169,7 +168,6 @@ func (v VNVideoProcessor) AddRequestProcessingOptionsError(request IVNRequest, p
 	return rv, nil
 
 }
-
 // Removes a Vision request from the video processor’s request queue.
 //
 // request: The request to remove.
@@ -188,7 +186,6 @@ func (v VNVideoProcessor) RemoveRequestError(request IVNRequest) (bool, error) {
 	return rv, nil
 
 }
-
 // Analyzes a time range of video content.
 //
 // timeRange: The time range to analyze. The value must be within the time range of the
@@ -216,7 +213,6 @@ func (v VNVideoProcessor) AnalyzeTimeRangeError(timeRange objectivec.IObject) (b
 	return rv, nil
 
 }
-
 // Cancels the video processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/cancel()

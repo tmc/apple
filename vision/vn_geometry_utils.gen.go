@@ -100,7 +100,6 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForContourError(
 	return VNCircleFromID(rv), nil
 
 }
-
 // Calculates a bounding circle for the specified array of points.
 //
 // points: A collection of points around which to calculate the bounding circle.
@@ -120,7 +119,6 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForPointsError(p
 	return VNCircleFromID(rv), nil
 
 }
-
 // Calculates a bounding circle for the specified points.
 //
 // points: A collection of points around which to calculate the bounding circle.
@@ -144,7 +142,6 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPoi
 	return VNCircleFromID(rv), nil
 
 }
-
 // Calculates the area for the specified contour.
 //
 // area: The output parameter to populate with the calculated contour area.
@@ -177,7 +174,6 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) CalculateAreaForContourOriente
 	}
 	return area, nil
 }
-
 // Calculates the perimeter of a closed contour.
 //
 // perimeter: The output parameter to populate with the calculated contour perimeter.

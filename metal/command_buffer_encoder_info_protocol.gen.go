@@ -49,28 +49,23 @@ func MTLCommandBufferEncoderInfoObjectFromID(id objc.ID) MTLCommandBufferEncoder
 // The name of the encoder that generates the error information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfo/label
-
 func (o MTLCommandBufferEncoderInfoObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // An array of debug signposts that Metal records as the GPU executes the
 // commands of the encoder’s pass.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfo/debugSignposts
-
 func (o MTLCommandBufferEncoderInfoObject) DebugSignposts() []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("debugSignposts"))
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // The execution status of the command encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfo/errorState
-
 func (o MTLCommandBufferEncoderInfoObject) ErrorState() MTLCommandEncoderErrorState {
 	
 	rv := objc.Send[MTLCommandEncoderErrorState](o.ID, objc.Sel("errorState"))

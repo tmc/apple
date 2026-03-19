@@ -141,7 +141,6 @@ func (f MTLFunctionDescriptor) Name() string {
 func (f MTLFunctionDescriptor) SetName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // A new name for the created function object.
 //
 // # Discussion
@@ -159,7 +158,6 @@ func (f MTLFunctionDescriptor) SpecializedName() string {
 func (f MTLFunctionDescriptor) SetSpecializedName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setSpecializedName:"), objc.String(value))
 }
-
 // The set of constant values assigned to the function constants.
 //
 // # Discussion
@@ -176,7 +174,6 @@ func (f MTLFunctionDescriptor) ConstantValues() IMTLFunctionConstantValues {
 func (f MTLFunctionDescriptor) SetConstantValues(value IMTLFunctionConstantValues) {
 	objc.Send[struct{}](f.ID, objc.Sel("setConstantValues:"), value)
 }
-
 // Flags specifying how Metal should create the new function object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionDescriptor/options
@@ -187,7 +184,6 @@ func (f MTLFunctionDescriptor) Options() MTLFunctionOptions {
 func (f MTLFunctionDescriptor) SetOptions(value MTLFunctionOptions) {
 	objc.Send[struct{}](f.ID, objc.Sel("setOptions:"), value)
 }
-
 // The binary archives to search for a previously-compiled version of this
 // function.
 //

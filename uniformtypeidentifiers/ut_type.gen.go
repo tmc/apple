@@ -439,7 +439,6 @@ func (t UTType) ConformsToType(type_ IUTType) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("conformsToType:"), type_)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether a type is higher in a
 // hierarchy than the type.
 //
@@ -460,7 +459,6 @@ func (t UTType) IsSubtypeOfType(type_ IUTType) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSubtypeOfType:"), type_)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether a type is lower in a
 // hierarchy than the type.
 //
@@ -516,7 +514,6 @@ func (t UTType) Identifier() string {
 func (t UTType) SetIdentifier(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(value))
 }
-
 // The preferred filename extension for the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/preferredfilenameextension
@@ -527,7 +524,6 @@ func (t UTType) PreferredFilenameExtension() string {
 func (t UTType) SetPreferredFilenameExtension(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreferredFilenameExtension:"), objc.String(value))
 }
-
 // The preferred MIME type for the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/preferredmimetype
@@ -538,7 +534,6 @@ func (t UTType) PreferredMIMEType() string {
 func (t UTType) SetPreferredMIMEType(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreferredMIMEType:"), objc.String(value))
 }
-
 // The tag specification dictionary of the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/tags
@@ -549,7 +544,6 @@ func (t UTType) Tags() string {
 func (t UTType) SetTags(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTags:"), objc.String(value))
 }
-
 // A Boolean value that indicates whether the system declares the type.
 //
 // # Discussion
@@ -562,7 +556,6 @@ func (t UTType) Declared() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDeclared"))
 	return rv
 }
-
 // A Boolean value that indicates whether the system generates the type.
 //
 // # Discussion
@@ -580,7 +573,6 @@ func (t UTType) Dynamic() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isDynamic"))
 	return rv
 }
-
 // A Boolean value that indicates whether the type is in the public domain.
 //
 // # Discussion
@@ -594,7 +586,6 @@ func (t UTType) PublicType() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPublicType"))
 	return rv
 }
-
 // The reference URL for the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/referenceurl
@@ -605,7 +596,6 @@ func (t UTType) ReferenceURL() foundation.INSURL {
 func (t UTType) SetReferenceURL(value foundation.INSURL) {
 	objc.Send[struct{}](t.ID, objc.Sel("setReferenceURL:"), value)
 }
-
 // The type’s version, if available.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/version
@@ -616,7 +606,6 @@ func (t UTType) Version() int {
 func (t UTType) SetVersion(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVersion:"), value)
 }
-
 // The set of types the type directly or indirectly conforms to.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/supertypes
@@ -627,7 +616,6 @@ func (t UTType) Supertypes() IUTType {
 func (t UTType) SetSupertypes(value IUTType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSupertypes:"), value)
 }
-
 // A localized description of the type.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/localizeddescription
@@ -638,7 +626,6 @@ func (t UTType) LocalizedDescription() string {
 func (t UTType) SetLocalizedDescription(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLocalizedDescription:"), objc.String(value))
 }
-
 // A type that represents a custom catalog.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/shazamcustomcatalog
@@ -649,7 +636,6 @@ func (t UTType) ShazamCustomCatalog() IUTType {
 func (t UTType) SetShazamCustomCatalog(value IUTType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setShazamCustomCatalog:"), value)
 }
-
 // A type that represents a signature.
 //
 // See: https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/shazamsignature

@@ -136,7 +136,6 @@ func (u MLUpdateContext) Event() MLUpdateProgressEvent {
 	rv := objc.Send[MLUpdateProgressEvent](u.ID, objc.Sel("event"))
 	return MLUpdateProgressEvent(rv)
 }
-
 // The update task that generated the update context.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/task
@@ -144,7 +143,6 @@ func (u MLUpdateContext) Task() IMLUpdateTask {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("task"))
 	return MLUpdateTaskFromID(objc.ID(rv))
 }
-
 // The parameters for the update task.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/parameters
@@ -152,7 +150,6 @@ func (u MLUpdateContext) Parameters() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("parameters"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // The training metrics of the model for the update task, contained in a
 // dictionary.
 //
@@ -165,7 +162,6 @@ func (u MLUpdateContext) Metrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("metrics"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // The underlying Core ML model stored in memory.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateContext/model

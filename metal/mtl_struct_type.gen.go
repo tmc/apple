@@ -142,7 +142,6 @@ func (s MTLStructType) Members() []MTLStructMember {
 		return MTLStructMemberFromID(id)
 	})
 }
-
 // A description of the structure data of a buffer argument.
 //
 // See: https://developer.apple.com/documentation/metal/mtlargument/bufferstructtype

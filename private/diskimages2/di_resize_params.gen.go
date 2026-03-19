@@ -144,7 +144,6 @@ func (d DIResizeParams) ResizeWithError() (bool, error) {
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/openExistingImageWithError:
 func (d DIResizeParams) OpenExistingImageWithError() (bool, error) {
@@ -160,7 +159,6 @@ func (d DIResizeParams) OpenExistingImageWithError() (bool, error) {
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithURL:size:error:
 func (d DIResizeParams) InitWithURLSizeError(url foundation.INSURL, size uint64) (DIResizeParams, error) {
@@ -173,7 +171,6 @@ func (d DIResizeParams) InitWithURLSizeError(url foundation.INSURL, size uint64)
 	return DIResizeParamsFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithExistingParams:size:error:
 func (d DIResizeParams) InitWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error) {

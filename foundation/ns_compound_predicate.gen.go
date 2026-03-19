@@ -264,7 +264,6 @@ func (c NSCompoundPredicate) CompoundPredicateType() NSCompoundPredicateType {
 	rv := objc.Send[NSCompoundPredicateType](c.ID, objc.Sel("compoundPredicateType"))
 	return NSCompoundPredicateType(rv)
 }
-
 // The receiver’s subpredicates.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/subpredicates

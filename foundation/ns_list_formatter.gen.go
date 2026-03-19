@@ -197,7 +197,6 @@ func (l ListFormatter) ItemFormatter() INSFormatter {
 func (l ListFormatter) SetItemFormatter(value INSFormatter) {
 	objc.Send[struct{}](l.ID, objc.Sel("setItemFormatter:"), value)
 }
-
 // The locale to use when formatting items in the list.
 //
 // # Discussion

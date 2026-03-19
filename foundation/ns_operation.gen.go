@@ -511,7 +511,6 @@ func NewOperation() Operation {
 func (o Operation) Start() {
 	objc.Send[objc.ID](o.ID, objc.Sel("start"))
 }
-
 // Performs the receiver’s non-concurrent task.
 //
 // # Discussion
@@ -530,7 +529,6 @@ func (o Operation) Start() {
 func (o Operation) Main() {
 	objc.Send[objc.ID](o.ID, objc.Sel("main"))
 }
-
 // Advises the operation object that it should stop executing its task.
 //
 // # Discussion
@@ -564,7 +562,6 @@ func (o Operation) Main() {
 func (o Operation) Cancel() {
 	objc.Send[objc.ID](o.ID, objc.Sel("cancel"))
 }
-
 // Makes the receiver dependent on the completion of the specified operation.
 //
 // op: The operation on which the receiver should depend. The same dependency
@@ -586,7 +583,6 @@ func (o Operation) Cancel() {
 func (o Operation) AddDependency(op INSOperation) {
 	objc.Send[objc.ID](o.ID, objc.Sel("addDependency:"), op)
 }
-
 // Removes the receiver’s dependence on the specified operation.
 //
 // op: The dependent operation to be removed from the receiver.
@@ -600,7 +596,6 @@ func (o Operation) AddDependency(op INSOperation) {
 func (o Operation) RemoveDependency(op INSOperation) {
 	objc.Send[objc.ID](o.ID, objc.Sel("removeDependency:"), op)
 }
-
 // Blocks execution of the current thread until the operation object finishes
 // its task.
 //
@@ -671,7 +666,6 @@ func (o Operation) SetCompletionBlock(value VoidHandler) {
 	defer cleanup()
 	objc.Send[struct{}](o.ID, objc.Sel("setCompletionBlock:"), block)
 }
-
 // A Boolean value indicating whether the operation has been cancelled
 //
 // # Discussion
@@ -700,7 +694,6 @@ func (o Operation) Cancelled() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isCancelled"))
 	return rv
 }
-
 // A Boolean value indicating whether the operation is currently executing.
 //
 // # Discussion
@@ -726,7 +719,6 @@ func (o Operation) Executing() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isExecuting"))
 	return rv
 }
-
 // A Boolean value indicating whether the operation has finished executing its
 // task.
 //
@@ -753,7 +745,6 @@ func (o Operation) Finished() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isFinished"))
 	return rv
 }
-
 // A Boolean value indicating whether the operation executes its task
 // asynchronously.
 //
@@ -777,7 +768,6 @@ func (o Operation) Concurrent() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isConcurrent"))
 	return rv
 }
-
 // A Boolean value indicating whether the operation executes its task
 // asynchronously.
 //
@@ -800,7 +790,6 @@ func (o Operation) Asynchronous() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAsynchronous"))
 	return rv
 }
-
 // A Boolean value indicating whether the operation can be performed now.
 //
 // # Discussion
@@ -827,7 +816,6 @@ func (o Operation) Ready() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isReady"))
 	return rv
 }
-
 // The name of the operation.
 //
 // # Discussion
@@ -842,7 +830,6 @@ func (o Operation) Name() string {
 func (o Operation) SetName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // An array of the operation objects that must finish executing before the
 // current object can begin executing.
 //
@@ -865,7 +852,6 @@ func (o Operation) Dependencies() []NSOperation {
 		return NSOperationFromID(id)
 	})
 }
-
 // The relative amount of importance for granting system resources to the
 // operation.
 //
@@ -905,7 +891,6 @@ func (o Operation) QualityOfService() QualityOfService {
 func (o Operation) SetQualityOfService(value QualityOfService) {
 	objc.Send[struct{}](o.ID, objc.Sel("setQualityOfService:"), value)
 }
-
 // The execution priority of the operation in an operation queue.
 //
 // # Discussion

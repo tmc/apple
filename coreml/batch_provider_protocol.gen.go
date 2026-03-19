@@ -49,17 +49,14 @@ func MLBatchProviderObjectFromID(id objc.ID) MLBatchProviderObject {
 // The feature provider at the given index.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/features(at:)
-
 func (o MLBatchProviderObject) FeaturesAtIndex(index int) MLFeatureProvider {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featuresAtIndex:"), index)
 	return MLFeatureProviderObjectFromID(rv)
 	}
-
 // The number of feature providers in this batch.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
-
 func (o MLBatchProviderObject) Count() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("count"))

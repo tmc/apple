@@ -158,7 +158,6 @@ func (m VZMacOSInstaller) InitWithVirtualMachineRestoreImageURL(virtualMachine I
 	rv := objc.Send[VZMacOSInstaller](m.ID, objc.Sel("initWithVirtualMachine:restoreImageURL:"), virtualMachine, restoreImageFileURL)
 	return rv
 }
-
 // Start installing macOS.
 //
 // # Discussion
@@ -191,7 +190,6 @@ func (m VZMacOSInstaller) Progress() foundation.NSProgress {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("progress"))
 	return foundation.NSProgressFromID(objc.ID(rv))
 }
-
 // The restore image URL used to initialize this installer.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/restoreImageURL
@@ -199,7 +197,6 @@ func (m VZMacOSInstaller) RestoreImageURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("restoreImageURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // The virtual machine used to initialize this installer.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/virtualMachine

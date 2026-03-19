@@ -81,13 +81,11 @@ func MTLParallelRenderCommandEncoderObjectFromID(id objc.ID) MTLParallelRenderCo
 // created, not in the order they are ended.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/makeRenderCommandEncoder()
-
 func (o MTLParallelRenderCommandEncoderObject) RenderCommandEncoder() MTLRenderCommandEncoder {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("renderCommandEncoder"))
 	return MTLRenderCommandEncoderObjectFromID(rv)
 	}
-
 // Specifies a known store action to replace the initial [StoreActionUnknown]
 // value specified for a given color attachment.
 //
@@ -104,12 +102,10 @@ func (o MTLParallelRenderCommandEncoderObject) RenderCommandEncoder() MTLRenderC
 // call the [EndEncoding] method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setColorStoreAction(_:index:)
-
 func (o MTLParallelRenderCommandEncoderObject) SetColorStoreActionAtIndex(storeAction MTLStoreAction, colorAttachmentIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setColorStoreAction:atIndex:"), storeAction, colorAttachmentIndex)
 	}
-
 // Specifies known store action options for a given color attachment.
 //
 // storeActionOptions: The additional store action options for the color attachment.
@@ -117,12 +113,10 @@ func (o MTLParallelRenderCommandEncoderObject) SetColorStoreActionAtIndex(storeA
 // colorAttachmentIndex: The index of the color attachment.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setColorStoreActionOptions(_:index:)
-
 func (o MTLParallelRenderCommandEncoderObject) SetColorStoreActionOptionsAtIndex(storeActionOptions MTLStoreActionOptions, colorAttachmentIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setColorStoreActionOptions:atIndex:"), storeActionOptions, colorAttachmentIndex)
 	}
-
 // Specifies a known store action to replace the initial [StoreActionUnknown]
 // value specified for a given depth attachment.
 //
@@ -137,23 +131,19 @@ func (o MTLParallelRenderCommandEncoderObject) SetColorStoreActionOptionsAtIndex
 // call the [EndEncoding] method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setDepthStoreAction(_:)
-
 func (o MTLParallelRenderCommandEncoderObject) SetDepthStoreAction(storeAction MTLStoreAction) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthStoreAction:"), storeAction)
 	}
-
 // Specifies known store action options for a given depth attachment.
 //
 // storeActionOptions: The additional store action options for the depth attachment.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setDepthStoreActionOptions(_:)
-
 func (o MTLParallelRenderCommandEncoderObject) SetDepthStoreActionOptions(storeActionOptions MTLStoreActionOptions) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthStoreActionOptions:"), storeActionOptions)
 	}
-
 // Specifies a known store action to replace the initial [StoreActionUnknown]
 // value specified for a given stencil attachment.
 //
@@ -168,23 +158,19 @@ func (o MTLParallelRenderCommandEncoderObject) SetDepthStoreActionOptions(storeA
 // call the [EndEncoding] method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setStencilStoreAction(_:)
-
 func (o MTLParallelRenderCommandEncoderObject) SetStencilStoreAction(storeAction MTLStoreAction) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setStencilStoreAction:"), storeAction)
 	}
-
 // Specifies known store action options for a given stencil attachment.
 //
 // storeActionOptions: The additional store action options for the stencil attachment.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setStencilStoreActionOptions(_:)
-
 func (o MTLParallelRenderCommandEncoderObject) SetStencilStoreActionOptions(storeActionOptions MTLStoreActionOptions) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setStencilStoreActionOptions:"), storeActionOptions)
 	}
-
 // Declares that all command generation from the encoder is completed.
 //
 // # Discussion
@@ -193,12 +179,10 @@ func (o MTLParallelRenderCommandEncoderObject) SetStencilStoreActionOptions(stor
 // cannot encode any other commands with this encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/endEncoding()
-
 func (o MTLParallelRenderCommandEncoderObject) EndEncoding() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("endEncoding"))
 	}
-
 // Inserts a debug string into the captured frame data.
 //
 // # Discussion
@@ -208,12 +192,10 @@ func (o MTLParallelRenderCommandEncoderObject) EndEncoding() {
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/insertDebugSignpost(_:)
-
 func (o MTLParallelRenderCommandEncoderObject) InsertDebugSignpost(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("insertDebugSignpost:"), objc.String(string_))
 	}
-
 // Pushes a specific string onto a stack of debug group strings for the
 // command encoder.
 //
@@ -224,12 +206,10 @@ func (o MTLParallelRenderCommandEncoderObject) InsertDebugSignpost(string_ strin
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/pushDebugGroup(_:)
-
 func (o MTLParallelRenderCommandEncoderObject) PushDebugGroup(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
-
 // Pops the latest string off of a stack of debug group strings for the
 // command encoder.
 //
@@ -240,32 +220,26 @@ func (o MTLParallelRenderCommandEncoderObject) PushDebugGroup(string_ string) {
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/popDebugGroup()
-
 func (o MTLParallelRenderCommandEncoderObject) PopDebugGroup() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
-
 // The Metal device from which the command encoder was created.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
-
 func (o MTLParallelRenderCommandEncoderObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that labels the command encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
-
 func (o MTLParallelRenderCommandEncoderObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Encodes a consumer barrier on work you commit to the same command queue.
 //
 // afterQueueStages: [MTLStages] mask that represents the stages of work to wait for. This
@@ -299,7 +273,6 @@ func (o MTLParallelRenderCommandEncoderObject) Label() string {
 // [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/barrier(afterQueueStages:beforeStages:)
-
 func (o MTLParallelRenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)

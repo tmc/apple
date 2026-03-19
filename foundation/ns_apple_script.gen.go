@@ -234,7 +234,6 @@ func (a NSAppleScript) InitWithContentsOfURLError(url INSURL, errorInfo INSDicti
 	rv := objc.Send[NSAppleScript](a.ID, objc.Sel("initWithContentsOfURL:error:"), url, errorInfo)
 	return rv
 }
-
 // Initializes a newly allocated script instance from the passed source.
 //
 // source: A string containing the source code of a script.
@@ -252,7 +251,6 @@ func (a NSAppleScript) InitWithSource(source string) NSAppleScript {
 	rv := objc.Send[NSAppleScript](a.ID, objc.Sel("initWithSource:"), objc.String(source))
 	return rv
 }
-
 // Compiles the receiver, if it is not already compiled.
 //
 // errorInfo: On return, if an error occurs, a pointer to an error information
@@ -271,7 +269,6 @@ func (a NSAppleScript) CompileAndReturnError(errorInfo INSDictionary) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("compileAndReturnError:"), errorInfo)
 	return rv
 }
-
 // Executes the receiver, compiling it first if it is not already compiled.
 //
 // errorInfo: On return, if an error occurs, a pointer to an error information
@@ -291,7 +288,6 @@ func (a NSAppleScript) ExecuteAndReturnError(errorInfo INSDictionary) INSAppleEv
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("executeAndReturnError:"), errorInfo)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Executes an Apple event in the context of the receiver, as a means of
 // allowing the application to invoke a handler in the script.
 //
@@ -322,7 +318,6 @@ func (a NSAppleScript) Compiled() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isCompiled"))
 	return rv
 }
-
 // The script source for the receiver.
 //
 // # Discussion
@@ -336,7 +331,6 @@ func (a NSAppleScript) Source() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("source"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the syntax-highlighted source code of the receiver if the receiver
 // has been compiled and its source code is available.
 //

@@ -248,14 +248,12 @@ func (a NSAppearance) InitWithAppearanceNamedBundle(name NSAppearanceName, bundl
 	rv := objc.Send[NSAppearance](a.ID, objc.Sel("initWithAppearanceNamed:bundle:"), objc.String(string(name)), bundle)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/init(coder:)
 func (a NSAppearance) InitWithCoder(coder foundation.INSCoder) NSAppearance {
 	rv := objc.Send[NSAppearance](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Returns the appearance name that most closely matches the current
 // appearance object.
 //
@@ -280,7 +278,6 @@ func (a NSAppearance) BestMatchFromAppearancesWithNames(appearances []string) NS
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("bestMatchFromAppearancesWithNames:"), objectivec.StringSliceToNSArray(appearances))
 	return NSAppearanceName(foundation.NSStringFromID(rv).String())
 }
-
 // Sets the appearance to be the active drawing appearance and perform the
 // specified block.
 //
@@ -325,7 +322,6 @@ func (a NSAppearance) Name() NSAppearanceName {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("name"))
 	return NSAppearanceName(foundation.NSStringFromID(rv).String())
 }
-
 // Specifies whether the current appearance allows vibrancy.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/allowsVibrancy
@@ -333,7 +329,6 @@ func (a NSAppearance) AllowsVibrancy() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("allowsVibrancy"))
 	return rv
 }
-
 // The appearance of the receiver, in an
 //
 // See: https://developer.apple.com/documentation/appkit/nsappearancecustomization/appearance

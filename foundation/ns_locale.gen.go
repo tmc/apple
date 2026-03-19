@@ -355,7 +355,6 @@ func (l NSLocale) InitWithLocaleIdentifier(string_ string) NSLocale {
 	rv := objc.Send[NSLocale](l.ID, objc.Sel("initWithLocaleIdentifier:"), objc.String(string_))
 	return rv
 }
-
 // Returns a locale initialized from data in the given unarchiver.
 //
 // coder: The decoder to use during initialization.
@@ -369,7 +368,6 @@ func (l NSLocale) InitWithCoder(coder INSCoder) NSLocale {
 	rv := objc.Send[NSLocale](l.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Returns the localized string for the specified locale identifier.
 //
 // localeIdentifier: The identifier for which you want the localized name.
@@ -394,7 +392,6 @@ func (l NSLocale) LocalizedStringForLocaleIdentifier(localeIdentifier string) st
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForLocaleIdentifier:"), objc.String(localeIdentifier))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the localized string for a country or region code.
 //
 // countryCode: The code of the country or region that indicates the name you want.
@@ -418,7 +415,6 @@ func (l NSLocale) LocalizedStringForCountryCode(countryCode string) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForCountryCode:"), objc.String(countryCode))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the localized string for the specified language code.
 //
 // languageCode: The language code indicating the language whose name you want.
@@ -442,7 +438,6 @@ func (l NSLocale) LocalizedStringForLanguageCode(languageCode string) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForLanguageCode:"), objc.String(languageCode))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the localized string for the specified script code.
 //
 // scriptCode: The script code for the script whose name you want.
@@ -466,7 +461,6 @@ func (l NSLocale) LocalizedStringForScriptCode(scriptCode string) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForScriptCode:"), objc.String(scriptCode))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the localized string for the specified variant code.
 //
 // variantCode: The variant code whose name you want.
@@ -490,7 +484,6 @@ func (l NSLocale) LocalizedStringForVariantCode(variantCode string) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForVariantCode:"), objc.String(variantCode))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the localized string for the specified collation identifier.
 //
 // collationIdentifier: The identifier for the collation whose name you want.
@@ -515,7 +508,6 @@ func (l NSLocale) LocalizedStringForCollationIdentifier(collationIdentifier stri
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForCollationIdentifier:"), objc.String(collationIdentifier))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the localized string for the specified collator identifier.
 //
 // collatorIdentifier: The identifier for the collator whose name you want.
@@ -536,7 +528,6 @@ func (l NSLocale) LocalizedStringForCollatorIdentifier(collatorIdentifier string
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForCollatorIdentifier:"), objc.String(collatorIdentifier))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the localized string for the specified currency code.
 //
 // currencyCode: The code for the currency whose name you want.
@@ -560,7 +551,6 @@ func (l NSLocale) LocalizedStringForCurrencyCode(currencyCode string) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForCurrencyCode:"), objc.String(currencyCode))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the localized string for the specified calendar identifier.
 //
 // calendarIdentifier: The calendar identifier indicating the calendar whose name you want. Use
@@ -583,7 +573,6 @@ func (l NSLocale) LocalizedStringForCalendarIdentifier(calendarIdentifier string
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localizedStringForCalendarIdentifier:"), objc.String(calendarIdentifier))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the value of the component corresponding to the specified key.
 //
 // key: The component for which to return the corresponding value. For possible
@@ -598,7 +587,6 @@ func (l NSLocale) ObjectForKey(key NSLocaleKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("objectForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the display name for the given locale component value.
 //
 // key: The locale property key of `value`. For possible values, see [NSLocaleKey].
@@ -625,7 +613,6 @@ func (l NSLocale) DisplayNameForKeyValue(key NSLocaleKey, value objectivec.IObje
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("displayNameForKey:value:"), objc.String(string(key)), value)
 	return NSStringFromID(rv).String()
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -648,7 +635,6 @@ func (_NSLocaleClass NSLocaleClass) CanonicalLocaleIdentifierFromString(string_ 
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("canonicalLocaleIdentifierFromString:"), objc.String(string_))
 	return NSStringFromID(rv).String()
 }
-
 // Returns a dictionary that is the result of parsing a locale ID.
 //
 // string: A locale ID, consisting of language, script, country, variant, and
@@ -679,7 +665,6 @@ func (_NSLocaleClass NSLocaleClass) ComponentsFromLocaleIdentifier(string_ strin
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("componentsFromLocaleIdentifier:"), objc.String(string_))
 	return NSDictionaryFromID(rv)
 }
-
 // Returns a locale identifier from the components specified in a given
 // dictionary.
 //
@@ -702,7 +687,6 @@ func (_NSLocaleClass NSLocaleClass) LocaleIdentifierFromComponents(dict INSDicti
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("localeIdentifierFromComponents:"), dict)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a canonical language identifier by mapping an arbitrary locale
 // identification string to the canonical identifier.
 //
@@ -718,7 +702,6 @@ func (_NSLocaleClass NSLocaleClass) CanonicalLanguageIdentifierFromString(string
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("canonicalLanguageIdentifierFromString:"), objc.String(string_))
 	return NSStringFromID(rv).String()
 }
-
 // Returns a locale identifier from a Windows locale code.
 //
 // lcid: The Windows locale code.
@@ -732,7 +715,6 @@ func (_NSLocaleClass NSLocaleClass) LocaleIdentifierFromWindowsLocaleCode(lcid u
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("localeIdentifierFromWindowsLocaleCode:"), lcid)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a Window locale code from the locale identifier.
 //
 // localeIdentifier: The locale identifier.
@@ -746,7 +728,6 @@ func (_NSLocaleClass NSLocaleClass) WindowsLocaleCodeFromLocaleIdentifier(locale
 	rv := objc.Send[uint32](objc.ID(_NSLocaleClass.class), objc.Sel("windowsLocaleCodeFromLocaleIdentifier:"), objc.String(localeIdentifier))
 	return rv
 }
-
 // Returns the direction of the sequence of characters in a line for the
 // specified ISO language code.
 //
@@ -766,7 +747,6 @@ func (_NSLocaleClass NSLocaleClass) CharacterDirectionForLanguage(isoLangCode st
 	rv := objc.Send[NSLocaleLanguageDirection](objc.ID(_NSLocaleClass.class), objc.Sel("characterDirectionForLanguage:"), objc.String(isoLangCode))
 	return NSLocaleLanguageDirection(rv)
 }
-
 // Returns the direction of the sequence of lines for the specified ISO
 // language code.
 //
@@ -786,7 +766,6 @@ func (_NSLocaleClass NSLocaleClass) LineDirectionForLanguage(isoLangCode string)
 	rv := objc.Send[NSLocaleLanguageDirection](objc.ID(_NSLocaleClass.class), objc.Sel("lineDirectionForLanguage:"), objc.String(isoLangCode))
 	return NSLocaleLanguageDirection(rv)
 }
-
 // Returns a locale initialized using the given locale identifier.
 //
 // ident: The identifier for the new locale.
@@ -822,7 +801,6 @@ func (l NSLocale) LocaleIdentifier() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("localeIdentifier"))
 	return NSStringFromID(rv).String()
 }
-
 // The country or region code for the locale.
 //
 // # Discussion
@@ -842,7 +820,6 @@ func (l NSLocale) CountryCode() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("countryCode"))
 	return NSStringFromID(rv).String()
 }
-
 // The language code for the locale.
 //
 // # Discussion
@@ -862,7 +839,6 @@ func (l NSLocale) LanguageCode() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("languageCode"))
 	return NSStringFromID(rv).String()
 }
-
 // The script code for the locale.
 //
 // # Discussion
@@ -882,7 +858,6 @@ func (l NSLocale) ScriptCode() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("scriptCode"))
 	return NSStringFromID(rv).String()
 }
-
 // The variant code for the locale.
 //
 // # Discussion
@@ -902,7 +877,6 @@ func (l NSLocale) VariantCode() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("variantCode"))
 	return NSStringFromID(rv).String()
 }
-
 // The exemplar character set for the locale.
 //
 // # Discussion
@@ -917,7 +891,6 @@ func (l NSLocale) ExemplarCharacterSet() INSCharacterSet {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("exemplarCharacterSet"))
 	return NSCharacterSetFromID(objc.ID(rv))
 }
-
 // The collation identifier for the locale.
 //
 // # Discussion
@@ -937,7 +910,6 @@ func (l NSLocale) CollationIdentifier() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("collationIdentifier"))
 	return NSStringFromID(rv).String()
 }
-
 // The collator identifier for the locale.
 //
 // # Discussion
@@ -957,7 +929,6 @@ func (l NSLocale) CollatorIdentifier() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("collatorIdentifier"))
 	return NSStringFromID(rv).String()
 }
-
 // A Boolean value that indicates whether the locale uses the metric system.
 //
 // # Discussion
@@ -972,7 +943,6 @@ func (l NSLocale) UsesMetricSystem() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("usesMetricSystem"))
 	return rv
 }
-
 // The decimal separator for the locale.
 //
 // # Discussion
@@ -989,7 +959,6 @@ func (l NSLocale) DecimalSeparator() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("decimalSeparator"))
 	return NSStringFromID(rv).String()
 }
-
 // The grouping separator for the locale.
 //
 // # Discussion
@@ -1006,7 +975,6 @@ func (l NSLocale) GroupingSeparator() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("groupingSeparator"))
 	return NSStringFromID(rv).String()
 }
-
 // The currency code for the locale.
 //
 // # Discussion
@@ -1026,7 +994,6 @@ func (l NSLocale) CurrencyCode() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("currencyCode"))
 	return NSStringFromID(rv).String()
 }
-
 // The currency symbol for the locale.
 //
 // # Discussion
@@ -1043,7 +1010,6 @@ func (l NSLocale) CurrencySymbol() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("currencySymbol"))
 	return NSStringFromID(rv).String()
 }
-
 // The calendar identifier for the locale.
 //
 // # Discussion
@@ -1058,7 +1024,6 @@ func (l NSLocale) CalendarIdentifier() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("calendarIdentifier"))
 	return NSStringFromID(rv).String()
 }
-
 // The begin quotation symbol for the locale.
 //
 // # Discussion
@@ -1076,7 +1041,6 @@ func (l NSLocale) QuotationBeginDelimiter() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("quotationBeginDelimiter"))
 	return NSStringFromID(rv).String()
 }
-
 // The end quotation symbol for the locale.
 //
 // # Discussion
@@ -1094,7 +1058,6 @@ func (l NSLocale) QuotationEndDelimiter() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("quotationEndDelimiter"))
 	return NSStringFromID(rv).String()
 }
-
 // The alternate begin quotation symbol for the locale.
 //
 // # Discussion
@@ -1112,7 +1075,6 @@ func (l NSLocale) AlternateQuotationBeginDelimiter() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("alternateQuotationBeginDelimiter"))
 	return NSStringFromID(rv).String()
 }
-
 // The alternate end quotation symbol for the locale.
 //
 // # Discussion
@@ -1130,7 +1092,6 @@ func (l NSLocale) AlternateQuotationEndDelimiter() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("alternateQuotationEndDelimiter"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the identifier for the language part of the locale. For example,
 // returns “en-US” for “en_US@rg=gbzzzz” locale.
 //
@@ -1139,7 +1100,6 @@ func (l NSLocale) LanguageIdentifier() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("languageIdentifier"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the region code of the locale. If the `rg` subtag is present, the
 // value of the subtag will be used. For example, returns “GB” for
 // “en_US@rg=gbzzzz” locale. If the `localeIdentifier` doesn’t contain a
@@ -1150,7 +1110,6 @@ func (l NSLocale) RegionCode() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("regionCode"))
 	return NSStringFromID(rv).String()
 }
-
 // The locale for the receiver.
 //
 // See: https://developer.apple.com/documentation/foundation/dateformatter/locale
@@ -1193,7 +1152,6 @@ func (_NSLocaleClass NSLocaleClass) AutoupdatingCurrentLocale() NSLocale {
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("autoupdatingCurrentLocale"))
 	return NSLocaleFromID(objc.ID(rv))
 }
-
 // A locale that represents the user’s region settings at the time the
 // property is read.
 //
@@ -1224,7 +1182,6 @@ func (_NSLocaleClass NSLocaleClass) CurrentLocale() NSLocale {
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("currentLocale"))
 	return NSLocaleFromID(objc.ID(rv))
 }
-
 // A notification that indicates that the user’s locale changed.
 //
 // See: https://developer.apple.com/documentation/foundation/nslocale/currentlocaledidchangenotification
@@ -1232,7 +1189,6 @@ func (_NSLocaleClass NSLocaleClass) CurrentLocaleDidChangeNotification() NSNotif
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("NSCurrentLocaleDidChangeNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // A locale representing the generic root values with little localization.
 //
 // # Return Value
@@ -1251,7 +1207,6 @@ func (_NSLocaleClass NSLocaleClass) SystemLocale() NSLocale {
 	rv := objc.Send[objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("systemLocale"))
 	return NSLocaleFromID(objc.ID(rv))
 }
-
 // The list of locale identifiers available on the system.
 //
 // # Discussion
@@ -1270,7 +1225,6 @@ func (_NSLocaleClass NSLocaleClass) AvailableLocaleIdentifiers() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("availableLocaleIdentifiers"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The list of known country or region codes.
 //
 // # Discussion
@@ -1282,7 +1236,6 @@ func (_NSLocaleClass NSLocaleClass) ISOCountryCodes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("ISOCountryCodes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The list of known language codes.
 //
 // # Discussion
@@ -1312,7 +1265,6 @@ func (_NSLocaleClass NSLocaleClass) ISOLanguageCodes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("ISOLanguageCodes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The list of known currency codes.
 //
 // # Discussion
@@ -1324,7 +1276,6 @@ func (_NSLocaleClass NSLocaleClass) ISOCurrencyCodes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("ISOCurrencyCodes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // A list of commonly encountered currency codes.
 //
 // # Discussion
@@ -1338,7 +1289,6 @@ func (_NSLocaleClass NSLocaleClass) CommonISOCurrencyCodes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSLocaleClass.class), objc.Sel("commonISOCurrencyCodes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // An ordered list of the user’s preferred languages.
 //
 // # Discussion

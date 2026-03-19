@@ -57,13 +57,11 @@ func NSOutlineViewDelegateObjectFromID(id objc.ID) NSOutlineViewDelegateObject {
 // items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldExpandItem:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldExpandItem(outlineView INSOutlineView, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldExpandItem:"), outlineView, item)
 	return rv
 	}
-
 // Returns a Boolean value that indicates whether the outline view should
 // collapse a given item.
 //
@@ -86,13 +84,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldExpandItem(outlineView INS
 // collapsed, your delegate method could contain this line of code:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldCollapseItem:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldCollapseItem(outlineView INSOutlineView, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldCollapseItem:"), outlineView, item)
 	return rv
 	}
-
 // Returns the string that is used for type selection for a given column and
 // item.
 //
@@ -121,13 +117,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldCollapseItem(outlineView I
 // and you can return this value from the delegate method if you wish.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:typeSelectStringFor:item:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewTypeSelectStringForTableColumnItem(outlineView INSOutlineView, tableColumn INSTableColumn, item objectivec.IObject) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:typeSelectStringForTableColumn:item:"), outlineView, tableColumn, item)
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns the first item that matches the searchString from within the range
 // of startItem to endItem
 //
@@ -155,13 +149,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewTypeSelectStringForTableColumnIt
 // select.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:nextTypeSelectMatchFromItem:toItem:for:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewNextTypeSelectMatchFromItemToItemForString(outlineView INSOutlineView, startItem objectivec.IObject, endItem objectivec.IObject, searchString string) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:nextTypeSelectMatchFromItem:toItem:forString:"), outlineView, startItem, endItem, objc.String(searchString))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns a Boolean value that indicates whether type select should proceed
 // for a given event and search string.
 //
@@ -185,13 +177,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewNextTypeSelectMatchFromItemToIte
 // a key event.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldTypeSelectFor:withCurrentSearch:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldTypeSelectForEventWithCurrentSearchString(outlineView INSOutlineView, event INSEvent, searchString string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldTypeSelectForEvent:withCurrentSearchString:"), outlineView, event, objc.String(searchString))
 	return rv
 	}
-
 // When the cursor pauses over a given cell, the value returned from this
 // method is displayed in a tooltip.
 //
@@ -214,13 +204,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldTypeSelectForEventWithCurr
 // If you don’t want a tooltip at that location, return an empty string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:toolTipFor:rect:tableColumn:item:mouseLocation:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewToolTipForCellRectTableColumnItemMouseLocation(outlineView INSOutlineView, cell INSCell, rect foundation.NSRect, tableColumn INSTableColumn, item objectivec.IObject, mouseLocation corefoundation.CGPoint) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:toolTipForCell:rect:tableColumn:item:mouseLocation:"), outlineView, cell, rect, tableColumn, item, mouseLocation)
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the outline view should
 // select a given table column.
 //
@@ -242,13 +230,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewToolTipForCellRectTableColumnIte
 // columns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldSelect:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldSelectTableColumn(outlineView INSOutlineView, tableColumn INSTableColumn) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldSelectTableColumn:"), outlineView, tableColumn)
 	return rv
 	}
-
 // Returns a Boolean value that indicates whether the outline view should
 // select a given item.
 //
@@ -272,13 +258,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldSelectTableColumn(outlineV
 // [OutlineViewSelectionIndexesForProposedSelection].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldSelectItem:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldSelectItem(outlineView INSOutlineView, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldSelectItem:"), outlineView, item)
 	return rv
 	}
-
 // Invoked to allow the delegate to modify the proposed selection.
 //
 // outlineView: The outline view that sent the message.
@@ -304,13 +288,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldSelectItem(outlineView INS
 // be called instead of [OutlineViewShouldSelectItem].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:selectionIndexesForProposedSelection:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewSelectionIndexesForProposedSelection(outlineView INSOutlineView, proposedSelectionIndexes foundation.NSIndexSet) foundation.NSIndexSet {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:selectionIndexesForProposedSelection:"), outlineView, proposedSelectionIndexes)
 	return foundation.NSIndexSetFromID(rv)
 	}
-
 // Returns a Boolean value that indicates whether the outline view should
 // change its selection.
 //
@@ -333,13 +315,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewSelectionIndexesForProposedSelec
 // the values of any of their cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/selectionShouldChange(in:)
-
 func (o NSOutlineViewDelegateObject) SelectionShouldChangeInOutlineView(outlineView INSOutlineView) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("selectionShouldChangeInOutlineView:"), outlineView)
 	return rv
 	}
-
 // Invoked when `notification` is posted—that is, whenever the outline
 // view’s selection changes.
 //
@@ -353,12 +333,10 @@ func (o NSOutlineViewDelegateObject) SelectionShouldChangeInOutlineView(outlineV
 // [selectionIsChangingNotification]: https://developer.apple.com/documentation/AppKit/NSOutlineView/selectionIsChangingNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineViewSelectionIsChanging(_:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewSelectionIsChanging(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineViewSelectionIsChanging:"), notification)
 	}
-
 // Invoked when the selection did change notification is posted—that is,
 // immediately after the outline view’s selection has changed.
 //
@@ -372,12 +350,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewSelectionIsChanging(notification
 // [selectionDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSOutlineView/selectionDidChangeNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineViewSelectionDidChange(_:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewSelectionDidChange(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineViewSelectionDidChange:"), notification)
 	}
-
 // Informs the delegate that the cell specified by the column and item will be
 // displayed.
 //
@@ -396,12 +372,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewSelectionDidChange(notification 
 // drawing inside this method—you should only set up state for `cell`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:willDisplayCell:for:item:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewWillDisplayCellForTableColumnItem(outlineView INSOutlineView, cell objectivec.IObject, tableColumn INSTableColumn, item objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:willDisplayCell:forTableColumn:item:"), outlineView, cell, tableColumn, item)
 	}
-
 // Informs the delegate that an outline view is about to display a cell used
 // to draw the expansion symbol.
 //
@@ -424,12 +398,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewWillDisplayCellForTableColumnIte
 // non-expandable cell.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:willDisplayOutlineCell:for:item:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewWillDisplayOutlineCellForTableColumnItem(outlineView INSOutlineView, cell objectivec.IObject, tableColumn INSTableColumn, item objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:willDisplayOutlineCell:forTableColumn:item:"), outlineView, cell, tableColumn, item)
 	}
-
 // Returns the cell to use in a given column for a given item.
 //
 // outlineView: The outline view that sent the message.
@@ -467,13 +439,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewWillDisplayOutlineCellForTableCo
 // usual.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:dataCellFor:item:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewDataCellForTableColumnItem(outlineView INSOutlineView, tableColumn INSTableColumn, item objectivec.IObject) INSCell {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:dataCellForTableColumn:item:"), outlineView, tableColumn, item)
 	return NSCellFromID(rv)
 	}
-
 // Returns whether the specified item should display the outline cell (the
 // disclosure triangle).
 //
@@ -499,13 +469,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewDataCellForTableColumnItem(outli
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldShowOutlineCellForItem:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldShowOutlineCellForItem(outlineView INSOutlineView, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldShowOutlineCellForItem:"), outlineView, item)
 	return rv
 	}
-
 // Invoked to allow the delegate to control cell expansion for a specific
 // column and item.
 //
@@ -533,13 +501,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldShowOutlineCellForItem(out
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldShowCellExpansionFor:item:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldShowCellExpansionForTableColumnItem(outlineView INSOutlineView, tableColumn INSTableColumn, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldShowCellExpansionForTableColumn:item:"), outlineView, tableColumn, item)
 	return rv
 	}
-
 // Sent to the delegate to allow or prohibit the specified column to be
 // dragged to a new location.
 //
@@ -573,13 +539,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldShowCellExpansionForTableC
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldReorderColumn:toColumn:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldReorderColumnToColumn(outlineView INSOutlineView, columnIndex int, newColumnIndex int) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldReorderColumn:toColumn:"), outlineView, columnIndex, newColumnIndex)
 	return rv
 	}
-
 // Invoked whenever the user moves a column in the outline view.
 //
 // notification: The posted notification.
@@ -592,12 +556,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldReorderColumnToColumn(outl
 // [columnDidMoveNotification]: https://developer.apple.com/documentation/AppKit/NSOutlineView/columnDidMoveNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineViewColumnDidMove(_:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewColumnDidMove(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineViewColumnDidMove:"), notification)
 	}
-
 // Invoked whenever the user resizes a column in the outline view.
 //
 // notification: The posted notification.
@@ -610,12 +572,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewColumnDidMove(notification found
 // [columnDidResizeNotification]: https://developer.apple.com/documentation/AppKit/NSOutlineView/columnDidResizeNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineViewColumnDidResize(_:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewColumnDidResize(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineViewColumnDidResize:"), notification)
 	}
-
 // Invoked when `notification` is posted—that is, whenever the user is about
 // to expand an item in the outline view.
 //
@@ -629,12 +589,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewColumnDidResize(notification fou
 // [itemWillExpandNotification]: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemWillExpandNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineViewItemWillExpand(_:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewItemWillExpand(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineViewItemWillExpand:"), notification)
 	}
-
 // Invoked when `notification` is posted—that is, whenever the user expands
 // an item in the outline view.
 //
@@ -648,12 +606,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewItemWillExpand(notification foun
 // [itemDidExpandNotification]: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemDidExpandNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineViewItemDidExpand(_:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewItemDidExpand(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineViewItemDidExpand:"), notification)
 	}
-
 // Invoked when `notification` is posted—that is, whenever the user is about
 // to collapse an item in the outline view.
 //
@@ -667,12 +623,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewItemDidExpand(notification found
 // [itemWillCollapseNotification]: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemWillCollapseNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineViewItemWillCollapse(_:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewItemWillCollapse(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineViewItemWillCollapse:"), notification)
 	}
-
 // Invoked when the did collapse notification is posted—that is, whenever
 // the user collapses an item in the outline view.
 //
@@ -686,12 +640,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewItemWillCollapse(notification fo
 // [itemDidCollapseNotification]: https://developer.apple.com/documentation/AppKit/NSOutlineView/itemDidCollapseNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineViewItemDidCollapse(_:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewItemDidCollapse(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineViewItemDidCollapse:"), notification)
 	}
-
 // Returns a Boolean value that indicates whether the outline view should
 // allow editing of a given item in a given table column.
 //
@@ -721,13 +673,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewItemDidCollapse(notification fou
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldEdit:item:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldEditTableColumnItem(outlineView INSOutlineView, tableColumn INSTableColumn, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldEditTableColumn:item:"), outlineView, tableColumn, item)
 	return rv
 	}
-
 // Sent to the delegate whenever the mouse button is clicked in `outlineView`
 // while the cursor is in a column header `tableColumn`.
 //
@@ -736,12 +686,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldEditTableColumnItem(outlin
 // tableColumn: The table column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:mouseDownInHeaderOf:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewMouseDownInHeaderOfTableColumn(outlineView INSOutlineView, tableColumn INSTableColumn) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:mouseDownInHeaderOfTableColumn:"), outlineView, tableColumn)
 	}
-
 // Sent at the time the mouse button subsequently goes up in `outlineView` and
 // `tableColumn` has been “clicked” without having been dragged anywhere.
 //
@@ -750,12 +698,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewMouseDownInHeaderOfTableColumn(o
 // tableColumn: The table column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:didClick:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewDidClickTableColumn(outlineView INSOutlineView, tableColumn INSTableColumn) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:didClickTableColumn:"), outlineView, tableColumn)
 	}
-
 // Sent at the time the mouse button goes up in `outlineView` and
 // `tableColumn` has been dragged during the time the mouse button was down.
 //
@@ -764,12 +710,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewDidClickTableColumn(outlineView 
 // tableColumn: The table column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:didDrag:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewDidDragTableColumn(outlineView INSOutlineView, tableColumn INSTableColumn) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:didDragTableColumn:"), outlineView, tableColumn)
 	}
-
 // Returns the height in points of the row containing `item`.
 //
 // outlineView: The outline view that sent the message.
@@ -799,13 +743,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewDidDragTableColumn(outlineView I
 // exception is thrown.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:heightOfRowByItem:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewHeightOfRowByItem(outlineView INSOutlineView, item objectivec.IObject) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("outlineView:heightOfRowByItem:"), outlineView, item)
 	return rv
 	}
-
 // Invoked to allow the delegate to provide custom sizing behavior when a
 // column’s resize divider is double clicked.
 //
@@ -830,13 +772,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewHeightOfRowByItem(outlineView IN
 // [preparedCell(atColumn:row:)]: https://developer.apple.com/documentation/AppKit/NSTableView/preparedCell(atColumn:row:)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:sizeToFitWidthOfColumn:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewSizeToFitWidthOfColumn(outlineView INSOutlineView, column int) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("outlineView:sizeToFitWidthOfColumn:"), outlineView, column)
 	return rv
 	}
-
 // Customizes an item’s tinting behavior.
 //
 // outlineView: The outline view to which you apply the tinting behavior.
@@ -854,13 +794,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewSizeToFitWidthOfColumn(outlineVi
 // You typically use this method to customize the color for a sidebar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:tintConfigurationForItem:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewTintConfigurationForItem(outlineView INSOutlineView, item objectivec.IObject) INSTintConfiguration {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:tintConfigurationForItem:"), outlineView, item)
 	return NSTintConfigurationFromID(rv)
 	}
-
 // Returns a Boolean value that indicates whether a given cell should be
 // tracked.
 //
@@ -889,13 +827,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewTintConfigurationForItem(outline
 // clicked on and tracked.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:shouldTrackCell:for:item:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewShouldTrackCellForTableColumnItem(outlineView INSOutlineView, cell INSCell, tableColumn INSTableColumn, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:shouldTrackCell:forTableColumn:item:"), outlineView, cell, tableColumn, item)
 	return rv
 	}
-
 // Returns a Boolean that indicates whether a given row should be drawn in the
 // “group row” style.
 //
@@ -918,13 +854,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewShouldTrackCellForTableColumnIte
 // applied for that cell.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:isGroupItem:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewIsGroupItem(outlineView INSOutlineView, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:isGroupItem:"), outlineView, item)
 	return rv
 	}
-
 // Implemented to know when a new row view is added to the table.
 //
 // outlineView: The outline view that sent the message.
@@ -939,12 +873,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewIsGroupItem(outlineView INSOutli
 // can choose to add in extra views or modify any properties on `rowView`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:didAdd:forRow:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewDidAddRowViewForRow(outlineView INSOutlineView, rowView INSTableRowView, row int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:didAddRowView:forRow:"), outlineView, rowView, row)
 	}
-
 // Implemented to know when a row view is removed from the table
 //
 // outlineView: The outline view that sent the message.
@@ -960,12 +892,10 @@ func (o NSOutlineViewDelegateObject) OutlineViewDidAddRowViewForRow(outlineView 
 // inserted views should be removed at this point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:didRemove:forRow:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewDidRemoveRowViewForRow(outlineView INSOutlineView, rowView INSTableRowView, row int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:didRemoveRowView:forRow:"), outlineView, rowView, row)
 	}
-
 // implement this method to return a custom [NSTableRowView] for a particular
 // item.
 //
@@ -984,13 +914,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewDidRemoveRowViewForRow(outlineVi
 // views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:rowViewForItem:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewRowViewForItem(outlineView INSOutlineView, item objectivec.IObject) INSTableRowView {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:rowViewForItem:"), outlineView, item)
 	return NSTableRowViewFromID(rv)
 	}
-
 // Implemented to return the view used to display the specified item and
 // column.
 //
@@ -1036,30 +964,24 @@ func (o NSOutlineViewDelegateObject) OutlineViewRowViewForItem(outlineView INSOu
 // [height]: https://developer.apple.com/documentation/AppKit/NSView/AutoresizingMask-swift.struct/height
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:viewFor:item:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewViewForTableColumnItem(outlineView INSOutlineView, tableColumn INSTableColumn, item objectivec.IObject) INSView {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:viewForTableColumn:item:"), outlineView, tableColumn, item)
 	return NSViewFromID(rv)
 	}
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:userCanChangeVisibilityOf:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewUserCanChangeVisibilityOfTableColumn(outlineView INSOutlineView, column INSTableColumn) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:userCanChangeVisibilityOfTableColumn:"), outlineView, column)
 	return rv
 	}
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate/outlineView(_:userDidChangeVisibilityOf:)
-
 func (o NSOutlineViewDelegateObject) OutlineViewUserDidChangeVisibilityOfTableColumns(outlineView INSOutlineView, columns []NSTableColumn) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:userDidChangeVisibilityOfTableColumns:"), outlineView, objectivec.IObjectSliceToNSArray(columns))
 	}
-
 // Invoked when the insertion point leaves a cell belonging to the specified
 // control, but before the value of the cell’s object is displayed.
 //
@@ -1087,13 +1009,11 @@ func (o NSOutlineViewDelegateObject) OutlineViewUserDidChangeVisibilityOfTableCo
 // (represented by an [NSNumber] object) that exceeds a predetermined limit.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:isValidObject:)
-
 func (o NSOutlineViewDelegateObject) ControlIsValidObject(control INSControl, obj objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:isValidObject:"), control, obj)
 	return rv
 	}
-
 // Invoked when the formatter for the cell belonging to `control` (or selected
 // cell) rejects a partial string a user is typing into the cell.
 //
@@ -1110,12 +1030,10 @@ func (o NSOutlineViewDelegateObject) ControlIsValidObject(control INSControl, ob
 // similar action when the user enters improperly formatted text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToValidatePartialString:errorDescription:)
-
 func (o NSOutlineViewDelegateObject) ControlDidFailToValidatePartialStringErrorDescription(control INSControl, string_ string, error_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("control:didFailToValidatePartialString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	}
-
 // Invoked when the formatter for the cell belonging to the specified control
 // cannot convert a string to an underlying object.
 //
@@ -1141,13 +1059,11 @@ func (o NSOutlineViewDelegateObject) ControlDidFailToValidatePartialStringErrorD
 // or rejected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToFormatString:errorDescription:)
-
 func (o NSOutlineViewDelegateObject) ControlDidFailToFormatStringErrorDescription(control INSControl, string_ string, error_ string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:didFailToFormatString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	return rv
 	}
-
 // Invoked when the user tries to enter a character in a cell of a control
 // that allows editing of text (such as a text field or form field).
 //
@@ -1169,13 +1085,11 @@ func (o NSOutlineViewDelegateObject) ControlDidFailToFormatStringErrorDescriptio
 // message is sent by the control directly to its delegate object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldBeginEditing:)
-
 func (o NSOutlineViewDelegateObject) ControlTextShouldBeginEditing(control INSControl, fieldEditor INSText) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldBeginEditing:"), control, fieldEditor)
 	return rv
 	}
-
 // Invoked when the insertion point tries to leave a cell of the control that
 // has been edited.
 //
@@ -1199,13 +1113,11 @@ func (o NSOutlineViewDelegateObject) ControlTextShouldBeginEditing(control INSCo
 // to its delegate object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldEndEditing:)
-
 func (o NSOutlineViewDelegateObject) ControlTextShouldEndEditing(control INSControl, fieldEditor INSText) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldEndEditing:"), control, fieldEditor)
 	return rv
 	}
-
 // Invoked to allow you to control the list of proposed text completions
 // generated by text fields and other controls.
 //
@@ -1248,13 +1160,11 @@ func (o NSOutlineViewDelegateObject) ControlTextShouldEndEditing(control INSCont
 // by the [Complete] method of [NSTextView].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
-
 func (o NSOutlineViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // Invoked when users press keys with predefined bindings in a cell of the
 // specified control.
 //
@@ -1290,13 +1200,11 @@ func (o NSOutlineViewDelegateObject) ControlTextViewCompletionsForPartialWordRan
 // or do whatever else is appropriate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:doCommandBy:)
-
 func (o NSOutlineViewDelegateObject) ControlTextViewDoCommandBySelector(control INSControl, textView INSTextView, commandSelector objc.SEL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textView:doCommandBySelector:"), control, textView, commandSelector)
 	return rv
 	}
-
 // Tells the delegate that the control started editing its text content.
 //
 // obj: A notification object that contains details about the editing
@@ -1308,12 +1216,10 @@ func (o NSOutlineViewDelegateObject) ControlTextViewDoCommandBySelector(control 
 // notification object’s `userInfo` dictionary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidBeginEditing(_:)
-
 func (o NSOutlineViewDelegateObject) ControlTextDidBeginEditing(obj foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidBeginEditing:"), obj)
 	}
-
 // Tells the delegate that the control made changes to its text content.
 //
 // obj: A notification object that contains details about the editing
@@ -1325,12 +1231,10 @@ func (o NSOutlineViewDelegateObject) ControlTextDidBeginEditing(obj foundation.N
 // notification object’s `userInfo` dictionary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidChange(_:)
-
 func (o NSOutlineViewDelegateObject) ControlTextDidChange(obj foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidChange:"), obj)
 	}
-
 // Tells the delegate that the control finished editing its text content and
 // committed the changes.
 //
@@ -1343,7 +1247,6 @@ func (o NSOutlineViewDelegateObject) ControlTextDidChange(obj foundation.NSNotif
 // notification object’s `userInfo` dictionary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidEndEditing(_:)
-
 func (o NSOutlineViewDelegateObject) ControlTextDidEndEditing(obj foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)

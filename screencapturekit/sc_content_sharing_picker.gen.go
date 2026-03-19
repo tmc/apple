@@ -179,7 +179,6 @@ func NewSCContentSharingPicker() SCContentSharingPicker {
 func (c SCContentSharingPicker) AddObserver(observer SCContentSharingPickerObserver) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addObserver:"), observer)
 }
-
 // Removes an observer instance from the content-sharing picker.
 //
 // observer: The observer instance to remove.
@@ -188,14 +187,12 @@ func (c SCContentSharingPicker) AddObserver(observer SCContentSharingPickerObser
 func (c SCContentSharingPicker) RemoveObserver(observer SCContentSharingPickerObserver) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeObserver:"), observer)
 }
-
 // Displays the picker with no active selection for capture.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPicker/present()
 func (c SCContentSharingPicker) Present() {
 	objc.Send[objc.ID](c.ID, objc.Sel("present"))
 }
-
 // Displays the picker with an already running capture stream.
 //
 // stream: The capture stream to display in the picker.
@@ -204,7 +201,6 @@ func (c SCContentSharingPicker) Present() {
 func (c SCContentSharingPicker) PresentPickerForStream(stream ISCStream) {
 	objc.Send[objc.ID](c.ID, objc.Sel("presentPickerForStream:"), stream)
 }
-
 // Displays the picker for a single type of capture selection.
 //
 // contentStyle: The type of streaming content selection allowed through the presented
@@ -214,7 +210,6 @@ func (c SCContentSharingPicker) PresentPickerForStream(stream ISCStream) {
 func (c SCContentSharingPicker) PresentPickerUsingContentStyle(contentStyle SCShareableContentStyle) {
 	objc.Send[objc.ID](c.ID, objc.Sel("presentPickerUsingContentStyle:"), contentStyle)
 }
-
 // Displays the picker with an existing capture stream, allowing for a single
 // type of capture selection.
 //
@@ -243,7 +238,6 @@ func (c SCContentSharingPicker) Active() bool {
 func (c SCContentSharingPicker) SetActive(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setActive:"), value)
 }
-
 // Sets the configuration for the content capture picker for all streams,
 // providing allowed selection modes and content excluded from selection.
 //
@@ -255,7 +249,6 @@ func (c SCContentSharingPicker) Configuration() ISCContentSharingPickerConfigura
 func (c SCContentSharingPicker) SetConfiguration(value ISCContentSharingPickerConfiguration) {
 	objc.Send[struct{}](c.ID, objc.Sel("setConfiguration:"), value)
 }
-
 // The default configuration to use for the content capture picker.
 //
 // See: https://developer.apple.com/documentation/screencapturekit/sccontentsharingpicker/defaultconfiguration-94q2b
@@ -266,7 +259,6 @@ func (c SCContentSharingPicker) DefaultConfiguration() ISCContentSharingPickerCo
 func (c SCContentSharingPicker) SetDefaultConfiguration(value ISCContentSharingPickerConfiguration) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDefaultConfiguration:"), value)
 }
-
 // The maximum number of streams the content capture picker allows.
 //
 // See: https://developer.apple.com/documentation/screencapturekit/sccontentsharingpicker/maximumstreamcount-2kuaa

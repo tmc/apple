@@ -137,7 +137,6 @@ func (c VNCoreMLFeatureValueObservation) FeatureValue() coreml.MLFeatureValue {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureValue"))
 	return coreml.MLFeatureValueFromID(objc.ID(rv))
 }
-
 // The name used in the model description of the CoreML model that produced
 // this observation.
 //
@@ -146,7 +145,6 @@ func (c VNCoreMLFeatureValueObservation) FeatureName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -158,7 +156,6 @@ func (c VNCoreMLFeatureValueObservation) ModelDescription() coreml.MLModelDescri
 func (c VNCoreMLFeatureValueObservation) SetModelDescription(value coreml.MLModelDescription) {
 	objc.Send[struct{}](c.ID, objc.Sel("setModelDescription:"), value)
 }
-
 // A dictionary of output feature descriptions, which the model keys by the
 // output’s name.
 //
@@ -170,7 +167,6 @@ func (c VNCoreMLFeatureValueObservation) OutputDescriptionsByName() coreml.MLFea
 func (c VNCoreMLFeatureValueObservation) SetOutputDescriptionsByName(value coreml.MLFeatureDescription) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }
-
 // The name of the primary prediction feature output description.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelDescription/predictedFeatureName

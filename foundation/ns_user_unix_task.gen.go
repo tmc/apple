@@ -210,7 +210,6 @@ func (u NSUserUnixTask) StandardError() INSFileHandle {
 func (u NSUserUnixTask) SetStandardError(value INSFileHandle) {
 	objc.Send[struct{}](u.ID, objc.Sel("setStandardError:"), value)
 }
-
 // The standard input stream.
 //
 // # Discussion
@@ -227,7 +226,6 @@ func (u NSUserUnixTask) StandardInput() INSFileHandle {
 func (u NSUserUnixTask) SetStandardInput(value INSFileHandle) {
 	objc.Send[struct{}](u.ID, objc.Sel("setStandardInput:"), value)
 }
-
 // The standard output stream.
 //
 // # Discussion

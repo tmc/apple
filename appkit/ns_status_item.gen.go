@@ -171,7 +171,6 @@ func (s NSStatusItem) StatusBar() INSStatusBar {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("statusBar"))
 	return NSStatusBarFromID(objc.ID(rv))
 }
-
 // The set of allowed behaviors for the status item.
 //
 // # Discussion
@@ -190,7 +189,6 @@ func (s NSStatusItem) Behavior() NSStatusItemBehavior {
 func (s NSStatusItem) SetBehavior(value NSStatusItemBehavior) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBehavior:"), value)
 }
-
 // The button displayed in the status bar.
 //
 // # Discussion
@@ -206,7 +204,6 @@ func (s NSStatusItem) Button() INSStatusBarButton {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("button"))
 	return NSStatusBarButtonFromID(objc.ID(rv))
 }
-
 // The pull-down menu displayed when the user clicks the status item.
 //
 // # Discussion
@@ -222,7 +219,6 @@ func (s NSStatusItem) Menu() INSMenu {
 func (s NSStatusItem) SetMenu(value INSMenu) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMenu:"), value)
 }
-
 // A Boolean value indicating if the menu bar currently displays the status
 // item.
 //
@@ -247,7 +243,6 @@ func (s NSStatusItem) Visible() bool {
 func (s NSStatusItem) SetVisible(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVisible:"), value)
 }
-
 // The amount of space in the status bar that should be allocated to the
 // status item.
 //
@@ -268,7 +263,6 @@ func (s NSStatusItem) Length() float64 {
 func (s NSStatusItem) SetLength(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLength:"), value)
 }
-
 // A unique name for saving and restoring information about a status item.
 //
 // # Discussion
@@ -298,7 +292,6 @@ func (_NSStatusItemClass NSStatusItemClass) SquareLength() float64 {
 	rv := objc.Send[float64](objc.ID(_NSStatusItemClass.class), objc.Sel("NSSquareStatusItemLength"))
 	return rv
 }
-
 // A status item length that dynamically adjusts to the width of its contents.
 //
 // See: https://developer.apple.com/documentation/appkit/nsstatusitem/variablelength

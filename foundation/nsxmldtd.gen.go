@@ -345,7 +345,6 @@ func (x XMLDTD) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOpti
 	return NSXMLDTDFromID(rv), nil
 
 }
-
 // Initializes and returns an [NSXMLDTD] object created from the DTD
 // declarations encapsulated in an [NSData] object
 //
@@ -379,7 +378,6 @@ func (x XMLDTD) InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (X
 	return NSXMLDTDFromID(rv), nil
 
 }
-
 // Adds a child node to the end of the list of existing children.
 //
 // child: The node object to add to the existing children.
@@ -388,7 +386,6 @@ func (x XMLDTD) InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (X
 func (x XMLDTD) AddChild(child INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addChild:"), child)
 }
-
 // Inserts a child node in the receiver’s list of children at a specific
 // location in the list.
 //
@@ -402,7 +399,6 @@ func (x XMLDTD) AddChild(child INSXMLNode) {
 func (x XMLDTD) InsertChildAtIndex(child INSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChild:atIndex:"), child, index)
 }
-
 // Inserts an array of child nodes at a specified location in the receiver’s
 // list of children.
 //
@@ -416,7 +412,6 @@ func (x XMLDTD) InsertChildAtIndex(child INSXMLNode, index uint) {
 func (x XMLDTD) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChildren:atIndex:"), objectivec.IObjectSliceToNSArray(children), index)
 }
-
 // Removes the child node at a particular location in the receiver’s list of
 // children.
 //
@@ -431,7 +426,6 @@ func (x XMLDTD) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 func (x XMLDTD) RemoveChildAtIndex(index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeChildAtIndex:"), index)
 }
-
 // Replaces a child at a particular index with another child.
 //
 // index: An integer identifying the position of a node in the receiver’s list of
@@ -447,7 +441,6 @@ func (x XMLDTD) RemoveChildAtIndex(index uint) {
 func (x XMLDTD) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("replaceChildAtIndex:withNode:"), index, node)
 }
-
 // Returns the DTD node representing an element declaration for a specified
 // element.
 //
@@ -462,7 +455,6 @@ func (x XMLDTD) ElementDeclarationForName(name string) INSXMLDTDNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("elementDeclarationForName:"), objc.String(name))
 	return NSXMLDTDNodeFromID(rv)
 }
-
 // Returns the DTD node representing an attribute-list declaration for a given
 // attribute and its element.
 //
@@ -487,7 +479,6 @@ func (x XMLDTD) AttributeDeclarationForNameElementName(name string, elementName 
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("attributeDeclarationForName:elementName:"), objc.String(name), objc.String(elementName))
 	return NSXMLDTDNodeFromID(rv)
 }
-
 // Returns the DTD node representing the entity declaration for a specified
 // entity.
 //
@@ -502,7 +493,6 @@ func (x XMLDTD) EntityDeclarationForName(name string) INSXMLDTDNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("entityDeclarationForName:"), objc.String(name))
 	return NSXMLDTDNodeFromID(rv)
 }
-
 // Returns the DTD node representing the notation declaration identified by
 // the specified notation name.
 //
@@ -550,7 +540,6 @@ func (x XMLDTD) PublicID() string {
 func (x XMLDTD) SetPublicID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPublicID:"), objc.String(value))
 }
-
 // Returns the receiver’s system identifier.
 //
 // See: https://developer.apple.com/documentation/Foundation/XMLDTD/systemID
@@ -561,7 +550,6 @@ func (x XMLDTD) SystemID() string {
 func (x XMLDTD) SetSystemID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setSystemID:"), objc.String(value))
 }
-
 // Returns an
 //
 // See: https://developer.apple.com/documentation/foundation/xmldocument/dtd

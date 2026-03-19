@@ -258,7 +258,6 @@ func (d NSDictionaryController) LocalizedKeyDictionary() foundation.INSDictionar
 func (d NSDictionaryController) SetLocalizedKeyDictionary(value foundation.INSDictionary) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedKeyDictionary:"), value)
 }
-
 // the strings file used to localize key names.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController/localizedKeyTable
@@ -269,7 +268,6 @@ func (d NSDictionaryController) LocalizedKeyTable() string {
 func (d NSDictionaryController) SetLocalizedKeyTable(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedKeyTable:"), objc.String(value))
 }
-
 // The key names that are represented by a key-value pair, even if they are
 // not present in the receiver’s content dictionary.
 //
@@ -281,7 +279,6 @@ func (d NSDictionaryController) IncludedKeys() []string {
 func (d NSDictionaryController) SetIncludedKeys(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setIncludedKeys:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The key names that are never displayed in the user interface items bound to
 // the receiver.
 //
@@ -293,7 +290,6 @@ func (d NSDictionaryController) ExcludedKeys() []string {
 func (d NSDictionaryController) SetExcludedKeys(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setExcludedKeys:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The string used as the initial key name for a newly inserted item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController/initialKey
@@ -304,7 +300,6 @@ func (d NSDictionaryController) InitialKey() string {
 func (d NSDictionaryController) SetInitialKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInitialKey:"), objc.String(value))
 }
-
 // The string used as the initial value for a newly inserted item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryController/initialValue
@@ -315,7 +310,6 @@ func (d NSDictionaryController) InitialValue() objectivec.IObject {
 func (d NSDictionaryController) SetInitialValue(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInitialValue:"), value)
 }
-
 // A constant that identifies a content dictionary binding.
 //
 // See: https://developer.apple.com/documentation/appkit/nsbindingname/contentdictionary

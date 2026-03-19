@@ -107,7 +107,6 @@ func (r MTLRenderPassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubsc
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLRenderPassSampleBufferAttachmentDescriptorFromID(rv)
 }
-
 // Sets the descriptor object for the specified sample buffer attachment.
 //
 // attachment: A sample buffer attachment descriptor. Specify `nil` to resets the

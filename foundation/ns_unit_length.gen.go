@@ -150,7 +150,6 @@ func (_UnitLengthClass UnitLengthClass) Megameters() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("megameters"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The kilometers unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/kilometers
@@ -158,7 +157,6 @@ func (_UnitLengthClass UnitLengthClass) Kilometers() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("kilometers"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The hectometers unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/hectometers
@@ -166,7 +164,6 @@ func (_UnitLengthClass UnitLengthClass) Hectometers() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("hectometers"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The decameters unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/decameters
@@ -174,7 +171,6 @@ func (_UnitLengthClass UnitLengthClass) Decameters() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("decameters"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The decimeters unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/decimeters
@@ -182,7 +178,6 @@ func (_UnitLengthClass UnitLengthClass) Decimeters() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("decimeters"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The centimeters unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/centimeters
@@ -190,7 +185,6 @@ func (_UnitLengthClass UnitLengthClass) Centimeters() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("centimeters"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The millimeters unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/millimeters
@@ -198,7 +192,6 @@ func (_UnitLengthClass UnitLengthClass) Millimeters() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("millimeters"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The micrometers unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/micrometers
@@ -206,7 +199,6 @@ func (_UnitLengthClass UnitLengthClass) Micrometers() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("micrometers"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The nanometers unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/nanometers
@@ -214,7 +206,6 @@ func (_UnitLengthClass UnitLengthClass) Nanometers() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("nanometers"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The picometers unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/picometers
@@ -222,7 +213,6 @@ func (_UnitLengthClass UnitLengthClass) Picometers() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("picometers"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The inches unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/inches
@@ -230,7 +220,6 @@ func (_UnitLengthClass UnitLengthClass) Inches() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("inches"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The feet unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/feet
@@ -238,7 +227,6 @@ func (_UnitLengthClass UnitLengthClass) Feet() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("feet"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The yards unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/yards
@@ -246,7 +234,6 @@ func (_UnitLengthClass UnitLengthClass) Yards() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("yards"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The Scandinavian miles unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/scandinavianMiles
@@ -254,7 +241,6 @@ func (_UnitLengthClass UnitLengthClass) ScandinavianMiles() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("scandinavianMiles"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The light years unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/lightyears
@@ -262,7 +248,6 @@ func (_UnitLengthClass UnitLengthClass) Lightyears() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("lightyears"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The nautical miles unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/nauticalMiles
@@ -270,7 +255,6 @@ func (_UnitLengthClass UnitLengthClass) NauticalMiles() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("nauticalMiles"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The fathoms unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/fathoms
@@ -278,7 +262,6 @@ func (_UnitLengthClass UnitLengthClass) Fathoms() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("fathoms"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The furlongs unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/furlongs
@@ -286,7 +269,6 @@ func (_UnitLengthClass UnitLengthClass) Furlongs() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("furlongs"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The astronomical units unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/astronomicalUnits
@@ -294,7 +276,6 @@ func (_UnitLengthClass UnitLengthClass) AstronomicalUnits() UnitLength {
 	rv := objc.Send[objc.ID](objc.ID(_UnitLengthClass.class), objc.Sel("astronomicalUnits"))
 	return NSUnitLengthFromID(objc.ID(rv))
 }
-
 // The parsecs unit of length.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitLength/parsecs

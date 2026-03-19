@@ -166,7 +166,6 @@ func (e VZEFIVariableStore) InitCreatingVariableStoreAtURLOptionsError(URL found
 	return VZEFIVariableStoreFromID(rv), nil
 
 }
-
 // Initialize the variable store from the URL of an existing file.
 //
 // URL: The URL of the location on disk that contains the stored EFI information.

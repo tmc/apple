@@ -922,7 +922,6 @@ func (u NSURL) InitWithString(URLString string) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithString:"), objc.String(URLString))
 	return rv
 }
-
 // Creates an instance from the provided string, optionally IDNA- and
 // percent-encoding any invalid characters.
 //
@@ -942,7 +941,6 @@ func (u NSURL) InitWithStringEncodingInvalidCharacters(URLString string, encodin
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithString:encodingInvalidCharacters:"), objc.String(URLString), encodingInvalidCharacters)
 	return rv
 }
-
 // Initializes an NSURL object with a base URL and a relative string.
 //
 // URLString: The URL string with which to initialize the NSURL object. Linked on or
@@ -982,7 +980,6 @@ func (u NSURL) InitWithStringRelativeToURL(URLString string, baseURL INSURL) NSU
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithString:relativeToURL:"), objc.String(URLString), baseURL)
 	return rv
 }
-
 // Initializes a newly created NSURL referencing the local file or directory
 // at `path`.
 //
@@ -1016,21 +1013,18 @@ func (u NSURL) InitFileURLWithPathIsDirectory(path string, isDir bool) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initFileURLWithPath:isDirectory:"), objc.String(path), isDir)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(fileURLWithPath:relativeTo:)
 func (u NSURL) InitFileURLWithPathRelativeToURL(path string, baseURL INSURL) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initFileURLWithPath:relativeToURL:"), objc.String(path), baseURL)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(fileURLWithPath:isDirectory:relativeTo:)
 func (u NSURL) InitFileURLWithPathIsDirectoryRelativeToURL(path string, isDir bool, baseURL INSURL) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initFileURLWithPath:isDirectory:relativeToURL:"), objc.String(path), isDir, baseURL)
 	return rv
 }
-
 // Initializes a newly created NSURL referencing the local file or directory
 // at `path`.
 //
@@ -1068,7 +1062,6 @@ func (u NSURL) InitFileURLWithPath(path string) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initFileURLWithPath:"), objc.String(path))
 	return rv
 }
-
 // Initializes a newly created NSURL that points to a location specified by
 // resolving bookmark data.
 //
@@ -1099,7 +1092,6 @@ func (u NSURL) InitByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStal
 	return NSURLFromID(rv), nil
 
 }
-
 // Fills the provided buffer with a C string representing a local file system
 // path.
 //
@@ -1126,7 +1118,6 @@ func (u NSURL) GetFileSystemRepresentationMaxLength(buffer []byte, maxBufferLeng
 	rv := objc.Send[bool](u.ID, objc.Sel("getFileSystemRepresentation:maxLength:"), unsafe.Pointer(unsafe.SliceData(buffer)), maxBufferLength)
 	return rv
 }
-
 // Initializes a URL object with a C string representing a local file system
 // path.
 //
@@ -1156,21 +1147,18 @@ func (u NSURL) InitFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(p
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initFileURLWithFileSystemRepresentation:isDirectory:relativeToURL:"), unsafe.Pointer(unsafe.SliceData(path)), isDir, baseURL)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(absoluteURLWithDataRepresentation:relativeTo:)
 func (u NSURL) InitAbsoluteURLWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initAbsoluteURLWithDataRepresentation:relativeToURL:"), data, baseURL)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(dataRepresentation:relativeTo:)
 func (u NSURL) InitWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithDataRepresentation:relativeToURL:"), data, baseURL)
 	return rv
 }
-
 // Returns whether the resource pointed to by a file URL can be reached.
 //
 // error: The error that occurred when the resource could not be reached.
@@ -1214,7 +1202,6 @@ func (u NSURL) CheckResourceIsReachableAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
 // Returns whether the URL is a file reference URL.
 //
 // # Return Value
@@ -1229,7 +1216,6 @@ func (u NSURL) IsFileReferenceURL() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isFileReferenceURL"))
 	return rv
 }
-
 // Returns the resource values for the properties identified by specified
 // array of keys.
 //
@@ -1269,7 +1255,6 @@ func (u NSURL) ResourceValuesForKeysError(keys []string) (INSDictionary, error) 
 	return NSDictionaryFromID(rv), nil
 
 }
-
 // Returns the value of the resource property for the specified key.
 //
 // value: The location where the value for the resource property identified by `key`
@@ -1313,7 +1298,6 @@ func (u NSURL) GetResourceValueForKeyError(value []objectivec.IObject, key NSURL
 	return rv, nil
 
 }
-
 // Sets the URL’s resource property for a given key to a given value.
 //
 // value: The value for the resource property defined by `key`.
@@ -1346,7 +1330,6 @@ func (u NSURL) SetResourceValueForKeyError(value objectivec.IObject, key NSURLRe
 	return rv, nil
 
 }
-
 // Sets the URL’s resource properties for a given set of keys to a given set
 // of values.
 //
@@ -1382,7 +1365,6 @@ func (u NSURL) SetResourceValuesError(keyedValues INSDictionary) (bool, error) {
 	return rv, nil
 
 }
-
 // Removes all cached resource values and temporary resource values from the
 // URL object.
 //
@@ -1395,7 +1377,6 @@ func (u NSURL) SetResourceValuesError(keyedValues INSDictionary) (bool, error) {
 func (u NSURL) RemoveAllCachedResourceValues() {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeAllCachedResourceValues"))
 }
-
 // Removes the cached resource value identified by a given key from the URL
 // object.
 //
@@ -1414,7 +1395,6 @@ func (u NSURL) RemoveAllCachedResourceValues() {
 func (u NSURL) RemoveCachedResourceValueForKey(key NSURLResourceKey) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeCachedResourceValueForKey:"), objc.String(string(key)))
 }
-
 // Sets a temporary resource value on the URL object.
 //
 // value: The value to store.
@@ -1442,7 +1422,6 @@ func (u NSURL) RemoveCachedResourceValueForKey(key NSURLResourceKey) {
 func (u NSURL) SetTemporaryResourceValueForKey(value objectivec.IObject, key NSURLResourceKey) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setTemporaryResourceValue:forKey:"), value, objc.String(string(key)))
 }
-
 // Returns a new file reference URL that points to the same resource as the
 // receiver.
 //
@@ -1472,7 +1451,6 @@ func (u NSURL) FileReferenceURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("fileReferenceURL"))
 	return NSURLFromID(rv)
 }
-
 // Returns a new URL by appending a path component to the original URL.
 //
 // pathComponent: The path component to add to the URL, in its original form (not URL
@@ -1502,7 +1480,6 @@ func (u NSURL) URLByAppendingPathComponent(pathComponent string) INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByAppendingPathComponent:"), objc.String(pathComponent))
 	return NSURLFromID(rv)
 }
-
 // Returns a new URL by appending a path component to the original URL, along
 // with a trailing slash if the component is a directory.
 //
@@ -1528,7 +1505,6 @@ func (u NSURL) URLByAppendingPathComponentIsDirectory(pathComponent string, isDi
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByAppendingPathComponent:isDirectory:"), objc.String(pathComponent), isDirectory)
 	return NSURLFromID(rv)
 }
-
 // Returns a URL by appending the specified path component with the file
 // extension for a uniform type identifier.
 //
@@ -1574,7 +1550,6 @@ func (u NSURL) URLByAppendingPathComponentConformingToType(partialName string, c
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByAppendingPathComponent:conformingToType:"), objc.String(partialName), contentType)
 	return NSURLFromID(rv)
 }
-
 // Returns a new URL by appending a path extension to the original URL.
 //
 // pathExtension: The path extension to add to the URL.
@@ -1594,7 +1569,6 @@ func (u NSURL) URLByAppendingPathExtension(pathExtension string) INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByAppendingPathExtension:"), objc.String(pathExtension))
 	return NSURLFromID(rv)
 }
-
 // Returns a URL by appending the path extension for a uniform type
 // identifier.
 //
@@ -1615,7 +1589,6 @@ func (u NSURL) URLByAppendingPathExtensionForType(contentType objectivec.IObject
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByAppendingPathExtensionForType:"), contentType)
 	return NSURLFromID(rv)
 }
-
 // Returns a bookmark for the URL, created with specified options and resource
 // values.
 //
@@ -1705,7 +1678,6 @@ func (u NSURL) BookmarkDataWithOptionsIncludingResourceValuesForKeysRelativeToUR
 	return NSDataFromID(rv), nil
 
 }
-
 // In an app that has adopted App Sandbox, makes the resource pointed to by a
 // security-scoped URL available to the app.
 //
@@ -1742,7 +1714,6 @@ func (u NSURL) StartAccessingSecurityScopedResource() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("startAccessingSecurityScopedResource"))
 	return rv
 }
-
 // In an app that adopts App Sandbox, revokes access to the resource pointed
 // to by a security-scoped URL.
 //
@@ -1769,7 +1740,6 @@ func (u NSURL) StartAccessingSecurityScopedResource() bool {
 func (u NSURL) StopAccessingSecurityScopedResource() {
 	objc.Send[objc.ID](u.ID, objc.Sel("stopAccessingSecurityScopedResource"))
 }
-
 // Returns whether the promised item can be reached.
 //
 // error: The error that occurred when the promised item could not be reached.
@@ -1820,7 +1790,6 @@ func (u NSURL) CheckPromisedItemIsReachableAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
 // Returns the value of the resource property for the specified key.
 //
 // value: The location where the value for the resource property identified by `key`
@@ -1874,7 +1843,6 @@ func (u NSURL) GetPromisedItemResourceValueForKeyError(value []objectivec.IObjec
 	return rv, nil
 
 }
-
 // Returns the resource values for the properties identified by specified
 // array of keys.
 //
@@ -1927,7 +1895,6 @@ func (u NSURL) PromisedItemResourceValuesForKeysError(keys []string) (INSDiction
 	return NSDictionaryFromID(rv), nil
 
 }
-
 // Writes the URL to the specified pasteboard.
 //
 // pasteBoard: The target pasteboard.
@@ -1943,7 +1910,6 @@ func (u NSURL) PromisedItemResourceValuesForKeysError(keys []string) (INSDiction
 func (u NSURL) WriteToPasteboard(pasteBoard objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("writeToPasteboard:"), pasteBoard)
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1952,14 +1918,12 @@ func (u NSURL) WriteToPasteboard(pasteBoard objectivec.IObject) {
 func (u NSURL) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u NSURL) InitWithCoder(coder INSCoder) NSURL {
 	rv := objc.Send[NSURL](u.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Asks the item provider for the representation visibility specification for
 // the given UTI.
 //
@@ -1974,7 +1938,6 @@ func (u NSURL) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIde
 	rv := objc.Send[NSItemProviderRepresentationVisibility](u.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
 	return NSItemProviderRepresentationVisibility(rv)
 }
-
 // Loads data of a particular type, identified by the given UTI.
 //
 // typeIdentifier: The uniform type identifier (UTI) identifying the type of data to load.
@@ -2023,21 +1986,18 @@ func (_NSURLClass NSURLClass) FileURLWithPathIsDirectory(path string, isDir bool
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("fileURLWithPath:isDirectory:"), objc.String(path), isDir)
 	return NSURLFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/fileURL(withPath:relativeTo:)
 func (_NSURLClass NSURLClass) FileURLWithPathRelativeToURL(path string, baseURL INSURL) NSURL {
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("fileURLWithPath:relativeToURL:"), objc.String(path), baseURL)
 	return NSURLFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/fileURL(withPath:isDirectory:relativeTo:)
 func (_NSURLClass NSURLClass) FileURLWithPathIsDirectoryRelativeToURL(path string, isDir bool, baseURL INSURL) NSURL {
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("fileURLWithPath:isDirectory:relativeToURL:"), objc.String(path), isDir, baseURL)
 	return NSURLFromID(rv)
 }
-
 // Initializes and returns a newly created NSURL object as a file URL with a
 // specified path.
 //
@@ -2069,7 +2029,6 @@ func (_NSURLClass NSURLClass) FileURLWithPath(path string) NSURL {
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("fileURLWithPath:"), objc.String(path))
 	return NSURLFromID(rv)
 }
-
 // Initializes and returns a newly created NSURL object as a file URL with
 // specified path components.
 //
@@ -2088,7 +2047,6 @@ func (_NSURLClass NSURLClass) FileURLWithPathComponents(components []string) NSU
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("fileURLWithPathComponents:"), objectivec.StringSliceToNSArray(components))
 	return NSURLFromID(rv)
 }
-
 // Returns a new URL object initialized with a C string representing a local
 // file system path.
 //
@@ -2120,14 +2078,12 @@ func (_NSURLClass NSURLClass) FileURLWithFileSystemRepresentationIsDirectoryRela
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("fileURLWithFileSystemRepresentation:isDirectory:relativeToURL:"), unsafe.Pointer(unsafe.SliceData(path)), isDir, baseURL)
 	return NSURLFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/absoluteURL(withDataRepresentation:relativeTo:)
 func (_NSURLClass NSURLClass) AbsoluteURLWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL {
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("absoluteURLWithDataRepresentation:relativeToURL:"), data, baseURL)
 	return NSURLFromID(rv)
 }
-
 // Initializes and returns bookmark data derived from an alias file pointed to
 // by a specified URL.
 //
@@ -2158,7 +2114,6 @@ func (_NSURLClass NSURLClass) BookmarkDataWithContentsOfURLError(bookmarkFileURL
 	return NSDataFromID(rv), nil
 
 }
-
 // Returns the resource values for properties identified by a specified array
 // of keys contained in specified bookmark data.
 //
@@ -2179,7 +2134,6 @@ func (_NSURLClass NSURLClass) ResourceValuesForKeysFromBookmarkData(keys []strin
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("resourceValuesForKeys:fromBookmarkData:"), objectivec.StringSliceToNSArray(keys), bookmarkData)
 	return NSDictionaryFromID(rv)
 }
-
 // Creates an alias file on disk at a specified location with specified
 // bookmark data.
 //
@@ -2215,7 +2169,6 @@ func (_NSURLClass NSURLClass) WriteBookmarkDataToURLOptionsError(bookmarkData IN
 	return rv, nil
 
 }
-
 // Creates a new instance of a class using the given data and UTI string.
 //
 // data: The data used to create the object.
@@ -2237,7 +2190,6 @@ func (_NSURLClass NSURLClass) ObjectWithItemProviderDataTypeIdentifierError(data
 	return NSURLFromID(rv), nil
 
 }
-
 // Returns a new URL made by resolving bookmark data.
 //
 // bookmarkData: The bookmark data the URL is derived from.
@@ -2315,14 +2267,12 @@ func (_NSURLClass NSURLClass) URLByResolvingBookmarkDataOptionsRelativeToURLBook
 	return NSURLFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/URLWithDataRepresentation:relativeToURL:
 func (_NSURLClass NSURLClass) URLWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL {
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithDataRepresentation:relativeToURL:"), data, baseURL)
 	return NSURLFromID(rv)
 }
-
 // Creates and returns an NSURL object initialized with a provided URL string.
 //
 // URLString: The URL string with which to initialize the NSURL object. Linked on or
@@ -2352,7 +2302,6 @@ func (_NSURLClass NSURLClass) URLWithString(URLString string) NSURL {
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithString:"), objc.String(URLString))
 	return NSURLFromID(rv)
 }
-
 // Creates and returns an instance from the provided string, optionally IDNA-
 // and percent-encoding any invalid characters.
 //
@@ -2372,7 +2321,6 @@ func (_NSURLClass NSURLClass) URLWithStringEncodingInvalidCharacters(URLString s
 	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("URLWithString:encodingInvalidCharacters:"), objc.String(URLString), encodingInvalidCharacters)
 	return NSURLFromID(rv)
 }
-
 // Creates and returns an NSURL object initialized with a base URL and a
 // relative string.
 //
@@ -2417,7 +2365,6 @@ func (u NSURL) DataRepresentation() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataRepresentation"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // A boolean value that determines whether the receiver is a file URL.
 //
 // # Discussion
@@ -2438,7 +2385,6 @@ func (u NSURL) FileURL() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isFileURL"))
 	return rv
 }
-
 // The URL string for the receiver as an absolute URL. (read-only)
 //
 // # Discussion
@@ -2451,7 +2397,6 @@ func (u NSURL) AbsoluteString() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("absoluteString"))
 	return NSStringFromID(rv).String()
 }
-
 // An absolute URL that refers to the same resource as the receiver.
 // (read-only)
 //
@@ -2465,7 +2410,6 @@ func (u NSURL) AbsoluteURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("absoluteURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The base URL. (read-only)
 //
 // # Discussion
@@ -2478,7 +2422,6 @@ func (u NSURL) BaseURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("baseURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // A C string containing the URL’s file system path. (read-only)
 //
 // # Discussion
@@ -2499,7 +2442,6 @@ func (u NSURL) FileSystemRepresentation() string {
 	rv := objc.Send[*byte](u.ID, objc.Sel("fileSystemRepresentation"))
 	return objc.GoString(rv)
 }
-
 // The fragment identifier, conforming to RFC 1808. (read-only)
 //
 // # Discussion
@@ -2515,7 +2457,6 @@ func (u NSURL) Fragment() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("fragment"))
 	return NSStringFromID(rv).String()
 }
-
 // The host, conforming to RFC 1808. (read-only)
 //
 // # Discussion
@@ -2533,7 +2474,6 @@ func (u NSURL) Host() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("host"))
 	return NSStringFromID(rv).String()
 }
-
 // The last path component. (read-only)
 //
 // # Discussion
@@ -2549,7 +2489,6 @@ func (u NSURL) LastPathComponent() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("lastPathComponent"))
 	return NSStringFromID(rv).String()
 }
-
 // The password conforming to RFC 1808. (read-only)
 //
 // # Discussion
@@ -2565,7 +2504,6 @@ func (u NSURL) Password() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("password"))
 	return NSStringFromID(rv).String()
 }
-
 // The path, conforming to RFC 1808. (read-only)
 //
 // # Discussion
@@ -2604,7 +2542,6 @@ func (u NSURL) Path() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("path"))
 	return NSStringFromID(rv).String()
 }
-
 // An array containing the path components. (read-only)
 //
 // # Discussion
@@ -2621,7 +2558,6 @@ func (u NSURL) PathComponents() []string {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("pathComponents"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The path extension. (read-only)
 //
 // # Return Value
@@ -2641,7 +2577,6 @@ func (u NSURL) PathExtension() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("pathExtension"))
 	return NSStringFromID(rv).String()
 }
-
 // The port, conforming to RFC 1808.
 //
 // # Discussion
@@ -2655,7 +2590,6 @@ func (u NSURL) Port() INSNumber {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("port"))
 	return NSNumberFromID(objc.ID(rv))
 }
-
 // The query string, conforming to RFC 1808.
 //
 // # Discussion
@@ -2671,7 +2605,6 @@ func (u NSURL) Query() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("query"))
 	return NSStringFromID(rv).String()
 }
-
 // The relative path, conforming to RFC 1808. (read-only)
 //
 // # Discussion
@@ -2687,7 +2620,6 @@ func (u NSURL) RelativePath() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("relativePath"))
 	return NSStringFromID(rv).String()
 }
-
 // A string representation of the relative portion of the URL. (read-only)
 //
 // # Discussion
@@ -2701,7 +2633,6 @@ func (u NSURL) RelativeString() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("relativeString"))
 	return NSStringFromID(rv).String()
 }
-
 // The resource specifier. (read-only)
 //
 // # Discussion
@@ -2718,7 +2649,6 @@ func (u NSURL) ResourceSpecifier() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("resourceSpecifier"))
 	return NSStringFromID(rv).String()
 }
-
 // The scheme. (read-only)
 //
 // # Discussion
@@ -2735,7 +2665,6 @@ func (u NSURL) Scheme() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("scheme"))
 	return NSStringFromID(rv).String()
 }
-
 // A copy of the URL with any instances of `".."` or `"."` removed from its
 // path. (read-only)
 //
@@ -2750,7 +2679,6 @@ func (u NSURL) StandardizedURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("standardizedURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The user name, conforming to RFC 1808.
 //
 // # Discussion
@@ -2767,7 +2695,6 @@ func (u NSURL) User() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("user"))
 	return NSStringFromID(rv).String()
 }
-
 // A file path URL that points to the same resource as the URL object.
 // (read-only)
 //
@@ -2784,7 +2711,6 @@ func (u NSURL) FilePathURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("filePathURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // A URL you create by removing the last path component from the receiver.
 // (read-only)
 //
@@ -2799,7 +2725,6 @@ func (u NSURL) URLByDeletingLastPathComponent() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByDeletingLastPathComponent"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // A URL you create by removing the path extension from the receiver, if any.
 // (read-only)
 //
@@ -2814,7 +2739,6 @@ func (u NSURL) URLByDeletingPathExtension() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByDeletingPathExtension"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // A URL that points to the same resource as the receiver and includes no
 // symbolic links. (read-only)
 //
@@ -2838,7 +2762,6 @@ func (u NSURL) URLByResolvingSymlinksInPath() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByResolvingSymlinksInPath"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // A URL that points to the same resource as the original URL using an
 // absolute path. (read-only)
 //
@@ -2874,7 +2797,6 @@ func (u NSURL) URLByStandardizingPath() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLByStandardizingPath"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the URL string’s path represents a
 // directory.
 //
@@ -2887,7 +2809,6 @@ func (u NSURL) HasDirectoryPath() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("hasDirectoryPath"))
 	return rv
 }
-
 // A custom playground Quick Look for this instance.
 //
 // See: https://developer.apple.com/documentation/foundation/nsurl/customplaygroundquicklook
@@ -2898,7 +2819,6 @@ func (u NSURL) CustomPlaygroundQuickLook() objectivec.IObject {
 func (u NSURL) SetCustomPlaygroundQuickLook(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setCustomPlaygroundQuickLook:"), value)
 }
-
 // An array of UTI strings representing the types of data that can be loaded
 // for an item provider.
 //

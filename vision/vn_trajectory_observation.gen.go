@@ -122,7 +122,6 @@ func (t VNTrajectoryObservation) DetectedPoints() []VNPoint {
 		return VNPointFromID(id)
 	})
 }
-
 // The centroids of the calculated trajectory from the detected points.
 //
 // # Discussion
@@ -140,7 +139,6 @@ func (t VNTrajectoryObservation) ProjectedPoints() []VNPoint {
 		return VNPointFromID(id)
 	})
 }
-
 // The coefficients of the parabolic equation.
 //
 // # Discussion
@@ -153,7 +151,6 @@ func (t VNTrajectoryObservation) EquationCoefficients() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("equationCoefficients"))
 	return objectivec.Object{ID: rv}
 }
-
 // The moving average radius of the object the request is tracking.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrajectoryObservation/movingAverageRadius
@@ -161,7 +158,6 @@ func (t VNTrajectoryObservation) MovingAverageRadius() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("movingAverageRadius"))
 	return rv
 }
-
 // The array of detected trajectory observations.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecttrajectoriesrequest/results

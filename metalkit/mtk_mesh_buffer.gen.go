@@ -150,7 +150,6 @@ func (m MTKMeshBuffer) Allocator() IMTKMeshBufferAllocator {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("allocator"))
 	return MTKMeshBufferAllocatorFromID(objc.ID(rv))
 }
-
 // The type of data contained in the originating Model I/O buffer.
 //
 // # Discussion
@@ -165,7 +164,6 @@ func (m MTKMeshBuffer) Type() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("type"))
 	return objectivec.Object{ID: rv}
 }
-
 // The Metal buffer backing all vertex and index data.
 //
 // # Discussion
@@ -181,7 +179,6 @@ func (m MTKMeshBuffer) Buffer() metal.MTLBuffer {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("buffer"))
 	return metal.MTLBufferObjectFromID(rv)
 }
-
 // The logical size of the Metal buffer, in bytes.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer/length
@@ -189,7 +186,6 @@ func (m MTKMeshBuffer) Length() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("length"))
 	return rv
 }
-
 // The byte offset of the data within the Metal buffer.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMeshBuffer/offset

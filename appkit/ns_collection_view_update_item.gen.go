@@ -120,7 +120,6 @@ func (c NSCollectionViewUpdateItem) IndexPathBeforeUpdate() objc.ID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathBeforeUpdate"))
 	return rv
 }
-
 // The index path of the item after the update.
 //
 // # Discussion
@@ -135,7 +134,6 @@ func (c NSCollectionViewUpdateItem) IndexPathAfterUpdate() objc.ID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathAfterUpdate"))
 	return rv
 }
-
 // The action being performed on the item.
 //
 // # Discussion

@@ -100,7 +100,6 @@ _block2, _cleanup2 := NewVoidBlock(block)
 	defer _cleanup2()
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:"), storage, network, _block2)
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, block VoidHandler, index VoidHandler) {
@@ -110,7 +109,6 @@ _block2, _cleanup2 := NewVoidBlock(block)
 	defer _cleanup3()
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:"), storage, network, _block2, _block3)
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, network2 objectivec.IObject, block VoidHandler, index VoidHandler) {

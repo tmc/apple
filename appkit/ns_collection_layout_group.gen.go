@@ -188,7 +188,6 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) HorizontalGrou
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("horizontalGroupWithLayoutSize:subitems:"), layoutSize, objectivec.IObjectSliceToNSArray(subitems))
 	return NSCollectionLayoutGroupFromID(rv)
 }
-
 // Creates a group of the specified size, containing an array of equally sized
 // items arranged in a horizontal line up to the number specified by count.
 //
@@ -203,7 +202,6 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) HorizontalGrou
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("horizontalGroupWithLayoutSize:subitem:count:"), layoutSize, subitem, count)
 	return NSCollectionLayoutGroupFromID(rv)
 }
-
 // Creates a group of the specified size, containing an array of items
 // arranged in a vertical line.
 //
@@ -216,7 +214,6 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) VerticalGroupW
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("verticalGroupWithLayoutSize:subitems:"), layoutSize, objectivec.IObjectSliceToNSArray(subitems))
 	return NSCollectionLayoutGroupFromID(rv)
 }
-
 // Creates a group of the specified size, containing an array of equally sized
 // items arranged in a vertical line up to the number specified by count.
 //
@@ -231,7 +228,6 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) VerticalGroupW
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("verticalGroupWithLayoutSize:subitem:count:"), layoutSize, subitem, count)
 	return NSCollectionLayoutGroupFromID(rv)
 }
-
 // Creates a group of the specified size, with an item provider that creates a
 // custom arrangement for those items.
 //
@@ -250,7 +246,6 @@ func (c NSCollectionLayoutGroup) Subitems() []NSCollectionLayoutItem {
 		return NSCollectionLayoutItemFromID(id)
 	})
 }
-
 // The amount of space between the items in the group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/interItemSpacing

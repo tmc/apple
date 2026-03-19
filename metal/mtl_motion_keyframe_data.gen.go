@@ -129,7 +129,6 @@ func (m MTLMotionKeyframeData) Buffer() MTLBuffer {
 func (m MTLMotionKeyframeData) SetBuffer(value MTLBuffer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBuffer:"), value)
 }
-
 // The offset, in bytes, to the keyframe data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLMotionKeyframeData/offset

@@ -120,7 +120,6 @@ func (m MTL4BinaryFunctionDescriptor) FunctionDescriptor() IMTL4FunctionDescript
 func (m MTL4BinaryFunctionDescriptor) SetFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptor:"), value)
 }
-
 // Associates a string that uniquely identifies a binary function.
 //
 // # Discussion
@@ -136,7 +135,6 @@ func (m MTL4BinaryFunctionDescriptor) Name() string {
 func (m MTL4BinaryFunctionDescriptor) SetName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // Configure the options to use at binary function creation time.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4BinaryFunctionDescriptor/options

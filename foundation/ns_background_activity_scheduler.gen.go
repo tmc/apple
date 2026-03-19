@@ -160,10 +160,6 @@ func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivitySchedul
 //
 //   - [NSBackgroundActivityScheduler.InitWithIdentifier]: Initializes a background activity scheduler object with a specified unique identifier.
 //
-// # Scheduling Activity
-//
-//   - [NSBackgroundActivityScheduler.ScheduleWithBlock]: Begins scheduling the background activity.
-//
 // # Stopping Scheduled Activity
 //
 //   - [NSBackgroundActivityScheduler.Invalidate]: Prevents the background activity from being scheduled again.
@@ -202,10 +198,6 @@ func NSBackgroundActivitySchedulerFromID(id objc.ID) NSBackgroundActivitySchedul
 //
 //   - [INSBackgroundActivityScheduler.InitWithIdentifier]: Initializes a background activity scheduler object with a specified unique identifier.
 //
-// # Scheduling Activity
-//
-//   - [INSBackgroundActivityScheduler.ScheduleWithBlock]: Begins scheduling the background activity.
-//
 // # Stopping Scheduled Activity
 //
 //   - [INSBackgroundActivityScheduler.Invalidate]: Prevents the background activity from being scheduled again.
@@ -237,11 +229,6 @@ type INSBackgroundActivityScheduler interface {
 
 	// Initializes a background activity scheduler object with a specified unique identifier.
 	InitWithIdentifier(identifier string) NSBackgroundActivityScheduler
-
-	// Topic: Scheduling Activity
-
-	// Begins scheduling the background activity.
-	ScheduleWithBlock(block NSBackgroundActivityCompletionHandler)
 
 	// Topic: Stopping Scheduled Activity
 
@@ -320,33 +307,6 @@ func (b NSBackgroundActivityScheduler) InitWithIdentifier(identifier string) NSB
 	rv := objc.Send[NSBackgroundActivityScheduler](b.ID, objc.Sel("initWithIdentifier:"), objc.String(identifier))
 	return rv
 }
-
-// Begins scheduling the background activity.
-//
-// block: A block of code to execute when the scheduler runs. This block will be
-// called on a serial background queue appropriate for the level of quality of
-// service specified. See [QualityOfService].
-//
-// # Discussion
-// 
-// When your block is called, it’s passed a completion handler as an
-// argument. Configure the block to invoke this handler, passing it a result
-// of type [NSBackgroundActivityScheduler.Result] to indicate whether the
-// activity finished ([BackgroundActivityResultFinished]) or should be
-// deferred ([BackgroundActivityResultDeferred]) and rescheduled for a later
-// time. Failure to invoke the completion handler results in the activity not
-// being rescheduled. For work that will be deferred and rescheduled, the
-// block may optionally adjust scheduler properties, such as [Interval] or
-// [Tolerance], before calling the completion handler. See
-// [NSBackgroundActivityScheduler].
-//
-// [NSBackgroundActivityScheduler.Result]: https://developer.apple.com/documentation/Foundation/NSBackgroundActivityScheduler/Result
-//
-// See: https://developer.apple.com/documentation/Foundation/NSBackgroundActivityScheduler/schedule(_:)
-func (b NSBackgroundActivityScheduler) ScheduleWithBlock(block NSBackgroundActivityCompletionHandler) {
-	objc.Send[objc.ID](b.ID, objc.Sel("scheduleWithBlock:"), block)
-}
-
 // Prevents the background activity from being scheduled again.
 //
 // # Discussion
@@ -377,7 +337,6 @@ func (b NSBackgroundActivityScheduler) Identifier() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("identifier"))
 	return NSStringFromID(rv).String()
 }
-
 // A Boolean value indicating whether the activity should be rescheduled after
 // it completes.
 //
@@ -396,7 +355,6 @@ func (b NSBackgroundActivityScheduler) Repeats() bool {
 func (b NSBackgroundActivityScheduler) SetRepeats(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setRepeats:"), value)
 }
-
 // An integer providing a suggested interval between scheduling and invoking
 // the activity.
 //
@@ -413,7 +371,6 @@ func (b NSBackgroundActivityScheduler) Interval() float64 {
 func (b NSBackgroundActivityScheduler) SetInterval(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setInterval:"), value)
 }
-
 // A value of type [NSQualityOfService], which controls how aggressively the
 // system schedules the activity.
 //
@@ -442,7 +399,6 @@ func (b NSBackgroundActivityScheduler) QualityOfService() QualityOfService {
 func (b NSBackgroundActivityScheduler) SetQualityOfService(value QualityOfService) {
 	objc.Send[struct{}](b.ID, objc.Sel("setQualityOfService:"), value)
 }
-
 // A Boolean value indicating whether your app should stop performing
 // background activity and resume at a more optimal time.
 //
@@ -466,7 +422,6 @@ func (b NSBackgroundActivityScheduler) ShouldDefer() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("shouldDefer"))
 	return rv
 }
-
 // A value of type [NSTimeInterval], which specifies a range of time during
 // which the background activity may occur.
 //

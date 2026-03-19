@@ -41,7 +41,6 @@ func MLWritableObjectFromID(id objc.ID) MLWritableObject {
 // url: The location in the file system where the file should be written.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLWritable/write(to:)
-
 func (o MLWritableObject) WriteToURLError(url foundation.INSURL) (bool, error) {
 	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("writeToURL:error:"), url)

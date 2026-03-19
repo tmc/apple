@@ -174,7 +174,6 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointNamesAndReturnError() ([]str
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
-
 // Retrieves the supported joint group names.
 //
 // error: If an error occurs, an error object that describes the error; otherwise,
@@ -209,7 +208,6 @@ func (d VNDetectHumanHandPoseRequest) MaximumHandCount() uint {
 func (d VNDetectHumanHandPoseRequest) SetMaximumHandCount(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumHandCount:"), value)
 }
-
 // Retrieves the supported joint names.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequest/supportedjointnames
@@ -220,7 +218,6 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointNames() VNHumanHandPoseObser
 func (d VNDetectHumanHandPoseRequest) SetSupportedJointNames(value VNHumanHandPoseObservationJointName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
 }
-
 // Retrieves the supported joint group names.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequest/supportedjointsgroupnames
@@ -231,7 +228,6 @@ func (d VNDetectHumanHandPoseRequest) SupportedJointsGroupNames() VNHumanHandPos
 func (d VNDetectHumanHandPoseRequest) SetSupportedJointsGroupNames(value VNHumanHandPoseObservationJointsGroupName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
 }
-
 // A constant for specifying revision 1 of the hand pose detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanhandposerequestrevision1

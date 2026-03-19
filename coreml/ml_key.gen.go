@@ -114,7 +114,6 @@ func (k MLKey) Name() string {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The applicable scope of the machine learning key.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLKey/scope

@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -314,7 +315,6 @@ func (e NSError) InitWithDomainCodeUserInfo(domain NSErrorDomain, code int, dict
 	rv := objc.Send[NSError](e.ID, objc.Sel("initWithDomain:code:userInfo:"), objc.String(string(domain)), code, dict)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -323,7 +323,6 @@ func (e NSError) InitWithDomainCodeUserInfo(domain NSErrorDomain, code int, dict
 func (e NSError) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (e NSError) InitWithCoder(coder INSCoder) NSError {
@@ -374,10 +373,10 @@ func (e NSError) InitWithCoder(coder INSCoder) NSError {
 // [NSLocalizedDescriptionKey]: https://developer.apple.com/documentation/Foundation/NSLocalizedDescriptionKey
 //
 // See: https://developer.apple.com/documentation/Foundation/NSError/setUserInfoValueProvider(forDomain:provider:)
-func (_NSErrorClass NSErrorClass) SetUserInfoValueProviderForDomainProvider(errorDomain NSErrorDomain, provider NSErrorUserInfoKey) {
-	objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("setUserInfoValueProviderForDomain:provider:"), objc.String(string(errorDomain)), objc.String(string(provider)))
+func (_NSErrorClass NSErrorClass) SetUserInfoValueProviderForDomainProvider(errorDomain NSErrorDomain, provider ErrorHandler) {
+_block1, _ := NewErrorBlock(provider)
+	objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("setUserInfoValueProviderForDomain:provider:"), objc.String(string(errorDomain)), _block1)
 }
-
 // Returns any user info provider specified for a given error domain.
 //
 // errorDomain: The error domain of the user info provider.
@@ -390,7 +389,6 @@ func (_NSErrorClass NSErrorClass) SetUserInfoValueProviderForDomainProvider(erro
 func (_NSErrorClass NSErrorClass) UserInfoValueProviderForDomain(errorDomain NSErrorDomain) {
 	objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("userInfoValueProviderForDomain:"), objc.String(string(errorDomain)))
 }
-
 // Returns a properly formatted error object with a
 // [NSFileProviderItemCollisionError] error code.
 //
@@ -399,21 +397,18 @@ func (_NSErrorClass NSErrorClass) FileProviderErrorForCollisionWithItem(existing
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForCollisionWithItem:"), existingItem)
 	return NSErrorFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForNonExistentItem(withIdentifier:)
 func (_NSErrorClass NSErrorClass) FileProviderErrorForNonExistentItemWithIdentifier(itemIdentifier INSString) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForNonExistentItemWithIdentifier:"), itemIdentifier)
 	return NSErrorFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForRejectedDeletion(of:)
 func (_NSErrorClass NSErrorClass) FileProviderErrorForRejectedDeletionOfItem(updatedVersion objectivec.Id) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForRejectedDeletionOfItem:"), updatedVersion)
 	return NSErrorFromID(rv)
 }
-
 // Creates and initializes an [NSError] object for a given domain and code
 // with a given `userInfo` dictionary.
 //
@@ -447,7 +442,6 @@ func (e NSError) Code() int {
 	rv := objc.Send[int](e.ID, objc.Sel("code"))
 	return rv
 }
-
 // A string containing the error domain.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSError/domain
@@ -455,7 +449,6 @@ func (e NSError) Domain() NSErrorDomain {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("domain"))
 	return NSErrorDomain(NSStringFromID(rv).String())
 }
-
 // The user info dictionary.
 //
 // # Discussion
@@ -470,7 +463,6 @@ func (e NSError) UserInfo() INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("userInfo"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // A string containing the localized description of the error.
 //
 // # Discussion
@@ -487,7 +479,6 @@ func (e NSError) LocalizedDescription() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("localizedDescription"))
 	return NSStringFromID(rv).String()
 }
-
 // An array containing the localized titles of buttons appropriate for
 // displaying in an alert panel.
 //
@@ -511,7 +502,6 @@ func (e NSError) LocalizedRecoveryOptions() []string {
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("localizedRecoveryOptions"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // A string containing the localized recovery suggestion for the error.
 //
 // # Discussion
@@ -531,7 +521,6 @@ func (e NSError) LocalizedRecoverySuggestion() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("localizedRecoverySuggestion"))
 	return NSStringFromID(rv).String()
 }
-
 // A string containing the localized explanation of the reason for the error.
 //
 // # Discussion
@@ -546,7 +535,6 @@ func (e NSError) LocalizedFailureReason() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("localizedFailureReason"))
 	return NSStringFromID(rv).String()
 }
-
 // The object in the user info dictionary corresponding to the
 // [NSRecoveryAttempterErrorKey] key.
 //
@@ -569,7 +557,6 @@ func (e NSError) RecoveryAttempter() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("recoveryAttempter"))
 	return objectivec.Object{ID: rv}
 }
-
 // A string to display in response to an alert panel help anchor button being
 // pressed.
 //
@@ -591,7 +578,6 @@ func (e NSError) HelpAnchor() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("helpAnchor"))
 	return NSStringFromID(rv).String()
 }
-
 // Cocoa errors
 //
 // See: https://developer.apple.com/documentation/foundation/nscocoaerrordomain
@@ -599,7 +585,6 @@ func (e NSError) NSCocoaErrorDomain() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSCocoaErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // POSIX/BSD errors
 //
 // See: https://developer.apple.com/documentation/foundation/nsposixerrordomain
@@ -607,7 +592,6 @@ func (e NSError) NSPOSIXErrorDomain() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSPOSIXErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // Mac OS 9/Carbon errors
 //
 // See: https://developer.apple.com/documentation/foundation/nsosstatuserrordomain
@@ -615,7 +599,6 @@ func (e NSError) NSOSStatusErrorDomain() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSOSStatusErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // Mach errors
 //
 // See: https://developer.apple.com/documentation/foundation/nsmacherrordomain
@@ -623,7 +606,6 @@ func (e NSError) NSMachErrorDomain() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSMachErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // URL loading system errors
 //
 // See: https://developer.apple.com/documentation/foundation/nsurlerrordomain
@@ -631,7 +613,6 @@ func (e NSError) NSURLErrorDomain() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSURLErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // The error domain used by
 //
 // See: https://developer.apple.com/documentation/foundation/nsstreamsockserrordomain
@@ -639,7 +620,6 @@ func (e NSError) NSStreamSOCKSErrorDomain() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSStreamSOCKSErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // The error domain used by
 //
 // See: https://developer.apple.com/documentation/foundation/nsstreamsocketsslerrordomain
@@ -647,7 +627,6 @@ func (e NSError) NSStreamSocketSSLErrorDomain() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("NSStreamSocketSSLErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSError/underlyingErrors
 func (e NSError) UnderlyingErrors() []NSError {
 	rv := objc.Send[[]objc.ID](e.ID, objc.Sel("underlyingErrors"))
@@ -655,7 +634,6 @@ func (e NSError) UnderlyingErrors() []NSError {
 		return NSErrorFromID(id)
 	})
 }
-
 // The corresponding value is an object that conforms to the
 // NSErrorRecoveryAttempting informal protocol.
 //
@@ -670,6 +648,21 @@ func (e NSError) NSRecoveryAttempterErrorKey() string {
 
 			// Protocol methods for NSSecureCoding
 			
+
+// SetUserInfoValueProviderForDomainProviderSync is a synchronous wrapper around [NSError.SetUserInfoValueProviderForDomainProvider].
+// It blocks until the completion handler fires or the context is cancelled.
+func (ec NSErrorClass) SetUserInfoValueProviderForDomainProviderSync(ctx context.Context, errorDomain NSErrorDomain) error {
+	done := make(chan error, 1)
+	ec.SetUserInfoValueProviderForDomainProvider(errorDomain, func(err error) {
+		done <- err
+	})
+	select {
+	case err := <-done:
+		return err
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
 
 func (n_ NSError) Error() string {
 	desc := any(n_.LocalizedDescription())

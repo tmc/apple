@@ -329,7 +329,7 @@ type INSRegularExpression interface {
 	// Returns the number of matches of the regular expression within the specified range of the string.
 	NumberOfMatchesInStringOptionsRange(string_ string, options NSMatchingOptions, range_ NSRange) uint
 	// Enumerates the string allowing the Block to handle each regular expression match.
-	EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block unsafe.Pointer)
+	EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block TextCheckingResultMatchingFlagsHandler)
 	// Returns an array containing all the matches of the regular expression in the string.
 	MatchesInStringOptionsRange(string_ string, options NSMatchingOptions, range_ NSRange) []NSTextCheckingResult
 	// Returns the first match of the regular expression within the specified range of the string.
@@ -450,7 +450,6 @@ func (r NSRegularExpression) InitWithPatternOptionsError(pattern string, options
 	return NSRegularExpressionFromID(rv), nil
 
 }
-
 // Returns the number of matches of the regular expression within the
 // specified range of the string.
 //
@@ -477,7 +476,6 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 	rv := objc.Send[uint](r.ID, objc.Sel("numberOfMatchesInString:options:range:"), objc.String(string_), options, range_)
 	return rv
 }
-
 // Enumerates the string allowing the Block to handle each regular expression
 // match.
 //
@@ -574,10 +572,11 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/enumerateMatches(in:options:range:using:)
-func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block unsafe.Pointer) {
-	objc.Send[objc.ID](r.ID, objc.Sel("enumerateMatchesInString:options:range:usingBlock:"), objc.String(string_), options, range_, block)
+func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block TextCheckingResultMatchingFlagsHandler) {
+_block3, _cleanup3 := NewTextCheckingResultMatchingFlagsBlock(block)
+	defer _cleanup3()
+	objc.Send[objc.ID](r.ID, objc.Sel("enumerateMatchesInString:options:range:usingBlock:"), objc.String(string_), options, range_, _block3)
 }
-
 // Returns an array containing all the matches of the regular expression in
 // the string.
 //
@@ -611,7 +610,6 @@ func (r NSRegularExpression) MatchesInStringOptionsRange(string_ string, options
 		return NSTextCheckingResultFromID(id)
 	})
 }
-
 // Returns the first match of the regular expression within the specified
 // range of the string.
 //
@@ -642,7 +640,6 @@ func (r NSRegularExpression) FirstMatchInStringOptionsRange(string_ string, opti
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("firstMatchInString:options:range:"), objc.String(string_), options, range_)
 	return NSTextCheckingResultFromID(rv)
 }
-
 // Returns the range of the first match of the regular expression within the
 // specified range of the string.
 //
@@ -670,7 +667,6 @@ func (r NSRegularExpression) RangeOfFirstMatchInStringOptionsRange(string_ strin
 	rv := objc.Send[NSRange](r.ID, objc.Sel("rangeOfFirstMatchInString:options:range:"), objc.String(string_), options, range_)
 	return NSRange(rv)
 }
-
 // Replaces regular expression matches within the mutable string using the
 // template string.
 //
@@ -698,7 +694,6 @@ func (r NSRegularExpression) ReplaceMatchesInStringOptionsRangeWithTemplate(stri
 	rv := objc.Send[uint](r.ID, objc.Sel("replaceMatchesInString:options:range:withTemplate:"), string_, options, range_, objc.String(templ))
 	return rv
 }
-
 // Returns a new string containing matching regular expressions replaced with
 // the template string.
 //
@@ -726,7 +721,6 @@ func (r NSRegularExpression) StringByReplacingMatchesInStringOptionsRangeWithTem
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("stringByReplacingMatchesInString:options:range:withTemplate:"), objc.String(string_), options, range_, objc.String(templ))
 	return NSStringFromID(rv).String()
 }
-
 // Used to perform template substitution for a single result for clients
 // implementing their own replace functionality.
 //
@@ -760,7 +754,6 @@ func (r NSRegularExpression) ReplacementStringForResultInStringOffsetTemplate(re
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("replacementStringForResult:inString:offset:template:"), result, objc.String(string_), offset, objc.String(templ))
 	return NSStringFromID(rv).String()
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -769,7 +762,6 @@ func (r NSRegularExpression) ReplacementStringForResultInStringOffsetTemplate(re
 func (r NSRegularExpression) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (r NSRegularExpression) InitWithCoder(coder INSCoder) NSRegularExpression {
@@ -804,7 +796,6 @@ func (_NSRegularExpressionClass NSRegularExpressionClass) EscapedTemplateForStri
 	rv := objc.Send[objc.ID](objc.ID(_NSRegularExpressionClass.class), objc.Sel("escapedTemplateForString:"), objc.String(string_))
 	return NSStringFromID(rv).String()
 }
-
 // Returns a string by adding backslash escapes as necessary to protect any
 // characters that would match as pattern metacharacters.
 //
@@ -830,7 +821,6 @@ func (_NSRegularExpressionClass NSRegularExpressionClass) EscapedPatternForStrin
 	rv := objc.Send[objc.ID](objc.ID(_NSRegularExpressionClass.class), objc.Sel("escapedPatternForString:"), objc.String(string_))
 	return NSStringFromID(rv).String()
 }
-
 // Creates an NSRegularExpression instance with the specified regular
 // expression pattern and options.
 //
@@ -869,7 +859,6 @@ func (r NSRegularExpression) Pattern() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("pattern"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the options used when the regular expression option was created.
 //
 // # Discussion
@@ -887,7 +876,6 @@ func (r NSRegularExpression) Options() NSRegularExpressionOptions {
 	rv := objc.Send[NSRegularExpressionOptions](r.ID, objc.Sel("options"))
 	return NSRegularExpressionOptions(rv)
 }
-
 // Returns the number of capture groups in the regular expression.
 //
 // # Discussion
@@ -908,7 +896,6 @@ func (r NSRegularExpression) NumberOfCaptureGroups() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("numberOfCaptureGroups"))
 	return rv
 }
-
 // A value indicating that a requested item couldn’t be found or doesn’t
 // exist.
 //
@@ -920,7 +907,6 @@ func (r NSRegularExpression) NSNotFound() int {
 func (r NSRegularExpression) SetNSNotFound(value int) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSNotFound:"), value)
 }
-
 // Returns the range of the result that the receiver represents.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/range
@@ -931,7 +917,6 @@ func (r NSRegularExpression) Range() NSRange {
 func (r NSRegularExpression) SetRange(value NSRange) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRange:"), value)
 }
-
 // Matches a regular expression.
 //
 // See: https://developer.apple.com/documentation/foundation/nstextcheckingresult/checkingtype/regularexpression
@@ -942,7 +927,6 @@ func (r NSRegularExpression) RegularExpression() NSTextCheckingType {
 func (r NSRegularExpression) SetRegularExpression(value NSTextCheckingType) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSTextCheckingTypeRegularExpression:"), value)
 }
-
 // Call the Block once after the completion of any matching. This option has
 // no effect for methods other than
 //
@@ -954,7 +938,6 @@ func (r NSRegularExpression) ReportCompletion() NSMatchingOptions {
 func (r NSRegularExpression) SetReportCompletion(value NSMatchingOptions) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNSMatchingReportCompletion:"), value)
 }
-
 // Call the Block periodically during long-running match operations. This
 // option has no effect for methods other than
 //

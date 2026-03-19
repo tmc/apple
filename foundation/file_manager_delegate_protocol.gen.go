@@ -60,13 +60,11 @@ func NSFileManagerDelegateObjectFromID(id objc.ID) NSFileManagerDelegateObject {
 // method in macOS 10.6 and later.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldMoveItemAt:to:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldMoveItemAtURLToURL(fileManager INSFileManager, srcURL INSURL, dstURL INSURL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldMoveItemAtURL:toURL:"), fileManager, srcURL, dstURL)
 	return rv
 	}
-
 // Asks the delegate if the file manager should move the specified item to the
 // new path.
 //
@@ -94,13 +92,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldMoveItemAtURLToURL(fileMan
 // method in macOS 10.6 and later.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldMoveItemAtPath:toPath:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldMoveItemAtPathToPath(fileManager INSFileManager, srcPath string, dstPath string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldMoveItemAtPath:toPath:"), fileManager, objc.String(srcPath), objc.String(dstPath))
 	return rv
 	}
-
 // Asks the delegate if the move operation should continue after an error
 // occurs while moving the item at the specified URL.
 //
@@ -135,13 +131,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldMoveItemAtPathToPath(fileM
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldProceedAfterError:movingItemAt:to:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorMovingItemAtURLToURL(fileManager INSFileManager, error_ INSError, srcURL INSURL, dstURL INSURL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldProceedAfterError:movingItemAtURL:toURL:"), fileManager, error_, srcURL, dstURL)
 	return rv
 	}
-
 // Asks the delegate if the move operation should continue after an error
 // occurs while moving the item at the specified path.
 //
@@ -176,13 +170,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorMovingIte
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldProceedAfterError:movingItemAtPath:toPath:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorMovingItemAtPathToPath(fileManager INSFileManager, error_ INSError, srcPath string, dstPath string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldProceedAfterError:movingItemAtPath:toPath:"), fileManager, error_, objc.String(srcPath), objc.String(dstPath))
 	return rv
 	}
-
 // Asks the delegate if the file manager should copy the specified item to the
 // new URL.
 //
@@ -212,13 +204,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorMovingIte
 // method in macOS 10.6 and later.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldCopyItemAt:to:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldCopyItemAtURLToURL(fileManager INSFileManager, srcURL INSURL, dstURL INSURL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldCopyItemAtURL:toURL:"), fileManager, srcURL, dstURL)
 	return rv
 	}
-
 // Asks the delegate if the file manager should copy the specified item to the
 // new path.
 //
@@ -248,13 +238,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldCopyItemAtURLToURL(fileMan
 // method in macOS 10.6 and later.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldCopyItemAtPath:toPath:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldCopyItemAtPathToPath(fileManager INSFileManager, srcPath string, dstPath string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldCopyItemAtPath:toPath:"), fileManager, objc.String(srcPath), objc.String(dstPath))
 	return rv
 	}
-
 // Asks the delegate if the move operation should continue after an error
 // occurs while copying the item at the specified URL.
 //
@@ -289,13 +277,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldCopyItemAtPathToPath(fileM
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldProceedAfterError:copyingItemAt:to:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorCopyingItemAtURLToURL(fileManager INSFileManager, error_ INSError, srcURL INSURL, dstURL INSURL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldProceedAfterError:copyingItemAtURL:toURL:"), fileManager, error_, srcURL, dstURL)
 	return rv
 	}
-
 // Asks the delegate if the move operation should continue after an error
 // occurs while copying the item at the specified path.
 //
@@ -330,13 +316,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorCopyingIt
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldProceedAfterError:copyingItemAtPath:toPath:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorCopyingItemAtPathToPath(fileManager INSFileManager, error_ INSError, srcPath string, dstPath string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldProceedAfterError:copyingItemAtPath:toPath:"), fileManager, error_, objc.String(srcPath), objc.String(dstPath))
 	return rv
 	}
-
 // Asks the delegate whether the item at the specified URL should be deleted.
 //
 // fileManager: The file manager object that is attempting to remove the file or directory.
@@ -365,13 +349,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorCopyingIt
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldRemoveItemAt:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldRemoveItemAtURL(fileManager INSFileManager, URL INSURL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldRemoveItemAtURL:"), fileManager, URL)
 	return rv
 	}
-
 // Asks the delegate whether the item at the specified path should be deleted.
 //
 // fileManager: The file manager object that is attempting to remove the file or directory.
@@ -400,13 +382,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldRemoveItemAtURL(fileManage
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldRemoveItemAtPath:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldRemoveItemAtPath(fileManager INSFileManager, path string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldRemoveItemAtPath:"), fileManager, objc.String(path))
 	return rv
 	}
-
 // Asks the delegate if the operation should continue after an error occurs
 // while removing the item at the specified URL.
 //
@@ -438,13 +418,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldRemoveItemAtPath(fileManag
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldProceedAfterError:removingItemAt:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorRemovingItemAtURL(fileManager INSFileManager, error_ INSError, URL INSURL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldProceedAfterError:removingItemAtURL:"), fileManager, error_, URL)
 	return rv
 	}
-
 // Asks the delegate if the operation should continue after an error occurs
 // while removing the item at the specified path.
 //
@@ -476,13 +454,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorRemovingI
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldProceedAfterError:removingItemAtPath:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorRemovingItemAtPath(fileManager INSFileManager, error_ INSError, path string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldProceedAfterError:removingItemAtPath:"), fileManager, error_, objc.String(path))
 	return rv
 	}
-
 // Asks the delegate if a hard link should be created between the items at the
 // two URLs.
 //
@@ -512,13 +488,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorRemovingI
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldLinkItemAt:to:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldLinkItemAtURLToURL(fileManager INSFileManager, srcURL INSURL, dstURL INSURL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldLinkItemAtURL:toURL:"), fileManager, srcURL, dstURL)
 	return rv
 	}
-
 // Asks the delegate if a hard link should be created between the items at the
 // two paths.
 //
@@ -549,13 +523,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldLinkItemAtURLToURL(fileMan
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldLinkItemAtPath:toPath:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldLinkItemAtPathToPath(fileManager INSFileManager, srcPath string, dstPath string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldLinkItemAtPath:toPath:"), fileManager, objc.String(srcPath), objc.String(dstPath))
 	return rv
 	}
-
 // Asks the delegate if the operation should continue after an error occurs
 // while linking to the item at the specified URL.
 //
@@ -590,13 +562,11 @@ func (o NSFileManagerDelegateObject) FileManagerShouldLinkItemAtPathToPath(fileM
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldProceedAfterError:linkingItemAt:to:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorLinkingItemAtURLToURL(fileManager INSFileManager, error_ INSError, srcURL INSURL, dstURL INSURL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldProceedAfterError:linkingItemAtURL:toURL:"), fileManager, error_, srcURL, dstURL)
 	return rv
 	}
-
 // Asks the delegate if the operation should continue after an error occurs
 // while linking to the item at the specified path.
 //
@@ -632,7 +602,6 @@ func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorLinkingIt
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManagerDelegate/fileManager(_:shouldProceedAfterError:linkingItemAtPath:toPath:)
-
 func (o NSFileManagerDelegateObject) FileManagerShouldProceedAfterErrorLinkingItemAtPathToPath(fileManager INSFileManager, error_ INSError, srcPath string, dstPath string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("fileManager:shouldProceedAfterError:linkingItemAtPath:toPath:"), fileManager, error_, objc.String(srcPath), objc.String(dstPath))

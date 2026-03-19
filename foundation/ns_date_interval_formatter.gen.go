@@ -215,7 +215,6 @@ func (d DateIntervalFormatter) StringFromDateToDate(fromDate INSDate, toDate INS
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stringFromDate:toDate:"), fromDate, toDate)
 	return NSStringFromID(rv).String()
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/DateIntervalFormatter/string(from:)
 func (d DateIntervalFormatter) StringFromDateInterval(dateInterval INSDateInterval) string {
@@ -238,7 +237,6 @@ func (d DateIntervalFormatter) DateStyle() NSDateIntervalFormatterStyle {
 func (d DateIntervalFormatter) SetDateStyle(value NSDateIntervalFormatterStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateStyle:"), value)
 }
-
 // The style to use when formatting hour, minute, and second information.
 //
 // # Discussion
@@ -254,7 +252,6 @@ func (d DateIntervalFormatter) TimeStyle() NSDateIntervalFormatterStyle {
 func (d DateIntervalFormatter) SetTimeStyle(value NSDateIntervalFormatterStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeStyle:"), value)
 }
-
 // The template for formatting one date and time value.
 //
 // # Discussion
@@ -282,7 +279,6 @@ func (d DateIntervalFormatter) DateTemplate() string {
 func (d DateIntervalFormatter) SetDateTemplate(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateTemplate:"), objc.String(value))
 }
-
 // The calendar to use for date values.
 //
 // # Discussion
@@ -299,7 +295,6 @@ func (d DateIntervalFormatter) Calendar() INSCalendar {
 func (d DateIntervalFormatter) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
-
 // The locale to use when formatting date and time values.
 //
 // # Discussion
@@ -316,7 +311,6 @@ func (d DateIntervalFormatter) Locale() INSLocale {
 func (d DateIntervalFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocale:"), value)
 }
-
 // The time zone with which to specify time values.
 //
 // # Discussion

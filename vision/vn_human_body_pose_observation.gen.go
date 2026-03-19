@@ -123,7 +123,6 @@ func (h VNHumanBodyPoseObservation) RecognizedPointForJointNameError(jointName V
 	return VNRecognizedPointFromID(rv), nil
 
 }
-
 // Retrieves the recognized points associated with the joint group name.
 //
 // jointsGroupName: The joint group name of the points to retrieve.
@@ -151,7 +150,6 @@ func (h VNHumanBodyPoseObservation) AvailableJointNames() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("availableJointNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The available joint group names in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPoseObservation/availableJointsGroupNames

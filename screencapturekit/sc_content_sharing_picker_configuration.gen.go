@@ -134,7 +134,6 @@ func (c SCContentSharingPickerConfiguration) AllowedPickerModes() SCContentShari
 func (c SCContentSharingPickerConfiguration) SetAllowedPickerModes(value SCContentSharingPickerMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowedPickerModes:"), value)
 }
-
 // A Boolean value that indicates if the present stream can change to a
 // different source.
 //
@@ -150,7 +149,6 @@ func (c SCContentSharingPickerConfiguration) AllowsChangingSelectedContent() boo
 func (c SCContentSharingPickerConfiguration) SetAllowsChangingSelectedContent(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowsChangingSelectedContent:"), value)
 }
-
 // A list of bundle IDs to exclude from the sharing picker.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerConfiguration-c.class/excludedBundleIDs
@@ -161,7 +159,6 @@ func (c SCContentSharingPickerConfiguration) ExcludedBundleIDs() []string {
 func (c SCContentSharingPickerConfiguration) SetExcludedBundleIDs(value []string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setExcludedBundleIDs:"), objectivec.StringSliceToNSArray(value))
 }
-
 // A list of window IDs to exclude from the sharing picker.
 //
 // # Discussion

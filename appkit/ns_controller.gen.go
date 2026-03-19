@@ -139,7 +139,6 @@ func NewControllerWithCoder(coder foundation.INSCoder) NSController {
 func (c NSController) ObjectDidBeginEditing(editor NSEditor) {
 	objc.Send[objc.ID](c.ID, objc.Sel("objectDidBeginEditing:"), editor)
 }
-
 // Invoked to inform the receiver that `editor` has committed or discarded its
 // changes.
 //
@@ -147,7 +146,6 @@ func (c NSController) ObjectDidBeginEditing(editor NSEditor) {
 func (c NSController) ObjectDidEndEditing(editor NSEditor) {
 	objc.Send[objc.ID](c.ID, objc.Sel("objectDidEndEditing:"), editor)
 }
-
 // Attempts to commit any pending edits.
 //
 // # Return Value
@@ -169,7 +167,6 @@ func (c NSController) CommitEditing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("commitEditing"))
 	return rv
 }
-
 // Attempts to commit any pending changes in known editors of the receiver.
 //
 // delegate: An object that can serve as the receiver’s delegate. It should implement
@@ -216,7 +213,6 @@ func (c NSController) CommitEditing() bool {
 func (c NSController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](c.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 }
-
 // Discards any pending changes by registered editors.
 //
 // # Discussion
@@ -229,14 +225,12 @@ func (c NSController) CommitEditingWithDelegateDidCommitSelectorContextInfo(dele
 func (c NSController) DiscardEditing() {
 	objc.Send[objc.ID](c.ID, objc.Sel("discardEditing"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSController/init(coder:)
 func (c NSController) InitWithCoder(coder foundation.INSCoder) NSController {
 	rv := objc.Send[NSController](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditingWithoutPresentingError()
 func (c NSController) CommitEditingAndReturnError() (bool, error) {

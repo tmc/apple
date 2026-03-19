@@ -193,7 +193,6 @@ func (d VNDetectRectanglesRequest) MinimumAspectRatio() VNAspectRatio {
 func (d VNDetectRectanglesRequest) SetMinimumAspectRatio(value VNAspectRatio) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumAspectRatio:"), value)
 }
-
 // A `float` specifying the maximum aspect ratio of the rectangle to detect,
 // defined as the shorter dimension over the longer dimension.
 //
@@ -210,7 +209,6 @@ func (d VNDetectRectanglesRequest) MaximumAspectRatio() VNAspectRatio {
 func (d VNDetectRectanglesRequest) SetMaximumAspectRatio(value VNAspectRatio) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumAspectRatio:"), value)
 }
-
 // A float specifying the number of degrees a rectangle corner angle can
 // deviate from 90°.
 //
@@ -227,7 +225,6 @@ func (d VNDetectRectanglesRequest) QuadratureTolerance() VNDegrees {
 func (d VNDetectRectanglesRequest) SetQuadratureTolerance(value VNDegrees) {
 	objc.Send[struct{}](d.ID, objc.Sel("setQuadratureTolerance:"), value)
 }
-
 // The minimum size of a rectangle to detect, as a proportion of the smallest
 // dimension.
 //
@@ -246,7 +243,6 @@ func (d VNDetectRectanglesRequest) MinimumSize() float32 {
 func (d VNDetectRectanglesRequest) SetMinimumSize(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumSize:"), value)
 }
-
 // A value specifying the minimum acceptable confidence level.
 //
 // # Discussion
@@ -265,7 +261,6 @@ func (d VNDetectRectanglesRequest) MinimumConfidence() VNConfidence {
 func (d VNDetectRectanglesRequest) SetMinimumConfidence(value VNConfidence) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMinimumConfidence:"), value)
 }
-
 // An integer specifying the maximum number of rectangles Vision returns.
 //
 // # Discussion
@@ -283,7 +278,6 @@ func (d VNDetectRectanglesRequest) MaximumObservations() uint {
 func (d VNDetectRectanglesRequest) SetMaximumObservations(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumObservations:"), value)
 }
-
 // A constant for specifying revision 1 of the rectangle detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectrectanglesrequestrevision1

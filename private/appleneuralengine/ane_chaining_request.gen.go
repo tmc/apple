@@ -144,20 +144,17 @@ func NewANEChainingRequestWithInputsOutputsLbInputSymbolIdLbOutputSymbolIdProced
 func (a ANEChainingRequest) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/validate
 func (a ANEChainingRequest) Validate() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("validate"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/initWithCoder:
 func (a ANEChainingRequest) InitWithCoder(coder foundation.INSCoder) ANEChainingRequest {
 	rv := objc.Send[ANEChainingRequest](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/initWithInputs:outputs:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:
 func (a ANEChainingRequest) InitWithInputsOutputsLbInputSymbolIdLbOutputSymbolIdProcedureIndexSignalEventsTransactionHandleFwEnqueueDelayMemoryPoolId(inputs objectivec.IObject, outputs objectivec.IObject, id objectivec.IObject, id2 objectivec.IObject, index objectivec.IObject, events objectivec.IObject, handle objectivec.IObject, delay objectivec.IObject, id3 objectivec.IObject) ANEChainingRequest {
@@ -171,7 +168,6 @@ func (_ANEChainingRequestClass ANEChainingRequestClass) ChainingRequestWithInput
 	rv := objc.Send[objc.ID](objc.ID(_ANEChainingRequestClass.class), objc.Sel("chainingRequestWithInputs:outputSets:lbInputSymbolId:lbOutputSymbolId:procedureIndex:signalEvents:transactionHandle:fwEnqueueDelay:memoryPoolId:"), inputs, sets, id, id2, index, events, handle, delay, id3)
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/supportsSecureCoding
 func (_ANEChainingRequestClass ANEChainingRequestClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ANEChainingRequestClass.class), objc.Sel("supportsSecureCoding"))
@@ -183,49 +179,41 @@ func (a ANEChainingRequest) FwEnqueueDelay() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fwEnqueueDelay"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/inputBuffer
 func (a ANEChainingRequest) InputBuffer() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("inputBuffer"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/loopbackInputSymbolIndex
 func (a ANEChainingRequest) LoopbackInputSymbolIndex() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("loopbackInputSymbolIndex"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/loopbackOutputSymbolIndex
 func (a ANEChainingRequest) LoopbackOutputSymbolIndex() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("loopbackOutputSymbolIndex"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/memoryPoolId
 func (a ANEChainingRequest) MemoryPoolId() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("memoryPoolId"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/outputSets
 func (a ANEChainingRequest) OutputSets() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("outputSets"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/procedureIndex
 func (a ANEChainingRequest) ProcedureIndex() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureIndex"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/signalEvents
 func (a ANEChainingRequest) SignalEvents() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("signalEvents"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEChainingRequest/transactionHandle
 func (a ANEChainingRequest) TransactionHandle() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("transactionHandle"))

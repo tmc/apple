@@ -176,7 +176,6 @@ func (h MTLHeapDescriptor) Type() MTLHeapType {
 func (h MTLHeapDescriptor) SetType(value MTLHeapType) {
 	objc.Send[struct{}](h.ID, objc.Sel("setType:"), value)
 }
-
 // The storage mode for the heaps you create with this descriptor.
 //
 // # Discussion
@@ -197,7 +196,6 @@ func (h MTLHeapDescriptor) StorageMode() MTLStorageMode {
 func (h MTLHeapDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setStorageMode:"), value)
 }
-
 // The CPU cache behavior for any resources you allocate from the heaps you
 // create with this descriptor.
 //
@@ -216,7 +214,6 @@ func (h MTLHeapDescriptor) CpuCacheMode() MTLCPUCacheMode {
 func (h MTLHeapDescriptor) SetCpuCacheMode(value MTLCPUCacheMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setCpuCacheMode:"), value)
 }
-
 // The hazard tracking behavior for any resources you allocate from the heaps
 // you create with this descriptor.
 //
@@ -236,7 +233,6 @@ func (h MTLHeapDescriptor) HazardTrackingMode() MTLHazardTrackingMode {
 func (h MTLHeapDescriptor) SetHazardTrackingMode(value MTLHazardTrackingMode) {
 	objc.Send[struct{}](h.ID, objc.Sel("setHazardTrackingMode:"), value)
 }
-
 // The combined behavior for any resources you allocate from the heaps you
 // create with this descriptor.
 //
@@ -254,7 +250,6 @@ func (h MTLHeapDescriptor) ResourceOptions() MTLResourceOptions {
 func (h MTLHeapDescriptor) SetResourceOptions(value MTLResourceOptions) {
 	objc.Send[struct{}](h.ID, objc.Sel("setResourceOptions:"), value)
 }
-
 // The total amount of memory, in bytes, for the heaps you create with this
 // descriptor.
 //
@@ -278,7 +273,6 @@ func (h MTLHeapDescriptor) Size() uint {
 func (h MTLHeapDescriptor) SetSize(value uint) {
 	objc.Send[struct{}](h.ID, objc.Sel("setSize:"), value)
 }
-
 // The page size for any resources you allocate from the heaps you create with
 // this descriptor.
 //
@@ -302,7 +296,6 @@ func (h MTLHeapDescriptor) SparsePageSize() MTLSparsePageSize {
 func (h MTLHeapDescriptor) SetSparsePageSize(value MTLSparsePageSize) {
 	objc.Send[struct{}](h.ID, objc.Sel("setSparsePageSize:"), value)
 }
-
 // Specifies the largest sparse page size that the Metal heap supports.
 //
 // # Discussion

@@ -225,7 +225,6 @@ func (r RunLoop) LimitDateForMode(mode NSRunLoopMode) INSDate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("limitDateForMode:"), objc.String(string(mode)))
 	return NSDateFromID(rv)
 }
-
 // Returns the receiver’s underlying run loop object.
 //
 // # Return Value
@@ -245,7 +244,6 @@ func (r RunLoop) GetCFRunLoop() corefoundation.CFRunLoopRef {
 	rv := objc.Send[corefoundation.CFRunLoopRef](r.ID, objc.Sel("getCFRunLoop"))
 	return corefoundation.CFRunLoopRef(rv)
 }
-
 // Registers a given timer with a given input mode.
 //
 // timer: The timer to register with the receiver.
@@ -267,7 +265,6 @@ func (r RunLoop) GetCFRunLoop() corefoundation.CFRunLoopRef {
 func (r RunLoop) AddTimerForMode(timer INSTimer, mode NSRunLoopMode) {
 	objc.Send[objc.ID](r.ID, objc.Sel("addTimer:forMode:"), timer, objc.String(string(mode)))
 }
-
 // Adds a port as an input source to the specified mode of the run loop.
 //
 // aPort: The port to add to the receiver.
@@ -286,7 +283,6 @@ func (r RunLoop) AddTimerForMode(timer INSTimer, mode NSRunLoopMode) {
 func (r RunLoop) AddPortForMode(aPort INSPort, mode NSRunLoopMode) {
 	objc.Send[objc.ID](r.ID, objc.Sel("addPort:forMode:"), aPort, objc.String(string(mode)))
 }
-
 // Removes a port from the specified input mode of the run loop.
 //
 // aPort: The port to remove from the receiver.
@@ -303,7 +299,6 @@ func (r RunLoop) AddPortForMode(aPort INSPort, mode NSRunLoopMode) {
 func (r RunLoop) RemovePortForMode(aPort INSPort, mode NSRunLoopMode) {
 	objc.Send[objc.ID](r.ID, objc.Sel("removePort:forMode:"), aPort, objc.String(string(mode)))
 }
-
 // Puts the receiver into a permanent loop, during which time it processes
 // data from all attached input sources.
 //
@@ -333,7 +328,6 @@ func (r RunLoop) RemovePortForMode(aPort INSPort, mode NSRunLoopMode) {
 func (r RunLoop) Run() {
 	objc.Send[objc.ID](r.ID, objc.Sel("run"))
 }
-
 // Runs the loop once, blocking for input in the specified mode until a given
 // date.
 //
@@ -369,7 +363,6 @@ func (r RunLoop) RunModeBeforeDate(mode NSRunLoopMode, limitDate INSDate) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("runMode:beforeDate:"), objc.String(string(mode)), limitDate)
 	return rv
 }
-
 // Runs the loop until the specified date, during which time it processes data
 // from all attached input sources.
 //
@@ -392,7 +385,6 @@ func (r RunLoop) RunModeBeforeDate(mode NSRunLoopMode, limitDate INSDate) bool {
 func (r RunLoop) RunUntilDate(limitDate INSDate) {
 	objc.Send[objc.ID](r.ID, objc.Sel("runUntilDate:"), limitDate)
 }
-
 // Runs the loop once or until the specified date, accepting input only for
 // the specified mode.
 //
@@ -417,7 +409,6 @@ func (r RunLoop) RunUntilDate(limitDate INSDate) {
 func (r RunLoop) AcceptInputForModeBeforeDate(mode NSRunLoopMode, limitDate INSDate) {
 	objc.Send[objc.ID](r.ID, objc.Sel("acceptInputForMode:beforeDate:"), objc.String(string(mode)), limitDate)
 }
-
 // Schedules a block that the run loop invokes.
 //
 // block: A block that the run loop invokes.
@@ -428,7 +419,6 @@ _block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
 	objc.Send[objc.ID](r.ID, objc.Sel("performBlock:"), _block0)
 }
-
 // Schedules a block that the run loop invokes when it’s running in any of
 // the specified modes.
 //
@@ -442,7 +432,6 @@ _block1, _cleanup1 := NewVoidBlock(block)
 	defer _cleanup1()
 	objc.Send[objc.ID](r.ID, objc.Sel("performInModes:block:"), modes, _block1)
 }
-
 // Schedules the sending of a message on the receiver.
 //
 // aSelector: A selector that identifies the method to invoke. This method should not
@@ -483,7 +472,6 @@ _block1, _cleanup1 := NewVoidBlock(block)
 func (r RunLoop) PerformSelectorTargetArgumentOrderModes(aSelector objc.SEL, target objectivec.IObject, arg objectivec.IObject, order uint, modes []string) {
 	objc.Send[objc.ID](r.ID, objc.Sel("performSelector:target:argument:order:modes:"), aSelector, target, arg, order, objectivec.StringSliceToNSArray(modes))
 }
-
 // Cancels the sending of a previously scheduled message.
 //
 // aSelector: The previously-specified selector.
@@ -504,7 +492,6 @@ func (r RunLoop) PerformSelectorTargetArgumentOrderModes(aSelector objc.SEL, tar
 func (r RunLoop) CancelPerformSelectorTargetArgument(aSelector objc.SEL, target objectivec.IObject, arg objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("cancelPerformSelector:target:argument:"), aSelector, target, arg)
 }
-
 // Cancels all outstanding ordered performs scheduled with a given target.
 //
 // target: The previously-specified target.
@@ -554,7 +541,6 @@ func (_RunLoopClass RunLoopClass) CurrentRunLoop() RunLoop {
 	rv := objc.Send[objc.ID](objc.ID(_RunLoopClass.class), objc.Sel("currentRunLoop"))
 	return NSRunLoopFromID(objc.ID(rv))
 }
-
 // Returns the run loop of the main thread.
 //
 // # Return Value

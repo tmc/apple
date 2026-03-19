@@ -178,7 +178,6 @@ func (m NSMorphology) InitWithCoder(coder INSCoder) NSMorphology {
 	rv := objc.Send[NSMorphology](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -203,7 +202,6 @@ func (m NSMorphology) Unspecified() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isUnspecified"))
 	return rv
 }
-
 // The grammatical gender used for inflecting strings with this morphology.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/grammaticalGender
@@ -214,7 +212,6 @@ func (m NSMorphology) GrammaticalGender() NSGrammaticalGender {
 func (m NSMorphology) SetGrammaticalGender(value NSGrammaticalGender) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGrammaticalGender:"), value)
 }
-
 // The grammatical number used for inflecting strings with this morphology.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/number
@@ -225,7 +222,6 @@ func (m NSMorphology) Number() NSGrammaticalNumber {
 func (m NSMorphology) SetNumber(value NSGrammaticalNumber) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumber:"), value)
 }
-
 // The grammatical part of speech used for inflecting strings with this
 // morphology.
 //
@@ -237,7 +233,6 @@ func (m NSMorphology) PartOfSpeech() NSGrammaticalPartOfSpeech {
 func (m NSMorphology) SetPartOfSpeech(value NSGrammaticalPartOfSpeech) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPartOfSpeech:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/definiteness
 func (m NSMorphology) Definiteness() NSGrammaticalDefiniteness {
 	rv := objc.Send[NSGrammaticalDefiniteness](m.ID, objc.Sel("definiteness"))
@@ -246,7 +241,6 @@ func (m NSMorphology) Definiteness() NSGrammaticalDefiniteness {
 func (m NSMorphology) SetDefiniteness(value NSGrammaticalDefiniteness) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDefiniteness:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/determination
 func (m NSMorphology) Determination() NSGrammaticalDetermination {
 	rv := objc.Send[NSGrammaticalDetermination](m.ID, objc.Sel("determination"))
@@ -255,7 +249,6 @@ func (m NSMorphology) Determination() NSGrammaticalDetermination {
 func (m NSMorphology) SetDetermination(value NSGrammaticalDetermination) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDetermination:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/grammaticalCase
 func (m NSMorphology) GrammaticalCase() NSGrammaticalCase {
 	rv := objc.Send[NSGrammaticalCase](m.ID, objc.Sel("grammaticalCase"))
@@ -264,7 +257,6 @@ func (m NSMorphology) GrammaticalCase() NSGrammaticalCase {
 func (m NSMorphology) SetGrammaticalCase(value NSGrammaticalCase) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGrammaticalCase:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/grammaticalPerson
 func (m NSMorphology) GrammaticalPerson() NSGrammaticalPerson {
 	rv := objc.Send[NSGrammaticalPerson](m.ID, objc.Sel("grammaticalPerson"))
@@ -273,7 +265,6 @@ func (m NSMorphology) GrammaticalPerson() NSGrammaticalPerson {
 func (m NSMorphology) SetGrammaticalPerson(value NSGrammaticalPerson) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGrammaticalPerson:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology/pronounType
 func (m NSMorphology) PronounType() NSGrammaticalPronounType {
 	rv := objc.Send[NSGrammaticalPronounType](m.ID, objc.Sel("pronounType"))

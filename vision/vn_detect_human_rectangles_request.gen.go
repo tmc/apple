@@ -145,7 +145,6 @@ func (d VNDetectHumanRectanglesRequest) UpperBodyOnly() bool {
 func (d VNDetectHumanRectanglesRequest) SetUpperBodyOnly(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUpperBodyOnly:"), value)
 }
-
 // A constant for specifying revision 2 of the human rectangles detection
 // request.
 //
@@ -154,7 +153,6 @@ func (d VNDetectHumanRectanglesRequest) VNDetectHumanRectanglesRequestRevision2(
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectHumanRectanglesRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the human rectangles detection
 // request.
 //

@@ -56,12 +56,10 @@ func MTKViewDelegateObjectFromID(id objc.ID) MTKViewDelegateObject {
 // regenerate any buffers to be compatible with the view’s new size.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKViewDelegate/mtkView(_:drawableSizeWillChange:)
-
 func (o MTKViewDelegateObject) MtkViewDrawableSizeWillChange(view IMTKView, size corefoundation.CGSize) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("mtkView:drawableSizeWillChange:"), view, size)
 	}
-
 // Draws the view’s contents.
 //
 // view: The view requesting that its contents be redrawn.
@@ -72,7 +70,6 @@ func (o MTKViewDelegateObject) MtkViewDrawableSizeWillChange(view IMTKView, size
 // view.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKViewDelegate/draw(in:)
-
 func (o MTKViewDelegateObject) DrawInMTKView(view IMTKView) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("drawInMTKView:"), view)

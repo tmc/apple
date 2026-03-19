@@ -45,7 +45,9 @@ import (
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/performExpiringActivity(withReason:using:)
-func (p ProcessInfo) PerformExpiringActivityWithReasonUsingBlock(reason string, block bool) {
-objc.Send[objc.ID](p.ID, objc.Sel("performExpiringActivityWithReason:usingBlock:"), objc.String(reason), block)
+func (p ProcessInfo) PerformExpiringActivityWithReasonUsingBlock(reason string, block BoolHandler) {
+	_block1, _cleanup1 := NewBoolBlock(block)
+	defer _cleanup1()
+	objc.Send[objc.ID](p.ID, objc.Sel("performExpiringActivityWithReason:usingBlock:"), objc.String(reason), _block1)
 }
 

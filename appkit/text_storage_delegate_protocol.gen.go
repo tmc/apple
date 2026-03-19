@@ -56,12 +56,10 @@ func NSTextStorageDelegateObjectFromID(id objc.ID) NSTextStorageDelegateObject {
 // cause the object to send this message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageDelegate/textStorage(_:willProcessEditing:range:changeInLength:)
-
 func (o NSTextStorageDelegateObject) TextStorageWillProcessEditingRangeChangeInLength(textStorage NSTextStorage, editedMask NSTextStorageEditActions, editedRange foundation.NSRange, delta int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textStorage:willProcessEditing:range:changeInLength:"), textStorage, editedMask, editedRange, delta)
 	}
-
 // The method the framework calls when a text storage object has finished
 // processing edits.
 //
@@ -88,7 +86,6 @@ func (o NSTextStorageDelegateObject) TextStorageWillProcessEditingRangeChangeInL
 // font for Kanji text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageDelegate/textStorage(_:didProcessEditing:range:changeInLength:)
-
 func (o NSTextStorageDelegateObject) TextStorageDidProcessEditingRangeChangeInLength(textStorage NSTextStorage, editedMask NSTextStorageEditActions, editedRange foundation.NSRange, delta int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("textStorage:didProcessEditing:range:changeInLength:"), textStorage, editedMask, editedRange, delta)

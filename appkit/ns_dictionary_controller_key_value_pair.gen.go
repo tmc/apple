@@ -122,7 +122,6 @@ func (d NSDictionaryControllerKeyValuePair) ExplicitlyIncluded() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isExplicitlyIncluded"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryControllerKeyValuePair/key
 func (d NSDictionaryControllerKeyValuePair) Key() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("key"))
@@ -131,7 +130,6 @@ func (d NSDictionaryControllerKeyValuePair) Key() string {
 func (d NSDictionaryControllerKeyValuePair) SetKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setKey:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryControllerKeyValuePair/localizedKey
 func (d NSDictionaryControllerKeyValuePair) LocalizedKey() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("localizedKey"))
@@ -140,7 +138,6 @@ func (d NSDictionaryControllerKeyValuePair) LocalizedKey() string {
 func (d NSDictionaryControllerKeyValuePair) SetLocalizedKey(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocalizedKey:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSDictionaryControllerKeyValuePair/value
 func (d NSDictionaryControllerKeyValuePair) Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("value"))

@@ -172,7 +172,6 @@ func (m MTL4ComputePipelineDescriptor) ComputeFunctionDescriptor() IMTL4Function
 func (m MTL4ComputePipelineDescriptor) SetComputeFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setComputeFunctionDescriptor:"), value)
 }
-
 // The maximum total number of threads that Metal can execute in a single
 // threadgroup for the compute function.
 //
@@ -184,7 +183,6 @@ func (m MTL4ComputePipelineDescriptor) MaxTotalThreadsPerThreadgroup() uint {
 func (m MTL4ComputePipelineDescriptor) SetMaxTotalThreadsPerThreadgroup(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxTotalThreadsPerThreadgroup:"), value)
 }
-
 // The required number of threads per threadgroup for compute dispatches.
 //
 // # Discussion
@@ -205,7 +203,6 @@ func (m MTL4ComputePipelineDescriptor) RequiredThreadsPerThreadgroup() MTLSize {
 func (m MTL4ComputePipelineDescriptor) SetRequiredThreadsPerThreadgroup(value MTLSize) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRequiredThreadsPerThreadgroup:"), value)
 }
-
 // An object that contains information about functions to link to the compute
 // pipeline.
 //
@@ -217,7 +214,6 @@ func (m MTL4ComputePipelineDescriptor) StaticLinkingDescriptor() IMTL4StaticLink
 func (m MTL4ComputePipelineDescriptor) SetStaticLinkingDescriptor(value IMTL4StaticLinkingDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStaticLinkingDescriptor:"), value)
 }
-
 // A boolean value indicating whether the compute pipeline supports linking
 // binary functions.
 //
@@ -229,7 +225,6 @@ func (m MTL4ComputePipelineDescriptor) SupportBinaryLinking() bool {
 func (m MTL4ComputePipelineDescriptor) SetSupportBinaryLinking(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportBinaryLinking:"), value)
 }
-
 // A value indicating whether the pipeline supports Metal indirect command
 // buffers.
 //
@@ -241,7 +236,6 @@ func (m MTL4ComputePipelineDescriptor) SupportIndirectCommandBuffers() MTL4Indir
 func (m MTL4ComputePipelineDescriptor) SetSupportIndirectCommandBuffers(value MTL4IndirectCommandBufferSupportState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportIndirectCommandBuffers:"), value)
 }
-
 // A boolean value indicating whether each dimension of the threadgroup size
 // is a multiple of its corresponding thread execution width.
 //

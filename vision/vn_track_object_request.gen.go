@@ -169,7 +169,6 @@ func (t VNTrackObjectRequest) InitWithDetectedObjectObservation(observation IVND
 	rv := objc.Send[VNTrackObjectRequest](t.ID, objc.Sel("initWithDetectedObjectObservation:"), observation)
 	return rv
 }
-
 // Creates a new object tracking request with a detected object observation.
 //
 // observation: A detected object observation with bounding box information.
@@ -191,7 +190,6 @@ func (t VNTrackObjectRequest) VNTrackObjectRequestRevision2() int {
 	rv := objc.Send[int](t.ID, objc.Sel("VNTrackObjectRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the object tracking request.
 //
 // See: https://developer.apple.com/documentation/vision/vntrackobjectrequestrevision1

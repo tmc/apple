@@ -103,7 +103,6 @@ func (c MLComputePlanDeviceUsage) PreferredComputeDevice() MLComputeDeviceProtoc
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("preferredComputeDevice"))
 	return MLComputeDeviceProtocolObjectFromID(rv)
 }
-
 // The compute devices that can execute the layer/operation.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlanDeviceUsage/supportedComputeDevices

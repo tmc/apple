@@ -39,7 +39,6 @@ func NSCollectionLayoutEnvironmentObjectFromID(id objc.ID) NSCollectionLayoutEnv
 // insets.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutEnvironment/container
-
 func (o NSCollectionLayoutEnvironmentObject) Container() NSCollectionLayoutContainer {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("container"))

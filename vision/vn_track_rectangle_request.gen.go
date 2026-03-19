@@ -165,7 +165,6 @@ func (t VNTrackRectangleRequest) InitWithRectangleObservation(observation IVNRec
 	rv := objc.Send[VNTrackRectangleRequest](t.ID, objc.Sel("initWithRectangleObservation:"), observation)
 	return rv
 }
-
 // Creates a new rectangle tracking request with a rectangle observation.
 //
 // observation: A rectangle observation with bounding box and corner location information.

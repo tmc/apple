@@ -204,7 +204,6 @@ func NewNSCollectionViewLayoutInvalidationContext() NSCollectionViewLayoutInvali
 func (c NSCollectionViewLayoutInvalidationContext) InvalidateItemsAtIndexPaths(indexPaths foundation.INSSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateItemsAtIndexPaths:"), indexPaths)
 }
-
 // Marks the specified supplementary views as invalid so that their layout
 // information can be updated.
 //
@@ -228,7 +227,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateItemsAtIndexPaths(i
 func (c NSCollectionViewLayoutInvalidationContext) InvalidateSupplementaryElementsOfKindAtIndexPaths(elementKind NSCollectionViewSupplementaryElementKind, indexPaths foundation.INSSet) {
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateSupplementaryElementsOfKind:atIndexPaths:"), objc.String(string(elementKind)), indexPaths)
 }
-
 // Marks the specified decoration views as invalid so that their layout
 // information can be updated.
 //
@@ -274,7 +272,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateEverything() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("invalidateEverything"))
 	return rv
 }
-
 // A Boolean that indicates whether the layout object should ask for new
 // section and item counts.
 //
@@ -296,7 +293,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidateDataSourceCounts() 
 	rv := objc.Send[bool](c.ID, objc.Sel("invalidateDataSourceCounts"))
 	return rv
 }
-
 // The delta value to add to the collection view’s content offset.
 //
 // # Discussion
@@ -318,7 +314,6 @@ func (c NSCollectionViewLayoutInvalidationContext) ContentOffsetAdjustment() cor
 func (c NSCollectionViewLayoutInvalidationContext) SetContentOffsetAdjustment(value corefoundation.CGPoint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContentOffsetAdjustment:"), value)
 }
-
 // The delta value to add to the collection view’s content size.
 //
 // # Discussion
@@ -339,7 +334,6 @@ func (c NSCollectionViewLayoutInvalidationContext) ContentSizeAdjustment() coref
 func (c NSCollectionViewLayoutInvalidationContext) SetContentSizeAdjustment(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContentSizeAdjustment:"), value)
 }
-
 // The set of items whose layout attributes are invalid.
 //
 // # Discussion
@@ -354,7 +348,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidatedItemIndexPaths() f
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("invalidatedItemIndexPaths"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
 // A dictionary containing the supplementary views whose layout attributes are
 // invalid.
 //
@@ -373,7 +366,6 @@ func (c NSCollectionViewLayoutInvalidationContext) InvalidatedSupplementaryIndex
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("invalidatedSupplementaryIndexPaths"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // A dictionary containing the decoration views whose layout attributes are
 // invalid.
 //

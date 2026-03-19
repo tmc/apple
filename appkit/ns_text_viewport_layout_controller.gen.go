@@ -182,7 +182,6 @@ func (t NSTextViewportLayoutController) InitWithTextLayoutManager(textLayoutMana
 	rv := objc.Send[NSTextViewportLayoutController](t.ID, objc.Sel("initWithTextLayoutManager:"), textLayoutManager)
 	return rv
 }
-
 // Adjusts the viewport rect by the specified offset if needed.
 //
 // verticalOffset: A [CGFloat] that represents the offset amount to apply to the viewport.
@@ -191,14 +190,12 @@ func (t NSTextViewportLayoutController) InitWithTextLayoutManager(textLayoutMana
 func (t NSTextViewportLayoutController) AdjustViewportByVerticalOffset(verticalOffset float64) {
 	objc.Send[objc.ID](t.ID, objc.Sel("adjustViewportByVerticalOffset:"), verticalOffset)
 }
-
 // Performs layout in the viewport.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutController/layoutViewport()
 func (t NSTextViewportLayoutController) LayoutViewport() {
 	objc.Send[objc.ID](t.ID, objc.Sel("layoutViewport"))
 }
-
 // Relocates the viewport to the location you specify.
 //
 // textLocation: An [NSTextLocation].
@@ -216,7 +213,6 @@ func (t NSTextViewportLayoutController) TextLayoutManager() INSTextLayoutManager
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLayoutManager"))
 	return NSTextLayoutManagerFromID(objc.ID(rv))
 }
-
 // The delegate for the text layout manager object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutController/delegate
@@ -227,7 +223,6 @@ func (t NSTextViewportLayoutController) Delegate() NSTextViewportLayoutControlle
 func (t NSTextViewportLayoutController) SetDelegate(value NSTextViewportLayoutControllerDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
 // Returns the visible bounds of the view, plus the overdraw area.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutController/viewportBounds
@@ -235,7 +230,6 @@ func (t NSTextViewportLayoutController) ViewportBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("viewportBounds"))
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the text range of the current viewport layout.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextViewportLayoutController/viewportRange

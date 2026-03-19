@@ -108,14 +108,12 @@ func NewGTShaderProfilerRegisterUsageWithBitsetString(string_ objectivec.IObject
 func (g GTShaderProfilerRegisterUsage) Combine(combine objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("combine:"), combine)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/test:
 func (g GTShaderProfilerRegisterUsage) Test(test uint64) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("test:"), test)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerRegisterUsage/initWithBitsetString:
 func (g GTShaderProfilerRegisterUsage) InitWithBitsetString(string_ objectivec.IObject) GTShaderProfilerRegisterUsage {

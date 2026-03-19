@@ -120,7 +120,6 @@ func (d MLDictionaryConstraint) KeyType() MLFeatureType {
 	rv := objc.Send[MLFeatureType](d.ID, objc.Sel("keyType"))
 	return MLFeatureType(rv)
 }
-
 // The constraint for a dictionary feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/dictionaryconstraint
@@ -131,7 +130,6 @@ func (d MLDictionaryConstraint) DictionaryConstraint() IMLDictionaryConstraint {
 func (d MLDictionaryConstraint) SetDictionaryConstraint(value IMLDictionaryConstraint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDictionaryConstraint:"), value)
 }
-
 // The size and format constraints for an image feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/imageconstraint
@@ -142,7 +140,6 @@ func (d MLDictionaryConstraint) ImageConstraint() IMLImageConstraint {
 func (d MLDictionaryConstraint) SetImageConstraint(value IMLImageConstraint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setImageConstraint:"), value)
 }
-
 // The constraints on a multidimensional array feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/multiarrayconstraint
@@ -153,7 +150,6 @@ func (d MLDictionaryConstraint) MultiArrayConstraint() IMLMultiArrayConstraint {
 func (d MLDictionaryConstraint) SetMultiArrayConstraint(value IMLMultiArrayConstraint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMultiArrayConstraint:"), value)
 }
-
 // The constraints for a sequence feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/sequenceconstraint
@@ -164,7 +160,6 @@ func (d MLDictionaryConstraint) SequenceConstraint() IMLSequenceConstraint {
 func (d MLDictionaryConstraint) SetSequenceConstraint(value IMLSequenceConstraint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSequenceConstraint:"), value)
 }
-
 // The state feature value constraint.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/stateconstraint

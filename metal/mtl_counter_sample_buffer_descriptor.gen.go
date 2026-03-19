@@ -154,7 +154,6 @@ func (c MTLCounterSampleBufferDescriptor) CounterSet() MTLCounterSet {
 func (c MTLCounterSampleBufferDescriptor) SetCounterSet(value MTLCounterSet) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCounterSet:"), value)
 }
-
 // The name for the counter sample buffer you create with the descriptor.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBufferDescriptor/label
@@ -165,7 +164,6 @@ func (c MTLCounterSampleBufferDescriptor) Label() string {
 func (c MTLCounterSampleBufferDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // The number of instances of a counter set’s data that a counter sample
 // buffer can store.
 //
@@ -183,7 +181,6 @@ func (c MTLCounterSampleBufferDescriptor) SampleCount() uint {
 func (c MTLCounterSampleBufferDescriptor) SetSampleCount(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSampleCount:"), value)
 }
-
 // The memory storage mode for the counter sample buffers you create with the
 // descriptor.
 //
@@ -200,7 +197,6 @@ func (c MTLCounterSampleBufferDescriptor) StorageMode() MTLStorageMode {
 func (c MTLCounterSampleBufferDescriptor) SetStorageMode(value MTLStorageMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStorageMode:"), value)
 }
-
 // A sentinel value that instructs an encoder to skip sampling a counter as
 // the GPU runs the encoder’s pass.
 //

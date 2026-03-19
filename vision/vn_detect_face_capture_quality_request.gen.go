@@ -139,7 +139,6 @@ func (d VNDetectFaceCaptureQualityRequest) VNDetectFaceCaptureQualityRequestRevi
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceCaptureQualityRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the face capture detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectfacecapturequalityrequestrevision1
@@ -147,7 +146,6 @@ func (d VNDetectFaceCaptureQualityRequest) VNDetectFaceCaptureQualityRequestRevi
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceCaptureQualityRequestRevision1"))
 	return rv
 }
-
 // A value that indicates the quality of the face capture.
 //
 // See: https://developer.apple.com/documentation/vision/vnfaceobservation/facecapturequality-bjg5
@@ -158,7 +156,6 @@ func (d VNDetectFaceCaptureQualityRequest) FaceCaptureQuality() float32 {
 func (d VNDetectFaceCaptureQualityRequest) SetFaceCaptureQuality(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFaceCaptureQuality:"), value)
 }
-
 // An array of [VNFaceObservation] objects to process as part of the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations

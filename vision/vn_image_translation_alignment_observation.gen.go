@@ -118,7 +118,6 @@ func (i VNImageTranslationAlignmentObservation) AlignmentTransform() corefoundat
 	rv := objc.Send[corefoundation.CGAffineTransform](i.ID, objc.Sel("alignmentTransform"))
 	return corefoundation.CGAffineTransform(rv)
 }
-
 // A constant for specifying revision 1 of the translational image
 // registration request.
 //

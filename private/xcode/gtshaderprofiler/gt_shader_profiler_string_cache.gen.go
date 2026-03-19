@@ -113,20 +113,17 @@ func (g GTShaderProfilerStringCache) AddString(string_ objectivec.IObject) uint6
 	rv := objc.Send[uint64](g.ID, objc.Sel("addString:"), string_)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/encodeWithCoder:
 func (g GTShaderProfilerStringCache) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](g.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/stringFromIndex:
 func (g GTShaderProfilerStringCache) StringFromIndex(index uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("stringFromIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStringCache/initWithCoder:
 func (g GTShaderProfilerStringCache) InitWithCoder(coder foundation.INSCoder) GTShaderProfilerStringCache {

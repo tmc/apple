@@ -226,7 +226,6 @@ func (g NSGroupTouchBarItem) GroupUserInterfaceLayoutDirection() NSUserInterface
 func (g NSGroupTouchBarItem) SetGroupUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirection) {
 	objc.Send[struct{}](g.ID, objc.Sel("setGroupUserInterfaceLayoutDirection:"), value)
 }
-
 // A Boolean value that specifies that items should have equal widths when
 // possible.
 //
@@ -248,7 +247,6 @@ func (g NSGroupTouchBarItem) PrefersEqualWidths() bool {
 func (g NSGroupTouchBarItem) SetPrefersEqualWidths(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPrefersEqualWidths:"), value)
 }
-
 // The preferred width for items in the group.
 //
 // # Discussion
@@ -270,7 +268,6 @@ func (g NSGroupTouchBarItem) PreferredItemWidth() float64 {
 func (g NSGroupTouchBarItem) SetPreferredItemWidth(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPreferredItemWidth:"), value)
 }
-
 // The compression options that are currently active on the group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGroupTouchBarItem/effectiveCompressionOptions
@@ -278,7 +275,6 @@ func (g NSGroupTouchBarItem) EffectiveCompressionOptions() INSUserInterfaceCompr
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("effectiveCompressionOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(objc.ID(rv))
 }
-
 // The allowed compression options, in the order they should be applied.
 //
 // # Discussion

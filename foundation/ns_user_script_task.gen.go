@@ -177,7 +177,6 @@ func (u NSUserScriptTask) InitWithURLError(url INSURL) (NSUserScriptTask, error)
 	return NSUserScriptTaskFromID(rv), nil
 
 }
-
 // Executes the script with no input and ignoring any result.
 //
 // handler: The completion handler Block that returns the result or an error. See

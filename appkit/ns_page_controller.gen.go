@@ -412,7 +412,6 @@ func NewPageControllerWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil f
 func (p NSPageController) NavigateForwardToObject(object objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("navigateForwardToObject:"), object)
 }
-
 // Navigates backwards in the page controller’s arranged objects array.
 //
 // sender: The sender.
@@ -430,7 +429,6 @@ func (p NSPageController) NavigateForwardToObject(object objectivec.IObject) {
 func (p NSPageController) NavigateBack(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("navigateBack:"), sender)
 }
-
 // Navigates to the next object in the page controller’s arranged objects
 // array, if appropriate.
 //
@@ -449,7 +447,6 @@ func (p NSPageController) NavigateBack(sender objectivec.IObject) {
 func (p NSPageController) NavigateForward(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("navigateForward:"), sender)
 }
-
 // Navigates to the selected index, which is taken from the sender.
 //
 // sender: The control that invoked the action.
@@ -467,7 +464,6 @@ func (p NSPageController) NavigateForward(sender objectivec.IObject) {
 func (p NSPageController) TakeSelectedIndexFrom(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("takeSelectedIndexFrom:"), sender)
 }
-
 // Invoked when the page transition is completed.
 //
 // # Discussion
@@ -478,7 +474,6 @@ func (p NSPageController) TakeSelectedIndexFrom(sender objectivec.IObject) {
 func (p NSPageController) CompleteTransition() {
 	objc.Send[objc.ID](p.ID, objc.Sel("completeTransition"))
 }
-
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
@@ -511,7 +506,6 @@ func (p NSPageController) AnimationForKey(key NSAnimatablePropertyKey) objective
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
@@ -593,7 +587,6 @@ func (p NSPageController) Delegate() NSPageControllerDelegate {
 func (p NSPageController) SetDelegate(value NSPageControllerDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
-
 // An array containing the objects displayed in the page controller’s view.
 //
 // # Discussion
@@ -613,7 +606,6 @@ func (p NSPageController) ArrangedObjects() foundation.INSArray {
 func (p NSPageController) SetArrangedObjects(value foundation.INSArray) {
 	objc.Send[struct{}](p.ID, objc.Sel("setArrangedObjects:"), value)
 }
-
 // The currently selected object in the arranged objects array.
 //
 // # Discussion
@@ -631,7 +623,6 @@ func (p NSPageController) SelectedIndex() int {
 func (p NSPageController) SetSelectedIndex(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectedIndex:"), value)
 }
-
 // The transition style the page controller uses when changing pages.
 //
 // # Discussion
@@ -652,7 +643,6 @@ func (p NSPageController) TransitionStyle() NSPageControllerTransitionStyle {
 func (p NSPageController) SetTransitionStyle(value NSPageControllerTransitionStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTransitionStyle:"), value)
 }
-
 // The view controller associated with the selected object..
 //
 // # Discussion
@@ -667,7 +657,6 @@ func (p NSPageController) SelectedViewController() INSViewController {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("selectedViewController"))
 	return NSViewControllerFromID(objc.ID(rv))
 }
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //

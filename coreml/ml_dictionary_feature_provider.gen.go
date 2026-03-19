@@ -151,7 +151,6 @@ func (d MLDictionaryFeatureProvider) InitWithDictionaryError(dictionary foundati
 	return MLDictionaryFeatureProviderFromID(rv), nil
 
 }
-
 // Subscript interface for the feature provider to pass through to the
 // dictionary.
 //
@@ -160,7 +159,6 @@ func (d MLDictionaryFeatureProvider) ObjectForKeyedSubscript(featureName string)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectForKeyedSubscript:"), objc.String(featureName))
 	return MLFeatureValueFromID(rv)
 }
-
 // Accesses the feature value given the feature’s name.
 //
 // featureName: The name of the feature of the desired value.
@@ -185,7 +183,6 @@ func (d MLDictionaryFeatureProvider) Dictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dictionary"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // The set of valid feature names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureNames

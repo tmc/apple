@@ -265,7 +265,6 @@ func (c NSColorList) InitWithName(name string) NSColorList {
 	rv := objc.Send[NSColorList](c.ID, objc.Sel("initWithName:"), objc.String(name))
 	return rv
 }
-
 // Initializes and returns a color list from the specified file, registering
 // it under the specified name if it isn’t in use already.
 //
@@ -289,7 +288,6 @@ func (c NSColorList) InitWithNameFromFile(name string, path string) NSColorList 
 	rv := objc.Send[NSColorList](c.ID, objc.Sel("initWithName:fromFile:"), objc.String(name), objc.String(path))
 	return rv
 }
-
 // Returns the color object associated with the specified key.
 //
 // key: The key for which to retrieve the color.
@@ -303,7 +301,6 @@ func (c NSColorList) ColorWithKey(key string) INSColor {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorWithKey:"), objc.String(key))
 	return NSColorFromID(rv)
 }
-
 // Inserts the specified color at the specified location in the color list.
 //
 // color: The color to add to the color list.
@@ -326,7 +323,6 @@ func (c NSColorList) ColorWithKey(key string) INSColor {
 func (c NSColorList) InsertColorKeyAtIndex(color INSColor, key string, loc uint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("insertColor:key:atIndex:"), color, objc.String(key), loc)
 }
-
 // Removes the color associated with the specified key from the color list.
 //
 // key: The key for which to remove the color.
@@ -343,7 +339,6 @@ func (c NSColorList) InsertColorKeyAtIndex(color INSColor, key string, loc uint)
 func (c NSColorList) RemoveColorWithKey(key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeColorWithKey:"), objc.String(key))
 }
-
 // Associates the specified color object with the specified key.
 //
 // color: The color to associate with the given key.
@@ -360,7 +355,6 @@ func (c NSColorList) RemoveColorWithKey(key string) {
 func (c NSColorList) SetColorForKey(color INSColor, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setColor:forKey:"), color, objc.String(key))
 }
-
 // Saves the color list to the file at the specified URL.
 //
 // url: The URL at which to store the color list. The URL must specify either a
@@ -388,7 +382,6 @@ func (c NSColorList) WriteToURLError(url foundation.INSURL) (bool, error) {
 	return rv, nil
 
 }
-
 // Removes the file from which the list was created, if the file is in a
 // standard search path and owned by the user.
 //
@@ -414,7 +407,6 @@ func (c NSColorList) Name() NSColorListName {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("name"))
 	return NSColorListName(foundation.NSStringFromID(rv).String())
 }
-
 // A Boolean value that indicates whether the color list can be modified.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorList/isEditable
@@ -422,7 +414,6 @@ func (c NSColorList) Editable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEditable"))
 	return rv
 }
-
 // An array of the keys by which the color objects are stored in the color
 // list.
 //

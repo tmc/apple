@@ -189,7 +189,6 @@ func (c NSCollectionViewTransitionLayout) InitWithCurrentLayoutNextLayout(curren
 	rv := objc.Send[NSCollectionViewTransitionLayout](c.ID, objc.Sel("initWithCurrentLayout:nextLayout:"), currentLayout, newLayout)
 	return rv
 }
-
 // Sets the value of a key whose value you use during the animation.
 //
 // value: The value of the key.
@@ -205,7 +204,6 @@ func (c NSCollectionViewTransitionLayout) InitWithCurrentLayoutNextLayout(curren
 func (c NSCollectionViewTransitionLayout) UpdateValueForAnimatedKey(value float64, key NSCollectionViewTransitionLayoutAnimatedKey) {
 	objc.Send[objc.ID](c.ID, objc.Sel("updateValue:forAnimatedKey:"), value, objc.String(string(key)))
 }
-
 // Returns the most recently set value for the specified key.
 //
 // key: A key whose value you set previously using the [UpdateValueForAnimatedKey]
@@ -247,7 +245,6 @@ func (c NSCollectionViewTransitionLayout) TransitionProgress() float64 {
 func (c NSCollectionViewTransitionLayout) SetTransitionProgress(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTransitionProgress:"), value)
 }
-
 // The collection view’s current layout object.
 //
 // # Discussion
@@ -262,7 +259,6 @@ func (c NSCollectionViewTransitionLayout) CurrentLayout() INSCollectionViewLayou
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("currentLayout"))
 	return NSCollectionViewLayoutFromID(objc.ID(rv))
 }
-
 // The collection view’s new layout object.
 //
 // # Discussion

@@ -124,7 +124,6 @@ func (_NSFileAccessIntentClass NSFileAccessIntentClass) ReadingIntentWithURLOpti
 	rv := objc.Send[objc.ID](objc.ID(_NSFileAccessIntentClass.class), objc.Sel("readingIntentWithURL:options:"), url, options)
 	return NSFileAccessIntentFromID(rv)
 }
-
 // Returns a file access intent object for writing to the given URL with the
 // provided options.
 //

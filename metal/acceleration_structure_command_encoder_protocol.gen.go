@@ -139,12 +139,10 @@ func MTLAccelerationStructureCommandEncoderObjectFromID(id objc.ID) MTLAccelerat
 // and builds the instance acceleration structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/build(accelerationStructure:descriptor:scratchBuffer:scratchBufferOffset:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) BuildAccelerationStructureDescriptorScratchBufferScratchBufferOffset(accelerationStructure MTLAccelerationStructure, descriptor IMTLAccelerationStructureDescriptor, scratchBuffer MTLBuffer, scratchBufferOffset uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("buildAccelerationStructure:descriptor:scratchBuffer:scratchBufferOffset:"), accelerationStructure, descriptor, scratchBuffer, scratchBufferOffset)
 	}
-
 // Encodes a command to copy the data from one acceleration structure to
 // another.
 //
@@ -165,12 +163,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) BuildAccelerationStructure
 // to the same child structures.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/copy(sourceAccelerationStructure:destinationAccelerationStructure:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) CopyAccelerationStructureToAccelerationStructure(sourceAccelerationStructure MTLAccelerationStructure, destinationAccelerationStructure MTLAccelerationStructure) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("copyAccelerationStructure:toAccelerationStructure:"), sourceAccelerationStructure, destinationAccelerationStructure)
 	}
-
 // Encodes a command to calculate the compacted size of an acceleration
 // structure.
 //
@@ -194,12 +190,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) CopyAccelerationStructureT
 // it into the new structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/writeCompactedSize(accelerationStructure:buffer:offset:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) WriteCompactedAccelerationStructureSizeToBufferOffset(accelerationStructure MTLAccelerationStructure, buffer MTLBuffer, offset uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("writeCompactedAccelerationStructureSize:toBuffer:offset:"), accelerationStructure, buffer, offset)
 	}
-
 // Encodes a command to calculate the compacted size of an acceleration
 // structure, taking into account the size of the output data.
 //
@@ -225,12 +219,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) WriteCompactedAcceleration
 // it into the new structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/writeCompactedSize(accelerationStructure:buffer:offset:sizeDataType:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) WriteCompactedAccelerationStructureSizeToBufferOffsetSizeDataType(accelerationStructure MTLAccelerationStructure, buffer MTLBuffer, offset uint, sizeDataType MTLDataType) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("writeCompactedAccelerationStructureSize:toBuffer:offset:sizeDataType:"), accelerationStructure, buffer, offset, sizeDataType)
 	}
-
 // Encodes a command to compact an acceleration structure’s data and copy it
 // into a different acceleration structure.
 //
@@ -251,12 +243,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) WriteCompactedAcceleration
 // the same child structures.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/copyAndCompact(sourceAccelerationStructure:destinationAccelerationStructure:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) CopyAndCompactAccelerationStructureToAccelerationStructure(sourceAccelerationStructure MTLAccelerationStructure, destinationAccelerationStructure MTLAccelerationStructure) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("copyAndCompactAccelerationStructure:toAccelerationStructure:"), sourceAccelerationStructure, destinationAccelerationStructure)
 	}
-
 // Updates an acceleration structure with new geometry or instance data.
 //
 // sourceAccelerationStructure: The source acceleration structure.
@@ -294,12 +284,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) CopyAndCompactAcceleration
 // acceleration structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/refit(sourceAccelerationStructure:descriptor:destinationAccelerationStructure:scratchBuffer:scratchBufferOffset:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) RefitAccelerationStructureDescriptorDestinationScratchBufferScratchBufferOffset(sourceAccelerationStructure MTLAccelerationStructure, descriptor IMTLAccelerationStructureDescriptor, destinationAccelerationStructure MTLAccelerationStructure, scratchBuffer MTLBuffer, scratchBufferOffset uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:"), sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, scratchBufferOffset)
 	}
-
 // Updates an acceleration structure with new geometry or instance data, with
 // options that control the refitting process.
 //
@@ -340,12 +328,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) RefitAccelerationStructure
 // source acceleration structure.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/refit(sourceAccelerationStructure:descriptor:destinationAccelerationStructure:scratchBuffer:scratchBufferOffset:options:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) RefitAccelerationStructureDescriptorDestinationScratchBufferScratchBufferOffsetOptions(sourceAccelerationStructure MTLAccelerationStructure, descriptor IMTLAccelerationStructureDescriptor, destinationAccelerationStructure MTLAccelerationStructure, scratchBuffer MTLBuffer, scratchBufferOffset uint, options MTLAccelerationStructureRefitOptions) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("refitAccelerationStructure:descriptor:destination:scratchBuffer:scratchBufferOffset:options:"), sourceAccelerationStructure, descriptor, destinationAccelerationStructure, scratchBuffer, scratchBufferOffset, options)
 	}
-
 // Encodes a command that instructs the GPU to update a fence after the
 // acceleration structure pass completes.
 //
@@ -382,12 +368,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) RefitAccelerationStructure
 // [Synchronizing passes with a fence]: https://developer.apple.com/documentation/Metal/synchronizing-passes-with-a-fence
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/updateFence(_:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) UpdateFence(fence MTLFence) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateFence:"), fence)
 	}
-
 // Encodes a command that instructs the GPU to pause the acceleration
 // structure pass until another pass updates a fence.
 //
@@ -424,12 +408,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) UpdateFence(fence MTLFence
 // [Synchronizing passes with a fence]: https://developer.apple.com/documentation/Metal/synchronizing-passes-with-a-fence
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/waitForFence(_:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) WaitForFence(fence MTLFence) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:"), fence)
 	}
-
 // Makes the resources contained in the specified heap available to the
 // acceleration structure pass.
 //
@@ -451,12 +433,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) WaitForFence(fence MTLFenc
 // resources, you need to call the [UseResourceUsage] method instead.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/useHeap(_:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) UseHeap(heap MTLHeap) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("useHeap:"), heap)
 	}
-
 // Makes a resource available to the acceleration structure pass.
 //
 // resource: A specific resource within an argument buffer.
@@ -474,12 +454,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) UseHeap(heap MTLHeap) {
 // same compute command encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/useResource(_:usage:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) UseResourceUsage(resource MTLResource, usage MTLResourceUsage) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("useResource:usage:"), resource, usage)
 	}
-
 // Encodes a command to sample hardware counters at this point in the
 // acceleration structure pass and store the samples into a counter sample
 // buffer.
@@ -503,12 +481,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) UseResourceUsage(resource 
 // sampling from work encoded by other encoders.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/sampleCounters(sampleBuffer:sampleIndex:barrier:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithBarrier(sampleBuffer MTLCounterSampleBuffer, sampleIndex uint, barrier bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), sampleBuffer, sampleIndex, barrier)
 	}
-
 // Specifies that an array of heaps containing resources in an argument buffer
 // can be safely used by the acceleration structure pass.
 //
@@ -533,12 +509,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) SampleCountersInBufferAtSa
 // method instead.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/useHeaps:count:
-
 func (o MTLAccelerationStructureCommandEncoderObject) UseHeapsCount(heaps []MTLHeap, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("useHeaps:count:"), objc.CArray(heaps), count)
 	}
-
 // Specifies that an array of resources in an argument buffer can be safely
 // used by the acceleration structure pass.
 //
@@ -561,12 +535,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) UseHeapsCount(heaps []MTLH
 // within the same compute command encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureCommandEncoder/useResources:count:usage:
-
 func (o MTLAccelerationStructureCommandEncoderObject) UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("useResources:count:usage:"), objc.CArray(resources), count, usage)
 	}
-
 // Declares that all command generation from the encoder is completed.
 //
 // # Discussion
@@ -575,12 +547,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) UseResourcesCountUsage(res
 // cannot encode any other commands with this encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/endEncoding()
-
 func (o MTLAccelerationStructureCommandEncoderObject) EndEncoding() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("endEncoding"))
 	}
-
 // Inserts a debug string into the captured frame data.
 //
 // # Discussion
@@ -590,12 +560,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) EndEncoding() {
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/insertDebugSignpost(_:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) InsertDebugSignpost(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("insertDebugSignpost:"), objc.String(string_))
 	}
-
 // Pushes a specific string onto a stack of debug group strings for the
 // command encoder.
 //
@@ -606,12 +574,10 @@ func (o MTLAccelerationStructureCommandEncoderObject) InsertDebugSignpost(string
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/pushDebugGroup(_:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) PushDebugGroup(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
-
 // Pops the latest string off of a stack of debug group strings for the
 // command encoder.
 //
@@ -622,32 +588,26 @@ func (o MTLAccelerationStructureCommandEncoderObject) PushDebugGroup(string_ str
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/popDebugGroup()
-
 func (o MTLAccelerationStructureCommandEncoderObject) PopDebugGroup() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
-
 // The Metal device from which the command encoder was created.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
-
 func (o MTLAccelerationStructureCommandEncoderObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that labels the command encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
-
 func (o MTLAccelerationStructureCommandEncoderObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Encodes a consumer barrier on work you commit to the same command queue.
 //
 // afterQueueStages: [MTLStages] mask that represents the stages of work to wait for. This
@@ -681,7 +641,6 @@ func (o MTLAccelerationStructureCommandEncoderObject) Label() string {
 // [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/barrier(afterQueueStages:beforeStages:)
-
 func (o MTLAccelerationStructureCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)

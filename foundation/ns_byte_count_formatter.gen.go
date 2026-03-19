@@ -204,7 +204,6 @@ func (b ByteCountFormatter) StringFromByteCount(byteCount int64) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("stringFromByteCount:"), byteCount)
 	return NSStringFromID(rv).String()
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/string(from:)
 func (b ByteCountFormatter) StringFromMeasurement(measurement INSMeasurement) string {
@@ -231,7 +230,6 @@ func (_ByteCountFormatterClass ByteCountFormatterClass) StringFromByteCountCount
 	rv := objc.Send[objc.ID](objc.ID(_ByteCountFormatterClass.class), objc.Sel("stringFromByteCount:countStyle:"), byteCount, countStyle)
 	return NSStringFromID(rv).String()
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/string(from:countStyle:)
 func (_ByteCountFormatterClass ByteCountFormatterClass) StringFromMeasurementCountStyle(measurement INSMeasurement, countStyle NSByteCountFormatterCountStyle) string {
@@ -254,7 +252,6 @@ func (b ByteCountFormatter) FormattingContext() NSFormattingContext {
 func (b ByteCountFormatter) SetFormattingContext(value NSFormattingContext) {
 	objc.Send[struct{}](b.ID, objc.Sel("setFormattingContext:"), value)
 }
-
 // Specify the number of bytes to be used for kilobytes.
 //
 // # Discussion
@@ -270,7 +267,6 @@ func (b ByteCountFormatter) CountStyle() NSByteCountFormatterCountStyle {
 func (b ByteCountFormatter) SetCountStyle(value NSByteCountFormatterCountStyle) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCountStyle:"), value)
 }
-
 // Determines whether to allow more natural display of some values.
 //
 // # Discussion
@@ -296,7 +292,6 @@ func (b ByteCountFormatter) AllowsNonnumericFormatting() bool {
 func (b ByteCountFormatter) SetAllowsNonnumericFormatting(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowsNonnumericFormatting:"), value)
 }
-
 // Determines whether to include the number of bytes after the formatted
 // string.
 //
@@ -323,7 +318,6 @@ func (b ByteCountFormatter) IncludesActualByteCount() bool {
 func (b ByteCountFormatter) SetIncludesActualByteCount(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setIncludesActualByteCount:"), value)
 }
-
 // Determines the display style of the size representation.
 //
 // # Discussion
@@ -346,7 +340,6 @@ func (b ByteCountFormatter) Adaptive() bool {
 func (b ByteCountFormatter) SetAdaptive(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAdaptive:"), value)
 }
-
 // Specify the units that can be used in the output.
 //
 // # Discussion
@@ -372,7 +365,6 @@ func (b ByteCountFormatter) AllowedUnits() NSByteCountFormatterUnits {
 func (b ByteCountFormatter) SetAllowedUnits(value NSByteCountFormatterUnits) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAllowedUnits:"), value)
 }
-
 // Determines whether to include the count in the resulting formatted string.
 //
 // # Discussion
@@ -398,7 +390,6 @@ func (b ByteCountFormatter) IncludesCount() bool {
 func (b ByteCountFormatter) SetIncludesCount(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setIncludesCount:"), value)
 }
-
 // Determines whether to include the units in the resulting formatted string.
 //
 // # Discussion
@@ -424,7 +415,6 @@ func (b ByteCountFormatter) IncludesUnit() bool {
 func (b ByteCountFormatter) SetIncludesUnit(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setIncludesUnit:"), value)
 }
-
 // Determines whether to zero pad fraction digits so a consistent number of
 // characters is displayed in a representation.
 //

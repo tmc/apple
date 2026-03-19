@@ -155,7 +155,6 @@ func (e EnergyFormatter) StringFromJoules(numberInJoules float64) string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("stringFromJoules:"), numberInJoules)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a properly formatted energy string for the given value and unit.
 //
 // value: The energy value in the given unit.
@@ -171,7 +170,6 @@ func (e EnergyFormatter) StringFromValueUnit(value float64, unit NSEnergyFormatt
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("stringFromValue:unit:"), value, unit)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the unit string for the provided value.
 //
 // numberInJoules: The energy value in joules.
@@ -195,7 +193,6 @@ func (e EnergyFormatter) UnitStringFromJoulesUsedUnit(numberInJoules float64, un
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("unitStringFromJoules:usedUnit:"), numberInJoules, unitp)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the unit string based on the provided value and unit.
 //
 // value: The energy value in the provided unit.
@@ -234,7 +231,6 @@ func (e EnergyFormatter) ForFoodEnergyUse() bool {
 func (e EnergyFormatter) SetForFoodEnergyUse(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setForFoodEnergyUse:"), value)
 }
-
 // The number formatter used to format the numbers in energy strings.
 //
 // # Discussion
@@ -251,7 +247,6 @@ func (e EnergyFormatter) NumberFormatter() INSNumberFormatter {
 func (e EnergyFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](e.ID, objc.Sel("setNumberFormatter:"), value)
 }
-
 // The unit style used by this formatter.
 //
 // # Discussion

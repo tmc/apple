@@ -1027,7 +1027,6 @@ func (c NSColor) ColorWithSystemEffect(systemEffect NSColorSystemEffect) INSColo
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorWithSystemEffect:"), systemEffect)
 	return NSColorFromID(rv)
 }
-
 // Creates a new color object representing the color of the current color
 // object in the specified color space.
 //
@@ -1050,7 +1049,6 @@ func (c NSColor) ColorUsingColorSpace(space INSColorSpace) INSColor {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorUsingColorSpace:"), space)
 	return NSColorFromID(rv)
 }
-
 // Creates a new color object whose component values are a weighted sum of the
 // current color object and the specified color object’s.
 //
@@ -1070,7 +1068,6 @@ func (c NSColor) BlendedColorWithFractionOfColor(fraction float64, color INSColo
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("blendedColorWithFraction:ofColor:"), fraction, color)
 	return NSColorFromID(rv)
 }
-
 // Creates a new color object that has the same color space and component
 // values as the current color object, but the specified alpha component.
 //
@@ -1091,7 +1088,6 @@ func (c NSColor) ColorWithAlphaComponent(alpha float64) INSColor {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorWithAlphaComponent:"), alpha)
 	return NSColorFromID(rv)
 }
-
 // Creates a new color object that represents a blend between the current
 // color and the highlight color.
 //
@@ -1116,7 +1112,6 @@ func (c NSColor) HighlightWithLevel(val float64) INSColor {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("highlightWithLevel:"), val)
 	return NSColorFromID(rv)
 }
-
 // Creates a new color object that represents a blend between the current
 // color and the shadow color.
 //
@@ -1140,7 +1135,6 @@ func (c NSColor) ShadowWithLevel(val float64) INSColor {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("shadowWithLevel:"), val)
 	return NSColorFromID(rv)
 }
-
 // Writes the color object’s data to the specified pasteboard.
 //
 // pasteBoard: The pasteboard to which to write the receiver’s color data. If this
@@ -1150,7 +1144,6 @@ func (c NSColor) ShadowWithLevel(val float64) INSColor {
 func (c NSColor) WriteToPasteboard(pasteBoard INSPasteboard) {
 	objc.Send[objc.ID](c.ID, objc.Sel("writeToPasteboard:"), pasteBoard)
 }
-
 // Returns the color object’s CMYK and opacity values.
 //
 // cyan: Upon return, contains the cyan component of the color object.
@@ -1175,7 +1168,6 @@ func (c NSColor) WriteToPasteboard(pasteBoard INSPasteboard) {
 func (c NSColor) GetCyanMagentaYellowBlackAlpha(cyan unsafe.Pointer, magenta unsafe.Pointer, yellow unsafe.Pointer, black unsafe.Pointer, alpha unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getCyan:magenta:yellow:black:alpha:"), cyan, magenta, yellow, black, alpha)
 }
-
 // Returns the color object’s HSB component and opacity values in the
 // respective arguments.
 //
@@ -1201,7 +1193,6 @@ func (c NSColor) GetCyanMagentaYellowBlackAlpha(cyan unsafe.Pointer, magenta uns
 func (c NSColor) GetHueSaturationBrightnessAlpha(hue unsafe.Pointer, saturation unsafe.Pointer, brightness unsafe.Pointer, alpha unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getHue:saturation:brightness:alpha:"), hue, saturation, brightness, alpha)
 }
-
 // Returns the color object’s RGB component and opacity values in the
 // respective arguments.
 //
@@ -1227,7 +1218,6 @@ func (c NSColor) GetHueSaturationBrightnessAlpha(hue unsafe.Pointer, saturation 
 func (c NSColor) GetRedGreenBlueAlpha(red unsafe.Pointer, green unsafe.Pointer, blue unsafe.Pointer, alpha unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getRed:green:blue:alpha:"), red, green, blue, alpha)
 }
-
 // Returns the grayscale and alpha values of the color.
 //
 // white: Upon return, contains the grayscale value of the color object.
@@ -1251,7 +1241,6 @@ func (c NSColor) GetRedGreenBlueAlpha(red unsafe.Pointer, green unsafe.Pointer, 
 func (c NSColor) GetWhiteAlpha(white unsafe.Pointer, alpha unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getWhite:alpha:"), white, alpha)
 }
-
 // Returns the components of the color as an array.
 //
 // components: An array containing the components of the color object as `float` values.
@@ -1268,7 +1257,6 @@ func (c NSColor) GetWhiteAlpha(white unsafe.Pointer, alpha unsafe.Pointer) {
 func (c NSColor) GetComponents(components unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("getComponents:"), components)
 }
-
 // Returns a version of the color object that is compatible with the specified
 // color type.
 //
@@ -1298,7 +1286,6 @@ func (c NSColor) ColorUsingType(type_ NSColorType) INSColor {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorUsingType:"), type_)
 	return NSColorFromID(rv)
 }
-
 // Reinterpret the color by applying a new `contentHeadroom` without changing
 // the color components. Changing the `contentHeadroom` redefines the color
 // relative to a different peak white, changing its behavior under tone
@@ -1312,7 +1299,6 @@ func (c NSColor) ColorByApplyingContentHeadroom(contentHeadroom float64) INSColo
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorByApplyingContentHeadroom:"), contentHeadroom)
 	return NSColorFromID(rv)
 }
-
 // Draws the current color in the specified rectangle.
 //
 // rect: The rectangle in which to draw the color.
@@ -1327,7 +1313,6 @@ func (c NSColor) ColorByApplyingContentHeadroom(contentHeadroom float64) INSColo
 func (c NSColor) DrawSwatchInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](c.ID, objc.Sel("drawSwatchInRect:"), rect)
 }
-
 // Sets the color of subsequent drawing to the color that the color object
 // represents.
 //
@@ -1339,7 +1324,6 @@ func (c NSColor) DrawSwatchInRect(rect corefoundation.CGRect) {
 func (c NSColor) Set() {
 	objc.Send[objc.ID](c.ID, objc.Sel("set"))
 }
-
 // Sets the fill color of subsequent drawing to the color object’s color.
 //
 // # Discussion
@@ -1350,7 +1334,6 @@ func (c NSColor) Set() {
 func (c NSColor) SetFill() {
 	objc.Send[objc.ID](c.ID, objc.Sel("setFill"))
 }
-
 // Sets the stroke color of subsequent drawing to the color object’s color.
 //
 // # Discussion
@@ -1361,7 +1344,6 @@ func (c NSColor) SetFill() {
 func (c NSColor) SetStroke() {
 	objc.Send[objc.ID](c.ID, objc.Sel("setStroke"))
 }
-
 // Creates a color object from data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(coder:)
@@ -1369,7 +1351,6 @@ func (c NSColor) InitWithCoder(coder foundation.INSCoder) NSColor {
 	rv := objc.Send[NSColor](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Initializes an instance with a property list object and a type string.
 //
 // propertyList: A property list containing data to initialize the receiver.
@@ -1400,7 +1381,6 @@ func (c NSColor) InitWithPasteboardPropertyListOfType(propertyList objectivec.IO
 	rv := objc.Send[NSColor](c.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
 }
-
 // Returns a property list object to represent the receiver on a pasteboard as
 // an object of a specified type.
 //
@@ -1424,7 +1404,6 @@ func (c NSColor) PasteboardPropertyListForType(type_ NSPasteboardType) objective
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("pasteboardPropertyListForType:"), objc.String(string(type_)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an array of UTI strings of data types the receiver can write to a
 // given pasteboard.
 //
@@ -1455,7 +1434,6 @@ func (c NSColor) WritableTypesForPasteboard(pasteboard INSPasteboard) []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("writableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for writing data of a specified type to a given pasteboard.
 //
 // type: One of the types the receiver supports for writing (one of the UTIs
@@ -1515,7 +1493,6 @@ _block1, _cleanup1 := NewAppearanceBlock(dynamicProvider)
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("colorWithName:dynamicProvider:"), objc.String(colorName), _block1)
 	return NSColorFromID(rv)
 }
-
 // Returns an array of uniform type identifier strings of data types the
 // receiver can read from the pasteboard and initialize from.
 //
@@ -1544,7 +1521,6 @@ func (_NSColorClass NSColorClass) ReadableTypesForPasteboard(pasteboard INSPaste
 	rv := objc.Send[[]objc.ID](objc.ID(_NSColorClass.class), objc.Sel("readableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for reading data of a specified type from a given
 // pasteboard.
 //
@@ -1587,7 +1563,6 @@ func (c NSColor) NumberOfComponents() int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfComponents"))
 	return rv
 }
-
 // The alpha (opacity) component value of the color.
 //
 // # Discussion
@@ -1601,7 +1576,6 @@ func (c NSColor) AlphaComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("alphaComponent"))
 	return rv
 }
-
 // The white component value of the color.
 //
 // # Discussion
@@ -1620,7 +1594,6 @@ func (c NSColor) WhiteComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("whiteComponent"))
 	return rv
 }
-
 // The red component value of the color.
 //
 // # Discussion
@@ -1636,7 +1609,6 @@ func (c NSColor) RedComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("redComponent"))
 	return rv
 }
-
 // The green component value of the color.
 //
 // # Discussion
@@ -1652,7 +1624,6 @@ func (c NSColor) GreenComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("greenComponent"))
 	return rv
 }
-
 // The blue component value of the color.
 //
 // # Discussion
@@ -1668,7 +1639,6 @@ func (c NSColor) BlueComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("blueComponent"))
 	return rv
 }
-
 // The cyan component value of the color.
 //
 // # Discussion
@@ -1683,7 +1653,6 @@ func (c NSColor) CyanComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("cyanComponent"))
 	return rv
 }
-
 // The magenta component value of the color.
 //
 // # Discussion
@@ -1698,7 +1667,6 @@ func (c NSColor) MagentaComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("magentaComponent"))
 	return rv
 }
-
 // The yellow component value of the color.
 //
 // # Discussion
@@ -1713,7 +1681,6 @@ func (c NSColor) YellowComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("yellowComponent"))
 	return rv
 }
-
 // The black component value of the color.
 //
 // # Discussion
@@ -1729,7 +1696,6 @@ func (c NSColor) BlackComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("blackComponent"))
 	return rv
 }
-
 // The hue component value of the color.
 //
 // # Discussion
@@ -1746,7 +1712,6 @@ func (c NSColor) HueComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("hueComponent"))
 	return rv
 }
-
 // The saturation component value of the color.
 //
 // # Discussion
@@ -1763,7 +1728,6 @@ func (c NSColor) SaturationComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("saturationComponent"))
 	return rv
 }
-
 // The brightness component value of the color.
 //
 // # Discussion
@@ -1780,7 +1744,6 @@ func (c NSColor) BrightnessComponent() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("brightnessComponent"))
 	return rv
 }
-
 // The catalog containing the color’s name.
 //
 // # Discussion
@@ -1795,7 +1758,6 @@ func (c NSColor) CatalogNameComponent() NSColorListName {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("catalogNameComponent"))
 	return NSColorListName(foundation.NSStringFromID(rv).String())
 }
-
 // The localized version of the catalog name containing the color.
 //
 // # Discussion
@@ -1811,7 +1773,6 @@ func (c NSColor) LocalizedCatalogNameComponent() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("localizedCatalogNameComponent"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The name of the color.
 //
 // # Discussion
@@ -1826,7 +1787,6 @@ func (c NSColor) ColorNameComponent() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorNameComponent"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The localized version of the color name.
 //
 // # Discussion
@@ -1842,7 +1802,6 @@ func (c NSColor) LocalizedColorNameComponent() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("localizedColorNameComponent"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The type of the color object.
 //
 // # Discussion
@@ -1859,7 +1818,6 @@ func (c NSColor) Type() NSColorType {
 	rv := objc.Send[NSColorType](c.ID, objc.Sel("type"))
 	return NSColorType(rv)
 }
-
 // The color space associated with the color.
 //
 // # Discussion
@@ -1890,7 +1848,6 @@ func (c NSColor) ColorSpace() INSColorSpace {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("colorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // For HDR colors, the linear brightness multiplier that was applied when
 // generating the color. Colors created with an exposure by NSColor create
 // CGColors that are tagged with a contentHeadroom value. While CGColors
@@ -1903,7 +1860,6 @@ func (c NSColor) LinearExposure() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("linearExposure"))
 	return rv
 }
-
 // In some cases it is useful to recover the color that was base the SDR color
 // that was exposed to generate an HDR color. If a color’s `linearExposure`
 // is > 1, then this will return the base SDR color. If the color is not an
@@ -1914,7 +1870,6 @@ func (c NSColor) StandardDynamicRangeColor() INSColor {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("standardDynamicRangeColor"))
 	return NSColorFromID(objc.ID(rv))
 }
-
 // The Core Graphics color object corresponding to the color.
 //
 // # Discussion
@@ -1928,7 +1883,6 @@ func (c NSColor) CGColor() coregraphics.CGColorRef {
 	rv := objc.Send[coregraphics.CGColorRef](c.ID, objc.Sel("CGColor"))
 	return coregraphics.CGColorRef(rv)
 }
-
 // Returns a localized description of the color for use in accessibility
 // attributes.
 //
@@ -1937,7 +1891,6 @@ func (c NSColor) AccessibilityName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("accessibilityName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The pattern image used to paint the target area.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/patternimage
@@ -1957,7 +1910,6 @@ func (_NSColorClass NSColorClass) SystemColorsDidChangeNotification() foundation
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("NSSystemColorsDidChangeNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the app supports alpha.
 //
 // # Return Value
@@ -1992,7 +1944,6 @@ func (_NSColorClass NSColorClass) IgnoresAlpha() bool {
 func (_NSColorClass NSColorClass) SetIgnoresAlpha(value bool) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setIgnoresAlpha:"), value)
 }
-
 // Sent after the user changes control tint preference.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/currentcontroltintdidchangenotification
@@ -2000,7 +1951,6 @@ func (_NSColorClass NSColorClass) CurrentControlTintDidChangeNotification() foun
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("NSControlTintDidChangeNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
 // The system color used for the face of a selected control in a list or
 // table.
 //
@@ -2012,7 +1962,6 @@ func (_NSColorClass NSColorClass) AlternateSelectedControlColor() NSColor {
 func (_NSColorClass NSColorClass) SetAlternateSelectedControlColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setAlternateSelectedControlColor:"), value)
 }
-
 // The color to use for text in a selected control.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/alternateselectedcontroltextcolor
@@ -2023,7 +1972,6 @@ func (_NSColorClass NSColorClass) AlternateSelectedControlTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetAlternateSelectedControlTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setAlternateSelectedControlTextColor:"), value)
 }
-
 // The colors to use for alternating content, typically found in table views
 // and collection views.
 //
@@ -2035,7 +1983,6 @@ func (_NSColorClass NSColorClass) AlternatingContentBackgroundColors() NSColor {
 func (_NSColorClass NSColorClass) SetAlternatingContentBackgroundColors(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setAlternatingContentBackgroundColors:"), value)
 }
-
 // Returns a color object whose grayscale value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/black
@@ -2046,7 +1993,6 @@ func (_NSColorClass NSColorClass) Black() NSColor {
 func (_NSColorClass NSColorClass) SetBlack(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setBlackColor:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/blue
@@ -2057,7 +2003,6 @@ func (_NSColorClass NSColorClass) Blue() NSColor {
 func (_NSColorClass NSColorClass) SetBlue(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setBlueColor:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/brown
@@ -2068,7 +2013,6 @@ func (_NSColorClass NSColorClass) Brown() NSColor {
 func (_NSColorClass NSColorClass) SetBrown(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setBrownColor:"), value)
 }
-
 // Returns a color object whose grayscale and alpha values are both
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/clear
@@ -2079,7 +2023,6 @@ func (_NSColorClass NSColorClass) Clear() NSColor {
 func (_NSColorClass NSColorClass) SetClear(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setClearColor:"), value)
 }
-
 // The user’s current accent color preference.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/controlaccentcolor
@@ -2090,7 +2033,6 @@ func (_NSColorClass NSColorClass) ControlAccentColor() NSColor {
 func (_NSColorClass NSColorClass) SetControlAccentColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlAccentColor:"), value)
 }
-
 // An array containing the system specified background colors for alternating
 // rows in tables and lists.
 //
@@ -2102,7 +2044,6 @@ func (_NSColorClass NSColorClass) ControlAlternatingRowBackgroundColors() NSColo
 func (_NSColorClass NSColorClass) SetControlAlternatingRowBackgroundColors(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlAlternatingRowBackgroundColors:"), value)
 }
-
 // The color to use for the background of large controls, such as scroll views
 // or table views.
 //
@@ -2114,7 +2055,6 @@ func (_NSColorClass NSColorClass) ControlBackgroundColor() NSColor {
 func (_NSColorClass NSColorClass) SetControlBackgroundColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlBackgroundColor:"), value)
 }
-
 // The color to use for the flat surfaces of a control.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/controlcolor
@@ -2125,7 +2065,6 @@ func (_NSColorClass NSColorClass) ControlColor() NSColor {
 func (_NSColorClass NSColorClass) SetControlColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlColor:"), value)
 }
-
 // The system color used for the dark edge of the shadow dropped from
 // controls.
 //
@@ -2137,7 +2076,6 @@ func (_NSColorClass NSColorClass) ControlDarkShadowColor() NSColor {
 func (_NSColorClass NSColorClass) SetControlDarkShadowColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlDarkShadowColor:"), value)
 }
-
 // The system color used for the highlighted bezels of controls.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/controlhighlightcolor
@@ -2148,7 +2086,6 @@ func (_NSColorClass NSColorClass) ControlHighlightColor() NSColor {
 func (_NSColorClass NSColorClass) SetControlHighlightColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlHighlightColor:"), value)
 }
-
 // The system color used for light highlights in controls.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/controllighthighlightcolor
@@ -2159,7 +2096,6 @@ func (_NSColorClass NSColorClass) ControlLightHighlightColor() NSColor {
 func (_NSColorClass NSColorClass) SetControlLightHighlightColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlLightHighlightColor:"), value)
 }
-
 // The system color used for the shadows dropped from controls.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/controlshadowcolor
@@ -2170,7 +2106,6 @@ func (_NSColorClass NSColorClass) ControlShadowColor() NSColor {
 func (_NSColorClass NSColorClass) SetControlShadowColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlShadowColor:"), value)
 }
-
 // The color to use for text on enabled controls.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/controltextcolor
@@ -2181,7 +2116,6 @@ func (_NSColorClass NSColorClass) ControlTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetControlTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setControlTextColor:"), value)
 }
-
 // The current system control tint color.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/currentcontroltint
@@ -2192,7 +2126,6 @@ func (_NSColorClass NSColorClass) CurrentControlTint() NSControlTint {
 func (_NSColorClass NSColorClass) SetCurrentControlTint(value NSControlTint) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setCurrentControlTint:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/cyan
@@ -2203,7 +2136,6 @@ func (_NSColorClass NSColorClass) Cyan() NSColor {
 func (_NSColorClass NSColorClass) SetCyan(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setCyanColor:"), value)
 }
-
 // Returns a color object whose grayscale value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/darkgray
@@ -2214,7 +2146,6 @@ func (_NSColorClass NSColorClass) DarkGray() NSColor {
 func (_NSColorClass NSColorClass) SetDarkGray(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setDarkGrayColor:"), value)
 }
-
 // The color to use for text on disabled controls.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/disabledcontroltextcolor
@@ -2225,7 +2156,6 @@ func (_NSColorClass NSColorClass) DisabledControlTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetDisabledControlTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setDisabledControlTextColor:"), value)
 }
-
 // A color space object that represents an extended gray color space with a
 // gamma value of 2.2.
 //
@@ -2237,7 +2167,6 @@ func (_NSColorClass NSColorClass) ExtendedGenericGamma22Gray() NSColorSpace {
 func (_NSColorClass NSColorClass) SetExtendedGenericGamma22Gray(value NSColorSpace) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setExtendedGenericGamma22GrayColorSpace:"), value)
 }
-
 // A color space object that represents an extended sRGB color space.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolorspace/extendedsrgb
@@ -2248,7 +2177,6 @@ func (_NSColorClass NSColorClass) ExtendedSRGB() NSColorSpace {
 func (_NSColorClass NSColorClass) SetExtendedSRGB(value NSColorSpace) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setExtendedSRGBColorSpace:"), value)
 }
-
 // The highlight color to use for the bubble that shows inline search result
 // values.
 //
@@ -2260,7 +2188,6 @@ func (_NSColorClass NSColorClass) FindHighlightColor() NSColor {
 func (_NSColorClass NSColorClass) SetFindHighlightColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setFindHighlightColor:"), value)
 }
-
 // Returns a color object whose grayscale value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/gray
@@ -2271,7 +2198,6 @@ func (_NSColorClass NSColorClass) Gray() NSColor {
 func (_NSColorClass NSColorClass) SetGray(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setGrayColor:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/green
@@ -2282,7 +2208,6 @@ func (_NSColorClass NSColorClass) Green() NSColor {
 func (_NSColorClass NSColorClass) SetGreen(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setGreenColor:"), value)
 }
-
 // The color to use for the optional gridlines, such as those in a table view.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/gridcolor
@@ -2293,7 +2218,6 @@ func (_NSColorClass NSColorClass) GridColor() NSColor {
 func (_NSColorClass NSColorClass) SetGridColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setGridColor:"), value)
 }
-
 // The system color used as the background color for header cells in table
 // views and outline views.
 //
@@ -2305,7 +2229,6 @@ func (_NSColorClass NSColorClass) HeaderColor() NSColor {
 func (_NSColorClass NSColorClass) SetHeaderColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setHeaderColor:"), value)
 }
-
 // The color to use for text in header cells in table views and outline views.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/headertextcolor
@@ -2316,7 +2239,6 @@ func (_NSColorClass NSColorClass) HeaderTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetHeaderTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setHeaderTextColor:"), value)
 }
-
 // The color to use as a virtual light source on the screen.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/highlightcolor
@@ -2327,7 +2249,6 @@ func (_NSColorClass NSColorClass) HighlightColor() NSColor {
 func (_NSColorClass NSColorClass) SetHighlightColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setHighlightColor:"), value)
 }
-
 // The color to use for the keyboard focus ring around controls.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/keyboardfocusindicatorcolor
@@ -2338,7 +2259,6 @@ func (_NSColorClass NSColorClass) KeyboardFocusIndicatorColor() NSColor {
 func (_NSColorClass NSColorClass) SetKeyboardFocusIndicatorColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setKeyboardFocusIndicatorColor:"), value)
 }
-
 // The system color used for the flat surface of a slider knob that hasn’t
 // been selected.
 //
@@ -2350,7 +2270,6 @@ func (_NSColorClass NSColorClass) KnobColor() NSColor {
 func (_NSColorClass NSColorClass) SetKnobColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setKnobColor:"), value)
 }
-
 // The primary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/labelcolor
@@ -2361,7 +2280,6 @@ func (_NSColorClass NSColorClass) LabelColor() NSColor {
 func (_NSColorClass NSColorClass) SetLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setLabelColor:"), value)
 }
-
 // Returns a color object whose grayscale value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/lightgray
@@ -2372,7 +2290,6 @@ func (_NSColorClass NSColorClass) LightGray() NSColor {
 func (_NSColorClass NSColorClass) SetLightGray(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setLightGrayColor:"), value)
 }
-
 // The color to use for links.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/linkcolor
@@ -2383,7 +2300,6 @@ func (_NSColorClass NSColorClass) LinkColor() NSColor {
 func (_NSColorClass NSColorClass) SetLinkColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setLinkColor:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/magenta
@@ -2394,7 +2310,6 @@ func (_NSColorClass NSColorClass) Magenta() NSColor {
 func (_NSColorClass NSColorClass) SetMagenta(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setMagentaColor:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/orange
@@ -2405,7 +2320,6 @@ func (_NSColorClass NSColorClass) Orange() NSColor {
 func (_NSColorClass NSColorClass) SetOrange(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setOrangeColor:"), value)
 }
-
 // The color to use for placeholder text in controls or text views.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/placeholdertextcolor
@@ -2416,7 +2330,6 @@ func (_NSColorClass NSColorClass) PlaceholderTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetPlaceholderTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setPlaceholderTextColor:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/purple
@@ -2427,7 +2340,6 @@ func (_NSColorClass NSColorClass) Purple() NSColor {
 func (_NSColorClass NSColorClass) SetPurple(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setPurpleColor:"), value)
 }
-
 // The quaternary color to use for text labels and separators.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/quaternarylabelcolor
@@ -2438,7 +2350,6 @@ func (_NSColorClass NSColorClass) QuaternaryLabelColor() NSColor {
 func (_NSColorClass NSColorClass) SetQuaternaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setQuaternaryLabelColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nscolor/quaternarysystemfill
 func (_NSColorClass NSColorClass) QuaternarySystemFill() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("quaternarySystemFillColor"))
@@ -2447,7 +2358,6 @@ func (_NSColorClass NSColorClass) QuaternarySystemFill() NSColor {
 func (_NSColorClass NSColorClass) SetQuaternarySystemFill(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setQuaternarySystemFillColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nscolor/quinarylabel
 func (_NSColorClass NSColorClass) QuinaryLabel() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("quinaryLabelColor"))
@@ -2456,7 +2366,6 @@ func (_NSColorClass NSColorClass) QuinaryLabel() NSColor {
 func (_NSColorClass NSColorClass) SetQuinaryLabel(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setQuinaryLabelColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nscolor/quinarysystemfill
 func (_NSColorClass NSColorClass) QuinarySystemFill() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("quinarySystemFillColor"))
@@ -2465,7 +2374,6 @@ func (_NSColorClass NSColorClass) QuinarySystemFill() NSColor {
 func (_NSColorClass NSColorClass) SetQuinarySystemFill(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setQuinarySystemFillColor:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/red
@@ -2476,7 +2384,6 @@ func (_NSColorClass NSColorClass) Red() NSColor {
 func (_NSColorClass NSColorClass) SetRed(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setRedColor:"), value)
 }
-
 // The system color used for scroll “bars”—that is, for the groove in
 // which a scroller’s knob moves
 //
@@ -2488,7 +2395,6 @@ func (_NSColorClass NSColorClass) ScrollBarColor() NSColor {
 func (_NSColorClass NSColorClass) SetScrollBarColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setScrollBarColor:"), value)
 }
-
 // The patterned color to use for the background of a scrubber control.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/scrubbertexturedbackground
@@ -2499,7 +2405,6 @@ func (_NSColorClass NSColorClass) ScrubberTexturedBackground() NSColor {
 func (_NSColorClass NSColorClass) SetScrubberTexturedBackground(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setScrubberTexturedBackgroundColor:"), value)
 }
-
 // The secondary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/secondarylabelcolor
@@ -2510,7 +2415,6 @@ func (_NSColorClass NSColorClass) SecondaryLabelColor() NSColor {
 func (_NSColorClass NSColorClass) SetSecondaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSecondaryLabelColor:"), value)
 }
-
 // The color used for selected controls in non-key views.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/secondaryselectedcontrolcolor
@@ -2521,7 +2425,6 @@ func (_NSColorClass NSColorClass) SecondarySelectedControlColor() NSColor {
 func (_NSColorClass NSColorClass) SetSecondarySelectedControlColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSecondarySelectedControlColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nscolor/secondarysystemfill
 func (_NSColorClass NSColorClass) SecondarySystemFill() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("secondarySystemFillColor"))
@@ -2530,7 +2433,6 @@ func (_NSColorClass NSColorClass) SecondarySystemFill() NSColor {
 func (_NSColorClass NSColorClass) SetSecondarySystemFill(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSecondarySystemFillColor:"), value)
 }
-
 // The color to use for the background of selected and emphasized content.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/selectedcontentbackgroundcolor
@@ -2541,7 +2443,6 @@ func (_NSColorClass NSColorClass) SelectedContentBackgroundColor() NSColor {
 func (_NSColorClass NSColorClass) SetSelectedContentBackgroundColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSelectedContentBackgroundColor:"), value)
 }
-
 // The color to use for the face of a selected control—that is, a control
 // that has been clicked or is being dragged.
 //
@@ -2553,7 +2454,6 @@ func (_NSColorClass NSColorClass) SelectedControlColor() NSColor {
 func (_NSColorClass NSColorClass) SetSelectedControlColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSelectedControlColor:"), value)
 }
-
 // The color to use for text in a selected control—that is, a control being
 // clicked or dragged.
 //
@@ -2565,7 +2465,6 @@ func (_NSColorClass NSColorClass) SelectedControlTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetSelectedControlTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSelectedControlTextColor:"), value)
 }
-
 // The system color used for the slider knob when it is selected.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/selectedknobcolor
@@ -2576,7 +2475,6 @@ func (_NSColorClass NSColorClass) SelectedKnobColor() NSColor {
 func (_NSColorClass NSColorClass) SetSelectedKnobColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSelectedKnobColor:"), value)
 }
-
 // The color to use for the face of selected menu items.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/selectedmenuitemcolor
@@ -2587,7 +2485,6 @@ func (_NSColorClass NSColorClass) SelectedMenuItemColor() NSColor {
 func (_NSColorClass NSColorClass) SetSelectedMenuItemColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSelectedMenuItemColor:"), value)
 }
-
 // The color to use for the text in menu items.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/selectedmenuitemtextcolor
@@ -2598,7 +2495,6 @@ func (_NSColorClass NSColorClass) SelectedMenuItemTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetSelectedMenuItemTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSelectedMenuItemTextColor:"), value)
 }
-
 // The color to use for the background of selected text.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/selectedtextbackgroundcolor
@@ -2609,7 +2505,6 @@ func (_NSColorClass NSColorClass) SelectedTextBackgroundColor() NSColor {
 func (_NSColorClass NSColorClass) SetSelectedTextBackgroundColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSelectedTextBackgroundColor:"), value)
 }
-
 // The color to use for selected text.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/selectedtextcolor
@@ -2620,7 +2515,6 @@ func (_NSColorClass NSColorClass) SelectedTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetSelectedTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSelectedTextColor:"), value)
 }
-
 // The color to use for separators between different sections of content.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/separatorcolor
@@ -2631,7 +2525,6 @@ func (_NSColorClass NSColorClass) SeparatorColor() NSColor {
 func (_NSColorClass NSColorClass) SetSeparatorColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSeparatorColor:"), value)
 }
-
 // The color to use for virtual shadows cast by raised objects on the screen.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/shadowcolor
@@ -2642,7 +2535,6 @@ func (_NSColorClass NSColorClass) ShadowColor() NSColor {
 func (_NSColorClass NSColorClass) SetShadowColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setShadowColor:"), value)
 }
-
 // Returns a color object for blue that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2654,7 +2546,6 @@ func (_NSColorClass NSColorClass) SystemBlue() NSColor {
 func (_NSColorClass NSColorClass) SetSystemBlue(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemBlueColor:"), value)
 }
-
 // Returns a color object for brown that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2666,7 +2557,6 @@ func (_NSColorClass NSColorClass) SystemBrown() NSColor {
 func (_NSColorClass NSColorClass) SetSystemBrown(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemBrownColor:"), value)
 }
-
 // Returns a color object for cyan that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2678,7 +2568,6 @@ func (_NSColorClass NSColorClass) SystemCyan() NSColor {
 func (_NSColorClass NSColorClass) SetSystemCyan(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemCyanColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nscolor/systemfill
 func (_NSColorClass NSColorClass) SystemFill() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("systemFillColor"))
@@ -2687,7 +2576,6 @@ func (_NSColorClass NSColorClass) SystemFill() NSColor {
 func (_NSColorClass NSColorClass) SetSystemFill(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemFillColor:"), value)
 }
-
 // Returns a color object for gray that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2699,7 +2587,6 @@ func (_NSColorClass NSColorClass) SystemGray() NSColor {
 func (_NSColorClass NSColorClass) SetSystemGray(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemGrayColor:"), value)
 }
-
 // Returns a color object for green that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2711,7 +2598,6 @@ func (_NSColorClass NSColorClass) SystemGreen() NSColor {
 func (_NSColorClass NSColorClass) SetSystemGreen(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemGreenColor:"), value)
 }
-
 // Returns a color object for indigo that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2723,7 +2609,6 @@ func (_NSColorClass NSColorClass) SystemIndigo() NSColor {
 func (_NSColorClass NSColorClass) SetSystemIndigo(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemIndigoColor:"), value)
 }
-
 // Returns a color object for mint that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2735,7 +2620,6 @@ func (_NSColorClass NSColorClass) SystemMint() NSColor {
 func (_NSColorClass NSColorClass) SetSystemMint(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemMintColor:"), value)
 }
-
 // Returns a color object for orange that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2747,7 +2631,6 @@ func (_NSColorClass NSColorClass) SystemOrange() NSColor {
 func (_NSColorClass NSColorClass) SetSystemOrange(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemOrangeColor:"), value)
 }
-
 // Returns a color object for pink that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2759,7 +2642,6 @@ func (_NSColorClass NSColorClass) SystemPink() NSColor {
 func (_NSColorClass NSColorClass) SetSystemPink(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemPinkColor:"), value)
 }
-
 // Returns a color object for purple that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2771,7 +2653,6 @@ func (_NSColorClass NSColorClass) SystemPurple() NSColor {
 func (_NSColorClass NSColorClass) SetSystemPurple(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemPurpleColor:"), value)
 }
-
 // Returns a color object for red that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2783,7 +2664,6 @@ func (_NSColorClass NSColorClass) SystemRed() NSColor {
 func (_NSColorClass NSColorClass) SetSystemRed(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemRedColor:"), value)
 }
-
 // Returns a color object for teal that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2795,7 +2675,6 @@ func (_NSColorClass NSColorClass) SystemTeal() NSColor {
 func (_NSColorClass NSColorClass) SetSystemTeal(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemTealColor:"), value)
 }
-
 // Returns a color object for yellow that automatically adapts to vibrancy and
 // accessibility settings.
 //
@@ -2807,7 +2686,6 @@ func (_NSColorClass NSColorClass) SystemYellow() NSColor {
 func (_NSColorClass NSColorClass) SetSystemYellow(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setSystemYellowColor:"), value)
 }
-
 // The tertiary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/tertiarylabelcolor
@@ -2818,7 +2696,6 @@ func (_NSColorClass NSColorClass) TertiaryLabelColor() NSColor {
 func (_NSColorClass NSColorClass) SetTertiaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setTertiaryLabelColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nscolor/tertiarysystemfill
 func (_NSColorClass NSColorClass) TertiarySystemFill() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("tertiarySystemFillColor"))
@@ -2827,7 +2704,6 @@ func (_NSColorClass NSColorClass) TertiarySystemFill() NSColor {
 func (_NSColorClass NSColorClass) SetTertiarySystemFill(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setTertiarySystemFillColor:"), value)
 }
-
 // The color to use for the background area behind text.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/textbackgroundcolor
@@ -2838,7 +2714,6 @@ func (_NSColorClass NSColorClass) TextBackgroundColor() NSColor {
 func (_NSColorClass NSColorClass) SetTextBackgroundColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setTextBackgroundColor:"), value)
 }
-
 // The color to use for text.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/textcolor
@@ -2849,7 +2724,6 @@ func (_NSColorClass NSColorClass) TextColor() NSColor {
 func (_NSColorClass NSColorClass) SetTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setTextColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nscolor/textinsertionpointcolor
 func (_NSColorClass NSColorClass) TextInsertionPointColor() NSColor {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("textInsertionPointColor"))
@@ -2858,7 +2732,6 @@ func (_NSColorClass NSColorClass) TextInsertionPointColor() NSColor {
 func (_NSColorClass NSColorClass) SetTextInsertionPointColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setTextInsertionPointColor:"), value)
 }
-
 // The color to use in the area beneath your window’s views.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/underpagebackgroundcolor
@@ -2869,7 +2742,6 @@ func (_NSColorClass NSColorClass) UnderPageBackgroundColor() NSColor {
 func (_NSColorClass NSColorClass) SetUnderPageBackgroundColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setUnderPageBackgroundColor:"), value)
 }
-
 // The color to use for selected and unemphasized content.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/unemphasizedselectedcontentbackgroundcolor
@@ -2880,7 +2752,6 @@ func (_NSColorClass NSColorClass) UnemphasizedSelectedContentBackgroundColor() N
 func (_NSColorClass NSColorClass) SetUnemphasizedSelectedContentBackgroundColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setUnemphasizedSelectedContentBackgroundColor:"), value)
 }
-
 // The color to use for the text background in an unemphasized context.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/unemphasizedselectedtextbackgroundcolor
@@ -2891,7 +2762,6 @@ func (_NSColorClass NSColorClass) UnemphasizedSelectedTextBackgroundColor() NSCo
 func (_NSColorClass NSColorClass) SetUnemphasizedSelectedTextBackgroundColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setUnemphasizedSelectedTextBackgroundColor:"), value)
 }
-
 // The color to use for selected text in an unemphasized context.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/unemphasizedselectedtextcolor
@@ -2902,7 +2772,6 @@ func (_NSColorClass NSColorClass) UnemphasizedSelectedTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetUnemphasizedSelectedTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setUnemphasizedSelectedTextColor:"), value)
 }
-
 // Returns a color object whose grayscale and alpha values are both
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/white
@@ -2913,7 +2782,6 @@ func (_NSColorClass NSColorClass) White() NSColor {
 func (_NSColorClass NSColorClass) SetWhite(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setWhiteColor:"), value)
 }
-
 // The color to use for the window background.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/windowbackgroundcolor
@@ -2924,7 +2792,6 @@ func (_NSColorClass NSColorClass) WindowBackgroundColor() NSColor {
 func (_NSColorClass NSColorClass) SetWindowBackgroundColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setWindowBackgroundColor:"), value)
 }
-
 // The system color used for window frames, except for their text.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/windowframecolor
@@ -2935,7 +2802,6 @@ func (_NSColorClass NSColorClass) WindowFrameColor() NSColor {
 func (_NSColorClass NSColorClass) SetWindowFrameColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setWindowFrameColor:"), value)
 }
-
 // The color to use for text in a window’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/windowframetextcolor
@@ -2946,7 +2812,6 @@ func (_NSColorClass NSColorClass) WindowFrameTextColor() NSColor {
 func (_NSColorClass NSColorClass) SetWindowFrameTextColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSColorClass.class), objc.Sel("setWindowFrameTextColor:"), value)
 }
-
 // Returns a color object whose RGB value is
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/yellow

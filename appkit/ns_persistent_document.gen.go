@@ -316,7 +316,6 @@ func (p NSPersistentDocument) ConfigurePersistentStoreCoordinatorForURLOfTypeMod
 	return rv, nil
 
 }
-
 // Returns the type of persistent store associated with the specified file
 // type.
 //
@@ -356,7 +355,6 @@ func (p NSPersistentDocument) ManagedObjectContext() objectivec.IObject {
 func (p NSPersistentDocument) SetManagedObjectContext(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setManagedObjectContext:"), value)
 }
-
 // The managed object model of the document.
 //
 // # Discussion
@@ -378,7 +376,6 @@ func (p NSPersistentDocument) ManagedObjectModel() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("managedObjectModel"))
 	return objectivec.Object{ID: rv}
 }
-
 // A Boolean value that indicates whether the document has unsaved changes.
 //
 // See: https://developer.apple.com/documentation/appkit/nsdocument/isdocumentedited

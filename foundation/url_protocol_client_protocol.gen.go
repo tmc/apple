@@ -85,12 +85,10 @@ func NSURLProtocolClientObjectFromID(id objc.ID) NSURLProtocolClientObject {
 // determine whether to store the response in a cache.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient/urlProtocol(_:didReceive:cacheStoragePolicy:)
-
 func (o NSURLProtocolClientObject) URLProtocolDidReceiveResponseCacheStoragePolicy(protocol_ INSURLProtocol, response INSURLResponse, policy NSURLCacheStoragePolicy) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocol:didReceiveResponse:cacheStoragePolicy:"), protocol_, response, policy)
 	}
-
 // Tells the client that the protocol implementation has been redirected.
 //
 // protocol: The URL protocol object sending the message.
@@ -100,12 +98,10 @@ func (o NSURLProtocolClientObject) URLProtocolDidReceiveResponseCacheStoragePoli
 // redirectResponse: The response from the original request that caused the redirect.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient/urlProtocol(_:wasRedirectedTo:redirectResponse:)
-
 func (o NSURLProtocolClientObject) URLProtocolWasRedirectedToRequestRedirectResponse(protocol_ INSURLProtocol, request INSURLRequest, redirectResponse INSURLResponse) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocol:wasRedirectedToRequest:redirectResponse:"), protocol_, request, redirectResponse)
 	}
-
 // Tells the client that a cached response is valid.
 //
 // protocol: The URL protocol object sending the message.
@@ -113,12 +109,10 @@ func (o NSURLProtocolClientObject) URLProtocolWasRedirectedToRequestRedirectResp
 // cachedResponse: The cached response whose validity is being communicated.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient/urlProtocol(_:cachedResponseIsValid:)
-
 func (o NSURLProtocolClientObject) URLProtocolCachedResponseIsValid(protocol_ INSURLProtocol, cachedResponse INSCachedURLResponse) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocol:cachedResponseIsValid:"), protocol_, cachedResponse)
 	}
-
 // Tells the client that an authentication challenge has been canceled.
 //
 // protocol: The URL protocol object sending the message.
@@ -126,12 +120,10 @@ func (o NSURLProtocolClientObject) URLProtocolCachedResponseIsValid(protocol_ IN
 // challenge: The authentication challenge that was canceled.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient/urlProtocol(_:didCancel:)
-
 func (o NSURLProtocolClientObject) URLProtocolDidCancelAuthenticationChallenge(protocol_ INSURLProtocol, challenge INSURLAuthenticationChallenge) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocol:didCancelAuthenticationChallenge:"), protocol_, challenge)
 	}
-
 // Tells the client that the URL Loading System received an authentication
 // challenge.
 //
@@ -147,12 +139,10 @@ func (o NSURLProtocolClientObject) URLProtocolDidCancelAuthenticationChallenge(p
 // provide one.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient/urlProtocol(_:didReceive:)
-
 func (o NSURLProtocolClientObject) URLProtocolDidReceiveAuthenticationChallenge(protocol_ INSURLProtocol, challenge INSURLAuthenticationChallenge) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocol:didReceiveAuthenticationChallenge:"), protocol_, challenge)
 	}
-
 // Tells the client that the load request failed due to an error.
 //
 // protocol: The URL protocol object sending the message.
@@ -160,12 +150,10 @@ func (o NSURLProtocolClientObject) URLProtocolDidReceiveAuthenticationChallenge(
 // error: The error that caused the failure of the load request.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient/urlProtocol(_:didFailWithError:)
-
 func (o NSURLProtocolClientObject) URLProtocolDidFailWithError(protocol_ INSURLProtocol, error_ INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocol:didFailWithError:"), protocol_, error_)
 	}
-
 // Tells the client that the protocol implementation has loaded some data.
 //
 // protocol: The URL protocol object sending the message.
@@ -178,18 +166,15 @@ func (o NSURLProtocolClientObject) URLProtocolDidFailWithError(protocol_ INSURLP
 // invocation of this method.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient/urlProtocol(_:didLoad:)
-
 func (o NSURLProtocolClientObject) URLProtocolDidLoadData(protocol_ INSURLProtocol, data INSData) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocol:didLoadData:"), protocol_, data)
 	}
-
 // Tells the client that the protocol implementation has finished loading.
 //
 // protocol: The URL protocol object sending the message.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient/urlProtocolDidFinishLoading(_:)
-
 func (o NSURLProtocolClientObject) URLProtocolDidFinishLoading(protocol_ INSURLProtocol) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("URLProtocolDidFinishLoading:"), protocol_)

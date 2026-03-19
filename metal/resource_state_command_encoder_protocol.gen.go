@@ -98,12 +98,10 @@ func MTLResourceStateCommandEncoderObjectFromID(id objc.ID) MTLResourceStateComm
 // [Resource synchronization]: https://developer.apple.com/documentation/Metal/resource-synchronization
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStateCommandEncoder/updateTextureMapping(_:mode:region:mipLevel:slice:)
-
 func (o MTLResourceStateCommandEncoderObject) UpdateTextureMappingModeRegionMipLevelSlice(texture MTLTexture, mode MTLSparseTextureMappingMode, region MTLRegion, mipLevel uint, slice uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateTextureMapping:mode:region:mipLevel:slice:"), texture, mode, region, mipLevel, slice)
 	}
-
 // Encodes a command to update memory mappings for multiple regions inside a
 // texture.
 //
@@ -123,12 +121,10 @@ func (o MTLResourceStateCommandEncoderObject) UpdateTextureMappingModeRegionMipL
 // numRegions: The number of regions to update.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStateCommandEncoder/updateTextureMappings(_:mode:regions:mipLevels:slices:numRegions:)
-
 func (o MTLResourceStateCommandEncoderObject) UpdateTextureMappingsModeRegionsMipLevelsSlicesNumRegions(texture MTLTexture, mode MTLSparseTextureMappingMode, regions []MTLRegion, mipLevels uint, slices uint, numRegions uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateTextureMappings:mode:regions:mipLevels:slices:numRegions:"), texture, mode, regions, mipLevels, slices, numRegions)
 	}
-
 // Encodes a command to update a texture’s memory mappings, specifying the
 // parameters indirectly.
 //
@@ -167,12 +163,10 @@ func (o MTLResourceStateCommandEncoderObject) UpdateTextureMappingsModeRegionsMi
 // [Resource synchronization]: https://developer.apple.com/documentation/Metal/resource-synchronization
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStateCommandEncoder/updateTextureMapping(_:mode:indirectBuffer:indirectBufferOffset:)
-
 func (o MTLResourceStateCommandEncoderObject) UpdateTextureMappingModeIndirectBufferIndirectBufferOffset(texture MTLTexture, mode MTLSparseTextureMappingMode, indirectBuffer MTLBuffer, indirectBufferOffset uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateTextureMapping:mode:indirectBuffer:indirectBufferOffset:"), texture, mode, indirectBuffer, indirectBufferOffset)
 	}
-
 // Encodes a command that instructs the GPU to update a fence, which signals
 // passes waiting on the fence.
 //
@@ -189,12 +183,10 @@ func (o MTLResourceStateCommandEncoderObject) UpdateTextureMappingModeIndirectBu
 // [MTLCommandBuffer].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStateCommandEncoder/update(_:)
-
 func (o MTLResourceStateCommandEncoderObject) UpdateFence(fence MTLFence) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateFence:"), fence)
 	}
-
 // Encodes a command that instructs the GPU to pause before starting the
 // resource state commands until another pass updates a fence.
 //
@@ -211,20 +203,16 @@ func (o MTLResourceStateCommandEncoderObject) UpdateFence(fence MTLFence) {
 // [MTLCommandBuffer].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStateCommandEncoder/wait(for:)
-
 func (o MTLResourceStateCommandEncoderObject) WaitForFence(fence MTLFence) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:"), fence)
 	}
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceStateCommandEncoder/moveTextureMappings(sourceTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:destinationTexture:destinationSlice:destinationLevel:destinationOrigin:)
-
 func (o MTLResourceStateCommandEncoderObject) MoveTextureMappingsFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToTextureDestinationSliceDestinationLevelDestinationOrigin(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("moveTextureMappingsFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:"), sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin)
 	}
-
 // Declares that all command generation from the encoder is completed.
 //
 // # Discussion
@@ -233,12 +221,10 @@ func (o MTLResourceStateCommandEncoderObject) MoveTextureMappingsFromTextureSour
 // cannot encode any other commands with this encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/endEncoding()
-
 func (o MTLResourceStateCommandEncoderObject) EndEncoding() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("endEncoding"))
 	}
-
 // Inserts a debug string into the captured frame data.
 //
 // # Discussion
@@ -248,12 +234,10 @@ func (o MTLResourceStateCommandEncoderObject) EndEncoding() {
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/insertDebugSignpost(_:)
-
 func (o MTLResourceStateCommandEncoderObject) InsertDebugSignpost(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("insertDebugSignpost:"), objc.String(string_))
 	}
-
 // Pushes a specific string onto a stack of debug group strings for the
 // command encoder.
 //
@@ -264,12 +248,10 @@ func (o MTLResourceStateCommandEncoderObject) InsertDebugSignpost(string_ string
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/pushDebugGroup(_:)
-
 func (o MTLResourceStateCommandEncoderObject) PushDebugGroup(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
-
 // Pops the latest string off of a stack of debug group strings for the
 // command encoder.
 //
@@ -280,32 +262,26 @@ func (o MTLResourceStateCommandEncoderObject) PushDebugGroup(string_ string) {
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/popDebugGroup()
-
 func (o MTLResourceStateCommandEncoderObject) PopDebugGroup() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
-
 // The Metal device from which the command encoder was created.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
-
 func (o MTLResourceStateCommandEncoderObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that labels the command encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
-
 func (o MTLResourceStateCommandEncoderObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Encodes a consumer barrier on work you commit to the same command queue.
 //
 // afterQueueStages: [MTLStages] mask that represents the stages of work to wait for. This
@@ -339,7 +315,6 @@ func (o MTLResourceStateCommandEncoderObject) Label() string {
 // [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/barrier(afterQueueStages:beforeStages:)
-
 func (o MTLResourceStateCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)

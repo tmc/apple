@@ -147,7 +147,6 @@ func (u UnitConverter) BaseUnitValueFromValue(value float64) float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("baseUnitValueFromValue:"), value)
 	return rv
 }
-
 // For a given unit, returns the specified value of the base unit in terms of
 // that unit.
 //

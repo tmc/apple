@@ -293,7 +293,6 @@ func (v NSVisualEffectView) Material() NSVisualEffectMaterial {
 func (v NSVisualEffectView) SetMaterial(value NSVisualEffectMaterial) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMaterial:"), value)
 }
-
 // A value indicating how the view’s contents blend with the surrounding
 // content.
 //
@@ -321,7 +320,6 @@ func (v NSVisualEffectView) BlendingMode() NSVisualEffectBlendingMode {
 func (v NSVisualEffectView) SetBlendingMode(value NSVisualEffectBlendingMode) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBlendingMode:"), value)
 }
-
 // A Boolean value indicating whether to emphasize the look of the material.
 //
 // # Discussion
@@ -341,7 +339,6 @@ func (v NSVisualEffectView) Emphasized() bool {
 func (v NSVisualEffectView) SetEmphasized(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEmphasized:"), value)
 }
-
 // The view’s interior background style.
 //
 // # Discussion
@@ -354,7 +351,6 @@ func (v NSVisualEffectView) InteriorBackgroundStyle() NSBackgroundStyle {
 	rv := objc.Send[NSBackgroundStyle](v.ID, objc.Sel("interiorBackgroundStyle"))
 	return NSBackgroundStyle(rv)
 }
-
 // An image whose alpha channel masks the visual effect view’s material.
 //
 // # Discussion
@@ -375,7 +371,6 @@ func (v NSVisualEffectView) MaskImage() INSImage {
 func (v NSVisualEffectView) SetMaskImage(value INSImage) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMaskImage:"), value)
 }
-
 // A value that indicates whether a view has a visual effect applied.
 //
 // # Discussion
@@ -404,7 +399,6 @@ func (_NSVisualEffectViewClass NSVisualEffectViewClass) LabelColor() NSColor {
 func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setLabelColor:"), value)
 }
-
 // The quaternary color to use for text labels and separators.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/quaternarylabelcolor
@@ -415,7 +409,6 @@ func (_NSVisualEffectViewClass NSVisualEffectViewClass) QuaternaryLabelColor() N
 func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetQuaternaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setQuaternaryLabelColor:"), value)
 }
-
 // The secondary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/secondarylabelcolor
@@ -426,7 +419,6 @@ func (_NSVisualEffectViewClass NSVisualEffectViewClass) SecondaryLabelColor() NS
 func (_NSVisualEffectViewClass NSVisualEffectViewClass) SetSecondaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSVisualEffectViewClass.class), objc.Sel("setSecondaryLabelColor:"), value)
 }
-
 // The tertiary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/tertiarylabelcolor

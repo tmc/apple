@@ -137,7 +137,6 @@ func NewNSXPCCoder() NSXPCCoder {
 func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject objectivec.Object, key string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeXPCObject:forKey:"), xpcObject, objc.String(key))
 }
-
 // Decodes an object and validates that its type matches the type a service
 // provides over XPC.
 //
@@ -173,7 +172,6 @@ func (x NSXPCCoder) Connection() INSXPCConnection {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("connection"))
 	return NSXPCConnectionFromID(objc.ID(rv))
 }
-
 // An optional user information object associated with the coder.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/userInfo

@@ -171,7 +171,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCGImageError(requests []VNReq
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on a Core Graphics
 // image with known orientation.
 //
@@ -199,7 +198,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCGImageOrientationError(reque
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on Core Image image
 // data.
 //
@@ -225,7 +223,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCIImageError(requests []VNReq
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on Core Image image
 // data with known orientation.
 //
@@ -255,7 +252,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCIImageOrientationError(reque
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on a Core Video pixel
 // buffer.
 //
@@ -279,7 +275,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCVPixelBufferError(requests [
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on a Core Video pixel
 // buffer with known orientation.
 //
@@ -307,7 +302,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCVPixelBufferOrientationError
 	return rv, nil
 
 }
-
 // Performs one or more requests on an image contained within a sample buffer.
 //
 // requests: The array of requests to perform.
@@ -332,7 +326,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferError(requests 
 	return rv, nil
 
 }
-
 // Performs one or more requests on an image of a specified orientation
 // contained within a sample buffer.
 //
@@ -362,7 +355,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferOrientationErro
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on raw image data.
 //
 // requests: An array of [VNRequest] requests to perform.
@@ -383,7 +375,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnImageDataError(requests []VNR
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on raw data
 // containing an image with known orientation.
 //
@@ -409,7 +400,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnImageDataOrientationError(req
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on an image.
 //
 // requests: An array of [VNRequest] requests to perform.
@@ -430,7 +420,6 @@ func (s VNSequenceRequestHandler) PerformRequestsOnImageURLError(requests []VNRe
 	return rv, nil
 
 }
-
 // Schedules one or more Vision requests to be performed on an image with
 // known orientation, at a specific URL.
 //

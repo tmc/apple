@@ -152,7 +152,6 @@ func (s NSScrubberTextItemView) Title() string {
 func (s NSScrubberTextItemView) SetTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // The text field that the scrubber item uses to display its text.
 //
 // # Discussion

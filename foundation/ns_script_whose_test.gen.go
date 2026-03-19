@@ -131,14 +131,12 @@ func (s NSScriptWhoseTest) IsTrue() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isTrue"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest/init(coder:)
 func (s NSScriptWhoseTest) InitWithCoder(inCoder INSCoder) NSScriptWhoseTest {
 	rv := objc.Send[NSScriptWhoseTest](s.ID, objc.Sel("initWithCoder:"), inCoder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.

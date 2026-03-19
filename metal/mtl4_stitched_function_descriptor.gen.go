@@ -116,7 +116,6 @@ func (m MTL4StitchedFunctionDescriptor) FunctionDescriptors() []MTL4FunctionDesc
 func (m MTL4StitchedFunctionDescriptor) SetFunctionDescriptors(value []MTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Sets the graph representing how to stitch functions together.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4StitchedFunctionDescriptor/functionGraph

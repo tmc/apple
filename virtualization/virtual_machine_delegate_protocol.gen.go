@@ -38,12 +38,10 @@ func VZVirtualMachineDelegateObjectFromID(id objc.ID) VZVirtualMachineDelegateOb
 // virtualMachine: The VM that called the delegate method.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/guestDidStop(_:)
-
 func (o VZVirtualMachineDelegateObject) GuestDidStopVirtualMachine(virtualMachine IVZVirtualMachine) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("guestDidStopVirtualMachine:"), virtualMachine)
 	}
-
 // Tells the delegate that the VM stopped because of an error.
 //
 // virtualMachine: The VM that called the delegate method.
@@ -51,12 +49,10 @@ func (o VZVirtualMachineDelegateObject) GuestDidStopVirtualMachine(virtualMachin
 // error: The error.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/virtualMachine(_:didStopWithError:)
-
 func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMachine IVZVirtualMachine, error_ foundation.INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("virtualMachine:didStopWithError:"), virtualMachine, error_)
 	}
-
 // The method the framework calls when an error causes a VM’s network
 // attachment to disconnect.
 //
@@ -77,7 +73,6 @@ func (o VZVirtualMachineDelegateObject) VirtualMachineDidStopWithError(virtualMa
 // `nil`.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineDelegate/virtualMachine(_:networkDevice:attachmentWasDisconnectedWithError:)
-
 func (o VZVirtualMachineDelegateObject) VirtualMachineNetworkDeviceAttachmentWasDisconnectedWithError(virtualMachine IVZVirtualMachine, networkDevice IVZNetworkDevice, error_ foundation.INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("virtualMachine:networkDevice:attachmentWasDisconnectedWithError:"), virtualMachine, networkDevice, error_)

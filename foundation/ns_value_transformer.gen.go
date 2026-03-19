@@ -175,7 +175,6 @@ func (v ValueTransformer) TransformedValue(value objectivec.IObject) objectivec.
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("transformedValue:"), value)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the result of the reverse transformation of a given value.
 //
 // value: The value to reverse transform.
@@ -214,7 +213,6 @@ func (v ValueTransformer) ReverseTransformedValue(value objectivec.IObject) obje
 func (_ValueTransformerClass ValueTransformerClass) SetValueTransformerForName(transformer INSValueTransformer, name NSValueTransformerName) {
 	objc.Send[objc.ID](objc.ID(_ValueTransformerClass.class), objc.Sel("setValueTransformer:forName:"), transformer, objc.String(string(name)))
 }
-
 // Returns an array of all the registered value transformers.
 //
 // # Return Value
@@ -226,7 +224,6 @@ func (_ValueTransformerClass ValueTransformerClass) ValueTransformerNames() []st
 	rv := objc.Send[[]objc.ID](objc.ID(_ValueTransformerClass.class), objc.Sel("valueTransformerNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns a Boolean value that indicates whether the receiver can reverse a
 // transformation.
 //
@@ -252,7 +249,6 @@ func (_ValueTransformerClass ValueTransformerClass) AllowsReverseTransformation(
 	rv := objc.Send[bool](objc.ID(_ValueTransformerClass.class), objc.Sel("allowsReverseTransformation"))
 	return rv
 }
-
 // Returns the class of the value returned by the receiver for a forward
 // transformation.
 //

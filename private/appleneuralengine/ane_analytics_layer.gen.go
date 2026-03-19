@@ -109,7 +109,6 @@ func (a ANEAnalyticsLayer) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsLayer/initWithName:weight:
 func (a ANEAnalyticsLayer) InitWithNameWeight(name objectivec.IObject, weight objectivec.IObject) ANEAnalyticsLayer {
@@ -129,7 +128,6 @@ func (a ANEAnalyticsLayer) LayerName() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("layerName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsLayer/weight
 func (a ANEAnalyticsLayer) Weight() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("weight"))

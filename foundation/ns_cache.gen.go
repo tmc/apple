@@ -230,7 +230,6 @@ func (c NSCache) ObjectForKey(key objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("objectForKey:"), key)
 	return objectivec.Object{ID: rv}
 }
-
 // Sets the value of the specified key in the cache.
 //
 // obj: The object to be stored in the cache.
@@ -246,7 +245,6 @@ func (c NSCache) ObjectForKey(key objectivec.IObject) objectivec.IObject {
 func (c NSCache) SetObjectForKey(obj objectivec.IObject, key objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setObject:forKey:"), obj, key)
 }
-
 // Sets the value of the specified key in the cache, and associates the
 // key-value pair with the specified cost.
 //
@@ -278,7 +276,6 @@ func (c NSCache) SetObjectForKey(obj objectivec.IObject, key objectivec.IObject)
 func (c NSCache) SetObjectForKeyCost(obj objectivec.IObject, key objectivec.IObject, g uint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setObject:forKey:cost:"), obj, key, g)
 }
-
 // Removes the value of the specified key in the cache.
 //
 // key: The key identifying the value to be removed.
@@ -287,7 +284,6 @@ func (c NSCache) SetObjectForKeyCost(obj objectivec.IObject, key objectivec.IObj
 func (c NSCache) RemoveObjectForKey(key objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeObjectForKey:"), key)
 }
-
 // Empties the cache.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCache/removeAllObjects()
@@ -309,7 +305,6 @@ func (c NSCache) Name() string {
 func (c NSCache) SetName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // The maximum number of objects the cache should hold.
 //
 // # Discussion
@@ -328,7 +323,6 @@ func (c NSCache) CountLimit() uint {
 func (c NSCache) SetCountLimit(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCountLimit:"), value)
 }
-
 // The maximum total cost that the cache can hold before it starts evicting
 // objects.
 //
@@ -355,7 +349,6 @@ func (c NSCache) TotalCostLimit() uint {
 func (c NSCache) SetTotalCostLimit(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTotalCostLimit:"), value)
 }
-
 // Whether the cache will automatically evict discardable-content objects
 // whose content has been discarded.
 //
@@ -375,7 +368,6 @@ func (c NSCache) EvictsObjectsWithDiscardedContent() bool {
 func (c NSCache) SetEvictsObjectsWithDiscardedContent(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEvictsObjectsWithDiscardedContent:"), value)
 }
-
 // The cache’s delegate.
 //
 // # Discussion

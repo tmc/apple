@@ -120,13 +120,11 @@ func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) AutomaticB
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("automaticBehavior"))
 	return NSSliderAccessoryBehaviorFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/valueReset
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) ValueResetBehavior() NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("valueResetBehavior"))
 	return NSSliderAccessoryBehaviorFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/valueStep
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) ValueStepBehavior() NSSliderAccessoryBehavior {
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("valueStepBehavior"))

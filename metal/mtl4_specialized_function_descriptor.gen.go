@@ -127,7 +127,6 @@ func (m MTL4SpecializedFunctionDescriptor) ConstantValues() IMTLFunctionConstant
 func (m MTL4SpecializedFunctionDescriptor) SetConstantValues(value IMTLFunctionConstantValues) {
 	objc.Send[struct{}](m.ID, objc.Sel("setConstantValues:"), value)
 }
-
 // Provides a descriptor that corresponds to a base function that the
 // specialization applies to.
 //
@@ -139,7 +138,6 @@ func (m MTL4SpecializedFunctionDescriptor) FunctionDescriptor() IMTL4FunctionDes
 func (m MTL4SpecializedFunctionDescriptor) SetFunctionDescriptor(value IMTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptor:"), value)
 }
-
 // Assigns an optional name to the specialized function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4SpecializedFunctionDescriptor/specializedName

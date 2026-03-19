@@ -185,7 +185,6 @@ func (p NSPICTImageRep) BoundingBox() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](p.ID, objc.Sel("boundingBox"))
 	return corefoundation.CGRect(rv)
 }
-
 // The image representation’s PICT data.
 //
 // # Discussion

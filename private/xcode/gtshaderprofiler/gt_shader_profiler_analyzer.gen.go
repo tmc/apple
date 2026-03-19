@@ -114,7 +114,6 @@ _block0, _cleanup0 := NewVoidBlock(mCAReport)
 	defer _cleanup0()
 	objc.Send[objc.ID](g.ID, objc.Sel("generateFullMCAReport:"), _block0)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/generateMCAOutput:callback:
 func (g GTShaderProfilerAnalyzer) GenerateMCAOutputCallback(mCAOutput bool, callback VoidHandler) {
@@ -122,7 +121,6 @@ _block1, _cleanup1 := NewVoidBlock(callback)
 	defer _cleanup1()
 	objc.Send[objc.ID](g.ID, objc.Sel("generateMCAOutput:callback:"), mCAOutput, _block1)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/generateRegisterPressureView:
 func (g GTShaderProfilerAnalyzer) GenerateRegisterPressureView(view VoidHandler) {
@@ -130,7 +128,6 @@ _block0, _cleanup0 := NewVoidBlock(view)
 	defer _cleanup0()
 	objc.Send[objc.ID](g.ID, objc.Sel("generateRegisterPressureView:"), _block0)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/initWithToolchain:binary:gpu:
 func (g GTShaderProfilerAnalyzer) InitWithToolchainBinaryGpu(toolchain objectivec.IObject, binary objectivec.IObject, gpu uint32) GTShaderProfilerAnalyzer {

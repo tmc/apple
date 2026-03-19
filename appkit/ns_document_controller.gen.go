@@ -115,7 +115,6 @@ func (nc NSDocumentControllerClass) Alloc() NSDocumentController {
 //
 // # Managing the Open Dialog
 //
-//   - [NSDocumentController.BeginOpenPanelWithCompletionHandler]: Presents an Open dialog and delivers the results to a completion handler as an array of URLs for the chosen files, or nil.
 //   - [NSDocumentController.BeginOpenPanelForTypesCompletionHandler]: Presents a nonmodal Open dialog that displays files you can open from a list of UTIs.
 //   - [NSDocumentController.RunModalOpenPanelForTypes]: Presents a modal Open dialog and limits selection to specific file types.
 //   - [NSDocumentController.CurrentDirectory]: The directory path to use as the starting point in the Open dialog.
@@ -206,7 +205,6 @@ func NSDocumentControllerFromID(id objc.ID) NSDocumentController {
 //
 // # Managing the Open Dialog
 //
-//   - [INSDocumentController.BeginOpenPanelWithCompletionHandler]: Presents an Open dialog and delivers the results to a completion handler as an array of URLs for the chosen files, or nil.
 //   - [INSDocumentController.BeginOpenPanelForTypesCompletionHandler]: Presents a nonmodal Open dialog that displays files you can open from a list of UTIs.
 //   - [INSDocumentController.RunModalOpenPanelForTypes]: Presents a modal Open dialog and limits selection to specific file types.
 //   - [INSDocumentController.CurrentDirectory]: The directory path to use as the starting point in the Open dialog.
@@ -314,10 +312,8 @@ type INSDocumentController interface {
 
 	// Topic: Managing the Open Dialog
 
-	// Presents an Open dialog and delivers the results to a completion handler as an array of URLs for the chosen files, or nil.
-	BeginOpenPanelWithCompletionHandler(completionHandler ArrayHandler)
 	// Presents a nonmodal Open dialog that displays files you can open from a list of UTIs.
-	BeginOpenPanelForTypesCompletionHandler(openPanel INSOpenPanel, inTypes []string, completionHandler ErrorHandler)
+	BeginOpenPanelForTypesCompletionHandler(openPanel INSOpenPanel, inTypes []string, completionHandler IntHandler)
 	// Presents a modal Open dialog and limits selection to specific file types.
 	RunModalOpenPanelForTypes(openPanel INSOpenPanel, types []string) int
 	// The directory path to use as the starting point in the Open dialog.
@@ -392,7 +388,6 @@ func (d NSDocumentController) InitWithCoder(coder foundation.INSCoder) NSDocumen
 	rv := objc.Send[NSDocumentController](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Returns, for a given URL, the open document whose file or file package is
 // located by the URL, or `nil` if there is no such open document.
 //
@@ -413,7 +408,6 @@ func (d NSDocumentController) DocumentForURL(url foundation.INSURL) INSDocument 
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("documentForURL:"), url)
 	return NSDocumentFromID(rv)
 }
-
 // Creates a new document by reading the contents for the document from
 // another URL, presents its user interface, and returns the document if
 // successful.
@@ -473,7 +467,6 @@ func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNa
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Opens a document located by a URL, optionally presents its user interface,
 // and calls the passed-in completion handler.
 //
@@ -550,7 +543,6 @@ _block2, _cleanup2 := NewDocumentErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](d.ID, objc.Sel("openDocumentWithContentsOfURL:display:completionHandler:"), url, displayDocument, _block2)
 }
-
 // Creates a new untitled document, presents its user interface if
 // `displayDocument` is `true`, and returns the document if successful.
 //
@@ -591,7 +583,6 @@ func (d NSDocumentController) OpenUntitledDocumentAndDisplayError(displayDocumen
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Instantiates a document located by a URL, of a specified type, but by
 // reading the contents for the document from another URL, and returns it if
 // successful.
@@ -629,7 +620,6 @@ func (d NSDocumentController) MakeDocumentForURLWithContentsOfURLOfTypeError(url
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Instantiates a document located by a URL, of a specified type, and returns
 // it if successful.
 //
@@ -663,7 +653,6 @@ func (d NSDocumentController) MakeDocumentWithContentsOfURLOfTypeError(url found
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Instantiates a new untitled document of the specified type and returns it
 // if successful.
 //
@@ -690,7 +679,6 @@ func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Reopens a document, optionally located by a URL, by reading the contents
 // for the document from another URL, optionally presents its user interface,
 // and calls the passed-in completion handler.
@@ -747,7 +735,6 @@ _block3, _cleanup3 := NewDocumentErrorBlock(completionHandler)
 	defer _cleanup3()
 	objc.Send[objc.ID](d.ID, objc.Sel("reopenDocumentForURL:withContentsOfURL:display:completionHandler:"), urlOrNil, contentsURL, displayDocument, _block3)
 }
-
 // Adds the given document to the list of open documents.
 //
 // document: The document to add.
@@ -761,7 +748,6 @@ _block3, _cleanup3 := NewDocumentErrorBlock(completionHandler)
 func (d NSDocumentController) AddDocument(document INSDocument) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addDocument:"), document)
 }
-
 // Returns the document object whose window controller owns a specified
 // window.
 //
@@ -778,7 +764,6 @@ func (d NSDocumentController) DocumentForWindow(window INSWindow) INSDocument {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("documentForWindow:"), window)
 	return NSDocumentFromID(rv)
 }
-
 // Removes the given document from the list of open documents.
 //
 // document: The document to remove.
@@ -793,7 +778,6 @@ func (d NSDocumentController) DocumentForWindow(window INSWindow) INSDocument {
 func (d NSDocumentController) RemoveDocument(document INSDocument) {
 	objc.Send[objc.ID](d.ID, objc.Sel("removeDocument:"), document)
 }
-
 // Returns the [NSDocument] subclass associated with a given document type.
 //
 // typeName: The name of a document type, specified by [CFBundleTypeName] in the
@@ -811,7 +795,6 @@ func (d NSDocumentController) DocumentClassForType(typeName string) objc.Class {
 	rv := objc.Send[objc.Class](d.ID, objc.Sel("documentClassForType:"), objc.String(typeName))
 	return rv
 }
-
 // Returns the descriptive name for the specified document type, which is used
 // in the File Format pop-up menu of the Save As dialog.
 //
@@ -841,7 +824,6 @@ func (d NSDocumentController) DisplayNameForType(typeName string) string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("displayNameForType:"), objc.String(typeName))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Returns, for a specified URL, the document type identifier to use when
 // opening the document at that location, if successful.
 //
@@ -868,7 +850,6 @@ func (d NSDocumentController) TypeForContentsOfURLError(url foundation.INSURL) (
 	return objc.IDToString(rv), nil
 
 }
-
 // Iterates through all the open documents and tries to close them one by one
 // using the specified delegate.
 //
@@ -897,7 +878,6 @@ func (d NSDocumentController) TypeForContentsOfURLError(url foundation.INSURL) (
 func (d NSDocumentController) CloseAllDocumentsWithDelegateDidCloseAllSelectorContextInfo(delegate objectivec.IObject, didCloseAllSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("closeAllDocumentsWithDelegate:didCloseAllSelector:contextInfo:"), delegate, didCloseAllSelector, contextInfo)
 }
-
 // Displays an alert asking if the user wants to review unsaved documents,
 // quit regardless of unsaved documents, or cancel the save operation.
 //
@@ -931,7 +911,6 @@ func (d NSDocumentController) CloseAllDocumentsWithDelegateDidCloseAllSelectorCo
 func (d NSDocumentController) ReviewUnsavedDocumentsWithAlertTitleCancellableDelegateDidReviewAllSelectorContextInfo(title string, cancellable bool, delegate objectivec.IObject, didReviewAllSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("reviewUnsavedDocumentsWithAlertTitle:cancellable:delegate:didReviewAllSelector:contextInfo:"), objc.String(title), cancellable, delegate, didReviewAllSelector, contextInfo)
 }
-
 // An action method called by the New menu command, this method creates a new
 // [NSDocument] object and adds it to the list of such objects managed by the
 // document controller.
@@ -944,7 +923,6 @@ func (d NSDocumentController) ReviewUnsavedDocumentsWithAlertTitleCancellableDel
 func (d NSDocumentController) NewDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("newDocument:"), sender)
 }
-
 // An action method called by the Open menu command, it runs the modal Open
 // panel and, based on the selected filenames, creates one or more
 // [NSDocument] objects from the contents of the files.
@@ -960,7 +938,6 @@ func (d NSDocumentController) NewDocument(sender objectivec.IObject) {
 func (d NSDocumentController) OpenDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("openDocument:"), sender)
 }
-
 // As the action method called by the Save All command, saves all open
 // documents of the application that need to be saved.
 //
@@ -968,57 +945,6 @@ func (d NSDocumentController) OpenDocument(sender objectivec.IObject) {
 func (d NSDocumentController) SaveAllDocuments(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveAllDocuments:"), sender)
 }
-
-// Presents an Open dialog and delivers the results to a completion handler as
-// an array of URLs for the chosen files, or nil.
-//
-// completionHandler: The completion handler that is called when the user clicks the OK or Cancel
-// button in the open panel.
-//
-// # Discussion
-// 
-// This method presents either a modal or nonmodal open panel, depending on
-// which methods are overridden. Although you can call this method in other
-// circumstances, this method is most commonly called by [OpenDocument] in
-// response to the user choosing Open… from the File menu.
-// 
-// If you override [OpenDocument], you should typically call this method
-// instead of calling [BeginOpenPanelForTypesCompletionHandler] or
-// [URLsFromRunningOpenPanel] directly, because this method runs the modal
-// panel in a way that is backwards compatible with subclasses that override
-// [RunModalOpenPanelForTypes] without overriding
-// [BeginOpenPanelForTypesCompletionHandler]. Also, its completion handler
-// determines which button the user pressed (to determine whether to return
-// the array or `nil`) and orders out the open panel.
-// 
-// You can override this method to change the open panel presentation (adding
-// an accessory view, for example) or change the UTI array that limits which
-// files are selectable.
-// 
-// The default implementation of this method calls either
-// [URLsFromRunningOpenPanel] to run a modal open panel or
-// [BeginOpenPanelForTypesCompletionHandler] to begin a nonmodal open panel.
-// If the user chooses to open files, the default implementation calls the
-// completion handler with a `nil` array parameter. If the user cancels the
-// Open dialog, the default implementation calls the completion handler with a
-// `nil` array parameter.
-// 
-// If you override this method, your method should typically call the
-// underlying method on `super` because of the additional code that it
-// provides for free. Specifically, this method runs the modal panel in a way
-// that is backwards compatible with subclasses that override
-// [RunModalOpenPanelForTypes] without overriding
-// [BeginOpenPanelForTypesCompletionHandler]. Also, its completion handler
-// determines which button the user pressed (to determine whether to return
-// the array or `nil`) and orders out the open panel.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSDocumentController/beginOpenPanel(completionHandler:)
-func (d NSDocumentController) BeginOpenPanelWithCompletionHandler(completionHandler ArrayHandler) {
-_block0, _cleanup0 := NewArrayBlock(completionHandler)
-	defer _cleanup0()
-	objc.Send[objc.ID](d.ID, objc.Sel("beginOpenPanelWithCompletionHandler:"), _block0)
-}
-
 // Presents a nonmodal Open dialog that displays files you can open from a
 // list of UTIs.
 //
@@ -1049,12 +975,11 @@ _block0, _cleanup0 := NewArrayBlock(completionHandler)
 // handler block that the caller provides.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/beginOpenPanel(_:forTypes:completionHandler:)
-func (d NSDocumentController) BeginOpenPanelForTypesCompletionHandler(openPanel INSOpenPanel, inTypes []string, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
+func (d NSDocumentController) BeginOpenPanelForTypesCompletionHandler(openPanel INSOpenPanel, inTypes []string, completionHandler IntHandler) {
+_block2, _cleanup2 := NewIntBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](d.ID, objc.Sel("beginOpenPanel:forTypes:completionHandler:"), openPanel, inTypes, _block2)
 }
-
 // Presents a modal Open dialog and limits selection to specific file types.
 //
 // openPanel: The open panel to display.
@@ -1076,7 +1001,6 @@ func (d NSDocumentController) RunModalOpenPanelForTypes(openPanel INSOpenPanel, 
 	rv := objc.Send[int](d.ID, objc.Sel("runModalOpenPanel:forTypes:"), openPanel, objectivec.StringSliceToNSArray(types))
 	return rv
 }
-
 // An array of URLs that correspond to the selected files in a running Open
 // dialog.
 //
@@ -1095,7 +1019,6 @@ func (d NSDocumentController) URLsFromRunningOpenPanel() []foundation.NSURL {
 		return foundation.NSURLFromID(id)
 	})
 }
-
 // Empties the recent documents list for the application.
 //
 // # Discussion
@@ -1107,7 +1030,6 @@ func (d NSDocumentController) URLsFromRunningOpenPanel() []foundation.NSURL {
 func (d NSDocumentController) ClearRecentDocuments(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("clearRecentDocuments:"), sender)
 }
-
 // Adds or replaces an Open Recent menu item corresponding to the data located
 // by the URL.
 //
@@ -1127,7 +1049,6 @@ func (d NSDocumentController) ClearRecentDocuments(sender objectivec.IObject) {
 func (d NSDocumentController) NoteNewRecentDocumentURL(url foundation.INSURL) {
 	objc.Send[objc.ID](d.ID, objc.Sel("noteNewRecentDocumentURL:"), url)
 }
-
 // Adds or replaces an Open Recent menu item corresponding to the document.
 //
 // document: The document to evaluate.
@@ -1142,7 +1063,6 @@ func (d NSDocumentController) NoteNewRecentDocumentURL(url foundation.INSURL) {
 func (d NSDocumentController) NoteNewRecentDocument(document INSDocument) {
 	objc.Send[objc.ID](d.ID, objc.Sel("noteNewRecentDocument:"), document)
 }
-
 // Returns a Boolean value that indicates whether a given user interface item
 // should be enabled.
 //
@@ -1167,7 +1087,6 @@ func (d NSDocumentController) ValidateUserInterfaceItem(item NSValidatedUserInte
 	rv := objc.Send[bool](d.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 }
-
 // Returns a menu item that your app uses for sharing the current document.
 //
 // # Return Value
@@ -1184,7 +1103,6 @@ func (d NSDocumentController) StandardShareMenuItem() INSMenuItem {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("standardShareMenuItem"))
 	return NSMenuItemFromID(rv)
 }
-
 // Presents an error alert to the user as a modal panel.
 //
 // error: An object containing the error to present.
@@ -1219,7 +1137,6 @@ func (d NSDocumentController) PresentError(error_ foundation.INSError) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("presentError:"), error_)
 	return rv
 }
-
 // Presents an error alert to the user as a modal panel.
 //
 // error: The error to present.
@@ -1254,7 +1171,6 @@ func (d NSDocumentController) PresentError(error_ foundation.INSError) bool {
 func (d NSDocumentController) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
-
 // Indicates an error condition and provides the opportunity to return the
 // same or a different error.
 //
@@ -1279,7 +1195,6 @@ func (d NSDocumentController) WillPresentError(error_ foundation.INSError) found
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("willPresentError:"), error_)
 	return foundation.NSErrorFromID(rv)
 }
-
 // Implemented to override the default action of enabling or disabling a
 // specific menu item.
 //
@@ -1374,7 +1289,6 @@ func (d NSDocumentController) Documents() []NSDocument {
 		return NSDocumentFromID(id)
 	})
 }
-
 // The document object associated with the main window.
 //
 // # Discussion
@@ -1389,7 +1303,6 @@ func (d NSDocumentController) CurrentDocument() INSDocument {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("currentDocument"))
 	return NSDocumentFromID(objc.ID(rv))
 }
-
 // A Boolean value indicating whether the receiver has any documents with
 // unsaved changes.
 //
@@ -1406,7 +1319,6 @@ func (d NSDocumentController) HasEditedDocuments() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("hasEditedDocuments"))
 	return rv
 }
-
 // An array of strings representing the custom document classes supported by
 // this app.
 //
@@ -1425,7 +1337,6 @@ func (d NSDocumentController) DocumentClassNames() []string {
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("documentClassNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the name of the document type that should be used when creating new
 // documents.
 //
@@ -1442,7 +1353,6 @@ func (d NSDocumentController) DefaultType() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("defaultType"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The time interval (in seconds) for periodic autosaving.
 //
 // # Discussion
@@ -1462,7 +1372,6 @@ func (d NSDocumentController) AutosavingDelay() float64 {
 func (d NSDocumentController) SetAutosavingDelay(value float64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAutosavingDelay:"), value)
 }
-
 // The directory path to use as the starting point in the Open dialog.
 //
 // # Discussion
@@ -1477,7 +1386,6 @@ func (d NSDocumentController) CurrentDirectory() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("currentDirectory"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The maximum number of items that may be presented in the standard Open
 // Recent menu.
 //
@@ -1495,7 +1403,6 @@ func (d NSDocumentController) MaximumRecentDocumentCount() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("maximumRecentDocumentCount"))
 	return rv
 }
-
 // The list of recent-document URLs.
 //
 // # Discussion
@@ -1512,7 +1419,6 @@ func (d NSDocumentController) RecentDocumentURLs() []foundation.NSURL {
 		return foundation.NSURLFromID(id)
 	})
 }
-
 // A Boolean value that the system uses to insert a Share menu in the File
 // menu.
 //

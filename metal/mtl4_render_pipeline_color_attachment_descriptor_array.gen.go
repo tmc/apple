@@ -113,7 +113,6 @@ func NewMTL4RenderPipelineColorAttachmentDescriptorArray() MTL4RenderPipelineCol
 func (m MTL4RenderPipelineColorAttachmentDescriptorArray) Reset() {
 	objc.Send[objc.ID](m.ID, objc.Sel("reset"))
 }
-
 // Accesses a color attachment at a specific index.
 //
 // attachmentIndex: Index of the attachment to access.
@@ -123,7 +122,6 @@ func (m MTL4RenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubscri
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTL4RenderPipelineColorAttachmentDescriptorFromID(rv)
 }
-
 // Sets an attachment at an index.
 //
 // attachment: The descriptor of the attachment to set.

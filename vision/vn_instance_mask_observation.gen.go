@@ -142,7 +142,6 @@ func (i VNInstanceMaskObservation) GenerateMaskForInstancesError(instances found
 	return rv, nil
 
 }
-
 // Creates a high-resolution image where everything becomes transparent black,
 // except for the instances you specify.
 //
@@ -168,7 +167,6 @@ func (i VNInstanceMaskObservation) GenerateMaskedImageOfInstancesFromRequestHand
 	return rv, nil
 
 }
-
 // Creates a high-resolution mask where everything becomes transparent black,
 // except for the instances you specify.
 //
@@ -199,7 +197,6 @@ func (i VNInstanceMaskObservation) AllInstances() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("allInstances"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
 }
-
 // The resulting mask that represents all instances.
 //
 // # Discussion
@@ -212,7 +209,6 @@ func (i VNInstanceMaskObservation) InstanceMask() corevideo.CVImageBufferRef {
 	rv := objc.Send[corevideo.CVImageBufferRef](i.ID, objc.Sel("instanceMask"))
 	return corevideo.CVImageBufferRef(rv)
 }
-
 // A constant for specifying the first revision of the foreground instance
 // mask request.
 //

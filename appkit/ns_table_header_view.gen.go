@@ -192,7 +192,6 @@ func (t NSTableHeaderView) ColumnAtPoint(point corefoundation.CGPoint) int {
 	rv := objc.Send[int](t.ID, objc.Sel("columnAtPoint:"), point)
 	return rv
 }
-
 // Returns the rectangle containing the header tile for the column at
 // `columnIndex`.
 //
@@ -206,7 +205,6 @@ func (t NSTableHeaderView) HeaderRectOfColumn(column int) corefoundation.CGRect 
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("headerRectOfColumn:"), column)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the tool tip string to be displayed due to the cursor pausing at
 // location `point` within the tool tip rectangle identified by `tag` in the
 // view `view`.
@@ -237,7 +235,6 @@ func (t NSTableHeaderView) TableView() INSTableView {
 func (t NSTableHeaderView) SetTableView(value INSTableView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTableView:"), value)
 }
-
 // The index of the column that the user is dragging.
 //
 // # Discussion
@@ -250,7 +247,6 @@ func (t NSTableHeaderView) DraggedColumn() int {
 	rv := objc.Send[int](t.ID, objc.Sel("draggedColumn"))
 	return rv
 }
-
 // The horizontal distance that the user has dragged a column.
 //
 // # Discussion
@@ -264,7 +260,6 @@ func (t NSTableHeaderView) DraggedDistance() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("draggedDistance"))
 	return rv
 }
-
 // The index of the column that the user is resizing.
 //
 // # Discussion

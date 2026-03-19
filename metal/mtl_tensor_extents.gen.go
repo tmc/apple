@@ -156,7 +156,6 @@ func (t MTLTensorExtents) ExtentAtDimensionIndex(dimensionIndex uint) int {
 	rv := objc.Send[int](t.ID, objc.Sel("extentAtDimensionIndex:"), dimensionIndex)
 	return rv
 }
-
 // Creates a new tensor extents with the rank and extent values you provide.
 //
 // rank: The number of dimensions.
@@ -193,7 +192,6 @@ func (t MTLTensorExtents) Extents() int {
 func (t MTLTensorExtents) SetExtents(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setExtents:"), value)
 }
-
 // Obtains the rank of the tensor.
 //
 // # Discussion
@@ -205,7 +203,6 @@ func (t MTLTensorExtents) Rank() uint {
 	rv := objc.Send[uint](t.ID, objc.Sel("rank"))
 	return rv
 }
-
 // An error domain for errors that pertain to creating a tensor.
 //
 // See: https://developer.apple.com/documentation/metal/mtltensordomain
@@ -213,7 +210,6 @@ func (t MTLTensorExtents) MTLTensorDomain() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTLTensorDomain"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/metal/mtl_tensor_max_rank
 func (t MTLTensorExtents) MTL_TENSOR_MAX_RANK() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("MTL_TENSOR_MAX_RANK"))

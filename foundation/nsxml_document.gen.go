@@ -511,7 +511,6 @@ func (x XMLDocument) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNod
 	return NSXMLDocumentFromID(rv), nil
 
 }
-
 // Initializes and returns an [NSXMLDocument] object created from an [NSData]
 // object.
 //
@@ -545,7 +544,6 @@ func (x XMLDocument) InitWithDataOptionsError(data INSData, mask NSXMLNodeOption
 	return NSXMLDocumentFromID(rv), nil
 
 }
-
 // Returns an [NSXMLDocument] object initialized with a single child, the root
 // element.
 //
@@ -561,7 +559,6 @@ func (x XMLDocument) InitWithRootElement(element INSXMLElement) XMLDocument {
 	rv := objc.Send[XMLDocument](x.ID, objc.Sel("initWithRootElement:"), element)
 	return rv
 }
-
 // Initializes and returns an [NSXMLDocument] object created from a string
 // containing XML markup text.
 //
@@ -590,7 +587,6 @@ func (x XMLDocument) InitWithXMLStringOptionsError(string_ string, mask NSXMLNod
 	return NSXMLDocumentFromID(rv), nil
 
 }
-
 // Returns the root element of the receiver.
 //
 // # Return Value
@@ -602,7 +598,6 @@ func (x XMLDocument) RootElement() INSXMLElement {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("rootElement"))
 	return NSXMLElementFromID(rv)
 }
-
 // Set the root element of the receiver.
 //
 // root: An [NSXMLNode] object that is to be the root element.
@@ -616,7 +611,6 @@ func (x XMLDocument) RootElement() INSXMLElement {
 func (x XMLDocument) SetRootElement(root INSXMLElement) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setRootElement:"), root)
 }
-
 // Adds a child node after the last of the receiver’s existing children.
 //
 // child: The [NSXMLNode] object to be added.
@@ -625,7 +619,6 @@ func (x XMLDocument) SetRootElement(root INSXMLElement) {
 func (x XMLDocument) AddChild(child INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addChild:"), child)
 }
-
 // Inserts a node object at specified position in the receiver’s array of
 // children.
 //
@@ -642,7 +635,6 @@ func (x XMLDocument) AddChild(child INSXMLNode) {
 func (x XMLDocument) InsertChildAtIndex(child INSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChild:atIndex:"), child, index)
 }
-
 // Inserts an array of children at a specified position in the receiver’s
 // array of children.
 //
@@ -658,7 +650,6 @@ func (x XMLDocument) InsertChildAtIndex(child INSXMLNode, index uint) {
 func (x XMLDocument) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChildren:atIndex:"), objectivec.IObjectSliceToNSArray(children), index)
 }
-
 // Removes the child node of the receiver located at a specified position in
 // its array of children.
 //
@@ -675,7 +666,6 @@ func (x XMLDocument) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 func (x XMLDocument) RemoveChildAtIndex(index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeChildAtIndex:"), index)
 }
-
 // Replaces the child node of the receiver located at a specified position in
 // its array of children with another node.
 //
@@ -694,7 +684,6 @@ func (x XMLDocument) RemoveChildAtIndex(index uint) {
 func (x XMLDocument) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("replaceChildAtIndex:withNode:"), index, node)
 }
-
 // Applies the XSLT pattern rules and templates (specified as a data object)
 // to the receiver and returns a document object containing transformed XML or
 // HTML markup.
@@ -726,7 +715,6 @@ func (x XMLDocument) ObjectByApplyingXSLTArgumentsError(xslt INSData, arguments 
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Applies the XSLT pattern rules and templates (specified as a string) to the
 // receiver and returns a document object containing transformed XML or HTML
 // markup.
@@ -758,7 +746,6 @@ func (x XMLDocument) ObjectByApplyingXSLTStringArgumentsError(xslt string, argum
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Applies the XSLT pattern rules and templates located at a specified URL to
 // the receiver and returns a document object containing transformed XML
 // markup or an [NSData] object containing plain text, RTF text, and so on.
@@ -790,7 +777,6 @@ func (x XMLDocument) ObjectByApplyingXSLTAtURLArgumentsError(xsltURL INSURL, arg
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Returns the XML string representation of the receiver—that is, the entire
 // document—encapsulated in a data object.
 //
@@ -806,7 +792,6 @@ func (x XMLDocument) XMLDataWithOptions(options NSXMLNodeOptions) INSData {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("XMLDataWithOptions:"), options)
 	return NSDataFromID(rv)
 }
-
 // Validates the document against the governing schema and returns whether the
 // document conforms to the schema.
 //
@@ -881,7 +866,6 @@ func (x XMLDocument) CharacterEncoding() string {
 func (x XMLDocument) SetCharacterEncoding(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setCharacterEncoding:"), objc.String(value))
 }
-
 // Sets the kind of output content for the receiver.
 //
 // # Discussion
@@ -897,7 +881,6 @@ func (x XMLDocument) DocumentContentKind() NSXMLDocumentContentKind {
 func (x XMLDocument) SetDocumentContentKind(value NSXMLDocumentContentKind) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDocumentContentKind:"), value)
 }
-
 // Returns an [NSXMLDTD] object representing the internal DTD associated with
 // the receiver.
 //
@@ -914,7 +897,6 @@ func (x XMLDocument) DTD() INSXMLDTD {
 func (x XMLDocument) SetDTD(value INSXMLDTD) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDTD:"), value)
 }
-
 // Sets a Boolean value that specifies whether the receiver represents a
 // standalone XML document.
 //
@@ -930,7 +912,6 @@ func (x XMLDocument) Standalone() bool {
 func (x XMLDocument) SetStandalone(value bool) {
 	objc.Send[struct{}](x.ID, objc.Sel("setStandalone:"), value)
 }
-
 // Returns the MIME type for the receiver.
 //
 // # Return Value
@@ -952,7 +933,6 @@ func (x XMLDocument) MIMEType() string {
 func (x XMLDocument) SetMIMEType(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setMIMEType:"), objc.String(value))
 }
-
 // Sets the version of the receiver’s XML.
 //
 // # Discussion
@@ -967,7 +947,6 @@ func (x XMLDocument) Version() string {
 func (x XMLDocument) SetVersion(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setVersion:"), objc.String(value))
 }
-
 // Returns the XML string representation of the receiver—that is, the entire
 // document—encapsulated in a data object.
 //

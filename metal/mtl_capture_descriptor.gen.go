@@ -133,7 +133,6 @@ func (c MTLCaptureDescriptor) CaptureObject() objectivec.IObject {
 func (c MTLCaptureDescriptor) SetCaptureObject(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCaptureObject:"), value)
 }
-
 // The destination for any captured command data.
 //
 // # Discussion
@@ -148,7 +147,6 @@ func (c MTLCaptureDescriptor) Destination() MTLCaptureDestination {
 func (c MTLCaptureDescriptor) SetDestination(value MTLCaptureDestination) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDestination:"), value)
 }
-
 // A URL for a file to write the capture data into.
 //
 // # Discussion

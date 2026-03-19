@@ -219,7 +219,6 @@ func (t NSTextInputContext) InitWithClient(client NSTextInputClient) NSTextInput
 	rv := objc.Send[NSTextInputContext](t.ID, objc.Sel("initWithClient:"), client)
 	return rv
 }
-
 // Activates the receiver.
 //
 // # Discussion
@@ -231,7 +230,6 @@ func (t NSTextInputContext) InitWithClient(client NSTextInputClient) NSTextInput
 func (t NSTextInputContext) Activate() {
 	objc.Send[objc.ID](t.ID, objc.Sel("activate"))
 }
-
 // Deactivates the receiver.
 //
 // # Discussion
@@ -243,7 +241,6 @@ func (t NSTextInputContext) Activate() {
 func (t NSTextInputContext) Deactivate() {
 	objc.Send[objc.ID](t.ID, objc.Sel("deactivate"))
 }
-
 // Tells the Cocoa text input system to handle mouse or key events.
 //
 // event: The event to handle.
@@ -260,7 +257,6 @@ func (t NSTextInputContext) HandleEvent(event INSEvent) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("handleEvent:"), event)
 	return rv
 }
-
 // Tells the Cocoa text input system to discard the current conversion
 // session.
 //
@@ -272,7 +268,6 @@ func (t NSTextInputContext) HandleEvent(event INSEvent) bool {
 func (t NSTextInputContext) DiscardMarkedText() {
 	objc.Send[objc.ID](t.ID, objc.Sel("discardMarkedText"))
 }
-
 // Notifies the Cocoa text input system that the position information
 // previously queried via methods like `` needs to be updated.
 //
@@ -280,22 +275,18 @@ func (t NSTextInputContext) DiscardMarkedText() {
 func (t NSTextInputContext) InvalidateCharacterCoordinates() {
 	objc.Send[objc.ID](t.ID, objc.Sel("invalidateCharacterCoordinates"))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/textInputClientDidEndScrollingOrZooming()
 func (t NSTextInputContext) TextInputClientDidEndScrollingOrZooming() {
 	objc.Send[objc.ID](t.ID, objc.Sel("textInputClientDidEndScrollingOrZooming"))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/textInputClientWillStartScrollingOrZooming()
 func (t NSTextInputContext) TextInputClientWillStartScrollingOrZooming() {
 	objc.Send[objc.ID](t.ID, objc.Sel("textInputClientWillStartScrollingOrZooming"))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/textInputClientDidScroll()
 func (t NSTextInputContext) TextInputClientDidScroll() {
 	objc.Send[objc.ID](t.ID, objc.Sel("textInputClientDidScroll"))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/textInputClientDidUpdateSelection()
 func (t NSTextInputContext) TextInputClientDidUpdateSelection() {
 	objc.Send[objc.ID](t.ID, objc.Sel("textInputClientDidUpdateSelection"))
@@ -328,7 +319,6 @@ func (t NSTextInputContext) Client() NSTextInputClient {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("client"))
 	return NSTextInputClientObjectFromID(rv)
 }
-
 // A Boolean value that indicates whether the client handles
 // [NSGlyphInfoAttributeName] or not.
 //
@@ -345,7 +335,6 @@ func (t NSTextInputContext) AcceptsGlyphInfo() bool {
 func (t NSTextInputContext) SetAcceptsGlyphInfo(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAcceptsGlyphInfo:"), value)
 }
-
 // The set of keyboard input source locales allowed when this input context is
 // active.
 //
@@ -362,7 +351,6 @@ func (t NSTextInputContext) AllowedInputSourceLocales() []string {
 func (t NSTextInputContext) SetAllowedInputSourceLocales(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowedInputSourceLocales:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The array of keyboard text input source identifier strings available to the
 // receiver. (read-only)
 //
@@ -382,7 +370,6 @@ func (t NSTextInputContext) KeyboardInputSources() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("keyboardInputSources"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The identifier string for the selected keyboard text input source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputContext/selectedKeyboardInputSource

@@ -48,7 +48,6 @@ func NSViewToolTipOwnerObjectFromID(id objc.ID) NSViewToolTipOwnerObject {
 // tip rectangle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewToolTipOwner/view(_:stringForToolTip:point:userData:)
-
 func (o NSViewToolTipOwnerObject) ViewStringForToolTipPointUserData(view INSView, tag objectivec.IObject, point corefoundation.CGPoint, data unsafe.Pointer) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("view:stringForToolTip:point:userData:"), view, tag, point, data)

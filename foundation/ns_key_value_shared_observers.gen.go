@@ -127,7 +127,6 @@ func (k NSKeyValueSharedObservers) InitWithObservableClass(observableClass objc.
 	rv := objc.Send[NSKeyValueSharedObservers](k.ID, objc.Sel("initWithObservableClass:"), observableClass)
 	return rv
 }
-
 // Add a new observer to the collection.
 //
 // observer: The observer object to register for KVO notifications. The observer must
@@ -152,7 +151,6 @@ func (k NSKeyValueSharedObservers) InitWithObservableClass(observableClass objc.
 func (k NSKeyValueSharedObservers) AddSharedObserverForKeyOptionsContext(observer objectivec.Object, key string, options uint, context unsafe.Pointer) {
 	objc.Send[objc.ID](k.ID, objc.Sel("addSharedObserver:forKey:options:context:"), observer, objc.String(key), options, context)
 }
-
 // A momentary snapshot of all observers added to the collection thus far,
 // that can be assigned to an observable using `-[NSObject ]`
 //

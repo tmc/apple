@@ -622,7 +622,6 @@ func (g VNGenerateOpticalFlowRequest) ComputationAccuracy() VNGenerateOpticalFlo
 func (g VNGenerateOpticalFlowRequest) SetComputationAccuracy(value VNGenerateOpticalFlowRequestComputationAccuracy) {
 	objc.Send[struct{}](g.ID, objc.Sel("setComputationAccuracy:"), value)
 }
-
 // The output buffer’s pixel format.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest/outputPixelFormat
@@ -633,7 +632,6 @@ func (g VNGenerateOpticalFlowRequest) OutputPixelFormat() uint32 {
 func (g VNGenerateOpticalFlowRequest) SetOutputPixelFormat(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setOutputPixelFormat:"), value)
 }
-
 // A Boolean value that indicates whether to keep the raw pixel buffer coming
 // from the machine learning network.
 //
@@ -654,7 +652,6 @@ func (g VNGenerateOpticalFlowRequest) KeepNetworkOutput() bool {
 func (g VNGenerateOpticalFlowRequest) SetKeepNetworkOutput(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setKeepNetworkOutput:"), value)
 }
-
 // A constant for specifying revision 2 of the optical flow generation
 // request.
 //
@@ -663,7 +660,6 @@ func (g VNGenerateOpticalFlowRequest) VNGenerateOpticalFlowRequestRevision2() in
 	rv := objc.Send[int](g.ID, objc.Sel("VNGenerateOpticalFlowRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the optical flow generation
 // request.
 //

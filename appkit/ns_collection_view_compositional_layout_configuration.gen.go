@@ -161,7 +161,6 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) ScrollDirection() NSCo
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetScrollDirection(value NSCollectionViewScrollDirection) {
 	objc.Send[struct{}](c.ID, objc.Sel("setScrollDirection:"), value)
 }
-
 // The amount of space between the sections in the layout.
 //
 // # Discussion
@@ -176,7 +175,6 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) InterSectionSpacing() 
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetInterSectionSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInterSectionSpacing:"), value)
 }
-
 // An array of the supplementary items that are associated with the boundary
 // edges of the entire layout, such as global headers and footers.
 //
@@ -190,7 +188,6 @@ func (c NSCollectionViewCompositionalLayoutConfiguration) BoundarySupplementaryI
 func (c NSCollectionViewCompositionalLayoutConfiguration) SetBoundarySupplementaryItems(value []NSCollectionLayoutBoundarySupplementaryItem) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBoundarySupplementaryItems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The layout’s configuration, such as its scroll direction and section
 // spacing.
 //

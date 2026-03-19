@@ -176,7 +176,6 @@ func (s MTLStructMember) ArrayType() IMTLArrayType {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("arrayType"))
 	return MTLArrayTypeFromID(rv)
 }
-
 // Provides a description of the underlying struct when the struct member
 // holds a struct.
 //
@@ -190,7 +189,6 @@ func (s MTLStructMember) StructType() IMTLStructType {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("structType"))
 	return MTLStructTypeFromID(rv)
 }
-
 // Provides a description of the underlying pointer when the struct member
 // holds a pointer.
 //
@@ -204,7 +202,6 @@ func (s MTLStructMember) PointerType() IMTLPointerType {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("pointerType"))
 	return MTLPointerTypeFromID(rv)
 }
-
 // Provides a description of the underlying texture when the struct member
 // holds a texture.
 //
@@ -218,7 +215,6 @@ func (s MTLStructMember) TextureReferenceType() IMTLTextureReferenceType {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("textureReferenceType"))
 	return MTLTextureReferenceTypeFromID(rv)
 }
-
 // Provides a description of the underlying tensor type when this struct
 // member holds a tensor.
 //
@@ -240,7 +236,6 @@ func (s MTLStructMember) Name() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The data type of the struct member.
 //
 // # Discussion
@@ -257,7 +252,6 @@ func (s MTLStructMember) DataType() MTLDataType {
 	rv := objc.Send[MTLDataType](s.ID, objc.Sel("dataType"))
 	return MTLDataType(rv)
 }
-
 // The location of this member relative to the start of its struct, in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/offset
@@ -265,7 +259,6 @@ func (s MTLStructMember) Offset() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("offset"))
 	return rv
 }
-
 // The index in the argument table that corresponds to the struct member.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStructMember/argumentIndex
@@ -273,7 +266,6 @@ func (s MTLStructMember) ArgumentIndex() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("argumentIndex"))
 	return rv
 }
-
 // An array of instances that describe the fields in the struct.
 //
 // See: https://developer.apple.com/documentation/metal/mtlstructtype/members

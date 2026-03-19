@@ -402,7 +402,6 @@ func (p NSPrintInfo) InitWithDictionary(attributes foundation.INSDictionary) NSP
 	rv := objc.Send[NSPrintInfo](p.ID, objc.Sel("initWithDictionary:"), attributes)
 	return rv
 }
-
 // Creates a printing information object from data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/init(coder:)
@@ -410,7 +409,6 @@ func (p NSPrintInfo) InitWithCoder(coder foundation.INSCoder) NSPrintInfo {
 	rv := objc.Send[NSPrintInfo](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Validates the attributes encapsulated by the print info.
 //
 // # Discussion
@@ -422,7 +420,6 @@ func (p NSPrintInfo) InitWithCoder(coder foundation.INSCoder) NSPrintInfo {
 func (p NSPrintInfo) SetUpPrintOperationDefaultValues() {
 	objc.Send[objc.ID](p.ID, objc.Sel("setUpPrintOperationDefaultValues"))
 }
-
 // Returns the print info’s dictionary that contains the printing
 // attributes.
 //
@@ -438,7 +435,6 @@ func (p NSPrintInfo) Dictionary() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("dictionary"))
 	return foundation.NSDictionaryFromID(rv)
 }
-
 // Returns a Core Printing object configured with the print info’s session
 // information.
 //
@@ -462,7 +458,6 @@ func (p NSPrintInfo) Dictionary() foundation.INSDictionary {
 func (p NSPrintInfo) PMPrintSession() {
 	objc.Send[objc.ID](p.ID, objc.Sel("PMPrintSession"))
 }
-
 // Returns a Core Printing object configured with the print info’s page
 // format information.
 //
@@ -490,7 +485,6 @@ func (p NSPrintInfo) PMPrintSession() {
 func (p NSPrintInfo) PMPageFormat() {
 	objc.Send[objc.ID](p.ID, objc.Sel("PMPageFormat"))
 }
-
 // Returns a Core Printing object configured with the print info’s print
 // settings information
 //
@@ -518,7 +512,6 @@ func (p NSPrintInfo) PMPageFormat() {
 func (p NSPrintInfo) PMPrintSettings() {
 	objc.Send[objc.ID](p.ID, objc.Sel("PMPrintSettings"))
 }
-
 // Synchronizes the print info’s page format information with information
 // from its associated page format object.
 //
@@ -534,7 +527,6 @@ func (p NSPrintInfo) PMPrintSettings() {
 func (p NSPrintInfo) UpdateFromPMPageFormat() {
 	objc.Send[objc.ID](p.ID, objc.Sel("updateFromPMPageFormat"))
 }
-
 // Synchronizes the print info’s print settings information with information
 // from its associated print settings object.
 //
@@ -550,7 +542,6 @@ func (p NSPrintInfo) UpdateFromPMPageFormat() {
 func (p NSPrintInfo) UpdateFromPMPrintSettings() {
 	objc.Send[objc.ID](p.ID, objc.Sel("updateFromPMPrintSettings"))
 }
-
 // Updates the print info with all the settings and attributes in the
 // specified PDF info object.
 //
@@ -576,7 +567,6 @@ func (p NSPrintInfo) PaperSize() corefoundation.CGSize {
 func (p NSPrintInfo) SetPaperSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPaperSize:"), value)
 }
-
 // The top margin to the specified size.
 //
 // # Discussion
@@ -591,7 +581,6 @@ func (p NSPrintInfo) TopMargin() float64 {
 func (p NSPrintInfo) SetTopMargin(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTopMargin:"), value)
 }
-
 // The height of the bottom margin.
 //
 // # Discussion
@@ -606,7 +595,6 @@ func (p NSPrintInfo) BottomMargin() float64 {
 func (p NSPrintInfo) SetBottomMargin(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBottomMargin:"), value)
 }
-
 // The width of the left margin.
 //
 // # Discussion
@@ -621,7 +609,6 @@ func (p NSPrintInfo) LeftMargin() float64 {
 func (p NSPrintInfo) SetLeftMargin(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setLeftMargin:"), value)
 }
-
 // The width of the right margin.
 //
 // # Discussion
@@ -636,7 +623,6 @@ func (p NSPrintInfo) RightMargin() float64 {
 func (p NSPrintInfo) SetRightMargin(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRightMargin:"), value)
 }
-
 // The imageable area of a sheet of paper specified by the print info.
 //
 // # Discussion
@@ -656,7 +642,6 @@ func (p NSPrintInfo) ImageablePageBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](p.ID, objc.Sel("imageablePageBounds"))
 	return corefoundation.CGRect(rv)
 }
-
 // The orientation attribute.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/orientation-swift.property
@@ -667,7 +652,6 @@ func (p NSPrintInfo) Orientation() NSPaperOrientation {
 func (p NSPrintInfo) SetOrientation(value NSPaperOrientation) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOrientation:"), value)
 }
-
 // The name of the currently selected paper size.
 //
 // # Discussion
@@ -683,7 +667,6 @@ func (p NSPrintInfo) PaperName() NSPrinterPaperName {
 func (p NSPrintInfo) SetPaperName(value NSPrinterPaperName) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPaperName:"), objc.String(string(value)))
 }
-
 // The human-readable name of the currently selected paper size, suitable for
 // presentation in user interfaces.
 //
@@ -697,7 +680,6 @@ func (p NSPrintInfo) LocalizedPaperName() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("localizedPaperName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The horizontal pagination mode.
 //
 // # Discussion
@@ -714,7 +696,6 @@ func (p NSPrintInfo) HorizontalPagination() NSPrintingPaginationMode {
 func (p NSPrintInfo) SetHorizontalPagination(value NSPrintingPaginationMode) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHorizontalPagination:"), value)
 }
-
 // The vertical pagination to the specified mode.
 //
 // # Discussion
@@ -731,7 +712,6 @@ func (p NSPrintInfo) VerticalPagination() NSPrintingPaginationMode {
 func (p NSPrintInfo) SetVerticalPagination(value NSPrintingPaginationMode) {
 	objc.Send[struct{}](p.ID, objc.Sel("setVerticalPagination:"), value)
 }
-
 // A Boolean value that indicates whether the image is centered horizontally.
 //
 // # Discussion
@@ -749,7 +729,6 @@ func (p NSPrintInfo) HorizontallyCentered() bool {
 func (p NSPrintInfo) SetHorizontallyCentered(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHorizontallyCentered:"), value)
 }
-
 // A Boolean value that indicates whether the image is centered vertically.
 //
 // # Discussion
@@ -767,7 +746,6 @@ func (p NSPrintInfo) VerticallyCentered() bool {
 func (p NSPrintInfo) SetVerticallyCentered(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setVerticallyCentered:"), value)
 }
-
 // The printer object to be used for printing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/printer
@@ -778,7 +756,6 @@ func (p NSPrintInfo) Printer() INSPrinter {
 func (p NSPrintInfo) SetPrinter(value INSPrinter) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPrinter:"), value)
 }
-
 // The action specified for the job.
 //
 // # Discussion
@@ -802,7 +779,6 @@ func (p NSPrintInfo) JobDisposition() NSPrintJobDispositionValue {
 func (p NSPrintInfo) SetJobDisposition(value NSPrintJobDispositionValue) {
 	objc.Send[struct{}](p.ID, objc.Sel("setJobDisposition:"), objc.String(string(value)))
 }
-
 // A Boolean value that indicates whether only the currently selected contents
 // should be printed.
 //
@@ -822,7 +798,6 @@ func (p NSPrintInfo) SelectionOnly() bool {
 func (p NSPrintInfo) SetSelectionOnly(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectionOnly:"), value)
 }
-
 // The current scaling factor.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/scalingFactor
@@ -833,7 +808,6 @@ func (p NSPrintInfo) ScalingFactor() float64 {
 func (p NSPrintInfo) SetScalingFactor(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setScalingFactor:"), value)
 }
-
 // A mutable dictionary containing the print settings from Core Printing.
 //
 // # Discussion
@@ -884,7 +858,6 @@ func (_NSPrintInfoClass NSPrintInfoClass) SharedPrintInfo() NSPrintInfo {
 func (_NSPrintInfoClass NSPrintInfoClass) SetSharedPrintInfo(value NSPrintInfo) {
 	objc.Send[struct{}](objc.ID(_NSPrintInfoClass.class), objc.Sel("setSharedPrintInfo:"), value)
 }
-
 // Deprecated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/defaultPrinter

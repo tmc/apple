@@ -112,7 +112,6 @@ func (a ANEAnalyticsProcedure) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/initWithGroups:procedureMetrics:indentifier:
 func (a ANEAnalyticsProcedure) InitWithGroupsProcedureMetricsIndentifier(groups objectivec.IObject, metrics objectivec.IObject, indentifier objectivec.IObject) ANEAnalyticsProcedure {
@@ -132,13 +131,11 @@ func (a ANEAnalyticsProcedure) GroupInfo() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/identifier
 func (a ANEAnalyticsProcedure) Identifier() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsProcedure/procedureMetrics
 func (a ANEAnalyticsProcedure) ProcedureMetrics() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureMetrics"))

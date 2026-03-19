@@ -44,7 +44,6 @@ func VZUSBDeviceConfigurationObjectFromID(id objc.ID) VZUSBDeviceConfigurationOb
 // The device’s unique identifier.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDeviceConfiguration/uuid
-
 func (o VZUSBDeviceConfigurationObject) Uuid() foundation.NSUUID {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))

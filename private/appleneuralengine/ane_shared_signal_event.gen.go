@@ -138,20 +138,17 @@ func NewANESharedSignalEventWithValueSymbolIndexEventTypeSharedEventAgentMask(va
 func (a ANESharedSignalEvent) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/waitEvent
 func (a ANESharedSignalEvent) WaitEvent() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("waitEvent"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/initWithCoder:
 func (a ANESharedSignalEvent) InitWithCoder(coder foundation.INSCoder) ANESharedSignalEvent {
 	rv := objc.Send[ANESharedSignalEvent](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/initWithValue:symbolIndex:eventType:sharedEvent:agentMask:
 func (a ANESharedSignalEvent) InitWithValueSymbolIndexEventTypeSharedEventAgentMask(value uint64, index uint32, type_ int64, event objectivec.IObject, mask uint64) ANESharedSignalEvent {
@@ -165,7 +162,6 @@ func (_ANESharedSignalEventClass ANESharedSignalEventClass) SignalEventWithValue
 	rv := objc.Send[objc.ID](objc.ID(_ANESharedSignalEventClass.class), objc.Sel("signalEventWithValue:symbolIndex:eventType:sharedEvent:"), value, index, type_, event)
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/supportsSecureCoding
 func (_ANESharedSignalEventClass ANESharedSignalEventClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ANESharedSignalEventClass.class), objc.Sel("supportsSecureCoding"))
@@ -180,25 +176,21 @@ func (a ANESharedSignalEvent) AgentMask() uint64 {
 func (a ANESharedSignalEvent) SetAgentMask(value uint64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAgentMask:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/eventType
 func (a ANESharedSignalEvent) EventType() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("eventType"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/sharedEvent
 func (a ANESharedSignalEvent) SharedEvent() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("sharedEvent"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/symbolIndex
 func (a ANESharedSignalEvent) SymbolIndex() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("symbolIndex"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESharedSignalEvent/value
 func (a ANESharedSignalEvent) Value() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("value"))

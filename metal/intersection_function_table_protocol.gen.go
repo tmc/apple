@@ -95,12 +95,10 @@ func MTLIntersectionFunctionTableObjectFromID(id objc.ID) MTLIntersectionFunctio
 // index: The index of the table entry to change.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setFunction(_:index:)
-
 func (o MTLIntersectionFunctionTableObject) SetFunctionAtIndex(function MTLFunctionHandle, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setFunction:atIndex:"), function, index)
 	}
-
 // Sets a buffer for the intersection functions.
 //
 // buffer: The [MTLBuffer] object to set in the argument table.
@@ -110,12 +108,10 @@ func (o MTLIntersectionFunctionTableObject) SetFunctionAtIndex(function MTLFunct
 // index: An index in the function table’s buffer argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setBuffer(_:offset:index:)
-
 func (o MTLIntersectionFunctionTableObject) SetBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
 	}
-
 // Sets a visible function table for the intersection functions.
 //
 // functionTable: A visible function table.
@@ -123,12 +119,10 @@ func (o MTLIntersectionFunctionTableObject) SetBufferOffsetAtIndex(buffer MTLBuf
 // bufferIndex: An index in the function table’s buffer argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setVisibleFunctionTable(_:bufferIndex:)
-
 func (o MTLIntersectionFunctionTableObject) SetVisibleFunctionTableAtBufferIndex(functionTable MTLVisibleFunctionTable, bufferIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTable:atBufferIndex:"), functionTable, bufferIndex)
 	}
-
 // Sets an entry in the intersection table to point to a system-defined opaque
 // triangle intersection function.
 //
@@ -137,12 +131,10 @@ func (o MTLIntersectionFunctionTableObject) SetVisibleFunctionTableAtBufferIndex
 // index: The index in the table to change.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setOpaqueTriangleIntersectionFunction(signature:index:)
-
 func (o MTLIntersectionFunctionTableObject) SetOpaqueTriangleIntersectionFunctionWithSignatureAtIndex(signature MTLIntersectionFunctionSignature, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setOpaqueTriangleIntersectionFunctionWithSignature:atIndex:"), signature, index)
 	}
-
 // Sets a range of entries in the intersection table to point to a
 // system-defined opaque triangle intersection function.
 //
@@ -151,36 +143,28 @@ func (o MTLIntersectionFunctionTableObject) SetOpaqueTriangleIntersectionFunctio
 // range: A range of indices to change in the table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setOpaqueTriangleIntersectionFunction(signature:range:)
-
 func (o MTLIntersectionFunctionTableObject) SetOpaqueTriangleIntersectionFunctionWithSignatureWithRange(signature MTLIntersectionFunctionSignature, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setOpaqueTriangleIntersectionFunctionWithSignature:withRange:"), signature, range_)
 	}
-
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/gpuResourceID
-
 func (o MTLIntersectionFunctionTableObject) GpuResourceID() MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setOpaqueCurveIntersectionFunction(signature:index:)
-
 func (o MTLIntersectionFunctionTableObject) SetOpaqueCurveIntersectionFunctionWithSignatureAtIndex(signature MTLIntersectionFunctionSignature, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setOpaqueCurveIntersectionFunctionWithSignature:atIndex:"), signature, index)
 	}
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setOpaqueCurveIntersectionFunction(signature:range:)
-
 func (o MTLIntersectionFunctionTableObject) SetOpaqueCurveIntersectionFunctionWithSignatureWithRange(signature MTLIntersectionFunctionSignature, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setOpaqueCurveIntersectionFunctionWithSignature:withRange:"), signature, range_)
 	}
-
 // Sets a range of buffers for the intersection functions.
 //
 // buffers: A pointer to an array of buffers.
@@ -191,12 +175,10 @@ func (o MTLIntersectionFunctionTableObject) SetOpaqueCurveIntersectionFunctionWi
 // range: A range of indices in the function table’s buffer argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setBuffers:offsets:withRange:
-
 func (o MTLIntersectionFunctionTableObject) SetBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), buffers, offsets, range_)
 	}
-
 // Sets a range of entries in the table.
 //
 // functions: A pointer to an array of function handles.
@@ -204,12 +186,10 @@ func (o MTLIntersectionFunctionTableObject) SetBuffersOffsetsWithRange(buffers [
 // range: A range of indices to change in the table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setFunctions:withRange:
-
 func (o MTLIntersectionFunctionTableObject) SetFunctionsWithRange(functions []MTLFunctionHandle, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setFunctions:withRange:"), functions, range_)
 	}
-
 // Sets a range of visible function tables for the intersection functions.
 //
 // functionTables: The function tables to insert.
@@ -217,84 +197,68 @@ func (o MTLIntersectionFunctionTableObject) SetFunctionsWithRange(functions []MT
 // bufferRange: A range of indices in the function table’s buffer argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionTable/setVisibleFunctionTables:withBufferRange:
-
 func (o MTLIntersectionFunctionTableObject) SetVisibleFunctionTablesWithBufferRange(functionTables []MTLVisibleFunctionTable, bufferRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTables:withBufferRange:"), functionTables, bufferRange)
 	}
-
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
 // texture, or heap.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
-
 func (o MTLIntersectionFunctionTableObject) AllocatedSize() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
-
 // The device object that created the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/device
-
 func (o MTLIntersectionFunctionTableObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that identifies the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/label
-
 func (o MTLIntersectionFunctionTableObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // The CPU cache mode that defines the CPU mapping of the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/cpuCacheMode
-
 func (o MTLIntersectionFunctionTableObject) CpuCacheMode() MTLCPUCacheMode {
 	
 	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
 	return rv
 	}
-
 // The location and access permissions of the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/storageMode
-
 func (o MTLIntersectionFunctionTableObject) StorageMode() MTLStorageMode {
 	
 	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
 	return rv
 	}
-
 // A mode that determines whether Metal tracks and synchronizes resource
 // access.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/hazardTrackingMode
-
 func (o MTLIntersectionFunctionTableObject) HazardTrackingMode() MTLHazardTrackingMode {
 	
 	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
 	return rv
 	}
-
 // The storage mode, CPU cache mode, and hazard tracking mode of the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
-
 func (o MTLIntersectionFunctionTableObject) ResourceOptions() MTLResourceOptions {
 	
 	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
 	return rv
 	}
-
 // Specifies or queries the resource’s purgeable state.
 //
 // state: The desired purgeable state of a resource.
@@ -330,34 +294,28 @@ func (o MTLIntersectionFunctionTableObject) ResourceOptions() MTLResourceOptions
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-
 func (o MTLIntersectionFunctionTableObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
 	}
-
 // The distance, in bytes, from the beginning of the heap to the first byte of
 // the resource, if you allocated the resource on a heap.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
-
 func (o MTLIntersectionFunctionTableObject) HeapOffset() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("heapOffset"))
 	return rv
 	}
-
 // The heap on which the resource is allocated, if any.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heap
-
 func (o MTLIntersectionFunctionTableObject) Heap() MTLHeap {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("heap"))
 	return MTLHeapObjectFromID(rv)
 	}
-
 // Allows future heap resource allocations to alias against the resource’s
 // memory, reusing it.
 //
@@ -392,12 +350,10 @@ func (o MTLIntersectionFunctionTableObject) Heap() MTLHeap {
 // through an event or fence.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/makeAliasable()
-
 func (o MTLIntersectionFunctionTableObject) MakeAliasable() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("makeAliasable"))
 	}
-
 // A Boolean value that indicates whether future heap resource allocations may
 // alias against the resource’s memory.
 //
@@ -410,16 +366,13 @@ func (o MTLIntersectionFunctionTableObject) MakeAliasable() {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/isAliasable()
-
 func (o MTLIntersectionFunctionTableObject) IsAliasable() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAliasable"))
 	return rv
 	}
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-
 func (o MTLIntersectionFunctionTableObject) SetOwnerWithIdentity(task_id_token objectivec.IObject) int32 {
 	
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)

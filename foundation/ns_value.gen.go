@@ -786,7 +786,6 @@ func (v NSValue) InitWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSVal
 	rv := objc.Send[NSValue](v.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.SliceData(type_)))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the value object and another
 // value object are equal.
 //
@@ -809,20 +808,17 @@ func (v NSValue) IsEqualToValue(value INSValue) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isEqualToValue:"), value)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(coder:)
 func (v NSValue) InitWithCoder(coder INSCoder) NSValue {
 	rv := objc.Send[NSValue](v.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/getValue(_:size:)
 func (v NSValue) GetValueSize(value unsafe.Pointer, size uint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("getValue:size:"), value, size)
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -871,7 +867,6 @@ func (v NSValue) ObjCType() string {
 	rv := objc.Send[*byte](v.ID, objc.Sel("objCType"))
 	return objc.GoString(rv)
 }
-
 // Returns the value as an untyped pointer.
 //
 // # Return Value
@@ -884,7 +879,6 @@ func (v NSValue) PointerValue() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("pointerValue"))
 	return rv
 }
-
 // The value as a non-retained pointer to an object.
 //
 // # Discussion
@@ -897,7 +891,6 @@ func (v NSValue) NonretainedObjectValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nonretainedObjectValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // The Foundation range structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/rangeValue
@@ -905,7 +898,6 @@ func (v NSValue) RangeValue() NSRange {
 	rv := objc.Send[NSRange](v.ID, objc.Sel("rangeValue"))
 	return NSRange(rv)
 }
-
 // The Foundation point structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/pointValue
@@ -913,7 +905,6 @@ func (v NSValue) PointValue() NSPoint {
 	rv := objc.Send[NSPoint](v.ID, objc.Sel("pointValue"))
 	return NSPoint(rv)
 }
-
 // The Foundation size structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/sizeValue
@@ -921,7 +912,6 @@ func (v NSValue) SizeValue() NSSize {
 	rv := objc.Send[NSSize](v.ID, objc.Sel("sizeValue"))
 	return NSSize(rv)
 }
-
 // The Foundation rectangle structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/rectValue
@@ -929,7 +919,6 @@ func (v NSValue) RectValue() NSRect {
 	rv := objc.Send[NSRect](v.ID, objc.Sel("rectValue"))
 	return NSRect(rv)
 }
-
 // The CoreAnimation transform structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/caTransform3DValue
@@ -937,7 +926,6 @@ func (v NSValue) CATransform3DValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CATransform3DValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // The CoreMedia time structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeValue
@@ -945,7 +933,6 @@ func (v NSValue) CMTimeValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // The CoreMedia time range structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeRangeValue
@@ -953,7 +940,6 @@ func (v NSValue) CMTimeRangeValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeRangeValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // The CoreMedia time mapping structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeMappingValue
@@ -961,7 +947,6 @@ func (v NSValue) CMTimeMappingValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeMappingValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // The CoreLocation geographic coordinate structure representation of the
 // value.
 //
@@ -970,7 +955,6 @@ func (v NSValue) MKCoordinateValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("MKCoordinateValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // The MapKit coordinate span structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/mkCoordinateSpanValue
@@ -978,7 +962,6 @@ func (v NSValue) MKCoordinateSpanValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("MKCoordinateSpanValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // The three-element Scene Kit vector representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnVector3Value
@@ -986,7 +969,6 @@ func (v NSValue) SCNVector3Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNVector3Value"))
 	return objectivec.Object{ID: rv}
 }
-
 // The four-element Scene Kit vector representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnVector4Value
@@ -994,7 +976,6 @@ func (v NSValue) SCNVector4Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNVector4Value"))
 	return objectivec.Object{ID: rv}
 }
-
 // The Scene Kit 4 x 4 matrix representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/scnMatrix4Value
@@ -1002,25 +983,21 @@ func (v NSValue) SCNMatrix4Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("SCNMatrix4Value"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSValue/edgeInsetsValue
 func (v NSValue) EdgeInsetsValue() NSEdgeInsets {
 	rv := objc.Send[NSEdgeInsets](v.ID, objc.Sel("edgeInsetsValue"))
 	return NSEdgeInsets(rv)
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSValue/gcPoint2Value
 func (v NSValue) GCPoint2Value() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("GCPoint2Value"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSValue/videoDimensionsValue
 func (v NSValue) CMVideoDimensionsValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMVideoDimensionsValue"))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an integer that can be used as a table address in a hash table
 // structure.
 //

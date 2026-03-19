@@ -224,7 +224,6 @@ func (t NSTextLineFragment) InitWithAttributedStringRange(attributedString found
 	rv := objc.Send[NSTextLineFragment](t.ID, objc.Sel("initWithAttributedString:range:"), attributedString, range_)
 	return rv
 }
-
 // Creates a new line fragment with from data in an unarchiver.
 //
 // aDecoder: A decoder that conforms to the [NSCoder] protocol.
@@ -236,7 +235,6 @@ func (t NSTextLineFragment) InitWithCoder(aDecoder foundation.INSCoder) NSTextLi
 	rv := objc.Send[NSTextLineFragment](t.ID, objc.Sel("initWithCoder:"), aDecoder)
 	return rv
 }
-
 // Creates a new line fragment using the string, attributes, and range you
 // provide.
 //
@@ -251,7 +249,6 @@ func (t NSTextLineFragment) InitWithStringAttributesRange(string_ string, attrib
 	rv := objc.Send[NSTextLineFragment](t.ID, objc.Sel("initWithString:attributes:range:"), objc.String(string_), attributes, range_)
 	return rv
 }
-
 // Returns character index for a point inside the line fragment coordinate
 // system.
 //
@@ -266,7 +263,6 @@ func (t NSTextLineFragment) CharacterIndexForPoint(point corefoundation.CGPoint)
 	rv := objc.Send[int](t.ID, objc.Sel("characterIndexForPoint:"), point)
 	return rv
 }
-
 // Returns character index for a point inside the line fragment coordinate
 // system.
 //
@@ -283,7 +279,6 @@ func (t NSTextLineFragment) FractionOfDistanceThroughGlyphForPoint(point corefou
 	rv := objc.Send[float64](t.ID, objc.Sel("fractionOfDistanceThroughGlyphForPoint:"), point)
 	return rv
 }
-
 // Returns the location of the character at the specified index.
 //
 // index: An integer that represents the position in the text.
@@ -300,7 +295,6 @@ func (t NSTextLineFragment) LocationForCharacterAtIndex(index int) corefoundatio
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("locationForCharacterAtIndex:"), index)
 	return corefoundation.CGPoint(rv)
 }
-
 // Renders the line fragment contents at the rendering origin.
 //
 // point: The origin as a [CGPoint].
@@ -328,7 +322,6 @@ func (t NSTextLineFragment) AttributedString() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(objc.ID(rv))
 }
-
 // The string range for the source attributed string that corresponds to this
 // line fragment.
 //
@@ -337,7 +330,6 @@ func (t NSTextLineFragment) CharacterRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("characterRange"))
 	return foundation.NSRange(rv)
 }
-
 // Rendering origin for the left-most glyph in the line fragment coordinate
 // system.
 //
@@ -346,7 +338,6 @@ func (t NSTextLineFragment) GlyphOrigin() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](t.ID, objc.Sel("glyphOrigin"))
 	return corefoundation.CGPoint(rv)
 }
-
 // The typographic bounds that specifies the dimensions of the line fragment
 // for laying out line fragments to each other.
 //

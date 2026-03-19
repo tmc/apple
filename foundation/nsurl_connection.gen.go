@@ -215,7 +215,6 @@ func NewNSURLConnection() NSURLConnection {
 func (u NSURLConnection) Start() {
 	objc.Send[objc.ID](u.ID, objc.Sel("start"))
 }
-
 // Cancels an asynchronous load of a request.
 //
 // # Discussion
@@ -228,7 +227,6 @@ func (u NSURLConnection) Start() {
 func (u NSURLConnection) Cancel() {
 	objc.Send[objc.ID](u.ID, objc.Sel("cancel"))
 }
-
 // Determines the run loop and mode that the connection uses to call methods
 // on its delegate.
 //
@@ -258,7 +256,6 @@ func (u NSURLConnection) Cancel() {
 func (u NSURLConnection) ScheduleInRunLoopForMode(aRunLoop INSRunLoop, mode NSRunLoopMode) {
 	objc.Send[objc.ID](u.ID, objc.Sel("scheduleInRunLoop:forMode:"), aRunLoop, objc.String(string(mode)))
 }
-
 // Determines the operation queue that is used to call methods on the
 // connection’s delegate.
 //
@@ -284,7 +281,6 @@ func (u NSURLConnection) ScheduleInRunLoopForMode(aRunLoop INSRunLoop, mode NSRu
 func (u NSURLConnection) SetDelegateQueue(queue INSOperationQueue) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setDelegateQueue:"), queue)
 }
-
 // Causes the connection to stop calling delegate methods in the specified run
 // loop and mode.
 //
@@ -353,7 +349,6 @@ func (u NSURLConnection) OriginalRequest() INSURLRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("originalRequest"))
 	return NSURLRequestFromID(objc.ID(rv))
 }
-
 // The current connection request.
 //
 // # Discussion

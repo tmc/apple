@@ -184,7 +184,6 @@ func (t NSTextTableBlock) Table() INSTextTable {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("table"))
 	return NSTextTableFromID(objc.ID(rv))
 }
-
 // Returns the table row at which this text table block starts.
 //
 // # Return Value
@@ -196,7 +195,6 @@ func (t NSTextTableBlock) StartingRow() int {
 	rv := objc.Send[int](t.ID, objc.Sel("startingRow"))
 	return rv
 }
-
 // Returns the number of table rows spanned by this text table block.
 //
 // # Return Value
@@ -208,7 +206,6 @@ func (t NSTextTableBlock) RowSpan() int {
 	rv := objc.Send[int](t.ID, objc.Sel("rowSpan"))
 	return rv
 }
-
 // Returns the table column at which this text table block starts.
 //
 // # Return Value
@@ -220,7 +217,6 @@ func (t NSTextTableBlock) StartingColumn() int {
 	rv := objc.Send[int](t.ID, objc.Sel("startingColumn"))
 	return rv
 }
-
 // Returns the number of table columns spanned by this text table block.
 //
 // # Return Value

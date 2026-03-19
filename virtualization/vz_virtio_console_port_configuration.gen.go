@@ -130,7 +130,6 @@ func (v VZVirtioConsolePortConfiguration) IsConsole() bool {
 func (v VZVirtioConsolePortConfiguration) SetIsConsole(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIsConsole:"), value)
 }
-
 // The name of the port.
 //
 // # Discussion
@@ -145,7 +144,6 @@ func (v VZVirtioConsolePortConfiguration) Name() string {
 func (v VZVirtioConsolePortConfiguration) SetName(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // The array of console devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/consoledevices

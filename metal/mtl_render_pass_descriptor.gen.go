@@ -302,7 +302,6 @@ func (r MTLRenderPassDescriptor) GetSamplePositionsCount(positions []MTLSamplePo
 	rv := objc.Send[uint](r.ID, objc.Sel("getSamplePositions:count:"), objc.CArray(positions), count)
 	return rv
 }
-
 // Sets the programmable sample positions for a render pass.
 //
 // positions: An array of programmable sample positions for the render pass.
@@ -351,7 +350,6 @@ func (r MTLRenderPassDescriptor) ColorAttachments() IMTLRenderPassColorAttachmen
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("colorAttachments"))
 	return MTLRenderPassColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
 // State information for an attachment that stores depth data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDescriptor/depthAttachment
@@ -362,7 +360,6 @@ func (r MTLRenderPassDescriptor) DepthAttachment() IMTLRenderPassDepthAttachment
 func (r MTLRenderPassDescriptor) SetDepthAttachment(value IMTLRenderPassDepthAttachmentDescriptor) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDepthAttachment:"), value)
 }
-
 // State information for an attachment that stores stencil data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDescriptor/stencilAttachment
@@ -373,7 +370,6 @@ func (r MTLRenderPassDescriptor) StencilAttachment() IMTLRenderPassStencilAttach
 func (r MTLRenderPassDescriptor) SetStencilAttachment(value IMTLRenderPassStencilAttachmentDescriptor) {
 	objc.Send[struct{}](r.ID, objc.Sel("setStencilAttachment:"), value)
 }
-
 // A buffer where the GPU writes visibility test results when fragments pass
 // depth and stencil tests.
 //
@@ -400,7 +396,6 @@ func (r MTLRenderPassDescriptor) VisibilityResultBuffer() MTLBuffer {
 func (r MTLRenderPassDescriptor) SetVisibilityResultBuffer(value MTLBuffer) {
 	objc.Send[struct{}](r.ID, objc.Sel("setVisibilityResultBuffer:"), value)
 }
-
 // The number of active layers that all attachments need to have for layered
 // rendering.
 //
@@ -424,7 +419,6 @@ func (r MTLRenderPassDescriptor) RenderTargetArrayLength() uint {
 func (r MTLRenderPassDescriptor) SetRenderTargetArrayLength(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRenderTargetArrayLength:"), value)
 }
-
 // The width, in pixels, to constrain the render target to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDescriptor/renderTargetWidth
@@ -435,7 +429,6 @@ func (r MTLRenderPassDescriptor) RenderTargetWidth() uint {
 func (r MTLRenderPassDescriptor) SetRenderTargetWidth(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRenderTargetWidth:"), value)
 }
-
 // The height, in pixels, to constrain the render target to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDescriptor/renderTargetHeight
@@ -446,7 +439,6 @@ func (r MTLRenderPassDescriptor) RenderTargetHeight() uint {
 func (r MTLRenderPassDescriptor) SetRenderTargetHeight(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRenderTargetHeight:"), value)
 }
-
 // The per-sample size, in bytes, of the largest explicit imageblock layout in
 // the render pass.
 //
@@ -465,7 +457,6 @@ func (r MTLRenderPassDescriptor) ImageblockSampleLength() uint {
 func (r MTLRenderPassDescriptor) SetImageblockSampleLength(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setImageblockSampleLength:"), value)
 }
-
 // The per-tile size, in bytes, of the persistent threadgroup memory
 // allocation.
 //
@@ -477,7 +468,6 @@ func (r MTLRenderPassDescriptor) ThreadgroupMemoryLength() uint {
 func (r MTLRenderPassDescriptor) SetThreadgroupMemoryLength(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setThreadgroupMemoryLength:"), value)
 }
-
 // The tile width, in pixels.
 //
 // # Discussion
@@ -493,7 +483,6 @@ func (r MTLRenderPassDescriptor) TileWidth() uint {
 func (r MTLRenderPassDescriptor) SetTileWidth(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setTileWidth:"), value)
 }
-
 // The tile height, in pixels.
 //
 // # Discussion
@@ -509,7 +498,6 @@ func (r MTLRenderPassDescriptor) TileHeight() uint {
 func (r MTLRenderPassDescriptor) SetTileHeight(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setTileHeight:"), value)
 }
-
 // The raster sample count for the render pass when the render pass doesn’t
 // have explicit attachments.
 //
@@ -521,7 +509,6 @@ func (r MTLRenderPassDescriptor) DefaultRasterSampleCount() uint {
 func (r MTLRenderPassDescriptor) SetDefaultRasterSampleCount(value uint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDefaultRasterSampleCount:"), value)
 }
-
 // The rasterization rate map to use when executing the render pass.
 //
 // # Discussion
@@ -539,7 +526,6 @@ func (r MTLRenderPassDescriptor) RasterizationRateMap() MTLRasterizationRateMap 
 func (r MTLRenderPassDescriptor) SetRasterizationRateMap(value MTLRasterizationRateMap) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRasterizationRateMap:"), value)
 }
-
 // The array of sample buffers that the render pass can access.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDescriptor/sampleBufferAttachments
@@ -547,7 +533,6 @@ func (r MTLRenderPassDescriptor) SampleBufferAttachments() IMTLRenderPassSampleB
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("sampleBufferAttachments"))
 	return MTLRenderPassSampleBufferAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
 // Specifies if the render pass should support color attachment mapping.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPassDescriptor/supportColorAttachmentMapping
@@ -558,7 +543,6 @@ func (r MTLRenderPassDescriptor) SupportColorAttachmentMapping() bool {
 func (r MTLRenderPassDescriptor) SetSupportColorAttachmentMapping(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSupportColorAttachmentMapping:"), value)
 }
-
 // Specifies if Metal accumulates visibility results between render encoders
 // or resets them.
 //
@@ -570,7 +554,6 @@ func (r MTLRenderPassDescriptor) VisibilityResultType() MTLVisibilityResultType 
 func (r MTLRenderPassDescriptor) SetVisibilityResultType(value MTLVisibilityResultType) {
 	objc.Send[struct{}](r.ID, objc.Sel("setVisibilityResultType:"), value)
 }
-
 // An option for rendering to the texture in a render pass.
 //
 // See: https://developer.apple.com/documentation/metal/mtltextureusage/rendertarget
@@ -581,7 +564,6 @@ func (r MTLRenderPassDescriptor) RenderTarget() MTLTextureUsage {
 func (r MTLRenderPassDescriptor) SetRenderTarget(value MTLTextureUsage) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMTLTextureUsageRenderTarget:"), value)
 }
-
 // Options that determine how you can use the texture.
 //
 // See: https://developer.apple.com/documentation/metal/mtltexturedescriptor/usage

@@ -141,34 +141,29 @@ func NewANEPerformanceStatsWithRequestPerformanceBufferStatsBufferSize(buffer un
 func (a ANEPerformanceStats) EmitPerfcounterSignpostsWithModelStringID(id uint64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("emitPerfcounterSignpostsWithModelStringID:"), id)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/performanceCounters
 func (a ANEPerformanceStats) PerformanceCounters() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("performanceCounters"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/stringForPerfCounter:
 func (a ANEPerformanceStats) StringForPerfCounter(counter int) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("stringForPerfCounter:"), counter)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/initWithHardwareExecution:perfCounterData:ANEStatsRawData:
 func (a ANEPerformanceStats) InitWithHardwareExecutionPerfCounterDataANEStatsRawData(execution uint64, data objectivec.IObject, data2 objectivec.IObject) ANEPerformanceStats {
 	rv := objc.Send[ANEPerformanceStats](a.ID, objc.Sel("initWithHardwareExecution:perfCounterData:ANEStatsRawData:"), execution, data, data2)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/initWithReconstructedData:hardwareExecutionNS:
 func (a ANEPerformanceStats) InitWithReconstructedDataHardwareExecutionNS(data objectivec.IObject, ns uint64) ANEPerformanceStats {
 	rv := objc.Send[ANEPerformanceStats](a.ID, objc.Sel("initWithReconstructedData:hardwareExecutionNS:"), data, ns)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/initWithRequestPerformanceBuffer:statsBufferSize:
 func (a ANEPerformanceStats) InitWithRequestPerformanceBufferStatsBufferSize(buffer unsafe.Pointer, size unsafe.Pointer) ANEPerformanceStats {
@@ -182,21 +177,18 @@ func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DriverMaskForANEFMask(
 	rv := objc.Send[uint32](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("driverMaskForANEFMask:"), aNEFMask)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/statsWithHardwareExecutionNS:
 func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) StatsWithHardwareExecutionNS(ns uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("statsWithHardwareExecutionNS:"), ns)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/statsWithReconstructed:hardwareExecutionNS:aneStatsRawData:
 func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) StatsWithReconstructedHardwareExecutionNSAneStatsRawData(reconstructed objectivec.IObject, ns uint64, data objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("statsWithReconstructed:hardwareExecutionNS:aneStatsRawData:"), reconstructed, ns, data)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/statsWithRequestPerformanceBuffer:statsBufferSize:
 func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) StatsWithRequestPerformanceBufferStatsBufferSize(buffer unsafe.Pointer, size unsafe.Pointer) objectivec.IObject {
@@ -209,13 +201,11 @@ func (a ANEPerformanceStats) HwExecutionTime() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("hwExecutionTime"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/pStatsRawData
 func (a ANEPerformanceStats) PStatsRawData() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("pStatsRawData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStats/perfCounterData
 func (a ANEPerformanceStats) PerfCounterData() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("perfCounterData"))

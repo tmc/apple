@@ -148,7 +148,6 @@ func (s NSScriptExecutionContext) TopLevelObject() objectivec.IObject {
 func (s NSScriptExecutionContext) SetTopLevelObject(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTopLevelObject:"), value)
 }
-
 // Sets the top-level container object currently being tested in a “whose”
 // qualifier to a given object.
 //
@@ -160,7 +159,6 @@ func (s NSScriptExecutionContext) ObjectBeingTested() objectivec.IObject {
 func (s NSScriptExecutionContext) SetObjectBeingTested(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setObjectBeingTested:"), value)
 }
-
 // Sets the top-level container object for a range-specifier evaluation to a
 // give object.
 //

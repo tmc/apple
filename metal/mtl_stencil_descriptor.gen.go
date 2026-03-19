@@ -180,7 +180,6 @@ func (s MTLStencilDescriptor) StencilFailureOperation() MTLStencilOperation {
 func (s MTLStencilDescriptor) SetStencilFailureOperation(value MTLStencilOperation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStencilFailureOperation:"), value)
 }
-
 // The operation that is performed to update the values in the stencil
 // attachment when the stencil test passes, but the depth test fails.
 //
@@ -200,7 +199,6 @@ func (s MTLStencilDescriptor) DepthFailureOperation() MTLStencilOperation {
 func (s MTLStencilDescriptor) SetDepthFailureOperation(value MTLStencilOperation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDepthFailureOperation:"), value)
 }
-
 // The operation that is performed to update the values in the stencil
 // attachment when both the stencil test and the depth test pass.
 //
@@ -220,7 +218,6 @@ func (s MTLStencilDescriptor) DepthStencilPassOperation() MTLStencilOperation {
 func (s MTLStencilDescriptor) SetDepthStencilPassOperation(value MTLStencilOperation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDepthStencilPassOperation:"), value)
 }
-
 // The comparison that is performed between the masked reference value and a
 // masked value in the stencil attachment.
 //
@@ -245,7 +242,6 @@ func (s MTLStencilDescriptor) StencilCompareFunction() MTLCompareFunction {
 func (s MTLStencilDescriptor) SetStencilCompareFunction(value MTLCompareFunction) {
 	objc.Send[struct{}](s.ID, objc.Sel("setStencilCompareFunction:"), value)
 }
-
 // A bitmask that determines from which bits that stencil comparison tests can
 // read.
 //
@@ -266,7 +262,6 @@ func (s MTLStencilDescriptor) ReadMask() uint32 {
 func (s MTLStencilDescriptor) SetReadMask(value uint32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setReadMask:"), value)
 }
-
 // A bitmask that determines to which bits that stencil operations can write.
 //
 // # Discussion

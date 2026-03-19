@@ -148,7 +148,6 @@ func (n NetServiceBrowser) Delegate() NSNetServiceBrowserDelegate {
 func (n NetServiceBrowser) SetDelegate(value NSNetServiceBrowserDelegate) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDelegate:"), value)
 }
-
 // Whether to browse over peer-to-peer Bluetooth and Wi-Fi, if available.
 //
 // # Discussion

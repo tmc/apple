@@ -430,7 +430,6 @@ func (x XMLElement) InitWithName(name string) XMLElement {
 	rv := objc.Send[XMLElement](x.ID, objc.Sel("initWithName:"), objc.String(name))
 	return rv
 }
-
 // Returns an [NSXMLElement] object initialized with a specified name and a
 // single text-node child containing a specified value.
 //
@@ -452,7 +451,6 @@ func (x XMLElement) InitWithNameStringValue(name string, string_ string) XMLElem
 	rv := objc.Send[XMLElement](x.ID, objc.Sel("initWithName:stringValue:"), objc.String(name), objc.String(string_))
 	return rv
 }
-
 // Returns an [NSXMLElement] object initialized with the specified name and
 // URI.
 //
@@ -476,7 +474,6 @@ func (x XMLElement) InitWithNameURI(name string, URI string) XMLElement {
 	rv := objc.Send[XMLElement](x.ID, objc.Sel("initWithName:URI:"), objc.String(name), objc.String(URI))
 	return rv
 }
-
 // Returns an [NSXMLElement] object created from a specified string containing
 // XML markup.
 //
@@ -500,7 +497,6 @@ func (x XMLElement) InitWithXMLStringError(string_ string) (XMLElement, error) {
 	return NSXMLElementFromID(rv), nil
 
 }
-
 // Returns the child element nodes (as [NSXMLElement] objects) of the receiver
 // that have a specified name.
 //
@@ -522,7 +518,6 @@ func (x XMLElement) ElementsForName(name string) []NSXMLElement {
 		return NSXMLElementFromID(id)
 	})
 }
-
 // Returns the child element nodes (as [NSXMLElement] objects) of the receiver
 // that are matched with the specified local name and URI.
 //
@@ -542,7 +537,6 @@ func (x XMLElement) ElementsForLocalNameURI(localName string, URI string) []NSXM
 		return NSXMLElementFromID(id)
 	})
 }
-
 // Adds a child node at the end of the receiver’s current list of children.
 //
 // child: An XML node object to add to the receiver’s children.
@@ -556,7 +550,6 @@ func (x XMLElement) ElementsForLocalNameURI(localName string, URI string) []NSXM
 func (x XMLElement) AddChild(child INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addChild:"), child)
 }
-
 // Inserts a new child node at a specified location in the receiver’s list
 // of child nodes.
 //
@@ -573,7 +566,6 @@ func (x XMLElement) AddChild(child INSXMLNode) {
 func (x XMLElement) InsertChildAtIndex(child INSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChild:atIndex:"), child, index)
 }
-
 // Inserts an array of child nodes at a specified location in the receiver’s
 // list of children.
 //
@@ -591,7 +583,6 @@ func (x XMLElement) InsertChildAtIndex(child INSXMLNode, index uint) {
 func (x XMLElement) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("insertChildren:atIndex:"), objectivec.IObjectSliceToNSArray(children), index)
 }
-
 // Removes the child node of the receiver identified by a given index.
 //
 // index: An integer identifying the node in the receiver’s list of children to
@@ -606,7 +597,6 @@ func (x XMLElement) InsertChildrenAtIndex(children []NSXMLNode, index uint) {
 func (x XMLElement) RemoveChildAtIndex(index uint) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeChildAtIndex:"), index)
 }
-
 // Replaces a child node at a specified location with another child node.
 //
 // index: An integer identifying a position in the receiver’s list of children. An
@@ -622,7 +612,6 @@ func (x XMLElement) RemoveChildAtIndex(index uint) {
 func (x XMLElement) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("replaceChildAtIndex:withNode:"), index, node)
 }
-
 // Coalesces adjacent text nodes of the receiver that you have explicitly
 // added, optionally including CDATA sections.
 //
@@ -645,7 +634,6 @@ func (x XMLElement) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 func (x XMLElement) NormalizeAdjacentTextNodesPreservingCDATA(preserve bool) {
 	objc.Send[objc.ID](x.ID, objc.Sel("normalizeAdjacentTextNodesPreservingCDATA:"), preserve)
 }
-
 // Adds an attribute node to the receiver.
 //
 // attribute: An XML node object representing an attribute. If the receiver already has
@@ -661,7 +649,6 @@ func (x XMLElement) NormalizeAdjacentTextNodesPreservingCDATA(preserve bool) {
 func (x XMLElement) AddAttribute(attribute INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addAttribute:"), attribute)
 }
-
 // Returns the attribute node of the receiver with the specified name.
 //
 // name: A string specifying the name of an attribute.
@@ -683,7 +670,6 @@ func (x XMLElement) AttributeForName(name string) INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("attributeForName:"), objc.String(name))
 	return NSXMLNodeFromID(rv)
 }
-
 // Returns the attribute node of the receiver that is identified by a local
 // name and URI.
 //
@@ -701,7 +687,6 @@ func (x XMLElement) AttributeForLocalNameURI(localName string, URI string) INSXM
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("attributeForLocalName:URI:"), objc.String(localName), objc.String(URI))
 	return NSXMLNodeFromID(rv)
 }
-
 // Removes an attribute node identified by name.
 //
 // name: A string specifying the name of an attribute.
@@ -710,7 +695,6 @@ func (x XMLElement) AttributeForLocalNameURI(localName string, URI string) INSXM
 func (x XMLElement) RemoveAttributeForName(name string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeAttributeForName:"), objc.String(name))
 }
-
 // Sets the attributes of the receiver based on the key-value pairs specified
 // in the passed dictionary.
 //
@@ -728,7 +712,6 @@ func (x XMLElement) RemoveAttributeForName(name string) {
 func (x XMLElement) SetAttributesWithDictionary(attributes INSDictionary) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setAttributesWithDictionary:"), attributes)
 }
-
 // Adds a namespace node to the receiver.
 //
 // aNamespace: An XML node object of kind [XMLNode.Kind.namespace]. If the receiver
@@ -740,7 +723,6 @@ func (x XMLElement) SetAttributesWithDictionary(attributes INSDictionary) {
 func (x XMLElement) AddNamespace(aNamespace INSXMLNode) {
 	objc.Send[objc.ID](x.ID, objc.Sel("addNamespace:"), aNamespace)
 }
-
 // Returns the namespace node with a specified prefix.
 //
 // name: A string specifying a namespace prefix.
@@ -757,7 +739,6 @@ func (x XMLElement) NamespaceForPrefix(name string) INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("namespaceForPrefix:"), objc.String(name))
 	return NSXMLNodeFromID(rv)
 }
-
 // Removes a namespace node that is identified by a given prefix.
 //
 // name: A string that is the prefix for a namespace.
@@ -770,7 +751,6 @@ func (x XMLElement) NamespaceForPrefix(name string) INSXMLNode {
 func (x XMLElement) RemoveNamespaceForPrefix(name string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("removeNamespaceForPrefix:"), objc.String(name))
 }
-
 // Returns the namespace node with the prefix matching the given qualified
 // name.
 //
@@ -793,7 +773,6 @@ func (x XMLElement) ResolveNamespaceForName(name string) INSXMLNode {
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("resolveNamespaceForName:"), objc.String(name))
 	return NSXMLNodeFromID(rv)
 }
-
 // Returns the prefix associated with the specified URI.
 //
 // namespaceURI: A string identifying the URI associated with the namespace.
@@ -831,7 +810,6 @@ func (x XMLElement) Attributes() []NSXMLNode {
 func (x XMLElement) SetAttributes(value []NSXMLNode) {
 	objc.Send[struct{}](x.ID, objc.Sel("setAttributes:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Sets all of the namespace nodes of the receiver at once, replacing any
 // existing namespace nodes.
 //

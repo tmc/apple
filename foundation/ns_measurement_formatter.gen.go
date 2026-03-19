@@ -168,7 +168,6 @@ func (m MeasurementFormatter) StringFromMeasurement(measurement INSMeasurement) 
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringFromMeasurement:"), measurement)
 	return NSStringFromID(rv).String()
 }
-
 // Creates and returns a localized string representation of the provided unit
 // of measure.
 //
@@ -214,7 +213,6 @@ func (m MeasurementFormatter) UnitOptions() NSMeasurementFormatterUnitOptions {
 func (m MeasurementFormatter) SetUnitOptions(value NSMeasurementFormatterUnitOptions) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUnitOptions:"), value)
 }
-
 // The unit style.
 //
 // # Discussion
@@ -231,7 +229,6 @@ func (m MeasurementFormatter) UnitStyle() NSFormattingUnitStyle {
 func (m MeasurementFormatter) SetUnitStyle(value NSFormattingUnitStyle) {
 	objc.Send[struct{}](m.ID, objc.Sel("setUnitStyle:"), value)
 }
-
 // The locale of the formatter.
 //
 // # Discussion
@@ -247,7 +244,6 @@ func (m MeasurementFormatter) Locale() INSLocale {
 func (m MeasurementFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLocale:"), value)
 }
-
 // The number formatter used to format the quantity of a measurement.
 //
 // # Discussion

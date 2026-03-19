@@ -339,7 +339,6 @@ func (a NSAnimation) InitWithDurationAnimationCurve(duration float64, animationC
 	rv := objc.Send[NSAnimation](a.ID, objc.Sel("initWithDuration:animationCurve:"), duration, animationCurve)
 	return rv
 }
-
 // Starts the animation represented by the receiver.
 //
 // # Discussion
@@ -356,7 +355,6 @@ func (a NSAnimation) InitWithDurationAnimationCurve(duration float64, animationC
 func (a NSAnimation) StartAnimation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("startAnimation"))
 }
-
 // Stops the animation represented by the receiver.
 //
 // # Discussion
@@ -369,7 +367,6 @@ func (a NSAnimation) StartAnimation() {
 func (a NSAnimation) StopAnimation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("stopAnimation"))
 }
-
 // Adds the progress mark to the receiver.
 //
 // progressMark: A `float` value (typed as NSAnimationProgress) between 0.0 and 1.0. Values
@@ -389,7 +386,6 @@ func (a NSAnimation) StopAnimation() {
 func (a NSAnimation) AddProgressMark(progressMark NSAnimationProgress) {
 	objc.Send[objc.ID](a.ID, objc.Sel("addProgressMark:"), progressMark)
 }
-
 // Removes progress mark from the receiver.
 //
 // progressMark: A `float` value (typed as NSAnimationProgress) that indicates the portion
@@ -400,7 +396,6 @@ func (a NSAnimation) AddProgressMark(progressMark NSAnimationProgress) {
 func (a NSAnimation) RemoveProgressMark(progressMark NSAnimationProgress) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeProgressMark:"), progressMark)
 }
-
 // Starts running the animation represented by the receiver when another
 // animation reaches a specific progress mark.
 //
@@ -420,7 +415,6 @@ func (a NSAnimation) RemoveProgressMark(progressMark NSAnimationProgress) {
 func (a NSAnimation) StartWhenAnimationReachesProgress(animation INSAnimation, startProgress NSAnimationProgress) {
 	objc.Send[objc.ID](a.ID, objc.Sel("startWhenAnimation:reachesProgress:"), animation, startProgress)
 }
-
 // Stops running the animation represented by the receiver when another
 // animation reaches a specific progress mark.
 //
@@ -440,7 +434,6 @@ func (a NSAnimation) StartWhenAnimationReachesProgress(animation INSAnimation, s
 func (a NSAnimation) StopWhenAnimationReachesProgress(animation INSAnimation, stopProgress NSAnimationProgress) {
 	objc.Send[objc.ID](a.ID, objc.Sel("stopWhenAnimation:reachesProgress:"), animation, stopProgress)
 }
-
 // Clears linkage to another animation that causes the receiver to start.
 //
 // # Discussion
@@ -452,7 +445,6 @@ func (a NSAnimation) StopWhenAnimationReachesProgress(animation INSAnimation, st
 func (a NSAnimation) ClearStartAnimation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("clearStartAnimation"))
 }
-
 // Clears linkage to another animation that causes the receiver to stop.
 //
 // # Discussion
@@ -464,7 +456,6 @@ func (a NSAnimation) ClearStartAnimation() {
 func (a NSAnimation) ClearStopAnimation() {
 	objc.Send[objc.ID](a.ID, objc.Sel("clearStopAnimation"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/init(coder:)
 func (a NSAnimation) InitWithCoder(coder foundation.INSCoder) NSAnimation {
@@ -505,7 +496,6 @@ func (a NSAnimation) AnimationBlockingMode() NSAnimationBlockingMode {
 func (a NSAnimation) SetAnimationBlockingMode(value NSAnimationBlockingMode) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimationBlockingMode:"), value)
 }
-
 // An array of strings representing the run loop modes in which the animation
 // can run.
 //
@@ -526,7 +516,6 @@ func (a NSAnimation) RunLoopModesForAnimating() []string {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("runLoopModesForAnimating"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The timing curve for the animation.
 //
 // # Discussion
@@ -551,7 +540,6 @@ func (a NSAnimation) AnimationCurve() NSAnimationCurve {
 func (a NSAnimation) SetAnimationCurve(value NSAnimationCurve) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAnimationCurve:"), value)
 }
-
 // The duration of the animation, in seconds.
 //
 // # Discussion
@@ -571,7 +559,6 @@ func (a NSAnimation) Duration() float64 {
 func (a NSAnimation) SetDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
-
 // The number of frame updates per second to generate for the animation.
 //
 // # Discussion
@@ -594,7 +581,6 @@ func (a NSAnimation) FrameRate() float32 {
 func (a NSAnimation) SetFrameRate(value float32) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFrameRate:"), value)
 }
-
 // The animation delegate.
 //
 // # Discussion
@@ -609,7 +595,6 @@ func (a NSAnimation) Delegate() NSAnimationDelegate {
 func (a NSAnimation) SetDelegate(value NSAnimationDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDelegate:"), value)
 }
-
 // A Boolean value indicating whether the animation is in progress.
 //
 // # Discussion
@@ -625,7 +610,6 @@ func (a NSAnimation) Animating() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isAnimating"))
 	return rv
 }
-
 // The current progress of the animation.
 //
 // # Discussion
@@ -650,7 +634,6 @@ func (a NSAnimation) CurrentProgress() NSAnimationProgress {
 func (a NSAnimation) SetCurrentProgress(value NSAnimationProgress) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentProgress:"), value)
 }
-
 // The current value of the animation effect, based on the current progress
 //
 // # Discussion
@@ -674,7 +657,6 @@ func (a NSAnimation) CurrentValue() float32 {
 	rv := objc.Send[float32](a.ID, objc.Sel("currentValue"))
 	return rv
 }
-
 // An array of floating-point numbers representing current progress marks.
 //
 // # Discussion

@@ -143,7 +143,6 @@ func (n VZNetworkDevice) Attachment() IVZNetworkDeviceAttachment {
 func (n VZNetworkDevice) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
-
 // The list of configured network devices on the VM.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/networkdevices

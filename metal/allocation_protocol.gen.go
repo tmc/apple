@@ -39,7 +39,6 @@ func MTLAllocationObjectFromID(id objc.ID) MTLAllocationObject {
 // texture, or heap.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
-
 func (o MTLAllocationObject) AllocatedSize() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))

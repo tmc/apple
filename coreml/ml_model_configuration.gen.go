@@ -207,7 +207,6 @@ func (m MLModelConfiguration) FunctionName() string {
 func (m MLModelConfiguration) SetFunctionName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionName:"), objc.String(value))
 }
-
 // A human readable name of a model for display purposes.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/modelDisplayName
@@ -218,7 +217,6 @@ func (m MLModelConfiguration) ModelDisplayName() string {
 func (m MLModelConfiguration) SetModelDisplayName(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setModelDisplayName:"), objc.String(value))
 }
-
 // A dictionary of configuration settings your app can override when loading a
 // model.
 //
@@ -230,7 +228,6 @@ func (m MLModelConfiguration) Parameters() foundation.INSDictionary {
 func (m MLModelConfiguration) SetParameters(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setParameters:"), value)
 }
-
 // The metal device you prefer this model use to make predictions (inference)
 // and update the model.
 //
@@ -247,7 +244,6 @@ func (m MLModelConfiguration) PreferredMetalDevice() objectivec.IObject {
 func (m MLModelConfiguration) SetPreferredMetalDevice(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMetalDevice:"), value)
 }
-
 // A Boolean value that determines whether to allow low-precision accumulation
 // on a GPU.
 //
@@ -259,7 +255,6 @@ func (m MLModelConfiguration) AllowLowPrecisionAccumulationOnGPU() bool {
 func (m MLModelConfiguration) SetAllowLowPrecisionAccumulationOnGPU(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAllowLowPrecisionAccumulationOnGPU:"), value)
 }
-
 // The processing unit or units the model uses to make predictions.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/computeUnits
@@ -270,7 +265,6 @@ func (m MLModelConfiguration) ComputeUnits() MLComputeUnits {
 func (m MLModelConfiguration) SetComputeUnits(value MLComputeUnits) {
 	objc.Send[struct{}](m.ID, objc.Sel("setComputeUnits:"), value)
 }
-
 // A group of hints for CoreML to optimize
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodelconfiguration/optimizationhints-1oq0g

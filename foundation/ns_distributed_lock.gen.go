@@ -200,7 +200,6 @@ func (d NSDistributedLock) InitWithPath(path string) NSDistributedLock {
 	rv := objc.Send[NSDistributedLock](d.ID, objc.Sel("initWithPath:"), objc.String(path))
 	return rv
 }
-
 // Attempts to acquire the receiver and immediately returns a Boolean value
 // that indicates whether the attempt was successful.
 //
@@ -221,7 +220,6 @@ func (d NSDistributedLock) TryLock() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("tryLock"))
 	return rv
 }
-
 // Forces the lock to be relinquished.
 //
 // # Discussion
@@ -241,7 +239,6 @@ func (d NSDistributedLock) TryLock() bool {
 func (d NSDistributedLock) BreakLock() {
 	objc.Send[objc.ID](d.ID, objc.Sel("breakLock"))
 }
-
 // Relinquishes the receiver.
 //
 // # Discussion

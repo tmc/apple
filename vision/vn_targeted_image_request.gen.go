@@ -660,7 +660,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting a Core Graphics image of known orientation,
 // executing the completion handler when done.
 //
@@ -685,7 +684,6 @@ _block3, _cleanup3 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedCGImage:orientation:options:completionHandler:"), cgImage, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
@@ -705,7 +703,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting a Core Image image of known orientation,
 // executing the completion handler when done.
 //
@@ -734,7 +731,6 @@ _block3, _cleanup3 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting an image in a pixel buffer.
 //
 // pixelBuffer: The pixel buffer containing the targeted image.
@@ -750,7 +746,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting an image in a pixel buffer of known
 // orientation.
 //
@@ -775,7 +770,6 @@ _block3, _cleanup3 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:completionHandler:"), pixelBuffer, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request with a completion handler that targets an image in a
 // sample buffer.
 //
@@ -796,7 +790,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request with a completion handler that targets an image of a
 // known orientation in a sample buffer.
 //
@@ -824,7 +817,6 @@ _block3, _cleanup3 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:completionHandler:"), sampleBuffer, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting an image as raw data, executing the
 // completion handler when done.
 //
@@ -841,7 +833,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting a raw data image of known orientation,
 // executing the completion handler when done.
 //
@@ -866,7 +857,6 @@ _block3, _cleanup3 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedImageData:orientation:options:completionHandler:"), imageData, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting an image at the specified URL, executing
 // the completion handler when done.
 //
@@ -883,7 +873,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting an image of known orientation, at the
 // specified URL, executing the completion handler when done.
 //
@@ -908,7 +897,6 @@ _block3, _cleanup3 := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
-
 // Creates a new request targeting a Core Graphics image.
 //
 // cgImage: The targeted Core Graphics image.
@@ -920,7 +908,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCGImageOptions(cgImage coregraph
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCGImage:options:"), cgImage, options)
 	return rv
 }
-
 // Creates a new request targeting a Core Graphics image of known orientation.
 //
 // cgImage: The targeted Core Graphics image.
@@ -940,7 +927,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCGImageOrientationOptions(cgImag
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
 	return rv
 }
-
 // Creates a new request targeting a Core Image image.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
@@ -956,7 +942,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCIImageOptions(ciImage objective
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
 	return rv
 }
-
 // Creates a new request targeting a Core Image image of known orientation.
 //
 // ciImage: The [CIImage] encapsulating the targeted image.
@@ -980,7 +965,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptions(ciImag
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
 	return rv
 }
-
 // Creates a new request that targets an image in a sample buffer.
 //
 // sampleBuffer: A sample buffer containing a valid [imageBuffer].
@@ -996,7 +980,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOptions(sampleBuff
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:"), sampleBuffer, options)
 	return rv
 }
-
 // Creates a new request that targets an image of a known orientation in a
 // sample buffer.
 //
@@ -1020,7 +1003,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOrientationOptions
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return rv
 }
-
 // Creates a new request targeting an image in a pixel buffer.
 //
 // pixelBuffer: The pixel buffer containing the targeted image.
@@ -1032,7 +1014,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOptions(pixelBuffer
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:"), pixelBuffer, options)
 	return rv
 }
-
 // Creates a new request targeting an image in a pixel buffer of known
 // orientation.
 //
@@ -1053,7 +1034,6 @@ func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOrientationOptions(
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return rv
 }
-
 // Creates a new request targeting an image as raw data.
 //
 // imageData: The data containing the targeted image.
@@ -1065,7 +1045,6 @@ func (t VNTargetedImageRequest) InitWithTargetedImageDataOptions(imageData found
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageData:options:"), imageData, options)
 	return rv
 }
-
 // Creates a new request targeting a raw data image of known orientation.
 //
 // imageData: The data containing the targeted image.
@@ -1085,7 +1064,6 @@ func (t VNTargetedImageRequest) InitWithTargetedImageDataOrientationOptions(imag
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
 	return rv
 }
-
 // Creates a new request targeting an image at the specified URL.
 //
 // imageURL: The URL of the targeted image.
@@ -1097,7 +1075,6 @@ func (t VNTargetedImageRequest) InitWithTargetedImageURLOptions(imageURL foundat
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageURL:options:"), imageURL, options)
 	return rv
 }
-
 // Creates a new request targeting an image of known orientation, at the
 // specified URL.
 //

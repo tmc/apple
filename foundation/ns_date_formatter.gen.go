@@ -526,7 +526,6 @@ func (d DateFormatter) DateFromString(string_ string) INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("dateFromString:"), objc.String(string_))
 	return NSDateFromID(rv)
 }
-
 // Returns a string representation of a specified date that the system formats
 // using the receiver’s current settings.
 //
@@ -549,7 +548,6 @@ func (d DateFormatter) StringFromDate(date INSDate) string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stringFromDate:"), date)
 	return NSStringFromID(rv).String()
 }
-
 // Returns by reference a date representation of a specified string and its
 // date range, as well as a Boolean value that indicates whether the system
 // can parse the string.
@@ -578,7 +576,6 @@ func (d DateFormatter) GetObjectValueForStringRangeError(obj []objectivec.IObjec
 	return rv, nil
 
 }
-
 // Sets the date format from a template using the specified locale for the
 // receiver.
 //
@@ -636,7 +633,6 @@ func (_DateFormatterClass DateFormatterClass) LocalizedStringFromDateDateStyleTi
 	rv := objc.Send[objc.ID](objc.ID(_DateFormatterClass.class), objc.Sel("localizedStringFromDate:dateStyle:timeStyle:"), date, dstyle, tstyle)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a localized date format string representing the given date format
 // components arranged appropriately for the specified locale.
 //
@@ -684,7 +680,6 @@ func (d DateFormatter) DateStyle() NSDateFormatterStyle {
 func (d DateFormatter) SetDateStyle(value NSDateFormatterStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateStyle:"), value)
 }
-
 // The time style of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/timeStyle
@@ -695,7 +690,6 @@ func (d DateFormatter) TimeStyle() NSDateFormatterStyle {
 func (d DateFormatter) SetTimeStyle(value NSDateFormatterStyle) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeStyle:"), value)
 }
-
 // The date format string used by the receiver.
 //
 // # Discussion
@@ -721,7 +715,6 @@ func (d DateFormatter) DateFormat() string {
 func (d DateFormatter) SetDateFormat(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDateFormat:"), objc.String(value))
 }
-
 // The capitalization formatting context used when formatting a date.
 //
 // # Discussion
@@ -738,7 +731,6 @@ func (d DateFormatter) FormattingContext() NSFormattingContext {
 func (d DateFormatter) SetFormattingContext(value NSFormattingContext) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFormattingContext:"), value)
 }
-
 // The calendar for the receiver.
 //
 // # Discussion
@@ -753,7 +745,6 @@ func (d DateFormatter) Calendar() INSCalendar {
 func (d DateFormatter) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCalendar:"), value)
 }
-
 // The default date for the receiver.
 //
 // # Discussion
@@ -768,7 +759,6 @@ func (d DateFormatter) DefaultDate() INSDate {
 func (d DateFormatter) SetDefaultDate(value INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDefaultDate:"), value)
 }
-
 // The locale for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/locale
@@ -779,7 +769,6 @@ func (d DateFormatter) Locale() INSLocale {
 func (d DateFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLocale:"), value)
 }
-
 // The time zone for the receiver.
 //
 // # Discussion
@@ -794,7 +783,6 @@ func (d DateFormatter) TimeZone() INSTimeZone {
 func (d DateFormatter) SetTimeZone(value INSTimeZone) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTimeZone:"), value)
 }
-
 // The earliest date that can be denoted by a two-digit year specifier.
 //
 // # Discussion
@@ -813,7 +801,6 @@ func (d DateFormatter) TwoDigitStartDate() INSDate {
 func (d DateFormatter) SetTwoDigitStartDate(value INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTwoDigitStartDate:"), value)
 }
-
 // The start date of the Gregorian calendar for the receiver.
 //
 // # Discussion
@@ -832,7 +819,6 @@ func (d DateFormatter) GregorianStartDate() INSDate {
 func (d DateFormatter) SetGregorianStartDate(value INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setGregorianStartDate:"), value)
 }
-
 // The formatter behavior for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/formatterBehavior
@@ -843,7 +829,6 @@ func (d DateFormatter) FormatterBehavior() NSDateFormatterBehavior {
 func (d DateFormatter) SetFormatterBehavior(value NSDateFormatterBehavior) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFormatterBehavior:"), value)
 }
-
 // A Boolean value that indicates whether the receiver uses heuristics when
 // parsing a string.
 //
@@ -868,7 +853,6 @@ func (d DateFormatter) Lenient() bool {
 func (d DateFormatter) SetLenient(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLenient:"), value)
 }
-
 // A Boolean value that indicates whether the receiver uses phrases such as
 // “today” and “tomorrow” for the date component.
 //
@@ -895,7 +879,6 @@ func (d DateFormatter) DoesRelativeDateFormatting() bool {
 func (d DateFormatter) SetDoesRelativeDateFormatting(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDoesRelativeDateFormatting:"), value)
 }
-
 // The AM symbol for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/amSymbol
@@ -906,7 +889,6 @@ func (d DateFormatter) AMSymbol() string {
 func (d DateFormatter) SetAMSymbol(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAMSymbol:"), objc.String(value))
 }
-
 // The PM symbol for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/pmSymbol
@@ -917,7 +899,6 @@ func (d DateFormatter) PMSymbol() string {
 func (d DateFormatter) SetPMSymbol(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPMSymbol:"), objc.String(value))
 }
-
 // The array of weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/weekdaySymbols
@@ -928,7 +909,6 @@ func (d DateFormatter) WeekdaySymbols() []string {
 func (d DateFormatter) SetWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The array of short weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortWeekdaySymbols
@@ -939,7 +919,6 @@ func (d DateFormatter) ShortWeekdaySymbols() []string {
 func (d DateFormatter) SetShortWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The array of very short weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/veryShortWeekdaySymbols
@@ -950,7 +929,6 @@ func (d DateFormatter) VeryShortWeekdaySymbols() []string {
 func (d DateFormatter) SetVeryShortWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setVeryShortWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The array of standalone weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/standaloneWeekdaySymbols
@@ -961,7 +939,6 @@ func (d DateFormatter) StandaloneWeekdaySymbols() []string {
 func (d DateFormatter) SetStandaloneWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setStandaloneWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The array of short standalone weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortStandaloneWeekdaySymbols
@@ -972,7 +949,6 @@ func (d DateFormatter) ShortStandaloneWeekdaySymbols() []string {
 func (d DateFormatter) SetShortStandaloneWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortStandaloneWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The array of very short standalone weekday symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/veryShortStandaloneWeekdaySymbols
@@ -983,7 +959,6 @@ func (d DateFormatter) VeryShortStandaloneWeekdaySymbols() []string {
 func (d DateFormatter) SetVeryShortStandaloneWeekdaySymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setVeryShortStandaloneWeekdaySymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/monthSymbols
@@ -994,7 +969,6 @@ func (d DateFormatter) MonthSymbols() []string {
 func (d DateFormatter) SetMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The array of short month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortMonthSymbols
@@ -1005,7 +979,6 @@ func (d DateFormatter) ShortMonthSymbols() []string {
 func (d DateFormatter) SetShortMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The very short month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/veryShortMonthSymbols
@@ -1016,7 +989,6 @@ func (d DateFormatter) VeryShortMonthSymbols() []string {
 func (d DateFormatter) SetVeryShortMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setVeryShortMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The standalone month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/standaloneMonthSymbols
@@ -1027,7 +999,6 @@ func (d DateFormatter) StandaloneMonthSymbols() []string {
 func (d DateFormatter) SetStandaloneMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setStandaloneMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The short standalone month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortStandaloneMonthSymbols
@@ -1038,7 +1009,6 @@ func (d DateFormatter) ShortStandaloneMonthSymbols() []string {
 func (d DateFormatter) SetShortStandaloneMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortStandaloneMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The very short month symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/veryShortStandaloneMonthSymbols
@@ -1049,7 +1019,6 @@ func (d DateFormatter) VeryShortStandaloneMonthSymbols() []string {
 func (d DateFormatter) SetVeryShortStandaloneMonthSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setVeryShortStandaloneMonthSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The quarter symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/quarterSymbols
@@ -1060,7 +1029,6 @@ func (d DateFormatter) QuarterSymbols() []string {
 func (d DateFormatter) SetQuarterSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setQuarterSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The short quarter symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortQuarterSymbols
@@ -1071,7 +1039,6 @@ func (d DateFormatter) ShortQuarterSymbols() []string {
 func (d DateFormatter) SetShortQuarterSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortQuarterSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The standalone quarter symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/standaloneQuarterSymbols
@@ -1082,7 +1049,6 @@ func (d DateFormatter) StandaloneQuarterSymbols() []string {
 func (d DateFormatter) SetStandaloneQuarterSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setStandaloneQuarterSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The short standalone quarter symbols for the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/shortStandaloneQuarterSymbols
@@ -1093,7 +1059,6 @@ func (d DateFormatter) ShortStandaloneQuarterSymbols() []string {
 func (d DateFormatter) SetShortStandaloneQuarterSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShortStandaloneQuarterSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The era symbols for the receiver.
 //
 // # Discussion
@@ -1109,7 +1074,6 @@ func (d DateFormatter) EraSymbols() []string {
 func (d DateFormatter) SetEraSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEraSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The long era symbols for the receiver
 //
 // # Discussion
@@ -1125,7 +1089,6 @@ func (d DateFormatter) LongEraSymbols() []string {
 func (d DateFormatter) SetLongEraSymbols(value []string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLongEraSymbols:"), objectivec.StringSliceToNSArray(value))
 }
-
 // Indicates whether the formatter generates the deprecated calendar date
 // type.
 //

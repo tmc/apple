@@ -183,7 +183,6 @@ func (c NSCollectionViewCompositionalLayout) InitWithSection(section INSCollecti
 	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSection:"), section)
 	return rv
 }
-
 // Creates a compositional layout object with a single section and an
 // additional configuration.
 //
@@ -192,7 +191,6 @@ func (c NSCollectionViewCompositionalLayout) InitWithSectionConfiguration(sectio
 	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSection:configuration:"), section, configuration)
 	return rv
 }
-
 // Creates a compositional layout object with a section provider to supply the
 // layout’s sections.
 //
@@ -201,7 +199,6 @@ func (c NSCollectionViewCompositionalLayout) InitWithSectionProvider(sectionProv
 	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSectionProvider:"), sectionProvider)
 	return rv
 }
-
 // Creates a compositional layout object with a section provider and an
 // additional configuration.
 //

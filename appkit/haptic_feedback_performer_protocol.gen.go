@@ -54,7 +54,6 @@ func NSHapticFeedbackPerformerObjectFromID(id objc.ID) NSHapticFeedbackPerformer
 // touching the trackpad.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSHapticFeedbackPerformer/perform(_:performanceTime:)
-
 func (o NSHapticFeedbackPerformerObject) PerformFeedbackPatternPerformanceTime(pattern NSHapticFeedbackPattern, performanceTime NSHapticFeedbackPerformanceTime) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("performFeedbackPattern:performanceTime:"), pattern, performanceTime)

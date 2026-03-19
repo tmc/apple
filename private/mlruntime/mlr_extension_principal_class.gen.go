@@ -110,19 +110,16 @@ func (r MLRExtensionPrincipalClass) DebugDescription() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionPrincipalClass/description
 func (r MLRExtensionPrincipalClass) Description() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionPrincipalClass/hash
 func (r MLRExtensionPrincipalClass) Hash() uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("hash"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionPrincipalClass/superclass
 func (r MLRExtensionPrincipalClass) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](r.ID, objc.Sel("superclass"))

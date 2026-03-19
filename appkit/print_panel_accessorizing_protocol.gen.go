@@ -66,13 +66,11 @@ func NSPrintPanelAccessorizingObjectFromID(id objc.ID) NSPrintPanelAccessorizing
 // [Key-Value Observing Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintPanelAccessorizing/localizedSummaryItems()
-
 func (o NSPrintPanelAccessorizingObject) LocalizedSummaryItems() foundation.INSDictionary {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("localizedSummaryItems"))
 	return foundation.NSDictionaryFromID(rv)
 	}
-
 // Returns a set of strings identifying the key paths for any properties that
 // might affect the built-in print preview.
 //
@@ -99,7 +97,6 @@ func (o NSPrintPanelAccessorizingObject) LocalizedSummaryItems() foundation.INSD
 // implement this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintPanelAccessorizing/keyPathsForValuesAffectingPreview()
-
 func (o NSPrintPanelAccessorizingObject) KeyPathsForValuesAffectingPreview() foundation.INSSet {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("keyPathsForValuesAffectingPreview"))

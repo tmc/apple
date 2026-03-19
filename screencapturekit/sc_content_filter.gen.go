@@ -268,7 +268,6 @@ func (c SCContentFilter) InitWithDesktopIndependentWindow(window ISCWindow) SCCo
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("initWithDesktopIndependentWindow:"), window)
 	return rv
 }
-
 // Creates a filter that captures only specific windows from a display.
 //
 // display: A display to capture.
@@ -280,7 +279,6 @@ func (c SCContentFilter) InitWithDisplayIncludingWindows(display ISCDisplay, inc
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("initWithDisplay:includingWindows:"), display, objectivec.IObjectSliceToNSArray(includedWindows))
 	return rv
 }
-
 // Creates a filter that captures the contents of a display, excluding the
 // specified windows.
 //
@@ -293,7 +291,6 @@ func (c SCContentFilter) InitWithDisplayExcludingWindows(display ISCDisplay, exc
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("initWithDisplay:excludingWindows:"), display, objectivec.IObjectSliceToNSArray(excluded))
 	return rv
 }
-
 // Creates a filter that captures a display, including only windows of the
 // specified apps.
 //
@@ -321,7 +318,6 @@ func (c SCContentFilter) InitWithDisplayIncludingApplicationsExceptingWindows(di
 	rv := objc.Send[SCContentFilter](c.ID, objc.Sel("initWithDisplay:includingApplications:exceptingWindows:"), display, objectivec.IObjectSliceToNSArray(applications), objectivec.IObjectSliceToNSArray(exceptingWindows))
 	return rv
 }
-
 // Creates a filter that captures a display, excluding windows of the
 // specified apps.
 //
@@ -357,7 +353,6 @@ func (c SCContentFilter) ContentRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("contentRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The scaling factor used to translate screen points into pixels.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/pointPixelScale
@@ -365,7 +360,6 @@ func (c SCContentFilter) PointPixelScale() float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("pointPixelScale"))
 	return rv
 }
-
 // The type of the streaming content.
 //
 // # Discussion
@@ -375,7 +369,6 @@ func (c SCContentFilter) StreamType() SCStreamType {
 	rv := objc.Send[SCStreamType](c.ID, objc.Sel("streamType"))
 	return SCStreamType(rv)
 }
-
 // The display style of the sharable content.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/style
@@ -383,7 +376,6 @@ func (c SCContentFilter) Style() SCShareableContentStyle {
 	rv := objc.Send[SCShareableContentStyle](c.ID, objc.Sel("style"))
 	return SCShareableContentStyle(rv)
 }
-
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentFilter/includeMenuBar
 func (c SCContentFilter) IncludeMenuBar() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("includeMenuBar"))
@@ -392,7 +384,6 @@ func (c SCContentFilter) IncludeMenuBar() bool {
 func (c SCContentFilter) SetIncludeMenuBar(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIncludeMenuBar:"), value)
 }
-
 //
 // # Discussion
 // 
@@ -405,7 +396,6 @@ func (c SCContentFilter) IncludedApplications() []SCRunningApplication {
 		return SCRunningApplicationFromID(id)
 	})
 }
-
 //
 // # Discussion
 // 
@@ -418,7 +408,6 @@ func (c SCContentFilter) IncludedDisplays() []SCDisplay {
 		return SCDisplayFromID(id)
 	})
 }
-
 //
 // # Discussion
 // 

@@ -116,7 +116,6 @@ func (c NSCollectionLayoutSize) WidthDimension() INSCollectionLayoutDimension {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("widthDimension"))
 	return NSCollectionLayoutDimensionFromID(objc.ID(rv))
 }
-
 // The height dimension of an item in a collection view layout.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSize/heightDimension

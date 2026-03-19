@@ -115,7 +115,6 @@ func (e EspressoDataFrameStorage) DataFrameAtIndex(index uint64) objectivec.IObj
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataFrameAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/numberOfDataFrames
 func (e EspressoDataFrameStorage) NumberOfDataFrames() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("numberOfDataFrames"))
@@ -143,7 +142,6 @@ func (e EspressoDataFrameStorage) BaseFilename() string {
 func (e EspressoDataFrameStorage) SetBaseFilename(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBaseFilename:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/dataFrames
 func (e EspressoDataFrameStorage) DataFrames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("dataFrames"))
@@ -152,7 +150,6 @@ func (e EspressoDataFrameStorage) DataFrames() foundation.INSArray {
 func (e EspressoDataFrameStorage) SetDataFrames(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDataFrames:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorage/mappedFiles
 func (e EspressoDataFrameStorage) MappedFiles() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("mappedFiles"))

@@ -103,7 +103,6 @@ func (e EspressoProfilingNetworkANEInfo) Ane_time_per_eval_ns() uint64 {
 func (e EspressoProfilingNetworkANEInfo) SetAne_time_per_eval_ns(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAne_time_per_eval_ns:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingNetworkANEInfo/total_ane_time_ns
 func (e EspressoProfilingNetworkANEInfo) Total_ane_time_ns() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("total_ane_time_ns"))

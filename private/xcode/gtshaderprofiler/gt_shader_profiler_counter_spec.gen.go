@@ -121,20 +121,17 @@ func (g GTShaderProfilerCounterSpec) BatchIdFilterableCounterNames() objectivec.
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("batchIdFilterableCounterNames"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/counterFromName:
 func (g GTShaderProfilerCounterSpec) CounterFromName(name objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counterFromName:"), name)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/updateMioNonOverlappingCounters:
 func (g GTShaderProfilerCounterSpec) UpdateMioNonOverlappingCounters(counters objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("updateMioNonOverlappingCounters:"), counters)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/initWithSpecFile:
 func (g GTShaderProfilerCounterSpec) InitWithSpecFile(file objectivec.IObject) GTShaderProfilerCounterSpec {
@@ -153,19 +150,16 @@ func (g GTShaderProfilerCounterSpec) CounterTableGroups() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counterTableGroups"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/counters
 func (g GTShaderProfilerCounterSpec) Counters() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/filterSynonyms
 func (g GTShaderProfilerCounterSpec) FilterSynonyms() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("filterSynonyms"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterSpec/timelineGroups
 func (g GTShaderProfilerCounterSpec) TimelineGroups() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineGroups"))

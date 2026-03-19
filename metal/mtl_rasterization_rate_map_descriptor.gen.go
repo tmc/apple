@@ -165,7 +165,6 @@ func (r MTLRasterizationRateMapDescriptor) LayerAtIndex(layerIndex uint) IMTLRas
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("layerAtIndex:"), layerIndex)
 	return MTLRasterizationRateLayerDescriptorFromID(rv)
 }
-
 // Sets a configuration for a layer rate map.
 //
 // layer: A description of a layer to add to the rate map descriptor. Use `nil` to
@@ -196,7 +195,6 @@ func (_MTLRasterizationRateMapDescriptorClass MTLRasterizationRateMapDescriptorC
 	rv := objc.Send[objc.ID](objc.ID(_MTLRasterizationRateMapDescriptorClass.class), objc.Sel("rasterizationRateMapDescriptorWithScreenSize:"), screenSize)
 	return MTLRasterizationRateMapDescriptorFromID(rv)
 }
-
 // Creates a rate map descriptor with a single rate layer.
 //
 // screenSize: The logical size, in pixels, of the viewport coordinate system.
@@ -213,7 +211,6 @@ func (_MTLRasterizationRateMapDescriptorClass MTLRasterizationRateMapDescriptorC
 	rv := objc.Send[objc.ID](objc.ID(_MTLRasterizationRateMapDescriptorClass.class), objc.Sel("rasterizationRateMapDescriptorWithScreenSize:layer:"), screenSize, layer)
 	return MTLRasterizationRateMapDescriptorFromID(rv)
 }
-
 // Creates a rate map descriptor with a set of layer descriptors.
 //
 // screenSize: The logical size, in pixels, of the viewport coordinate system.
@@ -251,7 +248,6 @@ func (r MTLRasterizationRateMapDescriptor) Label() string {
 func (r MTLRasterizationRateMapDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // The size of the viewport coordinate system, in logical pixels.
 //
 // # Discussion
@@ -269,7 +265,6 @@ func (r MTLRasterizationRateMapDescriptor) ScreenSize() MTLSize {
 func (r MTLRasterizationRateMapDescriptor) SetScreenSize(value MTLSize) {
 	objc.Send[struct{}](r.ID, objc.Sel("setScreenSize:"), value)
 }
-
 // The number of layers in the rate map.
 //
 // # Discussion
@@ -283,7 +278,6 @@ func (r MTLRasterizationRateMapDescriptor) LayerCount() uint {
 	rv := objc.Send[uint](r.ID, objc.Sel("layerCount"))
 	return rv
 }
-
 // The rasterization rates for one or more layers in the rate map.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMapDescriptor/layers

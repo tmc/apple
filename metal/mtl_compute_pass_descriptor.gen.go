@@ -136,7 +136,6 @@ func (c MTLComputePassDescriptor) DispatchType() MTLDispatchType {
 func (c MTLComputePassDescriptor) SetDispatchType(value MTLDispatchType) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDispatchType:"), value)
 }
-
 // The sample buffers that the compute pass can access.
 //
 // # Discussion

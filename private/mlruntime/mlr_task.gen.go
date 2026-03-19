@@ -131,21 +131,18 @@ func NewRTaskWithParametersDict(dict objectivec.IObject) MLRTask {
 func (r MLRTask) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/initWithCoder:
 func (r MLRTask) InitWithCoder(coder foundation.INSCoder) MLRTask {
 	rv := objc.Send[MLRTask](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/initWithParameters:attachments:
 func (r MLRTask) InitWithParametersAttachments(parameters objectivec.IObject, attachments objectivec.IObject) MLRTask {
 	rv := objc.Send[MLRTask](r.ID, objc.Sel("initWithParameters:attachments:"), parameters, attachments)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/initWithParametersDict:
 func (r MLRTask) InitWithParametersDict(dict objectivec.IObject) MLRTask {
@@ -164,7 +161,6 @@ func (r MLRTask) Attachments() IMLRTaskAttachments {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("attachments"))
 	return MLRTaskAttachmentsFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTask/parameters
 func (r MLRTask) Parameters() IMLRTaskParameters {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("parameters"))

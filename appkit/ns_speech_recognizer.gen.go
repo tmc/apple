@@ -191,7 +191,6 @@ func NewNSSpeechRecognizer() NSSpeechRecognizer {
 func (s NSSpeechRecognizer) StartListening() {
 	objc.Send[objc.ID](s.ID, objc.Sel("startListening"))
 }
-
 // Tells the speech recognition engine to suspend listening for commands.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechRecognizer/stopListening()
@@ -213,7 +212,6 @@ func (s NSSpeechRecognizer) Delegate() NSSpeechRecognizerDelegate {
 func (s NSSpeechRecognizer) SetDelegate(value NSSpeechRecognizerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // An array of strings defining the commands for which the speech recognizer
 // object should listen.
 //
@@ -235,7 +233,6 @@ func (s NSSpeechRecognizer) Commands() []string {
 func (s NSSpeechRecognizer) SetCommands(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCommands:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The title of the commands section in the Speech Commands window or `nil` if
 // there is no title.
 //
@@ -255,7 +252,6 @@ func (s NSSpeechRecognizer) DisplayedCommandsTitle() string {
 func (s NSSpeechRecognizer) SetDisplayedCommandsTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDisplayedCommandsTitle:"), objc.String(value))
 }
-
 // A Boolean value that indicates whether the speech recognizer object should
 // only enable its commands when its application is the frontmost one.
 //
@@ -281,7 +277,6 @@ func (s NSSpeechRecognizer) ListensInForegroundOnly() bool {
 func (s NSSpeechRecognizer) SetListensInForegroundOnly(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setListensInForegroundOnly:"), value)
 }
-
 // A Boolean value that indicates whether the speech recognizer object should
 // block all other recognizers (that is, other applications attempting to
 // understand spoken commands) when listening.

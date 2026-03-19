@@ -228,7 +228,6 @@ func (t NSTextTab) InitWithTextAlignmentLocationOptions(alignment NSTextAlignmen
 	rv := objc.Send[NSTextTab](t.ID, objc.Sel("initWithTextAlignment:location:options:"), alignment, loc, options)
 	return rv
 }
-
 // Initializes a newly allocated text tab with the specified alignment and
 // location.
 //
@@ -282,7 +281,6 @@ func (t NSTextTab) Location() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("location"))
 	return rv
 }
-
 // The text alignment of the text tab.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/alignment
@@ -290,7 +288,6 @@ func (t NSTextTab) Alignment() NSTextAlignment {
 	rv := objc.Send[NSTextAlignment](t.ID, objc.Sel("alignment"))
 	return NSTextAlignment(rv)
 }
-
 // The dictionary of attributes for the text tab.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextTab/options
@@ -298,7 +295,6 @@ func (t NSTextTab) Options() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("options"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // The text tab’s type of tab stop.
 //
 // # Discussion

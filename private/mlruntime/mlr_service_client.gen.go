@@ -113,7 +113,6 @@ _block2, _cleanup2 := NewErrorBlock(completion)
 	defer _cleanup2()
 	objc.Send[objc.ID](r.ID, objc.Sel("donateJSONResult:identifier:completion:"), jSONResult, identifier, _block2)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/performOnRemoteObjectWithBlock:errorHandler:
 func (r MLRServiceClient) PerformOnRemoteObjectWithBlockErrorHandler(block objectivec.IObject, handler ErrorHandler) {
@@ -121,7 +120,6 @@ _block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
 	objc.Send[objc.ID](r.ID, objc.Sel("performOnRemoteObjectWithBlock:errorHandler:"), block, _block1)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/performOnRemoteObjectWithBlock:isSynchronous:errorHandler:
 func (r MLRServiceClient) PerformOnRemoteObjectWithBlockIsSynchronousErrorHandler(block objectivec.IObject, synchronous bool, handler ErrorHandler) {
@@ -129,7 +127,6 @@ _block2, _cleanup2 := NewErrorBlock(handler)
 	defer _cleanup2()
 	objc.Send[objc.ID](r.ID, objc.Sel("performOnRemoteObjectWithBlock:isSynchronous:errorHandler:"), block, synchronous, _block2)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/performSynchronouslyOnRemoteObjectWithBlock:errorHandler:
 func (r MLRServiceClient) PerformSynchronouslyOnRemoteObjectWithBlockErrorHandler(block objectivec.IObject, handler ErrorHandler) {
@@ -137,7 +134,6 @@ _block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
 	objc.Send[objc.ID](r.ID, objc.Sel("performSynchronouslyOnRemoteObjectWithBlock:errorHandler:"), block, _block1)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRServiceClient/initWithConnection:
 func (r MLRServiceClient) InitWithConnection(connection objectivec.IObject) MLRServiceClient {

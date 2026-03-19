@@ -147,7 +147,6 @@ func (g NSGridColumn) CellAtIndex(index int) INSGridCell {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("cellAtIndex:"), index)
 	return NSGridCellFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGridColumn/mergeCells(in:)
 func (g NSGridColumn) MergeCellsInRange(range_ foundation.NSRange) {
@@ -162,7 +161,6 @@ func (g NSGridColumn) GridView() INSGridView {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("gridView"))
 	return NSGridViewFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridColumn/isHidden
 func (g NSGridColumn) Hidden() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isHidden"))
@@ -171,7 +169,6 @@ func (g NSGridColumn) Hidden() bool {
 func (g NSGridColumn) SetHidden(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setHidden:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridColumn/leadingPadding
 func (g NSGridColumn) LeadingPadding() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("leadingPadding"))
@@ -180,13 +177,11 @@ func (g NSGridColumn) LeadingPadding() float64 {
 func (g NSGridColumn) SetLeadingPadding(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setLeadingPadding:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridColumn/numberOfCells
 func (g NSGridColumn) NumberOfCells() int {
 	rv := objc.Send[int](g.ID, objc.Sel("numberOfCells"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridColumn/trailingPadding
 func (g NSGridColumn) TrailingPadding() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("trailingPadding"))
@@ -195,7 +190,6 @@ func (g NSGridColumn) TrailingPadding() float64 {
 func (g NSGridColumn) SetTrailingPadding(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setTrailingPadding:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridColumn/width
 func (g NSGridColumn) Width() float64 {
 	rv := objc.Send[float64](g.ID, objc.Sel("width"))
@@ -204,7 +198,6 @@ func (g NSGridColumn) Width() float64 {
 func (g NSGridColumn) SetWidth(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setWidth:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridColumn/xPlacement
 func (g NSGridColumn) XPlacement() NSGridCellPlacement {
 	rv := objc.Send[NSGridCellPlacement](g.ID, objc.Sel("xPlacement"))

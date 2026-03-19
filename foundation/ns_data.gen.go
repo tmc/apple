@@ -250,7 +250,7 @@ type INSData interface {
 	// Initializes a data object filled with a given number of bytes of data from a given buffer.
 	InitWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSData
 	// Initializes a data object filled with a given number of bytes of data from a given buffer, with a custom deallocator block.
-	InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator unsafe.Pointer) NSData
+	InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator func(unsafe.Pointer, uint64)) NSData
 	// Initializes a newly allocated data object by adding the given number of bytes from the given buffer.
 	InitWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length uint, b bool) NSData
 	// Initializes a data object with the contents of another data object.
@@ -286,7 +286,7 @@ type INSData interface {
 	// A pointer to the data object’s contents.
 	Bytes() unsafe.Pointer
 	// Enumerates each range of bytes in the data object using a block.
-	EnumerateByteRangesUsingBlock(block unsafe.Pointer)
+	EnumerateByteRangesUsingBlock(block func(unsafe.Pointer, unsafe.Pointer, *bool))
 	// Copies a number of bytes from the start of the data object into a given buffer.
 	GetBytesLength(buffer unsafe.Pointer, length uint)
 	// Copies a range of bytes from the data object into a given buffer.
@@ -442,43 +442,6 @@ func NewDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSData {
 	return NSDataFromID(rv)
 }
 
-// Initializes a data object filled with a given number of bytes of data from
-// a given buffer, with a custom deallocator block.
-//
-// bytes: A buffer containing data for the new object.
-//
-// length: The number of bytes to hold from `bytes`. This value must not exceed the
-// length of `bytes`.
-//
-// deallocator: A block to invoke when the resulting [NSData] object is deallocated.
-//
-// # Return Value
-// 
-// A data object initialized by adding to it `length` bytes of data from the
-// buffer `bytes`. The returned object might be different than the original
-// receiver.
-//
-// # Discussion
-// 
-// Use this method to define your own deallocation behavior for the data
-// buffer you provide.
-// 
-// In order to avoid any inadvertent strong reference cycles, you should avoid
-// capturing pointers to any objects that may in turn maintain strong
-// references to the [NSData] object. This includes explicit references to
-// `self`, and implicit references to `self` due to direct instance variable
-// access. To make it easier to avoid these references, the `deallocator`
-// block takes two parameters, a pointer to the `buffer`, and its length; you
-// should always use these values instead of trying to use references from
-// outside the block.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
-func NewDataWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator unsafe.Pointer) NSData {
-	instance := getNSDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, deallocator)
-	return NSDataFromID(rv)
-}
-
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
 //
@@ -609,7 +572,6 @@ func (d NSData) InitWithBytesLength(bytes []byte) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 	return rv
 }
-
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer.
 //
@@ -636,7 +598,6 @@ func (d NSData) InitWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSD
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:"), bytes, length)
 	return rv
 }
-
 // Initializes a data object filled with a given number of bytes of data from
 // a given buffer, with a custom deallocator block.
 //
@@ -668,11 +629,12 @@ func (d NSData) InitWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSD
 // outside the block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
-func (d NSData) InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator unsafe.Pointer) NSData {
-	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, deallocator)
+func (d NSData) InitWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator func(unsafe.Pointer, uint64)) NSData {
+	_block2 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
+	defer _block2.Release()
+	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, objc.ID(_block2))
 	return rv
 }
-
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
 //
@@ -694,7 +656,6 @@ func (d NSData) InitWithBytesNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, leng
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBytesNoCopy:length:freeWhenDone:"), bytes, length, b)
 	return rv
 }
-
 // Initializes a data object with the contents of another data object.
 //
 // data: A data object.
@@ -708,7 +669,6 @@ func (d NSData) InitWithData(data INSData) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
-
 // Initializes a data object with the content of the file at a given path.
 //
 // path: The absolute path of the file from which to read data.
@@ -728,7 +688,6 @@ func (d NSData) InitWithContentsOfFile(path string) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithContentsOfFile:"), objc.String(path))
 	return rv
 }
-
 // Initializes a data object with the content of the file at a given path.
 //
 // path: The absolute path of the file from which to read data.
@@ -756,7 +715,6 @@ func (d NSData) InitWithContentsOfFileOptionsError(path string, readOptionsMask 
 	return NSDataFromID(rv), nil
 
 }
-
 // Writes the data object’s bytes to the file specified by a given path.
 //
 // path: The location to which to write the receiver’s bytes. If `path` contains a
@@ -791,7 +749,6 @@ func (d NSData) WriteToFileAtomically(path string, useAuxiliaryFile bool) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToFile:atomically:"), objc.String(path), useAuxiliaryFile)
 	return rv
 }
-
 // Writes the data object’s bytes to the file specified by a given path.
 //
 // path: The location to which to write the receiver’s bytes.
@@ -825,7 +782,6 @@ func (d NSData) WriteToFileOptionsError(path string, writeOptionsMask NSDataWrit
 	return rv, nil
 
 }
-
 // Writes the data object’s bytes to the location specified by a given URL.
 //
 // url: The location to which to write the receiver’s bytes. Only `//` URLs are
@@ -864,7 +820,6 @@ func (d NSData) WriteToURLAtomically(url INSURL, atomically bool) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("writeToURL:atomically:"), url, atomically)
 	return rv
 }
-
 // Writes the data object’s bytes to the location specified by a given URL.
 //
 // url: The location to which to write the receiver’s bytes.
@@ -902,7 +857,6 @@ func (d NSData) WriteToURLOptionsError(url INSURL, writeOptionsMask NSDataWritin
 	return rv, nil
 
 }
-
 // Creates a Base64, UTF-8 encoded data object from the string using the given
 // options.
 //
@@ -930,7 +884,6 @@ func (d NSData) Base64EncodedDataWithOptions(options NSDataBase64EncodingOptions
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("base64EncodedDataWithOptions:"), options)
 	return NSDataFromID(rv)
 }
-
 // Creates a Base64 encoded string from the string using the given options.
 //
 // options: A mask that specifies options for Base-64 encoding the data. Possible
@@ -957,7 +910,6 @@ func (d NSData) Base64EncodedStringWithOptions(options NSDataBase64EncodingOptio
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("base64EncodedStringWithOptions:"), options)
 	return NSStringFromID(rv).String()
 }
-
 // Enumerates each range of bytes in the data object using a block.
 //
 // block: The block to apply to byte ranges in the array.
@@ -982,10 +934,11 @@ func (d NSData) Base64EncodedStringWithOptions(options NSDataBase64EncodingOptio
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/enumerateBytes(_:)
-func (d NSData) EnumerateByteRangesUsingBlock(block unsafe.Pointer) {
-	objc.Send[objc.ID](d.ID, objc.Sel("enumerateByteRangesUsingBlock:"), block)
+func (d NSData) EnumerateByteRangesUsingBlock(block func(unsafe.Pointer, unsafe.Pointer, *bool)) {
+	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 unsafe.Pointer, arg2 *bool) { block(arg0, arg1, arg2) })
+	defer _block0.Release()
+	objc.Send[objc.ID](d.ID, objc.Sel("enumerateByteRangesUsingBlock:"), objc.ID(_block0))
 }
-
 // Copies a number of bytes from the start of the data object into a given
 // buffer.
 //
@@ -1003,7 +956,6 @@ func (d NSData) EnumerateByteRangesUsingBlock(block unsafe.Pointer) {
 func (d NSData) GetBytesLength(buffer unsafe.Pointer, length uint) {
 	objc.Send[objc.ID](d.ID, objc.Sel("getBytes:length:"), buffer, length)
 }
-
 // Copies a range of bytes from the data object into a given buffer.
 //
 // buffer: A buffer into which to copy data.
@@ -1022,7 +974,6 @@ func (d NSData) GetBytesLength(buffer unsafe.Pointer, length uint) {
 func (d NSData) GetBytesRange(buffer unsafe.Pointer, range_ NSRange) {
 	objc.Send[objc.ID](d.ID, objc.Sel("getBytes:range:"), buffer, range_)
 }
-
 // Returns a new data object containing the data object’s bytes that fall
 // within the limits specified by a given range.
 //
@@ -1047,7 +998,6 @@ func (d NSData) SubdataWithRange(range_ NSRange) INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("subdataWithRange:"), range_)
 	return NSDataFromID(rv)
 }
-
 // Finds and returns the range of the first occurrence of the given data,
 // within the given range, subject to given options.
 //
@@ -1078,7 +1028,6 @@ func (d NSData) RangeOfDataOptionsRange(dataToFind INSData, mask NSDataSearchOpt
 	rv := objc.Send[NSRange](d.ID, objc.Sel("rangeOfData:options:range:"), dataToFind, mask, searchRange)
 	return NSRange(rv)
 }
-
 // Returns a Boolean value indicating whether this data object is the same as
 // another.
 //
@@ -1102,7 +1051,6 @@ func (d NSData) IsEqualToData(other INSData) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEqualToData:"), other)
 	return rv
 }
-
 // Returns a new data object by compressing the data object’s bytes.
 //
 // algorithm: An algorithm used to compress the data. For a list of available algorithms,
@@ -1140,7 +1088,6 @@ func (d NSData) CompressedDataUsingAlgorithmError(algorithm NSDataCompressionAlg
 	return NSDataFromID(rv), nil
 
 }
-
 // Returns a new data object by decompressing data object’s bytes.
 //
 // algorithm: An algorithm used to decompress the data. For a list of available
@@ -1172,28 +1119,24 @@ func (d NSData) DecompressedDataUsingAlgorithmError(algorithm NSDataCompressionA
 	return NSDataFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-3ksry
 func (d NSData) InitWithBase64EncodedStringOptions(base64String string, options NSDataBase64DecodingOptions) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBase64EncodedString:options:"), objc.String(base64String), options)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(base64Encoded:options:)-4t5yq
 func (d NSData) InitWithBase64EncodedDataOptions(base64Data INSData, options NSDataBase64DecodingOptions) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithBase64EncodedData:options:"), base64Data, options)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:)
 func (d NSData) InitWithContentsOfURL(url INSURL) NSData {
 	rv := objc.Send[NSData](d.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(contentsOf:options:)
 func (d NSData) InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataReadingOptions) (NSData, error) {
@@ -1206,7 +1149,6 @@ func (d NSData) InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NS
 	return NSDataFromID(rv), nil
 
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1215,7 +1157,6 @@ func (d NSData) InitWithContentsOfURLOptionsError(url INSURL, readOptionsMask NS
 func (d NSData) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (d NSData) InitWithCoder(coder INSCoder) NSData {
@@ -1237,7 +1178,6 @@ func (_NSDataClass NSDataClass) Data() NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("data"))
 	return NSDataFromID(rv)
 }
-
 // Creates a data object containing a given number of bytes copied from a
 // given buffer.
 //
@@ -1251,7 +1191,6 @@ func (_NSDataClass NSDataClass) DataWithBytesLength(bytes []byte) NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 	return NSDataFromID(rv)
 }
-
 // Creates a data object that holds a given number of bytes from a given
 // buffer.
 //
@@ -1272,7 +1211,6 @@ func (_NSDataClass NSDataClass) DataWithBytesNoCopyLength(bytes unsafe.Pointer, 
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytesNoCopy:length:"), bytes, length)
 	return NSDataFromID(rv)
 }
-
 // Creates a data object that holds a given number of bytes from a given
 // buffer.
 //
@@ -1294,7 +1232,6 @@ func (_NSDataClass NSDataClass) DataWithBytesNoCopyLengthFreeWhenDone(bytes unsa
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithBytesNoCopy:length:freeWhenDone:"), bytes, length, b)
 	return NSDataFromID(rv)
 }
-
 // Creates a data object by reading every byte from the file at a given path.
 //
 // path: The absolute path of the file from which to read data.
@@ -1317,7 +1254,6 @@ func (_NSDataClass NSDataClass) DataWithContentsOfFile(path string) NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithContentsOfFile:"), objc.String(path))
 	return NSDataFromID(rv)
 }
-
 // Creates a data object by reading every byte from the file at a given path.
 //
 // path: The absolute path of the file from which to read data.
@@ -1346,14 +1282,12 @@ func (_NSDataClass NSDataClass) DataWithContentsOfFileOptionsError(path string, 
 	return NSDataFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/dataWithContentsOfURL:
 func (_NSDataClass NSDataClass) DataWithContentsOfURL(url INSURL) NSData {
 	rv := objc.Send[objc.ID](objc.ID(_NSDataClass.class), objc.Sel("dataWithContentsOfURL:"), url)
 	return NSDataFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/dataWithContentsOfURL:options:error:
 func (_NSDataClass NSDataClass) DataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataReadingOptions) (NSData, error) {
@@ -1366,7 +1300,6 @@ func (_NSDataClass NSDataClass) DataWithContentsOfURLOptionsError(url INSURL, re
 	return NSDataFromID(rv), nil
 
 }
-
 // Creates a data object containing the contents of another data object.
 //
 // data: A data object.
@@ -1394,7 +1327,6 @@ func (d NSData) Bytes() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](d.ID, objc.Sel("bytes"))
 	return rv
 }
-
 // The number of bytes contained by the data object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSData/length
@@ -1402,7 +1334,6 @@ func (d NSData) Length() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("length"))
 	return rv
 }
-
 // A string that contains a hexadecimal representation of the data object’s
 // contents in a property list format.
 //
@@ -1411,7 +1342,6 @@ func (d NSData) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
-
 // The end of the range of error codes reserved for compression errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nscompressionerrormaximum-swift.var
@@ -1422,7 +1352,6 @@ func (d NSData) NSCompressionErrorMaximum() int {
 func (d NSData) SetNSCompressionErrorMaximum(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionErrorMaximum:"), value)
 }
-
 // The start of the range of error codes reserved for compression errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nscompressionerrorminimum-swift.var
@@ -1433,7 +1362,6 @@ func (d NSData) NSCompressionErrorMinimum() int {
 func (d NSData) SetNSCompressionErrorMinimum(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionErrorMinimum:"), value)
 }
-
 // An error code value that indicates a failure to compress data using the
 // provided algorithm.
 //
@@ -1445,7 +1373,6 @@ func (d NSData) NSCompressionFailedError() int {
 func (d NSData) SetNSCompressionFailedError(value int) {
 	objc.Send[struct{}](d.ID, objc.Sel("setNSCompressionFailedError:"), value)
 }
-
 // An error code value that indicates a failure to decompress data using the
 // provided algorithm.
 //

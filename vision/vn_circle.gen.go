@@ -164,7 +164,6 @@ func (c VNCircle) InitWithCenterRadius(center IVNPoint, radius float64) VNCircle
 	rv := objc.Send[VNCircle](c.ID, objc.Sel("initWithCenter:radius:"), center, radius)
 	return rv
 }
-
 // Creates a circle with the specified center and diameter.
 //
 // center: The circle center.
@@ -176,7 +175,6 @@ func (c VNCircle) InitWithCenterDiameter(center IVNPoint, diameter float64) VNCi
 	rv := objc.Send[VNCircle](c.ID, objc.Sel("initWithCenter:diameter:"), center, diameter)
 	return rv
 }
-
 // Determines if this circle, including its boundary, contains the specified
 // point.
 //
@@ -194,7 +192,6 @@ func (c VNCircle) ContainsPoint(point IVNPoint) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("containsPoint:"), point)
 	return rv
 }
-
 // Determines if a ring around this circle’s circumference contains the
 // specified point.
 //
@@ -225,7 +222,6 @@ func (c VNCircle) Center() IVNPoint {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("center"))
 	return VNPointFromID(objc.ID(rv))
 }
-
 // The circle’s diameter.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/diameter
@@ -233,7 +229,6 @@ func (c VNCircle) Diameter() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("diameter"))
 	return rv
 }
-
 // The circle’s radius.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCircle/radius

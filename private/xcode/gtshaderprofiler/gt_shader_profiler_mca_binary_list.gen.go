@@ -116,13 +116,11 @@ func (g GTShaderProfilerMCABinaryList) AllocatedGPRCount() int {
 	rv := objc.Send[int](g.ID, objc.Sel("allocatedGPRCount"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinaryList/highRegisterCount
 func (g GTShaderProfilerMCABinaryList) HighRegisterCount() int {
 	rv := objc.Send[int](g.ID, objc.Sel("highRegisterCount"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerMCABinaryList/mcaBinaries
 func (g GTShaderProfilerMCABinaryList) McaBinaries() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("mcaBinaries"))

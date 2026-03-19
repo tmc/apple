@@ -79,99 +79,83 @@ func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneArchitectureType() objectivec.I
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneArchitectureType"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/aneBoardType
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneBoardType() int64 {
 	rv := objc.Send[int64](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneBoardType"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/aneSubType
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubType() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubType"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/aneSubTypeProductVariant
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubTypeProductVariant() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeProductVariant"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/aneSubTypeVariant
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubTypeVariant() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeVariant"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/bootArgs
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) BootArgs() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("bootArgs"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/buildVersion
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) BuildVersion() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("buildVersion"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/hasANE
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) HasANE() bool {
 	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("hasANE"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/isBoolBootArgSetTrue:
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsBoolBootArgSetTrue(true_ objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isBoolBootArgSetTrue:"), true_)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/isBootArgPresent:
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsBootArgPresent(present objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isBootArgPresent:"), present)
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/isExcessivePowerDrainWhenIdle
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsExcessivePowerDrainWhenIdle() bool {
 	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isExcessivePowerDrainWhenIdle"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/isInternalBuild
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsInternalBuild() bool {
 	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isInternalBuild"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/isVirtualMachine
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) IsVirtualMachine() bool {
 	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("isVirtualMachine"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/numANECores
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) NumANECores() uint32 {
 	rv := objc.Send[uint32](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("numANECores"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/numANEs
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) NumANEs() uint32 {
 	rv := objc.Send[uint32](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("numANEs"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/precompiledModelChecksDisabled
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) PrecompiledModelChecksDisabled() bool {
 	rv := objc.Send[bool](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("precompiledModelChecksDisabled"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/productName
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) ProductName() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("productName"))

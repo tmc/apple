@@ -332,7 +332,6 @@ func (o NSOpenPanel) CanChooseFiles() bool {
 func (o NSOpenPanel) SetCanChooseFiles(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanChooseFiles:"), value)
 }
-
 // A Boolean that indicates whether the user can choose directories in the
 // panel.
 //
@@ -351,7 +350,6 @@ func (o NSOpenPanel) CanChooseDirectories() bool {
 func (o NSOpenPanel) SetCanChooseDirectories(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanChooseDirectories:"), value)
 }
-
 // A Boolean that indicates whether the panel resolves aliases.
 //
 // # Discussion
@@ -372,7 +370,6 @@ func (o NSOpenPanel) ResolvesAliases() bool {
 func (o NSOpenPanel) SetResolvesAliases(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setResolvesAliases:"), value)
 }
-
 // A Boolean that indicates whether the user may select multiple files and
 // directories.
 //
@@ -393,7 +390,6 @@ func (o NSOpenPanel) AllowsMultipleSelection() bool {
 func (o NSOpenPanel) SetAllowsMultipleSelection(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAllowsMultipleSelection:"), value)
 }
-
 // A Boolean value that indicates whether the panel’s accessory view is
 // visible.
 //
@@ -415,7 +411,6 @@ func (o NSOpenPanel) AccessoryViewDisclosed() bool {
 func (o NSOpenPanel) SetAccessoryViewDisclosed(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessoryViewDisclosed:"), value)
 }
-
 // An array of URLs, each of which contains the fully specified location of a
 // selected file or directory.
 //
@@ -431,7 +426,6 @@ func (o NSOpenPanel) URLs() []foundation.NSURL {
 		return foundation.NSURLFromID(id)
 	})
 }
-
 // A Boolean value that indicates how the panel responds to iCloud documents
 // that aren’t fully downloaded locally.
 //
@@ -465,7 +459,6 @@ func (o NSOpenPanel) CanDownloadUbiquitousContents() bool {
 func (o NSOpenPanel) SetCanDownloadUbiquitousContents(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setCanDownloadUbiquitousContents:"), value)
 }
-
 // A Boolean value that indicates how the panel responds to iCloud documents
 // that have conflicting versions.
 //

@@ -187,7 +187,6 @@ func (f VZFileSerialPortAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // A Boolean that indicates whether the virtual machine appends data to the
 // file.
 //

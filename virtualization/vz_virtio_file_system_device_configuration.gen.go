@@ -232,7 +232,6 @@ func (v VZVirtioFileSystemDeviceConfiguration) Share() IVZDirectoryShare {
 func (v VZVirtioFileSystemDeviceConfiguration) SetShare(value IVZDirectoryShare) {
 	objc.Send[struct{}](v.ID, objc.Sel("setShare:"), value)
 }
-
 // A label that identifies this device in the guest VM.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioFileSystemDeviceConfiguration/tag

@@ -208,7 +208,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) ControlPointBuffer() M
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetControlPointBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setControlPointBuffer:"), value)
 }
-
 // Declares the number of control points in the control point buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureCurveGeometryDescriptor/controlPointCount
@@ -219,7 +218,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) ControlPointCount() ui
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetControlPointCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setControlPointCount:"), value)
 }
-
 // Declares the format of the control points the control point buffer
 // references.
 //
@@ -236,7 +234,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) ControlPointFormat() M
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetControlPointFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setControlPointFormat:"), value)
 }
-
 // Sets the stride, in bytes, between control points in the control point
 // buffer the control point buffer references.
 //
@@ -257,7 +254,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) ControlPointStride() u
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetControlPointStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setControlPointStride:"), value)
 }
-
 // Controls the curve basis function, determining how Metal interpolates the
 // control points.
 //
@@ -273,7 +269,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) CurveBasis() MTLCurveB
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetCurveBasis(value MTLCurveBasis) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurveBasis:"), value)
 }
-
 // Sets the type of curve end caps.
 //
 // # Discussion
@@ -288,7 +283,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) CurveEndCaps() MTLCurv
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetCurveEndCaps(value MTLCurveEndCaps) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurveEndCaps:"), value)
 }
-
 // Controls the curve type.
 //
 // # Discussion
@@ -303,7 +297,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) CurveType() MTLCurveTy
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetCurveType(value MTLCurveType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setCurveType:"), value)
 }
-
 // Assigns an optional index buffer containing references to control points in
 // the control point buffer.
 //
@@ -320,7 +313,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) IndexBuffer() MTL4Buff
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetIndexBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexBuffer:"), value)
 }
-
 // Specifies the size of the indices the `indexBuffer` contains, which is
 // typically either 16 or 32-bits for each index.
 //
@@ -332,7 +324,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) IndexType() MTLIndexTy
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetIndexType(value MTLIndexType) {
 	objc.Send[struct{}](m.ID, objc.Sel("setIndexType:"), value)
 }
-
 // Assigns a reference to a buffer containing the curve radius for each
 // control point.
 //
@@ -353,7 +344,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) RadiusBuffer() MTL4Buf
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetRadiusBuffer(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRadiusBuffer:"), value)
 }
-
 // Declares the format of the radii in the radius buffer.
 //
 // # Discussion
@@ -368,7 +358,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) RadiusFormat() MTLAttr
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetRadiusFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRadiusFormat:"), value)
 }
-
 // Configures the stride, in bytes, between radii in the radius buffer.
 //
 // # Discussion
@@ -387,7 +376,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) RadiusStride() uint {
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetRadiusStride(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRadiusStride:"), value)
 }
-
 // Declares the number of control points per curve segment.
 //
 // # Discussion
@@ -402,7 +390,6 @@ func (m MTL4AccelerationStructureCurveGeometryDescriptor) SegmentControlPointCou
 func (m MTL4AccelerationStructureCurveGeometryDescriptor) SetSegmentControlPointCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSegmentControlPointCount:"), value)
 }
-
 // Declares the number of curve segments.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureCurveGeometryDescriptor/segmentCount

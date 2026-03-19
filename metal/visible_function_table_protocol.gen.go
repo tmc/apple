@@ -55,20 +55,16 @@ func MTLVisibleFunctionTableObjectFromID(id objc.ID) MTLVisibleFunctionTableObje
 // index: The index of the table entry to change.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/setFunction(_:index:)
-
 func (o MTLVisibleFunctionTableObject) SetFunctionAtIndex(function MTLFunctionHandle, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setFunction:atIndex:"), function, index)
 	}
-
 // See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/gpuResourceID
-
 func (o MTLVisibleFunctionTableObject) GpuResourceID() MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
-
 // Sets a range of table entries to point to an array of callable functions.
 //
 // functions: An array of function handles for the functions to be called.
@@ -76,84 +72,68 @@ func (o MTLVisibleFunctionTableObject) GpuResourceID() MTLResourceID {
 // range: A range of indices to change in the table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVisibleFunctionTable/setFunctions:withRange:
-
 func (o MTLVisibleFunctionTableObject) SetFunctionsWithRange(functions []MTLFunctionHandle, range_ foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setFunctions:withRange:"), functions, range_)
 	}
-
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
 // texture, or heap.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
-
 func (o MTLVisibleFunctionTableObject) AllocatedSize() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
-
 // The device object that created the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/device
-
 func (o MTLVisibleFunctionTableObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that identifies the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/label
-
 func (o MTLVisibleFunctionTableObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // The CPU cache mode that defines the CPU mapping of the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/cpuCacheMode
-
 func (o MTLVisibleFunctionTableObject) CpuCacheMode() MTLCPUCacheMode {
 	
 	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
 	return rv
 	}
-
 // The location and access permissions of the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/storageMode
-
 func (o MTLVisibleFunctionTableObject) StorageMode() MTLStorageMode {
 	
 	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
 	return rv
 	}
-
 // A mode that determines whether Metal tracks and synchronizes resource
 // access.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/hazardTrackingMode
-
 func (o MTLVisibleFunctionTableObject) HazardTrackingMode() MTLHazardTrackingMode {
 	
 	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
 	return rv
 	}
-
 // The storage mode, CPU cache mode, and hazard tracking mode of the resource.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
-
 func (o MTLVisibleFunctionTableObject) ResourceOptions() MTLResourceOptions {
 	
 	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
 	return rv
 	}
-
 // Specifies or queries the resource’s purgeable state.
 //
 // state: The desired purgeable state of a resource.
@@ -189,34 +169,28 @@ func (o MTLVisibleFunctionTableObject) ResourceOptions() MTLResourceOptions {
 // already discarded the data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
-
 func (o MTLVisibleFunctionTableObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
 	
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
 	}
-
 // The distance, in bytes, from the beginning of the heap to the first byte of
 // the resource, if you allocated the resource on a heap.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
-
 func (o MTLVisibleFunctionTableObject) HeapOffset() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("heapOffset"))
 	return rv
 	}
-
 // The heap on which the resource is allocated, if any.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heap
-
 func (o MTLVisibleFunctionTableObject) Heap() MTLHeap {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("heap"))
 	return MTLHeapObjectFromID(rv)
 	}
-
 // Allows future heap resource allocations to alias against the resource’s
 // memory, reusing it.
 //
@@ -251,12 +225,10 @@ func (o MTLVisibleFunctionTableObject) Heap() MTLHeap {
 // through an event or fence.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/makeAliasable()
-
 func (o MTLVisibleFunctionTableObject) MakeAliasable() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("makeAliasable"))
 	}
-
 // A Boolean value that indicates whether future heap resource allocations may
 // alias against the resource’s memory.
 //
@@ -269,16 +241,13 @@ func (o MTLVisibleFunctionTableObject) MakeAliasable() {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/isAliasable()
-
 func (o MTLVisibleFunctionTableObject) IsAliasable() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAliasable"))
 	return rv
 	}
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
-
 func (o MTLVisibleFunctionTableObject) SetOwnerWithIdentity(task_id_token objectivec.IObject) int32 {
 	
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)

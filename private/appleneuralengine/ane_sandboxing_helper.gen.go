@@ -92,7 +92,6 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) CanAccessPathAtMethodN
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/consumeSandboxExtension:forModel:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) ConsumeSandboxExtensionForModelError(extension objectivec.IObject, model objectivec.IObject) (int64, error) {
@@ -105,7 +104,6 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) ConsumeSandboxExtensio
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/consumeSandboxExtension:forPath:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) ConsumeSandboxExtensionForPathError(extension objectivec.IObject, path objectivec.IObject) (int64, error) {
@@ -118,7 +116,6 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) ConsumeSandboxExtensio
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/issueSandboxExtensionForModel:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionForModelError(model objectivec.IObject) (objectivec.IObject, error) {
@@ -131,7 +128,6 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionF
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/issueSandboxExtensionForPath:error:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionForPathError(path objectivec.IObject) (objectivec.IObject, error) {
@@ -144,14 +140,12 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionF
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/releaseSandboxExtension:handle:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) ReleaseSandboxExtensionHandle(extension objectivec.IObject, handle int64) bool {
 	rv := objc.Send[bool](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("releaseSandboxExtension:handle:"), extension, handle)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANESandboxingHelper/sandboxExtensionPathForModelURL:
 func (_ANESandboxingHelperClass ANESandboxingHelperClass) SandboxExtensionPathForModelURL(url foundation.INSURL) objectivec.IObject {

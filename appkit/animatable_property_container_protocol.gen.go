@@ -67,24 +67,20 @@ func NSAnimatablePropertyContainerObjectFromID(id objc.ID) NSAnimatablePropertyC
 // found by the [NSAnimatablePropertyContainer] search mechanism.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-
 func (o NSAnimatablePropertyContainerObject) Animator() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("animator"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
-
 func (o NSAnimatablePropertyContainerObject) Animations() foundation.INSDictionary {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("animations"))
 	return foundation.NSDictionaryFromID(rv)
 	}
-
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
@@ -113,7 +109,6 @@ func (o NSAnimatablePropertyContainerObject) Animations() foundation.INSDictiona
 // [action(forKey:)]: https://developer.apple.com/documentation/QuartzCore/CALayer/action(forKey:)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
-
 func (o NSAnimatablePropertyContainerObject) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("animationForKey:"), objc.String(string(key)))

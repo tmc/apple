@@ -115,7 +115,6 @@ func (a MTLAttributeDescriptorArray) ObjectAtIndexedSubscript(index uint) IMTLAt
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return MTLAttributeDescriptorFromID(rv)
 }
-
 // Sets state for the specified attribute.
 //
 // attributeDesc: A descriptor that contains attribute state.

@@ -138,7 +138,6 @@ func (c NSCollectionLayoutGroupCustomItem) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](c.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
-
 // The vertical stacking order of the custom item in relation to other items
 // in the group.
 //

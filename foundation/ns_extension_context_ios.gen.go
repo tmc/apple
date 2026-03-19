@@ -53,7 +53,6 @@ func (e NSExtensionContext) Intent() objectivec.IObject {
 rv := objc.Send[objc.ID](e.ID, objc.Sel("intent"))
 return objectivec.Object{ID: rv}
 }
-
 // The minimum size for a Siri hosted view.
 //
 // # Discussion
@@ -68,7 +67,6 @@ func (e NSExtensionContext) HostedViewMinimumAllowedSize() corefoundation.CGSize
 rv := objc.Send[corefoundation.CGSize](e.ID, objc.Sel("hostedViewMinimumAllowedSize"))
 		return corefoundation.CGSize(rv)
 }
-
 // The maximum size for a Siri hosted view.
 //
 // # Discussion
@@ -83,7 +81,6 @@ func (e NSExtensionContext) HostedViewMaximumAllowedSize() corefoundation.CGSize
 rv := objc.Send[corefoundation.CGSize](e.ID, objc.Sel("hostedViewMaximumAllowedSize"))
 		return corefoundation.CGSize(rv)
 }
-
 // The active display mode of the widget.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/widgetActiveDisplayMode
@@ -91,7 +88,6 @@ func (e NSExtensionContext) WidgetActiveDisplayMode() objectivec.IObject {
 rv := objc.Send[objc.ID](e.ID, objc.Sel("widgetActiveDisplayMode"))
 return objectivec.Object{ID: rv}
 }
-
 // The largest display mode the widget supports.
 //
 // # Discussion

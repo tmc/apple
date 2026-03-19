@@ -55,13 +55,11 @@ func NSTextContentStorageDelegateObjectFromID(id objc.ID) NSTextContentStorageDe
 // of `range.Length()`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentStorageDelegate/textContentStorage(_:textParagraphWith:)
-
 func (o NSTextContentStorageDelegateObject) TextContentStorageTextParagraphWithRange(textContentStorage INSTextContentStorage, range_ foundation.NSRange) INSTextParagraph {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentStorage:textParagraphWithRange:"), textContentStorage, range_)
 	return NSTextParagraphFromID(rv)
 	}
-
 // The method the framework calls to return the text element at a specific
 // location.
 //
@@ -79,13 +77,11 @@ func (o NSTextContentStorageDelegateObject) TextContentStorageTextParagraphWithR
 // instead of creating one based on its standard mapping logic.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManagerDelegate/textContentManager(_:textElementAt:)
-
 func (o NSTextContentStorageDelegateObject) TextContentManagerTextElementAtLocation(textContentManager INSTextContentManager, location NSTextLocation) INSTextElement {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentManager:textElementAtLocation:"), textContentManager, location)
 	return NSTextElementFromID(rv)
 	}
-
 // Returns a Boolean value that indicates whether the framework should skip
 // this text element in the enumeration.
 //
@@ -102,7 +98,6 @@ func (o NSTextContentStorageDelegateObject) TextContentManagerTextElementAtLocat
 // otherwise the element is included in the enumeration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManagerDelegate/textContentManager(_:shouldEnumerate:options:)
-
 func (o NSTextContentStorageDelegateObject) TextContentManagerShouldEnumerateTextElementOptions(textContentManager INSTextContentManager, textElement INSTextElement, options NSTextContentManagerEnumerationOptions) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("textContentManager:shouldEnumerateTextElement:options:"), textContentManager, textElement, options)

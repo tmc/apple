@@ -480,7 +480,6 @@ func (i NSItemProvider) InitWithContentsOfURL(fileURL INSURL) NSItemProvider {
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithContentsOfURL:"), fileURL)
 	return rv
 }
-
 // Creates an item provider with an object, according to the item provider
 // type coercion policy.
 //
@@ -505,7 +504,6 @@ func (i NSItemProvider) InitWithItemTypeIdentifier(item NSSecureCoding, typeIden
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithItem:typeIdentifier:"), item, objc.String(typeIdentifier))
 	return rv
 }
-
 // Creates a new item provider, employing a specified object’s type
 // identifiers to specify the data representations eligible for the provider
 // to load.
@@ -517,7 +515,6 @@ func (i NSItemProvider) InitWithObject(object NSItemProviderWriting) NSItemProvi
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithObject:"), object)
 	return rv
 }
-
 // Returns a Boolean value indicating whether an item provider can load
 // objects of a specified class.
 //
@@ -532,7 +529,6 @@ func (i NSItemProvider) CanLoadObjectOfClass(aClass objc.Class) bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("canLoadObjectOfClass:"), aClass)
 	return rv
 }
-
 // Returns a Boolean value indicating whether an item provider contains a data
 // representation conforming to a specified universal type identifier file
 // options parameter with a value of zero.
@@ -544,7 +540,6 @@ func (i NSItemProvider) HasItemConformingToTypeIdentifier(typeIdentifier string)
 	rv := objc.Send[bool](i.ID, objc.Sel("hasItemConformingToTypeIdentifier:"), objc.String(typeIdentifier))
 	return rv
 }
-
 // Returns a Boolean value indicating whether an item provider contains a data
 // representation conforming to a specified universal type identifier and to
 // specified open-in-place behavior.
@@ -559,7 +554,6 @@ func (i NSItemProvider) HasRepresentationConformingToTypeIdentifierFileOptions(t
 	rv := objc.Send[bool](i.ID, objc.Sel("hasRepresentationConformingToTypeIdentifier:fileOptions:"), objc.String(typeIdentifier), fileOptions)
 	return rv
 }
-
 // Returns an array with a subset of type identifiers for the item provider,
 // according to the specified file options, in the same order they were
 // registered.
@@ -582,7 +576,6 @@ func (i NSItemProvider) RegisteredTypeIdentifiersWithFileOptions(fileOptions NSI
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredTypeIdentifiersWithFileOptions:"), fileOptions)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Loads the item’s data and coerces it to the specified type.
 //
 // typeIdentifier: A string that represents the desired UTI.
@@ -621,7 +614,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](i.ID, objc.Sel("loadItemForTypeIdentifier:options:completionHandler:"), objc.String(typeIdentifier), options, _block2)
 }
-
 // Asynchronously copies the provided, typed data into a generic data object,
 // returning a progress object.
 //
@@ -639,7 +631,6 @@ _block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
-
 // Asynchronously writes a copy of the provided, typed data to a temporary
 // file, returning a progress object.
 //
@@ -655,7 +646,6 @@ _block1, _cleanup1 := NewURLErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
-
 // Asynchronously opens a file in place, if possible, returning a progress
 // object.
 //
@@ -681,7 +671,6 @@ _block1, _cleanup1 := NewURLErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadInPlaceFileRepresentationForTypeIdentifier:completionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
-
 // Asynchronously loads an object of a specified class to an item provider,
 // returning a progress object.
 //
@@ -692,7 +681,6 @@ _block1, _cleanup1 := NewNSItemProviderReadingErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadObjectOfClass:completionHandler:"), aClass, _block1)
 	return NSProgressFromID(rv)
 }
-
 // Loads the preview image for the item that the item provider represents.
 //
 // options: A dictionary of keys and values that provide information about the item,
@@ -728,7 +716,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](i.ID, objc.Sel("loadPreviewImageWithOptions:completionHandler:"), options, _block1)
 }
-
 // Registers a CloudKit share for the user to modify.
 //
 // share: The CloudKit share to modify.
@@ -767,7 +754,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 func (i NSItemProvider) RegisterCloudKitShareContainer(share objectivec.IObject, container objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShare:container:"), share, container)
 }
-
 // Registers a handler that prepares a new CloudKit share.
 //
 // preparationHandler: The handler the service invokes when it requires the CloudKit share.
@@ -801,7 +787,6 @@ _block0, _cleanup0 := NewVoidBlock(preparationHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCloudKitShareWithPreparationHandler:"), _block0)
 }
-
 // Returns an array of registered content types that conform to a specified
 // content type.
 //
@@ -816,7 +801,6 @@ func (i NSItemProvider) RegisteredContentTypesConformingToContentType(contentTyp
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypesConformingToContentType:"), contentType)
 	return rv
 }
-
 // Registers a data-backed representation for an item, specifiying item
 // visibility and a load handler.
 //
@@ -826,7 +810,6 @@ _block2, _cleanup2 := NewVoidBlock(loadHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForTypeIdentifier:visibility:loadHandler:"), objc.String(typeIdentifier), visibility, _block2)
 }
-
 // Lazily registers an item, according to the item provider type coercion
 // policy.
 //
@@ -855,7 +838,6 @@ _block1, _cleanup1 := NewErrorBlock(loadHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](i.ID, objc.Sel("registerItemForTypeIdentifier:loadHandler:"), objc.String(typeIdentifier), _block1)
 }
-
 // Registers a file-backed representation for an item, specifying file
 // options, item visibility, and a load handler.
 //
@@ -883,7 +865,6 @@ _block3, _cleanup3 := NewVoidBlock(loadHandler)
 	defer _cleanup3()
 	objc.Send[objc.ID](i.ID, objc.Sel("registerFileRepresentationForTypeIdentifier:fileOptions:visibility:loadHandler:"), objc.String(typeIdentifier), fileOptions, visibility, _block3)
 }
-
 // Adds representations of a specified object to an item provider, based on
 // the object’s implementation of the item provider writing protocol, and
 // adhering to a visibility specification.
@@ -897,7 +878,6 @@ _block3, _cleanup3 := NewVoidBlock(loadHandler)
 func (i NSItemProvider) RegisterObjectVisibility(object NSItemProviderWriting, visibility NSItemProviderRepresentationVisibility) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerObject:visibility:"), object, visibility)
 }
-
 // Lazily adds representations of a specified object class to an item
 // provider, based on the object’s implementation of the item provider
 // writing protocol, and adhering to a visibility specification.
@@ -908,7 +888,6 @@ _block2, _cleanup2 := NewVoidBlock(loadHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](i.ID, objc.Sel("registerObjectOfClass:visibility:loadHandler:"), aClass, visibility, _block2)
 }
-
 // Provides data-backed content from an existing file with the specified
 // parameters.
 //
@@ -939,7 +918,6 @@ func (i NSItemProvider) InitWithContentsOfURLContentTypeOpenInPlaceCoordinatedVi
 	rv := objc.Send[NSItemProvider](i.ID, objc.Sel("initWithContentsOfURL:contentType:openInPlace:coordinated:visibility:"), fileURL, contentType, openInPlace, coordinated, visibility)
 	return rv
 }
-
 // Asynchronously copies the provided, typed data into a generic data object,
 // returning a progress object.
 //
@@ -950,7 +928,6 @@ _block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadDataRepresentationForContentType:completionHandler:"), contentType, _block1)
 	return NSProgressFromID(rv)
 }
-
 // Asynchronously copies the content type data into a generic data object with
 // the specified parameters.
 //
@@ -961,7 +938,6 @@ _block2, _cleanup2 := NewURLErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("loadFileRepresentationForContentType:openInPlace:completionHandler:"), contentType, openInPlace, _block2)
 	return NSProgressFromID(rv)
 }
-
 // Registers an existing collaboration object on a server.
 //
 // share: An existing [CKShare] on the server.
@@ -996,7 +972,6 @@ _block2, _cleanup2 := NewURLErrorBlock(completionHandler)
 func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShare:container:allowedSharingOptions:"), share, container, allowedOptions)
 }
-
 // Creates and registers a new collaboration object using a collection of
 // records to share.
 //
@@ -1044,7 +1019,6 @@ _block2, _cleanup2 := NewErrorBlock(preparationHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, _block2)
 }
-
 // Lazily registers an item, according to the item provider type coercion
 // policy.
 //
@@ -1063,7 +1037,6 @@ _block2, _cleanup2 := NewVoidBlock(loadHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](i.ID, objc.Sel("registerDataRepresentationForContentType:visibility:loadHandler:"), contentType, visibility, _block2)
 }
-
 // Registers a file-backed representation for an item with item visibility, an
 // open-in-place option, and a load handler.
 //
@@ -1095,7 +1068,6 @@ func (i NSItemProvider) PreferredPresentationSize() corefoundation.CGSize {
 func (i NSItemProvider) SetPreferredPresentationSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPreferredPresentationSize:"), value)
 }
-
 // The filename to use when writing the provided data to a file on disk.
 //
 // # Discussion
@@ -1113,7 +1085,6 @@ func (i NSItemProvider) SuggestedName() string {
 func (i NSItemProvider) SetSuggestedName(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSuggestedName:"), objc.String(value))
 }
-
 // Returns the array of type identifiers for the item provider, in the same
 // order they were registered.
 //
@@ -1122,7 +1093,6 @@ func (i NSItemProvider) RegisteredTypeIdentifiers() []string {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredTypeIdentifiers"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The custom preview image handler block for the item provider.
 //
 // # Discussion
@@ -1138,7 +1108,6 @@ func (i NSItemProvider) PreviewImageHandler() NSItemProviderLoadHandler {
 func (i NSItemProvider) SetPreviewImageHandler(value NSItemProviderLoadHandler) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPreviewImageHandler:"), value)
 }
-
 // Registered content types in the order the app registers each type.
 //
 // # Discussion
@@ -1151,7 +1120,6 @@ func (i NSItemProvider) RegisteredContentTypes() []objc.ID {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypes"))
 	return rv
 }
-
 // Registered content types that the system can load as open-in-place files.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registeredContentTypesForOpenInPlace
@@ -1159,7 +1127,6 @@ func (i NSItemProvider) RegisteredContentTypesForOpenInPlace() []objc.ID {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("registeredContentTypesForOpenInPlace"))
 	return rv
 }
-
 // The rectangle that the item occupies in the host app’s source window.
 //
 // # Discussion
@@ -1173,7 +1140,6 @@ func (i NSItemProvider) SourceFrame() NSRect {
 	rv := objc.Send[NSRect](i.ID, objc.Sel("sourceFrame"))
 	return NSRect(rv)
 }
-
 // The rectangle of the item’s visible content.
 //
 // # Discussion
@@ -1195,7 +1161,6 @@ func (i NSItemProvider) ContainerFrame() NSRect {
 	rv := objc.Send[NSRect](i.ID, objc.Sel("containerFrame"))
 	return NSRect(rv)
 }
-
 // An optional array of media data associated with the extension item.
 //
 // See: https://developer.apple.com/documentation/foundation/nsextensionitem/attachments

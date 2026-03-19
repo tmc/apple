@@ -149,7 +149,6 @@ func (v VZVirtioSocketConnection) SourcePort() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("sourcePort"))
 	return rv
 }
-
 // The destination port number of the connection.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketConnection/destinationPort
@@ -157,7 +156,6 @@ func (v VZVirtioSocketConnection) DestinationPort() uint32 {
 	rv := objc.Send[uint32](v.ID, objc.Sel("destinationPort"))
 	return rv
 }
-
 // The file descriptor to use when sending data.
 //
 // # Discussion

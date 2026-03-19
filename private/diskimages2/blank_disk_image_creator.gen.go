@@ -125,7 +125,6 @@ func (b BlankDiskImageCreator) CreateImageWithNumBlocksError(numBlocks uint64) (
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/BlankDiskImageCreator/initWithURL:error:
 func (b BlankDiskImageCreator) InitWithURLError(url foundation.INSURL) (BlankDiskImageCreator, error) {

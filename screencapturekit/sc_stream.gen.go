@@ -211,7 +211,6 @@ func (s SCStream) InitWithFilterConfigurationDelegate(contentFilter ISCContentFi
 	rv := objc.Send[SCStream](s.ID, objc.Sel("initWithFilter:configuration:delegate:"), contentFilter, streamConfig, delegate)
 	return rv
 }
-
 // Updates the stream with a new configuration.
 //
 // streamConfig: An object that provides the updated stream configuration.
@@ -225,7 +224,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](s.ID, objc.Sel("updateConfiguration:completionHandler:"), streamConfig, _block1)
 }
-
 // Updates the stream by applying a new content filter.
 //
 // contentFilter: The content filter to apply.
@@ -239,7 +237,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](s.ID, objc.Sel("updateContentFilter:completionHandler:"), contentFilter, _block1)
 }
-
 // Adds a destination that receives the stream output.
 //
 // output: The object that conforms to the stream output protocol.
@@ -270,7 +267,6 @@ func (s SCStream) AddStreamOutputTypeSampleHandlerQueueError(output SCStreamOutp
 	return rv, nil
 
 }
-
 // Removes a destination from receiving stream output.
 //
 // output: The object to remove that conforms to the stream output protocol.
@@ -291,7 +287,6 @@ func (s SCStream) RemoveStreamOutputTypeError(output SCStreamOutput, type_ SCStr
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/addRecordingOutput(_:)
 func (s SCStream) AddRecordingOutputError(recordingOutput ISCRecordingOutput) (bool, error) {
@@ -307,7 +302,6 @@ func (s SCStream) AddRecordingOutputError(recordingOutput ISCRecordingOutput) (b
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/removeRecordingOutput(_:)
 func (s SCStream) RemoveRecordingOutputError(recordingOutput ISCRecordingOutput) (bool, error) {
@@ -323,7 +317,6 @@ func (s SCStream) RemoveRecordingOutputError(recordingOutput ISCRecordingOutput)
 	return rv, nil
 
 }
-
 // Starts the stream with a callback to indicate whether it successfully
 // starts.
 //
@@ -335,7 +328,6 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](s.ID, objc.Sel("startCaptureWithCompletionHandler:"), _block0)
 }
-
 // Stops the stream.
 //
 // completionHandler: A completion handler that provides an error if the stream fails to stop.

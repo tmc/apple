@@ -117,7 +117,6 @@ func (s NSScriptCoercionHandler) CoerceValueToClass(value objectivec.IObject, to
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("coerceValue:toClass:"), value, toClass)
 	return objectivec.Object{ID: rv}
 }
-
 // Registers a given object (typically a class) to handle coercions
 // (conversions) from one given class to another.
 //

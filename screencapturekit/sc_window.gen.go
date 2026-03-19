@@ -149,7 +149,6 @@ func (w SCWindow) WindowID() uint32 {
 	rv := objc.Send[uint32](w.ID, objc.Sel("windowID"))
 	return rv
 }
-
 // The string that displays in a window’s title bar.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/title
@@ -157,7 +156,6 @@ func (w SCWindow) Title() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The app that owns the window.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/owningApplication
@@ -165,7 +163,6 @@ func (w SCWindow) OwningApplication() ISCRunningApplication {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("owningApplication"))
 	return SCRunningApplicationFromID(objc.ID(rv))
 }
-
 // The layer of the window relative to other windows.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/windowLayer
@@ -173,7 +170,6 @@ func (w SCWindow) WindowLayer() int {
 	rv := objc.Send[int](w.ID, objc.Sel("windowLayer"))
 	return rv
 }
-
 // A rectangle the represents the frame of the window within a display.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCWindow/frame
@@ -181,7 +177,6 @@ func (w SCWindow) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](w.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
-
 // A Boolean value that indicates whether the window is on screen.
 //
 // # Discussion
@@ -194,7 +189,6 @@ func (w SCWindow) OnScreen() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isOnScreen"))
 	return rv
 }
-
 // A Boolean value that indicates if the window is currently streaming.
 //
 // # Discussion

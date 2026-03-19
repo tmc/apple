@@ -49,17 +49,14 @@ func MTLEventObjectFromID(id objc.ID) MTLEventObject {
 // The device object that created the event.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/device
-
 func (o MTLEventObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that identifies the event.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/label
-
 func (o MTLEventObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))

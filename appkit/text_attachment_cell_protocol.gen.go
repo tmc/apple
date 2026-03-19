@@ -99,13 +99,11 @@ func NSTextAttachmentCellProtocolObjectFromID(id objc.ID) NSTextAttachmentCellPr
 // Returns the text attachment object that owns the cell.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/attachment
-
 func (o NSTextAttachmentCellProtocolObject) Attachment() INSTextAttachment {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("attachment"))
 	return NSTextAttachmentFromID(rv)
 	}
-
 // Draws the cell’s image in the specified rectangle of the currently
 // focused view.
 //
@@ -114,12 +112,10 @@ func (o NSTextAttachmentCellProtocolObject) Attachment() INSTextAttachment {
 // controlView: The view in which to draw.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/draw(withFrame:in:)
-
 func (o NSTextAttachmentCellProtocolObject) DrawWithFrameInView(cellFrame corefoundation.CGRect, controlView INSView) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("drawWithFrame:inView:"), cellFrame, controlView)
 	}
-
 // Draws the cell’s image at the specified index point in the view.
 //
 // cellFrame: The frame rectangle in which to draw.
@@ -129,12 +125,10 @@ func (o NSTextAttachmentCellProtocolObject) DrawWithFrameInView(cellFrame corefo
 // charIndex: The index of the attachment character within the text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/draw(withFrame:in:characterIndex:)
-
 func (o NSTextAttachmentCellProtocolObject) DrawWithFrameInViewCharacterIndex(cellFrame corefoundation.CGRect, controlView INSView, charIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("drawWithFrame:inView:characterIndex:"), cellFrame, controlView, charIndex)
 	}
-
 // Draws the cell’s image using the specified layout manager.
 //
 // cellFrame: The frame rectangle in which to draw.
@@ -146,12 +140,10 @@ func (o NSTextAttachmentCellProtocolObject) DrawWithFrameInViewCharacterIndex(ce
 // layoutManager: The layout manager for the text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/draw(withFrame:in:characterIndex:layoutManager:)
-
 func (o NSTextAttachmentCellProtocolObject) DrawWithFrameInViewCharacterIndexLayoutManager(cellFrame corefoundation.CGRect, controlView INSView, charIndex uint, layoutManager INSLayoutManager) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("drawWithFrame:inView:characterIndex:layoutManager:"), cellFrame, controlView, charIndex, layoutManager)
 	}
-
 // Draws the receiver’s image with optional highlighting.
 //
 // flag: A Boolean value that indicates whether to highlight the image. Add a
@@ -164,22 +156,18 @@ func (o NSTextAttachmentCellProtocolObject) DrawWithFrameInViewCharacterIndexLay
 // controlView: The view in which to draw.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/highlight(_:withFrame:in:)
-
 func (o NSTextAttachmentCellProtocolObject) HighlightWithFrameInView(flag bool, cellFrame corefoundation.CGRect, controlView INSView) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("highlight:withFrame:inView:"), flag, cellFrame, controlView)
 	}
-
 // Returns the size of the attachment’s icon.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/cellSize()
-
 func (o NSTextAttachmentCellProtocolObject) CellSize() corefoundation.CGSize {
 	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("cellSize"))
 	return rv
 	}
-
 // Returns the text position where you draw the attachment cell’s image,
 // relative to the current point established in the glyph layout.
 //
@@ -188,13 +176,11 @@ func (o NSTextAttachmentCellProtocolObject) CellSize() corefoundation.CGSize {
 // The image should be drawn so its lower-left corner lies on this point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/cellBaselineOffset()
-
 func (o NSTextAttachmentCellProtocolObject) CellBaselineOffset() corefoundation.CGPoint {
 	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("cellBaselineOffset"))
 	return rv
 	}
-
 // Returns the frame of the cell to draw at the specified position in a text
 // container.
 //
@@ -211,13 +197,11 @@ func (o NSTextAttachmentCellProtocolObject) CellBaselineOffset() corefoundation.
 // The proposed line fragment is specified by `lineFrag`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/cellFrame(for:proposedLineFragment:glyphPosition:characterIndex:)
-
 func (o NSTextAttachmentCellProtocolObject) CellFrameForTextContainerProposedLineFragmentGlyphPositionCharacterIndex(textContainer INSTextContainer, lineFrag corefoundation.CGRect, position corefoundation.CGPoint, charIndex uint) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("cellFrameForTextContainer:proposedLineFragment:glyphPosition:characterIndex:"), textContainer, lineFrag, position, charIndex)
 	return rv
 	}
-
 // Returns a Boolean value that indicates whether the attachment handles mouse
 // events occurring over its image.
 //
@@ -236,13 +220,11 @@ func (o NSTextAttachmentCellProtocolObject) CellFrameForTextContainerProposedLin
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/wantsToTrackMouse()
-
 func (o NSTextAttachmentCellProtocolObject) WantsToTrackMouse() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("wantsToTrackMouse"))
 	return rv
 	}
-
 // Allows an attachment to specify the events for which it tracks the mouse.
 //
 // # Discussion
@@ -255,13 +237,11 @@ func (o NSTextAttachmentCellProtocolObject) WantsToTrackMouse() bool {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/wantsToTrackMouse(for:in:of:atCharacterIndex:)
-
 func (o NSTextAttachmentCellProtocolObject) WantsToTrackMouseForEventInRectOfViewAtCharacterIndex(theEvent INSEvent, cellFrame corefoundation.CGRect, controlView INSView, charIndex uint) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("wantsToTrackMouseForEvent:inRect:ofView:atCharacterIndex:"), theEvent, cellFrame, controlView, charIndex)
 	return rv
 	}
-
 // Handles a mouse-down event on the cell’s image, and optionally waits
 // until a mouse-up event
 //
@@ -303,13 +283,11 @@ func (o NSTextAttachmentCellProtocolObject) WantsToTrackMouseForEventInRectOfVie
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/trackMouse(with:in:of:untilMouseUp:)
-
 func (o NSTextAttachmentCellProtocolObject) TrackMouseInRectOfViewUntilMouseUp(theEvent INSEvent, cellFrame corefoundation.CGRect, controlView INSView, flag bool) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("trackMouse:inRect:ofView:untilMouseUp:"), theEvent, cellFrame, controlView, flag)
 	return rv
 	}
-
 // Handles a mouse-down event on the image at the specified character
 // position.
 //
@@ -353,7 +331,6 @@ func (o NSTextAttachmentCellProtocolObject) TrackMouseInRectOfViewUntilMouseUp(t
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCellProtocol/trackMouse(with:in:of:atCharacterIndex:untilMouseUp:)
-
 func (o NSTextAttachmentCellProtocolObject) TrackMouseInRectOfViewAtCharacterIndexUntilMouseUp(theEvent INSEvent, cellFrame corefoundation.CGRect, controlView INSView, charIndex uint, flag bool) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("trackMouse:inRect:ofView:atCharacterIndex:untilMouseUp:"), theEvent, cellFrame, controlView, charIndex, flag)

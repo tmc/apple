@@ -55,13 +55,11 @@ func NSKeyedUnarchiverDelegateObjectFromID(id objc.ID) NSKeyedUnarchiverDelegate
 // [NSInvalidUnarchiveOperationException].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiverDelegate/unarchiver(_:cannotDecodeObjectOfClassName:originalClasses:)
-
 func (o NSKeyedUnarchiverDelegateObject) UnarchiverCannotDecodeObjectOfClassNameOriginalClasses(unarchiver INSKeyedUnarchiver, name string, classNames []string) objc.Class {
 	
 	rv := objc.Send[objc.Class](o.ID, objc.Sel("unarchiver:cannotDecodeObjectOfClassName:originalClasses:"), unarchiver, objc.String(name), objectivec.StringSliceToNSArray(classNames))
 	return rv
 	}
-
 // Informs the delegate that a given object has been decoded.
 //
 // unarchiver: An unarchiver for which the receiver is the delegate.
@@ -86,13 +84,11 @@ func (o NSKeyedUnarchiverDelegateObject) UnarchiverCannotDecodeObjectOfClassName
 // [awakeAfter(using:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/awakeAfter(using:)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiverDelegate/unarchiver(_:didDecode:)
-
 func (o NSKeyedUnarchiverDelegateObject) UnarchiverDidDecodeObject(unarchiver INSKeyedUnarchiver, object objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("unarchiver:didDecodeObject:"), unarchiver, object)
 	return objectivec.Object{ID: rv}
 	}
-
 // Informs the delegate that one object is being substituted for another.
 //
 // unarchiver: An unarchiver for which the receiver is the delegate.
@@ -110,29 +106,24 @@ func (o NSKeyedUnarchiverDelegateObject) UnarchiverDidDecodeObject(unarchiver IN
 // decoded objects.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiverDelegate/unarchiver(_:willReplace:with:)
-
 func (o NSKeyedUnarchiverDelegateObject) UnarchiverWillReplaceObjectWithObject(unarchiver INSKeyedUnarchiver, object objectivec.IObject, newObject objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("unarchiver:willReplaceObject:withObject:"), unarchiver, object, newObject)
 	}
-
 // Notifies the delegate that decoding has finished.
 //
 // unarchiver: An unarchiver for which the receiver is the delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiverDelegate/unarchiverDidFinish(_:)
-
 func (o NSKeyedUnarchiverDelegateObject) UnarchiverDidFinish(unarchiver INSKeyedUnarchiver) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("unarchiverDidFinish:"), unarchiver)
 	}
-
 // Notifies the delegate that decoding is about to finish.
 //
 // unarchiver: An unarchiver for which the receiver is the delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedUnarchiverDelegate/unarchiverWillFinish(_:)
-
 func (o NSKeyedUnarchiverDelegateObject) UnarchiverWillFinish(unarchiver INSKeyedUnarchiver) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("unarchiverWillFinish:"), unarchiver)

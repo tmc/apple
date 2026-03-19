@@ -174,7 +174,6 @@ func (m NSMenuItemBadge) InitWithCount(itemCount int) NSMenuItemBadge {
 	rv := objc.Send[NSMenuItemBadge](m.ID, objc.Sel("initWithCount:"), itemCount)
 	return rv
 }
-
 // Creates a badge with the provided custom string.
 //
 // string: The string label that displays when the badge appears.
@@ -201,7 +200,6 @@ func (_NSMenuItemBadgeClass NSMenuItemBadgeClass) AlertsWithCount(itemCount int)
 	rv := objc.Send[objc.ID](objc.ID(_NSMenuItemBadgeClass.class), objc.Sel("alertsWithCount:"), itemCount)
 	return NSMenuItemBadgeFromID(rv)
 }
-
 // Creates a new item-style badge with an integer count and a predefined label
 // that represents the number of new items.
 //
@@ -218,7 +216,6 @@ func (_NSMenuItemBadgeClass NSMenuItemBadgeClass) NewItemsWithCount(itemCount in
 	rv := objc.Send[objc.ID](objc.ID(_NSMenuItemBadgeClass.class), objc.Sel("newItemsWithCount:"), itemCount)
 	return NSMenuItemBadgeFromID(rv)
 }
-
 // Creates an update-style badge with an integer count and a predefined label
 // that represents the number of available updates.
 //
@@ -247,7 +244,6 @@ func (m NSMenuItemBadge) ItemCount() int {
 	rv := objc.Send[int](m.ID, objc.Sel("itemCount"))
 	return rv
 }
-
 // The string representation of the badge when it displays.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemBadge/stringValue-fc9f
@@ -255,7 +251,6 @@ func (m NSMenuItemBadge) StringValue() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringValue"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The type of items the badge displays.
 //
 // # Discussion
@@ -270,7 +265,6 @@ func (m NSMenuItemBadge) Type() NSMenuItemBadgeType {
 	rv := objc.Send[NSMenuItemBadgeType](m.ID, objc.Sel("type"))
 	return NSMenuItemBadgeType(rv)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nsmenuitem/badge
 func (m NSMenuItemBadge) Badge() INSMenuItemBadge {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("badge"))

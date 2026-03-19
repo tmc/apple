@@ -264,7 +264,6 @@ func (t MTKTextureLoader) InitWithDevice(device metal.MTLDevice) MTKTextureLoade
 	rv := objc.Send[MTKTextureLoader](t.ID, objc.Sel("initWithDevice:"), device)
 	return rv
 }
-
 // Synchronously loads image data and creates a new Metal texture from a given
 // URL.
 //
@@ -289,7 +288,6 @@ func (t MTKTextureLoader) NewTextureWithContentsOfURLOptionsError(URL foundation
 	return metal.MTLTextureObjectFromID(rv), nil
 
 }
-
 // Asynchronously loads image data and creates a new Metal texture from a
 // given URL.
 //
@@ -308,7 +306,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithContentsOfURL:options:completionHandler:"), URL, options, _block2)
 }
-
 // Synchronously loads image data and creates new Metal textures from the
 // specified list of URLs.
 //
@@ -345,7 +342,6 @@ func (t MTKTextureLoader) NewTexturesWithContentsOfURLsOptionsError(URLs []found
 	}), nil
 
 }
-
 // Asynchronously loads image data and creates new Metal textures from the
 // specified list of URLs.
 //
@@ -366,7 +362,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithContentsOfURLs:options:completionHandler:"), URLs, options, _block2)
 }
-
 // Synchronously loads image data and creates a Metal texture from the named
 // texture asset in an asset catalog.
 //
@@ -413,7 +408,6 @@ func (t MTKTextureLoader) NewTextureWithNameScaleFactorBundleOptionsError(name s
 	return metal.MTLTextureObjectFromID(rv), nil
 
 }
-
 // Asynchronously loads image data and creates a Metal texture from the named
 // texture asset in an asset catalog.
 //
@@ -453,7 +447,6 @@ _block4, _cleanup4 := NewErrorBlock(completionHandler)
 	defer _cleanup4()
 	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:bundle:options:completionHandler:"), objc.String(name), scaleFactor, bundle, options, _block4)
 }
-
 // Asynchronously loads image data and creates Metal textures from the
 // specified list of named texture assets in an asset catalog.
 //
@@ -495,7 +488,6 @@ _block4, _cleanup4 := NewErrorBlock(completionHandler)
 	defer _cleanup4()
 	objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithNames:scaleFactor:bundle:options:completionHandler:"), names, scaleFactor, bundle, options, _block4)
 }
-
 // Synchronously loads image data and creates a Metal texture from the named
 // texture asset in an asset catalog, using a specified display gamut.
 //
@@ -549,7 +541,6 @@ func (t MTKTextureLoader) NewTextureWithNameScaleFactorDisplayGamutBundleOptions
 	return metal.MTLTextureObjectFromID(rv), nil
 
 }
-
 // Asynchronously loads image data and creates a Metal texture from the named
 // texture asset in an asset catalog.
 //
@@ -597,7 +588,6 @@ _block5, _cleanup5 := NewErrorBlock(completionHandler)
 	defer _cleanup5()
 	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithName:scaleFactor:displayGamut:bundle:options:completionHandler:"), objc.String(name), scaleFactor, displayGamut, bundle, options, _block5)
 }
-
 // Asynchronously loads image data and creates Metal textures from the
 // specified list of named texture assets in an asset catalog.
 //
@@ -647,7 +637,6 @@ _block5, _cleanup5 := NewErrorBlock(completionHandler)
 	defer _cleanup5()
 	objc.Send[objc.ID](t.ID, objc.Sel("newTexturesWithNames:scaleFactor:displayGamut:bundle:options:completionHandler:"), names, scaleFactor, displayGamut, bundle, options, _block5)
 }
-
 // Synchronously loads image data and creates a new Metal texture from a given
 // bitmap image.
 //
@@ -674,7 +663,6 @@ func (t MTKTextureLoader) NewTextureWithCGImageOptionsError(cgImage coregraphics
 	return metal.MTLTextureObjectFromID(rv), nil
 
 }
-
 // Asynchronously loads image data and creates a new Metal texture from a
 // given bitmap image.
 //
@@ -695,7 +683,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithCGImage:options:completionHandler:"), cgImage, options, _block2)
 }
-
 // Synchronously creates a new Metal texture from an in-memory representation
 // of the texture’s data.
 //
@@ -722,7 +709,6 @@ func (t MTKTextureLoader) NewTextureWithDataOptionsError(data foundation.INSData
 	return metal.MTLTextureObjectFromID(rv), nil
 
 }
-
 // Asynchronously creates a new Metal texture from an in-memory representation
 // of the texture’s data.
 //
@@ -743,7 +729,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](t.ID, objc.Sel("newTextureWithData:options:completionHandler:"), data, options, _block2)
 }
-
 // Synchronously loads image data and creates a Metal texture from the
 // specified Model I/O texture.
 //
@@ -769,7 +754,6 @@ func (t MTKTextureLoader) NewTextureWithMDLTextureOptionsError(texture objective
 	return metal.MTLTextureObjectFromID(rv), nil
 
 }
-
 // Asynchronously loads image data and creates a Metal texture from the
 // specified Model I/O texture.
 //

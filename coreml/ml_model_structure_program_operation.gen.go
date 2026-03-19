@@ -114,7 +114,6 @@ func (m MLModelStructureProgramOperation) Blocks() []MLModelStructureProgramBloc
 		return MLModelStructureProgramBlockFromID(id)
 	})
 }
-
 // The arguments to the Operation.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/inputs
@@ -122,7 +121,6 @@ func (m MLModelStructureProgramOperation) Inputs() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("inputs"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // The name of the operator, e.g., “conv”, “pool”, “softmax”, etc.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/operatorName
@@ -130,7 +128,6 @@ func (m MLModelStructureProgramOperation) OperatorName() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("operatorName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The outputs of the Operation.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramOperation/outputs

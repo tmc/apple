@@ -299,7 +299,6 @@ func NewSplitViewWithFrame(frameRect corefoundation.CGRect) NSSplitView {
 func (s NSSplitView) AddArrangedSubview(view INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addArrangedSubview:"), view)
 }
-
 // Adds a view as an arranged split pane at the specified index.
 //
 // # Discussion
@@ -317,7 +316,6 @@ func (s NSSplitView) AddArrangedSubview(view INSView) {
 func (s NSSplitView) InsertArrangedSubviewAtIndex(view INSView, index int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("insertArrangedSubview:atIndex:"), view, index)
 }
-
 // Removes a view as an arranged split pane.
 //
 // # Discussion
@@ -337,7 +335,6 @@ func (s NSSplitView) InsertArrangedSubviewAtIndex(view INSView, index int) {
 func (s NSSplitView) RemoveArrangedSubview(view INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeArrangedSubview:"), view)
 }
-
 // Adjusts the sizes of the split view’s subviews so they (plus the
 // dividers) fill the split view.
 //
@@ -361,7 +358,6 @@ func (s NSSplitView) RemoveArrangedSubview(view INSView) {
 func (s NSSplitView) AdjustSubviews() {
 	objc.Send[objc.ID](s.ID, objc.Sel("adjustSubviews"))
 }
-
 // Returns whether the specified view is in a collapsed state.
 //
 // subview: The subview in the split view.
@@ -378,7 +374,6 @@ func (s NSSplitView) IsSubviewCollapsed(subview INSView) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSubviewCollapsed:"), subview)
 	return rv
 }
-
 // Returns the priority of the subview’s width or height when resizing.
 //
 // subviewIndex: The index of the subview.
@@ -401,7 +396,6 @@ func (s NSSplitView) HoldingPriorityForSubviewAtIndex(subviewIndex int) NSLayout
 	rv := objc.Send[NSLayoutPriority](s.ID, objc.Sel("holdingPriorityForSubviewAtIndex:"), subviewIndex)
 	return NSLayoutPriority(rv)
 }
-
 // Sets the priority for split view subviews to maintain their width or
 // height.
 //
@@ -428,7 +422,6 @@ func (s NSSplitView) HoldingPriorityForSubviewAtIndex(subviewIndex int) NSLayout
 func (s NSSplitView) SetHoldingPriorityForSubviewAtIndex(priority NSLayoutPriority, subviewIndex int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setHoldingPriority:forSubviewAtIndex:"), priority, subviewIndex)
 }
-
 // Draws a divider between two of the split view’s subviews.
 //
 // rect: The entire divider rectangle in the split view’s flipped coordinate
@@ -443,7 +436,6 @@ func (s NSSplitView) SetHoldingPriorityForSubviewAtIndex(priority NSLayoutPriori
 func (s NSSplitView) DrawDividerInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawDividerInRect:"), rect)
 }
-
 // Returns the minimum possible position of the divider at the specified
 // index.
 //
@@ -475,7 +467,6 @@ func (s NSSplitView) MinPossiblePositionOfDividerAtIndex(dividerIndex int) float
 	rv := objc.Send[float64](s.ID, objc.Sel("minPossiblePositionOfDividerAtIndex:"), dividerIndex)
 	return rv
 }
-
 // Returns the maximum possible position of the divider at the specified
 // index.
 //
@@ -507,7 +498,6 @@ func (s NSSplitView) MaxPossiblePositionOfDividerAtIndex(dividerIndex int) float
 	rv := objc.Send[float64](s.ID, objc.Sel("maxPossiblePositionOfDividerAtIndex:"), dividerIndex)
 	return rv
 }
-
 // Updates the location of a divider you specify by index.
 //
 // position: The position of the divider.
@@ -539,7 +529,6 @@ func (s NSSplitView) Delegate() NSSplitViewDelegate {
 func (s NSSplitView) SetDelegate(value NSSplitViewDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // A Boolean value that determines whether the split view arranges all of its
 // subviews as split panes.
 //
@@ -572,7 +561,6 @@ func (s NSSplitView) ArrangesAllSubviews() bool {
 func (s NSSplitView) SetArrangesAllSubviews(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setArrangesAllSubviews:"), value)
 }
-
 // The array of views that the split view arranges as its split panes.
 //
 // # Discussion
@@ -594,7 +582,6 @@ func (s NSSplitView) ArrangedSubviews() []NSView {
 		return NSViewFromID(id)
 	})
 }
-
 // A Boolean value that determines the geometric orientation of the split
 // view’s dividers.
 //
@@ -619,7 +606,6 @@ func (s NSSplitView) Vertical() bool {
 func (s NSSplitView) SetVertical(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVertical:"), value)
 }
-
 // The style of divider between views.
 //
 // # Discussion
@@ -636,7 +622,6 @@ func (s NSSplitView) DividerStyle() NSSplitViewDividerStyle {
 func (s NSSplitView) SetDividerStyle(value NSSplitViewDividerStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDividerStyle:"), value)
 }
-
 // The color of the dividers that the split view draws between subviews.
 //
 // # Discussion
@@ -659,7 +644,6 @@ func (s NSSplitView) DividerColor() INSColor {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("dividerColor"))
 	return NSColorFromID(objc.ID(rv))
 }
-
 // The thickness of the dividers for the split view.
 //
 // # Discussion
@@ -672,7 +656,6 @@ func (s NSSplitView) DividerThickness() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("dividerThickness"))
 	return rv
 }
-
 // The name to use when the system automatically saves the split view’s
 // divider configuration.
 //

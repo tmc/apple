@@ -292,7 +292,6 @@ func NewNSDiffableDataSourceSnapshot() NSDiffableDataSourceSnapshot {
 func (d NSDiffableDataSourceSnapshot) AppendSectionsWithIdentifiers(sectionIdentifiers []objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("appendSectionsWithIdentifiers:"), objectivec.IObjectSliceToNSArray(sectionIdentifiers))
 }
-
 // Adds the items with the specified identifiers to the specified section of
 // the snapshot.
 //
@@ -304,7 +303,6 @@ func (d NSDiffableDataSourceSnapshot) AppendSectionsWithIdentifiers(sectionIdent
 func (d NSDiffableDataSourceSnapshot) AppendItemsWithIdentifiersIntoSectionWithIdentifier(identifiers []objectivec.IObject, sectionIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("appendItemsWithIdentifiers:intoSectionWithIdentifier:"), objectivec.IObjectSliceToNSArray(identifiers), sectionIdentifier)
 }
-
 // Adds the items with the specified identifiers to the last section of the
 // snapshot.
 //
@@ -314,7 +312,6 @@ func (d NSDiffableDataSourceSnapshot) AppendItemsWithIdentifiersIntoSectionWithI
 func (d NSDiffableDataSourceSnapshot) AppendItemsWithIdentifiers(identifiers []objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("appendItemsWithIdentifiers:"), objectivec.IObjectSliceToNSArray(identifiers))
 }
-
 // Returns the number of items in the specified section of the snapshot.
 //
 // sectionIdentifier: The identifier of the section of the snapshot.
@@ -334,7 +331,6 @@ func (d NSDiffableDataSourceSnapshot) NumberOfItemsInSection(sectionIdentifier o
 	rv := objc.Send[int](d.ID, objc.Sel("numberOfItemsInSection:"), sectionIdentifier)
 	return rv
 }
-
 // Returns the index of the item in the snapshot with the specified
 // identifier.
 //
@@ -351,7 +347,6 @@ func (d NSDiffableDataSourceSnapshot) IndexOfItemIdentifier(itemIdentifier objec
 	rv := objc.Send[int](d.ID, objc.Sel("indexOfItemIdentifier:"), itemIdentifier)
 	return rv
 }
-
 // Returns the index of the section of the snapshot with the specified
 // identifier.
 //
@@ -368,7 +363,6 @@ func (d NSDiffableDataSourceSnapshot) IndexOfSectionIdentifier(sectionIdentifier
 	rv := objc.Send[int](d.ID, objc.Sel("indexOfSectionIdentifier:"), sectionIdentifier)
 	return rv
 }
-
 // Returns the identifiers of all of the items in the specified section of the
 // snapshot.
 //
@@ -385,7 +379,6 @@ func (d NSDiffableDataSourceSnapshot) ItemIdentifiersInSectionWithIdentifier(sec
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Returns the identifier of the section containing the specified item in the
 // snapshot.
 //
@@ -401,7 +394,6 @@ func (d NSDiffableDataSourceSnapshot) SectionIdentifierForSectionContainingItemI
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("sectionIdentifierForSectionContainingItemIdentifier:"), itemIdentifier)
 	return objectivec.Object{ID: rv}
 }
-
 // Inserts the provided items immediately after the item with the specified
 // identifier in the snapshot.
 //
@@ -413,7 +405,6 @@ func (d NSDiffableDataSourceSnapshot) SectionIdentifierForSectionContainingItemI
 func (d NSDiffableDataSourceSnapshot) InsertItemsWithIdentifiersAfterItemWithIdentifier(identifiers []objectivec.IObject, itemIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("insertItemsWithIdentifiers:afterItemWithIdentifier:"), objectivec.IObjectSliceToNSArray(identifiers), itemIdentifier)
 }
-
 // Inserts the provided items immediately before the item with the specified
 // identifier in the snapshot.
 //
@@ -425,7 +416,6 @@ func (d NSDiffableDataSourceSnapshot) InsertItemsWithIdentifiersAfterItemWithIde
 func (d NSDiffableDataSourceSnapshot) InsertItemsWithIdentifiersBeforeItemWithIdentifier(identifiers []objectivec.IObject, itemIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("insertItemsWithIdentifiers:beforeItemWithIdentifier:"), objectivec.IObjectSliceToNSArray(identifiers), itemIdentifier)
 }
-
 // Inserts the provided sections immediately after the section with the
 // specified identifier in the snapshot.
 //
@@ -438,7 +428,6 @@ func (d NSDiffableDataSourceSnapshot) InsertItemsWithIdentifiersBeforeItemWithId
 func (d NSDiffableDataSourceSnapshot) InsertSectionsWithIdentifiersAfterSectionWithIdentifier(sectionIdentifiers []objectivec.IObject, toSectionIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("insertSectionsWithIdentifiers:afterSectionWithIdentifier:"), objectivec.IObjectSliceToNSArray(sectionIdentifiers), toSectionIdentifier)
 }
-
 // Inserts the provided sections immediately before the section with the
 // specified identifier in the snapshot.
 //
@@ -451,14 +440,12 @@ func (d NSDiffableDataSourceSnapshot) InsertSectionsWithIdentifiersAfterSectionW
 func (d NSDiffableDataSourceSnapshot) InsertSectionsWithIdentifiersBeforeSectionWithIdentifier(sectionIdentifiers []objectivec.IObject, toSectionIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("insertSectionsWithIdentifiers:beforeSectionWithIdentifier:"), objectivec.IObjectSliceToNSArray(sectionIdentifiers), toSectionIdentifier)
 }
-
 // Deletes all of the items from the snapshot.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDiffableDataSourceSnapshotReference/deleteAllItems()
 func (d NSDiffableDataSourceSnapshot) DeleteAllItems() {
 	objc.Send[objc.ID](d.ID, objc.Sel("deleteAllItems"))
 }
-
 // Deletes the items with the specified identifiers from the snapshot.
 //
 // identifiers: The array of identifiers corresponding to the items to delete from the
@@ -468,7 +455,6 @@ func (d NSDiffableDataSourceSnapshot) DeleteAllItems() {
 func (d NSDiffableDataSourceSnapshot) DeleteItemsWithIdentifiers(identifiers []objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("deleteItemsWithIdentifiers:"), objectivec.IObjectSliceToNSArray(identifiers))
 }
-
 // Deletes the sections with the specified identifiers from the snapshot.
 //
 // sectionIdentifiers: The array of identifiers corresponding to the sections to delete from the
@@ -478,7 +464,6 @@ func (d NSDiffableDataSourceSnapshot) DeleteItemsWithIdentifiers(identifiers []o
 func (d NSDiffableDataSourceSnapshot) DeleteSectionsWithIdentifiers(sectionIdentifiers []objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("deleteSectionsWithIdentifiers:"), objectivec.IObjectSliceToNSArray(sectionIdentifiers))
 }
-
 // Moves the item from its current position in the snapshot to the position
 // immediately after the specified item.
 //
@@ -490,7 +475,6 @@ func (d NSDiffableDataSourceSnapshot) DeleteSectionsWithIdentifiers(sectionIdent
 func (d NSDiffableDataSourceSnapshot) MoveItemWithIdentifierAfterItemWithIdentifier(fromIdentifier objectivec.IObject, toIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("moveItemWithIdentifier:afterItemWithIdentifier:"), fromIdentifier, toIdentifier)
 }
-
 // Moves the item from its current position in the snapshot to the position
 // immediately before the specified item.
 //
@@ -502,7 +486,6 @@ func (d NSDiffableDataSourceSnapshot) MoveItemWithIdentifierAfterItemWithIdentif
 func (d NSDiffableDataSourceSnapshot) MoveItemWithIdentifierBeforeItemWithIdentifier(fromIdentifier objectivec.IObject, toIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("moveItemWithIdentifier:beforeItemWithIdentifier:"), fromIdentifier, toIdentifier)
 }
-
 // Moves the section from its current position in the snapshot to the position
 // immediately after the specified section.
 //
@@ -514,7 +497,6 @@ func (d NSDiffableDataSourceSnapshot) MoveItemWithIdentifierBeforeItemWithIdenti
 func (d NSDiffableDataSourceSnapshot) MoveSectionWithIdentifierAfterSectionWithIdentifier(fromSectionIdentifier objectivec.IObject, toSectionIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("moveSectionWithIdentifier:afterSectionWithIdentifier:"), fromSectionIdentifier, toSectionIdentifier)
 }
-
 // Moves the section from its current position in the snapshot to the position
 // immediately before the specified section.
 //
@@ -526,7 +508,6 @@ func (d NSDiffableDataSourceSnapshot) MoveSectionWithIdentifierAfterSectionWithI
 func (d NSDiffableDataSourceSnapshot) MoveSectionWithIdentifierBeforeSectionWithIdentifier(fromSectionIdentifier objectivec.IObject, toSectionIdentifier objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("moveSectionWithIdentifier:beforeSectionWithIdentifier:"), fromSectionIdentifier, toSectionIdentifier)
 }
-
 // Reloads the data within the specified items in the snapshot.
 //
 // identifiers: The array of identifiers corresponding to the items to reload in the
@@ -536,7 +517,6 @@ func (d NSDiffableDataSourceSnapshot) MoveSectionWithIdentifierBeforeSectionWith
 func (d NSDiffableDataSourceSnapshot) ReloadItemsWithIdentifiers(identifiers []objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("reloadItemsWithIdentifiers:"), objectivec.IObjectSliceToNSArray(identifiers))
 }
-
 // Reloads the data within the specified sections of the snapshot.
 //
 // sectionIdentifiers: The array of identifiers corresponding to the sections to reload in the
@@ -554,7 +534,6 @@ func (d NSDiffableDataSourceSnapshot) NumberOfItems() int {
 	rv := objc.Send[int](d.ID, objc.Sel("numberOfItems"))
 	return rv
 }
-
 // The number of sections in the snapshot.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDiffableDataSourceSnapshotReference/numberOfSections
@@ -562,7 +541,6 @@ func (d NSDiffableDataSourceSnapshot) NumberOfSections() int {
 	rv := objc.Send[int](d.ID, objc.Sel("numberOfSections"))
 	return rv
 }
-
 // The identifiers of all of the items in the snapshot.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDiffableDataSourceSnapshotReference/itemIdentifiers
@@ -572,7 +550,6 @@ func (d NSDiffableDataSourceSnapshot) ItemIdentifiers() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // The identifiers of all of the sections in the snapshot.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDiffableDataSourceSnapshotReference/sectionIdentifiers

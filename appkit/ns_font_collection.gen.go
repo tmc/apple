@@ -199,7 +199,6 @@ func (f NSFontCollection) MatchingDescriptorsForFamily(family string) []NSFontDe
 		return NSFontDescriptorFromID(id)
 	})
 }
-
 // Returns an array of font descriptors matching the logical descriptors for
 // the given font family and options.
 //
@@ -219,7 +218,6 @@ func (f NSFontCollection) MatchingDescriptorsForFamilyOptions(family string, opt
 		return NSFontDescriptorFromID(id)
 	})
 }
-
 // Returns an array of font descriptors matching the logical descriptors with
 // the given options.
 //
@@ -270,7 +268,6 @@ func (_NSFontCollectionClass NSFontCollectionClass) RenameFontCollectionWithName
 	return rv, nil
 
 }
-
 // Make the given font collection visible by giving it a name.
 //
 // collection: The font collection to make visible.
@@ -299,7 +296,6 @@ func (_NSFontCollectionClass NSFontCollectionClass) ShowFontCollectionWithNameVi
 	return rv, nil
 
 }
-
 // Remove from view the named font collection with the specified visibility.
 //
 // name: The name of the collection.
@@ -335,7 +331,6 @@ func (f NSFontCollection) MatchingDescriptors() []NSFontDescriptor {
 		return NSFontDescriptorFromID(id)
 	})
 }
-
 // An array of font descriptors whose matching results produce the
 // collection’s matching descriptors.
 //
@@ -351,7 +346,6 @@ func (f NSFontCollection) QueryDescriptors() []NSFontDescriptor {
 		return NSFontDescriptorFromID(id)
 	})
 }
-
 // A list of query font descriptors whose matching results are excluded from
 // the list of matching descriptors.
 //
@@ -374,7 +368,6 @@ func (_NSFontCollectionClass NSFontCollectionClass) FontCollectionWithAllAvailab
 	rv := objc.Send[objc.ID](objc.ID(_NSFontCollectionClass.class), objc.Sel("fontCollectionWithAllAvailableDescriptors"))
 	return NSFontCollectionFromID(objc.ID(rv))
 }
-
 // Returns all named collections visible to this process.
 //
 // # Return Value

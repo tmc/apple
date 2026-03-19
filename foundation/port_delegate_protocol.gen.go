@@ -45,7 +45,6 @@ func NSPortDelegateObjectFromID(id objc.ID) NSPortDelegateObject {
 // implement both delegate methods.
 //
 // See: https://developer.apple.com/documentation/Foundation/PortDelegate/handle(_:)
-
 func (o NSPortDelegateObject) HandlePortMessage(message INSPortMessage) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("handlePortMessage:"), message)

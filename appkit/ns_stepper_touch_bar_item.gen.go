@@ -3,7 +3,6 @@
 package appkit
 
 import (
-	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -169,10 +168,10 @@ func NewStepperTouchBarItemWithIdentifierFormatter(identifier NSTouchBarItemIden
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/init(identifier:drawingHandler:)
-func (_NSStepperTouchBarItemClass NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandler(identifier NSTouchBarItemIdentifier, drawingHandler RectHandler) NSStepperTouchBarItem {
-_block1, _cleanup1 := NewRectBlock(drawingHandler)
-	defer _cleanup1()
-	rv := objc.Send[objc.ID](objc.ID(_NSStepperTouchBarItemClass.class), objc.Sel("stepperTouchBarItemWithIdentifier:drawingHandler:"), identifier, _block1)
+func (_NSStepperTouchBarItemClass NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandler(identifier NSTouchBarItemIdentifier, drawingHandler func(corefoundation.CGRect, float64)) NSStepperTouchBarItem {
+	_block1 := objc.NewBlock(func(_ objc.Block, arg0 corefoundation.CGRect, arg1 float64) { drawingHandler(arg0, arg1) })
+	defer _block1.Release()
+	rv := objc.Send[objc.ID](objc.ID(_NSStepperTouchBarItemClass.class), objc.Sel("stepperTouchBarItemWithIdentifier:drawingHandler:"), identifier, objc.ID(_block1))
 	return NSStepperTouchBarItemFromID(rv)
 }
 
@@ -184,7 +183,6 @@ func (s NSStepperTouchBarItem) Target() objectivec.IObject {
 func (s NSStepperTouchBarItem) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTarget:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/action
 func (s NSStepperTouchBarItem) Action() objc.SEL {
 	rv := objc.Send[objc.SEL](s.ID, objc.Sel("action"))
@@ -193,7 +191,6 @@ func (s NSStepperTouchBarItem) Action() objc.SEL {
 func (s NSStepperTouchBarItem) SetAction(value objc.SEL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAction:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/value
 func (s NSStepperTouchBarItem) Value() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("value"))
@@ -202,7 +199,6 @@ func (s NSStepperTouchBarItem) Value() float64 {
 func (s NSStepperTouchBarItem) SetValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setValue:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/maxValue
 func (s NSStepperTouchBarItem) MaxValue() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("maxValue"))
@@ -211,7 +207,6 @@ func (s NSStepperTouchBarItem) MaxValue() float64 {
 func (s NSStepperTouchBarItem) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/minValue
 func (s NSStepperTouchBarItem) MinValue() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("minValue"))
@@ -220,7 +215,6 @@ func (s NSStepperTouchBarItem) MinValue() float64 {
 func (s NSStepperTouchBarItem) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSStepperTouchBarItem/increment
 func (s NSStepperTouchBarItem) Increment() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("increment"))
@@ -228,20 +222,5 @@ func (s NSStepperTouchBarItem) Increment() float64 {
 }
 func (s NSStepperTouchBarItem) SetIncrement(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncrement:"), value)
-}
-
-// StepperTouchBarItemWithIdentifierDrawingHandlerSync is a synchronous wrapper around [NSStepperTouchBarItem.StepperTouchBarItemWithIdentifierDrawingHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (sc NSStepperTouchBarItemClass) StepperTouchBarItemWithIdentifierDrawingHandlerSync(ctx context.Context, identifier NSTouchBarItemIdentifier) (corefoundation.CGRect, error) {
-	done := make(chan corefoundation.CGRect, 1)
-	sc.StepperTouchBarItemWithIdentifierDrawingHandler(identifier, func(val corefoundation.CGRect) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return corefoundation.CGRect{}, ctx.Err()
-	}
 }
 

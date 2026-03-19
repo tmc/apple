@@ -269,7 +269,6 @@ func (t NSTextLayoutFragment) InitWithCoder(coder foundation.INSCoder) NSTextLay
 	rv := objc.Send[NSTextLayoutFragment](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Create a new layout fragment using the provided text element and range.
 //
 // textElement: An [NSTextElement].
@@ -282,7 +281,6 @@ func (t NSTextLayoutFragment) InitWithTextElementRange(textElement INSTextElemen
 	rv := objc.Send[NSTextLayoutFragment](t.ID, objc.Sel("initWithTextElement:range:"), textElement, rangeInElement)
 	return rv
 }
-
 // Returns a text line fragment from a specific text location in the document.
 //
 // textLocation: A text location that a text line fragment contains.
@@ -310,7 +308,6 @@ func (t NSTextLayoutFragment) TextLineFragmentForTextLocationIsUpstreamAffinity(
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLineFragmentForTextLocation:isUpstreamAffinity:"), textLocation, isUpstreamAffinity)
 	return NSTextLineFragmentFromID(rv)
 }
-
 // Returns the text line fragment for the vertical offset you provide, or the
 // closest text line fragment beyond the vertical offset.
 //
@@ -342,7 +339,6 @@ func (t NSTextLayoutFragment) TextLineFragmentForVerticalOffsetRequiresExactMatc
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLineFragmentForVerticalOffset:requiresExactMatch:"), verticalOffset, requiresExactMatch)
 	return NSTextLineFragmentFromID(rv)
 }
-
 // Renders the visual representation of this element in the specified graphics
 // context.
 //
@@ -356,7 +352,6 @@ func (t NSTextLayoutFragment) TextLineFragmentForVerticalOffsetRequiresExactMatc
 func (t NSTextLayoutFragment) DrawAtPointInContext(point corefoundation.CGPoint, context coregraphics.CGContextRef) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawAtPoint:inContext:"), point, context)
 }
-
 // Invalidates any layout information associated with the text layout
 // fragment.
 //
@@ -364,7 +359,6 @@ func (t NSTextLayoutFragment) DrawAtPointInContext(point corefoundation.CGPoint,
 func (t NSTextLayoutFragment) InvalidateLayout() {
 	objc.Send[objc.ID](t.ID, objc.Sel("invalidateLayout"))
 }
-
 // Returns the frame in the text layout fragment coordinate system for the
 // attachment at the location you specify.
 //
@@ -408,7 +402,6 @@ func (t NSTextLayoutFragment) TextLineFragments() []NSTextLineFragment {
 		return NSTextLineFragmentFromID(id)
 	})
 }
-
 // The layout information state.
 //
 // # Discussion
@@ -420,7 +413,6 @@ func (t NSTextLayoutFragment) State() NSTextLayoutFragmentState {
 	rv := objc.Send[NSTextLayoutFragmentState](t.ID, objc.Sel("state"))
 	return NSTextLayoutFragmentState(rv)
 }
-
 // The range inside the text element relative to the document origin.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/rangeInElement
@@ -428,7 +420,6 @@ func (t NSTextLayoutFragment) RangeInElement() INSTextRange {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("rangeInElement"))
 	return NSTextRangeFromID(objc.ID(rv))
 }
-
 // The parent text element.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/textElement
@@ -436,7 +427,6 @@ func (t NSTextLayoutFragment) TextElement() INSTextElement {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textElement"))
 	return NSTextElementFromID(objc.ID(rv))
 }
-
 // The layout manager for this text layout fragment.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/textLayoutManager
@@ -444,7 +434,6 @@ func (t NSTextLayoutFragment) TextLayoutManager() INSTextLayoutManager {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textLayoutManager"))
 	return NSTextLayoutManagerFromID(objc.ID(rv))
 }
-
 // The rectangle the framework uses for tiling the layout fragment inside the
 // target layout coordinate system.
 //
@@ -453,7 +442,6 @@ func (t NSTextLayoutFragment) LayoutFragmentFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("layoutFragmentFrame"))
 	return corefoundation.CGRect(rv)
 }
-
 // The bounds defining the area required for rendering the contents.
 //
 // # Discussion
@@ -472,7 +460,6 @@ func (t NSTextLayoutFragment) RenderingSurfaceBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("renderingSurfaceBounds"))
 	return corefoundation.CGRect(rv)
 }
-
 // The attachment view provider associated with the text layout fragment.
 //
 // # Discussion
@@ -489,7 +476,6 @@ func (t NSTextLayoutFragment) TextAttachmentViewProviders() []NSTextAttachmentVi
 		return NSTextAttachmentViewProviderFromID(id)
 	})
 }
-
 // The queue on which the framework dispatches layout operations.
 //
 // # Discussion
@@ -504,7 +490,6 @@ func (t NSTextLayoutFragment) LayoutQueue() foundation.NSOperationQueue {
 func (t NSTextLayoutFragment) SetLayoutQueue(value foundation.NSOperationQueue) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutQueue:"), value)
 }
-
 // The amount of space reserved during paragraph layout between the bottom of
 // the last line in the paragraph and the bottom of the text layout fragment.
 //
@@ -513,7 +498,6 @@ func (t NSTextLayoutFragment) BottomMargin() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("bottomMargin"))
 	return rv
 }
-
 // The amount of margin space reserved during paragraph layout between the
 // leading edge of the text layout fragment and the start of the lines in the
 // paragraph.
@@ -528,7 +512,6 @@ func (t NSTextLayoutFragment) LeadingPadding() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("leadingPadding"))
 	return rv
 }
-
 // The amount of space reserved during paragraph layout between the top of the
 // text layout fragment and the top of the first line in the paragraph.
 //
@@ -537,7 +520,6 @@ func (t NSTextLayoutFragment) TopMargin() float64 {
 	rv := objc.Send[float64](t.ID, objc.Sel("topMargin"))
 	return rv
 }
-
 // The amount of margin space reserved during paragraph layout between the end
 // of the lines in the paragraph and the trailing edge of the text layout
 // fragment.

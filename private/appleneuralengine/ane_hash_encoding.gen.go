@@ -81,41 +81,35 @@ func (_ANEHashEncodingClass ANEHashEncodingClass) ConvertToHexStringLength(strin
 	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("convertToHexString:length:"), unsafe.Pointer(unsafe.SliceData(string_)), length)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/copySHA256For:toBuffer:
 func (_ANEHashEncodingClass ANEHashEncodingClass) CopySHA256ForToBuffer(sHA256For objectivec.IObject, buffer []byte) {
 	objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("copySHA256For:toBuffer:"), sHA256For, unsafe.Pointer(unsafe.SliceData(buffer)))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/hashForString:seed:
 func (_ANEHashEncodingClass ANEHashEncodingClass) HashForStringSeed(string_ objectivec.IObject, seed uint32) uint32 {
 	rv := objc.Send[uint32](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hashForString:seed:"), string_, seed)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/hexStringForBytes:length:
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForBytesLength(bytes []byte, length uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), length)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/hexStringForData:
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForData(data objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForData:"), data)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/hexStringForDataArray:
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForDataArray(array objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForDataArray:"), array)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/hexStringForString:
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForString(string_ objectivec.IObject) objectivec.IObject {

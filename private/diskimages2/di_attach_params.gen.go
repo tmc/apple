@@ -238,7 +238,6 @@ func (d DIAttachParams) SetPassphraseError(passphrase []byte) (bool, error) {
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/newAttachWithError:
 func (d DIAttachParams) NewAttachWithError() (IDIDeviceHandle, error) {
@@ -251,12 +250,10 @@ func (d DIAttachParams) NewAttachWithError() (IDIDeviceHandle, error) {
 	return DIDeviceHandleFromID(rv), nil
 
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/setupDefaults
 func (d DIAttachParams) SetupDefaults() {
 	objc.Send[objc.ID](d.ID, objc.Sel("setupDefaults"))
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/initWithURL:error:
 func (d DIAttachParams) InitWithURLError(url foundation.INSURL) (DIAttachParams, error) {
@@ -269,7 +266,6 @@ func (d DIAttachParams) InitWithURLError(url foundation.INSURL) (DIAttachParams,
 	return DIAttachParamsFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/initWithURL:shadowURLs:error:
 func (d DIAttachParams) InitWithURLShadowURLsError(url foundation.INSURL, shadowURLs foundation.INSArray) (DIAttachParams, error) {
@@ -282,7 +278,6 @@ func (d DIAttachParams) InitWithURLShadowURLsError(url foundation.INSURL, shadow
 	return DIAttachParamsFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/initWithExistingParams:error:
 func (d DIAttachParams) InitWithExistingParamsError(params IDIAttachParams) (DIAttachParams, error) {
@@ -310,13 +305,11 @@ func (d DIAttachParams) AutoMount() bool {
 func (d DIAttachParams) SetAutoMount(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAutoMount:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/blockSize
 func (d DIAttachParams) BlockSize() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("blockSize"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/commandSize
 func (d DIAttachParams) CommandSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("commandSize"))
@@ -325,7 +318,6 @@ func (d DIAttachParams) CommandSize() uint64 {
 func (d DIAttachParams) SetCommandSize(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCommandSize:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/customCacheURL
 func (d DIAttachParams) CustomCacheURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("customCacheURL"))
@@ -334,7 +326,6 @@ func (d DIAttachParams) CustomCacheURL() foundation.INSURL {
 func (d DIAttachParams) SetCustomCacheURL(value foundation.INSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setCustomCacheURL:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/emulateExternalDisk
 func (d DIAttachParams) EmulateExternalDisk() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("emulateExternalDisk"))
@@ -343,7 +334,6 @@ func (d DIAttachParams) EmulateExternalDisk() bool {
 func (d DIAttachParams) SetEmulateExternalDisk(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setEmulateExternalDisk:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/fileMode
 func (d DIAttachParams) FileMode() int64 {
 	rv := objc.Send[int64](d.ID, objc.Sel("fileMode"))
@@ -352,7 +342,6 @@ func (d DIAttachParams) FileMode() int64 {
 func (d DIAttachParams) SetFileMode(value int64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFileMode:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/handleRefCount
 func (d DIAttachParams) HandleRefCount() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("handleRefCount"))
@@ -361,7 +350,6 @@ func (d DIAttachParams) HandleRefCount() bool {
 func (d DIAttachParams) SetHandleRefCount(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setHandleRefCount:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/inputMountedFrom
 func (d DIAttachParams) InputMountedFrom() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputMountedFrom"))
@@ -370,7 +358,6 @@ func (d DIAttachParams) InputMountedFrom() string {
 func (d DIAttachParams) SetInputMountedFrom(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setInputMountedFrom:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/onDiskCache
 func (d DIAttachParams) OnDiskCache() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("onDiskCache"))
@@ -379,7 +366,6 @@ func (d DIAttachParams) OnDiskCache() bool {
 func (d DIAttachParams) SetOnDiskCache(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setOnDiskCache:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/regEntryID
 func (d DIAttachParams) RegEntryID() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("regEntryID"))
@@ -388,7 +374,6 @@ func (d DIAttachParams) RegEntryID() uint64 {
 func (d DIAttachParams) SetRegEntryID(value uint64) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRegEntryID:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/shouldValidateShadows
 func (d DIAttachParams) ShouldValidateShadows() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldValidateShadows"))
@@ -397,7 +382,6 @@ func (d DIAttachParams) ShouldValidateShadows() bool {
 func (d DIAttachParams) SetShouldValidateShadows(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setShouldValidateShadows:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/singleInstanceDaemon
 func (d DIAttachParams) SingleInstanceDaemon() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("singleInstanceDaemon"))
@@ -406,7 +390,6 @@ func (d DIAttachParams) SingleInstanceDaemon() bool {
 func (d DIAttachParams) SetSingleInstanceDaemon(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSingleInstanceDaemon:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/suppressSsdFlags
 func (d DIAttachParams) SuppressSsdFlags() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("suppressSsdFlags"))
@@ -415,7 +398,6 @@ func (d DIAttachParams) SuppressSsdFlags() bool {
 func (d DIAttachParams) SetSuppressSsdFlags(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSuppressSsdFlags:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/uniqueDevice
 func (d DIAttachParams) UniqueDevice() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("uniqueDevice"))

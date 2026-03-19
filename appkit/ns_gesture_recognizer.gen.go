@@ -591,7 +591,6 @@ func (g NSGestureRecognizer) InitWithTargetAction(target objectivec.IObject, act
 	rv := objc.Send[NSGestureRecognizer](g.ID, objc.Sel("initWithTarget:action:"), target, action)
 	return rv
 }
-
 // Returns the point computed as the location of the gesture.
 //
 // view: The view whose coordinate system you want to use for determining the
@@ -618,7 +617,6 @@ func (g NSGestureRecognizer) LocationInView(view INSView) corefoundation.CGPoint
 	rv := objc.Send[corefoundation.CGPoint](g.ID, objc.Sel("locationInView:"), view)
 	return corefoundation.CGPoint(rv)
 }
-
 // Overridden to reset the internal state of the gesture recognizer when an
 // attempt completes.
 //
@@ -641,7 +639,6 @@ func (g NSGestureRecognizer) LocationInView(view INSView) corefoundation.CGPoint
 func (g NSGestureRecognizer) Reset() {
 	objc.Send[objc.ID](g.ID, objc.Sel("reset"))
 }
-
 // Informs the gesture recognizer that the user pressed the left mouse button.
 //
 // event: An object encapsulating information about the mouse-down event.
@@ -661,7 +658,6 @@ func (g NSGestureRecognizer) Reset() {
 func (g NSGestureRecognizer) MouseDown(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mouseDown:"), event)
 }
-
 // Informs the gesture recognizer that the user moved the mouse with the left
 // button pressed.
 //
@@ -682,7 +678,6 @@ func (g NSGestureRecognizer) MouseDown(event INSEvent) {
 func (g NSGestureRecognizer) MouseDragged(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mouseDragged:"), event)
 }
-
 // Informs the gesture recognizer that the user released the left mouse
 // button.
 //
@@ -703,7 +698,6 @@ func (g NSGestureRecognizer) MouseDragged(event INSEvent) {
 func (g NSGestureRecognizer) MouseUp(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("mouseUp:"), event)
 }
-
 // Informs the gesture recognizer that the user pressed a mouse button other
 // than the left or right one.
 //
@@ -724,7 +718,6 @@ func (g NSGestureRecognizer) MouseUp(event INSEvent) {
 func (g NSGestureRecognizer) OtherMouseDown(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("otherMouseDown:"), event)
 }
-
 // Informs the gesture recognizer that the user moved the mouse with a button
 // other than the left or right one pressed.
 //
@@ -745,7 +738,6 @@ func (g NSGestureRecognizer) OtherMouseDown(event INSEvent) {
 func (g NSGestureRecognizer) OtherMouseDragged(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("otherMouseDragged:"), event)
 }
-
 // Informs the gesture recognizer that the user released a mouse button other
 // than the left or right one.
 //
@@ -766,7 +758,6 @@ func (g NSGestureRecognizer) OtherMouseDragged(event INSEvent) {
 func (g NSGestureRecognizer) OtherMouseUp(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("otherMouseUp:"), event)
 }
-
 // Informs the gesture recognizer that the user pressed the right mouse
 // button.
 //
@@ -787,7 +778,6 @@ func (g NSGestureRecognizer) OtherMouseUp(event INSEvent) {
 func (g NSGestureRecognizer) RightMouseDown(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("rightMouseDown:"), event)
 }
-
 // Informs the gesture recognizer that the user moved the mouse with the right
 // button pressed.
 //
@@ -808,7 +798,6 @@ func (g NSGestureRecognizer) RightMouseDown(event INSEvent) {
 func (g NSGestureRecognizer) RightMouseDragged(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("rightMouseDragged:"), event)
 }
-
 // Informs the gesture recognizer that the user released the right mouse
 // button.
 //
@@ -829,7 +818,6 @@ func (g NSGestureRecognizer) RightMouseDragged(event INSEvent) {
 func (g NSGestureRecognizer) RightMouseUp(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("rightMouseUp:"), event)
 }
-
 // Informs the gesture recognizer that the user is performing a pinch gesture.
 //
 // event: An object encapsulating information about the magnify event.
@@ -849,7 +837,6 @@ func (g NSGestureRecognizer) RightMouseUp(event INSEvent) {
 func (g NSGestureRecognizer) MagnifyWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("magnifyWithEvent:"), event)
 }
-
 // Informs the gesture recognizer that the user is performing a rotation
 // gesture.
 //
@@ -870,7 +857,6 @@ func (g NSGestureRecognizer) MagnifyWithEvent(event INSEvent) {
 func (g NSGestureRecognizer) RotateWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("rotateWithEvent:"), event)
 }
-
 // Overridden to indicate that the specified gesture recognizer can prevent
 // the current object from recognizing a gesture.
 //
@@ -900,7 +886,6 @@ func (g NSGestureRecognizer) CanBePreventedByGestureRecognizer(preventingGesture
 	rv := objc.Send[bool](g.ID, objc.Sel("canBePreventedByGestureRecognizer:"), preventingGestureRecognizer)
 	return rv
 }
-
 // Overridden to indicate that the current object can prevent the specified
 // gesture recognizer from recognizing its gesture.
 //
@@ -930,7 +915,6 @@ func (g NSGestureRecognizer) CanPreventGestureRecognizer(preventedGestureRecogni
 	rv := objc.Send[bool](g.ID, objc.Sel("canPreventGestureRecognizer:"), preventedGestureRecognizer)
 	return rv
 }
-
 // Overridden to indicate that the current object must fail before the
 // specified gesture recognizer begins recognizing its gesture.
 //
@@ -954,7 +938,6 @@ func (g NSGestureRecognizer) ShouldBeRequiredToFailByGestureRecognizer(otherGest
 	rv := objc.Send[bool](g.ID, objc.Sel("shouldBeRequiredToFailByGestureRecognizer:"), otherGestureRecognizer)
 	return rv
 }
-
 // Overridden to indicate that the specified gesture recognizer must fail
 // before the current object begins recognizing its gesture.
 //
@@ -978,7 +961,6 @@ func (g NSGestureRecognizer) ShouldRequireFailureOfGestureRecognizer(otherGestur
 	rv := objc.Send[bool](g.ID, objc.Sel("shouldRequireFailureOfGestureRecognizer:"), otherGestureRecognizer)
 	return rv
 }
-
 // Informs the gesture recognizer that the user has pressed a key.
 //
 // event: An object encapsulating information about the key-down event.
@@ -997,7 +979,6 @@ func (g NSGestureRecognizer) ShouldRequireFailureOfGestureRecognizer(otherGestur
 func (g NSGestureRecognizer) KeyDown(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("keyDown:"), event)
 }
-
 // Informs the gesture recognizer that the user released a key.
 //
 // event: An object encapsulating information about the key-up event.
@@ -1016,7 +997,6 @@ func (g NSGestureRecognizer) KeyDown(event INSEvent) {
 func (g NSGestureRecognizer) KeyUp(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("keyUp:"), event)
 }
-
 // Informs the user that a tablet-point event occurred.
 //
 // event: An object encapsulating information about the tablet-point event.
@@ -1037,7 +1017,6 @@ func (g NSGestureRecognizer) KeyUp(event INSEvent) {
 func (g NSGestureRecognizer) TabletPoint(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("tabletPoint:"), event)
 }
-
 // Informs the current object that the user pressed or released a modifier key
 // (Shift, Control, and so on).
 //
@@ -1056,7 +1035,6 @@ func (g NSGestureRecognizer) TabletPoint(event INSEvent) {
 func (g NSGestureRecognizer) FlagsChanged(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("flagsChanged:"), event)
 }
-
 // Informs the current object that a pressure change occurred on a system that
 // supports pressure sensitivity.
 //
@@ -1079,14 +1057,12 @@ func (g NSGestureRecognizer) FlagsChanged(event INSEvent) {
 func (g NSGestureRecognizer) PressureChangeWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("pressureChangeWithEvent:"), event)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/init(coder:)
 func (g NSGestureRecognizer) InitWithCoder(coder foundation.INSCoder) NSGestureRecognizer {
 	rv := objc.Send[NSGestureRecognizer](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Called when one or more fingers first make contact with an [NSTouchBar]
 // instance on the Touch Bar.
 //
@@ -1094,7 +1070,6 @@ func (g NSGestureRecognizer) InitWithCoder(coder foundation.INSCoder) NSGestureR
 func (g NSGestureRecognizer) TouchesBeganWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("touchesBeganWithEvent:"), event)
 }
-
 // Called when a system event, such as a low-memory warning, cancels an
 // in-progress touch event in an [NSTouchBar] object.
 //
@@ -1102,7 +1077,6 @@ func (g NSGestureRecognizer) TouchesBeganWithEvent(event INSEvent) {
 func (g NSGestureRecognizer) TouchesCancelledWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("touchesCancelledWithEvent:"), event)
 }
-
 // Called when one or more fingers are removed from contact with an
 // [NSTouchBar] instance on the Touch Bar.
 //
@@ -1110,7 +1084,6 @@ func (g NSGestureRecognizer) TouchesCancelledWithEvent(event INSEvent) {
 func (g NSGestureRecognizer) TouchesEndedWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("touchesEndedWithEvent:"), event)
 }
-
 // Called when one or more fingers, associated with an in-progress event, move
 // within an [NSTouchBar] instance on the Touch Bar.
 //
@@ -1118,7 +1091,6 @@ func (g NSGestureRecognizer) TouchesEndedWithEvent(event INSEvent) {
 func (g NSGestureRecognizer) TouchesMovedWithEvent(event INSEvent) {
 	objc.Send[objc.ID](g.ID, objc.Sel("touchesMovedWithEvent:"), event)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/mouseCancelled(with:)
 func (g NSGestureRecognizer) MouseCancelled(event INSEvent) {
@@ -1153,7 +1125,6 @@ func (g NSGestureRecognizer) Action() objc.SEL {
 func (g NSGestureRecognizer) SetAction(value objc.SEL) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAction:"), value)
 }
-
 // The object that implements the action method.
 //
 // # Discussion
@@ -1169,7 +1140,6 @@ func (g NSGestureRecognizer) Target() objectivec.IObject {
 func (g NSGestureRecognizer) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setTarget:"), value)
 }
-
 // The current state of the gesture recognizer.
 //
 // # Discussion
@@ -1191,7 +1161,6 @@ func (g NSGestureRecognizer) State() NSGestureRecognizerState {
 	rv := objc.Send[NSGestureRecognizerState](g.ID, objc.Sel("state"))
 	return NSGestureRecognizerState(rv)
 }
-
 // The view to which the gesture recognizer is attached.
 //
 // # Discussion
@@ -1205,7 +1174,6 @@ func (g NSGestureRecognizer) View() INSView {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("view"))
 	return NSViewFromID(objc.ID(rv))
 }
-
 // A Boolean value indicating whether the gesture recognizer is able to handle
 // events.
 //
@@ -1232,7 +1200,6 @@ func (g NSGestureRecognizer) Enabled() bool {
 func (g NSGestureRecognizer) SetEnabled(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setEnabled:"), value)
 }
-
 // A Boolean value that indicates whether primary mouse button events are
 // delivered only after gesture recognition fails.
 //
@@ -1257,7 +1224,6 @@ func (g NSGestureRecognizer) DelaysPrimaryMouseButtonEvents() bool {
 func (g NSGestureRecognizer) SetDelaysPrimaryMouseButtonEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysPrimaryMouseButtonEvents:"), value)
 }
-
 // A Boolean value that indicates whether secondary mouse button events are
 // delivered only after gesture recognition fails.
 //
@@ -1282,7 +1248,6 @@ func (g NSGestureRecognizer) DelaysSecondaryMouseButtonEvents() bool {
 func (g NSGestureRecognizer) SetDelaysSecondaryMouseButtonEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysSecondaryMouseButtonEvents:"), value)
 }
-
 // A Boolean value that indicates whether other mouse button events are
 // delivered only after gesture recognition fails.
 //
@@ -1307,7 +1272,6 @@ func (g NSGestureRecognizer) DelaysOtherMouseButtonEvents() bool {
 func (g NSGestureRecognizer) SetDelaysOtherMouseButtonEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysOtherMouseButtonEvents:"), value)
 }
-
 // A Boolean value that indicates whether key events are delivered only after
 // gesture recognition fails.
 //
@@ -1332,7 +1296,6 @@ func (g NSGestureRecognizer) DelaysKeyEvents() bool {
 func (g NSGestureRecognizer) SetDelaysKeyEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysKeyEvents:"), value)
 }
-
 // A Boolean value that indicates whether magnification events are delivered
 // only after gesture recognition fails.
 //
@@ -1357,7 +1320,6 @@ func (g NSGestureRecognizer) DelaysMagnificationEvents() bool {
 func (g NSGestureRecognizer) SetDelaysMagnificationEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysMagnificationEvents:"), value)
 }
-
 // A Boolean value that indicates whether rotation events are delivered only
 // after gesture recognition fails.
 //
@@ -1382,7 +1344,6 @@ func (g NSGestureRecognizer) DelaysRotationEvents() bool {
 func (g NSGestureRecognizer) SetDelaysRotationEvents(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelaysRotationEvents:"), value)
 }
-
 // The delegate of the gesture recognizer.
 //
 // # Discussion
@@ -1402,7 +1363,6 @@ func (g NSGestureRecognizer) Delegate() NSGestureRecognizerDelegate {
 func (g NSGestureRecognizer) SetDelegate(value NSGestureRecognizerDelegate) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
-
 // Configures the behavior and progression of the Force Touch trackpad when
 // responding to recognized pressure gestures.
 //
@@ -1429,7 +1389,6 @@ func (g NSGestureRecognizer) PressureConfiguration() INSPressureConfiguration {
 func (g NSGestureRecognizer) SetPressureConfiguration(value INSPressureConfiguration) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPressureConfiguration:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/allowedTouchTypes
 func (g NSGestureRecognizer) AllowedTouchTypes() NSTouchTypeMask {
 	rv := objc.Send[NSTouchTypeMask](g.ID, objc.Sel("allowedTouchTypes"))
@@ -1438,13 +1397,11 @@ func (g NSGestureRecognizer) AllowedTouchTypes() NSTouchTypeMask {
 func (g NSGestureRecognizer) SetAllowedTouchTypes(value NSTouchTypeMask) {
 	objc.Send[struct{}](g.ID, objc.Sel("setAllowedTouchTypes:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/modifierFlags
 func (g NSGestureRecognizer) ModifierFlags() NSEventModifierFlags {
 	rv := objc.Send[NSEventModifierFlags](g.ID, objc.Sel("modifierFlags"))
 	return NSEventModifierFlags(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/name
 func (g NSGestureRecognizer) Name() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))

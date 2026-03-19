@@ -276,7 +276,6 @@ func (r NSRunningApplication) ActivateWithOptions(options NSApplicationActivatio
 	rv := objc.Send[bool](r.ID, objc.Sel("activateWithOptions:"), options)
 	return rv
 }
-
 // Attempts to activate the application using the specified options.
 //
 // application: The application to activate.
@@ -302,7 +301,6 @@ func (r NSRunningApplication) ActivateFromApplicationOptions(application INSRunn
 	rv := objc.Send[bool](r.ID, objc.Sel("activateFromApplication:options:"), application, options)
 	return rv
 }
-
 // Attempts to hide or the application.
 //
 // # Return Value
@@ -324,7 +322,6 @@ func (r NSRunningApplication) Hide() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("hide"))
 	return rv
 }
-
 // Attempts to unhide or the application.
 //
 // # Return Value
@@ -346,7 +343,6 @@ func (r NSRunningApplication) Unhide() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("unhide"))
 	return rv
 }
-
 // Attempts to force the receiver to quit.
 //
 // # Return Value
@@ -376,7 +372,6 @@ func (r NSRunningApplication) ForceTerminate() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("forceTerminate"))
 	return rv
 }
-
 // Attempts to quit the receiver normally.
 //
 // # Return Value
@@ -423,7 +418,6 @@ func (_NSRunningApplicationClass NSRunningApplicationClass) RunningApplicationsW
 		return NSRunningApplicationFromID(id)
 	})
 }
-
 // Terminates invisibly running applications as if triggered by system memory
 // pressure.
 //
@@ -449,7 +443,6 @@ func (r NSRunningApplication) Active() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isActive"))
 	return rv
 }
-
 // Indicates the activation policy of the application.
 //
 // # Discussion
@@ -464,7 +457,6 @@ func (r NSRunningApplication) ActivationPolicy() NSApplicationActivationPolicy {
 	rv := objc.Send[NSApplicationActivationPolicy](r.ID, objc.Sel("activationPolicy"))
 	return NSApplicationActivationPolicy(rv)
 }
-
 // Indicates whether the application is currently hidden.
 //
 // # Discussion
@@ -476,7 +468,6 @@ func (r NSRunningApplication) Hidden() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isHidden"))
 	return rv
 }
-
 // Indicates the localized name of the application.
 //
 // # Discussion
@@ -489,7 +480,6 @@ func (r NSRunningApplication) LocalizedName() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("localizedName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Returns the icon for the receiver’s application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/icon
@@ -497,7 +487,6 @@ func (r NSRunningApplication) Icon() INSImage {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("icon"))
 	return NSImageFromID(objc.ID(rv))
 }
-
 // Indicates the [CFBundleIdentifier] of the application.
 //
 // # Discussion
@@ -510,7 +499,6 @@ func (r NSRunningApplication) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Indicates the URL to the application’s bundle.
 //
 // # Discussion
@@ -523,7 +511,6 @@ func (r NSRunningApplication) BundleURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("bundleURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // Indicates the executing processor architecture for the application.
 //
 // # Discussion
@@ -538,7 +525,6 @@ func (r NSRunningApplication) ExecutableArchitecture() int {
 	rv := objc.Send[int](r.ID, objc.Sel("executableArchitecture"))
 	return rv
 }
-
 // Indicates the URL to the application’s executable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunningApplication/executableURL
@@ -546,7 +532,6 @@ func (r NSRunningApplication) ExecutableURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("executableURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // Indicates the date when the application was launched.
 //
 // # Discussion
@@ -559,7 +544,6 @@ func (r NSRunningApplication) LaunchDate() foundation.INSDate {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("launchDate"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-
 // A Boolean value that determines whether the receiver’s process has
 // finished launching.
 //
@@ -579,7 +563,6 @@ func (r NSRunningApplication) FinishedLaunching() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isFinishedLaunching"))
 	return rv
 }
-
 // Indicates the process identifier (pid) of the application.
 //
 // # Discussion
@@ -597,7 +580,6 @@ func (r NSRunningApplication) ProcessIdentifier() int32 {
 	rv := objc.Send[int32](r.ID, objc.Sel("processIdentifier"))
 	return rv
 }
-
 // Returns whether the application owns the current menu bar.
 //
 // # Discussion
@@ -609,7 +591,6 @@ func (r NSRunningApplication) OwnsMenuBar() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("ownsMenuBar"))
 	return rv
 }
-
 // Indicates that the receiver’s application has terminated.
 //
 // # Discussion
@@ -627,7 +608,6 @@ func (r NSRunningApplication) Terminated() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isTerminated"))
 	return rv
 }
-
 // Returns an array of running apps.
 //
 // See: https://developer.apple.com/documentation/appkit/nsworkspace/runningapplications

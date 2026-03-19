@@ -60,13 +60,11 @@ func NSComboBoxCellDataSourceObjectFromID(id objc.ID) NSComboBoxCellDataSourceOb
 // incremental searches.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCellDataSource/comboBoxCell(_:completedString:)
-
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellCompletedString(comboBoxCell INSComboBoxCell, uncompletedString string) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("comboBoxCell:completedString:"), comboBoxCell, objc.String(uncompletedString))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Invoked by an [NSComboBoxCell] object to synchronize the pop-up list’s
 // selected item with the text field’s contents.
 //
@@ -87,13 +85,11 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellCompletedString(comboBoxCell
 // pop-up list’s selected item with the text field’s contents.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCellDataSource/comboBoxCell(_:indexOfItemWithStringValue:)
-
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellIndexOfItemWithStringValue(comboBoxCell INSComboBoxCell, string_ string) uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("comboBoxCell:indexOfItemWithStringValue:"), comboBoxCell, objc.String(string_))
 	return rv
 	}
-
 // Returns the object that corresponds to the item at the given index in the
 // combo box cell.
 //
@@ -112,13 +108,11 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellIndexOfItemWithStringValue(c
 // in its pop-up list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCellDataSource/comboBoxCell(_:objectValueForItemAt:)
-
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellObjectValueForItemAtIndex(comboBoxCell INSComboBoxCell, index int) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("comboBoxCell:objectValueForItemAtIndex:"), comboBoxCell, index)
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the number of items managed for the combo box cell by your data
 // source object.
 //
@@ -134,7 +128,6 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellObjectValueForItemAtIndex(co
 // should display in its pop-up list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCellDataSource/numberOfItems(in:)
-
 func (o NSComboBoxCellDataSourceObject) NumberOfItemsInComboBoxCell(comboBoxCell INSComboBoxCell) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfItemsInComboBoxCell:"), comboBoxCell)

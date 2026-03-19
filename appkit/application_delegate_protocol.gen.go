@@ -43,12 +43,10 @@ func NSApplicationDelegateObjectFromID(id objc.ID) NSApplicationDelegateObject {
 // [willFinishLaunchingNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/willFinishLaunchingNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationWillFinishLaunching(_:)
-
 func (o NSApplicationDelegateObject) ApplicationWillFinishLaunching(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationWillFinishLaunching:"), notification)
 	}
-
 // Tells the delegate that the app’s initialization is complete but it
 // hasn’t received its first event.
 //
@@ -69,12 +67,10 @@ func (o NSApplicationDelegateObject) ApplicationWillFinishLaunching(notification
 // your delegate, which is called before [ApplicationOpenFile].)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDidFinishLaunching(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDidFinishLaunching(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationDidFinishLaunching:"), notification)
 	}
-
 // Tells the delegate that the app is about to become active.
 //
 // notification: A notification named [willBecomeActiveNotification]. Calling the [object]
@@ -84,12 +80,10 @@ func (o NSApplicationDelegateObject) ApplicationDidFinishLaunching(notification 
 // [willBecomeActiveNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/willBecomeActiveNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationWillBecomeActive(_:)
-
 func (o NSApplicationDelegateObject) ApplicationWillBecomeActive(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationWillBecomeActive:"), notification)
 	}
-
 // Tells the delegate that the app is now active.
 //
 // notification: A notification named [didBecomeActiveNotification]. Calling the [object]
@@ -99,12 +93,10 @@ func (o NSApplicationDelegateObject) ApplicationWillBecomeActive(notification fo
 // [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDidBecomeActive(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDidBecomeActive(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationDidBecomeActive:"), notification)
 	}
-
 // Tells the delegate that the app is about to become inactive and will lose
 // focus.
 //
@@ -115,12 +107,10 @@ func (o NSApplicationDelegateObject) ApplicationDidBecomeActive(notification fou
 // [willResignActiveNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/willResignActiveNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationWillResignActive(_:)
-
 func (o NSApplicationDelegateObject) ApplicationWillResignActive(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationWillResignActive:"), notification)
 	}
-
 // Tells the delegate that the app is no longer active and doesn’t have
 // focus.
 //
@@ -131,12 +121,10 @@ func (o NSApplicationDelegateObject) ApplicationWillResignActive(notification fo
 // [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDidResignActive(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDidResignActive(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationDidResignActive:"), notification)
 	}
-
 // Returns a value that indicates if the app should terminate.
 //
 // sender: The application object that is about to be terminated.
@@ -169,13 +157,11 @@ func (o NSApplicationDelegateObject) ApplicationDidResignActive(notification fou
 // [NSApplication.TerminateReply.terminateNow]: https://developer.apple.com/documentation/AppKit/NSApplication/TerminateReply/terminateNow
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationShouldTerminate(_:)
-
 func (o NSApplicationDelegateObject) ApplicationShouldTerminate(sender INSApplication) NSApplicationTerminateReply {
 	
 	rv := objc.Send[NSApplicationTerminateReply](o.ID, objc.Sel("applicationShouldTerminate:"), sender)
 	return rv
 	}
-
 // Returns a Boolean value that indicates if the app terminates once the last
 // window closes.
 //
@@ -205,13 +191,11 @@ func (o NSApplicationDelegateObject) ApplicationShouldTerminate(sender INSApplic
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationShouldTerminateAfterLastWindowClosed(_:)
-
 func (o NSApplicationDelegateObject) ApplicationShouldTerminateAfterLastWindowClosed(sender INSApplication) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("applicationShouldTerminateAfterLastWindowClosed:"), sender)
 	return rv
 	}
-
 // Tells the delegate that the app is about to terminate.
 //
 // notification: A notification named [willTerminateNotification]. Calling the [object]
@@ -226,12 +210,10 @@ func (o NSApplicationDelegateObject) ApplicationShouldTerminateAfterLastWindowCl
 // app terminates. The app will terminate after this method returns.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationWillTerminate(_:)
-
 func (o NSApplicationDelegateObject) ApplicationWillTerminate(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationWillTerminate:"), notification)
 	}
-
 // Tells the delegate that the app is about to be hidden.
 //
 // notification: A notification named [willHideNotification]. Calling the [object] method of
@@ -241,12 +223,10 @@ func (o NSApplicationDelegateObject) ApplicationWillTerminate(notification found
 // [willHideNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/willHideNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationWillHide(_:)
-
 func (o NSApplicationDelegateObject) ApplicationWillHide(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationWillHide:"), notification)
 	}
-
 // Tells the delegate that the app is now hidden.
 //
 // notification: A notification named [didHideNotification]. Calling the [object] method of
@@ -256,12 +236,10 @@ func (o NSApplicationDelegateObject) ApplicationWillHide(notification foundation
 // [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDidHide(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDidHide(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationDidHide:"), notification)
 	}
-
 // Tells the delegate that the app is about to become visible.
 //
 // notification: A notification named [willUnhideNotification]. Calling the [object] method
@@ -271,12 +249,10 @@ func (o NSApplicationDelegateObject) ApplicationDidHide(notification foundation.
 // [willUnhideNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/willUnhideNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationWillUnhide(_:)
-
 func (o NSApplicationDelegateObject) ApplicationWillUnhide(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationWillUnhide:"), notification)
 	}
-
 // Tells the delegate that the app is now visible.
 //
 // notification: A notification named [didUnhideNotification]. Calling the [object] method
@@ -286,12 +262,10 @@ func (o NSApplicationDelegateObject) ApplicationWillUnhide(notification foundati
 // [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDidUnhide(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDidUnhide(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationDidUnhide:"), notification)
 	}
-
 // Tells the delegate that the app is about to update its windows.
 //
 // notification: A notification named [willUpdateNotification]. Calling the [object] method
@@ -301,12 +275,10 @@ func (o NSApplicationDelegateObject) ApplicationDidUnhide(notification foundatio
 // [willUpdateNotification]: https://developer.apple.com/documentation/AppKit/NSApplication/willUpdateNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationWillUpdate(_:)
-
 func (o NSApplicationDelegateObject) ApplicationWillUpdate(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationWillUpdate:"), notification)
 	}
-
 // Tells the delegate that the app’s windows did update.
 //
 // notification: A notification named [didUpdateNotification]. Calling the [object] method
@@ -316,12 +288,10 @@ func (o NSApplicationDelegateObject) ApplicationWillUpdate(notification foundati
 // [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDidUpdate(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDidUpdate(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationDidUpdate:"), notification)
 	}
-
 // Returns a Boolean value that indicates if the app responds to reopen
 // AppleEvents.
 //
@@ -371,13 +341,11 @@ func (o NSApplicationDelegateObject) ApplicationDidUpdate(notification foundatio
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationShouldHandleReopen(_:hasVisibleWindows:)
-
 func (o NSApplicationDelegateObject) ApplicationShouldHandleReopenHasVisibleWindows(sender INSApplication, hasVisibleWindows bool) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("applicationShouldHandleReopen:hasVisibleWindows:"), sender, hasVisibleWindows)
 	return rv
 	}
-
 // Returns the app’s dock menu.
 //
 // sender: The application object associated with the delegate.
@@ -408,13 +376,11 @@ func (o NSApplicationDelegateObject) ApplicationShouldHandleReopenHasVisibleWind
 // than at launch time.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDockMenu(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDockMenu(sender INSApplication) INSMenu {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("applicationDockMenu:"), sender)
 	return NSMenuFromID(rv)
 	}
-
 // Returns a Boolean value that tells the system whether to remap menu
 // shortcuts to support localized keyboards.
 //
@@ -461,13 +427,11 @@ func (o NSApplicationDelegateObject) ApplicationDockMenu(sender INSApplication) 
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationShouldAutomaticallyLocalizeKeyEquivalents(_:)
-
 func (o NSApplicationDelegateObject) ApplicationShouldAutomaticallyLocalizeKeyEquivalents(application INSApplication) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("applicationShouldAutomaticallyLocalizeKeyEquivalents:"), application)
 	return rv
 	}
-
 // Returns an error for the app to display to the user.
 //
 // application: The application object associated with the delegate.
@@ -500,13 +464,11 @@ func (o NSApplicationDelegateObject) ApplicationShouldAutomaticallyLocalizeKeyEq
 // return the passed-in error object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:willPresentError:)
-
 func (o NSApplicationDelegateObject) ApplicationWillPresentError(application INSApplication, error_ foundation.INSError) foundation.INSError {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("application:willPresentError:"), application, error_)
 	return foundation.NSErrorFromID(rv)
 	}
-
 // Tells the delegate about changes to the configuration of any attached
 // displays.
 //
@@ -518,12 +480,10 @@ func (o NSApplicationDelegateObject) ApplicationWillPresentError(application INS
 // [object]: https://developer.apple.com/documentation/Foundation/NSNotification/object
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDidChangeScreenParameters(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDidChangeScreenParameters(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationDidChangeScreenParameters:"), notification)
 	}
-
 // Returns a Boolean value that indicates if the app can continue the
 // specified activity.
 //
@@ -563,13 +523,11 @@ func (o NSApplicationDelegateObject) ApplicationDidChangeScreenParameters(notifi
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:willContinueUserActivityWithType:)
-
 func (o NSApplicationDelegateObject) ApplicationWillContinueUserActivityWithType(application INSApplication, userActivityType string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("application:willContinueUserActivityWithType:"), application, objc.String(userActivityType))
 	return rv
 	}
-
 // Returns a Boolean value that indicates if the app successfully recreates
 // the specified activity.
 //
@@ -619,13 +577,11 @@ func (o NSApplicationDelegateObject) ApplicationWillContinueUserActivityWithType
 // [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:continue:restorationHandler:)
-
 func (o NSApplicationDelegateObject) ApplicationContinueUserActivityRestorationHandler(application INSApplication, userActivity foundation.NSUserActivity, restorationHandler VoidHandler) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("application:continueUserActivity:restorationHandler:"), application, userActivity, restorationHandler)
 	return rv
 	}
-
 // Tells the delegate that the app couldn’t continue the specified activity.
 //
 // application: The app that attempted to continue the activity.
@@ -641,12 +597,10 @@ func (o NSApplicationDelegateObject) ApplicationContinueUserActivityRestorationH
 // to the user with an appropriate message about the reason for the failure.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didFailToContinueUserActivityWithType:error:)
-
 func (o NSApplicationDelegateObject) ApplicationDidFailToContinueUserActivityWithTypeError(application INSApplication, userActivityType string, error_ foundation.INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:didFailToContinueUserActivityWithType:error:"), application, objc.String(userActivityType), error_)
 	}
-
 // Tells the delegate that there are changes to the specified activity.
 //
 // application: The shared app object.
@@ -660,12 +614,10 @@ func (o NSApplicationDelegateObject) ApplicationDidFailToContinueUserActivityWit
 // activity object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didUpdate:)
-
 func (o NSApplicationDelegateObject) ApplicationDidUpdateUserActivity(application INSApplication, userActivity foundation.NSUserActivity) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:didUpdateUserActivity:"), application, userActivity)
 	}
-
 // Tells the delegate that the app registered for Apple Push Services.
 //
 // application: The application that initiated the remote-notification registration
@@ -694,12 +646,10 @@ func (o NSApplicationDelegateObject) ApplicationDidUpdateUserActivity(applicatio
 // [Local and Remote Notification Programming Guide]: https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/index.html#//apple_ref/doc/uid/TP40008194
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didRegisterForRemoteNotificationsWithDeviceToken:)
-
 func (o NSApplicationDelegateObject) ApplicationDidRegisterForRemoteNotificationsWithDeviceToken(application INSApplication, deviceToken foundation.INSData) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:didRegisterForRemoteNotificationsWithDeviceToken:"), application, deviceToken)
 	}
-
 // Tells the delegate that the app was unable to register for Apple Push
 // Services.
 //
@@ -721,12 +671,10 @@ func (o NSApplicationDelegateObject) ApplicationDidRegisterForRemoteNotification
 // [Local and Remote Notification Programming Guide]: https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/index.html#//apple_ref/doc/uid/TP40008194
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didFailToRegisterForRemoteNotificationsWithError:)
-
 func (o NSApplicationDelegateObject) ApplicationDidFailToRegisterForRemoteNotificationsWithError(application INSApplication, error_ foundation.INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:didFailToRegisterForRemoteNotificationsWithError:"), application, error_)
 	}
-
 // Tells the delegate when the app receives a remote notification.
 //
 // application: The application that received the remote notification.
@@ -786,12 +734,10 @@ func (o NSApplicationDelegateObject) ApplicationDidFailToRegisterForRemoteNotifi
 // [userInfo]: https://developer.apple.com/documentation/Foundation/NSNotification/userInfo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didReceiveRemoteNotification:)
-
 func (o NSApplicationDelegateObject) ApplicationDidReceiveRemoteNotification(application INSApplication, userInfo foundation.INSDictionary) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:didReceiveRemoteNotification:"), application, userInfo)
 	}
-
 // Tells the delegate when the user accepts a CloudKit sharing invitation.
 //
 // application: The shared app object.
@@ -812,12 +758,10 @@ func (o NSApplicationDelegateObject) ApplicationDidReceiveRemoteNotification(app
 // [CloudKit]: https://developer.apple.com/documentation/CloudKit
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:userDidAcceptCloudKitShareWith:)
-
 func (o NSApplicationDelegateObject) ApplicationUserDidAcceptCloudKitShareWithMetadata(application INSApplication, metadata objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:userDidAcceptCloudKitShareWithMetadata:"), application, metadata)
 	}
-
 // Returns an intent handler that’s capable of handling the specified
 // intent.
 //
@@ -859,13 +803,11 @@ func (o NSApplicationDelegateObject) ApplicationUserDidAcceptCloudKitShareWithMe
 // [Resolving and Handling Intents]: https://developer.apple.com/documentation/SiriKit/resolving-and-handling-intents
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:handlerFor:)
-
 func (o NSApplicationDelegateObject) ApplicationHandlerForIntent(application INSApplication, intent objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("application:handlerForIntent:"), application, intent)
 	return objectivec.Object{ID: rv}
 	}
-
 // Tells the delegate to open the resource at the specified URL.
 //
 // application: Your singleton app object.
@@ -886,12 +828,10 @@ func (o NSApplicationDelegateObject) ApplicationHandlerForIntent(application INS
 // [ApplicationOpenFile] or [ApplicationOpenFiles] methods.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:open:)
-
 func (o NSApplicationDelegateObject) ApplicationOpenURLs(application INSApplication, urls []foundation.NSURL) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:openURLs:"), application, objectivec.IObjectSliceToNSArray(urls))
 	}
-
 // Returns a Boolean value that indicates if the app opens the specified file.
 //
 // sender: The application object associated with the delegate.
@@ -918,13 +858,11 @@ func (o NSApplicationDelegateObject) ApplicationOpenURLs(application INSApplicat
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:openFile:)
-
 func (o NSApplicationDelegateObject) ApplicationOpenFile(sender INSApplication, filename string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("application:openFile:"), sender, objc.String(filename))
 	return rv
 	}
-
 // Returns a Boolean value that indicates if the app opens the specified file
 // without showing its user interface.
 //
@@ -948,13 +886,11 @@ func (o NSApplicationDelegateObject) ApplicationOpenFile(sender INSApplication, 
 // keyboard control of the user.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:openFileWithoutUI:)
-
 func (o NSApplicationDelegateObject) ApplicationOpenFileWithoutUI(sender objectivec.IObject, filename string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("application:openFileWithoutUI:"), sender, objc.String(filename))
 	return rv
 	}
-
 // Returns a Boolean value that indicates if the app opens the specified
 // temporary file.
 //
@@ -983,13 +919,11 @@ func (o NSApplicationDelegateObject) ApplicationOpenFileWithoutUI(sender objecti
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:openTempFile:)
-
 func (o NSApplicationDelegateObject) ApplicationOpenTempFile(sender INSApplication, filename string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("application:openTempFile:"), sender, objc.String(filename))
 	return rv
 	}
-
 // Tells the delegate to open the specified files.
 //
 // sender: The application object associated with the delegate.
@@ -1004,12 +938,10 @@ func (o NSApplicationDelegateObject) ApplicationOpenTempFile(sender INSApplicati
 // when the user cancels the operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:openFiles:)
-
 func (o NSApplicationDelegateObject) ApplicationOpenFiles(sender INSApplication, filenames []string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:openFiles:"), sender, objectivec.StringSliceToNSArray(filenames))
 	}
-
 // Returns a Boolean value that indicates if the app can open an untitled
 // file.
 //
@@ -1032,13 +964,11 @@ func (o NSApplicationDelegateObject) ApplicationOpenFiles(sender INSApplication,
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationShouldOpenUntitledFile(_:)
-
 func (o NSApplicationDelegateObject) ApplicationShouldOpenUntitledFile(sender INSApplication) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("applicationShouldOpenUntitledFile:"), sender)
 	return rv
 	}
-
 // Returns a Boolean value that indicates if the app opens an untitled file.
 //
 // sender: The application object associated with the delegate.
@@ -1056,13 +986,11 @@ func (o NSApplicationDelegateObject) ApplicationShouldOpenUntitledFile(sender IN
 // untitled file be opened.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationOpenUntitledFile(_:)
-
 func (o NSApplicationDelegateObject) ApplicationOpenUntitledFile(sender INSApplication) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("applicationOpenUntitledFile:"), sender)
 	return rv
 	}
-
 // Returns a Boolean value that indicates if the app prints the specified file
 // in its entirety.
 //
@@ -1091,13 +1019,11 @@ func (o NSApplicationDelegateObject) ApplicationOpenUntitledFile(sender INSAppli
 // choose exactly what they want to print.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:printFile:)
-
 func (o NSApplicationDelegateObject) ApplicationPrintFile(sender INSApplication, filename string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("application:printFile:"), sender, objc.String(filename))
 	return rv
 	}
-
 // Returns a value that indicates if the app prints the specified files.
 //
 // application: The application object that is handling the printing.
@@ -1136,13 +1062,11 @@ func (o NSApplicationDelegateObject) ApplicationPrintFile(sender INSApplication,
 // print settings to take effect.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:printFiles:withSettings:showPrintPanels:)
-
 func (o NSApplicationDelegateObject) ApplicationPrintFilesWithSettingsShowPrintPanels(application INSApplication, fileNames []string, printSettings foundation.INSDictionary, showPrintPanels bool) NSApplicationPrintReply {
 	
 	rv := objc.Send[NSApplicationPrintReply](o.ID, objc.Sel("application:printFiles:withSettings:showPrintPanels:"), application, objectivec.StringSliceToNSArray(fileNames), printSettings, showPrintPanels)
 	return rv
 	}
-
 // Returns a Boolean value that indicates if the app supports secure state
 // restoration.
 //
@@ -1153,31 +1077,25 @@ func (o NSApplicationDelegateObject) ApplicationPrintFilesWithSettingsShowPrintP
 // `true` when the app supports secure state restoration; otherwise, `false`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationSupportsSecureRestorableState(_:)
-
 func (o NSApplicationDelegateObject) ApplicationSupportsSecureRestorableState(app INSApplication) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("applicationSupportsSecureRestorableState:"), app)
 	return rv
 	}
-
 // Tells the delegate that protected data is now available.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationProtectedDataDidBecomeAvailable(_:)
-
 func (o NSApplicationDelegateObject) ApplicationProtectedDataDidBecomeAvailable(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationProtectedDataDidBecomeAvailable:"), notification)
 	}
-
 // Tells the delegate that protected data is about to become unavailable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationProtectedDataWillBecomeUnavailable(_:)
-
 func (o NSApplicationDelegateObject) ApplicationProtectedDataWillBecomeUnavailable(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationProtectedDataWillBecomeUnavailable:"), notification)
 	}
-
 // Tells the delegate that the app is about to encode its restorable state.
 //
 // app: The application.
@@ -1185,12 +1103,10 @@ func (o NSApplicationDelegateObject) ApplicationProtectedDataWillBecomeUnavailab
 // coder: The coder extracting the archive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:willEncodeRestorableState:)
-
 func (o NSApplicationDelegateObject) ApplicationWillEncodeRestorableState(app INSApplication, coder foundation.INSCoder) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:willEncodeRestorableState:"), app, coder)
 	}
-
 // Tells the delegate when the app finished decoding its restorable state.
 //
 // app: The application.
@@ -1198,12 +1114,10 @@ func (o NSApplicationDelegateObject) ApplicationWillEncodeRestorableState(app IN
 // coder: The coder extracting the archive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:didDecodeRestorableState:)
-
 func (o NSApplicationDelegateObject) ApplicationDidDecodeRestorableState(app INSApplication, coder foundation.INSCoder) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("application:didDecodeRestorableState:"), app, coder)
 	}
-
 // Tells the delegate about changes to the app’s occlusion state.
 //
 // notification: A notification named [didChangeOcclusionStateNotification]. Calling the
@@ -1222,12 +1136,10 @@ func (o NSApplicationDelegateObject) ApplicationDidDecodeRestorableState(app INS
 // calculations that the user can not see.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/applicationDidChangeOcclusionState(_:)
-
 func (o NSApplicationDelegateObject) ApplicationDidChangeOcclusionState(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applicationDidChangeOcclusionState:"), notification)
 	}
-
 // Returns a Boolean value that indicates if the app supports the specified
 // scripting key.
 //
@@ -1265,7 +1177,6 @@ func (o NSApplicationDelegateObject) ApplicationDidChangeOcclusionState(notifica
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationDelegate/application(_:delegateHandlesKey:)
-
 func (o NSApplicationDelegateObject) ApplicationDelegateHandlesKey(sender INSApplication, key string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("application:delegateHandlesKey:"), sender, objc.String(key))
@@ -1371,8 +1282,6 @@ type NSApplicationDelegateConfig struct {
 	DidChangeOcclusionState func(notification foundation.NSNotification)
 
 	// Other Methods
-	// ContinueUserActivityRestorationHandler — Returns a Boolean value that indicates if the app successfully recreates the specified activity.
-	ContinueUserActivityRestorationHandler func(application NSApplication, userActivity foundation.NSUserActivity, restorationHandler objc.ID) bool
 	// DidUpdateUserActivity — Tells the delegate that there are changes to the specified activity.
 	DidUpdateUserActivity func(application NSApplication, userActivity foundation.NSUserActivity)
 }
@@ -1612,19 +1521,6 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
-			},
-		})
-	}
-
-	if config.ContinueUserActivityRestorationHandler != nil {
-		fn := config.ContinueUserActivityRestorationHandler
-		methods = append(methods, objc.MethodDef{
-			Cmd: objc.RegisterName("application:continueUserActivity:restorationHandler:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, applicationID objc.ID, userActivityID objc.ID, restorationHandlerID objc.ID) bool {
-				application := NSApplicationFromID(applicationID)
-				userActivity := foundation.NSUserActivityFromID(userActivityID)
-				restorationHandler := restorationHandlerID
-				return fn(application, userActivity, restorationHandler)
 			},
 		})
 	}

@@ -149,7 +149,6 @@ func (d VNDetectedObjectObservation) BoundingBox() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](d.ID, objc.Sel("boundingBox"))
 	return corefoundation.CGRect(rv)
 }
-
 // A resulting pixel buffer from a request to generate a segmentation mask for
 // an image.
 //

@@ -390,7 +390,6 @@ func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionsMod
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithLeftExpressions:rightExpressions:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), objectivec.IObjectSliceToNSArray(rightExpressions), modifier, objectivec.IObjectSliceToNSArray(operators), options)
 	return rv
 }
-
 // Initializes and returns a “pop-up-pop-up-view”–style row template.
 //
 // leftExpressions: An array of [NSExpression] objects that represent the left side of a
@@ -446,7 +445,6 @@ func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionAttr
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithLeftExpressions:rightExpressionAttributeType:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), attributeType, modifier, objectivec.IObjectSliceToNSArray(operators), options)
 	return rv
 }
-
 // Initializes and returns a row template suitable for displaying compound
 // predicates.
 //
@@ -470,7 +468,6 @@ func (p NSPredicateEditorRowTemplate) InitWithCompoundTypes(compoundTypes []foun
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithCompoundTypes:"), objectivec.IObjectSliceToNSArray(compoundTypes))
 	return rv
 }
-
 // Returns a positive number if the receiver can represent a given predicate,
 // and `0` if it cannot.
 //
@@ -492,7 +489,6 @@ func (p NSPredicateEditorRowTemplate) MatchForPredicate(predicate foundation.INS
 	rv := objc.Send[float64](p.ID, objc.Sel("matchForPredicate:"), predicate)
 	return rv
 }
-
 // Sets the value of the views according to the given predicate.
 //
 // predicate: The predicate value for the receiver.
@@ -508,7 +504,6 @@ func (p NSPredicateEditorRowTemplate) MatchForPredicate(predicate foundation.INS
 func (p NSPredicateEditorRowTemplate) SetPredicate(predicate foundation.INSPredicate) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setPredicate:"), predicate)
 }
-
 // Returns the subpredicates that should be made sub-rows of a given
 // predicate.
 //
@@ -536,7 +531,6 @@ func (p NSPredicateEditorRowTemplate) DisplayableSubpredicatesOfPredicate(predic
 		return foundation.NSPredicateFromID(id)
 	})
 }
-
 // Returns the predicate represented by the receiver’s views’ values and
 // the given sub-predicates.
 //
@@ -616,7 +610,6 @@ func (p NSPredicateEditorRowTemplate) TemplateViews() []NSView {
 		return NSViewFromID(id)
 	})
 }
-
 // Returns the left hand expressions for the receiver.
 //
 // # Return Value
@@ -630,7 +623,6 @@ func (p NSPredicateEditorRowTemplate) LeftExpressions() []foundation.NSExpressio
 		return foundation.NSExpressionFromID(id)
 	})
 }
-
 // Returns the right hand expressions for the receiver.
 //
 // # Return Value
@@ -644,7 +636,6 @@ func (p NSPredicateEditorRowTemplate) RightExpressions() []foundation.NSExpressi
 		return foundation.NSExpressionFromID(id)
 	})
 }
-
 // Returns the compound predicate types.
 //
 // # Return Value
@@ -662,7 +653,6 @@ func (p NSPredicateEditorRowTemplate) CompoundTypes() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
-
 // Returns the comparison predicate modifier for the receiver.
 //
 // # Return Value
@@ -674,7 +664,6 @@ func (p NSPredicateEditorRowTemplate) Modifier() foundation.NSComparisonPredicat
 	rv := objc.Send[foundation.NSComparisonPredicateModifier](p.ID, objc.Sel("modifier"))
 	return foundation.NSComparisonPredicateModifier(rv)
 }
-
 // Returns the array of comparison predicate operators.
 //
 // # Return Value
@@ -692,7 +681,6 @@ func (p NSPredicateEditorRowTemplate) Operators() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
-
 // Returns the comparison predicate options.
 //
 // # Return Value
@@ -709,7 +697,6 @@ func (p NSPredicateEditorRowTemplate) Options() uint {
 	rv := objc.Send[uint](p.ID, objc.Sel("options"))
 	return rv
 }
-
 // Returns the attribute type of the receiver’s right expression.
 //
 // # Return Value
@@ -721,7 +708,6 @@ func (p NSPredicateEditorRowTemplate) RightExpressionAttributeType() objectivec.
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("rightExpressionAttributeType"))
 	return objectivec.Object{ID: rv}
 }
-
 // The value of the receiver’s cell as an Objective-C object.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrol/objectvalue
@@ -732,7 +718,6 @@ func (p NSPredicateEditorRowTemplate) ObjectValue() objectivec.IObject {
 func (p NSPredicateEditorRowTemplate) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObjectValue:"), value)
 }
-
 // The row templates for the receiver.
 //
 // See: https://developer.apple.com/documentation/appkit/nspredicateeditor/rowtemplates

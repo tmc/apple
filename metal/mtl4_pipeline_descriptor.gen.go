@@ -117,7 +117,6 @@ func (m MTL4PipelineDescriptor) Label() string {
 func (m MTL4PipelineDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // Provides compile-time options when you build the pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PipelineDescriptor/options

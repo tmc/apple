@@ -194,7 +194,6 @@ func (f Formatter) StringForObjectValue(obj objectivec.IObject) string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("stringForObjectValue:"), obj)
 	return NSStringFromID(rv).String()
 }
-
 // The default implementation returns `nil` to indicate that the formatter
 // object does not provide an attributed string.
 //
@@ -225,7 +224,6 @@ func (f Formatter) AttributedStringForObjectValueWithDefaultAttributes(obj objec
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("attributedStringForObjectValue:withDefaultAttributes:"), obj, attrs)
 	return NSAttributedStringFromID(rv)
 }
-
 // The default implementation of this method invokes [StringForObjectValue].
 //
 // obj: The object for which to return an editing string.
@@ -249,7 +247,6 @@ func (f Formatter) EditingStringForObjectValue(obj objectivec.IObject) string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("editingStringForObjectValue:"), obj)
 	return NSStringFromID(rv).String()
 }
-
 // The default implementation of this method raises an exception.
 //
 // obj: If conversion is successful, upon return contains the object created from
@@ -307,7 +304,6 @@ func (f Formatter) GetObjectValueForStringErrorDescription(obj []objectivec.IObj
 	rv := objc.Send[bool](f.ID, objc.Sel("getObjectValue:forString:errorDescription:"), objectivec.IObjectSliceToNSArray(obj), objc.String(string_), objc.String(error_))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether a partial string is valid.
 //
 // partialString: The text currently in a cell.
@@ -358,7 +354,6 @@ func (f Formatter) IsPartialStringValidNewEditingStringErrorDescription(partialS
 	rv := objc.Send[bool](f.ID, objc.Sel("isPartialStringValid:newEditingString:errorDescription:"), objc.String(partialString), objc.String(newString), objc.String(error_))
 	return rv
 }
-
 // This method should be implemented in subclasses that want to validate user
 // changes to a string in a field, where the user changes are not necessarily
 // at the end of the string, and preserve the selection (or set a different
@@ -409,7 +404,6 @@ func (f Formatter) IsPartialStringValidProposedSelectedRangeOriginalStringOrigin
 	rv := objc.Send[bool](f.ID, objc.Sel("isPartialStringValid:proposedSelectedRange:originalString:originalSelectedRange:errorDescription:"), objc.String(partialStringPtr), proposedSelRangePtr, objc.String(origString), origSelRange, objc.String(error_))
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -418,7 +412,6 @@ func (f Formatter) IsPartialStringValidProposedSelectedRangeOriginalStringOrigin
 func (f Formatter) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](f.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (f Formatter) InitWithCoder(coder INSCoder) Formatter {

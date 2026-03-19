@@ -202,7 +202,6 @@ func NewNSAlignmentFeedbackFilter() NSAlignmentFeedbackFilter {
 func (a NSAlignmentFeedbackFilter) UpdateWithEvent(event INSEvent) {
 	objc.Send[objc.ID](a.ID, objc.Sel("updateWithEvent:"), event)
 }
-
 // Informs the feedback filter about a new pan (drag) gesture recognizer
 // event.
 //
@@ -218,7 +217,6 @@ func (a NSAlignmentFeedbackFilter) UpdateWithEvent(event INSEvent) {
 func (a NSAlignmentFeedbackFilter) UpdateWithPanRecognizer(panRecognizer INSPanGestureRecognizer) {
 	objc.Send[objc.ID](a.ID, objc.Sel("updateWithPanRecognizer:"), panRecognizer)
 }
-
 // Requests a feedback token for the alignment of an object requiring
 // horizontal and vertical movement.
 //
@@ -262,7 +260,6 @@ func (a NSAlignmentFeedbackFilter) AlignmentFeedbackTokenForMovementInViewPrevio
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("alignmentFeedbackTokenForMovementInView:previousPoint:alignedPoint:defaultPoint:"), view, previousPoint, alignedPoint, defaultPoint)
 	return NSAlignmentFeedbackTokenObjectFromID(rv)
 }
-
 // Requests a feedback token for the alignment of an object requiring
 // horizontal movement only.
 //
@@ -307,7 +304,6 @@ func (a NSAlignmentFeedbackFilter) AlignmentFeedbackTokenForHorizontalMovementIn
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("alignmentFeedbackTokenForHorizontalMovementInView:previousX:alignedX:defaultX:"), view, previousX, alignedX, defaultX)
 	return NSAlignmentFeedbackTokenObjectFromID(rv)
 }
-
 // Requests a feedback token for the alignment of an object requiring vertical
 // movement only.
 //
@@ -352,7 +348,6 @@ func (a NSAlignmentFeedbackFilter) AlignmentFeedbackTokenForVerticalMovementInVi
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("alignmentFeedbackTokenForVerticalMovementInView:previousY:alignedY:defaultY:"), view, previousY, alignedY, defaultY)
 	return NSAlignmentFeedbackTokenObjectFromID(rv)
 }
-
 // Performs the haptic feedback described by one or more alignment feedback
 // tokens.
 //

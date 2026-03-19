@@ -178,7 +178,6 @@ func (f MTLFunctionStitchingFunctionNode) Name() string {
 func (f MTLFunctionStitchingFunctionNode) SetName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // An ordered list of the nodes that provide the function’s arguments.
 //
 // # Discussion
@@ -196,7 +195,6 @@ func (f MTLFunctionStitchingFunctionNode) Arguments() []objectivec.IObject {
 func (f MTLFunctionStitchingFunctionNode) SetArguments(value []objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setArguments:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The list of nodes that need to execute before executing the node.
 //
 // # Discussion

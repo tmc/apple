@@ -137,7 +137,6 @@ func (r VNRecognizedPointsObservation) RecognizedPointForKeyError(pointKey VNRec
 	return VNRecognizedPointFromID(rv), nil
 
 }
-
 // Retrieves the recognized points for a key.
 //
 // groupKey: The group key to retrieve recognized points for.
@@ -157,7 +156,6 @@ func (r VNRecognizedPointsObservation) RecognizedPointsForGroupKeyError(groupKey
 	return foundation.NSDictionaryFromID(rv), nil
 
 }
-
 // Retrieves the grouping of normalized point coordinates and confidence
 // scores in a format compatible with Core ML.
 //
@@ -186,7 +184,6 @@ func (r VNRecognizedPointsObservation) AvailableKeys() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The available point group keys in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPointsObservation/availableGroupKeys

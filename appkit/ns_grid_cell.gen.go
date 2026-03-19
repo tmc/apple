@@ -151,13 +151,11 @@ func (g NSGridCell) Column() INSGridColumn {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("column"))
 	return NSGridColumnFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/row
 func (g NSGridCell) Row() INSGridRow {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("row"))
 	return NSGridRowFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/contentView
 func (g NSGridCell) ContentView() INSView {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("contentView"))
@@ -166,7 +164,6 @@ func (g NSGridCell) ContentView() INSView {
 func (g NSGridCell) SetContentView(value INSView) {
 	objc.Send[struct{}](g.ID, objc.Sel("setContentView:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/customPlacementConstraints
 func (g NSGridCell) CustomPlacementConstraints() []NSLayoutConstraint {
 	rv := objc.Send[[]objc.ID](g.ID, objc.Sel("customPlacementConstraints"))
@@ -177,7 +174,6 @@ func (g NSGridCell) CustomPlacementConstraints() []NSLayoutConstraint {
 func (g NSGridCell) SetCustomPlacementConstraints(value []NSLayoutConstraint) {
 	objc.Send[struct{}](g.ID, objc.Sel("setCustomPlacementConstraints:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/rowAlignment
 func (g NSGridCell) RowAlignment() NSGridRowAlignment {
 	rv := objc.Send[NSGridRowAlignment](g.ID, objc.Sel("rowAlignment"))
@@ -186,7 +182,6 @@ func (g NSGridCell) RowAlignment() NSGridRowAlignment {
 func (g NSGridCell) SetRowAlignment(value NSGridRowAlignment) {
 	objc.Send[struct{}](g.ID, objc.Sel("setRowAlignment:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/xPlacement
 func (g NSGridCell) XPlacement() NSGridCellPlacement {
 	rv := objc.Send[NSGridCellPlacement](g.ID, objc.Sel("xPlacement"))
@@ -195,7 +190,6 @@ func (g NSGridCell) XPlacement() NSGridCellPlacement {
 func (g NSGridCell) SetXPlacement(value NSGridCellPlacement) {
 	objc.Send[struct{}](g.ID, objc.Sel("setXPlacement:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSGridCell/yPlacement
 func (g NSGridCell) YPlacement() NSGridCellPlacement {
 	rv := objc.Send[NSGridCellPlacement](g.ID, objc.Sel("yPlacement"))

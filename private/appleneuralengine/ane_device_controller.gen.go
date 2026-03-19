@@ -134,19 +134,16 @@ func NewANEDeviceControllerWithProgramHandlePriviledged(handle uint64, priviledg
 func (a ANEDeviceController) Start() {
 	objc.Send[objc.ID](a.ID, objc.Sel("start"))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/stop
 func (a ANEDeviceController) Stop() {
 	objc.Send[objc.ID](a.ID, objc.Sel("stop"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/initWithANEPrivilegedVM:
 func (a ANEDeviceController) InitWithANEPrivilegedVM(vm bool) ANEDeviceController {
 	rv := objc.Send[ANEDeviceController](a.ID, objc.Sel("initWithANEPrivilegedVM:"), vm)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/initWithProgramHandle:priviledged:
 func (a ANEDeviceController) InitWithProgramHandlePriviledged(handle uint64, priviledged bool) ANEDeviceController {
@@ -160,14 +157,12 @@ func (_ANEDeviceControllerClass ANEDeviceControllerClass) ControllerWithPrivileg
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceControllerClass.class), objc.Sel("controllerWithPrivilegedVM:"), vm)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/controllerWithProgramHandle:
 func (_ANEDeviceControllerClass ANEDeviceControllerClass) ControllerWithProgramHandle(handle uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceControllerClass.class), objc.Sel("controllerWithProgramHandle:"), handle)
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/sharedPrivilegedConnection
 func (_ANEDeviceControllerClass ANEDeviceControllerClass) SharedPrivilegedConnection() *ANEDeviceController {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceControllerClass.class), objc.Sel("sharedPrivilegedConnection"))
@@ -186,19 +181,16 @@ func (a ANEDeviceController) Device() unsafe.Pointer {
 func (a ANEDeviceController) SetDevice(value unsafe.Pointer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDevice:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/isPrivileged
 func (a ANEDeviceController) IsPrivileged() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isPrivileged"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/programHandle
 func (a ANEDeviceController) ProgramHandle() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceController/usecount
 func (a ANEDeviceController) Usecount() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("usecount"))

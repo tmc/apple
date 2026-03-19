@@ -172,7 +172,6 @@ func (s NSStoryboard) InstantiateInitialController() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("instantiateInitialController"))
 	return objectivec.Object{ID: rv}
 }
-
 // Instantiates a specified view controller or window controller from a
 // storyboard.
 //

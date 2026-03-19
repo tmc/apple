@@ -186,7 +186,6 @@ func (_PropertyListSerializationClass PropertyListSerializationClass) DataWithPr
 	return NSDataFromID(rv), nil
 
 }
-
 // Writes a property list to the specified stream.
 //
 // plist: The property list that you want to write out.
@@ -220,7 +219,6 @@ func (_PropertyListSerializationClass PropertyListSerializationClass) WritePrope
 	return rv, nil
 
 }
-
 // Creates and returns a property list from the specified data.
 //
 // data: A data object containing a serialized property list.
@@ -251,7 +249,6 @@ func (_PropertyListSerializationClass PropertyListSerializationClass) PropertyLi
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Creates and returns a property list by reading from the specified stream.
 //
 // stream: An [NSStream] object. The stream should be open and configured for reading.
@@ -282,7 +279,6 @@ func (_PropertyListSerializationClass PropertyListSerializationClass) PropertyLi
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Returns a Boolean value that indicates whether a given property list is
 // valid for a given format.
 //
@@ -317,7 +313,6 @@ func (p PropertyListSerialization) NSPropertyListReadCorruptError() int {
 func (p PropertyListSerialization) SetNSPropertyListReadCorruptError(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNSPropertyListReadCorruptError:"), value)
 }
-
 // The version number of the property list cannot be determined.
 //
 // See: https://developer.apple.com/documentation/foundation/nspropertylistreadunknownversionerror-swift.var
@@ -328,7 +323,6 @@ func (p PropertyListSerialization) NSPropertyListReadUnknownVersionError() int {
 func (p PropertyListSerialization) SetNSPropertyListReadUnknownVersionError(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNSPropertyListReadUnknownVersionError:"), value)
 }
-
 // Reading of the property list failed.
 //
 // See: https://developer.apple.com/documentation/foundation/nspropertylistreadstreamerror-swift.var
@@ -339,7 +333,6 @@ func (p PropertyListSerialization) NSPropertyListReadStreamError() int {
 func (p PropertyListSerialization) SetNSPropertyListReadStreamError(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNSPropertyListReadStreamError:"), value)
 }
-
 // Writing to the property list failed.
 //
 // See: https://developer.apple.com/documentation/foundation/nspropertylistwritestreamerror-swift.var
@@ -350,7 +343,6 @@ func (p PropertyListSerialization) NSPropertyListWriteStreamError() int {
 func (p PropertyListSerialization) SetNSPropertyListWriteStreamError(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNSPropertyListWriteStreamError:"), value)
 }
-
 // Writing failed because of an invalid property list object, or an invalid
 // property list type was specified.
 //
@@ -362,7 +354,6 @@ func (p PropertyListSerialization) NSPropertyListWriteInvalidError() int {
 func (p PropertyListSerialization) SetNSPropertyListWriteInvalidError(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNSPropertyListWriteInvalidError:"), value)
 }
-
 // The start of the range of error codes reserved for property list errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nspropertylisterrorminimum-swift.var
@@ -373,7 +364,6 @@ func (p PropertyListSerialization) NSPropertyListErrorMinimum() int {
 func (p PropertyListSerialization) SetNSPropertyListErrorMinimum(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNSPropertyListErrorMinimum:"), value)
 }
-
 // The end of the range of error codes reserved for property list errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nspropertylisterrormaximum-swift.var

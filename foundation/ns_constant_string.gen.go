@@ -100,14 +100,6 @@ func NewConstantStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSCon
 	return NSConstantStringFromID(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func NewConstantStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSConstantString {
-	instance := getNSConstantStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, deallocator)
-	return NSConstantStringFromID(rv)
-}
-
 // Returns an initialized [NSString] object that contains a given number of
 // bytes from a given buffer of bytes interpreted in a given encoding, and
 // optionally frees the buffer.
@@ -196,14 +188,6 @@ func NewConstantStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length u
 func NewConstantStringWithCharactersLength(characters unsafe.Pointer, length uint) NSConstantString {
 	instance := getNSConstantStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
-	return NSConstantStringFromID(rv)
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:deallocator:)
-func NewConstantStringWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSConstantString {
-	instance := getNSConstantStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:deallocator:"), chars, len_, deallocator)
 	return NSConstantStringFromID(rv)
 }
 

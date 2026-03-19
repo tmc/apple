@@ -199,7 +199,6 @@ func (p NSProtocolChecker) Protocol() *objectivec.Protocol {
 	val := objectivec.ProtocolFromID(objc.ID(rv))
 	return &val
 }
-
 // Returns the target of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProtocolChecker/target
@@ -207,7 +206,6 @@ func (p NSProtocolChecker) Target() objectivec.Object {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("target"))
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
-
 // Name of an exception that occurs when you pass an invalid argument to a
 // method, such as a
 //

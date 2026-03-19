@@ -49,12 +49,10 @@ func NSLayoutManagerDelegateObjectFromID(id objc.ID) NSLayoutManagerDelegateObje
 // layout of text.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManagerDidInvalidateLayout(_:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerDidInvalidateLayout(sender INSLayoutManager) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("layoutManagerDidInvalidateLayout:"), sender)
 	}
-
 // Enables customization of the initial glyph generation process.
 //
 // layoutManager: The layout manager doing the layout.
@@ -87,13 +85,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerDidInvalidateLayout(sender I
 // information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange(layoutManager INSLayoutManager, glyphs *coregraphics.CGFontIndex, props NSGlyphProperty, charIndexes unsafe.Pointer, aFont NSFont, glyphRange foundation.NSRange) uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("layoutManager:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:"), layoutManager, glyphs, props, charIndexes, aFont, glyphRange)
 	return rv
 	}
-
 // Returns the control character action for the control character at the
 // specified character index.
 //
@@ -111,13 +107,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerShouldGenerateGlyphsProperti
 // The control character action for the control character at the given index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldUse:forControlCharacterAt:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerShouldUseActionForControlCharacterAtIndex(layoutManager INSLayoutManager, action NSControlCharacterAction, charIndex uint) NSControlCharacterAction {
 	
 	rv := objc.Send[NSControlCharacterAction](o.ID, objc.Sel("layoutManager:shouldUseAction:forControlCharacterAtIndex:"), layoutManager, action, charIndex)
 	return rv
 	}
-
 // Informs the delegate when the layout manager finishes laying out text in
 // the specified text container.
 //
@@ -141,12 +135,10 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerShouldUseActionForControlCha
 // can be useful for paginating.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:didCompleteLayoutFor:atEnd:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerDidCompleteLayoutForTextContainerAtEnd(layoutManager INSLayoutManager, textContainer INSTextContainer, layoutFinishedFlag bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("layoutManager:didCompleteLayoutForTextContainer:atEnd:"), layoutManager, textContainer, layoutFinishedFlag)
 	}
-
 // Informs the delegate when the layout manager invalidates layout due to a
 // change in the geometry of the specified text container.
 //
@@ -162,12 +154,10 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerDidCompleteLayoutForTextCont
 // as recreating an exclusion path.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:textContainer:didChangeGeometryFrom:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerTextContainerDidChangeGeometryFromSize(layoutManager INSLayoutManager, textContainer INSTextContainer, oldSize corefoundation.CGSize) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("layoutManager:textContainer:didChangeGeometryFromSize:"), layoutManager, textContainer, oldSize)
 	}
-
 // Asks the delegate whether to break the line at the specified character.
 //
 // layoutManager: The layout manager doing the layout.
@@ -184,13 +174,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerTextContainerDidChangeGeomet
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldBreakLineByHyphenatingBeforeCharacterAt:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerShouldBreakLineByHyphenatingBeforeCharacterAtIndex(layoutManager INSLayoutManager, charIndex uint) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("layoutManager:shouldBreakLineByHyphenatingBeforeCharacterAtIndex:"), layoutManager, charIndex)
 	return rv
 	}
-
 // Asks the delegate whether to break the line at the specified word.
 //
 // layoutManager: The layout manager doing the layout.
@@ -206,13 +194,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerShouldBreakLineByHyphenating
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldBreakLineByWordBeforeCharacterAt:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerShouldBreakLineByWordBeforeCharacterAtIndex(layoutManager INSLayoutManager, charIndex uint) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("layoutManager:shouldBreakLineByWordBeforeCharacterAtIndex:"), layoutManager, charIndex)
 	return rv
 	}
-
 // Returns the amount of space to add to the end of a line.
 //
 // layoutManager: The layout manager doing the layout.
@@ -231,13 +217,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerShouldBreakLineByWordBeforeC
 // manager delegate to customize the shape of line.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:lineSpacingAfterGlyphAt:withProposedLineFragmentRect:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerLineSpacingAfterGlyphAtIndexWithProposedLineFragmentRect(layoutManager INSLayoutManager, glyphIndex uint, rect corefoundation.CGRect) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("layoutManager:lineSpacingAfterGlyphAtIndex:withProposedLineFragmentRect:"), layoutManager, glyphIndex, rect)
 	return rv
 	}
-
 // Returns the amount of space to add at the end of a paragraph.
 //
 // layoutManager: The layout manager doing the layout.
@@ -256,13 +240,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerLineSpacingAfterGlyphAtIndex
 // manager delegate to customize the shape of line.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:paragraphSpacingAfterGlyphAt:withProposedLineFragmentRect:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerParagraphSpacingAfterGlyphAtIndexWithProposedLineFragmentRect(layoutManager INSLayoutManager, glyphIndex uint, rect corefoundation.CGRect) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("layoutManager:paragraphSpacingAfterGlyphAtIndex:withProposedLineFragmentRect:"), layoutManager, glyphIndex, rect)
 	return rv
 	}
-
 // Returns the amount of space to add at the beginning of a paragraph.
 //
 // layoutManager: The layout manager doing the layout.
@@ -281,13 +263,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerParagraphSpacingAfterGlyphAt
 // manager delegate to customize the shape of line.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:paragraphSpacingBeforeGlyphAt:withProposedLineFragmentRect:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerParagraphSpacingBeforeGlyphAtIndexWithProposedLineFragmentRect(layoutManager INSLayoutManager, glyphIndex uint, rect corefoundation.CGRect) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("layoutManager:paragraphSpacingBeforeGlyphAtIndex:withProposedLineFragmentRect:"), layoutManager, glyphIndex, rect)
 	return rv
 	}
-
 // Returns the bounding rectangle for the specified control glyph with the
 // specified parameters.
 //
@@ -316,13 +296,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerParagraphSpacingBeforeGlyphA
 // [NSControlCharacterWhitespaceAction]: https://developer.apple.com/documentation/UIKit/NSControlCharacterWhitespaceAction
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:boundingBoxForControlGlyphAt:for:proposedLineFragment:glyphPosition:characterIndex:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerBoundingBoxForControlGlyphAtIndexForTextContainerProposedLineFragmentGlyphPositionCharacterIndex(layoutManager INSLayoutManager, glyphIndex uint, textContainer INSTextContainer, proposedRect corefoundation.CGRect, glyphPosition corefoundation.CGPoint, charIndex uint) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("layoutManager:boundingBoxForControlGlyphAtIndex:forTextContainer:proposedLineFragment:glyphPosition:characterIndex:"), layoutManager, glyphIndex, textContainer, proposedRect, glyphPosition, charIndex)
 	return rv
 	}
-
 // Customizes the line fragment geometry before committing it to the layout
 // cache.
 //
@@ -358,13 +336,11 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerBoundingBoxForControlGlyphAt
 // rectangles remain valid and still lie within the text container.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:in:forGlyphRange:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerShouldSetLineFragmentRectLineFragmentUsedRectBaselineOffsetInTextContainerForGlyphRange(layoutManager INSLayoutManager, lineFragmentRect *corefoundation.CGRect, lineFragmentUsedRect *corefoundation.CGRect, baselineOffset unsafe.Pointer, textContainer INSTextContainer, glyphRange foundation.NSRange) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("layoutManager:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:inTextContainer:forGlyphRange:"), layoutManager, lineFragmentRect, lineFragmentUsedRect, baselineOffset, textContainer, glyphRange)
 	return rv
 	}
-
 // Asks the delegate whether to use temporary attributes when drawing the
 // text.
 //
@@ -397,7 +373,6 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerShouldSetLineFragmentRectLin
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex:effectiveRange:)
-
 func (o NSLayoutManagerDelegateObject) LayoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange(layoutManager INSLayoutManager, attrs foundation.INSDictionary, toScreen bool, charIndex uint, effectiveCharRange foundation.NSRange) foundation.INSDictionary {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("layoutManager:shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex:effectiveRange:"), layoutManager, attrs, toScreen, charIndex, effectiveCharRange)

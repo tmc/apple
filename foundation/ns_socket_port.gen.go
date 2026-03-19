@@ -296,7 +296,6 @@ func (s SocketPort) InitWithTCPPort(port uint16) SocketPort {
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initWithTCPPort:"), port)
 	return rv
 }
-
 // Initializes the receiver as a local socket with the provided arguments.
 //
 // family: The protocol family for the socket port. Possible values are defined in ``,
@@ -326,7 +325,6 @@ func (s SocketPort) InitWithProtocolFamilySocketTypeProtocolAddress(family int, 
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initWithProtocolFamily:socketType:protocol:address:"), family, type_, protocol_, address)
 	return rv
 }
-
 // Initializes the receiver with a previously created local socket.
 //
 // family: The protocol family for the provided socket. Possible values are defined in
@@ -347,7 +345,6 @@ func (s SocketPort) InitWithProtocolFamilySocketTypeProtocolSocket(family int, t
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initWithProtocolFamily:socketType:protocol:socket:"), family, type_, protocol_, sock)
 	return rv
 }
-
 // Initializes the receiver as a TCP/IP socket of type `SOCK_STREAM` that can
 // connect to a remote host on a specified port.
 //
@@ -370,7 +367,6 @@ func (s SocketPort) InitRemoteWithTCPPortHost(port uint16, hostName string) Sock
 	rv := objc.Send[SocketPort](s.ID, objc.Sel("initRemoteWithTCPPort:host:"), port, objc.String(hostName))
 	return rv
 }
-
 // Initializes the receiver as a remote socket with the provided arguments.
 //
 // family: The protocol family for the socket port. Possible values are defined in ``,
@@ -400,7 +396,6 @@ func (s SocketPort) Address() INSData {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("address"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // The protocol that the receiver uses for communication.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/protocol
@@ -408,7 +403,6 @@ func (s SocketPort) Protocol() int {
 	rv := objc.Send[int](s.ID, objc.Sel("protocol"))
 	return rv
 }
-
 // The protocol family that the receiver uses for communication.
 //
 // # Discussion
@@ -421,7 +415,6 @@ func (s SocketPort) ProtocolFamily() int {
 	rv := objc.Send[int](s.ID, objc.Sel("protocolFamily"))
 	return rv
 }
-
 // The receiver’s native socket identifier on the platform.
 //
 // # Discussion
@@ -433,7 +426,6 @@ func (s SocketPort) Socket() NSSocketNativeHandle {
 	rv := objc.Send[NSSocketNativeHandle](s.ID, objc.Sel("socket"))
 	return NSSocketNativeHandle(rv)
 }
-
 // The receiver’s socket type.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketPort/socketType

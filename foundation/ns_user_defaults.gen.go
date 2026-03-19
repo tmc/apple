@@ -535,7 +535,6 @@ func (u UserDefaults) InitWithSuiteName(suitename string) UserDefaults {
 	rv := objc.Send[UserDefaults](u.ID, objc.Sel("initWithSuiteName:"), objc.String(suitename))
 	return rv
 }
-
 // Specifies the set of default settings and values to use as a fallback in
 // cases where the app domain doesn’t have them.
 //
@@ -555,7 +554,6 @@ func (u UserDefaults) InitWithSuiteName(suitename string) UserDefaults {
 func (u UserDefaults) RegisterDefaults(registrationDictionary INSDictionary) {
 	objc.Send[objc.ID](u.ID, objc.Sel("registerDefaults:"), registrationDictionary)
 }
-
 // Returns the Boolean value associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -576,7 +574,6 @@ func (u UserDefaults) BoolForKey(defaultName string) bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("boolForKey:"), objc.String(defaultName))
 	return rv
 }
-
 // Returns the integer value associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -600,7 +597,6 @@ func (u UserDefaults) IntegerForKey(defaultName string) int {
 	rv := objc.Send[int](u.ID, objc.Sel("integerForKey:"), objc.String(defaultName))
 	return rv
 }
-
 // Returns the floating-point value associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -624,7 +620,6 @@ func (u UserDefaults) FloatForKey(defaultName string) float32 {
 	rv := objc.Send[float32](u.ID, objc.Sel("floatForKey:"), objc.String(defaultName))
 	return rv
 }
-
 // Returns the double value associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -647,7 +642,6 @@ func (u UserDefaults) DoubleForKey(defaultName string) float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("doubleForKey:"), objc.String(defaultName))
 	return rv
 }
-
 // Returns the URL associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -672,7 +666,6 @@ func (u UserDefaults) URLForKey(defaultName string) INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("URLForKey:"), objc.String(defaultName))
 	return NSURLFromID(rv)
 }
-
 // Returns the string associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -697,7 +690,6 @@ func (u UserDefaults) StringForKey(defaultName string) string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("stringForKey:"), objc.String(defaultName))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the array of strings associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -719,7 +711,6 @@ func (u UserDefaults) StringArrayForKey(defaultName string) []string {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("stringArrayForKey:"), objc.String(defaultName))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the data object associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -740,7 +731,6 @@ func (u UserDefaults) DataForKey(defaultName string) INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataForKey:"), objc.String(defaultName))
 	return NSDataFromID(rv)
 }
-
 // Returns the object associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -760,7 +750,6 @@ func (u UserDefaults) ObjectForKey(defaultName string) objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("objectForKey:"), objc.String(defaultName))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the array associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -781,7 +770,6 @@ func (u UserDefaults) ArrayForKey(defaultName string) INSArray {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("arrayForKey:"), objc.String(defaultName))
 	return NSArrayFromID(rv)
 }
-
 // Returns the dictionary object associated with the specified key.
 //
 // defaultName: The key to retrieve from the defaults database.
@@ -802,7 +790,6 @@ func (u UserDefaults) DictionaryForKey(defaultName string) INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dictionaryForKey:"), objc.String(defaultName))
 	return NSDictionaryFromID(rv)
 }
-
 // Returns a dictionary with the union of all key-value pairs found from all
 // domains.
 //
@@ -830,7 +817,6 @@ func (u UserDefaults) DictionaryRepresentation() INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dictionaryRepresentation"))
 	return NSDictionaryFromID(rv)
 }
-
 // Sets the value of the specified key to a Boolean value.
 //
 // value: The Boolean value to store in the defaults database.
@@ -849,7 +835,6 @@ func (u UserDefaults) DictionaryRepresentation() INSDictionary {
 func (u UserDefaults) SetBoolForKey(value bool, defaultName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setBool:forKey:"), value, objc.String(defaultName))
 }
-
 // Sets the value of the specified key to an integer.
 //
 // value: The integer value to store in the defaults database.
@@ -868,7 +853,6 @@ func (u UserDefaults) SetBoolForKey(value bool, defaultName string) {
 func (u UserDefaults) SetIntegerForKey(value int, defaultName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setInteger:forKey:"), value, objc.String(defaultName))
 }
-
 // Sets the value of the specified key to a floating-point number.
 //
 // value: The floating-point value to store in the defaults database.
@@ -888,7 +872,6 @@ func (u UserDefaults) SetIntegerForKey(value int, defaultName string) {
 func (u UserDefaults) SetFloatForKey(value float32, defaultName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setFloat:forKey:"), value, objc.String(defaultName))
 }
-
 // Sets the value of the specified key to a double.
 //
 // value: The double value to store in the defaults database.
@@ -907,7 +890,6 @@ func (u UserDefaults) SetFloatForKey(value float32, defaultName string) {
 func (u UserDefaults) SetDoubleForKey(value float64, defaultName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setDouble:forKey:"), value, objc.String(defaultName))
 }
-
 // Sets the value of the specified key to a URL.
 //
 // url: The value to store in the defaults database.
@@ -939,7 +921,6 @@ func (u UserDefaults) SetDoubleForKey(value float64, defaultName string) {
 func (u UserDefaults) SetURLForKey(url INSURL, defaultName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setURL:forKey:"), url, objc.String(defaultName))
 }
-
 // Sets the value of the specified key to a property list object.
 //
 // value: The property-list type to store in the defaults database. If you specify an
@@ -965,7 +946,6 @@ func (u UserDefaults) SetURLForKey(url INSURL, defaultName string) {
 func (u UserDefaults) SetObjectForKey(value objectivec.IObject, defaultName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setObject:forKey:"), value, objc.String(defaultName))
 }
-
 // Removes the value for the specified key from the defaults database.
 //
 // defaultName: The key with the value you want to remove.
@@ -988,7 +968,6 @@ func (u UserDefaults) SetObjectForKey(value objectivec.IObject, defaultName stri
 func (u UserDefaults) RemoveObjectForKey(defaultName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeObjectForKey:"), objc.String(defaultName))
 }
-
 // Inserts settings for the specified domain into the search list of the
 // current object.
 //
@@ -1016,7 +995,6 @@ func (u UserDefaults) RemoveObjectForKey(defaultName string) {
 func (u UserDefaults) AddSuiteNamed(suiteName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("addSuiteNamed:"), objc.String(suiteName))
 }
-
 // Removes the specified domain from the search list of the current object.
 //
 // suiteName: The bundle identifier for the domain you want to remove. Specify the same
@@ -1026,7 +1004,6 @@ func (u UserDefaults) AddSuiteNamed(suiteName string) {
 func (u UserDefaults) RemoveSuiteNamed(suiteName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeSuiteNamed:"), objc.String(suiteName))
 }
-
 // Retrieves the settings from the specified persistent domain.
 //
 // domainName: The name of the persistent domain. Specify your app’s bundle identifier
@@ -1049,7 +1026,6 @@ func (u UserDefaults) PersistentDomainForName(domainName string) INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("persistentDomainForName:"), objc.String(domainName))
 	return NSDictionaryFromID(rv)
 }
-
 // Replaces the keys and values in the specified domain with the new keys and
 // values you supply.
 //
@@ -1070,7 +1046,6 @@ func (u UserDefaults) PersistentDomainForName(domainName string) INSDictionary {
 func (u UserDefaults) SetPersistentDomainForName(domain INSDictionary, domainName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setPersistentDomain:forName:"), domain, objc.String(domainName))
 }
-
 // Retrieves the settings from the specified volatile domain.
 //
 // domainName: The name of the volatile domain. For example, specify the [ArgumentDomain]
@@ -1092,7 +1067,6 @@ func (u UserDefaults) VolatileDomainForName(domainName string) INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("volatileDomainForName:"), objc.String(domainName))
 	return NSDictionaryFromID(rv)
 }
-
 // Replaces the keys and values in the specified domain with the new keys and
 // values you supply.
 //
@@ -1112,7 +1086,6 @@ func (u UserDefaults) VolatileDomainForName(domainName string) INSDictionary {
 func (u UserDefaults) SetVolatileDomainForName(domain INSDictionary, domainName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setVolatileDomain:forName:"), domain, objc.String(domainName))
 }
-
 // Removes the keys and values from the specified persistent domain.
 //
 // domainName: The name of the domain to clear. If you specify the identifier for the
@@ -1130,7 +1103,6 @@ func (u UserDefaults) SetVolatileDomainForName(domain INSDictionary, domainName 
 func (u UserDefaults) RemovePersistentDomainForName(domainName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removePersistentDomainForName:"), objc.String(domainName))
 }
-
 // Removes the keys and values from the specified volatile domain.
 //
 // domainName: The name of the domain to clear.
@@ -1147,7 +1119,6 @@ func (u UserDefaults) RemovePersistentDomainForName(domainName string) {
 func (u UserDefaults) RemoveVolatileDomainForName(domainName string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeVolatileDomainForName:"), objc.String(domainName))
 }
-
 // Returns a Boolean value that indicates whether an administrator provided
 // the value for the specified key.
 //
@@ -1169,7 +1140,6 @@ func (u UserDefaults) ObjectIsForcedForKey(key string) bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("objectIsForcedForKey:"), objc.String(key))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether an administrator provided
 // the value for the key in the specified domain.
 //
@@ -1194,7 +1164,6 @@ func (u UserDefaults) ObjectIsForcedForKeyInDomain(key string, domain string) bo
 	rv := objc.Send[bool](u.ID, objc.Sel("objectIsForcedForKey:inDomain:"), objc.String(key), objc.String(domain))
 	return rv
 }
-
 // Waits for any pending asynchronous updates to the defaults database and
 // returns; this method is unnecessary and shouldn’t be used.
 //
@@ -1258,7 +1227,6 @@ func (_UserDefaultsClass UserDefaultsClass) StandardUserDefaults() UserDefaults 
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("standardUserDefaults"))
 	return NSUserDefaultsFromID(objc.ID(rv))
 }
-
 // The identifier for the domain that contains command-line settings.
 //
 // See: https://developer.apple.com/documentation/Foundation/UserDefaults/argumentDomain
@@ -1266,7 +1234,6 @@ func (_UserDefaultsClass UserDefaultsClass) ArgumentDomain() string {
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("argumentDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // The identifier for the domain that contains system-specified settings for
 // all apps.
 //
@@ -1275,7 +1242,6 @@ func (_UserDefaultsClass UserDefaultsClass) GlobalDomain() string {
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("globalDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // The identifier for the domain that contains your app’s registered default
 // values.
 //
@@ -1284,7 +1250,6 @@ func (_UserDefaultsClass UserDefaultsClass) RegistrationDomain() string {
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("registrationDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // Posted when ubiquitous defaults finish downloading data, either the first
 // time a device is connected to an iCloud account or when a user switches
 // their primary iCloud account.
@@ -1294,7 +1259,6 @@ func (_UserDefaultsClass UserDefaultsClass) CompletedInitialCloudSyncNotificatio
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("NSUbiquitousUserDefaultsCompletedInitialSyncNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // Posted when the user changes the primary iCloud account.
 //
 // See: https://developer.apple.com/documentation/foundation/userdefaults/didchangecloudaccountsnotification
@@ -1302,7 +1266,6 @@ func (_UserDefaultsClass UserDefaultsClass) DidChangeCloudAccountsNotification()
 	rv := objc.Send[objc.ID](objc.ID(_UserDefaultsClass.class), objc.Sel("NSUbiquitousUserDefaultsDidChangeAccountsNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // Posted when a cloud default is set, but no iCloud user is logged in.
 //
 // See: https://developer.apple.com/documentation/foundation/userdefaults/nocloudaccountnotification

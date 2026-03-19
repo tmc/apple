@@ -102,7 +102,6 @@ func (m MLModelStructureProgramFunction) Block() IMLModelStructureProgramBlock {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("block"))
 	return MLModelStructureProgramBlockFromID(objc.ID(rv))
 }
-
 // The named inputs to the function.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramFunction/inputs

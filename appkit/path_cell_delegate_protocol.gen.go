@@ -49,12 +49,10 @@ func NSPathCellDelegateObjectFromID(id objc.ID) NSPathCellDelegateObject {
 // Implementation of this method is optional.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCellDelegate/pathCell(_:willDisplay:)
-
 func (o NSPathCellDelegateObject) PathCellWillDisplayOpenPanel(pathCell INSPathCell, openPanel INSOpenPanel) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pathCell:willDisplayOpenPanel:"), pathCell, openPanel)
 	}
-
 // Implement this method to customize the menu of a pop-up–style path.
 //
 // pathCell: The path cell that sent the message.
@@ -70,7 +68,6 @@ func (o NSPathCellDelegateObject) PathCellWillDisplayOpenPanel(pathCell INSPathC
 // Implementation of this method is optional.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCellDelegate/pathCell(_:willPopUp:)
-
 func (o NSPathCellDelegateObject) PathCellWillPopUpMenu(pathCell INSPathCell, menu INSMenu) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pathCell:willPopUpMenu:"), pathCell, menu)

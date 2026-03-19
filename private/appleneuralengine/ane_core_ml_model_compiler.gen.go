@@ -88,14 +88,12 @@ func (_ANECoreMLModelCompilerClass ANECoreMLModelCompilerClass) CompileModelAtCs
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECoreMLModelCompiler/createErrorWithString:
 func (_ANECoreMLModelCompilerClass ANECoreMLModelCompilerClass) CreateErrorWithString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANECoreMLModelCompilerClass.class), objc.Sel("createErrorWithString:"), string_)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECoreMLModelCompiler/pathsForModelURL:
 func (_ANECoreMLModelCompilerClass ANECoreMLModelCompilerClass) PathsForModelURL(url foundation.INSURL) objectivec.IObject {

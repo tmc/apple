@@ -208,7 +208,6 @@ func (m NSMeasurement) InitWithDoubleValueUnit(doubleValue float64, unit objecti
 	rv := objc.Send[NSMeasurement](m.ID, objc.Sel("initWithDoubleValue:unit:"), doubleValue, unit)
 	return rv
 }
-
 // Indicates whether the measurement can be converted to the given unit.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement/canBeConverted(to:)
@@ -216,7 +215,6 @@ func (m NSMeasurement) CanBeConvertedToUnit(unit INSUnit) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("canBeConvertedToUnit:"), unit)
 	return rv
 }
-
 // Returns a measurement created by converting the receiver to the specified
 // unit.
 //
@@ -238,7 +236,6 @@ func (m NSMeasurement) MeasurementByConvertingToUnit(unit INSUnit) INSMeasuremen
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementByConvertingToUnit:"), unit)
 	return NSMeasurementFromID(rv)
 }
-
 // Returns a new measurement by adding the receiver to the specified
 // measurement.
 //
@@ -265,7 +262,6 @@ func (m NSMeasurement) MeasurementByAddingMeasurement(measurement INSMeasurement
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementByAddingMeasurement:"), measurement)
 	return NSMeasurementFromID(rv)
 }
-
 // Returns a new measurement by subtracting the specified measurement from the
 // receiver.
 //
@@ -292,7 +288,6 @@ func (m NSMeasurement) MeasurementBySubtractingMeasurement(measurement INSMeasur
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("measurementBySubtractingMeasurement:"), measurement)
 	return NSMeasurementFromID(rv)
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -301,7 +296,6 @@ func (m NSMeasurement) MeasurementBySubtractingMeasurement(measurement INSMeasur
 func (m NSMeasurement) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](m.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (m NSMeasurement) InitWithCoder(coder INSCoder) NSMeasurement {
@@ -316,7 +310,6 @@ func (m NSMeasurement) Unit() objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("unit"))
 	return objectivec.Object{ID: rv}
 }
-
 // The measurement value, represented as a double-precision floating-point
 // number.
 //

@@ -148,7 +148,6 @@ func (m NSMenuToolbarItem) ShowsIndicator() bool {
 func (m NSMenuToolbarItem) SetShowsIndicator(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setShowsIndicator:"), value)
 }
-
 // The menu presented from the toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuToolbarItem/menu

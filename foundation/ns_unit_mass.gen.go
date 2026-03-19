@@ -150,7 +150,6 @@ func (_UnitMassClass UnitMassClass) Kilograms() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("kilograms"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The grams unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/grams
@@ -158,7 +157,6 @@ func (_UnitMassClass UnitMassClass) Grams() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("grams"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The decigrams unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/decigrams
@@ -166,7 +164,6 @@ func (_UnitMassClass UnitMassClass) Decigrams() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("decigrams"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The centigrams unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/centigrams
@@ -174,7 +171,6 @@ func (_UnitMassClass UnitMassClass) Centigrams() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("centigrams"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The milligrams unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/milligrams
@@ -182,7 +178,6 @@ func (_UnitMassClass UnitMassClass) Milligrams() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("milligrams"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The micrograms unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/micrograms
@@ -190,7 +185,6 @@ func (_UnitMassClass UnitMassClass) Micrograms() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("micrograms"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The nanograms unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/nanograms
@@ -198,7 +192,6 @@ func (_UnitMassClass UnitMassClass) Nanograms() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("nanograms"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The picograms unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/picograms
@@ -206,7 +199,6 @@ func (_UnitMassClass UnitMassClass) Picograms() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("picograms"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The ounces unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/ounces
@@ -214,7 +206,6 @@ func (_UnitMassClass UnitMassClass) Ounces() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("ounces"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The pounds unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/pounds
@@ -222,7 +213,6 @@ func (_UnitMassClass UnitMassClass) PoundsMass() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("poundsMass"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The stone unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/stones
@@ -230,7 +220,6 @@ func (_UnitMassClass UnitMassClass) Stones() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("stones"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The metric tons unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/metricTons
@@ -238,7 +227,6 @@ func (_UnitMassClass UnitMassClass) MetricTons() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("metricTons"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The short tons unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/shortTons
@@ -246,7 +234,6 @@ func (_UnitMassClass UnitMassClass) ShortTons() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("shortTons"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The carats unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/carats
@@ -254,7 +241,6 @@ func (_UnitMassClass UnitMassClass) Carats() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("carats"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The ounces troy unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/ouncesTroy
@@ -262,7 +248,6 @@ func (_UnitMassClass UnitMassClass) OuncesTroy() UnitMass {
 	rv := objc.Send[objc.ID](objc.ID(_UnitMassClass.class), objc.Sel("ouncesTroy"))
 	return NSUnitMassFromID(objc.ID(rv))
 }
-
 // The slugs unit of mass.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitMass/slugs

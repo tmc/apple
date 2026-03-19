@@ -242,7 +242,6 @@ func (c MTLCompileOptions) EnableLogging() bool {
 func (c MTLCompileOptions) SetEnableLogging(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEnableLogging:"), value)
 }
-
 // An indication of whether the compiler can perform optimizations for
 // floating-point arithmetic that may violate the IEEE 754 standard.
 //
@@ -269,7 +268,6 @@ func (c MTLCompileOptions) MathMode() MTLMathMode {
 func (c MTLCompileOptions) SetMathMode(value MTLMathMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMathMode:"), value)
 }
-
 // The FP32 math functions Metal uses.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/mathFloatingPointFunctions
@@ -280,7 +278,6 @@ func (c MTLCompileOptions) MathFloatingPointFunctions() MTLMathFloatingPointFunc
 func (c MTLCompileOptions) SetMathFloatingPointFunctions(value MTLMathFloatingPointFunctions) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMathFloatingPointFunctions:"), value)
 }
-
 // A Boolean value that indicates whether the compiler compiles vertex shaders
 // conservatively to generate consistent position calculations.
 //
@@ -305,7 +302,6 @@ func (c MTLCompileOptions) PreserveInvariance() bool {
 func (c MTLCompileOptions) SetPreserveInvariance(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPreserveInvariance:"), value)
 }
-
 // The language version for interpreting the library source code.
 //
 // # Discussion
@@ -320,7 +316,6 @@ func (c MTLCompileOptions) LanguageVersion() MTLLanguageVersion {
 func (c MTLCompileOptions) SetLanguageVersion(value MTLLanguageVersion) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLanguageVersion:"), value)
 }
-
 // A list of preprocessor macros to apply when compiling the library source.
 //
 // # Discussion
@@ -341,7 +336,6 @@ func (c MTLCompileOptions) PreprocessorMacros() foundation.INSDictionary {
 func (c MTLCompileOptions) SetPreprocessorMacros(value foundation.INSDictionary) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPreprocessorMacros:"), value)
 }
-
 // An option that tells the compiler what to prioritize when it compiles Metal
 // shader code.
 //
@@ -353,7 +347,6 @@ func (c MTLCompileOptions) OptimizationLevel() MTLLibraryOptimizationLevel {
 func (c MTLCompileOptions) SetOptimizationLevel(value MTLLibraryOptimizationLevel) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOptimizationLevel:"), value)
 }
-
 // An array of dynamic libraries the Metal compiler links against.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/libraries
@@ -366,7 +359,6 @@ func (c MTLCompileOptions) Libraries() []objectivec.IObject {
 func (c MTLCompileOptions) SetLibraries(value []objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLibraries:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // A Boolean value that indicates whether the compiler can perform
 // optimizations for floating-point arithmetic that may violate the IEEE 754
 // standard.
@@ -387,7 +379,6 @@ func (c MTLCompileOptions) FastMathEnabled() bool {
 func (c MTLCompileOptions) SetFastMathEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFastMathEnabled:"), value)
 }
-
 // The kind of library to create.
 //
 // # Discussion
@@ -402,7 +393,6 @@ func (c MTLCompileOptions) LibraryType() MTLLibraryType {
 func (c MTLCompileOptions) SetLibraryType(value MTLLibraryType) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLibraryType:"), value)
 }
-
 // For a dynamic library, the name to use when installing the library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/installName
@@ -413,7 +403,6 @@ func (c MTLCompileOptions) InstallName() string {
 func (c MTLCompileOptions) SetInstallName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInstallName:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/allowReferencingUndefinedSymbols
 func (c MTLCompileOptions) AllowReferencingUndefinedSymbols() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("allowReferencingUndefinedSymbols"))
@@ -422,7 +411,6 @@ func (c MTLCompileOptions) AllowReferencingUndefinedSymbols() bool {
 func (c MTLCompileOptions) SetAllowReferencingUndefinedSymbols(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowReferencingUndefinedSymbols:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/compileSymbolVisibility
 func (c MTLCompileOptions) CompileSymbolVisibility() MTLCompileSymbolVisibility {
 	rv := objc.Send[MTLCompileSymbolVisibility](c.ID, objc.Sel("compileSymbolVisibility"))
@@ -431,7 +419,6 @@ func (c MTLCompileOptions) CompileSymbolVisibility() MTLCompileSymbolVisibility 
 func (c MTLCompileOptions) SetCompileSymbolVisibility(value MTLCompileSymbolVisibility) {
 	objc.Send[struct{}](c.ID, objc.Sel("setCompileSymbolVisibility:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/maxTotalThreadsPerThreadgroup
 func (c MTLCompileOptions) MaxTotalThreadsPerThreadgroup() uint {
 	rv := objc.Send[uint](c.ID, objc.Sel("maxTotalThreadsPerThreadgroup"))
@@ -440,7 +427,6 @@ func (c MTLCompileOptions) MaxTotalThreadsPerThreadgroup() uint {
 func (c MTLCompileOptions) SetMaxTotalThreadsPerThreadgroup(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxTotalThreadsPerThreadgroup:"), value)
 }
-
 //
 // # Discussion
 // 

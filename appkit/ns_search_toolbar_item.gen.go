@@ -165,7 +165,6 @@ func NewSearchToolbarItemWithItemIdentifier(itemIdentifier NSToolbarItemIdentifi
 func (s NSSearchToolbarItem) BeginSearchInteraction() {
 	objc.Send[objc.ID](s.ID, objc.Sel("beginSearchInteraction"))
 }
-
 // Ends a search interaction by giving up the first responder and adjusting
 // the size of the search field to the available width for the toolbar item if
 // necessary.
@@ -190,7 +189,6 @@ func (s NSSearchToolbarItem) PreferredWidthForSearchField() float64 {
 func (s NSSearchToolbarItem) SetPreferredWidthForSearchField(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPreferredWidthForSearchField:"), value)
 }
-
 // A Boolean value that enables the cancel button in the search field to
 // resign the first responder in addition to clearing the contents.
 //
@@ -207,7 +205,6 @@ func (s NSSearchToolbarItem) ResignsFirstResponderWithCancel() bool {
 func (s NSSearchToolbarItem) SetResignsFirstResponderWithCancel(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setResignsFirstResponderWithCancel:"), value)
 }
-
 // The search field inside the toolbar item.
 //
 // # Discussion

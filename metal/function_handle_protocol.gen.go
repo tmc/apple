@@ -54,35 +54,28 @@ func MTLFunctionHandleObjectFromID(id objc.ID) MTLFunctionHandleObject {
 // The device object that created the shader function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/device
-
 func (o MTLFunctionHandleObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // The shader function’s type.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/functionType
-
 func (o MTLFunctionHandleObject) FunctionType() MTLFunctionType {
 	
 	rv := objc.Send[MTLFunctionType](o.ID, objc.Sel("functionType"))
 	return rv
 	}
-
 // The function’s name.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/name
-
 func (o MTLFunctionHandleObject) Name() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionHandle/gpuResourceID
-
 func (o MTLFunctionHandleObject) GpuResourceID() MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))

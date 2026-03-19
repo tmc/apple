@@ -176,95 +176,79 @@ func (t NSTextCheckingController) InitWithClient(client NSTextCheckingClient) NS
 	rv := objc.Send[NSTextCheckingController](t.ID, objc.Sel("initWithClient:"), client)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/changeSpelling(_:)
 func (t NSTextCheckingController) ChangeSpelling(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("changeSpelling:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/checkSpelling(_:)
 func (t NSTextCheckingController) CheckSpelling(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("checkSpelling:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/checkText(in:types:options:)
 func (t NSTextCheckingController) CheckTextInRangeTypesOptions(range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary) {
 	objc.Send[objc.ID](t.ID, objc.Sel("checkTextInRange:types:options:"), range_, checkingTypes, options)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/checkTextInDocument(_:)
 func (t NSTextCheckingController) CheckTextInDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("checkTextInDocument:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/checkTextInSelection(_:)
 func (t NSTextCheckingController) CheckTextInSelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("checkTextInSelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/considerTextChecking(for:)
 func (t NSTextCheckingController) ConsiderTextCheckingForRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("considerTextCheckingForRange:"), range_)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/didChangeSelectedRange()
 func (t NSTextCheckingController) DidChangeSelectedRange() {
 	objc.Send[objc.ID](t.ID, objc.Sel("didChangeSelectedRange"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/didChangeText(in:)
 func (t NSTextCheckingController) DidChangeTextInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("didChangeTextInRange:"), range_)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/ignoreSpelling(_:)
 func (t NSTextCheckingController) IgnoreSpelling(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("ignoreSpelling:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/insertedText(in:)
 func (t NSTextCheckingController) InsertedTextInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("insertedTextInRange:"), range_)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/invalidate()
 func (t NSTextCheckingController) Invalidate() {
 	objc.Send[objc.ID](t.ID, objc.Sel("invalidate"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/menu(at:clickedOnSelection:effectiveRange:)
 func (t NSTextCheckingController) MenuAtIndexClickedOnSelectionEffectiveRange(location uint, clickedOnSelection bool, effectiveRange foundation.NSRange) INSMenu {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("menuAtIndex:clickedOnSelection:effectiveRange:"), location, clickedOnSelection, effectiveRange)
 	return NSMenuFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/orderFrontSubstitutionsPanel(_:)
 func (t NSTextCheckingController) OrderFrontSubstitutionsPanel(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("orderFrontSubstitutionsPanel:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/showGuessPanel(_:)
 func (t NSTextCheckingController) ShowGuessPanel(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("showGuessPanel:"), sender)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/updateCandidates()
 func (t NSTextCheckingController) UpdateCandidates() {
 	objc.Send[objc.ID](t.ID, objc.Sel("updateCandidates"))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/validAnnotations()
 func (t NSTextCheckingController) ValidAnnotations() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("validAnnotations"))
@@ -276,7 +260,6 @@ func (t NSTextCheckingController) Client() NSTextCheckingClient {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("client"))
 	return NSTextCheckingClientObjectFromID(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingController/spellCheckerDocumentTag
 func (t NSTextCheckingController) SpellCheckerDocumentTag() int {
 	rv := objc.Send[int](t.ID, objc.Sel("spellCheckerDocumentTag"))

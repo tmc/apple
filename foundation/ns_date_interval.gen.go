@@ -244,7 +244,6 @@ func (d NSDateInterval) InitWithStartDateDuration(startDate INSDate, duration fl
 	rv := objc.Send[NSDateInterval](d.ID, objc.Sel("initWithStartDate:duration:"), startDate, duration)
 	return rv
 }
-
 // Initializes a date interval from a given start date and end date.
 //
 // startDate: The start date of the date interval.
@@ -256,7 +255,6 @@ func (d NSDateInterval) InitWithStartDateEndDate(startDate INSDate, endDate INSD
 	rv := objc.Send[NSDateInterval](d.ID, objc.Sel("initWithStartDate:endDate:"), startDate, endDate)
 	return rv
 }
-
 // Returns a date interval initialized from data in the given unarchiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/init(coder:)
@@ -264,7 +262,6 @@ func (d NSDateInterval) InitWithCoder(coder INSCoder) NSDateInterval {
 	rv := objc.Send[NSDateInterval](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Compares the receiver with the specified date interval.
 //
 // dateInterval: The date interval with which to compare the receiver.
@@ -306,7 +303,6 @@ func (d NSDateInterval) Compare(dateInterval INSDateInterval) ComparisonResult {
 	rv := objc.Send[ComparisonResult](d.ID, objc.Sel("compare:"), dateInterval)
 	return ComparisonResult(rv)
 }
-
 // Indicates whether the receiver is equal to the specified date interval.
 //
 // dateInterval: The date interval with which to check the receiver for equality.
@@ -324,7 +320,6 @@ func (d NSDateInterval) IsEqualToDateInterval(dateInterval INSDateInterval) bool
 	rv := objc.Send[bool](d.ID, objc.Sel("isEqualToDateInterval:"), dateInterval)
 	return rv
 }
-
 // Indicates whether the receiver intersects with the specified date interval.
 //
 // dateInterval: The date interval with which to check the receiver for intersection.
@@ -339,7 +334,6 @@ func (d NSDateInterval) IntersectsDateInterval(dateInterval INSDateInterval) boo
 	rv := objc.Send[bool](d.ID, objc.Sel("intersectsDateInterval:"), dateInterval)
 	return rv
 }
-
 // Returns the intersection between the receiver and the specified date
 // interval.
 //
@@ -373,7 +367,6 @@ func (d NSDateInterval) IntersectionWithDateInterval(dateInterval INSDateInterva
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("intersectionWithDateInterval:"), dateInterval)
 	return NSDateIntervalFromID(rv)
 }
-
 // Indicates whether the receiver contains the specified date.
 //
 // date: The date for which to test membership of the date interval.
@@ -390,7 +383,6 @@ func (d NSDateInterval) ContainsDate(date INSDate) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("containsDate:"), date)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -407,7 +399,6 @@ func (d NSDateInterval) StartDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("startDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
 // The end date of the date interval.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/endDate
@@ -415,7 +406,6 @@ func (d NSDateInterval) EndDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("endDate"))
 	return NSDateFromID(objc.ID(rv))
 }
-
 // The duration of the date interval.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/duration

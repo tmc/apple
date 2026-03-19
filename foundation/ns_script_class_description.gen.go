@@ -319,7 +319,6 @@ func (s NSScriptClassDescription) InitWithSuiteNameClassNameDictionary(suiteName
 	rv := objc.Send[NSScriptClassDescription](s.ID, objc.Sel("initWithSuiteName:className:dictionary:"), objc.String(suiteName), objc.String(className), classDeclaration)
 	return rv
 }
-
 // Returns the class description instance for the class type of the specified
 // attribute or relationship.
 //
@@ -336,7 +335,6 @@ func (s NSScriptClassDescription) ClassDescriptionForKey(key string) INSScriptCl
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("classDescriptionForKey:"), objc.String(key))
 	return NSScriptClassDescriptionFromID(rv)
 }
-
 // Returns a Boolean value indicating whether an insertion location must be
 // specified when creating a new object in the specified to-many relationship
 // of the receiver.
@@ -365,7 +363,6 @@ func (s NSScriptClassDescription) IsLocationRequiredToCreateForKey(toManyRelatio
 	rv := objc.Send[bool](s.ID, objc.Sel("isLocationRequiredToCreateForKey:"), objc.String(toManyRelationshipKey))
 	return rv
 }
-
 // Returns the Apple event code for the specified attribute or relationship in
 // the receiver.
 //
@@ -383,7 +380,6 @@ func (s NSScriptClassDescription) AppleEventCodeForKey(key string) uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCodeForKey:"), objc.String(key))
 	return rv
 }
-
 // Returns a Boolean value indicating whether a primary or secondary Apple
 // event code in the receiver matches the passed code.
 //
@@ -403,7 +399,6 @@ func (s NSScriptClassDescription) MatchesAppleEventCode(appleEventCode uint32) b
 	rv := objc.Send[bool](s.ID, objc.Sel("matchesAppleEventCode:"), appleEventCode)
 	return rv
 }
-
 // Returns a Boolean value indicating whether the described class has an
 // ordered to-many relationship identified by the specified key.
 //
@@ -422,7 +417,6 @@ func (s NSScriptClassDescription) HasOrderedToManyRelationshipForKey(key string)
 	rv := objc.Send[bool](s.ID, objc.Sel("hasOrderedToManyRelationshipForKey:"), objc.String(key))
 	return rv
 }
-
 // Returns a Boolean value indicating whether the described class has a
 // property identified by the specified key.
 //
@@ -441,7 +435,6 @@ func (s NSScriptClassDescription) HasPropertyForKey(key string) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hasPropertyForKey:"), objc.String(key))
 	return rv
 }
-
 // Returns a Boolean value indicating whether the described class has a
 // readable property identified by the specified key.
 //
@@ -465,7 +458,6 @@ func (s NSScriptClassDescription) HasReadablePropertyForKey(key string) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hasReadablePropertyForKey:"), objc.String(key))
 	return rv
 }
-
 // Returns a Boolean value indicating whether the described class has a
 // writable property identified by the specified key.
 //
@@ -484,7 +476,6 @@ func (s NSScriptClassDescription) HasWritablePropertyForKey(key string) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hasWritablePropertyForKey:"), objc.String(key))
 	return rv
 }
-
 // Given an Apple event code that identifies a property or element class,
 // returns the key for the corresponding attribute, one-to-one relationship,
 // or one-to-many relationship.
@@ -505,7 +496,6 @@ func (s NSScriptClassDescription) KeyWithAppleEventCode(appleEventCode uint32) s
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("keyWithAppleEventCode:"), appleEventCode)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the name of the declared type of the attribute or relationship
 // identified by the passed key.
 //
@@ -523,7 +513,6 @@ func (s NSScriptClassDescription) TypeForKey(key string) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("typeForKey:"), objc.String(key))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the selector associated with the receiver for the specified command
 // description.
 //
@@ -543,7 +532,6 @@ func (s NSScriptClassDescription) SelectorForCommand(commandDescription INSScrip
 	rv := objc.Send[objc.SEL](s.ID, objc.Sel("selectorForCommand:"), commandDescription)
 	return rv
 }
-
 // Returns a Boolean value indicating whether the receiver or any superclass
 // supports the specified command.
 //
@@ -585,7 +573,6 @@ func (s NSScriptClassDescription) SuperclassDescription() INSScriptClassDescript
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("superclassDescription"))
 	return NSScriptClassDescriptionFromID(objc.ID(rv))
 }
-
 // Returns the name of the class the receiver describes, as provided at
 // initialization time.
 //
@@ -601,7 +588,6 @@ func (s NSScriptClassDescription) ClassName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("className"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the value of the [DefaultSubcontainerAttribute] entry of the class
 // dictionary from which the receiver was instantiated.
 //
@@ -615,7 +601,6 @@ func (s NSScriptClassDescription) DefaultSubcontainerAttributeKey() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("defaultSubcontainerAttributeKey"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the name of the Objective-C class instantiated to implement the
 // scripting class.
 //
@@ -636,7 +621,6 @@ func (s NSScriptClassDescription) ImplementationClassName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("implementationClassName"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the name of the receiver’s suite.
 //
 // # Return Value
@@ -649,7 +633,6 @@ func (s NSScriptClassDescription) SuiteName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("suiteName"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the Apple event code associated with the receiver’s class.
 //
 // # Return Value

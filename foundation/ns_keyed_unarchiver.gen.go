@@ -212,7 +212,6 @@ func (k NSKeyedUnarchiver) InitForReadingFromDataError(data INSData) (NSKeyedUna
 	return NSKeyedUnarchiverFromID(rv), nil
 
 }
-
 // Tells the receiver that you are finished decoding objects.
 //
 // # Discussion
@@ -253,7 +252,6 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedObjectOfClassesF
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Sets a global translation mapping to decode objects encoded with a given
 // class name as instances of a given class instead.
 //
@@ -270,7 +268,6 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedObjectOfClassesF
 func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) SetClassForClassName(cls objc.Class, codedName string) {
 	objc.Send[objc.ID](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("setClass:forClassName:"), cls, objc.String(codedName))
 }
-
 // Returns the class from which this unarchiver instantiates an encoded object
 // with a given class name.
 //
@@ -287,7 +284,6 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) ClassForClassNameWithCoded
 	rv := objc.Send[objc.Class](objc.ID(_NSKeyedUnarchiverClass.class), objc.Sel("classForClassName:"), objc.String(codedName))
 	return rv
 }
-
 // Decodes the \c NSArray root object from \c data which should be an \c
 // NSArray containing the given non-collection class (no nested arrays or
 // arrays of dictionaries, etc) from the given archive, previously encoded by
@@ -312,7 +308,6 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOf
 	return NSArrayFromID(rv), nil
 
 }
-
 // Decodes the \c NSArray root object from \c data which should be an \c
 // NSArray, containing the given non-collection classes in \c classes (no
 // nested arrays or arrays of dictionaries, etc) from the given archive,
@@ -337,7 +332,6 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedArrayOfObjectsOf
 	return NSArrayFromID(rv), nil
 
 }
-
 // Decodes the \c NSDictionary root object from \c data which should be an \c
 // NSDictionary with keys of type given in \c keyCls and objects of the given
 // non-collection class \c objectCls (no nested dictionaries or other
@@ -363,7 +357,6 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKe
 	return NSDictionaryFromID(rv), nil
 
 }
-
 // Decodes the \c NSDictionary root object from \c data which should be an \c
 // NSDictionary, with keys of the types given in \c keyClasses and objects of
 // the given non-collection classes in \c objectClasses (no nested
@@ -389,7 +382,6 @@ func (_NSKeyedUnarchiverClass NSKeyedUnarchiverClass) UnarchivedDictionaryWithKe
 	return NSDictionaryFromID(rv), nil
 
 }
-
 // Decodes a previously-archived object graph, that returns the root object as
 // the specified type.
 //
@@ -430,7 +422,6 @@ func (k NSKeyedUnarchiver) Delegate() NSKeyedUnarchiverDelegate {
 func (k NSKeyedUnarchiver) SetDelegate(value NSKeyedUnarchiverDelegate) {
 	objc.Send[struct{}](k.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The name of the exception raised by
 //
 // See: https://developer.apple.com/documentation/foundation/nsexceptionname/invalidunarchiveoperationexception
@@ -438,7 +429,6 @@ func (k NSKeyedUnarchiver) InvalidUnarchiveOperationException() NSExceptionName 
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("NSInvalidUnarchiveOperationException"))
 	return NSExceptionName(NSStringFromID(rv).String())
 }
-
 // Name of an exception that occurs when attempting to access outside the
 // bounds of some data, such as beyond the end of a string.
 //

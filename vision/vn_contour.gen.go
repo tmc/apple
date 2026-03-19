@@ -166,7 +166,6 @@ func (c VNContour) PolygonApproximationWithEpsilonError(epsilon float32) (IVNCon
 	return VNContourFromID(rv), nil
 
 }
-
 // Retrieves the child contour object at the specified index.
 //
 // childContourIndex: The child contour index value.
@@ -198,7 +197,6 @@ func (c VNContour) AspectRatio() float32 {
 	rv := objc.Send[float32](c.ID, objc.Sel("aspectRatio"))
 	return rv
 }
-
 // The contour object’s index path.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/indexPath
@@ -206,7 +204,6 @@ func (c VNContour) IndexPath() objc.ID {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPath"))
 	return rv
 }
-
 // The contour object as a path in normalized coordinates.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/normalizedPath
@@ -214,7 +211,6 @@ func (c VNContour) NormalizedPath() coregraphics.CGPathRef {
 	rv := objc.Send[coregraphics.CGPathRef](c.ID, objc.Sel("normalizedPath"))
 	return coregraphics.CGPathRef(rv)
 }
-
 // The contour’s number of points.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/pointCount
@@ -222,7 +218,6 @@ func (c VNContour) PointCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("pointCount"))
 	return rv
 }
-
 // The total number of detected child contours.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/childContourCount
@@ -230,7 +225,6 @@ func (c VNContour) ChildContourCount() int {
 	rv := objc.Send[int](c.ID, objc.Sel("childContourCount"))
 	return rv
 }
-
 // An array of contours that this contour encloses.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContour/childContours
@@ -240,7 +234,6 @@ func (c VNContour) ChildContours() []VNContour {
 		return VNContourFromID(id)
 	})
 }
-
 // The total number of detected contours.
 //
 // See: https://developer.apple.com/documentation/vision/vncontoursobservation/contourcount
@@ -251,7 +244,6 @@ func (c VNContour) ContourCount() int {
 func (c VNContour) SetContourCount(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContourCount:"), value)
 }
-
 // The contour’s array of points in normalized coordinates.
 //
 // # Discussion
@@ -266,7 +258,6 @@ func (c VNContour) NormalizedPoints() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("normalizedPoints"))
 	return objectivec.Object{ID: rv}
 }
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //
@@ -275,7 +266,6 @@ func (c VNContour) RequestRevision() uint {
 	rv := objc.Send[uint](c.ID, objc.Sel("requestRevision"))
 	return rv
 }
-
 // The total number of detected top-level contours.
 //
 // See: https://developer.apple.com/documentation/vision/vncontoursobservation/toplevelcontourcount
@@ -286,7 +276,6 @@ func (c VNContour) TopLevelContourCount() int {
 func (c VNContour) SetTopLevelContourCount(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTopLevelContourCount:"), value)
 }
-
 // An array of contours that don’t have another contour enclosing them.
 //
 // See: https://developer.apple.com/documentation/vision/vncontoursobservation/toplevelcontours

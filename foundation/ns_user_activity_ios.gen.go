@@ -22,7 +22,6 @@ func (u NSUserActivity) AppClipActivationPayload() objectivec.IObject {
 rv := objc.Send[objc.ID](u.ID, objc.Sel("appClipActivationPayload"))
 return objectivec.Object{ID: rv}
 }
-
 // A Boolean value that determines whether Siri can suggest the user activity
 // as a shortcut to the user.
 //
@@ -48,7 +47,6 @@ rv := objc.Send[bool](u.ID, objc.Sel("isEligibleForPrediction"))
 func (u NSUserActivity) SetEligibleForPrediction(value bool) {
 objc.Send[struct{}](u.ID, objc.Sel("setEligibleForPrediction:"), value)
 }
-
 // A set of defined contexts in which an intent or activity might be relevant
 // to a user.
 //
@@ -71,7 +69,6 @@ return objectivec.Object{ID: rv}
 func (u NSUserActivity) SetShortcutAvailability(value objectivec.IObject) {
 objc.Send[struct{}](u.ID, objc.Sel("setShortcutAvailability:"), value)
 }
-
 // The NDEF message read by the system in the background.
 //
 // # Discussion
@@ -92,7 +89,6 @@ func (u NSUserActivity) NdefMessagePayload() objectivec.IObject {
 rv := objc.Send[objc.ID](u.ID, objc.Sel("ndefMessagePayload"))
 return objectivec.Object{ID: rv}
 }
-
 // A unique identifier from the app’s media content catalog for the
 // currently displayed media item.
 //

@@ -107,7 +107,6 @@ func (r MTLRenderPassColorAttachmentDescriptorArray) ObjectAtIndexedSubscript(at
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLRenderPassColorAttachmentDescriptorFromID(rv)
 }
-
 // Sets the descriptor for the specified color attachment.
 //
 // attachment: A descriptor that contains color attachment information. Specify `nil` to

@@ -185,7 +185,6 @@ func (d VNDetectFaceLandmarksRequest) Constellation() VNRequestFaceLandmarksCons
 func (d VNDetectFaceLandmarksRequest) SetConstellation(value VNRequestFaceLandmarksConstellation) {
 	objc.Send[struct{}](d.ID, objc.Sel("setConstellation:"), value)
 }
-
 // A constant for specifying revision 3 of the face landmarks detection
 // request.
 //
@@ -194,7 +193,6 @@ func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision3() in
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceLandmarksRequestRevision3"))
 	return rv
 }
-
 // A constant for specifying revision 2 of the face landmarks detection
 // request.
 //
@@ -203,7 +201,6 @@ func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision2() in
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceLandmarksRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the face landmarks detection
 // request.
 //
@@ -212,7 +209,6 @@ func (d VNDetectFaceLandmarksRequest) VNDetectFaceLandmarksRequestRevision1() in
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceLandmarksRequestRevision1"))
 	return rv
 }
-
 // An array of
 //
 // See: https://developer.apple.com/documentation/vision/vnfaceobservationaccepting/inputfaceobservations

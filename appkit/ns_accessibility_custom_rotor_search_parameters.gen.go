@@ -153,7 +153,6 @@ func (a NSAccessibilityCustomRotorSearchParameters) CurrentItem() INSAccessibili
 func (a NSAccessibilityCustomRotorSearchParameters) SetCurrentItem(value INSAccessibilityCustomRotorItemResult) {
 	objc.Send[struct{}](a.ID, objc.Sel("setCurrentItem:"), value)
 }
-
 // A string of text to filter the results against.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchParameters/filterString
@@ -164,7 +163,6 @@ func (a NSAccessibilityCustomRotorSearchParameters) FilterString() string {
 func (a NSAccessibilityCustomRotorSearchParameters) SetFilterString(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFilterString:"), objc.String(value))
 }
-
 // The direction to search for an item result.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/SearchParameters/searchDirection

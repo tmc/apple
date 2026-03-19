@@ -228,7 +228,6 @@ func (a ANEClient) BeginRealTimeTask() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("beginRealTimeTask"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/buffersReadyWithModel:inputBuffers:options:qos:error:
 func (a ANEClient) BuffersReadyWithModelInputBuffersOptionsQosError(model objectivec.IObject, buffers objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -244,7 +243,6 @@ func (a ANEClient) BuffersReadyWithModelInputBuffersOptionsQosError(model object
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/compileModel:options:qos:error:
 func (a ANEClient) CompileModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -260,35 +258,30 @@ func (a ANEClient) CompileModelOptionsQosError(model objectivec.IObject, options
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/compiledModelExistsFor:
 func (a ANEClient) CompiledModelExistsFor(for_ objectivec.IObject) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("compiledModelExistsFor:"), for_)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/compiledModelExistsMatchingHash:
 func (a ANEClient) CompiledModelExistsMatchingHash(hash objectivec.IObject) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("compiledModelExistsMatchingHash:"), hash)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/connectionForLoadingModel:options:
 func (a ANEClient) ConnectionForLoadingModelOptions(model objectivec.IObject, options objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("connectionForLoadingModel:options:"), model, options)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/connectionUsedForLoadingModel:
 func (a ANEClient) ConnectionUsedForLoadingModel(model objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("connectionUsedForLoadingModel:"), model)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/doBuffersReadyWithModel:inputBuffers:options:qos:error:
 func (a ANEClient) DoBuffersReadyWithModelInputBuffersOptionsQosError(model objectivec.IObject, buffers objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -304,7 +297,6 @@ func (a ANEClient) DoBuffersReadyWithModelInputBuffersOptionsQosError(model obje
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/doEnqueueSetsWithModel:outputSet:options:qos:error:
 func (a ANEClient) DoEnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set *ANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error) {
@@ -320,7 +312,6 @@ func (a ANEClient) DoEnqueueSetsWithModelOutputSetOptionsQosError(model objectiv
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/doEvaluateDirectWithModel:options:request:qos:error:
 func (a ANEClient) DoEvaluateDirectWithModelOptionsRequestQosError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32) (bool, error) {
@@ -336,7 +327,6 @@ func (a ANEClient) DoEvaluateDirectWithModelOptionsRequestQosError(model objecti
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/doLoadModel:options:qos:error:
 func (a ANEClient) DoLoadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -352,7 +342,6 @@ func (a ANEClient) DoLoadModelOptionsQosError(model objectivec.IObject, options 
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/doLoadModelNewInstance:options:modelInstParams:qos:error:
 func (a ANEClient) DoLoadModelNewInstanceOptionsModelInstParamsQosError(instance objectivec.IObject, options objectivec.IObject, params objectivec.IObject, qos uint32) (bool, error) {
@@ -368,7 +357,6 @@ func (a ANEClient) DoLoadModelNewInstanceOptionsModelInstParamsQosError(instance
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/doPrepareChainingWithModel:options:chainingReq:qos:error:
 func (a ANEClient) DoPrepareChainingWithModelOptionsChainingReqQosError(model objectivec.IObject, options objectivec.IObject, req objectivec.IObject, qos uint32) (bool, error) {
@@ -384,7 +372,6 @@ func (a ANEClient) DoPrepareChainingWithModelOptionsChainingReqQosError(model ob
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/doUnloadModel:options:qos:error:
 func (a ANEClient) DoUnloadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -400,20 +387,17 @@ func (a ANEClient) DoUnloadModelOptionsQosError(model objectivec.IObject, option
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/echo:
 func (a ANEClient) Echo(echo objectivec.IObject) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("echo:"), echo)
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/endRealTimeTask
 func (a ANEClient) EndRealTimeTask() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("endRealTimeTask"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/enqueueSetsWithModel:outputSet:options:qos:error:
 func (a ANEClient) EnqueueSetsWithModelOutputSetOptionsQosError(model objectivec.IObject, set *ANEOutputSetEnqueue, options objectivec.IObject, qos uint32) (bool, error) {
@@ -429,7 +413,6 @@ func (a ANEClient) EnqueueSetsWithModelOutputSetOptionsQosError(model objectivec
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/evaluateRealTimeWithModel:options:request:error:
 func (a ANEClient) EvaluateRealTimeWithModelOptionsRequestError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject) (bool, error) {
@@ -445,7 +428,6 @@ func (a ANEClient) EvaluateRealTimeWithModelOptionsRequestError(model objectivec
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/evaluateWithModel:options:request:qos:error:
 func (a ANEClient) EvaluateWithModelOptionsRequestQosError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32) (bool, error) {
@@ -461,25 +443,21 @@ func (a ANEClient) EvaluateWithModelOptionsRequestQosError(model objectivec.IObj
 	return rv, nil
 
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/fastConnWithoutLock
 func (a ANEClient) FastConnWithoutLock() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fastConnWithoutLock"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/isAnetoolRootDaemonConnection
 func (a ANEClient) IsAnetoolRootDaemonConnection() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isAnetoolRootDaemonConnection"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/isVirtualClient
 func (a ANEClient) IsVirtualClient() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isVirtualClient"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/loadModel:options:qos:error:
 func (a ANEClient) LoadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -495,7 +473,6 @@ func (a ANEClient) LoadModelOptionsQosError(model objectivec.IObject, options ob
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/loadModelNewInstance:options:modelInstParams:qos:error:
 func (a ANEClient) LoadModelNewInstanceOptionsModelInstParamsQosError(instance objectivec.IObject, options objectivec.IObject, params objectivec.IObject, qos uint32) (bool, error) {
@@ -511,7 +488,6 @@ func (a ANEClient) LoadModelNewInstanceOptionsModelInstParamsQosError(instance o
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/loadRealTimeModel:options:qos:error:
 func (a ANEClient) LoadRealTimeModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -527,7 +503,6 @@ func (a ANEClient) LoadRealTimeModelOptionsQosError(model objectivec.IObject, op
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/mapIOSurfacesWithModel:request:cacheInference:error:
 func (a ANEClient) MapIOSurfacesWithModelRequestCacheInferenceError(model objectivec.IObject, request objectivec.IObject, inference bool) (bool, error) {
@@ -543,7 +518,6 @@ func (a ANEClient) MapIOSurfacesWithModelRequestCacheInferenceError(model object
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/prepareChainingWithModel:options:chainingReq:qos:error:
 func (a ANEClient) PrepareChainingWithModelOptionsChainingReqQosError(model objectivec.IObject, options objectivec.IObject, req objectivec.IObject, qos uint32) (bool, error) {
@@ -559,25 +533,21 @@ func (a ANEClient) PrepareChainingWithModelOptionsChainingReqQosError(model obje
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/purgeCompiledModel:
 func (a ANEClient) PurgeCompiledModel(model objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModel:"), model)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/purgeCompiledModelMatchingHash:
 func (a ANEClient) PurgeCompiledModelMatchingHash(hash objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("purgeCompiledModelMatchingHash:"), hash)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/reportEvaluateFailure:failureReason:qIdx:
 func (a ANEClient) ReportEvaluateFailureFailureReasonQIdx(failure objectivec.IObject, reason uint32, idx uint64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("reportEvaluateFailure:failureReason:qIdx:"), failure, reason, idx)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/sessionHintWithModel:hint:options:report:error:
 func (a ANEClient) SessionHintWithModelHintOptionsReportError(model objectivec.IObject, hint objectivec.IObject, options objectivec.IObject, report objectivec.IObject) (bool, error) {
@@ -593,7 +563,6 @@ func (a ANEClient) SessionHintWithModelHintOptionsReportError(model objectivec.I
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/unloadModel:options:qos:error:
 func (a ANEClient) UnloadModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -609,7 +578,6 @@ func (a ANEClient) UnloadModelOptionsQosError(model objectivec.IObject, options 
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/unloadRealTimeModel:options:qos:error:
 func (a ANEClient) UnloadRealTimeModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -625,13 +593,11 @@ func (a ANEClient) UnloadRealTimeModelOptionsQosError(model objectivec.IObject, 
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/unmapIOSurfacesWithModel:request:
 func (a ANEClient) UnmapIOSurfacesWithModelRequest(model objectivec.IObject, request objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("unmapIOSurfacesWithModel:request:"), model, request)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/initWithRestrictedAccessAllowed:
 func (a ANEClient) InitWithRestrictedAccessAllowed(allowed bool) ANEClient {
@@ -648,7 +614,6 @@ func (_ANEClientClass ANEClientClass) SharedConnection() *ANEClient {
 	val := ANEClientFromID(rv)
 	return &val
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/sharedPrivateConnection
 func (_ANEClientClass ANEClientClass) SharedPrivateConnection() *ANEClient {
 	rv := objc.Send[objc.ID](objc.ID(_ANEClientClass.class), objc.Sel("sharedPrivateConnection"))
@@ -664,7 +629,6 @@ func (a ANEClient) AllowRestrictedAccess() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("allowRestrictedAccess"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/conn
 func (a ANEClient) Conn() *ANEDaemonConnection {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("conn"))
@@ -674,19 +638,16 @@ func (a ANEClient) Conn() *ANEDaemonConnection {
 	val := ANEDaemonConnectionFromID(objc.ID(rv))
 	return &val
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/connections
 func (a ANEClient) Connections() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("connections"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/connectionsUsedForLoadingModels
 func (a ANEClient) ConnectionsUsedForLoadingModels() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("connectionsUsedForLoadingModels"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/fastConn
 func (a ANEClient) FastConn() *ANEDaemonConnection {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fastConn"))
@@ -696,19 +657,16 @@ func (a ANEClient) FastConn() *ANEDaemonConnection {
 	val := ANEDaemonConnectionFromID(objc.ID(rv))
 	return &val
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/isRootDaemon
 func (a ANEClient) IsRootDaemon() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isRootDaemon"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/priorityQ
 func (a ANEClient) PriorityQ() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("priorityQ"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEClient/virtualClient
 func (a ANEClient) VirtualClient() *ANEVirtualClient {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("virtualClient"))

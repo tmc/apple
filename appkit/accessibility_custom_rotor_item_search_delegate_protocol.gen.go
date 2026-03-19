@@ -41,7 +41,6 @@ func NSAccessibilityCustomRotorItemSearchDelegateObjectFromID(id objc.ID) NSAcce
 // result.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotorItemSearchDelegate/rotor(_:resultFor:)
-
 func (o NSAccessibilityCustomRotorItemSearchDelegateObject) RotorResultForSearchParameters(rotor INSAccessibilityCustomRotor, searchParameters INSAccessibilityCustomRotorSearchParameters) INSAccessibilityCustomRotorItemResult {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("rotor:resultForSearchParameters:"), rotor, searchParameters)

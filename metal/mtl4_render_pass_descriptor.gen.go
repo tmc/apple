@@ -239,7 +239,6 @@ func (m MTL4RenderPassDescriptor) GetSamplePositionsCount(positions []MTLSampleP
 	rv := objc.Send[uint](m.ID, objc.Sel("getSamplePositions:count:"), objc.CArray(positions), count)
 	return rv
 }
-
 // Configures the custom sample positions to use in MSAA rendering.
 //
 // positions: Array of [MTLSamplePosition] instances.
@@ -264,7 +263,6 @@ func (m MTL4RenderPassDescriptor) ColorAttachments() IMTLRenderPassColorAttachme
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("colorAttachments"))
 	return MTLRenderPassColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
 // Sets the default raster sample count for the render pass when it references
 // no attachments.
 //
@@ -276,7 +274,6 @@ func (m MTL4RenderPassDescriptor) DefaultRasterSampleCount() uint {
 func (m MTL4RenderPassDescriptor) SetDefaultRasterSampleCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDefaultRasterSampleCount:"), value)
 }
-
 // Accesses state information for a render attachment that stores depth data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/depthAttachment
@@ -287,7 +284,6 @@ func (m MTL4RenderPassDescriptor) DepthAttachment() IMTLRenderPassDepthAttachmen
 func (m MTL4RenderPassDescriptor) SetDepthAttachment(value IMTLRenderPassDepthAttachmentDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDepthAttachment:"), value)
 }
-
 // Assigns the per-sample size, in bytes, of the largest explicit imageblock
 // layout in the render pass.
 //
@@ -299,7 +295,6 @@ func (m MTL4RenderPassDescriptor) ImageblockSampleLength() uint {
 func (m MTL4RenderPassDescriptor) SetImageblockSampleLength(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setImageblockSampleLength:"), value)
 }
-
 // Assigns an optional variable rasterization rate map that Metal uses in the
 // render pass.
 //
@@ -320,7 +315,6 @@ func (m MTL4RenderPassDescriptor) RasterizationRateMap() MTLRasterizationRateMap
 func (m MTL4RenderPassDescriptor) SetRasterizationRateMap(value MTLRasterizationRateMap) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRasterizationRateMap:"), value)
 }
-
 // Assigns the number of layers that all attachments this descriptor
 // references have.
 //
@@ -332,7 +326,6 @@ func (m MTL4RenderPassDescriptor) RenderTargetArrayLength() uint {
 func (m MTL4RenderPassDescriptor) SetRenderTargetArrayLength(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRenderTargetArrayLength:"), value)
 }
-
 // Sets the height, in pixels, to which Metal constrains the render target.
 //
 // # Discussion
@@ -350,7 +343,6 @@ func (m MTL4RenderPassDescriptor) RenderTargetHeight() uint {
 func (m MTL4RenderPassDescriptor) SetRenderTargetHeight(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRenderTargetHeight:"), value)
 }
-
 // Sets the width, in pixels, to which Metal constrains the render target.
 //
 // # Discussion
@@ -368,7 +360,6 @@ func (m MTL4RenderPassDescriptor) RenderTargetWidth() uint {
 func (m MTL4RenderPassDescriptor) SetRenderTargetWidth(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setRenderTargetWidth:"), value)
 }
-
 // Configures the custom sample positions to use in MSAA rendering.
 //
 // See: https://developer.apple.com/documentation/metal/mtl4renderpassdescriptor/samplepositions
@@ -379,7 +370,6 @@ func (m MTL4RenderPassDescriptor) SamplePositions() MTLSamplePosition {
 func (m MTL4RenderPassDescriptor) SetSamplePositions(value MTLSamplePosition) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSamplePositions:"), value)
 }
-
 // Accesses state information for a render attachment that stores stencil
 // data.
 //
@@ -391,7 +381,6 @@ func (m MTL4RenderPassDescriptor) StencilAttachment() IMTLRenderPassStencilAttac
 func (m MTL4RenderPassDescriptor) SetStencilAttachment(value IMTLRenderPassStencilAttachmentDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setStencilAttachment:"), value)
 }
-
 // Controls if the render pass supports color attachment mapping.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderPassDescriptor/supportColorAttachmentMapping
@@ -402,7 +391,6 @@ func (m MTL4RenderPassDescriptor) SupportColorAttachmentMapping() bool {
 func (m MTL4RenderPassDescriptor) SetSupportColorAttachmentMapping(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSupportColorAttachmentMapping:"), value)
 }
-
 // Assigns the per-tile size, in bytes, of the persistent threadgroup memory
 // allocation of this render pass.
 //
@@ -414,7 +402,6 @@ func (m MTL4RenderPassDescriptor) ThreadgroupMemoryLength() uint {
 func (m MTL4RenderPassDescriptor) SetThreadgroupMemoryLength(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setThreadgroupMemoryLength:"), value)
 }
-
 // The height of the tiles, in pixels, a render pass you create with this
 // descriptor applies to its attachments.
 //
@@ -437,7 +424,6 @@ func (m MTL4RenderPassDescriptor) TileHeight() uint {
 func (m MTL4RenderPassDescriptor) SetTileHeight(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTileHeight:"), value)
 }
-
 // The width of the tiles, in pixels, a render pass you create with this
 // descriptor applies to its attachments.
 //
@@ -460,7 +446,6 @@ func (m MTL4RenderPassDescriptor) TileWidth() uint {
 func (m MTL4RenderPassDescriptor) SetTileWidth(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTileWidth:"), value)
 }
-
 // Configures a buffer into which Metal writes counts of fragments (pixels)
 // passing the depth and stencil tests.
 //
@@ -472,7 +457,6 @@ func (m MTL4RenderPassDescriptor) VisibilityResultBuffer() MTLBuffer {
 func (m MTL4RenderPassDescriptor) SetVisibilityResultBuffer(value MTLBuffer) {
 	objc.Send[struct{}](m.ID, objc.Sel("setVisibilityResultBuffer:"), value)
 }
-
 // Determines if Metal accumulates visibility results between render encoders
 // or resets them.
 //

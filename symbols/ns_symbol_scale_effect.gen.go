@@ -112,7 +112,6 @@ func (s NSSymbolScaleEffect) EffectWithByLayer() INSSymbolScaleEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolScaleEffectFromID(rv)
 }
-
 // An effect that scales all layers simultaneously.
 //
 // # Return Value
@@ -137,7 +136,6 @@ func (_NSSymbolScaleEffectClass NSSymbolScaleEffectClass) Effect() NSSymbolScale
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolScaleEffectClass.class), objc.Sel("effect"))
 	return NSSymbolScaleEffectFromID(rv)
 }
-
 // An effect that scales the symbol down.
 //
 // # Return Value
@@ -149,7 +147,6 @@ func (_NSSymbolScaleEffectClass NSSymbolScaleEffectClass) ScaleDownEffect() NSSy
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolScaleEffectClass.class), objc.Sel("scaleDownEffect"))
 	return NSSymbolScaleEffectFromID(rv)
 }
-
 // An effect that scales the symbol up.
 //
 // # Return Value

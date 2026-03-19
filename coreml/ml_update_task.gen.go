@@ -7,7 +7,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [MLUpdateTask] class.
@@ -169,7 +168,7 @@ func (u MLUpdateTask) ResumeWithParameters(updateParameters foundation.INSDictio
 // completionHandler: The closure the task calls when it finishes.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:completionHandler:)
-func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataCompletionHandlerError(modelURL foundation.INSURL, trainingData MLBatchProvider, completionHandler objectivec.IObject) (MLUpdateTask, error) {
+func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataCompletionHandlerError(modelURL foundation.INSURL, trainingData MLBatchProvider, completionHandler func(*MLUpdateContext)) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:completionHandler:error:"), modelURL, trainingData, completionHandler, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -179,7 +178,6 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 	return MLUpdateTaskFromID(rv), nil
 
 }
-
 // Creates a task that updates the model at the URL with the training data and
 // configuration, and calls the completion handler when the update completes.
 //
@@ -193,7 +191,7 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 // completionHandler: The closure the task calls when it finishes.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateTask/init(forModelAt:trainingData:configuration:completionHandler:)
-func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataConfigurationCompletionHandlerError(modelURL foundation.INSURL, trainingData MLBatchProvider, configuration IMLModelConfiguration, completionHandler objectivec.IObject) (MLUpdateTask, error) {
+func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataConfigurationCompletionHandlerError(modelURL foundation.INSURL, trainingData MLBatchProvider, configuration IMLModelConfiguration, completionHandler func(*MLUpdateContext)) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_MLUpdateTaskClass.class), objc.Sel("updateTaskForModelAtURL:trainingData:configuration:completionHandler:error:"), modelURL, trainingData, configuration, completionHandler, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

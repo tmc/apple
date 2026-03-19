@@ -40,13 +40,11 @@ func NSXPCProxyCreatingObjectFromID(id objc.ID) NSXPCProxyCreatingObject {
 // object conforms to the [NSXPCProxyCreating] protocol.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCProxyCreating/remoteObjectProxy()
-
 func (o NSXPCProxyCreatingObject) RemoteObjectProxy() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteObjectProxy"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns a proxy object that invokes the error handling block if an error
 // occurs on the connection.
 //
@@ -61,16 +59,13 @@ func (o NSXPCProxyCreatingObject) RemoteObjectProxy() objectivec.IObject {
 // The resulting proxy object conforms to the [NSXPCProxyCreating] protocol.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCProxyCreating/remoteObjectProxyWithErrorHandler(_:)
-
 func (o NSXPCProxyCreatingObject) RemoteObjectProxyWithErrorHandler(handler ErrorHandler) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteObjectProxyWithErrorHandler:"), handler)
 	return objectivec.Object{ID: rv}
 	}
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCProxyCreating/synchronousRemoteObjectProxyWithErrorHandler(_:)
-
 func (o NSXPCProxyCreatingObject) SynchronousRemoteObjectProxyWithErrorHandler(handler ErrorHandler) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("synchronousRemoteObjectProxyWithErrorHandler:"), handler)

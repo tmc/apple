@@ -152,7 +152,6 @@ func (_UnitTemperatureClass UnitTemperatureClass) Kelvin() UnitTemperature {
 	rv := objc.Send[objc.ID](objc.ID(_UnitTemperatureClass.class), objc.Sel("kelvin"))
 	return NSUnitTemperatureFromID(objc.ID(rv))
 }
-
 // The degree Celsius unit of temperature.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitTemperature/celsius
@@ -160,7 +159,6 @@ func (_UnitTemperatureClass UnitTemperatureClass) Celsius() UnitTemperature {
 	rv := objc.Send[objc.ID](objc.ID(_UnitTemperatureClass.class), objc.Sel("celsius"))
 	return NSUnitTemperatureFromID(objc.ID(rv))
 }
-
 // The degree Fahrenheit unit of temperature.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitTemperature/fahrenheit

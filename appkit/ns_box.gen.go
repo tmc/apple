@@ -303,7 +303,6 @@ func NewBoxWithFrame(frameRect corefoundation.CGRect) NSBox {
 func (b NSBox) SetFrameFromContentFrame(contentFrame corefoundation.CGRect) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setFrameFromContentFrame:"), contentFrame)
 }
-
 // Resizes and moves the receiver’s content view so it just encloses its
 // subviews.
 //
@@ -335,7 +334,6 @@ func (b NSBox) BorderRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("borderRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The receiver’s box type.
 //
 // # Discussion
@@ -353,7 +351,6 @@ func (b NSBox) BoxType() NSBoxType {
 func (b NSBox) SetBoxType(value NSBoxType) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBoxType:"), value)
 }
-
 // A Boolean value that indicates whether the receiver is transparent.
 //
 // # Discussion
@@ -371,7 +368,6 @@ func (b NSBox) Transparent() bool {
 func (b NSBox) SetTransparent(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTransparent:"), value)
 }
-
 // The receiver’s title.
 //
 // # Discussion
@@ -388,7 +384,6 @@ func (b NSBox) Title() string {
 func (b NSBox) SetTitle(value string) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // The font object used to draw the receiver’s title.
 //
 // # Discussion
@@ -406,7 +401,6 @@ func (b NSBox) TitleFont() NSFont {
 func (b NSBox) SetTitleFont(value NSFont) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitleFont:"), value)
 }
-
 // A constant representing the title position.
 //
 // # Discussion
@@ -427,7 +421,6 @@ func (b NSBox) TitlePosition() NSTitlePosition {
 func (b NSBox) SetTitlePosition(value NSTitlePosition) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitlePosition:"), value)
 }
-
 // The cell used to display the receiver’s title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/titleCell
@@ -435,7 +428,6 @@ func (b NSBox) TitleCell() objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("titleCell"))
 	return objectivec.Object{ID: rv}
 }
-
 // The rectangle in which the receiver’s title is drawn.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/titleRect
@@ -443,7 +435,6 @@ func (b NSBox) TitleRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("titleRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The color of the receiver’s border when the receiver is a custom box with
 // a simple line border.
 //
@@ -470,7 +461,6 @@ func (b NSBox) BorderColor() INSColor {
 func (b NSBox) SetBorderColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBorderColor:"), value)
 }
-
 // The width of the receiver’s border when the receiver is a custom box with
 // a simple line border.
 //
@@ -497,7 +487,6 @@ func (b NSBox) BorderWidth() float64 {
 func (b NSBox) SetBorderWidth(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setBorderWidth:"), value)
 }
-
 // The radius of the receiver’s corners when the receiver is a custom box
 // with a simple line border.
 //
@@ -524,7 +513,6 @@ func (b NSBox) CornerRadius() float64 {
 func (b NSBox) SetCornerRadius(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCornerRadius:"), value)
 }
-
 // The color of the receiver’s background when the receiver is a custom box
 // with a simple line border.
 //
@@ -551,7 +539,6 @@ func (b NSBox) FillColor() INSColor {
 func (b NSBox) SetFillColor(value INSColor) {
 	objc.Send[struct{}](b.ID, objc.Sel("setFillColor:"), value)
 }
-
 // The receiver’s content view.
 //
 // # Discussion
@@ -569,7 +556,6 @@ func (b NSBox) ContentView() INSView {
 func (b NSBox) SetContentView(value INSView) {
 	objc.Send[struct{}](b.ID, objc.Sel("setContentView:"), value)
 }
-
 // The distances between the border and the content view.
 //
 // # Discussion

@@ -49,13 +49,11 @@ func NSTextContentManagerDelegateObjectFromID(id objc.ID) NSTextContentManagerDe
 // instead of creating one based on its standard mapping logic.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManagerDelegate/textContentManager(_:textElementAt:)
-
 func (o NSTextContentManagerDelegateObject) TextContentManagerTextElementAtLocation(textContentManager INSTextContentManager, location NSTextLocation) INSTextElement {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentManager:textElementAtLocation:"), textContentManager, location)
 	return NSTextElementFromID(rv)
 	}
-
 // Returns a Boolean value that indicates whether the framework should skip
 // this text element in the enumeration.
 //
@@ -72,7 +70,6 @@ func (o NSTextContentManagerDelegateObject) TextContentManagerTextElementAtLocat
 // otherwise the element is included in the enumeration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManagerDelegate/textContentManager(_:shouldEnumerate:options:)
-
 func (o NSTextContentManagerDelegateObject) TextContentManagerShouldEnumerateTextElementOptions(textContentManager INSTextContentManager, textElement INSTextElement, options NSTextContentManagerEnumerationOptions) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("textContentManager:shouldEnumerateTextElement:options:"), textContentManager, textElement, options)

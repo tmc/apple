@@ -120,7 +120,6 @@ func (v VZVirtioConsolePort) Name() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // An array of serial port attachments.
 //
 // # Discussion
@@ -135,7 +134,6 @@ func (v VZVirtioConsolePort) Attachment() IVZSerialPortAttachment {
 func (v VZVirtioConsolePort) SetAttachment(value IVZSerialPortAttachment) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAttachment:"), value)
 }
-
 // The array of console ports that a specific device uses.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtioconsoledevice/ports

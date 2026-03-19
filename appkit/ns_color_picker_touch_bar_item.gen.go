@@ -182,7 +182,6 @@ func (_NSColorPickerTouchBarItemClass NSColorPickerTouchBarItemClass) ColorPicke
 	rv := objc.Send[objc.ID](objc.ID(_NSColorPickerTouchBarItemClass.class), objc.Sel("colorPickerWithIdentifier:"), objc.String(string(identifier)))
 	return NSColorPickerTouchBarItemFromID(rv)
 }
-
 // Creates a bar item with the standard text color picker icon.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/textColorPicker(withIdentifier:)
@@ -190,7 +189,6 @@ func (_NSColorPickerTouchBarItemClass NSColorPickerTouchBarItemClass) TextColorP
 	rv := objc.Send[objc.ID](objc.ID(_NSColorPickerTouchBarItemClass.class), objc.Sel("textColorPickerWithIdentifier:"), objc.String(string(identifier)))
 	return NSColorPickerTouchBarItemFromID(rv)
 }
-
 // Creates a bar item with the standard stroke color picker icon.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/strokeColorPicker(withIdentifier:)
@@ -198,7 +196,6 @@ func (_NSColorPickerTouchBarItemClass NSColorPickerTouchBarItemClass) StrokeColo
 	rv := objc.Send[objc.ID](objc.ID(_NSColorPickerTouchBarItemClass.class), objc.Sel("strokeColorPickerWithIdentifier:"), objc.String(string(identifier)))
 	return NSColorPickerTouchBarItemFromID(rv)
 }
-
 // Creates a color picker bar item using the supplied image as its icon.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/colorPicker(withIdentifier:buttonImage:)
@@ -224,7 +221,6 @@ func (c NSColorPickerTouchBarItem) ColorList() INSColorList {
 func (c NSColorPickerTouchBarItem) SetColorList(value INSColorList) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColorList:"), value)
 }
-
 // Controls the color spaces that the color picker can produce.
 //
 // # Discussion
@@ -245,7 +241,6 @@ func (c NSColorPickerTouchBarItem) AllowedColorSpaces() []NSColorSpace {
 func (c NSColorPickerTouchBarItem) SetAllowedColorSpaces(value []NSColorSpace) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAllowedColorSpaces:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // A Boolean value that controls whether the color picker allows picking of
 // colors with alpha values other than `1.0`.
 //
@@ -257,7 +252,6 @@ func (c NSColorPickerTouchBarItem) ShowsAlpha() bool {
 func (c NSColorPickerTouchBarItem) SetShowsAlpha(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShowsAlpha:"), value)
 }
-
 // A Boolean value that determines whether the color picker is enabled.
 //
 // # Discussion
@@ -275,7 +269,6 @@ func (c NSColorPickerTouchBarItem) Enabled() bool {
 func (c NSColorPickerTouchBarItem) SetEnabled(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEnabled:"), value)
 }
-
 // The picker’s currently selected color.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/color
@@ -286,7 +279,6 @@ func (c NSColorPickerTouchBarItem) Color() objectivec.Object {
 func (c NSColorPickerTouchBarItem) SetColor(value objectivec.Object) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
-
 // An object that is notified when a user interacts with the color picker.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickerTouchBarItem/target
@@ -297,7 +289,6 @@ func (c NSColorPickerTouchBarItem) Target() objectivec.IObject {
 func (c NSColorPickerTouchBarItem) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTarget:"), value)
 }
-
 // The selector on the target object that is invoked when a user interacts
 // with the color picker.
 //

@@ -156,7 +156,6 @@ func (_VZMultipleDirectoryShareClass VZMultipleDirectoryShareClass) Canonicalize
 	rv := objc.Send[objc.ID](objc.ID(_VZMultipleDirectoryShareClass.class), objc.Sel("canonicalizedNameFromName:"), objc.String(name))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Check if a name is a valid directory name.
 //
 // name: The name to validate.

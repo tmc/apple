@@ -524,7 +524,6 @@ func (v NSViewController) InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundl
 	rv := objc.Send[NSViewController](v.ID, objc.Sel("initWithNibName:bundle:"), objc.String(string(nibNameOrNil)), nibBundleOrNil)
 	return rv
 }
-
 // Instantiates a view from a nib file and sets the value of the [View]
 // property.
 //
@@ -569,7 +568,6 @@ func (v NSViewController) InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundl
 func (v NSViewController) LoadView() {
 	objc.Send[objc.ID](v.ID, objc.Sel("loadView"))
 }
-
 // Attempt to commit any currently edited results of the receiver.
 //
 // delegate: An object that can serve as the receiver’s delegate. It should implement
@@ -611,7 +609,6 @@ func (v NSViewController) LoadView() {
 func (v NSViewController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](v.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 }
-
 // Returns whether the receiver was able to commit any pending edits.
 //
 // # Return Value
@@ -632,14 +629,12 @@ func (v NSViewController) CommitEditing() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("commitEditing"))
 	return rv
 }
-
 // Causes the receiver to discard any changes, restoring the previous values.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/discardEditing()
 func (v NSViewController) DiscardEditing() {
 	objc.Send[objc.ID](v.ID, objc.Sel("discardEditing"))
 }
-
 //
 // # Discussion
 //
@@ -647,7 +642,6 @@ func (v NSViewController) DiscardEditing() {
 func (v NSViewController) DismissController(sender objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("dismissController:"), sender)
 }
-
 // Called after the view controller’s view has been loaded into memory.
 //
 // # Discussion
@@ -671,12 +665,10 @@ func (v NSViewController) DismissController(sender objectivec.IObject) {
 func (v NSViewController) ViewDidLoad() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidLoad"))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/loadViewIfNeeded()
 func (v NSViewController) LoadViewIfNeeded() {
 	objc.Send[objc.ID](v.ID, objc.Sel("loadViewIfNeeded"))
 }
-
 // Called after the view controller’s view has been loaded into memory is
 // about to be added to the view hierarchy in the window.
 //
@@ -699,7 +691,6 @@ func (v NSViewController) LoadViewIfNeeded() {
 func (v NSViewController) ViewWillAppear() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillAppear"))
 }
-
 // Called when the view controller’s view is fully transitioned onto the
 // screen.
 //
@@ -720,7 +711,6 @@ func (v NSViewController) ViewWillAppear() {
 func (v NSViewController) ViewDidAppear() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidAppear"))
 }
-
 // Called when the view controller’s view is about to be removed from the
 // view hierarchy in the window.
 //
@@ -745,7 +735,6 @@ func (v NSViewController) ViewDidAppear() {
 func (v NSViewController) ViewWillDisappear() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillDisappear"))
 }
-
 // Called after the view controller’s view is removed from the view
 // hierarchy in a window.
 //
@@ -765,7 +754,6 @@ func (v NSViewController) ViewWillDisappear() {
 func (v NSViewController) ViewDidDisappear() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidDisappear"))
 }
-
 // Called during Auto Layout constraint updating to enable the view controller
 // to mediate the process.
 //
@@ -790,7 +778,6 @@ func (v NSViewController) ViewDidDisappear() {
 func (v NSViewController) UpdateViewConstraints() {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateViewConstraints"))
 }
-
 // Called just before the [Layout] method of the view controller’s view is
 // called.
 //
@@ -807,7 +794,6 @@ func (v NSViewController) UpdateViewConstraints() {
 func (v NSViewController) ViewWillLayout() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillLayout"))
 }
-
 // Called immediately after the [Layout] method of the view controller’s
 // view is called.
 //
@@ -824,7 +810,6 @@ func (v NSViewController) ViewWillLayout() {
 func (v NSViewController) ViewDidLayout() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidLayout"))
 }
-
 // A convenience method for adding a child view controller at the end of the
 // [ChildViewControllers] array.
 //
@@ -835,7 +820,6 @@ func (v NSViewController) ViewDidLayout() {
 func (v NSViewController) AddChildViewController(childViewController INSViewController) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addChildViewController:"), childViewController)
 }
-
 // Performs a transition between two sibling child view controllers of the
 // view controller.
 //
@@ -874,7 +858,6 @@ _block3, _cleanup3 := NewVoidBlock(completion)
 	defer _cleanup3()
 	objc.Send[objc.ID](v.ID, objc.Sel("transitionFromViewController:toViewController:options:completionHandler:"), fromViewController, toViewController, options, _block3)
 }
-
 // Inserts a specified child view controller into the [ChildViewControllers]
 // array at a specified position.
 //
@@ -898,7 +881,6 @@ _block3, _cleanup3 := NewVoidBlock(completion)
 func (v NSViewController) InsertChildViewControllerAtIndex(childViewController INSViewController, index int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("insertChildViewController:atIndex:"), childViewController, index)
 }
-
 // Removes a specified child controller from the view controller.
 //
 // index: The index in the [ChildViewControllers] array for the child view controller
@@ -917,7 +899,6 @@ func (v NSViewController) InsertChildViewControllerAtIndex(childViewController I
 func (v NSViewController) RemoveChildViewControllerAtIndex(index int) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeChildViewControllerAtIndex:"), index)
 }
-
 // Removes the called view controller from its parent view controller.
 //
 // # Discussion
@@ -935,7 +916,6 @@ func (v NSViewController) RemoveChildViewControllerAtIndex(index int) {
 func (v NSViewController) RemoveFromParentViewController() {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeFromParentViewController"))
 }
-
 // Called when there is a change in value of the [PreferredContentSize]
 // property of a child view controller or a presented view controller.
 //
@@ -950,7 +930,6 @@ func (v NSViewController) RemoveFromParentViewController() {
 func (v NSViewController) PreferredContentSizeDidChangeForViewController(viewController INSViewController) {
 	objc.Send[objc.ID](v.ID, objc.Sel("preferredContentSizeDidChangeForViewController:"), viewController)
 }
-
 // Presents another view controller using a specified, custom animator for
 // presentation and dismissal.
 //
@@ -977,7 +956,6 @@ func (v NSViewController) PreferredContentSizeDidChangeForViewController(viewCon
 func (v NSViewController) PresentViewControllerAnimator(viewController INSViewController, animator NSViewControllerPresentationAnimator) {
 	objc.Send[objc.ID](v.ID, objc.Sel("presentViewController:animator:"), viewController, animator)
 }
-
 // Dismisses a presented view controller, using the same animator that
 // presented it.
 //
@@ -992,7 +970,6 @@ func (v NSViewController) PresentViewControllerAnimator(viewController INSViewCo
 func (v NSViewController) DismissViewController(viewController INSViewController) {
 	objc.Send[objc.ID](v.ID, objc.Sel("dismissViewController:"), viewController)
 }
-
 // Presents another view controller as a popover.
 //
 // viewController: The other view controller to present as a popover.
@@ -1026,13 +1003,11 @@ func (v NSViewController) DismissViewController(viewController INSViewController
 func (v NSViewController) PresentViewControllerAsPopoverRelativeToRectOfViewPreferredEdgeBehavior(viewController INSViewController, positioningRect corefoundation.CGRect, positioningView INSView, preferredEdge foundation.NSRectEdge, behavior NSPopoverBehavior) {
 	objc.Send[objc.ID](v.ID, objc.Sel("presentViewController:asPopoverRelativeToRect:ofView:preferredEdge:behavior:"), viewController, positioningRect, positioningView, preferredEdge, behavior)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/present(_:asPopoverRelativeTo:of:preferredEdge:behavior:hasFullSizeContent:)
 func (v NSViewController) PresentViewControllerAsPopoverRelativeToRectOfViewPreferredEdgeBehaviorHasFullSizeContent(viewController INSViewController, positioningRect corefoundation.CGRect, positioningView INSView, preferredEdge foundation.NSRectEdge, behavior NSPopoverBehavior, hasFullSizeContent bool) {
 	objc.Send[objc.ID](v.ID, objc.Sel("presentViewController:asPopoverRelativeToRect:ofView:preferredEdge:behavior:hasFullSizeContent:"), viewController, positioningRect, positioningView, preferredEdge, behavior, hasFullSizeContent)
 }
-
 // Presents another view controller as a modal window, also known as an alert.
 //
 // viewController: The other view controller to present as a modal window.
@@ -1054,7 +1029,6 @@ func (v NSViewController) PresentViewControllerAsPopoverRelativeToRectOfViewPref
 func (v NSViewController) PresentViewControllerAsModalWindow(viewController INSViewController) {
 	objc.Send[objc.ID](v.ID, objc.Sel("presentViewControllerAsModalWindow:"), viewController)
 }
-
 // Presents another view controller as a sheet.
 //
 // viewController: The other view controller to present as a sheet.
@@ -1074,7 +1048,6 @@ func (v NSViewController) PresentViewControllerAsModalWindow(viewController INSV
 func (v NSViewController) PresentViewControllerAsSheet(viewController INSViewController) {
 	objc.Send[objc.ID](v.ID, objc.Sel("presentViewControllerAsSheet:"), viewController)
 }
-
 // For a view controller that is part of an app extension, called when its
 // view is about to be resized.
 //
@@ -1089,7 +1062,6 @@ func (v NSViewController) PresentViewControllerAsSheet(viewController INSViewCon
 func (v NSViewController) ViewWillTransitionToSize(newSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillTransitionToSize:"), newSize)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditingWithoutPresentingError()
 func (v NSViewController) CommitEditingAndReturnError() (bool, error) {
@@ -1105,7 +1077,6 @@ func (v NSViewController) CommitEditingAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
 // Performs the specified segue.
 //
 // identifier: The string that uniquely identifies the segue in the storyboard file.
@@ -1131,7 +1102,6 @@ func (v NSViewController) CommitEditingAndReturnError() (bool, error) {
 func (v NSViewController) PerformSegueWithIdentifierSender(identifier NSStoryboardSegueIdentifier, sender objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("performSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
 }
-
 // Called when a segue is about to be performed.
 //
 // segue: The segue object containing information about the view controllers involved
@@ -1160,7 +1130,6 @@ func (v NSViewController) PerformSegueWithIdentifierSender(identifier NSStoryboa
 func (v NSViewController) PrepareForSegueSender(segue INSStoryboardSegue, sender objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("prepareForSegue:sender:"), segue, sender)
 }
-
 // Called immediately prior to the performance of a storyboard segue.
 //
 // identifier: The string that identifies the segue to be performed.
@@ -1216,7 +1185,6 @@ func (v NSViewController) RepresentedObject() objectivec.IObject {
 func (v NSViewController) SetRepresentedObject(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRepresentedObject:"), value)
 }
-
 // The nib bundle to be loaded to instantiate the receiver’s primary view.
 //
 // # Discussion
@@ -1229,7 +1197,6 @@ func (v NSViewController) NibBundle() foundation.NSBundle {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nibBundle"))
 	return foundation.NSBundleFromID(objc.ID(rv))
 }
-
 // The name of the nib file to be loaded to instantiate the receiver’s
 // primary view.
 //
@@ -1243,7 +1210,6 @@ func (v NSViewController) NibName() NSNibName {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("nibName"))
 	return NSNibName(foundation.NSStringFromID(rv).String())
 }
-
 // The view controller’s primary view.
 //
 // # Discussion
@@ -1264,7 +1230,6 @@ func (v NSViewController) View() INSView {
 func (v NSViewController) SetView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setView:"), value)
 }
-
 // The localized title of the receiver’s primary view.
 //
 // # Discussion
@@ -1284,7 +1249,6 @@ func (v NSViewController) Title() string {
 func (v NSViewController) SetTitle(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // The storyboard from which the view controller was loaded.
 //
 // # Discussion
@@ -1297,7 +1261,6 @@ func (v NSViewController) Storyboard() INSStoryboard {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("storyboard"))
 	return NSStoryboardFromID(objc.ID(rv))
 }
-
 // A Boolean value indicating whether the view controller’s view is loaded
 // into memory.
 //
@@ -1306,13 +1269,11 @@ func (v NSViewController) ViewLoaded() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isViewLoaded"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/viewIfLoaded
 func (v NSViewController) ViewIfLoaded() INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("viewIfLoaded"))
 	return NSViewFromID(objc.ID(rv))
 }
-
 // The desired size of the view controller’s view, in screen units.
 //
 // # Discussion
@@ -1329,7 +1290,6 @@ func (v NSViewController) PreferredContentSize() corefoundation.CGSize {
 func (v NSViewController) SetPreferredContentSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPreferredContentSize:"), value)
 }
-
 // An array of view controllers that are hierarchical children of the view
 // controller.
 //
@@ -1349,7 +1309,6 @@ func (v NSViewController) ChildViewControllers() []NSViewController {
 func (v NSViewController) SetChildViewControllers(value []NSViewController) {
 	objc.Send[struct{}](v.ID, objc.Sel("setChildViewControllers:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The immediate ancestor view controller of the view controller.
 //
 // # Discussion
@@ -1363,7 +1322,6 @@ func (v NSViewController) ParentViewController() INSViewController {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("parentViewController"))
 	return NSViewControllerFromID(objc.ID(rv))
 }
-
 // The view controllers, if any, that are currently presented by the view
 // controller.
 //
@@ -1380,7 +1338,6 @@ func (v NSViewController) PresentedViewControllers() []NSViewController {
 		return NSViewControllerFromID(id)
 	})
 }
-
 // The view controller that presented the view controller or that presented
 // its farthest ancestor view controller.
 //
@@ -1394,7 +1351,6 @@ func (v NSViewController) PresentingViewController() INSViewController {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("presentingViewController"))
 	return NSViewControllerFromID(objc.ID(rv))
 }
-
 // For a view controller that is part of an app extension, the preferred
 // screen origin.
 //
@@ -1413,7 +1369,6 @@ func (v NSViewController) PreferredScreenOrigin() corefoundation.CGPoint {
 func (v NSViewController) SetPreferredScreenOrigin(value corefoundation.CGPoint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPreferredScreenOrigin:"), value)
 }
-
 // For a view controller that is part of an app extension, the largest
 // allowable size for the app extension’s primary view, in screen units.
 //
@@ -1428,7 +1383,6 @@ func (v NSViewController) PreferredMaximumSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("preferredMaximumSize"))
 	return corefoundation.CGSize(rv)
 }
-
 // For a view controller that is part of an app extension, the smallest
 // allowable size for the app extension’s primary view, in screen units.
 //
@@ -1443,7 +1397,6 @@ func (v NSViewController) PreferredMinimumSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("preferredMinimumSize"))
 	return corefoundation.CGSize(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/sourceItemView
 func (v NSViewController) SourceItemView() INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("sourceItemView"))
@@ -1452,7 +1405,6 @@ func (v NSViewController) SourceItemView() INSView {
 func (v NSViewController) SetSourceItemView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSourceItemView:"), value)
 }
-
 // A string that identifies the user interface item.
 //
 // # Discussion

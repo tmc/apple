@@ -193,7 +193,6 @@ func (s NSShadow) ShadowOffset() corefoundation.CGSize {
 func (s NSShadow) SetShadowOffset(value corefoundation.CGSize) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShadowOffset:"), value)
 }
-
 // The blur radius of the shadow.
 //
 // # Discussion
@@ -211,7 +210,6 @@ func (s NSShadow) ShadowBlurRadius() float64 {
 func (s NSShadow) SetShadowBlurRadius(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShadowBlurRadius:"), value)
 }
-
 // The color of the shadow.
 //
 // # Discussion
@@ -228,7 +226,6 @@ func (s NSShadow) ShadowColor() INSColor {
 func (s NSShadow) SetShadowColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShadowColor:"), value)
 }
-
 // The shadow of the text.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/Key/shadow

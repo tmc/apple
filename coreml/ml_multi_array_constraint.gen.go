@@ -130,7 +130,6 @@ func (m MLMultiArrayConstraint) Shape() []foundation.NSNumber {
 		return foundation.NSNumberFromID(id)
 	})
 }
-
 // The type for the multi array.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayConstraint/dataType
@@ -138,7 +137,6 @@ func (m MLMultiArrayConstraint) DataType() MLMultiArrayDataType {
 	rv := objc.Send[MLMultiArrayDataType](m.ID, objc.Sel("dataType"))
 	return MLMultiArrayDataType(rv)
 }
-
 // The constraint on the shape of the multiarray.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayConstraint/shapeConstraint
@@ -146,7 +144,6 @@ func (m MLMultiArrayConstraint) ShapeConstraint() IMLMultiArrayShapeConstraint {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("shapeConstraint"))
 	return MLMultiArrayShapeConstraintFromID(objc.ID(rv))
 }
-
 // The constraint for a dictionary feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/dictionaryconstraint
@@ -157,7 +154,6 @@ func (m MLMultiArrayConstraint) DictionaryConstraint() IMLDictionaryConstraint {
 func (m MLMultiArrayConstraint) SetDictionaryConstraint(value IMLDictionaryConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDictionaryConstraint:"), value)
 }
-
 // The size and format constraints for an image feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/imageconstraint
@@ -168,7 +164,6 @@ func (m MLMultiArrayConstraint) ImageConstraint() IMLImageConstraint {
 func (m MLMultiArrayConstraint) SetImageConstraint(value IMLImageConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setImageConstraint:"), value)
 }
-
 // The constraints on a multidimensional array feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/multiarrayconstraint
@@ -179,7 +174,6 @@ func (m MLMultiArrayConstraint) MultiArrayConstraint() IMLMultiArrayConstraint {
 func (m MLMultiArrayConstraint) SetMultiArrayConstraint(value IMLMultiArrayConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMultiArrayConstraint:"), value)
 }
-
 // The constraints for a sequence feature.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/sequenceconstraint
@@ -190,7 +184,6 @@ func (m MLMultiArrayConstraint) SequenceConstraint() IMLSequenceConstraint {
 func (m MLMultiArrayConstraint) SetSequenceConstraint(value IMLSequenceConstraint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSequenceConstraint:"), value)
 }
-
 // The state feature value constraint.
 //
 // See: https://developer.apple.com/documentation/coreml/mlfeaturedescription/stateconstraint

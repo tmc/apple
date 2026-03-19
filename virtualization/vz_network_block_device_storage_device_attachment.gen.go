@@ -253,7 +253,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL founda
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 
 }
-
 // Creates a new network block device storage attachment from an NBD Uniform
 // Resource Indicator (URI) represented as a URL, timeout value, and read-only
 // and synchronization modes that you provide.
@@ -345,7 +344,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) ForcedReadOnly() bool {
 	rv := objc.Send[bool](n.ID, objc.Sel("isForcedReadOnly"))
 	return rv
 }
-
 // The mode in which the NBD client synchronizes data with the NBD server.
 //
 // # Discussion
@@ -360,7 +358,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) SynchronizationMode() VZDis
 	rv := objc.Send[VZDiskSynchronizationMode](n.ID, objc.Sel("synchronizationMode"))
 	return VZDiskSynchronizationMode(rv)
 }
-
 // The timeout value in seconds for the connection between the client and
 // server.
 //
@@ -376,7 +373,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) Timeout() float64 {
 	rv := objc.Send[float64](n.ID, objc.Sel("timeout"))
 	return rv
 }
-
 // The URL that refers to the NBD server to which the NBD client will connect.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/url
@@ -384,7 +380,6 @@ func (n VZNetworkBlockDeviceStorageDeviceAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // The object that receives messages about changes to the network block device
 // attachment.
 //

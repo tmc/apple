@@ -67,7 +67,6 @@ func MLCustomLayerObjectFromID(id objc.ID) MLCustomLayerObject {
 // increase an app’s memory. Avoid modifying values of the weights.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/setWeightData(_:)
-
 func (o MLCustomLayerObject) SetWeightDataError(weights []foundation.NSData) (bool, error) {
 	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("setWeightData:error:"), objectivec.IObjectSliceToNSArray(weights))
@@ -76,7 +75,6 @@ func (o MLCustomLayerObject) SetWeightDataError(weights []foundation.NSData) (bo
 	}
 	return rv, nil
 	}
-
 // Calculates the shapes of the output of this layer for the given input
 // shapes.
 //
@@ -100,7 +98,6 @@ func (o MLCustomLayerObject) SetWeightDataError(weights []foundation.NSData) (bo
 // [prediction(from:)]: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:)-9y2aa
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/outputShapes(forInputShapes:)
-
 func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []foundation.NSArray) ([]foundation.NSArray, error) {
 	
 	rv, err := objc.SendWithError[[]objc.ID](o.ID, objc.Sel("outputShapesForInputShapes:error:"), objectivec.IObjectSliceToNSArray(inputShapes))
@@ -111,7 +108,6 @@ func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []found
 		return foundation.NSArrayFromID(id)
 	}), nil
 	}
-
 // Evaluates the custom layer with the given inputs.
 //
 // inputs: The array of inputs to be evaluated.
@@ -134,7 +130,6 @@ func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []found
 // [vecLib]: https://developer.apple.com/documentation/Accelerate/veclib
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/evaluate(inputs:outputs:)
-
 func (o MLCustomLayerObject) EvaluateOnCPUWithInputsOutputsError(inputs []MLMultiArray, outputs []MLMultiArray) (bool, error) {
 	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("evaluateOnCPUWithInputs:outputs:error:"), objectivec.IObjectSliceToNSArray(inputs), objectivec.IObjectSliceToNSArray(outputs))
@@ -143,7 +138,6 @@ func (o MLCustomLayerObject) EvaluateOnCPUWithInputsOutputsError(inputs []MLMult
 	}
 	return rv, nil
 	}
-
 // Encodes GPU commands to evaluate the custom layer.
 //
 // commandBuffer: A command buffer that defines the work the layer performs on the GPU.
@@ -175,7 +169,6 @@ func (o MLCustomLayerObject) EvaluateOnCPUWithInputsOutputsError(inputs []MLMult
 // [MTLComputePipelineState]: https://developer.apple.com/documentation/Metal/MTLComputePipelineState
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/encode(commandBuffer:inputs:outputs:)
-
 func (o MLCustomLayerObject) EncodeToCommandBufferInputsOutputsError(commandBuffer metal.MTLCommandBuffer, inputs []objectivec.IObject, outputs []objectivec.IObject) (bool, error) {
 	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("encodeToCommandBuffer:inputs:outputs:error:"), commandBuffer, objectivec.IObjectSliceToNSArray(inputs), objectivec.IObjectSliceToNSArray(outputs))

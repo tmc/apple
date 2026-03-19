@@ -194,7 +194,6 @@ func (l VZLinuxBootLoader) CommandLine() string {
 func (l VZLinuxBootLoader) SetCommandLine(value string) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCommandLine:"), objc.String(value))
 }
-
 // The location of an optional RAM disk, which the boot loader maps into
 // memory before it boots the Linux kernel.
 //
@@ -212,7 +211,6 @@ func (l VZLinuxBootLoader) InitialRamdiskURL() foundation.INSURL {
 func (l VZLinuxBootLoader) SetInitialRamdiskURL(value foundation.INSURL) {
 	objc.Send[struct{}](l.ID, objc.Sel("setInitialRamdiskURL:"), value)
 }
-
 // The URL of the Linux kernel file.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxBootLoader/kernelURL
@@ -223,7 +221,6 @@ func (l VZLinuxBootLoader) KernelURL() foundation.INSURL {
 func (l VZLinuxBootLoader) SetKernelURL(value foundation.INSURL) {
 	objc.Send[struct{}](l.ID, objc.Sel("setKernelURL:"), value)
 }
-
 // The guest system to boot when the VM starts.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/bootloader

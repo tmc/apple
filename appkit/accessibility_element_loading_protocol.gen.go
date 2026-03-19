@@ -39,18 +39,15 @@ func NSAccessibilityElementLoadingObjectFromID(id objc.ID) NSAccessibilityElemen
 // Loads the target accessibility element with the specified load token.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementLoading/accessibilityElement(withToken:)
-
 func (o NSAccessibilityElementLoadingObject) AccessibilityElementWithToken(token NSAccessibilityLoadingToken) NSAccessibilityElement {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityElementWithToken:"), token)
 	return NSAccessibilityElementFromID(rv)
 	}
-
 // Returns the range that specifies the area of interest in text-based
 // accessibility elements with the specified load token.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementLoading/accessibilityRangeInTargetElement(withToken:)
-
 func (o NSAccessibilityElementLoadingObject) AccessibilityRangeInTargetElementWithToken(token NSAccessibilityLoadingToken) foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeInTargetElementWithToken:"), token)

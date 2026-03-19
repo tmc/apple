@@ -141,7 +141,6 @@ func (v MTLVertexBufferLayoutDescriptor) StepFunction() MTLVertexStepFunction {
 func (v MTLVertexBufferLayoutDescriptor) SetStepFunction(value MTLVertexStepFunction) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStepFunction:"), value)
 }
-
 // The interval at which the vertex and its attributes are presented to the
 // vertex function.
 //
@@ -163,7 +162,6 @@ func (v MTLVertexBufferLayoutDescriptor) StepRate() uint {
 func (v MTLVertexBufferLayoutDescriptor) SetStepRate(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStepRate:"), value)
 }
-
 // The number of bytes between the first byte of two consecutive vertices in a
 // buffer.
 //
@@ -182,7 +180,6 @@ func (v MTLVertexBufferLayoutDescriptor) Stride() uint {
 func (v MTLVertexBufferLayoutDescriptor) SetStride(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStride:"), value)
 }
-
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexBufferLayoutDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))

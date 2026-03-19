@@ -162,7 +162,6 @@ func (l NSLayoutDimension) ConstraintEqualToAnchorMultiplier(anchor INSLayoutDim
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToAnchor:multiplier:"), anchor, m)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the anchor’s size attribute as equal to
 // the specified size attribute multiplied by a constant plus an offset.
 //
@@ -192,7 +191,6 @@ func (l NSLayoutDimension) ConstraintEqualToAnchorMultiplierConstant(anchor INSL
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToAnchor:multiplier:constant:"), anchor, m, c)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines a constant size for the anchor’s size
 // attribute.
 //
@@ -217,7 +215,6 @@ func (l NSLayoutDimension) ConstraintEqualToConstant(c float64) INSLayoutConstra
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToConstant:"), c)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the anchor’s size attribute as greater
 // than or equal to the specified anchor multiplied by the constant.
 //
@@ -245,7 +242,6 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToAnchorMultiplier(anchor
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToAnchor:multiplier:"), anchor, m)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the anchor’s size attribute as greater
 // than or equal to the specified anchor multiplied by the constant plus an
 // offset.
@@ -277,7 +273,6 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToAnchorMultiplierConstan
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToAnchor:multiplier:constant:"), anchor, m, c)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the minimum size for the anchor’s size
 // attribute.
 //
@@ -302,7 +297,6 @@ func (l NSLayoutDimension) ConstraintGreaterThanOrEqualToConstant(c float64) INS
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToConstant:"), c)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the anchor’s size attribute as less
 // than or equal to the specified anchor multiplied by the constant.
 //
@@ -330,7 +324,6 @@ func (l NSLayoutDimension) ConstraintLessThanOrEqualToAnchorMultiplier(anchor IN
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToAnchor:multiplier:"), anchor, m)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the anchor’s size attribute as greater
 // than or equal to the specified anchor multiplied by the constant plus an
 // offset.
@@ -362,7 +355,6 @@ func (l NSLayoutDimension) ConstraintLessThanOrEqualToAnchorMultiplierConstant(a
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToAnchor:multiplier:constant:"), anchor, m, c)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the maximum size for the anchor’s size
 // attribute.
 //

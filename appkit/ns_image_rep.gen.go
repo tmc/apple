@@ -350,7 +350,6 @@ func (i NSImageRep) InitWithCoder(coder foundation.INSCoder) NSImageRep {
 	rv := objc.Send[NSImageRep](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Returns a Core Graphics image object that captures the drawing of the
 // image.
 //
@@ -411,7 +410,6 @@ func (i NSImageRep) CGImageForProposedRectContextHints(proposedDestRect *corefou
 	rv := objc.Send[coregraphics.CGImageRef](i.ID, objc.Sel("CGImageForProposedRect:context:hints:"), proposedDestRect, context, hints)
 	return coregraphics.CGImageRef(rv)
 }
-
 // Implemented by subclasses to draw the image in the current coordinate
 // system.
 //
@@ -444,7 +442,6 @@ func (i NSImageRep) Draw() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("draw"))
 	return rv
 }
-
 // Draws the image representation’s image data at the specified point in the
 // current coordinate system.
 //
@@ -471,7 +468,6 @@ func (i NSImageRep) DrawAtPoint(point corefoundation.CGPoint) bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("drawAtPoint:"), point)
 	return rv
 }
-
 // Draws the image, scaling it (as needed) to fit the specified rectangle.
 //
 // rect: The rectangle in the current coordinate system in which to draw the image.
@@ -498,7 +494,6 @@ func (i NSImageRep) DrawInRect(rect corefoundation.CGRect) bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("drawInRect:"), rect)
 	return rv
 }
-
 // Draws all or part of the image in the specified rectangle in the current
 // coordinate system.
 //
@@ -594,7 +589,6 @@ func (_NSImageRepClass NSImageRepClass) ImageRepsWithContentsOfFile(filename str
 		return NSImageRepFromID(id)
 	})
 }
-
 // Creates and returns an array of image representation objects initialized
 // using the contents of the pasteboard.
 //
@@ -632,7 +626,6 @@ func (_NSImageRepClass NSImageRepClass) ImageRepsWithPasteboard(pasteboard INSPa
 		return NSImageRepFromID(id)
 	})
 }
-
 // Creates and returns an array of image representation objects initialized
 // using the contents of the specified URL.
 //
@@ -671,7 +664,6 @@ func (_NSImageRepClass NSImageRepClass) ImageRepsWithContentsOfURL(url foundatio
 		return NSImageRepFromID(id)
 	})
 }
-
 // Returns a Boolean value that indicates whether the image representation can
 // initialize itself from the specified data.
 //
@@ -698,7 +690,6 @@ func (_NSImageRepClass NSImageRepClass) CanInitWithData(data foundation.INSData)
 	rv := objc.Send[bool](objc.ID(_NSImageRepClass.class), objc.Sel("canInitWithData:"), data)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the receiver can initialize
 // itself from the data on the specified pasteboard.
 //
@@ -729,7 +720,6 @@ func (_NSImageRepClass NSImageRepClass) CanInitWithPasteboard(pasteboard INSPast
 	rv := objc.Send[bool](objc.ID(_NSImageRepClass.class), objc.Sel("canInitWithPasteboard:"), pasteboard)
 	return rv
 }
-
 // Returns the image representation subclass that handles image data for the
 // specified UTI.
 //
@@ -748,7 +738,6 @@ func (_NSImageRepClass NSImageRepClass) ImageRepClassForType(type_ string) objc.
 	rv := objc.Send[objc.Class](objc.ID(_NSImageRepClass.class), objc.Sel("imageRepClassForType:"), objc.String(type_))
 	return rv
 }
-
 // Returns the image representation subclass that handles the specified type
 // of data.
 //
@@ -764,7 +753,6 @@ func (_NSImageRepClass NSImageRepClass) ImageRepClassForData(data foundation.INS
 	rv := objc.Send[objc.Class](objc.ID(_NSImageRepClass.class), objc.Sel("imageRepClassForData:"), data)
 	return rv
 }
-
 // Adds the specified class to the registry of available image representation
 // subclasses.
 //
@@ -784,7 +772,6 @@ func (_NSImageRepClass NSImageRepClass) ImageRepClassForData(data foundation.INS
 func (_NSImageRepClass NSImageRepClass) RegisterImageRepClass(imageRepClass objc.Class) {
 	objc.Send[objc.ID](objc.ID(_NSImageRepClass.class), objc.Sel("registerImageRepClass:"), imageRepClass)
 }
-
 // Removes the specified image representation subclass from the registry of
 // available image representations.
 //
@@ -823,7 +810,6 @@ func (i NSImageRep) Size() corefoundation.CGSize {
 func (i NSImageRep) SetSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSize:"), value)
 }
-
 // The number of bits per sample in the object (if the object is a planar
 // image, this property contains the number of bits per sample per plane).
 //
@@ -846,7 +832,6 @@ func (i NSImageRep) BitsPerSample() int {
 func (i NSImageRep) SetBitsPerSample(value int) {
 	objc.Send[struct{}](i.ID, objc.Sel("setBitsPerSample:"), value)
 }
-
 // The name of the color space used by the image data.
 //
 // # Discussion
@@ -869,7 +854,6 @@ func (i NSImageRep) ColorSpaceName() NSColorSpaceName {
 func (i NSImageRep) SetColorSpaceName(value NSColorSpaceName) {
 	objc.Send[struct{}](i.ID, objc.Sel("setColorSpaceName:"), objc.String(string(value)))
 }
-
 // A Boolean value that indicates whether the image data has an alpha channel.
 //
 // # Discussion
@@ -893,7 +877,6 @@ func (i NSImageRep) Alpha() bool {
 func (i NSImageRep) SetAlpha(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAlpha:"), value)
 }
-
 // A Boolean value that indicates whether the image is opaque.
 //
 // # Discussion
@@ -920,7 +903,6 @@ func (i NSImageRep) Opaque() bool {
 func (i NSImageRep) SetOpaque(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setOpaque:"), value)
 }
-
 // The height of the image, measured in pixels.
 //
 // # Discussion
@@ -941,7 +923,6 @@ func (i NSImageRep) PixelsHigh() int {
 func (i NSImageRep) SetPixelsHigh(value int) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPixelsHigh:"), value)
 }
-
 // The width of the image, measured in pixels.
 //
 // # Discussion
@@ -962,7 +943,6 @@ func (i NSImageRep) PixelsWide() int {
 func (i NSImageRep) SetPixelsWide(value int) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPixelsWide:"), value)
 }
-
 // The layout direction for the image.
 //
 // # Discussion
@@ -1005,7 +985,6 @@ func (_NSImageRepClass NSImageRepClass) ImageTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSImageRepClass.class), objc.Sel("imageTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns an array of UTI strings identifying the image types supported
 // directly by the ime representation.
 //
@@ -1028,7 +1007,6 @@ func (_NSImageRepClass NSImageRepClass) ImageUnfilteredTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSImageRepClass.class), objc.Sel("imageUnfilteredTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns an array containing the registered image representation classes.
 //
 // # Return Value

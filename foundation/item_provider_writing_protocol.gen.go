@@ -56,24 +56,20 @@ func NSItemProviderWritingObjectFromID(id objc.ID) NSItemProviderWritingObject {
 // one of the elements in the `writableTypeIdentifiersForItemProvider` array.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
-
 func (o NSItemProviderWritingObject) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), completionHandler)
 	return NSProgressFromID(rv)
 	}
-
 // An array of UTI strings representing the types of data that can be loaded
 // for an item provider.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
-
 func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []string {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
 	return objc.ConvertSliceToStrings(rv)
 	}
-
 // Asks the item provider for the representation visibility specification for
 // the given UTI.
 //
@@ -84,7 +80,6 @@ func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []
 // A representation visibility specification for the given UTI.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
-
 func (o NSItemProviderWritingObject) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
 	
 	rv := objc.Send[NSItemProviderRepresentationVisibility](o.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))

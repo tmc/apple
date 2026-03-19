@@ -23,7 +23,6 @@ func (_NSValueClass NSValueClass) ValueWithCGPoint(point corefoundation.CGPoint)
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithCGPoint:"), point)
 return NSValueFromID(rv)
 }
-
 // Creates a new value object containing the specified CoreGraphics vector
 // structure.
 //
@@ -38,7 +37,6 @@ func (_NSValueClass NSValueClass) ValueWithCGVector(vector corefoundation.CGVect
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithCGVector:"), vector)
 return NSValueFromID(rv)
 }
-
 // Creates a new value object containing the specified CoreGraphics size
 // structure.
 //
@@ -53,7 +51,6 @@ func (_NSValueClass NSValueClass) ValueWithCGSize(size corefoundation.CGSize) NS
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithCGSize:"), size)
 return NSValueFromID(rv)
 }
-
 // Creates a new value object containing the specified CoreGraphics rectangle
 // structure.
 //
@@ -68,7 +65,6 @@ func (_NSValueClass NSValueClass) ValueWithCGRect(rect corefoundation.CGRect) NS
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithCGRect:"), rect)
 return NSValueFromID(rv)
 }
-
 // Creates a new value object containing the specified CoreGraphics affine
 // transform structure.
 //
@@ -83,7 +79,6 @@ func (_NSValueClass NSValueClass) ValueWithCGAffineTransform(transform corefound
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithCGAffineTransform:"), transform)
 return NSValueFromID(rv)
 }
-
 // Creates a new value object containing the specified UIKit edge insets
 // structure.
 //
@@ -100,7 +95,6 @@ func (_NSValueClass NSValueClass) ValueWithUIEdgeInsets(insets objectivec.IObjec
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithUIEdgeInsets:"), insets)
 return NSValueFromID(rv)
 }
-
 // Creates a new value object containing the specified UIKit offset structure.
 //
 // insets: The value for the new object.
@@ -116,7 +110,6 @@ func (_NSValueClass NSValueClass) ValueWithUIOffset(insets objectivec.IObject) N
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithUIOffset:"), insets)
 return NSValueFromID(rv)
 }
-
 //
 // insets is a [appkit.NSDirectionalEdgeInsets].
 //
@@ -137,7 +130,6 @@ func (v NSValue) CGPointValue() corefoundation.CGPoint {
 rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("CGPointValue"))
 		return corefoundation.CGPoint(rv)
 }
-
 // Returns the CoreGraphics vector structure representation of the value.
 //
 // # Return Value
@@ -149,7 +141,6 @@ func (v NSValue) CGVectorValue() corefoundation.CGVector {
 rv := objc.Send[corefoundation.CGVector](v.ID, objc.Sel("CGVectorValue"))
 		return corefoundation.CGVector(rv)
 }
-
 // Returns the CoreGraphics size structure representation of the value.
 //
 // # Return Value
@@ -161,7 +152,6 @@ func (v NSValue) CGSizeValue() corefoundation.CGSize {
 rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("CGSizeValue"))
 		return corefoundation.CGSize(rv)
 }
-
 // Returns the CoreGraphics rectangle structure representation of the value.
 //
 // # Return Value
@@ -173,7 +163,6 @@ func (v NSValue) CGRectValue() corefoundation.CGRect {
 rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("CGRectValue"))
 		return corefoundation.CGRect(rv)
 }
-
 // Returns the CoreGraphics affine transform representation of the value.
 //
 // # Return Value
@@ -185,7 +174,6 @@ func (v NSValue) CGAffineTransformValue() corefoundation.CGAffineTransform {
 rv := objc.Send[corefoundation.CGAffineTransform](v.ID, objc.Sel("CGAffineTransformValue"))
 		return corefoundation.CGAffineTransform(rv)
 }
-
 // Returns the UIKit edge insets structure representation of the value.
 //
 // # Return Value
@@ -197,7 +185,6 @@ func (v NSValue) UIEdgeInsetsValue() objectivec.IObject {
 rv := objc.Send[objc.ID](v.ID, objc.Sel("UIEdgeInsetsValue"))
 return objectivec.Object{ID: rv}
 }
-
 // Returns the UIKit offset structure representation of the value.
 //
 // # Return Value
@@ -209,7 +196,6 @@ func (v NSValue) UIOffsetValue() objectivec.IObject {
 rv := objc.Send[objc.ID](v.ID, objc.Sel("UIOffsetValue"))
 return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSValue/directionalEdgeInsetsValue
 func (v NSValue) DirectionalEdgeInsetsValue() objectivec.IObject {
 rv := objc.Send[objc.ID](v.ID, objc.Sel("directionalEdgeInsetsValue"))

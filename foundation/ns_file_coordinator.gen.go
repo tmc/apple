@@ -363,7 +363,6 @@ func (f NSFileCoordinator) InitWithFilePresenter(filePresenterOrNil NSFilePresen
 	rv := objc.Send[NSFileCoordinator](f.ID, objc.Sel("initWithFilePresenter:"), filePresenterOrNil)
 	return rv
 }
-
 // Performs a number of coordinated-read or -write operations asynchronously.
 //
 // intents: An array of file access intent objects, representing the individual read
@@ -486,7 +485,6 @@ _block2, _cleanup2 := NewErrorBlock(accessor)
 	defer _cleanup2()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateAccessWithIntents:queue:byAccessor:"), intents, queue, _block2)
 }
-
 // Initiates a read operation on a single file or directory using the
 // specified options.
 //
@@ -582,7 +580,6 @@ _block3, _cleanup3 := NewURLBlock(reader)
 	defer _cleanup3()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
 }
-
 // Initiates a write operation on a single file or directory using the
 // specified options.
 //
@@ -669,7 +666,6 @@ _block3, _cleanup3 := NewURLBlock(writer)
 	defer _cleanup3()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
 }
-
 // Initiates a read operation that contains a follow-up write operation.
 //
 // readingURL: A URL identifying the file or directory to read. If other objects or
@@ -736,7 +732,6 @@ _block5, _cleanup5 := NewURLURLBlock(readerWriter)
 	defer _cleanup5()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), readingURL, readingOptions, writingURL, writingOptions, outError, _block5)
 }
-
 // Initiates a write operation that involves a secondary write operation.
 //
 // url1: A URL identifying the first file or directory to write. If other objects or
@@ -798,7 +793,6 @@ _block5, _cleanup5 := NewURLURLBlock(writer)
 	defer _cleanup5()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), url1, options1, url2, options2, outError, _block5)
 }
-
 // Prepare to read or write from multiple files in a single batch operation.
 //
 // readingURLs: An array of [NSURL] objects identifying the items you want to read.
@@ -873,7 +867,6 @@ _block5, _cleanup5 := NewVoidBlock(batchAccessor)
 	defer _cleanup5()
 	objc.Send[objc.ID](f.ID, objc.Sel("prepareForReadingItemsAtURLs:options:writingItemsAtURLs:options:error:byAccessor:"), readingURLs, readingOptions, writingURLs, writingOptions, outError, _block5)
 }
-
 // Announces that your app is moving a file to a new URL.
 //
 // oldURL: The old location of the file or directory.
@@ -902,7 +895,6 @@ _block5, _cleanup5 := NewVoidBlock(batchAccessor)
 func (f NSFileCoordinator) ItemAtURLWillMoveToURL(oldURL INSURL, newURL INSURL) {
 	objc.Send[objc.ID](f.ID, objc.Sel("itemAtURL:willMoveToURL:"), oldURL, newURL)
 }
-
 // Notifies relevant file presenters that the location of a file or directory
 // changed.
 //
@@ -928,7 +920,6 @@ func (f NSFileCoordinator) ItemAtURLWillMoveToURL(oldURL INSURL, newURL INSURL) 
 func (f NSFileCoordinator) ItemAtURLDidMoveToURL(oldURL INSURL, newURL INSURL) {
 	objc.Send[objc.ID](f.ID, objc.Sel("itemAtURL:didMoveToURL:"), oldURL, newURL)
 }
-
 // Cancels any active file coordination calls.
 //
 // # Discussion
@@ -957,7 +948,6 @@ func (f NSFileCoordinator) ItemAtURLDidMoveToURL(oldURL INSURL, newURL INSURL) {
 func (f NSFileCoordinator) Cancel() {
 	objc.Send[objc.ID](f.ID, objc.Sel("cancel"))
 }
-
 // Tells observing file providers that the item’s ubiquity attributes have
 // changed.
 //
@@ -1011,7 +1001,6 @@ func (f NSFileCoordinator) ItemAtURLDidChangeUbiquityAttributes(url INSURL, attr
 func (_NSFileCoordinatorClass NSFileCoordinatorClass) AddFilePresenter(filePresenter NSFilePresenter) {
 	objc.Send[objc.ID](objc.ID(_NSFileCoordinatorClass.class), objc.Sel("addFilePresenter:"), filePresenter)
 }
-
 // Unregisters the specified file presenter object.
 //
 // filePresenter: The file presenter object to unregister. If the object is not currently
@@ -1061,7 +1050,6 @@ func (f NSFileCoordinator) PurposeIdentifier() string {
 func (f NSFileCoordinator) SetPurposeIdentifier(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPurposeIdentifier:"), objc.String(value))
 }
-
 // The user canceled the operation (for example, by pressing Command-period).
 //
 // See: https://developer.apple.com/documentation/foundation/nsusercancellederror-swift.var
@@ -1087,7 +1075,6 @@ func (_NSFileCoordinatorClass NSFileCoordinatorClass) FilePresenters() []objecti
 		return objectivec.Object{ID: id}
 	})
 }
-
 // A notification that posts when the app enters the background.
 //
 // See: https://developer.apple.com/documentation/UIKit/UIApplication/didEnterBackgroundNotification
@@ -1095,7 +1082,6 @@ func (_NSFileCoordinatorClass NSFileCoordinatorClass) DidEnterBackgroundNotifica
 	rv := objc.Send[objc.ID](objc.ID(_NSFileCoordinatorClass.class), objc.Sel("didEnterBackgroundNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // A notification that posts shortly before an app leaves the background state
 // on its way to becoming the active app.
 //

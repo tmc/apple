@@ -123,7 +123,6 @@ func (h VNHumanBodyRecognizedPoint3D) LocalPosition() objectivec.IObject {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("localPosition"))
 	return objectivec.Object{ID: rv}
 }
-
 // The parent joint in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyRecognizedPoint3D/parentJoint

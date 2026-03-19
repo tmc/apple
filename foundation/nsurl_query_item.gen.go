@@ -189,7 +189,6 @@ func (u NSURLQueryItem) InitWithNameValue(name string, value string) NSURLQueryI
 	rv := objc.Send[NSURLQueryItem](u.ID, objc.Sel("initWithName:value:"), objc.String(name), objc.String(value))
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -198,7 +197,6 @@ func (u NSURLQueryItem) InitWithNameValue(name string, value string) NSURLQueryI
 func (u NSURLQueryItem) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u NSURLQueryItem) InitWithCoder(coder INSCoder) NSURLQueryItem {
@@ -247,7 +245,6 @@ func (u NSURLQueryItem) Name() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("name"))
 	return NSStringFromID(rv).String()
 }
-
 // The value for the query item.
 //
 // # Discussion
@@ -262,7 +259,6 @@ func (u NSURLQueryItem) Value() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("value"))
 	return NSStringFromID(rv).String()
 }
-
 // The query URL component as an array of name/value pairs.
 //
 // See: https://developer.apple.com/documentation/foundation/nsurlcomponents/queryitems

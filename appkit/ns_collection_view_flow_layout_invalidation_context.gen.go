@@ -142,7 +142,6 @@ func (c NSCollectionViewFlowLayoutInvalidationContext) InvalidateFlowLayoutAttri
 func (c NSCollectionViewFlowLayoutInvalidationContext) SetInvalidateFlowLayoutAttributes(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInvalidateFlowLayoutAttributes:"), value)
 }
-
 // A Boolean value indicating whether the flow layout object should fetch new
 // size information from its delegate.
 //

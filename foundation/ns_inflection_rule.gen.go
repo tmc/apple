@@ -112,7 +112,6 @@ func (i NSInflectionRule) InitWithCoder(coder INSCoder) NSInflectionRule {
 	rv := objc.Send[NSInflectionRule](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -141,7 +140,6 @@ func (_NSInflectionRuleClass NSInflectionRuleClass) AutomaticRule() NSInflection
 	rv := objc.Send[objc.ID](objc.ID(_NSInflectionRuleClass.class), objc.Sel("automaticRule"))
 	return NSInflectionRuleFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the rule can inflect the user’s
 // current preferred localization.
 //

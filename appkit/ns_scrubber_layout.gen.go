@@ -191,7 +191,6 @@ func (s NSScrubberLayout) InitWithCoder(coder foundation.INSCoder) NSScrubberLay
 	rv := objc.Send[NSScrubberLayout](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Signals that the layout has been invalidated, and that the scrubber control
 // should perform a new layout pass.
 //
@@ -199,7 +198,6 @@ func (s NSScrubberLayout) InitWithCoder(coder foundation.INSCoder) NSScrubberLay
 func (s NSScrubberLayout) InvalidateLayout() {
 	objc.Send[objc.ID](s.ID, objc.Sel("invalidateLayout"))
 }
-
 // Gives you an opportunity to perform layout calculations when the
 // scrubber’s layout is invalidated.
 //
@@ -216,7 +214,6 @@ func (s NSScrubberLayout) InvalidateLayout() {
 func (s NSScrubberLayout) PrepareLayout() {
 	objc.Send[objc.ID](s.ID, objc.Sel("prepareLayout"))
 }
-
 // The layout attributes for the item with the specified index.
 //
 // # Discussion
@@ -228,7 +225,6 @@ func (s NSScrubberLayout) LayoutAttributesForItemAtIndex(index int) INSScrubberL
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("layoutAttributesForItemAtIndex:"), index)
 	return NSScrubberLayoutAttributesFromID(rv)
 }
-
 // The set of layout attributes for all items within the provided rectangle.
 //
 // # Discussion
@@ -242,7 +238,6 @@ func (s NSScrubberLayout) LayoutAttributesForItemsInRect(rect corefoundation.CGR
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("layoutAttributesForItemsInRect:"), rect)
 	return foundation.NSSetFromID(rv)
 }
-
 // Determines whether the scrubber should refresh its layout in response to a
 // change of its visible region.
 //
@@ -279,7 +274,6 @@ func (s NSScrubberLayout) Scrubber() INSScrubber {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("scrubber"))
 	return NSScrubberFromID(objc.ID(rv))
 }
-
 // The currently visible rectangle, in the coordinate space of the scrubber
 // content.
 //
@@ -295,7 +289,6 @@ func (s NSScrubberLayout) VisibleRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("visibleRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The size required to contain all elements within the scrubber.
 //
 // # Discussion
@@ -307,7 +300,6 @@ func (s NSScrubberLayout) ScrubberContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("scrubberContentSize"))
 	return corefoundation.CGSize(rv)
 }
-
 // Determines whether the scrubber should refresh its layout when the
 // selection changes.
 //
@@ -327,7 +319,6 @@ func (s NSScrubberLayout) ShouldInvalidateLayoutForSelectionChange() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("shouldInvalidateLayoutForSelectionChange"))
 	return rv
 }
-
 // Determines whether the scrubber should refresh its layout when an item is
 // highlighted.
 //
@@ -347,7 +338,6 @@ func (s NSScrubberLayout) ShouldInvalidateLayoutForHighlightChange() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("shouldInvalidateLayoutForHighlightChange"))
 	return rv
 }
-
 // Determines whether the scrubber mirrors its layout for right-to-left
 // layouts.
 //

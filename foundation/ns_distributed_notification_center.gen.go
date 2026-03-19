@@ -219,7 +219,6 @@ func NewDistributedNotificationCenter() DistributedNotificationCenter {
 func (d DistributedNotificationCenter) AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objc.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addObserver:selector:name:object:suspensionBehavior:"), observer, selector, objc.String(string(name)), objc.String(object), suspensionBehavior)
 }
-
 // Creates a notification with information and an immediate-delivery
 // specifier, and posts it to the receiver.
 //
@@ -252,7 +251,6 @@ func (d DistributedNotificationCenter) AddObserverSelectorNameObjectSuspensionBe
 func (d DistributedNotificationCenter) PostNotificationNameObjectUserInfoDeliverImmediately(name NSNotificationName, object string, userInfo INSDictionary, deliverImmediately bool) {
 	objc.Send[objc.ID](d.ID, objc.Sel("postNotificationName:object:userInfo:deliverImmediately:"), objc.String(string(name)), objc.String(object), userInfo, deliverImmediately)
 }
-
 // Creates a notification with information, and posts it to the receiver.
 //
 // name: Name of the notification to post. Must not be `nil`.

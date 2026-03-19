@@ -432,7 +432,6 @@ _block3, _cleanup3 := NewTimerBlock(block)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithFireDate:interval:repeats:block:"), date, interval, repeats, _block3)
 	return NSTimerFromID(rv)
 }
-
 // Initializes a timer using the specified object and selector.
 //
 // date: The time at which the timer should first fire.
@@ -480,7 +479,6 @@ func (t_ Timer) InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDa
 	rv := objc.Send[Timer](t_.ID, objc.Sel("initWithFireDate:interval:target:selector:userInfo:repeats:"), date, ti, t, s, ui, rep)
 	return rv
 }
-
 // Causes the timer’s message to be sent to its target.
 //
 // # Discussion
@@ -493,7 +491,6 @@ func (t_ Timer) InitWithFireDateIntervalTargetSelectorUserInfoRepeats(date INSDa
 func (t Timer) Fire() {
 	objc.Send[objc.ID](t.ID, objc.Sel("fire"))
 }
-
 // Stops the timer from ever firing again and requests its removal from its
 // run loop.
 //
@@ -547,7 +544,6 @@ _block2, _cleanup2 := NewTimerBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:repeats:block:"), interval, repeats, _block2)
 	return NSTimerFromID(rv)
 }
-
 // Creates a timer and schedules it on the current run loop in the default
 // mode.
 //
@@ -588,7 +584,6 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalTargetSelectorUserIn
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:"), ti, aTarget, aSelector, userInfo, yesOrNo)
 	return NSTimerFromID(rv)
 }
-
 // Creates a new timer and schedules it on the current run loop in the default
 // mode.
 //
@@ -618,7 +613,6 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalInvocationRepeats(ti
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:invocation:repeats:"), ti, invocation, yesOrNo)
 	return NSTimerFromID(rv)
 }
-
 // Initializes a timer object with the specified time interval and block.
 //
 // interval: The number of seconds between firings of the timer. If `interval` is less
@@ -665,7 +659,6 @@ func (t Timer) Valid() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isValid"))
 	return rv
 }
-
 // The date at which the timer will fire.
 //
 // # Discussion
@@ -697,7 +690,6 @@ func (t Timer) FireDate() INSDate {
 func (t Timer) SetFireDate(value INSDate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFireDate:"), value)
 }
-
 // The timer’s time interval, in seconds.
 //
 // # Discussion
@@ -709,7 +701,6 @@ func (t Timer) TimeInterval() float64 {
 	rv := objc.Send[NSTimeInterval](t.ID, objc.Sel("timeInterval"))
 	return float64(rv)
 }
-
 // The receiver’s `userInfo` object.
 //
 // # Discussion
@@ -722,7 +713,6 @@ func (t Timer) UserInfo() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("userInfo"))
 	return objectivec.Object{ID: rv}
 }
-
 // The amount of time after the scheduled fire date that the timer may fire.
 //
 // # Discussion

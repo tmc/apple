@@ -224,7 +224,6 @@ func (v VNVector) InitWithRTheta(r float64, theta float64) VNVector {
 	rv := objc.Send[VNVector](v.ID, objc.Sel("initWithR:theta:"), r, theta)
 	return rv
 }
-
 // Creates a new vector in Cartesian coordinate space.
 //
 // head: The vector’s head point.
@@ -236,7 +235,6 @@ func (v VNVector) InitWithVectorHeadTail(head IVNPoint, tail IVNPoint) VNVector 
 	rv := objc.Send[VNVector](v.ID, objc.Sel("initWithVectorHead:tail:"), head, tail)
 	return rv
 }
-
 // Creates a new vector in Cartesian coordinate space, based on its x-axis and
 // y-axis projections.
 //
@@ -268,7 +266,6 @@ func (_VNVectorClass VNVectorClass) DotProductOfVectorVector(v1 IVNVector, v2 IV
 	rv := objc.Send[float64](objc.ID(_VNVectorClass.class), objc.Sel("dotProductOfVector:vector:"), v1, v2)
 	return rv
 }
-
 // Calculates a vector that’s normalized by preserving its direction, so
 // that the vector length equals 1.0.
 //
@@ -291,7 +288,6 @@ func (v VNVector) Length() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("length"))
 	return rv
 }
-
 // The radius, absolute value, or length of the vector.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/r
@@ -299,7 +295,6 @@ func (v VNVector) R() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("r"))
 	return rv
 }
-
 // The angle between the vector direction and the positive direction of the
 // x-axis.
 //
@@ -308,7 +303,6 @@ func (v VNVector) Theta() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("theta"))
 	return rv
 }
-
 // The squared length of the vector.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/squaredLength
@@ -316,7 +310,6 @@ func (v VNVector) SquaredLength() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("squaredLength"))
 	return rv
 }
-
 // A signed projection that indicates the vector’s direction on the x-axis.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/x
@@ -324,7 +317,6 @@ func (v VNVector) X() float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("x"))
 	return rv
 }
-
 // A signed projection that indicates the vector’s direction on the y-axis.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVector/y

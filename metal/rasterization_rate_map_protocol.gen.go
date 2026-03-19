@@ -84,43 +84,35 @@ func MTLRasterizationRateMapObjectFromID(id objc.ID) MTLRasterizationRateMapObje
 // The device object that created the rate map.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/device
-
 func (o MTLRasterizationRateMapObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that identifies the rate map.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/label
-
 func (o MTLRasterizationRateMapObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // The number of layers in the rate map.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/layerCount
-
 func (o MTLRasterizationRateMapObject) LayerCount() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("layerCount"))
 	return rv
 	}
-
 // The logical size, in pixels, of the viewport coordinate system.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/screenSize
-
 func (o MTLRasterizationRateMapObject) ScreenSize() MTLSize {
 	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("screenSize"))
 	return rv
 	}
-
 // Returns the dimensions, in pixels, of the area in the render target
 // affected by the rasterization rate map.
 //
@@ -138,24 +130,20 @@ func (o MTLRasterizationRateMapObject) ScreenSize() MTLSize {
 // and therefore different physical size requirements.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/physicalSize(layer:)
-
 func (o MTLRasterizationRateMapObject) PhysicalSizeForLayer(layerIndex uint) MTLSize {
 	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("physicalSizeForLayer:"), layerIndex)
 	return rv
 	}
-
 // The granularity, in physical pixels, at which the rasterization rate
 // varies.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/physicalGranularity
-
 func (o MTLRasterizationRateMapObject) PhysicalGranularity() MTLSize {
 	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("physicalGranularity"))
 	return rv
 	}
-
 // Converts a point in logical viewport coordinates to the corresponding
 // physical coordinates in a render layer.
 //
@@ -174,13 +162,11 @@ func (o MTLRasterizationRateMapObject) PhysicalGranularity() MTLSize {
 // coordinates because the rasterization rate never exceeds 1:1 in any region.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/physicalCoordinates(screenCoordinates:layer:)
-
 func (o MTLRasterizationRateMapObject) MapScreenToPhysicalCoordinatesForLayer(screenCoordinates MTLCoordinate2D, layerIndex uint) MTLCoordinate2D {
 	
 	rv := objc.Send[MTLCoordinate2D](o.ID, objc.Sel("mapScreenToPhysicalCoordinates:forLayer:"), screenCoordinates, layerIndex)
 	return rv
 	}
-
 // Converts a point in physical coordinates inside a layer to its
 // corresponding logical viewport coordinates.
 //
@@ -198,24 +184,20 @@ func (o MTLRasterizationRateMapObject) MapScreenToPhysicalCoordinatesForLayer(sc
 // coordinates because the rasterization rate never exceeds 1:1 in any region.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/screenCoordinates(physicalCoordinates:layer:)
-
 func (o MTLRasterizationRateMapObject) MapPhysicalToScreenCoordinatesForLayer(physicalCoordinates MTLCoordinate2D, layerIndex uint) MTLCoordinate2D {
 	
 	rv := objc.Send[MTLCoordinate2D](o.ID, objc.Sel("mapPhysicalToScreenCoordinates:forLayer:"), physicalCoordinates, layerIndex)
 	return rv
 	}
-
 // The size and alignment requirements to contain the coordinate
 // transformation information in this rate map.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/parameterDataSizeAndAlign
-
 func (o MTLRasterizationRateMapObject) ParameterBufferSizeAndAlign() MTLSizeAndAlign {
 	
 	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("parameterBufferSizeAndAlign"))
 	return rv
 	}
-
 // Copies the parameter data into the provided buffer.
 //
 // buffer: The buffer instance to copy the data into. It needs to have an
@@ -241,7 +223,6 @@ func (o MTLRasterizationRateMapObject) ParameterBufferSizeAndAlign() MTLSizeAndA
 // [Metal Shading Language Specification]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/copyParameterData(buffer:offset:)
-
 func (o MTLRasterizationRateMapObject) CopyParameterDataToBufferOffset(buffer MTLBuffer, offset uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("copyParameterDataToBuffer:offset:"), buffer, offset)

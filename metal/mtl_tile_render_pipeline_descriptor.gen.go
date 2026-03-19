@@ -273,7 +273,6 @@ func (t MTLTileRenderPipelineDescriptor) Label() string {
 func (t MTLTileRenderPipelineDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // The compute kernel or fragment function the pipeline calls.
 //
 // # Discussion
@@ -291,7 +290,6 @@ func (t MTLTileRenderPipelineDescriptor) TileFunction() MTLFunction {
 func (t MTLTileRenderPipelineDescriptor) SetTileFunction(value MTLFunction) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTileFunction:"), value)
 }
-
 // An array that contains the buffer mutability options for a render
 // pipeline’s tile function.
 //
@@ -306,7 +304,6 @@ func (t MTLTileRenderPipelineDescriptor) TileBuffers() IMTLPipelineBufferDescrip
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("tileBuffers"))
 	return MTLPipelineBufferDescriptorArrayFromID(objc.ID(rv))
 }
-
 // The maximum call stack depth for indirect function calls in tile shaders.
 //
 // # Discussion
@@ -327,7 +324,6 @@ func (t MTLTileRenderPipelineDescriptor) MaxCallStackDepth() uint {
 func (t MTLTileRenderPipelineDescriptor) SetMaxCallStackDepth(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxCallStackDepth:"), value)
 }
-
 // A Boolean value that indicates whether all threadgroups for this pipeline
 // completely cover tiles.
 //
@@ -344,7 +340,6 @@ func (t MTLTileRenderPipelineDescriptor) ThreadgroupSizeMatchesTileSize() bool {
 func (t MTLTileRenderPipelineDescriptor) SetThreadgroupSizeMatchesTileSize(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setThreadgroupSizeMatchesTileSize:"), value)
 }
-
 // The number of samples in each fragment.
 //
 // # Discussion
@@ -369,7 +364,6 @@ func (t MTLTileRenderPipelineDescriptor) RasterSampleCount() uint {
 func (t MTLTileRenderPipelineDescriptor) SetRasterSampleCount(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRasterSampleCount:"), value)
 }
-
 // An array of attachments that store color data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTileRenderPipelineDescriptor/colorAttachments
@@ -377,7 +371,6 @@ func (t MTLTileRenderPipelineDescriptor) ColorAttachments() IMTLTileRenderPipeli
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("colorAttachments"))
 	return MTLTileRenderPipelineColorAttachmentDescriptorArrayFromID(objc.ID(rv))
 }
-
 // The maximum number of threads in a threadgroup when dispatching a command
 // using the pipeline.
 //
@@ -389,7 +382,6 @@ func (t MTLTileRenderPipelineDescriptor) MaxTotalThreadsPerThreadgroup() uint {
 func (t MTLTileRenderPipelineDescriptor) SetMaxTotalThreadsPerThreadgroup(value uint) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxTotalThreadsPerThreadgroup:"), value)
 }
-
 // A Boolean value that indicates whether you can use the pipeline to create
 // new pipelines by adding binary functions to its callable functions list.
 //
@@ -401,7 +393,6 @@ func (t MTLTileRenderPipelineDescriptor) SupportAddingBinaryFunctions() bool {
 func (t MTLTileRenderPipelineDescriptor) SetSupportAddingBinaryFunctions(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSupportAddingBinaryFunctions:"), value)
 }
-
 // An array of binary archives to search for precompiled versions of the
 // shader.
 //
@@ -415,7 +406,6 @@ func (t MTLTileRenderPipelineDescriptor) BinaryArchives() []objectivec.IObject {
 func (t MTLTileRenderPipelineDescriptor) SetBinaryArchives(value []objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBinaryArchives:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Functions that you can specify as function arguments for the tile shader
 // when encoding commands that use the pipeline.
 //
@@ -427,7 +417,6 @@ func (t MTLTileRenderPipelineDescriptor) LinkedFunctions() IMTLLinkedFunctions {
 func (t MTLTileRenderPipelineDescriptor) SetLinkedFunctions(value IMTLLinkedFunctions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLinkedFunctions:"), value)
 }
-
 // A value that enables or disables shader validation for the pipeline.
 //
 // # Discussion
@@ -444,7 +433,6 @@ func (t MTLTileRenderPipelineDescriptor) ShaderValidation() MTLShaderValidation 
 func (t MTLTileRenderPipelineDescriptor) SetShaderValidation(value MTLShaderValidation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setShaderValidation:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLTileRenderPipelineDescriptor/preloadedLibraries
 func (t MTLTileRenderPipelineDescriptor) PreloadedLibraries() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("preloadedLibraries"))
@@ -455,7 +443,6 @@ func (t MTLTileRenderPipelineDescriptor) PreloadedLibraries() []objectivec.IObje
 func (t MTLTileRenderPipelineDescriptor) SetPreloadedLibraries(value []objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreloadedLibraries:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 //
 // # Discussion
 // 

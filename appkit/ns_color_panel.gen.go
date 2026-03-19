@@ -364,7 +364,6 @@ func NewColorPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefou
 func (c NSColorPanel) SetAction(selector objc.SEL) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setAction:"), selector)
 }
-
 // Sets the target of the receiver.
 //
 // target: The target of the receiver. When you select a color in the color panel
@@ -375,7 +374,6 @@ func (c NSColorPanel) SetAction(selector objc.SEL) {
 func (c NSColorPanel) SetTarget(target objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setTarget:"), target)
 }
-
 // Adds the list of [NSColor] objects specified to all the color pickers in
 // the receiver that display color lists by invoking [AttachColorList] on all
 // color pickers in the application.
@@ -392,7 +390,6 @@ func (c NSColorPanel) SetTarget(target objectivec.IObject) {
 func (c NSColorPanel) AttachColorList(colorList INSColorList) {
 	objc.Send[objc.ID](c.ID, objc.Sel("attachColorList:"), colorList)
 }
-
 // Removes the list of colors from all the color pickers in the receiver that
 // display color lists by invoking [DetachColorList] on all color pickers in
 // the application.
@@ -425,7 +422,6 @@ func (c NSColorPanel) DetachColorList(colorList INSColorList) {
 func (_NSColorPanelClass NSColorPanelClass) SetPickerMode(mode NSColorPanelMode) {
 	objc.Send[objc.ID](objc.ID(_NSColorPanelClass.class), objc.Sel("setPickerMode:"), mode)
 }
-
 // Determines which color selection modes are available in an application’s
 // [NSColorPanel].
 //
@@ -448,7 +444,6 @@ func (_NSColorPanelClass NSColorPanelClass) SetPickerMode(mode NSColorPanelMode)
 func (_NSColorPanelClass NSColorPanelClass) SetPickerMask(mask NSColorPanelOptions) {
 	objc.Send[objc.ID](objc.ID(_NSColorPanelClass.class), objc.Sel("setPickerMask:"), mask)
 }
-
 // Drags a color into a destination view from the specified source view.
 //
 // color: The color to drag.
@@ -488,7 +483,6 @@ func (c NSColorPanel) Mode() NSColorPanelMode {
 func (c NSColorPanel) SetMode(value NSColorPanelMode) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMode:"), value)
 }
-
 // The accessory view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/accessoryView
@@ -499,7 +493,6 @@ func (c NSColorPanel) AccessoryView() INSView {
 func (c NSColorPanel) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAccessoryView:"), value)
 }
-
 // A Boolean value indicating whether the receiver continuously sends the
 // action message to the target.
 //
@@ -511,7 +504,6 @@ func (c NSColorPanel) Continuous() bool {
 func (c NSColorPanel) SetContinuous(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setContinuous:"), value)
 }
-
 // A Boolean value that indicates whether the receiver shows alpha values and
 // an opacity slider.
 //
@@ -523,7 +515,6 @@ func (c NSColorPanel) ShowsAlpha() bool {
 func (c NSColorPanel) SetShowsAlpha(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setShowsAlpha:"), value)
 }
-
 // The color of the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/color
@@ -534,7 +525,6 @@ func (c NSColorPanel) Color() INSColor {
 func (c NSColorPanel) SetColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
-
 // The maximum linear exposure that can be set on a color picked in the color
 // panel. Defaults to 1 and ignores any value less than 1. If set to a value
 // >= 2, the color picked by the panel may have a linear exposure applied to
@@ -548,7 +538,6 @@ func (c NSColorPanel) MaximumLinearExposure() float64 {
 func (c NSColorPanel) SetMaximumLinearExposure(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumLinearExposure:"), value)
 }
-
 // The receiver’s current alpha value based on its opacity slider.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/alpha
@@ -568,7 +557,6 @@ func (_NSColorPanelClass NSColorPanelClass) SharedColorPanel() NSColorPanel {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorPanelClass.class), objc.Sel("sharedColorPanel"))
 	return NSColorPanelFromID(objc.ID(rv))
 }
-
 // Returns a Boolean value indicating whether the [NSColorPanel] has been
 // created already.
 //

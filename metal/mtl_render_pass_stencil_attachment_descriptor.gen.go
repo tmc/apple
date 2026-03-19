@@ -125,7 +125,6 @@ func (r MTLRenderPassStencilAttachmentDescriptor) StencilResolveFilter() MTLMult
 func (r MTLRenderPassStencilAttachmentDescriptor) SetStencilResolveFilter(value MTLMultisampleStencilResolveFilter) {
 	objc.Send[struct{}](r.ID, objc.Sel("setStencilResolveFilter:"), value)
 }
-
 // The value to use when clearing the stencil attachment.
 //
 // # Discussion

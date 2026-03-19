@@ -280,7 +280,6 @@ _block3, _cleanup3 := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithTitle:image:alternateImage:handler:"), objc.String(title), image, alternateImage, _block3)
 	return NSSharingServiceFromID(rv)
 }
-
 // Returns whether the service can share all the specified items.
 //
 // items: The items to share.
@@ -307,7 +306,6 @@ func (s NSSharingService) CanPerformWithItems(items foundation.INSArray) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("canPerformWithItems:"), items)
 	return rv
 }
-
 // Manually performs the service on the provided items.
 //
 // items: The items to share.
@@ -335,7 +333,6 @@ func (s NSSharingService) Delegate() NSSharingServiceDelegate {
 func (s NSSharingService) SetDelegate(value NSSharingServiceDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The account name used for posting on Twitter or Sina Weibo.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/accountName
@@ -343,7 +340,6 @@ func (s NSSharingService) AccountName() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("accountName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The alternate image representing the sharing service.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/alternateImage
@@ -351,7 +347,6 @@ func (s NSSharingService) AlternateImage() INSImage {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("alternateImage"))
 	return NSImageFromID(objc.ID(rv))
 }
-
 // The primary image representing the sharing service.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/image
@@ -359,7 +354,6 @@ func (s NSSharingService) Image() INSImage {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("image"))
 	return NSImageFromID(objc.ID(rv))
 }
-
 // The title of the sharing service.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/title
@@ -367,7 +361,6 @@ func (s NSSharingService) Title() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The title of the service in the Share menu.
 //
 // # Discussion
@@ -383,7 +376,6 @@ func (s NSSharingService) MenuItemTitle() string {
 func (s NSSharingService) SetMenuItemTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMenuItemTitle:"), objc.String(value))
 }
-
 // An array containing the user handles of the desired recipients.
 //
 // # Discussion
@@ -401,7 +393,6 @@ func (s NSSharingService) Recipients() []string {
 func (s NSSharingService) SetRecipients(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecipients:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The subject of the post.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/subject
@@ -412,7 +403,6 @@ func (s NSSharingService) Subject() string {
 func (s NSSharingService) SetSubject(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSubject:"), objc.String(value))
 }
-
 // An array of NSURL objects representing the files that were shared.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/attachmentFileURLs
@@ -422,7 +412,6 @@ func (s NSSharingService) AttachmentFileURLs() []foundation.NSURL {
 		return foundation.NSURLFromID(id)
 	})
 }
-
 // The message body as a string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/messageBody
@@ -430,7 +419,6 @@ func (s NSSharingService) MessageBody() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("messageBody"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A permanent URL (permalink) that your app can use to access the post.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/permanentLink

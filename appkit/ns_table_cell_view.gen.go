@@ -232,7 +232,6 @@ func (t NSTableCellView) ObjectValue() objectivec.IObject {
 func (t NSTableCellView) SetObjectValue(value objectivec.IObject) {
 	objc.Send[struct{}](t.ID, objc.Sel("setObjectValue:"), value)
 }
-
 // Image displayed by the cell.
 //
 // # Discussion
@@ -248,7 +247,6 @@ func (t NSTableCellView) ImageView() INSImageView {
 func (t NSTableCellView) SetImageView(value INSImageView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setImageView:"), value)
 }
-
 // Text displayed by the cell.
 //
 // # Discussion
@@ -264,7 +262,6 @@ func (t NSTableCellView) TextField() INSTextField {
 func (t NSTableCellView) SetTextField(value INSTextField) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextField:"), value)
 }
-
 // This property is automatically set by the enclosing row view to let this
 // view know what its background looks like.
 //
@@ -287,7 +284,6 @@ func (t NSTableCellView) BackgroundStyle() NSBackgroundStyle {
 func (t NSTableCellView) SetBackgroundStyle(value NSBackgroundStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundStyle:"), value)
 }
-
 // Returns the row size style.
 //
 // # Discussion
@@ -310,7 +306,6 @@ func (t NSTableCellView) RowSizeStyle() NSTableViewRowSizeStyle {
 func (t NSTableCellView) SetRowSizeStyle(value NSTableViewRowSizeStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRowSizeStyle:"), value)
 }
-
 // Returns dragging images for the cell.
 //
 // # Discussion

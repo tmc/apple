@@ -63,13 +63,11 @@ func NSOutlineViewDataSourceObjectFromID(id objc.ID) NSOutlineViewDataSourceObje
 // system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:acceptDrop:item:childIndex:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewAcceptDropItemChildIndex(outlineView INSOutlineView, info NSDraggingInfo, item objectivec.IObject, index int) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:acceptDrop:item:childIndex:"), outlineView, info, item, index)
 	return rv
 	}
-
 // Returns the child item at the specified index of a given item.
 //
 // outlineView: The outline view that sent the message.
@@ -96,13 +94,11 @@ func (o NSOutlineViewDataSourceObject) OutlineViewAcceptDropItemChildIndex(outli
 // be efficient.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:child:ofItem:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewChildOfItem(outlineView INSOutlineView, index int, item objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:child:ofItem:"), outlineView, index, item)
 	return objectivec.Object{ID: rv}
 	}
-
 // Implement this method to know when the given dragging session has ended.
 //
 // outlineView: The outline view in which the drag began.
@@ -121,12 +117,10 @@ func (o NSOutlineViewDataSourceObject) OutlineViewChildOfItem(outlineView INSOut
 // checking for an operation of [DragOperationDelete]).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:draggingSession:endedAt:operation:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewDraggingSessionEndedAtPointOperation(outlineView INSOutlineView, session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:draggingSession:endedAtPoint:operation:"), outlineView, session, screenPoint, operation)
 	}
-
 // Implement this method know when the given dragging session is about to
 // begin and potentially modify the dragging session.
 //
@@ -148,12 +142,10 @@ func (o NSOutlineViewDataSourceObject) OutlineViewDraggingSessionEndedAtPointOpe
 // when enumerating the [NSDraggingInfo] protocol’s pasteboard classes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:draggingSession:willBeginAt:forItems:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewDraggingSessionWillBeginAtPointForItems(outlineView INSOutlineView, session INSDraggingSession, screenPoint corefoundation.CGPoint, draggedItems foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:draggingSession:willBeginAtPoint:forItems:"), outlineView, session, screenPoint, draggedItems)
 	}
-
 // Returns a Boolean value that indicates whether the a given item is
 // expandable.
 //
@@ -174,13 +166,11 @@ func (o NSOutlineViewDataSourceObject) OutlineViewDraggingSessionWillBeginAtPoin
 // This method may be called quite often, so it must be efficient.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:isItemExpandable:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewIsItemExpandable(outlineView INSOutlineView, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("outlineView:isItemExpandable:"), outlineView, item)
 	return rv
 	}
-
 // Invoked by `outlineView` to return the item for the archived `object`.
 //
 // outlineView: The outline view that sent the message.
@@ -206,13 +196,11 @@ func (o NSOutlineViewDataSourceObject) OutlineViewIsItemExpandable(outlineView I
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:itemForPersistentObject:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewItemForPersistentObject(outlineView INSOutlineView, object objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:itemForPersistentObject:"), outlineView, object)
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the number of child items encompassed by a given item.
 //
 // outlineView: The outline view that sent the message.
@@ -230,13 +218,11 @@ func (o NSOutlineViewDataSourceObject) OutlineViewItemForPersistentObject(outlin
 // so it must be efficient.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:numberOfChildrenOfItem:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewNumberOfChildrenOfItem(outlineView INSOutlineView, item objectivec.IObject) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("outlineView:numberOfChildrenOfItem:"), outlineView, item)
 	return rv
 	}
-
 // Invoked by `outlineView` to return the data object associated with the
 // specified `item`.
 //
@@ -251,13 +237,11 @@ func (o NSOutlineViewDataSourceObject) OutlineViewNumberOfChildrenOfItem(outline
 // The item is located in the specified `tableColumn` of the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:objectValueFor:byItem:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewObjectValueForTableColumnByItem(outlineView INSOutlineView, tableColumn INSTableColumn, item objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:objectValueForTableColumn:byItem:"), outlineView, tableColumn, item)
 	return objectivec.Object{ID: rv}
 	}
-
 // Implement this method to enable the table to be an [NSDraggingSource] that
 // supports dragging multiple items.
 //
@@ -278,13 +262,11 @@ func (o NSOutlineViewDataSourceObject) OutlineViewObjectValueForTableColumnByIte
 // [outlineView(_:writeItems:to:)]: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:writeItems:to:)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:pasteboardWriterForItem:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewPasteboardWriterForItem(outlineView INSOutlineView, item objectivec.IObject) NSPasteboardWriting {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:pasteboardWriterForItem:"), outlineView, item)
 	return NSPasteboardWritingObjectFromID(rv)
 	}
-
 // Invoked by `outlineView` to return an archived object for `item`.
 //
 // outlineView: The outline view that sent the message.
@@ -310,13 +292,11 @@ func (o NSOutlineViewDataSourceObject) OutlineViewPasteboardWriterForItem(outlin
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:persistentObjectForItem:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewPersistentObjectForItem(outlineView INSOutlineView, item objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outlineView:persistentObjectForItem:"), outlineView, item)
 	return objectivec.Object{ID: rv}
 	}
-
 // Set the data object for a given item in a given column.
 //
 // outlineView: The outline view that sent the message.
@@ -332,12 +312,10 @@ func (o NSOutlineViewDataSourceObject) OutlineViewPersistentObjectForItem(outlin
 // The item is located in the specified `tableColumn` of the view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:setObjectValue:for:byItem:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewSetObjectValueForTableColumnByItem(outlineView INSOutlineView, object objectivec.IObject, tableColumn INSTableColumn, item objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:setObjectValue:forTableColumn:byItem:"), outlineView, object, tableColumn, item)
 	}
-
 // Invoked by an outline view to notify the data source that the descriptors
 // changed and the data may need to be resorted.
 //
@@ -354,12 +332,10 @@ func (o NSOutlineViewDataSourceObject) OutlineViewSetObjectValueForTableColumnBy
 // [SortDescriptors] message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:sortDescriptorsDidChange:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewSortDescriptorsDidChange(outlineView INSOutlineView, oldDescriptors []foundation.NSSortDescriptor) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:sortDescriptorsDidChange:"), outlineView, objectivec.IObjectSliceToNSArray(oldDescriptors))
 	}
-
 // Implement this method to enable the table to update dragging items as they
 // are dragged over the view.
 //
@@ -377,12 +353,10 @@ func (o NSOutlineViewDataSourceObject) OutlineViewSortDescriptorsDidChange(outli
 // use the [NSTableCellView] method [DraggingImageComponents].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:updateDraggingItemsForDrag:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewUpdateDraggingItemsForDrag(outlineView INSOutlineView, draggingInfo NSDraggingInfo) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outlineView:updateDraggingItemsForDrag:"), outlineView, draggingInfo)
 	}
-
 // Used by an outline view to determine a valid drop target.
 //
 // outlineView: The outline view that sent the message.
@@ -409,7 +383,6 @@ func (o NSOutlineViewDataSourceObject) OutlineViewUpdateDraggingItemsForDrag(out
 // Implementation of this method is optional.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDataSource/outlineView(_:validateDrop:proposedItem:proposedChildIndex:)
-
 func (o NSOutlineViewDataSourceObject) OutlineViewValidateDropProposedItemProposedChildIndex(outlineView INSOutlineView, info NSDraggingInfo, item objectivec.IObject, index int) NSDragOperation {
 	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("outlineView:validateDrop:proposedItem:proposedChildIndex:"), outlineView, info, item, index)

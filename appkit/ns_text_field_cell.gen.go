@@ -257,7 +257,6 @@ func (t NSTextFieldCell) TextColor() INSColor {
 func (t NSTextFieldCell) SetTextColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextColor:"), value)
 }
-
 // The bezel style to use when drawing the text field.
 //
 // # Discussion
@@ -277,7 +276,6 @@ func (t NSTextFieldCell) BezelStyle() NSTextFieldBezelStyle {
 func (t NSTextFieldCell) SetBezelStyle(value NSTextFieldBezelStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBezelStyle:"), value)
 }
-
 // The color of the cell’s background.
 //
 // # Discussion
@@ -292,7 +290,6 @@ func (t NSTextFieldCell) BackgroundColor() INSColor {
 func (t NSTextFieldCell) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
 // A Boolean value that indicates whether the cell draws its background color.
 //
 // # Discussion
@@ -311,7 +308,6 @@ func (t NSTextFieldCell) DrawsBackground() bool {
 func (t NSTextFieldCell) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDrawsBackground:"), value)
 }
-
 // The placeholder text for the cell, specified as a plain text string.
 //
 // # Discussion
@@ -327,7 +323,6 @@ func (t NSTextFieldCell) PlaceholderString() string {
 func (t NSTextFieldCell) SetPlaceholderString(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
-
 // The placeholder text for the cell, specified as an attributed string.
 //
 // # Discussion
@@ -343,7 +338,6 @@ func (t NSTextFieldCell) PlaceholderAttributedString() foundation.NSAttributedSt
 func (t NSTextFieldCell) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
-
 // An array of locale identifiers that represent the allowed input sources
 // when the text field has the keyboard focus.
 //

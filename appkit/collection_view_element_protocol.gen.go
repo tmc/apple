@@ -56,12 +56,10 @@ func NSCollectionViewElementObjectFromID(id objc.ID) NSCollectionViewElementObje
 // If you implement this method, you must call `super` at some point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/prepareForReuse()
-
 func (o NSCollectionViewElementObject) PrepareForReuse() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("prepareForReuse"))
 	}
-
 // Asks your element if it wants to modify any layout attributes before they
 // are applied.
 //
@@ -85,13 +83,11 @@ func (o NSCollectionViewElementObject) PrepareForReuse() {
 // In OS X 10.11, this method is never called.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/preferredLayoutAttributesFitting(_:)
-
 func (o NSCollectionViewElementObject) PreferredLayoutAttributesFittingAttributes(layoutAttributes INSCollectionViewLayoutAttributes) INSCollectionViewLayoutAttributes {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("preferredLayoutAttributesFittingAttributes:"), layoutAttributes)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 	}
-
 // Applies the specified layout attributes to the element.
 //
 // layoutAttributes: The layout attributes to apply.
@@ -106,12 +102,10 @@ func (o NSCollectionViewElementObject) PreferredLayoutAttributesFittingAttribute
 // apply those custom attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/apply(_:)
-
 func (o NSCollectionViewElementObject) ApplyLayoutAttributes(layoutAttributes INSCollectionViewLayoutAttributes) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("applyLayoutAttributes:"), layoutAttributes)
 	}
-
 // Tells the element that the layout object of the collection view is about to
 // change.
 //
@@ -129,12 +123,10 @@ func (o NSCollectionViewElementObject) ApplyLayoutAttributes(layoutAttributes IN
 // In OS X 10.11, this method is never called.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/willTransition(from:to:)
-
 func (o NSCollectionViewElementObject) WillTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("willTransitionFromLayout:toLayout:"), oldLayout, newLayout)
 	}
-
 // Tells the element that the layout object of the collection view changed.
 //
 // oldLayout: The collection view’s previous layout object.
@@ -152,16 +144,13 @@ func (o NSCollectionViewElementObject) WillTransitionFromLayoutToLayout(oldLayou
 // In OS X 10.11, this method is never called.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/didTransition(from:to:)
-
 func (o NSCollectionViewElementObject) DidTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("didTransitionFromLayout:toLayout:"), oldLayout, newLayout)
 	}
-
 // A string that identifies the user interface item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
-
 func (o NSCollectionViewElementObject) Identifier() NSUserInterfaceItemIdentifier {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("identifier"))

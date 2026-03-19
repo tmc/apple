@@ -213,7 +213,6 @@ func (d VZDiskBlockDeviceStorageDeviceAttachment) FileHandle() foundation.NSFile
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileHandle"))
 	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether this disk attachment is read-only;
 // otherwise, if the file handle allows writes, the device can write data into
 // it.
@@ -223,7 +222,6 @@ func (d VZDiskBlockDeviceStorageDeviceAttachment) ReadOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isReadOnly"))
 	return rv
 }
-
 // The value that defines how the disk synchronizes with the underlying
 // storage when the guest operating system flushes data.
 //

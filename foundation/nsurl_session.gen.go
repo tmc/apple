@@ -234,7 +234,6 @@ func (uc URLSessionClass) Alloc() URLSession {
 //   - [URLSession.FinishTasksAndInvalidate]: Invalidates the session, allowing any outstanding tasks to finish.
 //   - [URLSession.FlushWithCompletionHandler]: Flushes cookies and credentials to disk, clears transient caches, and ensures that future requests occur on a new TCP connection.
 //   - [URLSession.GetTasksWithCompletionHandler]: Asynchronously calls a completion callback with all data, upload, and download tasks in a session.
-//   - [URLSession.GetAllTasksWithCompletionHandler]: Asynchronously calls a completion callback with all tasks in a session
 //   - [URLSession.InvalidateAndCancel]: Cancels all outstanding tasks and then invalidates the session.
 //   - [URLSession.ResetWithCompletionHandler]: Empties all cookies, caches and credential stores, removes disk files, flushes in-progress downloads to disk, and ensures that future requests occur on a new socket.
 //   - [URLSession.SessionDescription]: An app-defined descriptive label for the session.
@@ -309,7 +308,6 @@ func NSURLSessionFromID(id objc.ID) URLSession { return URLSessionFromID(id) }
 //   - [IURLSession.FinishTasksAndInvalidate]: Invalidates the session, allowing any outstanding tasks to finish.
 //   - [IURLSession.FlushWithCompletionHandler]: Flushes cookies and credentials to disk, clears transient caches, and ensures that future requests occur on a new TCP connection.
 //   - [IURLSession.GetTasksWithCompletionHandler]: Asynchronously calls a completion callback with all data, upload, and download tasks in a session.
-//   - [IURLSession.GetAllTasksWithCompletionHandler]: Asynchronously calls a completion callback with all tasks in a session
 //   - [IURLSession.InvalidateAndCancel]: Cancels all outstanding tasks and then invalidates the session.
 //   - [IURLSession.ResetWithCompletionHandler]: Empties all cookies, caches and credential stores, removes disk files, flushes in-progress downloads to disk, and ensures that future requests occur on a new socket.
 //   - [IURLSession.SessionDescription]: An app-defined descriptive label for the session.
@@ -396,8 +394,6 @@ type IURLSession interface {
 	FlushWithCompletionHandler(completionHandler VoidHandler)
 	// Asynchronously calls a completion callback with all data, upload, and download tasks in a session.
 	GetTasksWithCompletionHandler(completionHandler VoidHandler)
-	// Asynchronously calls a completion callback with all tasks in a session
-	GetAllTasksWithCompletionHandler(completionHandler ArrayHandler)
 	// Cancels all outstanding tasks and then invalidates the session.
 	InvalidateAndCancel()
 	// Empties all cookies, caches and credential stores, removes disk files, flushes in-progress downloads to disk, and ensures that future requests occur on a new socket.
@@ -494,7 +490,6 @@ func (u URLSession) DataTaskWithURL(url INSURL) INSURLSessionDataTask {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataTaskWithURL:"), url)
 	return NSURLSessionDataTaskFromID(rv)
 }
-
 // Creates a task that retrieves the contents of the specified URL, then calls
 // a handler upon completion.
 //
@@ -547,7 +542,6 @@ _block1, _cleanup1 := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataTaskWithURL:completionHandler:"), url, _block1)
 	return NSURLSessionDataTaskFromID(rv)
 }
-
 // Creates a task that retrieves the contents of a URL based on the specified
 // URL request object.
 //
@@ -571,7 +565,6 @@ func (u URLSession) DataTaskWithRequest(request INSURLRequest) INSURLSessionData
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataTaskWithRequest:"), request)
 	return NSURLSessionDataTaskFromID(rv)
 }
-
 // Creates a task that retrieves the contents of a URL based on the specified
 // URL request object, and calls a handler upon completion.
 //
@@ -628,7 +621,6 @@ _block1, _cleanup1 := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataTaskWithRequest:completionHandler:"), request, _block1)
 	return NSURLSessionDataTaskFromID(rv)
 }
-
 // Creates a download task that retrieves the contents of the specified URL
 // and saves the results to a file.
 //
@@ -648,7 +640,6 @@ func (u URLSession) DownloadTaskWithURL(url INSURL) INSURLSessionDownloadTask {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithURL:"), url)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
-
 // Creates a download task that retrieves the contents of the specified URL,
 // saves the results to a file, and calls a handler upon completion.
 //
@@ -708,7 +699,6 @@ _block1, _cleanup1 := NewURLURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithURL:completionHandler:"), url, _block1)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
-
 // Creates a download task that retrieves the contents of a URL based on the
 // specified URL request object and saves the results to a file.
 //
@@ -734,7 +724,6 @@ func (u URLSession) DownloadTaskWithRequest(request INSURLRequest) INSURLSession
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithRequest:"), request)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
-
 // Creates a download task that retrieves the contents of a URL based on the
 // specified URL request object, saves the results to a file, and calls a
 // handler upon completion.
@@ -795,7 +784,6 @@ _block1, _cleanup1 := NewURLURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithRequest:completionHandler:"), request, _block1)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
-
 // Creates a download task to resume a previously canceled or failed download.
 //
 // resumeData: A data object that provides the data necessary to resume a download.
@@ -819,7 +807,6 @@ func (u URLSession) DownloadTaskWithResumeData(resumeData INSData) INSURLSession
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithResumeData:"), resumeData)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
-
 // Creates a download task to resume a previously canceled or failed download
 // and calls a handler upon completion.
 //
@@ -886,7 +873,6 @@ _block1, _cleanup1 := NewURLURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithResumeData:completionHandler:"), resumeData, _block1)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
-
 // Creates a task that performs an HTTP request for the specified URL request
 // object and uploads the provided data.
 //
@@ -915,7 +901,6 @@ func (u URLSession) UploadTaskWithRequestFromData(request INSURLRequest, bodyDat
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithRequest:fromData:"), request, bodyData)
 	return NSURLSessionUploadTaskFromID(rv)
 }
-
 // Creates a task that performs an HTTP request for the specified URL request
 // object, uploads the provided data, and calls a handler upon completion.
 //
@@ -983,7 +968,6 @@ _block2, _cleanup2 := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithRequest:fromData:completionHandler:"), request, bodyData, _block2)
 	return NSURLSessionUploadTaskFromID(rv)
 }
-
 // Creates a task that performs an HTTP request for uploading the specified
 // file.
 //
@@ -1012,7 +996,6 @@ func (u URLSession) UploadTaskWithRequestFromFile(request INSURLRequest, fileURL
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithRequest:fromFile:"), request, fileURL)
 	return NSURLSessionUploadTaskFromID(rv)
 }
-
 // Creates a task that performs an HTTP request for uploading the specified
 // file, then calls a handler upon completion.
 //
@@ -1080,7 +1063,6 @@ _block2, _cleanup2 := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithRequest:fromFile:completionHandler:"), request, fileURL, _block2)
 	return NSURLSessionUploadTaskFromID(rv)
 }
-
 // Creates a task that performs an HTTP request for uploading data based on
 // the specified URL request.
 //
@@ -1111,7 +1093,6 @@ func (u URLSession) UploadTaskWithStreamedRequest(request INSURLRequest) INSURLS
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithStreamedRequest:"), request)
 	return NSURLSessionUploadTaskFromID(rv)
 }
-
 // Creates an upload task from a resume data blob. Requires the server to
 // support the latest resumable uploads Internet-Draft from the HTTP Working
 // Group, found at
@@ -1132,7 +1113,6 @@ func (u URLSession) UploadTaskWithResumeData(resumeData INSData) INSURLSessionUp
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithResumeData:"), resumeData)
 	return NSURLSessionUploadTaskFromID(rv)
 }
-
 // Creates a URLSessionUploadTask from a resume data blob. If resuming from an
 // upload file, the file must still exist and be unmodified.
 //
@@ -1152,7 +1132,6 @@ _block1, _cleanup1 := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithResumeData:completionHandler:"), resumeData, _block1)
 	return NSURLSessionUploadTaskFromID(rv)
 }
-
 // Creates a task that establishes a bidirectional TCP/IP connection to a
 // specified hostname and port.
 //
@@ -1174,7 +1153,6 @@ func (u URLSession) StreamTaskWithHostNamePort(hostname string, port int) INSURL
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("streamTaskWithHostName:port:"), objc.String(hostname), port)
 	return NSURLSessionStreamTaskFromID(rv)
 }
-
 // Creates a WebSocket task for the provided URL.
 //
 // url: The WebSocket URL with which to connect.
@@ -1188,7 +1166,6 @@ func (u URLSession) WebSocketTaskWithURL(url INSURL) INSURLSessionWebSocketTask 
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("webSocketTaskWithURL:"), url)
 	return NSURLSessionWebSocketTaskFromID(rv)
 }
-
 // Creates a WebSocket task for the provided URL request.
 //
 // request: A URL request that indicates a WebSockets endpoint with which to connect.
@@ -1208,7 +1185,6 @@ func (u URLSession) WebSocketTaskWithRequest(request INSURLRequest) INSURLSessio
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("webSocketTaskWithRequest:"), request)
 	return NSURLSessionWebSocketTaskFromID(rv)
 }
-
 // Creates a WebSocket task given a URL and an array of protocols.
 //
 // url: The WebSocket URL with which to connect.
@@ -1225,7 +1201,6 @@ func (u URLSession) WebSocketTaskWithURLProtocols(url INSURL, protocols []string
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("webSocketTaskWithURL:protocols:"), url, objectivec.StringSliceToNSArray(protocols))
 	return NSURLSessionWebSocketTaskFromID(rv)
 }
-
 // Invalidates the session, allowing any outstanding tasks to finish.
 //
 // # Discussion
@@ -1244,7 +1219,6 @@ func (u URLSession) WebSocketTaskWithURLProtocols(url INSURL, protocols []string
 func (u URLSession) FinishTasksAndInvalidate() {
 	objc.Send[objc.ID](u.ID, objc.Sel("finishTasksAndInvalidate"))
 }
-
 // Flushes cookies and credentials to disk, clears transient caches, and
 // ensures that future requests occur on a new TCP connection.
 //
@@ -1257,7 +1231,6 @@ _block0, _cleanup0 := NewVoidBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](u.ID, objc.Sel("flushWithCompletionHandler:"), _block0)
 }
-
 // Asynchronously calls a completion callback with all data, upload, and
 // download tasks in a session.
 //
@@ -1276,18 +1249,6 @@ _block0, _cleanup0 := NewVoidBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](u.ID, objc.Sel("getTasksWithCompletionHandler:"), _block0)
 }
-
-// Asynchronously calls a completion callback with all tasks in a session
-//
-// completionHandler: The completion handler to call with the list of tasks.
-//
-// See: https://developer.apple.com/documentation/Foundation/URLSession/getAllTasks(completionHandler:)
-func (u URLSession) GetAllTasksWithCompletionHandler(completionHandler ArrayHandler) {
-_block0, _cleanup0 := NewArrayBlock(completionHandler)
-	defer _cleanup0()
-	objc.Send[objc.ID](u.ID, objc.Sel("getAllTasksWithCompletionHandler:"), _block0)
-}
-
 // Cancels all outstanding tasks and then invalidates the session.
 //
 // # Discussion
@@ -1302,7 +1263,6 @@ _block0, _cleanup0 := NewArrayBlock(completionHandler)
 func (u URLSession) InvalidateAndCancel() {
 	objc.Send[objc.ID](u.ID, objc.Sel("invalidateAndCancel"))
 }
-
 // Empties all cookies, caches and credential stores, removes disk files,
 // flushes in-progress downloads to disk, and ensures that future requests
 // occur on a new socket.
@@ -1334,7 +1294,6 @@ func (u URLSession) Configuration() INSURLSessionConfiguration {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("configuration"))
 	return NSURLSessionConfigurationFromID(objc.ID(rv))
 }
-
 // The delegate assigned when this object was created.
 //
 // # Discussion
@@ -1350,7 +1309,6 @@ func (u URLSession) Delegate() NSURLSessionDelegate {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("delegate"))
 	return NSURLSessionDelegateObjectFromID(rv)
 }
-
 // The operation queue provided when this object was created.
 //
 // # Discussion
@@ -1365,7 +1323,6 @@ func (u URLSession) DelegateQueue() INSOperationQueue {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("delegateQueue"))
 	return NSOperationQueueFromID(objc.ID(rv))
 }
-
 // An app-defined descriptive label for the session.
 //
 // # Discussion

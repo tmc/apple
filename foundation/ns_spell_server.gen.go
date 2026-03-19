@@ -165,7 +165,6 @@ func (s NSSpellServer) RegisterLanguageByVendor(language string, vendor string) 
 	rv := objc.Send[bool](s.ID, objc.Sel("registerLanguage:byVendor:"), objc.String(language), objc.String(vendor))
 	return rv
 }
-
 // Causes the receiver to start listening for spell-checking requests.
 //
 // # Discussion
@@ -177,7 +176,6 @@ func (s NSSpellServer) RegisterLanguageByVendor(language string, vendor string) 
 func (s NSSpellServer) Run() {
 	objc.Send[objc.ID](s.ID, objc.Sel("run"))
 }
-
 // Indicates whether a given word is in the user’s list of learned words or
 // the document’s list of words to ignore.
 //

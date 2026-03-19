@@ -122,7 +122,6 @@ func (e EspressoTrainingConvolutionWeightsForMPS) WeightsLayout() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("weightsLayout"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/initWithParams:forMode:
 func (e EspressoTrainingConvolutionWeightsForMPS) InitWithParamsForMode(params objectivec.IObject, mode bool) EspressoTrainingConvolutionWeightsForMPS {
@@ -138,7 +137,6 @@ func (e EspressoTrainingConvolutionWeightsForMPS) BiasesBuffer() objectivec.IObj
 func (e EspressoTrainingConvolutionWeightsForMPS) SetBiasesBuffer(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setBiasesBuffer:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoTrainingConvolutionWeightsForMPS/weightsBuffer
 func (e EspressoTrainingConvolutionWeightsForMPS) WeightsBuffer() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("weightsBuffer"))

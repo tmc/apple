@@ -57,13 +57,11 @@ func NSRuleEditorDelegateObjectFromID(id objc.ID) NSRuleEditorDelegateObject {
 // The delegate must implement this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:child:forCriterion:with:)
-
 func (o NSRuleEditorDelegateObject) RuleEditorChildForCriterionWithRowType(editor INSRuleEditor, index int, criterion objectivec.IObject, rowType NSRuleEditorRowType) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("ruleEditor:child:forCriterion:withRowType:"), editor, index, criterion, rowType)
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the value for a given criterion.
 //
 // editor: The rule editor that sent the message.
@@ -88,13 +86,11 @@ func (o NSRuleEditorDelegateObject) RuleEditorChildForCriterionWithRowType(edito
 // The delegate must implement this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:displayValueForCriterion:inRow:)
-
 func (o NSRuleEditorDelegateObject) RuleEditorDisplayValueForCriterionInRow(editor INSRuleEditor, criterion objectivec.IObject, row int) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("ruleEditor:displayValueForCriterion:inRow:"), editor, criterion, row)
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the number of child items of a given criterion or row type.
 //
 // editor: The rule editor that sent the message.
@@ -113,13 +109,11 @@ func (o NSRuleEditorDelegateObject) RuleEditorDisplayValueForCriterionInRow(edit
 // The delegate must implement this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:numberOfChildrenForCriterion:with:)
-
 func (o NSRuleEditorDelegateObject) RuleEditorNumberOfChildrenForCriterionWithRowType(editor INSRuleEditor, criterion objectivec.IObject, rowType NSRuleEditorRowType) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("ruleEditor:numberOfChildrenForCriterion:withRowType:"), editor, criterion, rowType)
 	return rv
 	}
-
 // Returns a dictionary representing the parts of the predicate determined by
 // the given criterion and value.
 //
@@ -139,13 +133,11 @@ func (o NSRuleEditorDelegateObject) RuleEditorNumberOfChildrenForCriterionWithRo
 // values.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:predicatePartsForCriterion:withDisplayValue:inRow:)
-
 func (o NSRuleEditorDelegateObject) RuleEditorPredicatePartsForCriterionWithDisplayValueInRow(editor INSRuleEditor, criterion objectivec.IObject, value objectivec.IObject, row int) foundation.INSDictionary {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("ruleEditor:predicatePartsForCriterion:withDisplayValue:inRow:"), editor, criterion, value, row)
 	return foundation.NSDictionaryFromID(rv)
 	}
-
 // Notifies the receiver that a rule editor’s rows changed.
 //
 // notification: A notification named[rowsDidChangeNotification].
@@ -161,7 +153,6 @@ func (o NSRuleEditorDelegateObject) RuleEditorPredicatePartsForCriterionWithDisp
 // [rowsDidChangeNotification]: https://developer.apple.com/documentation/AppKit/NSRuleEditor/rowsDidChangeNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditorRowsDidChange(_:)
-
 func (o NSRuleEditorDelegateObject) RuleEditorRowsDidChange(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("ruleEditorRowsDidChange:"), notification)

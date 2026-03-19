@@ -60,13 +60,11 @@ func MTLSharedEventObjectFromID(id objc.ID) MTLSharedEventObject {
 // The current signal value for the shareable event.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/signaledValue
-
 func (o MTLSharedEventObject) SignaledValue() uint64 {
 	
 	rv := objc.Send[uint64](o.ID, objc.Sel("signaledValue"))
 	return rv
 	}
-
 // Schedules a notification handler to be called after the shareable event’s
 // signal value equals or exceeds a given value.
 //
@@ -78,45 +76,36 @@ func (o MTLSharedEventObject) SignaledValue() uint64 {
 // block: The notification handler to call.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/notify(_:atValue:block:)
-
 func (o MTLSharedEventObject) NotifyListenerAtValueBlock(listener IMTLSharedEventListener, value uint64, block MTLSharedEventNotificationBlock) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("notifyListener:atValue:block:"), listener, value, block)
 	}
-
 // Creates a new shareable event handle.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/makeSharedEventHandle()
-
 func (o MTLSharedEventObject) NewSharedEventHandle() IMTLSharedEventHandle {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newSharedEventHandle"))
 	return MTLSharedEventHandleFromID(rv)
 	}
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/wait(untilSignaledValue:timeoutMS:)
-
 func (o MTLSharedEventObject) WaitUntilSignaledValueTimeoutMS(value uint64, milliseconds uint64) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("waitUntilSignaledValue:timeoutMS:"), value, milliseconds)
 	return rv
 	}
-
 // The device object that created the event.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/device
-
 func (o MTLSharedEventObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that identifies the event.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/label
-
 func (o MTLSharedEventObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))

@@ -305,7 +305,6 @@ func NewCollectionViewItemWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrN
 func (c NSCollectionViewItem) ApplyLayoutAttributes(layoutAttributes INSCollectionViewLayoutAttributes) {
 	objc.Send[objc.ID](c.ID, objc.Sel("applyLayoutAttributes:"), layoutAttributes)
 }
-
 // Tells the element that the layout object of the collection view changed.
 //
 // oldLayout: The collection view’s previous layout object.
@@ -326,7 +325,6 @@ func (c NSCollectionViewItem) ApplyLayoutAttributes(layoutAttributes INSCollecti
 func (c NSCollectionViewItem) DidTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout) {
 	objc.Send[objc.ID](c.ID, objc.Sel("didTransitionFromLayout:toLayout:"), oldLayout, newLayout)
 }
-
 // Asks your element if it wants to modify any layout attributes before they
 // are applied.
 //
@@ -354,7 +352,6 @@ func (c NSCollectionViewItem) PreferredLayoutAttributesFittingAttributes(layoutA
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("preferredLayoutAttributesFittingAttributes:"), layoutAttributes)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Performs any necessary cleanup to prepare the element for use again.
 //
 // # Discussion
@@ -382,7 +379,6 @@ func (c NSCollectionViewItem) PreferredLayoutAttributesFittingAttributes(layoutA
 func (c NSCollectionViewItem) PrepareForReuse() {
 	objc.Send[objc.ID](c.ID, objc.Sel("prepareForReuse"))
 }
-
 // Tells the element that the layout object of the collection view is about to
 // change.
 //
@@ -420,7 +416,6 @@ func (c NSCollectionViewItem) ImageView() INSImageView {
 func (c NSCollectionViewItem) SetImageView(value INSImageView) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImageView:"), value)
 }
-
 // A text field outlet that you can use to display a string.
 //
 // # Discussion
@@ -437,7 +432,6 @@ func (c NSCollectionViewItem) TextField() INSTextField {
 func (c NSCollectionViewItem) SetTextField(value INSTextField) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTextField:"), value)
 }
-
 // A Boolean indicating whether the item is currently selected.
 //
 // # Discussion
@@ -456,7 +450,6 @@ func (c NSCollectionViewItem) Selected() bool {
 func (c NSCollectionViewItem) SetSelected(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSelected:"), value)
 }
-
 // The highlight state currently applied to the item.
 //
 // # Discussion
@@ -482,7 +475,6 @@ func (c NSCollectionViewItem) HighlightState() NSCollectionViewItemHighlightStat
 func (c NSCollectionViewItem) SetHighlightState(value NSCollectionViewItemHighlightState) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHighlightState:"), value)
 }
-
 // The collection view that owns the item.
 //
 // # Discussion
@@ -495,7 +487,6 @@ func (c NSCollectionViewItem) CollectionView() INSCollectionView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView"))
 	return NSCollectionViewFromID(objc.ID(rv))
 }
-
 // Dragging images for multi-image drag and drop support.
 //
 // # Discussion
@@ -518,7 +509,6 @@ func (c NSCollectionViewItem) DraggingImageComponents() []NSDraggingImageCompone
 		return NSDraggingImageComponentFromID(id)
 	})
 }
-
 // The receiver’s collection view item prototype.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/itemprototype

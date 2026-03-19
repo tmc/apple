@@ -319,7 +319,6 @@ func (g NSGraphicsContext) FlushGraphics() {
 func (_NSGraphicsContextClass NSGraphicsContextClass) RestoreGraphicsState() {
 	objc.Send[objc.ID](objc.ID(_NSGraphicsContextClass.class), objc.Sel("restoreGraphicsState"))
 }
-
 // Saves the graphics state of the current graphics context.
 //
 // # Discussion
@@ -331,7 +330,6 @@ func (_NSGraphicsContextClass NSGraphicsContextClass) RestoreGraphicsState() {
 func (_NSGraphicsContextClass NSGraphicsContextClass) SaveGraphicsState() {
 	objc.Send[objc.ID](objc.ID(_NSGraphicsContextClass.class), objc.Sel("saveGraphicsState"))
 }
-
 // Returns a Boolean value that indicates whether the current context is
 // drawing to the screen.
 //
@@ -361,7 +359,6 @@ func (g NSGraphicsContext) CGContext() coregraphics.CGContextRef {
 	rv := objc.Send[coregraphics.CGContextRef](g.ID, objc.Sel("CGContext"))
 	return coregraphics.CGContextRef(rv)
 }
-
 // A Boolean value that indicates whether the drawing destination is the
 // screen.
 //
@@ -380,7 +377,6 @@ func (g NSGraphicsContext) DrawingToScreen() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isDrawingToScreen"))
 	return rv
 }
-
 // The attributes used to create this instance.
 //
 // # Discussion
@@ -393,7 +389,6 @@ func (g NSGraphicsContext) Attributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("attributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates the graphics context’s flipped state.
 //
 // # Discussion
@@ -411,7 +406,6 @@ func (g NSGraphicsContext) Flipped() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("isFlipped"))
 	return rv
 }
-
 // The graphics context’s global compositing operation setting.
 //
 // # Discussion
@@ -436,7 +430,6 @@ func (g NSGraphicsContext) CompositingOperation() NSCompositingOperation {
 func (g NSGraphicsContext) SetCompositingOperation(value NSCompositingOperation) {
 	objc.Send[struct{}](g.ID, objc.Sel("setCompositingOperation:"), value)
 }
-
 // A constant that specifies the graphics context’s interpolation, or image
 // smoothing, behavior.
 //
@@ -453,7 +446,6 @@ func (g NSGraphicsContext) ImageInterpolation() NSImageInterpolation {
 func (g NSGraphicsContext) SetImageInterpolation(value NSImageInterpolation) {
 	objc.Send[struct{}](g.ID, objc.Sel("setImageInterpolation:"), value)
 }
-
 // A Boolean value that indicates whether the graphics context uses
 // antialiasing.
 //
@@ -472,7 +464,6 @@ func (g NSGraphicsContext) ShouldAntialias() bool {
 func (g NSGraphicsContext) SetShouldAntialias(value bool) {
 	objc.Send[struct{}](g.ID, objc.Sel("setShouldAntialias:"), value)
 }
-
 // The amount to offset the pattern color when filling the graphics context.
 //
 // # Discussion
@@ -494,7 +485,6 @@ func (g NSGraphicsContext) PatternPhase() corefoundation.CGPoint {
 func (g NSGraphicsContext) SetPatternPhase(value corefoundation.CGPoint) {
 	objc.Send[struct{}](g.ID, objc.Sel("setPatternPhase:"), value)
 }
-
 // A context for Core Image objects that you can use to render into the
 // graphics context.
 //
@@ -522,7 +512,6 @@ func (g NSGraphicsContext) CIContext() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("CIContext"))
 	return objectivec.Object{ID: rv}
 }
-
 // The color rendering intent in the graphics context’s graphics state.
 //
 // # Discussion

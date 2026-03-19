@@ -106,7 +106,6 @@ func (s NSSymbolWiggleEffect) EffectWithByLayer() INSSymbolWiggleEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Returns a copy of the effect that animates all layers of the symbol
 // simultaneously.
 //
@@ -123,7 +122,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) Effect() NSSymbolWig
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("effect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that moves back and forth
 // horizontally based on the current locale, starting by moving backward.
 //
@@ -132,7 +130,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleBackwardEffect
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleBackwardEffect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that rotates back and forth,
 // starting by rotating clockwise.
 //
@@ -141,7 +138,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleClockwiseEffec
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleClockwiseEffect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that rotates back and forth,
 // starting by rotating counter-clockwise.
 //
@@ -150,7 +146,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleCounterClockwi
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleCounterClockwiseEffect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that moves back and forth along
 // an axis, starting by moving toward a custom angle.
 //
@@ -163,7 +158,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleCustomAngleEff
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleCustomAngleEffect:"), angle)
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that moves back and forth
 // vertically, starting by moving down.
 //
@@ -172,7 +166,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleDownEffect() N
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleDownEffect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that moves back and forth
 // horizontally based on the current locale, starting by moving forward.
 //
@@ -181,7 +174,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleForwardEffect(
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleForwardEffect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that moves back and forth
 // horizontally, starting by moving left.
 //
@@ -190,7 +182,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleLeftEffect() N
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleLeftEffect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that moves back and forth
 // horizontally, starting by moving right.
 //
@@ -199,7 +190,6 @@ func (_NSSymbolWiggleEffectClass NSSymbolWiggleEffectClass) WiggleRightEffect() 
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolWiggleEffectClass.class), objc.Sel("wiggleRightEffect"))
 	return NSSymbolWiggleEffectFromID(rv)
 }
-
 // Convenience initializer for a wiggle effect that moves back and forth
 // vertically, starting by moving up.
 //

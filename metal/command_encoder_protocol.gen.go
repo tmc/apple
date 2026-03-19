@@ -79,12 +79,10 @@ func MTLCommandEncoderObjectFromID(id objc.ID) MTLCommandEncoderObject {
 // cannot encode any other commands with this encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/endEncoding()
-
 func (o MTLCommandEncoderObject) EndEncoding() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("endEncoding"))
 	}
-
 // Inserts a debug string into the captured frame data.
 //
 // # Discussion
@@ -94,12 +92,10 @@ func (o MTLCommandEncoderObject) EndEncoding() {
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/insertDebugSignpost(_:)
-
 func (o MTLCommandEncoderObject) InsertDebugSignpost(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("insertDebugSignpost:"), objc.String(string_))
 	}
-
 // Pushes a specific string onto a stack of debug group strings for the
 // command encoder.
 //
@@ -110,12 +106,10 @@ func (o MTLCommandEncoderObject) InsertDebugSignpost(string_ string) {
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/pushDebugGroup(_:)
-
 func (o MTLCommandEncoderObject) PushDebugGroup(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
-
 // Pops the latest string off of a stack of debug group strings for the
 // command encoder.
 //
@@ -126,32 +120,26 @@ func (o MTLCommandEncoderObject) PushDebugGroup(string_ string) {
 // [Naming resources and commands]: https://developer.apple.com/documentation/Xcode/Naming-resources-and-commands
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/popDebugGroup()
-
 func (o MTLCommandEncoderObject) PopDebugGroup() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
-
 // The Metal device from which the command encoder was created.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
-
 func (o MTLCommandEncoderObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that labels the command encoder.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
-
 func (o MTLCommandEncoderObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Encodes a consumer barrier on work you commit to the same command queue.
 //
 // afterQueueStages: [MTLStages] mask that represents the stages of work to wait for. This
@@ -185,7 +173,6 @@ func (o MTLCommandEncoderObject) Label() string {
 // [MTLStages]: https://developer.apple.com/documentation/Metal/MTLStages
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/barrier(afterQueueStages:beforeStages:)
-
 func (o MTLCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)

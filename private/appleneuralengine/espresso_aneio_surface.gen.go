@@ -157,95 +157,80 @@ func (e EspressoANEIOSurface) Ane_io_surfaceForMultiBufferFrame(frame uint64) ob
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("ane_io_surfaceForMultiBufferFrame:"), frame)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/checkIfMatches:
 func (e EspressoANEIOSurface) CheckIfMatches(matches corevideo.CVImageBufferRef) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("checkIfMatches:"), matches)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/checkIfMatchesIOSurface:
 func (e EspressoANEIOSurface) CheckIfMatchesIOSurface(iOSurface coregraphics.IOSurfaceRef) bool {
 	rv := objc.Send[bool](e.ID, objc.Sel("checkIfMatchesIOSurface:"), iOSurface)
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/cleanup
 func (e EspressoANEIOSurface) Cleanup() {
 	objc.Send[objc.ID](e.ID, objc.Sel("cleanup"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/createIOSurfaceWithExtraProperties:
 func (e EspressoANEIOSurface) CreateIOSurfaceWithExtraProperties(properties objectivec.IObject) coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("createIOSurfaceWithExtraProperties:"), properties)
 	return coregraphics.IOSurfaceRef(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/doNonLazyAllocation:
 func (e EspressoANEIOSurface) DoNonLazyAllocation(allocation objectivec.IObject) {
 	objc.Send[objc.ID](e.ID, objc.Sel("doNonLazyAllocation:"), allocation)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/ioSurfaceForMultiBufferFrame:
 func (e EspressoANEIOSurface) IoSurfaceForMultiBufferFrame(frame uint64) coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("ioSurfaceForMultiBufferFrame:"), frame)
 	return coregraphics.IOSurfaceRef(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/ioSurfaceForMultiBufferFrameNoLazyForTesting:
 func (e EspressoANEIOSurface) IoSurfaceForMultiBufferFrameNoLazyForTesting(testing uint64) coregraphics.IOSurfaceRef {
 	rv := objc.Send[coregraphics.IOSurfaceRef](e.ID, objc.Sel("ioSurfaceForMultiBufferFrameNoLazyForTesting:"), testing)
 	return coregraphics.IOSurfaceRef(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/lazilyAutoCreateSurfaceForFrame:
 func (e EspressoANEIOSurface) LazilyAutoCreateSurfaceForFrame(frame uint64) {
 	objc.Send[objc.ID](e.ID, objc.Sel("lazilyAutoCreateSurfaceForFrame:"), frame)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/metalBufferWithDevice:multiBufferFrame:
 func (e EspressoANEIOSurface) MetalBufferWithDeviceMultiBufferFrame(device objectivec.IObject, frame uint64) metal.MTLBuffer {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("metalBufferWithDevice:multiBufferFrame:"), device, frame)
 	return metal.MTLBufferObjectFromID(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/nFrames
 func (e EspressoANEIOSurface) NFrames() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("nFrames"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/resizeForMultipleAsyncBuffers:
 func (e EspressoANEIOSurface) ResizeForMultipleAsyncBuffers(buffers uint64) {
 	objc.Send[objc.ID](e.ID, objc.Sel("resizeForMultipleAsyncBuffers:"), buffers)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/restoreInternalStorage:
 func (e EspressoANEIOSurface) RestoreInternalStorage(storage uint64) {
 	objc.Send[objc.ID](e.ID, objc.Sel("restoreInternalStorage:"), storage)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/restoreInternalStorageForAllMultiBufferFrames
 func (e EspressoANEIOSurface) RestoreInternalStorageForAllMultiBufferFrames() {
 	objc.Send[objc.ID](e.ID, objc.Sel("restoreInternalStorageForAllMultiBufferFrames"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/setExternalStorage:ioSurface:
 func (e EspressoANEIOSurface) SetExternalStorageIoSurface(storage uint64, surface coregraphics.IOSurfaceRef) {
 	objc.Send[objc.ID](e.ID, objc.Sel("setExternalStorage:ioSurface:"), storage, surface)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/initWithIOSurfaceProperties:andPixelFormats:
 func (e EspressoANEIOSurface) InitWithIOSurfacePropertiesAndPixelFormats(properties objectivec.IObject, formats objectivec.IObject) EspressoANEIOSurface {
@@ -261,7 +246,6 @@ func (e EspressoANEIOSurface) External_storage_blob_for_aliasing_mem() objective
 func (e EspressoANEIOSurface) SetExternal_storage_blob_for_aliasing_mem(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setExternal_storage_blob_for_aliasing_mem:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/EspressoANEIOSurface/pixelFormat
 func (e EspressoANEIOSurface) PixelFormat() uint32 {
 	rv := objc.Send[uint32](e.ID, objc.Sel("pixelFormat"))

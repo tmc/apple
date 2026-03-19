@@ -120,14 +120,12 @@ func NewANEProcedureDataWithProcedureWeightArray(procedure objectivec.IObject, a
 func (a ANEProcedureData) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProcedureData/initWithCoder:
 func (a ANEProcedureData) InitWithCoder(coder foundation.INSCoder) ANEProcedureData {
 	rv := objc.Send[ANEProcedureData](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProcedureData/initWithProcedure:weightArray:
 func (a ANEProcedureData) InitWithProcedureWeightArray(procedure objectivec.IObject, array objectivec.IObject) ANEProcedureData {
@@ -141,7 +139,6 @@ func (_ANEProcedureDataClass ANEProcedureDataClass) ProcedureDataWithSymbolWeigh
 	rv := objc.Send[objc.ID](objc.ID(_ANEProcedureDataClass.class), objc.Sel("procedureDataWithSymbol:weightArray:"), symbol, array)
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProcedureData/supportsSecureCoding
 func (_ANEProcedureDataClass ANEProcedureDataClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ANEProcedureDataClass.class), objc.Sel("supportsSecureCoding"))
@@ -153,7 +150,6 @@ func (a ANEProcedureData) ProcedureSymbol() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureSymbol"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProcedureData/weightArray
 func (a ANEProcedureData) WeightArray() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("weightArray"))

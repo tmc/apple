@@ -215,7 +215,6 @@ func (s NSSharingServicePicker) InitWithItems(items foundation.INSArray) NSShari
 	rv := objc.Send[NSSharingServicePicker](s.ID, objc.Sel("initWithItems:"), items)
 	return rv
 }
-
 // Shows the picker interface and populates it with the relevant sharing
 // services.
 //
@@ -248,7 +247,6 @@ func (s NSSharingServicePicker) InitWithItems(items foundation.INSArray) NSShari
 func (s NSSharingServicePicker) ShowRelativeToRectOfViewPreferredEdge(rect corefoundation.CGRect, view INSView, preferredEdge foundation.NSRectEdge) {
 	objc.Send[objc.ID](s.ID, objc.Sel("showRelativeToRect:ofView:preferredEdge:"), rect, view, preferredEdge)
 }
-
 // Closes the picker interface.
 //
 // # Discussion
@@ -276,7 +274,6 @@ func (s NSSharingServicePicker) Delegate() NSSharingServicePickerDelegate {
 func (s NSSharingServicePicker) SetDelegate(value NSSharingServicePickerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // A menu item suitable to display the picker for the specified items.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServicePicker/standardShareMenuItem

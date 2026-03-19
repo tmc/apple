@@ -113,7 +113,6 @@ func (m MTL4CompilerDescriptor) Label() string {
 func (m MTL4CompilerDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // Assigns a pipeline data set serializer into which this compiler stores data
 // for all pipelines it creates.
 //

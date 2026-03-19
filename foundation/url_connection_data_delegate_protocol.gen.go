@@ -55,12 +55,10 @@ func NSURLConnectionDataDelegateObjectFromID(id objc.ID) NSURLConnectionDataDele
 // created.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didReceive:)-8t66w
-
 func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveResponse(connection INSURLConnection, response INSURLResponse) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didReceiveResponse:"), connection, response)
 	}
-
 // Sent as a connection loads data incrementally.
 //
 // connection: The connection sending the message.
@@ -75,12 +73,10 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveResponse(connecti
 // this data as it is delivered.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didReceive:)-8p5vg
-
 func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveData(connection INSURLConnection, data INSData) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didReceiveData:"), connection, data)
 	}
-
 // Sent as the body (message data) of a request is transmitted (such as in an
 // HTTP POST request).
 //
@@ -101,12 +97,10 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveData(connection I
 // authentication challenge from the server.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)
-
 func (o NSURLConnectionDataDelegateObject) ConnectionDidSendBodyDataTotalBytesWrittenTotalBytesExpectedToWrite(connection INSURLConnection, bytesWritten int, totalBytesWritten int, totalBytesExpectedToWrite int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:"), connection, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
 	}
-
 // Sent when a connection has finished loading successfully.
 //
 // connection: The connection sending the message.
@@ -116,12 +110,10 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidSendBodyDataTotalBytesWr
 // The delegate will receive no further messages for `connection`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connectionDidFinishLoading(_:)
-
 func (o NSURLConnectionDataDelegateObject) ConnectionDidFinishLoading(connection INSURLConnection) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidFinishLoading:"), connection)
 	}
-
 // Sent when the connection determines that it must change URLs in order to
 // continue loading a request.
 //
@@ -161,13 +153,11 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidFinishLoading(connection
 // The delegate should be prepared to receive this message multiple times.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:willSend:redirectResponse:)
-
 func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestRedirectResponse(connection INSURLConnection, request INSURLRequest, response INSURLResponse) INSURLRequest {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:willSendRequest:redirectResponse:"), connection, request, response)
 	return NSURLRequestFromID(rv)
 	}
-
 // Called when an [NSURLConnection] needs to retransmit a request that has a
 // body stream to provide a new, unopened stream.
 //
@@ -190,13 +180,11 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestRedirectResp
 // spooling, and must provide a new, unopened stream for each retransmission.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:needNewBodyStream:)
-
 func (o NSURLConnectionDataDelegateObject) ConnectionNeedNewBodyStream(connection INSURLConnection, request INSURLRequest) INSInputStream {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:needNewBodyStream:"), connection, request)
 	return NSInputStreamFromID(rv)
 	}
-
 // Sent before the connection stores a cached response in the cache, to give
 // the delegate an opportunity to alter it.
 //
@@ -226,13 +214,11 @@ func (o NSURLConnectionDataDelegateObject) ConnectionNeedNewBodyStream(connectio
 // the response must be no larger than about 5% of the disk cache size.)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:willCacheResponse:)
-
 func (o NSURLConnectionDataDelegateObject) ConnectionWillCacheResponse(connection INSURLConnection, cachedResponse INSCachedURLResponse) INSCachedURLResponse {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:willCacheResponse:"), connection, cachedResponse)
 	return NSCachedURLResponseFromID(rv)
 	}
-
 // Tells the delegate that the connection will send a request for an
 // authentication challenge.
 //
@@ -270,12 +256,10 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillCacheResponse(connectio
 // [connection(_:didReceive:)]: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didReceive:)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
-
 func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestForAuthenticationChallenge(connection INSURLConnection, challenge INSURLAuthenticationChallenge) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:willSendRequestForAuthenticationChallenge:"), connection, challenge)
 	}
-
 // Sent to determine whether the URL loader should use the credential storage
 // for authenticating the connection.
 //
@@ -296,13 +280,11 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestForAuthentic
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connectionShouldUseCredentialStorage(_:)
-
 func (o NSURLConnectionDataDelegateObject) ConnectionShouldUseCredentialStorage(connection INSURLConnection) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("connectionShouldUseCredentialStorage:"), connection)
 	return rv
 	}
-
 // Sent when a connection fails to load its request successfully.
 //
 // connection: The connection sending the message.
@@ -316,7 +298,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionShouldUseCredentialStorage(
 // messages for `connection`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didFailWithError:)
-
 func (o NSURLConnectionDataDelegateObject) ConnectionDidFailWithError(connection INSURLConnection, error_ INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)

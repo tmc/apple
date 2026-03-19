@@ -435,7 +435,6 @@ func NewFontWithNameSize(fontName string, fontSize float64) NSFont {
 func (f NSFont) Set() {
 	objc.Send[objc.ID](f.ID, objc.Sel("set"))
 }
-
 // Sets this font as the font for the specified graphics context.
 //
 // graphicsContext: The graphics context for which the font is set.
@@ -450,7 +449,6 @@ func (f NSFont) Set() {
 func (f NSFont) SetInContext(graphicsContext INSGraphicsContext) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setInContext:"), graphicsContext)
 }
-
 // Returns the nominal spacing for the given glyph—the distance the current
 // point moves after showing the glyph—accounting for the receiver’s size.
 //
@@ -470,7 +468,6 @@ func (f NSFont) AdvancementForGlyph(glyph NSGlyph) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](f.ID, objc.Sel("advancementForGlyph:"), glyph)
 	return corefoundation.CGSize(rv)
 }
-
 // Returns the bounding rectangle for the specified glyph, scaled to the
 // receiver’s size.
 //
@@ -486,7 +483,6 @@ func (f NSFont) BoundingRectForGlyph(glyph NSGlyph) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](f.ID, objc.Sel("boundingRectForGlyph:"), glyph)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns an array of the advancements for the specified glyphs rendered by
 // the receiver.
 //
@@ -500,7 +496,6 @@ func (f NSFont) BoundingRectForGlyph(glyph NSGlyph) corefoundation.CGRect {
 func (f NSFont) GetAdvancementsForGlyphsCount(advancements foundation.NSSize, glyphs []NSGlyph, glyphCount uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getAdvancements:forGlyphs:count:"), advancements, objc.CArray(glyphs), glyphCount)
 }
-
 // Returns an array of the advancements for the specified packed glyphs and
 // rendered by the receiver.
 //
@@ -514,7 +509,6 @@ func (f NSFont) GetAdvancementsForGlyphsCount(advancements foundation.NSSize, gl
 func (f NSFont) GetAdvancementsForPackedGlyphsLength(advancements foundation.NSSize, packedGlyphs unsafe.Pointer, length uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getAdvancements:forPackedGlyphs:length:"), advancements, packedGlyphs, length)
 }
-
 // Returns an array of the bounding rectangles for the specified glyphs
 // rendered by the receiver.
 //
@@ -528,7 +522,6 @@ func (f NSFont) GetAdvancementsForPackedGlyphsLength(advancements foundation.NSS
 func (f NSFont) GetBoundingRectsForGlyphsCount(bounds foundation.NSRect, glyphs []NSGlyph, glyphCount uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getBoundingRects:forGlyphs:count:"), bounds, objc.CArray(glyphs), glyphCount)
 }
-
 // Returns the named encoded glyph, or –1 if the receiver contains no such
 // glyph.
 //
@@ -554,7 +547,6 @@ func (f NSFont) GlyphWithName(name string) NSGlyph {
 	rv := objc.Send[NSGlyph](f.ID, objc.Sel("glyphWithName:"), objc.String(name))
 	return NSGlyph(rv)
 }
-
 // Returns a bitmapped screen font, when sent to a font object representing a
 // scalable PostScript font, with the specified rendering mode, matching the
 // receiver in typeface and matrix (or size), or `nil` if such a font can’t
@@ -576,14 +568,12 @@ func (f NSFont) ScreenFontWithRenderingMode(renderingMode NSFontRenderingMode) N
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("screenFontWithRenderingMode:"), renderingMode)
 	return NSFontFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/withSize(_:)
 func (f NSFont) FontWithSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontWithSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the nominal spacing for the given glyph—the distance the current
 // point moves after showing the glyph—accounting for the receiver’s size.
 //
@@ -603,7 +593,6 @@ func (f NSFont) AdvancementForCGGlyph(glyph coregraphics.CGFontIndex) corefounda
 	rv := objc.Send[corefoundation.CGSize](f.ID, objc.Sel("advancementForCGGlyph:"), glyph)
 	return corefoundation.CGSize(rv)
 }
-
 // Returns the bounding rectangle for the specified glyph, scaled to the
 // receiver’s size.
 //
@@ -619,7 +608,6 @@ func (f NSFont) BoundingRectForCGGlyph(glyph coregraphics.CGFontIndex) corefound
 	rv := objc.Send[corefoundation.CGRect](f.ID, objc.Sel("boundingRectForCGGlyph:"), glyph)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns an array of the advancements for the specified glyphs rendered by
 // the receiver.
 //
@@ -633,7 +621,6 @@ func (f NSFont) BoundingRectForCGGlyph(glyph coregraphics.CGFontIndex) corefound
 func (f NSFont) GetAdvancementsForCGGlyphsCount(advancements foundation.NSSize, glyphs []coregraphics.CGFontIndex, glyphCount uint) {
 	objc.Send[objc.ID](f.ID, objc.Sel("getAdvancements:forCGGlyphs:count:"), advancements, objc.CArray(glyphs), glyphCount)
 }
-
 // Returns an array of the bounding rectangles for the specified glyphs
 // rendered by the receiver.
 //
@@ -670,7 +657,6 @@ func (_NSFontClass NSFontClass) UserFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("userFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used by default for documents and other text under the
 // user’s control (that is, text whose font the user can normally change),
 // when that font should be fixed-pitch, in the specified size.
@@ -696,7 +682,6 @@ func (_NSFontClass NSFontClass) UserFixedPitchFontOfSize(fontSize float64) NSFon
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("userFixedPitchFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font associated with the text style.
 //
 // style: The text style for which to return a font. See [NSFontTextStyle] for
@@ -715,7 +700,6 @@ func (_NSFontClass NSFontClass) PreferredFontForTextStyleOptions(style NSFontTex
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("preferredFontForTextStyle:options:"), objc.String(string(style)), options)
 	return NSFontFromID(rv)
 }
-
 // Returns the standard system font with the specified size.
 //
 // fontSize: The desired font size specified in points. If you specify `0.0` or a
@@ -736,7 +720,6 @@ func (_NSFontClass NSFontClass) SystemFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("systemFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the standard system font with the specified size and weight.
 //
 // fontSize: The desired font size specified in points. If you specify `0.0` or a
@@ -761,7 +744,6 @@ func (_NSFontClass NSFontClass) SystemFontOfSizeWeight(fontSize float64, weight 
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("systemFontOfSize:weight:"), fontSize, weight)
 	return NSFontFromID(rv)
 }
-
 // Returns the standard system font in boldface type with the specified size.
 //
 // fontSize: The desired font size specified in points. If you specify `0.0` or a
@@ -782,7 +764,6 @@ func (_NSFontClass NSFontClass) BoldSystemFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("boldSystemFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns a monospace version of the system font with the specified size and
 // weight.
 //
@@ -814,7 +795,6 @@ func (_NSFontClass NSFontClass) MonospacedSystemFontOfSizeWeight(fontSize float6
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("monospacedSystemFontOfSize:weight:"), fontSize, weight)
 	return NSFontFromID(rv)
 }
-
 // Returns a version of the standard system font that contains monospaced
 // digit glyphs.
 //
@@ -844,7 +824,6 @@ func (_NSFontClass NSFontClass) MonospacedDigitSystemFontOfSizeWeight(fontSize f
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("monospacedDigitSystemFontOfSize:weight:"), fontSize, weight)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used for standard interface labels in the specified size.
 //
 // fontSize: The size in points to which the font is scaled.
@@ -868,7 +847,6 @@ func (_NSFontClass NSFontClass) LabelFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("labelFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used for standard interface items, such as button labels,
 // menu items, and so on, in the specified size.
 //
@@ -888,7 +866,6 @@ func (_NSFontClass NSFontClass) MessageFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("messageFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used for menu bar items, in the specified size.
 //
 // fontSize: The size in points to which the font is scaled.
@@ -907,7 +884,6 @@ func (_NSFontClass NSFontClass) MenuBarFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("menuBarFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used for menu items, in the specified size.
 //
 // fontSize: The size in points to which the font is scaled.
@@ -926,7 +902,6 @@ func (_NSFontClass NSFontClass) MenuFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("menuFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used for the content of controls in the specified size.
 //
 // fontSize: The size in points to which the font is scaled.
@@ -946,7 +921,6 @@ func (_NSFontClass NSFontClass) ControlContentFontOfSize(fontSize float64) NSFon
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("controlContentFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used for window title bars, in the specified size.
 //
 // fontSize: The size in points to which the font is scaled.
@@ -965,7 +939,6 @@ func (_NSFontClass NSFontClass) TitleBarFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("titleBarFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used for palette window title bars, in the specified size.
 //
 // fontSize: The size in points to which the font is scaled.
@@ -984,7 +957,6 @@ func (_NSFontClass NSFontClass) PaletteFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("paletteFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font used for tool tips labels, in the specified size.
 //
 // fontSize: The size in points to which the font is scaled.
@@ -1003,7 +975,6 @@ func (_NSFontClass NSFontClass) ToolTipsFontOfSize(fontSize float64) NSFont {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("toolTipsFontOfSize:"), fontSize)
 	return NSFontFromID(rv)
 }
-
 // Returns the font size used for the specified control size.
 //
 // controlSize: The control size constant.
@@ -1022,7 +993,6 @@ func (_NSFontClass NSFontClass) SystemFontSizeForControlSize(controlSize NSContr
 	rv := objc.Send[float64](objc.ID(_NSFontClass.class), objc.Sel("systemFontSizeForControlSize:"), controlSize)
 	return rv
 }
-
 // Sets the font used by default for documents and other text under the
 // user’s control to the specified font.
 //
@@ -1035,7 +1005,6 @@ func (_NSFontClass NSFontClass) SystemFontSizeForControlSize(controlSize NSContr
 func (_NSFontClass NSFontClass) SetUserFont(font NSFont) {
 	objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("setUserFont:"), font)
 }
-
 // Sets the font used by default for documents and other text under the
 // user’s control, when that font should be fixed-pitch, to the specified
 // font.
@@ -1049,7 +1018,6 @@ func (_NSFontClass NSFontClass) SetUserFont(font NSFont) {
 func (_NSFontClass NSFontClass) SetUserFixedPitchFont(font NSFont) {
 	objc.Send[objc.ID](objc.ID(_NSFontClass.class), objc.Sel("setUserFixedPitchFont:"), font)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFont/systemFont(ofSize:weight:width:)
 func (_NSFontClass NSFontClass) SystemFontOfSizeWeightWidth(fontSize float64, weight NSFontWeight, width NSFontWidth) NSFont {
@@ -1069,7 +1037,6 @@ func (f NSFont) PointSize() float64 {
 	rv := objc.Send[float64](f.ID, objc.Sel("pointSize"))
 	return rv
 }
-
 // The character set containing all of the nominal characters that the font
 // can render.
 //
@@ -1096,7 +1063,6 @@ func (f NSFont) CoveredCharacterSet() foundation.NSCharacterSet {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("coveredCharacterSet"))
 	return foundation.NSCharacterSetFromID(objc.ID(rv))
 }
-
 // The font descriptor object for the font.
 //
 // # Discussion
@@ -1110,7 +1076,6 @@ func (f NSFont) FontDescriptor() INSFontDescriptor {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontDescriptor"))
 	return NSFontDescriptorFromID(objc.ID(rv))
 }
-
 // A Boolean value indicating whether all glyphs in the font have the same
 // advancement.
 //
@@ -1131,7 +1096,6 @@ func (f NSFont) FixedPitch() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isFixedPitch"))
 	return rv
 }
-
 // The string encoding that works best with the font.
 //
 // # Discussion
@@ -1157,7 +1121,6 @@ func (f NSFont) MostCompatibleStringEncoding() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("mostCompatibleStringEncoding"))
 	return rv
 }
-
 // The number of glyphs in the font.
 //
 // # Discussion
@@ -1169,7 +1132,6 @@ func (f NSFont) NumberOfGlyphs() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("numberOfGlyphs"))
 	return rv
 }
-
 // The reserved code for a control glyph.
 //
 // See: https://developer.apple.com/documentation/appkit/nscontrolglyph
@@ -1180,7 +1142,6 @@ func (f NSFont) NSControlGlyph() int {
 func (f NSFont) SetNSControlGlyph(value int) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNSControlGlyph:"), value)
 }
-
 // The reserved code for a null glyph.
 //
 // See: https://developer.apple.com/documentation/appkit/nsnullglyph
@@ -1191,7 +1152,6 @@ func (f NSFont) NSNullGlyph() int {
 func (f NSFont) SetNSNullGlyph(value int) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNSNullGlyph:"), value)
 }
-
 // The name of the font, including family and face names, to use when
 // displaying the font information to the user.
 //
@@ -1204,7 +1164,6 @@ func (f NSFont) DisplayName() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("displayName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The family name of the font—for example, “Times” or “Helvetica.”
 //
 // # Discussion
@@ -1221,7 +1180,6 @@ func (f NSFont) FamilyName() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("familyName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The full name of the font, as used in PostScript language code—for
 // example, “Times-Roman” or “Helvetica-Oblique.”
 //
@@ -1236,7 +1194,6 @@ func (f NSFont) FontName() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A Boolean value indicating whether the font is a vertical font.
 //
 // # Discussion
@@ -1252,7 +1209,6 @@ func (f NSFont) Vertical() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isVertical"))
 	return rv
 }
-
 // A vertical version of the font.
 //
 // # Discussion
@@ -1270,7 +1226,6 @@ func (f NSFont) VerticalFont() NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("verticalFont"))
 	return NSFontFromID(objc.ID(rv))
 }
-
 // The scalable PostScript font corresponding to current font.
 //
 // # Discussion
@@ -1284,7 +1239,6 @@ func (f NSFont) PrinterFont() NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("printerFont"))
 	return NSFontFromID(objc.ID(rv))
 }
-
 // The rendering mode of the font.
 //
 // # Discussion
@@ -1298,7 +1252,6 @@ func (f NSFont) RenderingMode() NSFontRenderingMode {
 	rv := objc.Send[NSFontRenderingMode](f.ID, objc.Sel("renderingMode"))
 	return NSFontRenderingMode(rv)
 }
-
 // The bitmapped screen font for the current font.
 //
 // # Discussion
@@ -1318,7 +1271,6 @@ func (f NSFont) ScreenFont() NSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("screenFont"))
 	return NSFontFromID(objc.ID(rv))
 }
-
 // The top y-coordinate, offset from the baseline, of the font’s longest
 // ascender.
 //
@@ -1330,7 +1282,6 @@ func (f NSFont) Ascender() float64 {
 func (f NSFont) SetAscender(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAscender:"), value)
 }
-
 // The font’s bounding rectangle, scaled to the font’s size.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/boundingrectforfont
@@ -1341,7 +1292,6 @@ func (f NSFont) BoundingRectForFont() corefoundation.CGRect {
 func (f NSFont) SetBoundingRectForFont(value corefoundation.CGRect) {
 	objc.Send[struct{}](f.ID, objc.Sel("setBoundingRectForFont:"), value)
 }
-
 // The cap height of the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/capheight
@@ -1352,7 +1302,6 @@ func (f NSFont) CapHeight() float64 {
 func (f NSFont) SetCapHeight(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setCapHeight:"), value)
 }
-
 // The bottom y-coordinate, offset from the baseline, of the font’s longest
 // descender.
 //
@@ -1364,7 +1313,6 @@ func (f NSFont) Descender() float64 {
 func (f NSFont) SetDescender(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setDescender:"), value)
 }
-
 // The number of degrees that the font is slanted counterclockwise from the
 // vertical.
 //
@@ -1376,7 +1324,6 @@ func (f NSFont) ItalicAngle() float64 {
 func (f NSFont) SetItalicAngle(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setItalicAngle:"), value)
 }
-
 // The leading value of the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/leading
@@ -1387,7 +1334,6 @@ func (f NSFont) Leading() float64 {
 func (f NSFont) SetLeading(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLeading:"), value)
 }
-
 // The transformation matrix associated with the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/matrix
@@ -1398,7 +1344,6 @@ func (f NSFont) Matrix() float64 {
 func (f NSFont) SetMatrix(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMatrix:"), value)
 }
-
 // The maximum advance of any of the font’s glyphs.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/maximumadvancement
@@ -1409,7 +1354,6 @@ func (f NSFont) MaximumAdvancement() corefoundation.CGSize {
 func (f NSFont) SetMaximumAdvancement(value corefoundation.CGSize) {
 	objc.Send[struct{}](f.ID, objc.Sel("setMaximumAdvancement:"), value)
 }
-
 // The current transformation matrix of the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/texttransform
@@ -1420,7 +1364,6 @@ func (f NSFont) TextTransform() objectivec.IObject {
 func (f NSFont) SetTextTransform(value objectivec.IObject) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTextTransform:"), value)
 }
-
 // The baseline offset to use when drawing underlines with the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/underlineposition
@@ -1431,7 +1374,6 @@ func (f NSFont) UnderlinePosition() float64 {
 func (f NSFont) SetUnderlinePosition(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setUnderlinePosition:"), value)
 }
-
 // The thickness to use when drawing underlines with the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/underlinethickness
@@ -1442,7 +1384,6 @@ func (f NSFont) UnderlineThickness() float64 {
 func (f NSFont) SetUnderlineThickness(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setUnderlineThickness:"), value)
 }
-
 // The x-height of the font.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/xheight
@@ -1465,7 +1406,6 @@ func (_NSFontClass NSFontClass) SystemFontSize() float64 {
 	rv := objc.Send[float64](objc.ID(_NSFontClass.class), objc.Sel("systemFontSize"))
 	return rv
 }
-
 // Returns the size of the standard small system font.
 //
 // # Return Value
@@ -1477,7 +1417,6 @@ func (_NSFontClass NSFontClass) SmallSystemFontSize() float64 {
 	rv := objc.Send[float64](objc.ID(_NSFontClass.class), objc.Sel("smallSystemFontSize"))
 	return rv
 }
-
 // Returns the size of the standard label font.
 //
 // # Return Value
@@ -1498,7 +1437,6 @@ func (_NSFontClass NSFontClass) LabelFontSize() float64 {
 	rv := objc.Send[float64](objc.ID(_NSFontClass.class), objc.Sel("labelFontSize"))
 	return rv
 }
-
 // Posted after the threshold for antialiasing changes.
 //
 // See: https://developer.apple.com/documentation/appkit/nsfont/antialiasthresholdchangednotification

@@ -115,7 +115,6 @@ func (m MTL4CommandBufferOptions) LogState() MTLLogState {
 func (m MTL4CommandBufferOptions) SetLogState(value MTLLogState) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLogState:"), value)
 }
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommandBufferOptions) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))

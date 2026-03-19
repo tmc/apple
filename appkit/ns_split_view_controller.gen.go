@@ -259,7 +259,6 @@ func (s NSSplitViewController) SplitViewItemForViewController(viewController INS
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("splitViewItemForViewController:"), viewController)
 	return NSSplitViewItemFromID(rv)
 }
-
 // Adds a split view item to the end of the array of split view items.
 //
 // splitViewItem: The split view item to add.
@@ -279,7 +278,6 @@ func (s NSSplitViewController) SplitViewItemForViewController(viewController INS
 func (s NSSplitViewController) AddSplitViewItem(splitViewItem INSSplitViewItem) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addSplitViewItem:"), splitViewItem)
 }
-
 // Adds a split view item to the array of split view items at the specified
 // index position.
 //
@@ -298,7 +296,6 @@ func (s NSSplitViewController) AddSplitViewItem(splitViewItem INSSplitViewItem) 
 func (s NSSplitViewController) InsertSplitViewItemAtIndex(splitViewItem INSSplitViewItem, index int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("insertSplitViewItem:atIndex:"), splitViewItem, index)
 }
-
 // Removes a specified split view item from the split view controller.
 //
 // splitViewItem: The split view item to remove.
@@ -312,7 +309,6 @@ func (s NSSplitViewController) InsertSplitViewItemAtIndex(splitViewItem INSSplit
 func (s NSSplitViewController) RemoveSplitViewItem(splitViewItem INSSplitViewItem) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeSplitViewItem:"), splitViewItem)
 }
-
 // Collapses or expands the first sidebar in the split view controller using
 // an animation.
 //
@@ -325,13 +321,11 @@ func (s NSSplitViewController) RemoveSplitViewItem(splitViewItem INSSplitViewIte
 func (s NSSplitViewController) ToggleSidebar(sender objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("toggleSidebar:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewController/toggleInspector(_:)
 func (s NSSplitViewController) ToggleInspector(sender objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("toggleInspector:"), sender)
 }
-
 // Allows the split view controller to return an additional rectangle where
 // mouse clicks can initiate divider dragging.
 //
@@ -340,7 +334,6 @@ func (s NSSplitViewController) SplitViewAdditionalEffectiveRectOfDividerAtIndex(
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("splitView:additionalEffectiveRectOfDividerAtIndex:"), splitView, dividerIndex)
 	return corefoundation.CGRect(rv)
 }
-
 // Allows the split view controller to determine whether the user can collapse
 // and expand the specified subview.
 //
@@ -349,7 +342,6 @@ func (s NSSplitViewController) SplitViewCanCollapseSubview(splitView INSSplitVie
 	rv := objc.Send[bool](s.ID, objc.Sel("splitView:canCollapseSubview:"), splitView, subview)
 	return rv
 }
-
 // Allows the delegate to constrain the maximum coordinate limit of a divider
 // when the user drags it.
 //
@@ -382,7 +374,6 @@ func (s NSSplitViewController) SplitViewConstrainMaxCoordinateOfSubviewAt(splitV
 	rv := objc.Send[float64](s.ID, objc.Sel("splitView:constrainMaxCoordinate:ofSubviewAt:"), splitView, proposedMaximumPosition, dividerIndex)
 	return rv
 }
-
 // Allows the delegate to constrain the minimum coordinate limit of a divider
 // when the user drags it.
 //
@@ -414,7 +405,6 @@ func (s NSSplitViewController) SplitViewConstrainMinCoordinateOfSubviewAt(splitV
 	rv := objc.Send[float64](s.ID, objc.Sel("splitView:constrainMinCoordinate:ofSubviewAt:"), splitView, proposedMinimumPosition, dividerIndex)
 	return rv
 }
-
 // Allows the delegate to constrain the divider to certain positions.
 //
 // splitView: The split view that sends the message.
@@ -441,7 +431,6 @@ func (s NSSplitViewController) SplitViewConstrainSplitPositionOfSubviewAt(splitV
 	rv := objc.Send[float64](s.ID, objc.Sel("splitView:constrainSplitPosition:ofSubviewAt:"), splitView, proposedPosition, dividerIndex)
 	return rv
 }
-
 // Notifies the delegate when the split view resizes its subviews.
 //
 // notification: A notification named [didResizeSubviewsNotification], which posts after a
@@ -461,7 +450,6 @@ func (s NSSplitViewController) SplitViewConstrainSplitPositionOfSubviewAt(splitV
 func (s NSSplitViewController) SplitViewDidResizeSubviews(notification foundation.NSNotification) {
 	objc.Send[objc.ID](s.ID, objc.Sel("splitViewDidResizeSubviews:"), notification)
 }
-
 // Allows the split view controller to modify the rectangle where mouse clicks
 // initiate divider dragging.
 //
@@ -470,7 +458,6 @@ func (s NSSplitViewController) SplitViewEffectiveRectForDrawnRectOfDividerAtInde
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("splitView:effectiveRect:forDrawnRect:ofDividerAtIndex:"), splitView, proposedEffectiveRect, drawnRect, dividerIndex)
 	return corefoundation.CGRect(rv)
 }
-
 // Allows the delegate to specify custom sizing behavior for the subviews of
 // the split view.
 //
@@ -496,7 +483,6 @@ func (s NSSplitViewController) SplitViewEffectiveRectForDrawnRectOfDividerAtInde
 func (s NSSplitViewController) SplitViewResizeSubviewsWithOldSize(splitView INSSplitView, oldSize corefoundation.CGSize) {
 	objc.Send[objc.ID](s.ID, objc.Sel("splitView:resizeSubviewsWithOldSize:"), splitView, oldSize)
 }
-
 // Allows the delegate to specify whether to resize the subview.
 //
 // splitView: The split view that sends the message.
@@ -528,7 +514,6 @@ func (s NSSplitViewController) SplitViewShouldAdjustSizeOfSubview(splitView INSS
 	rv := objc.Send[bool](s.ID, objc.Sel("splitView:shouldAdjustSizeOfSubview:"), splitView, view)
 	return rv
 }
-
 // Allows the split view controller to determine whether the user can drag a
 // divider or adjust it off the edge of the split view.
 //
@@ -542,7 +527,6 @@ func (s NSSplitViewController) SplitViewShouldHideDividerAtIndex(splitView INSSp
 	rv := objc.Send[bool](s.ID, objc.Sel("splitView:shouldHideDividerAtIndex:"), splitView, dividerIndex)
 	return rv
 }
-
 // Notifies the delegate when the split view is about to resize its subviews.
 //
 // notification: A notification named [willResizeSubviewsNotification], which posts before a
@@ -562,7 +546,6 @@ func (s NSSplitViewController) SplitViewShouldHideDividerAtIndex(splitView INSSp
 func (s NSSplitViewController) SplitViewWillResizeSubviews(notification foundation.NSNotification) {
 	objc.Send[objc.ID](s.ID, objc.Sel("splitViewWillResizeSubviews:"), notification)
 }
-
 // Returns a Boolean value that indicates whether to enable the specified
 // item.
 //
@@ -615,7 +598,6 @@ func (s NSSplitViewController) SplitView() INSSplitView {
 func (s NSSplitViewController) SetSplitView(value INSSplitView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSplitView:"), value)
 }
-
 // The array of split view items that correspond to the split view
 // controller’s child view controllers.
 //
@@ -642,7 +624,6 @@ func (s NSSplitViewController) SplitViewItems() []NSSplitViewItem {
 func (s NSSplitViewController) SetSplitViewItems(value []NSSplitViewItem) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSplitViewItems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The minimum thickness for a sidebar before it automatically collapses.
 //
 // # Discussion
@@ -676,7 +657,6 @@ func (s NSSplitViewController) MinimumThicknessForInlineSidebars() float64 {
 func (s NSSplitViewController) SetMinimumThicknessForInlineSidebars(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumThicknessForInlineSidebars:"), value)
 }
-
 // A Boolean value that determines the geometric orientation of the split
 // view’s dividers.
 //

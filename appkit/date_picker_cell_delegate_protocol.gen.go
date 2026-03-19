@@ -58,7 +58,6 @@ func NSDatePickerCellDelegateObjectFromID(id objc.ID) NSDatePickerCellDelegateOb
 // range.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCellDelegate/datePickerCell(_:validateProposedDateValue:timeInterval:)
-
 func (o NSDatePickerCellDelegateObject) DatePickerCellValidateProposedDateValueTimeInterval(datePickerCell INSDatePickerCell, proposedDateValue foundation.INSDate, proposedTimeInterval unsafe.Pointer) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("datePickerCell:validateProposedDateValue:timeInterval:"), datePickerCell, proposedDateValue, proposedTimeInterval)

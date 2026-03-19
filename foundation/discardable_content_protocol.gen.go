@@ -71,13 +71,11 @@ func NSDiscardableContentObjectFromID(id objc.ID) NSDiscardableContentObject {
 // are used when the `beginContentAccess` method has not been called on them.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/beginContentAccess()
-
 func (o NSDiscardableContentObject) BeginContentAccess() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("beginContentAccess"))
 	return rv
 	}
-
 // Called if the discardable contents are no longer being accessed.
 //
 // # Discussion
@@ -88,12 +86,10 @@ func (o NSDiscardableContentObject) BeginContentAccess() bool {
 // necessary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/endContentAccess()
-
 func (o NSDiscardableContentObject) EndContentAccess() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("endContentAccess"))
 	}
-
 // Called to discard the contents of the receiver if the value of the accessed
 // counter is 0.
 //
@@ -103,12 +99,10 @@ func (o NSDiscardableContentObject) EndContentAccess() {
 // the accessed counter is 0. Otherwise, it should do nothing.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/discardContentIfPossible()
-
 func (o NSDiscardableContentObject) DiscardContentIfPossible() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("discardContentIfPossible"))
 	}
-
 // Returns a Boolean value indicating whether the content has been discarded.
 //
 // # Return Value
@@ -119,7 +113,6 @@ func (o NSDiscardableContentObject) DiscardContentIfPossible() {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/isContentDiscarded()
-
 func (o NSDiscardableContentObject) IsContentDiscarded() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isContentDiscarded"))

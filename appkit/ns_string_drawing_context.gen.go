@@ -149,7 +149,6 @@ func (s NSStringDrawingContext) MinimumScaleFactor() float64 {
 func (s NSStringDrawingContext) SetMinimumScaleFactor(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumScaleFactor:"), value)
 }
-
 // The actual scale factor that the system applied to the font during drawing.
 //
 // # Discussion
@@ -163,7 +162,6 @@ func (s NSStringDrawingContext) ActualScaleFactor() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("actualScaleFactor"))
 	return rv
 }
-
 // The most recent bounding rectangle that the system used to draw the string.
 //
 // # Discussion

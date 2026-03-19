@@ -120,14 +120,12 @@ func NewRTaskResultWithJSONResultUnprivatizedVector(jSONResult objectivec.IObjec
 func (r MLRTaskResult) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/initWithCoder:
 func (r MLRTaskResult) InitWithCoder(coder foundation.INSCoder) MLRTaskResult {
 	rv := objc.Send[MLRTaskResult](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/initWithJSONResult:unprivatizedVector:
 func (r MLRTaskResult) InitWithJSONResultUnprivatizedVector(jSONResult objectivec.IObject, vector objectivec.IObject) MLRTaskResult {
@@ -146,7 +144,6 @@ func (r MLRTaskResult) JSONResult() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("JSONResult"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskResult/vector
 func (r MLRTaskResult) Vector() foundation.INSData {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("vector"))

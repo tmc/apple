@@ -792,7 +792,6 @@ func (t NSTouchBar) InitWithCoder(coder foundation.INSCoder) NSTouchBar {
 	rv := objc.Send[NSTouchBar](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Returns the Touch Bar item that corresponds to a given identifier.
 //
 // # Return Value
@@ -848,7 +847,6 @@ func (t NSTouchBar) Delegate() NSTouchBarDelegate {
 func (t NSTouchBar) SetDelegate(value NSTouchBarDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The primary source of items that the Touch Bar uses to fill its private
 // items array, unless you provide items using a delegate.
 //
@@ -869,7 +867,6 @@ func (t NSTouchBar) TemplateItems() foundation.INSSet {
 func (t NSTouchBar) SetTemplateItems(value foundation.INSSet) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTemplateItems:"), value)
 }
-
 // A required list of identifiers for items that you want to appear in the
 // Touch Bar after instantiating it.
 //
@@ -895,7 +892,6 @@ func (t NSTouchBar) DefaultItemIdentifiers() []string {
 func (t NSTouchBar) SetDefaultItemIdentifiers(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDefaultItemIdentifiers:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The identifier of an item you want the system to center in the Touch Bar.
 //
 // # Discussion
@@ -918,7 +914,6 @@ func (t NSTouchBar) PrincipalItemIdentifier() NSTouchBarItemIdentifier {
 func (t NSTouchBar) SetPrincipalItemIdentifier(value NSTouchBarItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPrincipalItemIdentifier:"), objc.String(string(value)))
 }
-
 // The identifier of an item that replaces the system-provided button in the
 // Touch Bar.
 //
@@ -947,7 +942,6 @@ func (t NSTouchBar) EscapeKeyReplacementItemIdentifier() NSTouchBarItemIdentifie
 func (t NSTouchBar) SetEscapeKeyReplacementItemIdentifier(value NSTouchBarItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEscapeKeyReplacementItemIdentifier:"), objc.String(string(value)))
 }
-
 // A Boolean value that Indicates whether the Touch Bar is eligible for
 // display.
 //
@@ -967,7 +961,6 @@ func (t NSTouchBar) Visible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isVisible"))
 	return rv
 }
-
 // The list of identifiers for the current items in the Touch Bar.
 //
 // # Discussion
@@ -982,7 +975,6 @@ func (t NSTouchBar) ItemIdentifiers() []string {
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("itemIdentifiers"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // A globally unique string that makes the Touch Bar eligible for user
 // customization.
 //
@@ -1003,7 +995,6 @@ func (t NSTouchBar) CustomizationIdentifier() NSTouchBarCustomizationIdentifier 
 func (t NSTouchBar) SetCustomizationIdentifier(value NSTouchBarCustomizationIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCustomizationIdentifier:"), objc.String(string(value)))
 }
-
 // A list of identifiers for items to show in the Touch Bar’s customization
 // UI.
 //
@@ -1029,7 +1020,6 @@ func (t NSTouchBar) CustomizationAllowedItemIdentifiers() []string {
 func (t NSTouchBar) SetCustomizationAllowedItemIdentifiers(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCustomizationAllowedItemIdentifiers:"), objectivec.StringSliceToNSArray(value))
 }
-
 // An optional list of identifiers for items you want to always appear in the
 // Touch Bar and which the user can’t remove during customization.
 //
@@ -1048,7 +1038,6 @@ func (t NSTouchBar) CustomizationRequiredItemIdentifiers() []string {
 func (t NSTouchBar) SetCustomizationRequiredItemIdentifiers(value []string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCustomizationRequiredItemIdentifiers:"), objectivec.StringSliceToNSArray(value))
 }
-
 // A Boolean value indicating whether the view accepts touch events.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/acceptstouchevents
@@ -1059,7 +1048,6 @@ func (t NSTouchBar) AcceptsTouchEvents() bool {
 func (t NSTouchBar) SetAcceptsTouchEvents(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAcceptsTouchEvents:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nsgesturerecognizer/allowedtouchtypes
 func (t NSTouchBar) AllowedTouchTypes() NSTouchTypeMask {
 	rv := objc.Send[NSTouchTypeMask](t.ID, objc.Sel("allowedTouchTypes"))
@@ -1068,7 +1056,6 @@ func (t NSTouchBar) AllowedTouchTypes() NSTouchTypeMask {
 func (t NSTouchBar) SetAllowedTouchTypes(value NSTouchTypeMask) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowedTouchTypes:"), value)
 }
-
 // The color of the button’s bezel, in appearances that support it.
 //
 // See: https://developer.apple.com/documentation/appkit/nsbutton/bezelcolor
@@ -1079,7 +1066,6 @@ func (t NSTouchBar) BezelColor() INSColor {
 func (t NSTouchBar) SetBezelColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBezelColor:"), value)
 }
-
 // The user-visible string identifying this item during bar customization.
 //
 // See: https://developer.apple.com/documentation/appkit/nstouchbaritem/customizationlabel
@@ -1090,7 +1076,6 @@ func (t NSTouchBar) CustomizationLabel() string {
 func (t NSTouchBar) SetCustomizationLabel(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCustomizationLabel:"), objc.String(value))
 }
-
 // A direct touch from a user’s finger on a screen.
 //
 // See: https://developer.apple.com/documentation/appkit/nstouch/touchtypemask/direct
@@ -1101,7 +1086,6 @@ func (t NSTouchBar) Direct() NSTouchTypeMask {
 func (t NSTouchBar) SetDirect(value NSTouchTypeMask) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTouchTypeMaskDirect:"), value)
 }
-
 // A bar that holds this group’s items.
 //
 // See: https://developer.apple.com/documentation/appkit/nsgrouptouchbaritem/grouptouchbar
@@ -1112,7 +1096,6 @@ func (t NSTouchBar) GroupTouchBar() INSTouchBar {
 func (t NSTouchBar) SetGroupTouchBar(value INSTouchBar) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGroupTouchBar:"), value)
 }
-
 // The bar displayed when this item is “popped.”
 //
 // See: https://developer.apple.com/documentation/appkit/nspopovertouchbaritem/popovertouchbar
@@ -1123,7 +1106,6 @@ func (t NSTouchBar) PopoverTouchBar() INSTouchBar {
 func (t NSTouchBar) SetPopoverTouchBar(value INSTouchBar) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPopoverTouchBar:"), value)
 }
-
 // The bar that is displayed when a user press-and-holds on the popover item.
 //
 // See: https://developer.apple.com/documentation/appkit/nspopovertouchbaritem/pressandholdtouchbar
@@ -1134,7 +1116,6 @@ func (t NSTouchBar) PressAndHoldTouchBar() INSTouchBar {
 func (t NSTouchBar) SetPressAndHoldTouchBar(value INSTouchBar) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPressAndHoldTouchBar:"), value)
 }
-
 // The color of the selected segment’s bezel, in appearances that support
 // it.
 //
@@ -1146,7 +1127,6 @@ func (t NSTouchBar) SelectedSegmentBezelColor() INSColor {
 func (t NSTouchBar) SetSelectedSegmentBezelColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedSegmentBezelColor:"), value)
 }
-
 // The property you implement to provide a Touch Bar object.
 //
 // See: https://developer.apple.com/documentation/appkit/nstouchbarprovider/touchbar
@@ -1157,7 +1137,6 @@ func (t NSTouchBar) TouchBar() INSTouchBar {
 func (t NSTouchBar) SetTouchBar(value INSTouchBar) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTouchBar:"), value)
 }
-
 // The color of the filled portion of the slider track, in appearances that
 // support it.
 //
@@ -1197,7 +1176,6 @@ func (_NSTouchBarClass NSTouchBarClass) AutomaticCustomizeTouchBarMenuItemEnable
 func (_NSTouchBarClass NSTouchBarClass) SetAutomaticCustomizeTouchBarMenuItemEnabled(value bool) {
 	objc.Send[struct{}](objc.ID(_NSTouchBarClass.class), objc.Sel("setAutomaticCustomizeTouchBarMenuItemEnabled:"), value)
 }
-
 // A template image for creating a new item.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbaraddtemplatename
@@ -1205,7 +1183,6 @@ func (_NSTouchBarClass NSTouchBarClass) TouchBarAddTemplateName() string {
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarClass.class), objc.Sel("NSImageNameTouchBarAddTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for opening a new document or view in edit mode.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarcomposetemplatename
@@ -1213,7 +1190,6 @@ func (_NSTouchBarClass NSTouchBarClass) TouchBarComposeTemplateName() string {
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarClass.class), objc.Sel("NSImageNameTouchBarComposeTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for returning to the previous screen or location.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbargobacktemplatename
@@ -1221,7 +1197,6 @@ func (_NSTouchBarClass NSTouchBarClass) TouchBarGoBackTemplateName() string {
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarClass.class), objc.Sel("NSImageNameTouchBarGoBackTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for moving to the next screen or location.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbargoforwardtemplatename

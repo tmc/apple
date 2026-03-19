@@ -130,7 +130,6 @@ func (d SCDisplay) DisplayID() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("displayID"))
 	return rv
 }
-
 // The frame of the display.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/frame
@@ -138,7 +137,6 @@ func (d SCDisplay) Frame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](d.ID, objc.Sel("frame"))
 	return corefoundation.CGRect(rv)
 }
-
 // The width of the display in points.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/width
@@ -146,7 +144,6 @@ func (d SCDisplay) Width() int {
 	rv := objc.Send[int](d.ID, objc.Sel("width"))
 	return rv
 }
-
 // The height of the display in points.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCDisplay/height

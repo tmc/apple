@@ -119,7 +119,6 @@ func (s NSSymbolDrawOffEffect) EffectWithByLayer() INSSymbolDrawOffEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
-
 // Returns a copy of the effect requesting an animation that applies
 // separately to each motion group, where only one motion group is active at a
 // time.
@@ -129,7 +128,6 @@ func (s NSSymbolDrawOffEffect) EffectWithIndividually() INSSymbolDrawOffEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithIndividually"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
-
 // Returns a copy of the effect that only animates forwards. This cancels the
 // reversed variant.
 //
@@ -138,7 +136,6 @@ func (s NSSymbolDrawOffEffect) EffectWithNonReversed() INSSymbolDrawOffEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithNonReversed"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
-
 // Returns a copy of the effect that animates in reverse. This cancels the
 // nonReversed variant.
 //
@@ -147,7 +144,6 @@ func (s NSSymbolDrawOffEffect) EffectWithReversed() INSSymbolDrawOffEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithReversed"))
 	return NSSymbolDrawOffEffectFromID(rv)
 }
-
 // Returns a copy of the effect requesting an animation that applies to all
 // motion groups simultaneously.
 //

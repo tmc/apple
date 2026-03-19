@@ -138,7 +138,6 @@ _block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
 	objc.Send[objc.ID](r.ID, objc.Sel("performTask:completionHandler:"), task, _block1)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/performTaskInternal:completionHandler:
 func (r MLROnDemandConnectionHandler) PerformTaskInternalCompletionHandler(internal objectivec.IObject, handler ErrorHandler) {
@@ -146,14 +145,12 @@ _block1, _cleanup1 := NewErrorBlock(handler)
 	defer _cleanup1()
 	objc.Send[objc.ID](r.ID, objc.Sel("performTaskInternal:completionHandler:"), internal, _block1)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/shouldAcceptXPCConnection:
 func (r MLROnDemandConnectionHandler) ShouldAcceptXPCConnection(xPCConnection objectivec.IObject) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("shouldAcceptXPCConnection:"), xPCConnection)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/initWithPrincipalObject:
 func (r MLROnDemandConnectionHandler) InitWithPrincipalObject(object objectivec.IObject) MLROnDemandConnectionHandler {
@@ -166,19 +163,16 @@ func (r MLROnDemandConnectionHandler) DebugDescription() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/description
 func (r MLROnDemandConnectionHandler) Description() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/hash
 func (r MLROnDemandConnectionHandler) Hash() uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("hash"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/pluginPrincipal
 func (r MLROnDemandConnectionHandler) PluginPrincipal() objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("pluginPrincipal"))
@@ -187,19 +181,16 @@ func (r MLROnDemandConnectionHandler) PluginPrincipal() objectivec.IObject {
 func (r MLROnDemandConnectionHandler) SetPluginPrincipal(value objectivec.IObject) {
 	objc.Send[struct{}](r.ID, objc.Sel("setPluginPrincipal:"), value)
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/principalObject
 func (r MLROnDemandConnectionHandler) PrincipalObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("principalObject"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/superclass
 func (r MLROnDemandConnectionHandler) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](r.ID, objc.Sel("superclass"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandConnectionHandler/xpcConnection
 func (r MLROnDemandConnectionHandler) XpcConnection() foundation.NSXPCConnection {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("xpcConnection"))

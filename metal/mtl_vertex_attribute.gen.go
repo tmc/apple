@@ -130,7 +130,6 @@ func (v MTLVertexAttribute) Name() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The index of the attribute, as declared in Metal shader source code.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/attributeIndex
@@ -138,7 +137,6 @@ func (v MTLVertexAttribute) AttributeIndex() uint {
 	rv := objc.Send[uint](v.ID, objc.Sel("attributeIndex"))
 	return rv
 }
-
 // The data type for the attribute, as declared in Metal shader source code.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttribute/attributeType
@@ -146,7 +144,6 @@ func (v MTLVertexAttribute) AttributeType() MTLDataType {
 	rv := objc.Send[MTLDataType](v.ID, objc.Sel("attributeType"))
 	return MTLDataType(rv)
 }
-
 // A Boolean value that indicates whether this vertex attribute is active.
 //
 // # Discussion
@@ -160,7 +157,6 @@ func (v MTLVertexAttribute) Active() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isActive"))
 	return rv
 }
-
 // A Boolean value that indicates whether this vertex attribute represents
 // control point data.
 //
@@ -176,7 +172,6 @@ func (v MTLVertexAttribute) PatchControlPointData() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPatchControlPointData"))
 	return rv
 }
-
 // A Boolean value that indicates whether this vertex attribute represents
 // patch data.
 //
@@ -192,7 +187,6 @@ func (v MTLVertexAttribute) PatchData() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isPatchData"))
 	return rv
 }
-
 // An array that describes the vertex input attributes to a vertex function.
 //
 // See: https://developer.apple.com/documentation/metal/mtlfunction/vertexattributes

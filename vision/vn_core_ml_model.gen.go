@@ -161,7 +161,6 @@ func (c VNCoreMLModel) FeatureProvider() coreml.MLFeatureProvider {
 func (c VNCoreMLModel) SetFeatureProvider(value coreml.MLFeatureProvider) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFeatureProvider:"), value)
 }
-
 // The name of the feature value that Vision sets from the request handler.
 //
 // # Discussion
@@ -177,7 +176,6 @@ func (c VNCoreMLModel) InputImageFeatureName() string {
 func (c VNCoreMLModel) SetInputImageFeatureName(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setInputImageFeatureName:"), objc.String(value))
 }
-
 // The model to base the image analysis request on.
 //
 // See: https://developer.apple.com/documentation/vision/vncoremlrequest/model

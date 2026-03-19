@@ -347,7 +347,6 @@ func NewSegmentedCellWithCoder(coder foundation.INSCoder) NSSegmentedCell {
 func (s NSSegmentedCell) SetSelectedForSegment(selected bool, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setSelected:forSegment:"), selected, segment)
 }
-
 // Selects the segment with the specified tag.
 //
 // tag: The tag associated with the desired segment.
@@ -370,7 +369,6 @@ func (s NSSegmentedCell) SelectSegmentWithTag(tag int) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("selectSegmentWithTag:"), tag)
 	return rv
 }
-
 // Selects the next segment.
 //
 // # Discussion
@@ -383,7 +381,6 @@ func (s NSSegmentedCell) SelectSegmentWithTag(tag int) bool {
 func (s NSSegmentedCell) MakeNextSegmentKey() {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeNextSegmentKey"))
 }
-
 // Selects the previous segment.
 //
 // # Discussion
@@ -396,7 +393,6 @@ func (s NSSegmentedCell) MakeNextSegmentKey() {
 func (s NSSegmentedCell) MakePreviousSegmentKey() {
 	objc.Send[objc.ID](s.ID, objc.Sel("makePreviousSegmentKey"))
 }
-
 // Returns a Boolean value indicating whether the specified segment is
 // selected,
 //
@@ -417,7 +413,6 @@ func (s NSSegmentedCell) IsSelectedForSegment(segment int) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSelectedForSegment:"), segment)
 	return rv
 }
-
 // Sets the label for the specified segment.
 //
 // label: The label you want to display in the segment. If the width of the string is
@@ -433,7 +428,6 @@ func (s NSSegmentedCell) IsSelectedForSegment(segment int) bool {
 func (s NSSegmentedCell) SetLabelForSegment(label string, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setLabel:forSegment:"), objc.String(label), segment)
 }
-
 // Returns the label of the specified segment.
 //
 // segment: The index of the segment whose label you want to get. This method raises an
@@ -446,7 +440,6 @@ func (s NSSegmentedCell) LabelForSegment(segment int) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("labelForSegment:"), segment)
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Sets the image for the specified segment.
 //
 // image: The image to apply to the segment or `nil` if you want to clear the
@@ -462,7 +455,6 @@ func (s NSSegmentedCell) LabelForSegment(segment int) string {
 func (s NSSegmentedCell) SetImageForSegment(image INSImage, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setImage:forSegment:"), image, segment)
 }
-
 // Returns the image associated with the specified segment.
 //
 // segment: The index of the segment whose image you want to get. This method raises an
@@ -475,7 +467,6 @@ func (s NSSegmentedCell) ImageForSegment(segment int) INSImage {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("imageForSegment:"), segment)
 	return NSImageFromID(rv)
 }
-
 // Sets the image scaling mode for the specified segment.
 //
 // scaling: The scaling mode to assign to the specified segment. For the possible
@@ -501,7 +492,6 @@ func (s NSSegmentedCell) ImageForSegment(segment int) INSImage {
 func (s NSSegmentedCell) SetImageScalingForSegment(scaling NSImageScaling, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setImageScaling:forSegment:"), scaling, segment)
 }
-
 // Returns the image scaling mode associated with the specified segment.
 //
 // segment: The index of the segment whose image scaling mode you want to get. This
@@ -524,7 +514,6 @@ func (s NSSegmentedCell) ImageScalingForSegment(segment int) NSImageScaling {
 	rv := objc.Send[NSImageScaling](s.ID, objc.Sel("imageScalingForSegment:"), segment)
 	return NSImageScaling(rv)
 }
-
 // Sets the width of the specified segment.
 //
 // width: The width of the segment, measured in points. Specify the value `0` if you
@@ -539,7 +528,6 @@ func (s NSSegmentedCell) ImageScalingForSegment(segment int) NSImageScaling {
 func (s NSSegmentedCell) SetWidthForSegment(width float64, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setWidth:forSegment:"), width, segment)
 }
-
 // Returns the width of the specified segment.
 //
 // segment: The index of the segment whose width you want to get. This method raises an
@@ -552,7 +540,6 @@ func (s NSSegmentedCell) WidthForSegment(segment int) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("widthForSegment:"), segment)
 	return rv
 }
-
 // Sets the enabled state of the specified segment
 //
 // enabled: [true] to enable the segment; otherwise, [false] to disable it.
@@ -569,7 +556,6 @@ func (s NSSegmentedCell) WidthForSegment(segment int) float64 {
 func (s NSSegmentedCell) SetEnabledForSegment(enabled bool, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setEnabled:forSegment:"), enabled, segment)
 }
-
 // Returns a Boolean value indicating whether the specified segment is
 // enabled.
 //
@@ -590,7 +576,6 @@ func (s NSSegmentedCell) IsEnabledForSegment(segment int) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isEnabledForSegment:"), segment)
 	return rv
 }
-
 // Sets the menu for the specified segment.
 //
 // menu: The menu you want to add to the segment or `nil` to clear the current menu.
@@ -611,7 +596,6 @@ func (s NSSegmentedCell) IsEnabledForSegment(segment int) bool {
 func (s NSSegmentedCell) SetMenuForSegment(menu INSMenu, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setMenu:forSegment:"), menu, segment)
 }
-
 // Returns the menu for the specified segment.
 //
 // segment: The index of the segment whose menu you want to get. This method raises an
@@ -628,7 +612,6 @@ func (s NSSegmentedCell) MenuForSegment(segment int) INSMenu {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("menuForSegment:"), segment)
 	return NSMenuFromID(rv)
 }
-
 // Sets the tooltip for the specified segment.
 //
 // toolTip: The text of the tooltip you want to display for the segment.
@@ -646,7 +629,6 @@ func (s NSSegmentedCell) MenuForSegment(segment int) INSMenu {
 func (s NSSegmentedCell) SetToolTipForSegment(toolTip string, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setToolTip:forSegment:"), objc.String(toolTip), segment)
 }
-
 // Returns the tooltip of the specified segment.
 //
 // segment: The index of the segment whose tooltip you want to get. This method raises
@@ -667,7 +649,6 @@ func (s NSSegmentedCell) ToolTipForSegment(segment int) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("toolTipForSegment:"), segment)
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Sets the tag for the specified segment.
 //
 // tag: The tag of the segment.
@@ -681,7 +662,6 @@ func (s NSSegmentedCell) ToolTipForSegment(segment int) string {
 func (s NSSegmentedCell) SetTagForSegment(tag int, segment int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setTag:forSegment:"), tag, segment)
 }
-
 // Returns the tag of the specified segment.
 //
 // segment: The index of the segment whose tool tag you want to get. This method raises
@@ -698,7 +678,6 @@ func (s NSSegmentedCell) TagForSegment(segment int) int {
 	rv := objc.Send[int](s.ID, objc.Sel("tagForSegment:"), segment)
 	return rv
 }
-
 // Draws the image and label of the segment in the specified view.
 //
 // segment: The index of the segment to draw. This method raises an exception
@@ -721,7 +700,6 @@ func (s NSSegmentedCell) TagForSegment(segment int) int {
 func (s NSSegmentedCell) DrawSegmentInFrameWithView(segment int, frame corefoundation.CGRect, controlView INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawSegment:inFrame:withView:"), segment, frame, controlView)
 }
-
 // Returns the interior background style for the specified segment.
 //
 // segment: The index of the segment whose background style you want to get. This
@@ -770,7 +748,6 @@ func (s NSSegmentedCell) SegmentCount() int {
 func (s NSSegmentedCell) SetSegmentCount(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSegmentCount:"), value)
 }
-
 // The index of the selected segment of the control, or `-1` if no segment is
 // selected.
 //
@@ -793,7 +770,6 @@ func (s NSSegmentedCell) SelectedSegment() int {
 func (s NSSegmentedCell) SetSelectedSegment(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectedSegment:"), value)
 }
-
 // The tracking mode used for the segments of the control.
 //
 // # Discussion
@@ -813,7 +789,6 @@ func (s NSSegmentedCell) TrackingMode() NSSegmentSwitchTracking {
 func (s NSSegmentedCell) SetTrackingMode(value NSSegmentSwitchTracking) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTrackingMode:"), value)
 }
-
 // The visual style used to display the segmented control.
 //
 // # Discussion

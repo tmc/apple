@@ -150,7 +150,6 @@ func (_UnitAccelerationClass UnitAccelerationClass) MetersPerSecondSquared() Uni
 	rv := objc.Send[objc.ID](objc.ID(_UnitAccelerationClass.class), objc.Sel("metersPerSecondSquared"))
 	return NSUnitAccelerationFromID(objc.ID(rv))
 }
-
 // Returns the gravity unit of acceleration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitAcceleration/gravity

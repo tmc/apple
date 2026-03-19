@@ -156,7 +156,6 @@ func (d DIDeviceHandle) WaitForDeviceWithError() (bool, error) {
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/waitForQuietWithService:error:
 func (d DIDeviceHandle) WaitForQuietWithServiceError(service uint32) (bool, error) {
@@ -172,7 +171,6 @@ func (d DIDeviceHandle) WaitForQuietWithServiceError(service uint32) (bool, erro
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/addToRefCountWithError:
 func (d DIDeviceHandle) AddToRefCountWithError() (bool, error) {
@@ -188,7 +186,6 @@ func (d DIDeviceHandle) AddToRefCountWithError() (bool, error) {
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/updateBSDNameWithBlockDevice:error:
 func (d DIDeviceHandle) UpdateBSDNameWithBlockDeviceError(blockDevice string) (bool, error) {
@@ -204,14 +201,12 @@ func (d DIDeviceHandle) UpdateBSDNameWithBlockDeviceError(blockDevice string) (b
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/initWithRegEntryID:
 func (d DIDeviceHandle) InitWithRegEntryID(regEntryID uint64) DIDeviceHandle {
 	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("initWithRegEntryID:"), regEntryID)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/initWithRegEntryID:xpcEndpoint:
 func (d DIDeviceHandle) InitWithRegEntryIDXpcEndpoint(regEntryID uint64, xpcEndpoint foundation.NSXPCListenerEndpoint) DIDeviceHandle {
@@ -233,7 +228,6 @@ func (d DIDeviceHandle) BSDName() string {
 func (d DIDeviceHandle) SetBSDName(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBSDName:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/handleRefCount
 func (d DIDeviceHandle) HandleRefCount() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("handleRefCount"))
@@ -242,13 +236,11 @@ func (d DIDeviceHandle) HandleRefCount() bool {
 func (d DIDeviceHandle) SetHandleRefCount(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setHandleRefCount:"), value)
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/regEntryID
 func (d DIDeviceHandle) RegEntryID() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("regEntryID"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/xpcEndpoint
 func (d DIDeviceHandle) XpcEndpoint() foundation.NSXPCListenerEndpoint {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("xpcEndpoint"))

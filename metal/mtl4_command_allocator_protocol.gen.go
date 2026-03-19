@@ -54,24 +54,20 @@ func MTL4CommandAllocatorObjectFromID(id objc.ID) MTL4CommandAllocatorObject {
 // Returns the GPU device that this command allocator belongs to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/device
-
 func (o MTL4CommandAllocatorObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // Provides the optional label you specify at creation time for debug
 // purposes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/label
-
 func (o MTL4CommandAllocatorObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Queries the size of the internal memory heaps of this command allocator
 // that support encoding commands into command buffers.
 //
@@ -80,13 +76,11 @@ func (o MTL4CommandAllocatorObject) Label() string {
 // A size in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/allocatedSize()
-
 func (o MTL4CommandAllocatorObject) AllocatedSize() uint64 {
 	
 	rv := objc.Send[uint64](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
-
 // Marks the command allocator’s heaps for reuse.
 //
 // # Discussion
@@ -99,7 +93,6 @@ func (o MTL4CommandAllocatorObject) AllocatedSize() uint64 {
 // resetting it.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/reset()
-
 func (o MTL4CommandAllocatorObject) Reset() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))

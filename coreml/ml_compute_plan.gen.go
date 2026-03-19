@@ -143,7 +143,6 @@ func (c MLComputePlan) ComputeDeviceUsageForMLProgramOperation(operation IMLMode
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("computeDeviceUsageForMLProgramOperation:"), operation)
 	return MLComputePlanDeviceUsageFromID(rv)
 }
-
 // Returns the anticipated compute devices that would be used for executing a
 // NeuralNetwork layer.
 //
@@ -159,7 +158,6 @@ func (c MLComputePlan) ComputeDeviceUsageForNeuralNetworkLayer(layer IMLModelStr
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("computeDeviceUsageForNeuralNetworkLayer:"), layer)
 	return MLComputePlanDeviceUsageFromID(rv)
 }
-
 // Returns the estimated cost of executing an ML Program operation.
 //
 // operation: An ML Program operation.
@@ -192,7 +190,6 @@ _block2, _cleanup2 := NewMLComputePlanErrorBlock(handler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadContentsOfURL:configuration:completionHandler:"), url, configuration, _block2)
 }
-
 // Construct the compute plan of a model asynchronously given the model asset.
 //
 // asset: The model asset.

@@ -361,7 +361,6 @@ func (s NSScriptObjectSpecifier) InitWithContainerClassDescriptionContainerSpeci
 	rv := objc.Send[NSScriptObjectSpecifier](s.ID, objc.Sel("initWithContainerClassDescription:containerSpecifier:key:"), classDesc, container, objc.String(property))
 	return rv
 }
-
 // Returns an [NSScriptObjectSpecifier] object initialized with a given
 // container specifier and key.
 //
@@ -379,7 +378,6 @@ func (s NSScriptObjectSpecifier) InitWithContainerSpecifierKey(container INSScri
 	rv := objc.Send[NSScriptObjectSpecifier](s.ID, objc.Sel("initWithContainerSpecifier:key:"), container, objc.String(property))
 	return rv
 }
-
 // This primitive method must be overridden by subclasses to return a pointer
 // to an array of indices identifying objects in the key of a given container
 // that are identified by the receiver of the message.
@@ -401,7 +399,6 @@ func (s NSScriptObjectSpecifier) IndicesOfObjectsByEvaluatingWithContainerCount(
 	rv := objc.Send[int](s.ID, objc.Sel("indicesOfObjectsByEvaluatingWithContainer:count:"), container, count)
 	return rv
 }
-
 // Returns the actual object or objects specified by the receiver as evaluated
 // in the context of given container object.
 //
@@ -428,14 +425,12 @@ func (s NSScriptObjectSpecifier) ObjectsByEvaluatingWithContainers(containers ob
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsByEvaluatingWithContainers:"), containers)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(coder:)
 func (s NSScriptObjectSpecifier) InitWithCoder(inCoder INSCoder) NSScriptObjectSpecifier {
 	rv := objc.Send[NSScriptObjectSpecifier](s.ID, objc.Sel("initWithCoder:"), inCoder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -475,7 +470,6 @@ func (s NSScriptObjectSpecifier) ObjectsByEvaluatingSpecifier() objectivec.IObje
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsByEvaluatingSpecifier"))
 	return objectivec.Object{ID: rv}
 }
-
 // Sets the class description of the receiver’s container specifier to a
 // given specifier.
 //
@@ -487,7 +481,6 @@ func (s NSScriptObjectSpecifier) ContainerClassDescription() INSScriptClassDescr
 func (s NSScriptObjectSpecifier) SetContainerClassDescription(value INSScriptClassDescription) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContainerClassDescription:"), value)
 }
-
 // Sets whether the receiver’s container should be an object involved in a
 // filter reference or the top-level object.
 //
@@ -513,7 +506,6 @@ func (s NSScriptObjectSpecifier) ContainerIsObjectBeingTested() bool {
 func (s NSScriptObjectSpecifier) SetContainerIsObjectBeingTested(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContainerIsObjectBeingTested:"), value)
 }
-
 // Sets whether the receiver’s container is to be the container for a range
 // specifier or a top-level object.
 //
@@ -538,7 +530,6 @@ func (s NSScriptObjectSpecifier) ContainerIsRangeContainerObject() bool {
 func (s NSScriptObjectSpecifier) SetContainerIsRangeContainerObject(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContainerIsRangeContainerObject:"), value)
 }
-
 // Sets the container specifier of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/container
@@ -549,7 +540,6 @@ func (s NSScriptObjectSpecifier) ContainerSpecifier() INSScriptObjectSpecifier {
 func (s NSScriptObjectSpecifier) SetContainerSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContainerSpecifier:"), value)
 }
-
 // Sets the receiver’s child reference.
 //
 // # Discussion
@@ -565,7 +555,6 @@ func (s NSScriptObjectSpecifier) ChildSpecifier() INSScriptObjectSpecifier {
 func (s NSScriptObjectSpecifier) SetChildSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](s.ID, objc.Sel("setChildSpecifier:"), value)
 }
-
 // Sets the key of the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/key
@@ -576,7 +565,6 @@ func (s NSScriptObjectSpecifier) Key() string {
 func (s NSScriptObjectSpecifier) SetKey(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setKey:"), objc.String(value))
 }
-
 // Returns the class description of the objects specified by the receiver.
 //
 // # Return Value
@@ -588,7 +576,6 @@ func (s NSScriptObjectSpecifier) KeyClassDescription() INSScriptClassDescription
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("keyClassDescription"))
 	return NSScriptClassDescriptionFromID(objc.ID(rv))
 }
-
 // Returns the object specifier in which an evaluation error occurred.
 //
 // # Return Value
@@ -605,7 +592,6 @@ func (s NSScriptObjectSpecifier) EvaluationErrorSpecifier() INSScriptObjectSpeci
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("evaluationErrorSpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-
 // Sets the value of the evaluation error.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/evaluationErrorNumber
@@ -616,7 +602,6 @@ func (s NSScriptObjectSpecifier) EvaluationErrorNumber() int {
 func (s NSScriptObjectSpecifier) SetEvaluationErrorNumber(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEvaluationErrorNumber:"), value)
 }
-
 // Returns an Apple event descriptor that represents the receiver.
 //
 // # Return Value

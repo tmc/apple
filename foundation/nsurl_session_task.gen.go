@@ -291,7 +291,6 @@ func NewURLSessionTask() URLSessionTask {
 func (u URLSessionTask) Cancel() {
 	objc.Send[objc.ID](u.ID, objc.Sel("cancel"))
 }
-
 // Resumes the task, if it is suspended.
 //
 // # Discussion
@@ -303,7 +302,6 @@ func (u URLSessionTask) Cancel() {
 func (u URLSessionTask) Resume() {
 	objc.Send[objc.ID](u.ID, objc.Sel("resume"))
 }
-
 // Temporarily suspends a task.
 //
 // # Discussion
@@ -324,7 +322,6 @@ func (u URLSessionTask) State() NSURLSessionTaskState {
 	rv := objc.Send[NSURLSessionTaskState](u.ID, objc.Sel("state"))
 	return NSURLSessionTaskState(rv)
 }
-
 // The relative priority at which you’d like a host to handle the task,
 // specified as a floating point value between `0.0` (lowest priority) and
 // `1.0` (highest priority).
@@ -356,7 +353,6 @@ func (u URLSessionTask) Priority() float32 {
 func (u URLSessionTask) SetPriority(value float32) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPriority:"), value)
 }
-
 // A representation of the overall task progress.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTask/progress
@@ -364,7 +360,6 @@ func (u URLSessionTask) Progress() INSProgress {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("progress"))
 	return NSProgressFromID(objc.ID(rv))
 }
-
 // The number of bytes that the task expects to receive in the response body.
 //
 // # Discussion
@@ -380,7 +375,6 @@ func (u URLSessionTask) CountOfBytesExpectedToReceive() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesExpectedToReceive"))
 	return rv
 }
-
 // The number of bytes that the task has received from the server in the
 // response body.
 //
@@ -397,7 +391,6 @@ func (u URLSessionTask) CountOfBytesReceived() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesReceived"))
 	return rv
 }
-
 // The number of bytes that the task expects to send in the request body.
 //
 // # Discussion
@@ -420,7 +413,6 @@ func (u URLSessionTask) CountOfBytesExpectedToSend() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesExpectedToSend"))
 	return rv
 }
-
 // The number of bytes that the task has sent to the server in the request
 // body.
 //
@@ -438,7 +430,6 @@ func (u URLSessionTask) CountOfBytesSent() int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("countOfBytesSent"))
 	return rv
 }
-
 // The URL request object currently being handled by the task.
 //
 // # Discussion
@@ -452,7 +443,6 @@ func (u URLSessionTask) CurrentRequest() INSURLRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("currentRequest"))
 	return NSURLRequestFromID(objc.ID(rv))
 }
-
 // The original request object passed when the task was created.
 //
 // # Discussion
@@ -466,7 +456,6 @@ func (u URLSessionTask) OriginalRequest() INSURLRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("originalRequest"))
 	return NSURLRequestFromID(objc.ID(rv))
 }
-
 // The server’s response to the currently active request.
 //
 // # Discussion
@@ -481,7 +470,6 @@ func (u URLSessionTask) Response() INSURLResponse {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("response"))
 	return NSURLResponseFromID(objc.ID(rv))
 }
-
 // An app-provided string value for the current task.
 //
 // # Discussion
@@ -498,7 +486,6 @@ func (u URLSessionTask) TaskDescription() string {
 func (u URLSessionTask) SetTaskDescription(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTaskDescription:"), objc.String(value))
 }
-
 // An identifier uniquely identifying the task within a given session.
 //
 // # Discussion
@@ -511,7 +498,6 @@ func (u URLSessionTask) TaskIdentifier() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("taskIdentifier"))
 	return rv
 }
-
 // An error object that indicates why the task failed.
 //
 // # Discussion
@@ -524,7 +510,6 @@ func (u URLSessionTask) Error() INSError {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("error"))
 	return NSErrorFromID(objc.ID(rv))
 }
-
 // A Boolean value that determines whether to deliver a partial response body
 // in increments.
 //
@@ -550,7 +535,6 @@ func (u URLSessionTask) PrefersIncrementalDelivery() bool {
 func (u URLSessionTask) SetPrefersIncrementalDelivery(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPrefersIncrementalDelivery:"), value)
 }
-
 // A delegate specific to the task.
 //
 // # Discussion
@@ -571,7 +555,6 @@ func (u URLSessionTask) Delegate() NSURLSessionTaskDelegate {
 func (u URLSessionTask) SetDelegate(value NSURLSessionTaskDelegate) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDelegate:"), value)
 }
-
 // A best-guess upper bound on the number of bytes the client expects to
 // receive.
 //
@@ -594,7 +577,6 @@ func (u URLSessionTask) CountOfBytesClientExpectsToReceive() int64 {
 func (u URLSessionTask) SetCountOfBytesClientExpectsToReceive(value int64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setCountOfBytesClientExpectsToReceive:"), value)
 }
-
 // A best-guess upper bound on the number of bytes the client expects to send.
 //
 // # Discussion
@@ -616,7 +598,6 @@ func (u URLSessionTask) CountOfBytesClientExpectsToSend() int64 {
 func (u URLSessionTask) SetCountOfBytesClientExpectsToSend(value int64) {
 	objc.Send[struct{}](u.ID, objc.Sel("setCountOfBytesClientExpectsToSend:"), value)
 }
-
 // The total size of the transfer cannot be determined.
 //
 // See: https://developer.apple.com/documentation/foundation/nsurlsessiontransfersizeunknown
@@ -624,7 +605,6 @@ func (u URLSessionTask) NSURLSessionTransferSizeUnknown() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSURLSessionTransferSizeUnknown"))
 	return objectivec.Object{ID: rv}
 }
-
 // The earliest date at which the network load should begin.
 //
 // # Discussion

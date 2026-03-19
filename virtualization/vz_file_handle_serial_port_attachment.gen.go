@@ -174,7 +174,6 @@ func (f VZFileHandleSerialPortAttachment) FileHandleForReading() foundation.NSFi
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fileHandleForReading"))
 	return foundation.NSFileHandleFromID(objc.ID(rv))
 }
-
 // The file handle that the guest operating system uses to write data.
 //
 // # Discussion

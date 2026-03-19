@@ -3,7 +3,6 @@
 package appkit
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -148,7 +147,7 @@ type INSDraggingSession interface {
 	// Topic: Enumerating Dragging Items
 
 	// Enumerates through each dragging item.
-	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block unsafe.Pointer)
+	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler)
 
 	// Topic: Dragging Session Location
 
@@ -246,8 +245,10 @@ func NewNSDraggingSession() NSDraggingSession {
 // `enumOpts` and `searchOptions`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSession/enumerateDraggingItems(options:for:classes:searchOptions:using:)
-func (d NSDraggingSession) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block unsafe.Pointer) {
-	objc.Send[objc.ID](d.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, objectivec.ClassSliceToNSArray(classArray), searchOptions, block)
+func (d NSDraggingSession) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler) {
+_block4, _cleanup4 := NewDraggingItemBlock(block)
+	defer _cleanup4()
+	objc.Send[objc.ID](d.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, classArray, searchOptions, _block4)
 }
 
 // Returns the pasteboard object that contains the data being dragged.
@@ -257,7 +258,6 @@ func (d NSDraggingSession) DraggingPasteboard() INSPasteboard {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("draggingPasteboard"))
 	return NSPasteboardFromID(objc.ID(rv))
 }
-
 // Controls whether the dragging image animates back to its starting point on
 // a cancelled or failed drag.
 //
@@ -278,7 +278,6 @@ func (d NSDraggingSession) AnimatesToStartingPositionsOnCancelOrFail() bool {
 func (d NSDraggingSession) SetAnimatesToStartingPositionsOnCancelOrFail(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAnimatesToStartingPositionsOnCancelOrFail:"), value)
 }
-
 // Controls the dragging formation when the drag is not over the source or a
 // valid destination.
 //
@@ -302,7 +301,6 @@ func (d NSDraggingSession) DraggingFormation() NSDraggingFormation {
 func (d NSDraggingSession) SetDraggingFormation(value NSDraggingFormation) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDraggingFormation:"), value)
 }
-
 // Returns a number that uniquely identifies the dragging session.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSession/draggingSequenceNumber
@@ -310,7 +308,6 @@ func (d NSDraggingSession) DraggingSequenceNumber() int {
 	rv := objc.Send[int](d.ID, objc.Sel("draggingSequenceNumber"))
 	return rv
 }
-
 // The current cursor location of the drag in screen coordinates.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSession/draggingLocation
@@ -318,7 +315,6 @@ func (d NSDraggingSession) DraggingLocation() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](d.ID, objc.Sel("draggingLocation"))
 	return corefoundation.CGPoint(rv)
 }
-
 // The index of the dragging item under the cursor.
 //
 // # Discussion

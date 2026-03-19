@@ -128,25 +128,21 @@ func (a ANEOutputSetEnqueue) IsOpenLoop() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("isOpenLoop"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/procedureIndex
 func (a ANEOutputSetEnqueue) ProcedureIndex() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("procedureIndex"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/setIndex
 func (a ANEOutputSetEnqueue) SetIndex() uint32 {
 	rv := objc.Send[uint32](a.ID, objc.Sel("setIndex"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/signalNotRequired
 func (a ANEOutputSetEnqueue) SignalNotRequired() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("signalNotRequired"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEOutputSetEnqueue/signalValue
 func (a ANEOutputSetEnqueue) SignalValue() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("signalValue"))

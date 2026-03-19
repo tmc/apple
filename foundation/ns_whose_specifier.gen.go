@@ -282,7 +282,6 @@ func (w NSWhoseSpecifier) EndSubelementIdentifier() NSWhoseSubelementIdentifier 
 func (w NSWhoseSpecifier) SetEndSubelementIdentifier(value NSWhoseSubelementIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setEndSubelementIdentifier:"), value)
 }
-
 // Sets the index position of the last sub-element within the range of objects
 // being tested that pass the specifier’s test.
 //
@@ -298,7 +297,6 @@ func (w NSWhoseSpecifier) EndSubelementIndex() int {
 func (w NSWhoseSpecifier) SetEndSubelementIndex(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setEndSubelementIndex:"), value)
 }
-
 // Returns the start sub-element identifier for the receiver.
 //
 // # Return Value
@@ -313,7 +311,6 @@ func (w NSWhoseSpecifier) StartSubelementIdentifier() NSWhoseSubelementIdentifie
 func (w NSWhoseSpecifier) SetStartSubelementIdentifier(value NSWhoseSubelementIdentifier) {
 	objc.Send[struct{}](w.ID, objc.Sel("setStartSubelementIdentifier:"), value)
 }
-
 // Returns the index position of the first sub-element within the range of
 // objects being tested that pass the receiver’s test.
 //
@@ -330,7 +327,6 @@ func (w NSWhoseSpecifier) StartSubelementIndex() int {
 func (w NSWhoseSpecifier) SetStartSubelementIndex(value int) {
 	objc.Send[struct{}](w.ID, objc.Sel("setStartSubelementIndex:"), value)
 }
-
 // Returns the test object encapsulated by the receiver.
 //
 // # Return Value

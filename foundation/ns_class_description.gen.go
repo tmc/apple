@@ -229,7 +229,6 @@ func (c NSClassDescription) InverseForRelationshipKey(relationshipKey objectivec
 func (_NSClassDescriptionClass NSClassDescriptionClass) InvalidateClassDescriptionCache() {
 	objc.Send[objc.ID](objc.ID(_NSClassDescriptionClass.class), objc.Sel("invalidateClassDescriptionCache"))
 }
-
 // Registers an [NSClassDescription] object for a given class in the
 // [NSClassDescription] cache.
 //
@@ -269,7 +268,6 @@ func (c NSClassDescription) AttributeKeys() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("attributeKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Overridden by subclasses to return the keys for the to-many relationship
 // properties of instances of the described class.
 //
@@ -292,7 +290,6 @@ func (c NSClassDescription) ToManyRelationshipKeys() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("toManyRelationshipKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Overridden by subclasses to return the keys for the to-one relationship
 // properties of instances of the described class.
 //
@@ -315,7 +312,6 @@ func (c NSClassDescription) ToOneRelationshipKeys() []string {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("toOneRelationshipKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Posted by
 //
 // See: https://developer.apple.com/documentation/foundation/nsnotification/name-swift.struct/nsclassdescriptionneededforclass

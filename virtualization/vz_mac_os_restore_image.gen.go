@@ -145,7 +145,6 @@ _block0, _cleanup0 := NewMacOSRestoreImageErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("fetchLatestSupportedWithCompletionHandler:"), _block0)
 }
-
 // Load a restore image from a file on the local file system.
 //
 // fileURL: A file URL that indicates the macOS restore image to load.
@@ -170,7 +169,6 @@ func (m VZMacOSRestoreImage) BuildVersion() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("buildVersion"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A Boolean value that indicates whether the current host supports this
 // restore image.
 //
@@ -179,7 +177,6 @@ func (m VZMacOSRestoreImage) Supported() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSupported"))
 	return rv
 }
-
 // This object represents the most fully featured configuration that’s
 // supported by both the current host and by this restore image.
 //
@@ -188,7 +185,6 @@ func (m VZMacOSRestoreImage) MostFeaturefulSupportedConfiguration() IVZMacOSConf
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("mostFeaturefulSupportedConfiguration"))
 	return VZMacOSConfigurationRequirementsFromID(objc.ID(rv))
 }
-
 // The operating system version this restore image contains.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/operatingSystemVersion
@@ -196,7 +192,6 @@ func (m VZMacOSRestoreImage) OperatingSystemVersion() foundation.NSOperatingSyst
 	rv := objc.Send[foundation.NSOperatingSystemVersion](m.ID, objc.Sel("operatingSystemVersion"))
 	return foundation.NSOperatingSystemVersion(rv)
 }
-
 // The URL of this restore image.
 //
 // # Discussion
@@ -213,7 +208,6 @@ func (m VZMacOSRestoreImage) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // The Mac hardware model.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel

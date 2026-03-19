@@ -84,13 +84,11 @@ func NSTextAttachmentLayoutObjectFromID(id objc.ID) NSTextAttachmentLayoutObject
 // [CGRectZero]: https://developer.apple.com/documentation/CoreGraphics/CGRectZero
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/attachmentBounds(for:location:textContainer:proposedLineFragment:position:)
-
 func (o NSTextAttachmentLayoutObject) AttachmentBoundsForAttributesLocationTextContainerProposedLineFragmentPosition(attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer, proposedLineFragment corefoundation.CGRect, position corefoundation.CGPoint) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("attachmentBoundsForAttributes:location:textContainer:proposedLineFragment:position:"), attributes, location, textContainer, proposedLineFragment, position)
 	return rv
 	}
-
 // Returns the image object rendered at the bounds and inside the text
 // container you specify.
 //
@@ -119,13 +117,11 @@ func (o NSTextAttachmentLayoutObject) AttachmentBoundsForAttributesLocationTextC
 // image based on the `contents` and `fileType` properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/image(for:attributes:location:textContainer:)
-
 func (o NSTextAttachmentLayoutObject) ImageForBoundsAttributesLocationTextContainer(bounds corefoundation.CGRect, attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer) INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageForBounds:attributes:location:textContainer:"), bounds, attributes, location, textContainer)
 	return NSImageFromID(rv)
 	}
-
 // Returns the text attachment view provider corresponding to the file type.
 //
 // parentView: The parent view.
@@ -146,7 +142,6 @@ func (o NSTextAttachmentLayoutObject) ImageForBoundsAttributesLocationTextContai
 // properties declared in [NSTextAttachmentViewProvider] if implemented.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/viewProvider(for:location:textContainer:)
-
 func (o NSTextAttachmentLayoutObject) ViewProviderForParentViewLocationTextContainer(parentView INSView, location NSTextLocation, textContainer INSTextContainer) INSTextAttachmentViewProvider {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("viewProviderForParentView:location:textContainer:"), parentView, location, textContainer)

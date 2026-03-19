@@ -320,7 +320,6 @@ func (t NSTrackingArea) Options() NSTrackingAreaOptions {
 	rv := objc.Send[NSTrackingAreaOptions](t.ID, objc.Sel("options"))
 	return NSTrackingAreaOptions(rv)
 }
-
 // The object owning the receiver, which is the recipient of mouse-tracking,
 // mouse-movement, and cursor-update messages.
 //
@@ -329,7 +328,6 @@ func (t NSTrackingArea) Owner() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("owner"))
 	return objectivec.Object{ID: rv}
 }
-
 // The rectangle defining the area encompassed by the receiver.
 //
 // # Discussion
@@ -346,7 +344,6 @@ func (t NSTrackingArea) Rect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("rect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The dictionary containing the data associated with the receiver when it was
 // created.
 //
@@ -361,7 +358,6 @@ func (t NSTrackingArea) UserInfo() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("userInfo"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // The owner receives messages regardless of first-responder status, window
 // status, or application status. The
 //
@@ -373,7 +369,6 @@ func (t NSTrackingArea) ActiveAlways() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetActiveAlways(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingActiveAlways:"), value)
 }
-
 // The owner receives messages when the application is active. This value
 // specifies when the tracking area defined by an
 //
@@ -385,7 +380,6 @@ func (t NSTrackingArea) ActiveInActiveApp() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetActiveInActiveApp(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingActiveInActiveApp:"), value)
 }
-
 // The owner receives messages when the view is in the key window. This value
 // specifies when the tracking area defined by an
 //
@@ -397,7 +391,6 @@ func (t NSTrackingArea) ActiveInKeyWindow() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetActiveInKeyWindow(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingActiveInKeyWindow:"), value)
 }
-
 // The owner receives messages when the view is the first responder. This
 // value specifies when the tracking area defined by an
 //
@@ -409,7 +402,6 @@ func (t NSTrackingArea) ActiveWhenFirstResponder() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetActiveWhenFirstResponder(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingActiveWhenFirstResponder:"), value)
 }
-
 // The first event is generated when the cursor leaves the tracking area,
 // regardless if the cursor is inside the area when the
 //
@@ -421,7 +413,6 @@ func (t NSTrackingArea) AssumeInside() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetAssumeInside(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingAssumeInside:"), value)
 }
-
 // A tracking option that receives events when the mouse cursor enters and
 // exits the tracking area.
 //
@@ -433,7 +424,6 @@ func (t NSTrackingArea) CursorUpdate() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetCursorUpdate(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingCursorUpdate:"), value)
 }
-
 // The owner receives
 //
 // See: https://developer.apple.com/documentation/appkit/nstrackingarea/options-swift.struct/enabledduringmousedrag
@@ -444,7 +434,6 @@ func (t NSTrackingArea) EnabledDuringMouseDrag() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetEnabledDuringMouseDrag(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingEnabledDuringMouseDrag:"), value)
 }
-
 // Mouse tracking occurs only in the visible rectangle of the view—in other
 // words, that region of the tracking rectangle that is unobscured. Otherwise,
 // the entire tracking area is active regardless of overlapping views. The
@@ -457,7 +446,6 @@ func (t NSTrackingArea) InVisibleRect() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetInVisibleRect(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingInVisibleRect:"), value)
 }
-
 // The owner of the tracking area receives
 //
 // See: https://developer.apple.com/documentation/appkit/nstrackingarea/options-swift.struct/mouseenteredandexited
@@ -468,7 +456,6 @@ func (t NSTrackingArea) MouseEnteredAndExited() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetMouseEnteredAndExited(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingMouseEnteredAndExited:"), value)
 }
-
 // The owner of the tracking area receives
 //
 // See: https://developer.apple.com/documentation/appkit/nstrackingarea/options-swift.struct/mousemoved
@@ -479,7 +466,6 @@ func (t NSTrackingArea) MouseMoved() NSTrackingAreaOptions {
 func (t NSTrackingArea) SetMouseMoved(value NSTrackingAreaOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNSTrackingMouseMoved:"), value)
 }
-
 // The portion of the view that isn’t clipped by its superviews.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/visiblerect

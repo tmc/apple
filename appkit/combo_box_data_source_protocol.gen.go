@@ -57,13 +57,11 @@ func NSComboBoxDataSourceObjectFromID(id objc.ID) NSComboBoxDataSourceObject {
 // perform incremental searches.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxDataSource/comboBox(_:completedString:)
-
 func (o NSComboBoxDataSourceObject) ComboBoxCompletedString(comboBox INSComboBox, string_ string) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("comboBox:completedString:"), comboBox, objc.String(string_))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns the index of the combo box item matching the specified string.
 //
 // comboBox: The combo box.
@@ -85,13 +83,11 @@ func (o NSComboBoxDataSourceObject) ComboBoxCompletedString(comboBox INSComboBox
 // item with the text field’s contents.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxDataSource/comboBox(_:indexOfItemWithStringValue:)
-
 func (o NSComboBoxDataSourceObject) ComboBoxIndexOfItemWithStringValue(comboBox INSComboBox, string_ string) uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("comboBox:indexOfItemWithStringValue:"), comboBox, objc.String(string_))
 	return rv
 	}
-
 // Returns the object that corresponds to the item at the specified index in
 // the combo box.
 //
@@ -109,13 +105,11 @@ func (o NSComboBoxDataSourceObject) ComboBoxIndexOfItemWithStringValue(comboBox 
 // its pop-up list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxDataSource/comboBox(_:objectValueForItemAt:)
-
 func (o NSComboBoxDataSourceObject) ComboBoxObjectValueForItemAtIndex(comboBox INSComboBox, index int) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("comboBox:objectValueForItemAtIndex:"), comboBox, index)
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the number of items that the data source manages for the combo box.
 //
 // comboBox: The combo box.
@@ -131,7 +125,6 @@ func (o NSComboBoxDataSourceObject) ComboBoxObjectValueForItemAtIndex(comboBox I
 // should display in its pop-up list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxDataSource/numberOfItems(in:)
-
 func (o NSComboBoxDataSourceObject) NumberOfItemsInComboBox(comboBox INSComboBox) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfItemsInComboBox:"), comboBox)

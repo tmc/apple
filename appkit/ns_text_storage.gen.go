@@ -340,7 +340,6 @@ func NewTextStorageWithPasteboardPropertyListOfType(propertyList objectivec.IObj
 func (t NSTextStorage) AddLayoutManager(aLayoutManager INSLayoutManager) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addLayoutManager:"), aLayoutManager)
 }
-
 // Removes a layout manager from the text storage object’s set of layout
 // managers.
 //
@@ -350,7 +349,6 @@ func (t NSTextStorage) AddLayoutManager(aLayoutManager INSLayoutManager) {
 func (t NSTextStorage) RemoveLayoutManager(aLayoutManager INSLayoutManager) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeLayoutManager:"), aLayoutManager)
 }
-
 // Tracks changes made to the text storage object, allowing the text storage
 // to record the full extent of changes.
 //
@@ -392,7 +390,6 @@ func (t NSTextStorage) RemoveLayoutManager(aLayoutManager INSLayoutManager) {
 func (t NSTextStorage) EditedRangeChangeInLength(editedMask NSTextStorageEditActions, editedRange foundation.NSRange, delta int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("edited:range:changeInLength:"), editedMask, editedRange, delta)
 }
-
 // Cleans up changes to the text storage object and notifies its delegate and
 // layout managers of changes.
 //
@@ -423,7 +420,6 @@ func (t NSTextStorage) EditedRangeChangeInLength(editedMask NSTextStorageEditAct
 func (t NSTextStorage) ProcessEditing() {
 	objc.Send[objc.ID](t.ID, objc.Sel("processEditing"))
 }
-
 // Invalidates attributes in the specified range.
 //
 // range: The range of characters whose attributes the method should invalidate.
@@ -441,7 +437,6 @@ func (t NSTextStorage) ProcessEditing() {
 func (t NSTextStorage) InvalidateAttributesInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("invalidateAttributesInRange:"), range_)
 }
-
 // Ensures that attribute fixing occurs in the specified range.
 //
 // range: The range of characters to examine.
@@ -458,7 +453,6 @@ func (t NSTextStorage) InvalidateAttributesInRange(range_ foundation.NSRange) {
 func (t NSTextStorage) EnsureAttributesAreFixedInRange(range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("ensureAttributesAreFixedInRange:"), range_)
 }
-
 // Initializes an instance with a property list object and a type string.
 //
 // propertyList: A property list containing data to initialize the receiver.
@@ -489,7 +483,6 @@ func (t NSTextStorage) InitWithPasteboardPropertyListOfType(propertyList objecti
 	rv := objc.Send[NSTextStorage](t.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
 }
-
 // Returns a property list object to represent the receiver on a pasteboard as
 // an object of a specified type.
 //
@@ -513,7 +506,6 @@ func (t NSTextStorage) PasteboardPropertyListForType(type_ NSPasteboardType) obj
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("pasteboardPropertyListForType:"), objc.String(string(type_)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an array of UTI strings of data types the receiver can write to a
 // given pasteboard.
 //
@@ -544,7 +536,6 @@ func (t NSTextStorage) WritableTypesForPasteboard(pasteboard INSPasteboard) []st
 	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("writableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for writing data of a specified type to a given pasteboard.
 //
 // type: One of the types the receiver supports for writing (one of the UTIs
@@ -600,7 +591,6 @@ func (_NSTextStorageClass NSTextStorageClass) ReadableTypesForPasteboard(pastebo
 	rv := objc.Send[[]objc.ID](objc.ID(_NSTextStorageClass.class), objc.Sel("readableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for reading data of a specified type from a given
 // pasteboard.
 //
@@ -644,7 +634,6 @@ func (t NSTextStorage) Delegate() NSTextStorageDelegate {
 func (t NSTextStorage) SetDelegate(value NSTextStorageDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The layout managers for the text storage object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorage/layoutManagers
@@ -654,7 +643,6 @@ func (t NSTextStorage) LayoutManagers() []NSLayoutManager {
 		return NSLayoutManagerFromID(id)
 	})
 }
-
 // A Boolean value that indicates whether the text storage object fixes
 // attributes lazily.
 //
@@ -672,7 +660,6 @@ func (t NSTextStorage) FixesAttributesLazily() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("fixesAttributesLazily"))
 	return rv
 }
-
 // A mask that describes the kinds of edits pending for the text storage
 // object.
 //
@@ -691,7 +678,6 @@ func (t NSTextStorage) EditedMask() NSTextStorageEditActions {
 	rv := objc.Send[NSTextStorageEditActions](t.ID, objc.Sel("editedMask"))
 	return NSTextStorageEditActions(rv)
 }
-
 // The range of text that contains changes.
 //
 // # Discussion
@@ -706,7 +692,6 @@ func (t NSTextStorage) EditedRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("editedRange"))
 	return foundation.NSRange(rv)
 }
-
 // The difference between the current length of the edited range and its
 // length before editing.
 //
@@ -730,7 +715,6 @@ func (t NSTextStorage) ChangeInLength() int {
 	rv := objc.Send[int](t.ID, objc.Sel("changeInLength"))
 	return rv
 }
-
 // The text storage contents as an array of attribute runs.
 //
 // # Discussion
@@ -748,7 +732,6 @@ func (t NSTextStorage) AttributeRuns() []NSTextStorage {
 func (t NSTextStorage) SetAttributeRuns(value []NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAttributeRuns:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The text storage contents as an array of paragraphs.
 //
 // # Discussion
@@ -766,7 +749,6 @@ func (t NSTextStorage) Paragraphs() []NSTextStorage {
 func (t NSTextStorage) SetParagraphs(value []NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setParagraphs:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The text storage contents as an array of words.
 //
 // # Discussion
@@ -784,7 +766,6 @@ func (t NSTextStorage) Words() []NSTextStorage {
 func (t NSTextStorage) SetWords(value []NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWords:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The text storage contents as an array of characters.
 //
 // # Discussion
@@ -807,7 +788,6 @@ func (t NSTextStorage) Characters() []NSTextStorage {
 func (t NSTextStorage) SetCharacters(value []NSTextStorage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCharacters:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The font for the text storage.
 //
 // # Discussion
@@ -823,7 +803,6 @@ func (t NSTextStorage) Font() NSFont {
 func (t NSTextStorage) SetFont(value NSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
-
 // The color for the text.
 //
 // # Discussion
@@ -839,7 +818,6 @@ func (t NSTextStorage) ForegroundColor() INSColor {
 func (t NSTextStorage) SetForegroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setForegroundColor:"), value)
 }
-
 // The observer for the text storage object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorage/textStorageObserver

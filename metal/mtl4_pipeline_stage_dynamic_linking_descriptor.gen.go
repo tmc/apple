@@ -127,7 +127,6 @@ func (m MTL4PipelineStageDynamicLinkingDescriptor) BinaryLinkedFunctions() []obj
 func (m MTL4PipelineStageDynamicLinkingDescriptor) SetBinaryLinkedFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBinaryLinkedFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Limits the maximum depth of the call stack for indirect function calls in
 // the pipeline stage function.
 //
@@ -139,7 +138,6 @@ func (m MTL4PipelineStageDynamicLinkingDescriptor) MaxCallStackDepth() uint {
 func (m MTL4PipelineStageDynamicLinkingDescriptor) SetMaxCallStackDepth(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMaxCallStackDepth:"), value)
 }
-
 // Provides an array of dynamic libraries the compiler loads when it builds
 // the pipeline.
 //

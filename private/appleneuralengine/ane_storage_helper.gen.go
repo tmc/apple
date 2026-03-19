@@ -82,33 +82,28 @@ func NewANEStorageHelper() ANEStorageHelper {
 func (_ANEStorageHelperClass ANEStorageHelperClass) AddSubdirectoryDetailsDirectoryPathSize(details objectivec.IObject, path objectivec.IObject, size uint64) {
 	objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("addSubdirectoryDetails:directoryPath:size:"), details, path, size)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/createModelCacheDictionary
 func (_ANEStorageHelperClass ANEStorageHelperClass) CreateModelCacheDictionary() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("createModelCacheDictionary"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/enableApfsPurging
 func (_ANEStorageHelperClass ANEStorageHelperClass) EnableApfsPurging() bool {
 	rv := objc.Send[bool](objc.ID(_ANEStorageHelperClass.class), objc.Sel("enableApfsPurging"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/garbageCollectDanglingModelsAtPath:
 func (_ANEStorageHelperClass ANEStorageHelperClass) GarbageCollectDanglingModelsAtPath(path objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_ANEStorageHelperClass.class), objc.Sel("garbageCollectDanglingModelsAtPath:"), path)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/getAccessTimeForFilePath:
 func (_ANEStorageHelperClass ANEStorageHelperClass) GetAccessTimeForFilePath(path objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("getAccessTimeForFilePath:"), path)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/markPathAndDirectParentPurgeable:error:
 func (_ANEStorageHelperClass ANEStorageHelperClass) MarkPathAndDirectParentPurgeableError(purgeable objectivec.IObject) (bool, error) {
@@ -124,83 +119,71 @@ func (_ANEStorageHelperClass ANEStorageHelperClass) MarkPathAndDirectParentPurge
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/memoryMapModelAtPath:isPrecompiled:modelAttributes:
 func (_ANEStorageHelperClass ANEStorageHelperClass) MemoryMapModelAtPathIsPrecompiledModelAttributes(path objectivec.IObject, precompiled bool, attributes []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("memoryMapModelAtPath:isPrecompiled:modelAttributes:"), path, precompiled, objectivec.IObjectSliceToNSArray(attributes))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/memoryMapModelAtPath:modelAttributes:
 func (_ANEStorageHelperClass ANEStorageHelperClass) MemoryMapModelAtPathModelAttributes(path objectivec.IObject, attributes []objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("memoryMapModelAtPath:modelAttributes:"), path, objectivec.IObjectSliceToNSArray(attributes))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/memoryMapWeightAtPath:
 func (_ANEStorageHelperClass ANEStorageHelperClass) MemoryMapWeightAtPath(path objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("memoryMapWeightAtPath:"), path)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/mergeModelCacheStorageInformation:with:
 func (_ANEStorageHelperClass ANEStorageHelperClass) MergeModelCacheStorageInformationWith(information objectivec.IObject, with objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("mergeModelCacheStorageInformation:with:"), information, with)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/removeDirectoryAtPath:
 func (_ANEStorageHelperClass ANEStorageHelperClass) RemoveDirectoryAtPath(path objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_ANEStorageHelperClass.class), objc.Sel("removeDirectoryAtPath:"), path)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/removeFilePath:ifDate:olderThanSecond:
 func (_ANEStorageHelperClass ANEStorageHelperClass) RemoveFilePathIfDateOlderThanSecond(path objectivec.IObject, date objectivec.IObject, second objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("removeFilePath:ifDate:olderThanSecond:"), path, date, second)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/removeShapesDirectoryAtPath:
 func (_ANEStorageHelperClass ANEStorageHelperClass) RemoveShapesDirectoryAtPath(path objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_ANEStorageHelperClass.class), objc.Sel("removeShapesDirectoryAtPath:"), path)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/setAccessTime:forModelFilePath:
 func (_ANEStorageHelperClass ANEStorageHelperClass) SetAccessTimeForModelFilePath(time objectivec.IObject, path objectivec.IObject) bool {
 	rv := objc.Send[bool](objc.ID(_ANEStorageHelperClass.class), objc.Sel("setAccessTime:forModelFilePath:"), time, path)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/sizeOfDirectoryAtPath:recursionLevel:
 func (_ANEStorageHelperClass ANEStorageHelperClass) SizeOfDirectoryAtPathRecursionLevel(path objectivec.IObject, level uint64) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("sizeOfDirectoryAtPath:recursionLevel:"), path, level)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/sizeOfModelCacheAtPath:purgeSubdirectories:
 func (_ANEStorageHelperClass ANEStorageHelperClass) SizeOfModelCacheAtPathPurgeSubdirectories(path objectivec.IObject, subdirectories bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("sizeOfModelCacheAtPath:purgeSubdirectories:"), path, subdirectories)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/uniqueFirstLevelSubdirectories:
 func (_ANEStorageHelperClass ANEStorageHelperClass) UniqueFirstLevelSubdirectories(subdirectories objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStorageHelperClass.class), objc.Sel("uniqueFirstLevelSubdirectories:"), subdirectories)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStorageHelper/updateAccessTimeForFilePath:
 func (_ANEStorageHelperClass ANEStorageHelperClass) UpdateAccessTimeForFilePath(path objectivec.IObject) bool {

@@ -105,7 +105,6 @@ func (s NSSymbolBreatheEffect) EffectWithByLayer() INSSymbolBreatheEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
-
 // Returns a copy of the effect that animates all layers of the symbol
 // simultaneously.
 //
@@ -123,7 +122,6 @@ func (_NSSymbolBreatheEffectClass NSSymbolBreatheEffectClass) BreathePlainEffect
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBreatheEffectClass.class), objc.Sel("breathePlainEffect"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
-
 // Convenience initializer for a breathe effect that pulses layers as they
 // breathe.
 //
@@ -132,7 +130,6 @@ func (_NSSymbolBreatheEffectClass NSSymbolBreatheEffectClass) BreathePulseEffect
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolBreatheEffectClass.class), objc.Sel("breathePulseEffect"))
 	return NSSymbolBreatheEffectFromID(rv)
 }
-
 // The default breathe effect, determined by the system.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolBreatheEffect/effect

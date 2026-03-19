@@ -152,7 +152,6 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) Coulombs() UnitElectricC
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("coulombs"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
-
 // The megaampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/megaampereHours
@@ -160,7 +159,6 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) MegaampereHours() UnitEl
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("megaampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
-
 // The kiloampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/kiloampereHours
@@ -168,7 +166,6 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) KiloampereHours() UnitEl
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("kiloampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
-
 // The ampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/ampereHours
@@ -176,7 +173,6 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) AmpereHours() UnitElectr
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("ampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
-
 // The milliampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/milliampereHours
@@ -184,7 +180,6 @@ func (_UnitElectricChargeClass UnitElectricChargeClass) MilliampereHours() UnitE
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricChargeClass.class), objc.Sel("milliampereHours"))
 	return NSUnitElectricChargeFromID(objc.ID(rv))
 }
-
 // The microampere hours unit of electric charge.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricCharge/microampereHours

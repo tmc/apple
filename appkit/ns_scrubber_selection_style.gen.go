@@ -132,7 +132,6 @@ func (s NSScrubberSelectionStyle) InitWithCoder(coder foundation.INSCoder) NSScr
 	rv := objc.Send[NSScrubberSelectionStyle](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Provides an opportunity to create a customized scrubber selection style.
 //
 // # Return Value
@@ -161,7 +160,6 @@ func (_NSScrubberSelectionStyleClass NSScrubberSelectionStyleClass) OutlineOverl
 	rv := objc.Send[objc.ID](objc.ID(_NSScrubberSelectionStyleClass.class), objc.Sel("outlineOverlayStyle"))
 	return NSScrubberSelectionStyleFromID(objc.ID(rv))
 }
-
 // A built-in selection style that draws a rounded rectangle as the background
 // of the scrubber item.
 //

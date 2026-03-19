@@ -173,7 +173,6 @@ func (w NSWindowTab) Title() string {
 func (w NSWindowTab) SetTitle(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // The title for the window tab, specified as an attributed string.
 //
 // # Discussion
@@ -197,7 +196,6 @@ func (w NSWindowTab) AttributedTitle() foundation.NSAttributedString {
 func (w NSWindowTab) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAttributedTitle:"), value)
 }
-
 // The tooltip for this window tab.
 //
 // # Discussion
@@ -216,7 +214,6 @@ func (w NSWindowTab) ToolTip() string {
 func (w NSWindowTab) SetToolTip(value string) {
 	objc.Send[struct{}](w.ID, objc.Sel("setToolTip:"), objc.String(value))
 }
-
 // An optional accessory view for the tab.
 //
 // # Discussion
@@ -241,7 +238,6 @@ func (w NSWindowTab) AccessoryView() INSView {
 func (w NSWindowTab) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](w.ID, objc.Sel("setAccessoryView:"), value)
 }
-
 // An object that represents information about a window when it displays as a
 // tab.
 //
@@ -253,7 +249,6 @@ func (w NSWindowTab) Tab() INSWindowTab {
 func (w NSWindowTab) SetTab(value INSWindowTab) {
 	objc.Send[struct{}](w.ID, objc.Sel("setTab:"), value)
 }
-
 // A value that allows a group of related windows.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/tabbingidentifier-swift.property

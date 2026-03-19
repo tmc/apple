@@ -53,13 +53,11 @@ func NSAccessibilityCheckBoxObjectFromID(id objc.ID) NSAccessibilityCheckBoxObje
 // [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCheckBox/accessibilityValue()
-
 func (o NSAccessibilityCheckBoxObject) AccessibilityValue() foundation.NSNumber {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSNumberFromID(rv)
 	}
-
 // Returns a short description of the button.
 //
 // # Return Value
@@ -80,13 +78,11 @@ func (o NSAccessibilityCheckBoxObject) AccessibilityValue() foundation.NSNumber 
 // [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityLabel()
-
 func (o NSAccessibilityCheckBoxObject) AccessibilityLabel() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Simulates clicking the button.
 //
 // # Return Value
@@ -99,13 +95,11 @@ func (o NSAccessibilityCheckBoxObject) AccessibilityLabel() string {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
-
 func (o NSAccessibilityCheckBoxObject) AccessibilityPerformPress() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPress"))
 	return rv
 	}
-
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
@@ -123,13 +117,11 @@ func (o NSAccessibilityCheckBoxObject) AccessibilityPerformPress() bool {
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-
 func (o NSAccessibilityCheckBoxObject) AccessibilityFrame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
-
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
@@ -145,13 +137,11 @@ func (o NSAccessibilityCheckBoxObject) AccessibilityFrame() corefoundation.CGRec
 // [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-
 func (o NSAccessibilityCheckBoxObject) AccessibilityParent() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the accessibility element’s identity.
 //
 // # Return Value
@@ -167,13 +157,11 @@ func (o NSAccessibilityCheckBoxObject) AccessibilityParent() objectivec.IObject 
 // [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-
 func (o NSAccessibilityCheckBoxObject) AccessibilityIdentifier() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
@@ -192,7 +180,6 @@ func (o NSAccessibilityCheckBoxObject) AccessibilityIdentifier() string {
 // [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-
 func (o NSAccessibilityCheckBoxObject) IsAccessibilityFocused() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))

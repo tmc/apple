@@ -104,7 +104,6 @@ func (v VZVirtioConsoleDevice) Ports() IVZVirtioConsolePortArray {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("ports"))
 	return VZVirtioConsolePortArrayFromID(objc.ID(rv))
 }
-
 // The delegate object for the console device.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDevice/delegate

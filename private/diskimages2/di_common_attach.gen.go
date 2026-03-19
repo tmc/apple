@@ -92,7 +92,6 @@ func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachReadOnlyAutoMount
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/diskImageAttach:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url foundation.INSURL, bsdName string) (bool, error) {
@@ -108,7 +107,6 @@ func (_DICommonAttachClass DICommonAttachClass) DiskImageAttachBSDNameError(url 
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/defaultDiskImageAttach:BSDName:error:
 func (_DICommonAttachClass DICommonAttachClass) DefaultDiskImageAttachBSDNameError(url foundation.INSURL, bsdName string) (bool, error) {

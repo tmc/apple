@@ -140,7 +140,6 @@ func (r MLRTrialDediscoTaskResult) RecordDataEncodingSchemaMetadataErrorOut(reco
 	rv := objc.Send[bool](r.ID, objc.Sel("record:data:encodingSchema:metadata:errorOut:"), record, data, schema, metadata, objectivec.IObjectSliceToNSArray(out))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoTaskResult/submitWithTRIClient:error:
 func (r MLRTrialDediscoTaskResult) SubmitWithTRIClientError(tRIClient objectivec.IObject) (bool, error) {
@@ -156,21 +155,18 @@ func (r MLRTrialDediscoTaskResult) SubmitWithTRIClientError(tRIClient objectivec
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoTaskResult/variablesFromTrialClient:
 func (r MLRTrialDediscoTaskResult) VariablesFromTrialClient(client objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("variablesFromTrialClient:"), client)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoTaskResult/initWithJSONResult:identifier:
 func (r MLRTrialDediscoTaskResult) InitWithJSONResultIdentifier(jSONResult objectivec.IObject, identifier objectivec.IObject) MLRTrialDediscoTaskResult {
 	rv := objc.Send[MLRTrialDediscoTaskResult](r.ID, objc.Sel("initWithJSONResult:identifier:"), jSONResult, identifier)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoTaskResult/initWithJSONResult:namespaceName:factorName:additionalKeyVariables:
 func (r MLRTrialDediscoTaskResult) InitWithJSONResultNamespaceNameFactorNameAdditionalKeyVariables(jSONResult objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, variables objectivec.IObject) MLRTrialDediscoTaskResult {
@@ -190,13 +186,11 @@ func (r MLRTrialDediscoTaskResult) AdditionalKeyVariables() foundation.INSDictio
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("additionalKeyVariables"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoTaskResult/namespaceName
 func (r MLRTrialDediscoTaskResult) NamespaceName() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("namespaceName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoTaskResult/recipeFactorName
 func (r MLRTrialDediscoTaskResult) RecipeFactorName() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recipeFactorName"))

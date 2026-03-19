@@ -43,7 +43,6 @@ func VNFaceObservationAcceptingObjectFromID(id objc.ID) VNFaceObservationAccepti
 // An array of [VNFaceObservation] objects to process as part of the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
-
 func (o VNFaceObservationAcceptingObject) InputFaceObservations() []VNFaceObservation {
 	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("inputFaceObservations"))

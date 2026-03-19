@@ -114,23 +114,19 @@ func MTL4CommandQueueObjectFromID(id objc.ID) MTL4CommandQueueObject {
 // Returns the GPU device that the command queue belongs to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/device
-
 func (o MTL4CommandQueueObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // Obtains this queue’s optional label for debugging purposes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/label
-
 func (o MTL4CommandQueueObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Applies a residency set to a queue, which Metal applies to the queue’s
 // command buffers as you commit them.
 //
@@ -146,12 +142,10 @@ func (o MTL4CommandQueueObject) Label() string {
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/addResidencySet(_:)
-
 func (o MTL4CommandQueueObject) AddResidencySet(residencySet MTLResidencySet) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("addResidencySet:"), residencySet)
 	}
-
 // Removes a residency set from a command queue’s list, which means Metal
 // doesn’t apply it to the queue’s command buffers as you commit them.
 //
@@ -170,12 +164,10 @@ func (o MTL4CommandQueueObject) AddResidencySet(residencySet MTLResidencySet) {
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/removeResidencySet(_:)
-
 func (o MTL4CommandQueueObject) RemoveResidencySet(residencySet MTLResidencySet) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySet:"), residencySet)
 	}
-
 // Schedules a signal operation on the command queue to indicate when
 // rendering to a Metal drawable is complete.
 //
@@ -194,12 +186,10 @@ func (o MTL4CommandQueueObject) RemoveResidencySet(residencySet MTLResidencySet)
 // queue after calling this method execute before presentation.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/signalDrawable(_:)
-
 func (o MTL4CommandQueueObject) SignalDrawable(drawable MTLDrawable) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("signalDrawable:"), drawable)
 	}
-
 // Schedules an operation to signal a GPU event with a specific value after
 // all GPU work prior to this point is complete.
 //
@@ -208,12 +198,10 @@ func (o MTL4CommandQueueObject) SignalDrawable(drawable MTLDrawable) {
 // value: The value to signal the [MTLEvent] with.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/signalEvent(_:value:)
-
 func (o MTL4CommandQueueObject) SignalEventValue(event MTLEvent, value uint64) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("signalEvent:value:"), event, value)
 	}
-
 // Schedules a wait operation on the command queue to ensure the display is no
 // longer using a specific Metal drawable.
 //
@@ -233,12 +221,10 @@ func (o MTL4CommandQueueObject) SignalEventValue(event MTLEvent, value uint64) {
 // multiple command queues.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/waitForDrawable(_:)
-
 func (o MTL4CommandQueueObject) WaitForDrawable(drawable MTLDrawable) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForDrawable:"), drawable)
 	}
-
 // Schedules an operation to wait for a GPU event of a specific value before
 // continuing to execute any future GPU work.
 //
@@ -247,12 +233,10 @@ func (o MTL4CommandQueueObject) WaitForDrawable(drawable MTLDrawable) {
 // value: The specific value to wait for.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/waitForEvent(_:value:)
-
 func (o MTL4CommandQueueObject) WaitForEventValue(event MTLEvent, value uint64) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForEvent:value:"), event, value)
 	}
-
 // Applies multiple residency sets to a queue, which Metal applies to the
 // queue’s command buffers as you commit them.
 //
@@ -270,12 +254,10 @@ func (o MTL4CommandQueueObject) WaitForEventValue(event MTLEvent, value uint64) 
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/addResidencySets:count:
-
 func (o MTL4CommandQueueObject) AddResidencySetsCount(residencySets []MTLResidencySet, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("addResidencySets:count:"), objc.CArray(residencySets), count)
 	}
-
 // Enqueues an array of command buffers for execution.
 //
 // commandBuffers: An array of [MTL4CommandBuffer].
@@ -297,12 +279,10 @@ func (o MTL4CommandQueueObject) AddResidencySetsCount(residencySets []MTLResiden
 // suspending and resuming.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:
-
 func (o MTL4CommandQueueObject) CommitCount(commandBuffers []MTL4CommandBuffer, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("commit:count:"), objc.CArray(commandBuffers), count)
 	}
-
 // Enqueues an array of command buffer instances for execution with a set of
 // options.
 //
@@ -333,12 +313,10 @@ func (o MTL4CommandQueueObject) CommitCount(commandBuffers []MTL4CommandBuffer, 
 // to it.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/commit:count:options:
-
 func (o MTL4CommandQueueObject) CommitCountOptions(commandBuffers []MTL4CommandBuffer, count uint, options IMTL4CommitOptions) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("commit:count:options:"), objc.CArray(commandBuffers), count, options)
 	}
-
 // Copies multiple offsets within a source placement sparse buffer to a
 // destination placement sparse buffer.
 //
@@ -363,12 +341,10 @@ func (o MTL4CommandQueueObject) CommitCountOptions(commandBuffers []MTL4CommandB
 // time.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyBufferMappingsFromBuffer:toBuffer:operations:count:
-
 func (o MTL4CommandQueueObject) CopyBufferMappingsFromBufferToBufferOperationsCount(sourceBuffer MTLBuffer, destinationBuffer MTLBuffer, operations []MTL4CopySparseBufferMappingOperation, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("copyBufferMappingsFromBuffer:toBuffer:operations:count:"), sourceBuffer, destinationBuffer, objc.CArray(operations), count)
 	}
-
 // Copies multiple regions within a source placement sparse texture to a
 // destination placement sparse texture.
 //
@@ -391,12 +367,10 @@ func (o MTL4CommandQueueObject) CopyBufferMappingsFromBufferToBufferOperationsCo
 // destination textures don’t use the same aliased tiles at the same time.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/copyTextureMappingsFromTexture:toTexture:operations:count:
-
 func (o MTL4CommandQueueObject) CopyTextureMappingsFromTextureToTextureOperationsCount(sourceTexture MTLTexture, destinationTexture MTLTexture, operations []MTL4CopySparseTextureMappingOperation, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("copyTextureMappingsFromTexture:toTexture:operations:count:"), sourceTexture, destinationTexture, objc.CArray(operations), count)
 	}
-
 // Removes multiple residency sets from a command queue’s list, which means
 // Metal doesn’t apply them to the queue’s command buffers as you commit
 // them.
@@ -418,12 +392,10 @@ func (o MTL4CommandQueueObject) CopyTextureMappingsFromTextureToTextureOperation
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/removeResidencySets:count:
-
 func (o MTL4CommandQueueObject) RemoveResidencySetsCount(residencySets []MTLResidencySet, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySets:count:"), objc.CArray(residencySets), count)
 	}
-
 // Updates multiple regions within a placement sparse buffer to alias specific
 // tiles from a Metal heap.
 //
@@ -447,12 +419,10 @@ func (o MTL4CommandQueueObject) RemoveResidencySetsCount(residencySets []MTLResi
 // [NewBufferWithLengthOptionsPlacementSparsePageSize].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/updateBufferMappings:heap:operations:count:
-
 func (o MTL4CommandQueueObject) UpdateBufferMappingsHeapOperationsCount(buffer MTLBuffer, heap MTLHeap, operations []MTL4UpdateSparseBufferMappingOperation, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateBufferMappings:heap:operations:count:"), buffer, heap, objc.CArray(operations), count)
 	}
-
 // Updates multiple regions within a placement sparse texture to alias
 // specific tiles of a Metal heap.
 //
@@ -480,7 +450,6 @@ func (o MTL4CommandQueueObject) UpdateBufferMappingsHeapOperationsCount(buffer M
 // `MTLTexture/sparseTextureTier`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandQueue/updateTextureMappings:heap:operations:count:
-
 func (o MTL4CommandQueueObject) UpdateTextureMappingsHeapOperationsCount(texture MTLTexture, heap MTLHeap, operations []MTL4UpdateSparseTextureMappingOperation, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("updateTextureMappings:heap:operations:count:"), texture, heap, objc.CArray(operations), count)

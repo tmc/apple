@@ -296,7 +296,6 @@ func (s NSSearchField) SearchMenuTemplate() INSMenu {
 func (s NSSearchField) SetSearchMenuTemplate(value INSMenu) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSearchMenuTemplate:"), value)
 }
-
 // A Boolean value indicating whether the cell calls its action method
 // immediately when an appropriate action occurs.
 //
@@ -317,7 +316,6 @@ func (s NSSearchField) SendsSearchStringImmediately() bool {
 func (s NSSearchField) SetSendsSearchStringImmediately(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSendsSearchStringImmediately:"), value)
 }
-
 // A Boolean value indicating whether the cell calls its search action method
 // when the user clicks the search button or presses Return, or after each
 // keystroke.
@@ -337,7 +335,6 @@ func (s NSSearchField) SendsWholeSearchString() bool {
 func (s NSSearchField) SetSendsWholeSearchString(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSendsWholeSearchString:"), value)
 }
-
 // The list of recent search strings for the control.
 //
 // # Discussion
@@ -355,7 +352,6 @@ func (s NSSearchField) RecentSearches() []string {
 func (s NSSearchField) SetRecentSearches(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecentSearches:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The maximum number of search strings that can appear in the search menu.
 //
 // # Discussion
@@ -375,7 +371,6 @@ func (s NSSearchField) MaximumRecents() int {
 func (s NSSearchField) SetMaximumRecents(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaximumRecents:"), value)
 }
-
 // The name under which the search field automatically archives the list of
 // recent search strings.
 //
@@ -393,7 +388,6 @@ func (s NSSearchField) RecentsAutosaveName() NSSearchFieldRecentsAutosaveName {
 func (s NSSearchField) SetRecentsAutosaveName(value NSSearchFieldRecentsAutosaveName) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRecentsAutosaveName:"), objc.String(string(value)))
 }
-
 // The rectangle for the cancel button within the bounds of the search field.
 //
 // # Discussion
@@ -405,7 +399,6 @@ func (s NSSearchField) CancelButtonBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("cancelButtonBounds"))
 	return corefoundation.CGRect(rv)
 }
-
 // The rectangle for the search button within the bounds of the search field.
 //
 // # Discussion
@@ -417,7 +410,6 @@ func (s NSSearchField) SearchButtonBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("searchButtonBounds"))
 	return corefoundation.CGRect(rv)
 }
-
 // The rectangle for the search text within the bounds of the search field.
 //
 // # Discussion

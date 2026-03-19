@@ -249,7 +249,6 @@ func (n NSNib) InitWithNibNamedBundle(nibName NSNibName, bundle foundation.NSBun
 	rv := objc.Send[NSNib](n.ID, objc.Sel("initWithNibNamed:bundle:"), objc.String(string(nibName)), bundle)
 	return rv
 }
-
 // Initializes an instance with nib data and specified bundle for locating
 // resources.
 //
@@ -268,7 +267,6 @@ func (n NSNib) InitWithNibDataBundle(nibData foundation.INSData, bundle foundati
 	rv := objc.Send[NSNib](n.ID, objc.Sel("initWithNibData:bundle:"), nibData, bundle)
 	return rv
 }
-
 // Instantiates objects in the nib file with the specified owner.
 //
 // owner: The object to set as the Nib’s owner (File’s Owner).

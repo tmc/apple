@@ -380,7 +380,6 @@ func (r NSRulerView) InitWithScrollViewOrientation(scrollView INSScrollView, ori
 	rv := objc.Send[NSRulerView](r.ID, objc.Sel("initWithScrollView:orientation:"), scrollView, orientation)
 	return rv
 }
-
 // Adds `aMarker` to the receiver, without consulting the client view for
 // approval.
 //
@@ -393,7 +392,6 @@ func (r NSRulerView) InitWithScrollViewOrientation(scrollView INSScrollView, ori
 func (r NSRulerView) AddMarker(marker INSRulerMarker) {
 	objc.Send[objc.ID](r.ID, objc.Sel("addMarker:"), marker)
 }
-
 // Removes `aMarker` from the receiver, without consulting the client view for
 // approval.
 //
@@ -401,7 +399,6 @@ func (r NSRulerView) AddMarker(marker INSRulerMarker) {
 func (r NSRulerView) RemoveMarker(marker INSRulerMarker) {
 	objc.Send[objc.ID](r.ID, objc.Sel("removeMarker:"), marker)
 }
-
 // Tracks the mouse to add `aMarker` based on the initial mouse-down or
 // mouse-dragged event `theEvent`.
 //
@@ -431,7 +428,6 @@ func (r NSRulerView) TrackMarkerWithMouseEvent(marker INSRulerMarker, event INSE
 	rv := objc.Send[bool](r.ID, objc.Sel("trackMarker:withMouseEvent:"), marker, event)
 	return rv
 }
-
 // Draws temporary lines in the ruler area.
 //
 // # Discussion
@@ -453,7 +449,6 @@ func (r NSRulerView) TrackMarkerWithMouseEvent(marker INSRulerMarker, event INSE
 func (r NSRulerView) MoveRulerlineFromLocationToLocation(oldLocation float64, newLocation float64) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveRulerlineFromLocation:toLocation:"), oldLocation, newLocation)
 }
-
 // Draws the receiver’s hash marks and labels in `aRect`, which is expressed
 // in the receiver’s coordinate system.
 //
@@ -469,7 +464,6 @@ func (r NSRulerView) MoveRulerlineFromLocationToLocation(oldLocation float64, ne
 func (r NSRulerView) DrawHashMarksAndLabelsInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](r.ID, objc.Sel("drawHashMarksAndLabelsInRect:"), rect)
 }
-
 // Draws the receiver’s markers in `aRect`, which is expressed in the
 // receiver’s coordinate system.
 //
@@ -483,7 +477,6 @@ func (r NSRulerView) DrawHashMarksAndLabelsInRect(rect corefoundation.CGRect) {
 func (r NSRulerView) DrawMarkersInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](r.ID, objc.Sel("drawMarkersInRect:"), rect)
 }
-
 // Forces recalculation of the hash mark spacing for the next time the
 // receiver is displayed.
 //
@@ -541,7 +534,6 @@ func (r NSRulerView) MeasurementUnits() NSRulerViewUnitName {
 func (r NSRulerView) SetMeasurementUnits(value NSRulerViewUnitName) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMeasurementUnits:"), objc.String(string(value)))
 }
-
 // The receiver’s client view, if it has one.
 //
 // # Discussion
@@ -557,7 +549,6 @@ func (r NSRulerView) ClientView() INSView {
 func (r NSRulerView) SetClientView(value INSView) {
 	objc.Send[struct{}](r.ID, objc.Sel("setClientView:"), value)
 }
-
 // The receiver’s accessory view to `aView`.
 //
 // # Discussion
@@ -573,7 +564,6 @@ func (r NSRulerView) AccessoryView() INSView {
 func (r NSRulerView) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](r.ID, objc.Sel("setAccessoryView:"), value)
 }
-
 // The distance to the zero hash mark from the bounds origin of the
 // NSScrollView’s document view (not of the receiver’s client view), in
 // the document view’s coordinate system.
@@ -591,7 +581,6 @@ func (r NSRulerView) OriginOffset() float64 {
 func (r NSRulerView) SetOriginOffset(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOriginOffset:"), value)
 }
-
 // The receiver’s ruler markers to `markers`, removing any existing ruler
 // markers and not consulting with the client view about the new markers.
 //
@@ -611,7 +600,6 @@ func (r NSRulerView) Markers() []NSRulerMarker {
 func (r NSRulerView) SetMarkers(value []NSRulerMarker) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMarkers:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The NSScrollView that owns the receiver to `scrollView`, without retaining
 // it.
 //
@@ -628,7 +616,6 @@ func (r NSRulerView) ScrollView() INSScrollView {
 func (r NSRulerView) SetScrollView(value INSScrollView) {
 	objc.Send[struct{}](r.ID, objc.Sel("setScrollView:"), value)
 }
-
 // The orientation of the receiver to `orientation`.
 //
 // # Discussion
@@ -643,7 +630,6 @@ func (r NSRulerView) Orientation() NSRulerOrientation {
 func (r NSRulerView) SetOrientation(value NSRulerOrientation) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOrientation:"), value)
 }
-
 // The room available for the receiver’s accessory view to `thickness`.
 //
 // # Discussion
@@ -667,7 +653,6 @@ func (r NSRulerView) ReservedThicknessForAccessoryView() float64 {
 func (r NSRulerView) SetReservedThicknessForAccessoryView(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setReservedThicknessForAccessoryView:"), value)
 }
-
 // The room available for ruler markers to `thickness`.
 //
 // # Discussion
@@ -691,7 +676,6 @@ func (r NSRulerView) ReservedThicknessForMarkers() float64 {
 func (r NSRulerView) SetReservedThicknessForMarkers(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setReservedThicknessForMarkers:"), value)
 }
-
 // The thickness of the area where ruler hash marks and labels are drawn.
 //
 // # Discussion
@@ -709,7 +693,6 @@ func (r NSRulerView) RuleThickness() float64 {
 func (r NSRulerView) SetRuleThickness(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRuleThickness:"), value)
 }
-
 // The thickness needed for proper tiling of the receiver within an
 // NSScrollView.
 //
@@ -724,7 +707,6 @@ func (r NSRulerView) RequiredThickness() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("requiredThickness"))
 	return rv
 }
-
 // The location of the receiver’s baseline, in its own coordinate system.
 //
 // # Discussion
@@ -737,7 +719,6 @@ func (r NSRulerView) BaselineLocation() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("baselineLocation"))
 	return rv
 }
-
 // A Boolean that indicates if the ruler view’s coordinate system is
 // flipped.
 //
@@ -757,7 +738,6 @@ func (r NSRulerView) Flipped() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("isFlipped"))
 	return rv
 }
-
 // A Boolean that indicates whether the scroll view keeps a horizontal ruler
 // object.
 //
@@ -769,7 +749,6 @@ func (r NSRulerView) HasHorizontalRuler() bool {
 func (r NSRulerView) SetHasHorizontalRuler(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHasHorizontalRuler:"), value)
 }
-
 // A Boolean that indicates whether the scroll view keeps a vertical ruler
 // object.
 //

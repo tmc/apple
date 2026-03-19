@@ -247,7 +247,6 @@ func (t NSToolbarItemGroup) IsSelectedAtIndex(index int) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isSelectedAtIndex:"), index)
 	return rv
 }
-
 // Sets the selected state of a subitem in a grouped toolbar item.
 //
 // selected: If `true`, indicates whether to select a subitem, `false` otherwise.
@@ -276,7 +275,6 @@ func (t NSToolbarItemGroup) Subitems() []NSToolbarItem {
 func (t NSToolbarItemGroup) SetSubitems(value []NSToolbarItem) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSubitems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The index value for the most recently selected subitem of a grouped toolbar
 // item.
 //
@@ -301,7 +299,6 @@ func (t NSToolbarItemGroup) SelectedIndex() int {
 func (t NSToolbarItemGroup) SetSelectedIndex(value int) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectedIndex:"), value)
 }
-
 // A value that represents how a toolbar displays a grouped toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/controlRepresentation-swift.property
@@ -312,7 +309,6 @@ func (t NSToolbarItemGroup) ControlRepresentation() NSToolbarItemGroupControlRep
 func (t NSToolbarItemGroup) SetControlRepresentation(value NSToolbarItemGroupControlRepresentation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setControlRepresentation:"), value)
 }
-
 // The selection mode of the grouped toolbar item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItemGroup/selectionMode-swift.property

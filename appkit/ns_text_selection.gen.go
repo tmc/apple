@@ -257,7 +257,6 @@ func (t NSTextSelection) InitWithLocationAffinity(location NSTextLocation, affin
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("initWithLocation:affinity:"), location, affinity)
 	return rv
 }
-
 // Creates a new text selection with the range, selection affinity, and
 // granularity you provide.
 //
@@ -276,7 +275,6 @@ func (t NSTextSelection) InitWithRangeAffinityGranularity(range_ INSTextRange, a
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("initWithRange:affinity:granularity:"), range_, affinity, granularity)
 	return rv
 }
-
 // Creates a new text selection with the ranges, selection affinity, and
 // granularity you provide.
 //
@@ -295,7 +293,6 @@ func (t NSTextSelection) InitWithRangesAffinityGranularity(textRanges []NSTextRa
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("initWithRanges:affinity:granularity:"), objectivec.IObjectSliceToNSArray(textRanges), affinity, granularity)
 	return rv
 }
-
 // Creates a test selection from data in an unarchiver.
 //
 // coder: A coder that subclasses [NSCoder].
@@ -307,7 +304,6 @@ func (t NSTextSelection) InitWithCoder(coder foundation.INSCoder) NSTextSelectio
 	rv := objc.Send[NSTextSelection](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Creates a subselection of the current text selection with the ranges you
 // specify.
 //
@@ -343,7 +339,6 @@ func (t NSTextSelection) Affinity() NSTextSelectionAffinity {
 	rv := objc.Send[NSTextSelectionAffinity](t.ID, objc.Sel("affinity"))
 	return NSTextSelectionAffinity(rv)
 }
-
 // Represents the anchor position offset from the beginning of a line fragment
 // in the visual order for the initial tap or click location.
 //
@@ -362,7 +357,6 @@ func (t NSTextSelection) AnchorPositionOffset() float64 {
 func (t NSTextSelection) SetAnchorPositionOffset(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAnchorPositionOffset:"), value)
 }
-
 // The granularity of the selection.
 //
 // # Discussion
@@ -377,7 +371,6 @@ func (t NSTextSelection) Granularity() NSTextSelectionGranularity {
 	rv := objc.Send[NSTextSelectionGranularity](t.ID, objc.Sel("granularity"))
 	return NSTextSelectionGranularity(rv)
 }
-
 // A Boolean value that indicates whether the framework interprets the
 // selection as logical or visual.
 //
@@ -389,7 +382,6 @@ func (t NSTextSelection) Logical() bool {
 func (t NSTextSelection) SetLogical(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLogical:"), value)
 }
-
 // A Boolean value that indicates transient text selection during drag
 // handling.
 //
@@ -398,7 +390,6 @@ func (t NSTextSelection) Transient() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isTransient"))
 	return rv
 }
-
 // Specifies the secondary character location when user taps or clicks at a
 // directional boundary.
 //
@@ -415,7 +406,6 @@ func (t NSTextSelection) SecondarySelectionLocation() NSTextLocation {
 func (t NSTextSelection) SetSecondarySelectionLocation(value NSTextLocation) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSecondarySelectionLocation:"), value)
 }
-
 // Represents an array of noncontiguous logical ranges in the selection.
 //
 // # Discussion
@@ -430,7 +420,6 @@ func (t NSTextSelection) TextRanges() []NSTextRange {
 		return NSTextRangeFromID(id)
 	})
 }
-
 // The template attributes the framework uses for characters that replace the
 // contents of this selection.
 //

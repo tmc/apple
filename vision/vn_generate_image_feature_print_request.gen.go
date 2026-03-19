@@ -150,7 +150,6 @@ func (g VNGenerateImageFeaturePrintRequest) ImageCropAndScaleOption() VNImageCro
 func (g VNGenerateImageFeaturePrintRequest) SetImageCropAndScaleOption(value VNImageCropAndScaleOption) {
 	objc.Send[struct{}](g.ID, objc.Sel("setImageCropAndScaleOption:"), value)
 }
-
 // A constant for specifying the first revision of the feature-print request.
 //
 // See: https://developer.apple.com/documentation/vision/vngenerateimagefeatureprintrequestrevision1

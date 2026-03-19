@@ -44,12 +44,10 @@ func NSPageControllerDelegateObjectFromID(id objc.ID) NSPageControllerDelegateOb
 // gesture of one of the page controller’s target-action navigation methods.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageControllerDelegate/pageControllerWillStartLiveTransition(_:)
-
 func (o NSPageControllerDelegateObject) PageControllerWillStartLiveTransition(pageController INSPageController) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pageControllerWillStartLiveTransition:"), pageController)
 	}
-
 // This message is sent when a transition animation completes.
 //
 // pageController: The page controller.
@@ -67,12 +65,10 @@ func (o NSPageControllerDelegateObject) PageControllerWillStartLiveTransition(pa
 // already have been sent.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageControllerDelegate/pageControllerDidEndLiveTransition(_:)
-
 func (o NSPageControllerDelegateObject) PageControllerDidEndLiveTransition(pageController INSPageController) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pageControllerDidEndLiveTransition:"), pageController)
 	}
-
 // This message is sent when any page transition is completed.
 //
 // pageController: The page controller.
@@ -80,12 +76,10 @@ func (o NSPageControllerDelegateObject) PageControllerDidEndLiveTransition(pageC
 // object: The object to display.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageControllerDelegate/pageController(_:didTransitionTo:)
-
 func (o NSPageControllerDelegateObject) PageControllerDidTransitionToObject(pageController INSPageController, object objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pageController:didTransitionToObject:"), pageController, object)
 	}
-
 // Return the identifier of the view controller that owns a view to display
 // the object.
 //
@@ -105,13 +99,11 @@ func (o NSPageControllerDelegateObject) PageControllerDidTransitionToObject(page
 // [PageControllerViewControllerForIdentifier].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageControllerDelegate/pageController(_:identifierFor:)
-
 func (o NSPageControllerDelegateObject) PageControllerIdentifierForObject(pageController INSPageController, object objectivec.IObject) NSPageControllerObjectIdentifier {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("pageController:identifierForObject:"), pageController, object)
 	return NSPageControllerObjectIdentifier(foundation.NSStringFromID(rv).String())
 	}
-
 // Returns a view controller the page controller uses for managing the
 // specified identifier.
 //
@@ -136,13 +128,11 @@ func (o NSPageControllerDelegateObject) PageControllerIdentifierForObject(pageCo
 // transition if necessary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageControllerDelegate/pageController(_:viewControllerForIdentifier:)
-
 func (o NSPageControllerDelegateObject) PageControllerViewControllerForIdentifier(pageController INSPageController, identifier NSPageControllerObjectIdentifier) INSViewController {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("pageController:viewControllerForIdentifier:"), pageController, objc.String(string(identifier)))
 	return NSViewControllerFromID(rv)
 	}
-
 // Prepare the view controller and it’s view for drawing.
 //
 // pageController: The page controller.
@@ -161,12 +151,10 @@ func (o NSPageControllerDelegateObject) PageControllerViewControllerForIdentifie
 // [PageControllerPrepareViewControllerWithObject] are implemented.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageControllerDelegate/pageController(_:prepare:with:)
-
 func (o NSPageControllerDelegateObject) PageControllerPrepareViewControllerWithObject(pageController INSPageController, viewController INSViewController, object objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pageController:prepareViewController:withObject:"), pageController, viewController, object)
 	}
-
 // Returns the frame appropriate for displaying the specified object.
 //
 // pageController: The page controller.
@@ -194,7 +182,6 @@ func (o NSPageControllerDelegateObject) PageControllerPrepareViewControllerWithO
 // [PageControllerViewControllerForIdentifier] are implemented.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageControllerDelegate/pageController(_:frameFor:)
-
 func (o NSPageControllerDelegateObject) PageControllerFrameForObject(pageController INSPageController, object objectivec.IObject) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("pageController:frameForObject:"), pageController, object)

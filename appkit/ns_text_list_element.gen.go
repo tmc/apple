@@ -251,7 +251,6 @@ func (t NSTextListElement) TextList() INSTextList {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textList"))
 	return NSTextListFromID(objc.ID(rv))
 }
-
 // A dictionary of attributed string keys and IDs that represent the list’s
 // marker attributes.
 //
@@ -260,7 +259,6 @@ func (t NSTextListElement) MarkerAttributes() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("markerAttributes"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // The text list element contents without markers and formatting.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextListElement/contents

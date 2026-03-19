@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -210,9 +211,9 @@ type INSSavePanel interface {
 	// Topic: Showing the Panel
 
 	// Presents the panel as a sheet modal to the specified window.
-	BeginSheetModalForWindowCompletionHandler(window INSWindow, handler ErrorHandler)
+	BeginSheetModalForWindowCompletionHandler(window INSWindow, handler ModalResponseHandler)
 	// Presents the panel as a modeless window.
-	BeginWithCompletionHandler(handler ErrorHandler)
+	BeginWithCompletionHandler(handler ModalResponseHandler)
 	// Displays the panel and begins its event loop with the current working (or last-selected) directory as the default starting point.
 	RunModal() NSModalResponse
 	// Validates and reloads the browser columns visible in the panel.
@@ -484,12 +485,11 @@ func NewSavePanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 // `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/beginSheetModal(for:completionHandler:)
-func (s NSSavePanel) BeginSheetModalForWindowCompletionHandler(window INSWindow, handler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(handler)
+func (s NSSavePanel) BeginSheetModalForWindowCompletionHandler(window INSWindow, handler ModalResponseHandler) {
+_block1, _cleanup1 := NewModalResponseBlock(handler)
 	defer _cleanup1()
 	objc.Send[objc.ID](s.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), window, _block1)
 }
-
 // Presents the panel as a modeless window.
 //
 // handler: The block to call after the user closes the panel. This block has no return
@@ -505,12 +505,11 @@ _block1, _cleanup1 := NewErrorBlock(handler)
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/begin(completionHandler:)
-func (s NSSavePanel) BeginWithCompletionHandler(handler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(handler)
+func (s NSSavePanel) BeginWithCompletionHandler(handler ModalResponseHandler) {
+_block0, _cleanup0 := NewModalResponseBlock(handler)
 	defer _cleanup0()
 	objc.Send[objc.ID](s.ID, objc.Sel("beginWithCompletionHandler:"), _block0)
 }
-
 // Displays the panel and begins its event loop with the current working (or
 // last-selected) directory as the default starting point.
 //
@@ -529,7 +528,6 @@ func (s NSSavePanel) RunModal() NSModalResponse {
 	rv := objc.Send[NSModalResponse](s.ID, objc.Sel("runModal"))
 	return NSModalResponse(rv)
 }
-
 // Validates and reloads the browser columns visible in the panel.
 //
 // # Discussion
@@ -544,7 +542,6 @@ func (s NSSavePanel) RunModal() NSModalResponse {
 func (s NSSavePanel) ValidateVisibleColumns() {
 	objc.Send[objc.ID](s.ID, objc.Sel("validateVisibleColumns"))
 }
-
 // The action method that the panel calls when the user clicks the OK button.
 //
 // sender: The [NSSavePanel] object that contains the OK button.
@@ -559,7 +556,6 @@ func (s NSSavePanel) ValidateVisibleColumns() {
 func (s NSSavePanel) Ok(sender objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("ok:"), sender)
 }
-
 // The action method that the panel calls when the user clicks the Cancel
 // button.
 //
@@ -582,7 +578,6 @@ func (s NSSavePanel) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // The text to display in the default button.
 //
 // # Discussion
@@ -604,7 +599,6 @@ func (s NSSavePanel) Prompt() string {
 func (s NSSavePanel) SetPrompt(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPrompt:"), objc.String(value))
 }
-
 // The message text displayed in the panel.
 //
 // # Discussion
@@ -621,7 +615,6 @@ func (s NSSavePanel) Message() string {
 func (s NSSavePanel) SetMessage(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMessage:"), objc.String(value))
 }
-
 // The label text displayed in front of the filename text field.
 //
 // # Discussion
@@ -636,7 +629,6 @@ func (s NSSavePanel) NameFieldLabel() string {
 func (s NSSavePanel) SetNameFieldLabel(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNameFieldLabel:"), objc.String(value))
 }
-
 // The user-editable filename currently shown in the name field.
 //
 // # Discussion
@@ -654,7 +646,6 @@ func (s NSSavePanel) NameFieldStringValue() string {
 func (s NSSavePanel) SetNameFieldStringValue(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNameFieldStringValue:"), objc.String(value))
 }
-
 // The current directory shown in the panel.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/directoryURL
@@ -665,7 +656,6 @@ func (s NSSavePanel) DirectoryURL() foundation.INSURL {
 func (s NSSavePanel) SetDirectoryURL(value foundation.INSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDirectoryURL:"), value)
 }
-
 // The custom accessory view for the current app.
 //
 // # Discussion
@@ -690,7 +680,6 @@ func (s NSSavePanel) AccessoryView() INSView {
 func (s NSSavePanel) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAccessoryView:"), value)
 }
-
 // A Boolean value that indicates whether the panel displays the Tags field.
 //
 // # Discussion
@@ -717,7 +706,6 @@ func (s NSSavePanel) ShowsTagField() bool {
 func (s NSSavePanel) SetShowsTagField(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsTagField:"), value)
 }
-
 // The tag names that you want to include on a saved file.
 //
 // # Discussion
@@ -737,7 +725,6 @@ func (s NSSavePanel) TagNames() []string {
 func (s NSSavePanel) SetTagNames(value []string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTagNames:"), objectivec.StringSliceToNSArray(value))
 }
-
 // A Boolean value that indicates whether the panel displays UI for creating
 // directories.
 //
@@ -758,7 +745,6 @@ func (s NSSavePanel) CanCreateDirectories() bool {
 func (s NSSavePanel) SetCanCreateDirectories(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCanCreateDirectories:"), value)
 }
-
 // A Boolean value that indicates whether the panel displays UI for hiding or
 // showing filename extensions.
 //
@@ -782,7 +768,6 @@ func (s NSSavePanel) CanSelectHiddenExtension() bool {
 func (s NSSavePanel) SetCanSelectHiddenExtension(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCanSelectHiddenExtension:"), value)
 }
-
 // A Boolean value that indicates whether the panel displays files that are
 // normally hidden from the user.
 //
@@ -802,7 +787,6 @@ func (s NSSavePanel) ShowsHiddenFiles() bool {
 func (s NSSavePanel) SetShowsHiddenFiles(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsHiddenFiles:"), value)
 }
-
 // A Boolean value that indicates whether to display filename extensions.
 //
 // # Discussion
@@ -826,7 +810,6 @@ func (s NSSavePanel) ExtensionHidden() bool {
 func (s NSSavePanel) SetExtensionHidden(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setExtensionHidden:"), value)
 }
-
 // A Boolean value that indicates whether whether the panel is expanded.
 //
 // # Discussion
@@ -842,7 +825,6 @@ func (s NSSavePanel) Expanded() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isExpanded"))
 	return rv
 }
-
 // An array of types that specify the files types to which you can save.
 //
 // # Discussion
@@ -863,7 +845,6 @@ func (s NSSavePanel) AllowedContentTypes() []uniformtypeidentifiers.UTType {
 func (s NSSavePanel) SetAllowedContentTypes(value []uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowedContentTypes:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // A Boolean value that indicates whether the panel allows the user to save
 // files with a filename extension that’s not in the list of allowed types.
 //
@@ -889,7 +870,6 @@ func (s NSSavePanel) AllowsOtherFileTypes() bool {
 func (s NSSavePanel) SetAllowsOtherFileTypes(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsOtherFileTypes:"), value)
 }
-
 // A Boolean value that indicates whether the panel displays file packages as
 // directories.
 //
@@ -909,7 +889,6 @@ func (s NSSavePanel) TreatsFilePackagesAsDirectories() bool {
 func (s NSSavePanel) SetTreatsFilePackagesAsDirectories(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTreatsFilePackagesAsDirectories:"), value)
 }
-
 // [NSSavePanel]:The current type. If set to `nil`, resets to the first
 // allowed content type. Returns `nil` if `allowedContentTypes` is empty.
 // [NSOpenPanel]: Not used.
@@ -924,7 +903,6 @@ func (s NSSavePanel) CurrentContentType() uniformtypeidentifiers.UTType {
 func (s NSSavePanel) SetCurrentContentType(value uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCurrentContentType:"), value)
 }
-
 // [NSSavePanel]: Whether or not to show a control for selecting the type of
 // the saved file. The control shows the types in `allowedContentTypes`.
 // Default is [NO]. [NSOpenPanel]: Not used.
@@ -939,7 +917,6 @@ func (s NSSavePanel) ShowsContentTypes() bool {
 func (s NSSavePanel) SetShowsContentTypes(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsContentTypes:"), value)
 }
-
 // An array of filename extensions or UTIs that represent the allowed file
 // types for the panel.
 //
@@ -950,5 +927,35 @@ func (s NSSavePanel) AllowedFileTypes() string {
 }
 func (s NSSavePanel) SetAllowedFileTypes(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowedFileTypes:"), objc.String(value))
+}
+
+// BeginSheetModalForWindow is a synchronous wrapper around [NSSavePanel.BeginSheetModalForWindowCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s NSSavePanel) BeginSheetModalForWindow(ctx context.Context, window INSWindow) (NSModalResponse, error) {
+	done := make(chan NSModalResponse, 1)
+	s.BeginSheetModalForWindowCompletionHandler(window, func(val NSModalResponse) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
+}
+
+// Begin is a synchronous wrapper around [NSSavePanel.BeginWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s NSSavePanel) Begin(ctx context.Context) (NSModalResponse, error) {
+	done := make(chan NSModalResponse, 1)
+	s.BeginWithCompletionHandler(func(val NSModalResponse) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
 }
 

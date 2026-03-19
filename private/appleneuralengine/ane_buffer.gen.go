@@ -123,14 +123,12 @@ func NewANEBufferWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject,
 func (a ANEBuffer) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/initWithCoder:
 func (a ANEBuffer) InitWithCoder(coder foundation.INSCoder) ANEBuffer {
 	rv := objc.Send[ANEBuffer](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/initWithIOSurfaceObject:symbolIndex:source:
 func (a ANEBuffer) InitWithIOSurfaceObjectSymbolIndexSource(object objectivec.IObject, index objectivec.IObject, source int64) ANEBuffer {
@@ -144,7 +142,6 @@ func (_ANEBufferClass ANEBufferClass) BufferWithIOSurfaceObjectSymbolIndexSource
 	rv := objc.Send[objc.ID](objc.ID(_ANEBufferClass.class), objc.Sel("bufferWithIOSurfaceObject:symbolIndex:source:"), object, index, source)
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/supportsSecureCoding
 func (_ANEBufferClass ANEBufferClass) SupportsSecureCoding() bool {
 	rv := objc.Send[bool](objc.ID(_ANEBufferClass.class), objc.Sel("supportsSecureCoding"))
@@ -160,13 +157,11 @@ func (a ANEBuffer) IoSurfaceObject() *ANEIOSurfaceObject {
 	val := ANEIOSurfaceObjectFromID(objc.ID(rv))
 	return &val
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/source
 func (a ANEBuffer) Source() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("source"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEBuffer/symbolIndex
 func (a ANEBuffer) SymbolIndex() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("symbolIndex"))

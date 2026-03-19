@@ -42,18 +42,15 @@ func NSPasteboardTypeOwnerObjectFromID(id objc.ID) NSPasteboardTypeOwnerObject {
 // type: The data type.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardTypeOwner/pasteboard(_:provideDataForType:)
-
 func (o NSPasteboardTypeOwnerObject) PasteboardProvideDataForType(sender INSPasteboard, type_ NSPasteboardType) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboard:provideDataForType:"), sender, objc.String(string(type_)))
 	}
-
 // Notifies the object that the pasteboard’s owner changed.
 //
 // sender: The pasteboard whose owner changed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardTypeOwner/pasteboardChangedOwner(_:)
-
 func (o NSPasteboardTypeOwnerObject) PasteboardChangedOwner(sender INSPasteboard) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pasteboardChangedOwner:"), sender)

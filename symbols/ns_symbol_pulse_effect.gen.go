@@ -116,7 +116,6 @@ func (s NSSymbolPulseEffect) EffectWithByLayer() INSSymbolPulseEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolPulseEffectFromID(rv)
 }
-
 // A copy of the effect requesting an animation that pulses all layers
 // simultaneously.
 //

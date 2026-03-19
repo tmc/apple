@@ -228,7 +228,6 @@ func NewNSInvocation() NSInvocation {
 func (i NSInvocation) SetArgumentAtIndex(argumentLocation unsafe.Pointer, idx int) {
 	objc.Send[objc.ID](i.ID, objc.Sel("setArgument:atIndex:"), argumentLocation, idx)
 }
-
 // Returns by indirection the receiver’s argument at a specified index.
 //
 // argumentLocation: An untyped buffer to hold the returned argument. See the discussion below
@@ -263,7 +262,6 @@ func (i NSInvocation) SetArgumentAtIndex(argumentLocation unsafe.Pointer, idx in
 func (i NSInvocation) GetArgumentAtIndex(argumentLocation unsafe.Pointer, idx int) {
 	objc.Send[objc.ID](i.ID, objc.Sel("getArgument:atIndex:"), argumentLocation, idx)
 }
-
 // If the receiver hasn’t already done so, retains the target and all object
 // arguments of the receiver and copies all of its C-string arguments and
 // blocks. If a returnvalue has been set, this is also retained or copied.
@@ -288,7 +286,6 @@ func (i NSInvocation) GetArgumentAtIndex(argumentLocation unsafe.Pointer, idx in
 func (i NSInvocation) RetainArguments() {
 	objc.Send[objc.ID](i.ID, objc.Sel("retainArguments"))
 }
-
 // Sets the receiver’s return value.
 //
 // retLoc: An untyped buffer whose contents are copied as the receiver’s return
@@ -303,7 +300,6 @@ func (i NSInvocation) RetainArguments() {
 func (i NSInvocation) SetReturnValue(retLoc unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("setReturnValue:"), retLoc)
 }
-
 // Gets the invocation’s return value.
 //
 // retLoc: An untyped buffer into which the invocation copies its return value. It
@@ -330,7 +326,6 @@ func (i NSInvocation) SetReturnValue(retLoc unsafe.Pointer) {
 func (i NSInvocation) GetReturnValue(retLoc unsafe.Pointer) {
 	objc.Send[objc.ID](i.ID, objc.Sel("getReturnValue:"), retLoc)
 }
-
 // Sends the receiver’s message (with arguments) to its target and sets the
 // return value.
 //
@@ -343,7 +338,6 @@ func (i NSInvocation) GetReturnValue(retLoc unsafe.Pointer) {
 func (i NSInvocation) Invoke() {
 	objc.Send[objc.ID](i.ID, objc.Sel("invoke"))
 }
-
 // Sets the receiver’s target, sends the receiver’s message (with
 // arguments) to that target, and sets the return value.
 //
@@ -358,7 +352,6 @@ func (i NSInvocation) Invoke() {
 func (i NSInvocation) InvokeWithTarget(target objectivec.IObject) {
 	objc.Send[objc.ID](i.ID, objc.Sel("invokeWithTarget:"), target)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/invokeUsingIMP:
 func (i NSInvocation) InvokeUsingIMP(imp objectivec.IMP) {
@@ -395,7 +388,6 @@ func (i NSInvocation) Selector() objc.SEL {
 func (i NSInvocation) SetSelector(value objc.SEL) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSelector:"), value)
 }
-
 // The receiver’s target, or `nil` if the receiver has no target.
 //
 // # Discussion
@@ -410,7 +402,6 @@ func (i NSInvocation) Target() objectivec.IObject {
 func (i NSInvocation) SetTarget(value objectivec.IObject) {
 	objc.Send[struct{}](i.ID, objc.Sel("setTarget:"), value)
 }
-
 // A Boolean value that indicates if the receiver has retained its arguments.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/argumentsRetained
@@ -418,7 +409,6 @@ func (i NSInvocation) ArgumentsRetained() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("argumentsRetained"))
 	return rv
 }
-
 // The receiver’s method signature.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/methodSignature

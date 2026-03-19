@@ -151,7 +151,6 @@ func (s MTLStageInputOutputDescriptor) Attributes() IMTLAttributeDescriptorArray
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("attributes"))
 	return MTLAttributeDescriptorArrayFromID(objc.ID(rv))
 }
-
 // An array that describes how the function fetches data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStageInputOutputDescriptor/layouts
@@ -159,7 +158,6 @@ func (s MTLStageInputOutputDescriptor) Layouts() IMTLBufferLayoutDescriptorArray
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("layouts"))
 	return MTLBufferLayoutDescriptorArrayFromID(objc.ID(rv))
 }
-
 // The location of the index buffer for a compute function using indexed
 // thread addressing.
 //
@@ -171,7 +169,6 @@ func (s MTLStageInputOutputDescriptor) IndexBufferIndex() uint {
 func (s MTLStageInputOutputDescriptor) SetIndexBufferIndex(value uint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIndexBufferIndex:"), value)
 }
-
 // The data type of the indices stored in the index buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStageInputOutputDescriptor/indexType

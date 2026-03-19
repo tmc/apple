@@ -334,7 +334,6 @@ func (t NSTableColumn) InitWithIdentifier(identifier NSUserInterfaceItemIdentifi
 	rv := objc.Send[NSTableColumn](t.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return rv
 }
-
 // Resizes the table column to fit the width of its header cell.
 //
 // # Discussion
@@ -351,7 +350,6 @@ func (t NSTableColumn) InitWithIdentifier(identifier NSUserInterfaceItemIdentifi
 func (t NSTableColumn) SizeToFit() {
 	objc.Send[objc.ID](t.ID, objc.Sel("sizeToFit"))
 }
-
 // Returns the cell object used to display values in the specified row of the
 // table column.
 //
@@ -385,7 +383,6 @@ func (t NSTableColumn) DataCellForRow(row int) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("dataCellForRow:"), row)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/init(coder:)
 func (t NSTableColumn) InitWithCoder(coder foundation.INSCoder) NSTableColumn {
@@ -412,7 +409,6 @@ func (t NSTableColumn) TableView() INSTableView {
 func (t NSTableColumn) SetTableView(value INSTableView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTableView:"), value)
 }
-
 // The table column’s width, in points.
 //
 // # Discussion
@@ -435,7 +431,6 @@ func (t NSTableColumn) Width() float64 {
 func (t NSTableColumn) SetWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setWidth:"), value)
 }
-
 // The table column’s minimum width, in points.
 //
 // # Discussion
@@ -455,7 +450,6 @@ func (t NSTableColumn) MinWidth() float64 {
 func (t NSTableColumn) SetMinWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMinWidth:"), value)
 }
-
 // The table column’s maximum width, in points.
 //
 // # Discussion
@@ -475,7 +469,6 @@ func (t NSTableColumn) MaxWidth() float64 {
 func (t NSTableColumn) SetMaxWidth(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setMaxWidth:"), value)
 }
-
 // The table column’s resizing mask.
 //
 // # Discussion
@@ -498,7 +491,6 @@ func (t NSTableColumn) ResizingMask() NSTableColumnResizingOptions {
 func (t NSTableColumn) SetResizingMask(value NSTableColumnResizingOptions) {
 	objc.Send[struct{}](t.ID, objc.Sel("setResizingMask:"), value)
 }
-
 // The title of the table column’s header.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/title
@@ -509,7 +501,6 @@ func (t NSTableColumn) Title() string {
 func (t NSTableColumn) SetTitle(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // The cell used to draw the table column’s header.
 //
 // # Discussion
@@ -527,7 +518,6 @@ func (t NSTableColumn) HeaderCell() INSTableHeaderCell {
 func (t NSTableColumn) SetHeaderCell(value INSTableHeaderCell) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeaderCell:"), value)
 }
-
 // The identifier string for the table column.
 //
 // # Discussion
@@ -542,7 +532,6 @@ func (t NSTableColumn) Identifier() NSUserInterfaceItemIdentifier {
 func (t NSTableColumn) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-
 // A Boolean that indicates whether a cell-based table’s column cells are
 // user editable.
 //
@@ -564,7 +553,6 @@ func (t NSTableColumn) Editable() bool {
 func (t NSTableColumn) SetEditable(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEditable:"), value)
 }
-
 // The table column’s sort descriptor prototype.
 //
 // # Discussion
@@ -581,7 +569,6 @@ func (t NSTableColumn) SortDescriptorPrototype() foundation.INSSortDescriptor {
 func (t NSTableColumn) SetSortDescriptorPrototype(value foundation.INSSortDescriptor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSortDescriptorPrototype:"), value)
 }
-
 // A Boolean that indicates whether the table column is hidden.
 //
 // # Discussion
@@ -607,7 +594,6 @@ func (t NSTableColumn) Hidden() bool {
 func (t NSTableColumn) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
 }
-
 // The string that’s displayed in a help tag over the table column header.
 //
 // # Discussion
@@ -625,7 +611,6 @@ func (t NSTableColumn) HeaderToolTip() string {
 func (t NSTableColumn) SetHeaderToolTip(value string) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHeaderToolTip:"), objc.String(value))
 }
-
 // The cell prototype used by the table column to draw individual cells.
 //
 // # Discussion

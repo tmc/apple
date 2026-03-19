@@ -202,7 +202,6 @@ func (s NSStepperCell) MaxValue() float64 {
 func (s NSStepperCell) SetMaxValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxValue:"), value)
 }
-
 // The minimum value for the receiver.
 //
 // # Discussion
@@ -217,7 +216,6 @@ func (s NSStepperCell) MinValue() float64 {
 func (s NSStepperCell) SetMinValue(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinValue:"), value)
 }
-
 // The amount by which the receiver will change per increment or decrement.
 //
 // # Discussion
@@ -232,7 +230,6 @@ func (s NSStepperCell) Increment() float64 {
 func (s NSStepperCell) SetIncrement(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setIncrement:"), value)
 }
-
 // A Boolean value indicating how the receiver responds to mouse events.
 //
 // # Discussion
@@ -253,7 +250,6 @@ func (s NSStepperCell) Autorepeat() bool {
 func (s NSStepperCell) SetAutorepeat(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutorepeat:"), value)
 }
-
 // A Boolean value indicating whether the receiver wraps around the minimum
 // and maximum values.
 //

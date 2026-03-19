@@ -166,7 +166,6 @@ func (a MTLAccelerationStructureGeometryDescriptor) Label() string {
 func (a MTLAccelerationStructureGeometryDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // An index into the intersection table for determining which intersection
 // function Metal calls when it intersects a ray with the acceleration
 // structure.
@@ -179,7 +178,6 @@ func (a MTLAccelerationStructureGeometryDescriptor) IntersectionFunctionTableOff
 func (a MTLAccelerationStructureGeometryDescriptor) SetIntersectionFunctionTableOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIntersectionFunctionTableOffset:"), value)
 }
-
 // A Boolean value that determines whether the geometry data in the
 // acceleration structure needs to skip triangle-intersection tests.
 //
@@ -203,7 +201,6 @@ func (a MTLAccelerationStructureGeometryDescriptor) Opaque() bool {
 func (a MTLAccelerationStructureGeometryDescriptor) SetOpaque(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOpaque:"), value)
 }
-
 // A Boolean value that indicates whether Metal calls the ray-intersection
 // test more than once per primitive on the structure.
 //
@@ -215,7 +212,6 @@ func (a MTLAccelerationStructureGeometryDescriptor) AllowDuplicateIntersectionFu
 func (a MTLAccelerationStructureGeometryDescriptor) SetAllowDuplicateIntersectionFunctionInvocation(value bool) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAllowDuplicateIntersectionFunctionInvocation:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureGeometryDescriptor/primitiveDataBuffer
 func (a MTLAccelerationStructureGeometryDescriptor) PrimitiveDataBuffer() MTLBuffer {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("primitiveDataBuffer"))
@@ -224,7 +220,6 @@ func (a MTLAccelerationStructureGeometryDescriptor) PrimitiveDataBuffer() MTLBuf
 func (a MTLAccelerationStructureGeometryDescriptor) SetPrimitiveDataBuffer(value MTLBuffer) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPrimitiveDataBuffer:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureGeometryDescriptor/primitiveDataBufferOffset
 func (a MTLAccelerationStructureGeometryDescriptor) PrimitiveDataBufferOffset() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("primitiveDataBufferOffset"))
@@ -233,7 +228,6 @@ func (a MTLAccelerationStructureGeometryDescriptor) PrimitiveDataBufferOffset() 
 func (a MTLAccelerationStructureGeometryDescriptor) SetPrimitiveDataBufferOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPrimitiveDataBufferOffset:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureGeometryDescriptor/primitiveDataElementSize
 func (a MTLAccelerationStructureGeometryDescriptor) PrimitiveDataElementSize() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("primitiveDataElementSize"))
@@ -242,7 +236,6 @@ func (a MTLAccelerationStructureGeometryDescriptor) PrimitiveDataElementSize() u
 func (a MTLAccelerationStructureGeometryDescriptor) SetPrimitiveDataElementSize(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPrimitiveDataElementSize:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureGeometryDescriptor/primitiveDataStride
 func (a MTLAccelerationStructureGeometryDescriptor) PrimitiveDataStride() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("primitiveDataStride"))

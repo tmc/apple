@@ -115,7 +115,6 @@ func (v MTLVertexBufferLayoutDescriptorArray) ObjectAtIndexedSubscript(index uin
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return MTLVertexBufferLayoutDescriptorFromID(rv)
 }
-
 // Sets the state of the specified vertex buffer layout.
 //
 // bufferDesc: A descriptor that contains vertex buffer layout state.

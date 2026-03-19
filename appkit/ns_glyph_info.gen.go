@@ -242,7 +242,6 @@ func (g NSGlyphInfo) BaseString() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("baseString"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The glyph identifier, specified as the index into the internal glyph table
 // of the font.
 //
@@ -251,7 +250,6 @@ func (g NSGlyphInfo) GlyphID() coregraphics.CGFontIndex {
 	rv := objc.Send[coregraphics.CGFontIndex](g.ID, objc.Sel("glyphID"))
 	return coregraphics.CGFontIndex(rv)
 }
-
 // The receiver’s character identifier (CID).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/characterIdentifier
@@ -259,7 +257,6 @@ func (g NSGlyphInfo) CharacterIdentifier() uint {
 	rv := objc.Send[uint](g.ID, objc.Sel("characterIdentifier"))
 	return rv
 }
-
 // A value specifying the glyph–to–character identifier mapping of the
 // receiver.
 //
@@ -268,7 +265,6 @@ func (g NSGlyphInfo) CharacterCollection() NSCharacterCollection {
 	rv := objc.Send[NSCharacterCollection](g.ID, objc.Sel("characterCollection"))
 	return NSCharacterCollection(rv)
 }
-
 // The receiver’s glyph name.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/glyphName

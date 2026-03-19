@@ -141,7 +141,6 @@ func (p Pipe) FileHandleForReading() INSFileHandle {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("fileHandleForReading"))
 	return NSFileHandleFromID(objc.ID(rv))
 }
-
 // The receiver’s write file handle.
 //
 // # Discussion

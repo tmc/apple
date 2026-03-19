@@ -972,7 +972,6 @@ func NewMutableAttributedStringWithURLOptionsDocumentAttributesError(url INSURL,
 func (m NSMutableAttributedString) ReplaceCharactersInRangeWithString(range_ NSRange, str string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceCharactersInRange:withString:"), range_, objc.String(str))
 }
-
 // Deletes the characters in the given range along with their associated
 // attributes.
 //
@@ -989,7 +988,6 @@ func (m NSMutableAttributedString) ReplaceCharactersInRangeWithString(range_ NSR
 func (m NSMutableAttributedString) DeleteCharactersInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("deleteCharactersInRange:"), range_)
 }
-
 // Sets the attributes for the characters in the specified range to the
 // specified attributes.
 //
@@ -1016,7 +1014,6 @@ func (m NSMutableAttributedString) DeleteCharactersInRange(range_ NSRange) {
 func (m NSMutableAttributedString) SetAttributesRange(attrs INSDictionary, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setAttributes:range:"), attrs, range_)
 }
-
 // Adds an attribute with the given name and value to the characters in the
 // specified range.
 //
@@ -1044,7 +1041,6 @@ func (m NSMutableAttributedString) SetAttributesRange(attrs INSDictionary, range
 func (m NSMutableAttributedString) AddAttributeValueRange(name NSAttributedStringKey, value objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addAttribute:value:range:"), objc.String(string(name)), value, range_)
 }
-
 // Adds the given collection of attributes to the characters in the specified
 // range.
 //
@@ -1069,7 +1065,6 @@ func (m NSMutableAttributedString) AddAttributeValueRange(name NSAttributedStrin
 func (m NSMutableAttributedString) AddAttributesRange(attrs INSDictionary, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addAttributes:range:"), attrs, range_)
 }
-
 // Removes the named attribute from the characters in the specified range.
 //
 // name: A string specifying the attribute name to remove. Attribute keys can be
@@ -1090,7 +1085,6 @@ func (m NSMutableAttributedString) AddAttributesRange(attrs INSDictionary, range
 func (m NSMutableAttributedString) RemoveAttributeRange(name NSAttributedStringKey, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAttribute:range:"), objc.String(string(name)), range_)
 }
-
 // Applies the specified font-related attributes to characters in the string.
 //
 // traitMask: The font attributes to apply. For information about the font traits you can
@@ -1113,7 +1107,6 @@ func (m NSMutableAttributedString) RemoveAttributeRange(name NSAttributedStringK
 func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("applyFontTraits:range:"), traitMask, range_)
 }
-
 // Sets the alignment characteristic of the paragraph style attribute for the
 // specified range of text.
 //
@@ -1135,7 +1128,6 @@ func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask objectivec.IOb
 func (m NSMutableAttributedString) SetAlignmentRange(alignment objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setAlignment:range:"), alignment, range_)
 }
-
 // Sets the base writing direction for the characters to the specified
 // direction.
 //
@@ -1149,7 +1141,6 @@ func (m NSMutableAttributedString) SetAlignmentRange(alignment objectivec.IObjec
 func (m NSMutableAttributedString) SetBaseWritingDirectionRange(writingDirection objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setBaseWritingDirection:range:"), writingDirection, range_)
 }
-
 // Decrements the value of the superscript attribute for characters in the
 // specified range by one.
 //
@@ -1166,7 +1157,6 @@ func (m NSMutableAttributedString) SetBaseWritingDirectionRange(writingDirection
 func (m NSMutableAttributedString) SubscriptRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("subscriptRange:"), range_)
 }
-
 // Increments the value of the superscript attribute for characters in the
 // specified range by one.
 //
@@ -1183,7 +1173,6 @@ func (m NSMutableAttributedString) SubscriptRange(range_ NSRange) {
 func (m NSMutableAttributedString) SuperscriptRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("superscriptRange:"), range_)
 }
-
 // Removes the superscript attribute from the characters in the specified
 // range.
 //
@@ -1200,7 +1189,6 @@ func (m NSMutableAttributedString) SuperscriptRange(range_ NSRange) {
 func (m NSMutableAttributedString) UnscriptRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("unscriptRange:"), range_)
 }
-
 // Adds the characters and attributes of a given attributed string to the end
 // of the receiver.
 //
@@ -1210,7 +1198,6 @@ func (m NSMutableAttributedString) UnscriptRange(range_ NSRange) {
 func (m NSMutableAttributedString) AppendAttributedString(attrString INSAttributedString) {
 	objc.Send[objc.ID](m.ID, objc.Sel("appendAttributedString:"), attrString)
 }
-
 // Inserts the characters and attributes of the given attributed string into
 // the receiver at the given index.
 //
@@ -1231,7 +1218,6 @@ func (m NSMutableAttributedString) AppendAttributedString(attrString INSAttribut
 func (m NSMutableAttributedString) InsertAttributedStringAtIndex(attrString INSAttributedString, loc uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertAttributedString:atIndex:"), attrString, loc)
 }
-
 // Replaces the characters and attributes in a given range with the characters
 // and attributes of the given attributed string.
 //
@@ -1251,7 +1237,6 @@ func (m NSMutableAttributedString) InsertAttributedStringAtIndex(attrString INSA
 func (m NSMutableAttributedString) ReplaceCharactersInRangeWithAttributedString(range_ NSRange, attrString INSAttributedString) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceCharactersInRange:withAttributedString:"), range_, attrString)
 }
-
 // Replaces the receiver’s entire contents with the characters and
 // attributes of the given attributed string.
 //
@@ -1262,7 +1247,6 @@ func (m NSMutableAttributedString) ReplaceCharactersInRangeWithAttributedString(
 func (m NSMutableAttributedString) SetAttributedString(attrString INSAttributedString) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setAttributedString:"), attrString)
 }
-
 // Begins the buffering of changes to the string’s characters and
 // attributes.
 //
@@ -1279,7 +1263,6 @@ func (m NSMutableAttributedString) SetAttributedString(attrString INSAttributedS
 func (m NSMutableAttributedString) BeginEditing() {
 	objc.Send[objc.ID](m.ID, objc.Sel("beginEditing"))
 }
-
 // Ends the buffering of changes to the string’s characters and attributes.
 //
 // # Discussion
@@ -1298,7 +1281,6 @@ func (m NSMutableAttributedString) BeginEditing() {
 func (m NSMutableAttributedString) EndEditing() {
 	objc.Send[objc.ID](m.ID, objc.Sel("endEditing"))
 }
-
 // Updates all attachments based on files contained in the RTFD file package
 // at the specified file path.
 //
@@ -1308,7 +1290,6 @@ func (m NSMutableAttributedString) EndEditing() {
 func (m NSMutableAttributedString) UpdateAttachmentsFromPath(path string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("updateAttachmentsFromPath:"), objc.String(path))
 }
-
 // Cleans up font, paragraph style, and attachment attributes within the given
 // range.
 //
@@ -1346,7 +1327,6 @@ func (m NSMutableAttributedString) UpdateAttachmentsFromPath(path string) {
 func (m NSMutableAttributedString) FixAttributesInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("fixAttributesInRange:"), range_)
 }
-
 // Cleans up attachment attributes in the specified range and removes all
 // attachment attributes assigned to characters except the designated
 // attachment character.
@@ -1366,7 +1346,6 @@ func (m NSMutableAttributedString) FixAttributesInRange(range_ NSRange) {
 func (m NSMutableAttributedString) FixAttachmentAttributeInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("fixAttachmentAttributeInRange:"), range_)
 }
-
 // Fixes the font attribute in the specified range and assigns default fonts
 // where appropriate.
 //
@@ -1386,7 +1365,6 @@ func (m NSMutableAttributedString) FixAttachmentAttributeInRange(range_ NSRange)
 func (m NSMutableAttributedString) FixFontAttributeInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("fixFontAttributeInRange:"), range_)
 }
-
 // Fixes the paragraph style attributes in the specified range and assigns a
 // paragraph style to all characters in the paragraph.
 //
@@ -1412,7 +1390,6 @@ func (m NSMutableAttributedString) FixFontAttributeInRange(range_ NSRange) {
 func (m NSMutableAttributedString) FixParagraphStyleAttributeInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("fixParagraphStyleAttributeInRange:"), range_)
 }
-
 // Sets the contents of the attributed string using the specified data
 // object`.`
 //
@@ -1456,7 +1433,6 @@ func (m NSMutableAttributedString) ReadFromDataOptionsDocumentAttributesError(da
 	return rv, nil
 
 }
-
 // Sets the contents of attributed string using the contents of the specified
 // file.
 //
@@ -1496,7 +1472,6 @@ func (m NSMutableAttributedString) ReadFromURLOptionsDocumentAttributesError(url
 	return rv, nil
 
 }
-
 // Formats the specified string and arguments with the current locale, then
 // appends the result to the receiver.
 //

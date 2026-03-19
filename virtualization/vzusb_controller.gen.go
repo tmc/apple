@@ -154,7 +154,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](u.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
 }
-
 // Detaches a USB device from the controller.
 //
 // device: The USB device to detach.
@@ -196,7 +195,6 @@ func (u VZUSBController) UsbDevices() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // The list of runtime USB controller objects.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/usbcontrollers

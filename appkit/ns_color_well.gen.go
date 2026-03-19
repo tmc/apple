@@ -295,7 +295,6 @@ func NewColorWellWithStyle(style NSColorWellStyle) NSColorWell {
 func (c NSColorWell) TakeColorFrom(sender objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("takeColorFrom:"), sender)
 }
-
 // Activates the color well, displays the color panel, and synchronizes the
 // two UI elements.
 //
@@ -321,7 +320,6 @@ func (c NSColorWell) TakeColorFrom(sender objectivec.IObject) {
 func (c NSColorWell) Activate(exclusive bool) {
 	objc.Send[objc.ID](c.ID, objc.Sel("activate:"), exclusive)
 }
-
 // Deactivates the color well.
 //
 // # Discussion
@@ -334,7 +332,6 @@ func (c NSColorWell) Activate(exclusive bool) {
 func (c NSColorWell) Deactivate() {
 	objc.Send[objc.ID](c.ID, objc.Sel("deactivate"))
 }
-
 // Draws the area inside the color well at the specified location without
 // drawing borders.
 //
@@ -360,7 +357,6 @@ func (c NSColorWell) Color() INSColor {
 func (c NSColorWell) SetColor(value INSColor) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColor:"), value)
 }
-
 // A Boolean value that determines whether the color picker supports alpha
 // values.
 //
@@ -387,7 +383,6 @@ func (c NSColorWell) SupportsAlpha() bool {
 func (c NSColorWell) SetSupportsAlpha(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSupportsAlpha:"), value)
 }
-
 // The maximum linear exposure a color in this color well can be set to.
 // Defaults to 1 and ignores any value less than 1. If set to a value >= 2,
 // the color picked for this well may have a linear exposure applied to it.
@@ -400,7 +395,6 @@ func (c NSColorWell) MaximumLinearExposure() float64 {
 func (c NSColorWell) SetMaximumLinearExposure(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaximumLinearExposure:"), value)
 }
-
 // The appearance and interaction style to apply to the color well.
 //
 // # Discussion
@@ -418,7 +412,6 @@ func (c NSColorWell) ColorWellStyle() NSColorWellStyle {
 func (c NSColorWell) SetColorWellStyle(value NSColorWellStyle) {
 	objc.Send[struct{}](c.ID, objc.Sel("setColorWellStyle:"), value)
 }
-
 // The image to display on the button portion of a color well that adopts the
 // expanded style.
 //
@@ -437,7 +430,6 @@ func (c NSColorWell) Image() INSImage {
 func (c NSColorWell) SetImage(value INSImage) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImage:"), value)
 }
-
 // A Boolean value that determines whether the color well has a border.
 //
 // # Discussion
@@ -460,7 +452,6 @@ func (c NSColorWell) Bordered() bool {
 func (c NSColorWell) SetBordered(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setBordered:"), value)
 }
-
 // A Boolean value that indicates whether the color well is currently active.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorWell/isActive
@@ -468,7 +459,6 @@ func (c NSColorWell) Active() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isActive"))
 	return rv
 }
-
 // The action to perform when someone clicks in the color area of the color
 // well.
 //
@@ -492,7 +482,6 @@ func (c NSColorWell) PulldownAction() objc.SEL {
 func (c NSColorWell) SetPulldownAction(value objc.SEL) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPulldownAction:"), value)
 }
-
 // The target object that defines the action you want to perform when someone
 // interacts with the color well.
 //

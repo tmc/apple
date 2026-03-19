@@ -448,7 +448,6 @@ func (t NSTouchBarItem) InitWithIdentifier(identifier NSTouchBarItemIdentifier) 
 	rv := objc.Send[NSTouchBarItem](t.ID, objc.Sel("initWithIdentifier:"), objc.String(string(identifier)))
 	return rv
 }
-
 // Initializes and returns a new item from a storyboard or nib file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/init(coder:)
@@ -473,7 +472,6 @@ func (t NSTouchBarItem) Identifier() NSTouchBarItemIdentifier {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("identifier"))
 	return NSTouchBarItemIdentifier(foundation.NSStringFromID(rv).String())
 }
-
 // Determines which items are shown in a bar when space is limited.
 //
 // # Discussion
@@ -490,7 +488,6 @@ func (t NSTouchBarItem) VisibilityPriority() NSTouchBarItemPriority {
 func (t NSTouchBarItem) SetVisibilityPriority(value NSTouchBarItemPriority) {
 	objc.Send[struct{}](t.ID, objc.Sel("setVisibilityPriority:"), value)
 }
-
 // A Boolean value that reflects whether or not the item is visible.
 //
 // # Discussion
@@ -508,7 +505,6 @@ func (t NSTouchBarItem) Visible() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isVisible"))
 	return rv
 }
-
 // The user-visible string identifying this item during bar customization.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/customizationLabel
@@ -516,7 +512,6 @@ func (t NSTouchBarItem) CustomizationLabel() string {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("customizationLabel"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The view controller associated with this item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/viewController
@@ -524,7 +519,6 @@ func (t NSTouchBarItem) ViewController() INSViewController {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("viewController"))
 	return NSViewControllerFromID(objc.ID(rv))
 }
-
 // The view associated with this item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarItem/view
@@ -532,7 +526,6 @@ func (t NSTouchBarItem) View() INSView {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("view"))
 	return NSViewFromID(objc.ID(rv))
 }
-
 // The view displayed when this item is displayed in its parent bar.
 //
 // See: https://developer.apple.com/documentation/appkit/nspopovertouchbaritem/collapsedrepresentation
@@ -543,7 +536,6 @@ func (t NSTouchBarItem) CollapsedRepresentation() INSView {
 func (t NSTouchBarItem) SetCollapsedRepresentation(value INSView) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCollapsedRepresentation:"), value)
 }
-
 // A bar that holds this group’s items.
 //
 // See: https://developer.apple.com/documentation/appkit/nsgrouptouchbaritem/grouptouchbar
@@ -554,7 +546,6 @@ func (t NSTouchBarItem) GroupTouchBar() INSTouchBar {
 func (t NSTouchBarItem) SetGroupTouchBar(value INSTouchBar) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGroupTouchBar:"), value)
 }
-
 // A Boolean value indicating whether the receiver’s cell sends its action
 // message continuously to its target during mouse tracking.
 //
@@ -566,7 +557,6 @@ func (t NSTouchBarItem) IsContinuous() bool {
 func (t NSTouchBarItem) SetIsContinuous(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setContinuous:"), value)
 }
-
 // The bar displayed when this item is “popped.”
 //
 // See: https://developer.apple.com/documentation/appkit/nspopovertouchbaritem/popovertouchbar
@@ -577,7 +567,6 @@ func (t NSTouchBarItem) PopoverTouchBar() INSTouchBar {
 func (t NSTouchBarItem) SetPopoverTouchBar(value INSTouchBar) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPopoverTouchBar:"), value)
 }
-
 // The bar that is displayed when a user press-and-holds on the popover item.
 //
 // See: https://developer.apple.com/documentation/appkit/nspopovertouchbaritem/pressandholdtouchbar
@@ -588,7 +577,6 @@ func (t NSTouchBarItem) PressAndHoldTouchBar() INSTouchBar {
 func (t NSTouchBarItem) SetPressAndHoldTouchBar(value INSTouchBar) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPressAndHoldTouchBar:"), value)
 }
-
 // The identifier of an item you want the system to center in the Touch Bar.
 //
 // See: https://developer.apple.com/documentation/appkit/nstouchbar/principalitemidentifier
@@ -599,7 +587,6 @@ func (t NSTouchBarItem) PrincipalItemIdentifier() NSTouchBarItemIdentifier {
 func (t NSTouchBarItem) SetPrincipalItemIdentifier(value NSTouchBarItemIdentifier) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPrincipalItemIdentifier:"), objc.String(string(value)))
 }
-
 // The type of tracking behavior the control exhibits.
 //
 // See: https://developer.apple.com/documentation/appkit/nssegmentedcontrol/trackingmode
@@ -618,7 +605,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAddDetailTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAddDetailTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for creating a new item.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbaraddtemplatename
@@ -626,7 +612,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAddTemplateName() string
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAddTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for setting or showing an alarm.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbaralarmtemplatename
@@ -634,7 +619,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAlarmTemplateName() stri
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAlarmTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for muting audio input or denoting that audio input is
 // muted.
 //
@@ -643,7 +627,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAudioInputMuteTemplateNa
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAudioInputMuteTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for denoting audio input.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbaraudioinputtemplatename
@@ -651,7 +634,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAudioInputTemplateName()
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAudioInputTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for muting audio output or for denoting that audio output
 // is muted.
 //
@@ -660,7 +642,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAudioOutputMuteTemplateN
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAudioOutputMuteTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for setting the audio output volume to a high level, or
 // for denoting that the audio is at the peak volume.
 //
@@ -669,7 +650,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAudioOutputVolumeHighTem
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAudioOutputVolumeHighTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for setting the audio output volume to a low level, or for
 // denoting that it is set to a low level.
 //
@@ -678,7 +658,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAudioOutputVolumeLowTemp
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAudioOutputVolumeLowTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for setting the audio output volume to a medium level, or
 // for denoting that it is set to a medium level.
 //
@@ -687,7 +666,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAudioOutputVolumeMediumT
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAudioOutputVolumeMediumTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for setting the audio output volume to silent, or for
 // denoting that it is set to silent.
 //
@@ -696,7 +674,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarAudioOutputVolumeOffTemp
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarAudioOutputVolumeOffTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing app-specific bookmarks.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarbookmarkstemplatename
@@ -704,7 +681,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarBookmarksTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarBookmarksTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing a color picker so the user can select a fill
 // color.
 //
@@ -713,7 +689,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarColorPickerFillName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarColorPickerFill"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing a color picker so the user can select a text
 // color.
 //
@@ -722,7 +697,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarColorPickerFontName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarColorPickerFont"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing a color picker so the user can select a stroke
 // color.
 //
@@ -731,7 +705,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarColorPickerStrokeName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarColorPickerStroke"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for initiating or denoting audio communication.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarcommunicationaudiotemplatename
@@ -739,7 +712,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarCommunicationAudioTempla
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarCommunicationAudioTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for initiating or denoting video communication.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarcommunicationvideotemplatename
@@ -747,7 +719,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarCommunicationVideoTempla
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarCommunicationVideoTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for opening a new document or view in edit mode.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarcomposetemplatename
@@ -755,7 +726,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarComposeTemplateName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarComposeTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for deleting the current or selected item.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbardeletetemplatename
@@ -763,7 +733,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarDeleteTemplateName() str
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarDeleteTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for downloading an item.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbardownloadtemplatename
@@ -771,7 +740,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarDownloadTemplateName() s
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarDownloadTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for entering full screen mode.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarenterfullscreentemplatename
@@ -779,7 +747,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarEnterFullScreenTemplateN
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarEnterFullScreenTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for exiting full screen mode.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarexitfullscreentemplatename
@@ -787,7 +754,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarExitFullScreenTemplateNa
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarExitFullScreenTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for moving forward through media playback or slides.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarfastforwardtemplatename
@@ -795,7 +761,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarFastForwardTemplateName(
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarFastForwardTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for opening or representing a folder.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarfoldertemplatename
@@ -803,7 +768,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarFolderTemplateName() str
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarFolderTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for copying an item to a destination.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarfoldercopytotemplatename
@@ -811,7 +775,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarFolderCopyToTemplateName
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarFolderCopyToTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for moving an item to a destination.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarfoldermovetotemplatename
@@ -819,7 +782,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarFolderMoveToTemplateName
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarFolderMoveToTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing information about an item.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbargetinfotemplatename
@@ -827,7 +789,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarGetInfoTemplateName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarGetInfoTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for returning to the previous screen or location.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbargobacktemplatename
@@ -835,7 +796,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarGoBackTemplateName() str
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarGoBackTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for moving to the next item in a list.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbargodowntemplatename
@@ -843,7 +803,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarGoDownTemplateName() str
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarGoDownTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for moving to the next screen or location.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbargoforwardtemplatename
@@ -851,7 +810,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarGoForwardTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarGoForwardTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for moving to the previous item in a list.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbargouptemplatename
@@ -859,7 +817,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarGoUpTemplateName() strin
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarGoUpTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing history information, such as recent downloads.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarhistorytemplatename
@@ -867,7 +824,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarHistoryTemplateName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarHistoryTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing items in an icon view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbariconviewtemplatename
@@ -875,7 +831,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarIconViewTemplateName() s
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarIconViewTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing items in a list view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarlistviewtemplatename
@@ -883,7 +838,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarListViewTemplateName() s
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarListViewTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for creating an email message.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarmailtemplatename
@@ -891,7 +845,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarMailTemplateName() strin
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarMailTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for creating a new folder.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarnewfoldertemplatename
@@ -899,7 +852,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarNewFolderTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarNewFolderTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for creating a new message, or for denoting the use of
 // messaging.
 //
@@ -908,7 +860,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarNewMessageTemplateName()
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarNewMessageTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for opening an item in the user’s browser.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbaropeninbrowsertemplatename
@@ -916,7 +867,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarOpenInBrowserTemplateNam
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarOpenInBrowserTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for pausing media playback or slides.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarpausetemplatename
@@ -924,7 +874,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarPauseTemplateName() stri
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarPauseTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for starting or resuming playback of media or slides.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarplaytemplatename
@@ -932,7 +881,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarPlayTemplateName() strin
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarPlayTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for toggling between playing and pausing media or slides.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarplaypausetemplatename
@@ -940,7 +888,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarPlayPauseTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarPlayPauseTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for denoting the current playback position within a
 // timeline track.
 //
@@ -949,7 +896,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarPlayheadTemplateName() s
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarPlayheadTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for opening an item in Quick Look.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarquicklooktemplatename
@@ -957,7 +903,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarQuickLookTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarQuickLookTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for starting recording.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarrecordstarttemplatename
@@ -965,7 +910,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarRecordStartTemplateName(
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarRecordStartTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for stopping recording or stopping playback of media or
 // slides.
 //
@@ -974,7 +918,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarRecordStopTemplateName()
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarRecordStopTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for refreshing displayed data.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarrefreshtemplatename
@@ -982,7 +925,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarRefreshTemplateName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarRefreshTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for moving backwards through media or slides.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarrewindtemplatename
@@ -990,7 +932,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarRewindTemplateName() str
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarRewindTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for rotating an item counterclockwise.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarrotatelefttemplatename
@@ -998,7 +939,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarRotateLeftTemplateName()
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarRotateLeftTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for rotating an item clockwise.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarrotaterighttemplatename
@@ -1006,7 +946,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarRotateRightTemplateName(
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarRotateRightTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing a search field or for initiating a search.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarsearchtemplatename
@@ -1014,7 +953,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSearchTemplateName() str
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSearchTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for sharing content with others directly or via social
 // media.
 //
@@ -1023,7 +961,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarShareTemplateName() stri
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarShareTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing a sidebar in the current view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarsidebartemplatename
@@ -1031,7 +968,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSidebarTemplateName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSidebarTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for skipping to the previous chapter or location during
 // media playback.
 //
@@ -1040,7 +976,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSkipBackTemplateName() s
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSkipBackTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for skipping to the start of media playback.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarskiptostarttemplatename
@@ -1048,7 +983,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSkipToStartTemplateName(
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSkipToStartTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for skipping back 30 seconds during media playback.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarskipback30secondstemplatename
@@ -1056,7 +990,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSkipBack30SecondsTemplat
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSkipBack30SecondsTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for skipping back 15 seconds during media playback.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarskipback15secondstemplatename
@@ -1064,7 +997,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSkipBack15SecondsTemplat
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSkipBack15SecondsTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for skipping ahead 15 seconds during media playback.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarskipahead15secondstemplatename
@@ -1072,7 +1004,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSkipAhead15SecondsTempla
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSkipAhead15SecondsTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for skipping ahead 30 seconds during media playback.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarskipahead30secondstemplatename
@@ -1080,7 +1011,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSkipAhead30SecondsTempla
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSkipAhead30SecondsTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for skipping to the end of media playback.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarskiptoendtemplatename
@@ -1088,7 +1018,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSkipToEndTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSkipToEndTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for skipping to the next chapter or location during media
 // playback.
 //
@@ -1097,7 +1026,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSkipAheadTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSkipAheadTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for starting a slideshow.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarslideshowtemplatename
@@ -1105,7 +1033,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarSlideshowTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarSlideshowTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for applying a tag to an item.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartagicontemplatename
@@ -1113,7 +1040,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTagIconTemplateName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTagIconTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for inserting a text box.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextboxtemplatename
@@ -1121,7 +1047,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextBoxTemplateName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextBoxTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for inserting a list or converting text to list form.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextlisttemplatename
@@ -1129,7 +1054,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextListTemplateName() s
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextListTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for making selected text bold.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextboldtemplatename
@@ -1137,7 +1061,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextBoldTemplateName() s
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextBoldTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for italicizing the selected text.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextitalictemplatename
@@ -1145,7 +1068,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextItalicTemplateName()
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextItalicTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for underlining text.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextunderlinetemplatename
@@ -1153,7 +1075,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextUnderlineTemplateNam
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextUnderlineTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for striking through text.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextstrikethroughtemplatename
@@ -1161,7 +1082,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextStrikethroughTemplat
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextStrikethroughTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for fully justifying text.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextjustifiedaligntemplatename
@@ -1169,7 +1089,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextJustifiedAlignTempla
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextJustifiedAlignTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for aligning text to the left.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextleftaligntemplatename
@@ -1177,7 +1096,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextLeftAlignTemplateNam
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextLeftAlignTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for centering text.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextcenteraligntemplatename
@@ -1185,7 +1103,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextCenterAlignTemplateN
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextCenterAlignTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for aligning text to the right.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbartextrightaligntemplatename
@@ -1193,7 +1110,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarTextRightAlignTemplateNa
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarTextRightAlignTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing or representing user information.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarusertemplatename
@@ -1201,7 +1117,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarUserTemplateName() strin
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarUserTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for creating a new user account.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbaruseraddtemplatename
@@ -1209,7 +1124,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarUserAddTemplateName() st
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarUserAddTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for showing or representing a group of users.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarusergrouptemplatename
@@ -1217,7 +1131,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarUserGroupTemplateName() 
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarUserGroupTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A template image for increasing the audio output volume.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarvolumeuptemplatename
@@ -1225,7 +1138,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TouchBarVolumeUpTemplateName() s
 	rv := objc.Send[objc.ID](objc.ID(_NSTouchBarItemClass.class), objc.Sel("NSImageNameTouchBarVolumeUpTemplate"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The primary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/labelcolor
@@ -1236,7 +1148,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) LabelColor() NSColor {
 func (_NSTouchBarItemClass NSTouchBarItemClass) SetLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSTouchBarItemClass.class), objc.Sel("setLabelColor:"), value)
 }
-
 // The quaternary color to use for text labels and separators.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/quaternarylabelcolor
@@ -1247,7 +1158,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) QuaternaryLabelColor() NSColor {
 func (_NSTouchBarItemClass NSTouchBarItemClass) SetQuaternaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSTouchBarItemClass.class), objc.Sel("setQuaternaryLabelColor:"), value)
 }
-
 // The secondary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/secondarylabelcolor
@@ -1258,7 +1168,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) SecondaryLabelColor() NSColor {
 func (_NSTouchBarItemClass NSTouchBarItemClass) SetSecondaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSTouchBarItemClass.class), objc.Sel("setSecondaryLabelColor:"), value)
 }
-
 // The tertiary color to use for text labels.
 //
 // See: https://developer.apple.com/documentation/appkit/nscolor/tertiarylabelcolor
@@ -1269,7 +1178,6 @@ func (_NSTouchBarItemClass NSTouchBarItemClass) TertiaryLabelColor() NSColor {
 func (_NSTouchBarItemClass NSTouchBarItemClass) SetTertiaryLabelColor(value NSColor) {
 	objc.Send[struct{}](objc.ID(_NSTouchBarItemClass.class), objc.Sel("setTertiaryLabelColor:"), value)
 }
-
 // A template image for reducing the audio output volume.
 //
 // See: https://developer.apple.com/documentation/appkit/nsimage/touchbarvolumedowntemplatename

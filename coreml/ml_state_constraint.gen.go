@@ -115,7 +115,6 @@ func (s MLStateConstraint) BufferShape() int {
 func (s MLStateConstraint) SetBufferShape(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBufferShape:"), value)
 }
-
 // The data type of scalars in the state buffer.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLStateConstraint/dataType

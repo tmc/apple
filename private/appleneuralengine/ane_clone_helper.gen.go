@@ -80,7 +80,6 @@ func (_ANECloneHelperClass ANECloneHelperClass) CloneIfWritableIsEncryptedModelC
 	rv := objc.Send[objc.ID](objc.ID(_ANECloneHelperClass.class), objc.Sel("cloneIfWritable:isEncryptedModel:cloneDirectory:"), writable, model, directory)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECloneHelper/shouldSkipCloneFor:isEncryptedModel:
 func (_ANECloneHelperClass ANECloneHelperClass) ShouldSkipCloneForIsEncryptedModel(for_ objectivec.IObject, model bool) bool {

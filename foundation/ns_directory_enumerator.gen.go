@@ -145,7 +145,6 @@ func NewNSDirectoryEnumerator() NSDirectoryEnumerator {
 func (d NSDirectoryEnumerator) SkipDescendents() {
 	objc.Send[objc.ID](d.ID, objc.Sel("skipDescendents"))
 }
-
 // Causes the receiver to skip recursion into the most recently obtained
 // subdirectory.
 //
@@ -172,7 +171,6 @@ func (d NSDirectoryEnumerator) DirectoryAttributes() INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("directoryAttributes"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // A dictionary with the attributes of the most recently returned file or
 // subdirectory (as referenced by the pathname).
 //
@@ -187,7 +185,6 @@ func (d NSDirectoryEnumerator) FileAttributes() INSDictionary {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileAttributes"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // The number of levels deep the current object is in the directory hierarchy
 // being enumerated.
 //
@@ -202,7 +199,6 @@ func (d NSDirectoryEnumerator) Level() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("level"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerator/isEnumeratingDirectoryPostOrder
 func (d NSDirectoryEnumerator) IsEnumeratingDirectoryPostOrder() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEnumeratingDirectoryPostOrder"))

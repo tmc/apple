@@ -140,7 +140,6 @@ func (u VZUSBMassStorageDevice) UsbController() IVZUSBController {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(objc.ID(rv))
 }
-
 // The list of attached USB devices for the controller.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzusbcontroller/usbdevices
@@ -151,7 +150,6 @@ func (u VZUSBMassStorageDevice) UsbDevices() VZUSBDevice {
 func (u VZUSBMassStorageDevice) SetUsbDevices(value VZUSBDevice) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUsbDevices:"), value)
 }
-
 // The device’s unique identifier.
 //
 // # Discussion

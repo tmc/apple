@@ -124,7 +124,6 @@ func (r MLRExtensionRemoteContext) InitWithInputItemsListenerEndpointContextUUID
 	rv := objc.Send[MLRExtensionRemoteContext](r.ID, objc.Sel("initWithInputItems:listenerEndpoint:contextUUID:"), items, endpoint, uuid)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionRemoteContext/initWithInputItems:listenerEndpoint:contextUUID:plugin:
 func (r MLRExtensionRemoteContext) InitWithInputItemsListenerEndpointContextUUIDPlugin(items objectivec.IObject, endpoint objectivec.IObject, uuid objectivec.IObject, plugin objectivec.IObject) MLRExtensionRemoteContext {
@@ -137,19 +136,16 @@ func (r MLRExtensionRemoteContext) DebugDescription() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionRemoteContext/description
 func (r MLRExtensionRemoteContext) Description() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionRemoteContext/hash
 func (r MLRExtensionRemoteContext) Hash() uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("hash"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRExtensionRemoteContext/superclass
 func (r MLRExtensionRemoteContext) Superclass() objc.Class {
 	rv := objc.Send[objc.Class](r.ID, objc.Sel("superclass"))

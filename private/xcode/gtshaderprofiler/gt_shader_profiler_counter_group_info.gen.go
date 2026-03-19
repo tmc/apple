@@ -144,55 +144,46 @@ func (g GTShaderProfilerCounterGroupInfo) BasisCondition() int {
 	rv := objc.Send[int](g.ID, objc.Sel("basisCondition"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/basisCounter
 func (g GTShaderProfilerCounterGroupInfo) BasisCounter() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("basisCounter"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/counters
 func (g GTShaderProfilerCounterGroupInfo) Counters() foundation.INSArray {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("counters"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/description
 func (g GTShaderProfilerCounterGroupInfo) Description() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/displayStyle
 func (g GTShaderProfilerCounterGroupInfo) DisplayStyle() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("displayStyle"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/maskInCompute
 func (g GTShaderProfilerCounterGroupInfo) MaskInCompute() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("maskInCompute"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/name
 func (g GTShaderProfilerCounterGroupInfo) Name() string {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/resourceLink
 func (g GTShaderProfilerCounterGroupInfo) ResourceLink() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("resourceLink"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/sumCounterIndex
 func (g GTShaderProfilerCounterGroupInfo) SumCounterIndex() uint64 {
 	rv := objc.Send[uint64](g.ID, objc.Sel("sumCounterIndex"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerCounterGroupInfo/valueRange
 func (g GTShaderProfilerCounterGroupInfo) ValueRange() foundation.NSRange {
 	rv := objc.Send[foundation.NSRange](g.ID, objc.Sel("valueRange"))

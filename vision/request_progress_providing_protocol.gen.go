@@ -49,18 +49,15 @@ func VNRequestProgressProvidingObjectFromID(id objc.ID) VNRequestProgressProvidi
 // progress on long-running tasks.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
-
 func (o VNRequestProgressProvidingObject) ProgressHandler() VNRequestProgressHandler {
 	
 	rv := objc.Send[VNRequestProgressHandler](o.ID, objc.Sel("progressHandler"))
 	return rv
 	}
-
 // A Boolean set to true when a request can’t determine its progress in
 // fractions completed.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/indeterminate
-
 func (o VNRequestProgressProvidingObject) Indeterminate() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("indeterminate"))

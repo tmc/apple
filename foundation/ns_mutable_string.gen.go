@@ -180,14 +180,6 @@ func NewMutableStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSMuta
 	return NSMutableStringFromID(rv)
 }
 
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:deallocator:)
-func NewMutableStringWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator unsafe.Pointer) NSMutableString {
-	instance := getNSMutableStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:deallocator:"), bytes, len_, encoding, deallocator)
-	return NSMutableStringFromID(rv)
-}
-
 // Returns an initialized [NSString] object that contains a given number of
 // bytes from a given buffer of bytes interpreted in a given encoding, and
 // optionally frees the buffer.
@@ -300,14 +292,6 @@ func NewMutableStringWithCapacity(capacity uint) NSMutableString {
 func NewMutableStringWithCharactersLength(characters unsafe.Pointer, length uint) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharacters:length:"), characters, length)
-	return NSMutableStringFromID(rv)
-}
-
-//
-// See: https://developer.apple.com/documentation/Foundation/NSString/init(charactersNoCopy:length:deallocator:)
-func NewMutableStringWithCharactersNoCopyLengthDeallocator(chars unsafe.Pointer, len_ uint, deallocator unsafe.Pointer) NSMutableString {
-	instance := getNSMutableStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCharactersNoCopy:length:deallocator:"), chars, len_, deallocator)
 	return NSMutableStringFromID(rv)
 }
 
@@ -736,7 +720,6 @@ func (m NSMutableString) InitWithCapacity(capacity uint) NSMutableString {
 	rv := objc.Send[NSMutableString](m.ID, objc.Sel("initWithCapacity:"), capacity)
 	return rv
 }
-
 // Adds to the end of the receiver the characters of a given string.
 //
 // aString: The string to append to the receiver. `aString` must not be `nil`
@@ -745,7 +728,6 @@ func (m NSMutableString) InitWithCapacity(capacity uint) NSMutableString {
 func (m NSMutableString) AppendString(aString string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("appendString:"), objc.String(aString))
 }
-
 // Transliterates the receiver by applying a specified ICU string transform.
 //
 // transform: The transformation to apply. For a list of possible values, see [String
@@ -787,7 +769,6 @@ func (m NSMutableString) ApplyTransformReverseRangeUpdatedRange(transform NSStri
 	rv := objc.Send[bool](m.ID, objc.Sel("applyTransform:reverse:range:updatedRange:"), objc.String(string(transform)), reverse, range_, resultingRange)
 	return rv
 }
-
 // Removes from the receiver the characters in a given range.
 //
 // range: The range of characters to delete. `range` must not exceed the bounds of
@@ -802,7 +783,6 @@ func (m NSMutableString) ApplyTransformReverseRangeUpdatedRange(transform NSStri
 func (m NSMutableString) DeleteCharactersInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("deleteCharactersInRange:"), range_)
 }
-
 // Inserts into the receiver the characters of a given string at a given
 // location.
 //
@@ -823,7 +803,6 @@ func (m NSMutableString) DeleteCharactersInRange(range_ NSRange) {
 func (m NSMutableString) InsertStringAtIndex(aString string, loc uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertString:atIndex:"), objc.String(aString), loc)
 }
-
 // Replaces the characters from `range` with those in `aString`.
 //
 // range: The range of characters to replace. `range` must not exceed the bounds of
@@ -841,7 +820,6 @@ func (m NSMutableString) InsertStringAtIndex(aString string, loc uint) {
 func (m NSMutableString) ReplaceCharactersInRangeWithString(range_ NSRange, aString string) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceCharactersInRange:withString:"), range_, objc.String(aString))
 }
-
 // Replaces all occurrences of a given string in a given range with another
 // given string, returning the number of replacements.
 //
@@ -877,7 +855,6 @@ func (m NSMutableString) ReplaceOccurrencesOfStringWithStringOptionsRange(target
 	rv := objc.Send[uint](m.ID, objc.Sel("replaceOccurrencesOfString:withString:options:range:"), objc.String(target), objc.String(replacement), options, searchRange)
 	return rv
 }
-
 // Adds a constructed string to the receiver.
 //
 // format: A format string. See [Formatting String Objects] for more information. This

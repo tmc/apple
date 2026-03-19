@@ -101,7 +101,6 @@ func NewMTLLogicalToPhysicalColorAttachmentMap() MTLLogicalToPhysicalColorAttach
 func (l MTLLogicalToPhysicalColorAttachmentMap) Reset() {
 	objc.Send[objc.ID](l.ID, objc.Sel("reset"))
 }
-
 // Queries the physical color attachment index corresponding to a logical
 // index.
 //
@@ -110,7 +109,6 @@ func (l MTLLogicalToPhysicalColorAttachmentMap) GetPhysicalIndexForLogicalIndex(
 	rv := objc.Send[uint](l.ID, objc.Sel("getPhysicalIndexForLogicalIndex:"), logicalIndex)
 	return rv
 }
-
 // Maps a physical color attachment index to a logical index.
 //
 // physicalIndex: Index of the color attachment’s physical mapping.

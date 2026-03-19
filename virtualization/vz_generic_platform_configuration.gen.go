@@ -110,7 +110,6 @@ func (g VZGenericPlatformConfiguration) MachineIdentifier() IVZGenericMachineIde
 func (g VZGenericPlatformConfiguration) SetMachineIdentifier(value IVZGenericMachineIdentifier) {
 	objc.Send[struct{}](g.ID, objc.Sel("setMachineIdentifier:"), value)
 }
-
 // A Boolean value that indicates whether nested virtualization is in an
 // enabled state.
 //

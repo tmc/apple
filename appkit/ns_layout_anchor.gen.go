@@ -199,7 +199,6 @@ func (l NSLayoutAnchor) ConstraintEqualToAnchor(anchor INSLayoutAnchor) INSLayou
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToAnchor:"), anchor)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines one item’s attribute as equal to
 // another item’s attribute plus a constant offset.
 //
@@ -244,7 +243,6 @@ func (l NSLayoutAnchor) ConstraintEqualToAnchorConstant(anchor INSLayoutAnchor, 
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToAnchor:constant:"), anchor, c)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines one item’s attribute as greater than or
 // equal to another.
 //
@@ -282,7 +280,6 @@ func (l NSLayoutAnchor) ConstraintGreaterThanOrEqualToAnchor(anchor INSLayoutAnc
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToAnchor:"), anchor)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines one item’s attribute as greater than or
 // equal to another item’s attribute plus a constant offset.
 //
@@ -327,7 +324,6 @@ func (l NSLayoutAnchor) ConstraintGreaterThanOrEqualToAnchorConstant(anchor INSL
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToAnchor:constant:"), anchor, c)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines one item’s attribute as less than or
 // equal to another.
 //
@@ -365,7 +361,6 @@ func (l NSLayoutAnchor) ConstraintLessThanOrEqualToAnchor(anchor INSLayoutAnchor
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToAnchor:"), anchor)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines one item’s attribute as less than or
 // equal to another item’s attribute plus a constant offset.
 //
@@ -423,7 +418,6 @@ func (l NSLayoutAnchor) ConstraintsAffectingLayout() []NSLayoutConstraint {
 		return NSLayoutConstraintFromID(id)
 	})
 }
-
 // A Boolean value indicating whether the constraints impacting the anchor
 // specify its location ambiguously.
 //
@@ -432,7 +426,6 @@ func (l NSLayoutAnchor) HasAmbiguousLayout() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("hasAmbiguousLayout"))
 	return rv
 }
-
 // The name assigned to the anchor for debugging purposes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/name
@@ -440,7 +433,6 @@ func (l NSLayoutAnchor) Name() string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The layout item used to calculate the anchor’s position.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutAnchor/item
@@ -448,7 +440,6 @@ func (l NSLayoutAnchor) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
 }
-
 // A layout anchor representing the bottom edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/bottomanchor
@@ -459,7 +450,6 @@ func (l NSLayoutAnchor) BottomAnchor() INSLayoutYAxisAnchor {
 func (l NSLayoutAnchor) SetBottomAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBottomAnchor:"), value)
 }
-
 // A layout anchor representing the leading edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/leadinganchor
@@ -470,7 +460,6 @@ func (l NSLayoutAnchor) LeadingAnchor() INSLayoutXAxisAnchor {
 func (l NSLayoutAnchor) SetLeadingAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLeadingAnchor:"), value)
 }
-
 // A layout anchor representing the left edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/leftanchor

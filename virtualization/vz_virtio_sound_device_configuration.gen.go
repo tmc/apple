@@ -124,7 +124,6 @@ func (v VZVirtioSoundDeviceConfiguration) Streams() []VZVirtioSoundDeviceStreamC
 func (v VZVirtioSoundDeviceConfiguration) SetStreams(value []VZVirtioSoundDeviceStreamConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStreams:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The list of audio devices.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/audiodevices

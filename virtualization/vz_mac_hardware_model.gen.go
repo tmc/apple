@@ -185,7 +185,6 @@ func (m VZMacHardwareModel) DataRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the host supports this hardware
 // model.
 //
@@ -202,7 +201,6 @@ func (m VZMacHardwareModel) Supported() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSupported"))
 	return rv
 }
-
 // The Mac hardware model.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzmacplatformconfiguration/hardwaremodel
@@ -213,7 +211,6 @@ func (m VZMacHardwareModel) HardwareModel() IVZMacHardwareModel {
 func (m VZMacHardwareModel) SetHardwareModel(value IVZMacHardwareModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
 }
-
 // This object represents the most fully featured configuration that’s
 // supported by both the current host and by this restore image.
 //

@@ -24,7 +24,6 @@ import (
 func (b Bundle) SetPreservationPriorityForTags(priority float64, tags INSSet) {
 objc.Send[objc.ID](b.ID, objc.Sel("setPreservationPriority:forTags:"), priority, tags)
 }
-
 // Returns the current preservation priority for the specified tag.
 //
 // tag: A string specifying the identifier for a group of related resources. An

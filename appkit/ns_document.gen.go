@@ -920,7 +920,7 @@ type INSDocument interface {
 	// Moves the document to a new location in response to the user choosing the Move To… menu item.
 	MoveDocument(sender objectivec.IObject)
 	// Moves the document to a user-selected location.
-	MoveDocumentWithCompletionHandler(completionHandler ErrorHandler)
+	MoveDocumentWithCompletionHandler(completionHandler BoolHandler)
 	// Moves the document’s file to the given URL.
 	MoveToURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler)
 
@@ -931,11 +931,11 @@ type INSDocument interface {
 	// Unlocks the document in response to the user choosing the Unlock menu item.
 	UnlockDocument(sender objectivec.IObject)
 	// Prevents the user from making further changes to the document.
-	LockDocumentWithCompletionHandler(completionHandler ErrorHandler)
+	LockDocumentWithCompletionHandler(completionHandler BoolHandler)
 	// Prevents the user from making changes to the document’s file.
 	LockWithCompletionHandler(completionHandler ErrorHandler)
 	// Allows the user to make modifications to the document.
-	UnlockDocumentWithCompletionHandler(completionHandler ErrorHandler)
+	UnlockDocumentWithCompletionHandler(completionHandler BoolHandler)
 	// Allows the user to make modifications to the document’s file.
 	UnlockWithCompletionHandler(completionHandler ErrorHandler)
 	// A Boolean value that indicates whether or not the file can be written to.
@@ -970,7 +970,7 @@ type INSDocument interface {
 	// Perform any custom setup associated with a sharing service picker.
 	PrepareSharingServicePicker(sharingServicePicker INSSharingServicePicker)
 	// Share the document’s file using the specified sharing service.
-	ShareDocumentWithSharingServiceCompletionHandler(sharingService INSSharingService, completionHandler ErrorHandler)
+	ShareDocumentWithSharingServiceCompletionHandler(sharingService INSSharingService, completionHandler BoolHandler)
 
 	// Topic: Handling Script Commands
 
@@ -1193,7 +1193,6 @@ func (d NSDocument) InitWithContentsOfURLOfTypeError(url foundation.INSURL, type
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Initializes a document with the specified contents, and places the
 // resulting document’s file at the designated location.
 //
@@ -1233,7 +1232,6 @@ func (d NSDocument) InitForURLWithContentsOfURLOfTypeError(urlOrNil foundation.I
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Initializes a document of a specified type.
 //
 // typeName: The string that identifies the document type.
@@ -1265,7 +1263,6 @@ func (d NSDocument) InitWithTypeError(typeName string) (NSDocument, error) {
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Sets the contents of this document by reading from a file or file package,
 // of a specified type, located by a URL.
 //
@@ -1299,7 +1296,6 @@ func (d NSDocument) ReadFromURLOfTypeError(url foundation.INSURL, typeName strin
 	return rv, nil
 
 }
-
 // Sets the contents of this document by reading from a file wrapper of a
 // specified type.
 //
@@ -1332,7 +1328,6 @@ func (d NSDocument) ReadFromFileWrapperOfTypeError(fileWrapper foundation.NSFile
 	return rv, nil
 
 }
-
 // Sets the contents of this document by reading from data of a specified
 // type.
 //
@@ -1361,7 +1356,6 @@ func (d NSDocument) ReadFromDataOfTypeError(data foundation.INSData, typeName st
 	return rv, nil
 
 }
-
 // Returns whether the receiver can concurrently write to a file or file
 // package located by a URL, that is formatted for a specific type, for a
 // specific kind of save operation.
@@ -1396,7 +1390,6 @@ func (d NSDocument) CanAsynchronouslyWriteToURLOfTypeForSaveOperation(url founda
 	rv := objc.Send[bool](d.ID, objc.Sel("canAsynchronouslyWriteToURL:ofType:forSaveOperation:"), url, objc.String(typeName), saveOperation)
 	return rv
 }
-
 // Unblocks the main thread during asynchronous saving.
 //
 // # Discussion
@@ -1426,7 +1419,6 @@ func (d NSDocument) CanAsynchronouslyWriteToURLOfTypeForSaveOperation(url founda
 func (d NSDocument) UnblockUserInteraction() {
 	objc.Send[objc.ID](d.ID, objc.Sel("unblockUserInteraction"))
 }
-
 // Writes the contents of the document to a file or file package located by a
 // URL, that is formatted to a specified type.
 //
@@ -1460,7 +1452,6 @@ func (d NSDocument) WriteToURLOfTypeError(url foundation.INSURL, typeName string
 	return rv, nil
 
 }
-
 // Writes the contents of the document to a file or file package located by a
 // URL.
 //
@@ -1512,7 +1503,6 @@ func (d NSDocument) WriteSafelyToURLOfTypeForSaveOperationError(url foundation.I
 	return rv, nil
 
 }
-
 // Creates and returns a file wrapper that contains the contents of the
 // document, formatted to the specified type.
 //
@@ -1542,7 +1532,6 @@ func (d NSDocument) FileWrapperOfTypeError(typeName string) (foundation.NSFileWr
 	return foundation.NSFileWrapperFromID(rv), nil
 
 }
-
 // Creates and returns a data object that contains the contents of the
 // document, formatted to a specified type.
 //
@@ -1576,7 +1565,6 @@ func (d NSDocument) DataOfTypeError(typeName string) (foundation.INSData, error)
 	return foundation.NSDataFromID(rv), nil
 
 }
-
 // Writes the contents of the document to a file or file package located by a
 // URL.
 //
@@ -1627,7 +1615,6 @@ func (d NSDocument) WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url
 	return rv, nil
 
 }
-
 // Saves the contents of the document to a file or file package located by a
 // URL, that is formatted to a specified type, for a particular kind of save
 // operation.
@@ -1663,7 +1650,6 @@ func (d NSDocument) WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url
 func (d NSDocument) SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:"), url, objc.String(typeName), saveOperation, delegate, didSaveSelector, contextInfo)
 }
-
 // Saves the contents of the document to a file or file package located by a
 // URL, that is formatted to a specified type, for a particular kind of save
 // operation, and invokes the passed-in completion handler.
@@ -1716,7 +1702,6 @@ _block3, _cleanup3 := NewErrorBlock(completionHandler)
 	defer _cleanup3()
 	objc.Send[objc.ID](d.ID, objc.Sel("saveToURL:ofType:forSaveOperation:completionHandler:"), url, objc.String(typeName), saveOperation, _block3)
 }
-
 // Returns the attributes to write to the file or file package at the
 // specified URL, and targeting the specified type of save operation.
 //
@@ -1782,7 +1767,6 @@ func (d NSDocument) FileAttributesToWriteToURLOfTypeForSaveOperationOriginalCont
 	return foundation.NSDictionaryFromID(rv), nil
 
 }
-
 // Returns the names of the types to which this document can be saved for a
 // specified kind of save operation.
 //
@@ -1819,7 +1803,6 @@ func (d NSDocument) WritableTypesForSaveOperation(saveOperation NSSaveOperationT
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("writableTypesForSaveOperation:"), saveOperation)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns a filename extension that can be appended to a base filename, for a
 // specified file type and kind of save operation.
 //
@@ -1860,7 +1843,6 @@ func (d NSDocument) FileNameExtensionForTypeSaveOperation(typeName string, saveO
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileNameExtensionForType:saveOperation:"), objc.String(typeName), saveOperation)
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Creates the window controller objects that the document uses to display its
 // content.
 //
@@ -1882,7 +1864,6 @@ func (d NSDocument) FileNameExtensionForTypeSaveOperation(typeName string, saveO
 func (d NSDocument) MakeWindowControllers() {
 	objc.Send[objc.ID](d.ID, objc.Sel("makeWindowControllers"))
 }
-
 // Adds the specified window controller to the current document.
 //
 // windowController: The window controller that is added.
@@ -1909,7 +1890,6 @@ func (d NSDocument) MakeWindowControllers() {
 func (d NSDocument) AddWindowController(windowController INSWindowController) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addWindowController:"), windowController)
 }
-
 // Removes the specified window controller from the receiver’s array of
 // window controllers.
 //
@@ -1929,7 +1909,6 @@ func (d NSDocument) AddWindowController(windowController INSWindowController) {
 func (d NSDocument) RemoveWindowController(windowController INSWindowController) {
 	objc.Send[objc.ID](d.ID, objc.Sel("removeWindowController:"), windowController)
 }
-
 // Called after one of the document’s window controllers loads its nib file.
 //
 // windowController: The window controller that loaded the nib file.
@@ -1952,7 +1931,6 @@ func (d NSDocument) RemoveWindowController(windowController INSWindowController)
 func (d NSDocument) WindowControllerDidLoadNib(windowController INSWindowController) {
 	objc.Send[objc.ID](d.ID, objc.Sel("windowControllerDidLoadNib:"), windowController)
 }
-
 // Called before one of the document’s window controllers loads its nib
 // file.
 //
@@ -1976,7 +1954,6 @@ func (d NSDocument) WindowControllerDidLoadNib(windowController INSWindowControl
 func (d NSDocument) WindowControllerWillLoadNib(windowController INSWindowController) {
 	objc.Send[objc.ID](d.ID, objc.Sel("windowControllerWillLoadNib:"), windowController)
 }
-
 // Determines whether the system should close the document and its associated
 // window.
 //
@@ -2010,7 +1987,6 @@ func (d NSDocument) WindowControllerWillLoadNib(windowController INSWindowContro
 func (d NSDocument) ShouldCloseWindowControllerDelegateShouldCloseSelectorContextInfo(windowController INSWindowController, delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("shouldCloseWindowController:delegate:shouldCloseSelector:contextInfo:"), windowController, delegate, shouldCloseSelector, contextInfo)
 }
-
 // Displays all of the document’s windows, bringing them to the front and
 // making them main or key as necessary.
 //
@@ -2018,7 +1994,6 @@ func (d NSDocument) ShouldCloseWindowControllerDelegateShouldCloseSelectorContex
 func (d NSDocument) ShowWindows() {
 	objc.Send[objc.ID](d.ID, objc.Sel("showWindows"))
 }
-
 // Sets the window outlet of this document to the specified value.
 //
 // window: The window to which the receiver’s `window` outlet points.
@@ -2034,7 +2009,6 @@ func (d NSDocument) ShowWindows() {
 func (d NSDocument) SetWindow(window INSWindow) {
 	objc.Send[objc.ID](d.ID, objc.Sel("setWindow:"), window)
 }
-
 // Returns the default draft name for the document subclass.
 //
 // # Discussion
@@ -2062,7 +2036,6 @@ func (d NSDocument) DefaultDraftName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("defaultDraftName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Saves the interface-related state of the document.
 //
 // coder: The coder object in which to save the responder’s interface-related
@@ -2103,7 +2076,6 @@ func (d NSDocument) DefaultDraftName() string {
 func (d NSDocument) EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue foundation.NSOperationQueue) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeRestorableStateWithCoder:backgroundQueue:"), coder, queue)
 }
-
 // Returns a Boolean value that indicates whether it is safe to autosave
 // document changes.
 //
@@ -2162,7 +2134,6 @@ func (d NSDocument) CheckAutosavingSafetyAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
 // Schedules periodic autosaving for the purpose of crash protection.
 //
 // # Discussion
@@ -2187,7 +2158,6 @@ func (d NSDocument) CheckAutosavingSafetyAndReturnError() (bool, error) {
 func (d NSDocument) ScheduleAutosaving() {
 	objc.Send[objc.ID](d.ID, objc.Sel("scheduleAutosaving"))
 }
-
 // Autosaves the document’s contents to an appropriate location in the file
 // system.
 //
@@ -2211,7 +2181,6 @@ func (d NSDocument) ScheduleAutosaving() {
 func (d NSDocument) AutosaveDocumentWithDelegateDidAutosaveSelectorContextInfo(delegate objectivec.IObject, didAutosaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("autosaveDocumentWithDelegate:didAutosaveSelector:contextInfo:"), delegate, didAutosaveSelector, contextInfo)
 }
-
 // Autosaves the document’s contents to an appropriate file-system location,
 // as needed.
 //
@@ -2268,7 +2237,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](d.ID, objc.Sel("autosaveWithImplicitCancellability:completionHandler:"), autosavingIsImplicitlyCancellable, _block1)
 }
-
 // Opens the Versions browser in the document’s main window.
 //
 // sender: The control sending the message.
@@ -2282,7 +2250,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 func (d NSDocument) BrowseDocumentVersions(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("browseDocumentVersions:"), sender)
 }
-
 // Dismiss the Versions browser for the current document.
 //
 // completionHandler: The completion handler block to call when the Versions browser is fully
@@ -2298,7 +2265,6 @@ _block0, _cleanup0 := NewVoidBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("stopBrowsingVersionsWithCompletionHandler:"), _block0)
 }
-
 // Moves the document to the user’s iCloud storage.
 //
 // sender: The control sending the message.
@@ -2318,7 +2284,6 @@ _block0, _cleanup0 := NewVoidBlock(completionHandler)
 func (d NSDocument) MoveDocumentToUbiquityContainer(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("moveDocumentToUbiquityContainer:"), sender)
 }
-
 // Updates the document’s change count settings after a successful save
 // operation.
 //
@@ -2340,7 +2305,6 @@ func (d NSDocument) MoveDocumentToUbiquityContainer(sender objectivec.IObject) {
 func (d NSDocument) UpdateChangeCountWithTokenForSaveOperation(changeCountToken objectivec.IObject, saveOperation NSSaveOperationType) {
 	objc.Send[objc.ID](d.ID, objc.Sel("updateChangeCountWithToken:forSaveOperation:"), changeCountToken, saveOperation)
 }
-
 // Updates the receiver’s change count according to the given change type.
 //
 // change: The type of change made to the document. For a list of values, see
@@ -2366,7 +2330,6 @@ func (d NSDocument) UpdateChangeCountWithTokenForSaveOperation(changeCountToken 
 func (d NSDocument) UpdateChangeCount(change NSDocumentChangeType) {
 	objc.Send[objc.ID](d.ID, objc.Sel("updateChangeCount:"), change)
 }
-
 // Returns an object that encapsulates the current record of document changes
 // at the beginning of a save operation.
 //
@@ -2390,7 +2353,6 @@ func (d NSDocument) ChangeCountTokenForSaveOperation(saveOperation NSSaveOperati
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("changeCountTokenForSaveOperation:"), saveOperation)
 	return objectivec.Object{ID: rv}
 }
-
 // Saves the interface-related state of the document.
 //
 // coder: The coder object in which to save the document’s interface-related state.
@@ -2421,7 +2383,6 @@ func (d NSDocument) ChangeCountTokenForSaveOperation(saveOperation NSSaveOperati
 func (d NSDocument) EncodeRestorableStateWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeRestorableStateWithCoder:"), coder)
 }
-
 // Restores the interface-related state of the document.
 //
 // coder: The coder object to use to restore the document’s interface-related
@@ -2450,7 +2411,6 @@ func (d NSDocument) EncodeRestorableStateWithCoder(coder foundation.INSCoder) {
 func (d NSDocument) RestoreStateWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("restoreStateWithCoder:"), coder)
 }
-
 // Marks the document’s interface-related state as dirty.
 //
 // # Discussion
@@ -2464,7 +2424,6 @@ func (d NSDocument) RestoreStateWithCoder(coder foundation.INSCoder) {
 func (d NSDocument) InvalidateRestorableState() {
 	objc.Send[objc.ID](d.ID, objc.Sel("invalidateRestorableState"))
 }
-
 // Restores a window that was associated with a document, after that document
 // is reopened.
 //
@@ -2509,7 +2468,6 @@ _block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](d.ID, objc.Sel("restoreDocumentWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
 }
-
 // Presents a modal Save panel to the user, then tries to save the document if
 // the user approves the operation.
 //
@@ -2553,7 +2511,6 @@ _block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
 func (d NSDocument) RunModalSavePanelForSaveOperationDelegateDidSaveSelectorContextInfo(saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("runModalSavePanelForSaveOperation:delegate:didSaveSelector:contextInfo:"), saveOperation, delegate, didSaveSelector, contextInfo)
 }
-
 // Tells the document to customize the specified Save panel.
 //
 // savePanel: The Save panel.
@@ -2576,7 +2533,6 @@ func (d NSDocument) PrepareSavePanel(savePanel INSSavePanel) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("prepareSavePanel:"), savePanel)
 	return rv
 }
-
 // Updates the state of the given user activity.
 //
 // activity: The user activity to be updated.
@@ -2599,7 +2555,6 @@ func (d NSDocument) PrepareSavePanel(savePanel INSSavePanel) bool {
 func (d NSDocument) UpdateUserActivityState(activity foundation.NSUserActivity) {
 	objc.Send[objc.ID](d.ID, objc.Sel("updateUserActivityState:"), activity)
 }
-
 // Validates the specified user interface item that the receiver manages.
 //
 // item: The user interface item to validate.
@@ -2621,7 +2576,6 @@ func (d NSDocument) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem)
 	rv := objc.Send[bool](d.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 }
-
 // Waits for any scheduled file access to complete, then invokes the passed-in
 // block.
 //
@@ -2664,7 +2618,6 @@ _block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("performSynchronousFileAccessUsingBlock:"), _block0)
 }
-
 // Waits for any scheduled file access to complete but without blocking the
 // main thread, then invokes the passed-in block.
 //
@@ -2692,7 +2645,6 @@ _block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("performAsynchronousFileAccessUsingBlock:"), _block0)
 }
-
 // Waits for any work scheduled by previous invocations of this method to
 // complete, then invokes the passed-in block.
 //
@@ -2795,7 +2747,6 @@ _block1, _cleanup1 := NewVoidBlock(block)
 	defer _cleanup1()
 	objc.Send[objc.ID](d.ID, objc.Sel("performActivityWithSynchronousWaiting:usingBlock:"), waitSynchronously, _block1)
 }
-
 // Continues to perform the task for a user activity object using a different
 // block.
 //
@@ -2833,7 +2784,6 @@ _block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("continueActivityUsingBlock:"), _block0)
 }
-
 // Invokes the passed-in block on the main thread.
 //
 // block: The block to be invoked.
@@ -2863,7 +2813,6 @@ _block0, _cleanup0 := NewVoidBlock(block)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("continueAsynchronousWorkOnMainThreadUsingBlock:"), _block0)
 }
-
 // Prints the receiver in response to the user choosing the Print menu
 // command.
 //
@@ -2879,7 +2828,6 @@ _block0, _cleanup0 := NewVoidBlock(block)
 func (d NSDocument) PrintDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("printDocument:"), sender)
 }
-
 // The action method invoked in the receiver as first responder when the user
 // chooses the Page Setup menu command.
 //
@@ -2898,7 +2846,6 @@ func (d NSDocument) PrintDocument(sender objectivec.IObject) {
 func (d NSDocument) RunPageLayout(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("runPageLayout:"), sender)
 }
-
 // The action of the File menu item Revert in a document-based app.
 //
 // sender: The control sending the message.
@@ -2919,7 +2866,6 @@ func (d NSDocument) RunPageLayout(sender objectivec.IObject) {
 func (d NSDocument) RevertDocumentToSaved(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("revertDocumentToSaved:"), sender)
 }
-
 // The action method invoked in the receiver as first responder when the user
 // chooses the Save menu command.
 //
@@ -2941,7 +2887,6 @@ func (d NSDocument) RevertDocumentToSaved(sender objectivec.IObject) {
 func (d NSDocument) SaveDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveDocument:"), sender)
 }
-
 // The action method invoked in the receiver as first responder when the user
 // chooses the Save As menu command.
 //
@@ -2958,7 +2903,6 @@ func (d NSDocument) SaveDocument(sender objectivec.IObject) {
 func (d NSDocument) SaveDocumentAs(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveDocumentAs:"), sender)
 }
-
 // The action method invoked in the receiver as first responder when the user
 // chooses the Save To menu command.
 //
@@ -2974,7 +2918,6 @@ func (d NSDocument) SaveDocumentAs(sender objectivec.IObject) {
 func (d NSDocument) SaveDocumentTo(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveDocumentTo:"), sender)
 }
-
 // Saves the document and delivers the results to the provided delegate
 // object.
 //
@@ -3012,7 +2955,6 @@ func (d NSDocument) SaveDocumentTo(sender objectivec.IObject) {
 func (d NSDocument) SaveDocumentWithDelegateDidSaveSelectorContextInfo(delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveDocumentWithDelegate:didSaveSelector:contextInfo:"), delegate, didSaveSelector, contextInfo)
 }
-
 // Determines whether to close the document, prompting the user as needed to
 // choose a course of action.
 //
@@ -3050,7 +2992,6 @@ func (d NSDocument) SaveDocumentWithDelegateDidSaveSelectorContextInfo(delegate 
 func (d NSDocument) CanCloseDocumentWithDelegateShouldCloseSelectorContextInfo(delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:"), delegate, shouldCloseSelector, contextInfo)
 }
-
 // Closes all of the document’s windows and removes the document from its
 // document controller.
 //
@@ -3063,7 +3004,6 @@ func (d NSDocument) CanCloseDocumentWithDelegateShouldCloseSelectorContextInfo(d
 func (d NSDocument) Close() {
 	objc.Send[objc.ID](d.ID, objc.Sel("close"))
 }
-
 // Discards all unsaved document modifications and replaces the document’s
 // contents by reading a file or file package located by a URL of a specified
 // type.
@@ -3088,7 +3028,6 @@ func (d NSDocument) RevertToContentsOfURLOfTypeError(url foundation.INSURL, type
 	return rv, nil
 
 }
-
 // Creates a new document whose contents are the same as the receiver and
 // returns an error object if unsuccessful.
 //
@@ -3124,7 +3063,6 @@ func (d NSDocument) DuplicateAndReturnError() (INSDocument, error) {
 	return NSDocumentFromID(rv), nil
 
 }
-
 // Creates a copy of the receiving document in response to the user choosing
 // Duplicate from the File menu.
 //
@@ -3139,7 +3077,6 @@ func (d NSDocument) DuplicateAndReturnError() (INSDocument, error) {
 func (d NSDocument) DuplicateDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("duplicateDocument:"), sender)
 }
-
 // Creates a new document whose contents are the same as the current document.
 //
 // delegate: The delegate to which the selector message is sent.
@@ -3172,7 +3109,6 @@ func (d NSDocument) DuplicateDocument(sender objectivec.IObject) {
 func (d NSDocument) DuplicateDocumentWithDelegateDidDuplicateSelectorContextInfo(delegate objectivec.IObject, didDuplicateSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("duplicateDocumentWithDelegate:didDuplicateSelector:contextInfo:"), delegate, didDuplicateSelector, contextInfo)
 }
-
 // Renames the current document in response to the user choosing the Rename
 // menu item.
 //
@@ -3188,7 +3124,6 @@ func (d NSDocument) DuplicateDocumentWithDelegateDidDuplicateSelectorContextInfo
 func (d NSDocument) RenameDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("renameDocument:"), sender)
 }
-
 // Moves the document to a new location in response to the user choosing the
 // Move To… menu item.
 //
@@ -3205,7 +3140,6 @@ func (d NSDocument) RenameDocument(sender objectivec.IObject) {
 func (d NSDocument) MoveDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("moveDocument:"), sender)
 }
-
 // Moves the document to a user-selected location.
 //
 // completionHandler: The completion handler block object passed in to be invoked after moving is
@@ -3224,12 +3158,11 @@ func (d NSDocument) MoveDocument(sender objectivec.IObject) {
 // message is sent instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/move(completionHandler:)
-func (d NSDocument) MoveDocumentWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
+func (d NSDocument) MoveDocumentWithCompletionHandler(completionHandler BoolHandler) {
+_block0, _cleanup0 := NewBoolBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("moveDocumentWithCompletionHandler:"), _block0)
 }
-
 // Moves the document’s file to the given URL.
 //
 // url: The location where the file will ultimately end up, if the move is
@@ -3254,7 +3187,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](d.ID, objc.Sel("moveToURL:completionHandler:"), url, _block1)
 }
-
 // Locks the document in response to the user choosing the Lock menu item.
 //
 // sender: The control sending the message.
@@ -3269,7 +3201,6 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 func (d NSDocument) LockDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("lockDocument:"), sender)
 }
-
 // Unlocks the document in response to the user choosing the Unlock menu item.
 //
 // sender: The control sending the message.
@@ -3284,7 +3215,6 @@ func (d NSDocument) LockDocument(sender objectivec.IObject) {
 func (d NSDocument) UnlockDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("unlockDocument:"), sender)
 }
-
 // Prevents the user from making further changes to the document.
 //
 // completionHandler: The completion handler block object passed in to be invoked after locking
@@ -3300,12 +3230,11 @@ func (d NSDocument) UnlockDocument(sender objectivec.IObject) {
 // whose [FileURL] property is set to `nil` cannot be locked.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/lock(completionHandler:)-6zuhh
-func (d NSDocument) LockDocumentWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
+func (d NSDocument) LockDocumentWithCompletionHandler(completionHandler BoolHandler) {
+_block0, _cleanup0 := NewBoolBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("lockDocumentWithCompletionHandler:"), _block0)
 }
-
 // Prevents the user from making changes to the document’s file.
 //
 // completionHandler: The completion handler block object passed in to be invoked after locking
@@ -3323,7 +3252,6 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("lockWithCompletionHandler:"), _block0)
 }
-
 // Allows the user to make modifications to the document.
 //
 // completionHandler: The completion handler block object passed in to be invoked after unlocking
@@ -3340,12 +3268,11 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/unlock(completionHandler:)-8p8zd
-func (d NSDocument) UnlockDocumentWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
+func (d NSDocument) UnlockDocumentWithCompletionHandler(completionHandler BoolHandler) {
+_block0, _cleanup0 := NewBoolBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("unlockDocumentWithCompletionHandler:"), _block0)
 }
-
 // Allows the user to make modifications to the document’s file.
 //
 // completionHandler: The completion handler block object passed in to be invoked after unlocking
@@ -3362,7 +3289,6 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("unlockWithCompletionHandler:"), _block0)
 }
-
 // Adds document-specific content to the Page Layout panel.
 //
 // pageLayout: The page layout panel to prepare.
@@ -3392,7 +3318,6 @@ func (d NSDocument) PreparePageLayout(pageLayout INSPageLayout) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("preparePageLayout:"), pageLayout)
 	return rv
 }
-
 // Runs the modal page layout panel with the receiver’s printing information
 // object.
 //
@@ -3418,7 +3343,6 @@ func (d NSDocument) PreparePageLayout(pageLayout INSPageLayout) bool {
 func (d NSDocument) RunModalPageLayoutWithPrintInfoDelegateDidRunSelectorContextInfo(printInfo INSPrintInfo, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("runModalPageLayoutWithPrintInfo:delegate:didRunSelector:contextInfo:"), printInfo, delegate, didRunSelector, contextInfo)
 }
-
 // Runs the specified print operation modally.
 //
 // printOperation: The print operation to run.
@@ -3444,7 +3368,6 @@ func (d NSDocument) RunModalPageLayoutWithPrintInfoDelegateDidRunSelectorContext
 func (d NSDocument) RunModalPrintOperationDelegateDidRunSelectorContextInfo(printOperation INSPrintOperation, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("runModalPrintOperation:delegate:didRunSelector:contextInfo:"), printOperation, delegate, didRunSelector, contextInfo)
 }
-
 // Returns a Boolean value that indicates whether the document allows changes
 // to the default printing information.
 //
@@ -3470,7 +3393,6 @@ func (d NSDocument) ShouldChangePrintInfo(newPrintInfo INSPrintInfo) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldChangePrintInfo:"), newPrintInfo)
 	return rv
 }
-
 // Prints the document’s contents, optionally displaying a print panel to
 // the user.
 //
@@ -3517,7 +3439,6 @@ func (d NSDocument) ShouldChangePrintInfo(newPrintInfo INSPrintInfo) bool {
 func (d NSDocument) PrintDocumentWithSettingsShowPrintPanelDelegateDidPrintSelectorContextInfo(printSettings foundation.INSDictionary, showPrintPanel bool, delegate objectivec.IObject, didPrintSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("printDocumentWithSettings:showPrintPanel:delegate:didPrintSelector:contextInfo:"), printSettings, showPrintPanel, delegate, didPrintSelector, contextInfo)
 }
-
 // Creates and returns a print operation for the document’s contents.
 //
 // printSettings: The print settings dictionary to use.
@@ -3544,7 +3465,6 @@ func (d NSDocument) PrintOperationWithSettingsError(printSettings foundation.INS
 	return NSPrintOperationFromID(rv), nil
 
 }
-
 // Exports a PDF representation of the document’s current contents.
 //
 // sender: The control sending the message.
@@ -3569,7 +3489,6 @@ func (d NSDocument) PrintOperationWithSettingsError(printSettings foundation.INS
 func (d NSDocument) SaveDocumentToPDF(sender objectivec.IObject) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveDocumentToPDF:"), sender)
 }
-
 // Perform any custom setup associated with a sharing service picker.
 //
 // sharingServicePicker: The sharing service picker the system is about to display.
@@ -3587,7 +3506,6 @@ func (d NSDocument) SaveDocumentToPDF(sender objectivec.IObject) {
 func (d NSDocument) PrepareSharingServicePicker(sharingServicePicker INSSharingServicePicker) {
 	objc.Send[objc.ID](d.ID, objc.Sel("prepareSharingServicePicker:"), sharingServicePicker)
 }
-
 // Share the document’s file using the specified sharing service.
 //
 // sharingService: The sharing service that is sharing the document.
@@ -3630,12 +3548,11 @@ func (d NSDocument) PrepareSharingServicePicker(sharingServicePicker INSSharingS
 // block with the results.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/share(with:completionHandler:)
-func (d NSDocument) ShareDocumentWithSharingServiceCompletionHandler(sharingService INSSharingService, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
+func (d NSDocument) ShareDocumentWithSharingServiceCompletionHandler(sharingService INSSharingService, completionHandler BoolHandler) {
+_block1, _cleanup1 := NewBoolBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](d.ID, objc.Sel("shareDocumentWithSharingService:completionHandler:"), sharingService, _block1)
 }
-
 // Handles the Close AppleScript command by attempting to close the document.
 //
 // command: A Close AppleScript command object.
@@ -3655,7 +3572,6 @@ func (d NSDocument) HandleCloseScriptCommand(command foundation.NSCloseCommand) 
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("handleCloseScriptCommand:"), command)
 	return objectivec.Object{ID: rv}
 }
-
 // Handles the Print AppleScript command by attempting to print the document.
 //
 // command: An AppleScript command object.
@@ -3672,7 +3588,6 @@ func (d NSDocument) HandlePrintScriptCommand(command foundation.NSScriptCommand)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("handlePrintScriptCommand:"), command)
 	return objectivec.Object{ID: rv}
 }
-
 // Handles the Save AppleScript command by attempting to save the document.
 //
 // command: An AppleScript command object.
@@ -3687,7 +3602,6 @@ func (d NSDocument) HandleSaveScriptCommand(command foundation.NSScriptCommand) 
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("handleSaveScriptCommand:"), command)
 	return objectivec.Object{ID: rv}
 }
-
 // Presents an error alert to the user as a modal panel.
 //
 // error: The error object encapsulating the information to present to the user.
@@ -3723,7 +3637,6 @@ func (d NSDocument) HandleSaveScriptCommand(command foundation.NSScriptCommand) 
 func (d NSDocument) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
-
 // Presents an error alert to the user as a modal panel.
 //
 // error: The error object encapsulating the information to present to the user.
@@ -3756,7 +3669,6 @@ func (d NSDocument) PresentError(error_ foundation.INSError) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("presentError:"), error_)
 	return rv
 }
-
 // Called when the receiver is about to present an error.
 //
 // error: The error object that is about to be presented to the user.
@@ -3784,7 +3696,6 @@ func (d NSDocument) WillPresentError(error_ foundation.INSError) foundation.INSE
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("willPresentError:"), error_)
 	return foundation.NSErrorFromID(rv)
 }
-
 // Confirms that the error object is not to be presented to the user and the
 // error cannot be recovered from, so cleanup can be done.
 //
@@ -3811,7 +3722,6 @@ func (d NSDocument) WillPresentError(error_ foundation.INSError) foundation.INSE
 func (d NSDocument) WillNotPresentError(error_ foundation.INSError) {
 	objc.Send[objc.ID](d.ID, objc.Sel("willNotPresentError:"), error_)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/accommodatePresentedItemDeletion(completionHandler:)
 func (d NSDocument) AccommodatePresentedItemDeletionWithCompletionHandler(completionHandler ErrorHandler) {
@@ -3819,42 +3729,35 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("accommodatePresentedItemDeletionWithCompletionHandler:"), _block0)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemDidChange()
 func (d NSDocument) PresentedItemDidChange() {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentedItemDidChange"))
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemDidChangeUbiquityAttributes(_:)
 func (d NSDocument) PresentedItemDidChangeUbiquityAttributes(attributes foundation.INSSet) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentedItemDidChangeUbiquityAttributes:"), attributes)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemDidGain(_:)
 func (d NSDocument) PresentedItemDidGainVersion(version foundation.NSFileVersion) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentedItemDidGainVersion:"), version)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemDidLose(_:)
 func (d NSDocument) PresentedItemDidLoseVersion(version foundation.NSFileVersion) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentedItemDidLoseVersion:"), version)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemDidMove(to:)
 func (d NSDocument) PresentedItemDidMoveToURL(newURL foundation.INSURL) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentedItemDidMoveToURL:"), newURL)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemDidResolveConflict(_:)
 func (d NSDocument) PresentedItemDidResolveConflictVersion(version foundation.NSFileVersion) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentedItemDidResolveConflictVersion:"), version)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/relinquishPresentedItem(toReader:)
 func (d NSDocument) RelinquishPresentedItemToReader(reader VoidHandler) {
@@ -3862,7 +3765,6 @@ _block0, _cleanup0 := NewVoidBlock(reader)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("relinquishPresentedItemToReader:"), _block0)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/relinquishPresentedItem(toWriter:)
 func (d NSDocument) RelinquishPresentedItemToWriter(writer VoidHandler) {
@@ -3870,7 +3772,6 @@ _block0, _cleanup0 := NewVoidBlock(writer)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("relinquishPresentedItemToWriter:"), _block0)
 }
-
 //
 // # Discussion
 //
@@ -3880,19 +3781,16 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("savePresentedItemChangesWithCompletionHandler:"), _block0)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditorRegistration/objectDidBeginEditing(_:)
 func (d NSDocument) ObjectDidBeginEditing(editor NSEditor) {
 	objc.Send[objc.ID](d.ID, objc.Sel("objectDidBeginEditing:"), editor)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditorRegistration/objectDidEndEditing(_:)
 func (d NSDocument) ObjectDidEndEditing(editor NSEditor) {
 	objc.Send[objc.ID](d.ID, objc.Sel("objectDidEndEditing:"), editor)
 }
-
 // Restores the state necessary to continue the specified user activity.
 //
 // userActivity: The user activity to continue.
@@ -3921,7 +3819,6 @@ func (d NSDocument) ObjectDidEndEditing(editor NSEditor) {
 func (d NSDocument) RestoreUserActivityState(userActivity foundation.NSUserActivity) {
 	objc.Send[objc.ID](d.ID, objc.Sel("restoreUserActivityState:"), userActivity)
 }
-
 // Implemented to override the default action of enabling or disabling a
 // specific menu item.
 //
@@ -3995,7 +3892,6 @@ func (_NSDocumentClass NSDocumentClass) CanConcurrentlyReadDocumentsOfType(typeN
 	rv := objc.Send[bool](objc.ID(_NSDocumentClass.class), objc.Sel("canConcurrentlyReadDocumentsOfType:"), objc.String(typeName))
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the document can read and
 // write the data natively.
 //
@@ -4013,7 +3909,6 @@ func (_NSDocumentClass NSDocumentClass) IsNativeType(type_ string) bool {
 	rv := objc.Send[bool](objc.ID(_NSDocumentClass.class), objc.Sel("isNativeType:"), objc.String(type_))
 	return rv
 }
-
 // Returns the classes that support secure coding.
 //
 // keyPath: The key path of the restorable object.
@@ -4056,7 +3951,6 @@ func (d NSDocument) FileURL() foundation.INSURL {
 func (d NSDocument) SetFileURL(value foundation.INSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFileURL:"), value)
 }
-
 // A Boolean value that indicates whether the document’s file is completely
 // loaded into memory.
 //
@@ -4081,7 +3975,6 @@ func (d NSDocument) EntireFileLoaded() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEntireFileLoaded"))
 	return rv
 }
-
 // The last-known modification date of the document’s on-disk
 // representation.
 //
@@ -4099,7 +3992,6 @@ func (d NSDocument) FileModificationDate() foundation.INSDate {
 func (d NSDocument) SetFileModificationDate(value foundation.INSDate) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFileModificationDate:"), value)
 }
-
 // A Boolean value that indicates whether the document archives previously
 // saved versions of the document.
 //
@@ -4118,7 +4010,6 @@ func (d NSDocument) KeepBackupFile() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("keepBackupFile"))
 	return rv
 }
-
 // A Boolean value that indicates whether the document is a draft that the
 // user has not yet saved.
 //
@@ -4136,7 +4027,6 @@ func (d NSDocument) Draft() bool {
 func (d NSDocument) SetDraft(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDraft:"), value)
 }
-
 // The name of the document type, as specified in the app’s information
 // property-list file.
 //
@@ -4159,7 +4049,6 @@ func (d NSDocument) FileType() string {
 func (d NSDocument) SetFileType(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFileType:"), objc.String(value))
 }
-
 // A Boolean value that indicates whether the document has unsaved changes.
 //
 // # Discussion
@@ -4175,7 +4064,6 @@ func (d NSDocument) DocumentEdited() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isDocumentEdited"))
 	return rv
 }
-
 // A Boolean value that indicates whether the document is in read-only mode.
 //
 // # Discussion
@@ -4192,7 +4080,6 @@ func (d NSDocument) InViewingMode() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isInViewingMode"))
 	return rv
 }
-
 // The document’s current window controllers.
 //
 // # Discussion
@@ -4208,7 +4095,6 @@ func (d NSDocument) WindowControllers() []NSWindowController {
 		return NSWindowControllerFromID(id)
 	})
 }
-
 // The name of the document’s sole nib file.
 //
 // # Discussion
@@ -4227,7 +4113,6 @@ func (d NSDocument) WindowNibName() NSNibName {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("windowNibName"))
 	return NSNibName(foundation.NSStringFromID(rv).String())
 }
-
 // Returns the document window to use as the parent of a document-modal sheet.
 //
 // # Discussion
@@ -4246,7 +4131,6 @@ func (d NSDocument) WindowForSheet() INSWindow {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("windowForSheet"))
 	return NSWindowFromID(objc.ID(rv))
 }
-
 // The name of the document as displayed in the title bars of the document’s
 // windows and in alert dialogs related to the document.
 //
@@ -4270,7 +4154,6 @@ func (d NSDocument) DisplayName() string {
 func (d NSDocument) SetDisplayName(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDisplayName:"), objc.String(value))
 }
-
 // The location of the most recently autosaved document contents.
 //
 // # Discussion
@@ -4287,7 +4170,6 @@ func (d NSDocument) AutosavedContentsFileURL() foundation.INSURL {
 func (d NSDocument) SetAutosavedContentsFileURL(value foundation.INSURL) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAutosavedContentsFileURL:"), value)
 }
-
 // The document type to use for an autosave operation.
 //
 // # Discussion
@@ -4321,7 +4203,6 @@ func (d NSDocument) AutosavingFileType() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("autosavingFileType"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A Boolean value that indicates whether you can cancel an in-progress
 // autosave operation.
 //
@@ -4354,7 +4235,6 @@ func (d NSDocument) AutosavingIsImplicitlyCancellable() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("autosavingIsImplicitlyCancellable"))
 	return rv
 }
-
 // A Boolean value that indicates whether the document has changes that have
 // not been autosaved.
 //
@@ -4373,7 +4253,6 @@ func (d NSDocument) HasUnautosavedChanges() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("hasUnautosavedChanges"))
 	return rv
 }
-
 // The URL for the document’s backup file that was created during an
 // autosave operation.
 //
@@ -4436,7 +4315,6 @@ func (d NSDocument) BackupFileURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("backupFileURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the document is currently displaying
 // the Versions browser.
 //
@@ -4451,7 +4329,6 @@ func (d NSDocument) BrowsingVersions() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isBrowsingVersions"))
 	return rv
 }
-
 // The object that the document uses to support undo/redo operations.
 //
 // # Discussion
@@ -4479,7 +4356,6 @@ func (d NSDocument) UndoManager() foundation.NSUndoManager {
 func (d NSDocument) SetUndoManager(value foundation.NSUndoManager) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUndoManager:"), value)
 }
-
 // A Boolean value that indicates whether the document owns an undo manager
 // object.
 //
@@ -4500,7 +4376,6 @@ func (d NSDocument) HasUndoManager() bool {
 func (d NSDocument) SetHasUndoManager(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setHasUndoManager:"), value)
 }
-
 // A Boolean value that indicates whether the document’s Save panel displays
 // a list of supported writable document types.
 //
@@ -4519,7 +4394,6 @@ func (d NSDocument) ShouldRunSavePanelWithAccessoryView() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("shouldRunSavePanelWithAccessoryView"))
 	return rv
 }
-
 // The file type that was last selected in the Save panel.
 //
 // # Discussion
@@ -4534,7 +4408,6 @@ func (d NSDocument) FileTypeFromLastRunSavePanel() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileTypeFromLastRunSavePanel"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A Boolean value that indicates whether the user chose to hide the
 // document’s filename extension.
 //
@@ -4557,7 +4430,6 @@ func (d NSDocument) FileNameExtensionWasHiddenInLastRunSavePanel() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("fileNameExtensionWasHiddenInLastRunSavePanel"))
 	return rv
 }
-
 // An object that encapsulates a user activity the document supports.
 //
 // # Discussion
@@ -4596,7 +4468,6 @@ func (d NSDocument) UserActivity() foundation.NSUserActivity {
 func (d NSDocument) SetUserActivity(value foundation.NSUserActivity) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUserActivity:"), value)
 }
-
 // The key that identifies the document associated with a user activity.
 //
 // See: https://developer.apple.com/documentation/appkit/nsuseractivitydocumenturlkey
@@ -4604,7 +4475,6 @@ func (d NSDocument) NSUserActivityDocumentURLKey() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("NSUserActivityDocumentURLKey"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A Boolean value that indicates whether or not the file can be written to.
 //
 // # Discussion
@@ -4623,7 +4493,6 @@ func (d NSDocument) Locked() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isLocked"))
 	return rv
 }
-
 // The printing information associated with the document.
 //
 // # Return Value
@@ -4645,7 +4514,6 @@ func (d NSDocument) PrintInfo() INSPrintInfo {
 func (d NSDocument) SetPrintInfo(value INSPrintInfo) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPrintInfo:"), value)
 }
-
 // A print operation you can use to create a PDF representation of the
 // document’s current contents.
 //
@@ -4668,7 +4536,6 @@ func (d NSDocument) PDFPrintOperation() INSPrintOperation {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("PDFPrintOperation"))
 	return NSPrintOperationFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the document is shareable from the
 // standard Share menu.
 //
@@ -4686,7 +4553,6 @@ func (d NSDocument) AllowsDocumentSharing() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("allowsDocumentSharing"))
 	return rv
 }
-
 // Returns the object specifier that represents the document.
 //
 // # Return Value
@@ -4706,7 +4572,6 @@ func (d NSDocument) ObjectSpecifier() foundation.NSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectSpecifier"))
 	return foundation.NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-
 // The name of the document seen by the user in AppleScript.
 //
 // # Discussion
@@ -4722,19 +4587,16 @@ func (d NSDocument) LastComponentOfFileName() string {
 func (d NSDocument) SetLastComponentOfFileName(value string) {
 	objc.Send[struct{}](d.ID, objc.Sel("setLastComponentOfFileName:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/observedPresentedItemUbiquityAttributes
 func (d NSDocument) ObservedPresentedItemUbiquityAttributes() foundation.INSSet {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("observedPresentedItemUbiquityAttributes"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemURL
 func (d NSDocument) PresentedItemURL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("presentedItemURL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/previewRepresentableActivityItems
 func (d NSDocument) PreviewRepresentableActivityItems() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("previewRepresentableActivityItems"))
@@ -4745,7 +4607,6 @@ func (d NSDocument) PreviewRepresentableActivityItems() []objectivec.IObject {
 func (d NSDocument) SetPreviewRepresentableActivityItems(value []objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setPreviewRepresentableActivityItems:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/savePanelShowsFileFormatsControl
 func (d NSDocument) SavePanelShowsFileFormatsControl() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("savePanelShowsFileFormatsControl"))
@@ -4764,7 +4625,6 @@ func (_NSDocumentClass NSDocumentClass) ReadableTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSDocumentClass.class), objc.Sel("readableTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the types of data the receiver can write natively and any types
 // filterable to that native type.
 //
@@ -4777,7 +4637,6 @@ func (_NSDocumentClass NSDocumentClass) WritableTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSDocumentClass.class), objc.Sel("writableTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // A Boolean value that indicates whether the document subclass supports
 // autosaving in place.
 //
@@ -4818,7 +4677,6 @@ func (_NSDocumentClass NSDocumentClass) AutosavesInPlace() bool {
 	rv := objc.Send[bool](objc.ID(_NSDocumentClass.class), objc.Sel("autosavesInPlace"))
 	return rv
 }
-
 // A Boolean value that indicates whether the document subclass supports
 // autosaving of drafts.
 //
@@ -4859,7 +4717,6 @@ func (_NSDocumentClass NSDocumentClass) AutosavesDrafts() bool {
 	rv := objc.Send[bool](objc.ID(_NSDocumentClass.class), objc.Sel("autosavesDrafts"))
 	return rv
 }
-
 // A Boolean value that indicates whether the document subclass supports
 // version management.
 //
@@ -4887,7 +4744,6 @@ func (_NSDocumentClass NSDocumentClass) PreservesVersions() bool {
 	rv := objc.Send[bool](objc.ID(_NSDocumentClass.class), objc.Sel("preservesVersions"))
 	return rv
 }
-
 // Returns whether the document object stores its contents in the user’s
 // iCloud document storage.
 //
@@ -4917,7 +4773,6 @@ func (_NSDocumentClass NSDocumentClass) UsesUbiquitousStorage() bool {
 	rv := objc.Send[bool](objc.ID(_NSDocumentClass.class), objc.Sel("usesUbiquitousStorage"))
 	return rv
 }
-
 // Returns an array of key paths that represent the restorable attributes of
 // the document.
 //
@@ -5099,6 +4954,21 @@ func (d NSDocument) ContinueAsynchronousWorkOnMainThreadUsingBlockSync(ctx conte
 	}
 }
 
+// MoveDocumentSync is a synchronous wrapper around [NSDocument.MoveDocumentWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDocument) MoveDocumentSync(ctx context.Context) (bool, error) {
+	done := make(chan bool, 1)
+	d.MoveDocumentWithCompletionHandler(func(val bool) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return false, ctx.Err()
+	}
+}
+
 // MoveToURL is a synchronous wrapper around [NSDocument.MoveToURLCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (d NSDocument) MoveToURL(ctx context.Context, url foundation.INSURL) error {
@@ -5111,6 +4981,21 @@ func (d NSDocument) MoveToURL(ctx context.Context, url foundation.INSURL) error 
 		return err
 	case <-ctx.Done():
 		return ctx.Err()
+	}
+}
+
+// LockDocumentSync is a synchronous wrapper around [NSDocument.LockDocumentWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDocument) LockDocumentSync(ctx context.Context) (bool, error) {
+	done := make(chan bool, 1)
+	d.LockDocumentWithCompletionHandler(func(val bool) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return false, ctx.Err()
 	}
 }
 
@@ -5129,6 +5014,21 @@ func (d NSDocument) Lock(ctx context.Context) error {
 	}
 }
 
+// UnlockDocumentSync is a synchronous wrapper around [NSDocument.UnlockDocumentWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDocument) UnlockDocumentSync(ctx context.Context) (bool, error) {
+	done := make(chan bool, 1)
+	d.UnlockDocumentWithCompletionHandler(func(val bool) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return false, ctx.Err()
+	}
+}
+
 // Unlock is a synchronous wrapper around [NSDocument.UnlockWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (d NSDocument) Unlock(ctx context.Context) error {
@@ -5141,6 +5041,21 @@ func (d NSDocument) Unlock(ctx context.Context) error {
 		return err
 	case <-ctx.Done():
 		return ctx.Err()
+	}
+}
+
+// ShareDocumentWithSharingService is a synchronous wrapper around [NSDocument.ShareDocumentWithSharingServiceCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDocument) ShareDocumentWithSharingService(ctx context.Context, sharingService INSSharingService) (bool, error) {
+	done := make(chan bool, 1)
+	d.ShareDocumentWithSharingServiceCompletionHandler(sharingService, func(val bool) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return false, ctx.Err()
 	}
 }
 

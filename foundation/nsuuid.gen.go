@@ -211,7 +211,6 @@ func (u NSUUID) InitWithUUIDString(string_ string) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDString:"), objc.String(string_))
 	return rv
 }
-
 // Initializes a new UUID with the given bytes.
 //
 // bytes: Raw UUID bytes to use to create the UUID.
@@ -225,7 +224,6 @@ func (u NSUUID) InitWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDBytes:"), bytes)
 	return rv
 }
-
 // Returns the UUID as bytes.
 //
 // uuid: The value of uuid represented as raw bytes.
@@ -234,14 +232,12 @@ func (u NSUUID) InitWithUUIDBytes(bytes unsafe.Pointer) NSUUID {
 func (u NSUUID) GetUUIDBytes(uuid unsafe.Pointer) {
 	objc.Send[objc.ID](u.ID, objc.Sel("getUUIDBytes:"), uuid)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUUID/compare(_:)
 func (u NSUUID) Compare(otherUUID INSUUID) ComparisonResult {
 	rv := objc.Send[ComparisonResult](u.ID, objc.Sel("compare:"), otherUUID)
 	return ComparisonResult(rv)
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -250,7 +246,6 @@ func (u NSUUID) Compare(otherUUID INSUUID) ComparisonResult {
 func (u NSUUID) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u NSUUID) InitWithCoder(coder INSCoder) NSUUID {

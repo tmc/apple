@@ -170,7 +170,6 @@ func (n NotificationQueue) InitWithNotificationCenter(notificationCenter INSNoti
 	rv := objc.Send[NotificationQueue](n.ID, objc.Sel("initWithNotificationCenter:"), notificationCenter)
 	return rv
 }
-
 // Adds a notification to the notification queue with a specified posting
 // style, criteria for coalescing, and run loop mode.
 //
@@ -197,7 +196,6 @@ func (n NotificationQueue) InitWithNotificationCenter(notificationCenter INSNoti
 func (n NotificationQueue) EnqueueNotificationPostingStyleCoalesceMaskForModes(notification INSNotification, postingStyle NSPostingStyle, coalesceMask NSNotificationCoalescing, modes []string) {
 	objc.Send[objc.ID](n.ID, objc.Sel("enqueueNotification:postingStyle:coalesceMask:forModes:"), notification, postingStyle, coalesceMask, objectivec.StringSliceToNSArray(modes))
 }
-
 // Adds a notification to the notification queue with a specified posting
 // style.
 //
@@ -220,7 +218,6 @@ func (n NotificationQueue) EnqueueNotificationPostingStyleCoalesceMaskForModes(n
 func (n NotificationQueue) EnqueueNotificationPostingStyle(notification INSNotification, postingStyle NSPostingStyle) {
 	objc.Send[objc.ID](n.ID, objc.Sel("enqueueNotification:postingStyle:"), notification, postingStyle)
 }
-
 // Removes all notifications from the queue that match a provided notification
 // using provided matching criteria.
 //

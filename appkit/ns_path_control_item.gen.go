@@ -113,7 +113,6 @@ func (p NSPathControlItem) AttributedTitle() foundation.NSAttributedString {
 func (p NSPathControlItem) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAttributedTitle:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlItem/image
 func (p NSPathControlItem) Image() INSImage {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("image"))
@@ -122,7 +121,6 @@ func (p NSPathControlItem) Image() INSImage {
 func (p NSPathControlItem) SetImage(value INSImage) {
 	objc.Send[struct{}](p.ID, objc.Sel("setImage:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlItem/title
 func (p NSPathControlItem) Title() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("title"))
@@ -131,7 +129,6 @@ func (p NSPathControlItem) Title() string {
 func (p NSPathControlItem) SetTitle(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlItem/url
 func (p NSPathControlItem) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("URL"))

@@ -154,7 +154,6 @@ func (i ISO8601DateFormatter) StringFromDate(date INSDate) string {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("stringFromDate:"), date)
 	return NSStringFromID(rv).String()
 }
-
 // Creates and returns a date object from the specified ISO 8601 formatted
 // string representation.
 //
@@ -218,7 +217,6 @@ func (i ISO8601DateFormatter) FormatOptions() NSISO8601DateFormatOptions {
 func (i ISO8601DateFormatter) SetFormatOptions(value NSISO8601DateFormatOptions) {
 	objc.Send[struct{}](i.ID, objc.Sel("setFormatOptions:"), value)
 }
-
 // The time zone used to create and parse date representations. When
 // unspecified, GMT is used.
 //

@@ -131,7 +131,6 @@ func (s NSSymbolEffectOptions) OptionsWithNonRepeating() INSSymbolEffectOptions 
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("optionsWithNonRepeating"))
 	return NSSymbolEffectOptionsFromID(rv)
 }
-
 // Creates a set of effect options with a preferred speed multiplier.
 //
 // speed: The preferred speed multiplier to play the effect with. The default
@@ -146,7 +145,6 @@ func (s NSSymbolEffectOptions) OptionsWithSpeedWithSpeed(speed float64) INSSymbo
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("optionsWithSpeed:"), speed)
 	return NSSymbolEffectOptionsFromID(rv)
 }
-
 // Return a copy of the options setting a preferred repeat behavior.
 //
 // behavior: The preferred behavior when the effect is repeated.

@@ -76,7 +76,6 @@ func (nc NSSpellCheckerClass) Alloc() NSSpellChecker {
 //   - [NSSpellChecker.CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount]: Starts the search for a misspelled word in a string starting at specified offset within the string.
 //   - [NSSpellChecker.CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails]: Initiates a grammatical analysis of a given string.
 //   - [NSSpellChecker.CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount]: Requests unified text checking for the given range of the given string.
-//   - [NSSpellChecker.RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler]: Requests that the string be checked in the background.
 //   - [NSSpellChecker.GuessesForWordRangeInStringLanguageInSpellDocumentWithTag]: Returns an array of possible substitutions for the specified string.
 //
 // # Managing the Spell-Checking Process
@@ -109,7 +108,6 @@ func (nc NSSpellCheckerClass) Alloc() NSSpellChecker {
 //   - [NSSpellChecker.DeletesAutospaceBetweenStringAndStringLanguage]
 //   - [NSSpellChecker.LanguageForWordRangeInStringOrthography]
 //   - [NSSpellChecker.PreventsAutocorrectionBeforeStringLanguage]
-//   - [NSSpellChecker.RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler]
 //   - [NSSpellChecker.ShowInlinePredictionForCandidatesClient]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker
@@ -155,7 +153,6 @@ func NSSpellCheckerFromID(id objc.ID) NSSpellChecker {
 //   - [INSSpellChecker.CheckSpellingOfStringStartingAtLanguageWrapInSpellDocumentWithTagWordCount]: Starts the search for a misspelled word in a string starting at specified offset within the string.
 //   - [INSSpellChecker.CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails]: Initiates a grammatical analysis of a given string.
 //   - [INSSpellChecker.CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount]: Requests unified text checking for the given range of the given string.
-//   - [INSSpellChecker.RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler]: Requests that the string be checked in the background.
 //   - [INSSpellChecker.GuessesForWordRangeInStringLanguageInSpellDocumentWithTag]: Returns an array of possible substitutions for the specified string.
 //
 // # Managing the Spell-Checking Process
@@ -188,7 +185,6 @@ func NSSpellCheckerFromID(id objc.ID) NSSpellChecker {
 //   - [INSSpellChecker.DeletesAutospaceBetweenStringAndStringLanguage]
 //   - [INSSpellChecker.LanguageForWordRangeInStringOrthography]
 //   - [INSSpellChecker.PreventsAutocorrectionBeforeStringLanguage]
-//   - [INSSpellChecker.RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler]
 //   - [INSSpellChecker.ShowInlinePredictionForCandidatesClient]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker
@@ -238,8 +234,6 @@ type INSSpellChecker interface {
 	CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumentWithTagDetails(stringToCheck string, startingOffset int, language string, wrapFlag bool, tag int, details foundation.INSDictionary) foundation.NSRange
 	// Requests unified text checking for the given range of the given string.
 	CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthographyWordCount(stringToCheck string, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, tag int, orthography foundation.NSOrthography, wordCount unsafe.Pointer) []foundation.NSTextCheckingResult
-	// Requests that the string be checked in the background.
-	RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler(stringToCheck string, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, tag int, completionHandler ErrorHandler) int
 	// Returns an array of possible substitutions for the specified string.
 	GuessesForWordRangeInStringLanguageInSpellDocumentWithTag(range_ foundation.NSRange, string_ string, language string, tag int) []string
 
@@ -289,7 +283,6 @@ type INSSpellChecker interface {
 	DeletesAutospaceBetweenStringAndStringLanguage(precedingString string, followingString string, language string) bool
 	LanguageForWordRangeInStringOrthography(range_ foundation.NSRange, string_ string, orthography foundation.NSOrthography) string
 	PreventsAutocorrectionBeforeStringLanguage(string_ string, language string) bool
-	RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler(selectedRange foundation.NSRange, stringToCheck string, checkingTypes uint64, options foundation.INSDictionary, tag int, completionHandler ArrayHandler) int
 	ShowInlinePredictionForCandidatesClient(candidates []foundation.NSTextCheckingResult, client NSTextInputClient)
 }
 
@@ -331,7 +324,6 @@ func (s NSSpellChecker) Language() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("language"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Returns whether the specified language is in the Spelling pop-up list.
 //
 // language: The requested language.
@@ -362,7 +354,6 @@ func (s NSSpellChecker) SetLanguage(language string) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setLanguage:"), objc.String(language))
 	return rv
 }
-
 // Specifies a grammar-analysis detail to highlight in the Spelling panel.
 //
 // string: Problematic grammatical unit identified by
@@ -375,7 +366,6 @@ func (s NSSpellChecker) SetLanguage(language string) bool {
 func (s NSSpellChecker) UpdateSpellingPanelWithGrammarStringDetail(string_ string, detail foundation.INSDictionary) {
 	objc.Send[objc.ID](s.ID, objc.Sel("updateSpellingPanelWithGrammarString:detail:"), objc.String(string_), detail)
 }
-
 // Updates the available panels to account for user changes.
 //
 // # Discussion
@@ -387,7 +377,6 @@ func (s NSSpellChecker) UpdateSpellingPanelWithGrammarStringDetail(string_ strin
 func (s NSSpellChecker) UpdatePanels() {
 	objc.Send[objc.ID](s.ID, objc.Sel("updatePanels"))
 }
-
 // Returns the number of words in the specified string.
 //
 // stringToCount: The string to count the words in.
@@ -409,7 +398,6 @@ func (s NSSpellChecker) CountWordsInStringLanguage(stringToCount string, languag
 	rv := objc.Send[int](s.ID, objc.Sel("countWordsInString:language:"), objc.String(stringToCount), objc.String(language))
 	return rv
 }
-
 // Starts the search for a misspelled word in `stringToCheck` starting at
 // `startingOffset` within the string object.
 //
@@ -430,7 +418,6 @@ func (s NSSpellChecker) CheckSpellingOfStringStartingAt(stringToCheck string, st
 	rv := objc.Send[foundation.NSRange](s.ID, objc.Sel("checkSpellingOfString:startingAt:"), objc.String(stringToCheck), startingOffset)
 	return foundation.NSRange(rv)
 }
-
 // Starts the search for a misspelled word in a string starting at specified
 // offset within the string.
 //
@@ -470,7 +457,6 @@ func (s NSSpellChecker) CheckSpellingOfStringStartingAtLanguageWrapInSpellDocume
 	rv := objc.Send[foundation.NSRange](s.ID, objc.Sel("checkSpellingOfString:startingAt:language:wrap:inSpellDocumentWithTag:wordCount:"), objc.String(stringToCheck), startingOffset, objc.String(language), wrapFlag, tag, wordCount)
 	return foundation.NSRange(rv)
 }
-
 // Initiates a grammatical analysis of a given string.
 //
 // stringToCheck: String to analyze.
@@ -508,7 +494,6 @@ func (s NSSpellChecker) CheckGrammarOfStringStartingAtLanguageWrapInSpellDocumen
 	rv := objc.Send[foundation.NSRange](s.ID, objc.Sel("checkGrammarOfString:startingAt:language:wrap:inSpellDocumentWithTag:details:"), objc.String(stringToCheck), startingOffset, objc.String(language), wrapFlag, tag, details)
 	return foundation.NSRange(rv)
 }
-
 // Requests unified text checking for the given range of the given string.
 //
 // stringToCheck: The string to check.
@@ -552,53 +537,6 @@ func (s NSSpellChecker) CheckStringRangeTypesOptionsInSpellDocumentWithTagOrthog
 		return foundation.NSTextCheckingResultFromID(id)
 	})
 }
-
-// Requests that the string be checked in the background.
-//
-// stringToCheck: The string to check.
-//
-// range: The range of the string to check.
-//
-// checkingTypes: The type of checking to be performed. The possible constants are listed in
-// [NSTextCheckingResult.CheckingType] and can be combined using the C
-// bit-wise [OR] operator to perform multiple checks at the same time.
-// //
-// [NSTextCheckingResult.CheckingType]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
-//
-// options: The options dictionary specifying the types of checking to perform. See
-// [NSTextCheckingOptionKey] for the possible keys and expected values.
-//
-// tag: An identifier unique within the application used to inform the spell
-// checker which document that text is associated, potentially for many
-// purposes, not necessarily just for ignored words. A value of 0 can be
-// passed in for text not associated with a particular document.
-//
-// completionHandler: The completion handler block object will be called (in an arbitrary
-// context) when results are available, with the sequence number and results.
-// 
-// The block takes four arguments:
-// 
-// sequenceNumber: A monotonically increasing sequence number. results: An
-// array of [NSTextCheckingResult] objects describing particular items found
-// during checking and their individual ranges, sorted by range origin, then
-// range end, then result type. orthography: The orthography of the string.
-// wordCount: The number of words in the range of the string.
-// //
-// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
-//
-// # Return Value
-// 
-// The return value is a monotonically increasing sequence number that can be
-// used to keep track of requests in flight.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/requestChecking(of:range:types:options:inSpellDocumentWithTag:completionHandler:)
-func (s NSSpellChecker) RequestCheckingOfStringRangeTypesOptionsInSpellDocumentWithTagCompletionHandler(stringToCheck string, range_ foundation.NSRange, checkingTypes uint64, options foundation.INSDictionary, tag int, completionHandler ErrorHandler) int {
-_block5, _cleanup5 := NewErrorBlock(completionHandler)
-	defer _cleanup5()
-	rv := objc.Send[int](s.ID, objc.Sel("requestCheckingOfString:range:types:options:inSpellDocumentWithTag:completionHandler:"), objc.String(stringToCheck), range_, checkingTypes, options, tag, _block5)
-	return rv
-}
-
 // Returns an array of possible substitutions for the specified string.
 //
 // range: The range of the string to check.
@@ -621,7 +559,6 @@ func (s NSSpellChecker) GuessesForWordRangeInStringLanguageInSpellDocumentWithTa
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("guessesForWordRange:inString:language:inSpellDocumentWithTag:"), range_, objc.String(string_), objc.String(language), tag)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Notifies the receiver that the user has finished with the tagged document.
 //
 // # Discussion
@@ -633,7 +570,6 @@ func (s NSSpellChecker) GuessesForWordRangeInStringLanguageInSpellDocumentWithTa
 func (s NSSpellChecker) CloseSpellDocumentWithTag(tag int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("closeSpellDocumentWithTag:"), tag)
 }
-
 // Instructs the spell checker to ignore all future occurrences of
 // `wordToIgnore` in the document identified by `tag`.
 //
@@ -646,7 +582,6 @@ func (s NSSpellChecker) CloseSpellDocumentWithTag(tag int) {
 func (s NSSpellChecker) IgnoreWordInSpellDocumentWithTag(wordToIgnore string, tag int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("ignoreWord:inSpellDocumentWithTag:"), objc.String(wordToIgnore), tag)
 }
-
 // Returns the array of ignored words for a document identified by `tag`.
 //
 // # Discussion
@@ -659,7 +594,6 @@ func (s NSSpellChecker) IgnoredWordsInSpellDocumentWithTag(tag int) []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("ignoredWordsInSpellDocumentWithTag:"), tag)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Initializes the ignored-words document (a dictionary identified by `tag`
 // with `someWords`), an array of words to ignore.
 //
@@ -667,7 +601,6 @@ func (s NSSpellChecker) IgnoredWordsInSpellDocumentWithTag(tag int) []string {
 func (s NSSpellChecker) SetIgnoredWordsInSpellDocumentWithTag(words []string, tag int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setIgnoredWords:inSpellDocumentWithTag:"), objectivec.StringSliceToNSArray(words), tag)
 }
-
 // Sets the string that appears in the misspelled word field, using the string
 // object `aString`.
 //
@@ -675,7 +608,6 @@ func (s NSSpellChecker) SetIgnoredWordsInSpellDocumentWithTag(words []string, ta
 func (s NSSpellChecker) SetWordFieldStringValue(string_ string) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setWordFieldStringValue:"), objc.String(string_))
 }
-
 // Causes the spell checker to update the Spelling panel’s misspelled-word
 // field to reflect `word`.
 //
@@ -690,7 +622,6 @@ func (s NSSpellChecker) SetWordFieldStringValue(string_ string) {
 func (s NSSpellChecker) UpdateSpellingPanelWithMisspelledWord(word string) {
 	objc.Send[objc.ID](s.ID, objc.Sel("updateSpellingPanelWithMisspelledWord:"), objc.String(word))
 }
-
 // Provides a list of complete words that the user might be trying to type
 // based on a partial word in a given string.
 //
@@ -713,7 +644,6 @@ func (s NSSpellChecker) CompletionsForPartialWordRangeInStringLanguageInSpellDoc
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("completionsForPartialWordRange:inString:language:inSpellDocumentWithTag:"), range_, objc.String(string_), objc.String(language), tag)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Indicates whether the spell checker has learned a given word.
 //
 // word: Word in question.
@@ -730,7 +660,6 @@ func (s NSSpellChecker) HasLearnedWord(word string) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("hasLearnedWord:"), objc.String(word))
 	return rv
 }
-
 // Tells the spell checker to unlearn a given word.
 //
 // word: Word to unlearn.
@@ -739,7 +668,6 @@ func (s NSSpellChecker) HasLearnedWord(word string) bool {
 func (s NSSpellChecker) UnlearnWord(word string) {
 	objc.Send[objc.ID](s.ID, objc.Sel("unlearnWord:"), objc.String(word))
 }
-
 // Adds the word to the spell checker dictionary.
 //
 // word: The word to add.
@@ -748,7 +676,6 @@ func (s NSSpellChecker) UnlearnWord(word string) {
 func (s NSSpellChecker) LearnWord(word string) {
 	objc.Send[objc.ID](s.ID, objc.Sel("learnWord:"), objc.String(word))
 }
-
 // Returns the default values for quote replacement.
 //
 // language: The language for quote replacement.
@@ -764,7 +691,6 @@ func (s NSSpellChecker) UserQuotesArrayForLanguage(language string) []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("userQuotesArrayForLanguage:"), objc.String(language))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Provides a menu containing contextual menu items suitable for certain kinds
 // of detected results.
 //
@@ -792,7 +718,6 @@ func (s NSSpellChecker) MenuForResultStringOptionsAtLocationInView(result founda
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("menuForResult:string:options:atLocation:inView:"), result, objc.String(checkedString), options, location, view)
 	return NSMenuFromID(rv)
 }
-
 // Returns a single proposed correction if a word is mis-spelled.
 //
 // range: The range of the word to be corrected.
@@ -821,7 +746,6 @@ func (s NSSpellChecker) CorrectionForWordRangeInStringLanguageInSpellDocumentWit
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("correctionForWordRange:inString:language:inSpellDocumentWithTag:"), range_, objc.String(string_), objc.String(language), tag)
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Records the user response to the correction indicator being displayed.
 //
 // response: The user’s response. The possible values are shown in
@@ -851,7 +775,6 @@ func (s NSSpellChecker) CorrectionForWordRangeInStringLanguageInSpellDocumentWit
 func (s NSSpellChecker) RecordResponseToCorrectionForWordLanguageInSpellDocumentWithTag(response NSCorrectionResponse, correction string, word string, language string, tag int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("recordResponse:toCorrection:forWord:language:inSpellDocumentWithTag:"), response, objc.String(correction), objc.String(word), objc.String(language), tag)
 }
-
 // Dismisses the correction indicator for the specified view.
 //
 // view: The view.
@@ -860,37 +783,24 @@ func (s NSSpellChecker) RecordResponseToCorrectionForWordLanguageInSpellDocument
 func (s NSSpellChecker) DismissCorrectionIndicatorForView(view INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("dismissCorrectionIndicatorForView:"), view)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/deletesAutospaceBetweenString(_:andString:language:)
 func (s NSSpellChecker) DeletesAutospaceBetweenStringAndStringLanguage(precedingString string, followingString string, language string) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("deletesAutospaceBetweenString:andString:language:"), objc.String(precedingString), objc.String(followingString), objc.String(language))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/language(forWordRange:in:orthography:)
 func (s NSSpellChecker) LanguageForWordRangeInStringOrthography(range_ foundation.NSRange, string_ string, orthography foundation.NSOrthography) string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("languageForWordRange:inString:orthography:"), range_, objc.String(string_), orthography)
 	return foundation.NSStringFromID(rv).String()
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/preventsAutocorrection(before:language:)
 func (s NSSpellChecker) PreventsAutocorrectionBeforeStringLanguage(string_ string, language string) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("preventsAutocorrectionBeforeString:language:"), objc.String(string_), objc.String(language))
 	return rv
 }
-
-//
-// See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/requestCandidates(forSelectedRange:in:types:options:inSpellDocumentWithTag:completionHandler:)
-func (s NSSpellChecker) RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler(selectedRange foundation.NSRange, stringToCheck string, checkingTypes uint64, options foundation.INSDictionary, tag int, completionHandler ArrayHandler) int {
-_block5, _cleanup5 := NewArrayBlock(completionHandler)
-	defer _cleanup5()
-	rv := objc.Send[int](s.ID, objc.Sel("requestCandidatesForSelectedRange:inString:types:options:inSpellDocumentWithTag:completionHandler:"), selectedRange, objc.String(stringToCheck), checkingTypes, options, tag, _block5)
-	return rv
-}
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/showInlinePrediction(forCandidates:client:)
 func (s NSSpellChecker) ShowInlinePredictionForCandidatesClient(candidates []foundation.NSTextCheckingResult, client NSTextInputClient) {
@@ -943,7 +853,6 @@ func (s NSSpellChecker) AvailableLanguages() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("availableLanguages"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Provides a subset of the available languages to be used for spell checking.
 //
 // # Return Value
@@ -971,7 +880,6 @@ func (s NSSpellChecker) UserPreferredLanguages() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("userPreferredLanguages"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Sets whether the spell checker will automatically identify languages.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/automaticallyIdentifiesLanguages
@@ -982,7 +890,6 @@ func (s NSSpellChecker) AutomaticallyIdentifiesLanguages() bool {
 func (s NSSpellChecker) SetAutomaticallyIdentifiesLanguages(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutomaticallyIdentifiesLanguages:"), value)
 }
-
 // Returns the spell checker’s panel.
 //
 // # Return Value
@@ -994,7 +901,6 @@ func (s NSSpellChecker) SpellingPanel() INSPanel {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("spellingPanel"))
 	return NSPanelFromID(objc.ID(rv))
 }
-
 // Returns the substitutions panel.
 //
 // # Return Value
@@ -1006,7 +912,6 @@ func (s NSSpellChecker) SubstitutionsPanel() INSPanel {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("substitutionsPanel"))
 	return NSPanelFromID(objc.ID(rv))
 }
-
 // Makes a view an accessory of the Spelling panel by making it a subview of
 // the panel’s content view.
 //
@@ -1029,7 +934,6 @@ func (s NSSpellChecker) AccessoryView() INSView {
 func (s NSSpellChecker) SetAccessoryView(value INSView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAccessoryView:"), value)
 }
-
 // Sets the substitutions panel’s accessory view.
 //
 // # Discussion
@@ -1052,7 +956,6 @@ func (s NSSpellChecker) SubstitutionsPanelAccessoryViewController() INSViewContr
 func (s NSSpellChecker) SetSubstitutionsPanelAccessoryViewController(value INSViewController) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSubstitutionsPanelAccessoryViewController:"), value)
 }
-
 // Returns the dictionary used when replacing words.
 //
 // # Return Value
@@ -1083,7 +986,6 @@ func (_NSSpellCheckerClass NSSpellCheckerClass) SharedSpellChecker() NSSpellChec
 	rv := objc.Send[objc.ID](objc.ID(_NSSpellCheckerClass.class), objc.Sel("sharedSpellChecker"))
 	return NSSpellCheckerFromID(objc.ID(rv))
 }
-
 // Returns whether the application’s NSSpellChecker has already been
 // created.
 //
@@ -1099,49 +1001,41 @@ func (_NSSpellCheckerClass NSSpellCheckerClass) SharedSpellCheckerExists() bool 
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("sharedSpellCheckerExists"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticCapitalizationEnabled
 func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticCapitalizationEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticCapitalizationEnabled"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticDashSubstitutionEnabled
 func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticDashSubstitutionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticDashSubstitutionEnabled"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticInlinePredictionEnabled
 func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticInlinePredictionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticInlinePredictionEnabled"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticPeriodSubstitutionEnabled
 func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticPeriodSubstitutionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticPeriodSubstitutionEnabled"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticQuoteSubstitutionEnabled
 func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticQuoteSubstitutionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticQuoteSubstitutionEnabled"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticSpellingCorrectionEnabled
 func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticSpellingCorrectionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticSpellingCorrectionEnabled"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticTextCompletionEnabled
 func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticTextCompletionEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticTextCompletionEnabled"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSSpellChecker/isAutomaticTextReplacementEnabled
 func (_NSSpellCheckerClass NSSpellCheckerClass) AutomaticTextReplacementEnabled() bool {
 	rv := objc.Send[bool](objc.ID(_NSSpellCheckerClass.class), objc.Sel("isAutomaticTextReplacementEnabled"))

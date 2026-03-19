@@ -104,7 +104,6 @@ func (_MLMetricKeyClass MLMetricKeyClass) LossValue() MLMetricKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLMetricKeyClass.class), objc.Sel("lossValue"))
 	return MLMetricKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the epoch index (an [Int64] value).
 //
 // # Discussion
@@ -116,7 +115,6 @@ func (_MLMetricKeyClass MLMetricKeyClass) EpochIndex() MLMetricKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLMetricKeyClass.class), objc.Sel("epochIndex"))
 	return MLMetricKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the mini-batch index (an [Int64] value) within an
 // epoch.
 //

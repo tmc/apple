@@ -106,7 +106,6 @@ func (a ANEAnalyticsTask) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsTask/initWithMetrics:
 func (a ANEAnalyticsTask) InitWithMetrics(metrics objectivec.IObject) ANEAnalyticsTask {

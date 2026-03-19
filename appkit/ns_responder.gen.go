@@ -618,7 +618,6 @@ func (r NSResponder) BecomeFirstResponder() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("becomeFirstResponder"))
 	return rv
 }
-
 // Notifies the receiver that it’s been asked to relinquish its status as
 // first responder in its window.
 //
@@ -640,7 +639,6 @@ func (r NSResponder) ResignFirstResponder() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("resignFirstResponder"))
 	return rv
 }
-
 // Allows controls to determine when they should become first responder.
 //
 // responder: The first responder.
@@ -677,7 +675,6 @@ func (r NSResponder) ValidateProposedFirstResponderForEvent(responder INSRespond
 	rv := objc.Send[bool](r.ID, objc.Sel("validateProposedFirstResponder:forEvent:"), responder, event)
 	return rv
 }
-
 // Informs the receiver that the user has pressed the left mouse button.
 //
 // event: An object encapsulating information about the mouse-down event.
@@ -691,7 +688,6 @@ func (r NSResponder) ValidateProposedFirstResponderForEvent(responder INSRespond
 func (r NSResponder) MouseDown(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("mouseDown:"), event)
 }
-
 // Informs the receiver that the user has moved the mouse with the left button
 // pressed.
 //
@@ -706,7 +702,6 @@ func (r NSResponder) MouseDown(event INSEvent) {
 func (r NSResponder) MouseDragged(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("mouseDragged:"), event)
 }
-
 // Informs the receiver that the user has released the left mouse button.
 //
 // event: An object encapsulating information about the mouse-up event.
@@ -720,7 +715,6 @@ func (r NSResponder) MouseDragged(event INSEvent) {
 func (r NSResponder) MouseUp(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("mouseUp:"), event)
 }
-
 // Informs the receiver that the mouse has moved.
 //
 // event: An object encapsulating information about the mouse-moved event.
@@ -734,7 +728,6 @@ func (r NSResponder) MouseUp(event INSEvent) {
 func (r NSResponder) MouseMoved(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("mouseMoved:"), event)
 }
-
 // Informs the receiver that the cursor has entered a tracking rectangle.
 //
 // event: An object encapsulating information about the mouse-entered event.
@@ -748,7 +741,6 @@ func (r NSResponder) MouseMoved(event INSEvent) {
 func (r NSResponder) MouseEntered(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("mouseEntered:"), event)
 }
-
 // Informs the receiver that the cursor has exited a tracking rectangle.
 //
 // event: An object encapsulating information about the mouse-exited event.
@@ -762,7 +754,6 @@ func (r NSResponder) MouseEntered(event INSEvent) {
 func (r NSResponder) MouseExited(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("mouseExited:"), event)
 }
-
 // Informs the receiver that the user has pressed the right mouse button.
 //
 // event: An object encapsulating information about the mouse-down event.
@@ -776,7 +767,6 @@ func (r NSResponder) MouseExited(event INSEvent) {
 func (r NSResponder) RightMouseDown(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("rightMouseDown:"), event)
 }
-
 // Informs the receiver that the user has moved the mouse with the right
 // button pressed.
 //
@@ -791,7 +781,6 @@ func (r NSResponder) RightMouseDown(event INSEvent) {
 func (r NSResponder) RightMouseDragged(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("rightMouseDragged:"), event)
 }
-
 // Informs the receiver that the user has released the right mouse button.
 //
 // event: An object encapsulating information about the mouse-up event.
@@ -805,7 +794,6 @@ func (r NSResponder) RightMouseDragged(event INSEvent) {
 func (r NSResponder) RightMouseUp(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("rightMouseUp:"), event)
 }
-
 // Informs the receiver that the user has pressed a mouse button other than
 // the left or right one.
 //
@@ -820,7 +808,6 @@ func (r NSResponder) RightMouseUp(event INSEvent) {
 func (r NSResponder) OtherMouseDown(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("otherMouseDown:"), event)
 }
-
 // Informs the receiver that the user has moved the mouse with a button other
 // than the left or right button pressed.
 //
@@ -835,7 +822,6 @@ func (r NSResponder) OtherMouseDown(event INSEvent) {
 func (r NSResponder) OtherMouseDragged(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("otherMouseDragged:"), event)
 }
-
 // Informs the receiver that the user has released a mouse button other than
 // the left or right button.
 //
@@ -850,7 +836,6 @@ func (r NSResponder) OtherMouseDragged(event INSEvent) {
 func (r NSResponder) OtherMouseUp(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("otherMouseUp:"), event)
 }
-
 // Informs the receiver that the user has pressed a key.
 //
 // event: An object encapsulating information about the key-down event.
@@ -865,7 +850,6 @@ func (r NSResponder) OtherMouseUp(event INSEvent) {
 func (r NSResponder) KeyDown(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("keyDown:"), event)
 }
-
 // Informs the receiver that the user has released a key.
 //
 // event: An object encapsulating information about the key-up event.
@@ -879,7 +863,6 @@ func (r NSResponder) KeyDown(event INSEvent) {
 func (r NSResponder) KeyUp(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("keyUp:"), event)
 }
-
 // Handles a series of key events.
 //
 // eventArray: An array of key-event characters to give to the system input manager.
@@ -902,7 +885,6 @@ func (r NSResponder) KeyUp(event INSEvent) {
 func (r NSResponder) InterpretKeyEvents(eventArray []NSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("interpretKeyEvents:"), objectivec.IObjectSliceToNSArray(eventArray))
 }
-
 // Handle a key equivalent.
 //
 // event: An event object that represents the key equivalent pressed.
@@ -922,14 +904,12 @@ func (r NSResponder) PerformKeyEquivalent(event INSEvent) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("performKeyEquivalent:"), event)
 	return rv
 }
-
 // Clears any unprocessed key events when overridden by subclasses.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/flushBufferedKeyEvents()
 func (r NSResponder) FlushBufferedKeyEvents() {
 	objc.Send[objc.ID](r.ID, objc.Sel("flushBufferedKeyEvents"))
 }
-
 // Indicates a pressure change as the result of a user input event on a system
 // that supports pressure sensitivity.
 //
@@ -945,7 +925,6 @@ func (r NSResponder) FlushBufferedKeyEvents() {
 func (r NSResponder) PressureChangeWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("pressureChangeWithEvent:"), event)
 }
-
 // Informs the receiver that the mouse cursor has moved into a cursor
 // rectangle.
 //
@@ -968,7 +947,6 @@ func (r NSResponder) PressureChangeWithEvent(event INSEvent) {
 func (r NSResponder) CursorUpdate(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("cursorUpdate:"), event)
 }
-
 // Informs the receiver that the user has pressed or released a modifier key
 // (Shift, Control, and so on).
 //
@@ -983,7 +961,6 @@ func (r NSResponder) CursorUpdate(event INSEvent) {
 func (r NSResponder) FlagsChanged(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("flagsChanged:"), event)
 }
-
 // Informs the receiver that a tablet-point event has occurred.
 //
 // event: An object encapsulating information about the tablet-point event.
@@ -1004,7 +981,6 @@ func (r NSResponder) FlagsChanged(event INSEvent) {
 func (r NSResponder) TabletPoint(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("tabletPoint:"), event)
 }
-
 // Informs the receiver that a tablet-proximity event has occurred.
 //
 // event: An object encapsulating information about the tablet-point event.
@@ -1026,7 +1002,6 @@ func (r NSResponder) TabletPoint(event INSEvent) {
 func (r NSResponder) TabletProximity(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("tabletProximity:"), event)
 }
-
 // Displays context-sensitive help for the receiver if help has been
 // registered.
 //
@@ -1043,7 +1018,6 @@ func (r NSResponder) TabletProximity(event INSEvent) {
 func (r NSResponder) HelpRequested(eventPtr INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("helpRequested:"), eventPtr)
 }
-
 // Informs the receiver that the mouse’s scroll wheel has moved.
 //
 // event: An object encapsulating information about the wheel-scrolling event.
@@ -1056,7 +1030,6 @@ func (r NSResponder) HelpRequested(eventPtr INSEvent) {
 func (r NSResponder) ScrollWheel(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("scrollWheel:"), event)
 }
-
 // Performs a Quick Look on the content at the location specified by the
 // supplied event.
 //
@@ -1081,7 +1054,6 @@ func (r NSResponder) ScrollWheel(event INSEvent) {
 func (r NSResponder) QuickLookWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("quickLookWithEvent:"), event)
 }
-
 // Informs the responder that performed a double-tap on the side of an Apple
 // Pencil.
 //
@@ -1095,7 +1067,6 @@ func (r NSResponder) QuickLookWithEvent(event INSEvent) {
 func (r NSResponder) ChangeModeWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("changeModeWithEvent:"), event)
 }
-
 // Finds a target for an action method.
 //
 // action: The requested action.
@@ -1121,7 +1092,6 @@ func (r NSResponder) SupplementalTargetForActionSender(action objc.SEL, sender o
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("supplementalTargetForAction:sender:"), action, sender)
 	return objectivec.Object{ID: rv}
 }
-
 // Saves the interface-related state of the responder.
 //
 // coder: The coder object in which to save the responder’s interface-related
@@ -1152,7 +1122,6 @@ func (r NSResponder) SupplementalTargetForActionSender(action objc.SEL, sender o
 func (r NSResponder) EncodeRestorableStateWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeRestorableStateWithCoder:"), coder)
 }
-
 // Saves the interface-related state of the responder to a keyed archiver
 // either synchronously or asynchronously on the given operation queue.
 //
@@ -1178,7 +1147,6 @@ func (r NSResponder) EncodeRestorableStateWithCoder(coder foundation.INSCoder) {
 func (r NSResponder) EncodeRestorableStateWithCoderBackgroundQueue(coder foundation.INSCoder, queue foundation.NSOperationQueue) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeRestorableStateWithCoder:backgroundQueue:"), coder, queue)
 }
-
 // Restores the interface-related state of the responder.
 //
 // coder: The coder object to use to restore the responder’s interface-related
@@ -1206,7 +1174,6 @@ func (r NSResponder) EncodeRestorableStateWithCoderBackgroundQueue(coder foundat
 func (r NSResponder) RestoreStateWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("restoreStateWithCoder:"), coder)
 }
-
 // Marks the responder’s interface-related state as dirty.
 //
 // # Discussion
@@ -1219,7 +1186,6 @@ func (r NSResponder) RestoreStateWithCoder(coder foundation.INSCoder) {
 func (r NSResponder) InvalidateRestorableState() {
 	objc.Send[objc.ID](r.ID, objc.Sel("invalidateRestorableState"))
 }
-
 // Updates the state of the given user activity.
 //
 // userActivity: The user activity to be updated.
@@ -1244,7 +1210,6 @@ func (r NSResponder) InvalidateRestorableState() {
 func (r NSResponder) UpdateUserActivityState(userActivity foundation.NSUserActivity) {
 	objc.Send[objc.ID](r.ID, objc.Sel("updateUserActivityState:"), userActivity)
 }
-
 // Presents an error alert to the user as an application-modal dialog.
 //
 // error: An object containing information about an error.
@@ -1282,7 +1247,6 @@ func (r NSResponder) PresentError(error_ foundation.INSError) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("presentError:"), error_)
 	return rv
 }
-
 // Presents an error alert to the user as a document-modal sheet attached to
 // document window.
 //
@@ -1333,7 +1297,6 @@ func (r NSResponder) PresentError(error_ foundation.INSError) bool {
 func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.INSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](r.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
-
 // Returns a custom version of the supplied error object that’s more
 // suitable for presentation in alert sheets and dialogs.
 //
@@ -1364,7 +1327,6 @@ func (r NSResponder) WillPresentError(error_ foundation.INSError) foundation.INS
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("willPresentError:"), error_)
 	return foundation.NSErrorFromID(rv)
 }
-
 // Attempts to perform the method indicated by an action with a specified
 // argument.
 //
@@ -1393,7 +1355,6 @@ func (r NSResponder) TryToPerformWith(action objc.SEL, object objectivec.IObject
 	rv := objc.Send[bool](r.ID, objc.Sel("tryToPerform:with:"), action, object)
 	return rv
 }
-
 // Overridden by subclasses to determine what services are available.
 //
 // sendType: A string identifying the send type of pasteboard data. May be an empty
@@ -1428,7 +1389,6 @@ func (r NSResponder) ValidRequestorForSendTypeReturnType(sendType NSPasteboardTy
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("validRequestorForSendType:returnType:"), objc.String(string(sendType)), objc.String(string(returnType)))
 	return objectivec.Object{ID: rv}
 }
-
 // Indicates whether a pen-down event should be treated as an ink event.
 //
 // event: An event object representing the event to be tested.
@@ -1469,7 +1429,6 @@ func (r NSResponder) ShouldBeTreatedAsInkEvent(event INSEvent) bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("shouldBeTreatedAsInkEvent:"), event)
 	return rv
 }
-
 // Handles the case where an event or action message falls off the end of the
 // responder chain.
 //
@@ -1483,7 +1442,6 @@ func (r NSResponder) ShouldBeTreatedAsInkEvent(event INSEvent) bool {
 func (r NSResponder) NoResponderFor(eventSelector objc.SEL) {
 	objc.Send[objc.ID](r.ID, objc.Sel("noResponderFor:"), eventSelector)
 }
-
 // Informs the receiver that the user has begun a touch gesture.
 //
 // event: An event object representing the gesture beginning.
@@ -1501,7 +1459,6 @@ func (r NSResponder) NoResponderFor(eventSelector objc.SEL) {
 func (r NSResponder) BeginGestureWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("beginGestureWithEvent:"), event)
 }
-
 // Informs the receiver that the user has ended a touch gesture.
 //
 // event: An event object representing the gesture end.
@@ -1517,7 +1474,6 @@ func (r NSResponder) BeginGestureWithEvent(event INSEvent) {
 func (r NSResponder) EndGestureWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("endGestureWithEvent:"), event)
 }
-
 // Informs the receiver that the user has begun a pinch gesture.
 //
 // event: An event object representing the magnify gesture.
@@ -1530,7 +1486,6 @@ func (r NSResponder) EndGestureWithEvent(event INSEvent) {
 func (r NSResponder) MagnifyWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("magnifyWithEvent:"), event)
 }
-
 // Informs the receiver that the user has begun a rotation gesture.
 //
 // event: An event object representing the rotate gesture.
@@ -1543,7 +1498,6 @@ func (r NSResponder) MagnifyWithEvent(event INSEvent) {
 func (r NSResponder) RotateWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("rotateWithEvent:"), event)
 }
-
 // Informs the receiver that the user has begun a swipe gesture.
 //
 // event: An event object representing the swipe gesture.
@@ -1556,7 +1510,6 @@ func (r NSResponder) RotateWithEvent(event INSEvent) {
 func (r NSResponder) SwipeWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("swipeWithEvent:"), event)
 }
-
 // Informs the receiver that new set of touches has been recognized.
 //
 // event: An event object representing the beginning of a touch.
@@ -1576,7 +1529,6 @@ func (r NSResponder) SwipeWithEvent(event INSEvent) {
 func (r NSResponder) TouchesBeganWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("touchesBeganWithEvent:"), event)
 }
-
 // Informs the receiver that one or more touches has moved.
 //
 // event: An event object representing a touch movement.
@@ -1592,7 +1544,6 @@ func (r NSResponder) TouchesBeganWithEvent(event INSEvent) {
 func (r NSResponder) TouchesMovedWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("touchesMovedWithEvent:"), event)
 }
-
 // Informs the receiver that tracking of touches has been cancelled for any
 // reason.
 //
@@ -1606,7 +1557,6 @@ func (r NSResponder) TouchesMovedWithEvent(event INSEvent) {
 func (r NSResponder) TouchesCancelledWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("touchesCancelledWithEvent:"), event)
 }
-
 // Returns that a set of touches have been removed.
 //
 // event: An event object representing the ending of a touch event.
@@ -1626,7 +1576,6 @@ func (r NSResponder) TouchesCancelledWithEvent(event INSEvent) {
 func (r NSResponder) TouchesEndedWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("touchesEndedWithEvent:"), event)
 }
-
 // Returns whether to forward elastic scrolling gesture events up the
 // responder.
 //
@@ -1665,7 +1614,6 @@ func (r NSResponder) WantsForwardedScrollEventsForAxis(axis NSEventGestureAxis) 
 	rv := objc.Send[bool](r.ID, objc.Sel("wantsForwardedScrollEventsForAxis:"), axis)
 	return rv
 }
-
 // Informs the receiver that the user performed a smart zoom gesture.
 //
 // event: An event object representing the smart zoom gesture.
@@ -1679,7 +1627,6 @@ func (r NSResponder) WantsForwardedScrollEventsForAxis(axis NSEventGestureAxis) 
 func (r NSResponder) SmartMagnifyWithEvent(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("smartMagnifyWithEvent:"), event)
 }
-
 // Implement this method to track gesture scroll events such as a swipe.
 //
 // axis: The event gesture axis of the swipe, which defines the scroll direction.
@@ -1709,7 +1656,6 @@ func (r NSResponder) WantsScrollEventsForSwipeTrackingOnAxis(axis NSEventGesture
 	rv := objc.Send[bool](r.ID, objc.Sel("wantsScrollEventsForSwipeTrackingOnAxis:"), axis)
 	return rv
 }
-
 // Your custom subclass of the [NSResponder] class should override this method
 // to create and configure your subclass’s default [NSTouchBar] object.
 //
@@ -1718,7 +1664,6 @@ func (r NSResponder) MakeTouchBar() INSTouchBar {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("makeTouchBar"))
 	return NSTouchBarFromID(rv)
 }
-
 // Performs all find oriented actions.
 //
 // sender: The sender of the find action.
@@ -1737,7 +1682,6 @@ func (r NSResponder) MakeTouchBar() INSTouchBar {
 func (r NSResponder) PerformTextFinderAction(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("performTextFinderAction:"), sender)
 }
-
 // Creates a new window to show as a tab in a tabbed window.
 //
 // sender: The sender of the action.
@@ -1757,7 +1701,6 @@ func (r NSResponder) PerformTextFinderAction(sender objectivec.IObject) {
 func (r NSResponder) NewWindowForTab(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("newWindowForTab:"), sender)
 }
-
 // Creates a new responder object with data in an unarchiver.
 //
 // coder: An unarchiver object.
@@ -1767,7 +1710,6 @@ func (r NSResponder) InitWithCoder(coder foundation.INSCoder) NSResponder {
 	rv := objc.Send[NSResponder](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // event: The key down event that matches the system-wide context menu hotkey
 // combination.
@@ -1801,32 +1743,27 @@ func (r NSResponder) InitWithCoder(coder foundation.INSCoder) NSResponder {
 func (r NSResponder) ContextMenuKeyDown(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("contextMenuKeyDown:"), event)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/mouseCancelled(with:)
 func (r NSResponder) MouseCancelled(event INSEvent) {
 	objc.Send[objc.ID](r.ID, objc.Sel("mouseCancelled:"), event)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/showWritingTools(_:)
 func (r NSResponder) ShowWritingTools(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("showWritingTools:"), sender)
 }
-
 // Cancels the current operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/cancelOperation(_:)
 func (r NSResponder) CancelOperation(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("cancelOperation:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/capitalizeWord(_:)
 func (r NSResponder) CapitalizeWord(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("capitalizeWord:"), sender)
 }
-
 // Moves the visible content region so the current selection is visually
 // centered.
 //
@@ -1834,38 +1771,32 @@ func (r NSResponder) CapitalizeWord(sender objectivec.IObject) {
 func (r NSResponder) CenterSelectionInVisibleArea(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("centerSelectionInVisibleArea:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/changeCaseOfLetter(_:)
 func (r NSResponder) ChangeCaseOfLetter(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("changeCaseOfLetter:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/complete(_:)
 func (r NSResponder) Complete(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("complete:"), sender)
 }
-
 // Deletes content moving backward from the current insertion point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteBackward(_:)
 func (r NSResponder) DeleteBackward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteBackward:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteBackwardByDecomposingPreviousCharacter(_:)
 func (r NSResponder) DeleteBackwardByDecomposingPreviousCharacter(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteBackwardByDecomposingPreviousCharacter:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteForward(_:)
 func (r NSResponder) DeleteForward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteForward:"), sender)
 }
-
 // Deletes content from the insertion point to the beginning of the current
 // line.
 //
@@ -1873,7 +1804,6 @@ func (r NSResponder) DeleteForward(sender objectivec.IObject) {
 func (r NSResponder) DeleteToBeginningOfLine(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteToBeginningOfLine:"), sender)
 }
-
 // Deletes content from the insertion point to the beginning of the current
 // paragraph.
 //
@@ -1881,14 +1811,12 @@ func (r NSResponder) DeleteToBeginningOfLine(sender objectivec.IObject) {
 func (r NSResponder) DeleteToBeginningOfParagraph(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteToBeginningOfParagraph:"), sender)
 }
-
 // Deletes content from the insertion point to the end of the current line.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToEndOfLine(_:)
 func (r NSResponder) DeleteToEndOfLine(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteToEndOfLine:"), sender)
 }
-
 // Deletes content from the insertion point to the end of the current
 // paragraph.
 //
@@ -1896,13 +1824,11 @@ func (r NSResponder) DeleteToEndOfLine(sender objectivec.IObject) {
 func (r NSResponder) DeleteToEndOfParagraph(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteToEndOfParagraph:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteToMark(_:)
 func (r NSResponder) DeleteToMark(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteToMark:"), sender)
 }
-
 // Deletes the word preceding the current insertion point.
 //
 // # Discussion
@@ -1914,13 +1840,11 @@ func (r NSResponder) DeleteToMark(sender objectivec.IObject) {
 func (r NSResponder) DeleteWordBackward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteWordBackward:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/deleteWordForward(_:)
 func (r NSResponder) DeleteWordForward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("deleteWordForward:"), sender)
 }
-
 // Performs the given selector if possible.
 //
 // selector: The selector to perform.
@@ -1929,28 +1853,24 @@ func (r NSResponder) DeleteWordForward(sender objectivec.IObject) {
 func (r NSResponder) DoCommandBySelector(selector objc.SEL) {
 	objc.Send[objc.ID](r.ID, objc.Sel("doCommandBySelector:"), selector)
 }
-
 // Indents the content at the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/indent(_:)
 func (r NSResponder) Indent(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("indent:"), sender)
 }
-
 // Inserts a backtab character.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertBacktab(_:)
 func (r NSResponder) InsertBacktab(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertBacktab:"), sender)
 }
-
 // Inserts a container break, such as a new page break.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertContainerBreak(_:)
 func (r NSResponder) InsertContainerBreak(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertContainerBreak:"), sender)
 }
-
 // Inserts a double quotation mark without substituting a curly quotation
 // mark.
 //
@@ -1958,21 +1878,18 @@ func (r NSResponder) InsertContainerBreak(sender objectivec.IObject) {
 func (r NSResponder) InsertDoubleQuoteIgnoringSubstitution(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertDoubleQuoteIgnoringSubstitution:"), sender)
 }
-
 // Inserts a line break character.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertLineBreak(_:)
 func (r NSResponder) InsertLineBreak(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertLineBreak:"), sender)
 }
-
 // Inserts a newline character.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertNewline(_:)
 func (r NSResponder) InsertNewline(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertNewline:"), sender)
 }
-
 // Inserts a newline character without invoking the field editor’s normal
 // handling to end editing.
 //
@@ -1980,33 +1897,28 @@ func (r NSResponder) InsertNewline(sender objectivec.IObject) {
 func (r NSResponder) InsertNewlineIgnoringFieldEditor(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertNewlineIgnoringFieldEditor:"), sender)
 }
-
 // Inserts a paragraph separator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertParagraphSeparator(_:)
 func (r NSResponder) InsertParagraphSeparator(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertParagraphSeparator:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertSingleQuoteIgnoringSubstitution(_:)
 func (r NSResponder) InsertSingleQuoteIgnoringSubstitution(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertSingleQuoteIgnoringSubstitution:"), sender)
 }
-
 // Inserts a tab character.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertTab(_:)
 func (r NSResponder) InsertTab(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertTab:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/insertTabIgnoringFieldEditor(_:)
 func (r NSResponder) InsertTabIgnoringFieldEditor(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertTabIgnoringFieldEditor:"), sender)
 }
-
 // Inserts the text you specify.
 //
 // insertString: The string to insert in the responder.
@@ -2015,98 +1927,83 @@ func (r NSResponder) InsertTabIgnoringFieldEditor(sender objectivec.IObject) {
 func (r NSResponder) InsertText(insertString objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("insertText:"), insertString)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/lowercaseWord(_:)
 func (r NSResponder) LowercaseWord(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("lowercaseWord:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeBaseWritingDirectionLeftToRight(_:)
 func (r NSResponder) MakeBaseWritingDirectionLeftToRight(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("makeBaseWritingDirectionLeftToRight:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeBaseWritingDirectionNatural(_:)
 func (r NSResponder) MakeBaseWritingDirectionNatural(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("makeBaseWritingDirectionNatural:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeBaseWritingDirectionRightToLeft(_:)
 func (r NSResponder) MakeBaseWritingDirectionRightToLeft(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("makeBaseWritingDirectionRightToLeft:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeTextWritingDirectionLeftToRight(_:)
 func (r NSResponder) MakeTextWritingDirectionLeftToRight(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("makeTextWritingDirectionLeftToRight:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeTextWritingDirectionNatural(_:)
 func (r NSResponder) MakeTextWritingDirectionNatural(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("makeTextWritingDirectionNatural:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/makeTextWritingDirectionRightToLeft(_:)
 func (r NSResponder) MakeTextWritingDirectionRightToLeft(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("makeTextWritingDirectionRightToLeft:"), sender)
 }
-
 // Moves the insertion pointer backward in the current content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveBackward(_:)
 func (r NSResponder) MoveBackward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveBackward:"), sender)
 }
-
 // Extends the selection to include the content before the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveBackwardAndModifySelection(_:)
 func (r NSResponder) MoveBackwardAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveBackwardAndModifySelection:"), sender)
 }
-
 // Moves the insertion pointer down in the current content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveDown(_:)
 func (r NSResponder) MoveDown(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveDown:"), sender)
 }
-
 // Extends the selection to include the content below the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveDownAndModifySelection(_:)
 func (r NSResponder) MoveDownAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveDownAndModifySelection:"), sender)
 }
-
 // Moves the insertion pointer forward in the current content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveForward(_:)
 func (r NSResponder) MoveForward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveForward:"), sender)
 }
-
 // Extends the selection to include the content after the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveForwardAndModifySelection(_:)
 func (r NSResponder) MoveForwardAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveForwardAndModifySelection:"), sender)
 }
-
 // Moves the insertion pointer left in the current content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveLeft(_:)
 func (r NSResponder) MoveLeft(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveLeft:"), sender)
 }
-
 // Extends the selection to include the content to the left of the current
 // selection.
 //
@@ -2114,26 +2011,22 @@ func (r NSResponder) MoveLeft(sender objectivec.IObject) {
 func (r NSResponder) MoveLeftAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveLeftAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveParagraphBackwardAndModifySelection(_:)
 func (r NSResponder) MoveParagraphBackwardAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveParagraphBackwardAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveParagraphForwardAndModifySelection(_:)
 func (r NSResponder) MoveParagraphForwardAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveParagraphForwardAndModifySelection:"), sender)
 }
-
 // Moves the insertion pointer right in the current content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveRight(_:)
 func (r NSResponder) MoveRight(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveRight:"), sender)
 }
-
 // Extends the selection to include the content to the right of the current
 // selection.
 //
@@ -2141,172 +2034,144 @@ func (r NSResponder) MoveRight(sender objectivec.IObject) {
 func (r NSResponder) MoveRightAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveRightAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfDocument(_:)
 func (r NSResponder) MoveToBeginningOfDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfDocument:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfDocumentAndModifySelection(_:)
 func (r NSResponder) MoveToBeginningOfDocumentAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfDocumentAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfLine(_:)
 func (r NSResponder) MoveToBeginningOfLine(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfLine:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfLineAndModifySelection(_:)
 func (r NSResponder) MoveToBeginningOfLineAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfLineAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfParagraph(_:)
 func (r NSResponder) MoveToBeginningOfParagraph(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfParagraph:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToBeginningOfParagraphAndModifySelection(_:)
 func (r NSResponder) MoveToBeginningOfParagraphAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToBeginningOfParagraphAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfDocument(_:)
 func (r NSResponder) MoveToEndOfDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfDocument:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfDocumentAndModifySelection(_:)
 func (r NSResponder) MoveToEndOfDocumentAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfDocumentAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfLine(_:)
 func (r NSResponder) MoveToEndOfLine(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfLine:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfLineAndModifySelection(_:)
 func (r NSResponder) MoveToEndOfLineAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfLineAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfParagraph(_:)
 func (r NSResponder) MoveToEndOfParagraph(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfParagraph:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToEndOfParagraphAndModifySelection(_:)
 func (r NSResponder) MoveToEndOfParagraphAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToEndOfParagraphAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToLeftEndOfLine(_:)
 func (r NSResponder) MoveToLeftEndOfLine(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToLeftEndOfLine:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToLeftEndOfLineAndModifySelection(_:)
 func (r NSResponder) MoveToLeftEndOfLineAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToLeftEndOfLineAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToRightEndOfLine(_:)
 func (r NSResponder) MoveToRightEndOfLine(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToRightEndOfLine:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveToRightEndOfLineAndModifySelection(_:)
 func (r NSResponder) MoveToRightEndOfLineAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveToRightEndOfLineAndModifySelection:"), sender)
 }
-
 // Moves the insertion pointer up in the current content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveUp(_:)
 func (r NSResponder) MoveUp(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveUp:"), sender)
 }
-
 // Extends the selection to include the content above the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveUpAndModifySelection(_:)
 func (r NSResponder) MoveUpAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveUpAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordBackward(_:)
 func (r NSResponder) MoveWordBackward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordBackward:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordBackwardAndModifySelection(_:)
 func (r NSResponder) MoveWordBackwardAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordBackwardAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordForward(_:)
 func (r NSResponder) MoveWordForward(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordForward:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordForwardAndModifySelection(_:)
 func (r NSResponder) MoveWordForwardAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordForwardAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordLeft(_:)
 func (r NSResponder) MoveWordLeft(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordLeft:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordLeftAndModifySelection(_:)
 func (r NSResponder) MoveWordLeftAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordLeftAndModifySelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordRight(_:)
 func (r NSResponder) MoveWordRight(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordRight:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/moveWordRightAndModifySelection(_:)
 func (r NSResponder) MoveWordRightAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("moveWordRightAndModifySelection:"), sender)
 }
-
 // Moves the visible content region down by a page.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/pageDown(_:)
 func (r NSResponder) PageDown(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("pageDown:"), sender)
 }
-
 // Moves the visible content region down by a page, and extends the current
 // selection.
 //
@@ -2314,14 +2179,12 @@ func (r NSResponder) PageDown(sender objectivec.IObject) {
 func (r NSResponder) PageDownAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("pageDownAndModifySelection:"), sender)
 }
-
 // Moves the visible content region up by a page.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/pageUp(_:)
 func (r NSResponder) PageUp(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("pageUp:"), sender)
 }
-
 // Moves the visible content region up by a page, and extends the current
 // selection.
 //
@@ -2329,14 +2192,12 @@ func (r NSResponder) PageUp(sender objectivec.IObject) {
 func (r NSResponder) PageUpAndModifySelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("pageUpAndModifySelection:"), sender)
 }
-
 // Invokes QuickLook to preview the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/quickLookPreviewItems(_:)
 func (r NSResponder) QuickLookPreviewItems(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("quickLookPreviewItems:"), sender)
 }
-
 // Restores the state necessary to continue the specified user activity.
 //
 // userActivity: The user activity to continue.
@@ -2365,85 +2226,72 @@ func (r NSResponder) QuickLookPreviewItems(sender objectivec.IObject) {
 func (r NSResponder) RestoreUserActivityState(userActivity foundation.NSUserActivity) {
 	objc.Send[objc.ID](r.ID, objc.Sel("restoreUserActivityState:"), userActivity)
 }
-
 // Scrolls the content down by a line.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollLineDown(_:)
 func (r NSResponder) ScrollLineDown(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("scrollLineDown:"), sender)
 }
-
 // Scrolls the content up by a line.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollLineUp(_:)
 func (r NSResponder) ScrollLineUp(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("scrollLineUp:"), sender)
 }
-
 // Scrolls the content down by a page.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollPageDown(_:)
 func (r NSResponder) ScrollPageDown(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("scrollPageDown:"), sender)
 }
-
 // Scrolls the content up by a page.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollPageUp(_:)
 func (r NSResponder) ScrollPageUp(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("scrollPageUp:"), sender)
 }
-
 // Scrolls the content to the beginning of the document.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollToBeginningOfDocument(_:)
 func (r NSResponder) ScrollToBeginningOfDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("scrollToBeginningOfDocument:"), sender)
 }
-
 // Scrolls the content to the end of the document.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/scrollToEndOfDocument(_:)
 func (r NSResponder) ScrollToEndOfDocument(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("scrollToEndOfDocument:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/selectAll(_:)
 func (r NSResponder) SelectAll(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("selectAll:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/selectLine(_:)
 func (r NSResponder) SelectLine(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("selectLine:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/selectParagraph(_:)
 func (r NSResponder) SelectParagraph(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("selectParagraph:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/selectToMark(_:)
 func (r NSResponder) SelectToMark(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("selectToMark:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/selectWord(_:)
 func (r NSResponder) SelectWord(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("selectWord:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/setMark(_:)
 func (r NSResponder) SetMark(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setMark:"), sender)
 }
-
 // Implemented by subclasses to invoke the help system, displaying information
 // relevant to the receiver and its current state.
 //
@@ -2453,7 +2301,6 @@ func (r NSResponder) SetMark(sender objectivec.IObject) {
 func (r NSResponder) ShowContextHelp(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("showContextHelp:"), sender)
 }
-
 //
 // sender: The object that originated the display of the context menu.
 //
@@ -2484,33 +2331,28 @@ func (r NSResponder) ShowContextHelp(sender objectivec.IObject) {
 func (r NSResponder) ShowContextMenuForSelection(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("showContextMenuForSelection:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/swapWithMark(_:)
 func (r NSResponder) SwapWithMark(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("swapWithMark:"), sender)
 }
-
 // Transposes the content around the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/transpose(_:)
 func (r NSResponder) Transpose(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("transpose:"), sender)
 }
-
 // Transposes the words around the current selection.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/transposeWords(_:)
 func (r NSResponder) TransposeWords(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("transposeWords:"), sender)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStandardKeyBindingResponding/uppercaseWord(_:)
 func (r NSResponder) UppercaseWord(sender objectivec.IObject) {
 	objc.Send[objc.ID](r.ID, objc.Sel("uppercaseWord:"), sender)
 }
-
 // Deletes the current selection, placing it in a temporary buffer, such as
 // the Clipboard.
 //
@@ -2561,7 +2403,6 @@ func (r NSResponder) AcceptsFirstResponder() bool {
 	rv := objc.Send[bool](r.ID, objc.Sel("acceptsFirstResponder"))
 	return rv
 }
-
 // The next responder after this one, or `nil` if it has none.
 //
 // # Discussion
@@ -2577,7 +2418,6 @@ func (r NSResponder) NextResponder() INSResponder {
 func (r NSResponder) SetNextResponder(value INSResponder) {
 	objc.Send[struct{}](r.ID, objc.Sel("setNextResponder:"), value)
 }
-
 // An object encapsulating a user activity supported by this responder.
 //
 // # Discussion
@@ -2613,7 +2453,6 @@ func (r NSResponder) UserActivity() foundation.NSUserActivity {
 func (r NSResponder) SetUserActivity(value foundation.NSUserActivity) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUserActivity:"), value)
 }
-
 // Returns the responder’s menu.
 //
 // # Discussion
@@ -2631,7 +2470,6 @@ func (r NSResponder) Menu() INSMenu {
 func (r NSResponder) SetMenu(value INSMenu) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMenu:"), value)
 }
-
 // The undo manager for this responder.
 //
 // # Discussion
@@ -2644,7 +2482,6 @@ func (r NSResponder) UndoManager() foundation.NSUndoManager {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("undoManager"))
 	return foundation.NSUndoManagerFromID(objc.ID(rv))
 }
-
 // The [NSTouchBar] object associated with the responder.
 //
 // # Discussion

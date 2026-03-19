@@ -116,7 +116,6 @@ func (v MTLVertexAttributeDescriptorArray) ObjectAtIndexedSubscript(index uint) 
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return MTLVertexAttributeDescriptorFromID(rv)
 }
-
 // Sets state for the specified vertex attribute.
 //
 // attributeDesc: A descriptor that contains vertex attribute state.

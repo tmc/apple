@@ -245,7 +245,6 @@ func (c NSColorSpace) InitWithCGColorSpace(cgColorSpace coregraphics.CGColorSpac
 	rv := objc.Send[NSColorSpace](c.ID, objc.Sel("initWithCGColorSpace:"), cgColorSpace)
 	return rv
 }
-
 // Initializes and returns a color space object from the specified ColorSync
 // profile.
 //
@@ -265,7 +264,6 @@ func (c NSColorSpace) InitWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace
 	rv := objc.Send[NSColorSpace](c.ID, objc.Sel("initWithColorSyncProfile:"), prof)
 	return rv
 }
-
 // Initializes and returns a color space object from the specified ICC
 // profile.
 //
@@ -331,7 +329,6 @@ func (c NSColorSpace) CGColorSpace() coregraphics.CGColorSpaceRef {
 	rv := objc.Send[coregraphics.CGColorSpaceRef](c.ID, objc.Sel("CGColorSpace"))
 	return coregraphics.CGColorSpaceRef(rv)
 }
-
 // The model on which the color space is based.
 //
 // # Discussion
@@ -343,7 +340,6 @@ func (c NSColorSpace) ColorSpaceModel() NSColorSpaceModel {
 	rv := objc.Send[NSColorSpaceModel](c.ID, objc.Sel("colorSpaceModel"))
 	return NSColorSpaceModel(rv)
 }
-
 // The ColorSync profile from which the color space was created.
 //
 // # Discussion
@@ -360,7 +356,6 @@ func (c NSColorSpace) ColorSyncProfile() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("colorSyncProfile"))
 	return rv
 }
-
 // The ICC profile data from which the color space was created.
 //
 // # Discussion
@@ -379,7 +374,6 @@ func (c NSColorSpace) ICCProfileData() foundation.INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("ICCProfileData"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
 // The localized name of the color space.
 //
 // # Discussion
@@ -392,7 +386,6 @@ func (c NSColorSpace) LocalizedName() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("localizedName"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The number of components, excluding alpha, the color space supports.
 //
 // # Discussion
@@ -420,7 +413,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) DeviceRGBColorSpace() NSColorSpace {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("deviceRGBColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents a device-independent RGB color space.
 //
 // # Return Value
@@ -434,7 +426,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) GenericRGBColorSpace() NSColorSpace 
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("genericRGBColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents a calibrated or device-dependent CMYK
 // color space.
 //
@@ -450,7 +441,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) DeviceCMYKColorSpace() NSColorSpace 
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("deviceCMYKColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents a device-independent CMYK color space.
 //
 // # Return Value
@@ -463,7 +453,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) GenericCMYKColorSpace() NSColorSpace
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("genericCMYKColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents a calibrated or device-dependent gray
 // color space.
 //
@@ -479,7 +468,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) DeviceGrayColorSpace() NSColorSpace 
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("deviceGrayColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents a device-independent gray color space.
 //
 // # Return Value
@@ -493,7 +481,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) GenericGrayColorSpace() NSColorSpace
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("genericGrayColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents an sRGB color space.
 //
 // # Return Value
@@ -514,7 +501,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) SRGBColorSpace() NSColorSpace {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("sRGBColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents an extended sRGB color space.
 //
 // # Return Value
@@ -534,7 +520,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) ExtendedSRGBColorSpace() NSColorSpac
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("extendedSRGBColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents a P3 Display color space.
 //
 // # Return Value
@@ -553,7 +538,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) DisplayP3ColorSpace() NSColorSpace {
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("displayP3ColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents a gray color space with a gamma value
 // of 2.2.
 //
@@ -566,7 +550,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) GenericGamma22GrayColorSpace() NSCol
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("genericGamma22GrayColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents an extended gray color space with a
 // gamma value of 2.2.
 //
@@ -586,7 +569,6 @@ func (_NSColorSpaceClass NSColorSpaceClass) ExtendedGenericGamma22GrayColorSpace
 	rv := objc.Send[objc.ID](objc.ID(_NSColorSpaceClass.class), objc.Sel("extendedGenericGamma22GrayColorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // A color space object that represents an Adobe RGB (1998) color space.
 //
 // # Return Value

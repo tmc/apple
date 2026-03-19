@@ -44,7 +44,6 @@ func MTLIOFileHandleObjectFromID(id objc.ID) MTLIOFileHandleObject {
 // An optional name for the file that the handle represents.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOFileHandle/label
-
 func (o MTLIOFileHandleObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))

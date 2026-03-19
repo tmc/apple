@@ -47,13 +47,11 @@ func NSMetadataQueryDelegateObjectFromID(id objc.ID) NSMetadataQueryDelegateObje
 // class type for the specified result object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQueryDelegate/metadataQuery(_:replacementObjectForResultObject:)
-
 func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementObjectForResultObject(query INSMetadataQuery, result INSMetadataItem) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadataQuery:replacementObjectForResultObject:"), query, result)
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns a different value for a given attribute and value.
 //
 // query: The query that produced the result object with `attrName`.
@@ -73,7 +71,6 @@ func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementObjectForResultOb
 // object values to formatted strings for display.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQueryDelegate/metadataQuery(_:replacementValueForAttribute:value:)
-
 func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementValueForAttributeValue(query INSMetadataQuery, attrName string, attrValue objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadataQuery:replacementValueForAttribute:value:"), query, objc.String(attrName), attrValue)

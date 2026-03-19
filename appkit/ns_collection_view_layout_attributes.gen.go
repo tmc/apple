@@ -326,7 +326,6 @@ func (c NSCollectionViewLayoutAttributes) RepresentedElementCategory() NSCollect
 	rv := objc.Send[NSCollectionElementCategory](c.ID, objc.Sel("representedElementCategory"))
 	return NSCollectionElementCategory(rv)
 }
-
 // The index path of the element.
 //
 // # Discussion
@@ -343,7 +342,6 @@ func (c NSCollectionViewLayoutAttributes) IndexPath() objc.ID {
 func (c NSCollectionViewLayoutAttributes) SetIndexPath(value objc.ID) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIndexPath:"), value)
 }
-
 // The identifier for specific elements of your collection view interface.
 //
 // # Discussion
@@ -362,7 +360,6 @@ func (c NSCollectionViewLayoutAttributes) RepresentedElementKind() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("representedElementKind"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The frame rectangle of the element.
 //
 // # Discussion
@@ -379,7 +376,6 @@ func (c NSCollectionViewLayoutAttributes) Frame() corefoundation.CGRect {
 func (c NSCollectionViewLayoutAttributes) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFrame:"), value)
 }
-
 // The size of the element.
 //
 // # Discussion
@@ -395,7 +391,6 @@ func (c NSCollectionViewLayoutAttributes) Size() corefoundation.CGSize {
 func (c NSCollectionViewLayoutAttributes) SetSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSize:"), value)
 }
-
 // The transparency of the element.
 //
 // # Discussion
@@ -414,7 +409,6 @@ func (c NSCollectionViewLayoutAttributes) Alpha() float64 {
 func (c NSCollectionViewLayoutAttributes) SetAlpha(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setAlpha:"), value)
 }
-
 // A Boolean value indicating whether the element is hidden.
 //
 // # Discussion
@@ -435,7 +429,6 @@ func (c NSCollectionViewLayoutAttributes) Hidden() bool {
 func (c NSCollectionViewLayoutAttributes) SetHidden(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHidden:"), value)
 }
-
 // The element’s position on the z axis.
 //
 // # Discussion
@@ -463,7 +456,6 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindInterItemGapIndicator"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A supplementary view that acts as a footer for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionfooter
@@ -471,7 +463,6 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindSectionFooter"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A supplementary view that acts as a header for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionheader
@@ -479,7 +470,6 @@ func (_NSCollectionViewLayoutAttributesClass NSCollectionViewLayoutAttributesCla
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewLayoutAttributesClass.class), objc.Sel("NSCollectionElementKindSectionHeader"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Returns the class to use for layout attribute objects
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionviewlayout/layoutattributesclass

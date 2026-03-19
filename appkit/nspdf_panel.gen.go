@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
@@ -109,7 +110,7 @@ type INSPDFPanel interface {
 	// Topic: Displaying a PDF Panel
 
 	// Presents a document-modal PDF panel.
-	BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo INSPDFInfo, docWindow INSWindow, completionHandler ErrorHandler)
+	BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo INSPDFInfo, docWindow INSWindow, completionHandler IntHandler)
 }
 
 // Init initializes the instance.
@@ -148,8 +149,8 @@ func NewNSPDFPanel() NSPDFPanel {
 // [NSPDFInfo] object with any changes the user makes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFPanel/beginSheet(with:modalFor:completionHandler:)
-func (p NSPDFPanel) BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo INSPDFInfo, docWindow INSWindow, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
+func (p NSPDFPanel) BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo INSPDFInfo, docWindow INSWindow, completionHandler IntHandler) {
+_block2, _cleanup2 := NewIntBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetWithPDFInfo:modalForWindow:completionHandler:"), pdfInfo, docWindow, _block2)
 }
@@ -171,7 +172,6 @@ func (p NSPDFPanel) AccessoryController() INSViewController {
 func (p NSPDFPanel) SetAccessoryController(value INSViewController) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAccessoryController:"), value)
 }
-
 // A set of configuration options that determine the accessory views the PDF
 // panel should display.
 //
@@ -190,7 +190,6 @@ func (p NSPDFPanel) Options() NSPDFPanelOptions {
 func (p NSPDFPanel) SetOptions(value NSPDFPanelOptions) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOptions:"), value)
 }
-
 // The initial value for the user-editable filename shown in the name field of
 // the PDF panel.
 //
@@ -207,5 +206,20 @@ func (p NSPDFPanel) DefaultFileName() string {
 }
 func (p NSPDFPanel) SetDefaultFileName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDefaultFileName:"), objc.String(value))
+}
+
+// BeginSheetWithPDFInfoModalForWindow is a synchronous wrapper around [NSPDFPanel.BeginSheetWithPDFInfoModalForWindowCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (p NSPDFPanel) BeginSheetWithPDFInfoModalForWindow(ctx context.Context, pdfInfo INSPDFInfo, docWindow INSWindow) (int, error) {
+	done := make(chan int, 1)
+	p.BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo, docWindow, func(val int) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
 }
 

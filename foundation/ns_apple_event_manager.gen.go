@@ -182,7 +182,6 @@ func NewNSAppleEventManager() NSAppleEventManager {
 func (a NSAppleEventManager) RemoveEventHandlerForEventClassAndEventID(eventClass uint32, eventID uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeEventHandlerForEventClass:andEventID:"), eventClass, eventID)
 }
-
 // Registers the Apple event handler specified by `handler` for the event
 // specified by `eventClass` and `eventID`.
 //
@@ -197,7 +196,6 @@ func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(h
 _block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("setEventHandler:andSelector:forEventClass:andEventID:"), _block0, handleEventSelector, eventClass, eventID)
 }
-
 // Causes the Apple event specified by `theAppleEvent` to be dispatched to the
 // appropriate Apple event handler, if one has been registered by calling
 // [SetEventHandlerAndSelectorForEventClassAndEventID].
@@ -223,7 +221,6 @@ _block2, _cleanup2 := NewErrorBlock(handlerRefCon)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, _block2)
 	return objectivec.Object{ID: rv}
 }
-
 // Given a nonzero `suspensionID` returned by an invocation of
 // [SuspendCurrentAppleEvent], returns the descriptor for the event whose
 // handling was suspended.
@@ -240,7 +237,6 @@ func (a NSAppleEventManager) AppleEventForSuspensionID(suspensionID NSAppleEvent
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("appleEventForSuspensionID:"), suspensionID)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Given a nonzero `suspensionID` returned by an invocation of
 // [SuspendCurrentAppleEvent], returns the corresponding reply event
 // descriptor.
@@ -260,7 +256,6 @@ func (a NSAppleEventManager) ReplyAppleEventForSuspensionID(suspensionID NSApple
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("replyAppleEventForSuspensionID:"), suspensionID)
 	return NSAppleEventDescriptorFromID(rv)
 }
-
 // Given a nonzero `suspensionID` returned by an invocation of
 // [SuspendCurrentAppleEvent], signal that handling of the suspended event may
 // now continue.
@@ -281,7 +276,6 @@ func (a NSAppleEventManager) ReplyAppleEventForSuspensionID(suspensionID NSApple
 func (a NSAppleEventManager) ResumeWithSuspensionID(suspensionID NSAppleEventManagerSuspensionID) {
 	objc.Send[objc.ID](a.ID, objc.Sel("resumeWithSuspensionID:"), suspensionID)
 }
-
 // Given a nonzero `suspensionID` returned by an invocation of
 // [SuspendCurrentAppleEvent], sets the values that will be returned by
 // subsequent invocations of [CurrentAppleEvent] and [CurrentReplyAppleEvent]
@@ -297,7 +291,6 @@ func (a NSAppleEventManager) ResumeWithSuspensionID(suspensionID NSAppleEventMan
 func (a NSAppleEventManager) SetCurrentAppleEventAndReplyEventWithSuspensionID(suspensionID NSAppleEventManagerSuspensionID) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setCurrentAppleEventAndReplyEventWithSuspensionID:"), suspensionID)
 }
-
 // Suspends the handling of the current event and returns an ID that must be
 // used to resume the handling of the event if an Apple event is being handled
 // on the current thread.
@@ -340,7 +333,6 @@ func (a NSAppleEventManager) CurrentAppleEvent() INSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("currentAppleEvent"))
 	return NSAppleEventDescriptorFromID(objc.ID(rv))
 }
-
 // Returns the corresponding reply event descriptor if an Apple event is being
 // handled on the current thread.
 //

@@ -253,7 +253,6 @@ func (s NSScroller) RectForPart(partCode NSScrollerPart) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("rectForPart:"), partCode)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the part that would be hit by a mouse-down event at `aPoint`
 // (expressed in the window’s coordinate system).
 //
@@ -277,7 +276,6 @@ func (s NSScroller) TestPart(point corefoundation.CGPoint) NSScrollerPart {
 	rv := objc.Send[NSScrollerPart](s.ID, objc.Sel("testPart:"), point)
 	return NSScrollerPart(rv)
 }
-
 // Checks to see if there is enough room in the receiver to display the knob
 // and buttons.
 //
@@ -291,7 +289,6 @@ func (s NSScroller) TestPart(point corefoundation.CGPoint) NSScrollerPart {
 func (s NSScroller) CheckSpaceForParts() {
 	objc.Send[objc.ID](s.ID, objc.Sel("checkSpaceForParts"))
 }
-
 // Draws the portion of the scroller’s track, possibly including the line
 // increment and decrement arrow buttons, that falls in the given rectangle.
 //
@@ -312,7 +309,6 @@ func (s NSScroller) CheckSpaceForParts() {
 func (s NSScroller) DrawKnobSlotInRectHighlight(slotRect corefoundation.CGRect, flag bool) {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawKnobSlotInRect:highlight:"), slotRect, flag)
 }
-
 // Draws the knob.
 //
 // # Discussion
@@ -324,7 +320,6 @@ func (s NSScroller) DrawKnobSlotInRectHighlight(slotRect corefoundation.CGRect, 
 func (s NSScroller) DrawKnob() {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawKnob"))
 }
-
 // Tracks the knob and sends action messages to the receiver’s target.
 //
 // # Discussion
@@ -381,7 +376,6 @@ func (s NSScroller) UsableParts() NSUsableScrollerParts {
 	rv := objc.Send[NSUsableScrollerParts](s.ID, objc.Sel("usableParts"))
 	return NSUsableScrollerParts(rv)
 }
-
 // A part code indicating the manner in which the scrolling should be
 // performed.
 //
@@ -404,7 +398,6 @@ func (s NSScroller) HitPart() NSScrollerPart {
 	rv := objc.Send[NSScrollerPart](s.ID, objc.Sel("hitPart"))
 	return NSScrollerPart(rv)
 }
-
 // The scroller style for this scroller.
 //
 // # Discussion
@@ -426,7 +419,6 @@ func (s NSScroller) ScrollerStyle() NSScrollerStyle {
 func (s NSScroller) SetScrollerStyle(value NSScrollerStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrollerStyle:"), value)
 }
-
 // The scroller’s knob style.
 //
 // # Discussion
@@ -449,7 +441,6 @@ func (s NSScroller) KnobStyle() NSScrollerKnobStyle {
 func (s NSScroller) SetKnobStyle(value NSScrollerKnobStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setKnobStyle:"), value)
 }
-
 // The proportion of the knob slot that the knob should fill.
 //
 // # Discussion
@@ -505,7 +496,6 @@ func (_NSScrollerClass NSScrollerClass) PreferredScrollerStyle() NSScrollerStyle
 	rv := objc.Send[NSScrollerStyle](objc.ID(_NSScrollerClass.class), objc.Sel("preferredScrollerStyle"))
 	return NSScrollerStyle(rv)
 }
-
 // Posted if the preferred scroller style changes.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscroller/preferredscrollerstyledidchangenotification
@@ -513,7 +503,6 @@ func (_NSScrollerClass NSScrollerClass) PreferredScrollerStyleDidChangeNotificat
 	rv := objc.Send[objc.ID](objc.ID(_NSScrollerClass.class), objc.Sel("NSPreferredScrollerStyleDidChangeNotification"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/isCompatibleWithOverlayScrollers
 func (_NSScrollerClass NSScrollerClass) CompatibleWithOverlayScrollers() bool {
 	rv := objc.Send[bool](objc.ID(_NSScrollerClass.class), objc.Sel("isCompatibleWithOverlayScrollers"))

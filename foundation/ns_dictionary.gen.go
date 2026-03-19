@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"context"
 	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
@@ -381,9 +382,9 @@ type INSDictionary interface {
 	// Returns an enumerator object that lets you access each value in the dictionary.
 	ObjectEnumerator() INSEnumerator
 	// Applies a given block object to the entries of the dictionary.
-	EnumerateKeysAndObjectsUsingBlock(block unsafe.Pointer)
+	EnumerateKeysAndObjectsUsingBlock(block KeyTypeHandler)
 	// Applies a given block object to the entries of the dictionary, with options specifying how the enumeration is performed.
-	EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer)
+	EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block KeyTypeHandler)
 
 	// Topic: Sorting Dictionaries
 
@@ -397,9 +398,9 @@ type INSDictionary interface {
 	// Topic: Filtering Dictionaries
 
 	// Returns the set of keys whose corresponding value satisfies a constraint described by a block object.
-	KeysOfEntriesPassingTest(predicate unsafe.Pointer) INSSet
+	KeysOfEntriesPassingTest(predicate KeyTypeHandler) INSSet
 	// Returns the set of keys whose corresponding value satisfies a constraint described by a block object.
-	KeysOfEntriesWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSSet
+	KeysOfEntriesWithOptionsPassingTest(opts NSEnumerationOptions, predicate KeyTypeHandler) INSSet
 
 	// Topic: Storing Dictionaries
 
@@ -648,7 +649,6 @@ func (d NSDictionary) InitWithObjectsForKeys(objects []objectivec.IObject, keys 
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithObjects:forKeys:"), objectivec.IObjectSliceToNSArray(objects), objectivec.IObjectSliceToNSArray(keys))
 	return rv
 }
-
 // Initializes a newly allocated dictionary with the specified number of
 // key-value pairs constructed from the provided C arrays of keys and objects.
 //
@@ -674,7 +674,6 @@ func (d NSDictionary) InitWithObjectsForKeysCount(objects []objectivec.IObject, 
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithObjects:forKeys:count:"), objc.CArray(objects), objc.CArray(keys), cnt)
 	return rv
 }
-
 // Initializes a newly allocated dictionary by placing in it the keys and
 // values contained in another given dictionary.
 //
@@ -691,7 +690,6 @@ func (d NSDictionary) InitWithDictionary(otherDictionary INSDictionary) NSDictio
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithDictionary:"), otherDictionary)
 	return rv
 }
-
 // Initializes a newly allocated dictionary using the objects contained in
 // another given dictionary.
 //
@@ -736,7 +734,6 @@ func (d NSDictionary) InitWithDictionaryCopyItems(otherDictionary INSDictionary,
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithDictionary:copyItems:"), otherDictionary, flag)
 	return rv
 }
-
 // Creates a dictionary initialized from data in the provided unarchiver.
 //
 // coder: An unarchiver object.
@@ -746,7 +743,6 @@ func (d NSDictionary) InitWithCoder(coder INSCoder) NSDictionary {
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the contents of the
 // receiving dictionary are equal to the contents of another given dictionary.
 //
@@ -773,7 +769,6 @@ func (d NSDictionary) IsEqualToDictionary(otherDictionary INSDictionary) bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isEqualToDictionary:"), otherDictionary)
 	return rv
 }
-
 // Returns a new array containing the keys corresponding to all occurrences of
 // a given object in the dictionary.
 //
@@ -799,7 +794,6 @@ func (d NSDictionary) AllKeysForObject(anObject objectivec.IObject) []objectivec
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Returns as a static array the set of objects from the dictionary that
 // corresponds to the specified keys.
 //
@@ -822,7 +816,6 @@ func (d NSDictionary) ObjectsForKeysNotFoundMarker(keys []objectivec.IObject, ma
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Returns the value associated with a given key.
 //
 // aKey: The key for which to return the corresponding value.
@@ -837,7 +830,6 @@ func (d NSDictionary) ObjectForKey(aKey objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectForKey:"), aKey)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the value associated with a given key.
 //
 // key: The key for which to return the corresponding value.
@@ -859,7 +851,6 @@ func (d NSDictionary) ObjectForKeyedSubscript(key objectivec.IObject) objectivec
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectForKeyedSubscript:"), key)
 	return objectivec.Object{ID: rv}
 }
-
 // Provides an enumerator to access the keys in the dictionary.
 //
 // # Return Value
@@ -890,7 +881,6 @@ func (d NSDictionary) KeyEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keyEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
-
 // Returns an enumerator object that lets you access each value in the
 // dictionary.
 //
@@ -919,7 +909,6 @@ func (d NSDictionary) ObjectEnumerator() INSEnumerator {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("objectEnumerator"))
 	return NSEnumeratorFromID(rv)
 }
-
 // Applies a given block object to the entries of the dictionary.
 //
 // block: A block object to operate on entries in the dictionary.
@@ -931,10 +920,11 @@ func (d NSDictionary) ObjectEnumerator() INSEnumerator {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/enumerateKeysAndObjects(_:)
-func (d NSDictionary) EnumerateKeysAndObjectsUsingBlock(block unsafe.Pointer) {
-	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsUsingBlock:"), block)
+func (d NSDictionary) EnumerateKeysAndObjectsUsingBlock(block KeyTypeHandler) {
+_block0, _cleanup0 := NewKeyTypeBlock(block)
+	defer _cleanup0()
+	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsUsingBlock:"), _block0)
 }
-
 // Applies a given block object to the entries of the dictionary, with options
 // specifying how the enumeration is performed.
 //
@@ -949,10 +939,11 @@ func (d NSDictionary) EnumerateKeysAndObjectsUsingBlock(block unsafe.Pointer) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/enumerateKeysAndObjects(options:using:)
-func (d NSDictionary) EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block unsafe.Pointer) {
-	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsWithOptions:usingBlock:"), opts, block)
+func (d NSDictionary) EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block KeyTypeHandler) {
+_block1, _cleanup1 := NewKeyTypeBlock(block)
+	defer _cleanup1()
+	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsWithOptions:usingBlock:"), opts, _block1)
 }
-
 // Returns an array of the dictionary’s keys, in the order they would be in
 // if the dictionary were sorted by its values.
 //
@@ -982,7 +973,6 @@ func (d NSDictionary) KeysSortedByValueUsingSelector(comparator objc.SEL) []obje
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Returns an array of the dictionary’s keys, in the order they would be in
 // if the dictionary were sorted by its values using a given comparator block.
 //
@@ -1000,7 +990,6 @@ func (d NSDictionary) KeysSortedByValueUsingComparator(cmptr NSComparator) []obj
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Returns an array of the dictionary’s keys, in the order they would be in
 // if the dictionary were sorted by its values using a given comparator block
 // and a specified set of options.
@@ -1022,7 +1011,6 @@ func (d NSDictionary) KeysSortedByValueWithOptionsUsingComparator(opts NSSortOpt
 		return objectivec.Object{ID: id}
 	})
 }
-
 // Returns the set of keys whose corresponding value satisfies a constraint
 // described by a block object.
 //
@@ -1033,11 +1021,12 @@ func (d NSDictionary) KeysSortedByValueWithOptionsUsingComparator(opts NSSortOpt
 // The set of keys whose corresponding value satisfies `predicate`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysOfEntries(passingTest:)
-func (d NSDictionary) KeysOfEntriesPassingTest(predicate unsafe.Pointer) INSSet {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesPassingTest:"), predicate)
+func (d NSDictionary) KeysOfEntriesPassingTest(predicate KeyTypeHandler) INSSet {
+_block0, _cleanup0 := NewKeyTypeBlock(predicate)
+	defer _cleanup0()
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
-
 // Returns the set of keys whose corresponding value satisfies a constraint
 // described by a block object.
 //
@@ -1050,11 +1039,12 @@ func (d NSDictionary) KeysOfEntriesPassingTest(predicate unsafe.Pointer) INSSet 
 // The set of keys whose corresponding value satisfies `predicate`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysOfEntries(options:passingTest:)
-func (d NSDictionary) KeysOfEntriesWithOptionsPassingTest(opts NSEnumerationOptions, predicate unsafe.Pointer) INSSet {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesWithOptions:passingTest:"), opts, predicate)
+func (d NSDictionary) KeysOfEntriesWithOptionsPassingTest(opts NSEnumerationOptions, predicate KeyTypeHandler) INSSet {
+_block1, _cleanup1 := NewKeyTypeBlock(predicate)
+	defer _cleanup1()
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }
-
 // Writes a property list representation of the contents of the dictionary to
 // a given URL.
 //
@@ -1094,7 +1084,6 @@ func (d NSDictionary) WriteToURLError(url INSURL) (bool, error) {
 	return rv, nil
 
 }
-
 // Returns the file’s size, in bytes.
 //
 // # Return Value
@@ -1110,7 +1099,6 @@ func (d NSDictionary) FileSize() uint64 {
 	rv := objc.Send[uint64](d.ID, objc.Sel("fileSize"))
 	return rv
 }
-
 // Returns the file type.
 //
 // # Return Value
@@ -1126,7 +1114,6 @@ func (d NSDictionary) FileType() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileType"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the file’s creation date.
 //
 // # Return Value
@@ -1141,7 +1128,6 @@ func (d NSDictionary) FileCreationDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileCreationDate"))
 	return NSDateFromID(rv)
 }
-
 // Returns file’s modification date.
 //
 // # Return Value
@@ -1156,7 +1142,6 @@ func (d NSDictionary) FileModificationDate() INSDate {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileModificationDate"))
 	return NSDateFromID(rv)
 }
-
 // Returns the file’s POSIX permissions.
 //
 // # Return Value
@@ -1172,7 +1157,6 @@ func (d NSDictionary) FilePosixPermissions() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("filePosixPermissions"))
 	return rv
 }
-
 // Returns the file’s owner account ID.
 //
 // # Return Value
@@ -1187,7 +1171,6 @@ func (d NSDictionary) FileOwnerAccountID() INSNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileOwnerAccountID"))
 	return NSNumberFromID(rv)
 }
-
 // Returns the file’s owner account name.
 //
 // # Return Value
@@ -1202,7 +1185,6 @@ func (d NSDictionary) FileOwnerAccountName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileOwnerAccountName"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns file’s group owner account ID.
 //
 // # Return Value
@@ -1217,7 +1199,6 @@ func (d NSDictionary) FileGroupOwnerAccountID() INSNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileGroupOwnerAccountID"))
 	return NSNumberFromID(rv)
 }
-
 // Returns the file’s group owner account name.
 //
 // # Return Value
@@ -1232,7 +1213,6 @@ func (d NSDictionary) FileGroupOwnerAccountName() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("fileGroupOwnerAccountName"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns a Boolean value indicating whether the file hides its extension.
 //
 // # Return Value
@@ -1248,7 +1228,6 @@ func (d NSDictionary) FileExtensionHidden() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("fileExtensionHidden"))
 	return rv
 }
-
 // Returns a Boolean value indicating whether the file is immutable.
 //
 // # Return Value
@@ -1264,7 +1243,6 @@ func (d NSDictionary) FileIsImmutable() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("fileIsImmutable"))
 	return rv
 }
-
 // Returns a Boolean value indicating whether the file is append only.
 //
 // # Return Value
@@ -1280,7 +1258,6 @@ func (d NSDictionary) FileIsAppendOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("fileIsAppendOnly"))
 	return rv
 }
-
 // Returns the filesystem file number.
 //
 // # Return Value
@@ -1296,7 +1273,6 @@ func (d NSDictionary) FileSystemFileNumber() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("fileSystemFileNumber"))
 	return rv
 }
-
 // Returns the filesystem number.
 //
 // # Return Value
@@ -1312,7 +1288,6 @@ func (d NSDictionary) FileSystemNumber() int {
 	rv := objc.Send[int](d.ID, objc.Sel("fileSystemNumber"))
 	return rv
 }
-
 // Returns file’s HFS type code.
 //
 // # Return Value
@@ -1327,7 +1302,6 @@ func (d NSDictionary) FileHFSTypeCode() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("fileHFSTypeCode"))
 	return rv
 }
-
 // Returns the file’s HFS creator code.
 //
 // # Return Value
@@ -1342,7 +1316,6 @@ func (d NSDictionary) FileHFSCreatorCode() uint32 {
 	rv := objc.Send[uint32](d.ID, objc.Sel("fileHFSCreatorCode"))
 	return rv
 }
-
 // Returns a string object that represents the contents of the dictionary,
 // formatted as a property list.
 //
@@ -1368,7 +1341,6 @@ func (d NSDictionary) DescriptionWithLocale(locale objectivec.IObject) string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("descriptionWithLocale:"), locale)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a string object that represents the contents of the dictionary,
 // formatted as a property list.
 //
@@ -1410,7 +1382,6 @@ func (d NSDictionary) DescriptionWithLocaleIndent(locale objectivec.IObject, lev
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("descriptionWithLocale:indent:"), locale, level)
 	return NSStringFromID(rv).String()
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(contentsOf:error:)
 func (d NSDictionary) InitWithContentsOfURLError(url INSURL) (NSDictionary, error) {
@@ -1423,7 +1394,6 @@ func (d NSDictionary) InitWithContentsOfURLError(url INSURL) (NSDictionary, erro
 	return NSDictionaryFromID(rv), nil
 
 }
-
 // Returns by reference a C array of objects over which the sender should
 // iterate.
 //
@@ -1444,7 +1414,6 @@ func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 	rv := objc.Send[uint](d.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -1453,7 +1422,6 @@ func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 func (d NSDictionary) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 // Returns by reference C arrays of the keys and values in the dictionary.
 //
 // objects: Upon return, contains a C array of the values in the dictionary.
@@ -1472,7 +1440,6 @@ func (d NSDictionary) EncodeWithCoder(coder INSCoder) {
 func (d NSDictionary) GetObjectsAndKeysCount(objects []objectivec.IObject, keys []objectivec.IObject, count uint) {
 	objc.Send[objc.ID](d.ID, objc.Sel("getObjects:andKeys:count:"), objc.CArray(objects), objc.CArray(keys), count)
 }
-
 // Initializes a newly allocated dictionary with entries constructed from the
 // specified set of values and keys.
 //
@@ -1521,7 +1488,6 @@ func (_NSDictionaryClass NSDictionaryClass) SharedKeySetForKeys(keys []objective
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("sharedKeySetForKeys:"), objectivec.IObjectSliceToNSArray(keys))
 	return objectivec.Object{ID: rv}
 }
-
 // Creates an empty dictionary.
 //
 // # Return Value
@@ -1541,7 +1507,6 @@ func (_NSDictionaryClass NSDictionaryClass) Dictionary() NSDictionary {
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionary"))
 	return NSDictionaryFromID(rv)
 }
-
 // Creates a dictionary using the keys and values found in a resource
 // specified by a given URL.
 //
@@ -1575,7 +1540,6 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithContentsOfURLError(url
 	return NSDictionaryFromID(rv), nil
 
 }
-
 // Creates a dictionary containing the keys and values from another given
 // dictionary.
 //
@@ -1591,7 +1555,6 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithDictionary(dict INSDic
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithDictionary:"), dict)
 	return NSDictionaryFromID(rv)
 }
-
 // Creates a dictionary containing entries constructed from the specified set
 // of values and keys.
 //
@@ -1615,7 +1578,6 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsAndKeys(firstOb
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjectsAndKeys:"), firstObject)
 	return NSDictionaryFromID(rv)
 }
-
 // Creates a dictionary containing entries constructed from the contents of an
 // array of keys and an array of values.
 //
@@ -1641,7 +1603,6 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsForKeys(objects
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjects:forKeys:"), objectivec.IObjectSliceToNSArray(objects), objectivec.IObjectSliceToNSArray(keys))
 	return NSDictionaryFromID(rv)
 }
-
 // Creates a dictionary containing a specified number of objects from a C
 // array.
 //
@@ -1676,7 +1637,6 @@ func (d NSDictionary) Count() uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("count"))
 	return rv
 }
-
 // A new array containing the dictionary’s keys, or an empty array if the
 // dictionary has no entries.
 //
@@ -1691,7 +1651,6 @@ func (d NSDictionary) AllKeys() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // A new array containing the dictionary’s values, or an empty array if the
 // dictionary has no entries.
 //
@@ -1706,7 +1665,6 @@ func (d NSDictionary) AllValues() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // A string that represents the contents of the dictionary, formatted as a
 // property list.
 //
@@ -1727,7 +1685,6 @@ func (d NSDictionary) Description() string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("description"))
 	return NSStringFromID(rv).String()
 }
-
 // A string that represents the contents of the dictionary, formatted in
 // `XCUIElementTypeStrings` file format.
 //
@@ -1756,4 +1713,64 @@ func (d NSDictionary) DescriptionInStringsFileFormat() string {
 
 			// Protocol methods for NSSecureCoding
 			
+
+// EnumerateKeysAndObjectsUsingBlockSync is a synchronous wrapper around [NSDictionary.EnumerateKeysAndObjectsUsingBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDictionary) EnumerateKeysAndObjectsUsingBlockSync(ctx context.Context) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	d.EnumerateKeysAndObjectsUsingBlock(func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// EnumerateKeysAndObjectsWithOptionsUsingBlockSync is a synchronous wrapper around [NSDictionary.EnumerateKeysAndObjectsWithOptionsUsingBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDictionary) EnumerateKeysAndObjectsWithOptionsUsingBlockSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	d.EnumerateKeysAndObjectsWithOptionsUsingBlock(opts, func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// KeysOfEntriesPassingTestSync is a synchronous wrapper around [NSDictionary.KeysOfEntriesPassingTest].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDictionary) KeysOfEntriesPassingTestSync(ctx context.Context) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	d.KeysOfEntriesPassingTest(func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// KeysOfEntriesWithOptionsPassingTestSync is a synchronous wrapper around [NSDictionary.KeysOfEntriesWithOptionsPassingTest].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d NSDictionary) KeysOfEntriesWithOptionsPassingTestSync(ctx context.Context, opts NSEnumerationOptions) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	d.KeysOfEntriesWithOptionsPassingTest(opts, func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
 

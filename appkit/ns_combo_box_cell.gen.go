@@ -348,7 +348,6 @@ func NewComboBoxCellWithCoder(coder foundation.INSCoder) NSComboBoxCell {
 func (c NSComboBoxCell) AddItemsWithObjectValues(objects foundation.INSArray) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addItemsWithObjectValues:"), objects)
 }
-
 // Adds the specified object to the internal item list.
 //
 // object: The object to add to the end of the combo box’s internal item list.
@@ -363,7 +362,6 @@ func (c NSComboBoxCell) AddItemsWithObjectValues(objects foundation.INSArray) {
 func (c NSComboBoxCell) AddItemWithObjectValue(object objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("addItemWithObjectValue:"), object)
 }
-
 // Inserts an object at the specified location in the internal item list.
 //
 // object: The object to add to the combo box’s internal item list.
@@ -382,7 +380,6 @@ func (c NSComboBoxCell) AddItemWithObjectValue(object objectivec.IObject) {
 func (c NSComboBoxCell) InsertItemWithObjectValueAtIndex(object objectivec.IObject, index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("insertItemWithObjectValue:atIndex:"), object, index)
 }
-
 // Removes all items from the combo box’s internal item list.
 //
 // # Discussion
@@ -395,7 +392,6 @@ func (c NSComboBoxCell) InsertItemWithObjectValueAtIndex(object objectivec.IObje
 func (c NSComboBoxCell) RemoveAllItems() {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeAllItems"))
 }
-
 // Removes the object at the specified location from the combo box’s
 // internal item list.
 //
@@ -414,7 +410,6 @@ func (c NSComboBoxCell) RemoveAllItems() {
 func (c NSComboBoxCell) RemoveItemAtIndex(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeItemAtIndex:"), index)
 }
-
 // Removes all occurrences of the specified object from the combo box’s
 // internal item list.
 //
@@ -433,7 +428,6 @@ func (c NSComboBoxCell) RemoveItemAtIndex(index int) {
 func (c NSComboBoxCell) RemoveItemWithObjectValue(object objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("removeItemWithObjectValue:"), object)
 }
-
 // Searches the combo box’s internal item list for the given object and
 // returns the matching index number.
 //
@@ -459,7 +453,6 @@ func (c NSComboBoxCell) IndexOfItemWithObjectValue(object objectivec.IObject) in
 	rv := objc.Send[int](c.ID, objc.Sel("indexOfItemWithObjectValue:"), object)
 	return rv
 }
-
 // Returns the object located at the specified location in the internal item
 // list.
 //
@@ -481,7 +474,6 @@ func (c NSComboBoxCell) ItemObjectValueAtIndex(index int) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemObjectValueAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-
 // Informs the combo box that the number of items in its data source has
 // changed.
 //
@@ -500,7 +492,6 @@ func (c NSComboBoxCell) ItemObjectValueAtIndex(index int) objectivec.IObject {
 func (c NSComboBoxCell) NoteNumberOfItemsChanged() {
 	objc.Send[objc.ID](c.ID, objc.Sel("noteNumberOfItemsChanged"))
 }
-
 // Marks the combo box as needing redisplay, so that it will reload the data
 // for visible pop-up items and draw the new values.
 //
@@ -508,7 +499,6 @@ func (c NSComboBoxCell) NoteNumberOfItemsChanged() {
 func (c NSComboBoxCell) ReloadData() {
 	objc.Send[objc.ID](c.ID, objc.Sel("reloadData"))
 }
-
 // Scrolls the combo box’s pop-up list vertically so that the item at the
 // given index is as close to the top as possible.
 //
@@ -522,7 +512,6 @@ func (c NSComboBoxCell) ReloadData() {
 func (c NSComboBoxCell) ScrollItemAtIndexToTop(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scrollItemAtIndexToTop:"), index)
 }
-
 // Scrolls the combo box’s pop-up list vertically so that the item at the
 // given index is visible.
 //
@@ -536,7 +525,6 @@ func (c NSComboBoxCell) ScrollItemAtIndexToTop(index int) {
 func (c NSComboBoxCell) ScrollItemAtIndexToVisible(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("scrollItemAtIndexToVisible:"), index)
 }
-
 // Deselects the pop-up list item at the given index if it’s selected.
 //
 // index: The index of the item to deselect.
@@ -552,7 +540,6 @@ func (c NSComboBoxCell) ScrollItemAtIndexToVisible(index int) {
 func (c NSComboBoxCell) DeselectItemAtIndex(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("deselectItemAtIndex:"), index)
 }
-
 // Selects the pop-up list row at the given index.
 //
 // index: The index of the row to select.
@@ -571,7 +558,6 @@ func (c NSComboBoxCell) DeselectItemAtIndex(index int) {
 func (c NSComboBoxCell) SelectItemAtIndex(index int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("selectItemAtIndex:"), index)
 }
-
 // Selects the first pop-up list item that corresponds to the specified
 // object.
 //
@@ -596,7 +582,6 @@ func (c NSComboBoxCell) SelectItemAtIndex(index int) {
 func (c NSComboBoxCell) SelectItemWithObjectValue(object objectivec.IObject) {
 	objc.Send[objc.ID](c.ID, objc.Sel("selectItemWithObjectValue:"), object)
 }
-
 // Returns a string from the combo box’s pop-up list that starts with the
 // given substring.
 //
@@ -655,7 +640,6 @@ func (c NSComboBoxCell) HasVerticalScroller() bool {
 func (c NSComboBoxCell) SetHasVerticalScroller(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHasVerticalScroller:"), value)
 }
-
 // A Boolean value that indicates whether the combo box button displays a
 // border.
 //
@@ -677,7 +661,6 @@ func (c NSComboBoxCell) ButtonBordered() bool {
 func (c NSComboBoxCell) SetButtonBordered(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setButtonBordered:"), value)
 }
-
 // The spacing between cells in the combo box’s pop-up list.
 //
 // # Discussion
@@ -693,7 +676,6 @@ func (c NSComboBoxCell) IntercellSpacing() corefoundation.CGSize {
 func (c NSComboBoxCell) SetIntercellSpacing(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIntercellSpacing:"), value)
 }
-
 // The height of each item in the combo box’s pop-up list.
 //
 // # Discussion
@@ -708,7 +690,6 @@ func (c NSComboBoxCell) ItemHeight() float64 {
 func (c NSComboBoxCell) SetItemHeight(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setItemHeight:"), value)
 }
-
 // The maximum number of items visible in the pop-up list at any one time.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/numberOfVisibleItems
@@ -719,7 +700,6 @@ func (c NSComboBoxCell) NumberOfVisibleItems() int {
 func (c NSComboBoxCell) SetNumberOfVisibleItems(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNumberOfVisibleItems:"), value)
 }
-
 // The object that provides the data displayed in the combo box’s pop-up
 // list.
 //
@@ -745,7 +725,6 @@ func (c NSComboBoxCell) DataSource() NSComboBoxCellDataSource {
 func (c NSComboBoxCell) SetDataSource(value NSComboBoxCellDataSource) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDataSource:"), value)
 }
-
 // A Boolean value that indicates if the combo box uses an external data
 // source to populate its pop-up list.
 //
@@ -766,7 +745,6 @@ func (c NSComboBoxCell) UsesDataSource() bool {
 func (c NSComboBoxCell) SetUsesDataSource(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setUsesDataSource:"), value)
 }
-
 // The combo box’s internal item list in an array.
 //
 // # Discussion
@@ -780,7 +758,6 @@ func (c NSComboBoxCell) ObjectValues() foundation.INSArray {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("objectValues"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // The total number of items in the pop-up list.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCell/numberOfItems
@@ -788,7 +765,6 @@ func (c NSComboBoxCell) NumberOfItems() int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfItems"))
 	return rv
 }
-
 // The index of the last item selected from the pop-up list.
 //
 // # Discussion
@@ -802,7 +778,6 @@ func (c NSComboBoxCell) IndexOfSelectedItem() int {
 	rv := objc.Send[int](c.ID, objc.Sel("indexOfSelectedItem"))
 	return rv
 }
-
 // The object corresponding to the last item selected from the pop-up list.
 //
 // # Discussion
@@ -821,7 +796,6 @@ func (c NSComboBoxCell) ObjectValueOfSelectedItem() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("objectValueOfSelectedItem"))
 	return objectivec.Object{ID: rv}
 }
-
 // A Boolean value that indicates if the combo box tries to complete text
 // entered by the user.
 //

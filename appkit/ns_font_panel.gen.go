@@ -309,7 +309,6 @@ func NewFontPanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 func (f NSFontPanel) ReloadDefaultFontFamilies() {
 	objc.Send[objc.ID](f.ID, objc.Sel("reloadDefaultFontFamilies"))
 }
-
 // Sets the selected font in the receiver to the specified font.
 //
 // fontObj: The font to be selected.
@@ -330,7 +329,6 @@ func (f NSFontPanel) ReloadDefaultFontFamilies() {
 func (f NSFontPanel) SetPanelFontIsMultiple(fontObj NSFont, flag bool) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setPanelFont:isMultiple:"), fontObj, flag)
 }
-
 // Converts the specified font using the settings in the receiver, with the
 // aid of the shared [NSFontManager] if necessary.
 //
@@ -367,7 +365,6 @@ func (f NSFontPanel) Enabled() bool {
 func (f NSFontPanel) SetEnabled(value bool) {
 	objc.Send[struct{}](f.ID, objc.Sel("setEnabled:"), value)
 }
-
 // The specified view as the receiver’s accessory view, allowing you to add
 // custom controls to your application’s Font panel without having to create
 // a subclass.
@@ -393,7 +390,6 @@ func (_NSFontPanelClass NSFontPanelClass) SharedFontPanel() NSFontPanel {
 	rv := objc.Send[objc.ID](objc.ID(_NSFontPanelClass.class), objc.Sel("sharedFontPanel"))
 	return NSFontPanelFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the shared Font panel has been
 // created.
 //

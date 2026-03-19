@@ -151,7 +151,6 @@ func (_UnitFuelEfficiencyClass UnitFuelEfficiencyClass) MilesPerImperialGallon()
 	rv := objc.Send[objc.ID](objc.ID(_UnitFuelEfficiencyClass.class), objc.Sel("milesPerImperialGallon"))
 	return NSUnitFuelEfficiencyFromID(objc.ID(rv))
 }
-
 // The liters per 100 kilometers unit of fuel efficiency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFuelEfficiency/litersPer100Kilometers
@@ -159,7 +158,6 @@ func (_UnitFuelEfficiencyClass UnitFuelEfficiencyClass) LitersPer100Kilometers()
 	rv := objc.Send[objc.ID](objc.ID(_UnitFuelEfficiencyClass.class), objc.Sel("litersPer100Kilometers"))
 	return NSUnitFuelEfficiencyFromID(objc.ID(rv))
 }
-
 // The miles per gallon unit of fuel efficiency.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitFuelEfficiency/milesPerGallon

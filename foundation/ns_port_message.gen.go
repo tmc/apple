@@ -238,7 +238,6 @@ func (p PortMessage) InitWithSendPortReceivePortComponents(sendPort INSPort, rep
 	rv := objc.Send[PortMessage](p.ID, objc.Sel("initWithSendPort:receivePort:components:"), sendPort, replyPort, components)
 	return rv
 }
-
 // Attempts to send the message before the specified date.
 //
 // date: The instant before which the message should be sent.
@@ -285,7 +284,6 @@ func (p PortMessage) Components() INSArray {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("components"))
 	return NSArrayFromID(objc.ID(rv))
 }
-
 // For an outgoing message, returns the port on which replies to the receiver
 // will arrive. For an incoming message, returns the port the receiver did
 // arrive on.
@@ -300,7 +298,6 @@ func (p PortMessage) ReceivePort() INSPort {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("receivePort"))
 	return NSPortFromID(objc.ID(rv))
 }
-
 // For an outgoing message, returns the port the receiver will send itself
 // through. For an incoming message, returns the port replies to the receiver
 // should be sent through.
@@ -316,7 +313,6 @@ func (p PortMessage) SendPort() INSPort {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("sendPort"))
 	return NSPortFromID(objc.ID(rv))
 }
-
 // Returns the identifier for the receiver.
 //
 // # Return Value

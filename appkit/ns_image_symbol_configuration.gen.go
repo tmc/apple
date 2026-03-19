@@ -277,13 +277,11 @@ func (_NSImageSymbolConfigurationClass NSImageSymbolConfigurationClass) Configur
 	rv := objc.Send[objc.ID](objc.ID(_NSImageSymbolConfigurationClass.class), objc.Sel("configurationPreferringMulticolor"))
 	return NSImageSymbolConfigurationFromID(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSImage/SymbolConfiguration-swift.class/preferringHierarchical()
 func (_NSImageSymbolConfigurationClass NSImageSymbolConfigurationClass) ConfigurationPreferringHierarchical() NSImageSymbolConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(_NSImageSymbolConfigurationClass.class), objc.Sel("configurationPreferringHierarchical"))
 	return NSImageSymbolConfigurationFromID(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSImage/SymbolConfiguration-swift.class/preferringMonochrome()
 func (_NSImageSymbolConfigurationClass NSImageSymbolConfigurationClass) ConfigurationPreferringMonochrome() NSImageSymbolConfiguration {
 	rv := objc.Send[objc.ID](objc.ID(_NSImageSymbolConfigurationClass.class), objc.Sel("configurationPreferringMonochrome"))

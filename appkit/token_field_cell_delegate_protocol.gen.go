@@ -48,13 +48,11 @@ func NSTokenFieldCellDelegateObjectFromID(id objc.ID) NSTokenFieldCellDelegateOb
 // displayed as the string.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:displayStringForRepresentedObject:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellDisplayStringForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:displayStringForRepresentedObject:"), tokenFieldCell, representedObject)
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Allows the delegate to return the token style for editing the specified
 // represented object.
 //
@@ -79,13 +77,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellDisplayStringForRepresente
 // [NSTokenField.TokenStyle]: https://developer.apple.com/documentation/AppKit/NSTokenField/TokenStyle-swift.enum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:styleForRepresentedObject:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellStyleForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) NSTokenStyle {
 	
 	rv := objc.Send[NSTokenStyle](o.ID, objc.Sel("tokenFieldCell:styleForRepresentedObject:"), tokenFieldCell, representedObject)
 	return rv
 	}
-
 // Allows the delegate to provide an array of appropriate completions for the
 // contents of the receiver.
 //
@@ -109,13 +105,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellStyleForRepresentedObject(
 // provided.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:completionsForSubstring:indexOfToken:indexOfSelectedItem:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenFieldCell INSTokenFieldCell, substring string, tokenIndex int, selectedIndex unsafe.Pointer) foundation.INSArray {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:completionsForSubstring:indexOfToken:indexOfSelectedItem:"), tokenFieldCell, objc.String(substring), tokenIndex, selectedIndex)
 	return foundation.NSArrayFromID(rv)
 	}
-
 // Allows the delegate to provide a string to be edited as a proxy for the
 // represented object.
 //
@@ -129,13 +123,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellCompletionsForSubstringInd
 // the token should not be editable.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:editingStringForRepresentedObject:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellEditingStringForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:editingStringForRepresentedObject:"), tokenFieldCell, representedObject)
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Allows the delegate to provide a represented object for the string being
 // edited.
 //
@@ -154,13 +146,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellEditingStringForRepresente
 // object from this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:representedObjectForEditing:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellRepresentedObjectForEditingString(tokenFieldCell INSTokenFieldCell, editingString string) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:representedObjectForEditingString:"), tokenFieldCell, objc.String(editingString))
 	return objectivec.Object{ID: rv}
 	}
-
 // Allows the delegate to validate the tokens to be added to the receiver at a
 // given index.
 //
@@ -182,13 +172,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellRepresentedObjectForEditin
 // `nil` causes an error.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:shouldAdd:at:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellShouldAddObjectsAtIndex(tokenFieldCell INSTokenFieldCell, tokens foundation.INSArray, index uint) foundation.INSArray {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:shouldAddObjects:atIndex:"), tokenFieldCell, tokens, index)
 	return foundation.NSArrayFromID(rv)
 	}
-
 // Allows the delegate to return an array of objects representing the data
 // read from `pboard`.
 //
@@ -201,13 +189,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellShouldAddObjectsAtIndex(to
 // An array of represented objects created from the pasteboard data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:readFrom:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellReadFromPasteboard(tokenFieldCell INSTokenFieldCell, pboard INSPasteboard) foundation.INSArray {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:readFromPasteboard:"), tokenFieldCell, pboard)
 	return foundation.NSArrayFromID(rv)
 	}
-
 // Allows the delegate the opportunity to write custom pasteboard types to the
 // pasteboard for the represented objects in `objects`.
 //
@@ -228,13 +214,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellReadFromPasteboard(tokenFi
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:writeRepresentedObjects:to:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellWriteRepresentedObjectsToPasteboard(tokenFieldCell INSTokenFieldCell, objects foundation.INSArray, pboard INSPasteboard) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("tokenFieldCell:writeRepresentedObjects:toPasteboard:"), tokenFieldCell, objects, pboard)
 	return rv
 	}
-
 // Allows the delegate to specify whether the represented object provides a
 // menu.
 //
@@ -254,13 +238,11 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellWriteRepresentedObjectsToP
 // By default tokens have no menus.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:hasMenuForRepresentedObject:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellHasMenuForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("tokenFieldCell:hasMenuForRepresentedObject:"), tokenFieldCell, representedObject)
 	return rv
 	}
-
 // Allows the delegate to provide a menu for the specified represented object.
 //
 // tokenFieldCell: The token field cell that sent the message.
@@ -277,7 +259,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellHasMenuForRepresentedObjec
 // field cell do not return menus.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:menuForRepresentedObject:)
-
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellMenuForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) INSMenu {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:menuForRepresentedObject:"), tokenFieldCell, representedObject)

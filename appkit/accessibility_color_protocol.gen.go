@@ -40,7 +40,6 @@ func NSAccessibilityColorObjectFromID(id objc.ID) NSAccessibilityColorObject {
 // attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityColor/accessibilityName
-
 func (o NSAccessibilityColorObject) AccessibilityName() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityName"))

@@ -222,7 +222,6 @@ func (o NSOrthography) InitWithDominantScriptLanguageMap(script string, map_ INS
 	rv := objc.Send[NSOrthography](o.ID, objc.Sel("initWithDominantScript:languageMap:"), objc.String(script), map_)
 	return rv
 }
-
 // Returns the dominant language for the specified script.
 //
 // script: The specified script.
@@ -237,7 +236,6 @@ func (o NSOrthography) DominantLanguageForScript(script string) string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dominantLanguageForScript:"), objc.String(script))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the list of languages for the specified script.
 //
 // script: The specified script.
@@ -252,14 +250,12 @@ func (o NSOrthography) LanguagesForScript(script string) []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("languagesForScript:"), objc.String(script))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography/init(coder:)
 func (o NSOrthography) InitWithCoder(coder INSCoder) NSOrthography {
 	rv := objc.Send[NSOrthography](o.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -287,7 +283,6 @@ func (_NSOrthographyClass NSOrthographyClass) DefaultOrthographyForLanguage(lang
 	rv := objc.Send[objc.ID](objc.ID(_NSOrthographyClass.class), objc.Sel("defaultOrthographyForLanguage:"), objc.String(language))
 	return NSOrthographyFromID(rv)
 }
-
 // Creates and returns an orthography object with the specified dominant
 // script and language map.
 //
@@ -327,7 +322,6 @@ func (o NSOrthography) LanguageMap() INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("languageMap"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // The first language in the list of languages for the dominant script.
 //
 // # Discussion
@@ -340,7 +334,6 @@ func (o NSOrthography) DominantLanguage() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dominantLanguage"))
 	return NSStringFromID(rv).String()
 }
-
 // The dominant script for the text.
 //
 // # Discussion
@@ -353,7 +346,6 @@ func (o NSOrthography) DominantScript() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dominantScript"))
 	return NSStringFromID(rv).String()
 }
-
 // The scripts appearing as keys in the language map.
 //
 // # Discussion
@@ -366,7 +358,6 @@ func (o NSOrthography) AllScripts() []string {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("allScripts"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The languages appearing in values of the language map.
 //
 // # Discussion

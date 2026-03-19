@@ -112,7 +112,6 @@ func (a ANEAnalyticsGroup) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/initWithID:layers:tasks:
 func (a ANEAnalyticsGroup) InitWithIDLayersTasks(id objectivec.IObject, layers objectivec.IObject, tasks objectivec.IObject) ANEAnalyticsGroup {
@@ -132,13 +131,11 @@ func (a ANEAnalyticsGroup) GroupID() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("groupID"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/layerInfo
 func (a ANEAnalyticsGroup) LayerInfo() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("layerInfo"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEAnalyticsGroup/taskInfo
 func (a ANEAnalyticsGroup) TaskInfo() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("taskInfo"))

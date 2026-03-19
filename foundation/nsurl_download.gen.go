@@ -178,7 +178,6 @@ func NewNSURLDownload() NSURLDownload {
 func (u NSURLDownload) SetDestinationAllowOverwrite(path string, allowOverwrite bool) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setDestination:allowOverwrite:"), objc.String(path), allowOverwrite)
 }
-
 // Cancels the receiver’s download and deletes the downloaded file.
 //
 // # Discussion
@@ -262,7 +261,6 @@ func (u NSURLDownload) ResumeData() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("resumeData"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // Returns the request that initiated the receiver’s download.
 //
 // # Return Value
@@ -274,7 +272,6 @@ func (u NSURLDownload) Request() INSURLRequest {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("request"))
 	return NSURLRequestFromID(objc.ID(rv))
 }
-
 // Returns whether the receiver deletes partially downloaded files when a
 // download stops prematurely.
 //

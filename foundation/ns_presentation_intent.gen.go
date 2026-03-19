@@ -216,14 +216,12 @@ func (p NSPresentationIntent) IsEquivalentToPresentationIntent(other INSPresenta
 	rv := objc.Send[bool](p.ID, objc.Sel("isEquivalentToPresentationIntent:"), other)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (p NSPresentationIntent) InitWithCoder(coder INSCoder) NSPresentationIntent {
 	rv := objc.Send[NSPresentationIntent](p.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -248,7 +246,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) ParagraphIntentWithI
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("paragraphIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates a header intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -267,7 +264,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) HeaderIntentWithIden
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("headerIntentWithIdentity:level:nestedInsideIntent:"), identity, level, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates an ordered-list intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -283,7 +279,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) OrderedListIntentWit
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("orderedListIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates an unordered-list intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -299,7 +294,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) UnorderedListIntentW
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("unorderedListIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates an item for an ordered list with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -317,7 +311,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) ListItemIntentWithId
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("listItemIntentWithIdentity:ordinal:nestedInsideIntent:"), identity, ordinal, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates an code-block intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -335,7 +328,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) CodeBlockIntentWithI
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("codeBlockIntentWithIdentity:languageHint:nestedInsideIntent:"), identity, objc.String(languageHint), parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates a block-quote intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -351,7 +343,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) BlockQuoteIntentWith
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("blockQuoteIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates a thematic break intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -367,7 +358,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) ThematicBreakIntentW
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("thematicBreakIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates a table intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -391,7 +381,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) TableIntentWithIdent
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("tableIntentWithIdentity:columnCount:alignments:nestedInsideIntent:"), identity, columnCount, objectivec.IObjectSliceToNSArray(alignments), parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates a table header intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -407,7 +396,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) TableHeaderRowIntent
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("tableHeaderRowIntentWithIdentity:nestedInsideIntent:"), identity, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates a table row intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -425,7 +413,6 @@ func (_NSPresentationIntentClass NSPresentationIntentClass) TableRowIntentWithId
 	rv := objc.Send[objc.ID](objc.ID(_NSPresentationIntentClass.class), objc.Sel("tableRowIntentWithIdentity:row:nestedInsideIntent:"), identity, row, parent)
 	return NSPresentationIntentFromID(rv)
 }
-
 // Creates a table cell intent with the provided information.
 //
 // identity: The unique identifier for the intent.
@@ -459,7 +446,6 @@ func (p NSPresentationIntent) Identity() int {
 	rv := objc.Send[int](p.ID, objc.Sel("identity"))
 	return rv
 }
-
 // The type of the intent.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/intentKind
@@ -467,7 +453,6 @@ func (p NSPresentationIntent) IntentKind() NSPresentationIntentKind {
 	rv := objc.Send[NSPresentationIntentKind](p.ID, objc.Sel("intentKind"))
 	return NSPresentationIntentKind(rv)
 }
-
 // The parent of the current intent.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPresentationIntent/parentIntent
@@ -475,7 +460,6 @@ func (p NSPresentationIntent) ParentIntent() INSPresentationIntent {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("parentIntent"))
 	return NSPresentationIntentFromID(objc.ID(rv))
 }
-
 // The level of a header section.
 //
 // # Discussion
@@ -489,7 +473,6 @@ func (p NSPresentationIntent) HeaderLevel() int {
 	rv := objc.Send[int](p.ID, objc.Sel("headerLevel"))
 	return rv
 }
-
 // The number for an item in an ordered list.
 //
 // # Discussion
@@ -501,7 +484,6 @@ func (p NSPresentationIntent) Ordinal() int {
 	rv := objc.Send[int](p.ID, objc.Sel("ordinal"))
 	return rv
 }
-
 // The indentation level of the intent.
 //
 // # Discussion
@@ -515,7 +497,6 @@ func (p NSPresentationIntent) IndentationLevel() int {
 	rv := objc.Send[int](p.ID, objc.Sel("indentationLevel"))
 	return rv
 }
-
 // The row number to which this cell belongs.
 //
 // # Discussion
@@ -529,7 +510,6 @@ func (p NSPresentationIntent) Row() int {
 	rv := objc.Send[int](p.ID, objc.Sel("row"))
 	return rv
 }
-
 // The column number to which the cell belongs.
 //
 // # Discussion
@@ -544,7 +524,6 @@ func (p NSPresentationIntent) Column() int {
 	rv := objc.Send[int](p.ID, objc.Sel("column"))
 	return rv
 }
-
 // The number of columns in a table.
 //
 // # Discussion
@@ -556,7 +535,6 @@ func (p NSPresentationIntent) ColumnCount() int {
 	rv := objc.Send[int](p.ID, objc.Sel("columnCount"))
 	return rv
 }
-
 // The alignments for the columns in a table.
 //
 // # Discussion
@@ -570,7 +548,6 @@ func (p NSPresentationIntent) ColumnAlignments() []NSNumber {
 		return NSNumberFromID(id)
 	})
 }
-
 // The language associated with the code listing.
 //
 // # Discussion

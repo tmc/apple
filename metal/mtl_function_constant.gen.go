@@ -125,7 +125,6 @@ func (f MTLFunctionConstant) Name() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The data type of the function constant.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstant/type
@@ -133,7 +132,6 @@ func (f MTLFunctionConstant) Type() MTLDataType {
 	rv := objc.Send[MTLDataType](f.ID, objc.Sel("type"))
 	return MTLDataType(rv)
 }
-
 // The index of the function constant.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionConstant/index
@@ -141,7 +139,6 @@ func (f MTLFunctionConstant) Index() uint {
 	rv := objc.Send[uint](f.ID, objc.Sel("index"))
 	return rv
 }
-
 // A Boolean value indicating whether the function constant needs to be
 // provided to specialize the function.
 //

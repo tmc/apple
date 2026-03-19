@@ -142,67 +142,57 @@ func (a ANEInMemoryModelCacheManager) URLForBundleID(id objectivec.IObject) obje
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URLForBundleID:"), id)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/URLForModelHash:bundleID:
 func (a ANEInMemoryModelCacheManager) URLForModelHashBundleID(hash objectivec.IObject, id objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("URLForModelHash:bundleID:"), hash, id)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/cachedModelPathMatchingHash:csIdentity:
 func (a ANEInMemoryModelCacheManager) CachedModelPathMatchingHashCsIdentity(hash objectivec.IObject, identity objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("cachedModelPathMatchingHash:csIdentity:"), hash, identity)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/getDiskSpaceForBundleID:
 func (a ANEInMemoryModelCacheManager) GetDiskSpaceForBundleID(id objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("getDiskSpaceForBundleID:"), id)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/getDiskSpaceItemizedByBundleIDAndPurge:
 func (a ANEInMemoryModelCacheManager) GetDiskSpaceItemizedByBundleIDAndPurge(purge bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("getDiskSpaceItemizedByBundleIDAndPurge:"), purge)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/removeAllModelsForBundleID:
 func (a ANEInMemoryModelCacheManager) RemoveAllModelsForBundleID(id objectivec.IObject) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("removeAllModelsForBundleID:"), id)
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/removeStaleModels
 func (a ANEInMemoryModelCacheManager) RemoveStaleModels() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("removeStaleModels"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/scheduleMaintenanceWithName:directoryPaths:
 func (a ANEInMemoryModelCacheManager) ScheduleMaintenanceWithNameDirectoryPaths(name objectivec.IObject, paths objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleMaintenanceWithName:directoryPaths:"), name, paths)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/shouldEnforceSizeLimits
 func (a ANEInMemoryModelCacheManager) ShouldEnforceSizeLimits() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("shouldEnforceSizeLimits"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/initWithURL:
 func (a ANEInMemoryModelCacheManager) InitWithURL(url foundation.INSURL) ANEInMemoryModelCacheManager {
 	rv := objc.Send[ANEInMemoryModelCacheManager](a.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/initWithURL:createDirectory:
 func (a ANEInMemoryModelCacheManager) InitWithURLCreateDirectory(url foundation.INSURL, directory bool) ANEInMemoryModelCacheManager {
@@ -215,14 +205,12 @@ func (_ANEInMemoryModelCacheManagerClass ANEInMemoryModelCacheManagerClass) NotR
 	rv := objc.Send[uint64](objc.ID(_ANEInMemoryModelCacheManagerClass.class), objc.Sel("notRecentlyUsedSecondsThreshold"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/removeFilesFromDirectory:notAccessedInSeconds:
 func (_ANEInMemoryModelCacheManagerClass ANEInMemoryModelCacheManagerClass) RemoveFilesFromDirectoryNotAccessedInSeconds(directory objectivec.IObject, seconds float64) bool {
 	rv := objc.Send[bool](objc.ID(_ANEInMemoryModelCacheManagerClass.class), objc.Sel("removeFilesFromDirectory:notAccessedInSeconds:"), directory, seconds)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEInMemoryModelCacheManager/removeStaleModelsAtPath:
 func (_ANEInMemoryModelCacheManagerClass ANEInMemoryModelCacheManagerClass) RemoveStaleModelsAtPath(path objectivec.IObject) bool {

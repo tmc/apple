@@ -405,13 +405,11 @@ func NewNSCollectionViewFlowLayout() NSCollectionViewFlowLayout {
 func (c NSCollectionViewFlowLayout) CollapseSectionAtIndex(sectionIndex uint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("collapseSectionAtIndex:"), sectionIndex)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/expandSection(at:)
 func (c NSCollectionViewFlowLayout) ExpandSectionAtIndex(sectionIndex uint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("expandSectionAtIndex:"), sectionIndex)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/section(atIndexIsCollapsed:)
 func (c NSCollectionViewFlowLayout) SectionAtIndexIsCollapsed(sectionIndex uint) bool {
@@ -445,7 +443,6 @@ func (c NSCollectionViewFlowLayout) ScrollDirection() NSCollectionViewScrollDire
 func (c NSCollectionViewFlowLayout) SetScrollDirection(value NSCollectionViewScrollDirection) {
 	objc.Send[struct{}](c.ID, objc.Sel("setScrollDirection:"), value)
 }
-
 // The minimum spacing (in points) to use between rows or columns.
 //
 // # Discussion
@@ -476,7 +473,6 @@ func (c NSCollectionViewFlowLayout) MinimumLineSpacing() float64 {
 func (c NSCollectionViewFlowLayout) SetMinimumLineSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumLineSpacing:"), value)
 }
-
 // The minimum spacing (in points) to use between items in the same row or
 // column.
 //
@@ -506,7 +502,6 @@ func (c NSCollectionViewFlowLayout) MinimumInteritemSpacing() float64 {
 func (c NSCollectionViewFlowLayout) SetMinimumInteritemSpacing(value float64) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumInteritemSpacing:"), value)
 }
-
 // The estimated size of items in the collection view.
 //
 // # Discussion
@@ -532,7 +527,6 @@ func (c NSCollectionViewFlowLayout) EstimatedItemSize() corefoundation.CGSize {
 func (c NSCollectionViewFlowLayout) SetEstimatedItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setEstimatedItemSize:"), value)
 }
-
 // The default size to use for items.
 //
 // # Discussion
@@ -556,7 +550,6 @@ func (c NSCollectionViewFlowLayout) ItemSize() corefoundation.CGSize {
 func (c NSCollectionViewFlowLayout) SetItemSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setItemSize:"), value)
 }
-
 // The margins used to lay out content in a section.
 //
 // # Discussion
@@ -583,7 +576,6 @@ func (c NSCollectionViewFlowLayout) SectionInset() foundation.NSEdgeInsets {
 func (c NSCollectionViewFlowLayout) SetSectionInset(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSectionInset:"), value)
 }
-
 // The default size to use for section headers.
 //
 // # Discussion
@@ -611,7 +603,6 @@ func (c NSCollectionViewFlowLayout) HeaderReferenceSize() corefoundation.CGSize 
 func (c NSCollectionViewFlowLayout) SetHeaderReferenceSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setHeaderReferenceSize:"), value)
 }
-
 // The default size to use for section footers.
 //
 // # Discussion
@@ -639,7 +630,6 @@ func (c NSCollectionViewFlowLayout) FooterReferenceSize() corefoundation.CGSize 
 func (c NSCollectionViewFlowLayout) SetFooterReferenceSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFooterReferenceSize:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/sectionFootersPinToVisibleBounds
 func (c NSCollectionViewFlowLayout) SectionFootersPinToVisibleBounds() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("sectionFootersPinToVisibleBounds"))
@@ -648,7 +638,6 @@ func (c NSCollectionViewFlowLayout) SectionFootersPinToVisibleBounds() bool {
 func (c NSCollectionViewFlowLayout) SetSectionFootersPinToVisibleBounds(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSectionFootersPinToVisibleBounds:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewFlowLayout/sectionHeadersPinToVisibleBounds
 func (c NSCollectionViewFlowLayout) SectionHeadersPinToVisibleBounds() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("sectionHeadersPinToVisibleBounds"))
@@ -657,7 +646,6 @@ func (c NSCollectionViewFlowLayout) SectionHeadersPinToVisibleBounds() bool {
 func (c NSCollectionViewFlowLayout) SetSectionHeadersPinToVisibleBounds(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setSectionHeadersPinToVisibleBounds:"), value)
 }
-
 // An `NSSize` structure set to `0` in both dimensions.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSZeroSize
@@ -665,7 +653,6 @@ func (c NSCollectionViewFlowLayout) NSZeroSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("NSZeroSize"))
 	return corefoundation.CGSize(rv)
 }
-
 // The collection view’s delegate object.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/delegate
@@ -684,7 +671,6 @@ func (_NSCollectionViewFlowLayoutClass NSCollectionViewFlowLayoutClass) ElementK
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionViewFlowLayoutClass.class), objc.Sel("NSCollectionElementKindSectionFooter"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A supplementary view that acts as a header for a given section.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/elementkindsectionheader

@@ -352,7 +352,6 @@ func (o NSObjectController) InitWithContent(content objectivec.IObject) NSObject
 	rv := objc.Send[NSObjectController](o.ID, objc.Sel("initWithContent:"), content)
 	return rv
 }
-
 // Typically overridden by subclasses that require additional control over the
 // creation of new objects.
 //
@@ -369,7 +368,6 @@ func (o NSObjectController) InitWithContent(content objectivec.IObject) NSObject
 func (o NSObjectController) PrepareContent() {
 	objc.Send[objc.ID](o.ID, objc.Sel("prepareContent"))
 }
-
 // Creates and returns a new object of the appropriate class.
 //
 // # Return Value
@@ -402,7 +400,6 @@ func (o NSObjectController) NewObject() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newObject"))
 	return objectivec.Object{ID: rv}
 }
-
 // Sets the receiver’s content object.
 //
 // object: The content object for the receiver.
@@ -419,7 +416,6 @@ func (o NSObjectController) NewObject() objectivec.IObject {
 func (o NSObjectController) AddObject(object objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("addObject:"), object)
 }
-
 // Removes a given object from the receiver’s content.
 //
 // object: The object to remove from the receiver.
@@ -435,7 +431,6 @@ func (o NSObjectController) AddObject(object objectivec.IObject) {
 func (o NSObjectController) RemoveObject(object objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("removeObject:"), object)
 }
-
 // Creates a new object and sets it as the receiver’s content object.
 //
 // sender: Typically the object that invoked this method.
@@ -456,7 +451,6 @@ func (o NSObjectController) RemoveObject(object objectivec.IObject) {
 func (o NSObjectController) Add(sender objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("add:"), sender)
 }
-
 // Removes the receiver’s content object.
 //
 // sender: Typically the object that invoked this method.
@@ -475,7 +469,6 @@ func (o NSObjectController) Add(sender objectivec.IObject) {
 func (o NSObjectController) Remove(sender objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("remove:"), sender)
 }
-
 // Causes the receiver to fetch the data objects specified by the entity name
 // and fetch predicate.
 //
@@ -491,7 +484,6 @@ func (o NSObjectController) Remove(sender objectivec.IObject) {
 func (o NSObjectController) Fetch(sender objectivec.IObject) {
 	objc.Send[objc.ID](o.ID, objc.Sel("fetch:"), sender)
 }
-
 // Returns the default fetch request used by the receiver.
 //
 // # Return Value
@@ -503,7 +495,6 @@ func (o NSObjectController) DefaultFetchRequest() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("defaultFetchRequest"))
 	return objectivec.Object{ID: rv}
 }
-
 // Subclasses should override this method to customize a fetch request, for
 // example to specify fetch limits.
 //
@@ -537,7 +528,6 @@ func (o NSObjectController) FetchWithRequestMergeError(fetchRequest objectivec.I
 	return rv, nil
 
 }
-
 // Returns whether the receiver can handle the action method for a user
 // interface item.
 //
@@ -567,7 +557,6 @@ func (o NSObjectController) Content() objectivec.IObject {
 func (o NSObjectController) SetContent(value objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setContent:"), value)
 }
-
 // A Boolean that shows whether the receiver automatically creates and inserts
 // new content objects automatically when loading from a nib file.
 //
@@ -590,7 +579,6 @@ func (o NSObjectController) AutomaticallyPreparesContent() bool {
 func (o NSObjectController) SetAutomaticallyPreparesContent(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAutomaticallyPreparesContent:"), value)
 }
-
 // The object class to use when creating new objects.
 //
 // # Discussion
@@ -607,7 +595,6 @@ func (o NSObjectController) ObjectClass() objc.Class {
 func (o NSObjectController) SetObjectClass(value objc.Class) {
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectClass:"), value)
 }
-
 // A Boolean value that indicates whether an object can be added to the
 // receiver using [Add].
 //
@@ -623,7 +610,6 @@ func (o NSObjectController) CanAdd() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("canAdd"))
 	return rv
 }
-
 // A Boolean value that indicates whether an object can be removed from the
 // receiver.
 //
@@ -639,7 +625,6 @@ func (o NSObjectController) CanRemove() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("canRemove"))
 	return rv
 }
-
 // A Boolean that indicates whether the receiver allows adding and removing
 // objects.
 //
@@ -657,7 +642,6 @@ func (o NSObjectController) Editable() bool {
 func (o NSObjectController) SetEditable(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEditable:"), value)
 }
-
 // The entity name used by the receiver to create new objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/entityName
@@ -668,7 +652,6 @@ func (o NSObjectController) EntityName() string {
 func (o NSObjectController) SetEntityName(value string) {
 	objc.Send[struct{}](o.ID, objc.Sel("setEntityName:"), objc.String(value))
 }
-
 // A Boolean that indicates whether the receiver uses lazy fetching.
 //
 // # Discussion
@@ -686,7 +669,6 @@ func (o NSObjectController) UsesLazyFetching() bool {
 func (o NSObjectController) SetUsesLazyFetching(value bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("setUsesLazyFetching:"), value)
 }
-
 // The receiver’s fetch predicate.
 //
 // # Discussion
@@ -703,7 +685,6 @@ func (o NSObjectController) FetchPredicate() foundation.INSPredicate {
 func (o NSObjectController) SetFetchPredicate(value foundation.INSPredicate) {
 	objc.Send[struct{}](o.ID, objc.Sel("setFetchPredicate:"), value)
 }
-
 // The receiver’s managed object context.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/managedObjectContext
@@ -714,7 +695,6 @@ func (o NSObjectController) ManagedObjectContext() objectivec.IObject {
 func (o NSObjectController) SetManagedObjectContext(value objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setManagedObjectContext:"), value)
 }
-
 // An array of all objects to be affected by editing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/selectedObjects
@@ -722,7 +702,6 @@ func (o NSObjectController) SelectedObjects() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("selectedObjects"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // A proxy object representing the receiver’s selection.
 //
 // # Discussion

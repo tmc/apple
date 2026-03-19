@@ -54,13 +54,11 @@ func NSBrowserDelegateObjectFromID(id objc.ID) NSBrowserDelegateObject {
 // [NSBrowser] being sent to `sender`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:isColumnValid:)
-
 func (o NSBrowserDelegateObject) BrowserIsColumnValid(sender INSBrowser, column int) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:isColumnValid:"), sender, column)
 	return rv
 	}
-
 // Returns the number of rows of data in the specified column.
 //
 // sender: The browser.
@@ -77,13 +75,11 @@ func (o NSBrowserDelegateObject) BrowserIsColumnValid(sender INSBrowser, column 
 // implemented, but not both.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:numberOfRowsInColumn:)
-
 func (o NSBrowserDelegateObject) BrowserNumberOfRowsInColumn(sender INSBrowser, column int) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("browser:numberOfRowsInColumn:"), sender, column)
 	return rv
 	}
-
 // Asks the delegate for the number of children the given item has.
 //
 // browser: The browser.
@@ -95,13 +91,11 @@ func (o NSBrowserDelegateObject) BrowserNumberOfRowsInColumn(sender INSBrowser, 
 // The number of children.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:numberOfChildrenOfItem:)
-
 func (o NSBrowserDelegateObject) BrowserNumberOfChildrenOfItem(browser INSBrowser, item objectivec.IObject) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("browser:numberOfChildrenOfItem:"), browser, item)
 	return rv
 	}
-
 // Asks the delegate for the title to display above the specified column.
 //
 // sender: The browser.
@@ -113,13 +107,11 @@ func (o NSBrowserDelegateObject) BrowserNumberOfChildrenOfItem(browser INSBrowse
 // The title of the specified column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:titleOfColumn:)
-
 func (o NSBrowserDelegateObject) BrowserTitleOfColumn(sender INSBrowser, column int) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:titleOfColumn:"), sender, column)
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sent to the delegate to determine whether keyboard-based selection (type
 // select) for a given event and search string should proceed.
 //
@@ -138,13 +130,11 @@ func (o NSBrowserDelegateObject) BrowserTitleOfColumn(sender INSBrowser, column 
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:shouldTypeSelectFor:withCurrentSearch:)
-
 func (o NSBrowserDelegateObject) BrowserShouldTypeSelectForEventWithCurrentSearchString(browser INSBrowser, event INSEvent, searchString string) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:shouldTypeSelectForEvent:withCurrentSearchString:"), browser, event, objc.String(searchString))
 	return rv
 	}
-
 // Sent to the delegate to get the keyboard-based selection (type select)
 // string for the specified row and column.
 //
@@ -169,13 +159,11 @@ func (o NSBrowserDelegateObject) BrowserShouldTypeSelectForEventWithCurrentSearc
 // sending [StringValue] to the cell specified by `column` and `row`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:typeSelectStringForRow:inColumn:)
-
 func (o NSBrowserDelegateObject) BrowserTypeSelectStringForRowInColumn(browser INSBrowser, row int, column int) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:typeSelectStringForRow:inColumn:"), browser, row, column)
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sent to the delegate to customize a browser’s keyboard-based selection
 // (type select) behavior.
 //
@@ -197,13 +185,11 @@ func (o NSBrowserDelegateObject) BrowserTypeSelectStringForRowInColumn(browser I
 // `startRowIndex` and `endRowIndex` - 1, or `-1` if there is no match.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:nextTypeSelectMatchFromRow:toRow:inColumn:for:)
-
 func (o NSBrowserDelegateObject) BrowserNextTypeSelectMatchFromRowToRowInColumnForString(browser INSBrowser, startRow int, endRow int, column int, searchString string) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("browser:nextTypeSelectMatchFromRow:toRow:inColumn:forString:"), browser, startRow, endRow, column, objc.String(searchString))
 	return rv
 	}
-
 // Asks the delegate to select the cell with the given title in the specified
 // column.
 //
@@ -226,13 +212,11 @@ func (o NSBrowserDelegateObject) BrowserNextTypeSelectMatchFromRowToRowInColumnF
 // by `sender`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:selectCellWith:inColumn:)
-
 func (o NSBrowserDelegateObject) BrowserSelectCellWithStringInColumn(sender INSBrowser, title string, column int) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:selectCellWithString:inColumn:"), sender, objc.String(title), column)
 	return rv
 	}
-
 // Asks the delegate to select the cell at the specified row and column
 // location.
 //
@@ -255,13 +239,11 @@ func (o NSBrowserDelegateObject) BrowserSelectCellWithStringInColumn(sender INSB
 // `sender`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:selectRow:inColumn:)
-
 func (o NSBrowserDelegateObject) BrowserSelectRowInColumn(sender INSBrowser, row int, column int) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:selectRow:inColumn:"), sender, row, column)
 	return rv
 	}
-
 // Asks the delegate for a set of indexes to select when the user changes the
 // selection in the browser with the keyboard or mouse.
 //
@@ -285,13 +267,11 @@ func (o NSBrowserDelegateObject) BrowserSelectRowInColumn(sender INSBrowser, row
 // method works only for item-based browsers.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:selectionIndexesForProposedSelection:inColumn:)
-
 func (o NSBrowserDelegateObject) BrowserSelectionIndexesForProposedSelectionInColumn(browser INSBrowser, proposedSelectionIndexes foundation.NSIndexSet, column int) foundation.NSIndexSet {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:selectionIndexesForProposedSelection:inColumn:"), browser, proposedSelectionIndexes, column)
 	return foundation.NSIndexSetFromID(rv)
 	}
-
 // Asks the delegate to return the child of the specified item at the
 // specified index.
 //
@@ -306,13 +286,11 @@ func (o NSBrowserDelegateObject) BrowserSelectionIndexesForProposedSelectionInCo
 // The child at the specified index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:child:ofItem:)
-
 func (o NSBrowserDelegateObject) BrowserChildOfItem(browser INSBrowser, index int, item objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:child:ofItem:"), browser, index, item)
 	return objectivec.Object{ID: rv}
 	}
-
 // Asks the delegate whether the specified item is a leaf item (an item that
 // cannot be expanded).
 //
@@ -328,13 +306,11 @@ func (o NSBrowserDelegateObject) BrowserChildOfItem(browser INSBrowser, index in
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:isLeafItem:)
-
 func (o NSBrowserDelegateObject) BrowserIsLeafItem(browser INSBrowser, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:isLeafItem:"), browser, item)
 	return rv
 	}
-
 // Asks the delegate whether the browser may start an editing session for the
 // specified item.
 //
@@ -350,13 +326,11 @@ func (o NSBrowserDelegateObject) BrowserIsLeafItem(browser INSBrowser, item obje
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:shouldEditItem:)
-
 func (o NSBrowserDelegateObject) BrowserShouldEditItem(browser INSBrowser, item objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:shouldEditItem:"), browser, item)
 	return rv
 	}
-
 // Returns the object that the specified item uses to draw its contents.
 //
 // browser: The browser.
@@ -368,13 +342,11 @@ func (o NSBrowserDelegateObject) BrowserShouldEditItem(browser INSBrowser, item 
 // The item’s object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:objectValueForItem:)
-
 func (o NSBrowserDelegateObject) BrowserObjectValueForItem(browser INSBrowser, item objectivec.IObject) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:objectValueForItem:"), browser, item)
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the object that the specified item uses to draw its contents to the
 // specified object.
 //
@@ -385,12 +357,10 @@ func (o NSBrowserDelegateObject) BrowserObjectValueForItem(browser INSBrowser, i
 // item: The item whose object is set.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:setObjectValue:forItem:)
-
 func (o NSBrowserDelegateObject) BrowserSetObjectValueForItem(browser INSBrowser, object objectivec.IObject, item objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("browser:setObjectValue:forItem:"), browser, object, item)
 	}
-
 // Asks the delegate to return the root item of the browser.
 //
 // browser: The browser.
@@ -406,13 +376,11 @@ func (o NSBrowserDelegateObject) BrowserSetObjectValueForItem(browser INSBrowser
 // [LoadColumnZero], and [RootItemForBrowser] will be called again.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/rootItem(for:)
-
 func (o NSBrowserDelegateObject) RootItemForBrowser(browser INSBrowser) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("rootItemForBrowser:"), browser)
 	return objectivec.Object{ID: rv}
 	}
-
 // Asks the delegate for a controller that provides a preview column for the
 // specified leaf item.
 //
@@ -432,13 +400,11 @@ func (o NSBrowserDelegateObject) RootItemForBrowser(browser INSBrowser) objectiv
 // source methods.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:previewViewControllerForLeafItem:)
-
 func (o NSBrowserDelegateObject) BrowserPreviewViewControllerForLeafItem(browser INSBrowser, item objectivec.IObject) INSViewController {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:previewViewControllerForLeafItem:"), browser, item)
 	return NSViewControllerFromID(rv)
 	}
-
 // Asks the delegate for a controller that provides a header view for the
 // specified column item.
 //
@@ -458,13 +424,11 @@ func (o NSBrowserDelegateObject) BrowserPreviewViewControllerForLeafItem(browser
 // source methods.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:headerViewControllerForItem:)
-
 func (o NSBrowserDelegateObject) BrowserHeaderViewControllerForItem(browser INSBrowser, item objectivec.IObject) INSViewController {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:headerViewControllerForItem:"), browser, item)
 	return NSViewControllerFromID(rv)
 	}
-
 // Creates a row in the given matrix for each row of data in the specified
 // column of the browser.
 //
@@ -482,12 +446,10 @@ func (o NSBrowserDelegateObject) BrowserHeaderViewControllerForItem(browser INSB
 // [NSBrowserIllegalDelegateException]: https://developer.apple.com/documentation/AppKit/NSBrowserIllegalDelegateException
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:createRowsForColumn:in:)
-
 func (o NSBrowserDelegateObject) BrowserCreateRowsForColumnInMatrix(sender INSBrowser, column int, matrix INSMatrix) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("browser:createRowsForColumn:inMatrix:"), sender, column, matrix)
 	}
-
 // Gives the delegate the opportunity to modify the specified cell at the
 // given row and column location before the browser displays it.
 //
@@ -505,12 +467,10 @@ func (o NSBrowserDelegateObject) BrowserCreateRowsForColumnInMatrix(sender INSBr
 // cell.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:willDisplayCell:atRow:column:)
-
 func (o NSBrowserDelegateObject) BrowserWillDisplayCellAtRowColumn(sender INSBrowser, cell objectivec.IObject, row int, column int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("browser:willDisplayCell:atRow:column:"), sender, cell, row, column)
 	}
-
 // Tells the delegate that the browser’s last column changed.
 //
 // browser: The browser.
@@ -520,34 +480,28 @@ func (o NSBrowserDelegateObject) BrowserWillDisplayCellAtRowColumn(sender INSBro
 // column: The index of the new last column.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:didChangeLastColumn:toColumn:)
-
 func (o NSBrowserDelegateObject) BrowserDidChangeLastColumnToColumn(browser INSBrowser, oldLastColumn int, column int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("browser:didChangeLastColumn:toColumn:"), browser, oldLastColumn, column)
 	}
-
 // Notifies the delegate when the browser will scroll.
 //
 // sender: The browser sending the message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browserWillScroll(_:)
-
 func (o NSBrowserDelegateObject) BrowserWillScroll(sender INSBrowser) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("browserWillScroll:"), sender)
 	}
-
 // Notifies the delegate when the browser has scrolled.
 //
 // sender: The browser sending the message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browserDidScroll(_:)
-
 func (o NSBrowserDelegateObject) BrowserDidScroll(sender INSBrowser) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("browserDidScroll:"), sender)
 	}
-
 // Sent to the delegate to determine whether the browser can attempt to
 // initiate a drag of the specified rows for the specified event.
 //
@@ -567,13 +521,11 @@ func (o NSBrowserDelegateObject) BrowserDidScroll(sender INSBrowser) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:canDragRowsWith:inColumn:with:)
-
 func (o NSBrowserDelegateObject) BrowserCanDragRowsWithIndexesInColumnWithEvent(browser INSBrowser, rowIndexes foundation.NSIndexSet, column int, event INSEvent) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:canDragRowsWithIndexes:inColumn:withEvent:"), browser, rowIndexes, column, event)
 	return rv
 	}
-
 // Sent to the delegate to obtain an image to represent dragged rows during a
 // drag operation on a browser.
 //
@@ -596,13 +548,11 @@ func (o NSBrowserDelegateObject) BrowserCanDragRowsWithIndexesInColumnWithEvent(
 // An image representing the visible rows identified by `rowIndexes`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:draggingImageForRowsWith:inColumn:with:offset:)
-
 func (o NSBrowserDelegateObject) BrowserDraggingImageForRowsWithIndexesInColumnWithEventOffset(browser INSBrowser, rowIndexes foundation.NSIndexSet, column int, event INSEvent, dragImageOffset foundation.NSPoint) INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("browser:draggingImageForRowsWithIndexes:inColumn:withEvent:offset:"), browser, rowIndexes, column, event, dragImageOffset)
 	return NSImageFromID(rv)
 	}
-
 // Sent to the delegate during a dragging session to determine whether a drop
 // should be accepted and to obtain the drop location. This method is required
 // for a browser to be a drag destination.
@@ -636,13 +586,11 @@ func (o NSBrowserDelegateObject) BrowserDraggingImageForRowsWithIndexesInColumnW
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:validateDrop:proposedRow:column:dropOperation:)
-
 func (o NSBrowserDelegateObject) BrowserValidateDropProposedRowColumnDropOperation(browser INSBrowser, info NSDraggingInfo, row unsafe.Pointer, column unsafe.Pointer, dropOperation NSBrowserDropOperation) NSDragOperation {
 	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("browser:validateDrop:proposedRow:column:dropOperation:"), browser, info, row, column, dropOperation)
 	return rv
 	}
-
 // Sent to the delegate during a dragging session to determine whether to
 // accept the drop.
 //
@@ -673,13 +621,11 @@ func (o NSBrowserDelegateObject) BrowserValidateDropProposedRowColumnDropOperati
 // session (`info``XCUIElementTypeDraggingPasteboard`).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:acceptDrop:atRow:column:dropOperation:)
-
 func (o NSBrowserDelegateObject) BrowserAcceptDropAtRowColumnDropOperation(browser INSBrowser, info NSDraggingInfo, row int, column int, dropOperation NSBrowserDropOperation) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:acceptDrop:atRow:column:dropOperation:"), browser, info, row, column, dropOperation)
 	return rv
 	}
-
 // Determines whether a drag operation can proceed. This method is required
 // for a browser to be a drag source.
 //
@@ -708,13 +654,11 @@ func (o NSBrowserDelegateObject) BrowserAcceptDropAtRowColumnDropOperation(brows
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:writeRowsWith:inColumn:to:)
-
 func (o NSBrowserDelegateObject) BrowserWriteRowsWithIndexesInColumnToPasteboard(browser INSBrowser, rowIndexes foundation.NSIndexSet, column int, pasteboard INSPasteboard) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:writeRowsWithIndexes:inColumn:toPasteboard:"), browser, rowIndexes, column, pasteboard)
 	return rv
 	}
-
 // Used to determine a column’s initial size.
 //
 // browser: The browser.
@@ -746,13 +690,11 @@ func (o NSBrowserDelegateObject) BrowserWriteRowsWithIndexesInColumnToPasteboard
 // [NSBrowser.ColumnResizingType]: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:shouldSizeColumn:forUserResize:toWidth:)
-
 func (o NSBrowserDelegateObject) BrowserShouldSizeColumnForUserResizeToWidth(browser INSBrowser, columnIndex int, forUserResize bool, suggestedWidth float64) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("browser:shouldSizeColumn:forUserResize:toWidth:"), browser, columnIndex, forUserResize, suggestedWidth)
 	return rv
 	}
-
 // Returns the ideal width for a column.
 //
 // browser: The browser.
@@ -785,13 +727,11 @@ func (o NSBrowserDelegateObject) BrowserShouldSizeColumnForUserResizeToWidth(bro
 // [NSBrowser.ColumnResizingType.userColumnResizing]: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum/userColumnResizing
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:sizeToFitWidthOfColumn:)
-
 func (o NSBrowserDelegateObject) BrowserSizeToFitWidthOfColumn(browser INSBrowser, columnIndex int) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("browser:sizeToFitWidthOfColumn:"), browser, columnIndex)
 	return rv
 	}
-
 // Used by clients to implement their own column width persistence.
 //
 // notification: A notification named [columnConfigurationDidChangeNotification].
@@ -810,12 +750,10 @@ func (o NSBrowserDelegateObject) BrowserSizeToFitWidthOfColumn(browser INSBrowse
 // [NSBrowser.ColumnResizingType.userColumnResizing]: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum/userColumnResizing
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browserColumnConfigurationDidChange(_:)
-
 func (o NSBrowserDelegateObject) BrowserColumnConfigurationDidChange(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("browserColumnConfigurationDidChange:"), notification)
 	}
-
 // Specifies the height of the specified row in the specified column.
 //
 // browser: The browser.
@@ -835,13 +773,11 @@ func (o NSBrowserDelegateObject) BrowserColumnConfigurationDidChange(notificatio
 // height before changing it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:heightOfRow:inColumn:)
-
 func (o NSBrowserDelegateObject) BrowserHeightOfRowInColumn(browser INSBrowser, row int, columnIndex int) float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("browser:heightOfRow:inColumn:"), browser, row, columnIndex)
 	return rv
 	}
-
 // Invoked to allow the delegate to control cell expansion for a specific row
 // and column.
 //
@@ -866,7 +802,6 @@ func (o NSBrowserDelegateObject) BrowserHeightOfRowInColumn(browser INSBrowser, 
 // floating tool tip view, otherwise the content is truncated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserDelegate/browser(_:shouldShowCellExpansionForRow:column:)
-
 func (o NSBrowserDelegateObject) BrowserShouldShowCellExpansionForRowColumn(browser INSBrowser, row int, column int) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("browser:shouldShowCellExpansionForRow:column:"), browser, row, column)

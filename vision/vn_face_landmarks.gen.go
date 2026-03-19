@@ -119,7 +119,6 @@ func (f VNFaceLandmarks) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](f.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
 }
-
 // The facial features of the detected face.
 //
 // See: https://developer.apple.com/documentation/vision/vnfaceobservation/landmarks
@@ -130,7 +129,6 @@ func (f VNFaceLandmarks) Landmarks() IVNFaceLandmarks2D {
 func (f VNFaceLandmarks) SetLandmarks(value IVNFaceLandmarks2D) {
 	objc.Send[struct{}](f.ID, objc.Sel("setLandmarks:"), value)
 }
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //

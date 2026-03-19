@@ -127,7 +127,6 @@ func (n VZNetworkDeviceConfiguration) Attachment() IVZNetworkDeviceAttachment {
 func (n VZNetworkDeviceConfiguration) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
-
 // The media access control (MAC) address to assign to the network device.
 //
 // # Discussion

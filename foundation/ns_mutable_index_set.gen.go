@@ -234,7 +234,6 @@ func NewMutableIndexSetWithIndexesInRange(range_ NSRange) NSMutableIndexSet {
 func (m NSMutableIndexSet) AddIndex(value uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addIndex:"), value)
 }
-
 // Adds the indexes in an index set to the receiver.
 //
 // indexSet: Index set to add.
@@ -243,7 +242,6 @@ func (m NSMutableIndexSet) AddIndex(value uint) {
 func (m NSMutableIndexSet) AddIndexes(indexSet INSIndexSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addIndexes:"), indexSet)
 }
-
 // Adds the indexes in an index range to the receiver.
 //
 // range: Index range to add. Must be in the range `0 .. NSNotFound - 1`.
@@ -259,7 +257,6 @@ func (m NSMutableIndexSet) AddIndexes(indexSet INSIndexSet) {
 func (m NSMutableIndexSet) AddIndexesInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addIndexesInRange:"), range_)
 }
-
 // Removes an index from the receiver.
 //
 // value: Index to remove.
@@ -268,7 +265,6 @@ func (m NSMutableIndexSet) AddIndexesInRange(range_ NSRange) {
 func (m NSMutableIndexSet) RemoveIndex(value uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeIndex:"), value)
 }
-
 // Removes the indexes in an index set from the receiver.
 //
 // indexSet: Index set to remove.
@@ -277,14 +273,12 @@ func (m NSMutableIndexSet) RemoveIndex(value uint) {
 func (m NSMutableIndexSet) RemoveIndexes(indexSet INSIndexSet) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeIndexes:"), indexSet)
 }
-
 // Removes the receiver’s indexes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableIndexSet/removeAllIndexes()
 func (m NSMutableIndexSet) RemoveAllIndexes() {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeAllIndexes"))
 }
-
 // Removes the indexes in an index range from the receiver.
 //
 // range: Index range to remove.
@@ -293,7 +287,6 @@ func (m NSMutableIndexSet) RemoveAllIndexes() {
 func (m NSMutableIndexSet) RemoveIndexesInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeIndexesInRange:"), range_)
 }
-
 // Shifts a group of indexes to the left or the right within the receiver.
 //
 // index: Head of the group of indexes to shift.

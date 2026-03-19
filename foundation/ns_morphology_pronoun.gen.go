@@ -137,14 +137,12 @@ func (m NSMorphologyPronoun) InitWithPronounMorphologyDependentMorphology(pronou
 	rv := objc.Send[NSMorphologyPronoun](m.ID, objc.Sel("initWithPronoun:morphology:dependentMorphology:"), objc.String(pronoun), morphology, dependentMorphology)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (m NSMorphologyPronoun) InitWithCoder(coder INSCoder) NSMorphologyPronoun {
 	rv := objc.Send[NSMorphologyPronoun](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -159,13 +157,11 @@ func (m NSMorphologyPronoun) Pronoun() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pronoun"))
 	return NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyPronoun/morphology
 func (m NSMorphologyPronoun) Morphology() INSMorphology {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("morphology"))
 	return NSMorphologyFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyPronoun/dependentMorphology
 func (m NSMorphologyPronoun) DependentMorphology() INSMorphology {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dependentMorphology"))

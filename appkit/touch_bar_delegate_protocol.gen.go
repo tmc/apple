@@ -50,7 +50,6 @@ func NSTouchBarDelegateObjectFromID(id objc.ID) NSTouchBarDelegateObject {
 // the bar’s private array or in the bar’s [TemplateItems] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarDelegate/touchBar(_:makeItemForIdentifier:)
-
 func (o NSTouchBarDelegateObject) TouchBarMakeItemForIdentifier(touchBar INSTouchBar, identifier NSTouchBarItemIdentifier) INSTouchBarItem {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchBar:makeItemForIdentifier:"), touchBar, objc.String(string(identifier)))

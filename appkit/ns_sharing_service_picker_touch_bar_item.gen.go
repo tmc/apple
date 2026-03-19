@@ -170,7 +170,6 @@ func (s NSSharingServicePickerTouchBarItem) Delegate() NSSharingServicePickerTou
 func (s NSSharingServicePickerTouchBarItem) SetDelegate(value NSSharingServicePickerTouchBarItemDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The image displayed in the sharing service picker item button.
 //
 // # Discussion
@@ -185,7 +184,6 @@ func (s NSSharingServicePickerTouchBarItem) ButtonImage() objectivec.Object {
 func (s NSSharingServicePickerTouchBarItem) SetButtonImage(value objectivec.Object) {
 	objc.Send[struct{}](s.ID, objc.Sel("setButtonImage:"), value)
 }
-
 // The text displayed in the sharing service picker item button.
 //
 // # Discussion
@@ -200,7 +198,6 @@ func (s NSSharingServicePickerTouchBarItem) ButtonTitle() string {
 func (s NSSharingServicePickerTouchBarItem) SetButtonTitle(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setButtonTitle:"), objc.String(value))
 }
-
 // A Boolean value that specifies whether the sharing service picker item is
 // enabled.
 //

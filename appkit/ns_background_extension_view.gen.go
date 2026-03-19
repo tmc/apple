@@ -165,7 +165,6 @@ func (b NSBackgroundExtensionView) AutomaticallyPlacesContentView() bool {
 func (b NSBackgroundExtensionView) SetAutomaticallyPlacesContentView(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAutomaticallyPlacesContentView:"), value)
 }
-
 // The content view to extend to fill the [NSBackgroundExtensionView].
 //
 // # Discussion

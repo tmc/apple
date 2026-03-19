@@ -5,7 +5,6 @@ package foundation
 import (
 	"unsafe"
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -99,7 +98,7 @@ type NSItemProviderCompletionHandler = func(NSSecureCoding, NSError)
 // NSItemProviderLoadHandler is a block that loads the item provider’s data and coerces it to the specified type.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/LoadHandler
-type NSItemProviderLoadHandler = func(func(objc.ID, *NSError), objc.Class, *NSDictionary)
+type NSItemProviderLoadHandler = func()
 
 // NSKeyValueChangeKey is the keys that can appear in the change dictionary.
 //

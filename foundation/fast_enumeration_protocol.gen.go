@@ -57,7 +57,6 @@ func NSFastEnumerationObjectFromID(id objc.ID) NSFastEnumerationObject {
 // iteration.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-
 func (o NSFastEnumerationObject) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)

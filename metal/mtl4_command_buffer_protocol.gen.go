@@ -114,23 +114,19 @@ func MTL4CommandBufferObjectFromID(id objc.ID) MTL4CommandBufferObject {
 // Returns the GPU device that this command buffer belongs to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/device
-
 func (o MTL4CommandBufferObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // Assigns an optional label with this command buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/label
-
 func (o MTL4CommandBufferObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Prepares a command buffer for encoding.
 //
 // allocator: [MTL4CommandAllocator] to attach to.
@@ -155,12 +151,10 @@ func (o MTL4CommandBufferObject) Label() string {
 // to Metal.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/beginCommandBuffer(allocator:)
-
 func (o MTL4CommandBufferObject) BeginCommandBufferWithAllocator(allocator MTL4CommandAllocator) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("beginCommandBufferWithAllocator:"), allocator)
 	}
-
 // Prepares a command buffer for encoding with additional options.
 //
 // allocator: [MTL4CommandAllocator] to attach to.
@@ -190,12 +184,10 @@ func (o MTL4CommandBufferObject) BeginCommandBufferWithAllocator(allocator MTL4C
 // buffer ends, in the next call to [EndCommandBuffer].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/beginCommandBuffer(allocator:options:)
-
 func (o MTL4CommandBufferObject) BeginCommandBufferWithAllocatorOptions(allocator MTL4CommandAllocator, options IMTL4CommandBufferOptions) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("beginCommandBufferWithAllocator:options:"), allocator, options)
 	}
-
 // Closes a command buffer to prepare it for submission to a command queue.
 //
 // # Discussion
@@ -206,12 +198,10 @@ func (o MTL4CommandBufferObject) BeginCommandBufferWithAllocatorOptions(allocato
 // calling this method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/endCommandBuffer()
-
 func (o MTL4CommandBufferObject) EndCommandBuffer() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("endCommandBuffer"))
 	}
-
 // Creates a compute command encoder.
 //
 // # Return Value
@@ -220,13 +210,11 @@ func (o MTL4CommandBufferObject) EndCommandBuffer() {
 // fails.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/makeComputeCommandEncoder()
-
 func (o MTL4CommandBufferObject) ComputeCommandEncoder() MTL4ComputeCommandEncoder {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("computeCommandEncoder"))
 	return MTL4ComputeCommandEncoderObjectFromID(rv)
 	}
-
 // Creates a machine learning command encoder.
 //
 // # Return Value
@@ -235,13 +223,11 @@ func (o MTL4CommandBufferObject) ComputeCommandEncoder() MTL4ComputeCommandEncod
 // function fails.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/makeMachineLearningCommandEncoder()
-
 func (o MTL4CommandBufferObject) MachineLearningCommandEncoder() MTL4MachineLearningCommandEncoder {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("machineLearningCommandEncoder"))
 	return MTL4MachineLearningCommandEncoderObjectFromID(rv)
 	}
-
 // Creates a render command encoder from a render pass descriptor with
 // additional options.
 //
@@ -269,34 +255,28 @@ func (o MTL4CommandBufferObject) MachineLearningCommandEncoder() MTL4MachineLear
 // [MTL4RenderEncoderOptions]: https://developer.apple.com/documentation/Metal/MTL4RenderEncoderOptions
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/makeRenderCommandEncoder(descriptor:options:)
-
 func (o MTL4CommandBufferObject) RenderCommandEncoderWithDescriptorOptions(descriptor IMTL4RenderPassDescriptor, options MTL4RenderEncoderOptions) MTL4RenderCommandEncoder {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("renderCommandEncoderWithDescriptor:options:"), descriptor, options)
 	return MTL4RenderCommandEncoderObjectFromID(rv)
 	}
-
 // Pops the latest string from the stack of debug groups for this command
 // buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/popDebugGroup()
-
 func (o MTL4CommandBufferObject) PopDebugGroup() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
-
 // Pushes a string onto a stack of debug groups for this command buffer.
 //
 // string: The string to push.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/pushDebugGroup(_:)
-
 func (o MTL4CommandBufferObject) PushDebugGroup(string_ string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
-
 // Applies a residency set to a command buffer.
 //
 // residencySet: A residency set that contains resource allocations, such as [MTLBuffer],
@@ -311,12 +291,10 @@ func (o MTL4CommandBufferObject) PushDebugGroup(string_ string) {
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/useResidencySet(_:)
-
 func (o MTL4CommandBufferObject) UseResidencySet(residencySet MTLResidencySet) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("useResidencySet:"), residencySet)
 	}
-
 // Writes a GPU timestamp into the given counter heap.
 //
 // counterHeap: [MTL4CounterHeap] to write the timestamp into.
@@ -333,12 +311,10 @@ func (o MTL4CommandBufferObject) UseResidencySet(residencySet MTLResidencySet) {
 // [MTL4CounterHeapTypeTimestamp].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/writeTimestamp(counterHeap:index:)
-
 func (o MTL4CommandBufferObject) WriteTimestampIntoHeapAtIndex(counterHeap MTL4CounterHeap, index uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("writeTimestampIntoHeap:atIndex:"), counterHeap, index)
 	}
-
 // Creates a render command encoder from a render pass descriptor.
 //
 // descriptor: Descriptor for the render pass.
@@ -349,13 +325,11 @@ func (o MTL4CommandBufferObject) WriteTimestampIntoHeapAtIndex(counterHeap MTL4C
 // failed.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/renderCommandEncoderWithDescriptor:
-
 func (o MTL4CommandBufferObject) RenderCommandEncoderWithDescriptor(descriptor IMTL4RenderPassDescriptor) MTL4RenderCommandEncoder {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("renderCommandEncoderWithDescriptor:"), descriptor)
 	return MTL4RenderCommandEncoderObjectFromID(rv)
 	}
-
 // Encodes a command that resolves an opaque counter heap into a buffer.
 //
 // counterHeap: A heap the command resolves.
@@ -391,12 +365,10 @@ func (o MTL4CommandBufferObject) RenderCommandEncoderWithDescriptor(descriptor I
 // [ResolveCounterRange] method.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/resolveCounterHeap:withRange:intoBuffer:waitFence:updateFence:
-
 func (o MTL4CommandBufferObject) ResolveCounterHeapWithRangeIntoBufferWaitFenceUpdateFence(counterHeap MTL4CounterHeap, range_ foundation.NSRange, bufferRange MTL4BufferRange, fenceToWait MTLFence, fenceToUpdate MTLFence) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("resolveCounterHeap:withRange:intoBuffer:waitFence:updateFence:"), counterHeap, range_, bufferRange, fenceToWait, fenceToUpdate)
 	}
-
 // Applies multiple residency sets to a command buffer.
 //
 // residencySets: A C array of residency sets, each of which contains resource allocations,
@@ -413,7 +385,6 @@ func (o MTL4CommandBufferObject) ResolveCounterHeapWithRangeIntoBufferWaitFenceU
 // [Simplifying GPU resource management with residency sets]: https://developer.apple.com/documentation/Metal/simplifying-gpu-resource-management-with-residency-sets
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandBuffer/useResidencySets:count:
-
 func (o MTL4CommandBufferObject) UseResidencySetsCount(residencySets []MTLResidencySet, count uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("useResidencySets:count:"), objc.CArray(residencySets), count)

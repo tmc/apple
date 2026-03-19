@@ -234,7 +234,6 @@ func (p NSPointerFunctions) HashFunction() int {
 func (p NSPointerFunctions) SetHashFunction(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHashFunction:"), value)
 }
-
 // The function used to compare pointers.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/isequalfunction
@@ -245,7 +244,6 @@ func (p NSPointerFunctions) IsEqualFunction() objectivec.IObject {
 func (p NSPointerFunctions) SetIsEqualFunction(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIsEqualFunction:"), value)
 }
-
 // The function used to determine the size of pointers.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/sizefunction
@@ -256,7 +254,6 @@ func (p NSPointerFunctions) SizeFunction() int {
 func (p NSPointerFunctions) SetSizeFunction(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSizeFunction:"), value)
 }
-
 // The function used to describe elements.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/descriptionfunction
@@ -267,7 +264,6 @@ func (p NSPointerFunctions) DescriptionFunction() string {
 func (p NSPointerFunctions) SetDescriptionFunction(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDescriptionFunction:"), objc.String(value))
 }
-
 // The function used to acquire memory.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/acquirefunction
@@ -278,7 +274,6 @@ func (p NSPointerFunctions) AcquireFunction() unsafe.Pointer {
 func (p NSPointerFunctions) SetAcquireFunction(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAcquireFunction:"), value)
 }
-
 // The function used to relinquish memory.
 //
 // See: https://developer.apple.com/documentation/foundation/nspointerfunctions/relinquishfunction
@@ -289,7 +284,6 @@ func (p NSPointerFunctions) RelinquishFunction() objectivec.IObject {
 func (p NSPointerFunctions) SetRelinquishFunction(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setRelinquishFunction:"), value)
 }
-
 // The pointer functions for the hash table.
 //
 // See: https://developer.apple.com/documentation/foundation/nshashtable/pointerfunctions

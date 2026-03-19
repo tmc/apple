@@ -114,7 +114,6 @@ func (r SCRunningApplication) ProcessID() int32 {
 	rv := objc.Send[int32](r.ID, objc.Sel("processID"))
 	return rv
 }
-
 // The unique bundle identifier of the app.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRunningApplication/bundleIdentifier
@@ -122,7 +121,6 @@ func (r SCRunningApplication) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("bundleIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The display name of the app.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRunningApplication/applicationName

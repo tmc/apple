@@ -222,7 +222,6 @@ func (d NSDecimalNumberHandler) InitWithRoundingModeScaleRaiseOnExactnessRaiseOn
 	rv := objc.Send[NSDecimalNumberHandler](d.ID, objc.Sel("initWithRoundingMode:scale:raiseOnExactness:raiseOnOverflow:raiseOnUnderflow:raiseOnDivideByZero:"), roundingMode, scale, exact, overflow, underflow, divideByZero)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -231,7 +230,6 @@ func (d NSDecimalNumberHandler) InitWithRoundingModeScaleRaiseOnExactnessRaiseOn
 func (d NSDecimalNumberHandler) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 // Specifies what an [NSDecimalNumber] object will do when it encounters an
 // error.
 //
@@ -275,14 +273,12 @@ func (d NSDecimalNumberHandler) ExceptionDuringOperationErrorLeftOperandRightOpe
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (d NSDecimalNumberHandler) InitWithCoder(coder INSCoder) NSDecimalNumberHandler {
 	rv := objc.Send[NSDecimalNumberHandler](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Returns the number of digits allowed after the decimal separator.
 //
 // # Return Value
@@ -363,7 +359,6 @@ func (d NSDecimalNumberHandler) RoundingBehavior() INSDecimalNumberHandler {
 func (d NSDecimalNumberHandler) SetRoundingBehavior(value INSDecimalNumberHandler) {
 	objc.Send[struct{}](d.ID, objc.Sel("setRoundingBehavior:"), value)
 }
-
 // The rounding increment used by the receiver.
 //
 // See: https://developer.apple.com/documentation/foundation/numberformatter/roundingincrement
@@ -376,7 +371,6 @@ func (d NSDecimalNumberHandler) SetRoundingIncrement(value INSNumber) {
 }
 		
 		
-
 // The rounding mode used by the receiver.
 //
 // See: https://developer.apple.com/documentation/foundation/numberformatter/roundingmode-swift.property

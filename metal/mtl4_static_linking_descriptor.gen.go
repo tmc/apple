@@ -121,7 +121,6 @@ func (m MTL4StaticLinkingDescriptor) FunctionDescriptors() []MTL4FunctionDescrip
 func (m MTL4StaticLinkingDescriptor) SetFunctionDescriptors(value []MTL4FunctionDescriptor) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFunctionDescriptors:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Assigns groups of functions to match call-site attributes in shader code.
 //
 // # Discussion
@@ -138,7 +137,6 @@ func (m MTL4StaticLinkingDescriptor) Groups() foundation.INSDictionary {
 func (m MTL4StaticLinkingDescriptor) SetGroups(value foundation.INSDictionary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setGroups:"), value)
 }
-
 // Provides an array of private functions to link at the Metal IR level.
 //
 // # Discussion

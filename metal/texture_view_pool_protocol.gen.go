@@ -75,13 +75,11 @@ func MTLTextureViewPoolObjectFromID(id objc.ID) MTLTextureViewPoolObject {
 // in this texture view pool at the index you specify.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewPool/setTextureView(buffer:descriptor:offset:bytesPerRow:index:)
-
 func (o MTLTextureViewPoolObject) SetTextureViewFromBufferDescriptorOffsetBytesPerRowAtIndex(buffer MTLBuffer, descriptor IMTLTextureDescriptor, offset uint, bytesPerRow uint, index uint) MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("setTextureViewFromBuffer:descriptor:offset:bytesPerRow:atIndex:"), buffer, descriptor, offset, bytesPerRow, index)
 	return rv
 	}
-
 // Creates a new lightweight texture view.
 //
 // texture: An [MTLTexture] instance for which to create a new lightweight texture
@@ -105,13 +103,11 @@ func (o MTLTextureViewPoolObject) SetTextureViewFromBufferDescriptorOffsetBytesP
 // in this texture view pool at the index you specify.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewPool/setTextureView(texture:descriptor:index:)
-
 func (o MTLTextureViewPoolObject) SetTextureViewDescriptorAtIndex(texture MTLTexture, descriptor IMTLTextureViewDescriptor, index uint) MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("setTextureView:descriptor:atIndex:"), texture, descriptor, index)
 	return rv
 	}
-
 // Copies a default texture view to a slot in this texture view pool at an
 // index provided.
 //
@@ -127,54 +123,44 @@ func (o MTLTextureViewPoolObject) SetTextureViewDescriptorAtIndex(texture MTLTex
 // [MTLResourceID]: https://developer.apple.com/documentation/Metal/MTLResourceID
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTextureViewPool/setTextureView(texture:index:)
-
 func (o MTLTextureViewPoolObject) SetTextureViewAtIndex(texture MTLTexture, index uint) MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("setTextureView:atIndex:"), texture, index)
 	return rv
 	}
-
 // Obtains the resource ID corresponding to the resource view at index 0 in
 // this resource view pool.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/baseResourceID
-
 func (o MTLTextureViewPoolObject) BaseResourceID() MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("baseResourceID"))
 	return rv
 	}
-
 // Obtains a reference to the GPU device this pool belongs to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/device
-
 func (o MTLTextureViewPoolObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // Queries the optional debug label of this resource view pool.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/label
-
 func (o MTLTextureViewPoolObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Queries the number of resource views that this pool contains.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/resourceViewCount
-
 func (o MTLTextureViewPoolObject) ResourceViewCount() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("resourceViewCount"))
 	return rv
 	}
-
 // Copies a range of resource views from a source view pool to a destination
 // location in this view pool.
 //
@@ -193,7 +179,6 @@ func (o MTLTextureViewPoolObject) ResourceViewCount() uint {
 // [MTLResourceID]: https://developer.apple.com/documentation/Metal/MTLResourceID
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/copyResourceViewsFromPool:sourceRange:destinationIndex:
-
 func (o MTLTextureViewPoolObject) CopyResourceViewsFromPoolSourceRangeDestinationIndex(sourcePool MTLResourceViewPool, sourceRange foundation.NSRange, destinationIndex uint) MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("copyResourceViewsFromPool:sourceRange:destinationIndex:"), sourcePool, sourceRange, destinationIndex)

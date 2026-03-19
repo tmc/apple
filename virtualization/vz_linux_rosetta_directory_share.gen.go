@@ -207,7 +207,6 @@ func (l VZLinuxRosettaDirectoryShare) CachingOptions() uint {
 func (l VZLinuxRosettaDirectoryShare) SetCachingOptions(value uint) {
 	objc.Send[struct{}](l.ID, objc.Sel("setCachingOptions:"), value)
 }
-
 // The value that enables translation caching and configures the socket
 // communication type for Rosetta.
 //

@@ -180,7 +180,6 @@ func NewTableHeaderCellWithCoder(coder foundation.INSCoder) NSTableHeaderCell {
 func (t NSTableHeaderCell) DrawSortIndicatorWithFrameInViewAscendingPriority(cellFrame corefoundation.CGRect, controlView INSView, ascending bool, priority int) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawSortIndicatorWithFrame:inView:ascending:priority:"), cellFrame, controlView, ascending, priority)
 }
-
 // Returns the location to display the sorting indicator given `theRect`.
 //
 // rect: A cell rectangle.

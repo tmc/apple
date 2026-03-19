@@ -309,7 +309,6 @@ func NewTableRowViewWithFrame(frameRect corefoundation.CGRect) NSTableRowView {
 func (t NSTableRowView) DrawBackgroundInRect(dirtyRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawBackgroundInRect:"), dirtyRect)
 }
-
 // Draws the row’s dragging destination feedback when the entire row is a
 // drop target.
 //
@@ -329,7 +328,6 @@ func (t NSTableRowView) DrawBackgroundInRect(dirtyRect corefoundation.CGRect) {
 func (t NSTableRowView) DrawDraggingDestinationFeedbackInRect(dirtyRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawDraggingDestinationFeedbackInRect:"), dirtyRect)
 }
-
 // Draws the selected row.
 //
 // dirtyRect: The rectangle that requires drawing.
@@ -347,7 +345,6 @@ func (t NSTableRowView) DrawDraggingDestinationFeedbackInRect(dirtyRect corefoun
 func (t NSTableRowView) DrawSelectionInRect(dirtyRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawSelectionInRect:"), dirtyRect)
 }
-
 // Draws the horizontal separator between table rows.
 //
 // dirtyRect: The rectangle that requires drawing.
@@ -364,7 +361,6 @@ func (t NSTableRowView) DrawSelectionInRect(dirtyRect corefoundation.CGRect) {
 func (t NSTableRowView) DrawSeparatorInRect(dirtyRect corefoundation.CGRect) {
 	objc.Send[objc.ID](t.ID, objc.Sel("drawSeparatorInRect:"), dirtyRect)
 }
-
 // Provides access to the given view at a particular column.
 //
 // column: The index of the column.
@@ -383,7 +379,6 @@ func (t NSTableRowView) ViewAtColumn(column int) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("viewAtColumn:"), column)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the indention level for the row.
 //
 // # Return Value
@@ -402,7 +397,6 @@ func (t NSTableRowView) AccessibilityDisclosureLevel() int {
 	rv := objc.Send[int](t.ID, objc.Sel("accessibilityDisclosureLevel"))
 	return rv
 }
-
 // Returns the index for the row.
 //
 // # Return Value
@@ -444,7 +438,6 @@ func (t NSTableRowView) Emphasized() bool {
 func (t NSTableRowView) SetEmphasized(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setEmphasized:"), value)
 }
-
 // Specifies how the subviews should draw.
 //
 // # Discussion
@@ -465,7 +458,6 @@ func (t NSTableRowView) InteriorBackgroundStyle() NSBackgroundStyle {
 	rv := objc.Send[NSBackgroundStyle](t.ID, objc.Sel("interiorBackgroundStyle"))
 	return NSBackgroundStyle(rv)
 }
-
 // Specifies whether the row is drawn using the floating style.
 //
 // # Discussion
@@ -483,7 +475,6 @@ func (t NSTableRowView) Floating() bool {
 func (t NSTableRowView) SetFloating(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFloating:"), value)
 }
-
 // Determines whether the row is selected.
 //
 // # Discussion
@@ -501,7 +492,6 @@ func (t NSTableRowView) Selected() bool {
 func (t NSTableRowView) SetSelected(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelected:"), value)
 }
-
 // Specifies the selection highlight style.
 //
 // # Discussion
@@ -519,7 +509,6 @@ func (t NSTableRowView) SelectionHighlightStyle() NSTableViewSelectionHighlightS
 func (t NSTableRowView) SetSelectionHighlightStyle(value NSTableViewSelectionHighlightStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSelectionHighlightStyle:"), value)
 }
-
 // Specifies the dragging destination feedback style.
 //
 // # Discussion
@@ -537,7 +526,6 @@ func (t NSTableRowView) DraggingDestinationFeedbackStyle() NSTableViewDraggingDe
 func (t NSTableRowView) SetDraggingDestinationFeedbackStyle(value NSTableViewDraggingDestinationFeedbackStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDraggingDestinationFeedbackStyle:"), value)
 }
-
 // Defines the amount the drag target for a row should be indented.
 //
 // # Discussion
@@ -552,7 +540,6 @@ func (t NSTableRowView) IndentationForDropOperation() float64 {
 func (t NSTableRowView) SetIndentationForDropOperation(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIndentationForDropOperation:"), value)
 }
-
 // Specifies whether this row will draw a drop indicator based on the current
 // dragging feedback style.
 //
@@ -571,7 +558,6 @@ func (t NSTableRowView) TargetForDropOperation() bool {
 func (t NSTableRowView) SetTargetForDropOperation(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTargetForDropOperation:"), value)
 }
-
 // Specifies whether this row view is a group row.
 //
 // # Discussion
@@ -588,7 +574,6 @@ func (t NSTableRowView) GroupRowStyle() bool {
 func (t NSTableRowView) SetGroupRowStyle(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setGroupRowStyle:"), value)
 }
-
 // Returns the number of columns represented by views in the table row view.
 //
 // # Discussion
@@ -602,7 +587,6 @@ func (t NSTableRowView) NumberOfColumns() int {
 	rv := objc.Send[int](t.ID, objc.Sel("numberOfColumns"))
 	return rv
 }
-
 // The background color of the row.
 //
 // # Discussion
@@ -625,7 +609,6 @@ func (t NSTableRowView) BackgroundColor() INSColor {
 func (t NSTableRowView) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](t.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isNextRowSelected
 func (t NSTableRowView) NextRowSelected() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isNextRowSelected"))
@@ -634,7 +617,6 @@ func (t NSTableRowView) NextRowSelected() bool {
 func (t NSTableRowView) SetNextRowSelected(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setNextRowSelected:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView/isPreviousRowSelected
 func (t NSTableRowView) PreviousRowSelected() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isPreviousRowSelected"))
@@ -646,7 +628,6 @@ func (t NSTableRowView) SetPreviousRowSelected(value bool) {
 
 			// Protocol methods for NSAccessibilityRow
 			
-
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
@@ -664,13 +645,11 @@ func (t NSTableRowView) SetPreviousRowSelected(value bool) {
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-
 func (o NSTableRowView) AccessibilityFrame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
-
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
@@ -686,13 +665,11 @@ func (o NSTableRowView) AccessibilityFrame() corefoundation.CGRect {
 // [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-
 func (o NSTableRowView) AccessibilityParent() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the accessibility element’s identity.
 //
 // # Return Value
@@ -708,13 +685,11 @@ func (o NSTableRowView) AccessibilityParent() objectivec.IObject {
 // [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-
 func (o NSTableRowView) AccessibilityIdentifier() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
@@ -733,7 +708,6 @@ func (o NSTableRowView) AccessibilityIdentifier() string {
 // [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-
 func (o NSTableRowView) IsAccessibilityFocused() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))

@@ -287,7 +287,6 @@ func (u URLCache) CachedResponseForRequest(request INSURLRequest) INSCachedURLRe
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("cachedResponseForRequest:"), request)
 	return NSCachedURLResponseFromID(rv)
 }
-
 // Stores a cached URL response for a specified request.
 //
 // cachedResponse: The cached URL response to store.
@@ -303,7 +302,6 @@ func (u URLCache) CachedResponseForRequest(request INSURLRequest) INSCachedURLRe
 func (u URLCache) StoreCachedResponseForRequest(cachedResponse INSCachedURLResponse, request INSURLRequest) {
 	objc.Send[objc.ID](u.ID, objc.Sel("storeCachedResponse:forRequest:"), cachedResponse, request)
 }
-
 // Gets the cached URL response for a data task, passing it to the provided
 // completion handler.
 //
@@ -318,7 +316,6 @@ _block1, _cleanup1 := NewCachedURLResponseBlock(completionHandler)
 	defer _cleanup1()
 	objc.Send[objc.ID](u.ID, objc.Sel("getCachedResponseForDataTask:completionHandler:"), dataTask, _block1)
 }
-
 // Stores a cached URL response for a specified data task.
 //
 // cachedResponse: The cached URL response to store for this data task.
@@ -329,7 +326,6 @@ _block1, _cleanup1 := NewCachedURLResponseBlock(completionHandler)
 func (u URLCache) StoreCachedResponseForDataTask(cachedResponse INSCachedURLResponse, dataTask INSURLSessionDataTask) {
 	objc.Send[objc.ID](u.ID, objc.Sel("storeCachedResponse:forDataTask:"), cachedResponse, dataTask)
 }
-
 // Removes the cached URL response for a specified URL request.
 //
 // request: The URL request whose cached URL response should be removed. If there is no
@@ -344,7 +340,6 @@ func (u URLCache) StoreCachedResponseForDataTask(cachedResponse INSCachedURLResp
 func (u URLCache) RemoveCachedResponseForRequest(request INSURLRequest) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeCachedResponseForRequest:"), request)
 }
-
 // Removes the cached URL response for a specified data task.
 //
 // dataTask: A task whose URL request’s corresponding cached URL response should be
@@ -355,7 +350,6 @@ func (u URLCache) RemoveCachedResponseForRequest(request INSURLRequest) {
 func (u URLCache) RemoveCachedResponseForDataTask(dataTask INSURLSessionDataTask) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeCachedResponseForDataTask:"), dataTask)
 }
-
 // Clears the given cache of any cached responses since the provided date.
 //
 // date: The earliest date of responses that should remain in the cache. Any
@@ -365,14 +359,12 @@ func (u URLCache) RemoveCachedResponseForDataTask(dataTask INSURLSessionDataTask
 func (u URLCache) RemoveCachedResponsesSinceDate(date INSDate) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeCachedResponsesSinceDate:"), date)
 }
-
 // Clears the receiver’s cache, removing all stored cached URL responses.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/removeAllCachedResponses()
 func (u URLCache) RemoveAllCachedResponses() {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeAllCachedResponses"))
 }
-
 // Creates a URL cache object with the specified memory and disk capacities,
 // in the specified directory.
 //
@@ -401,7 +393,6 @@ func (u URLCache) CurrentDiskUsage() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("currentDiskUsage"))
 	return rv
 }
-
 // The capacity of the on-disk cache, in bytes.
 //
 // # Discussion
@@ -417,7 +408,6 @@ func (u URLCache) DiskCapacity() uint {
 func (u URLCache) SetDiskCapacity(value uint) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDiskCapacity:"), value)
 }
-
 // The current size of the in-memory cache, in bytes.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/currentMemoryUsage
@@ -425,7 +415,6 @@ func (u URLCache) CurrentMemoryUsage() uint {
 	rv := objc.Send[uint](u.ID, objc.Sel("currentMemoryUsage"))
 	return rv
 }
-
 // The capacity of the in-memory cache, in bytes.
 //
 // # Discussion

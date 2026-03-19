@@ -198,7 +198,6 @@ func (d NSDraggingImageComponent) Key() NSDraggingImageComponentKey {
 func (d NSDraggingImageComponent) SetKey(value NSDraggingImageComponentKey) {
 	objc.Send[struct{}](d.ID, objc.Sel("setKey:"), objc.String(string(value)))
 }
-
 // An object providing the image contents of the component.
 //
 // # Discussion
@@ -215,7 +214,6 @@ func (d NSDraggingImageComponent) Contents() objectivec.IObject {
 func (d NSDraggingImageComponent) SetContents(value objectivec.IObject) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContents:"), value)
 }
-
 // The coordinate space is the bounds of the parent dragging item.
 //
 // # Discussion

@@ -170,7 +170,6 @@ func (b VZBridgedNetworkDeviceAttachment) Interface() IVZBridgedNetworkInterface
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("interface"))
 	return VZBridgedNetworkInterfaceFromID(objc.ID(rv))
 }
-
 // The object that defines how the virtual network device communicates with
 // the host system.
 //
@@ -182,7 +181,6 @@ func (b VZBridgedNetworkDeviceAttachment) Attachment() IVZNetworkDeviceAttachmen
 func (b VZBridgedNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAttachment:"), value)
 }
-
 // The array of network devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices

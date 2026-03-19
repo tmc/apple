@@ -265,7 +265,6 @@ func (c NSComboButton) Style() NSComboButtonStyle {
 func (c NSComboButton) SetStyle(value NSComboButtonStyle) {
 	objc.Send[struct{}](c.ID, objc.Sel("setStyle:"), value)
 }
-
 // The localized string that the button displays.
 //
 // # Discussion
@@ -281,7 +280,6 @@ func (c NSComboButton) Title() string {
 func (c NSComboButton) SetTitle(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // The image that the button displays.
 //
 // # Discussion
@@ -298,7 +296,6 @@ func (c NSComboButton) Image() INSImage {
 func (c NSComboButton) SetImage(value INSImage) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImage:"), value)
 }
-
 // The scaling behavior to apply to the button’s image.
 //
 // # Discussion

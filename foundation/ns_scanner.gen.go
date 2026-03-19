@@ -262,7 +262,6 @@ func (s Scanner) InitWithString(string_ string) Scanner {
 	rv := objc.Send[Scanner](s.ID, objc.Sel("initWithString:"), objc.String(string_))
 	return rv
 }
-
 // Scans for a double value from a hexadecimal representation, returning a
 // found value by reference.
 //
@@ -295,7 +294,6 @@ func (s Scanner) ScanHexDouble() (float64, bool) {
 	rv := objc.Send[bool](s.ID, objc.Sel("scanHexDouble:"), unsafe.Pointer(&result))
 	return result, rv
 }
-
 // Scans for a double value from a hexadecimal representation, returning a
 // found value by reference.
 //
@@ -328,7 +326,6 @@ func (s Scanner) ScanHexFloat() (float32, bool) {
 	rv := objc.Send[bool](s.ID, objc.Sel("scanHexFloat:"), unsafe.Pointer(&result))
 	return result, rv
 }
-
 // Scans for a long long value from a hexadecimal representation, returning a
 // found value by reference.
 //
@@ -359,7 +356,6 @@ func (s Scanner) ScanHexLongLong() (uint64, bool) {
 	rv := objc.Send[bool](s.ID, objc.Sel("scanHexLongLong:"), unsafe.Pointer(&result))
 	return result, rv
 }
-
 // Scans for an NSInteger value from a decimal representation, returning a
 // found value by reference
 //
@@ -388,7 +384,6 @@ func (s Scanner) ScanInteger() (int, bool) {
 	rv := objc.Send[bool](s.ID, objc.Sel("scanInteger:"), unsafe.Pointer(&result))
 	return result, rv
 }
-
 // Scans for a long long value from a decimal representation, returning a
 // found value by reference.
 //
@@ -419,7 +414,6 @@ func (s Scanner) ScanLongLong() (int64, bool) {
 	rv := objc.Send[bool](s.ID, objc.Sel("scanLongLong:"), unsafe.Pointer(&result))
 	return result, rv
 }
-
 // Scans for an unsigned long long value from a decimal representation,
 // returning a found value by reference.
 //
@@ -470,7 +464,6 @@ func (_ScannerClass ScannerClass) LocalizedScannerWithString(string_ string) obj
 	rv := objc.Send[objc.ID](objc.ID(_ScannerClass.class), objc.Sel("localizedScannerWithString:"), objc.String(string_))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an [NSScanner] object that scans a given string.
 //
 // string: The string to scan.
@@ -496,7 +489,6 @@ func (s Scanner) String() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("string"))
 	return NSStringFromID(rv).String()
 }
-
 // Flag that indicates whether the receiver distinguishes case in the
 // characters it scans.
 //
@@ -517,7 +509,6 @@ func (s Scanner) CaseSensitive() bool {
 func (s Scanner) SetCaseSensitive(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCaseSensitive:"), value)
 }
-
 // Character set containing the characters the scanner ignores when looking
 // for a scannable element.
 //
@@ -552,7 +543,6 @@ func (s Scanner) CharactersToBeSkipped() INSCharacterSet {
 func (s Scanner) SetCharactersToBeSkipped(value INSCharacterSet) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCharactersToBeSkipped:"), value)
 }
-
 // The locale to use when scanning.
 //
 // # Discussion
@@ -571,7 +561,6 @@ func (s Scanner) Locale() objectivec.IObject {
 func (s Scanner) SetLocale(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLocale:"), value)
 }
-
 // Flag that indicates whether the receiver has exhausted all significant
 // characters.
 //
@@ -590,7 +579,6 @@ func (s Scanner) AtEnd() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isAtEnd"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/foundation/scanner/currentindex
 func (s Scanner) CurrentIndex() int32 {
 	rv := objc.Send[int32](s.ID, objc.Sel("currentIndex"))
@@ -599,7 +587,6 @@ func (s Scanner) CurrentIndex() int32 {
 func (s Scanner) SetCurrentIndex(value int32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCurrentIndex:"), value)
 }
-
 // A value indicating that a requested item couldn’t be found or doesn’t
 // exist.
 //

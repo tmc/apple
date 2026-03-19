@@ -171,111 +171,84 @@ func NSTextInputTraitsObjectFromID(id objc.ID) NSTextInputTraitsObject {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/autocorrectionType
-
 func (o NSTextInputTraitsObject) AutocorrectionType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("autocorrectionType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/dataDetectionType
-
 func (o NSTextInputTraitsObject) DataDetectionType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("dataDetectionType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/grammarCheckingType
-
 func (o NSTextInputTraitsObject) GrammarCheckingType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("grammarCheckingType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/inlinePredictionType
-
 func (o NSTextInputTraitsObject) InlinePredictionType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("inlinePredictionType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/linkDetectionType
-
 func (o NSTextInputTraitsObject) LinkDetectionType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("linkDetectionType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/smartDashesType
-
 func (o NSTextInputTraitsObject) SmartDashesType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("smartDashesType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/smartInsertDeleteType
-
 func (o NSTextInputTraitsObject) SmartInsertDeleteType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("smartInsertDeleteType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/smartQuotesType
-
 func (o NSTextInputTraitsObject) SmartQuotesType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("smartQuotesType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/spellCheckingType
-
 func (o NSTextInputTraitsObject) SpellCheckingType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("spellCheckingType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/textCompletionType
-
 func (o NSTextInputTraitsObject) TextCompletionType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("textCompletionType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/textReplacementType
-
 func (o NSTextInputTraitsObject) TextReplacementType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("textReplacementType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/allowedWritingToolsResultOptions
-
 func (o NSTextInputTraitsObject) AllowedWritingToolsResultOptions() NSWritingToolsResultOptions {
 	
 	rv := objc.Send[NSWritingToolsResultOptions](o.ID, objc.Sel("allowedWritingToolsResultOptions"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/mathExpressionCompletionType
-
 func (o NSTextInputTraitsObject) MathExpressionCompletionType() NSTextInputTraitType {
 	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("mathExpressionCompletionType"))
 	return rv
 	}
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/writingToolsBehavior
-
 func (o NSTextInputTraitsObject) WritingToolsBehavior() NSWritingToolsBehavior {
 	
 	rv := objc.Send[NSWritingToolsBehavior](o.ID, objc.Sel("writingToolsBehavior"))

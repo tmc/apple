@@ -289,43 +289,6 @@ func NewMutableDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NSMu
 	return NSMutableDataFromID(rv)
 }
 
-// Initializes a data object filled with a given number of bytes of data from
-// a given buffer, with a custom deallocator block.
-//
-// bytes: A buffer containing data for the new object.
-//
-// length: The number of bytes to hold from `bytes`. This value must not exceed the
-// length of `bytes`.
-//
-// deallocator: A block to invoke when the resulting [NSData] object is deallocated.
-//
-// # Return Value
-// 
-// A data object initialized by adding to it `length` bytes of data from the
-// buffer `bytes`. The returned object might be different than the original
-// receiver.
-//
-// # Discussion
-// 
-// Use this method to define your own deallocation behavior for the data
-// buffer you provide.
-// 
-// In order to avoid any inadvertent strong reference cycles, you should avoid
-// capturing pointers to any objects that may in turn maintain strong
-// references to the [NSData] object. This includes explicit references to
-// `self`, and implicit references to `self` due to direct instance variable
-// access. To make it easier to avoid these references, the `deallocator`
-// block takes two parameters, a pointer to the `buffer`, and its length; you
-// should always use these values instead of trying to use references from
-// outside the block.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
-func NewMutableDataWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator unsafe.Pointer) NSMutableData {
-	instance := getNSMutableDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, deallocator)
-	return NSMutableDataFromID(rv)
-}
-
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
 //
@@ -517,7 +480,6 @@ func (m NSMutableData) InitWithCapacity(capacity uint) NSMutableData {
 	rv := objc.Send[NSMutableData](m.ID, objc.Sel("initWithCapacity:"), capacity)
 	return rv
 }
-
 // Initializes and returns a mutable data object containing a given number of
 // zeroed bytes.
 //
@@ -533,7 +495,6 @@ func (m NSMutableData) InitWithLength(length uint) NSMutableData {
 	rv := objc.Send[NSMutableData](m.ID, objc.Sel("initWithLength:"), length)
 	return rv
 }
-
 // Appends to the receiver a given number of bytes from a given buffer.
 //
 // bytes: A buffer containing data to append to the receiver’s content.
@@ -551,7 +512,6 @@ func (m NSMutableData) InitWithLength(length uint) NSMutableData {
 func (m NSMutableData) AppendBytesLength(bytes []byte) {
 	objc.Send[objc.ID](m.ID, objc.Sel("appendBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
 }
-
 // Appends the content of another data object to the receiver.
 //
 // other: The data object whose content is to be appended to the contents of the
@@ -561,7 +521,6 @@ func (m NSMutableData) AppendBytesLength(bytes []byte) {
 func (m NSMutableData) AppendData(other INSData) {
 	objc.Send[objc.ID](m.ID, objc.Sel("appendData:"), other)
 }
-
 // Increases the length of the receiver by a given number of bytes.
 //
 // extraLength: The number of bytes by which to increase the receiver’s length.
@@ -574,7 +533,6 @@ func (m NSMutableData) AppendData(other INSData) {
 func (m NSMutableData) IncreaseLengthBy(extraLength uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("increaseLengthBy:"), extraLength)
 }
-
 // Replaces with a given set of bytes a given range within the contents of the
 // receiver.
 //
@@ -597,7 +555,6 @@ func (m NSMutableData) IncreaseLengthBy(extraLength uint) {
 func (m NSMutableData) ReplaceBytesInRangeWithBytes(range_ NSRange, bytes unsafe.Pointer) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceBytesInRange:withBytes:"), range_, bytes)
 }
-
 // Replaces with a given set of bytes a given range within the contents of the
 // receiver.
 //
@@ -622,7 +579,6 @@ func (m NSMutableData) ReplaceBytesInRangeWithBytes(range_ NSRange, bytes unsafe
 func (m NSMutableData) ReplaceBytesInRangeWithBytesLength(range_ NSRange, replacementBytes unsafe.Pointer, replacementLength uint) {
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceBytesInRange:withBytes:length:"), range_, replacementBytes, replacementLength)
 }
-
 // Replaces with zeroes the contents of the receiver in a given range.
 //
 // range: The range within the contents of the receiver to be replaced by zeros. The
@@ -638,7 +594,6 @@ func (m NSMutableData) ReplaceBytesInRangeWithBytesLength(range_ NSRange, replac
 func (m NSMutableData) ResetBytesInRange(range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("resetBytesInRange:"), range_)
 }
-
 // Replaces the entire contents of the receiver with the contents of another
 // data object.
 //
@@ -653,7 +608,6 @@ func (m NSMutableData) ResetBytesInRange(range_ NSRange) {
 func (m NSMutableData) SetData(data INSData) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setData:"), data)
 }
-
 // Compresses the data object’s bytes using an algorithm that you specify.
 //
 // algorithm: The algorithm to use to compress the data. For a list of available
@@ -686,7 +640,6 @@ func (m NSMutableData) CompressUsingAlgorithmError(algorithm NSDataCompressionAl
 	return rv, nil
 
 }
-
 // Decompresses the data object’s bytes.
 //
 // algorithm: The algorithm to use for decompressing the data. For a list of available
@@ -747,7 +700,6 @@ func (_NSMutableDataClass NSMutableDataClass) DataWithCapacity(aNumItems uint) N
 	rv := objc.Send[objc.ID](objc.ID(_NSMutableDataClass.class), objc.Sel("dataWithCapacity:"), aNumItems)
 	return NSMutableDataFromID(rv)
 }
-
 // Creates and returns an mutable data object containing a given number of
 // zeroed bytes.
 //

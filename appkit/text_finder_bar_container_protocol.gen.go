@@ -58,23 +58,19 @@ func NSTextFinderBarContainerObjectFromID(id objc.ID) NSTextFinderBarContainerOb
 // The view assigned by the text bar as the find bar view for the container.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
-
 func (o NSTextFinderBarContainerObject) FindBarView() INSView {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("findBarView"))
 	return NSViewFromID(rv)
 	}
-
 // Returns whether the container should display its find bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
-
 func (o NSTextFinderBarContainerObject) IsFindBarVisible() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isFindBarVisible"))
 	return rv
 	}
-
 // Notifies the find bar container that the find bar has changed its height.
 //
 // # Discussion
@@ -83,12 +79,10 @@ func (o NSTextFinderBarContainerObject) IsFindBarVisible() bool {
 // contents.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarViewDidChangeHeight()
-
 func (o NSTextFinderBarContainerObject) FindBarViewDidChangeHeight() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("findBarViewDidChangeHeight"))
 	}
-
 // A view hierarchy that contains all the views which display the contents
 // being searched.
 //
@@ -108,7 +102,6 @@ func (o NSTextFinderBarContainerObject) FindBarViewDidChangeHeight() {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/contentView()
-
 func (o NSTextFinderBarContainerObject) ContentView() INSView {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("contentView"))

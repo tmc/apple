@@ -225,7 +225,6 @@ func (s NSScriptSuiteRegistry) SuiteForAppleEventCode(appleEventCode uint32) str
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("suiteForAppleEventCode:"), appleEventCode)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the class descriptions contained in the suite identified by
 // `suiteName`.
 //
@@ -239,7 +238,6 @@ func (s NSScriptSuiteRegistry) ClassDescriptionsInSuite(suiteName string) INSDic
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("classDescriptionsInSuite:"), objc.String(suiteName))
 	return NSDictionaryFromID(rv)
 }
-
 // Returns the class description associated with the given four-character
 // Apple event code, `code`.
 //
@@ -256,7 +254,6 @@ func (s NSScriptSuiteRegistry) ClassDescriptionWithAppleEventCode(appleEventCode
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("classDescriptionWithAppleEventCode:"), appleEventCode)
 	return NSScriptClassDescriptionFromID(rv)
 }
-
 // Registers class description `classDescription` for use by Cocoa’s
 // built-in scripting support by storing it in a per-suite internal dictionary
 // under the class name.
@@ -265,7 +262,6 @@ func (s NSScriptSuiteRegistry) ClassDescriptionWithAppleEventCode(appleEventCode
 func (s NSScriptSuiteRegistry) RegisterClassDescription(classDescription INSScriptClassDescription) {
 	objc.Send[objc.ID](s.ID, objc.Sel("registerClassDescription:"), classDescription)
 }
-
 // Returns the command descriptions contained in the suite identified by
 // `suiteName`.
 //
@@ -279,7 +275,6 @@ func (s NSScriptSuiteRegistry) CommandDescriptionsInSuite(suiteName string) INSD
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandDescriptionsInSuite:"), objc.String(suiteName))
 	return NSDictionaryFromID(rv)
 }
-
 // Returns the command description identified by a suite’s four-character
 // Apple event code of the class (`eventClass`) and the four-character Apple
 // event code of the command (`commandCode`).
@@ -289,7 +284,6 @@ func (s NSScriptSuiteRegistry) CommandDescriptionWithAppleEventClassAndAppleEven
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandDescriptionWithAppleEventClass:andAppleEventCode:"), appleEventClassCode, appleEventIDCode)
 	return NSScriptCommandDescriptionFromID(rv)
 }
-
 // Registers command description `commandDesc` for use by Cocoa’s built-in
 // scripting support by storing it in a per-suite internal dictionary under
 // the command name.
@@ -303,7 +297,6 @@ func (s NSScriptSuiteRegistry) CommandDescriptionWithAppleEventClassAndAppleEven
 func (s NSScriptSuiteRegistry) RegisterCommandDescription(commandDescription INSScriptCommandDescription) {
 	objc.Send[objc.ID](s.ID, objc.Sel("registerCommandDescription:"), commandDescription)
 }
-
 // Returns an [NSData] object that contains data in `'aete'` resource format
 // describing the scriptability information currently known to the
 // application.
@@ -324,7 +317,6 @@ func (s NSScriptSuiteRegistry) AeteResource(languageName string) INSData {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("aeteResource:"), objc.String(languageName))
 	return NSDataFromID(rv)
 }
-
 // Returns the Apple event code associated with the suite named `suiteName`,
 // such as `‘core’` for the Core suite.
 //
@@ -333,7 +325,6 @@ func (s NSScriptSuiteRegistry) AppleEventCodeForSuite(suiteName string) uint32 {
 	rv := objc.Send[uint32](s.ID, objc.Sel("appleEventCodeForSuite:"), objc.String(suiteName))
 	return rv
 }
-
 // Returns the bundle containing the suite-definition property list (extension
 // `XCUIElementTypeScriptSuite`) identified by `suiteName`.
 //
@@ -342,7 +333,6 @@ func (s NSScriptSuiteRegistry) BundleForSuite(suiteName string) INSBundle {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("bundleForSuite:"), objc.String(suiteName))
 	return NSBundleFromID(rv)
 }
-
 // Loads the suite definition encapsulated in `dictionary`; previously, this
 // suite definition was parsed from a `XCUIElementTypeScriptSuite` property
 // list contained in a framework or in `bundle`.
@@ -369,7 +359,6 @@ func (s NSScriptSuiteRegistry) BundleForSuite(suiteName string) INSBundle {
 func (s NSScriptSuiteRegistry) LoadSuiteWithDictionaryFromBundle(suiteDeclaration INSDictionary, bundle INSBundle) {
 	objc.Send[objc.ID](s.ID, objc.Sel("loadSuiteWithDictionary:fromBundle:"), suiteDeclaration, bundle)
 }
-
 // Loads the suite definitions in bundle `aBundle`, invoking
 // [LoadSuiteWithDictionaryFromBundle] for each suite found.
 //
@@ -389,7 +378,6 @@ func (s NSScriptSuiteRegistry) LoadSuitesFromBundle(bundle INSBundle) {
 func (_NSScriptSuiteRegistryClass NSScriptSuiteRegistryClass) SetSharedScriptSuiteRegistry(registry INSScriptSuiteRegistry) {
 	objc.Send[objc.ID](objc.ID(_NSScriptSuiteRegistryClass.class), objc.Sel("setSharedScriptSuiteRegistry:"), registry)
 }
-
 // Returns the single, shared instance of [NSScriptSuiteRegistry], creating it
 // first if it doesn’t exist.
 //

@@ -165,14 +165,12 @@ func NewBrowserCellWithCoder(coder foundation.INSCoder) NSBrowserCell {
 func (b NSBrowserCell) Reset() {
 	objc.Send[objc.ID](b.ID, objc.Sel("reset"))
 }
-
 // Highlights the receiver and sets its state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowserCell/set()
 func (b NSBrowserCell) Set() {
 	objc.Send[objc.ID](b.ID, objc.Sel("set"))
 }
-
 // Returns the highlight color that the receiver wants to display.
 //
 // controlView: The view for which to return the highlight color.
@@ -210,7 +208,6 @@ func (b NSBrowserCell) AlternateImage() INSImage {
 func (b NSBrowserCell) SetAlternateImage(value INSImage) {
 	objc.Send[struct{}](b.ID, objc.Sel("setAlternateImage:"), value)
 }
-
 // A Boolean that indicates whether the browser cell is a leaf or a branch
 // cell.
 //
@@ -235,7 +232,6 @@ func (b NSBrowserCell) Leaf() bool {
 func (b NSBrowserCell) SetLeaf(value bool) {
 	objc.Send[struct{}](b.ID, objc.Sel("setLeaf:"), value)
 }
-
 // A Boolean that indicates whether the cell is ready to display.
 //
 // # Discussion
@@ -272,7 +268,6 @@ func (_NSBrowserCellClass NSBrowserCellClass) BranchImage() NSImage {
 	rv := objc.Send[objc.ID](objc.ID(_NSBrowserCellClass.class), objc.Sel("branchImage"))
 	return NSImageFromID(objc.ID(rv))
 }
-
 // Returns the default image for branch browser cells that are highlighted.
 //
 // # Return Value

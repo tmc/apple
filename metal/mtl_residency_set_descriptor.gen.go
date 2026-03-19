@@ -130,7 +130,6 @@ func (r MTLResidencySetDescriptor) Label() string {
 func (r MTLResidencySetDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // The number of allocations a new residency set can store without
 // reallocating memory.
 //

@@ -215,7 +215,6 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) PinToVisibleBounds() bool {
 func (c NSCollectionLayoutBoundarySupplementaryItem) SetPinToVisibleBounds(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPinToVisibleBounds:"), value)
 }
-
 // The floating-point value of the boundary supplementary item’s offset from
 // the section or layout it’s attached to.
 //
@@ -224,7 +223,6 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) Offset() corefoundation.CGP
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("offset"))
 	return corefoundation.CGPoint(rv)
 }
-
 // The alignment of the boundary supplementary item relative to the section or
 // layout it’s attached to.
 //
@@ -233,7 +231,6 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) Alignment() NSRectAlignment
 	rv := objc.Send[NSRectAlignment](c.ID, objc.Sel("alignment"))
 	return NSRectAlignment(rv)
 }
-
 // A Boolean value that indicates whether a boundary supplementary item
 // extends the content area of the section or layout it’s attached to.
 //
@@ -251,7 +248,6 @@ func (c NSCollectionLayoutBoundarySupplementaryItem) ExtendsBoundary() bool {
 func (c NSCollectionLayoutBoundarySupplementaryItem) SetExtendsBoundary(value bool) {
 	objc.Send[struct{}](c.ID, objc.Sel("setExtendsBoundary:"), value)
 }
-
 // An array of the supplementary items that are associated with the boundary
 // edges of the entire layout, such as global headers and footers.
 //

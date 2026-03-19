@@ -141,28 +141,24 @@ func NewEspressoContextWithPlatform(platform int) EspressoContext {
 func (e EspressoContext) Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority(set_priority bool, low_priority_max_ms_per_command_buffer float32, gpu_priority uint32) {
 	objc.Send[objc.ID](e.ID, objc.Sel("set_priority:low_priority_max_ms_per_command_buffer:gpu_priority:"), set_priority, low_priority_max_ms_per_command_buffer, gpu_priority)
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/initWithContext:
 func (e EspressoContext) InitWithContext(context objectivec.IObject) EspressoContext {
 	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithContext:"), context)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/initWithDevice:andWisdomParams:
 func (e EspressoContext) InitWithDeviceAndWisdomParams(device objectivec.IObject, params objectivec.IObject) EspressoContext {
 	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithDevice:andWisdomParams:"), device, params)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/initWithNetworkContext:
 func (e EspressoContext) InitWithNetworkContext(context objectivec.IObject) EspressoContext {
 	rv := objc.Send[EspressoContext](e.ID, objc.Sel("initWithNetworkContext:"), context)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/initWithPlatform:
 func (e EspressoContext) InitWithPlatform(platform int) EspressoContext {
@@ -175,7 +171,6 @@ func (e EspressoContext) Ctx() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("ctx"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoContext/platform
 func (e EspressoContext) Platform() int {
 	rv := objc.Send[int](e.ID, objc.Sel("platform"))

@@ -146,7 +146,6 @@ func (_NSCollectionLayoutDimensionClass NSCollectionLayoutDimensionClass) Absolu
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutDimensionClass.class), objc.Sel("absoluteDimension:"), absoluteDimension)
 	return NSCollectionLayoutDimensionFromID(rv)
 }
-
 // Creates a dimension with an estimated point value.
 //
 // # Discussion
@@ -158,7 +157,6 @@ func (_NSCollectionLayoutDimensionClass NSCollectionLayoutDimensionClass) Estima
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutDimensionClass.class), objc.Sel("estimatedDimension:"), estimatedDimension)
 	return NSCollectionLayoutDimensionFromID(rv)
 }
-
 // Creates a dimension that is computed as a fraction of the height of the
 // containing group.
 //
@@ -167,7 +165,6 @@ func (_NSCollectionLayoutDimensionClass NSCollectionLayoutDimensionClass) Fracti
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutDimensionClass.class), objc.Sel("fractionalHeightDimension:"), fractionalHeight)
 	return NSCollectionLayoutDimensionFromID(rv)
 }
-
 // Creates a dimension that is computed as a fraction of the width of the
 // containing group.
 //
@@ -184,7 +181,6 @@ func (c NSCollectionLayoutDimension) Dimension() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("dimension"))
 	return rv
 }
-
 // A Boolean value that indicates whether the dimension is expressed as an
 // absolute value.
 //
@@ -193,7 +189,6 @@ func (c NSCollectionLayoutDimension) IsAbsolute() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAbsolute"))
 	return rv
 }
-
 // A Boolean value that indicates whether the dimension is expressed as an
 // estimated value.
 //
@@ -202,7 +197,6 @@ func (c NSCollectionLayoutDimension) IsEstimated() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEstimated"))
 	return rv
 }
-
 // A Boolean value that indicates whether the dimension is expressed as a
 // fraction of its container’s height.
 //
@@ -211,7 +205,6 @@ func (c NSCollectionLayoutDimension) IsFractionalHeight() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFractionalHeight"))
 	return rv
 }
-
 // A Boolean value that indicates whether the dimension is expressed as a
 // fraction of its container’s width.
 //

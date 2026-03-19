@@ -139,7 +139,6 @@ func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) BoundingBo
 func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) SetBoundingBoxBuffers(value MTL4BufferRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBoundingBoxBuffers:"), value)
 }
-
 // Declares the number of bounding boxes in each buffer that
 // `boundingBoxBuffer` references.
 //
@@ -155,7 +154,6 @@ func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) BoundingBo
 func (m MTL4AccelerationStructureMotionBoundingBoxGeometryDescriptor) SetBoundingBoxCount(value uint) {
 	objc.Send[struct{}](m.ID, objc.Sel("setBoundingBoxCount:"), value)
 }
-
 // Declares the stride, in bytes, between bounding boxes in the bounding box
 // buffers each entry in `boundingBoxBuffer` references.
 //

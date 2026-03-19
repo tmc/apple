@@ -194,7 +194,6 @@ func (p NSPreviewRepresentingActivityItem) InitWithItemTitleImageIcon(item objec
 	rv := objc.Send[NSPreviewRepresentingActivityItem](p.ID, objc.Sel("initWithItem:title:image:icon:"), item, objc.String(title), image, icon)
 	return rv
 }
-
 // Creates a metadata object that provides a title and images for a shareable
 // item.
 //
@@ -237,7 +236,6 @@ func (p NSPreviewRepresentingActivityItem) IconProvider() foundation.NSItemProvi
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("iconProvider"))
 	return foundation.NSItemProviderFromID(objc.ID(rv))
 }
-
 // An object that provides a visual representation of the item.
 //
 // # Discussion
@@ -251,7 +249,6 @@ func (p NSPreviewRepresentingActivityItem) ImageProvider() foundation.NSItemProv
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("imageProvider"))
 	return foundation.NSItemProviderFromID(objc.ID(rv))
 }
-
 // The app-specific item you want to share.
 //
 // # Discussion
@@ -267,7 +264,6 @@ func (p NSPreviewRepresentingActivityItem) Item() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
 }
-
 // A localized string that contains the name of the item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/title

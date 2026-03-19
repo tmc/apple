@@ -131,7 +131,6 @@ func (a MTLAttributeDescriptor) BufferIndex() uint {
 func (a MTLAttributeDescriptor) SetBufferIndex(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setBufferIndex:"), value)
 }
-
 // The offset, in bytes, from the start of the buffer containing the attribute
 // data to the start of the data itself.
 //
@@ -143,7 +142,6 @@ func (a MTLAttributeDescriptor) Offset() uint {
 func (a MTLAttributeDescriptor) SetOffset(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOffset:"), value)
 }
-
 // The format of the attribute’s data.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAttributeDescriptor/format
@@ -154,7 +152,6 @@ func (a MTLAttributeDescriptor) Format() MTLAttributeFormat {
 func (a MTLAttributeDescriptor) SetFormat(value MTLAttributeFormat) {
 	objc.Send[struct{}](a.ID, objc.Sel("setFormat:"), value)
 }
-
 // The organization of input and output data for the next kernel call.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcomputepipelinedescriptor/stageinputdescriptor

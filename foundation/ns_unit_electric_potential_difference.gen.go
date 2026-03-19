@@ -154,7 +154,6 @@ func (_UnitElectricPotentialDifferenceClass UnitElectricPotentialDifferenceClass
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricPotentialDifferenceClass.class), objc.Sel("megavolts"))
 	return NSUnitElectricPotentialDifferenceFromID(objc.ID(rv))
 }
-
 // The kilovolts unit of electric potential difference.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricPotentialDifference/kilovolts
@@ -162,7 +161,6 @@ func (_UnitElectricPotentialDifferenceClass UnitElectricPotentialDifferenceClass
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricPotentialDifferenceClass.class), objc.Sel("kilovolts"))
 	return NSUnitElectricPotentialDifferenceFromID(objc.ID(rv))
 }
-
 // The volts unit of electric potential difference.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricPotentialDifference/volts
@@ -170,7 +168,6 @@ func (_UnitElectricPotentialDifferenceClass UnitElectricPotentialDifferenceClass
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricPotentialDifferenceClass.class), objc.Sel("volts"))
 	return NSUnitElectricPotentialDifferenceFromID(objc.ID(rv))
 }
-
 // The millivolts unit of electric potential difference.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricPotentialDifference/millivolts
@@ -178,7 +175,6 @@ func (_UnitElectricPotentialDifferenceClass UnitElectricPotentialDifferenceClass
 	rv := objc.Send[objc.ID](objc.ID(_UnitElectricPotentialDifferenceClass.class), objc.Sel("millivolts"))
 	return NSUnitElectricPotentialDifferenceFromID(objc.ID(rv))
 }
-
 // The microvolts unit of electric potential difference.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitElectricPotentialDifference/microvolts

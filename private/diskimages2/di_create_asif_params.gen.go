@@ -114,7 +114,6 @@ func (d DICreateASIFParams) ValidateBlockSizeSupport() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("validateBlockSizeSupport"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DICreateASIFParams/initWithURL:numBlocks:error:
 func (d DICreateASIFParams) InitWithURLNumBlocksError(url foundation.INSURL, numBlocks uint64) (DICreateASIFParams, error) {

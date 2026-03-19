@@ -139,7 +139,6 @@ func (e EspressoDataFrameAttachment) Disabled() bool {
 func (e EspressoDataFrameAttachment) SetDisabled(value bool) {
 	objc.Send[struct{}](e.ID, objc.Sel("setDisabled:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameAttachment/filePath
 func (e EspressoDataFrameAttachment) FilePath() string {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("filePath"))
@@ -148,7 +147,6 @@ func (e EspressoDataFrameAttachment) FilePath() string {
 func (e EspressoDataFrameAttachment) SetFilePath(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFilePath:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameAttachment/offset
 func (e EspressoDataFrameAttachment) Offset() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("offset"))
@@ -157,7 +155,6 @@ func (e EspressoDataFrameAttachment) Offset() uint64 {
 func (e EspressoDataFrameAttachment) SetOffset(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setOffset:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameAttachment/rawPointer
 func (e EspressoDataFrameAttachment) RawPointer() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](e.ID, objc.Sel("rawPointer"))
@@ -166,7 +163,6 @@ func (e EspressoDataFrameAttachment) RawPointer() unsafe.Pointer {
 func (e EspressoDataFrameAttachment) SetRawPointer(value unsafe.Pointer) {
 	objc.Send[struct{}](e.ID, objc.Sel("setRawPointer:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameAttachment/size
 func (e EspressoDataFrameAttachment) Size() uint64 {
 	rv := objc.Send[uint64](e.ID, objc.Sel("size"))

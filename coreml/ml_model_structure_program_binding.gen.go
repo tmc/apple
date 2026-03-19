@@ -108,7 +108,6 @@ func (m MLModelStructureProgramBinding) Name() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The compile time constant value in the Program.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBinding/value

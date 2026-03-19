@@ -167,7 +167,6 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 //   - [NSAttributedString.AttributeAtIndexEffectiveRange]: Returns the value for an attribute with the specified name of the character at the specified index and, by reference, the range where the attribute applies.
 //   - [NSAttributedString.AttributeAtIndexLongestEffectiveRangeInRange]: Returns the value for the attribute with the specified name of the character at the specified index and, by reference, the range where the attribute applies.
 //   - [NSAttributedString.EnumerateAttributeInRangeOptionsUsingBlock]: Executes the specified closure or block for each range of a particular attribute in the attributed string.
-//   - [NSAttributedString.EnumerateAttributesInRangeOptionsUsingBlock]: Executes the specified closure or block for each range of attributes in the attributed string.
 //
 // # Comparing strings
 //
@@ -251,7 +250,6 @@ func NSAttributedStringFromID(id objc.ID) NSAttributedString {
 //   - [INSAttributedString.AttributeAtIndexEffectiveRange]: Returns the value for an attribute with the specified name of the character at the specified index and, by reference, the range where the attribute applies.
 //   - [INSAttributedString.AttributeAtIndexLongestEffectiveRangeInRange]: Returns the value for the attribute with the specified name of the character at the specified index and, by reference, the range where the attribute applies.
 //   - [INSAttributedString.EnumerateAttributeInRangeOptionsUsingBlock]: Executes the specified closure or block for each range of a particular attribute in the attributed string.
-//   - [INSAttributedString.EnumerateAttributesInRangeOptionsUsingBlock]: Executes the specified closure or block for each range of attributes in the attributed string.
 //
 // # Comparing strings
 //
@@ -343,9 +341,7 @@ type INSAttributedString interface {
 	// Returns the value for the attribute with the specified name of the character at the specified index and, by reference, the range where the attribute applies.
 	AttributeAtIndexLongestEffectiveRangeInRange(attrName NSAttributedStringKey, location uint, range_ NSRangePointer, rangeLimit NSRange) objectivec.IObject
 	// Executes the specified closure or block for each range of a particular attribute in the attributed string.
-	EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block unsafe.Pointer)
-	// Executes the specified closure or block for each range of attributes in the attributed string.
-	EnumerateAttributesInRangeOptionsUsingBlock(enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block unsafe.Pointer)
+	EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block ObjectHandler)
 
 	// Topic: Comparing strings
 
@@ -1186,7 +1182,6 @@ func (a NSAttributedString) DataFromRangeDocumentAttributesError(range_ NSRange,
 	return NSDataFromID(rv), nil
 
 }
-
 // Returns a file wrapper object that contains a text stream corresponding to
 // the characters and attributes within the specified range.
 //
@@ -1221,7 +1216,6 @@ func (a NSAttributedString) FileWrapperFromRangeDocumentAttributesError(range_ N
 	return NSFileWrapperFromID(rv), nil
 
 }
-
 // Returns a data object that contains a Microsoft Word–format stream
 // corresponding to the characters and attributes within the specified range.
 //
@@ -1250,7 +1244,6 @@ func (a NSAttributedString) DocFormatFromRangeDocumentAttributes(range_ NSRange,
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("docFormatFromRange:documentAttributes:"), range_, dict)
 	return NSDataFromID(rv)
 }
-
 // Returns a data object that contains an RTF stream corresponding to the
 // characters and attributes within the specified range, omitting all
 // attachment attributes.
@@ -1293,7 +1286,6 @@ func (a NSAttributedString) RTFFromRangeDocumentAttributes(range_ NSRange, dict 
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("RTFFromRange:documentAttributes:"), range_, dict)
 	return NSDataFromID(rv)
 }
-
 // Returns a data object that contains an RTFD stream corresponding to the
 // characters and attributes within the specified range.
 //
@@ -1332,7 +1324,6 @@ func (a NSAttributedString) RTFDFromRangeDocumentAttributes(range_ NSRange, dict
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("RTFDFromRange:documentAttributes:"), range_, dict)
 	return NSDataFromID(rv)
 }
-
 // Returns a file wrapper object that contains an RTFD document corresponding
 // to the characters and attributes within the specified range.
 //
@@ -1366,7 +1357,6 @@ func (a NSAttributedString) RTFDFileWrapperFromRangeDocumentAttributes(range_ NS
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("RTFDFileWrapperFromRange:documentAttributes:"), range_, dict)
 	return NSFileWrapperFromID(rv)
 }
-
 // Returns an attributed string consisting of the characters and attributes
 // within the specified range in the attributed string.
 //
@@ -1391,7 +1381,6 @@ func (a NSAttributedString) AttributedSubstringFromRange(range_ NSRange) INSAttr
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributedSubstringFromRange:"), range_)
 	return NSAttributedStringFromID(rv)
 }
-
 // Returns the font attributes in effect for the character at the specified
 // location.
 //
@@ -1421,7 +1410,6 @@ func (a NSAttributedString) FontAttributesInRange(range_ NSRange) INSDictionary 
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fontAttributesInRange:"), range_)
 	return NSDictionaryFromID(rv)
 }
-
 // Returns the ruler (paragraph) attributes in effect for the characters
 // within the specified range.
 //
@@ -1448,7 +1436,6 @@ func (a NSAttributedString) RulerAttributesInRange(range_ NSRange) INSDictionary
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("rulerAttributesInRange:"), range_)
 	return NSDictionaryFromID(rv)
 }
-
 // Returns the attributes for the character at the specified index.
 //
 // location: The index for which to return attributes. This value must lie within the
@@ -1478,7 +1465,6 @@ func (a NSAttributedString) AttributesAtIndexEffectiveRange(location uint, range
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributesAtIndex:effectiveRange:"), location, range_)
 	return NSDictionaryFromID(rv)
 }
-
 // Returns the attributes for the character at the specified index and, by
 // reference, the range where the attributes apply.
 //
@@ -1510,7 +1496,6 @@ func (a NSAttributedString) AttributesAtIndexLongestEffectiveRangeInRange(locati
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributesAtIndex:longestEffectiveRange:inRange:"), location, range_, rangeLimit)
 	return NSDictionaryFromID(rv)
 }
-
 // Returns the value for an attribute with the specified name of the character
 // at the specified index and, by reference, the range where the attribute
 // applies.
@@ -1546,7 +1531,6 @@ func (a NSAttributedString) AttributeAtIndexEffectiveRange(attrName NSAttributed
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attribute:atIndex:effectiveRange:"), objc.String(string(attrName)), location, range_)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the value for the attribute with the specified name of the
 // character at the specified index and, by reference, the range where the
 // attribute applies.
@@ -1591,7 +1575,6 @@ func (a NSAttributedString) AttributeAtIndexLongestEffectiveRangeInRange(attrNam
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attribute:atIndex:longestEffectiveRange:inRange:"), objc.String(string(attrName)), location, range_, rangeLimit)
 	return objectivec.Object{ID: rv}
 }
-
 // Executes the specified closure or block for each range of a particular
 // attribute in the attributed string.
 //
@@ -1626,46 +1609,11 @@ func (a NSAttributedString) AttributeAtIndexLongestEffectiveRangeInRange(attrNam
 // pass [N] as the location of the range.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/enumerateAttribute(_:in:options:using:)
-func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block unsafe.Pointer) {
-	objc.Send[objc.ID](a.ID, objc.Sel("enumerateAttribute:inRange:options:usingBlock:"), objc.String(string(attrName)), enumerationRange, opts, block)
+func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block ObjectHandler) {
+_block3, _cleanup3 := NewObjectBlock(block)
+	defer _cleanup3()
+	objc.Send[objc.ID](a.ID, objc.Sel("enumerateAttribute:inRange:options:usingBlock:"), objc.String(string(attrName)), enumerationRange, opts, _block3)
 }
-
-// Executes the specified closure or block for each range of attributes in the
-// attributed string.
-//
-// enumerationRange: The range over which the attributes are enumerated.
-//
-// opts: The options used by the enumeration. For possible values, see
-// [NSAttributedString.EnumerationOptions].
-// //
-// [NSAttributedString.EnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSAttributedString/EnumerationOptions
-//
-// block: The closure or block to apply to ranges of attributes in the attributed
-// string, taking three arguments:
-// 
-// - A dictionary of attribute values keyed by name. - The range of the
-// attribute values in the attributed string. - A reference to a Boolean
-// value, which you can set to [true] within the closure to stop further
-// processing of the attributed string.
-// //
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Discussion
-// 
-// If this method is called by an instance of [NSMutableAttributedString],
-// mutation (deletion, addition, or change) is allowed only if the mutation is
-// within the range provided to the block. After a mutation, the enumeration
-// continues with the range immediately following the processed range,
-// adjusting for any change in length caused by the mutation. For example, if
-// `block` is called with a range starting at location [N], and the block
-// deletes all the characters in the provided range, the next call will also
-// pass [N] as the location of the range.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSAttributedString/enumerateAttributes(in:options:using:)
-func (a NSAttributedString) EnumerateAttributesInRangeOptionsUsingBlock(enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block unsafe.Pointer) {
-	objc.Send[objc.ID](a.ID, objc.Sel("enumerateAttributesInRange:options:usingBlock:"), enumerationRange, opts, block)
-}
-
 // Returns a Boolean value that indicates whether the attributed string is
 // equal to the specified string.
 //
@@ -1693,7 +1641,6 @@ func (a NSAttributedString) IsEqualToAttributedString(other INSAttributedString)
 	rv := objc.Send[bool](a.ID, objc.Sel("isEqualToAttributedString:"), other)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the specified range of text
 // prefers RTFD formatting.
 //
@@ -1717,7 +1664,6 @@ func (a NSAttributedString) PrefersRTFDInRange(range_ NSRange) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("prefersRTFDInRange:"), range_)
 	return rv
 }
-
 // Returns the range of characters that form a word (or other linguistic unit)
 // surrounding the specified index, taking language characteristics into
 // account.
@@ -1741,7 +1687,6 @@ func (a NSAttributedString) DoubleClickAtIndex(location uint) NSRange {
 	rv := objc.Send[NSRange](a.ID, objc.Sel("doubleClickAtIndex:"), location)
 	return NSRange(rv)
 }
-
 // Returns the appropriate line break when the character at the index
 // doesn’t fit on the same line as the character at the beginning of the
 // range.
@@ -1768,7 +1713,6 @@ func (a NSAttributedString) LineBreakBeforeIndexWithinRange(location uint, aRang
 	rv := objc.Send[uint](a.ID, objc.Sel("lineBreakBeforeIndex:withinRange:"), location, aRange)
 	return rv
 }
-
 // Returns the index of the closest character before the specified index, and
 // within the specified range, that can fit on a new line by hyphenating.
 //
@@ -1799,7 +1743,6 @@ func (a NSAttributedString) LineBreakByHyphenatingBeforeIndexWithinRange(locatio
 	rv := objc.Send[uint](a.ID, objc.Sel("lineBreakByHyphenatingBeforeIndex:withinRange:"), location, aRange)
 	return rv
 }
-
 // Returns the index of the first character of the word after or before the
 // specified index.
 //
@@ -1837,7 +1780,6 @@ func (a NSAttributedString) NextWordFromIndexForward(location uint, isForward bo
 	rv := objc.Send[uint](a.ID, objc.Sel("nextWordFromIndex:forward:"), location, isForward)
 	return rv
 }
-
 // If the string has portions tagged with NSInflectionRuleAttributeName that
 // have no format specifiers, create a new string with those portions
 // inflected by following the rule in the attribute.
@@ -1847,7 +1789,6 @@ func (a NSAttributedString) AttributedStringByInflectingString() INSAttributedSt
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("attributedStringByInflectingString"))
 	return NSAttributedStringFromID(rv)
 }
-
 // Returns the index of the item at the specified location within the list.
 //
 // list: The text list.
@@ -1865,7 +1806,6 @@ func (a NSAttributedString) ItemNumberInTextListAtIndex(list objectivec.IObject,
 	rv := objc.Send[int](a.ID, objc.Sel("itemNumberInTextList:atIndex:"), list, location)
 	return rv
 }
-
 // Returns the range of the individual text block that contains the specified
 // location.
 //
@@ -1884,7 +1824,6 @@ func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, lo
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextBlock:atIndex:"), block, location)
 	return NSRange(rv)
 }
-
 // Returns the range of the specified text list that contains the specified
 // location.
 //
@@ -1903,7 +1842,6 @@ func (a NSAttributedString) RangeOfTextListAtIndex(list objectivec.IObject, loca
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextList:atIndex:"), list, location)
 	return NSRange(rv)
 }
-
 // Returns the range of the specified text table that contains the specified
 // location.
 //
@@ -1922,7 +1860,6 @@ func (a NSAttributedString) RangeOfTextTableAtIndex(table objectivec.IObject, lo
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextTable:atIndex:"), table, location)
 	return NSRange(rv)
 }
-
 // Draws the attributed string starting at the specified point in the current
 // graphics context.
 //
@@ -1945,7 +1882,6 @@ func (a NSAttributedString) RangeOfTextTableAtIndex(table objectivec.IObject, lo
 func (a NSAttributedString) DrawAtPoint(point corefoundation.CGPoint) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawAtPoint:"), point)
 }
-
 // Draws the attributed string inside the specified bounding rectangle in the
 // current graphics context.
 //
@@ -1982,7 +1918,6 @@ func (a NSAttributedString) DrawAtPoint(point corefoundation.CGPoint) {
 func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawInRect:"), rect)
 }
-
 // Draws the attributed string in the specified bounding rectangle using the
 // provided options.
 //
@@ -2033,7 +1968,6 @@ func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 func (a NSAttributedString) DrawWithRectOptionsContext(rect corefoundation.CGRect, options NSStringDrawingOptions, context objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawWithRect:options:context:"), rect, options, context)
 }
-
 // Returns the size necessary to draw the string.
 //
 // # Return Value
@@ -2056,7 +1990,6 @@ func (a NSAttributedString) Size() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](a.ID, objc.Sel("size"))
 	return corefoundation.CGSize(rv)
 }
-
 // Returns the bounding rectangle necessary to draw the string.
 //
 // size: The width and height constraints to apply when computing the string’s
@@ -2107,7 +2040,6 @@ func (a NSAttributedString) BoundingRectWithSizeOptionsContext(size corefoundati
 	rv := objc.Send[corefoundation.CGRect](a.ID, objc.Sel("boundingRectWithSize:options:context:"), size, options, context)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns a Boolean value that indicates if the attributed string contains an
 // attachment in the specified range.
 //
@@ -2128,7 +2060,6 @@ func (a NSAttributedString) ContainsAttachmentsInRange(range_ NSRange) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("containsAttachmentsInRange:"), range_)
 	return rv
 }
-
 // Calculates and returns a bounding rectangle for the attributed string using
 // the options specified within the specified rectangle in the current
 // graphics context.
@@ -2154,7 +2085,6 @@ func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSi
 	rv := objc.Send[NSRect](a.ID, objc.Sel("boundingRectWithSize:options:"), size, options)
 	return NSRect(rv)
 }
-
 // Draws the attributed string with the specified options within the specified
 // rectangle in the current graphics context.
 //
@@ -2187,7 +2117,6 @@ func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSi
 func (a NSAttributedString) DrawWithRectOptions(rect corefoundation.CGRect, options NSStringDrawingOptions) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawWithRect:options:"), rect, options)
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -2196,7 +2125,6 @@ func (a NSAttributedString) DrawWithRectOptions(rect corefoundation.CGRect, opti
 func (a NSAttributedString) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 // Creates a new attributed string from the contents of another attributed
 // string.
 //
@@ -2212,14 +2140,12 @@ func (a NSAttributedString) InitWithAttributedString(attrStr INSAttributedString
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithAttributedString:"), attrStr)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (a NSAttributedString) InitWithCoder(coder INSCoder) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Creates an attributed string from the contents of a specified URL that
 // contains Markdown-formatted data using the provided options.
 //
@@ -2252,7 +2178,6 @@ func (a NSAttributedString) InitWithContentsOfMarkdownFileAtURLOptionsBaseURLErr
 	return NSAttributedStringFromID(rv), nil
 
 }
-
 // Creates an attributed string from the contents of the specified data
 // object.
 //
@@ -2307,7 +2232,6 @@ func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSD
 	return NSAttributedStringFromID(rv), nil
 
 }
-
 // Creates an attributed string from Microsoft Word format data in the
 // specified data object.
 //
@@ -2327,7 +2251,6 @@ func (a NSAttributedString) InitWithDocFormatDocumentAttributes(data INSData, di
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
 	return rv
 }
-
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string.
 //
@@ -2356,7 +2279,6 @@ func (a NSAttributedString) InitWithFormatOptionsLocale(format INSAttributedStri
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:"), format, options, locale)
 	return rv
 }
-
 // Initializes an attributed string by substituting a list of function
 // arguments into a specially formatted string.
 //
@@ -2382,7 +2304,6 @@ func (a NSAttributedString) InitWithFormatOptionsLocaleArguments(format INSAttri
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:arguments:"), format, options, locale, arguments)
 	return rv
 }
-
 // Initializes an attributed string by substituting arguments into a specially
 // formatted string and applying additional contextual information.
 //
@@ -2413,7 +2334,6 @@ func (a NSAttributedString) InitWithFormatOptionsLocaleContext(format INSAttribu
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:context:"), format, options, locale, context)
 	return rv
 }
-
 // Initializes an attributed string by substituting a list of function
 // arguments into a specially formatted string and applying additional
 // contextual information.
@@ -2442,7 +2362,6 @@ func (a NSAttributedString) InitWithFormatOptionsLocaleContextArguments(format I
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithFormat:options:locale:context:arguments:"), format, options, locale, context, arguments)
 	return rv
 }
-
 // Creates an attributed string from the HTML in the specified data object and
 // base URL.
 //
@@ -2464,7 +2383,6 @@ func (a NSAttributedString) InitWithHTMLBaseURLDocumentAttributes(data INSData, 
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, dict)
 	return rv
 }
-
 // Creates an attributed string from the HTML in the specified data object.
 //
 // data: A data object with text in HTML format. The method uses this data to create
@@ -2483,7 +2401,6 @@ func (a NSAttributedString) InitWithHTMLDocumentAttributes(data INSData, dict IN
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
 	return rv
 }
-
 // Creates an attributed string from the HTML in the specified data object.
 //
 // data: A data object with text in HTML format. The method uses this data to create
@@ -2507,7 +2424,6 @@ func (a NSAttributedString) InitWithHTMLOptionsDocumentAttributes(data INSData, 
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
 	return rv
 }
-
 // Creates an attributed string from Markdown-formatted data using the
 // provided options.
 //
@@ -2540,7 +2456,6 @@ func (a NSAttributedString) InitWithMarkdownOptionsBaseURLError(markdown INSData
 	return NSAttributedStringFromID(rv), nil
 
 }
-
 // Creates an attributed string from a Markdown-formatted string using the
 // provided options.
 //
@@ -2573,7 +2488,6 @@ func (a NSAttributedString) InitWithMarkdownStringOptionsBaseURLError(markdownSt
 	return NSAttributedStringFromID(rv), nil
 
 }
-
 // Creates an attributed string by decoding the stream of RTFD commands and
 // data in the specified data object.
 //
@@ -2593,7 +2507,6 @@ func (a NSAttributedString) InitWithRTFDDocumentAttributes(data INSData, dict IN
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
 	return rv
 }
-
 // Creates an attributed string from the specified file wrapper that contains
 // an RTFD document.
 //
@@ -2623,7 +2536,6 @@ func (a NSAttributedString) InitWithRTFDFileWrapperDocumentAttributes(wrapper IN
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, dict)
 	return rv
 }
-
 // Creates an attributed string by decoding the stream of RTF commands and
 // data in the specified data object.
 //
@@ -2652,7 +2564,6 @@ func (a NSAttributedString) InitWithRTFDocumentAttributes(data INSData, dict INS
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTF:documentAttributes:"), data, dict)
 	return rv
 }
-
 // Creates an attributed string with the specified text and no attribute
 // information.
 //
@@ -2668,7 +2579,6 @@ func (a NSAttributedString) InitWithString(str string) NSAttributedString {
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithString:"), objc.String(str))
 	return rv
 }
-
 // Creates an attributed string with the specified text and attributes.
 //
 // str: The text for the new attributed string.
@@ -2687,7 +2597,6 @@ func (a NSAttributedString) InitWithStringAttributes(str string, attrs INSDictio
 	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithString:attributes:"), objc.String(str), attrs)
 	return rv
 }
-
 // Creates an attributed string from the contents of the specified URL.
 //
 // url: An [NSURL] object specifying the document to load.
@@ -2747,7 +2656,6 @@ func (a NSAttributedString) InitWithURLOptionsDocumentAttributesError(url INSURL
 	return NSAttributedStringFromID(rv), nil
 
 }
-
 // Asks the item provider for the representation visibility specification for
 // the given UTI.
 //
@@ -2762,7 +2670,6 @@ func (a NSAttributedString) ItemProviderVisibilityForRepresentationWithTypeIdent
 	rv := objc.Send[NSItemProviderRepresentationVisibility](a.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
 	return NSItemProviderRepresentationVisibility(rv)
 }
-
 // Loads data of a particular type, identified by the given UTI.
 //
 // typeIdentifier: The uniform type identifier (UTI) identifying the type of data to load.
@@ -2804,7 +2711,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, _block2)
 }
-
 // Creates an attributed string by converting the content of a local HTML file
 // at the specified URL.
 //
@@ -2823,7 +2729,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, _block2)
 }
-
 // Creates an attributed string by converting the contents of the specified
 // HTML URL request.
 //
@@ -2842,7 +2747,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, _block2)
 }
-
 // Creates an attributed string from the specified HTML string.
 //
 // string: A string that contains the HTML to convert to an attributed string.
@@ -2860,7 +2764,6 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, _block2)
 }
-
 // Creates an attributed string by substituting arguments into a specially
 // formatted string.
 //
@@ -2884,7 +2787,6 @@ func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStrin
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("localizedAttributedStringWithFormat:"), format)
 	return NSAttributedStringFromID(rv)
 }
-
 // Creates an attributed string by substituting arguments into a specially
 // formatted string and applying additional contextual information.
 //
@@ -2910,7 +2812,6 @@ func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStrin
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("localizedAttributedStringWithFormat:context:"), format, context)
 	return NSAttributedStringFromID(rv)
 }
-
 // Creates an attributed string by substituting a list of function arguments
 // into a specially formatted string.
 //
@@ -2936,7 +2837,6 @@ func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStrin
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("localizedAttributedStringWithFormat:options:"), format, options)
 	return NSAttributedStringFromID(rv)
 }
-
 // Creates an attributed string by substituting a list of function arguments
 // into a specially formatted string and applying additional contextual
 // information.
@@ -2965,7 +2865,6 @@ func (_NSAttributedStringClass NSAttributedStringClass) LocalizedAttributedStrin
 	rv := objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("localizedAttributedStringWithFormat:options:context:"), format, options, context)
 	return NSAttributedStringFromID(rv)
 }
-
 // Creates a new instance of a class using the given data and UTI string.
 //
 // data: The data used to create the object.
@@ -3008,7 +2907,6 @@ func (a NSAttributedString) String() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("string"))
 	return NSStringFromID(rv).String()
 }
-
 // The length of the attributed string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/length
@@ -3016,7 +2914,6 @@ func (a NSAttributedString) Length() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("length"))
 	return rv
 }
-
 // The string encoding for the document.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/characterencoding
@@ -3024,7 +2921,6 @@ func (a NSAttributedString) CharacterEncoding() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("characterEncoding"))
 	return NSStringFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the attribute string contains any
 // attachment attributes.
 //
@@ -3043,7 +2939,6 @@ func (a NSAttributedString) ContainsAttachments() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("containsAttachments"))
 	return rv
 }
-
 // The HTML elements to exclude in generated HTML.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/excludedelements
@@ -3051,7 +2946,6 @@ func (a NSAttributedString) ExcludedElements() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("excludedElements"))
 	return NSStringFromID(objc.ID(rv))
 }
-
 // The link for the text.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/key/link
@@ -3059,7 +2953,6 @@ func (a NSAttributedString) Link() NSAttributedStringKey {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("link"))
 	return NSAttributedStringKey(NSStringFromID(rv).String())
 }
-
 // The number of spaces for indenting nested HTML elements.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/prefixspaces
@@ -3067,7 +2960,6 @@ func (a NSAttributedString) PrefixSpaces() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("prefixSpaces"))
 	return NSStringFromID(objc.ID(rv))
 }
-
 // The name of the text encoding to use.
 //
 // See: https://developer.apple.com/documentation/foundation/nsattributedstring/documentattributekey/textencodingname
@@ -3075,7 +2967,6 @@ func (a NSAttributedString) TextEncodingName() INSString {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("textEncodingName"))
 	return NSStringFromID(objc.ID(rv))
 }
-
 // An array of UTI strings representing the types of data that can be loaded
 // for an item provider.
 //
@@ -3119,7 +3010,6 @@ func (_NSAttributedStringClass NSAttributedStringClass) TextTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("textTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // An array of UTI strings that identify the file types that attributed
 // strings support directly.
 //
@@ -3155,6 +3045,21 @@ func (_NSAttributedStringClass NSAttributedStringClass) TextUnfilteredTypes() []
 
 			// Protocol methods for NSSecureCoding
 			
+
+// EnumerateAttributeInRangeOptionsUsingBlockSync is a synchronous wrapper around [NSAttributedString.EnumerateAttributeInRangeOptionsUsingBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlockSync(ctx context.Context, attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions) (objectivec.IObject, error) {
+	done := make(chan objectivec.IObject, 1)
+	a.EnumerateAttributeInRangeOptionsUsingBlock(attrName, enumerationRange, opts, func(val objectivec.IObject) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
 
 // LoadDataWithTypeIdentifierForItemProvider is a synchronous wrapper around [NSAttributedString.LoadDataWithTypeIdentifierForItemProviderCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.

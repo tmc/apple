@@ -141,7 +141,6 @@ func (o MLOptimizationHints) ReshapeFrequency() MLReshapeFrequencyHint {
 func (o MLOptimizationHints) SetReshapeFrequency(value MLReshapeFrequencyHint) {
 	objc.Send[struct{}](o.ID, objc.Sel("setReshapeFrequency:"), value)
 }
-
 // Optimization strategy for the model specialization.
 //
 // # Discussion

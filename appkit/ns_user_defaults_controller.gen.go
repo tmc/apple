@@ -191,7 +191,6 @@ func (u NSUserDefaultsController) InitWithDefaultsInitialValues(defaults foundat
 	rv := objc.Send[NSUserDefaultsController](u.ID, objc.Sel("initWithDefaults:initialValues:"), defaults, initialValues)
 	return rv
 }
-
 // Causes the receiver to discard any unsaved changes to bound user default
 // properties, restoring their previous values.
 //
@@ -210,7 +209,6 @@ func (u NSUserDefaultsController) InitWithDefaultsInitialValues(defaults foundat
 func (u NSUserDefaultsController) Revert(sender objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("revert:"), sender)
 }
-
 // Causes the receiver to discard all edits and replace the values of all the
 // user default properties with any corresponding values in the
 // [InitialValues] dictionary.
@@ -226,7 +224,6 @@ func (u NSUserDefaultsController) Revert(sender objectivec.IObject) {
 func (u NSUserDefaultsController) RevertToInitialValues(sender objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("revertToInitialValues:"), sender)
 }
-
 // Saves the values of the receiver’s user default properties.
 //
 // # Discussion
@@ -251,7 +248,6 @@ func (u NSUserDefaultsController) Defaults() foundation.NSUserDefaults {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("defaults"))
 	return foundation.NSUserDefaultsFromID(objc.ID(rv))
 }
-
 // Returns a dictionary containing the receiver’s initial default values.
 //
 // # Discussion
@@ -269,7 +265,6 @@ func (u NSUserDefaultsController) InitialValues() foundation.INSDictionary {
 func (u NSUserDefaultsController) SetInitialValues(value foundation.INSDictionary) {
 	objc.Send[struct{}](u.ID, objc.Sel("setInitialValues:"), value)
 }
-
 // Returns whether the receiver has user default values that have not been
 // saved to NSUserDefaults.
 //
@@ -282,7 +277,6 @@ func (u NSUserDefaultsController) HasUnappliedChanges() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("hasUnappliedChanges"))
 	return rv
 }
-
 // Returns whether any changes made to bound user default properties are saved
 // immediately.
 //
@@ -302,7 +296,6 @@ func (u NSUserDefaultsController) AppliesImmediately() bool {
 func (u NSUserDefaultsController) SetAppliesImmediately(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAppliesImmediately:"), value)
 }
-
 // Returns a key value coding compliant object that is used to access the user
 // default properties.
 //

@@ -575,7 +575,6 @@ func (u NSUserActivity) InitWithActivityType(activityType string) NSUserActivity
 	rv := objc.Send[NSUserActivity](u.ID, objc.Sel("initWithActivityType:"), objc.String(activityType))
 	return rv
 }
-
 // Adds the contents of the specified dictionary to the user info dictionary.
 //
 // otherDictionary: The dictionary containing entries to be added.
@@ -594,7 +593,6 @@ func (u NSUserActivity) InitWithActivityType(activityType string) NSUserActivity
 func (u NSUserActivity) AddUserInfoEntriesFromDictionary(otherDictionary INSDictionary) {
 	objc.Send[objc.ID](u.ID, objc.Sel("addUserInfoEntriesFromDictionary:"), otherDictionary)
 }
-
 // Marks the activity as currently in use by the user.
 //
 // # Discussion
@@ -616,7 +614,6 @@ func (u NSUserActivity) AddUserInfoEntriesFromDictionary(otherDictionary INSDict
 func (u NSUserActivity) BecomeCurrent() {
 	objc.Send[objc.ID](u.ID, objc.Sel("becomeCurrent"))
 }
-
 // Marks this activity object as inactive without invalidating it.
 //
 // # Discussion
@@ -631,7 +628,6 @@ func (u NSUserActivity) BecomeCurrent() {
 func (u NSUserActivity) ResignCurrent() {
 	objc.Send[objc.ID](u.ID, objc.Sel("resignCurrent"))
 }
-
 // Invalidates an activity and marks it as no longer eligible for
 // continuation.
 //
@@ -647,7 +643,6 @@ func (u NSUserActivity) ResignCurrent() {
 func (u NSUserActivity) Invalidate() {
 	objc.Send[objc.ID](u.ID, objc.Sel("invalidate"))
 }
-
 // Requests streams back to the originating app.
 //
 // completionHandler: The completion handler block that returns streams.
@@ -683,7 +678,6 @@ _block0, _cleanup0 := NewInputStreamOutputStreamErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](u.ID, objc.Sel("getContinuationStreamsWithCompletionHandler:"), _block0)
 }
-
 // Asks the item provider for the representation visibility specification for
 // the given UTI.
 //
@@ -698,7 +692,6 @@ func (u NSUserActivity) ItemProviderVisibilityForRepresentationWithTypeIdentifie
 	rv := objc.Send[NSItemProviderRepresentationVisibility](u.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
 	return NSItemProviderRepresentationVisibility(rv)
 }
-
 // Loads data of a particular type, identified by the given UTI.
 //
 // typeIdentifier: The uniform type identifier (UTI) identifying the type of data to load.
@@ -739,7 +732,6 @@ _block0, _cleanup0 := NewVoidBlock(handler)
 	defer _cleanup0()
 	objc.Send[objc.ID](objc.ID(_NSUserActivityClass.class), objc.Sel("deleteAllSavedUserActivitiesWithCompletionHandler:"), _block0)
 }
-
 // Deletes user activities created by your app that have the specified
 // persistent identifiers.
 //
@@ -761,7 +753,6 @@ _block1, _cleanup1 := NewVoidBlock(handler)
 	defer _cleanup1()
 	objc.Send[objc.ID](objc.ID(_NSUserActivityClass.class), objc.Sel("deleteSavedUserActivitiesWithPersistentIdentifiers:completionHandler:"), persistentIdentifiers, _block1)
 }
-
 // Creates a new instance of a class using the given data and UTI string.
 //
 // data: The data used to create the object.
@@ -797,7 +788,6 @@ func (u NSUserActivity) ActivityType() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("activityType"))
 	return NSStringFromID(rv).String()
 }
-
 // An optional, user-visible title for this activity, such as a document name
 // or web page title.
 //
@@ -816,7 +806,6 @@ func (u NSUserActivity) Title() string {
 func (u NSUserActivity) SetTitle(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTitle:"), objc.String(value))
 }
-
 // A set of keys that represent the minimal information about the activity
 // that should be stored for later restoration.
 //
@@ -832,7 +821,6 @@ func (u NSUserActivity) RequiredUserInfoKeys() INSSet {
 func (u NSUserActivity) SetRequiredUserInfoKeys(value INSSet) {
 	objc.Send[struct{}](u.ID, objc.Sel("setRequiredUserInfoKeys:"), value)
 }
-
 // A dictionary containing app-specific state information needed to continue
 // an activity on another device.
 //
@@ -851,7 +839,6 @@ func (u NSUserActivity) UserInfo() INSDictionary {
 func (u NSUserActivity) SetUserInfo(value INSDictionary) {
 	objc.Send[struct{}](u.ID, objc.Sel("setUserInfo:"), value)
 }
-
 // A string that identifies the user activity’s content.
 //
 // # Discussion
@@ -882,7 +869,6 @@ func (u NSUserActivity) TargetContentIdentifier() string {
 func (u NSUserActivity) SetTargetContentIdentifier(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTargetContentIdentifier:"), objc.String(value))
 }
-
 // A Boolean value that indicates whether the state of the activity needs to
 // be updated.
 //
@@ -902,7 +888,6 @@ func (u NSUserActivity) NeedsSave() bool {
 func (u NSUserActivity) SetNeedsSave(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNeedsSave:"), value)
 }
-
 // A set of properties that describe the activity.
 //
 // # Discussion
@@ -920,7 +905,6 @@ func (u NSUserActivity) ContentAttributeSet() objectivec.IObject {
 func (u NSUserActivity) SetContentAttributeSet(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setContentAttributeSet:"), value)
 }
-
 // A set of localized keywords that can help users find the activity in search
 // results.
 //
@@ -937,7 +921,6 @@ func (u NSUserActivity) Keywords() INSSet {
 func (u NSUserActivity) SetKeywords(value INSSet) {
 	objc.Send[struct{}](u.ID, objc.Sel("setKeywords:"), value)
 }
-
 // A value used to identify the user activity.
 //
 // # Discussion
@@ -958,7 +941,6 @@ func (u NSUserActivity) PersistentIdentifier() NSUserActivityPersistentIdentifie
 func (u NSUserActivity) SetPersistentIdentifier(value NSUserActivityPersistentIdentifier) {
 	objc.Send[struct{}](u.ID, objc.Sel("setPersistentIdentifier:"), objc.String(string(value)))
 }
-
 // A Boolean value that indicates whether the activity can be continued on
 // another device using Handoff.
 //
@@ -976,7 +958,6 @@ func (u NSUserActivity) EligibleForHandoff() bool {
 func (u NSUserActivity) SetEligibleForHandoff(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setEligibleForHandoff:"), value)
 }
-
 // A Boolean value that indicates whether the activity should be added to the
 // on-device index.
 //
@@ -994,7 +975,6 @@ func (u NSUserActivity) EligibleForSearch() bool {
 func (u NSUserActivity) SetEligibleForSearch(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setEligibleForSearch:"), value)
 }
-
 // A Boolean value that indicates whether the activity can be publicly
 // accessed by all iOS users.
 //
@@ -1026,7 +1006,6 @@ func (u NSUserActivity) EligibleForPublicIndexing() bool {
 func (u NSUserActivity) SetEligibleForPublicIndexing(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setEligibleForPublicIndexing:"), value)
 }
-
 // The date after which the activity is no longer eligible for Handoff or
 // indexing.
 //
@@ -1043,7 +1022,6 @@ func (u NSUserActivity) ExpirationDate() INSDate {
 func (u NSUserActivity) SetExpirationDate(value INSDate) {
 	objc.Send[struct{}](u.ID, objc.Sel("setExpirationDate:"), value)
 }
-
 // The user activity object’s delegate.
 //
 // # Discussion
@@ -1060,7 +1038,6 @@ func (u NSUserActivity) Delegate() NSUserActivityDelegate {
 func (u NSUserActivity) SetDelegate(value NSUserActivityDelegate) {
 	objc.Send[struct{}](u.ID, objc.Sel("setDelegate:"), value)
 }
-
 // A Boolean value that determines whether the continuing app can request
 // streams to be opened back to the originating app.
 //
@@ -1083,7 +1060,6 @@ func (u NSUserActivity) SupportsContinuationStreams() bool {
 func (u NSUserActivity) SetSupportsContinuationStreams(value bool) {
 	objc.Send[struct{}](u.ID, objc.Sel("setSupportsContinuationStreams:"), value)
 }
-
 // The URL of the webpage to load in a browser to continue the activity.
 //
 // # Discussion
@@ -1119,7 +1095,6 @@ func (u NSUserActivity) WebpageURL() INSURL {
 func (u NSUserActivity) SetWebpageURL(value INSURL) {
 	objc.Send[struct{}](u.ID, objc.Sel("setWebpageURL:"), value)
 }
-
 // The URL of the webpage that linked to the webpage URL.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/referrerURL
@@ -1130,7 +1105,6 @@ func (u NSUserActivity) ReferrerURL() INSURL {
 func (u NSUserActivity) SetReferrerURL(value INSURL) {
 	objc.Send[struct{}](u.ID, objc.Sel("setReferrerURL:"), value)
 }
-
 // A phrase suggested to the user when they create a shortcut.
 //
 // # Discussion
@@ -1149,7 +1123,6 @@ func (u NSUserActivity) SuggestedInvocationPhrase() string {
 func (u NSUserActivity) SetSuggestedInvocationPhrase(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setSuggestedInvocationPhrase:"), objc.String(value))
 }
-
 // The SiriKit interaction object to use when configuring your app.
 //
 // # Discussion
@@ -1165,7 +1138,6 @@ func (u NSUserActivity) Interaction() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("interaction"))
 	return objectivec.Object{ID: rv}
 }
-
 // The barcode that the system scanner passes in.
 //
 // # Discussion
@@ -1178,7 +1150,6 @@ func (u NSUserActivity) DetectedBarcodeDescriptor() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("detectedBarcodeDescriptor"))
 	return objectivec.Object{ID: rv}
 }
-
 // Attaches the specified map item to a user activity object.
 //
 // # Discussion
@@ -1206,7 +1177,6 @@ func (u NSUserActivity) MapItem() objectivec.IObject {
 func (u NSUserActivity) SetMapItem(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setMapItem:"), value)
 }
-
 // A Boolean value that indicates whether a user activity represents a
 // ClassKit context.
 //
@@ -1226,7 +1196,6 @@ func (u NSUserActivity) IsClassKitDeepLink() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("isClassKitDeepLink"))
 	return rv
 }
-
 // The identifier path associated with a user activity generated by an app
 // that adopts ClassKit.
 //
@@ -1246,7 +1215,6 @@ func (u NSUserActivity) ContextIdentifierPath() []string {
 	rv := objc.Send[[]objc.ID](u.ID, objc.Sel("contextIdentifierPath"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // An activity that continues from Handoff or a universal link.
 //
 // See: https://developer.apple.com/documentation/foundation/nsuseractivitytypebrowsingweb
@@ -1254,7 +1222,6 @@ func (u NSUserActivity) NSUserActivityTypeBrowsingWeb() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUserActivityTypeBrowsingWeb"))
 	return NSStringFromID(rv).String()
 }
-
 // An activity for viewing your app’s channel guide.
 //
 // See: https://developer.apple.com/documentation/TVServices/TVUserActivityTypeBrowsingChannelGuide
@@ -1262,7 +1229,6 @@ func (u NSUserActivity) TVUserActivityTypeBrowsingChannelGuide() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("TVUserActivityTypeBrowsingChannelGuide"))
 	return NSStringFromID(rv).String()
 }
-
 // The user activity couldn’t be continued because a required connection
 // wasn’t available.
 //
@@ -1274,7 +1240,6 @@ func (u NSUserActivity) NSUserActivityConnectionUnavailableError() int {
 func (u NSUserActivity) SetNSUserActivityConnectionUnavailableError(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityConnectionUnavailableError:"), value)
 }
-
 // The end of the range of error codes reserved for user activity errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nsuseractivityerrormaximum-swift.var
@@ -1285,7 +1250,6 @@ func (u NSUserActivity) NSUserActivityErrorMaximum() int {
 func (u NSUserActivity) SetNSUserActivityErrorMaximum(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityErrorMaximum:"), value)
 }
-
 // The start of the range of error codes reserved for user activity errors.
 //
 // See: https://developer.apple.com/documentation/foundation/nsuseractivityerrorminimum-swift.var
@@ -1296,7 +1260,6 @@ func (u NSUserActivity) NSUserActivityErrorMinimum() int {
 func (u NSUserActivity) SetNSUserActivityErrorMinimum(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityErrorMinimum:"), value)
 }
-
 // The data for the user activity wasn’t available.
 //
 // See: https://developer.apple.com/documentation/foundation/nsuseractivityhandofffailederror-swift.var
@@ -1307,7 +1270,6 @@ func (u NSUserActivity) NSUserActivityHandoffFailedError() int {
 func (u NSUserActivity) SetNSUserActivityHandoffFailedError(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityHandoffFailedError:"), value)
 }
-
 // The user info dictionary was too large to receive.
 //
 // See: https://developer.apple.com/documentation/foundation/nsuseractivityhandoffuserinfotoolargeerror-swift.var
@@ -1318,7 +1280,6 @@ func (u NSUserActivity) NSUserActivityHandoffUserInfoTooLargeError() int {
 func (u NSUserActivity) SetNSUserActivityHandoffUserInfoTooLargeError(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityHandoffUserInfoTooLargeError:"), value)
 }
-
 // The remote application failed to send data within the specified time.
 //
 // See: https://developer.apple.com/documentation/foundation/nsuseractivityremoteapplicationtimedouterror-swift.var
@@ -1329,7 +1290,6 @@ func (u NSUserActivity) NSUserActivityRemoteApplicationTimedOutError() int {
 func (u NSUserActivity) SetNSUserActivityRemoteApplicationTimedOutError(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUserActivityRemoteApplicationTimedOutError:"), value)
 }
-
 // The identifier of an app entity that you associate with the user activity.
 //
 // See: https://developer.apple.com/documentation/foundation/nsuseractivity/appentityidentifier
@@ -1340,7 +1300,6 @@ func (u NSUserActivity) AppEntityIdentifier() string {
 func (u NSUserActivity) SetAppEntityIdentifier(value string) {
 	objc.Send[struct{}](u.ID, objc.Sel("setAppEntityIdentifier:"), objc.String(value))
 }
-
 // An object or value that specifies items to share.
 //
 // See: https://developer.apple.com/documentation/UIKit/UIActivityItemsConfigurationProviding/activityItemsConfiguration
@@ -1351,7 +1310,6 @@ func (u NSUserActivity) ActivityItemsConfiguration() objectivec.IObject {
 func (u NSUserActivity) SetActivityItemsConfiguration(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setActivityItemsConfiguration:"), value)
 }
-
 // An object that can provide shareable items for a scene.
 //
 // See: https://developer.apple.com/documentation/UIKit/UIWindowScene/activityItemsConfigurationSource
@@ -1362,7 +1320,6 @@ func (u NSUserActivity) ActivityItemsConfigurationSource() objectivec.IObject {
 func (u NSUserActivity) SetActivityItemsConfigurationSource(value objectivec.IObject) {
 	objc.Send[struct{}](u.ID, objc.Sel("setActivityItemsConfigurationSource:"), value)
 }
-
 // An array of UTI strings representing the types of data that can be loaded
 // for an item provider.
 //

@@ -158,7 +158,6 @@ func (s NSSymbolVariableColorEffect) EffectWithCumulative() INSSymbolVariableCol
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithCumulative"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
-
 // An effect that momentarily enables each layer of a symbol-based image in
 // sequence.
 //
@@ -179,7 +178,6 @@ func (s NSSymbolVariableColorEffect) EffectWithIterative() INSSymbolVariableColo
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithIterative"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
-
 // An effect that doesn’t reverse each time it repeats.
 //
 // # Return Value
@@ -192,7 +190,6 @@ func (s NSSymbolVariableColorEffect) EffectWithNonReversing() INSSymbolVariableC
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithNonReversing"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
-
 // An effect that reverses each time it repeats.
 //
 // # Return Value
@@ -204,7 +201,6 @@ func (s NSSymbolVariableColorEffect) EffectWithReversing() INSSymbolVariableColo
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithReversing"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
-
 // An effect that dims inactive layers in a symbol-based image.
 //
 // # Return Value
@@ -220,7 +216,6 @@ func (s NSSymbolVariableColorEffect) EffectWithDimInactiveLayers() INSSymbolVari
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithDimInactiveLayers"))
 	return NSSymbolVariableColorEffectFromID(rv)
 }
-
 // An effect that hides inactive layers in a symbol-based image.
 //
 // # Return Value

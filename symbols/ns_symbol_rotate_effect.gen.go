@@ -106,7 +106,6 @@ func (s NSSymbolRotateEffect) EffectWithByLayer() INSSymbolRotateEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolRotateEffectFromID(rv)
 }
-
 // Returns a copy of the effect that animates all layers of the symbol
 // simultaneously.
 //
@@ -123,7 +122,6 @@ func (_NSSymbolRotateEffectClass NSSymbolRotateEffectClass) Effect() NSSymbolRot
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolRotateEffectClass.class), objc.Sel("effect"))
 	return NSSymbolRotateEffectFromID(rv)
 }
-
 // Convenience initializer for a rotate effect that rotates clockwise.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolRotateEffect/rotateClockwiseEffect
@@ -131,7 +129,6 @@ func (_NSSymbolRotateEffectClass NSSymbolRotateEffectClass) RotateClockwiseEffec
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolRotateEffectClass.class), objc.Sel("rotateClockwiseEffect"))
 	return NSSymbolRotateEffectFromID(rv)
 }
-
 // Convenience initializer for a rotate effect that rotates counter-clockwise.
 //
 // See: https://developer.apple.com/documentation/Symbols/NSSymbolRotateEffect/rotateCounterClockwiseEffect

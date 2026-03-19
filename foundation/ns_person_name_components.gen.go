@@ -373,7 +373,6 @@ func NewPersonNameComponentsWithCoder(coder INSCoder) NSPersonNameComponents {
 func (p NSPersonNameComponents) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (p NSPersonNameComponents) InitWithCoder(coder INSCoder) NSPersonNameComponents {
@@ -392,7 +391,6 @@ func (p NSPersonNameComponents) NamePrefix() string {
 func (p NSPersonNameComponents) SetNamePrefix(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNamePrefix:"), objc.String(value))
 }
-
 // Name bestowed upon an individual to differentiate them from other members
 // of a group that share a family name .
 //
@@ -409,7 +407,6 @@ func (p NSPersonNameComponents) GivenName() string {
 func (p NSPersonNameComponents) SetGivenName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setGivenName:"), objc.String(value))
 }
-
 // Secondary name bestowed upon an individual to differentiate them from
 // others that have the same given name .
 //
@@ -421,7 +418,6 @@ func (p NSPersonNameComponents) MiddleName() string {
 func (p NSPersonNameComponents) SetMiddleName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMiddleName:"), objc.String(value))
 }
-
 // Name bestowed upon an individual to denote membership in a group or family.
 // .
 //
@@ -433,7 +429,6 @@ func (p NSPersonNameComponents) FamilyName() string {
 func (p NSPersonNameComponents) SetFamilyName(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFamilyName:"), objc.String(value))
 }
-
 // The portion of a name’s full form of address that follows the name itself
 // .
 //
@@ -445,7 +440,6 @@ func (p NSPersonNameComponents) NameSuffix() string {
 func (p NSPersonNameComponents) SetNameSuffix(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNameSuffix:"), objc.String(value))
 }
-
 // Name substituted for the purposes of familiarity .
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/nickname
@@ -456,7 +450,6 @@ func (p NSPersonNameComponents) Nickname() string {
 func (p NSPersonNameComponents) SetNickname(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNickname:"), objc.String(value))
 }
-
 // The phonetic representation name components of the receiver.
 //
 // # Discussion

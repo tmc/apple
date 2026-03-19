@@ -150,7 +150,6 @@ func NewVZGraphicsDisplay() VZGraphicsDisplay {
 func (g VZGraphicsDisplay) AddObserver(observer VZGraphicsDisplayObserver) {
 	objc.Send[objc.ID](g.ID, objc.Sel("addObserver:"), observer)
 }
-
 // Removes a display configuration change observer.
 //
 // observer: The observer to remove from notifications about display configuration
@@ -160,7 +159,6 @@ func (g VZGraphicsDisplay) AddObserver(observer VZGraphicsDisplayObserver) {
 func (g VZGraphicsDisplay) RemoveObserver(observer VZGraphicsDisplayObserver) {
 	objc.Send[objc.ID](g.ID, objc.Sel("removeObserver:"), observer)
 }
-
 // Resize this display with the new dimensions you provide.
 //
 // sizeInPixels: The new display width and height in pixels.
@@ -188,7 +186,6 @@ func (g VZGraphicsDisplay) ReconfigureWithSizeInPixelsError(sizeInPixels corefou
 	return rv, nil
 
 }
-
 // Reconfigure this display with the new display configuration you provide.
 //
 // configuration: The new [VZGraphicsDisplayConfiguration] configuration.
@@ -225,7 +222,6 @@ func (g VZGraphicsDisplay) SizeInPixels() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](g.ID, objc.Sel("sizeInPixels"))
 	return corefoundation.CGSize(rv)
 }
-
 // The list of graphics displays configured for this graphics device.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzgraphicsdevice/displays

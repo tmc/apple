@@ -188,7 +188,6 @@ func (t NSTextContentStorage) TextElementForAttributedString(attributedString fo
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textElementForAttributedString:"), attributedString)
 	return NSTextElementFromID(rv)
 }
-
 // Returns a new attributed string for the text element.
 //
 // textElement: The [NSTextElement] to map into an attributed string.
@@ -211,7 +210,6 @@ func (t NSTextContentStorage) AttributedStringForTextElement(textElement INSText
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributedStringForTextElement:"), textElement)
 	return foundation.NSAttributedStringFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/performEditingTransaction(for:using:)
 func (t NSTextContentStorage) PerformEditingTransactionForTextStorageUsingBlock(textStorage NSTextStorage, transaction VoidHandler) {
@@ -219,7 +217,6 @@ _block1, _cleanup1 := NewVoidBlock(transaction)
 	defer _cleanup1()
 	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, _block1)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/processEditing(for:edited:range:changeInLength:invalidatedRange:)
 func (t NSTextContentStorage) ProcessEditingForTextStorageEditedRangeChangeInLengthInvalidatedRange(textStorage NSTextStorage, editMask NSTextStorageEditActions, newCharRange foundation.NSRange, delta int, invalidatedCharRange foundation.NSRange) {
@@ -251,7 +248,6 @@ func (t NSTextContentStorage) AttributedString() foundation.NSAttributedString {
 func (t NSTextContentStorage) SetAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAttributedString:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentStorage/includesTextListMarkers
 func (t NSTextContentStorage) IncludesTextListMarkers() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("includesTextListMarkers"))
@@ -260,7 +256,6 @@ func (t NSTextContentStorage) IncludesTextListMarkers() bool {
 func (t NSTextContentStorage) SetIncludesTextListMarkers(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setIncludesTextListMarkers:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/textStorage
 func (t NSTextContentStorage) TextStorage() NSTextStorage {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textStorage"))

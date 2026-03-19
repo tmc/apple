@@ -171,7 +171,6 @@ func (r NSRotationGestureRecognizer) Rotation() float64 {
 func (r NSRotationGestureRecognizer) SetRotation(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRotation:"), value)
 }
-
 // The rotation of the gesture in degrees.
 //
 // # Discussion

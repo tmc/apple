@@ -284,7 +284,6 @@ func (x XMLDTDNode) DTDKind() NSXMLDTDNodeKind {
 func (x XMLDTDNode) SetDTDKind(value NSXMLDTDNodeKind) {
 	objc.Send[struct{}](x.ID, objc.Sel("setDTDKind:"), value)
 }
-
 //
 // # Discussion
 // 
@@ -295,7 +294,6 @@ func (x XMLDTDNode) External() bool {
 	rv := objc.Send[bool](x.ID, objc.Sel("isExternal"))
 	return rv
 }
-
 // Returns the name of the notation associated with the receiver.
 //
 // # Return Value
@@ -315,7 +313,6 @@ func (x XMLDTDNode) NotationName() string {
 func (x XMLDTDNode) SetNotationName(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setNotationName:"), objc.String(value))
 }
-
 // Returns the public identifier associated with the receiver.
 //
 // # Return Value
@@ -334,7 +331,6 @@ func (x XMLDTDNode) PublicID() string {
 func (x XMLDTDNode) SetPublicID(value string) {
 	objc.Send[struct{}](x.ID, objc.Sel("setPublicID:"), objc.String(value))
 }
-
 // Returns the system identifier associated with the receiver.
 //
 // # Return Value

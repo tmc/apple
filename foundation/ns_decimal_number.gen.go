@@ -368,7 +368,6 @@ func (d NSDecimalNumber) InitWithDecimal(dcm NSDecimal) NSDecimalNumber {
 	rv := objc.Send[NSDecimalNumber](d.ID, objc.Sel("initWithDecimal:"), dcm)
 	return rv
 }
-
 // Initializes a decimal number using the given mantissa, exponent, and sign.
 //
 // mantissa: The mantissa for the new decimal number object.
@@ -397,7 +396,6 @@ func (d NSDecimalNumber) InitWithMantissaExponentIsNegative(mantissa uint64, exp
 	rv := objc.Send[NSDecimalNumber](d.ID, objc.Sel("initWithMantissa:exponent:isNegative:"), mantissa, exponent, flag)
 	return rv
 }
-
 // Initializes a decimal number so that its value is equivalent to that in a
 // given numeric string.
 //
@@ -427,7 +425,6 @@ func (d NSDecimalNumber) InitWithString(numberValue string) NSDecimalNumber {
 	rv := objc.Send[NSDecimalNumber](d.ID, objc.Sel("initWithString:"), objc.String(numberValue))
 	return rv
 }
-
 // Initializes a decimal number so that its value is equivalent to that in a
 // given numeric string, interpreted using a given locale.
 //
@@ -464,7 +461,6 @@ func (d NSDecimalNumber) InitWithStringLocale(numberValue string, locale objecti
 	rv := objc.Send[NSDecimalNumber](d.ID, objc.Sel("initWithString:locale:"), objc.String(numberValue), locale)
 	return rv
 }
-
 // Adds this number to another given number.
 //
 // decimalNumber: The number to add to the receiver.
@@ -484,7 +480,6 @@ func (d NSDecimalNumber) DecimalNumberByAdding(decimalNumber INSDecimalNumber) I
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByAdding:"), decimalNumber)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Subtracts another given number from this one.
 //
 // decimalNumber: The number to subtract from the receiver.
@@ -504,7 +499,6 @@ func (d NSDecimalNumber) DecimalNumberBySubtracting(decimalNumber INSDecimalNumb
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberBySubtracting:"), decimalNumber)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Multiplies the number by another given number.
 //
 // decimalNumber: The number by which to multiply the receiver.
@@ -524,7 +518,6 @@ func (d NSDecimalNumber) DecimalNumberByMultiplyingBy(decimalNumber INSDecimalNu
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByMultiplyingBy:"), decimalNumber)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Divides the number by another given number.
 //
 // decimalNumber: The number by which to divide the receiver.
@@ -544,7 +537,6 @@ func (d NSDecimalNumber) DecimalNumberByDividingBy(decimalNumber INSDecimalNumbe
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByDividingBy:"), decimalNumber)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Raises the number to a given power.
 //
 // power: The power to which to raise the receiver.
@@ -564,7 +556,6 @@ func (d NSDecimalNumber) DecimalNumberByRaisingToPower(power uint) INSDecimalNum
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByRaisingToPower:"), power)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Multiplies the number by 10 raised to the given power.
 //
 // # Discussion
@@ -577,7 +568,6 @@ func (d NSDecimalNumber) DecimalNumberByMultiplyingByPowerOf10(power int16) INSD
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByMultiplyingByPowerOf10:"), power)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Adds this number to another given number using the specified behavior.
 //
 // # Discussion
@@ -589,7 +579,6 @@ func (d NSDecimalNumber) DecimalNumberByAddingWithBehavior(decimalNumber INSDeci
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByAdding:withBehavior:"), decimalNumber, behavior)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Subtracts this a given number from this one using the specified behavior.
 //
 // # Discussion
@@ -601,7 +590,6 @@ func (d NSDecimalNumber) DecimalNumberBySubtractingWithBehavior(decimalNumber IN
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberBySubtracting:withBehavior:"), decimalNumber, behavior)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Multiplies this number by another given number using the specified
 // behavior.
 //
@@ -614,7 +602,6 @@ func (d NSDecimalNumber) DecimalNumberByMultiplyingByWithBehavior(decimalNumber 
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByMultiplyingBy:withBehavior:"), decimalNumber, behavior)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Divides this number by another given number using the specified behavior.
 //
 // # Discussion
@@ -626,7 +613,6 @@ func (d NSDecimalNumber) DecimalNumberByDividingByWithBehavior(decimalNumber INS
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByDividingBy:withBehavior:"), decimalNumber, behavior)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Raises the number to a given power using the specified behavior.
 //
 // # Discussion
@@ -638,7 +624,6 @@ func (d NSDecimalNumber) DecimalNumberByRaisingToPowerWithBehavior(power uint, b
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByRaisingToPower:withBehavior:"), power, behavior)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Multiplies the number by 10 raised to the given power using the specified
 // behavior.
 //
@@ -651,7 +636,6 @@ func (d NSDecimalNumber) DecimalNumberByMultiplyingByPowerOf10WithBehavior(power
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("decimalNumberByMultiplyingByPowerOf10:withBehavior:"), power, behavior)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Returns a rounded version of the decimal number using the specified
 // rounding behavior.
 //
@@ -688,7 +672,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithDecimal(dcm N
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("decimalNumberWithDecimal:"), dcm)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Creates and returns a decimal number equivalent to the number specified by
 // the arguments.
 //
@@ -713,7 +696,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithMantissaExpon
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("decimalNumberWithMantissa:exponent:isNegative:"), mantissa, exponent, flag)
 	return NSDecimalNumberFromID(rv)
 }
-
 // Creates a decimal number whose value is equivalent to that in a given
 // numeric string.
 //
@@ -744,7 +726,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DecimalNumberWithString(number
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("decimalNumberWithString:"), objc.String(numberValue))
 	return NSDecimalNumberFromID(rv)
 }
-
 // Creates a decimal number whose value is equivalent to that in a given
 // numeric string, interpreted using a given locale.
 //
@@ -795,7 +776,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) One() NSDecimalNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("one"))
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
-
 // A decimal number equivalent to the number 0.0.
 //
 // # Return Value
@@ -807,7 +787,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) Zero() NSDecimalNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("zero"))
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
-
 // A decimal number that specifies no number.
 //
 // # Return Value
@@ -830,7 +809,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) NotANumber() NSDecimalNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("notANumber"))
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
-
 // The way arithmetic methods round off and handle error conditions.
 //
 // # Discussion
@@ -857,7 +835,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) DefaultBehavior() NSDecimalNum
 func (_NSDecimalNumberClass NSDecimalNumberClass) SetDefaultBehavior(value NSDecimalNumberBehaviors) {
 	objc.Send[struct{}](objc.ID(_NSDecimalNumberClass.class), objc.Sel("setDefaultBehavior:"), value)
 }
-
 // Returns the largest possible value of a decimal number.
 //
 // # Return Value
@@ -869,7 +846,6 @@ func (_NSDecimalNumberClass NSDecimalNumberClass) MaximumDecimalNumber() NSDecim
 	rv := objc.Send[objc.ID](objc.ID(_NSDecimalNumberClass.class), objc.Sel("maximumDecimalNumber"))
 	return NSDecimalNumberFromID(objc.ID(rv))
 }
-
 // Returns the smallest possible value of a decimal number.
 //
 // # Return Value

@@ -295,7 +295,6 @@ func (g NSGradient) InitWithStartingColorEndingColor(startingColor INSColor, end
 	rv := objc.Send[NSGradient](g.ID, objc.Sel("initWithStartingColor:endingColor:"), startingColor, endingColor)
 	return rv
 }
-
 // Initializes a newly allocated gradient object with an array of colors.
 //
 // colorArray: An array of [NSColor] objects representing the colors to use to initialize
@@ -313,7 +312,6 @@ func (g NSGradient) InitWithColors(colorArray []NSColor) NSGradient {
 	rv := objc.Send[NSGradient](g.ID, objc.Sel("initWithColors:"), objectivec.IObjectSliceToNSArray(colorArray))
 	return rv
 }
-
 // Initializes a newly allocated gradient object with the specified colors,
 // color locations, and color space.
 //
@@ -344,7 +342,6 @@ func (g NSGradient) InitWithColorsAtLocationsColorSpace(colorArray []NSColor, lo
 	rv := objc.Send[NSGradient](g.ID, objc.Sel("initWithColors:atLocations:colorSpace:"), objectivec.IObjectSliceToNSArray(colorArray), locations, colorSpace)
 	return rv
 }
-
 // Creates a gradient from data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/init(coder:)
@@ -352,7 +349,6 @@ func (g NSGradient) InitWithCoder(coder foundation.INSCoder) NSGradient {
 	rv := objc.Send[NSGradient](g.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Draws a linear gradient between the specified start and end points.
 //
 // startingPoint: The starting point for the gradient, in the local coordinate system. The
@@ -382,7 +378,6 @@ func (g NSGradient) InitWithCoder(coder foundation.INSCoder) NSGradient {
 func (g NSGradient) DrawFromPointToPointOptions(startingPoint corefoundation.CGPoint, endingPoint corefoundation.CGPoint, options NSGradientDrawingOptions) {
 	objc.Send[objc.ID](g.ID, objc.Sel("drawFromPoint:toPoint:options:"), startingPoint, endingPoint, options)
 }
-
 // Fills the specified rectangle with a linear gradient.
 //
 // rect: The rectangle to fill.
@@ -412,7 +407,6 @@ func (g NSGradient) DrawFromPointToPointOptions(startingPoint corefoundation.CGP
 func (g NSGradient) DrawInRectAngle(rect corefoundation.CGRect, angle float64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("drawInRect:angle:"), rect, angle)
 }
-
 // Fills the specified path with a linear gradient.
 //
 // path: The path object to fill.
@@ -434,7 +428,6 @@ func (g NSGradient) DrawInRectAngle(rect corefoundation.CGRect, angle float64) {
 func (g NSGradient) DrawInBezierPathAngle(path INSBezierPath, angle float64) {
 	objc.Send[objc.ID](g.ID, objc.Sel("drawInBezierPath:angle:"), path, angle)
 }
-
 // Draws a radial gradient between the specified circles.
 //
 // startCenter: The center point of the circle that represents the beginning of the
@@ -470,7 +463,6 @@ func (g NSGradient) DrawInBezierPathAngle(path INSBezierPath, angle float64) {
 func (g NSGradient) DrawFromCenterRadiusToCenterRadiusOptions(startCenter corefoundation.CGPoint, startRadius float64, endCenter corefoundation.CGPoint, endRadius float64, options NSGradientDrawingOptions) {
 	objc.Send[objc.ID](g.ID, objc.Sel("drawFromCenter:radius:toCenter:radius:options:"), startCenter, startRadius, endCenter, endRadius, options)
 }
-
 // Draws a radial gradient starting at the center of the specified rectangle.
 //
 // rect: The rectangle to fill.
@@ -501,7 +493,6 @@ func (g NSGradient) DrawFromCenterRadiusToCenterRadiusOptions(startCenter corefo
 func (g NSGradient) DrawInRectRelativeCenterPosition(rect corefoundation.CGRect, relativeCenterPosition corefoundation.CGPoint) {
 	objc.Send[objc.ID](g.ID, objc.Sel("drawInRect:relativeCenterPosition:"), rect, relativeCenterPosition)
 }
-
 // Draws a radial gradient starting at the center point of the specified path.
 //
 // path: The path to fill.
@@ -533,7 +524,6 @@ func (g NSGradient) DrawInRectRelativeCenterPosition(rect corefoundation.CGRect,
 func (g NSGradient) DrawInBezierPathRelativeCenterPosition(path INSBezierPath, relativeCenterPosition corefoundation.CGPoint) {
 	objc.Send[objc.ID](g.ID, objc.Sel("drawInBezierPath:relativeCenterPosition:"), path, relativeCenterPosition)
 }
-
 // Returns information about the color stop at the specified index in the
 // receiver’s color array.
 //
@@ -561,7 +551,6 @@ func (g NSGradient) DrawInBezierPathRelativeCenterPosition(path INSBezierPath, r
 func (g NSGradient) GetColorLocationAtIndex(color INSColor, location unsafe.Pointer, index int) {
 	objc.Send[objc.ID](g.ID, objc.Sel("getColor:location:atIndex:"), color, location, index)
 }
-
 // Returns the color of the rendered gradient at the specified relative
 // location.
 //
@@ -599,7 +588,6 @@ func (g NSGradient) ColorSpace() INSColorSpace {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("colorSpace"))
 	return NSColorSpaceFromID(objc.ID(rv))
 }
-
 // The number of color stops associated with the gradient.
 //
 // # Discussion

@@ -213,7 +213,6 @@ func (c CachedURLResponse) InitWithResponseData(response INSURLResponse, data IN
 	rv := objc.Send[CachedURLResponse](c.ID, objc.Sel("initWithResponse:data:"), response, data)
 	return rv
 }
-
 // Creates a cached URL response with a given server response, data, user-info
 // dictionary, and storage policy.
 //
@@ -234,7 +233,6 @@ func (c CachedURLResponse) InitWithResponseDataUserInfoStoragePolicy(response IN
 	rv := objc.Send[CachedURLResponse](c.ID, objc.Sel("initWithResponse:data:userInfo:storagePolicy:"), response, data, userInfo, storagePolicy)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -243,7 +241,6 @@ func (c CachedURLResponse) InitWithResponseDataUserInfoStoragePolicy(response IN
 func (c CachedURLResponse) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (c CachedURLResponse) InitWithCoder(coder INSCoder) CachedURLResponse {
@@ -258,7 +255,6 @@ func (c CachedURLResponse) Data() INSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("data"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // The URL response object associated with the instance.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/response
@@ -266,7 +262,6 @@ func (c CachedURLResponse) Response() INSURLResponse {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("response"))
 	return NSURLResponseFromID(objc.ID(rv))
 }
-
 // The cached response’s storage policy.
 //
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse/storagePolicy
@@ -274,7 +269,6 @@ func (c CachedURLResponse) StoragePolicy() NSURLCacheStoragePolicy {
 	rv := objc.Send[NSURLCacheStoragePolicy](c.ID, objc.Sel("storagePolicy"))
 	return NSURLCacheStoragePolicy(rv)
 }
-
 // The cached response’s user info dictionary.
 //
 // # Discussion

@@ -102,7 +102,6 @@ func (f NSFileSecurity) InitWithCoder(coder INSCoder) NSFileSecurity {
 	rv := objc.Send[NSFileSecurity](f.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.

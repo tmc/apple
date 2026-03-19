@@ -132,7 +132,6 @@ func (h VNHorizonObservation) Angle() float64 {
 	rv := objc.Send[float64](h.ID, objc.Sel("angle"))
 	return rv
 }
-
 // The transform to apply to the detected horizon.
 //
 // # Discussion

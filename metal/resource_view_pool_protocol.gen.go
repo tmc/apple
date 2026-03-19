@@ -60,43 +60,35 @@ func MTLResourceViewPoolObjectFromID(id objc.ID) MTLResourceViewPoolObject {
 // this resource view pool.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/baseResourceID
-
 func (o MTLResourceViewPoolObject) BaseResourceID() MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("baseResourceID"))
 	return rv
 	}
-
 // Obtains a reference to the GPU device this pool belongs to.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/device
-
 func (o MTLResourceViewPoolObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // Queries the optional debug label of this resource view pool.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/label
-
 func (o MTLResourceViewPoolObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Queries the number of resource views that this pool contains.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/resourceViewCount
-
 func (o MTLResourceViewPoolObject) ResourceViewCount() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("resourceViewCount"))
 	return rv
 	}
-
 // Copies a range of resource views from a source view pool to a destination
 // location in this view pool.
 //
@@ -115,7 +107,6 @@ func (o MTLResourceViewPoolObject) ResourceViewCount() uint {
 // [MTLResourceID]: https://developer.apple.com/documentation/Metal/MTLResourceID
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/copyResourceViewsFromPool:sourceRange:destinationIndex:
-
 func (o MTLResourceViewPoolObject) CopyResourceViewsFromPoolSourceRangeDestinationIndex(sourcePool MTLResourceViewPool, sourceRange foundation.NSRange, destinationIndex uint) MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("copyResourceViewsFromPool:sourceRange:destinationIndex:"), sourcePool, sourceRange, destinationIndex)

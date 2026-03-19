@@ -133,13 +133,11 @@ func (a ANEProgramIOSurfacesMapper) MapIOSurfacesWithModelRequestCacheInferenceE
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/prepareANEMemoryMappingParams:request:
 func (a ANEProgramIOSurfacesMapper) PrepareANEMemoryMappingParamsRequest(params unsafe.Pointer, request objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("prepareANEMemoryMappingParams:request:"), params, request)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/unmapIOSurfacesWithModel:request:error:
 func (a ANEProgramIOSurfacesMapper) UnmapIOSurfacesWithModelRequestError(model objectivec.IObject, request objectivec.IObject) (bool, error) {
@@ -155,14 +153,12 @@ func (a ANEProgramIOSurfacesMapper) UnmapIOSurfacesWithModelRequestError(model o
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/validateRequest:model:
 func (a ANEProgramIOSurfacesMapper) ValidateRequestModel(request objectivec.IObject, model objectivec.IObject) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("validateRequest:model:"), request, model)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/initWithController:
 func (a ANEProgramIOSurfacesMapper) InitWithController(controller objectivec.IObject) ANEProgramIOSurfacesMapper {
@@ -176,7 +172,6 @@ func (_ANEProgramIOSurfacesMapperClass ANEProgramIOSurfacesMapperClass) MapperWi
 	rv := objc.Send[objc.ID](objc.ID(_ANEProgramIOSurfacesMapperClass.class), objc.Sel("mapperWithController:"), controller)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/mapperWithProgramHandle:
 func (_ANEProgramIOSurfacesMapperClass ANEProgramIOSurfacesMapperClass) MapperWithProgramHandle(handle uint64) objectivec.IObject {
@@ -193,7 +188,6 @@ func (a ANEProgramIOSurfacesMapper) Controller() *ANEDeviceController {
 	val := ANEDeviceControllerFromID(objc.ID(rv))
 	return &val
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/deviceController
 func (a ANEProgramIOSurfacesMapper) DeviceController() *ANEDeviceController {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("deviceController"))
@@ -203,7 +197,6 @@ func (a ANEProgramIOSurfacesMapper) DeviceController() *ANEDeviceController {
 	val := ANEDeviceControllerFromID(objc.ID(rv))
 	return &val
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEProgramIOSurfacesMapper/programHandle
 func (a ANEProgramIOSurfacesMapper) ProgramHandle() uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("programHandle"))

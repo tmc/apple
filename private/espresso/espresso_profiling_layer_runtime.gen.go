@@ -103,7 +103,6 @@ func (e EspressoProfilingLayerRuntime) End_t() float64 {
 func (e EspressoProfilingLayerRuntime) SetEnd_t(value float64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setEnd_t:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoProfilingLayerRuntime/start_t
 func (e EspressoProfilingLayerRuntime) Start_t() float64 {
 	rv := objc.Send[float64](e.ID, objc.Sel("start_t"))

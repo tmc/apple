@@ -297,7 +297,6 @@ func (s MTLSamplerDescriptor) NormalizedCoordinates() bool {
 func (s MTLSamplerDescriptor) SetNormalizedCoordinates(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setNormalizedCoordinates:"), value)
 }
-
 // The address mode for the texture depth (r) coordinate.
 //
 // # Discussion
@@ -312,7 +311,6 @@ func (s MTLSamplerDescriptor) RAddressMode() MTLSamplerAddressMode {
 func (s MTLSamplerDescriptor) SetRAddressMode(value MTLSamplerAddressMode) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRAddressMode:"), value)
 }
-
 // The address mode for the texture width (s) coordinate.
 //
 // # Discussion
@@ -327,7 +325,6 @@ func (s MTLSamplerDescriptor) SAddressMode() MTLSamplerAddressMode {
 func (s MTLSamplerDescriptor) SetSAddressMode(value MTLSamplerAddressMode) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSAddressMode:"), value)
 }
-
 // The address mode for the texture height (t) coordinate.
 //
 // # Discussion
@@ -342,7 +339,6 @@ func (s MTLSamplerDescriptor) TAddressMode() MTLSamplerAddressMode {
 func (s MTLSamplerDescriptor) SetTAddressMode(value MTLSamplerAddressMode) {
 	objc.Send[struct{}](s.ID, objc.Sel("setTAddressMode:"), value)
 }
-
 // The border color for clamped texture values.
 //
 // # Discussion
@@ -358,7 +354,6 @@ func (s MTLSamplerDescriptor) BorderColor() MTLSamplerBorderColor {
 func (s MTLSamplerDescriptor) SetBorderColor(value MTLSamplerBorderColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBorderColor:"), value)
 }
-
 // The filtering option for combining pixels within one mipmap level when the
 // sample footprint is larger than a pixel (minification).
 //
@@ -374,7 +369,6 @@ func (s MTLSamplerDescriptor) MinFilter() MTLSamplerMinMagFilter {
 func (s MTLSamplerDescriptor) SetMinFilter(value MTLSamplerMinMagFilter) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinFilter:"), value)
 }
-
 // The filtering operation for combining pixels within one mipmap level when
 // the sample footprint is smaller than a pixel (magnification).
 //
@@ -390,7 +384,6 @@ func (s MTLSamplerDescriptor) MagFilter() MTLSamplerMinMagFilter {
 func (s MTLSamplerDescriptor) SetMagFilter(value MTLSamplerMinMagFilter) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMagFilter:"), value)
 }
-
 // The filtering option for combining pixels between two mipmap levels.
 //
 // # Discussion
@@ -405,7 +398,6 @@ func (s MTLSamplerDescriptor) MipFilter() MTLSamplerMipFilter {
 func (s MTLSamplerDescriptor) SetMipFilter(value MTLSamplerMipFilter) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMipFilter:"), value)
 }
-
 // The minimum level of detail (LOD) to use when sampling from a texture.
 //
 // # Discussion
@@ -421,7 +413,6 @@ func (s MTLSamplerDescriptor) LodMinClamp() float32 {
 func (s MTLSamplerDescriptor) SetLodMinClamp(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLodMinClamp:"), value)
 }
-
 // The maximum level of detail (LOD) to use when sampling from a texture.
 //
 // # Discussion
@@ -437,7 +428,6 @@ func (s MTLSamplerDescriptor) LodMaxClamp() float32 {
 func (s MTLSamplerDescriptor) SetLodMaxClamp(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLodMaxClamp:"), value)
 }
-
 // A Boolean value that specifies whether the GPU can use an average level of
 // detail (LOD) when sampling from a texture.
 //
@@ -460,7 +450,6 @@ func (s MTLSamplerDescriptor) LodAverage() bool {
 func (s MTLSamplerDescriptor) SetLodAverage(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLodAverage:"), value)
 }
-
 // The number of samples that can be taken to improve the quality of sample
 // footprints that are anisotropic.
 //
@@ -477,7 +466,6 @@ func (s MTLSamplerDescriptor) MaxAnisotropy() uint {
 func (s MTLSamplerDescriptor) SetMaxAnisotropy(value uint) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxAnisotropy:"), value)
 }
-
 // The sampler comparison function used when performing a sample compare
 // operation on a depth texture.
 //
@@ -501,7 +489,6 @@ func (s MTLSamplerDescriptor) CompareFunction() MTLCompareFunction {
 func (s MTLSamplerDescriptor) SetCompareFunction(value MTLCompareFunction) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCompareFunction:"), value)
 }
-
 // A Boolean value that indicates whether you can reference a sampler, that
 // you make with this descriptor, by its resource ID from an argument buffer.
 //
@@ -537,7 +524,6 @@ func (s MTLSamplerDescriptor) SupportArgumentBuffers() bool {
 func (s MTLSamplerDescriptor) SetSupportArgumentBuffers(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSupportArgumentBuffers:"), value)
 }
-
 // A string that identifies the sampler.
 //
 // # Discussion
@@ -556,7 +542,6 @@ func (s MTLSamplerDescriptor) Label() string {
 func (s MTLSamplerDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // Sets the level-of-detail (lod) bias when sampling from a texture.
 //
 // # Discussion
@@ -572,7 +557,6 @@ func (s MTLSamplerDescriptor) LodBias() float32 {
 func (s MTLSamplerDescriptor) SetLodBias(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLodBias:"), value)
 }
-
 // Sets the reduction mode for filtering contributing samples.
 //
 // # Discussion

@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -929,70 +930,6 @@ func NewImageWithSize(size corefoundation.CGSize) NSImage {
 	return NSImageFromID(rv)
 }
 
-// Creates and returns an image object whose contents are drawn using the
-// specified block.
-//
-// size: The size of the image, measured in points.
-//
-// drawingHandlerShouldBeCalledWithFlippedContext: [true] to apply a flip transformation to the graphics context before
-// drawing or [false] to draw using the default Cocoa coordinate system
-// orientation.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// drawingHandler: A block that draws the contents of the image representation. The image
-// representation copies the block and stores it for later use. It is not
-// executed until you draw the image. Because the block is executed later,
-// AppKit executes it on the same thread on which you draw the image itself,
-// which can be any thread of your app. Therefore, the block must be safe to
-// call from any thread. The block takes the following parameter:
-// 
-// dstRect: The destination rectangle in which to draw. The coordinates of
-// this rectangle are specified in points.
-// 
-// The block returns a Boolean that indicates whether it drew the image
-// successfully. Return [true] from your block if it successfully drew the
-// contents or [false] if it did not.
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// # Return Value
-// 
-// An initialized [NSImage] object.
-//
-// # Discussion
-// 
-// Use this method to generate an image that is correct at any resolution.
-// This method creates an image object with a single [NSCustomImageRep] object
-// to manage drawing. The image representation uses the block in the
-// `drawingHandler` parameter to do the actual drawing.
-// 
-// When you draw the image for the first time, the underlying image
-// representation executes the `drawingHandler` block. The image object caches
-// the results according to its usual caching policies; see the [CacheMode]
-// property. As long as the configuration of the destination graphics context
-// does not change in a significant way, subsequent attempts to draw the image
-// reuse the cached results whenever possible. If the pixel density or color
-// space of the destination graphics context changes, though, the image
-// representation throws away any caches and executes the block again to
-// obtain a new version of the image. For example, if you drew the image on a
-// standard resolution display but then draw it on a Retina display, AppKit
-// executes the block again to obtain an image at the new resolution.
-// 
-// The most typical use for this method is to create an image based on
-// vector-based content. In that case, your `drawingHandler` block would
-// redraw its existing path objects when asked. If you draw a mixture of
-// vectors and images, you need to do more work to ensure that your images are
-// the appropriate resolution for the destination graphics context.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSImage/init(size:flipped:drawingHandler:)
-func NewImageWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext bool, drawingHandler corefoundation.CGRect) NSImage {
-	rv := objc.Send[objc.ID](objc.ID(getNSImageClass().class), objc.Sel("imageWithSize:flipped:drawingHandler:"), size, drawingHandlerShouldBeCalledWithFlippedContext, drawingHandler)
-	return NSImageFromID(rv)
-}
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(symbolName:bundle:variableValue:)
 func NewImageWithSymbolNameBundleVariableValue(name string, bundle foundation.NSBundle, value float64) NSImage {
@@ -1101,7 +1038,6 @@ func (i NSImage) SetName(string_ NSImageName) bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("setName:"), objc.String(string(string_)))
 	return rv
 }
-
 // Returns the name associated with the image, if any.
 //
 // # Return Value
@@ -1113,7 +1049,6 @@ func (i NSImage) Name() NSImageName {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("name"))
 	return NSImageName(foundation.NSStringFromID(rv).String())
 }
-
 // Initializes and returns an image object using the specified file.
 //
 // fileName: A full or relative path name specifying the file with the desired image
@@ -1159,7 +1094,6 @@ func (i NSImage) InitByReferencingFile(fileName string) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initByReferencingFile:"), objc.String(fileName))
 	return rv
 }
-
 // Initializes and returns an image object using the specified URL.
 //
 // url: The URL identifying the image.
@@ -1197,7 +1131,6 @@ func (i NSImage) InitByReferencingURL(url foundation.INSURL) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initByReferencingURL:"), url)
 	return rv
 }
-
 // Initializes and returns an image object with the contents of the specified
 // file.
 //
@@ -1224,7 +1157,6 @@ func (i NSImage) InitWithContentsOfFile(fileName string) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithContentsOfFile:"), objc.String(fileName))
 	return rv
 }
-
 // Initializes and returns an image object with the contents of the specified
 // URL.
 //
@@ -1240,7 +1172,6 @@ func (i NSImage) InitWithContentsOfURL(url foundation.INSURL) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithContentsOfURL:"), url)
 	return rv
 }
-
 // Initializes and returns an image object using the provided image data.
 //
 // data: The data object containing the image data. The data can be in any format
@@ -1264,7 +1195,6 @@ func (i NSImage) InitWithData(data foundation.INSData) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
-
 // Initializes and returns an image object using the provided image data and
 // ignoring the EXIF orientation tags.
 //
@@ -1282,7 +1212,6 @@ func (i NSImage) InitWithDataIgnoringOrientation(data foundation.INSData) NSImag
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithDataIgnoringOrientation:"), data)
 	return rv
 }
-
 // Creates a new image using the contents of the provided image.
 //
 // cgImage: The source image.
@@ -1304,7 +1233,6 @@ func (i NSImage) InitWithCGImageSize(cgImage coregraphics.CGImageRef, size coref
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithCGImage:size:"), cgImage, size)
 	return rv
 }
-
 // Initializes and returns an image object with data from the specified
 // pasteboard.
 //
@@ -1338,7 +1266,6 @@ func (i NSImage) InitWithPasteboard(pasteboard INSPasteboard) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithPasteboard:"), pasteboard)
 	return rv
 }
-
 // Initializes and returns an image object from data in an unarchiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/init(coder:)
@@ -1346,7 +1273,6 @@ func (i NSImage) InitWithCoder(coder foundation.INSCoder) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Initializes and returns an image object with the specified dimensions.
 //
 // size: The size of the image, measured in points.
@@ -1372,7 +1298,6 @@ func (i NSImage) InitWithSize(size corefoundation.CGSize) NSImage {
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithSize:"), size)
 	return rv
 }
-
 // Creates a new symbol image with the specified configuration.
 //
 // configuration: The configuration details to apply.
@@ -1382,7 +1307,6 @@ func (i NSImage) ImageWithSymbolConfiguration(configuration INSImageSymbolConfig
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageWithSymbolConfiguration:"), configuration)
 	return NSImageFromID(rv)
 }
-
 // Adds the specified image representation object to the image.
 //
 // imageRep: The image representation to add.
@@ -1402,7 +1326,6 @@ func (i NSImage) ImageWithSymbolConfiguration(configuration INSImageSymbolConfig
 func (i NSImage) AddRepresentation(imageRep INSImageRep) {
 	objc.Send[objc.ID](i.ID, objc.Sel("addRepresentation:"), imageRep)
 }
-
 // Adds an array of image representation objects to the image.
 //
 // imageReps: An array of [NSImageRep] objects.
@@ -1422,7 +1345,6 @@ func (i NSImage) AddRepresentation(imageRep INSImageRep) {
 func (i NSImage) AddRepresentations(imageReps []NSImageRep) {
 	objc.Send[objc.ID](i.ID, objc.Sel("addRepresentations:"), objectivec.IObjectSliceToNSArray(imageReps))
 }
-
 // Removes and releases the specified image representation.
 //
 // imageRep: The image representation object you want to remove.
@@ -1431,7 +1353,6 @@ func (i NSImage) AddRepresentations(imageReps []NSImageRep) {
 func (i NSImage) RemoveRepresentation(imageRep INSImageRep) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeRepresentation:"), imageRep)
 }
-
 // Returns the best representation of the image for the specified rectangle
 // using the provided hints.
 //
@@ -1453,7 +1374,6 @@ func (i NSImage) BestRepresentationForRectContextHints(rect corefoundation.CGRec
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("bestRepresentationForRect:context:hints:"), rect, referenceContext, hints)
 	return NSImageRepFromID(rv)
 }
-
 // Draws the image in the specified rectangle.
 //
 // rect: The rectangle in which to draw the image, specified in the current
@@ -1471,7 +1391,6 @@ func (i NSImage) BestRepresentationForRectContextHints(rect corefoundation.CGRec
 func (i NSImage) DrawInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](i.ID, objc.Sel("drawInRect:"), rect)
 }
-
 // Draws all or part of the image at the specified point in the current
 // coordinate system.
 //
@@ -1510,7 +1429,6 @@ func (i NSImage) DrawInRect(rect corefoundation.CGRect) {
 func (i NSImage) DrawAtPointFromRectOperationFraction(point corefoundation.CGPoint, fromRect corefoundation.CGRect, op NSCompositingOperation, delta float64) {
 	objc.Send[objc.ID](i.ID, objc.Sel("drawAtPoint:fromRect:operation:fraction:"), point, fromRect, op, delta)
 }
-
 // Draws all or part of the image in the specified rectangle in the current
 // coordinate system.
 //
@@ -1550,7 +1468,6 @@ func (i NSImage) DrawAtPointFromRectOperationFraction(point corefoundation.CGPoi
 func (i NSImage) DrawInRectFromRectOperationFraction(rect corefoundation.CGRect, fromRect corefoundation.CGRect, op NSCompositingOperation, delta float64) {
 	objc.Send[objc.ID](i.ID, objc.Sel("drawInRect:fromRect:operation:fraction:"), rect, fromRect, op, delta)
 }
-
 // Draws all or part of the image in the specified rectangle respecting the
 // hints and the orientation of the current coordinate system.
 //
@@ -1591,7 +1508,6 @@ func (i NSImage) DrawInRectFromRectOperationFraction(rect corefoundation.CGRect,
 func (i NSImage) DrawInRectFromRectOperationFractionRespectFlippedHints(dstSpacePortionRect corefoundation.CGRect, srcSpacePortionRect corefoundation.CGRect, op NSCompositingOperation, requestedAlpha float64, respectContextIsFlipped bool, hints foundation.INSDictionary) {
 	objc.Send[objc.ID](i.ID, objc.Sel("drawInRect:fromRect:operation:fraction:respectFlipped:hints:"), dstSpacePortionRect, srcSpacePortionRect, op, requestedAlpha, respectContextIsFlipped, hints)
 }
-
 // Draws the image using the specified image representation object.
 //
 // imageRep: The image representation object to be drawn.
@@ -1630,7 +1546,6 @@ func (i NSImage) DrawRepresentationInRect(imageRep INSImageRep, rect corefoundat
 	rv := objc.Send[bool](i.ID, objc.Sel("drawRepresentation:inRect:"), imageRep, rect)
 	return rv
 }
-
 // Invalidates and frees offscreen caches of all image representations.
 //
 // # Discussion
@@ -1650,7 +1565,6 @@ func (i NSImage) DrawRepresentationInRect(imageRep INSImageRep, rect corefoundat
 func (i NSImage) Recache() {
 	objc.Send[objc.ID](i.ID, objc.Sel("recache"))
 }
-
 // Returns a data object that contains TIFF data with the specified
 // compression settings for all of the image representations in the image.
 //
@@ -1684,7 +1598,6 @@ func (i NSImage) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("TIFFRepresentationUsingCompression:factor:"), comp, factor)
 	return foundation.NSDataFromID(rv)
 }
-
 // Returns a Core Graphics image based on the contents of the current image
 // object.
 //
@@ -1724,7 +1637,6 @@ func (i NSImage) CGImageForProposedRectContextHints(proposedDestRect *corefounda
 	rv := objc.Send[coregraphics.CGImageRef](i.ID, objc.Sel("CGImageForProposedRect:context:hints:"), proposedDestRect, referenceContext, hints)
 	return coregraphics.CGImageRef(rv)
 }
-
 // Returns whether the destination rectangle would intersect a non-transparent
 // portion of the image.
 //
@@ -1760,7 +1672,6 @@ func (i NSImage) HitTestRectWithImageDestinationRectContextHintsFlipped(testRect
 	rv := objc.Send[bool](i.ID, objc.Sel("hitTestRect:withImageDestinationRect:context:hints:flipped:"), testRectDestSpace, imageRectDestSpace, context, hints, flipped)
 	return rv
 }
-
 // Returns an object that may be used as the contents of a layer.
 //
 // layerContentsScale: The scale factor for the resulting image. Obtain the value for this
@@ -1787,7 +1698,6 @@ func (i NSImage) LayerContentsForContentsScale(layerContentsScale float64) objec
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("layerContentsForContentsScale:"), layerContentsScale)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the recommended layer contents scale for this image.
 //
 // preferredContentsScale: The preferred layer contents scale. Don’t use a higher scale factor if
@@ -1812,14 +1722,12 @@ func (i NSImage) RecommendedLayerContentsScale(preferredContentsScale float64) f
 	rv := objc.Send[float64](i.ID, objc.Sel("recommendedLayerContentsScale:"), preferredContentsScale)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/withLocale(_:)
 func (i NSImage) ImageWithLocale(locale foundation.NSLocale) INSImage {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageWithLocale:"), locale)
 	return NSImageFromID(rv)
 }
-
 // Initializes an instance with a property list object and a type string.
 //
 // propertyList: A property list containing data to initialize the receiver.
@@ -1850,7 +1758,6 @@ func (i NSImage) InitWithPasteboardPropertyListOfType(propertyList objectivec.IO
 	rv := objc.Send[NSImage](i.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
 }
-
 // Returns a property list object to represent the receiver on a pasteboard as
 // an object of a specified type.
 //
@@ -1874,7 +1781,6 @@ func (i NSImage) PasteboardPropertyListForType(type_ NSPasteboardType) objective
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("pasteboardPropertyListForType:"), objc.String(string(type_)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an array of UTI strings of data types the receiver can write to a
 // given pasteboard.
 //
@@ -1905,7 +1811,6 @@ func (i NSImage) WritableTypesForPasteboard(pasteboard INSPasteboard) []string {
 	rv := objc.Send[[]objc.ID](i.ID, objc.Sel("writableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for writing data of a specified type to a given pasteboard.
 //
 // type: One of the types the receiver supports for writing (one of the UTIs
@@ -1936,6 +1841,73 @@ func (i NSImage) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](i.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 
+// Creates and returns an image object whose contents are drawn using the
+// specified block.
+//
+// size: The size of the image, measured in points.
+//
+// drawingHandlerShouldBeCalledWithFlippedContext: [true] to apply a flip transformation to the graphics context before
+// drawing or [false] to draw using the default Cocoa coordinate system
+// orientation.
+// //
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// drawingHandler: A block that draws the contents of the image representation. The image
+// representation copies the block and stores it for later use. It is not
+// executed until you draw the image. Because the block is executed later,
+// AppKit executes it on the same thread on which you draw the image itself,
+// which can be any thread of your app. Therefore, the block must be safe to
+// call from any thread. The block takes the following parameter:
+// 
+// dstRect: The destination rectangle in which to draw. The coordinates of
+// this rectangle are specified in points.
+// 
+// The block returns a Boolean that indicates whether it drew the image
+// successfully. Return [true] from your block if it successfully drew the
+// contents or [false] if it did not.
+// //
+// [false]: https://developer.apple.com/documentation/Swift/false
+// [true]: https://developer.apple.com/documentation/Swift/true
+//
+// # Return Value
+// 
+// An initialized [NSImage] object.
+//
+// # Discussion
+// 
+// Use this method to generate an image that is correct at any resolution.
+// This method creates an image object with a single [NSCustomImageRep] object
+// to manage drawing. The image representation uses the block in the
+// `drawingHandler` parameter to do the actual drawing.
+// 
+// When you draw the image for the first time, the underlying image
+// representation executes the `drawingHandler` block. The image object caches
+// the results according to its usual caching policies; see the [CacheMode]
+// property. As long as the configuration of the destination graphics context
+// does not change in a significant way, subsequent attempts to draw the image
+// reuse the cached results whenever possible. If the pixel density or color
+// space of the destination graphics context changes, though, the image
+// representation throws away any caches and executes the block again to
+// obtain a new version of the image. For example, if you drew the image on a
+// standard resolution display but then draw it on a Retina display, AppKit
+// executes the block again to obtain an image at the new resolution.
+// 
+// The most typical use for this method is to create an image based on
+// vector-based content. In that case, your `drawingHandler` block would
+// redraw its existing path objects when asked. If you draw a mixture of
+// vectors and images, you need to do more work to ensure that your images are
+// the appropriate resolution for the destination graphics context.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSImage/init(size:flipped:drawingHandler:)
+func (_NSImageClass NSImageClass) ImageWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler RectHandler) NSImage {
+_block1, _cleanup1 := NewErrorBlock(drawingHandlerShouldBeCalledWithFlippedContext)
+	defer _cleanup1()
+	_block2, _cleanup2 := NewRectBlock(drawingHandler)
+	defer _cleanup2()
+	rv := objc.Send[objc.ID](objc.ID(_NSImageClass.class), objc.Sel("imageWithSize:flipped:drawingHandler:"), size, _block1, _block2)
+	return NSImageFromID(rv)
+}
 // Tests whether the image can create an instance of itself using pasteboard
 // data.
 //
@@ -1964,7 +1936,6 @@ func (_NSImageClass NSImageClass) CanInitWithPasteboard(pasteboard INSPasteboard
 	rv := objc.Send[bool](objc.ID(_NSImageClass.class), objc.Sel("canInitWithPasteboard:"), pasteboard)
 	return rv
 }
-
 // Returns an array of uniform type identifier strings of data types the
 // receiver can read from the pasteboard and initialize from.
 //
@@ -1993,7 +1964,6 @@ func (_NSImageClass NSImageClass) ReadableTypesForPasteboard(pasteboard INSPaste
 	rv := objc.Send[[]objc.ID](objc.ID(_NSImageClass.class), objc.Sel("readableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for reading data of a specified type from a given
 // pasteboard.
 //
@@ -2042,7 +2012,6 @@ func (i NSImage) SymbolConfiguration() INSImageSymbolConfiguration {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("symbolConfiguration"))
 	return NSImageSymbolConfigurationFromID(objc.ID(rv))
 }
-
 // The image’s delegate object.
 //
 // # Discussion
@@ -2057,7 +2026,6 @@ func (i NSImage) Delegate() NSImageDelegate {
 func (i NSImage) SetDelegate(value NSImageDelegate) {
 	objc.Send[struct{}](i.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The size of the image.
 //
 // # Discussion
@@ -2082,7 +2050,6 @@ func (i NSImage) Size() corefoundation.CGSize {
 func (i NSImage) SetSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSize:"), value)
 }
-
 // A Boolean value that determines whether the image represents a template
 // image.
 //
@@ -2110,7 +2077,6 @@ func (i NSImage) Template() bool {
 func (i NSImage) SetTemplate(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setTemplate:"), value)
 }
-
 // An array containing all of the image object’s image representations.
 //
 // # Discussion
@@ -2124,7 +2090,6 @@ func (i NSImage) Representations() []NSImageRep {
 		return NSImageRepFromID(id)
 	})
 }
-
 // A Boolean value that indicates whether the image prefers to choose image
 // representations using color-matching or resolution-matching.
 //
@@ -2148,7 +2113,6 @@ func (i NSImage) PrefersColorMatch() bool {
 func (i NSImage) SetPrefersColorMatch(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setPrefersColorMatch:"), value)
 }
-
 // A Boolean value that indicates whether EPS representations are preferred
 // when no other representations match the resolution of the device.
 //
@@ -2166,7 +2130,6 @@ func (i NSImage) UsesEPSOnResolutionMismatch() bool {
 func (i NSImage) SetUsesEPSOnResolutionMismatch(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setUsesEPSOnResolutionMismatch:"), value)
 }
-
 // A Boolean value that indicates whether image representations whose
 // resolution is an integral multiple of the device resolution are a match.
 //
@@ -2191,7 +2154,6 @@ func (i NSImage) MatchesOnMultipleResolution() bool {
 func (i NSImage) SetMatchesOnMultipleResolution(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMatchesOnMultipleResolution:"), value)
 }
-
 // A Boolean value that indicates whether it is possible to draw an image
 // representation.
 //
@@ -2212,7 +2174,6 @@ func (i NSImage) Valid() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("isValid"))
 	return rv
 }
-
 // The background color for the image.
 //
 // # Discussion
@@ -2236,7 +2197,6 @@ func (i NSImage) BackgroundColor() INSColor {
 func (i NSImage) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](i.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
 // The cap insets for the image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/capInsets
@@ -2247,7 +2207,6 @@ func (i NSImage) CapInsets() foundation.NSEdgeInsets {
 func (i NSImage) SetCapInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](i.ID, objc.Sel("setCapInsets:"), value)
 }
-
 // The resizing mode for the image.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImage/resizingMode-swift.property
@@ -2258,7 +2217,6 @@ func (i NSImage) ResizingMode() NSImageResizingMode {
 func (i NSImage) SetResizingMode(value NSImageResizingMode) {
 	objc.Send[struct{}](i.ID, objc.Sel("setResizingMode:"), value)
 }
-
 // A rectangle that you can use to position the image during layout.
 //
 // # Discussion
@@ -2284,7 +2242,6 @@ func (i NSImage) AlignmentRect() corefoundation.CGRect {
 func (i NSImage) SetAlignmentRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAlignmentRect:"), value)
 }
-
 // The image’s caching mode.
 //
 // # Discussion
@@ -2314,7 +2271,6 @@ func (i NSImage) CacheMode() NSImageCacheMode {
 func (i NSImage) SetCacheMode(value NSImageCacheMode) {
 	objc.Send[struct{}](i.ID, objc.Sel("setCacheMode:"), value)
 }
-
 // A data object containing TIFF data for all of the image representations in
 // the image.
 //
@@ -2338,7 +2294,6 @@ func (i NSImage) TIFFRepresentation() foundation.INSData {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("TIFFRepresentation"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
 // The image’s accessibility description.
 //
 // # Discussion
@@ -2356,7 +2311,6 @@ func (i NSImage) AccessibilityDescription() string {
 func (i NSImage) SetAccessibilityDescription(value string) {
 	objc.Send[struct{}](i.ID, objc.Sel("setAccessibilityDescription:"), objc.String(value))
 }
-
 // A Boolean value that indicates whether the image matches only on the best
 // fitting axis.
 //
@@ -2385,13 +2339,11 @@ func (i NSImage) MatchesOnlyOnBestFittingAxis() bool {
 func (i NSImage) SetMatchesOnlyOnBestFittingAxis(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMatchesOnlyOnBestFittingAxis:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSImage/locale
 func (i NSImage) Locale() foundation.NSLocale {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("locale"))
 	return foundation.NSLocaleFromID(objc.ID(rv))
 }
-
 // An object that provides the contents of the layer. Animatable.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/contents
@@ -2402,7 +2354,6 @@ func (i NSImage) Contents() objectivec.IObject {
 func (i NSImage) SetContents(value objectivec.IObject) {
 	objc.Send[struct{}](i.ID, objc.Sel("setContents:"), value)
 }
-
 // A constant that specifies how the layer’s contents are positioned or
 // scaled within its bounds.
 //
@@ -2414,7 +2365,6 @@ func (i NSImage) ContentsGravity() foundation.NSString {
 func (i NSImage) SetContentsGravity(value foundation.NSString) {
 	objc.Send[struct{}](i.ID, objc.Sel("setContentsGravity:"), value)
 }
-
 // The content is resized to fit the entire bounds rectangle.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerContentsGravity/resize
@@ -2422,7 +2372,6 @@ func (i NSImage) Resize() foundation.NSString {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("resize"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
 // The content is resized to fit the bounds rectangle, preserving the aspect
 // of the content. If the content does not completely fill the bounds
 // rectangle, the content is centered in the partial axis.
@@ -2432,7 +2381,6 @@ func (i NSImage) ResizeAspect() foundation.NSString {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("resizeAspect"))
 	return foundation.NSStringFromID(objc.ID(rv))
 }
-
 // The content is resized to completely fill the bounds rectangle, while still
 // preserving the aspect of the content. The content is centered in the axis
 // it exceeds.
@@ -2470,7 +2418,6 @@ func (_NSImageClass NSImageClass) ImageTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSImageClass.class), objc.Sel("imageTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns an array of UTI strings identifying the image types supported
 // directly by the registered image representation objects.
 //
@@ -2500,4 +2447,19 @@ func (_NSImageClass NSImageClass) ImageUnfilteredTypes() []string {
 
 			// Protocol methods for NSPasteboardWriting
 			
+
+// ImageWithSizeFlippedDrawingHandlerSync is a synchronous wrapper around [NSImage.ImageWithSizeFlippedDrawingHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (ic NSImageClass) ImageWithSizeFlippedDrawingHandlerSync(ctx context.Context, size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler) (corefoundation.CGRect, error) {
+	done := make(chan corefoundation.CGRect, 1)
+	ic.ImageWithSizeFlippedDrawingHandler(size, drawingHandlerShouldBeCalledWithFlippedContext, func(val corefoundation.CGRect) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return corefoundation.CGRect{}, ctx.Err()
+	}
+}
 

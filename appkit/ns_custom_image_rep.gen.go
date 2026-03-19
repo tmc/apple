@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -102,7 +103,7 @@ type INSCustomImageRep interface {
 	// Returns a representation of an image initialized with the specified delegate information.
 	InitWithDrawSelectorDelegate(selector objc.SEL, delegate objectivec.IObject) NSCustomImageRep
 	// Initializes a representation of an image of the specified size and flipped status, using a block to draw its content.
-	InitWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler ErrorHandler) NSCustomImageRep
+	InitWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler RectHandler) NSCustomImageRep
 
 	// Topic: Getting Drawing Handlers
 
@@ -174,52 +175,6 @@ func NewCustomImageRepWithDrawSelectorDelegate(selector objc.SEL, delegate objec
 	return NSCustomImageRepFromID(rv)
 }
 
-// Initializes a representation of an image of the specified size and flipped
-// status, using a block to draw its content.
-//
-// size: The size of the image.
-//
-// drawingHandlerShouldBeCalledWithFlippedContext: [true] if the drawing handler should be called with a flipped graphics
-// context; otherwise [false].
-// //
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// drawingHandler: A block that draws the image representation content in the provided
-// graphics context.
-// 
-// The block may be invoked whenever and on whatever thread the image itself
-// is drawn on. Care should be taken to ensure that all state accessed within
-// the drawingHandler block is done so in a thread safe manner.
-// 
-// This Block replaces the [LockFocus] and [UnlockFocus] technique of creating
-// drawing content. The block is invoked at draw time, the drawing can be
-// adjusted to suit the destination’s pixel density, color space, and other
-// properties.
-//
-// # Return Value
-// 
-// An initialized [NSCustomImageRep] object, or `nil` if the object could not
-// be initialized.
-//
-// # Discussion
-// 
-// Using the this method ensures you’ll get correct results under standard
-// and high resolution.
-// 
-// Like other non-bitmap image rep types, drawing is cached as appropriate for
-// the destination context. Practically speaking, the `drawingHandler` block
-// will be invoked the first time the image is drawn to a particular type of
-// destination (1x or 2x screen, for example). Subsequent drawing operations
-// to the same type of destination will reuse the previously generated bitmap.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCustomImageRep/init(size:flipped:drawingHandler:)
-func NewCustomImageRepWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext bool, drawingHandler corefoundation.CGRect) NSCustomImageRep {
-	instance := getNSCustomImageRepClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSize:flipped:drawingHandler:"), size, drawingHandlerShouldBeCalledWithFlippedContext, drawingHandler)
-	return NSCustomImageRepFromID(rv)
-}
-
 // Returns a representation of an image initialized with the specified
 // delegate information.
 //
@@ -246,7 +201,6 @@ func (c NSCustomImageRep) InitWithDrawSelectorDelegate(selector objc.SEL, delega
 	rv := objc.Send[NSCustomImageRep](c.ID, objc.Sel("initWithDrawSelector:delegate:"), selector, delegate)
 	return rv
 }
-
 // Initializes a representation of an image of the specified size and flipped
 // status, using a block to draw its content.
 //
@@ -287,10 +241,10 @@ func (c NSCustomImageRep) InitWithDrawSelectorDelegate(selector objc.SEL, delega
 // to the same type of destination will reuse the previously generated bitmap.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCustomImageRep/init(size:flipped:drawingHandler:)
-func (c NSCustomImageRep) InitWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler ErrorHandler) NSCustomImageRep {
+func (c NSCustomImageRep) InitWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler RectHandler) NSCustomImageRep {
 _block1, _cleanup1 := NewErrorBlock(drawingHandlerShouldBeCalledWithFlippedContext)
 	defer _cleanup1()
-	_block2, _cleanup2 := NewErrorBlock(drawingHandler)
+	_block2, _cleanup2 := NewRectBlock(drawingHandler)
 	defer _cleanup2()
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithSize:flipped:drawingHandler:"), size, _block1, _block2)
 	return NSCustomImageRepFromID(rv)
@@ -304,7 +258,6 @@ func (c NSCustomImageRep) DrawingHandler() structCGRectHandler {
 	_ = rv
 	return nil
 }
-
 // The delegate object that renders the image for the image representation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCustomImageRep/delegate
@@ -312,12 +265,26 @@ func (c NSCustomImageRep) Delegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("delegate"))
 	return objectivec.Object{ID: rv}
 }
-
 // The selector for the delegate’s drawing method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCustomImageRep/drawSelector
 func (c NSCustomImageRep) DrawSelector() objc.SEL {
 	rv := objc.Send[objc.SEL](c.ID, objc.Sel("drawSelector"))
 	return rv
+}
+
+// InitWithSizeFlippedDrawingHandlerSync is a synchronous wrapper around [NSCustomImageRep.InitWithSizeFlippedDrawingHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (c NSCustomImageRep) InitWithSizeFlippedDrawingHandlerSync(ctx context.Context, size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler) (corefoundation.CGRect, error) {
+	done := make(chan corefoundation.CGRect, 1)
+	c.InitWithSizeFlippedDrawingHandler(size, drawingHandlerShouldBeCalledWithFlippedContext, func(val corefoundation.CGRect) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return corefoundation.CGRect{}, ctx.Err()
+	}
 }
 

@@ -121,7 +121,6 @@ func (r MTLRasterizationRateSampleArray) ObjectAtIndexedSubscript(index uint) fo
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return foundation.NSNumberFromID(rv)
 }
-
 // Stores a sample value at the specified index.
 //
 // value: The new value to set.
@@ -148,7 +147,6 @@ func (r MTLRasterizationRateSampleArray) Horizontal() IMTLRasterizationRateSampl
 func (r MTLRasterizationRateSampleArray) SetHorizontal(value IMTLRasterizationRateSampleArray) {
 	objc.Send[struct{}](r.ID, objc.Sel("setHorizontal:"), value)
 }
-
 // The maximum number of rows and columns in the layer map.
 //
 // See: https://developer.apple.com/documentation/metal/mtlrasterizationratelayerdescriptor/maxsamplecount
@@ -159,7 +157,6 @@ func (r MTLRasterizationRateSampleArray) MaxSampleCount() MTLSize {
 func (r MTLRasterizationRateSampleArray) SetMaxSampleCount(value MTLSize) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMaxSampleCount:"), value)
 }
-
 // The number of rows and columns in the layer map.
 //
 // See: https://developer.apple.com/documentation/metal/mtlrasterizationratelayerdescriptor/samplecount
@@ -170,7 +167,6 @@ func (r MTLRasterizationRateSampleArray) SampleCount() MTLSize {
 func (r MTLRasterizationRateSampleArray) SetSampleCount(value MTLSize) {
 	objc.Send[struct{}](r.ID, objc.Sel("setSampleCount:"), value)
 }
-
 // The vertical rasterization rates for the layer map’s rows.
 //
 // See: https://developer.apple.com/documentation/metal/mtlrasterizationratelayerdescriptor/vertical

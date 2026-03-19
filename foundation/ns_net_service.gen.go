@@ -327,7 +327,6 @@ func (n NetService) Addresses() []NSData {
 		return NSDataFromID(id)
 	})
 }
-
 // A string containing the domain for this service.
 //
 // # Discussion
@@ -345,7 +344,6 @@ func (n NetService) Domain() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("domain"))
 	return NSStringFromID(rv).String()
 }
-
 // Specifies whether to also publish, resolve, or monitor this service over
 // peer-to-peer Bluetooth and Wi-Fi, if available.
 //
@@ -362,7 +360,6 @@ func (n NetService) IncludesPeerToPeer() bool {
 func (n NetService) SetIncludesPeerToPeer(value bool) {
 	objc.Send[struct{}](n.ID, objc.Sel("setIncludesPeerToPeer:"), value)
 }
-
 // A string containing the name of this service.
 //
 // # Discussion
@@ -376,7 +373,6 @@ func (n NetService) Name() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("name"))
 	return NSStringFromID(rv).String()
 }
-
 // The type of the published service.
 //
 // # Discussion
@@ -390,7 +386,6 @@ func (n NetService) Type() string {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("type"))
 	return NSStringFromID(rv).String()
 }
-
 // The delegate for the receiver.
 //
 // # Discussion
@@ -406,7 +401,6 @@ func (n NetService) Delegate() NSNetServiceDelegate {
 func (n NetService) SetDelegate(value NSNetServiceDelegate) {
 	objc.Send[struct{}](n.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The port on which the service is listening for connections.
 //
 // # Discussion
@@ -424,7 +418,6 @@ func (n NetService) Port() int {
 	rv := objc.Send[int](n.ID, objc.Sel("port"))
 	return rv
 }
-
 // A string containing the DNS hostname for this service.
 //
 // # Discussion

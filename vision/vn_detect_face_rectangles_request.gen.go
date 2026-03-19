@@ -128,7 +128,6 @@ func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision3() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision3"))
 	return rv
 }
-
 // A constant for specifying revision 2 of the face rectangles detection
 // request.
 //
@@ -137,7 +136,6 @@ func (d VNDetectFaceRectanglesRequest) VNDetectFaceRectanglesRequestRevision2() 
 	rv := objc.Send[int](d.ID, objc.Sel("VNDetectFaceRectanglesRequestRevision2"))
 	return rv
 }
-
 // A constant for specifying revision 1 of the face rectangles detection
 // request.
 //

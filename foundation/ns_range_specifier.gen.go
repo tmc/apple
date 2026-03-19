@@ -246,7 +246,6 @@ func (r NSRangeSpecifier) EndSpecifier() INSScriptObjectSpecifier {
 func (r NSRangeSpecifier) SetEndSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](r.ID, objc.Sel("setEndSpecifier:"), value)
 }
-
 // Returns the object specifier representing the first object of the range.
 //
 // # Return Value

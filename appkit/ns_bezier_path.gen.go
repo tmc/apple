@@ -492,7 +492,6 @@ func NewBezierPathWithRoundedRectXRadiusYRadius(rect corefoundation.CGRect, xRad
 func (b NSBezierPath) MoveToPoint(point corefoundation.CGPoint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("moveToPoint:"), point)
 }
-
 // Appends a straight line to the path.
 //
 // point: The destination point of the line segment, specified in the current
@@ -515,7 +514,6 @@ func (b NSBezierPath) MoveToPoint(point corefoundation.CGPoint) {
 func (b NSBezierPath) LineToPoint(point corefoundation.CGPoint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("lineToPoint:"), point)
 }
-
 // Adds a Bezier cubic curve to the path.
 //
 // endPoint: The destination point of the curve segment, specified in the current
@@ -539,13 +537,11 @@ func (b NSBezierPath) LineToPoint(point corefoundation.CGPoint) {
 func (b NSBezierPath) CurveToPointControlPoint1ControlPoint2(endPoint corefoundation.CGPoint, controlPoint1 corefoundation.CGPoint, controlPoint2 corefoundation.CGPoint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("curveToPoint:controlPoint1:controlPoint2:"), endPoint, controlPoint1, controlPoint2)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/curve(to:controlPoint:)
 func (b NSBezierPath) CurveToPointControlPoint(endPoint corefoundation.CGPoint, controlPoint corefoundation.CGPoint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("curveToPoint:controlPoint:"), endPoint, controlPoint)
 }
-
 // Closes the most recently added subpath.
 //
 // # Discussion
@@ -559,7 +555,6 @@ func (b NSBezierPath) CurveToPointControlPoint(endPoint corefoundation.CGPoint, 
 func (b NSBezierPath) ClosePath() {
 	objc.Send[objc.ID](b.ID, objc.Sel("closePath"))
 }
-
 // Moves the path’s current point to a new point whose location is the
 // specified distance from the current point.
 //
@@ -586,7 +581,6 @@ func (b NSBezierPath) ClosePath() {
 func (b NSBezierPath) RelativeMoveToPoint(point corefoundation.CGPoint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("relativeMoveToPoint:"), point)
 }
-
 // Appends a straight line segment to the path starting at the current point
 // and moving towards the specified point, relative to the current location.
 //
@@ -610,7 +604,6 @@ func (b NSBezierPath) RelativeMoveToPoint(point corefoundation.CGPoint) {
 func (b NSBezierPath) RelativeLineToPoint(point corefoundation.CGPoint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("relativeLineToPoint:"), point)
 }
-
 // Adds a Bezier cubic curve to the path from the current point to a new
 // location, which is specified as a relative distance from the current point.
 //
@@ -636,13 +629,11 @@ func (b NSBezierPath) RelativeLineToPoint(point corefoundation.CGPoint) {
 func (b NSBezierPath) RelativeCurveToPointControlPoint1ControlPoint2(endPoint corefoundation.CGPoint, controlPoint1 corefoundation.CGPoint, controlPoint2 corefoundation.CGPoint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("relativeCurveToPoint:controlPoint1:controlPoint2:"), endPoint, controlPoint1, controlPoint2)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/relativeCurve(to:controlPoint:)
 func (b NSBezierPath) RelativeCurveToPointControlPoint(endPoint corefoundation.CGPoint, controlPoint corefoundation.CGPoint) {
 	objc.Send[objc.ID](b.ID, objc.Sel("relativeCurveToPoint:controlPoint:"), endPoint, controlPoint)
 }
-
 // Appends the contents of the specified path object to the path.
 //
 // path: The path to add to the receiver.
@@ -658,7 +649,6 @@ func (b NSBezierPath) RelativeCurveToPointControlPoint(endPoint corefoundation.C
 func (b NSBezierPath) AppendBezierPath(path INSBezierPath) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPath:"), path)
 }
-
 // Appends a series of line segments to the path.
 //
 // points: A C-style array of [NSPoint] data types, each of which contains the end
@@ -683,7 +673,6 @@ func (b NSBezierPath) AppendBezierPath(path INSBezierPath) {
 func (b NSBezierPath) AppendBezierPathWithPointsCount(points []foundation.NSPoint, count int) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithPoints:count:"), objc.CArray(points), count)
 }
-
 // Appends an oval path to the path, inscribing the oval in the specified
 // rectangle.
 //
@@ -701,7 +690,6 @@ func (b NSBezierPath) AppendBezierPathWithPointsCount(points []foundation.NSPoin
 func (b NSBezierPath) AppendBezierPathWithOvalInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithOvalInRect:"), rect)
 }
-
 // Appends an arc to the path.
 //
 // point1: The middle point of the angle.
@@ -739,7 +727,6 @@ func (b NSBezierPath) AppendBezierPathWithOvalInRect(rect corefoundation.CGRect)
 func (b NSBezierPath) AppendBezierPathWithArcFromPointToPointRadius(point1 corefoundation.CGPoint, point2 corefoundation.CGPoint, radius float64) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithArcFromPoint:toPoint:radius:"), point1, point2, radius)
 }
-
 // Appends an arc of a circle to the path.
 //
 // center: Specifies the center point of the circle used to define the arc.
@@ -768,7 +755,6 @@ func (b NSBezierPath) AppendBezierPathWithArcFromPointToPointRadius(point1 coref
 func (b NSBezierPath) AppendBezierPathWithArcWithCenterRadiusStartAngleEndAngle(center corefoundation.CGPoint, radius float64, startAngle float64, endAngle float64) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:"), center, radius, startAngle, endAngle)
 }
-
 // Appends an arc of a circle to the path.
 //
 // center: Specifies the center point of the circle used to define the arc.
@@ -804,7 +790,6 @@ func (b NSBezierPath) AppendBezierPathWithArcWithCenterRadiusStartAngleEndAngle(
 func (b NSBezierPath) AppendBezierPathWithArcWithCenterRadiusStartAngleEndAngleClockwise(center corefoundation.CGPoint, radius float64, startAngle float64, endAngle float64, clockwise bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:"), center, radius, startAngle, endAngle, clockwise)
 }
-
 // Appends a rectangular path to the path.
 //
 // rect: The rectangle describing the path to create.
@@ -821,7 +806,6 @@ func (b NSBezierPath) AppendBezierPathWithArcWithCenterRadiusStartAngleEndAngleC
 func (b NSBezierPath) AppendBezierPathWithRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithRect:"), rect)
 }
-
 // Appends a rounded rectangular path to the path.
 //
 // rect: The rectangle that defines the basic shape of the path.
@@ -843,21 +827,18 @@ func (b NSBezierPath) AppendBezierPathWithRect(rect corefoundation.CGRect) {
 func (b NSBezierPath) AppendBezierPathWithRoundedRectXRadiusYRadius(rect corefoundation.CGRect, xRadius float64, yRadius float64) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithRoundedRect:xRadius:yRadius:"), rect, xRadius, yRadius)
 }
-
 // Appends an outline of the specified glyph to the path.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/append(withCGGlyph:in:)
 func (b NSBezierPath) AppendBezierPathWithCGGlyphInFont(glyph coregraphics.CGFontIndex, font NSFont) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithCGGlyph:inFont:"), glyph, font)
 }
-
 // Appends the outlines of the specified glyphs to the path.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/append(withCGGlyphs:count:in:)
 func (b NSBezierPath) AppendBezierPathWithCGGlyphsCountInFont(glyphs []coregraphics.CGFontIndex, count int, font NSFont) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithCGGlyphs:count:inFont:"), objc.CArray(glyphs), count, font)
 }
-
 // Returns the line-stroking pattern for the receiver.
 //
 // pattern: On input, a C-style array of floating point values, or `nil` if you do not
@@ -889,7 +870,6 @@ func (b NSBezierPath) AppendBezierPathWithCGGlyphsCountInFont(glyphs []coregraph
 func (b NSBezierPath) GetLineDashCountPhase(pattern []float64, count unsafe.Pointer, phase unsafe.Pointer) {
 	objc.Send[objc.ID](b.ID, objc.Sel("getLineDash:count:phase:"), objc.CArray(pattern), count, phase)
 }
-
 // Sets the line-stroking pattern for the path.
 //
 // pattern: A C-style array of floating point values that contains the lengths
@@ -916,7 +896,6 @@ func (b NSBezierPath) GetLineDashCountPhase(pattern []float64, count unsafe.Poin
 func (b NSBezierPath) SetLineDashCountPhase(pattern []float64, count int, phase float64) {
 	objc.Send[objc.ID](b.ID, objc.Sel("setLineDash:count:phase:"), objc.CArray(pattern), count, phase)
 }
-
 // Draws a line along the path using the current stroke color and drawing
 // attributes.
 //
@@ -931,7 +910,6 @@ func (b NSBezierPath) SetLineDashCountPhase(pattern []float64, count int, phase 
 func (b NSBezierPath) Stroke() {
 	objc.Send[objc.ID](b.ID, objc.Sel("stroke"))
 }
-
 // Paints the region enclosed by the path.
 //
 // # Discussion
@@ -949,7 +927,6 @@ func (b NSBezierPath) Stroke() {
 func (b NSBezierPath) Fill() {
 	objc.Send[objc.ID](b.ID, objc.Sel("fill"))
 }
-
 // Intersects the area enclosed by the path with the clipping path of the
 // current graphics context and makes the resulting shape the current clipping
 // path.
@@ -963,7 +940,6 @@ func (b NSBezierPath) Fill() {
 func (b NSBezierPath) AddClip() {
 	objc.Send[objc.ID](b.ID, objc.Sel("addClip"))
 }
-
 // Replaces the clipping path of the current graphics context with the area
 // inside the path.
 //
@@ -982,7 +958,6 @@ func (b NSBezierPath) AddClip() {
 func (b NSBezierPath) SetClip() {
 	objc.Send[objc.ID](b.ID, objc.Sel("setClip"))
 }
-
 // Returns a Boolean value that indicates whether the path contains the
 // specified point.
 //
@@ -1011,7 +986,6 @@ func (b NSBezierPath) ContainsPoint(point corefoundation.CGPoint) bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("containsPoint:"), point)
 	return rv
 }
-
 // Transforms all points in the path using the specified transform.
 //
 // transform: The transform to apply to the path.
@@ -1026,7 +1000,6 @@ func (b NSBezierPath) ContainsPoint(point corefoundation.CGPoint) bool {
 func (b NSBezierPath) TransformUsingAffineTransform(transform foundation.NSAffineTransform) {
 	objc.Send[objc.ID](b.ID, objc.Sel("transformUsingAffineTransform:"), transform)
 }
-
 // Returns the type of path element at the specified index.
 //
 // index: The index of the desired path element.
@@ -1050,7 +1023,6 @@ func (b NSBezierPath) ElementAtIndex(index int) NSBezierPathElement {
 	rv := objc.Send[NSBezierPathElement](b.ID, objc.Sel("elementAtIndex:"), index)
 	return NSBezierPathElement(rv)
 }
-
 // Gets the element type and (and optionally) the associated points for the
 // path element at the specified index.
 //
@@ -1082,14 +1054,12 @@ func (b NSBezierPath) ElementAtIndexAssociatedPoints(index int, points foundatio
 	rv := objc.Send[NSBezierPathElement](b.ID, objc.Sel("elementAtIndex:associatedPoints:"), index, points)
 	return NSBezierPathElement(rv)
 }
-
 // Removes all path elements from the path, effectively clearing the path.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/removeAllPoints()
 func (b NSBezierPath) RemoveAllPoints() {
 	objc.Send[objc.ID](b.ID, objc.Sel("removeAllPoints"))
 }
-
 // Changes the points associated with the specified path element.
 //
 // points: A C-style array containing up to three [NSPoint] data types. This parameter
@@ -1133,7 +1103,6 @@ func (b NSBezierPath) EncodeWithCoder(coder foundation.INSCoder) {
 func (_NSBezierPathClass NSBezierPathClass) FillRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](objc.ID(_NSBezierPathClass.class), objc.Sel("fillRect:"), rect)
 }
-
 // Strokes the path of the specified rectangle using the current stroke color
 // and the default drawing attributes.
 //
@@ -1149,7 +1118,6 @@ func (_NSBezierPathClass NSBezierPathClass) FillRect(rect corefoundation.CGRect)
 func (_NSBezierPathClass NSBezierPathClass) StrokeRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](objc.ID(_NSBezierPathClass.class), objc.Sel("strokeRect:"), rect)
 }
-
 // Strokes a line between two points using the current stroke color and the
 // default drawing attributes.
 //
@@ -1165,7 +1133,6 @@ func (_NSBezierPathClass NSBezierPathClass) StrokeRect(rect corefoundation.CGRec
 func (_NSBezierPathClass NSBezierPathClass) StrokeLineFromPointToPoint(point1 corefoundation.CGPoint, point2 corefoundation.CGPoint) {
 	objc.Send[objc.ID](objc.ID(_NSBezierPathClass.class), objc.Sel("strokeLineFromPoint:toPoint:"), point1, point2)
 }
-
 // Draws a set of packed glyphs at the specified point in the current
 // coordinate system.
 //
@@ -1189,7 +1156,6 @@ func (_NSBezierPathClass NSBezierPathClass) StrokeLineFromPointToPoint(point1 co
 func (_NSBezierPathClass NSBezierPathClass) DrawPackedGlyphsAtPoint(packedGlyphs []byte, point corefoundation.CGPoint) {
 	objc.Send[objc.ID](objc.ID(_NSBezierPathClass.class), objc.Sel("drawPackedGlyphs:atPoint:"), unsafe.Pointer(unsafe.SliceData(packedGlyphs)), point)
 }
-
 // Intersects the specified rectangle with the clipping path of the current
 // graphics context and makes the resulting shape the current clipping path.
 //
@@ -1213,7 +1179,6 @@ func (b NSBezierPath) BezierPathByFlatteningPath() INSBezierPath {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("bezierPathByFlatteningPath"))
 	return NSBezierPathFromID(objc.ID(rv))
 }
-
 // A path containing the reversed contents of the current path object.
 //
 // # Discussion
@@ -1235,7 +1200,6 @@ func (b NSBezierPath) BezierPathByReversingPath() INSBezierPath {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("bezierPathByReversingPath"))
 	return NSBezierPathFromID(objc.ID(rv))
 }
-
 // The winding rule used to fill the path.
 //
 // # Discussion
@@ -1259,7 +1223,6 @@ func (b NSBezierPath) WindingRule() NSWindingRule {
 func (b NSBezierPath) SetWindingRule(value NSWindingRule) {
 	objc.Send[struct{}](b.ID, objc.Sel("setWindingRule:"), value)
 }
-
 // The line cap style for the path.
 //
 // # Discussion
@@ -1276,7 +1239,6 @@ func (b NSBezierPath) LineCapStyle() NSLineCapStyle {
 func (b NSBezierPath) SetLineCapStyle(value NSLineCapStyle) {
 	objc.Send[struct{}](b.ID, objc.Sel("setLineCapStyle:"), value)
 }
-
 // The line join style for the path.
 //
 // # Discussion
@@ -1293,7 +1255,6 @@ func (b NSBezierPath) LineJoinStyle() NSLineJoinStyle {
 func (b NSBezierPath) SetLineJoinStyle(value NSLineJoinStyle) {
 	objc.Send[struct{}](b.ID, objc.Sel("setLineJoinStyle:"), value)
 }
-
 // The width of stroked path lines.
 //
 // # Discussion
@@ -1318,7 +1279,6 @@ func (b NSBezierPath) LineWidth() float64 {
 func (b NSBezierPath) SetLineWidth(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setLineWidth:"), value)
 }
-
 // The limit at which miter joins are converted to bevel joins.
 //
 // # Discussion
@@ -1341,7 +1301,6 @@ func (b NSBezierPath) MiterLimit() float64 {
 func (b NSBezierPath) SetMiterLimit(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setMiterLimit:"), value)
 }
-
 // The accuracy with which curves are rendered.
 //
 // # Discussion
@@ -1363,7 +1322,6 @@ func (b NSBezierPath) Flatness() float64 {
 func (b NSBezierPath) SetFlatness(value float64) {
 	objc.Send[struct{}](b.ID, objc.Sel("setFlatness:"), value)
 }
-
 // The bounding box of the path.
 //
 // # Discussion
@@ -1382,7 +1340,6 @@ func (b NSBezierPath) Bounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("bounds"))
 	return corefoundation.CGRect(rv)
 }
-
 // The bounding box of the path, including any control points.
 //
 // # Discussion
@@ -1396,7 +1353,6 @@ func (b NSBezierPath) ControlPointBounds() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](b.ID, objc.Sel("controlPointBounds"))
 	return corefoundation.CGRect(rv)
 }
-
 // The current point (the trailing point or ending point in the most recently
 // added segment).
 //
@@ -1413,7 +1369,6 @@ func (b NSBezierPath) CurrentPoint() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](b.ID, objc.Sel("currentPoint"))
 	return corefoundation.CGPoint(rv)
 }
-
 // A Boolean value that indicates whether the path is empty.
 //
 // # Discussion
@@ -1429,7 +1384,6 @@ func (b NSBezierPath) Empty() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isEmpty"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/cgPath
 func (b NSBezierPath) CGPath() coregraphics.CGPathRef {
 	rv := objc.Send[coregraphics.CGPathRef](b.ID, objc.Sel("CGPath"))
@@ -1438,7 +1392,6 @@ func (b NSBezierPath) CGPath() coregraphics.CGPathRef {
 func (b NSBezierPath) SetCGPath(value coregraphics.CGPathRef) {
 	objc.Send[struct{}](b.ID, objc.Sel("setCGPath:"), value)
 }
-
 // The total number of path elements in the path.
 //
 // # Discussion
@@ -1471,7 +1424,6 @@ func (_NSBezierPathClass NSBezierPathClass) DefaultWindingRule() NSWindingRule {
 func (_NSBezierPathClass NSBezierPathClass) SetDefaultWindingRule(value NSWindingRule) {
 	objc.Send[struct{}](objc.ID(_NSBezierPathClass.class), objc.Sel("setDefaultWindingRule:"), value)
 }
-
 // Returns the default line cap style for all paths.
 //
 // # Return Value
@@ -1492,7 +1444,6 @@ func (_NSBezierPathClass NSBezierPathClass) DefaultLineCapStyle() NSLineCapStyle
 func (_NSBezierPathClass NSBezierPathClass) SetDefaultLineCapStyle(value NSLineCapStyle) {
 	objc.Send[struct{}](objc.ID(_NSBezierPathClass.class), objc.Sel("setDefaultLineCapStyle:"), value)
 }
-
 // Returns the default line join style for all paths.
 //
 // # Return Value
@@ -1508,7 +1459,6 @@ func (_NSBezierPathClass NSBezierPathClass) DefaultLineJoinStyle() NSLineJoinSty
 func (_NSBezierPathClass NSBezierPathClass) SetDefaultLineJoinStyle(value NSLineJoinStyle) {
 	objc.Send[struct{}](objc.ID(_NSBezierPathClass.class), objc.Sel("setDefaultLineJoinStyle:"), value)
 }
-
 // Returns the default line width for the all paths.
 //
 // # Return Value
@@ -1524,7 +1474,6 @@ func (_NSBezierPathClass NSBezierPathClass) DefaultLineWidth() float64 {
 func (_NSBezierPathClass NSBezierPathClass) SetDefaultLineWidth(value float64) {
 	objc.Send[struct{}](objc.ID(_NSBezierPathClass.class), objc.Sel("setDefaultLineWidth:"), value)
 }
-
 // Returns the default miter limit for all paths.
 //
 // # Return Value
@@ -1540,7 +1489,6 @@ func (_NSBezierPathClass NSBezierPathClass) DefaultMiterLimit() float64 {
 func (_NSBezierPathClass NSBezierPathClass) SetDefaultMiterLimit(value float64) {
 	objc.Send[struct{}](objc.ID(_NSBezierPathClass.class), objc.Sel("setDefaultMiterLimit:"), value)
 }
-
 // The default flatness value for all paths.
 //
 // # Return Value

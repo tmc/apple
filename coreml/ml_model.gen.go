@@ -256,7 +256,6 @@ func (m MLModel) PredictionFromFeaturesError(input objectivec.IObject) (objectiv
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:options:)
 func (m MLModel) PredictionFromFeaturesOptionsError(input objectivec.IObject, options IMLPredictionOptions) (objectivec.IObject, error) {
@@ -269,7 +268,6 @@ func (m MLModel) PredictionFromFeaturesOptionsError(input objectivec.IObject, op
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Generates predictions for each input feature provider within the batch
 // provider.
 //
@@ -296,7 +294,6 @@ func (m MLModel) PredictionsFromBatchError(inputBatch MLBatchProvider) (MLBatchP
 	return MLBatchProviderObjectFromID(rv), nil
 
 }
-
 // Generates a prediction for each input feature provider within the batch
 // provider using the prediction options.
 //
@@ -325,7 +322,6 @@ func (m MLModel) PredictionsFromBatchOptionsError(inputBatch MLBatchProvider, op
 	return MLBatchProviderObjectFromID(rv), nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:)
 func (m MLModel) PredictionFromFeaturesUsingStateError(inputFeatures objectivec.IObject, state IMLState) (objectivec.IObject, error) {
@@ -338,7 +334,6 @@ func (m MLModel) PredictionFromFeaturesUsingStateError(inputFeatures objectivec.
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/prediction(from:using:options:)
 func (m MLModel) PredictionFromFeaturesUsingStateOptionsError(inputFeatures objectivec.IObject, state IMLState, options IMLPredictionOptions) (objectivec.IObject, error) {
@@ -351,7 +346,6 @@ func (m MLModel) PredictionFromFeaturesUsingStateOptionsError(inputFeatures obje
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Returns a model parameter value for a key.
 //
 // key: The key to a model parameter value.
@@ -383,7 +377,6 @@ _block2, _cleanup2 := NewMLModelErrorBlock(handler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
 }
-
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/compileModel(at:)
 func (_MLModelClass MLModelClass) CompileModelAtURLError(modelURL foundation.INSURL) (foundation.NSURL, error) {
@@ -408,7 +401,6 @@ func (m MLModel) AvailableComputeDevices() objectivec.IObject {
 func (m MLModel) SetAvailableComputeDevices(value objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAvailableComputeDevices:"), value)
 }
-
 // The configuration of the model set during initialization.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/configuration
@@ -416,7 +408,6 @@ func (m MLModel) Configuration() IMLModelConfiguration {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("configuration"))
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
-
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -425,7 +416,6 @@ func (m MLModel) ModelDescription() IMLModelDescription {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("modelDescription"))
 	return MLModelDescriptionFromID(objc.ID(rv))
 }
-
 // A dictionary of the model’s creation information, such as its
 // description, author, version, and license.
 //

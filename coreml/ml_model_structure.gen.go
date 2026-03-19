@@ -118,7 +118,6 @@ _block1, _cleanup1 := NewMLModelStructureErrorBlock(handler)
 	defer _cleanup1()
 	objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadContentsOfURL:completionHandler:"), url, _block1)
 }
-
 // Construct the model structure asynchronously given the model asset.
 //
 // asset: The model asset.
@@ -142,7 +141,6 @@ func (m MLModelStructure) NeuralNetwork() IMLModelStructureNeuralNetwork {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("neuralNetwork"))
 	return MLModelStructureNeuralNetworkFromID(objc.ID(rv))
 }
-
 // If the model is of Pipeline type then it is the structure of the Pipeline
 // otherwise `nil`.
 //
@@ -151,7 +149,6 @@ func (m MLModelStructure) Pipeline() IMLModelStructurePipeline {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("pipeline"))
 	return MLModelStructurePipelineFromID(objc.ID(rv))
 }
-
 // If the model is of ML Program type then it is the structure of the ML
 // Program otherwise `nil`.
 //

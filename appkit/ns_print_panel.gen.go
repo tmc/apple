@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
@@ -154,7 +155,7 @@ type INSPrintPanel interface {
 
 	// Topic: Running the Panel
 
-	BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler ErrorHandler)
+	BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler PrintPanelResultHandler)
 	// Displays the Print panel and begins the modal loop.
 	RunModal() int
 	// Displays the Print panel and runs the modal loop using the specified printing information.
@@ -196,7 +197,6 @@ func (p NSPrintPanel) DefaultButtonTitle() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("defaultButtonTitle"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Sets the title of the Print panel’s default button.
 //
 // defaultButtonTitle: The string to use for the button title.
@@ -212,7 +212,6 @@ func (p NSPrintPanel) DefaultButtonTitle() string {
 func (p NSPrintPanel) SetDefaultButtonTitle(defaultButtonTitle string) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setDefaultButtonTitle:"), objc.String(defaultButtonTitle))
 }
-
 // Adds a custom controller to the Print panel to manage an accessory view.
 //
 // accessoryController: The view controller that manages your custom accessory views.
@@ -229,7 +228,6 @@ func (p NSPrintPanel) SetDefaultButtonTitle(defaultButtonTitle string) {
 func (p NSPrintPanel) AddAccessoryController(accessoryController INSViewController) {
 	objc.Send[objc.ID](p.ID, objc.Sel("addAccessoryController:"), accessoryController)
 }
-
 // Removes the specified controller and accessory view from the Print panel.
 //
 // accessoryController: The view controller to remove.
@@ -243,17 +241,15 @@ func (p NSPrintPanel) AddAccessoryController(accessoryController INSViewControll
 func (p NSPrintPanel) RemoveAccessoryController(accessoryController INSViewController) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeAccessoryController:"), accessoryController)
 }
-
 //
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/beginSheet(using:on:completionHandler:)
-func (p NSPrintPanel) BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(handler)
+func (p NSPrintPanel) BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler PrintPanelResultHandler) {
+_block2, _cleanup2 := NewPrintPanelResultBlock(handler)
 	defer _cleanup2()
 	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetUsingPrintInfo:onWindow:completionHandler:"), printInfo, parentWindow, _block2)
 }
-
 // Displays the Print panel and begins the modal loop.
 //
 // # Return Value
@@ -271,7 +267,6 @@ func (p NSPrintPanel) RunModal() int {
 	rv := objc.Send[int](p.ID, objc.Sel("runModal"))
 	return rv
 }
-
 // Displays the Print panel and runs the modal loop using the specified
 // printing information.
 //
@@ -306,7 +301,6 @@ func (p NSPrintPanel) JobStyleHint() NSPrintPanelJobStyleHint {
 func (p NSPrintPanel) SetJobStyleHint(value NSPrintPanelJobStyleHint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setJobStyleHint:"), objc.String(string(value)))
 }
-
 // The current configuration options for the Print panel.
 //
 // # Discussion
@@ -324,7 +318,6 @@ func (p NSPrintPanel) Options() NSPrintPanelOptions {
 func (p NSPrintPanel) SetOptions(value NSPrintPanelOptions) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOptions:"), value)
 }
-
 // The HTML help anchor associated with the Print panel.
 //
 // # Discussion
@@ -341,7 +334,6 @@ func (p NSPrintPanel) HelpAnchor() NSHelpAnchorName {
 func (p NSPrintPanel) SetHelpAnchor(value NSHelpAnchorName) {
 	objc.Send[struct{}](p.ID, objc.Sel("setHelpAnchor:"), objc.String(string(value)))
 }
-
 // The array of controller objects that manage the Print panel’s accessory
 // views.
 //
@@ -358,7 +350,6 @@ func (p NSPrintPanel) AccessoryControllers() []NSViewController {
 		return NSViewControllerFromID(id)
 	})
 }
-
 // The information associated with the running Print panel.
 //
 // # Discussion
@@ -370,5 +361,20 @@ func (p NSPrintPanel) AccessoryControllers() []NSViewController {
 func (p NSPrintPanel) PrintInfo() INSPrintInfo {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("printInfo"))
 	return NSPrintInfoFromID(objc.ID(rv))
+}
+
+// BeginSheetUsingPrintInfoOnWindow is a synchronous wrapper around [NSPrintPanel.BeginSheetUsingPrintInfoOnWindowCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (p NSPrintPanel) BeginSheetUsingPrintInfoOnWindow(ctx context.Context, printInfo INSPrintInfo, parentWindow INSWindow) (NSPrintPanelResult, error) {
+	done := make(chan NSPrintPanelResult, 1)
+	p.BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo, parentWindow, func(val NSPrintPanelResult) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
 }
 

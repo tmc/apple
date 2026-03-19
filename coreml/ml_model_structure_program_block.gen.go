@@ -108,7 +108,6 @@ func (m MLModelStructureProgramBlock) Inputs() []MLModelStructureProgramNamedVal
 		return MLModelStructureProgramNamedValueTypeFromID(id)
 	})
 }
-
 // The list of topologically sorted operations in the block.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock/operations
@@ -118,7 +117,6 @@ func (m MLModelStructureProgramBlock) Operations() []MLModelStructureProgramOper
 		return MLModelStructureProgramOperationFromID(id)
 	})
 }
-
 // The output names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureProgramBlock/outputNames

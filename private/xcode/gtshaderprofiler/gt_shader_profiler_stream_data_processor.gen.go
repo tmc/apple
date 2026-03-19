@@ -169,84 +169,69 @@ func (g GTShaderProfilerStreamDataProcessor) ProcessAPSTimelineData() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("processAPSTimelineData"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/processShaderProfilerStreamData
 func (g GTShaderProfilerStreamDataProcessor) ProcessShaderProfilerStreamData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("processShaderProfilerStreamData"))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/processStreamData
 func (g GTShaderProfilerStreamDataProcessor) ProcessStreamData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("processStreamData"))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/processTimelineStreamData
 func (g GTShaderProfilerStreamDataProcessor) ProcessTimelineStreamData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("processTimelineStreamData"))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/waitUntilFinished
 func (g GTShaderProfilerStreamDataProcessor) WaitUntilFinished() {
 	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilFinished"))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/waitUntilShaderProfilerFinished
 func (g GTShaderProfilerStreamDataProcessor) WaitUntilShaderProfilerFinished() {
 	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilShaderProfilerFinished"))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/waitUntilTimelineFinished
 func (g GTShaderProfilerStreamDataProcessor) WaitUntilTimelineFinished() {
 	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilTimelineFinished"))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/processAPSCostData
 func (g GTShaderProfilerStreamDataProcessor) ProcessAPSCostData() bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("processAPSCostData"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/processBatchIDFilteringData:
 func (g GTShaderProfilerStreamDataProcessor) ProcessBatchIDFilteringData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("processBatchIDFilteringData:"), data)
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/processBatchIdFilteredCounterStreamData
 func (g GTShaderProfilerStreamDataProcessor) ProcessBatchIdFilteredCounterStreamData() {
 	objc.Send[objc.ID](g.ID, objc.Sel("processBatchIdFilteredCounterStreamData"))
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/processGPUTimelineData:
 func (g GTShaderProfilerStreamDataProcessor) ProcessGPUTimelineData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("processGPUTimelineData:"), data)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/processShaderProfilerData:
 func (g GTShaderProfilerStreamDataProcessor) ProcessShaderProfilerData(data objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("processShaderProfilerData:"), data)
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/setupForBatchIDFilteringCounters:
 func (g GTShaderProfilerStreamDataProcessor) SetupForBatchIDFilteringCounters(counters objectivec.IObject) bool {
 	rv := objc.Send[bool](g.ID, objc.Sel("setupForBatchIDFilteringCounters:"), counters)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/streamDataProcessorBatchIdFilteredCountersUpdated:observerInfo:
 func (g GTShaderProfilerStreamDataProcessor) StreamDataProcessorBatchIdFilteredCountersUpdatedObserverInfo(updated objectivec.IObject, info objectivec.IObject) {
 	objc.Send[objc.ID](g.ID, objc.Sel("streamDataProcessorBatchIdFilteredCountersUpdated:observerInfo:"), updated, info)
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/waitUntilBatchIDCounterFinished
 func (g GTShaderProfilerStreamDataProcessor) WaitUntilBatchIDCounterFinished() {
 	objc.Send[objc.ID](g.ID, objc.Sel("waitUntilBatchIDCounterFinished"))
 }
-
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/initWithStreamData:llvmHelperPath:
 func (g GTShaderProfilerStreamDataProcessor) InitWithStreamDataLlvmHelperPath(data IGTShaderProfilerStreamData, path string) GTShaderProfilerStreamDataProcessor {
@@ -259,19 +244,16 @@ func (g GTShaderProfilerStreamDataProcessor) GpuGeneration() uint32 {
 	rv := objc.Send[uint32](g.ID, objc.Sel("gpuGeneration"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/result
 func (g GTShaderProfilerStreamDataProcessor) Result() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("result"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/streamData
 func (g GTShaderProfilerStreamDataProcessor) StreamData() IGTShaderProfilerStreamData {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("streamData"))
 	return GTShaderProfilerStreamDataFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/delegate
 func (g GTShaderProfilerStreamDataProcessor) Delegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("delegate"))
@@ -280,7 +262,6 @@ func (g GTShaderProfilerStreamDataProcessor) Delegate() objectivec.IObject {
 func (g GTShaderProfilerStreamDataProcessor) SetDelegate(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setDelegate:"), value)
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/isaPrinter
 func (g GTShaderProfilerStreamDataProcessor) IsaPrinter() objectivec.IObject {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("isaPrinter"))
@@ -289,7 +270,6 @@ func (g GTShaderProfilerStreamDataProcessor) IsaPrinter() objectivec.IObject {
 func (g GTShaderProfilerStreamDataProcessor) SetIsaPrinter(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
-
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/mioData
 func (g GTShaderProfilerStreamDataProcessor) MioData() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("mioData"))

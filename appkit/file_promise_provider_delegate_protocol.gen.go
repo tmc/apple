@@ -55,13 +55,11 @@ func NSFilePromiseProviderDelegateObjectFromID(id objc.ID) NSFilePromiseProvider
 // Determine and return the final filename (a base filename, not a full path).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProviderDelegate/filePromiseProvider(_:fileNameForType:)
-
 func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderFileNameForType(filePromiseProvider INSFilePromiseProvider, fileType string) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("filePromiseProvider:fileNameForType:"), filePromiseProvider, objc.String(fileType))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Writes the contents of a promise to the specified URL.
 //
 // filePromiseProvider: The file promise provider.
@@ -83,12 +81,10 @@ func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderFileNameForType(
 // [OperationQueue]: https://developer.apple.com/documentation/Foundation/OperationQueue
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProviderDelegate/filePromiseProvider(_:writePromiseTo:completionHandler:)
-
 func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider INSFilePromiseProvider, url foundation.INSURL, completionHandler ErrorHandler) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("filePromiseProvider:writePromiseToURL:completionHandler:"), filePromiseProvider, url, completionHandler)
 	}
-
 // Returns the operation queue from which to issue the write request.
 //
 // filePromiseProvider: The file promise provider for the operation queue.
@@ -100,7 +96,6 @@ func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToUR
 // provide an operation queue other than the main operation queue.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseProviderDelegate/operationQueue(for:)
-
 func (o NSFilePromiseProviderDelegateObject) OperationQueueForFilePromiseProvider(filePromiseProvider INSFilePromiseProvider) foundation.NSOperationQueue {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("operationQueueForFilePromiseProvider:"), filePromiseProvider)
@@ -118,8 +113,6 @@ func (o NSFilePromiseProviderDelegateObject) OperationQueueForFilePromiseProvide
 type NSFilePromiseProviderDelegateConfig struct {
 
 	// Other Methods
-	// FilePromiseProviderWritePromiseToURLCompletionHandler — Writes the contents of a promise to the specified URL.
-	FilePromiseProviderWritePromiseToURLCompletionHandler func(filePromiseProvider NSFilePromiseProvider, url foundation.NSURL, completionHandler objc.ID)
 	// OperationQueueForFilePromiseProvider — Returns the operation queue from which to issue the write request.
 	OperationQueueForFilePromiseProvider func(filePromiseProvider NSFilePromiseProvider) foundation.NSOperationQueue
 }
@@ -141,19 +134,6 @@ func NewNSFilePromiseProviderDelegate(config NSFilePromiseProviderDelegateConfig
 	className := fmt.Sprintf("GoNSFilePromiseProviderDelegate_%d", n)
 
 	var methods []objc.MethodDef
-
-	if config.FilePromiseProviderWritePromiseToURLCompletionHandler != nil {
-		fn := config.FilePromiseProviderWritePromiseToURLCompletionHandler
-		methods = append(methods, objc.MethodDef{
-			Cmd: objc.RegisterName("filePromiseProvider:writePromiseToURL:completionHandler:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, filePromiseProviderID objc.ID, urlID objc.ID, completionHandlerID objc.ID) {
-				filePromiseProvider := NSFilePromiseProviderFromID(filePromiseProviderID)
-				url := foundation.NSURLFromID(urlID)
-				completionHandler := completionHandlerID
-				fn(filePromiseProvider, url, completionHandler)
-			},
-		})
-	}
 
 	if config.OperationQueueForFilePromiseProvider != nil {
 		fn := config.OperationQueueForFilePromiseProvider

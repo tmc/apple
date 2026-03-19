@@ -198,7 +198,6 @@ func (m NSMethodSignature) GetArgumentTypeAtIndex(idx uint) int8 {
 	rv := objc.Send[int8](m.ID, objc.Sel("getArgumentTypeAtIndex:"), idx)
 	return rv
 }
-
 // Whether the receiver is asynchronous when invoked through distributed
 // objects.
 //
@@ -251,7 +250,6 @@ func (m NSMethodSignature) NumberOfArguments() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("numberOfArguments"))
 	return rv
 }
-
 // The number of bytes that the arguments, taken together, occupy on the
 // stack.
 //
@@ -264,7 +262,6 @@ func (m NSMethodSignature) FrameLength() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("frameLength"))
 	return rv
 }
-
 // A C string encoding the return type of the method in Objective-C type
 // encoding.
 //
@@ -273,7 +270,6 @@ func (m NSMethodSignature) MethodReturnType() string {
 	rv := objc.Send[*byte](m.ID, objc.Sel("methodReturnType"))
 	return objc.GoString(rv)
 }
-
 // The number of bytes required for the return value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMethodSignature/methodReturnLength

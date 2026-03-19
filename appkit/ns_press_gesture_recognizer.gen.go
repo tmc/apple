@@ -188,7 +188,6 @@ func (p NSPressGestureRecognizer) AllowableMovement() float64 {
 func (p NSPressGestureRecognizer) SetAllowableMovement(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAllowableMovement:"), value)
 }
-
 // A bit mask of the buttons required to recognize this press.
 //
 // # Discussion
@@ -214,7 +213,6 @@ func (p NSPressGestureRecognizer) ButtonMask() uint {
 func (p NSPressGestureRecognizer) SetButtonMask(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setButtonMask:"), value)
 }
-
 // The minimum time (in seconds) that the user must hold the mouse button in
 // the view for a valid gesture.
 //
@@ -231,7 +229,6 @@ func (p NSPressGestureRecognizer) MinimumPressDuration() float64 {
 func (p NSPressGestureRecognizer) SetMinimumPressDuration(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMinimumPressDuration:"), value)
 }
-
 // The number of necessary touches on a Touch Bar for the gesture recognizer
 // to match.
 //

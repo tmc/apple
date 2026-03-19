@@ -198,7 +198,6 @@ func (c MTLCaptureManager) SupportsDestination(destination MTLCaptureDestination
 	rv := objc.Send[bool](c.ID, objc.Sel("supportsDestination:"), destination)
 	return rv
 }
-
 // Creates a capture scope for commands submitted to a specific device object.
 //
 // device: The device object whose commands you want to capture.
@@ -213,7 +212,6 @@ func (c MTLCaptureManager) NewCaptureScopeWithDevice(device MTLDevice) MTLCaptur
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("newCaptureScopeWithDevice:"), device)
 	return MTLCaptureScopeObjectFromID(rv)
 }
-
 // Creates a capture scope for commands submitted to a specific command queue.
 //
 // commandQueue: The command queue whose commands you want to capture.
@@ -223,7 +221,6 @@ func (c MTLCaptureManager) NewCaptureScopeWithCommandQueue(commandQueue MTLComma
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("newCaptureScopeWithCommandQueue:"), commandQueue)
 	return MTLCaptureScopeObjectFromID(rv)
 }
-
 // Starts capturing any of your app’s Metal commands, with the capture
 // session defined by a descriptor object.
 //
@@ -243,7 +240,6 @@ func (c MTLCaptureManager) StartCaptureWithDescriptorError(descriptor IMTLCaptur
 	return rv, nil
 
 }
-
 // Stops capturing Metal commands.
 //
 // # Discussion
@@ -258,7 +254,6 @@ func (c MTLCaptureManager) StartCaptureWithDescriptorError(descriptor IMTLCaptur
 func (c MTLCaptureManager) StopCapture() {
 	objc.Send[objc.ID](c.ID, objc.Sel("stopCapture"))
 }
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureManager/makeCaptureScope(commandQueue:)-9wie3
 func (c MTLCaptureManager) NewCaptureScopeWithMTL4CommandQueue(commandQueue MTL4CommandQueue) MTLCaptureScope {
@@ -298,7 +293,6 @@ func (c MTLCaptureManager) DefaultCaptureScope() MTLCaptureScope {
 func (c MTLCaptureManager) SetDefaultCaptureScope(value MTLCaptureScope) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDefaultCaptureScope:"), value)
 }
-
 // A Boolean value that indicates whether Metal commands are being captured.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCaptureManager/isCapturing

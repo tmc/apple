@@ -715,7 +715,6 @@ func (b Bundle) InitWithURL(url INSURL) Bundle {
 	rv := objc.Send[Bundle](b.ID, objc.Sel("initWithURL:"), url)
 	return rv
 }
-
 // Returns an [NSBundle] object initialized to correspond to the specified
 // directory.
 //
@@ -742,7 +741,6 @@ func (b Bundle) InitWithPath(path string) Bundle {
 	rv := objc.Send[Bundle](b.ID, objc.Sel("initWithPath:"), objc.String(path))
 	return rv
 }
-
 // Loads a nib from the bundle with the specified file name and owner.
 //
 // nibName: The name of the nib.
@@ -778,7 +776,6 @@ func (b Bundle) LoadNibNamedOwnerTopLevelObjects(nibName INSString, owner object
 	rv := objc.Send[bool](b.ID, objc.Sel("loadNibNamed:owner:topLevelObjects:"), nibName, owner, topLevelObjects)
 	return rv
 }
-
 // Returns the file URL for the resource file identified by the specified name
 // and extension and residing in a given bundle directory.
 //
@@ -817,7 +814,6 @@ func (b Bundle) URLForResourceWithExtensionSubdirectory(name string, ext string,
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("URLForResource:withExtension:subdirectory:"), objc.String(name), objc.String(ext), objc.String(subpath))
 	return NSURLFromID(rv)
 }
-
 // Returns the file URL for the resource identified by the specified name and
 // file extension.
 //
@@ -852,7 +848,6 @@ func (b Bundle) URLForResourceWithExtension(name string, ext string) INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("URLForResource:withExtension:"), objc.String(name), objc.String(ext))
 	return NSURLFromID(rv)
 }
-
 // Returns an array of file URLs for all resources identified by the specified
 // file extension and located in the specified bundle subdirectory.
 //
@@ -896,7 +891,6 @@ func (b Bundle) URLsForResourcesWithExtensionSubdirectory(ext string, subpath st
 		return NSURLFromID(id)
 	})
 }
-
 // Returns the file URL for the resource identified by the specified name and
 // file extension, located in the specified bundle subdirectory, and limited
 // to global resources and those associated with the specified localization.
@@ -940,7 +934,6 @@ func (b Bundle) URLForResourceWithExtensionSubdirectoryLocalization(name string,
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("URLForResource:withExtension:subdirectory:localization:"), objc.String(name), objc.String(ext), objc.String(subpath), objc.String(localizationName))
 	return NSURLFromID(rv)
 }
-
 // Returns an array containing the file URLs for all bundle resources having
 // the specified filename extension, residing in the specified resource
 // subdirectory, and limited to global resources and those associated with the
@@ -977,7 +970,6 @@ func (b Bundle) URLsForResourcesWithExtensionSubdirectoryLocalization(ext string
 		return NSURLFromID(id)
 	})
 }
-
 // Returns the full pathname for the resource identified by the specified name
 // and file extension.
 //
@@ -1019,7 +1011,6 @@ func (b Bundle) PathForResourceOfType(name string, ext string) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("pathForResource:ofType:"), objc.String(name), objc.String(ext))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the full pathname for the resource identified by the specified name
 // and file extension and located in the specified bundle subdirectory.
 //
@@ -1068,7 +1059,6 @@ func (b Bundle) PathForResourceOfTypeInDirectory(name string, ext string, subpat
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("pathForResource:ofType:inDirectory:"), objc.String(name), objc.String(ext), objc.String(subpath))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the full pathname for the resource identified by the specified name
 // and file extension, located in the specified bundle subdirectory, and
 // limited to global resources and those associated with the specified
@@ -1113,7 +1103,6 @@ func (b Bundle) PathForResourceOfTypeInDirectoryForLocalization(name string, ext
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("pathForResource:ofType:inDirectory:forLocalization:"), objc.String(name), objc.String(ext), objc.String(subpath), objc.String(localizationName))
 	return NSStringFromID(rv).String()
 }
-
 // Returns an array containing the pathnames for all bundle resources having
 // the specified filename extension and residing in the resource subdirectory.
 //
@@ -1160,7 +1149,6 @@ func (b Bundle) PathsForResourcesOfTypeInDirectory(ext string, subpath string) [
 	rv := objc.Send[[]objc.ID](b.ID, objc.Sel("pathsForResourcesOfType:inDirectory:"), objc.String(ext), objc.String(subpath))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns an array containing the file for all bundle resources having the
 // specified filename extension, residing in the specified resource
 // subdirectory, and limited to global resources and those associated with the
@@ -1195,7 +1183,6 @@ func (b Bundle) PathsForResourcesOfTypeInDirectoryForLocalization(ext string, su
 	rv := objc.Send[[]objc.ID](b.ID, objc.Sel("pathsForResourcesOfType:inDirectory:forLocalization:"), objc.String(ext), objc.String(subpath), objc.String(localizationName))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns the location of the specified image resource as an NSURL.
 //
 // name: The name of the image resource file. Including a filename extension is
@@ -1210,7 +1197,6 @@ func (b Bundle) URLForImageResource(name INSString) INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("URLForImageResource:"), name)
 	return NSURLFromID(rv)
 }
-
 // Returns the location of the specified image resource file.
 //
 // name: The name of the image resource file, without any pathname information.
@@ -1232,7 +1218,6 @@ func (b Bundle) PathForImageResource(name INSString) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("pathForImageResource:"), name)
 	return NSStringFromID(rv).String()
 }
-
 // Returns an [NSImage] instance associated with the specified name, which can
 // be backed by multiple files representing different resolution versions of
 // the image.
@@ -1270,7 +1255,6 @@ func (b Bundle) ImageForResource(name INSString) objc.ID {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("imageForResource:"), name)
 	return rv
 }
-
 // Returns the location of the specified sound resource file.
 //
 // name: The name of the sound resource file, without any pathname information.
@@ -1292,7 +1276,6 @@ func (b Bundle) PathForSoundResource(name INSString) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("pathForSoundResource:"), name)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a localized version of the string designated by the specified key
 // and residing in the specified table.
 //
@@ -1339,7 +1322,6 @@ func (b Bundle) LocalizedStringForKeyValueTable(key string, value string, tableN
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("localizedStringForKey:value:table:"), objc.String(key), objc.String(value), objc.String(tableName))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the context-sensitive help for the specified key from the
 // bundle’s help file.
 //
@@ -1370,7 +1352,6 @@ func (b Bundle) ContextHelpForKey(key INSString) INSAttributedString {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("contextHelpForKey:"), key)
 	return NSAttributedStringFromID(rv)
 }
-
 // Returns the file URL of the executable with the specified name in the
 // receiver’s bundle.
 //
@@ -1391,7 +1372,6 @@ func (b Bundle) URLForAuxiliaryExecutable(executableName string) INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("URLForAuxiliaryExecutable:"), objc.String(executableName))
 	return NSURLFromID(rv)
 }
-
 // Returns the full pathname of the executable with the specified name in the
 // receiver’s bundle.
 //
@@ -1413,7 +1393,6 @@ func (b Bundle) PathForAuxiliaryExecutable(executableName string) string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("pathForAuxiliaryExecutable:"), objc.String(executableName))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the value associated with the specified key in the receiver’s
 // information property list.
 //
@@ -1435,7 +1414,6 @@ func (b Bundle) ObjectForInfoDictionaryKey(key string) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("objectForInfoDictionaryKey:"), objc.String(key))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the [Class] object for the specified name.
 //
 // className: The name of a class.
@@ -1463,7 +1441,6 @@ func (b Bundle) ClassNamed(className string) objc.Class {
 	rv := objc.Send[objc.Class](b.ID, objc.Sel("classNamed:"), objc.String(className))
 	return rv
 }
-
 // Returns a Boolean value indicating whether the bundle’s executable code
 // could be loaded successfully.
 //
@@ -1492,7 +1469,6 @@ func (b Bundle) PreflightAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
 // Loads the bundle’s executable code and returns any errors.
 //
 // # Discussion
@@ -1543,7 +1519,6 @@ func (b Bundle) LoadAndReturnError() (bool, error) {
 	return rv, nil
 
 }
-
 // Unloads the code associated with the receiver.
 //
 // # Return Value
@@ -1583,19 +1558,16 @@ func (b Bundle) Unload() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("unload"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/Foundation/Bundle/loadAppleScriptObjectiveCScripts()
 func (b Bundle) LoadAppleScriptObjectiveCScripts() {
 	objc.Send[objc.ID](b.ID, objc.Sel("loadAppleScriptObjectiveCScripts"))
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSBundle/localizedAttributedStringForKey:value:table:
 func (b Bundle) LocalizedAttributedStringForKeyValueTable(key string, value string, tableName string) INSAttributedString {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("localizedAttributedStringForKey:value:table:"), objc.String(key), objc.String(value), objc.String(tableName))
 	return NSAttributedStringFromID(rv)
 }
-
 // Look up a localized string given a list of available localizations.
 //
 // key: The key for the localized string to retrieve.
@@ -1648,7 +1620,6 @@ func (_BundleClass BundleClass) URLForResourceWithExtensionSubdirectoryInBundleW
 	rv := objc.Send[objc.ID](objc.ID(_BundleClass.class), objc.Sel("URLForResource:withExtension:subdirectory:inBundleWithURL:"), objc.String(name), objc.String(ext), objc.String(subpath), bundleURL)
 	return NSURLFromID(rv)
 }
-
 // Returns an array containing the file URLs for all bundle resources having
 // the specified filename extension, residing in the specified resource
 // subdirectory, within the specified bundle.
@@ -1674,7 +1645,6 @@ func (_BundleClass BundleClass) URLsForResourcesWithExtensionSubdirectoryInBundl
 		return NSURLFromID(id)
 	})
 }
-
 // Returns one or more localizations from the specified list that a bundle
 // object would use to locate resources for the current user.
 //
@@ -1704,7 +1674,6 @@ func (_BundleClass BundleClass) PreferredLocalizationsFromArray(localizationsArr
 	rv := objc.Send[[]objc.ID](objc.ID(_BundleClass.class), objc.Sel("preferredLocalizationsFromArray:"), objectivec.StringSliceToNSArray(localizationsArray))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns locale identifiers for which a bundle would provide localized
 // content, given a specified list of candidates for a user’s language
 // preferences.
@@ -1742,7 +1711,6 @@ func (_BundleClass BundleClass) PreferredLocalizationsFromArrayForPreferences(lo
 	rv := objc.Send[[]objc.ID](objc.ID(_BundleClass.class), objc.Sel("preferredLocalizationsFromArray:forPreferences:"), objectivec.StringSliceToNSArray(localizationsArray), objectivec.StringSliceToNSArray(preferencesArray))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns an [NSBundle] object that corresponds to the specified directory.
 //
 // path: The path to a directory. This must be a full pathname for a directory; if
@@ -1764,7 +1732,6 @@ func (_BundleClass BundleClass) BundleWithPath(path string) Bundle {
 	rv := objc.Send[objc.ID](objc.ID(_BundleClass.class), objc.Sel("bundleWithPath:"), objc.String(path))
 	return NSBundleFromID(rv)
 }
-
 // Returns an [NSBundle] object that corresponds to the specified file URL.
 //
 // url: The URL to a directory. This must be a URL for a directory; if it contains
@@ -1800,7 +1767,6 @@ func (b Bundle) ResourceURL() INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("resourceURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The file URL of the receiver’s executable file.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/executableURL
@@ -1808,7 +1774,6 @@ func (b Bundle) ExecutableURL() INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("executableURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The file URL of the bundle’s subdirectory containing private frameworks.
 //
 // # Discussion
@@ -1822,7 +1787,6 @@ func (b Bundle) PrivateFrameworksURL() INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("privateFrameworksURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The file URL of the receiver’s subdirectory containing shared frameworks.
 //
 // # Discussion
@@ -1836,7 +1800,6 @@ func (b Bundle) SharedFrameworksURL() INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("sharedFrameworksURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The file URL of the receiver’s subdirectory containing plug-ins.
 //
 // # Discussion
@@ -1850,7 +1813,6 @@ func (b Bundle) BuiltInPlugInsURL() INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("builtInPlugInsURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The file URL of the bundle’s subdirectory containing shared support
 // files.
 //
@@ -1865,7 +1827,6 @@ func (b Bundle) SharedSupportURL() INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("sharedSupportURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The file URL for the bundle’s App Store receipt.
 //
 // # Discussion
@@ -1900,7 +1861,6 @@ func (b Bundle) AppStoreReceiptURL() INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("appStoreReceiptURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The full pathname of the bundle’s subdirectory containing resources.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/resourcePath
@@ -1908,7 +1868,6 @@ func (b Bundle) ResourcePath() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("resourcePath"))
 	return NSStringFromID(rv).String()
 }
-
 // The full pathname of the receiver’s executable file.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/executablePath
@@ -1916,7 +1875,6 @@ func (b Bundle) ExecutablePath() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("executablePath"))
 	return NSStringFromID(rv).String()
 }
-
 // The full pathname of the bundle’s subdirectory containing private
 // frameworks.
 //
@@ -1931,7 +1889,6 @@ func (b Bundle) PrivateFrameworksPath() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("privateFrameworksPath"))
 	return NSStringFromID(rv).String()
 }
-
 // The full pathname of the bundle’s subdirectory containing shared
 // frameworks.
 //
@@ -1946,7 +1903,6 @@ func (b Bundle) SharedFrameworksPath() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("sharedFrameworksPath"))
 	return NSStringFromID(rv).String()
 }
-
 // The full pathname of the receiver’s subdirectory containing plug-ins.
 //
 // # Discussion
@@ -1960,7 +1916,6 @@ func (b Bundle) BuiltInPlugInsPath() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("builtInPlugInsPath"))
 	return NSStringFromID(rv).String()
 }
-
 // The full pathname of the bundle’s subdirectory containing shared support
 // files.
 //
@@ -1975,7 +1930,6 @@ func (b Bundle) SharedSupportPath() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("sharedSupportPath"))
 	return NSStringFromID(rv).String()
 }
-
 // The full URL of the receiver’s bundle directory.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/bundleURL
@@ -1983,7 +1937,6 @@ func (b Bundle) BundleURL() INSURL {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("bundleURL"))
 	return NSURLFromID(objc.ID(rv))
 }
-
 // The full pathname of the receiver’s bundle directory.
 //
 // See: https://developer.apple.com/documentation/Foundation/Bundle/bundlePath
@@ -1991,7 +1944,6 @@ func (b Bundle) BundlePath() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("bundlePath"))
 	return NSStringFromID(rv).String()
 }
-
 // The receiver’s bundle identifier.
 //
 // # Discussion
@@ -2004,7 +1956,6 @@ func (b Bundle) BundleIdentifier() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("bundleIdentifier"))
 	return NSStringFromID(rv).String()
 }
-
 // A dictionary, constructed from the bundle’s `Info.Plist()` file, that
 // contains information about the receiver.
 //
@@ -2021,7 +1972,6 @@ func (b Bundle) InfoDictionary() INSDictionary {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("infoDictionary"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // A list of all the localizations contained in the bundle.
 //
 // # Discussion
@@ -2034,7 +1984,6 @@ func (b Bundle) Localizations() []string {
 	rv := objc.Send[[]objc.ID](b.ID, objc.Sel("localizations"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // An ordered list of preferred localizations contained in the bundle.
 //
 // # Discussion
@@ -2048,7 +1997,6 @@ func (b Bundle) PreferredLocalizations() []string {
 	rv := objc.Send[[]objc.ID](b.ID, objc.Sel("preferredLocalizations"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The localization for the development language.
 //
 // # Discussion
@@ -2061,7 +2009,6 @@ func (b Bundle) DevelopmentLocalization() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("developmentLocalization"))
 	return NSStringFromID(rv).String()
 }
-
 // A dictionary with the keys from the bundle’s localized property list.
 //
 // # Discussion
@@ -2076,7 +2023,6 @@ func (b Bundle) LocalizedInfoDictionary() INSDictionary {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("localizedInfoDictionary"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // The bundle’s principal class.
 //
 // # Discussion
@@ -2124,7 +2070,6 @@ func (b Bundle) PrincipalClass() objc.Class {
 	rv := objc.Send[objc.Class](b.ID, objc.Sel("principalClass"))
 	return rv
 }
-
 // A constant used as a key for the
 //
 // See: https://developer.apple.com/documentation/foundation/nsloadedclasses
@@ -2132,7 +2077,6 @@ func (b Bundle) NSLoadedClasses() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("NSLoadedClasses"))
 	return NSStringFromID(rv).String()
 }
-
 // An array of numbers indicating the architecture types supported by the
 // bundle’s executable.
 //
@@ -2157,7 +2101,6 @@ func (b Bundle) ExecutableArchitectures() []NSNumber {
 		return NSNumberFromID(id)
 	})
 }
-
 // The load status of a bundle.
 //
 // # Discussion
@@ -2172,7 +2115,6 @@ func (b Bundle) Loaded() bool {
 	rv := objc.Send[bool](b.ID, objc.Sel("isLoaded"))
 	return rv
 }
-
 // The beginning of the range of error codes reserved for errors related to
 // executable files.
 //
@@ -2184,7 +2126,6 @@ func (b Bundle) NSExecutableErrorMinimum() int {
 func (b Bundle) SetNSExecutableErrorMinimum(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableErrorMinimum:"), value)
 }
-
 // The executable type isn’t loadable in the current process.
 //
 // See: https://developer.apple.com/documentation/foundation/nsexecutablenotloadableerror-swift.var
@@ -2195,7 +2136,6 @@ func (b Bundle) NSExecutableNotLoadableError() int {
 func (b Bundle) SetNSExecutableNotLoadableError(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableNotLoadableError:"), value)
 }
-
 // The executable doesn’t provide an architecture compatible with the
 // current process.
 //
@@ -2207,7 +2147,6 @@ func (b Bundle) NSExecutableArchitectureMismatchError() int {
 func (b Bundle) SetNSExecutableArchitectureMismatchError(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableArchitectureMismatchError:"), value)
 }
-
 // The executable has Objective-C runtime information that’s incompatible
 // with the current process.
 //
@@ -2219,7 +2158,6 @@ func (b Bundle) NSExecutableRuntimeMismatchError() int {
 func (b Bundle) SetNSExecutableRuntimeMismatchError(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableRuntimeMismatchError:"), value)
 }
-
 // Executable cannot be loaded for an otherwise-unspecified reason.
 //
 // See: https://developer.apple.com/documentation/foundation/nsexecutableloaderror-swift.var
@@ -2230,7 +2168,6 @@ func (b Bundle) NSExecutableLoadError() int {
 func (b Bundle) SetNSExecutableLoadError(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableLoadError:"), value)
 }
-
 // The executable failed due to linking issues.
 //
 // See: https://developer.apple.com/documentation/foundation/nsexecutablelinkerror-swift.var
@@ -2241,7 +2178,6 @@ func (b Bundle) NSExecutableLinkError() int {
 func (b Bundle) SetNSExecutableLinkError(value int) {
 	objc.Send[struct{}](b.ID, objc.Sel("setNSExecutableLinkError:"), value)
 }
-
 // The end of the range of error codes reserved for errors related to
 // executable files.
 //
@@ -2274,7 +2210,6 @@ func (_BundleClass BundleClass) MainBundle() Bundle {
 	rv := objc.Send[objc.ID](objc.ID(_BundleClass.class), objc.Sel("mainBundle"))
 	return NSBundleFromID(objc.ID(rv))
 }
-
 // Returns an array of all of the application’s bundles that represent
 // frameworks.
 //
@@ -2296,7 +2231,6 @@ func (_BundleClass BundleClass) AllFrameworks() []Bundle {
 		return NSBundleFromID(id)
 	})
 }
-
 // Returns an array of all the application’s non-framework bundles.
 //
 // # Return Value

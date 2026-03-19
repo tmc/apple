@@ -50,17 +50,14 @@ func MLFeatureProviderObjectFromID(id objc.ID) MLFeatureProviderObject {
 // The value of the feature, or nil if no value exists for that name.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureValue(for:)
-
 func (o MLFeatureProviderObject) FeatureValueForName(featureName string) IMLFeatureValue {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureValueForName:"), objc.String(featureName))
 	return MLFeatureValueFromID(rv)
 	}
-
 // The set of valid feature names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureNames
-
 func (o MLFeatureProviderObject) FeatureNames() foundation.INSSet {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureNames"))

@@ -111,7 +111,6 @@ func (m MTL4LibraryFunctionDescriptor) Library() MTLLibrary {
 func (m MTL4LibraryFunctionDescriptor) SetLibrary(value MTLLibrary) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLibrary:"), value)
 }
-
 // Assigns a name to the function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4LibraryFunctionDescriptor/name

@@ -156,14 +156,12 @@ func NewNSAnimationContext() NSAnimationContext {
 func (_NSAnimationContextClass NSAnimationContextClass) BeginGrouping() {
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("beginGrouping"))
 }
-
 // Ends the current animation grouping.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/endGrouping()
 func (_NSAnimationContextClass NSAnimationContextClass) EndGrouping() {
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("endGrouping"))
 }
-
 // Allows you to specify a completion block body after the set of animation
 // actions whose completion will trigger the completion block.
 //
@@ -199,7 +197,6 @@ _block0, _cleanup0 := NewAnimationContextBlock(changes)
 	defer _cleanup1()
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:completionHandler:"), _block0, _block1)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/runAnimationGroup(_:)
 func (_NSAnimationContextClass NSAnimationContextClass) RunAnimationGroup(changes AnimationContextHandler) {
@@ -244,7 +241,6 @@ func (a NSAnimationContext) SetCompletionHandler(value VoidHandler) {
 	defer cleanup()
 	objc.Send[struct{}](a.ID, objc.Sel("setCompletionHandler:"), block)
 }
-
 // The duration used by animations created as a result of setting new values
 // for an animatable property.
 //
@@ -261,7 +257,6 @@ func (a NSAnimationContext) Duration() float64 {
 func (a NSAnimationContext) SetDuration(value float64) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
-
 // The timing function used for all animations within this animation proxy
 // group.
 //
@@ -296,7 +291,6 @@ func (a NSAnimationContext) TimingFunction() objectivec.IObject {
 func (a NSAnimationContext) SetTimingFunction(value objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimingFunction:"), value)
 }
-
 // Determine if animations are enabled or not for animations that occur as a
 // result of another property change.
 //

@@ -199,7 +199,6 @@ func (a NSAccessibilityCustomRotor) InitWithLabelItemSearchDelegate(label string
 	rv := objc.Send[NSAccessibilityCustomRotor](a.ID, objc.Sel("initWithLabel:itemSearchDelegate:"), objc.String(label), itemSearchDelegate)
 	return rv
 }
-
 // Creates a custom rotor with the specified rotor type and item search
 // delegate.
 //
@@ -219,7 +218,6 @@ func (a NSAccessibilityCustomRotor) ItemSearchDelegate() NSAccessibilityCustomRo
 func (a NSAccessibilityCustomRotor) SetItemSearchDelegate(value NSAccessibilityCustomRotorItemSearchDelegate) {
 	objc.Send[struct{}](a.ID, objc.Sel("setItemSearchDelegate:"), value)
 }
-
 // The delegate for loading item results that don’t have a backing UI
 // element at loading time.
 //
@@ -231,7 +229,6 @@ func (a NSAccessibilityCustomRotor) ItemLoadingDelegate() NSAccessibilityElement
 func (a NSAccessibilityCustomRotor) SetItemLoadingDelegate(value NSAccessibilityElementLoading) {
 	objc.Send[struct{}](a.ID, objc.Sel("setItemLoadingDelegate:"), value)
 }
-
 // The type of content that the rotor represents.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/type
@@ -242,7 +239,6 @@ func (a NSAccessibilityCustomRotor) Type() NSAccessibilityCustomRotorType {
 func (a NSAccessibilityCustomRotor) SetType(value NSAccessibilityCustomRotorType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setType:"), value)
 }
-
 // The localized label that assistive apps use to describe the custom rotor.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomRotor/label

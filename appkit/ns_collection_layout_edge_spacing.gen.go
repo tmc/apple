@@ -140,7 +140,6 @@ func (c NSCollectionLayoutEdgeSpacing) Leading() INSCollectionLayoutSpacing {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("leading"))
 	return NSCollectionLayoutSpacingFromID(objc.ID(rv))
 }
-
 // The top edge spacing value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutEdgeSpacing/top
@@ -148,7 +147,6 @@ func (c NSCollectionLayoutEdgeSpacing) Top() INSCollectionLayoutSpacing {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("top"))
 	return NSCollectionLayoutSpacingFromID(objc.ID(rv))
 }
-
 // The trailing edge spacing value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutEdgeSpacing/trailing
@@ -156,7 +154,6 @@ func (c NSCollectionLayoutEdgeSpacing) Trailing() INSCollectionLayoutSpacing {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("trailing"))
 	return NSCollectionLayoutSpacingFromID(objc.ID(rv))
 }
-
 // The bottom edge spacing value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutEdgeSpacing/bottom

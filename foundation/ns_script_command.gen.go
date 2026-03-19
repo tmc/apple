@@ -332,7 +332,6 @@ func (s NSScriptCommand) InitWithCommandDescription(commandDef INSScriptCommandD
 	rv := objc.Send[NSScriptCommand](s.ID, objc.Sel("initWithCommandDescription:"), commandDef)
 	return rv
 }
-
 // Executes the command if it is valid and returns the result, if any.
 //
 // # Discussion
@@ -352,7 +351,6 @@ func (s NSScriptCommand) ExecuteCommand() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("executeCommand"))
 	return objectivec.Object{ID: rv}
 }
-
 // Overridden by subclasses to provide a default implementation for the
 // command represented by the receiver.
 //
@@ -370,7 +368,6 @@ func (s NSScriptCommand) PerformDefaultImplementation() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("performDefaultImplementation"))
 	return objectivec.Object{ID: rv}
 }
-
 // Suspends the execution of the receiver.
 //
 // # Discussion
@@ -387,7 +384,6 @@ func (s NSScriptCommand) PerformDefaultImplementation() objectivec.IObject {
 func (s NSScriptCommand) SuspendExecution() {
 	objc.Send[objc.ID](s.ID, objc.Sel("suspendExecution"))
 }
-
 // If a successful, unmatched, invocation of [SuspendExecution] has been made,
 // resume the execution of the command.
 //
@@ -414,14 +410,12 @@ func (s NSScriptCommand) SuspendExecution() {
 func (s NSScriptCommand) ResumeExecutionWithResult(result objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("resumeExecutionWithResult:"), result)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand/init(coder:)
 func (s NSScriptCommand) InitWithCoder(inCoder INSCoder) NSScriptCommand {
 	rv := objc.Send[NSScriptCommand](s.ID, objc.Sel("initWithCoder:"), inCoder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -467,7 +461,6 @@ func (s NSScriptCommand) AppleEvent() INSAppleEventDescriptor {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("appleEvent"))
 	return NSAppleEventDescriptorFromID(objc.ID(rv))
 }
-
 // Returns the object or objects to which the command is to be sent (called
 // both the “receivers” or “targets” of script commands).
 //
@@ -482,7 +475,6 @@ func (s NSScriptCommand) EvaluatedReceivers() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("evaluatedReceivers"))
 	return objectivec.Object{ID: rv}
 }
-
 // Sets the object specifier to `receiversSpec` that, when evaluated,
 // indicates the receiver or receivers of the command.
 //
@@ -506,7 +498,6 @@ func (s NSScriptCommand) ReceiversSpecifier() INSScriptObjectSpecifier {
 func (s NSScriptCommand) SetReceiversSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](s.ID, objc.Sel("setReceiversSpecifier:"), value)
 }
-
 // Sets the arguments of the command to `args`.
 //
 // # Discussion
@@ -522,7 +513,6 @@ func (s NSScriptCommand) Arguments() INSDictionary {
 func (s NSScriptCommand) SetArguments(value INSDictionary) {
 	objc.Send[struct{}](s.ID, objc.Sel("setArguments:"), value)
 }
-
 // Returns a dictionary containing the arguments of the command, evaluated
 // from object specifiers to objects if necessary. The keys in the dictionary
 // are the argument names.
@@ -542,7 +532,6 @@ func (s NSScriptCommand) EvaluatedArguments() INSDictionary {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("evaluatedArguments"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // Sets the object that corresponds to the direct parameter of the Apple event
 // from which the receiver derives.
 //
@@ -558,7 +547,6 @@ func (s NSScriptCommand) DirectParameter() objectivec.IObject {
 func (s NSScriptCommand) SetDirectParameter(value objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDirectParameter:"), value)
 }
-
 // Returns the command description for the command.
 //
 // # Discussion
@@ -570,7 +558,6 @@ func (s NSScriptCommand) CommandDescription() INSScriptCommandDescription {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("commandDescription"))
 	return NSScriptCommandDescriptionFromID(objc.ID(rv))
 }
-
 // Returns a Boolean value indicating whether the receiver is well formed
 // according to its command description.
 //
@@ -585,7 +572,6 @@ func (s NSScriptCommand) WellFormed() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isWellFormed"))
 	return rv
 }
-
 // Sets a descriptor for the expected type that will be put in the reply Apple
 // event if the sender requested a reply, execution of the receiver completes,
 // and an error number was set.
@@ -598,7 +584,6 @@ func (s NSScriptCommand) ScriptErrorExpectedTypeDescriptor() INSAppleEventDescri
 func (s NSScriptCommand) SetScriptErrorExpectedTypeDescriptor(value INSAppleEventDescriptor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScriptErrorExpectedTypeDescriptor:"), value)
 }
-
 // Sets a script error number that is associated with the execution of the
 // command and is returned in the reply Apple event, if a reply was requested
 // by the sender.
@@ -627,7 +612,6 @@ func (s NSScriptCommand) ScriptErrorNumber() int {
 func (s NSScriptCommand) SetScriptErrorNumber(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScriptErrorNumber:"), value)
 }
-
 // Sets a descriptor for an object that will be put in the reply Apple event
 // if the sender requested a reply, execution of the receiver completes, and
 // an error number was set.
@@ -640,7 +624,6 @@ func (s NSScriptCommand) ScriptErrorOffendingObjectDescriptor() INSAppleEventDes
 func (s NSScriptCommand) SetScriptErrorOffendingObjectDescriptor(value INSAppleEventDescriptor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScriptErrorOffendingObjectDescriptor:"), value)
 }
-
 // Sets a script error string that is associated with execution of the
 // command.
 //

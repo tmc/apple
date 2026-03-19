@@ -269,7 +269,6 @@ func NewProgressIndicatorWithFrame(frameRect corefoundation.CGRect) NSProgressIn
 func (p NSProgressIndicator) StartAnimation(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("startAnimation:"), sender)
 }
-
 // Stops the animation of an indeterminate progress indicator.
 //
 // sender: The object sending the message.
@@ -282,7 +281,6 @@ func (p NSProgressIndicator) StartAnimation(sender objectivec.IObject) {
 func (p NSProgressIndicator) StopAnimation(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("stopAnimation:"), sender)
 }
-
 // Advances the progress bar of a determinate progress indicator by the
 // specified amount.
 //
@@ -294,7 +292,6 @@ func (p NSProgressIndicator) StopAnimation(sender objectivec.IObject) {
 func (p NSProgressIndicator) IncrementBy(delta float64) {
 	objc.Send[objc.ID](p.ID, objc.Sel("incrementBy:"), delta)
 }
-
 // This action method resizes the progress indicator to an appropriate size
 // depending on the value of [Style].
 //
@@ -306,7 +303,6 @@ func (p NSProgressIndicator) IncrementBy(delta float64) {
 func (p NSProgressIndicator) SizeToFit() {
 	objc.Send[objc.ID](p.ID, objc.Sel("sizeToFit"))
 }
-
 // Returns the progress indicator’s value.
 //
 // # Return Value
@@ -347,7 +343,6 @@ func (p NSProgressIndicator) UsesThreadedAnimation() bool {
 func (p NSProgressIndicator) SetUsesThreadedAnimation(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setUsesThreadedAnimation:"), value)
 }
-
 // The value that indicates the current extent of the progress indicator.
 //
 // # Discussion
@@ -366,7 +361,6 @@ func (p NSProgressIndicator) DoubleValue() float64 {
 func (p NSProgressIndicator) SetDoubleValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDoubleValue:"), value)
 }
-
 // The minimum value for the progress indicator.
 //
 // # Discussion
@@ -384,7 +378,6 @@ func (p NSProgressIndicator) MinValue() float64 {
 func (p NSProgressIndicator) SetMinValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMinValue:"), value)
 }
-
 // The maximum value for the progress indicator.
 //
 // # Discussion
@@ -402,7 +395,6 @@ func (p NSProgressIndicator) MaxValue() float64 {
 func (p NSProgressIndicator) SetMaxValue(value float64) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMaxValue:"), value)
 }
-
 // The progress object to use for updating the progress view.
 //
 // # Discussion
@@ -426,7 +418,6 @@ func (p NSProgressIndicator) ObservedProgress() foundation.NSProgress {
 func (p NSProgressIndicator) SetObservedProgress(value foundation.NSProgress) {
 	objc.Send[struct{}](p.ID, objc.Sel("setObservedProgress:"), value)
 }
-
 // The size of the progress indicator.
 //
 // # Discussion
@@ -441,7 +432,6 @@ func (p NSProgressIndicator) ControlSize() NSControlSize {
 func (p NSProgressIndicator) SetControlSize(value NSControlSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setControlSize:"), value)
 }
-
 // The progress indicator’s control tint.
 //
 // # Discussion
@@ -456,7 +446,6 @@ func (p NSProgressIndicator) ControlTint() NSControlTint {
 func (p NSProgressIndicator) SetControlTint(value NSControlTint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setControlTint:"), value)
 }
-
 // A Boolean that indicates whether the progress indicator’s frame has a
 // three-dimensional bezel.
 //
@@ -475,7 +464,6 @@ func (p NSProgressIndicator) Bezeled() bool {
 func (p NSProgressIndicator) SetBezeled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBezeled:"), value)
 }
-
 // A Boolean that indicates whether the progress indicator is indeterminate.
 //
 // # Discussion
@@ -496,7 +484,6 @@ func (p NSProgressIndicator) Indeterminate() bool {
 func (p NSProgressIndicator) SetIndeterminate(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIndeterminate:"), value)
 }
-
 // The style of the progress indicator (bar or spinning).
 //
 // # Discussion
@@ -513,7 +500,6 @@ func (p NSProgressIndicator) Style() NSProgressIndicatorStyle {
 func (p NSProgressIndicator) SetStyle(value NSProgressIndicatorStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setStyle:"), value)
 }
-
 // A Boolean that indicates whether the progress indicator hides itself when
 // it isn’t animating.
 //
@@ -537,7 +523,6 @@ func (p NSProgressIndicator) SetDisplayedWhenStopped(value bool) {
 
 			// Protocol methods for NSAccessibilityProgressIndicator
 			
-
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
@@ -555,13 +540,11 @@ func (p NSProgressIndicator) SetDisplayedWhenStopped(value bool) {
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-
 func (o NSProgressIndicator) AccessibilityFrame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
-
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
@@ -577,13 +560,11 @@ func (o NSProgressIndicator) AccessibilityFrame() corefoundation.CGRect {
 // [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-
 func (o NSProgressIndicator) AccessibilityParent() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the accessibility element’s identity.
 //
 // # Return Value
@@ -599,13 +580,11 @@ func (o NSProgressIndicator) AccessibilityParent() objectivec.IObject {
 // [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-
 func (o NSProgressIndicator) AccessibilityIdentifier() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
@@ -624,7 +603,6 @@ func (o NSProgressIndicator) AccessibilityIdentifier() string {
 // [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-
 func (o NSProgressIndicator) IsAccessibilityFocused() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))

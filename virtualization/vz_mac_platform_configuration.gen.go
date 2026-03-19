@@ -149,7 +149,6 @@ func (m VZMacPlatformConfiguration) AuxiliaryStorage() IVZMacAuxiliaryStorage {
 func (m VZMacPlatformConfiguration) SetAuxiliaryStorage(value IVZMacAuxiliaryStorage) {
 	objc.Send[struct{}](m.ID, objc.Sel("setAuxiliaryStorage:"), value)
 }
-
 // The Mac hardware model.
 //
 // # Discussion
@@ -171,7 +170,6 @@ func (m VZMacPlatformConfiguration) HardwareModel() IVZMacHardwareModel {
 func (m VZMacPlatformConfiguration) SetHardwareModel(value IVZMacHardwareModel) {
 	objc.Send[struct{}](m.ID, objc.Sel("setHardwareModel:"), value)
 }
-
 // The Mac machine identifier.
 //
 // # Discussion
@@ -188,7 +186,6 @@ func (m VZMacPlatformConfiguration) MachineIdentifier() IVZMacMachineIdentifier 
 func (m VZMacPlatformConfiguration) SetMachineIdentifier(value IVZMacMachineIdentifier) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMachineIdentifier:"), value)
 }
-
 // This object represents the most fully featured configuration that’s
 // supported by both the current host and by this restore image.
 //

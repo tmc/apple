@@ -455,7 +455,6 @@ func NewStackViewWithViews(views []NSView) NSStackView {
 func (s NSStackView) AddViewInGravity(view INSView, gravity NSStackViewGravity) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addView:inGravity:"), view, gravity)
 }
-
 // Adds a view to a stack view gravity area at a specified index position.
 //
 // view: The view to add to the specified gravity area.
@@ -495,7 +494,6 @@ func (s NSStackView) AddViewInGravity(view INSView, gravity NSStackViewGravity) 
 func (s NSStackView) InsertViewAtIndexInGravity(view INSView, index uint, gravity NSStackViewGravity) {
 	objc.Send[objc.ID](s.ID, objc.Sel("insertView:atIndex:inGravity:"), view, index, gravity)
 }
-
 // Specifies an array of views for a specified gravity area in the stack view,
 // replacing any previous views in that area.
 //
@@ -523,7 +521,6 @@ func (s NSStackView) InsertViewAtIndexInGravity(view INSView, index uint, gravit
 func (s NSStackView) SetViewsInGravity(views []NSView, gravity NSStackViewGravity) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setViews:inGravity:"), objectivec.IObjectSliceToNSArray(views), gravity)
 }
-
 // Removes a specified view from the stack view.
 //
 // view: The view you want to remove from the stack view.
@@ -540,7 +537,6 @@ func (s NSStackView) SetViewsInGravity(views []NSView, gravity NSStackViewGravit
 func (s NSStackView) RemoveView(view INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeView:"), view)
 }
-
 // Adds the specified view to the end of the arranged subviews list.
 //
 // view: The view to add to the end of the [ArrangedSubviews] array.
@@ -558,7 +554,6 @@ func (s NSStackView) RemoveView(view INSView) {
 func (s NSStackView) AddArrangedSubview(view INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addArrangedSubview:"), view)
 }
-
 // Adds the provided view to the array of arranged subviews at the specified
 // index.
 //
@@ -591,7 +586,6 @@ func (s NSStackView) AddArrangedSubview(view INSView) {
 func (s NSStackView) InsertArrangedSubviewAtIndex(view INSView, index int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("insertArrangedSubview:atIndex:"), view, index)
 }
-
 // Removes the provided view from the stack’s array of arranged subviews.
 //
 // view: The view to be removed from the array of views arranged by the stack.
@@ -616,7 +610,6 @@ func (s NSStackView) InsertArrangedSubviewAtIndex(view INSView, index int) {
 func (s NSStackView) RemoveArrangedSubview(view INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeArrangedSubview:"), view)
 }
-
 // Returns the array of views in the specified gravity area in the stack view.
 //
 // gravity: The gravity area whose view array you want to get. Valid values are those
@@ -644,7 +637,6 @@ func (s NSStackView) ViewsInGravity(gravity NSStackViewGravity) []NSView {
 		return NSViewFromID(id)
 	})
 }
-
 // Returns the Auto Layout priority for resisting clipping of views in the
 // stack view when Auto Layout attempts to reduce the stack view’s size.
 //
@@ -666,7 +658,6 @@ func (s NSStackView) ClippingResistancePriorityForOrientation(orientation NSLayo
 	rv := objc.Send[NSLayoutPriority](s.ID, objc.Sel("clippingResistancePriorityForOrientation:"), orientation)
 	return NSLayoutPriority(rv)
 }
-
 // Returns the Auto Layout priority for the stack view to minimize its size to
 // fit its contained views as closely as possible, for a specified user
 // interface axis.
@@ -686,7 +677,6 @@ func (s NSStackView) HuggingPriorityForOrientation(orientation NSLayoutConstrain
 	rv := objc.Send[NSLayoutPriority](s.ID, objc.Sel("huggingPriorityForOrientation:"), orientation)
 	return NSLayoutPriority(rv)
 }
-
 // Returns the custom spacing, in points, between a specified view in the
 // stack view and the view that follows it.
 //
@@ -713,7 +703,6 @@ func (s NSStackView) CustomSpacingAfterView(view INSView) float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("customSpacingAfterView:"), view)
 	return rv
 }
-
 // Specifies the custom spacing, in points, between a specified view and the
 // view that follows it in the stack view.
 //
@@ -748,7 +737,6 @@ func (s NSStackView) CustomSpacingAfterView(view INSView) float64 {
 func (s NSStackView) SetCustomSpacingAfterView(spacing float64, view INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setCustomSpacing:afterView:"), spacing, view)
 }
-
 // Returns the visibility priority for a specified view in the stack view.
 //
 // view: The view that you are getting the visibility priority for.
@@ -768,7 +756,6 @@ func (s NSStackView) VisibilityPriorityForView(view INSView) NSStackViewVisibili
 	rv := objc.Send[NSStackViewVisibilityPriority](s.ID, objc.Sel("visibilityPriorityForView:"), view)
 	return NSStackViewVisibilityPriority(rv)
 }
-
 // Sets the Auto Layout priority for a view to remain attached to the stack
 // view when Auto Layout reduces the stack view’s size.
 //
@@ -807,7 +794,6 @@ func (s NSStackView) VisibilityPriorityForView(view INSView) NSStackViewVisibili
 func (s NSStackView) SetVisibilityPriorityForView(priority NSStackViewVisibilityPriority, view INSView) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setVisibilityPriority:forView:"), priority, view)
 }
-
 // Sets the Auto Layout priority for resisting clipping of views in the stack
 // view when Auto Layout attempts to reduce the stack view’s size.
 //
@@ -855,7 +841,6 @@ func (s NSStackView) SetVisibilityPriorityForView(priority NSStackViewVisibility
 func (s NSStackView) SetClippingResistancePriorityForOrientation(clippingResistancePriority NSLayoutPriority, orientation NSLayoutConstraintOrientation) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setClippingResistancePriority:forOrientation:"), clippingResistancePriority, orientation)
 }
-
 // Sets the Auto Layout priority for the stack view to minimize its size, for
 // a specified user interface axis.
 //
@@ -924,7 +909,6 @@ func (s NSStackView) Delegate() NSStackViewDelegate {
 func (s NSStackView) SetDelegate(value NSStackViewDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The array of views arranged by the stack view.
 //
 // # Discussion
@@ -941,7 +925,6 @@ func (s NSStackView) ArrangedSubviews() []NSView {
 		return NSViewFromID(id)
 	})
 }
-
 // The array of views owned by the stack view.
 //
 // # Discussion
@@ -959,7 +942,6 @@ func (s NSStackView) Views() []NSView {
 		return NSViewFromID(id)
 	})
 }
-
 // An array that contains the detached views from all the stack view’s
 // gravity areas.
 //
@@ -975,7 +957,6 @@ func (s NSStackView) DetachedViews() []NSView {
 		return NSViewFromID(id)
 	})
 }
-
 // The horizontal or vertical layout direction of the stack view.
 //
 // # Discussion
@@ -994,7 +975,6 @@ func (s NSStackView) Orientation() NSUserInterfaceLayoutOrientation {
 func (s NSStackView) SetOrientation(value NSUserInterfaceLayoutOrientation) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOrientation:"), value)
 }
-
 // The view alignment within the stack view.
 //
 // # Discussion
@@ -1022,7 +1002,6 @@ func (s NSStackView) Alignment() NSLayoutAttribute {
 func (s NSStackView) SetAlignment(value NSLayoutAttribute) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAlignment:"), value)
 }
-
 // The minimum spacing, in points, between adjacent views in the stack view.
 //
 // # Discussion
@@ -1076,7 +1055,6 @@ func (s NSStackView) Spacing() float64 {
 func (s NSStackView) SetSpacing(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSpacing:"), value)
 }
-
 // The geometric padding, in points, inside the stack view, surrounding its
 // views.
 //
@@ -1096,7 +1074,6 @@ func (s NSStackView) EdgeInsets() foundation.NSEdgeInsets {
 func (s NSStackView) SetEdgeInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](s.ID, objc.Sel("setEdgeInsets:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSStackView/distribution-swift.property
 func (s NSStackView) Distribution() NSStackViewDistribution {
 	rv := objc.Send[NSStackViewDistribution](s.ID, objc.Sel("distribution"))
@@ -1105,7 +1082,6 @@ func (s NSStackView) Distribution() NSStackViewDistribution {
 func (s NSStackView) SetDistribution(value NSStackViewDistribution) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDistribution:"), value)
 }
-
 // A Boolean value that indicates whether the stack view removes hidden views
 // from its view hierarchy.
 //
@@ -1131,7 +1107,6 @@ func (s NSStackView) DetachesHiddenViews() bool {
 func (s NSStackView) SetDetachesHiddenViews(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDetachesHiddenViews:"), value)
 }
-
 // A required constraint.
 //
 // See: https://developer.apple.com/documentation/appkit/nslayoutconstraint/priority-swift.struct/required

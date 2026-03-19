@@ -108,7 +108,6 @@ func (r MTLResourceStatePassSampleBufferAttachmentDescriptorArray) ObjectAtIndex
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLResourceStatePassSampleBufferAttachmentDescriptorFromID(rv)
 }
-
 // Sets the descriptor object for the specified sample buffer attachment.
 //
 // attachment: A sample buffer attachment descriptor. If you specify `nil`, the attachment

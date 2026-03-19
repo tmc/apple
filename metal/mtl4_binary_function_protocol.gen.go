@@ -44,17 +44,14 @@ func MTL4BinaryFunctionObjectFromID(id objc.ID) MTL4BinaryFunctionObject {
 // Describes the type of this binary function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4BinaryFunction/functionType
-
 func (o MTL4BinaryFunctionObject) FunctionType() MTLFunctionType {
 	
 	rv := objc.Send[MTLFunctionType](o.ID, objc.Sel("functionType"))
 	return rv
 	}
-
 // Obtains the optional name of this binary function.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4BinaryFunction/name
-
 func (o MTL4BinaryFunctionObject) Name() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))

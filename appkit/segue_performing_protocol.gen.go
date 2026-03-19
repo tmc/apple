@@ -52,12 +52,10 @@ func NSSeguePerformingObjectFromID(id objc.ID) NSSeguePerformingObject {
 // embedded in the view controller’s view hierarchy, to trigger the segue.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/performSegue(withIdentifier:sender:)
-
 func (o NSSeguePerformingObject) PerformSegueWithIdentifierSender(identifier NSStoryboardSegueIdentifier, sender objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("performSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
 	}
-
 // Called when a segue is about to be performed.
 //
 // segue: The segue object containing information about the view controllers involved
@@ -83,12 +81,10 @@ func (o NSSeguePerformingObject) PerformSegueWithIdentifierSender(identifier NSS
 // view controller.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/prepare(for:sender:)
-
 func (o NSSeguePerformingObject) PrepareForSegueSender(segue INSStoryboardSegue, sender objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("prepareForSegue:sender:"), segue, sender)
 	}
-
 // Called immediately prior to the performance of a storyboard segue.
 //
 // identifier: The string that identifies the segue to be performed.
@@ -118,7 +114,6 @@ func (o NSSeguePerformingObject) PrepareForSegueSender(segue INSStoryboardSegue,
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/shouldPerformSegue(withIdentifier:sender:)
-
 func (o NSSeguePerformingObject) ShouldPerformSegueWithIdentifierSender(identifier NSStoryboardSegueIdentifier, sender objectivec.IObject) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("shouldPerformSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)

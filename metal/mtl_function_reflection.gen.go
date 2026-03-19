@@ -107,7 +107,6 @@ func (f MTLFunctionReflection) Bindings() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // The string passed to the user annotation attribute for this function. Null
 // if no user annotation is present for this function.
 //

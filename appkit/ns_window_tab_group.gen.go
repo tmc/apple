@@ -168,7 +168,6 @@ func NewNSWindowTabGroup() NSWindowTabGroup {
 func (w NSWindowTabGroup) AddWindow(window INSWindow) {
 	objc.Send[objc.ID](w.ID, objc.Sel("addWindow:"), window)
 }
-
 // Inserts a window at a specific location within the tab group.
 //
 // window: The window to insert into the tab group.
@@ -190,7 +189,6 @@ func (w NSWindowTabGroup) AddWindow(window INSWindow) {
 func (w NSWindowTabGroup) InsertWindowAtIndex(window INSWindow, index int) {
 	objc.Send[objc.ID](w.ID, objc.Sel("insertWindow:atIndex:"), window, index)
 }
-
 // Removes a window from the tab group.
 //
 // window: The window to remove from the tab group. This window must already be a
@@ -222,7 +220,6 @@ func (w NSWindowTabGroup) Identifier() NSWindowTabbingIdentifier {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("identifier"))
 	return NSWindowTabbingIdentifier(foundation.NSStringFromID(rv).String())
 }
-
 // A Boolean value indicating if the tab overview is currently displayed.
 //
 // # Discussion
@@ -242,7 +239,6 @@ func (w NSWindowTabGroup) OverviewVisible() bool {
 func (w NSWindowTabGroup) SetOverviewVisible(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setOverviewVisible:"), value)
 }
-
 // A Boolean value indicating whether the tabbed window group currently
 // displays a tab bar.
 //
@@ -257,7 +253,6 @@ func (w NSWindowTabGroup) TabBarVisible() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isTabBarVisible"))
 	return rv
 }
-
 // A collection of the windows that are currently grouped together by this
 // window tab group.
 //
@@ -274,7 +269,6 @@ func (w NSWindowTabGroup) Windows() []NSWindow {
 		return NSWindowFromID(id)
 	})
 }
-
 // The selected, or frontmost, window in the tab group.
 //
 // # Discussion
@@ -292,7 +286,6 @@ func (w NSWindowTabGroup) SelectedWindow() INSWindow {
 func (w NSWindowTabGroup) SetSelectedWindow(value INSWindow) {
 	objc.Send[struct{}](w.ID, objc.Sel("setSelectedWindow:"), value)
 }
-
 // A group of windows that display together as a tab group.
 //
 // See: https://developer.apple.com/documentation/appkit/nswindow/tabgroup

@@ -44,7 +44,6 @@ func NSTextContentObjectFromID(id objc.ID) NSTextContentObject {
 // The semantic meaning for a text input area.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
-
 func (o NSTextContentObject) ContentType() NSTextContentType {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("contentType"))

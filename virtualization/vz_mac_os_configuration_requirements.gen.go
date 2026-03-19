@@ -118,7 +118,6 @@ func (m VZMacOSConfigurationRequirements) HardwareModel() IVZMacHardwareModel {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("hardwareModel"))
 	return VZMacHardwareModelFromID(objc.ID(rv))
 }
-
 // The minimum supported number of CPUs for this configuration.
 //
 // # Discussion
@@ -139,7 +138,6 @@ func (m VZMacOSConfigurationRequirements) MinimumSupportedCPUCount() uint {
 	rv := objc.Send[uint](m.ID, objc.Sel("minimumSupportedCPUCount"))
 	return rv
 }
-
 // The minimum supported memory size for this configuration.
 //
 // # Discussion

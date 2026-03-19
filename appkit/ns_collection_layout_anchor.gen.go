@@ -189,7 +189,6 @@ func (c NSCollectionLayoutAnchor) Edges() NSDirectionalRectEdge {
 	rv := objc.Send[NSDirectionalRectEdge](c.ID, objc.Sel("edges"))
 	return NSDirectionalRectEdge(rv)
 }
-
 // The floating-point value of the anchor’s offset from the item it’s
 // attached to.
 //
@@ -198,7 +197,6 @@ func (c NSCollectionLayoutAnchor) Offset() corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("offset"))
 	return corefoundation.CGPoint(rv)
 }
-
 // A Boolean value that indicates whether the anchor’s offset is expressed
 // as an absolute value.
 //
@@ -207,7 +205,6 @@ func (c NSCollectionLayoutAnchor) IsAbsoluteOffset() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isAbsoluteOffset"))
 	return rv
 }
-
 // A Boolean value that indicates whether the anchor’s offset is expressed
 // as a fraction of its supplementary item’s dimension.
 //

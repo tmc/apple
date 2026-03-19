@@ -461,7 +461,6 @@ func (w NSWindowController) InitWithWindow(window INSWindow) NSWindowController 
 	rv := objc.Send[NSWindowController](w.ID, objc.Sel("initWithWindow:"), window)
 	return rv
 }
-
 // Returns a window controller initialized with a nib file.
 //
 // windowNibName: The name of the nib file (minus the “`XCUIElementTypeNib`” extension)
@@ -480,7 +479,6 @@ func (w NSWindowController) InitWithWindowNibName(windowNibName NSNibName) NSWin
 	rv := objc.Send[NSWindowController](w.ID, objc.Sel("initWithWindowNibName:"), objc.String(string(windowNibName)))
 	return rv
 }
-
 // Returns a window controller initialized with a nib file and a specified
 // owner for that nib file.
 //
@@ -502,7 +500,6 @@ func (w NSWindowController) InitWithWindowNibNameOwner(windowNibName NSNibName, 
 	rv := objc.Send[NSWindowController](w.ID, objc.Sel("initWithWindowNibName:owner:"), objc.String(string(windowNibName)), owner)
 	return rv
 }
-
 // Returns a window controller initialized with a nib file at an absolute path
 // and a specified owner.
 //
@@ -526,7 +523,6 @@ func (w NSWindowController) InitWithWindowNibPathOwner(windowNibPath string, own
 	rv := objc.Send[NSWindowController](w.ID, objc.Sel("initWithWindowNibPath:owner:"), objc.String(windowNibPath), owner)
 	return rv
 }
-
 // Loads the receiver’s window from the nib file.
 //
 // # Discussion
@@ -546,7 +542,6 @@ func (w NSWindowController) InitWithWindowNibPathOwner(windowNibPath string, own
 func (w NSWindowController) LoadWindow() {
 	objc.Send[objc.ID](w.ID, objc.Sel("loadWindow"))
 }
-
 // Displays the window associated with the receiver.
 //
 // sender: The control sending the message; can be `nil`.
@@ -564,7 +559,6 @@ func (w NSWindowController) LoadWindow() {
 func (w NSWindowController) ShowWindow(sender objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("showWindow:"), sender)
 }
-
 // Sent after the window owned by the receiver has been loaded.
 //
 // # Discussion
@@ -575,7 +569,6 @@ func (w NSWindowController) ShowWindow(sender objectivec.IObject) {
 func (w NSWindowController) WindowDidLoad() {
 	objc.Send[objc.ID](w.ID, objc.Sel("windowDidLoad"))
 }
-
 // Sent before the window owned by the receiver is loaded.
 //
 // # Discussion
@@ -586,7 +579,6 @@ func (w NSWindowController) WindowDidLoad() {
 func (w NSWindowController) WindowWillLoad() {
 	objc.Send[objc.ID](w.ID, objc.Sel("windowWillLoad"))
 }
-
 // Sets the document edited flag for the window controller.
 //
 // dirtyFlag: [true] if the document has been edited since its last save, [false] if it
@@ -606,7 +598,6 @@ func (w NSWindowController) WindowWillLoad() {
 func (w NSWindowController) SetDocumentEdited(dirtyFlag bool) {
 	objc.Send[objc.ID](w.ID, objc.Sel("setDocumentEdited:"), dirtyFlag)
 }
-
 // Closes the window if it was loaded.
 //
 // # Discussion
@@ -620,7 +611,6 @@ func (w NSWindowController) SetDocumentEdited(dirtyFlag bool) {
 func (w NSWindowController) Close() {
 	objc.Send[objc.ID](w.ID, objc.Sel("close"))
 }
-
 // Synchronizes the displayed window title and the represented filename with
 // the information in the associated document.
 //
@@ -636,7 +626,6 @@ func (w NSWindowController) Close() {
 func (w NSWindowController) SynchronizeWindowTitleWithDocumentName() {
 	objc.Send[objc.ID](w.ID, objc.Sel("synchronizeWindowTitleWithDocumentName"))
 }
-
 // Returns the window title to be used for a given document display name.
 //
 // displayName: The display name for the document. This is the last path component under
@@ -654,7 +643,6 @@ func (w NSWindowController) WindowTitleForDocumentDisplayName(displayName string
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("windowTitleForDocumentDisplayName:"), objc.String(displayName))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Dismisses the window controller.
 //
 // sender: The sender of the message.
@@ -667,7 +655,6 @@ func (w NSWindowController) WindowTitleForDocumentDisplayName(displayName string
 func (w NSWindowController) DismissController(sender objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("dismissController:"), sender)
 }
-
 // Performs the specified segue.
 //
 // identifier: The string that uniquely identifies the segue in the storyboard file.
@@ -693,7 +680,6 @@ func (w NSWindowController) DismissController(sender objectivec.IObject) {
 func (w NSWindowController) PerformSegueWithIdentifierSender(identifier NSStoryboardSegueIdentifier, sender objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("performSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
 }
-
 // Called when a segue is about to be performed.
 //
 // segue: The segue object containing information about the view controllers involved
@@ -722,7 +708,6 @@ func (w NSWindowController) PerformSegueWithIdentifierSender(identifier NSStoryb
 func (w NSWindowController) PrepareForSegueSender(segue INSStoryboardSegue, sender objectivec.IObject) {
 	objc.Send[objc.ID](w.ID, objc.Sel("prepareForSegue:sender:"), segue, sender)
 }
-
 // Called immediately prior to the performance of a storyboard segue.
 //
 // identifier: The string that identifies the segue to be performed.
@@ -773,7 +758,6 @@ func (w NSWindowController) WindowLoaded() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("isWindowLoaded"))
 	return rv
 }
-
 // The window owned by the receiver.
 //
 // # Discussion
@@ -800,7 +784,6 @@ func (w NSWindowController) Window() INSWindow {
 func (w NSWindowController) SetWindow(value INSWindow) {
 	objc.Send[struct{}](w.ID, objc.Sel("setWindow:"), value)
 }
-
 // The document associated with the window controller.
 //
 // # Discussion
@@ -819,7 +802,6 @@ func (w NSWindowController) Document() objectivec.IObject {
 func (w NSWindowController) SetDocument(value objectivec.IObject) {
 	objc.Send[struct{}](w.ID, objc.Sel("setDocument:"), value)
 }
-
 // A Boolean value that indicates whether the receiver necessarily closes the
 // associated document when the window it manages is closed.
 //
@@ -840,7 +822,6 @@ func (w NSWindowController) ShouldCloseDocument() bool {
 func (w NSWindowController) SetShouldCloseDocument(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setShouldCloseDocument:"), value)
 }
-
 // The owner of the nib file containing the window managed by the receiver.
 //
 // # Discussion
@@ -854,7 +835,6 @@ func (w NSWindowController) Owner() objectivec.IObject {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("owner"))
 	return objectivec.Object{ID: rv}
 }
-
 // The storyboard file from which the window controller was loaded.
 //
 // # Discussion
@@ -867,7 +847,6 @@ func (w NSWindowController) Storyboard() INSStoryboard {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("storyboard"))
 	return NSStoryboardFromID(objc.ID(rv))
 }
-
 // The name of the nib file that stores the window associated with the
 // receiver.
 //
@@ -885,7 +864,6 @@ func (w NSWindowController) WindowNibName() NSNibName {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("windowNibName"))
 	return NSNibName(foundation.NSStringFromID(rv).String())
 }
-
 // The full path of the nib file that stores the window associated with the
 // receiver.
 //
@@ -904,7 +882,6 @@ func (w NSWindowController) WindowNibPath() string {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("windowNibPath"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A Boolean value that indicates whether the window will cascade in relation
 // to other document windows when it is displayed.
 //
@@ -927,7 +904,6 @@ func (w NSWindowController) ShouldCascadeWindows() bool {
 func (w NSWindowController) SetShouldCascadeWindows(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setShouldCascadeWindows:"), value)
 }
-
 // The name under which the frame rectangle of the window owned by the
 // receiver is stored in the defaults database.
 //
@@ -944,7 +920,6 @@ func (w NSWindowController) WindowFrameAutosaveName() NSWindowFrameAutosaveName 
 func (w NSWindowController) SetWindowFrameAutosaveName(value NSWindowFrameAutosaveName) {
 	objc.Send[struct{}](w.ID, objc.Sel("setWindowFrameAutosaveName:"), objc.String(string(value)))
 }
-
 // The view controller for the window’s content view.
 //
 // # Discussion
@@ -959,7 +934,6 @@ func (w NSWindowController) ContentViewController() INSViewController {
 func (w NSWindowController) SetContentViewController(value INSViewController) {
 	objc.Send[struct{}](w.ID, objc.Sel("setContentViewController:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSWindowController/previewRepresentableActivityItems
 func (w NSWindowController) PreviewRepresentableActivityItems() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](w.ID, objc.Sel("previewRepresentableActivityItems"))

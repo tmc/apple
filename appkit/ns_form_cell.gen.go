@@ -233,7 +233,6 @@ func (f NSFormCell) AttributedTitle() foundation.NSAttributedString {
 func (f NSFormCell) SetAttributedTitle(value foundation.NSAttributedString) {
 	objc.Send[struct{}](f.ID, objc.Sel("setAttributedTitle:"), value)
 }
-
 // The alignment of the title.
 //
 // # Discussion
@@ -250,7 +249,6 @@ func (f NSFormCell) TitleAlignment() NSTextAlignment {
 func (f NSFormCell) SetTitleAlignment(value NSTextAlignment) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleAlignment:"), value)
 }
-
 // The default writing direction used to render the form cell’s title.
 //
 // # Discussion
@@ -266,7 +264,6 @@ func (f NSFormCell) TitleBaseWritingDirection() NSWritingDirection {
 func (f NSFormCell) SetTitleBaseWritingDirection(value NSWritingDirection) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleBaseWritingDirection:"), value)
 }
-
 // The font used to draw cell’s title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell/titleFont
@@ -277,7 +274,6 @@ func (f NSFormCell) TitleFont() NSFont {
 func (f NSFormCell) SetTitleFont(value NSFont) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleFont:"), value)
 }
-
 // The width of the title field.
 //
 // # Discussion
@@ -301,7 +297,6 @@ func (f NSFormCell) TitleWidth() float64 {
 func (f NSFormCell) SetTitleWidth(value float64) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleWidth:"), value)
 }
-
 // The cell’s attributed placeholder string.
 //
 // # Discussion
@@ -317,7 +312,6 @@ func (f NSFormCell) PlaceholderAttributedString() foundation.NSAttributedString 
 func (f NSFormCell) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
-
 // The cell’s plain text placeholder string.
 //
 // # Discussion
@@ -335,7 +329,6 @@ func (f NSFormCell) PlaceholderString() string {
 func (f NSFormCell) SetPlaceholderString(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
-
 // The preferred text field width.
 //
 // # Discussion

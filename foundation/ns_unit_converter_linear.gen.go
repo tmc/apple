@@ -208,7 +208,6 @@ func (u UnitConverterLinear) InitWithCoefficient(coefficient float64) UnitConver
 	rv := objc.Send[UnitConverterLinear](u.ID, objc.Sel("initWithCoefficient:"), coefficient)
 	return rv
 }
-
 // Creates a unit converter with the coefficient and constant you specify.
 //
 // coefficient: The coefficient used in the linear unit conversion calculation.
@@ -228,7 +227,6 @@ func (u UnitConverterLinear) Coefficient() float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("coefficient"))
 	return rv
 }
-
 // The constant to use in the linear unit conversion calculation.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConverterLinear/constant
@@ -247,7 +245,6 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) Fahrenheit() UnitTempe
 func (_UnitConverterLinearClass UnitConverterLinearClass) SetFahrenheit(value UnitTemperature) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setFahrenheit:"), value)
 }
-
 // The kelvin unit of temperature.
 //
 // See: https://developer.apple.com/documentation/foundation/unittemperature/kelvin
@@ -258,7 +255,6 @@ func (_UnitConverterLinearClass UnitConverterLinearClass) Kelvin() UnitTemperatu
 func (_UnitConverterLinearClass UnitConverterLinearClass) SetKelvin(value UnitTemperature) {
 	objc.Send[struct{}](objc.ID(_UnitConverterLinearClass.class), objc.Sel("setKelvin:"), value)
 }
-
 // The kilometers unit of length.
 //
 // See: https://developer.apple.com/documentation/foundation/unitlength/kilometers

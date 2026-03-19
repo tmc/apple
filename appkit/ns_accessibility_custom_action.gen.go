@@ -184,7 +184,6 @@ _block1, _cleanup1 := NewErrorBlock(handler)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithName:handler:"), objc.String(name), _block1)
 	return NSAccessibilityCustomActionFromID(rv)
 }
-
 // Creates a custom action object with the specified name, target, and
 // selector.
 //
@@ -204,7 +203,6 @@ func (a NSAccessibilityCustomAction) Name() string {
 func (a NSAccessibilityCustomAction) SetName(value string) {
 	objc.Send[struct{}](a.ID, objc.Sel("setName:"), objc.String(value))
 }
-
 // The closure that handles the execution of the action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/handler
@@ -218,7 +216,6 @@ func (a NSAccessibilityCustomAction) SetHandler(value VoidHandler) {
 	defer cleanup()
 	objc.Send[struct{}](a.ID, objc.Sel("setHandler:"), block)
 }
-
 // The object that performs the action through a selector.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/target
@@ -229,7 +226,6 @@ func (a NSAccessibilityCustomAction) Target() objectivec.Object {
 func (a NSAccessibilityCustomAction) SetTarget(value objectivec.Object) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTarget:"), value)
 }
-
 // The method to call on the target to perform the action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/selector

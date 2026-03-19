@@ -163,7 +163,6 @@ func (d VNDetectContoursRequest) ContrastAdjustment() float32 {
 func (d VNDetectContoursRequest) SetContrastAdjustment(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContrastAdjustment:"), value)
 }
-
 // The pixel value to use as a pivot for the contrast.
 //
 // # Discussion
@@ -182,7 +181,6 @@ func (d VNDetectContoursRequest) ContrastPivot() foundation.NSNumber {
 func (d VNDetectContoursRequest) SetContrastPivot(value foundation.NSNumber) {
 	objc.Send[struct{}](d.ID, objc.Sel("setContrastPivot:"), value)
 }
-
 // A Boolean value that indicates whether the request detects a dark object on
 // a light background to aid in detection.
 //
@@ -200,7 +198,6 @@ func (d VNDetectContoursRequest) DetectsDarkOnLight() bool {
 func (d VNDetectContoursRequest) SetDetectsDarkOnLight(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDetectsDarkOnLight:"), value)
 }
-
 // The maximum image dimension to use for contour detection.
 //
 // # Discussion
@@ -224,7 +221,6 @@ func (d VNDetectContoursRequest) MaximumImageDimension() uint {
 func (d VNDetectContoursRequest) SetMaximumImageDimension(value uint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setMaximumImageDimension:"), value)
 }
-
 // A constant for specifying revision 1 of the contours detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectcontourrequestrevision1

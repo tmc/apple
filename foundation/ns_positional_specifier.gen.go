@@ -196,7 +196,6 @@ func (p NSPositionalSpecifier) InitWithPositionObjectSpecifier(position NSInsert
 	rv := objc.Send[NSPositionalSpecifier](p.ID, objc.Sel("initWithPosition:objectSpecifier:"), position, specifier)
 	return rv
 }
-
 // Sets the class description for the object or objects to be inserted.
 //
 // classDescription: The class description for the object or objects to be inserted.
@@ -210,7 +209,6 @@ func (p NSPositionalSpecifier) InitWithPositionObjectSpecifier(position NSInsert
 func (p NSPositionalSpecifier) SetInsertionClassDescription(classDescription INSScriptClassDescription) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setInsertionClassDescription:"), classDescription)
 }
-
 // Causes the receiver to evaluate its position.
 //
 // # Discussion
@@ -236,7 +234,6 @@ func (p NSPositionalSpecifier) InsertionContainer() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("insertionContainer"))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an insertion index that indicates where the new or copied object or
 // objects should be placed.
 //
@@ -249,7 +246,6 @@ func (p NSPositionalSpecifier) InsertionIndex() int {
 	rv := objc.Send[int](p.ID, objc.Sel("insertionIndex"))
 	return rv
 }
-
 // Returns the key that identifies the relationship into which the new or
 // copied object or objects should be inserted.
 //
@@ -262,7 +258,6 @@ func (p NSPositionalSpecifier) InsertionKey() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("insertionKey"))
 	return NSStringFromID(rv).String()
 }
-
 // Returns a Boolean value that indicates whether evaluation has been
 // successful and the object to be inserted should actually replace the keyed,
 // indexed object in the insertion container.
@@ -285,7 +280,6 @@ func (p NSPositionalSpecifier) InsertionReplaces() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("insertionReplaces"))
 	return rv
 }
-
 // Returns the object specifier specified at initialization time.
 //
 // # Return Value
@@ -297,7 +291,6 @@ func (p NSPositionalSpecifier) ObjectSpecifier() INSScriptObjectSpecifier {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("objectSpecifier"))
 	return NSScriptObjectSpecifierFromID(objc.ID(rv))
 }
-
 // Returns the insertion position specified at initialization time.
 //
 // # Return Value

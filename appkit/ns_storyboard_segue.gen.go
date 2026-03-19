@@ -197,7 +197,6 @@ func (s NSStoryboardSegue) InitWithIdentifierSourceDestination(identifier NSStor
 	rv := objc.Send[NSStoryboardSegue](s.ID, objc.Sel("initWithIdentifier:source:destination:"), objc.String(string(identifier)), sourceController, destinationController)
 	return rv
 }
-
 // Performs a visual transition from one controller to another.
 //
 // # Discussion
@@ -264,7 +263,6 @@ func (s NSStoryboardSegue) SourceController() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("sourceController"))
 	return objectivec.Object{ID: rv}
 }
-
 // The ending/contained view controller or window controller for the
 // storyboard segue.
 //
@@ -281,7 +279,6 @@ func (s NSStoryboardSegue) DestinationController() objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("destinationController"))
 	return objectivec.Object{ID: rv}
 }
-
 // An optional, unique identifier for the storyboard segue that you can
 // specify using the Identity inspector in Interface Builder.
 //

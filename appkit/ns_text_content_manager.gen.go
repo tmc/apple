@@ -227,7 +227,6 @@ func (t NSTextContentManager) InitWithCoder(coder foundation.INSCoder) NSTextCon
 	rv := objc.Send[NSTextContentManager](t.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Performs an editing transaction and invokes a block upon completion.
 //
 // transaction: The editing transaction.
@@ -245,7 +244,6 @@ _block0, _cleanup0 := NewVoidBlock(transaction)
 	defer _cleanup0()
 	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionUsingBlock:"), _block0)
 }
-
 // Records information about an edit action to the transaction.
 //
 // originalTextRange: The range before the action.
@@ -260,7 +258,6 @@ _block0, _cleanup0 := NewVoidBlock(transaction)
 func (t NSTextContentManager) RecordEditActionInRangeNewTextRange(originalTextRange INSTextRange, newTextRange INSTextRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("recordEditActionInRange:newTextRange:"), originalTextRange, newTextRange)
 }
-
 // Adds the layout manager you provide to the list of layout managers.
 //
 // textLayoutManager: The layout manager to add.
@@ -269,7 +266,6 @@ func (t NSTextContentManager) RecordEditActionInRangeNewTextRange(originalTextRa
 func (t NSTextContentManager) AddTextLayoutManager(textLayoutManager INSTextLayoutManager) {
 	objc.Send[objc.ID](t.ID, objc.Sel("addTextLayoutManager:"), textLayoutManager)
 }
-
 // Removes the layout manager you specifiy from the list of layout managers.
 //
 // textLayoutManager: The layout manager to remove.
@@ -278,7 +274,6 @@ func (t NSTextContentManager) AddTextLayoutManager(textLayoutManager INSTextLayo
 func (t NSTextContentManager) RemoveTextLayoutManager(textLayoutManager INSTextLayoutManager) {
 	objc.Send[objc.ID](t.ID, objc.Sel("removeTextLayoutManager:"), textLayoutManager)
 }
-
 // Synchronizes changes to all nonprimary text layout managers.
 //
 // completionHandler: A completion handler that runs on success, or to handle error conditions.
@@ -296,7 +291,6 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](t.ID, objc.Sel("synchronizeTextLayoutManagers:"), _block0)
 }
-
 // Returns an array of text elements that intersect with the range you
 // specify.
 //
@@ -319,7 +313,6 @@ func (t NSTextContentManager) TextElementsForRange(range_ INSTextRange) []NSText
 		return NSTextElementFromID(id)
 	})
 }
-
 // A method you implement if the location backing store requires manual
 // adjustment after editing.
 //
@@ -339,7 +332,6 @@ func (t NSTextContentManager) AdjustedRangeFromRangeForEditingTextSelection(text
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("adjustedRangeFromRange:forEditingTextSelection:"), textRange, forEditingTextSelection)
 	return NSTextRangeFromID(rv)
 }
-
 // Enumerates text elements starting at the text location you provide.
 //
 // textLocation: The [NSTextLocation] at which to start the enumeration.
@@ -375,7 +367,6 @@ _block2, _cleanup2 := NewTextElementBlock(block)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, _block2)
 	return NSTextLocationObjectFromID(rv)
 }
-
 // Returns a new location from location with offset you provide.
 //
 // location: An [NSTextLocation] in the text element.
@@ -392,7 +383,6 @@ func (t NSTextContentManager) LocationFromLocationWithOffset(location NSTextLoca
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("locationFromLocation:withOffset:"), location, offset)
 	return NSTextLocationObjectFromID(rv)
 }
-
 // Returns the offset between the two specified locations.
 //
 // from: A starting location.
@@ -418,7 +408,6 @@ func (t NSTextContentManager) OffsetFromLocationToLocation(from NSTextLocation, 
 	rv := objc.Send[int](t.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
 	return rv
 }
-
 // Replaces the characters specified by range with the text elements you
 // provide.
 //
@@ -436,7 +425,6 @@ func (t NSTextContentManager) OffsetFromLocationToLocation(from NSTextLocation, 
 func (t NSTextContentManager) ReplaceContentsInRangeWithTextElements(range_ INSTextRange, textElements []NSTextElement) {
 	objc.Send[objc.ID](t.ID, objc.Sel("replaceContentsInRange:withTextElements:"), range_, objectivec.IObjectSliceToNSArray(textElements))
 }
-
 // Synchronizes changes to the backing store.
 //
 // completionHandler: A completion handler to run upon successful completion, or to process an
@@ -470,7 +458,6 @@ func (t NSTextContentManager) AutomaticallySynchronizesToBackingStore() bool {
 func (t NSTextContentManager) SetAutomaticallySynchronizesToBackingStore(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticallySynchronizesToBackingStore:"), value)
 }
-
 // Indicates there’s an active editing transaction from the primary text
 // layout manager.
 //
@@ -489,7 +476,6 @@ func (t NSTextContentManager) HasEditingTransaction() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("hasEditingTransaction"))
 	return rv
 }
-
 // The primary text layout manager for this content.
 //
 // # Discussion
@@ -509,7 +495,6 @@ func (t NSTextContentManager) PrimaryTextLayoutManager() INSTextLayoutManager {
 func (t NSTextContentManager) SetPrimaryTextLayoutManager(value INSTextLayoutManager) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPrimaryTextLayoutManager:"), value)
 }
-
 // The array of text layout managers associated with this text content
 // manager.
 //
@@ -524,7 +509,6 @@ func (t NSTextContentManager) TextLayoutManagers() []NSTextLayoutManager {
 		return NSTextLayoutManagerFromID(id)
 	})
 }
-
 // Determines if the framework should automatically synchronize all text
 // layout managers when exiting an editing transaction.
 //
@@ -536,7 +520,6 @@ func (t NSTextContentManager) AutomaticallySynchronizesTextLayoutManagers() bool
 func (t NSTextContentManager) SetAutomaticallySynchronizesTextLayoutManagers(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticallySynchronizesTextLayoutManagers:"), value)
 }
-
 // The delegate for the content manager object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/delegate
@@ -547,7 +530,6 @@ func (t NSTextContentManager) Delegate() NSTextContentManagerDelegate {
 func (t NSTextContentManager) SetDelegate(value NSTextContentManagerDelegate) {
 	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
-
 // Describes the starting and ending locations for the document.
 //
 // # Discussion

@@ -163,7 +163,6 @@ func (p NSPressureConfiguration) InitWithPressureBehavior(pressureBehavior NSPre
 	rv := objc.Send[NSPressureConfiguration](p.ID, objc.Sel("initWithPressureBehavior:"), pressureBehavior)
 	return rv
 }
-
 // Changes the pressure configuration of the trackpad to the initialized
 // pressure configuration.
 //

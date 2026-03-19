@@ -221,7 +221,6 @@ func NewPortWithCoder(coder INSCoder) Port {
 func (p Port) Invalidate() {
 	objc.Send[objc.ID](p.ID, objc.Sel("invalidate"))
 }
-
 // Sets the receiver’s delegate to a given object.
 //
 // anObject: The delegate for the receiver.
@@ -230,7 +229,6 @@ func (p Port) Invalidate() {
 func (p Port) SetDelegate(anObject NSPortDelegate) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setDelegate:"), anObject)
 }
-
 // Returns the receiver’s delegate.
 //
 // # Return Value
@@ -242,7 +240,6 @@ func (p Port) Delegate() NSPortDelegate {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("delegate"))
 	return NSPortDelegateObjectFromID(rv)
 }
-
 // This method is provided for subclasses that have custom types of [NSPort].
 //
 // limitDate: The last instant that a message may be sent.
@@ -266,7 +263,6 @@ func (p Port) SendBeforeDateComponentsFromReserved(limitDate INSDate, components
 	rv := objc.Send[bool](p.ID, objc.Sel("sendBeforeDate:components:from:reserved:"), limitDate, components, receivePort, headerSpaceReserved)
 	return rv
 }
-
 // This method is provided for subclasses that have custom types of [NSPort].
 //
 // limitDate: The last instant that a message may be sent.
@@ -292,7 +288,6 @@ func (p Port) SendBeforeDateMsgidComponentsFromReserved(limitDate INSDate, msgID
 	rv := objc.Send[bool](p.ID, objc.Sel("sendBeforeDate:msgid:components:from:reserved:"), limitDate, msgID, components, receivePort, headerSpaceReserved)
 	return rv
 }
-
 // This method should be implemented by a subclass to stop monitoring of a
 // port when removed from a give run loop in a given input mode.
 //
@@ -308,7 +303,6 @@ func (p Port) SendBeforeDateMsgidComponentsFromReserved(limitDate INSDate, msgID
 func (p Port) RemoveFromRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 	objc.Send[objc.ID](p.ID, objc.Sel("removeFromRunLoop:forMode:"), runLoop, objc.String(string(mode)))
 }
-
 // This method should be implemented by a subclass to set up monitoring of a
 // port when added to a given run loop in a given input mode.
 //
@@ -324,7 +318,6 @@ func (p Port) RemoveFromRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 func (p Port) ScheduleInRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 	objc.Send[objc.ID](p.ID, objc.Sel("scheduleInRunLoop:forMode:"), runLoop, objc.String(string(mode)))
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -333,7 +326,6 @@ func (p Port) ScheduleInRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode) {
 func (p Port) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](p.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (p Port) InitWithCoder(coder INSCoder) Port {
@@ -371,7 +363,6 @@ func (p Port) Valid() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isValid"))
 	return rv
 }
-
 // The number of bytes of space reserved by the receiver for sending data.
 //
 // # Discussion

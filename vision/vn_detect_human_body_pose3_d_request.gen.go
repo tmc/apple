@@ -168,7 +168,6 @@ func (d VNDetectHumanBodyPose3DRequest) SupportedJointNamesAndReturnError() ([]s
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
-
 // Returns the joint group names the request supports.
 //
 // # Return Value
@@ -197,7 +196,6 @@ func (d VNDetectHumanBodyPose3DRequest) SupportedJointsGroupNames() VNHumanBodyP
 func (d VNDetectHumanBodyPose3DRequest) SetSupportedJointsGroupNames(value VNHumanBodyPose3DObservationJointsGroupName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
 }
-
 // Returns the joint group names the request supports.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanbodypose3drequest/supportedjointnames

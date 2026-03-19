@@ -123,7 +123,6 @@ func (r VNRecognizedPoints3DObservation) RecognizedPointForKeyError(pointKey VNR
 	return VNRecognizedPoint3DFromID(rv), nil
 
 }
-
 // Returns a point for a group key you specify.
 //
 // groupKey: The group key to retrieve points for.
@@ -151,7 +150,6 @@ func (r VNRecognizedPoints3DObservation) AvailableKeys() []string {
 	rv := objc.Send[[]objc.ID](r.ID, objc.Sel("availableKeys"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The available point group keys in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedPoints3DObservation/availableGroupKeys

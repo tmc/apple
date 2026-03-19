@@ -155,7 +155,6 @@ func (m MassFormatter) StringFromKilograms(numberInKilograms float64) string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringFromKilograms:"), numberInKilograms)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a properly formatted mass string for the given value and unit.
 //
 // value: The mass’s value in the given unit.
@@ -171,7 +170,6 @@ func (m MassFormatter) StringFromValueUnit(value float64, unit NSMassFormatterUn
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringFromValue:unit:"), value, unit)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the unit string for the provided value.
 //
 // numberInKilograms: The mass’s value in kilograms.
@@ -197,7 +195,6 @@ func (m MassFormatter) UnitStringFromKilogramsUsedUnit(numberInKilograms float64
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("unitStringFromKilograms:usedUnit:"), numberInKilograms, unitp)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the unit string based on the provided value and unit.
 //
 // value: The mass’s value for the provided unit.
@@ -238,7 +235,6 @@ func (m MassFormatter) ForPersonMassUse() bool {
 func (m MassFormatter) SetForPersonMassUse(value bool) {
 	objc.Send[struct{}](m.ID, objc.Sel("setForPersonMassUse:"), value)
 }
-
 // The number formatter used to format the numbers in a mass strings.
 //
 // # Discussion
@@ -255,7 +251,6 @@ func (m MassFormatter) NumberFormatter() INSNumberFormatter {
 func (m MassFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](m.ID, objc.Sel("setNumberFormatter:"), value)
 }
-
 // The unit style used by this formatter.
 //
 // # Discussion

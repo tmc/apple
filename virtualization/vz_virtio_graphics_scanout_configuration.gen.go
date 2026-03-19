@@ -160,7 +160,6 @@ func (v VZVirtioGraphicsScanoutConfiguration) HeightInPixels() int {
 func (v VZVirtioGraphicsScanoutConfiguration) SetHeightInPixels(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHeightInPixels:"), value)
 }
-
 // An integer value that describes the width of the graphics device in pixels.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioGraphicsScanoutConfiguration/widthInPixels
@@ -171,7 +170,6 @@ func (v VZVirtioGraphicsScanoutConfiguration) WidthInPixels() int {
 func (v VZVirtioGraphicsScanoutConfiguration) SetWidthInPixels(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWidthInPixels:"), value)
 }
-
 // The array of output devices.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtiographicsdeviceconfiguration/scanouts

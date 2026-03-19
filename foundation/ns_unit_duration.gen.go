@@ -151,7 +151,6 @@ func (_UnitDurationClass UnitDurationClass) Hours() UnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("hours"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
-
 // The minute unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/minutes
@@ -159,7 +158,6 @@ func (_UnitDurationClass UnitDurationClass) Minutes() UnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("minutes"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
-
 // The second unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/seconds
@@ -167,7 +165,6 @@ func (_UnitDurationClass UnitDurationClass) Seconds() UnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("seconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
-
 // The millisecond unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/milliseconds
@@ -175,7 +172,6 @@ func (_UnitDurationClass UnitDurationClass) Milliseconds() UnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("milliseconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
-
 // The microsecond unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/microseconds
@@ -183,7 +179,6 @@ func (_UnitDurationClass UnitDurationClass) Microseconds() UnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("microseconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
-
 // The nanosecond unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/nanoseconds
@@ -191,7 +186,6 @@ func (_UnitDurationClass UnitDurationClass) Nanoseconds() UnitDuration {
 	rv := objc.Send[objc.ID](objc.ID(_UnitDurationClass.class), objc.Sel("nanoseconds"))
 	return NSUnitDurationFromID(objc.ID(rv))
 }
-
 // The picosecond unit of duration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitDuration/picoseconds

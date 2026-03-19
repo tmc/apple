@@ -54,12 +54,10 @@ func NSURLConnectionDownloadDelegateObjectFromID(id objc.ID) NSURLConnectionDown
 // the file to a more persistent and appropriate location.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connectionDidFinishDownloading(_:destinationURL:)
-
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFinishDownloadingDestinationURL(connection INSURLConnection, destinationURL INSURL) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidFinishDownloading:destinationURL:"), connection, destinationURL)
 	}
-
 // Sent to the delegate to deliver progress information for a download of a
 // URL asset to a destination file.
 //
@@ -82,12 +80,10 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFinishDownloadingDes
 // application’s user interface.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connection(_:didWriteData:totalBytesWritten:expectedTotalBytes:)
-
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidWriteDataTotalBytesWrittenExpectedTotalBytes(connection INSURLConnection, bytesWritten int64, totalBytesWritten int64, expectedTotalBytes int64) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didWriteData:totalBytesWritten:expectedTotalBytes:"), connection, bytesWritten, totalBytesWritten, expectedTotalBytes)
 	}
-
 // Sent to the delegate when an URL connection resumes downloading a URL asset
 // that was earlier suspended.
 //
@@ -109,12 +105,10 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidWriteDataTotalBytesW
 // the delegate until the download concludes.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connectionDidResumeDownloading(_:totalBytesWritten:expectedTotalBytes:)
-
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidResumeDownloadingTotalBytesWrittenExpectedTotalBytes(connection INSURLConnection, totalBytesWritten int64, expectedTotalBytes int64) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidResumeDownloading:totalBytesWritten:expectedTotalBytes:"), connection, totalBytesWritten, expectedTotalBytes)
 	}
-
 // Tells the delegate that the connection will send a request for an
 // authentication challenge.
 //
@@ -152,12 +146,10 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidResumeDownloadingTot
 // [connection(_:didReceive:)]: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didReceive:)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
-
 func (o NSURLConnectionDownloadDelegateObject) ConnectionWillSendRequestForAuthenticationChallenge(connection INSURLConnection, challenge INSURLAuthenticationChallenge) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:willSendRequestForAuthenticationChallenge:"), connection, challenge)
 	}
-
 // Sent to determine whether the URL loader should use the credential storage
 // for authenticating the connection.
 //
@@ -178,13 +170,11 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionWillSendRequestForAuthe
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connectionShouldUseCredentialStorage(_:)
-
 func (o NSURLConnectionDownloadDelegateObject) ConnectionShouldUseCredentialStorage(connection INSURLConnection) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("connectionShouldUseCredentialStorage:"), connection)
 	return rv
 	}
-
 // Sent when a connection fails to load its request successfully.
 //
 // connection: The connection sending the message.
@@ -198,7 +188,6 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionShouldUseCredentialStor
 // messages for `connection`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didFailWithError:)
-
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFailWithError(connection INSURLConnection, error_ INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)

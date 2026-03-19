@@ -179,7 +179,6 @@ func (r RelativeDateTimeFormatter) LocalizedStringForDateRelativeToDate(date INS
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("localizedStringForDate:relativeToDate:"), date, referenceDate)
 	return NSStringFromID(rv).String()
 }
-
 // Formats a relative time represented by the specified date components.
 //
 // dateComponents: The date components to format.
@@ -201,7 +200,6 @@ func (r RelativeDateTimeFormatter) LocalizedStringFromDateComponents(dateCompone
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("localizedStringFromDateComponents:"), dateComponents)
 	return NSStringFromID(rv).String()
 }
-
 // Formats the specified time interval using the formatter’s calendar.
 //
 // timeInterval: The time interval to format.
@@ -236,7 +234,6 @@ func (r RelativeDateTimeFormatter) Calendar() INSCalendar {
 func (r RelativeDateTimeFormatter) SetCalendar(value INSCalendar) {
 	objc.Send[struct{}](r.ID, objc.Sel("setCalendar:"), value)
 }
-
 // The locale to use when formatting the date.
 //
 // # Discussion
@@ -252,7 +249,6 @@ func (r RelativeDateTimeFormatter) Locale() INSLocale {
 func (r RelativeDateTimeFormatter) SetLocale(value INSLocale) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLocale:"), value)
 }
-
 // The style to use when describing a relative date, for example
 // “yesterday” or “1 day ago”.
 //
@@ -270,7 +266,6 @@ func (r RelativeDateTimeFormatter) DateTimeStyle() NSRelativeDateTimeFormatterSt
 func (r RelativeDateTimeFormatter) SetDateTimeStyle(value NSRelativeDateTimeFormatterStyle) {
 	objc.Send[struct{}](r.ID, objc.Sel("setDateTimeStyle:"), value)
 }
-
 // The style to use when formatting the quantity or the name of the unit, such
 // as “1 day ago” or “one day ago”.
 //
@@ -286,7 +281,6 @@ func (r RelativeDateTimeFormatter) UnitsStyle() NSRelativeDateTimeFormatterUnits
 func (r RelativeDateTimeFormatter) SetUnitsStyle(value NSRelativeDateTimeFormatterUnitsStyle) {
 	objc.Send[struct{}](r.ID, objc.Sel("setUnitsStyle:"), value)
 }
-
 // A description of where the formatted string will appear, allowing the
 // formatter to capitalize the output appropriately.
 //

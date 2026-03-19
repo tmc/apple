@@ -40,12 +40,10 @@ func NSCandidateListTouchBarItemDelegateObjectFromID(id objc.ID) NSCandidateList
 // index: The index of the candidate that the user is currently touching.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItemDelegate/candidateListTouchBarItem(_:beginSelectingCandidateAt:)
-
 func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemBeginSelectingCandidateAtIndex(anItem INSCandidateListTouchBarItem, index int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:beginSelectingCandidateAtIndex:"), anItem, index)
 	}
-
 // Tells the delegate that user has moved from touching one candidate in the
 // candidate list item to another.
 //
@@ -56,12 +54,10 @@ func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemBegi
 // index: The index of the candidate that the user is currently touching.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItemDelegate/candidateListTouchBarItem(_:changeSelectionFromCandidateAt:to:)
-
 func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemChangeSelectionFromCandidateAtIndexToIndex(anItem INSCandidateListTouchBarItem, previousIndex int, index int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:changeSelectionFromCandidateAtIndex:toIndex:"), anItem, previousIndex, index)
 	}
-
 // Tells the delegate that a user has stopped touching candidates in the
 // candidate list item.
 //
@@ -76,12 +72,10 @@ func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemChan
 // candidate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItemDelegate/candidateListTouchBarItem(_:endSelectingCandidateAt:)
-
 func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemEndSelectingCandidateAtIndex(anItem INSCandidateListTouchBarItem, index int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:endSelectingCandidateAtIndex:"), anItem, index)
 	}
-
 // Tells the delegate that the visibility of the candidate list has changed.
 //
 // anItem: The candidate list item whose candidate list’s visibility has changed.
@@ -93,7 +87,6 @@ func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemEndS
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItemDelegate/candidateListTouchBarItem(_:changedCandidateListVisibility:)
-
 func (o NSCandidateListTouchBarItemDelegateObject) CandidateListTouchBarItemChangedCandidateListVisibility(anItem INSCandidateListTouchBarItem, isVisible bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("candidateListTouchBarItem:changedCandidateListVisibility:"), anItem, isVisible)

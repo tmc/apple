@@ -163,7 +163,6 @@ func (s MTKSubmesh) Mesh() IMTKMesh {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("mesh"))
 	return MTKMeshFromID(objc.ID(rv))
 }
-
 // The index buffer used to render the submesh object.
 //
 // # Discussion
@@ -178,7 +177,6 @@ func (s MTKSubmesh) IndexBuffer() IMTKMeshBuffer {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("indexBuffer"))
 	return MTKMeshBufferFromID(objc.ID(rv))
 }
-
 // The number of indices in the index buffer.
 //
 // # Discussion
@@ -193,7 +191,6 @@ func (s MTKSubmesh) IndexCount() uint {
 	rv := objc.Send[uint](s.ID, objc.Sel("indexCount"))
 	return rv
 }
-
 // The type of index data in the index buffer.
 //
 // # Discussion
@@ -208,7 +205,6 @@ func (s MTKSubmesh) IndexType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("indexType"))
 	return rv
 }
-
 // The primitive type with which to draw the submesh object.
 //
 // # Discussion
@@ -223,7 +219,6 @@ func (s MTKSubmesh) PrimitiveType() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("primitiveType"))
 	return rv
 }
-
 // The name of the submesh.
 //
 // # Discussion

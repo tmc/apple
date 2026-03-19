@@ -274,7 +274,6 @@ func (u URLProtectionSpace) InitWithHostPortProtocolRealmAuthenticationMethod(ho
 	rv := objc.Send[URLProtectionSpace](u.ID, objc.Sel("initWithHost:port:protocol:realm:authenticationMethod:"), objc.String(host), port, objc.String(protocol_), objc.String(realm), objc.String(authenticationMethod))
 	return rv
 }
-
 // Creates a protection space object representing a proxy server.
 //
 // host: The host of the proxy server for the protection space object.
@@ -309,7 +308,6 @@ func (u URLProtectionSpace) InitWithProxyHostPortTypeRealmAuthenticationMethod(h
 	rv := objc.Send[URLProtectionSpace](u.ID, objc.Sel("initWithProxyHost:port:type:realm:authenticationMethod:"), objc.String(host), port, objc.String(type_), objc.String(realm), objc.String(authenticationMethod))
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -318,7 +316,6 @@ func (u URLProtectionSpace) InitWithProxyHostPortTypeRealmAuthenticationMethod(h
 func (u URLProtectionSpace) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u URLProtectionSpace) InitWithCoder(coder INSCoder) URLProtectionSpace {
@@ -340,7 +337,6 @@ func (u URLProtectionSpace) AuthenticationMethod() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("authenticationMethod"))
 	return NSStringFromID(rv).String()
 }
-
 // The acceptable certificate-issuing authorities for client certificate
 // authentication.
 //
@@ -357,7 +353,6 @@ func (u URLProtectionSpace) DistinguishedNames() []NSData {
 		return NSDataFromID(id)
 	})
 }
-
 // The receiver’s host.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/host
@@ -365,7 +360,6 @@ func (u URLProtectionSpace) Host() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("host"))
 	return NSStringFromID(rv).String()
 }
-
 // The receiver’s port.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace/port
@@ -373,7 +367,6 @@ func (u URLProtectionSpace) Port() int {
 	rv := objc.Send[int](u.ID, objc.Sel("port"))
 	return rv
 }
-
 // The receiver’s protocol.
 //
 // # Discussion
@@ -385,7 +378,6 @@ func (u URLProtectionSpace) Protocol() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("protocol"))
 	return NSStringFromID(rv).String()
 }
-
 // The receiver’s proxy type.
 //
 // # Discussion
@@ -401,7 +393,6 @@ func (u URLProtectionSpace) ProxyType() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("proxyType"))
 	return NSStringFromID(rv).String()
 }
-
 // The receiver’s authentication realm
 //
 // # Discussion
@@ -414,7 +405,6 @@ func (u URLProtectionSpace) Realm() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("realm"))
 	return NSStringFromID(rv).String()
 }
-
 // A Boolean value that indicates whether the credentials for the protection
 // space can be sent securely.
 //
@@ -431,7 +421,6 @@ func (u URLProtectionSpace) ReceivesCredentialSecurely() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("receivesCredentialSecurely"))
 	return rv
 }
-
 // A representation of the server’s SSL transaction state.
 //
 // # Discussion
@@ -444,7 +433,6 @@ func (u URLProtectionSpace) ServerTrust() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("serverTrust"))
 	return objectivec.Object{ID: rv}
 }
-
 // A Boolean value that indicates whether the receiver represents a proxy
 // server.
 //

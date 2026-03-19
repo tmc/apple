@@ -326,7 +326,6 @@ func (u NSUbiquitousKeyValueStore) BoolForKey(aKey string) bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("boolForKey:"), objc.String(aKey))
 	return rv
 }
-
 // Returns the double value associated with the specified key.
 //
 // aKey: The key to retrieve from the iCloud key-value store.
@@ -349,7 +348,6 @@ func (u NSUbiquitousKeyValueStore) DoubleForKey(aKey string) float64 {
 	rv := objc.Send[float64](u.ID, objc.Sel("doubleForKey:"), objc.String(aKey))
 	return rv
 }
-
 // Returns the 64-bit integer value associated with the specified key.
 //
 // aKey: The key to retrieve from the iCloud key-value store.
@@ -373,7 +371,6 @@ func (u NSUbiquitousKeyValueStore) LongLongForKey(aKey string) int64 {
 	rv := objc.Send[int64](u.ID, objc.Sel("longLongForKey:"), objc.String(aKey))
 	return rv
 }
-
 // Returns the string associated with the specified key.
 //
 // aKey: The key to retrieve from the iCloud key-value store.
@@ -394,7 +391,6 @@ func (u NSUbiquitousKeyValueStore) StringForKey(aKey string) string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("stringForKey:"), objc.String(aKey))
 	return NSStringFromID(rv).String()
 }
-
 // Returns the data object associated with the specified key.
 //
 // aKey: The key to retrieve from the iCloud key-value store.
@@ -410,7 +406,6 @@ func (u NSUbiquitousKeyValueStore) DataForKey(aKey string) INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataForKey:"), objc.String(aKey))
 	return NSDataFromID(rv)
 }
-
 // Returns the object associated with the specified key.
 //
 // aKey: The key to retrieve from the iCloud key-value store.
@@ -424,7 +419,6 @@ func (u NSUbiquitousKeyValueStore) ObjectForKey(aKey string) objectivec.IObject 
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("objectForKey:"), objc.String(aKey))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the array associated with the specified key.
 //
 // aKey: The key to retrieve from the iCloud key-value store.
@@ -439,7 +433,6 @@ func (u NSUbiquitousKeyValueStore) ArrayForKey(aKey string) INSArray {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("arrayForKey:"), objc.String(aKey))
 	return NSArrayFromID(rv)
 }
-
 // Returns the dictionary object associated with the specified key.
 //
 // aKey: The key to retrieve from the iCloud key-value store.
@@ -455,7 +448,6 @@ func (u NSUbiquitousKeyValueStore) DictionaryForKey(aKey string) INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dictionaryForKey:"), objc.String(aKey))
 	return NSDictionaryFromID(rv)
 }
-
 // Sets the value of the specified key to a Boolean value.
 //
 // value: The Boolean value to save to the iCloud key-value store.
@@ -471,7 +463,6 @@ func (u NSUbiquitousKeyValueStore) DictionaryForKey(aKey string) INSDictionary {
 func (u NSUbiquitousKeyValueStore) SetBoolForKey(value bool, aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setBool:forKey:"), value, objc.String(aKey))
 }
-
 // Sets the value of the specified key to a double value.
 //
 // value: The double value to save to the iCloud key-value store.
@@ -487,7 +478,6 @@ func (u NSUbiquitousKeyValueStore) SetBoolForKey(value bool, aKey string) {
 func (u NSUbiquitousKeyValueStore) SetDoubleForKey(value float64, aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setDouble:forKey:"), value, objc.String(aKey))
 }
-
 // Sets the value of the specified key to a 64-bit integer value.
 //
 // value: The integer value to save to the iCloud key-value store.
@@ -503,7 +493,6 @@ func (u NSUbiquitousKeyValueStore) SetDoubleForKey(value float64, aKey string) {
 func (u NSUbiquitousKeyValueStore) SetLongLongForKey(value int64, aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setLongLong:forKey:"), value, objc.String(aKey))
 }
-
 // Sets the value of the specified key to a string value.
 //
 // aString: The string value to save to the iCloud key-value store.
@@ -514,7 +503,6 @@ func (u NSUbiquitousKeyValueStore) SetLongLongForKey(value int64, aKey string) {
 func (u NSUbiquitousKeyValueStore) SetStringForKey(aString string, aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setString:forKey:"), objc.String(aString), objc.String(aKey))
 }
-
 // Sets the value of the specified key to a data object.
 //
 // aData: The data object to save to the iCloud key-value store.
@@ -534,7 +522,6 @@ func (u NSUbiquitousKeyValueStore) SetStringForKey(aString string, aKey string) 
 func (u NSUbiquitousKeyValueStore) SetDataForKey(aData INSData, aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setData:forKey:"), aData, objc.String(aKey))
 }
-
 // Sets the value of the specified key to a property list object.
 //
 // anObject: The property list type to save to the iCloud key-value store.
@@ -550,7 +537,6 @@ func (u NSUbiquitousKeyValueStore) SetDataForKey(aData INSData, aKey string) {
 func (u NSUbiquitousKeyValueStore) SetObjectForKey(anObject objectivec.IObject, aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setObject:forKey:"), anObject, objc.String(aKey))
 }
-
 // Sets the value of the specified key to an array of property list objects.
 //
 // anArray: The array object to save in the iCloud key-value store. The array must
@@ -562,7 +548,6 @@ func (u NSUbiquitousKeyValueStore) SetObjectForKey(anObject objectivec.IObject, 
 func (u NSUbiquitousKeyValueStore) SetArrayForKey(anArray INSArray, aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setArray:forKey:"), anArray, objc.String(aKey))
 }
-
 // Sets the value of the specified key to a dictionary of property list
 // objects.
 //
@@ -575,7 +560,6 @@ func (u NSUbiquitousKeyValueStore) SetArrayForKey(anArray INSArray, aKey string)
 func (u NSUbiquitousKeyValueStore) SetDictionaryForKey(aDictionary INSDictionary, aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("setDictionary:forKey:"), aDictionary, objc.String(aKey))
 }
-
 // Synchronizes the in-memory keys and values with the ones stored in iCloud.
 //
 // # Return Value
@@ -611,7 +595,6 @@ func (u NSUbiquitousKeyValueStore) Synchronize() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("synchronize"))
 	return rv
 }
-
 // Removes the value for the specified key from the iCloud key-value store.
 //
 // aKey: The key with the value you want to remove.
@@ -644,7 +627,6 @@ func (u NSUbiquitousKeyValueStore) DictionaryRepresentation() INSDictionary {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dictionaryRepresentation"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // A key that indicates the reason why the key-value store changed.
 //
 // See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestorechangereasonkey
@@ -652,7 +634,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreChangeReasonKey() st
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUbiquitousKeyValueStoreChangeReasonKey"))
 	return NSStringFromID(rv).String()
 }
-
 // A key that indicates which keys changed in the iCloud key-value store.
 //
 // See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestorechangedkeyskey
@@ -660,7 +641,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreChangedKeysKey() str
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("NSUbiquitousKeyValueStoreChangedKeysKey"))
 	return NSStringFromID(rv).String()
 }
-
 // A constant that indicates a value changed in iCloud.
 //
 // See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestoreserverchange
@@ -671,7 +651,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreServerChange() int {
 func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreServerChange(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreServerChange:"), value)
 }
-
 // A constant that indicates the initial attempt to load keys and values from
 // iCloud is in progress.
 //
@@ -683,7 +662,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreInitialSyncChange() 
 func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreInitialSyncChange(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreInitialSyncChange:"), value)
 }
-
 // A constant that indicates an attempt to write data exceeded the quota
 // limits.
 //
@@ -695,7 +673,6 @@ func (u NSUbiquitousKeyValueStore) NSUbiquitousKeyValueStoreQuotaViolationChange
 func (u NSUbiquitousKeyValueStore) SetNSUbiquitousKeyValueStoreQuotaViolationChange(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setNSUbiquitousKeyValueStoreQuotaViolationChange:"), value)
 }
-
 // A constant that indicates the current Apple account changed.
 //
 // See: https://developer.apple.com/documentation/foundation/nsubiquitouskeyvaluestoreaccountchange

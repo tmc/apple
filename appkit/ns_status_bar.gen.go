@@ -150,7 +150,6 @@ func (s NSStatusBar) StatusItemWithLength(length float64) INSStatusItem {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("statusItemWithLength:"), length)
 	return NSStatusItemFromID(rv)
 }
-
 // Removes the specified status item from the receiver.
 //
 // item: The [NSStatusItem] object to remove.
@@ -182,7 +181,6 @@ func (s NSStatusBar) Vertical() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isVertical"))
 	return rv
 }
-
 // The thickness of the status bar, in pixels.
 //
 // # Discussion

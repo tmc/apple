@@ -160,7 +160,6 @@ func (a MLArrayBatchProvider) InitWithFeatureProviderArray(array []objectivec.IO
 	rv := objc.Send[MLArrayBatchProvider](a.ID, objc.Sel("initWithFeatureProviderArray:"), objectivec.IObjectSliceToNSArray(array))
 	return rv
 }
-
 // Creates a batch provider based on feature names and their associated arrays
 // of data.
 //
@@ -184,7 +183,6 @@ func (a MLArrayBatchProvider) InitWithDictionaryError(dictionary foundation.INSD
 	return MLArrayBatchProviderFromID(rv), nil
 
 }
-
 // Returns the feature provider at the given index.
 //
 // index: The index of the desired feature provider.
@@ -208,7 +206,6 @@ func (a MLArrayBatchProvider) Array() []objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
 }
-
 // The number of feature providers in this batch.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count

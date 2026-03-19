@@ -43,12 +43,10 @@ func NSNetServiceDelegateObjectFromID(id objc.ID) NSNetServiceDelegateObject {
 // occurs.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceWillPublish(_:)
-
 func (o NSNetServiceDelegateObject) NetServiceWillPublish(sender INSNetService) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceWillPublish:"), sender)
 	}
-
 // Notifies the delegate that a service could not be published.
 //
 // sender: The service that could not be published.
@@ -62,23 +60,19 @@ func (o NSNetServiceDelegateObject) NetServiceWillPublish(sender INSNetService) 
 // been delivered to the delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didNotPublish:)
-
 func (o NSNetServiceDelegateObject) NetServiceDidNotPublish(sender INSNetService, errorDict INSDictionary) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didNotPublish:"), sender, errorDict)
 	}
-
 // Notifies the delegate that a service was successfully published.
 //
 // sender: The service that was published.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceDidPublish(_:)
-
 func (o NSNetServiceDelegateObject) NetServiceDidPublish(sender INSNetService) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceDidPublish:"), sender)
 	}
-
 // Notifies the delegate that the network is ready to resolve the service.
 //
 // sender: The service that the network is ready to resolve.
@@ -90,12 +84,10 @@ func (o NSNetServiceDelegateObject) NetServiceDidPublish(sender INSNetService) {
 // occurs.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceWillResolve(_:)
-
 func (o NSNetServiceDelegateObject) NetServiceWillResolve(sender INSNetService) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceWillResolve:"), sender)
 	}
-
 // Informs the delegate that an error occurred during resolution of a given
 // service.
 //
@@ -115,12 +107,10 @@ func (o NSNetServiceDelegateObject) NetServiceWillResolve(sender INSNetService) 
 // during the timeout period specified in [ResolveWithTimeout].
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didNotResolve:)
-
 func (o NSNetServiceDelegateObject) NetServiceDidNotResolve(sender INSNetService, errorDict INSDictionary) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didNotResolve:"), sender, errorDict)
 	}
-
 // Informs the delegate that the address for a given service was resolved.
 //
 // sender: The service that was resolved.
@@ -133,12 +123,10 @@ func (o NSNetServiceDelegateObject) NetServiceDidNotResolve(sender INSNetService
 // timeout specified in [ResolveWithTimeout] is reached.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceDidResolveAddress(_:)
-
 func (o NSNetServiceDelegateObject) NetServiceDidResolveAddress(sender INSNetService) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceDidResolveAddress:"), sender)
 	}
-
 // Notifies the delegate that the TXT record for a given service has been
 // updated.
 //
@@ -147,24 +135,20 @@ func (o NSNetServiceDelegateObject) NetServiceDidResolveAddress(sender INSNetSer
 // data: The new TXT record.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didUpdateTXTRecord:)
-
 func (o NSNetServiceDelegateObject) NetServiceDidUpdateTXTRecordData(sender INSNetService, data INSData) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didUpdateTXTRecordData:"), sender, data)
 	}
-
 // Informs the delegate that a [Publish] or [ResolveWithTimeout] request was
 // stopped.
 //
 // sender: The service that stopped.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netServiceDidStop(_:)
-
 func (o NSNetServiceDelegateObject) NetServiceDidStop(sender INSNetService) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceDidStop:"), sender)
 	}
-
 // Called when a client connects to a service managed by Bonjour.
 //
 // sender: The net service object that the client connected to.
@@ -182,7 +166,6 @@ func (o NSNetServiceDelegateObject) NetServiceDidStop(sender INSNetService) {
 // for communicating with that client.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceDelegate/netService(_:didAcceptConnectionWith:outputStream:)
-
 func (o NSNetServiceDelegateObject) NetServiceDidAcceptConnectionWithInputStreamOutputStream(sender INSNetService, inputStream INSInputStream, outputStream INSOutputStream) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("netService:didAcceptConnectionWithInputStream:outputStream:"), sender, inputStream, outputStream)

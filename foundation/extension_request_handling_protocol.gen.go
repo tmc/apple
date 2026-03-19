@@ -59,7 +59,6 @@ func NSExtensionRequestHandlingObjectFromID(id objc.ID) NSExtensionRequestHandli
 // [loadView()]: https://developer.apple.com/documentation/UIKit/UIViewController/loadView()
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionRequestHandling/beginRequest(with:)
-
 func (o NSExtensionRequestHandlingObject) BeginRequestWithExtensionContext(context INSExtensionContext) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("beginRequestWithExtensionContext:"), context)

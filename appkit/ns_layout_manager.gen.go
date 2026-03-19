@@ -658,9 +658,9 @@ type INSLayoutManager interface {
 	// Returns the range of characters that correspond to the glyphs in the specified glyph range.
 	CharacterRangeForGlyphRangeActualGlyphRange(glyphRange foundation.NSRange, actualGlyphRange foundation.NSRange) foundation.NSRange
 	// Enumerates enclosing rectangles for the specified glyph range in a text container.
-	EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock(glyphRange foundation.NSRange, selectedRange foundation.NSRange, textContainer INSTextContainer, block unsafe.Pointer)
+	EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock(glyphRange foundation.NSRange, selectedRange foundation.NSRange, textContainer INSTextContainer, block func(corefoundation.CGRect, *bool))
 	// Enumerates line fragments intersecting with the specified glyph range.
-	EnumerateLineFragmentsForGlyphRangeUsingBlock(glyphRange foundation.NSRange, block unsafe.Pointer)
+	EnumerateLineFragmentsForGlyphRangeUsingBlock(glyphRange foundation.NSRange, block TextContainerHandler)
 	// Returns the fraction of the distance between the glyph at the specified point and the next glyph.
 	FractionOfDistanceThroughGlyphForPointInTextContainer(point corefoundation.CGPoint, container INSTextContainer) float64
 	// Returns insertion points in bulk for a specified line fragment.
@@ -830,7 +830,6 @@ func (l NSLayoutManager) InitWithCoder(coder foundation.INSCoder) NSLayoutManage
 	rv := objc.Send[NSLayoutManager](l.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Replaces the layout manager’s current text storage object with the
 // specified object.
 //
@@ -847,7 +846,6 @@ func (l NSLayoutManager) InitWithCoder(coder foundation.INSCoder) NSLayoutManage
 func (l NSLayoutManager) ReplaceTextStorage(newTextStorage NSTextStorage) {
 	objc.Send[objc.ID](l.ID, objc.Sel("replaceTextStorage:"), newTextStorage)
 }
-
 // Appends the specified text container to the series of text containers where
 // the layout manager arranges text.
 //
@@ -862,7 +860,6 @@ func (l NSLayoutManager) ReplaceTextStorage(newTextStorage NSTextStorage) {
 func (l NSLayoutManager) AddTextContainer(container INSTextContainer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("addTextContainer:"), container)
 }
-
 // Inserts a text container at the specified index in the list of text
 // containers.
 //
@@ -880,7 +877,6 @@ func (l NSLayoutManager) AddTextContainer(container INSTextContainer) {
 func (l NSLayoutManager) InsertTextContainerAtIndex(container INSTextContainer, index uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("insertTextContainer:atIndex:"), container, index)
 }
-
 // Removes the text container at the specified index and invalidates the
 // layout as necessary.
 //
@@ -894,7 +890,6 @@ func (l NSLayoutManager) InsertTextContainerAtIndex(container INSTextContainer, 
 func (l NSLayoutManager) RemoveTextContainerAtIndex(index uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("removeTextContainerAtIndex:"), index)
 }
-
 // Associates a text container with the specified range of glyphs.
 //
 // container: The text container to set.
@@ -915,7 +910,6 @@ func (l NSLayoutManager) RemoveTextContainerAtIndex(index uint) {
 func (l NSLayoutManager) SetTextContainerForGlyphRange(container INSTextContainer, glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setTextContainer:forGlyphRange:"), container, glyphRange)
 }
-
 // Invalidates the layout information, and possibly glyphs, for the specified
 // text container and all subsequent text container objects.
 //
@@ -934,7 +928,6 @@ func (l NSLayoutManager) SetTextContainerForGlyphRange(container INSTextContaine
 func (l NSLayoutManager) TextContainerChangedGeometry(container INSTextContainer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("textContainerChangedGeometry:"), container)
 }
-
 // Updates the information necessary to manage text view objects for the
 // specified text container.
 //
@@ -950,7 +943,6 @@ func (l NSLayoutManager) TextContainerChangedGeometry(container INSTextContainer
 func (l NSLayoutManager) TextContainerChangedTextView(container INSTextContainer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("textContainerChangedTextView:"), container)
 }
-
 // Returns the text container that manages the layout for the specified glyph,
 // causing layout to happen as necessary.
 //
@@ -980,7 +972,6 @@ func (l NSLayoutManager) TextContainerForGlyphAtIndexEffectiveRange(glyphIndex u
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("textContainerForGlyphAtIndex:effectiveRange:"), glyphIndex, effectiveGlyphRange)
 	return NSTextContainerFromID(rv)
 }
-
 // Returns the text container that manages the layout for the specified glyph.
 //
 // glyphIndex: Index of a glyph in the returned container.
@@ -1016,7 +1007,6 @@ func (l NSLayoutManager) TextContainerForGlyphAtIndexEffectiveRangeWithoutAdditi
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("textContainerForGlyphAtIndex:effectiveRange:withoutAdditionalLayout:"), glyphIndex, effectiveGlyphRange, flag)
 	return NSTextContainerFromID(rv)
 }
-
 // Returns the bounding rectangle for the glyphs in the specified text
 // container.
 //
@@ -1034,7 +1024,6 @@ func (l NSLayoutManager) UsedRectForTextContainer(container INSTextContainer) co
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("usedRectForTextContainer:"), container)
 	return corefoundation.CGRect(rv)
 }
-
 // Invalidates display for the specified character range.
 //
 // charRange: The character range for which display is invalidated.
@@ -1048,7 +1037,6 @@ func (l NSLayoutManager) UsedRectForTextContainer(container INSTextContainer) co
 func (l NSLayoutManager) InvalidateDisplayForCharacterRange(charRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("invalidateDisplayForCharacterRange:"), charRange)
 }
-
 // Invalidates a range of glyphs, requiring new layout information, and
 // updates the appropriate regions of any text views that display those
 // glyphs.
@@ -1063,7 +1051,6 @@ func (l NSLayoutManager) InvalidateDisplayForCharacterRange(charRange foundation
 func (l NSLayoutManager) InvalidateDisplayForGlyphRange(glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("invalidateDisplayForGlyphRange:"), glyphRange)
 }
-
 // Invalidates and adjusts the glyphs in the specified character range.
 //
 // charRange: The range of characters for which to invalidate glyphs.
@@ -1093,7 +1080,6 @@ func (l NSLayoutManager) InvalidateDisplayForGlyphRange(glyphRange foundation.NS
 func (l NSLayoutManager) InvalidateGlyphsForCharacterRangeChangeInLengthActualCharacterRange(charRange foundation.NSRange, delta int, actualCharRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("invalidateGlyphsForCharacterRange:changeInLength:actualCharacterRange:"), charRange, delta, actualCharRange)
 }
-
 // Invalidates the layout information for the glyphs that map to the specified
 // character range.
 //
@@ -1118,7 +1104,6 @@ func (l NSLayoutManager) InvalidateGlyphsForCharacterRangeChangeInLengthActualCh
 func (l NSLayoutManager) InvalidateLayoutForCharacterRangeActualCharacterRange(charRange foundation.NSRange, actualCharRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("invalidateLayoutForCharacterRange:actualCharacterRange:"), charRange, actualCharRange)
 }
-
 // Notifies the layout manager when an edit action changes the contents of its
 // text storage object.
 //
@@ -1144,7 +1129,6 @@ func (l NSLayoutManager) InvalidateLayoutForCharacterRangeActualCharacterRange(c
 func (l NSLayoutManager) ProcessEditingForTextStorageEditedRangeChangeInLengthInvalidatedRange(textStorage NSTextStorage, editMask NSTextStorageEditActions, newCharRange foundation.NSRange, delta int, invalidatedCharRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("processEditingForTextStorage:edited:range:changeInLength:invalidatedRange:"), textStorage, editMask, newCharRange, delta, invalidatedCharRange)
 }
-
 // Forces the layout manager to generate glyphs for the specified character
 // range if it hasn’t already.
 //
@@ -1160,7 +1144,6 @@ func (l NSLayoutManager) ProcessEditingForTextStorageEditedRangeChangeInLengthIn
 func (l NSLayoutManager) EnsureGlyphsForCharacterRange(charRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("ensureGlyphsForCharacterRange:"), charRange)
 }
-
 // Forces the layout manager to generate glyphs for the specified glyph range
 // if it hasn’t already.
 //
@@ -1176,7 +1159,6 @@ func (l NSLayoutManager) EnsureGlyphsForCharacterRange(charRange foundation.NSRa
 func (l NSLayoutManager) EnsureGlyphsForGlyphRange(glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("ensureGlyphsForGlyphRange:"), glyphRange)
 }
-
 // Forces the layout manager to perform layout for the specified area in the
 // specified text container if it hasn’t already.
 //
@@ -1194,7 +1176,6 @@ func (l NSLayoutManager) EnsureGlyphsForGlyphRange(glyphRange foundation.NSRange
 func (l NSLayoutManager) EnsureLayoutForBoundingRectInTextContainer(bounds corefoundation.CGRect, container INSTextContainer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("ensureLayoutForBoundingRect:inTextContainer:"), bounds, container)
 }
-
 // Forces the layout manager to perform layout for the specified character
 // range if it hasn’t already.
 //
@@ -1210,7 +1191,6 @@ func (l NSLayoutManager) EnsureLayoutForBoundingRectInTextContainer(bounds coref
 func (l NSLayoutManager) EnsureLayoutForCharacterRange(charRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("ensureLayoutForCharacterRange:"), charRange)
 }
-
 // Forces the layout manager to perform layout for the specified glyph range
 // if it hasn’t already.
 //
@@ -1226,7 +1206,6 @@ func (l NSLayoutManager) EnsureLayoutForCharacterRange(charRange foundation.NSRa
 func (l NSLayoutManager) EnsureLayoutForGlyphRange(glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("ensureLayoutForGlyphRange:"), glyphRange)
 }
-
 // Forces the layout manager to perform layout for the specified text
 // container if it hasn’t already.
 //
@@ -1242,7 +1221,6 @@ func (l NSLayoutManager) EnsureLayoutForGlyphRange(glyphRange foundation.NSRange
 func (l NSLayoutManager) EnsureLayoutForTextContainer(container INSTextContainer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("ensureLayoutForTextContainer:"), container)
 }
-
 // Fills a passed-in buffer with a sequence of glyphs.
 //
 // glyphRange: The range of glyphs to fill in.
@@ -1276,7 +1254,6 @@ func (l NSLayoutManager) GetGlyphsInRangeGlyphsPropertiesCharacterIndexesBidiLev
 	rv := objc.Send[uint](l.ID, objc.Sel("getGlyphsInRange:glyphs:properties:characterIndexes:bidiLevels:"), glyphRange, glyphBuffer, props, charIndexBuffer, bidiLevelBuffer)
 	return rv
 }
-
 // Returns the glyph at the specified index.
 //
 // glyphIndex: The index of the glyph that you want. If the index is out of range, this
@@ -1298,7 +1275,6 @@ func (l NSLayoutManager) CGGlyphAtIndex(glyphIndex uint) coregraphics.CGFontInde
 	rv := objc.Send[coregraphics.CGFontIndex](l.ID, objc.Sel("CGGlyphAtIndex:"), glyphIndex)
 	return coregraphics.CGFontIndex(rv)
 }
-
 // Returns the glyph at the specified index along with information about
 // whether the glyph index is valid.
 //
@@ -1327,7 +1303,6 @@ func (l NSLayoutManager) CGGlyphAtIndexIsValidIndex(glyphIndex uint, isValidInde
 	rv := objc.Send[coregraphics.CGFontIndex](l.ID, objc.Sel("CGGlyphAtIndex:isValidIndex:"), glyphIndex, isValidIndex)
 	return coregraphics.CGFontIndex(rv)
 }
-
 // Stores the initial glyphs and glyph properties for a character range.
 //
 // glyphs: A pointer to the layout manager’s glyph cache.
@@ -1362,7 +1337,6 @@ func (l NSLayoutManager) CGGlyphAtIndexIsValidIndex(glyphIndex uint, isValidInde
 func (l NSLayoutManager) SetGlyphsPropertiesCharacterIndexesFontForGlyphRange(glyphs *coregraphics.CGFontIndex, props NSGlyphProperty, charIndexes unsafe.Pointer, aFont NSFont, glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setGlyphs:properties:characterIndexes:font:forGlyphRange:"), glyphs, props, charIndexes, aFont, glyphRange)
 }
-
 // Returns the index in the text storage for the first character of the
 // specified glyph.
 //
@@ -1390,7 +1364,6 @@ func (l NSLayoutManager) CharacterIndexForGlyphAtIndex(glyphIndex uint) uint {
 	rv := objc.Send[uint](l.ID, objc.Sel("characterIndexForGlyphAtIndex:"), glyphIndex)
 	return rv
 }
-
 // Returns the index of the first glyph of the character at the specified
 // index.
 //
@@ -1418,7 +1391,6 @@ func (l NSLayoutManager) GlyphIndexForCharacterAtIndex(charIndex uint) uint {
 	rv := objc.Send[uint](l.ID, objc.Sel("glyphIndexForCharacterAtIndex:"), charIndex)
 	return rv
 }
-
 // Indicates whether the specified index refers to a valid glyph.
 //
 // glyphIndex: The index of a glyph in the receiver.
@@ -1436,7 +1408,6 @@ func (l NSLayoutManager) IsValidGlyphIndex(glyphIndex uint) bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("isValidGlyphIndex:"), glyphIndex)
 	return rv
 }
-
 // Returns the glyph property of the glyph at the specified index.
 //
 // glyphIndex: The glyph whose glyph property is returned.
@@ -1458,7 +1429,6 @@ func (l NSLayoutManager) PropertyForGlyphAtIndex(glyphIndex uint) NSGlyphPropert
 	rv := objc.Send[NSGlyphProperty](l.ID, objc.Sel("propertyForGlyphAtIndex:"), glyphIndex)
 	return NSGlyphProperty(rv)
 }
-
 // Sets the size to use when drawing a glyph that represents an attachment.
 //
 // attachmentSize: The glyph size to set.
@@ -1479,7 +1449,6 @@ func (l NSLayoutManager) PropertyForGlyphAtIndex(glyphIndex uint) NSGlyphPropert
 func (l NSLayoutManager) SetAttachmentSizeForGlyphRange(attachmentSize corefoundation.CGSize, glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setAttachmentSize:forGlyphRange:"), attachmentSize, glyphRange)
 }
-
 // Indicates whether the specified glyph exceeds the bounds of the line
 // fragment for its layout.
 //
@@ -1507,7 +1476,6 @@ func (l NSLayoutManager) SetAttachmentSizeForGlyphRange(attachmentSize corefound
 func (l NSLayoutManager) SetDrawsOutsideLineFragmentForGlyphAtIndex(flag bool, glyphIndex uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setDrawsOutsideLineFragment:forGlyphAtIndex:"), flag, glyphIndex)
 }
-
 // Sets the bounds and container for the extra line fragment.
 //
 // fragmentRect: The rectangle to set.
@@ -1537,7 +1505,6 @@ func (l NSLayoutManager) SetDrawsOutsideLineFragmentForGlyphAtIndex(flag bool, g
 func (l NSLayoutManager) SetExtraLineFragmentRectUsedRectTextContainer(fragmentRect corefoundation.CGRect, usedRect corefoundation.CGRect, container INSTextContainer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setExtraLineFragmentRect:usedRect:textContainer:"), fragmentRect, usedRect, container)
 }
-
 // Associates the line fragment bounds for the specified range of glyphs.
 //
 // fragmentRect: The rectangle of the line fragment.
@@ -1569,7 +1536,6 @@ func (l NSLayoutManager) SetExtraLineFragmentRectUsedRectTextContainer(fragmentR
 func (l NSLayoutManager) SetLineFragmentRectForGlyphRangeUsedRect(fragmentRect corefoundation.CGRect, glyphRange foundation.NSRange, usedRect corefoundation.CGRect) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setLineFragmentRect:forGlyphRange:usedRect:"), fragmentRect, glyphRange, usedRect)
 }
-
 // Sets the location for the first glyph in the specified range.
 //
 // location: The location to which the first glyph is set, relative to the origin of the
@@ -1599,7 +1565,6 @@ func (l NSLayoutManager) SetLineFragmentRectForGlyphRangeUsedRect(fragmentRect c
 func (l NSLayoutManager) SetLocationForStartOfGlyphRange(location corefoundation.CGPoint, glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setLocation:forStartOfGlyphRange:"), location, glyphRange)
 }
-
 // Sets the visibility of the glyph at the specified index.
 //
 // flag: If [true], the glyph is not shown; if [false], it is shown.
@@ -1626,7 +1591,6 @@ func (l NSLayoutManager) SetLocationForStartOfGlyphRange(location corefoundation
 func (l NSLayoutManager) SetNotShownAttributeForGlyphAtIndex(flag bool, glyphIndex uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setNotShownAttribute:forGlyphAtIndex:"), flag, glyphIndex)
 }
-
 // Returns the size of the attachment glyph at the specified index.
 //
 // glyphIndex: The index of the attachment glyph.
@@ -1642,7 +1606,6 @@ func (l NSLayoutManager) AttachmentSizeForGlyphAtIndex(glyphIndex uint) corefoun
 	rv := objc.Send[corefoundation.CGSize](l.ID, objc.Sel("attachmentSizeForGlyphAtIndex:"), glyphIndex)
 	return corefoundation.CGSize(rv)
 }
-
 // Indicates whether the glyph draws outside its line fragment rectangle.
 //
 // glyphIndex: Index of the glyph.
@@ -1678,7 +1641,6 @@ func (l NSLayoutManager) DrawsOutsideLineFragmentForGlyphAtIndex(glyphIndex uint
 	rv := objc.Send[bool](l.ID, objc.Sel("drawsOutsideLineFragmentForGlyphAtIndex:"), glyphIndex)
 	return rv
 }
-
 // Returns the index for the first character in the layout manager that
 // isn’t in the layout.
 //
@@ -1687,7 +1649,6 @@ func (l NSLayoutManager) FirstUnlaidCharacterIndex() uint {
 	rv := objc.Send[uint](l.ID, objc.Sel("firstUnlaidCharacterIndex"))
 	return rv
 }
-
 // Returns the index for the first glyph in the layout manager that isn’t in
 // the layout.
 //
@@ -1696,7 +1657,6 @@ func (l NSLayoutManager) FirstUnlaidGlyphIndex() uint {
 	rv := objc.Send[uint](l.ID, objc.Sel("firstUnlaidGlyphIndex"))
 	return rv
 }
-
 // Returns the indexes for the first character and glyph that have invalid
 // layout information.
 //
@@ -1719,7 +1679,6 @@ func (l NSLayoutManager) FirstUnlaidGlyphIndex() uint {
 func (l NSLayoutManager) GetFirstUnlaidCharacterIndexGlyphIndex(charIndex unsafe.Pointer, glyphIndex unsafe.Pointer) {
 	objc.Send[objc.ID](l.ID, objc.Sel("getFirstUnlaidCharacterIndex:glyphIndex:"), charIndex, glyphIndex)
 }
-
 // Returns the rectangle for the line fragment where the glyph lies and
 // (optionally), by reference, the entire range of glyphs in that fragment.
 //
@@ -1748,7 +1707,6 @@ func (l NSLayoutManager) LineFragmentRectForGlyphAtIndexEffectiveRange(glyphInde
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("lineFragmentRectForGlyphAtIndex:effectiveRange:"), glyphIndex, effectiveGlyphRange)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the line fragment rectangle that contains the glyph at the
 // specified glyph index.
 //
@@ -1785,7 +1743,6 @@ func (l NSLayoutManager) LineFragmentRectForGlyphAtIndexEffectiveRangeWithoutAdd
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("lineFragmentRectForGlyphAtIndex:effectiveRange:withoutAdditionalLayout:"), glyphIndex, effectiveGlyphRange, flag)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the usage rectangle for the line fragment and (optionally) returns
 // the entire range of glyphs in that fragment.
 //
@@ -1815,7 +1772,6 @@ func (l NSLayoutManager) LineFragmentUsedRectForGlyphAtIndexEffectiveRange(glyph
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("lineFragmentUsedRectForGlyphAtIndex:effectiveRange:"), glyphIndex, effectiveGlyphRange)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the usage rectangle for the line fragment and (optionally) returns
 // the entire range of glyphs in that fragment.
 //
@@ -1853,7 +1809,6 @@ func (l NSLayoutManager) LineFragmentUsedRectForGlyphAtIndexEffectiveRangeWithou
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("lineFragmentUsedRectForGlyphAtIndex:effectiveRange:withoutAdditionalLayout:"), glyphIndex, effectiveGlyphRange, flag)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the location for the specified glyph within its line fragment.
 //
 // glyphIndex: The glyph whose location is returned.
@@ -1882,7 +1837,6 @@ func (l NSLayoutManager) LocationForGlyphAtIndex(glyphIndex uint) corefoundation
 	rv := objc.Send[corefoundation.CGPoint](l.ID, objc.Sel("locationForGlyphAtIndex:"), glyphIndex)
 	return corefoundation.CGPoint(rv)
 }
-
 // Indicates whether the glyph at the specified index has a visible
 // representation.
 //
@@ -1913,7 +1867,6 @@ func (l NSLayoutManager) NotShownAttributeForGlyphAtIndex(glyphIndex uint) bool 
 	rv := objc.Send[bool](l.ID, objc.Sel("notShownAttributeForGlyphAtIndex:"), glyphIndex)
 	return rv
 }
-
 // Returns the range of truncated glyphs for a line fragment that contains the
 // specified index.
 //
@@ -1930,7 +1883,6 @@ func (l NSLayoutManager) TruncatedGlyphRangeInLineFragmentForGlyphAtIndex(glyphI
 	rv := objc.Send[foundation.NSRange](l.ID, objc.Sel("truncatedGlyphRangeInLineFragmentForGlyphAtIndex:"), glyphIndex)
 	return foundation.NSRange(rv)
 }
-
 // Returns the bounding rectangle for the specified glyphs in a container.
 //
 // glyphRange: The range of glyphs for which to return the bounding rectangle.
@@ -1960,7 +1912,6 @@ func (l NSLayoutManager) BoundingRectForGlyphRangeInTextContainer(glyphRange fou
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("boundingRectForGlyphRange:inTextContainer:"), glyphRange, container)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the index of the character that lies beneath the specified point
 // using the specified container’s coordinate system.
 //
@@ -2002,7 +1953,6 @@ func (l NSLayoutManager) CharacterIndexForPointInTextContainerFractionOfDistance
 	rv := objc.Send[uint](l.ID, objc.Sel("characterIndexForPoint:inTextContainer:fractionOfDistanceBetweenInsertionPoints:"), point, container, partialFraction)
 	return rv
 }
-
 // Returns the range of characters that correspond to the glyphs in the
 // specified glyph range.
 //
@@ -2037,7 +1987,6 @@ func (l NSLayoutManager) CharacterRangeForGlyphRangeActualGlyphRange(glyphRange 
 	rv := objc.Send[foundation.NSRange](l.ID, objc.Sel("characterRangeForGlyphRange:actualGlyphRange:"), glyphRange, actualGlyphRange)
 	return foundation.NSRange(rv)
 }
-
 // Enumerates enclosing rectangles for the specified glyph range in a text
 // container.
 //
@@ -2076,10 +2025,11 @@ func (l NSLayoutManager) CharacterRangeForGlyphRangeActualGlyphRange(glyphRange 
 // Performs glyph generation and layout if needed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/enumerateEnclosingRects(forGlyphRange:withinSelectedGlyphRange:in:using:)
-func (l NSLayoutManager) EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock(glyphRange foundation.NSRange, selectedRange foundation.NSRange, textContainer INSTextContainer, block unsafe.Pointer) {
-	objc.Send[objc.ID](l.ID, objc.Sel("enumerateEnclosingRectsForGlyphRange:withinSelectedGlyphRange:inTextContainer:usingBlock:"), glyphRange, selectedRange, textContainer, block)
+func (l NSLayoutManager) EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock(glyphRange foundation.NSRange, selectedRange foundation.NSRange, textContainer INSTextContainer, block func(corefoundation.CGRect, *bool)) {
+	_block3 := objc.NewBlock(func(_ objc.Block, arg0 corefoundation.CGRect, arg1 *bool) { block(arg0, arg1) })
+	defer _block3.Release()
+	objc.Send[objc.ID](l.ID, objc.Sel("enumerateEnclosingRectsForGlyphRange:withinSelectedGlyphRange:inTextContainer:usingBlock:"), glyphRange, selectedRange, textContainer, objc.ID(_block3))
 }
-
 // Enumerates line fragments intersecting with the specified glyph range.
 //
 // glyphRange: The glyph range for which to return line fragment rectangles.
@@ -2106,10 +2056,11 @@ func (l NSLayoutManager) EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyph
 // Line fragment rectangles are always in container coordinates.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/enumerateLineFragments(forGlyphRange:using:)
-func (l NSLayoutManager) EnumerateLineFragmentsForGlyphRangeUsingBlock(glyphRange foundation.NSRange, block unsafe.Pointer) {
-	objc.Send[objc.ID](l.ID, objc.Sel("enumerateLineFragmentsForGlyphRange:usingBlock:"), glyphRange, block)
+func (l NSLayoutManager) EnumerateLineFragmentsForGlyphRangeUsingBlock(glyphRange foundation.NSRange, block TextContainerHandler) {
+_block1, _cleanup1 := NewTextContainerBlock(block)
+	defer _cleanup1()
+	objc.Send[objc.ID](l.ID, objc.Sel("enumerateLineFragmentsForGlyphRange:usingBlock:"), glyphRange, _block1)
 }
-
 // Returns the fraction of the distance between the glyph at the specified
 // point and the next glyph.
 //
@@ -2128,7 +2079,6 @@ func (l NSLayoutManager) FractionOfDistanceThroughGlyphForPointInTextContainer(p
 	rv := objc.Send[float64](l.ID, objc.Sel("fractionOfDistanceThroughGlyphForPoint:inTextContainer:"), point, container)
 	return rv
 }
-
 // Returns insertion points in bulk for a specified line fragment.
 //
 // charIndex: The character index of one character within the line fragment.
@@ -2167,7 +2117,6 @@ func (l NSLayoutManager) GetLineFragmentInsertionPointsForCharacterAtIndexAltern
 	rv := objc.Send[uint](l.ID, objc.Sel("getLineFragmentInsertionPointsForCharacterAtIndex:alternatePositions:inDisplayOrder:positions:characterIndexes:"), charIndex, aFlag, dFlag, positions, charIndexes)
 	return rv
 }
-
 // Returns the index of the glyph at the specified location in a text
 // container.
 //
@@ -2186,7 +2135,6 @@ func (l NSLayoutManager) GlyphIndexForPointInTextContainer(point corefoundation.
 	rv := objc.Send[uint](l.ID, objc.Sel("glyphIndexForPoint:inTextContainer:"), point, container)
 	return rv
 }
-
 // Returns the index of the glyph at the specified point using the
 // container’s coordinate system.
 //
@@ -2239,7 +2187,6 @@ func (l NSLayoutManager) GlyphIndexForPointInTextContainerFractionOfDistanceThro
 	rv := objc.Send[uint](l.ID, objc.Sel("glyphIndexForPoint:inTextContainer:fractionOfDistanceThroughGlyph:"), point, container, partialFraction)
 	return rv
 }
-
 // Returns the smallest contiguous range for glyphs lying wholly or partially
 // within the specified rectangle of the text container.
 //
@@ -2268,7 +2215,6 @@ func (l NSLayoutManager) GlyphRangeForBoundingRectInTextContainer(bounds corefou
 	rv := objc.Send[foundation.NSRange](l.ID, objc.Sel("glyphRangeForBoundingRect:inTextContainer:"), bounds, container)
 	return foundation.NSRange(rv)
 }
-
 // Returns the smallest contiguous range for glyphs lying wholly or partially
 // within the specified rectangle of the text container.
 //
@@ -2298,7 +2244,6 @@ func (l NSLayoutManager) GlyphRangeForBoundingRectWithoutAdditionalLayoutInTextC
 	rv := objc.Send[foundation.NSRange](l.ID, objc.Sel("glyphRangeForBoundingRectWithoutAdditionalLayout:inTextContainer:"), bounds, container)
 	return foundation.NSRange(rv)
 }
-
 // Returns the range of glyphs lying within the specified text container.
 //
 // # Discussion
@@ -2313,7 +2258,6 @@ func (l NSLayoutManager) GlyphRangeForTextContainer(container INSTextContainer) 
 	rv := objc.Send[foundation.NSRange](l.ID, objc.Sel("glyphRangeForTextContainer:"), container)
 	return foundation.NSRange(rv)
 }
-
 // Returns the range of glyphs that the specified range of characters
 // generates.
 //
@@ -2348,7 +2292,6 @@ func (l NSLayoutManager) GlyphRangeForCharacterRangeActualCharacterRange(charRan
 	rv := objc.Send[foundation.NSRange](l.ID, objc.Sel("glyphRangeForCharacterRange:actualCharacterRange:"), charRange, actualCharRange)
 	return foundation.NSRange(rv)
 }
-
 // Returns the range of displayable glyphs that surround the glyph at the
 // specified index.
 //
@@ -2374,7 +2317,6 @@ func (l NSLayoutManager) RangeOfNominallySpacedGlyphsContainingIndex(glyphIndex 
 	rv := objc.Send[foundation.NSRange](l.ID, objc.Sel("rangeOfNominallySpacedGlyphsContainingIndex:"), glyphIndex)
 	return foundation.NSRange(rv)
 }
-
 // Draws background marks for the specified glyphs, which must lie completely
 // within a single text container.
 //
@@ -2400,7 +2342,6 @@ func (l NSLayoutManager) RangeOfNominallySpacedGlyphsContainingIndex(glyphIndex 
 func (l NSLayoutManager) DrawBackgroundForGlyphRangeAtPoint(glyphsToShow foundation.NSRange, origin corefoundation.CGPoint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("drawBackgroundForGlyphRange:atPoint:"), glyphsToShow, origin)
 }
-
 // Draws the specified glyphs, which must lie completely within a single text
 // container.
 //
@@ -2426,7 +2367,6 @@ func (l NSLayoutManager) DrawBackgroundForGlyphRangeAtPoint(glyphsToShow foundat
 func (l NSLayoutManager) DrawGlyphsForGlyphRangeAtPoint(glyphsToShow foundation.NSRange, origin corefoundation.CGPoint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("drawGlyphsForGlyphRange:atPoint:"), glyphsToShow, origin)
 }
-
 // Draws a strikethrough for the specified glyphs.
 //
 // glyphRange: The range of glyphs for which to draw a strikethrough. The range must
@@ -2464,7 +2404,6 @@ func (l NSLayoutManager) DrawGlyphsForGlyphRangeAtPoint(glyphsToShow foundation.
 func (l NSLayoutManager) DrawStrikethroughForGlyphRangeStrikethroughTypeBaselineOffsetLineFragmentRectLineFragmentGlyphRangeContainerOrigin(glyphRange foundation.NSRange, strikethroughVal NSUnderlineStyle, baselineOffset float64, lineRect corefoundation.CGRect, lineGlyphRange foundation.NSRange, containerOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("drawStrikethroughForGlyphRange:strikethroughType:baselineOffset:lineFragmentRect:lineFragmentGlyphRange:containerOrigin:"), glyphRange, strikethroughVal, baselineOffset, lineRect, lineGlyphRange, containerOrigin)
 }
-
 // Draws underlining for the glyphs in a specified range.
 //
 // glyphRange: A range of glyphs, which must belong to a single line fragment rectangle
@@ -2500,7 +2439,6 @@ func (l NSLayoutManager) DrawStrikethroughForGlyphRangeStrikethroughTypeBaseline
 func (l NSLayoutManager) DrawUnderlineForGlyphRangeUnderlineTypeBaselineOffsetLineFragmentRectLineFragmentGlyphRangeContainerOrigin(glyphRange foundation.NSRange, underlineVal NSUnderlineStyle, baselineOffset float64, lineRect corefoundation.CGRect, lineGlyphRange foundation.NSRange, containerOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("drawUnderlineForGlyphRange:underlineType:baselineOffset:lineFragmentRect:lineFragmentGlyphRange:containerOrigin:"), glyphRange, underlineVal, baselineOffset, lineRect, lineGlyphRange, containerOrigin)
 }
-
 // Fills background rectangles with a color.
 //
 // rectArray: The array of rectangles to fill.
@@ -2545,7 +2483,6 @@ func (l NSLayoutManager) DrawUnderlineForGlyphRangeUnderlineTypeBaselineOffsetLi
 func (l NSLayoutManager) FillBackgroundRectArrayCountForCharacterRangeColor(rectArray []corefoundation.CGRect, rectCount uint, charRange foundation.NSRange, color INSColor) {
 	objc.Send[objc.ID](l.ID, objc.Sel("fillBackgroundRectArray:count:forCharacterRange:color:"), objc.CArray(rectArray), rectCount, charRange, color)
 }
-
 // Renders the glyphs at the specified positions, using the specified
 // attributes.
 //
@@ -2583,7 +2520,6 @@ func (l NSLayoutManager) FillBackgroundRectArrayCountForCharacterRangeColor(rect
 func (l NSLayoutManager) ShowCGGlyphsPositionsCountFontTextMatrixAttributesInContext(glyphs *coregraphics.CGFontIndex, positions []corefoundation.CGPoint, glyphCount int, font NSFont, textMatrix corefoundation.CGAffineTransform, attributes foundation.INSDictionary, CGContext coregraphics.CGContextRef) {
 	objc.Send[objc.ID](l.ID, objc.Sel("showCGGlyphs:positions:count:font:textMatrix:attributes:inContext:"), objc.CArray(glyphs), objc.CArray(positions), glyphCount, font, textMatrix, attributes, CGContext)
 }
-
 // Calculates and draws strikethrough for the specified glyphs.
 //
 // glyphRange: The range of glyphs for which to draw a strikethrough. The range must
@@ -2617,7 +2553,6 @@ func (l NSLayoutManager) ShowCGGlyphsPositionsCountFontTextMatrixAttributesInCon
 func (l NSLayoutManager) StrikethroughGlyphRangeStrikethroughTypeLineFragmentRectLineFragmentGlyphRangeContainerOrigin(glyphRange foundation.NSRange, strikethroughVal NSUnderlineStyle, lineRect corefoundation.CGRect, lineGlyphRange foundation.NSRange, containerOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("strikethroughGlyphRange:strikethroughType:lineFragmentRect:lineFragmentGlyphRange:containerOrigin:"), glyphRange, strikethroughVal, lineRect, lineGlyphRange, containerOrigin)
 }
-
 // Calculates subranges to underline for the specified glyphs and draws the
 // underlining as appropriate.
 //
@@ -2653,7 +2588,6 @@ func (l NSLayoutManager) StrikethroughGlyphRangeStrikethroughTypeLineFragmentRec
 func (l NSLayoutManager) UnderlineGlyphRangeUnderlineTypeLineFragmentRectLineFragmentGlyphRangeContainerOrigin(glyphRange foundation.NSRange, underlineVal NSUnderlineStyle, lineRect corefoundation.CGRect, lineGlyphRange foundation.NSRange, containerOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("underlineGlyphRange:underlineType:lineFragmentRect:lineFragmentGlyphRange:containerOrigin:"), glyphRange, underlineVal, lineRect, lineGlyphRange, containerOrigin)
 }
-
 // Sets the layout rectangle that encloses the specified text block and glyph
 // range.
 //
@@ -2672,7 +2606,6 @@ func (l NSLayoutManager) UnderlineGlyphRangeUnderlineTypeLineFragmentRectLineFra
 func (l NSLayoutManager) SetLayoutRectForTextBlockGlyphRange(rect corefoundation.CGRect, block INSTextBlock, glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setLayoutRect:forTextBlock:glyphRange:"), rect, block, glyphRange)
 }
-
 // Returns the rectangle for the layout of the specified text block and glyph
 // range.
 //
@@ -2691,7 +2624,6 @@ func (l NSLayoutManager) LayoutRectForTextBlockGlyphRange(block INSTextBlock, gl
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("layoutRectForTextBlock:glyphRange:"), block, glyphRange)
 	return corefoundation.CGRect(rv)
 }
-
 // Sets the bounding rectangle that encloses the specified text block and
 // glyph range.
 //
@@ -2710,7 +2642,6 @@ func (l NSLayoutManager) LayoutRectForTextBlockGlyphRange(block INSTextBlock, gl
 func (l NSLayoutManager) SetBoundsRectForTextBlockGlyphRange(rect corefoundation.CGRect, block INSTextBlock, glyphRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setBoundsRect:forTextBlock:glyphRange:"), rect, block, glyphRange)
 }
-
 // Returns the bounding rectangle that encloses the specified text block and
 // glyph range.
 //
@@ -2733,7 +2664,6 @@ func (l NSLayoutManager) BoundsRectForTextBlockGlyphRange(block INSTextBlock, gl
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("boundsRectForTextBlock:glyphRange:"), block, glyphRange)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the rectangle for the layout of the specified text block and glyph.
 //
 // block: The text block whose layout rectangle is returned.
@@ -2757,7 +2687,6 @@ func (l NSLayoutManager) LayoutRectForTextBlockAtIndexEffectiveRange(block INSTe
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("layoutRectForTextBlock:atIndex:effectiveRange:"), block, glyphIndex, effectiveGlyphRange)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the bounding rectangle for the specified text block and glyph.
 //
 // block: The text block whose bounding rectangle is returned.
@@ -2781,7 +2710,6 @@ func (l NSLayoutManager) BoundsRectForTextBlockAtIndexEffectiveRange(block INSTe
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("boundsRectForTextBlock:atIndex:effectiveRange:"), block, glyphIndex, effectiveGlyphRange)
 	return corefoundation.CGRect(rv)
 }
-
 // Draws an attachment cell.
 //
 // cell: The attachment cell to draw.
@@ -2799,7 +2727,6 @@ func (l NSLayoutManager) BoundsRectForTextBlockAtIndexEffectiveRange(block INSTe
 func (l NSLayoutManager) ShowAttachmentCellInRectCharacterIndex(cell INSCell, rect corefoundation.CGRect, attachmentIndex uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("showAttachmentCell:inRect:characterIndex:"), cell, rect, attachmentIndex)
 }
-
 // Returns the accessory view that the text system uses for its ruler.
 //
 // view: The text view using the layout manager.
@@ -2838,7 +2765,6 @@ func (l NSLayoutManager) RulerAccessoryViewForTextViewParagraphStyleRulerEnabled
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("rulerAccessoryViewForTextView:paragraphStyle:ruler:enabled:"), view, style, ruler, isEnabled)
 	return NSViewFromID(rv)
 }
-
 // Returns an array of text ruler objects for the current selection.
 //
 // view: The text view using the layout manager.
@@ -2872,7 +2798,6 @@ func (l NSLayoutManager) RulerMarkersForTextViewParagraphStyleRuler(view INSText
 		return NSRulerMarkerFromID(id)
 	})
 }
-
 // Indicates whether the first responder in the specified window is a text
 // view for the layout manager.
 //
@@ -2891,7 +2816,6 @@ func (l NSLayoutManager) LayoutManagerOwnsFirstResponderInWindow(window INSWindo
 	rv := objc.Send[bool](l.ID, objc.Sel("layoutManagerOwnsFirstResponderInWindow:"), window)
 	return rv
 }
-
 // Returns the default line height for a line of text that uses a specified
 // font.
 //
@@ -2911,7 +2835,6 @@ func (l NSLayoutManager) DefaultLineHeightForFont(theFont NSFont) float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("defaultLineHeightForFont:"), theFont)
 	return rv
 }
-
 // Returns the default baseline offset that the layout manager’s typesetter
 // uses for the specified font.
 //
@@ -2931,7 +2854,6 @@ func (l NSLayoutManager) DefaultBaselineOffsetForFont(theFont NSFont) float64 {
 	rv := objc.Send[float64](l.ID, objc.Sel("defaultBaselineOffsetForFont:"), theFont)
 	return rv
 }
-
 // Appends one or more temporary attributes to the attributes dictionary of
 // the specified character range.
 //
@@ -2951,7 +2873,6 @@ func (l NSLayoutManager) DefaultBaselineOffsetForFont(theFont NSFont) float64 {
 func (l NSLayoutManager) AddTemporaryAttributesForCharacterRange(attrs foundation.INSDictionary, charRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("addTemporaryAttributes:forCharacterRange:"), attrs, charRange)
 }
-
 // Adds a temporary attribute to the characters in the specified range.
 //
 // attrName: The name of a temporary attribute.
@@ -2969,7 +2890,6 @@ func (l NSLayoutManager) AddTemporaryAttributesForCharacterRange(attrs foundatio
 func (l NSLayoutManager) AddTemporaryAttributeValueForCharacterRange(attrName foundation.NSString, value objectivec.IObject, charRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("addTemporaryAttribute:value:forCharacterRange:"), attrName, value, charRange)
 }
-
 // Sets one or more temporary attributes for the specified character range.
 //
 // attrs: Attributes dictionary containing the temporary attributes to set.
@@ -2988,7 +2908,6 @@ func (l NSLayoutManager) AddTemporaryAttributeValueForCharacterRange(attrName fo
 func (l NSLayoutManager) SetTemporaryAttributesForCharacterRange(attrs foundation.INSDictionary, charRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("setTemporaryAttributes:forCharacterRange:"), attrs, charRange)
 }
-
 // Removes a temporary attribute from the list of attributes for the specified
 // character range.
 //
@@ -3009,7 +2928,6 @@ func (l NSLayoutManager) SetTemporaryAttributesForCharacterRange(attrs foundatio
 func (l NSLayoutManager) RemoveTemporaryAttributeForCharacterRange(attrName foundation.NSString, charRange foundation.NSRange) {
 	objc.Send[objc.ID](l.ID, objc.Sel("removeTemporaryAttribute:forCharacterRange:"), attrName, charRange)
 }
-
 // Returns the value for the temporary attribute of a character, and the range
 // it applies to.
 //
@@ -3040,7 +2958,6 @@ func (l NSLayoutManager) TemporaryAttributeAtCharacterIndexEffectiveRange(attrNa
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("temporaryAttribute:atCharacterIndex:effectiveRange:"), attrName, location, range_)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the value for the temporary attribute of a character, and the
 // maximum range it applies to.
 //
@@ -3077,7 +2994,6 @@ func (l NSLayoutManager) TemporaryAttributeAtCharacterIndexLongestEffectiveRange
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("temporaryAttribute:atCharacterIndex:longestEffectiveRange:inRange:"), attrName, location, range_, rangeLimit)
 	return objectivec.Object{ID: rv}
 }
-
 // Returns the dictionary of temporary attributes for the specified character
 // range.
 //
@@ -3099,7 +3015,6 @@ func (l NSLayoutManager) TemporaryAttributesAtCharacterIndexEffectiveRange(charI
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("temporaryAttributesAtCharacterIndex:effectiveRange:"), charIndex, effectiveCharRange)
 	return foundation.NSDictionaryFromID(rv)
 }
-
 // Returns the temporary attributes for a character, and the maximum range
 // they apply to.
 //
@@ -3128,7 +3043,6 @@ func (l NSLayoutManager) TemporaryAttributesAtCharacterIndexLongestEffectiveRang
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("temporaryAttributesAtCharacterIndex:longestEffectiveRange:inRange:"), location, range_, rangeLimit)
 	return foundation.NSDictionaryFromID(rv)
 }
-
 // Returns the text storage object from which the [NSGlyphGenerator] object
 // procures characters for glyph generation.
 //
@@ -3141,7 +3055,6 @@ func (l NSLayoutManager) AttributedString() foundation.NSAttributedString {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(rv)
 }
-
 // Returns the glyph at the specified index.
 //
 // glyphIndex: The index of a glyph in the receiver. This value must not exceed the bounds
@@ -3166,7 +3079,6 @@ func (l NSLayoutManager) GlyphAtIndex(glyphIndex uint) NSGlyph {
 	rv := objc.Send[NSGlyph](l.ID, objc.Sel("glyphAtIndex:"), glyphIndex)
 	return NSGlyph(rv)
 }
-
 // Returns the glyph at a specified index, and optionally returns a flag
 // indicating whether the requested index is valid.
 //
@@ -3193,7 +3105,6 @@ func (l NSLayoutManager) GlyphAtIndexIsValidIndex(glyphIndex uint, isValidIndex 
 	rv := objc.Send[NSGlyph](l.ID, objc.Sel("glyphAtIndex:isValidIndex:"), glyphIndex, isValidIndex)
 	return NSGlyph(rv)
 }
-
 // Returns the current layout options.
 //
 // # Return Value
@@ -3205,7 +3116,6 @@ func (l NSLayoutManager) LayoutOptions() uint {
 	rv := objc.Send[uint](l.ID, objc.Sel("layoutOptions"))
 	return rv
 }
-
 // Returns an array of rectangles and, by reference, the number of such
 // rectangles, that define the region in the given container enclosing the
 // given character range.
@@ -3260,7 +3170,6 @@ func (l NSLayoutManager) RectArrayForCharacterRangeWithinSelectedCharacterRangeI
 	rv := objc.Send[foundation.NSRect](l.ID, objc.Sel("rectArrayForCharacterRange:withinSelectedCharacterRange:inTextContainer:rectCount:"), charRange, selCharRange, container, rectCount)
 	return foundation.NSRect(rv)
 }
-
 // Returns an array of rectangles and, by reference, the number of such
 // rectangles, that define the region in the given container enclosing the
 // given glyph range.
@@ -3319,7 +3228,6 @@ func (l NSLayoutManager) RectArrayForGlyphRangeWithinSelectedGlyphRangeInTextCon
 func (l NSLayoutManager) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 // Inserts the given glyphs into the glyph cache and maps them to the
 // specified characters.
 //
@@ -3339,7 +3247,6 @@ func (l NSLayoutManager) EncodeWithCoder(coder foundation.INSCoder) {
 func (l NSLayoutManager) InsertGlyphsLengthForStartingGlyphAtIndexCharacterIndex(glyphs NSGlyph, length uint, glyphIndex uint, charIndex uint) {
 	objc.Send[objc.ID](l.ID, objc.Sel("insertGlyphs:length:forStartingGlyphAtIndex:characterIndex:"), glyphs, length, glyphIndex, charIndex)
 }
-
 // Sets a custom attribute value for a given glyph.
 //
 // attributeTag: The custom attribute.
@@ -3371,7 +3278,6 @@ func (l NSLayoutManager) Delegate() NSLayoutManagerDelegate {
 func (l NSLayoutManager) SetDelegate(value NSLayoutManagerDelegate) {
 	objc.Send[struct{}](l.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The text storage object that contains the content to lay out.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/textStorage
@@ -3382,7 +3288,6 @@ func (l NSLayoutManager) TextStorage() NSTextStorage {
 func (l NSLayoutManager) SetTextStorage(value NSTextStorage) {
 	objc.Send[struct{}](l.ID, objc.Sel("setTextStorage:"), value)
 }
-
 // A Boolean value that indicates whether the layout manager allows
 // noncontiguous layout.
 //
@@ -3398,7 +3303,6 @@ func (l NSLayoutManager) AllowsNonContiguousLayout() bool {
 func (l NSLayoutManager) SetAllowsNonContiguousLayout(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setAllowsNonContiguousLayout:"), value)
 }
-
 // A Boolean value that indicates whether the layout manager currently has any
 // areas of noncontiguous layout.
 //
@@ -3415,7 +3319,6 @@ func (l NSLayoutManager) HasNonContiguousLayout() bool {
 	rv := objc.Send[bool](l.ID, objc.Sel("hasNonContiguousLayout"))
 	return rv
 }
-
 // A Boolean value that indicates whether to substitute visible glyphs for
 // whitespace and other typically invisible characters.
 //
@@ -3427,7 +3330,6 @@ func (l NSLayoutManager) ShowsInvisibleCharacters() bool {
 func (l NSLayoutManager) SetShowsInvisibleCharacters(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setShowsInvisibleCharacters:"), value)
 }
-
 // A Boolean value that indicates whether the layout manager substitutes
 // visible glyphs for control characters in the layout.
 //
@@ -3439,7 +3341,6 @@ func (l NSLayoutManager) ShowsControlCharacters() bool {
 func (l NSLayoutManager) SetShowsControlCharacters(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setShowsControlCharacters:"), value)
 }
-
 // A Boolean value that indicates whether the layout manager uses the leading
 // of the font.
 //
@@ -3451,7 +3352,6 @@ func (l NSLayoutManager) UsesFontLeading() bool {
 func (l NSLayoutManager) SetUsesFontLeading(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setUsesFontLeading:"), value)
 }
-
 // A Boolean value that indicates whether the layout manager generates glyphs
 // and lays them out when the app’s run loop is idle.
 //
@@ -3463,7 +3363,6 @@ func (l NSLayoutManager) BackgroundLayoutEnabled() bool {
 func (l NSLayoutManager) SetBackgroundLayoutEnabled(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBackgroundLayoutEnabled:"), value)
 }
-
 // A Boolean value that indicates whether the layout manager avoids laying out
 // unusually long or suspicious input.
 //
@@ -3485,7 +3384,6 @@ func (l NSLayoutManager) LimitsLayoutForSuspiciousContents() bool {
 func (l NSLayoutManager) SetLimitsLayoutForSuspiciousContents(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setLimitsLayoutForSuspiciousContents:"), value)
 }
-
 // A Boolean value that indicates whether the layout manager uses the default
 // hyphenation rules to wrap lines.
 //
@@ -3510,7 +3408,6 @@ func (l NSLayoutManager) UsesDefaultHyphenation() bool {
 func (l NSLayoutManager) SetUsesDefaultHyphenation(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setUsesDefaultHyphenation:"), value)
 }
-
 // The current text containers of the layout manager.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/textContainers
@@ -3520,7 +3417,6 @@ func (l NSLayoutManager) TextContainers() []NSTextContainer {
 		return NSTextContainerFromID(id)
 	})
 }
-
 // The glyph generator that the layout manager uses.
 //
 // # Discussion
@@ -3536,7 +3432,6 @@ func (l NSLayoutManager) GlyphGenerator() INSGlyphGenerator {
 func (l NSLayoutManager) SetGlyphGenerator(value INSGlyphGenerator) {
 	objc.Send[struct{}](l.ID, objc.Sel("setGlyphGenerator:"), value)
 }
-
 // The number of glyphs in the layout manager.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/numberOfGlyphs
@@ -3544,7 +3439,6 @@ func (l NSLayoutManager) NumberOfGlyphs() uint {
 	rv := objc.Send[uint](l.ID, objc.Sel("numberOfGlyphs"))
 	return rv
 }
-
 // The rectangle for the extra line fragment at the end of a document.
 //
 // # Discussion
@@ -3561,7 +3455,6 @@ func (l NSLayoutManager) ExtraLineFragmentRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("extraLineFragmentRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The text container for the extra line fragment rectangle.
 //
 // # Discussion
@@ -3574,7 +3467,6 @@ func (l NSLayoutManager) ExtraLineFragmentTextContainer() INSTextContainer {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("extraLineFragmentTextContainer"))
 	return NSTextContainerFromID(objc.ID(rv))
 }
-
 // The rectangle that encloses the insertion point in the extra line fragment
 // rectangle.
 //
@@ -3592,7 +3484,6 @@ func (l NSLayoutManager) ExtraLineFragmentUsedRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](l.ID, objc.Sel("extraLineFragmentUsedRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The default amount of scaling to apply when an attachment image is too
 // large to fit in a text container.
 //
@@ -3610,7 +3501,6 @@ func (l NSLayoutManager) DefaultAttachmentScaling() NSImageScaling {
 func (l NSLayoutManager) SetDefaultAttachmentScaling(value NSImageScaling) {
 	objc.Send[struct{}](l.ID, objc.Sel("setDefaultAttachmentScaling:"), value)
 }
-
 // The first text view in the layout manager’s series of text views.
 //
 // # Discussion
@@ -3623,7 +3513,6 @@ func (l NSLayoutManager) FirstTextView() INSTextView {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("firstTextView"))
 	return NSTextViewFromID(objc.ID(rv))
 }
-
 // The text view that contains the first glyph in the selection.
 //
 // # Discussion
@@ -3636,7 +3525,6 @@ func (l NSLayoutManager) TextViewForBeginningOfSelection() INSTextView {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("textViewForBeginningOfSelection"))
 	return NSTextViewFromID(objc.ID(rv))
 }
-
 // The current typesetter.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/typesetter
@@ -3647,7 +3535,6 @@ func (l NSLayoutManager) Typesetter() INSTypesetter {
 func (l NSLayoutManager) SetTypesetter(value INSTypesetter) {
 	objc.Send[struct{}](l.ID, objc.Sel("setTypesetter:"), value)
 }
-
 // The default typesetter behavior.
 //
 // # Discussion
@@ -3662,7 +3549,6 @@ func (l NSLayoutManager) TypesetterBehavior() NSTypesetterBehavior {
 func (l NSLayoutManager) SetTypesetterBehavior(value NSTypesetterBehavior) {
 	objc.Send[struct{}](l.ID, objc.Sel("setTypesetterBehavior:"), value)
 }
-
 // The threshold controlling when hyphenation is done.
 //
 // See: https://developer.apple.com/documentation/appkit/nslayoutmanager/hyphenationfactor
@@ -3673,7 +3559,6 @@ func (l NSLayoutManager) HyphenationFactor() float32 {
 func (l NSLayoutManager) SetHyphenationFactor(value float32) {
 	objc.Send[struct{}](l.ID, objc.Sel("setHyphenationFactor:"), value)
 }
-
 // A Boolean that controls using screen fonts to calculate layout and display
 // text.
 //

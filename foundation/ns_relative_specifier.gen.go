@@ -202,7 +202,6 @@ func (r NSRelativeSpecifier) BaseSpecifier() INSScriptObjectSpecifier {
 func (r NSRelativeSpecifier) SetBaseSpecifier(value INSScriptObjectSpecifier) {
 	objc.Send[struct{}](r.ID, objc.Sel("setBaseSpecifier:"), value)
 }
-
 // Sets the relative position encapsulated by the receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRelativeSpecifier/relativePosition-swift.property

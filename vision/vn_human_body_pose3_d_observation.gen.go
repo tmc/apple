@@ -184,7 +184,6 @@ func (h VNHumanBodyPose3DObservation) RecognizedPointForJointNameError(jointName
 	return VNHumanBodyRecognizedPoint3DFromID(rv), nil
 
 }
-
 // Returns a collection of points for the group name you specify.
 //
 // jointsGroupName: The name of the human body joints group.
@@ -204,7 +203,6 @@ func (h VNHumanBodyPose3DObservation) RecognizedPointsForJointsGroupNameError(jo
 	return foundation.NSDictionaryFromID(rv), nil
 
 }
-
 // Returns a 2D point for the joint name you specify, relative to the input
 // image.
 //
@@ -226,7 +224,6 @@ func (h VNHumanBodyPose3DObservation) PointInImageForJointNameError(jointName VN
 	return VNPointFromID(rv), nil
 
 }
-
 // Returns the parent joint of the joint name you specify.
 //
 // jointName: The name of the body joint to return the parent of.
@@ -240,7 +237,6 @@ func (h VNHumanBodyPose3DObservation) ParentJointNameForJointName(jointName VNHu
 	rv := objc.Send[VNHumanBodyPose3DObservationJointName](h.ID, objc.Sel("parentJointNameForJointName:"), jointName)
 	return VNHumanBodyPose3DObservationJointName(rv)
 }
-
 // Gets a position relative to the camera for the body joint you specify.
 //
 // modelPositionOut: The reference to the position.
@@ -278,7 +274,6 @@ func (h VNHumanBodyPose3DObservation) AvailableJointNames() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("availableJointNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The available joint group names in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/availableJointsGroupNames
@@ -286,7 +281,6 @@ func (h VNHumanBodyPose3DObservation) AvailableJointsGroupNames() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("availableJointsGroupNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The technique the framework uses to estimate body height.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/heightEstimation-swift.property
@@ -294,7 +288,6 @@ func (h VNHumanBodyPose3DObservation) HeightEstimation() VNHumanBodyPose3DObserv
 	rv := objc.Send[VNHumanBodyPose3DObservationHeightEstimation](h.ID, objc.Sel("heightEstimation"))
 	return VNHumanBodyPose3DObservationHeightEstimation(rv)
 }
-
 // The estimated human body height, in meters.
 //
 // # Discussion
@@ -308,7 +301,6 @@ func (h VNHumanBodyPose3DObservation) BodyHeight() float32 {
 	rv := objc.Send[float32](h.ID, objc.Sel("bodyHeight"))
 	return rv
 }
-
 // A transform from the skeleton hip to the camera.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/cameraOriginMatrix

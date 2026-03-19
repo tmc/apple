@@ -46,12 +46,10 @@ func NSMachPortDelegateObjectFromID(id objc.ID) NSMachPortDelegateObject {
 // method handlePortMessage:.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMachPortDelegate/handleMachMessage(_:)
-
 func (o NSMachPortDelegateObject) HandleMachMessage(msg unsafe.Pointer) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("handleMachMessage:"), msg)
 	}
-
 // Processes a given incoming message on the port.
 //
 // message: An incoming port message.
@@ -65,7 +63,6 @@ func (o NSMachPortDelegateObject) HandleMachMessage(msg unsafe.Pointer) {
 // implement both delegate methods.
 //
 // See: https://developer.apple.com/documentation/Foundation/PortDelegate/handle(_:)
-
 func (o NSMachPortDelegateObject) HandlePortMessage(message INSPortMessage) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("handlePortMessage:"), message)

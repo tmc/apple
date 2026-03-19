@@ -328,7 +328,6 @@ func (r NSRulerMarker) InitWithRulerViewMarkerLocationImageImageOrigin(ruler INS
 	rv := objc.Send[NSRulerMarker](r.ID, objc.Sel("initWithRulerView:markerLocation:image:imageOrigin:"), ruler, location, image, imageOrigin)
 	return rv
 }
-
 // Draws the receiver’s image that appears in the supplied rectangle.
 //
 // rect: The rectangle to be drawn, in the ruler view’s coordinate system.
@@ -337,7 +336,6 @@ func (r NSRulerMarker) InitWithRulerViewMarkerLocationImageImageOrigin(ruler INS
 func (r NSRulerMarker) DrawRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](r.ID, objc.Sel("drawRect:"), rect)
 }
-
 // Handles user manipulation of the receiver in its ruler view.
 //
 // mouseDownEvent: The event that represents the user manipulation being attempted on the
@@ -412,7 +410,6 @@ func (r NSRulerMarker) TrackMouseAdding(mouseDownEvent INSEvent, isAdding bool) 
 	rv := objc.Send[bool](r.ID, objc.Sel("trackMouse:adding:"), mouseDownEvent, isAdding)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRulerMarker/init(coder:)
 func (r NSRulerMarker) InitWithCoder(coder foundation.INSCoder) NSRulerMarker {
@@ -430,7 +427,6 @@ func (r NSRulerMarker) Ruler() INSRulerView {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("ruler"))
 	return NSRulerViewFromID(objc.ID(rv))
 }
-
 // The receiver’s image.
 //
 // # Discussion
@@ -448,7 +444,6 @@ func (r NSRulerMarker) Image() INSImage {
 func (r NSRulerMarker) SetImage(value INSImage) {
 	objc.Send[struct{}](r.ID, objc.Sel("setImage:"), value)
 }
-
 // The point in the receiver’s image that is positioned at the receiver’s
 // location on the ruler view.
 //
@@ -467,7 +462,6 @@ func (r NSRulerMarker) ImageOrigin() corefoundation.CGPoint {
 func (r NSRulerMarker) SetImageOrigin(value corefoundation.CGPoint) {
 	objc.Send[struct{}](r.ID, objc.Sel("setImageOrigin:"), value)
 }
-
 // The rectangle occupied by the receiver’s image.
 //
 // # Discussion
@@ -481,7 +475,6 @@ func (r NSRulerMarker) ImageRectInRuler() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](r.ID, objc.Sel("imageRectInRuler"))
 	return corefoundation.CGRect(rv)
 }
-
 // The amount of the receiver’s image that’s displayed above or to the
 // left of the ruler view’s baseline.
 //
@@ -496,7 +489,6 @@ func (r NSRulerMarker) ThicknessRequiredInRuler() float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("thicknessRequiredInRuler"))
 	return rv
 }
-
 // A Boolean that indicates whether the user can move the receiver in its
 // ruler view.
 //
@@ -518,7 +510,6 @@ func (r NSRulerMarker) Movable() bool {
 func (r NSRulerMarker) SetMovable(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMovable:"), value)
 }
-
 // A Boolean that indicates whether the user can remove the receiver from its
 // ruler view.
 //
@@ -540,7 +531,6 @@ func (r NSRulerMarker) Removable() bool {
 func (r NSRulerMarker) SetRemovable(value bool) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRemovable:"), value)
 }
-
 // The location of the receiver in the coordinate system of the ruler view’s
 // client view.
 //
@@ -557,7 +547,6 @@ func (r NSRulerMarker) MarkerLocation() float64 {
 func (r NSRulerMarker) SetMarkerLocation(value float64) {
 	objc.Send[struct{}](r.ID, objc.Sel("setMarkerLocation:"), value)
 }
-
 // The object the receiver represents.
 //
 // # Discussion
@@ -574,7 +563,6 @@ func (r NSRulerMarker) RepresentedObject() foundation.NSCopying {
 func (r NSRulerMarker) SetRepresentedObject(value foundation.NSCopying) {
 	objc.Send[struct{}](r.ID, objc.Sel("setRepresentedObject:"), value)
 }
-
 // A Boolean that indicates whether the receiver is being dragged.
 //
 // # Discussion

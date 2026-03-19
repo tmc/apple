@@ -263,7 +263,6 @@ func (s Stream) PropertyForKey(key NSStreamPropertyKey) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("propertyForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
-
 // Attempts to set the value of a given property of the receiver and returns a
 // Boolean value that indicates whether the value is accepted by the receiver.
 //
@@ -284,7 +283,6 @@ func (s Stream) SetPropertyForKey(property objectivec.IObject, key NSStreamPrope
 	rv := objc.Send[bool](s.ID, objc.Sel("setProperty:forKey:"), property, objc.String(string(key)))
 	return rv
 }
-
 // Opens the receiving stream.
 //
 // # Discussion
@@ -296,7 +294,6 @@ func (s Stream) SetPropertyForKey(property objectivec.IObject, key NSStreamPrope
 func (s Stream) Open() {
 	objc.Send[objc.ID](s.ID, objc.Sel("open"))
 }
-
 // Closes the receiver.
 //
 // # Discussion
@@ -311,7 +308,6 @@ func (s Stream) Open() {
 func (s Stream) Close() {
 	objc.Send[objc.ID](s.ID, objc.Sel("close"))
 }
-
 // Schedules the receiver on a given run loop in a given mode.
 //
 // aRunLoop: The run loop on which to schedule the receiver.
@@ -328,7 +324,6 @@ func (s Stream) Close() {
 func (s Stream) ScheduleInRunLoopForMode(aRunLoop INSRunLoop, mode NSRunLoopMode) {
 	objc.Send[objc.ID](s.ID, objc.Sel("scheduleInRunLoop:forMode:"), aRunLoop, objc.String(string(mode)))
 }
-
 // Removes the receiver from a given run loop running in a given mode.
 //
 // aRunLoop: The run loop on which the receiver was scheduled.
@@ -385,7 +380,6 @@ func (s Stream) Delegate() NSStreamDelegate {
 func (s Stream) SetDelegate(value NSStreamDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // Returns the receiver’s status.
 //
 // # Return Value
@@ -401,7 +395,6 @@ func (s Stream) StreamStatus() NSStreamStatus {
 	rv := objc.Send[NSStreamStatus](s.ID, objc.Sel("streamStatus"))
 	return NSStreamStatus(rv)
 }
-
 // Returns an [NSError] object representing the stream error.
 //
 // # Return Value
@@ -414,7 +407,6 @@ func (s Stream) StreamError() INSError {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("streamError"))
 	return NSErrorFromID(objc.ID(rv))
 }
-
 // The error domain used by
 //
 // See: https://developer.apple.com/documentation/foundation/nsstreamsocketsslerrordomain
@@ -422,7 +414,6 @@ func (s Stream) NSStreamSocketSSLErrorDomain() string {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("NSStreamSocketSSLErrorDomain"))
 	return NSStringFromID(rv).String()
 }
-
 // The error domain used by
 //
 // See: https://developer.apple.com/documentation/foundation/nsstreamsockserrordomain

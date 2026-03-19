@@ -186,7 +186,6 @@ func (d MTLDepthStencilDescriptor) DepthCompareFunction() MTLCompareFunction {
 func (d MTLDepthStencilDescriptor) SetDepthCompareFunction(value MTLCompareFunction) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDepthCompareFunction:"), value)
 }
-
 // A Boolean value that indicates whether depth values can be written to the
 // depth attachment.
 //
@@ -205,7 +204,6 @@ func (d MTLDepthStencilDescriptor) DepthWriteEnabled() bool {
 func (d MTLDepthStencilDescriptor) SetDepthWriteEnabled(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setDepthWriteEnabled:"), value)
 }
-
 // The stencil descriptor for back-facing primitives.
 //
 // # Discussion
@@ -222,7 +220,6 @@ func (d MTLDepthStencilDescriptor) BackFaceStencil() IMTLStencilDescriptor {
 func (d MTLDepthStencilDescriptor) SetBackFaceStencil(value IMTLStencilDescriptor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setBackFaceStencil:"), value)
 }
-
 // The stencil descriptor for front-facing primitives.
 //
 // # Discussion
@@ -239,7 +236,6 @@ func (d MTLDepthStencilDescriptor) FrontFaceStencil() IMTLStencilDescriptor {
 func (d MTLDepthStencilDescriptor) SetFrontFaceStencil(value IMTLStencilDescriptor) {
 	objc.Send[struct{}](d.ID, objc.Sel("setFrontFaceStencil:"), value)
 }
-
 // A string that identifies this object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilDescriptor/label

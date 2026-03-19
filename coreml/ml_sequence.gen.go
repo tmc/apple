@@ -179,7 +179,6 @@ func (s MLSequence) Type() MLFeatureType {
 	rv := objc.Send[MLFeatureType](s.ID, objc.Sel("type"))
 	return MLFeatureType(rv)
 }
-
 // An array of strings in the sequence.
 //
 // # Discussion
@@ -194,7 +193,6 @@ func (s MLSequence) StringValues() []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("stringValues"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // An array of 64-bit integers in the sequence.
 //
 // # Discussion

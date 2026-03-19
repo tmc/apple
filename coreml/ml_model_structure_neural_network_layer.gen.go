@@ -111,7 +111,6 @@ func (m MLModelStructureNeuralNetworkLayer) InputNames() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("inputNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The layer name.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer/name
@@ -119,7 +118,6 @@ func (m MLModelStructureNeuralNetworkLayer) Name() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The output names.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer/outputNames
@@ -127,7 +125,6 @@ func (m MLModelStructureNeuralNetworkLayer) OutputNames() []string {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("outputNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The type of the layer, e,g, “elementwise”, “pooling”, etc.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructureNeuralNetworkLayer/type

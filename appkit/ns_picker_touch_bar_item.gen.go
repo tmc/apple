@@ -235,34 +235,29 @@ func NewPickerTouchBarItemWithIdentifierLabelsSelectionModeTargetAction(identifi
 func (p NSPickerTouchBarItem) SetLabelAtIndex(label string, index int) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setLabel:atIndex:"), objc.String(label), index)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/label(at:)
 func (p NSPickerTouchBarItem) LabelAtIndex(index int) string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("labelAtIndex:"), index)
 	return foundation.NSStringFromID(rv).String()
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/setImage(_:at:)
 func (p NSPickerTouchBarItem) SetImageAtIndex(image objectivec.Object, index int) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setImage:atIndex:"), image, index)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/image(at:)
 func (p NSPickerTouchBarItem) ImageAtIndex(index int) objectivec.Object {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("imageAtIndex:"), index)
 	return objectivec.ObjectFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/isEnabled(at:)
 func (p NSPickerTouchBarItem) IsEnabledAtIndex(index int) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isEnabledAtIndex:"), index)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/setEnabled(_:at:)
 func (p NSPickerTouchBarItem) SetEnabledAtIndex(enabled bool, index int) {
@@ -277,7 +272,6 @@ func (p NSPickerTouchBarItem) NumberOfOptions() int {
 func (p NSPickerTouchBarItem) SetNumberOfOptions(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNumberOfOptions:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/collapsedRepresentationImage
 func (p NSPickerTouchBarItem) CollapsedRepresentationImage() objectivec.Object {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("collapsedRepresentationImage"))
@@ -286,7 +280,6 @@ func (p NSPickerTouchBarItem) CollapsedRepresentationImage() objectivec.Object {
 func (p NSPickerTouchBarItem) SetCollapsedRepresentationImage(value objectivec.Object) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationImage:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/collapsedRepresentationLabel
 func (p NSPickerTouchBarItem) CollapsedRepresentationLabel() string {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("collapsedRepresentationLabel"))
@@ -295,7 +288,6 @@ func (p NSPickerTouchBarItem) CollapsedRepresentationLabel() string {
 func (p NSPickerTouchBarItem) SetCollapsedRepresentationLabel(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollapsedRepresentationLabel:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/controlRepresentation-swift.property
 func (p NSPickerTouchBarItem) ControlRepresentation() NSPickerTouchBarItemControlRepresentation {
 	rv := objc.Send[NSPickerTouchBarItemControlRepresentation](p.ID, objc.Sel("controlRepresentation"))
@@ -304,7 +296,6 @@ func (p NSPickerTouchBarItem) ControlRepresentation() NSPickerTouchBarItemContro
 func (p NSPickerTouchBarItem) SetControlRepresentation(value NSPickerTouchBarItemControlRepresentation) {
 	objc.Send[struct{}](p.ID, objc.Sel("setControlRepresentation:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/isEnabled
 func (p NSPickerTouchBarItem) Enabled() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("isEnabled"))
@@ -313,7 +304,6 @@ func (p NSPickerTouchBarItem) Enabled() bool {
 func (p NSPickerTouchBarItem) SetEnabled(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEnabled:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/selectedIndex
 func (p NSPickerTouchBarItem) SelectedIndex() int {
 	rv := objc.Send[int](p.ID, objc.Sel("selectedIndex"))
@@ -322,7 +312,6 @@ func (p NSPickerTouchBarItem) SelectedIndex() int {
 func (p NSPickerTouchBarItem) SetSelectedIndex(value int) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectedIndex:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/selectionColor
 func (p NSPickerTouchBarItem) SelectionColor() objectivec.Object {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("selectionColor"))
@@ -331,7 +320,6 @@ func (p NSPickerTouchBarItem) SelectionColor() objectivec.Object {
 func (p NSPickerTouchBarItem) SetSelectionColor(value objectivec.Object) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectionColor:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/selectionMode-swift.property
 func (p NSPickerTouchBarItem) SelectionMode() NSPickerTouchBarItemSelectionMode {
 	rv := objc.Send[NSPickerTouchBarItemSelectionMode](p.ID, objc.Sel("selectionMode"))
@@ -340,7 +328,6 @@ func (p NSPickerTouchBarItem) SelectionMode() NSPickerTouchBarItemSelectionMode 
 func (p NSPickerTouchBarItem) SetSelectionMode(value NSPickerTouchBarItemSelectionMode) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSelectionMode:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/action
 func (p NSPickerTouchBarItem) Action() objc.SEL {
 	rv := objc.Send[objc.SEL](p.ID, objc.Sel("action"))
@@ -349,7 +336,6 @@ func (p NSPickerTouchBarItem) Action() objc.SEL {
 func (p NSPickerTouchBarItem) SetAction(value objc.SEL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAction:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSPickerTouchBarItem/target
 func (p NSPickerTouchBarItem) Target() objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("target"))

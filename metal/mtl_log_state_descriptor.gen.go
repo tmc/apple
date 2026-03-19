@@ -132,7 +132,6 @@ func (l MTLLogStateDescriptor) BufferSize() int {
 func (l MTLLogStateDescriptor) SetBufferSize(value int) {
 	objc.Send[struct{}](l.ID, objc.Sel("setBufferSize:"), value)
 }
-
 // The minimum level of messages that the shader can log.
 //
 // # Discussion

@@ -502,7 +502,6 @@ func NewNSCollectionViewLayout() NSCollectionViewLayout {
 func (c NSCollectionViewLayout) PrepareLayout() {
 	objc.Send[objc.ID](c.ID, objc.Sel("prepareLayout"))
 }
-
 // Returns the layout attribute objects for all items and views in the
 // specified rectangle.
 //
@@ -536,7 +535,6 @@ func (c NSCollectionViewLayout) LayoutAttributesForElementsInRect(rect corefound
 		return NSCollectionViewLayoutAttributesFromID(id)
 	})
 }
-
 // Returns the layout attributes for the item at the specified index path.
 //
 // indexPath: The index path of the item whose attributes are requested.
@@ -563,7 +561,6 @@ func (c NSCollectionViewLayout) LayoutAttributesForItemAtIndexPath(indexPath obj
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForItemAtIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Returns the layout attributes of the supplementary view at the specified
 // location in your layout.
 //
@@ -598,7 +595,6 @@ func (c NSCollectionViewLayout) LayoutAttributesForSupplementaryViewOfKindAtInde
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForSupplementaryViewOfKind:atIndexPath:"), objc.String(string(elementKind)), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Returns the layout attributes of the decoration view at the specified
 // location in your layout.
 //
@@ -633,7 +629,6 @@ func (c NSCollectionViewLayout) LayoutAttributesForDecorationViewOfKindAtIndexPa
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForDecorationViewOfKind:atIndexPath:"), objc.String(string(elementKind)), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Returns layout attributes for the drop target at the specified point.
 //
 // pointInCollectionView: A point in the collection view’s coordinate system. Use this point to
@@ -665,7 +660,6 @@ func (c NSCollectionViewLayout) LayoutAttributesForDropTargetAtPoint(pointInColl
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForDropTargetAtPoint:"), pointInCollectionView)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Returns layout attributes for the inter-item gap at the specified location
 // in your layout.
 //
@@ -694,7 +688,6 @@ func (c NSCollectionViewLayout) LayoutAttributesForInterItemGapBeforeIndexPath(i
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForInterItemGapBeforeIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Returns the offset value to use after an animated layout update or change.
 //
 // proposedContentOffset: The proposed point (in the collection view’s coordinate space) for the
@@ -720,7 +713,6 @@ func (c NSCollectionViewLayout) TargetContentOffsetForProposedContentOffset(prop
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("targetContentOffsetForProposedContentOffset:"), proposedContentOffset)
 	return corefoundation.CGPoint(rv)
 }
-
 // Returns the offset value to use for the collection view’s content at the
 // end of scrolling.
 //
@@ -749,7 +741,6 @@ func (c NSCollectionViewLayout) TargetContentOffsetForProposedContentOffsetWithS
 	rv := objc.Send[corefoundation.CGPoint](c.ID, objc.Sel("targetContentOffsetForProposedContentOffset:withScrollingVelocity:"), proposedContentOffset, velocity)
 	return corefoundation.CGPoint(rv)
 }
-
 // Performs needed tasks before items are inserted, deleted, or moved within
 // the collection view.
 //
@@ -769,7 +760,6 @@ func (c NSCollectionViewLayout) TargetContentOffsetForProposedContentOffsetWithS
 func (c NSCollectionViewLayout) PrepareForCollectionViewUpdates(updateItems []NSCollectionViewUpdateItem) {
 	objc.Send[objc.ID](c.ID, objc.Sel("prepareForCollectionViewUpdates:"), objectivec.IObjectSliceToNSArray(updateItems))
 }
-
 // Performs needed steps after items are inserted, deleted, or moved within a
 // collection view.
 //
@@ -787,7 +777,6 @@ func (c NSCollectionViewLayout) PrepareForCollectionViewUpdates(updateItems []NS
 func (c NSCollectionViewLayout) FinalizeCollectionViewUpdates() {
 	objc.Send[objc.ID](c.ID, objc.Sel("finalizeCollectionViewUpdates"))
 }
-
 // Returns the index paths for any supplementary views that the layout object
 // wants to add to the collection view.
 //
@@ -826,7 +815,6 @@ func (c NSCollectionViewLayout) IndexPathsToInsertForSupplementaryViewOfKind(ele
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathsToInsertForSupplementaryViewOfKind:"), objc.String(string(elementKind)))
 	return foundation.NSSetFromID(rv)
 }
-
 // Returns the index paths for any decoration views that the layout object
 // wants to add to the collection view.
 //
@@ -865,7 +853,6 @@ func (c NSCollectionViewLayout) IndexPathsToInsertForDecorationViewOfKind(elemen
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathsToInsertForDecorationViewOfKind:"), objc.String(string(elementKind)))
 	return foundation.NSSetFromID(rv)
 }
-
 // Returns the starting layout information for an item being inserted into the
 // collection view.
 //
@@ -898,7 +885,6 @@ func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingItemAtIndexPa
 	rv := objc.Send[NSCollectionViewLayout](c.ID, objc.Sel("initialLayoutAttributesForAppearingItemAtIndexPath:"), itemIndexPath)
 	return rv
 }
-
 // Returns the starting layout information for a supplementary view being
 // added to the collection view.
 //
@@ -935,7 +921,6 @@ func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingSupplementary
 	rv := objc.Send[NSCollectionViewLayout](c.ID, objc.Sel("initialLayoutAttributesForAppearingSupplementaryElementOfKind:atIndexPath:"), objc.String(string(elementKind)), elementIndexPath)
 	return rv
 }
-
 // Returns the starting layout information for a decoration view being added
 // to the collection view.
 //
@@ -972,7 +957,6 @@ func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingDecorationEle
 	rv := objc.Send[NSCollectionViewLayout](c.ID, objc.Sel("initialLayoutAttributesForAppearingDecorationElementOfKind:atIndexPath:"), objc.String(string(elementKind)), decorationIndexPath)
 	return rv
 }
-
 // Returns the index paths for any supplementary views that the layout object
 // wants to remove from the collection view.
 //
@@ -1011,7 +995,6 @@ func (c NSCollectionViewLayout) IndexPathsToDeleteForSupplementaryViewOfKind(ele
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathsToDeleteForSupplementaryViewOfKind:"), objc.String(string(elementKind)))
 	return foundation.NSSetFromID(rv)
 }
-
 // Returns index paths for any decoration views that the layout object wants
 // to remove from the collection view.
 //
@@ -1050,7 +1033,6 @@ func (c NSCollectionViewLayout) IndexPathsToDeleteForDecorationViewOfKind(elemen
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("indexPathsToDeleteForDecorationViewOfKind:"), objc.String(string(elementKind)))
 	return foundation.NSSetFromID(rv)
 }
-
 // Returns the ending layout information for an item being removed from the
 // collection view.
 //
@@ -1083,7 +1065,6 @@ func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingItemAtIndexP
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("finalLayoutAttributesForDisappearingItemAtIndexPath:"), itemIndexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Returns the ending layout information for a supplementary view being
 // removed from the collection view.
 //
@@ -1119,7 +1100,6 @@ func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingSupplementar
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("finalLayoutAttributesForDisappearingSupplementaryElementOfKind:atIndexPath:"), objc.String(string(elementKind)), elementIndexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Returns the ending layout information for a decoration view being removed
 // from the collection view.
 //
@@ -1155,7 +1135,6 @@ func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingDecorationEl
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("finalLayoutAttributesForDisappearingDecorationElementOfKind:atIndexPath:"), objc.String(string(elementKind)), decorationIndexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
-
 // Invalidates all layout information and triggers a layout update.
 //
 // # Discussion
@@ -1174,7 +1153,6 @@ func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingDecorationEl
 func (c NSCollectionViewLayout) InvalidateLayout() {
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateLayout"))
 }
-
 // Invalidates specific parts of the layout using the specified context
 // object.
 //
@@ -1200,7 +1178,6 @@ func (c NSCollectionViewLayout) InvalidateLayout() {
 func (c NSCollectionViewLayout) InvalidateLayoutWithContext(context INSCollectionViewLayoutInvalidationContext) {
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateLayoutWithContext:"), context)
 }
-
 // Returns a Boolean indicating whether a bounds change triggers a layout
 // update.
 //
@@ -1235,7 +1212,6 @@ func (c NSCollectionViewLayout) ShouldInvalidateLayoutForBoundsChange(newBounds 
 	rv := objc.Send[bool](c.ID, objc.Sel("shouldInvalidateLayoutForBoundsChange:"), newBounds)
 	return rv
 }
-
 // Returns a Boolean indicating whether changes to a cell’s layout
 // attributes trigger a larger layout update.
 //
@@ -1271,7 +1247,6 @@ func (c NSCollectionViewLayout) ShouldInvalidateLayoutForPreferredLayoutAttribut
 	rv := objc.Send[bool](c.ID, objc.Sel("shouldInvalidateLayoutForPreferredLayoutAttributes:withOriginalAttributes:"), preferredAttributes, originalAttributes)
 	return rv
 }
-
 // Returns an invalidation context object that defines the portions of the
 // layout that need to be updated.
 //
@@ -1298,7 +1273,6 @@ func (c NSCollectionViewLayout) InvalidationContextForBoundsChange(newBounds cor
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("invalidationContextForBoundsChange:"), newBounds)
 	return NSCollectionViewLayoutInvalidationContextFromID(rv)
 }
-
 // Returns an invalidation context object that defines the portions of the
 // layout that need to be updated.
 //
@@ -1327,7 +1301,6 @@ func (c NSCollectionViewLayout) InvalidationContextForPreferredLayoutAttributesW
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("invalidationContextForPreferredLayoutAttributes:withOriginalAttributes:"), preferredAttributes, originalAttributes)
 	return NSCollectionViewLayoutInvalidationContextFromID(rv)
 }
-
 // Prepares the layout object for animated changes to the collection view’s
 // bounds or for the insertion or deletion of items.
 //
@@ -1350,7 +1323,6 @@ func (c NSCollectionViewLayout) InvalidationContextForPreferredLayoutAttributesW
 func (c NSCollectionViewLayout) PrepareForAnimatedBoundsChange(oldBounds corefoundation.CGRect) {
 	objc.Send[objc.ID](c.ID, objc.Sel("prepareForAnimatedBoundsChange:"), oldBounds)
 }
-
 // Cleans up after any animated changes to the collection view’s bounds or
 // after the insertion or deletion of items.
 //
@@ -1368,7 +1340,6 @@ func (c NSCollectionViewLayout) PrepareForAnimatedBoundsChange(oldBounds corefou
 func (c NSCollectionViewLayout) FinalizeAnimatedBoundsChange() {
 	objc.Send[objc.ID](c.ID, objc.Sel("finalizeAnimatedBoundsChange"))
 }
-
 // Registers a class to use when creating the layout’s decoration views.
 //
 // viewClass: The class to use for the decoration view. This class must conform to the
@@ -1400,7 +1371,6 @@ func (c NSCollectionViewLayout) FinalizeAnimatedBoundsChange() {
 func (c NSCollectionViewLayout) RegisterClassForDecorationViewOfKind(viewClass objc.Class, elementKind NSCollectionViewDecorationElementKind) {
 	objc.Send[objc.ID](c.ID, objc.Sel("registerClass:forDecorationViewOfKind:"), viewClass, objc.String(string(elementKind)))
 }
-
 // Registers a nib file to use when creating the layout’s decoration views.
 //
 // nib: The nib object containing the decoration view’s definition. The nib file
@@ -1433,7 +1403,6 @@ func (c NSCollectionViewLayout) RegisterClassForDecorationViewOfKind(viewClass o
 func (c NSCollectionViewLayout) RegisterNibForDecorationViewOfKind(nib INSNib, elementKind NSCollectionViewDecorationElementKind) {
 	objc.Send[objc.ID](c.ID, objc.Sel("registerNib:forDecorationViewOfKind:"), nib, objc.String(string(elementKind)))
 }
-
 // Prepares the layout object to be installed in the collection view.
 //
 // oldLayout: The layout object installed in the collection view at the beginning of the
@@ -1450,7 +1419,6 @@ func (c NSCollectionViewLayout) RegisterNibForDecorationViewOfKind(nib INSNib, e
 func (c NSCollectionViewLayout) PrepareForTransitionFromLayout(oldLayout INSCollectionViewLayout) {
 	objc.Send[objc.ID](c.ID, objc.Sel("prepareForTransitionFromLayout:"), oldLayout)
 }
-
 // Prepares the layout object to be uninstalled from the collection view.
 //
 // newLayout: The layout object to install in the collection view at the end of the
@@ -1466,7 +1434,6 @@ func (c NSCollectionViewLayout) PrepareForTransitionFromLayout(oldLayout INSColl
 func (c NSCollectionViewLayout) PrepareForTransitionToLayout(newLayout INSCollectionViewLayout) {
 	objc.Send[objc.ID](c.ID, objc.Sel("prepareForTransitionToLayout:"), newLayout)
 }
-
 // Performs any final steps related to a layout transition before the
 // transition animations actually occur.
 //
@@ -1498,7 +1465,6 @@ func (c NSCollectionViewLayout) CollectionView() INSCollectionView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView"))
 	return NSCollectionViewFromID(objc.ID(rv))
 }
-
 // The width and height of the collection view’s contents.
 //
 // # Discussion
@@ -1519,7 +1485,6 @@ func (c NSCollectionViewLayout) CollectionViewContentSize() corefoundation.CGSiz
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("collectionViewContentSize"))
 	return corefoundation.CGSize(rv)
 }
-
 // The layout object used to organize the collection view’s content.
 //
 // See: https://developer.apple.com/documentation/appkit/nscollectionview/collectionviewlayout
@@ -1552,7 +1517,6 @@ func (_NSCollectionViewLayoutClass NSCollectionViewLayoutClass) LayoutAttributes
 	rv := objc.Send[objc.Class](objc.ID(_NSCollectionViewLayoutClass.class), objc.Sel("layoutAttributesClass"))
 	return rv
 }
-
 // Returns the class to use when creating an invalidation context object for
 // the layout.
 //

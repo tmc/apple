@@ -206,7 +206,6 @@ func (p NSPanGestureRecognizer) TranslationInView(view INSView) corefoundation.C
 	rv := objc.Send[corefoundation.CGPoint](p.ID, objc.Sel("translationInView:"), view)
 	return corefoundation.CGPoint(rv)
 }
-
 // Changes the current translation value of the gesture recognizer.
 //
 // translation: The new translation values to use in the gesture recognizer.
@@ -225,7 +224,6 @@ func (p NSPanGestureRecognizer) TranslationInView(view INSView) corefoundation.C
 func (p NSPanGestureRecognizer) SetTranslationInView(translation corefoundation.CGPoint, view INSView) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setTranslation:inView:"), translation, view)
 }
-
 // The velocity of the pan, measured in points per second.
 //
 // view: The view that provides the coordinate system for computing the velocity
@@ -266,7 +264,6 @@ func (p NSPanGestureRecognizer) ButtonMask() uint {
 func (p NSPanGestureRecognizer) SetButtonMask(value uint) {
 	objc.Send[struct{}](p.ID, objc.Sel("setButtonMask:"), value)
 }
-
 // The number of necessary touches on a Touch Bar for the gesture recognizer
 // to match.
 //

@@ -202,7 +202,6 @@ func (f MLFeatureDescription) Name() string {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The type of this feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/type
@@ -210,7 +209,6 @@ func (f MLFeatureDescription) Type() MLFeatureType {
 	rv := objc.Send[MLFeatureType](f.ID, objc.Sel("type"))
 	return MLFeatureType(rv)
 }
-
 // A Boolean value that indicates whether this feature is optional.
 //
 // # Discussion
@@ -223,7 +221,6 @@ func (f MLFeatureDescription) Optional() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isOptional"))
 	return rv
 }
-
 // The state feature value constraint.
 //
 // # Discussion
@@ -235,7 +232,6 @@ func (f MLFeatureDescription) StateConstraint() IMLStateConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("stateConstraint"))
 	return MLStateConstraintFromID(objc.ID(rv))
 }
-
 // The size and format constraints for an image feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/imageConstraint
@@ -243,7 +239,6 @@ func (f MLFeatureDescription) ImageConstraint() IMLImageConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("imageConstraint"))
 	return MLImageConstraintFromID(objc.ID(rv))
 }
-
 // The constraint for a dictionary feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/dictionaryConstraint
@@ -251,7 +246,6 @@ func (f MLFeatureDescription) DictionaryConstraint() IMLDictionaryConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("dictionaryConstraint"))
 	return MLDictionaryConstraintFromID(objc.ID(rv))
 }
-
 // The constraints on a multidimensional array feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/multiArrayConstraint
@@ -259,7 +253,6 @@ func (f MLFeatureDescription) MultiArrayConstraint() IMLMultiArrayConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("multiArrayConstraint"))
 	return MLMultiArrayConstraintFromID(objc.ID(rv))
 }
-
 // The constraints for a sequence feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureDescription/sequenceConstraint
@@ -267,7 +260,6 @@ func (f MLFeatureDescription) SequenceConstraint() IMLSequenceConstraint {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("sequenceConstraint"))
 	return MLSequenceConstraintFromID(objc.ID(rv))
 }
-
 // A dictionary of input feature descriptions, which the model keys by the
 // input’s name.
 //
@@ -279,7 +271,6 @@ func (f MLFeatureDescription) InputDescriptionsByName() IMLFeatureDescription {
 func (f MLFeatureDescription) SetInputDescriptionsByName(value IMLFeatureDescription) {
 	objc.Send[struct{}](f.ID, objc.Sel("setInputDescriptionsByName:"), value)
 }
-
 // A dictionary of output feature descriptions, which the model keys by the
 // output’s name.
 //
@@ -291,7 +282,6 @@ func (f MLFeatureDescription) OutputDescriptionsByName() IMLFeatureDescription {
 func (f MLFeatureDescription) SetOutputDescriptionsByName(value IMLFeatureDescription) {
 	objc.Send[struct{}](f.ID, objc.Sel("setOutputDescriptionsByName:"), value)
 }
-
 // Description of the state features.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodeldescription/statedescriptionsbyname

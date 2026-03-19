@@ -195,7 +195,6 @@ func (c NSConditionLock) InitWithCondition(condition int) NSConditionLock {
 	rv := objc.Send[NSConditionLock](c.ID, objc.Sel("initWithCondition:"), condition)
 	return rv
 }
-
 // Attempts to acquire a lock before a specified moment in time.
 //
 // limit: The date by which the lock must be acquired or the attempt will time out.
@@ -218,7 +217,6 @@ func (c NSConditionLock) LockBeforeDate(limit INSDate) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("lockBeforeDate:"), limit)
 	return rv
 }
-
 // Attempts to acquire a lock.
 //
 // condition: The condition to match on.
@@ -233,7 +231,6 @@ func (c NSConditionLock) LockBeforeDate(limit INSDate) bool {
 func (c NSConditionLock) LockWhenCondition(condition int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("lockWhenCondition:"), condition)
 }
-
 // Attempts to acquire a lock before a specified moment in time.
 //
 // condition: The condition to match on.
@@ -258,7 +255,6 @@ func (c NSConditionLock) LockWhenConditionBeforeDate(condition int, limit INSDat
 	rv := objc.Send[bool](c.ID, objc.Sel("lockWhenCondition:beforeDate:"), condition, limit)
 	return rv
 }
-
 // Attempts to acquire a lock without regard to the receiver’s condition.
 //
 // # Return Value
@@ -277,7 +273,6 @@ func (c NSConditionLock) TryLock() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("tryLock"))
 	return rv
 }
-
 // Attempts to acquire a lock if the receiver’s condition is equal to the
 // specified condition.
 //
@@ -298,7 +293,6 @@ func (c NSConditionLock) TryLockWhenCondition(condition int) bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("tryLockWhenCondition:"), condition)
 	return rv
 }
-
 // Relinquishes the lock and sets the receiver’s condition.
 //
 // condition: The user-defined condition for the lock. The value of `condition` is
@@ -308,7 +302,6 @@ func (c NSConditionLock) TryLockWhenCondition(condition int) bool {
 func (c NSConditionLock) UnlockWithCondition(condition int) {
 	objc.Send[objc.ID](c.ID, objc.Sel("unlockWithCondition:"), condition)
 }
-
 // Attempts to acquire a lock, blocking a thread’s execution until the lock
 // can be acquired.
 //
@@ -322,7 +315,6 @@ func (c NSConditionLock) UnlockWithCondition(condition int) {
 func (c NSConditionLock) Lock() {
 	objc.Send[objc.ID](c.ID, objc.Sel("lock"))
 }
-
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()
@@ -341,7 +333,6 @@ func (c NSConditionLock) Condition() int {
 	rv := objc.Send[int](c.ID, objc.Sel("condition"))
 	return rv
 }
-
 // The name associated with the receiver.
 //
 // # Discussion

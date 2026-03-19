@@ -117,7 +117,6 @@ func (b MTLBlitPassSampleBufferAttachmentDescriptorArray) ObjectAtIndexedSubscri
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLBlitPassSampleBufferAttachmentDescriptorFromID(rv)
 }
-
 // Copies the properties of a blit pass sample buffer attachment descriptor
 // instance to the properties of one of the array’s instances.
 //

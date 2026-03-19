@@ -112,7 +112,6 @@ func (i MLImageSize) PixelsHigh() int {
 	rv := objc.Send[int](i.ID, objc.Sel("pixelsHigh"))
 	return rv
 }
-
 // The width of an image feature in pixels.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLImageSize/pixelsWide
@@ -120,7 +119,6 @@ func (i MLImageSize) PixelsWide() int {
 	rv := objc.Send[int](i.ID, objc.Sel("pixelsWide"))
 	return rv
 }
-
 // An array of image sizes a model’s image feature accepts as input or
 // produces as output.
 //

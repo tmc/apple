@@ -124,7 +124,6 @@ func (s SCScreenshotOutput) FileURL() foundation.INSURL {
 func (s SCScreenshotOutput) SetFileURL(value foundation.INSURL) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFileURL:"), value)
 }
-
 // An output property that specifies the high dynamic range version of the
 // screenshot.
 //
@@ -142,7 +141,6 @@ func (s SCScreenshotOutput) HdrImage() coregraphics.CGImageRef {
 func (s SCScreenshotOutput) SetHdrImage(value coregraphics.CGImageRef) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHdrImage:"), value)
 }
-
 // An output property that specifies the standard dynamic range version of the
 // screenshot.
 //

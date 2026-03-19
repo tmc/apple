@@ -207,7 +207,6 @@ func (m VZMACAddress) InitWithString(string_ string) VZMACAddress {
 	rv := objc.Send[VZMACAddress](m.ID, objc.Sel("initWithString:"), objc.String(string_))
 	return rv
 }
-
 // Creates a MAC address from the specified 48-bit Ethernet address.
 //
 // ethernetAddress: A 48-bit Ethernet address.
@@ -251,7 +250,6 @@ func (m VZMACAddress) String() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The MAC address as an Ethernet data structure.
 //
 // # Discussion
@@ -264,7 +262,6 @@ func (m VZMACAddress) EthernetAddress() [6]byte {
 	rv := objc.Send[[6]byte](m.ID, objc.Sel("ethernetAddress"))
 	return [6]byte(rv)
 }
-
 // A Boolean value that indicates whether the address is a broadcast address.
 //
 // # Discussion
@@ -280,7 +277,6 @@ func (m VZMACAddress) IsBroadcastAddress() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isBroadcastAddress"))
 	return rv
 }
-
 // A Boolean value that indicates whether the address is a multicast address.
 //
 // # Discussion
@@ -296,7 +292,6 @@ func (m VZMACAddress) IsMulticastAddress() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isMulticastAddress"))
 	return rv
 }
-
 // A Boolean value that indicates whether the address is a unicast address.
 //
 // # Discussion
@@ -312,7 +307,6 @@ func (m VZMACAddress) IsUnicastAddress() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isUnicastAddress"))
 	return rv
 }
-
 // A Boolean value that indicates whether the address is a locally
 // administered address (LAA).
 //
@@ -330,7 +324,6 @@ func (m VZMACAddress) IsLocallyAdministeredAddress() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isLocallyAdministeredAddress"))
 	return rv
 }
-
 // A Boolean value that indicates whether the address is a universally
 // adminstered address (UAA).
 //

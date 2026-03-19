@@ -531,7 +531,6 @@ func NewScrollViewWithFrame(frameRect corefoundation.CGRect) NSScrollView {
 func (s NSScrollView) AddFloatingSubviewForAxis(view INSView, axis NSEventGestureAxis) {
 	objc.Send[objc.ID](s.ID, objc.Sel("addFloatingSubview:forAxis:"), view, axis)
 }
-
 // Lays out the components of the receiver: the content view, the scrollers,
 // and the ruler views.
 //
@@ -544,7 +543,6 @@ func (s NSScrollView) AddFloatingSubviewForAxis(view INSView, axis NSEventGestur
 func (s NSScrollView) Tile() {
 	objc.Send[objc.ID](s.ID, objc.Sel("tile"))
 }
-
 // Flash the overlay scroll bars.
 //
 // # Discussion
@@ -561,7 +559,6 @@ func (s NSScrollView) Tile() {
 func (s NSScrollView) FlashScrollers() {
 	objc.Send[objc.ID](s.ID, objc.Sel("flashScrollers"))
 }
-
 // Magnifies the content view proportionally such that the given rectangle
 // fits centered in the scroll view.
 //
@@ -578,7 +575,6 @@ func (s NSScrollView) FlashScrollers() {
 func (s NSScrollView) MagnifyToFitRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](s.ID, objc.Sel("magnifyToFitRect:"), rect)
 }
-
 // Magnify the content by the given amount and center the result on the given
 // point.
 //
@@ -598,7 +594,6 @@ func (s NSScrollView) MagnifyToFitRect(rect corefoundation.CGRect) {
 func (s NSScrollView) SetMagnificationCenteredAtPoint(magnification float64, point corefoundation.CGPoint) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setMagnification:centeredAtPoint:"), magnification, point)
 }
-
 // Notifies the find bar container that the find bar has changed its height.
 //
 // # Discussion
@@ -610,7 +605,6 @@ func (s NSScrollView) SetMagnificationCenteredAtPoint(magnification float64, poi
 func (s NSScrollView) FindBarViewDidChangeHeight() {
 	objc.Send[objc.ID](s.ID, objc.Sel("findBarViewDidChangeHeight"))
 }
-
 // Returns whether the container should display its find bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
@@ -659,7 +653,6 @@ func (_NSScrollViewClass NSScrollViewClass) FrameSizeForContentSizeHorizontalScr
 	rv := objc.Send[corefoundation.CGSize](objc.ID(_NSScrollViewClass.class), objc.Sel("frameSizeForContentSize:horizontalScrollerClass:verticalScrollerClass:borderType:controlSize:scrollerStyle:"), cSize, horizontalScrollerClass, verticalScrollerClass, type_, controlSize, scrollerStyle)
 	return corefoundation.CGSize(rv)
 }
-
 // Returns the content size calculated from the frame size and the specified
 // specifications.
 //
@@ -707,7 +700,6 @@ func (s NSScrollView) ContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](s.ID, objc.Sel("contentSize"))
 	return corefoundation.CGSize(rv)
 }
-
 // The portion of the document view, in its own coordinate system, visible
 // through the scroll view’s content view.
 //
@@ -716,7 +708,6 @@ func (s NSScrollView) DocumentVisibleRect() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("documentVisibleRect"))
 	return corefoundation.CGRect(rv)
 }
-
 // The color of the content view’s background.
 //
 // # Discussion
@@ -732,7 +723,6 @@ func (s NSScrollView) BackgroundColor() INSColor {
 func (s NSScrollView) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
 // A Boolean that indicates whether the scroll view draws its background.
 //
 // # Discussion
@@ -758,7 +748,6 @@ func (s NSScrollView) DrawsBackground() bool {
 func (s NSScrollView) SetDrawsBackground(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDrawsBackground:"), value)
 }
-
 // A value that specifies the appearance of the scroll view’s border.
 //
 // # Discussion
@@ -775,7 +764,6 @@ func (s NSScrollView) BorderType() NSBorderType {
 func (s NSScrollView) SetBorderType(value NSBorderType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBorderType:"), value)
 }
-
 // The content view’s document cursor.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/documentCursor
@@ -786,7 +774,6 @@ func (s NSScrollView) DocumentCursor() INSCursor {
 func (s NSScrollView) SetDocumentCursor(value INSCursor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDocumentCursor:"), value)
 }
-
 // The scroll view’s content view, the view that clips the document view.
 //
 // # Discussion
@@ -803,7 +790,6 @@ func (s NSScrollView) ContentView() INSClipView {
 func (s NSScrollView) SetContentView(value INSClipView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContentView:"), value)
 }
-
 // The view the scroll view scrolls within its content view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/documentView
@@ -814,7 +800,6 @@ func (s NSScrollView) DocumentView() INSView {
 func (s NSScrollView) SetDocumentView(value INSView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDocumentView:"), value)
 }
-
 // The scroll view’s horizontal scroller.
 //
 // # Discussion
@@ -836,7 +821,6 @@ func (s NSScrollView) HorizontalScroller() INSScroller {
 func (s NSScrollView) SetHorizontalScroller(value INSScroller) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHorizontalScroller:"), value)
 }
-
 // A Boolean that indicates whether the scroll view has a horizontal scroller.
 //
 // # Discussion
@@ -856,7 +840,6 @@ func (s NSScrollView) HasHorizontalScroller() bool {
 func (s NSScrollView) SetHasHorizontalScroller(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHasHorizontalScroller:"), value)
 }
-
 // The scroll view’s vertical scroller.
 //
 // # Discussion
@@ -878,7 +861,6 @@ func (s NSScrollView) VerticalScroller() INSScroller {
 func (s NSScrollView) SetVerticalScroller(value INSScroller) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVerticalScroller:"), value)
 }
-
 // A Boolean that indicates whether the scroll view has a vertical scroller.
 //
 // # Discussion
@@ -898,7 +880,6 @@ func (s NSScrollView) HasVerticalScroller() bool {
 func (s NSScrollView) SetHasVerticalScroller(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHasVerticalScroller:"), value)
 }
-
 // A Boolean that indicates whether the scroll view automatically hides its
 // scroll bars when they are not needed.
 //
@@ -920,7 +901,6 @@ func (s NSScrollView) AutohidesScrollers() bool {
 func (s NSScrollView) SetAutohidesScrollers(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutohidesScrollers:"), value)
 }
-
 // A Boolean that indicates whether the scroll view keeps a horizontal ruler
 // object.
 //
@@ -941,7 +921,6 @@ func (s NSScrollView) HasHorizontalRuler() bool {
 func (s NSScrollView) SetHasHorizontalRuler(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHasHorizontalRuler:"), value)
 }
-
 // The scroll view’s horizontal ruler view.
 //
 // # Discussion
@@ -965,7 +944,6 @@ func (s NSScrollView) HorizontalRulerView() INSRulerView {
 func (s NSScrollView) SetHorizontalRulerView(value INSRulerView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHorizontalRulerView:"), value)
 }
-
 // A Boolean that indicates whether the scroll view keeps a vertical ruler
 // object.
 //
@@ -986,7 +964,6 @@ func (s NSScrollView) HasVerticalRuler() bool {
 func (s NSScrollView) SetHasVerticalRuler(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHasVerticalRuler:"), value)
 }
-
 // The scroll view’s vertical ruler view.
 //
 // # Discussion
@@ -1010,7 +987,6 @@ func (s NSScrollView) VerticalRulerView() INSRulerView {
 func (s NSScrollView) SetVerticalRulerView(value INSRulerView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVerticalRulerView:"), value)
 }
-
 // A Boolean that indicates whether the scroll view displays its rulers.
 //
 // # Discussion
@@ -1030,7 +1006,6 @@ func (s NSScrollView) RulersVisible() bool {
 func (s NSScrollView) SetRulersVisible(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRulersVisible:"), value)
 }
-
 // A Boolean that indicates whether the scroll view automatically adjusts its
 // content insets.
 //
@@ -1054,7 +1029,6 @@ func (s NSScrollView) AutomaticallyAdjustsContentInsets() bool {
 func (s NSScrollView) SetAutomaticallyAdjustsContentInsets(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAutomaticallyAdjustsContentInsets:"), value)
 }
-
 // The distance that the scroll view’s subviews are inset from the enclosing
 // scroll view during tiling.
 //
@@ -1084,7 +1058,6 @@ func (s NSScrollView) ContentInsets() foundation.NSEdgeInsets {
 func (s NSScrollView) SetContentInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContentInsets:"), value)
 }
-
 // The distance the scrollers are inset from the edge of the scroll view.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrollView/scrollerInsets
@@ -1095,7 +1068,6 @@ func (s NSScrollView) ScrollerInsets() foundation.NSEdgeInsets {
 func (s NSScrollView) SetScrollerInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrollerInsets:"), value)
 }
-
 // The knob style of scroll views that use the overlay scroller style.
 //
 // # Discussion
@@ -1114,7 +1086,6 @@ func (s NSScrollView) ScrollerKnobStyle() NSScrollerKnobStyle {
 func (s NSScrollView) SetScrollerKnobStyle(value NSScrollerKnobStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrollerKnobStyle:"), value)
 }
-
 // The scroller style used by the scroll view.
 //
 // # Discussion
@@ -1141,7 +1112,6 @@ func (s NSScrollView) ScrollerStyle() NSScrollerStyle {
 func (s NSScrollView) SetScrollerStyle(value NSScrollerStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrollerStyle:"), value)
 }
-
 // The scroll view’s line by line scroll amount.
 //
 // # Discussion
@@ -1167,7 +1137,6 @@ func (s NSScrollView) LineScroll() float64 {
 func (s NSScrollView) SetLineScroll(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLineScroll:"), value)
 }
-
 // The scroll view’s horizontal line by line scroll amount.
 //
 // # Discussion
@@ -1186,7 +1155,6 @@ func (s NSScrollView) HorizontalLineScroll() float64 {
 func (s NSScrollView) SetHorizontalLineScroll(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHorizontalLineScroll:"), value)
 }
-
 // The scroll view’s vertical line by line scroll amount.
 //
 // # Discussion
@@ -1205,7 +1173,6 @@ func (s NSScrollView) VerticalLineScroll() float64 {
 func (s NSScrollView) SetVerticalLineScroll(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVerticalLineScroll:"), value)
 }
-
 // The amount of the document view kept visible when scrolling page by page.
 //
 // # Discussion
@@ -1237,7 +1204,6 @@ func (s NSScrollView) PageScroll() float64 {
 func (s NSScrollView) SetPageScroll(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPageScroll:"), value)
 }
-
 // The amount of the document view kept visible when scrolling horizontally
 // page by page.
 //
@@ -1264,7 +1230,6 @@ func (s NSScrollView) HorizontalPageScroll() float64 {
 func (s NSScrollView) SetHorizontalPageScroll(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHorizontalPageScroll:"), value)
 }
-
 // The amount of the document view kept visible when scrolling vertically page
 // by page.
 //
@@ -1291,7 +1256,6 @@ func (s NSScrollView) VerticalPageScroll() float64 {
 func (s NSScrollView) SetVerticalPageScroll(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVerticalPageScroll:"), value)
 }
-
 // A Boolean that indicates whether the scroll view redraws its document view
 // while scrolling continuously.
 //
@@ -1313,7 +1277,6 @@ func (s NSScrollView) ScrollsDynamically() bool {
 func (s NSScrollView) SetScrollsDynamically(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrollsDynamically:"), value)
 }
-
 // The position of the find bar.
 //
 // # Discussion
@@ -1330,7 +1293,6 @@ func (s NSScrollView) FindBarPosition() NSScrollViewFindBarPosition {
 func (s NSScrollView) SetFindBarPosition(value NSScrollViewFindBarPosition) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFindBarPosition:"), value)
 }
-
 // A Boolean that indicates whether the scroll view uses a predominant
 // scrolling axis for content.
 //
@@ -1360,7 +1322,6 @@ func (s NSScrollView) UsesPredominantAxisScrolling() bool {
 func (s NSScrollView) SetUsesPredominantAxisScrolling(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setUsesPredominantAxisScrolling:"), value)
 }
-
 // The scroll view’s horizontal scrolling elasticity mode.
 //
 // # Discussion
@@ -1387,7 +1348,6 @@ func (s NSScrollView) HorizontalScrollElasticity() NSScrollElasticity {
 func (s NSScrollView) SetHorizontalScrollElasticity(value NSScrollElasticity) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHorizontalScrollElasticity:"), value)
 }
-
 // The scroll view’s vertical scrolling elasticity mode.
 //
 // # Discussion
@@ -1414,7 +1374,6 @@ func (s NSScrollView) VerticalScrollElasticity() NSScrollElasticity {
 func (s NSScrollView) SetVerticalScrollElasticity(value NSScrollElasticity) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVerticalScrollElasticity:"), value)
 }
-
 // Allows the user to magnify the scroll view.
 //
 // # Discussion
@@ -1436,7 +1395,6 @@ func (s NSScrollView) AllowsMagnification() bool {
 func (s NSScrollView) SetAllowsMagnification(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAllowsMagnification:"), value)
 }
-
 // The amount by which the content is currently scaled.
 //
 // # Discussion
@@ -1452,7 +1410,6 @@ func (s NSScrollView) Magnification() float64 {
 func (s NSScrollView) SetMagnification(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMagnification:"), value)
 }
-
 // The maximum value to which the content can be magnified.
 //
 // # Discussion
@@ -1468,7 +1425,6 @@ func (s NSScrollView) MaxMagnification() float64 {
 func (s NSScrollView) SetMaxMagnification(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMaxMagnification:"), value)
 }
-
 // The minimum value to which the content can be magnified.
 //
 // # Discussion
@@ -1483,7 +1439,6 @@ func (s NSScrollView) MinMagnification() float64 {
 func (s NSScrollView) SetMinMagnification(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinMagnification:"), value)
 }
-
 // The view assigned by the text bar as the find bar view for the container.
 //
 // # Discussion
@@ -1502,7 +1457,6 @@ func (s NSScrollView) FindBarView() INSView {
 func (s NSScrollView) SetFindBarView(value INSView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFindBarView:"), value)
 }
-
 // Returns whether the container should display its find bar.
 //
 // # Discussion

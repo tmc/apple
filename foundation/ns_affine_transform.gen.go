@@ -246,7 +246,6 @@ func (a NSAffineTransform) InitWithTransform(transform INSAffineTransform) NSAff
 	rv := objc.Send[NSAffineTransform](a.ID, objc.Sel("initWithTransform:"), transform)
 	return rv
 }
-
 // Applies a rotation factor (measured in degrees) to the receiver’s
 // transformation matrix.
 //
@@ -262,7 +261,6 @@ func (a NSAffineTransform) InitWithTransform(transform INSAffineTransform) NSAff
 func (a NSAffineTransform) RotateByDegrees(angle float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("rotateByDegrees:"), angle)
 }
-
 // Applies a rotation factor (measured in radians) to the receiver’s
 // transformation matrix.
 //
@@ -278,7 +276,6 @@ func (a NSAffineTransform) RotateByDegrees(angle float64) {
 func (a NSAffineTransform) RotateByRadians(angle float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("rotateByRadians:"), angle)
 }
-
 // Applies the specified scaling factor along both x and y axes to the
 // receiver’s transformation matrix.
 //
@@ -296,7 +293,6 @@ func (a NSAffineTransform) RotateByRadians(angle float64) {
 func (a NSAffineTransform) ScaleBy(scale float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("scaleBy:"), scale)
 }
-
 // Applies scaling factors to each axis of the receiver’s transformation
 // matrix.
 //
@@ -316,7 +312,6 @@ func (a NSAffineTransform) ScaleBy(scale float64) {
 func (a NSAffineTransform) ScaleXByYBy(scaleX float64, scaleY float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("scaleXBy:yBy:"), scaleX, scaleY)
 }
-
 // Applies the specified translation factors to the receiver’s
 // transformation matrix.
 //
@@ -335,7 +330,6 @@ func (a NSAffineTransform) ScaleXByYBy(scaleX float64, scaleY float64) {
 func (a NSAffineTransform) TranslateXByYBy(deltaX float64, deltaY float64) {
 	objc.Send[objc.ID](a.ID, objc.Sel("translateXBy:yBy:"), deltaX, deltaY)
 }
-
 // Appends the specified matrix to the receiver’s matrix.
 //
 // transform: The matrix to append to the receiver.
@@ -351,7 +345,6 @@ func (a NSAffineTransform) TranslateXByYBy(deltaX float64, deltaY float64) {
 func (a NSAffineTransform) AppendTransform(transform INSAffineTransform) {
 	objc.Send[objc.ID](a.ID, objc.Sel("appendTransform:"), transform)
 }
-
 // Prepends the specified matrix to the receiver’s matrix.
 //
 // transform: The matrix to prepend to the receiver.
@@ -367,7 +360,6 @@ func (a NSAffineTransform) AppendTransform(transform INSAffineTransform) {
 func (a NSAffineTransform) PrependTransform(transform INSAffineTransform) {
 	objc.Send[objc.ID](a.ID, objc.Sel("prependTransform:"), transform)
 }
-
 // Replaces the receiver’s matrix with its inverse matrix.
 //
 // # Discussion
@@ -384,7 +376,6 @@ func (a NSAffineTransform) PrependTransform(transform INSAffineTransform) {
 func (a NSAffineTransform) Invert() {
 	objc.Send[objc.ID](a.ID, objc.Sel("invert"))
 }
-
 // Applies the receiver’s transform to the specified point and returns the
 // result.
 //
@@ -400,7 +391,6 @@ func (a NSAffineTransform) TransformPoint(aPoint corefoundation.CGPoint) NSPoint
 	rv := objc.Send[NSPoint](a.ID, objc.Sel("transformPoint:"), aPoint)
 	return NSPoint(rv)
 }
-
 // Applies the receiver’s transform to the specified size and returns the
 // results.
 //
@@ -427,7 +417,6 @@ func (a NSAffineTransform) TransformSize(aSize corefoundation.CGSize) NSSize {
 	rv := objc.Send[NSSize](a.ID, objc.Sel("transformSize:"), aSize)
 	return NSSize(rv)
 }
-
 // Creates and returns a new Bézier path object with each point in the given
 // path transformed by the receiver.
 //
@@ -444,7 +433,6 @@ func (a NSAffineTransform) TransformBezierPath(path objectivec.IObject) objectiv
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("transformBezierPath:"), path)
 	return objectivec.Object{ID: rv}
 }
-
 // Sets the current transformation matrix to the receiver’s transformation
 // matrix.
 //
@@ -461,7 +449,6 @@ func (a NSAffineTransform) TransformBezierPath(path objectivec.IObject) objectiv
 func (a NSAffineTransform) Set() {
 	objc.Send[objc.ID](a.ID, objc.Sel("set"))
 }
-
 // Appends the receiver’s matrix to the current transformation matrix stored
 // in the current graphics context, replacing the current transformation
 // matrix with the result.
@@ -485,7 +472,6 @@ func (a NSAffineTransform) Set() {
 func (a NSAffineTransform) Concat() {
 	objc.Send[objc.ID](a.ID, objc.Sel("concat"))
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -494,7 +480,6 @@ func (a NSAffineTransform) Concat() {
 func (a NSAffineTransform) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (a NSAffineTransform) InitWithCoder(coder INSCoder) NSAffineTransform {

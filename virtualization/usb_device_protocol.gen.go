@@ -44,17 +44,14 @@ func VZUSBDeviceObjectFromID(id objc.ID) VZUSBDeviceObject {
 // The USB controller that has an attachment to the device.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDevice/usbController
-
 func (o VZUSBDeviceObject) UsbController() IVZUSBController {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(rv)
 	}
-
 // The device’s unique identifier.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDevice/uuid
-
 func (o VZUSBDeviceObject) Uuid() foundation.NSUUID {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))

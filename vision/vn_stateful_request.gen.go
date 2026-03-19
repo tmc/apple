@@ -184,7 +184,6 @@ func (s VNStatefulRequest) MinimumLatencyFrameCount() int {
 	rv := objc.Send[int](s.ID, objc.Sel("minimumLatencyFrameCount"))
 	return rv
 }
-
 // A time value that indicates the interval between analysis operations.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/frameAnalysisSpacing

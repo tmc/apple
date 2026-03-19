@@ -158,7 +158,6 @@ func (d VNDetectHumanBodyPoseRequest) SupportedJointNamesAndReturnError() ([]str
 	return objc.ConvertSliceToStrings(rv), nil
 
 }
-
 // Retrieves the supported joint group names.
 //
 // error: If an error occurs, an error object that describes the error; otherwise,
@@ -186,7 +185,6 @@ func (d VNDetectHumanBodyPoseRequest) SupportedJointNames() VNHumanBodyPoseObser
 func (d VNDetectHumanBodyPoseRequest) SetSupportedJointNames(value VNHumanBodyPoseObservationJointName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointNames:"), value)
 }
-
 // Retrieves the supported joint group names.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanbodyposerequest/supportedjointsgroupnames
@@ -197,7 +195,6 @@ func (d VNDetectHumanBodyPoseRequest) SupportedJointsGroupNames() VNHumanBodyPos
 func (d VNDetectHumanBodyPoseRequest) SetSupportedJointsGroupNames(value VNHumanBodyPoseObservationJointsGroupName) {
 	objc.Send[struct{}](d.ID, objc.Sel("setSupportedJointsGroupNames:"), value)
 }
-
 // A constant for specifying revision 1 of the body pose detection request.
 //
 // See: https://developer.apple.com/documentation/vision/vndetecthumanbodyposerequestrevision1

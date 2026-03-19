@@ -67,7 +67,6 @@ func NSViewLayerContentScaleDelegateObjectFromID(id objc.ID) NSViewLayerContentS
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewLayerContentScaleDelegate/layer(_:shouldInheritContentsScale:from:)
-
 func (o NSViewLayerContentScaleDelegateObject) LayerShouldInheritContentsScaleFromWindow(layer objectivec.IObject, newScale float64, window INSWindow) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("layer:shouldInheritContentsScale:fromWindow:"), layer, newScale, window)

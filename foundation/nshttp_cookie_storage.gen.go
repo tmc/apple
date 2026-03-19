@@ -101,7 +101,6 @@ func (hc HTTPCookieStorageClass) Alloc() HTTPCookieStorage {
 // # Retrieving cookies
 //
 //   - [HTTPCookieStorage.Cookies]: The cookie storage’s cookies.
-//   - [HTTPCookieStorage.GetCookiesForTaskCompletionHandler]: Fetches cookies relevant to the specified task and passes them to the completion handler.
 //   - [HTTPCookieStorage.CookiesForURL]: Returns all the cookie storage’s cookies that are sent to a specified URL.
 //   - [HTTPCookieStorage.SortedCookiesUsingDescriptors]: Returns all of the cookie storage’s cookies, sorted according to a given set of sort descriptors.
 //
@@ -145,7 +144,6 @@ func NSHTTPCookieStorageFromID(id objc.ID) HTTPCookieStorage { return HTTPCookie
 // # Retrieving cookies
 //
 //   - [IHTTPCookieStorage.Cookies]: The cookie storage’s cookies.
-//   - [IHTTPCookieStorage.GetCookiesForTaskCompletionHandler]: Fetches cookies relevant to the specified task and passes them to the completion handler.
 //   - [IHTTPCookieStorage.CookiesForURL]: Returns all the cookie storage’s cookies that are sent to a specified URL.
 //   - [IHTTPCookieStorage.SortedCookiesUsingDescriptors]: Returns all of the cookie storage’s cookies, sorted according to a given set of sort descriptors.
 //
@@ -181,8 +179,6 @@ type IHTTPCookieStorage interface {
 
 	// The cookie storage’s cookies.
 	Cookies() []NSHTTPCookie
-	// Fetches cookies relevant to the specified task and passes them to the completion handler.
-	GetCookiesForTaskCompletionHandler(task INSURLSessionTask, completionHandler ArrayHandler)
 	// Returns all the cookie storage’s cookies that are sent to a specified URL.
 	CookiesForURL(URL INSURL) []NSHTTPCookie
 	// Returns all of the cookie storage’s cookies, sorted according to a given set of sort descriptors.
@@ -227,7 +223,6 @@ func NewHTTPCookieStorage() HTTPCookieStorage {
 func (h HTTPCookieStorage) RemoveCookiesSinceDate(date INSDate) {
 	objc.Send[objc.ID](h.ID, objc.Sel("removeCookiesSinceDate:"), date)
 }
-
 // Deletes the specified cookie from the cookie storage.
 //
 // cookie: The cookie to delete.
@@ -236,7 +231,6 @@ func (h HTTPCookieStorage) RemoveCookiesSinceDate(date INSDate) {
 func (h HTTPCookieStorage) DeleteCookie(cookie INSHTTPCookie) {
 	objc.Send[objc.ID](h.ID, objc.Sel("deleteCookie:"), cookie)
 }
-
 // Stores a specified cookie in the cookie storage if the cookie accept policy
 // permits.
 //
@@ -259,7 +253,6 @@ func (h HTTPCookieStorage) DeleteCookie(cookie INSHTTPCookie) {
 func (h HTTPCookieStorage) SetCookie(cookie INSHTTPCookie) {
 	objc.Send[objc.ID](h.ID, objc.Sel("setCookie:"), cookie)
 }
-
 // Adds an array of cookies to the cookie storage if the storage’s cookie
 // acceptance policy permits.
 //
@@ -293,7 +286,6 @@ func (h HTTPCookieStorage) SetCookie(cookie INSHTTPCookie) {
 func (h HTTPCookieStorage) SetCookiesForURLMainDocumentURL(cookies []NSHTTPCookie, URL INSURL, mainDocumentURL INSURL) {
 	objc.Send[objc.ID](h.ID, objc.Sel("setCookies:forURL:mainDocumentURL:"), objectivec.IObjectSliceToNSArray(cookies), URL, mainDocumentURL)
 }
-
 // Stores an array of cookies in the cookie storage, on behalf of the provided
 // task, if the cookie accept policy permits.
 //
@@ -307,22 +299,6 @@ func (h HTTPCookieStorage) SetCookiesForURLMainDocumentURL(cookies []NSHTTPCooki
 func (h HTTPCookieStorage) StoreCookiesForTask(cookies []NSHTTPCookie, task INSURLSessionTask) {
 	objc.Send[objc.ID](h.ID, objc.Sel("storeCookies:forTask:"), objectivec.IObjectSliceToNSArray(cookies), task)
 }
-
-// Fetches cookies relevant to the specified task and passes them to the
-// completion handler.
-//
-// task: The task performing a request. The cookie storage can use the URL and other
-// properties of this task’s request to determine which cookies to fetch.
-//
-// completionHandler: A completion handler that receives an array of cookies as its argument.
-//
-// See: https://developer.apple.com/documentation/Foundation/HTTPCookieStorage/getCookiesFor(_:completionHandler:)
-func (h HTTPCookieStorage) GetCookiesForTaskCompletionHandler(task INSURLSessionTask, completionHandler ArrayHandler) {
-_block1, _cleanup1 := NewArrayBlock(completionHandler)
-	defer _cleanup1()
-	objc.Send[objc.ID](h.ID, objc.Sel("getCookiesForTask:completionHandler:"), task, _block1)
-}
-
 // Returns all the cookie storage’s cookies that are sent to a specified
 // URL.
 //
@@ -350,7 +326,6 @@ func (h HTTPCookieStorage) CookiesForURL(URL INSURL) []NSHTTPCookie {
 		return NSHTTPCookieFromID(id)
 	})
 }
-
 // Returns all of the cookie storage’s cookies, sorted according to a given
 // set of sort descriptors.
 //
@@ -411,7 +386,6 @@ func (h HTTPCookieStorage) CookieAcceptPolicy() NSHTTPCookieAcceptPolicy {
 func (h HTTPCookieStorage) SetCookieAcceptPolicy(value NSHTTPCookieAcceptPolicy) {
 	objc.Send[struct{}](h.ID, objc.Sel("setCookieAcceptPolicy:"), value)
 }
-
 // The cookie storage’s cookies.
 //
 // # Discussion
@@ -427,7 +401,6 @@ func (h HTTPCookieStorage) Cookies() []NSHTTPCookie {
 		return NSHTTPCookieFromID(id)
 	})
 }
-
 // A notification posted when the cookies stored in the cookie storage have
 // changed.
 //
@@ -436,7 +409,6 @@ func (h HTTPCookieStorage) NSHTTPCookieManagerCookiesChanged() NSNotificationNam
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("NSHTTPCookieManagerCookiesChangedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // A notification posted when the acceptance policy of the cookie storage has
 // changed.
 //
@@ -445,7 +417,6 @@ func (h HTTPCookieStorage) NSHTTPCookieManagerAcceptPolicyChanged() NSNotificati
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("NSHTTPCookieManagerAcceptPolicyChangedNotification"))
 	return NSNotificationName(NSStringFromID(rv).String())
 }
-
 // A Boolean value that indicates whether the cookie should be discarded at
 // the end of the session (regardless of expiration date).
 //

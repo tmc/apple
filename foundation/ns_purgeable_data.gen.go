@@ -194,43 +194,6 @@ func NewPurgeableDataWithBytesNoCopyLength(bytes unsafe.Pointer, length uint) NS
 	return NSPurgeableDataFromID(rv)
 }
 
-// Initializes a data object filled with a given number of bytes of data from
-// a given buffer, with a custom deallocator block.
-//
-// bytes: A buffer containing data for the new object.
-//
-// length: The number of bytes to hold from `bytes`. This value must not exceed the
-// length of `bytes`.
-//
-// deallocator: A block to invoke when the resulting [NSData] object is deallocated.
-//
-// # Return Value
-// 
-// A data object initialized by adding to it `length` bytes of data from the
-// buffer `bytes`. The returned object might be different than the original
-// receiver.
-//
-// # Discussion
-// 
-// Use this method to define your own deallocation behavior for the data
-// buffer you provide.
-// 
-// In order to avoid any inadvertent strong reference cycles, you should avoid
-// capturing pointers to any objects that may in turn maintain strong
-// references to the [NSData] object. This includes explicit references to
-// `self`, and implicit references to `self` due to direct instance variable
-// access. To make it easier to avoid these references, the `deallocator`
-// block takes two parameters, a pointer to the `buffer`, and its length; you
-// should always use these values instead of trying to use references from
-// outside the block.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSData/init(bytesNoCopy:length:deallocator:)
-func NewPurgeableDataWithBytesNoCopyLengthDeallocator(bytes unsafe.Pointer, length uint, deallocator unsafe.Pointer) NSPurgeableData {
-	instance := getNSPurgeableDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:deallocator:"), bytes, length, deallocator)
-	return NSPurgeableDataFromID(rv)
-}
-
 // Initializes a newly allocated data object by adding the given number of
 // bytes from the given buffer.
 //
@@ -419,7 +382,6 @@ func (p NSPurgeableData) BeginContentAccess() bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("beginContentAccess"))
 	return rv
 }
-
 // Called to discard the contents of the receiver if the value of the accessed
 // counter is 0.
 //
@@ -432,7 +394,6 @@ func (p NSPurgeableData) BeginContentAccess() bool {
 func (p NSPurgeableData) DiscardContentIfPossible() {
 	objc.Send[objc.ID](p.ID, objc.Sel("discardContentIfPossible"))
 }
-
 // Called if the discardable contents are no longer being accessed.
 //
 // # Discussion
@@ -446,7 +407,6 @@ func (p NSPurgeableData) DiscardContentIfPossible() {
 func (p NSPurgeableData) EndContentAccess() {
 	objc.Send[objc.ID](p.ID, objc.Sel("endContentAccess"))
 }
-
 // Returns a Boolean value indicating whether the content has been discarded.
 //
 // # Return Value

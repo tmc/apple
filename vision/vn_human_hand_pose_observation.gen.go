@@ -136,7 +136,6 @@ func (h VNHumanHandPoseObservation) RecognizedPointForJointNameError(jointName V
 	return VNRecognizedPointFromID(rv), nil
 
 }
-
 // Retrieves the recognized points associated with the joint group name.
 //
 // jointsGroupName: The joint group name of the points to retrieve.
@@ -164,7 +163,6 @@ func (h VNHumanHandPoseObservation) AvailableJointNames() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("availableJointNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The joint group names available in the observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/availableJointsGroupNames
@@ -172,7 +170,6 @@ func (h VNHumanHandPoseObservation) AvailableJointsGroupNames() []string {
 	rv := objc.Send[[]objc.ID](h.ID, objc.Sel("availableJointsGroupNames"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // The chirality, or handedness, of a pose.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanHandPoseObservation/chirality

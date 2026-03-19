@@ -221,7 +221,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) InstanceDescriptorType() MTL
 func (i MTLInstanceAccelerationStructureDescriptor) SetInstanceDescriptorType(value MTLAccelerationStructureInstanceDescriptorType) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInstanceDescriptorType:"), value)
 }
-
 // The bottom-level acceleration structures that instances use in the instance
 // acceleration structure .
 //
@@ -240,7 +239,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) InstancedAccelerationStructu
 func (i MTLInstanceAccelerationStructureDescriptor) SetInstancedAccelerationStructures(value []objectivec.IObject) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInstancedAccelerationStructures:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The number of instances in the instance descriptor buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/instanceCount
@@ -251,7 +249,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) InstanceCount() uint {
 func (i MTLInstanceAccelerationStructureDescriptor) SetInstanceCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInstanceCount:"), value)
 }
-
 // A buffer that contains descriptions of each instance in the acceleration
 // structure.
 //
@@ -274,7 +271,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) InstanceDescriptorBuffer() M
 func (i MTLInstanceAccelerationStructureDescriptor) SetInstanceDescriptorBuffer(value MTLBuffer) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInstanceDescriptorBuffer:"), value)
 }
-
 // The offset, in bytes, to the descripton of the first instance.
 //
 // # Discussion
@@ -290,7 +286,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) InstanceDescriptorBufferOffs
 func (i MTLInstanceAccelerationStructureDescriptor) SetInstanceDescriptorBufferOffset(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInstanceDescriptorBufferOffset:"), value)
 }
-
 // The stride, in bytes, between instance descriptions.
 //
 // # Discussion
@@ -306,7 +301,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) InstanceDescriptorStride() u
 func (i MTLInstanceAccelerationStructureDescriptor) SetInstanceDescriptorStride(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInstanceDescriptorStride:"), value)
 }
-
 // The number of motion transforms in the motion transform buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/motionTransformCount
@@ -317,7 +311,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) MotionTransformCount() uint 
 func (i MTLInstanceAccelerationStructureDescriptor) SetMotionTransformCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMotionTransformCount:"), value)
 }
-
 // A buffer that contains descriptions of each motion transform in the
 // acceleration structure.
 //
@@ -329,7 +322,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) MotionTransformBuffer() MTLB
 func (i MTLInstanceAccelerationStructureDescriptor) SetMotionTransformBuffer(value MTLBuffer) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMotionTransformBuffer:"), value)
 }
-
 // The offset, in bytes, to the descripton of the first motion transform.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/motionTransformBufferOffset
@@ -340,7 +332,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) MotionTransformBufferOffset(
 func (i MTLInstanceAccelerationStructureDescriptor) SetMotionTransformBufferOffset(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMotionTransformBufferOffset:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/instanceTransformationMatrixLayout
 func (i MTLInstanceAccelerationStructureDescriptor) InstanceTransformationMatrixLayout() MTLMatrixLayout {
 	rv := objc.Send[MTLMatrixLayout](i.ID, objc.Sel("instanceTransformationMatrixLayout"))
@@ -349,7 +340,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) InstanceTransformationMatrix
 func (i MTLInstanceAccelerationStructureDescriptor) SetInstanceTransformationMatrixLayout(value MTLMatrixLayout) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInstanceTransformationMatrixLayout:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/motionTransformStride
 func (i MTLInstanceAccelerationStructureDescriptor) MotionTransformStride() uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("motionTransformStride"))
@@ -358,7 +348,6 @@ func (i MTLInstanceAccelerationStructureDescriptor) MotionTransformStride() uint
 func (i MTLInstanceAccelerationStructureDescriptor) SetMotionTransformStride(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMotionTransformStride:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLInstanceAccelerationStructureDescriptor/motionTransformType
 func (i MTLInstanceAccelerationStructureDescriptor) MotionTransformType() MTLTransformType {
 	rv := objc.Send[MTLTransformType](i.ID, objc.Sel("motionTransformType"))

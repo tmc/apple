@@ -153,7 +153,6 @@ func (c NSCollectionLayoutDecorationItem) ElementKind() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("elementKind"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The vertical stacking order of the decoration item in relation to other
 // items in the section.
 //
@@ -170,7 +169,6 @@ func (c NSCollectionLayoutDecorationItem) ZIndex() int {
 func (c NSCollectionLayoutDecorationItem) SetZIndex(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setZIndex:"), value)
 }
-
 // An array of the decoration items that are anchored to the section, such as
 // background decoration views.
 //

@@ -137,28 +137,24 @@ func (e EspressoDataFrame) GetFunctionName() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getFunctionName"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/getGroundTruthAttachment:
 func (e EspressoDataFrame) GetGroundTruthAttachment(attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getGroundTruthAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/getInputAttachment:
 func (e EspressoDataFrame) GetInputAttachment(attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getInputAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/getOutputAttachment:
 func (e EspressoDataFrame) GetOutputAttachment(attachment objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("getOutputAttachment:"), attachment)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/loadFromDict:frameStorage:
 func (e EspressoDataFrame) LoadFromDictFrameStorage(dict objectivec.IObject, storage objectivec.IObject) {
@@ -173,13 +169,11 @@ func (e EspressoDataFrame) Function_name() string {
 func (e EspressoDataFrame) SetFunction_name(value string) {
 	objc.Send[struct{}](e.ID, objc.Sel("setFunction_name:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/groundTruthAttachmentNames
 func (e EspressoDataFrame) GroundTruthAttachmentNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("groundTruthAttachmentNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/groundTruthAttachments
 func (e EspressoDataFrame) GroundTruthAttachments() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("groundTruthAttachments"))
@@ -188,13 +182,11 @@ func (e EspressoDataFrame) GroundTruthAttachments() foundation.INSDictionary {
 func (e EspressoDataFrame) SetGroundTruthAttachments(value foundation.INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setGroundTruthAttachments:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/inputAttachmentNames
 func (e EspressoDataFrame) InputAttachmentNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputAttachmentNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/inputAttachments
 func (e EspressoDataFrame) InputAttachments() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("inputAttachments"))
@@ -203,13 +195,11 @@ func (e EspressoDataFrame) InputAttachments() foundation.INSDictionary {
 func (e EspressoDataFrame) SetInputAttachments(value foundation.INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setInputAttachments:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/outputAttachmentNames
 func (e EspressoDataFrame) OutputAttachmentNames() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputAttachmentNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrame/outputAttachments
 func (e EspressoDataFrame) OutputAttachments() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("outputAttachments"))

@@ -161,7 +161,6 @@ func (v MTLVertexAttributeDescriptor) Format() MTLVertexFormat {
 func (v MTLVertexAttributeDescriptor) SetFormat(value MTLVertexFormat) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFormat:"), value)
 }
-
 // The location of an attribute in vertex data, determined by the byte offset
 // from the start of the vertex data.
 //
@@ -177,7 +176,6 @@ func (v MTLVertexAttributeDescriptor) Offset() uint {
 func (v MTLVertexAttributeDescriptor) SetOffset(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setOffset:"), value)
 }
-
 // The index in the argument table for the associated vertex buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLVertexAttributeDescriptor/bufferIndex
@@ -188,7 +186,6 @@ func (v MTLVertexAttributeDescriptor) BufferIndex() uint {
 func (v MTLVertexAttributeDescriptor) SetBufferIndex(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBufferIndex:"), value)
 }
-
 // See: https://developer.apple.com/documentation/metal/mtlbufferlayoutstridedynamic
 func (v MTLVertexAttributeDescriptor) MTLBufferLayoutStrideDynamic() int {
 	rv := objc.Send[int](v.ID, objc.Sel("MTLBufferLayoutStrideDynamic"))

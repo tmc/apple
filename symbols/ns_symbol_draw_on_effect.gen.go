@@ -111,7 +111,6 @@ func (s NSSymbolDrawOnEffect) EffectWithByLayer() INSSymbolDrawOnEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolDrawOnEffectFromID(rv)
 }
-
 // Returns a copy of the effect requesting an animation that applies
 // separately to each motion group, where only one motion group is active at a
 // time.
@@ -121,7 +120,6 @@ func (s NSSymbolDrawOnEffect) EffectWithIndividually() INSSymbolDrawOnEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithIndividually"))
 	return NSSymbolDrawOnEffectFromID(rv)
 }
-
 // Returns a copy of the effect requesting an animation that applies to all
 // motion groups simultaneously.
 //

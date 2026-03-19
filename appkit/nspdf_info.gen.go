@@ -153,7 +153,6 @@ func (p NSPDFInfo) URL() foundation.INSURL {
 func (p NSPDFInfo) SetURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
-
 // A Boolean value that indicates whether the file extension should appear
 // after the filename.
 //
@@ -165,7 +164,6 @@ func (p NSPDFInfo) FileExtensionHidden() bool {
 func (p NSPDFInfo) SetFileExtensionHidden(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setFileExtensionHidden:"), value)
 }
-
 // An array of tag names that should be applied to the PDF file after it’s
 // created.
 //
@@ -177,7 +175,6 @@ func (p NSPDFInfo) TagNames() []string {
 func (p NSPDFInfo) SetTagNames(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setTagNames:"), objectivec.StringSliceToNSArray(value))
 }
-
 // The paper orientation to use when exporting content as a PDF file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/orientation
@@ -188,7 +185,6 @@ func (p NSPDFInfo) Orientation() NSPaperOrientation {
 func (p NSPDFInfo) SetOrientation(value NSPaperOrientation) {
 	objc.Send[struct{}](p.ID, objc.Sel("setOrientation:"), value)
 }
-
 // The paper size to use when exporting content as a PDF file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFInfo/paperSize
@@ -199,7 +195,6 @@ func (p NSPDFInfo) PaperSize() corefoundation.CGSize {
 func (p NSPDFInfo) SetPaperSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPaperSize:"), value)
 }
-
 // A dictionary of additional attributes that describe how to export content
 // as a PDF file.
 //

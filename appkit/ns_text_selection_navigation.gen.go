@@ -214,7 +214,6 @@ func (t NSTextSelectionNavigation) InitWithDataSource(dataSource NSTextSelection
 	rv := objc.Send[NSTextSelectionNavigation](t.ID, objc.Sel("initWithDataSource:"), dataSource)
 	return rv
 }
-
 // Returns a text selection that expands to the nearest boundaries for
 // selection granularity and an enclosing point you specify.
 //
@@ -235,7 +234,6 @@ func (t NSTextSelectionNavigation) TextSelectionForSelectionGranularityEnclosing
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textSelectionForSelectionGranularity:enclosingPoint:inContainerAtLocation:"), selectionGranularity, point, location)
 	return NSTextSelectionFromID(rv)
 }
-
 // Returns a text selection expanded to the nearest boundaries for the
 // selection granularity and enclosing text selection text ranges you specify.
 //
@@ -254,7 +252,6 @@ func (t NSTextSelectionNavigation) TextSelectionForSelectionGranularityEnclosing
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("textSelectionForSelectionGranularity:enclosingTextSelection:"), selectionGranularity, textSelection)
 	return NSTextSelectionFromID(rv)
 }
-
 // Returns an array of text selections produced by a tap or click at the point
 // you specify.
 //
@@ -284,7 +281,6 @@ func (t NSTextSelectionNavigation) TextSelectionsInteractingAtPointInContainerAt
 		return NSTextSelectionFromID(id)
 	})
 }
-
 // Returns a new selection that results from applying the navigation
 // operations you specify to the text selection you provide.
 //
@@ -317,7 +313,6 @@ func (t NSTextSelectionNavigation) DestinationSelectionForTextSelectionDirection
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("destinationSelectionForTextSelection:direction:destination:extending:confined:"), textSelection, direction, destination, extending, confined)
 	return NSTextSelectionFromID(rv)
 }
-
 // Flushes cached layout information.
 //
 // # Discussion
@@ -328,7 +323,6 @@ func (t NSTextSelectionNavigation) DestinationSelectionForTextSelectionDirection
 func (t NSTextSelectionNavigation) FlushLayoutCache() {
 	objc.Send[objc.ID](t.ID, objc.Sel("flushLayoutCache"))
 }
-
 // Returns the location for inserting the next input depending on the state of
 // the current and secondary selections.
 //
@@ -348,7 +342,6 @@ func (t NSTextSelectionNavigation) ResolvedInsertionLocationForTextSelectionWrit
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("resolvedInsertionLocationForTextSelection:writingDirection:"), textSelection, writingDirection)
 	return NSTextLocationObjectFromID(rv)
 }
-
 // Returns the ranges for deleting the text based on the current selection and
 // movement arguments.
 //
@@ -404,7 +397,6 @@ func (t NSTextSelectionNavigation) AllowsNonContiguousRanges() bool {
 func (t NSTextSelectionNavigation) SetAllowsNonContiguousRanges(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAllowsNonContiguousRanges:"), value)
 }
-
 // Determines if the framework rotates the coordinate system to match the
 // layout orientation.
 //
@@ -423,7 +415,6 @@ func (t NSTextSelectionNavigation) RotatesCoordinateSystemForLayoutOrientation()
 func (t NSTextSelectionNavigation) SetRotatesCoordinateSystemForLayoutOrientation(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setRotatesCoordinateSystemForLayoutOrientation:"), value)
 }
-
 // The data source associated with this selection navigation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/textSelectionDataSource

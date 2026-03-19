@@ -65,23 +65,19 @@ func NSAccessibilityLayoutAreaObjectFromID(id objc.ID) NSAccessibilityLayoutArea
 // [accessibilityChildren]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityChildren()
-
 func (o NSAccessibilityLayoutAreaObject) AccessibilityChildren() foundation.INSArray {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
 	return foundation.NSArrayFromID(rv)
 	}
-
 // The child accessibility element with the current focus.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityFocusedUIElement
-
 func (o NSAccessibilityLayoutAreaObject) AccessibilityFocusedUIElement() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedUIElement"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns a short description of the layout area.
 //
 // # Return Value
@@ -102,13 +98,11 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityFocusedUIElement() objecti
 // [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityLabel()
-
 func (o NSAccessibilityLayoutAreaObject) AccessibilityLabel() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns the layout area’s currently selected children.
 //
 // # Return Value
@@ -124,13 +118,11 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityLabel() string {
 // [accessibilitySelectedChildren]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedChildren
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilitySelectedChildren()
-
 func (o NSAccessibilityLayoutAreaObject) AccessibilitySelectedChildren() foundation.INSArray {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
 	return foundation.NSArrayFromID(rv)
 	}
-
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
@@ -148,13 +140,11 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilitySelectedChildren() foundat
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-
 func (o NSAccessibilityLayoutAreaObject) AccessibilityFrame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
-
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
@@ -170,13 +160,11 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityFrame() corefoundation.CGR
 // [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-
 func (o NSAccessibilityLayoutAreaObject) AccessibilityParent() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the accessibility element’s identity.
 //
 // # Return Value
@@ -192,13 +180,11 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityParent() objectivec.IObjec
 // [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-
 func (o NSAccessibilityLayoutAreaObject) AccessibilityIdentifier() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
@@ -217,7 +203,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityIdentifier() string {
 // [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-
 func (o NSAccessibilityLayoutAreaObject) IsAccessibilityFocused() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))

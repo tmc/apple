@@ -45,12 +45,10 @@ func VZVirtioConsoleDeviceDelegateObjectFromID(id objc.ID) VZVirtioConsoleDevice
 // additional data might remain on the serial port from the previous session.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceDelegate/consoleDevice(_:didOpen:)
-
 func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidOpenPort(consoleDevice IVZVirtioConsoleDevice, consolePort IVZVirtioConsolePort) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didOpenPort:"), consoleDevice, consolePort)
 	}
-
 // Tells the delegate that the framework closed a console port.
 //
 // consoleDevice: The console port’s console device.
@@ -64,7 +62,6 @@ func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidOpenPort(consoleDev
 // data might remain on the serial port.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioConsoleDeviceDelegate/consoleDevice(_:didClose:)
-
 func (o VZVirtioConsoleDeviceDelegateObject) ConsoleDeviceDidClosePort(consoleDevice IVZVirtioConsoleDevice, consolePort IVZVirtioConsolePort) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("consoleDevice:didClosePort:"), consoleDevice, consolePort)

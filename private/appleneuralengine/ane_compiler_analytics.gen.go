@@ -146,75 +146,64 @@ func (a ANECompilerAnalytics) DataInfoAt(at uint64) AnalyticsDataRef {
 	rv := objc.Send[AnalyticsDataRef](a.ID, objc.Sel("dataInfoAt:"), at)
 	return AnalyticsDataRef(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/getBOOLDataValueAt:
 func (a ANECompilerAnalytics) GetBOOLDataValueAt(at uint64) bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("getBOOLDataValueAt:"), at)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/getDataValueAt:
 func (a ANECompilerAnalytics) GetDataValueAt(at uint64) uint64 {
 	rv := objc.Send[uint64](a.ID, objc.Sel("getDataValueAt:"), at)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/groupInfoAt:
 func (a ANECompilerAnalytics) GroupInfoAt(at uint64) AnalyticsGroupInfoRef {
 	rv := objc.Send[AnalyticsGroupInfoRef](a.ID, objc.Sel("groupInfoAt:"), at)
 	return AnalyticsGroupInfoRef(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/layerInfoAt:
 func (a ANECompilerAnalytics) LayerInfoAt(at uint64) AnalyticsLayerInfoRef {
 	rv := objc.Send[AnalyticsLayerInfoRef](a.ID, objc.Sel("layerInfoAt:"), at)
 	return AnalyticsLayerInfoRef(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/offsetTableAt:count:
 func (a ANECompilerAnalytics) OffsetTableAtCount(at uint64, count uint32) AnalyticsOffsetTableRef {
 	rv := objc.Send[AnalyticsOffsetTableRef](a.ID, objc.Sel("offsetTableAt:count:"), at, count)
 	return AnalyticsOffsetTableRef(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/populateAnalytics
 func (a ANECompilerAnalytics) PopulateAnalytics() bool {
 	rv := objc.Send[bool](a.ID, objc.Sel("populateAnalytics"))
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/procedureInfoAt:
 func (a ANECompilerAnalytics) ProcedureInfoAt(at uint64) AnalyticsProcedureInfoRef {
 	rv := objc.Send[AnalyticsProcedureInfoRef](a.ID, objc.Sel("procedureInfoAt:"), at)
 	return AnalyticsProcedureInfoRef(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/serialize
 func (a ANECompilerAnalytics) Serialize() objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("serialize"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/stringForAnalyticsType:
 func (a ANECompilerAnalytics) StringForAnalyticsType(type_ uint32) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("stringForAnalyticsType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/taskInfoAt:
 func (a ANECompilerAnalytics) TaskInfoAt(at uint64) AnalyticsTaskInfoRef {
 	rv := objc.Send[AnalyticsTaskInfoRef](a.ID, objc.Sel("taskInfoAt:"), at)
 	return AnalyticsTaskInfoRef(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/initWithBuffer:
 func (a ANECompilerAnalytics) InitWithBuffer(buffer objectivec.IObject) ANECompilerAnalytics {
@@ -234,13 +223,11 @@ func (a ANECompilerAnalytics) AnalyticsBuffer() foundation.INSData {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("analyticsBuffer"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/bufferSizeInBytes
 func (a ANECompilerAnalytics) BufferSizeInBytes() foundation.NSNumber {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("bufferSizeInBytes"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANECompilerAnalytics/procedureAnalytics
 func (a ANECompilerAnalytics) ProcedureAnalytics() foundation.INSArray {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("procedureAnalytics"))

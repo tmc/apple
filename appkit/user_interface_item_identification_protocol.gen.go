@@ -44,7 +44,6 @@ func NSUserInterfaceItemIdentificationObjectFromID(id objc.ID) NSUserInterfaceIt
 // A string that identifies the user interface item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
-
 func (o NSUserInterfaceItemIdentificationObject) Identifier() NSUserInterfaceItemIdentifier {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("identifier"))

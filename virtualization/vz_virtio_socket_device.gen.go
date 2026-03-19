@@ -142,7 +142,6 @@ func NewVZVirtioSocketDevice() VZVirtioSocketDevice {
 func (v VZVirtioSocketDevice) SetSocketListenerForPort(listener IVZVirtioSocketListener, port uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setSocketListener:forPort:"), listener, port)
 }
-
 // Removes the listener object from the specfied port.
 //
 // port: The port number to clear. If the specified port doesn’t have a listener
@@ -152,7 +151,6 @@ func (v VZVirtioSocketDevice) SetSocketListenerForPort(listener IVZVirtioSocketL
 func (v VZVirtioSocketDevice) RemoveSocketListenerForPort(port uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeSocketListenerForPort:"), port)
 }
-
 // Initiates a connection to the specified port of the guest operating system.
 //
 // port: The destination port number in the guest operating system.

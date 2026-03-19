@@ -108,7 +108,6 @@ func (t MTLTileRenderPipelineColorAttachmentDescriptorArray) ObjectAtIndexedSubs
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLTileRenderPipelineColorAttachmentDescriptorFromID(rv)
 }
-
 // Sets the render pipeline state for a specified color attachment.
 //
 // attachment: A descriptor that contains the render pipeline description for a color

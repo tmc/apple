@@ -172,7 +172,6 @@ func (s NSScrubberImageItemView) Image() INSImage {
 func (s NSScrubberImageItemView) SetImage(value INSImage) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImage:"), value)
 }
-
 // The image view that the scrubber item uses to display its image.
 //
 // # Discussion
@@ -185,7 +184,6 @@ func (s NSScrubberImageItemView) ImageView() INSImageView {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("imageView"))
 	return NSImageViewFromID(objc.ID(rv))
 }
-
 // The alignment of the image within the scrubber item.
 //
 // # Discussion

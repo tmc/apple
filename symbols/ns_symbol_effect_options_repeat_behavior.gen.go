@@ -101,7 +101,6 @@ func (_NSSymbolEffectOptionsRepeatBehaviorClass NSSymbolEffectOptionsRepeatBehav
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolEffectOptionsRepeatBehaviorClass.class), objc.Sel("behaviorContinuous"))
 	return NSSymbolEffectOptionsRepeatBehaviorFromID(rv)
 }
-
 // Creates and returns a repeat behavior that prefers to repeat indefinitely
 // using periodic animations. Periodic animations play the effect at regular
 // intervals starting and stopping each time.
@@ -116,7 +115,6 @@ func (_NSSymbolEffectOptionsRepeatBehaviorClass NSSymbolEffectOptionsRepeatBehav
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolEffectOptionsRepeatBehaviorClass.class), objc.Sel("behaviorPeriodic"))
 	return NSSymbolEffectOptionsRepeatBehaviorFromID(rv)
 }
-
 // Creates and returns a repeat behavior with a preferred play count using
 // periodic animations. Periodic animations play the effect at regular
 // intervals starting and stopping each time.
@@ -133,7 +131,6 @@ func (_NSSymbolEffectOptionsRepeatBehaviorClass NSSymbolEffectOptionsRepeatBehav
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolEffectOptionsRepeatBehaviorClass.class), objc.Sel("behaviorPeriodicWithCount:"), count)
 	return NSSymbolEffectOptionsRepeatBehaviorFromID(rv)
 }
-
 // Creates and returns a repeat behavior with a preferred play count and delay
 // using periodic animations. Periodic animations play the effect at regular
 // intervals starting and stopping each time.
@@ -153,7 +150,6 @@ func (_NSSymbolEffectOptionsRepeatBehaviorClass NSSymbolEffectOptionsRepeatBehav
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolEffectOptionsRepeatBehaviorClass.class), objc.Sel("behaviorPeriodicWithCount:delay:"), count, delay)
 	return NSSymbolEffectOptionsRepeatBehaviorFromID(rv)
 }
-
 // Creates and returns a repeat behavior with a preferred repeat delay using
 // periodic animations. Periodic animations play the effect at regular
 // intervals starting and stopping each time.

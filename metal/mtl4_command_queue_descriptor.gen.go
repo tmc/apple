@@ -124,7 +124,6 @@ func (m MTL4CommandQueueDescriptor) FeedbackQueue() dispatch.Queue {
 func (m MTL4CommandQueueDescriptor) SetFeedbackQueue(value dispatch.Queue) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFeedbackQueue:"), uintptr(value.Handle()))
 }
-
 // Assigns an optional label to the command queue instance for debugging
 // purposes.
 //
@@ -136,7 +135,6 @@ func (m MTL4CommandQueueDescriptor) Label() string {
 func (m MTL4CommandQueueDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // See: https://developer.apple.com/documentation/metal/mtl4commandqueueerrordomain
 func (m MTL4CommandQueueDescriptor) MTL4CommandQueueErrorDomain() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("MTL4CommandQueueErrorDomain"))

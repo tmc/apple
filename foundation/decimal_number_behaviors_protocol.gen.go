@@ -56,13 +56,11 @@ func NSDecimalNumberBehaviorsObjectFromID(id objc.ID) NSDecimalNumberBehaviorsOb
 // [NSDecimalNumber.RoundingMode]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/RoundingMode
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/roundingMode()
-
 func (o NSDecimalNumberBehaviorsObject) RoundingMode() NSRoundingMode {
 	
 	rv := objc.Send[NSRoundingMode](o.ID, objc.Sel("roundingMode"))
 	return rv
 	}
-
 // Returns the number of digits allowed after the decimal separator.
 //
 // # Return Value
@@ -82,13 +80,11 @@ func (o NSDecimalNumberBehaviorsObject) RoundingMode() NSRoundingMode {
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/scale()
-
 func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
 	
 	rv := objc.Send[int16](o.ID, objc.Sel("scale"))
 	return rv
 	}
-
 // Specifies what an [NSDecimalNumber] object will do when it encounters an
 // error.
 //
@@ -128,7 +124,6 @@ func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
 // [NSDecimalNumber.CalculationError]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/CalculationError
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/exceptionDuringOperation(_:error:leftOperand:rightOperand:)
-
 func (o NSDecimalNumberBehaviorsObject) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)

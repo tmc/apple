@@ -877,7 +877,6 @@ func NewViewWithFrame(frameRect corefoundation.CGRect) NSView {
 func (v NSView) PrepareForReuse() {
 	objc.Send[objc.ID](v.ID, objc.Sel("prepareForReuse"))
 }
-
 // Returns a Boolean value that indicates whether the view accepts the initial
 // mouse-down event.
 //
@@ -909,7 +908,6 @@ func (v NSView) AcceptsFirstMouse(event INSEvent) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("acceptsFirstMouse:"), event)
 	return rv
 }
-
 // Adds a constraint on the layout of the receiving view or its subviews.
 //
 // constraint: The constraint to be added to the view. The constraint may only reference
@@ -928,7 +926,6 @@ func (v NSView) AcceptsFirstMouse(event INSEvent) bool {
 func (v NSView) AddConstraint(constraint INSLayoutConstraint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addConstraint:"), constraint)
 }
-
 // Adds multiple constraints on the layout of the receiving view or its
 // subviews.
 //
@@ -948,7 +945,6 @@ func (v NSView) AddConstraint(constraint INSLayoutConstraint) {
 func (v NSView) AddConstraints(constraints []NSLayoutConstraint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
 }
-
 // Establishes the cursor to be used when the mouse pointer lies within a
 // specified region.
 //
@@ -970,7 +966,6 @@ func (v NSView) AddConstraints(constraints []NSLayoutConstraint) {
 func (v NSView) AddCursorRectCursor(rect corefoundation.CGRect, object INSCursor) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addCursorRect:cursor:"), rect, object)
 }
-
 // Attaches a gesture recognizer to the view.
 //
 // gestureRecognizer: The gesture recognizer to attach to the view. This parameter must not be
@@ -987,7 +982,6 @@ func (v NSView) AddCursorRectCursor(rect corefoundation.CGRect, object INSCursor
 func (v NSView) AddGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addGestureRecognizer:"), gestureRecognizer)
 }
-
 // Adds the provided layout guide to the view.
 //
 // guide: The layout guide to be added.
@@ -1007,7 +1001,6 @@ func (v NSView) AddGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
 func (v NSView) AddLayoutGuide(guide INSLayoutGuide) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addLayoutGuide:"), guide)
 }
-
 // Adds a view to the view’s subviews so it’s displayed above its
 // siblings.
 //
@@ -1027,7 +1020,6 @@ func (v NSView) AddLayoutGuide(guide INSLayoutGuide) {
 func (v NSView) AddSubview(view INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addSubview:"), view)
 }
-
 // Inserts a view among the view’s subviews so it’s displayed immediately
 // above or below another view.
 //
@@ -1054,7 +1046,6 @@ func (v NSView) AddSubview(view INSView) {
 func (v NSView) AddSubviewPositionedRelativeTo(view INSView, place NSWindowOrderingMode, otherView INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addSubview:positioned:relativeTo:"), view, place, otherView)
 }
-
 // Creates a tooltip for a defined area in the view and returns a tag that
 // identifies the tooltip rectangle.
 //
@@ -1096,7 +1087,6 @@ func (v NSView) AddToolTipRectOwnerUserData(rect corefoundation.CGRect, owner ob
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("addToolTipRect:owner:userData:"), rect, owner, data)
 	return objectivec.Object{ID: rv}
 }
-
 // Adds a given tracking area to the view.
 //
 // trackingArea: The tracking area to add to the view.
@@ -1105,7 +1095,6 @@ func (v NSView) AddToolTipRectOwnerUserData(rect corefoundation.CGRect, owner ob
 func (v NSView) AddTrackingArea(trackingArea INSTrackingArea) {
 	objc.Send[objc.ID](v.ID, objc.Sel("addTrackingArea:"), trackingArea)
 }
-
 // Establishes an area for tracking mouse-entered and mouse-exited events
 // within the view and returns a tag that identifies the tracking rectangle.
 //
@@ -1152,7 +1141,6 @@ func (v NSView) AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGR
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("addTrackingRect:owner:userData:assumeInside:"), rect, owner, data, flag)
 	return objectivec.Object{ID: rv}
 }
-
 // Overridden by subclasses to adjust page height during automatic pagination.
 //
 // newBottom: Returns by indirection a new [CGFloat] value for the bottom edge of the
@@ -1196,7 +1184,6 @@ func (v NSView) AddTrackingRectOwnerUserDataAssumeInside(rect corefoundation.CGR
 func (v NSView) AdjustPageHeightNewTopBottomLimit(newBottom unsafe.Pointer, oldTop float64, oldBottom float64, bottomLimit float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("adjustPageHeightNew:top:bottom:limit:"), newBottom, oldTop, oldBottom, bottomLimit)
 }
-
 // Overridden by subclasses to adjust page width during automatic pagination.
 //
 // newRight: Returns by indirection a new [CGFloat] value for the right edge of the
@@ -1240,7 +1227,6 @@ func (v NSView) AdjustPageHeightNewTopBottomLimit(newBottom unsafe.Pointer, oldT
 func (v NSView) AdjustPageWidthNewLeftRightLimit(newRight unsafe.Pointer, oldLeft float64, oldRight float64, rightLimit float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("adjustPageWidthNew:left:right:limit:"), newRight, oldLeft, oldRight, rightLimit)
 }
-
 // Overridden by subclasses to modify a given rectangle, returning the altered
 // rectangle.
 //
@@ -1263,7 +1249,6 @@ func (v NSView) AdjustScroll(newVisible corefoundation.CGRect) corefoundation.CG
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("adjustScroll:"), newVisible)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the view’s alignment rectangle for a given frame.
 //
 // frame: The frame whose corresponding alignment rectangle is desired.
@@ -1295,7 +1280,6 @@ func (v NSView) AlignmentRectForFrame(frame corefoundation.CGRect) corefoundatio
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("alignmentRectForFrame:"), frame)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the closest ancestor shared by the view and another specified view.
 //
 // view: Another view to test for closest shared ancestor with the view.
@@ -1310,7 +1294,6 @@ func (v NSView) AncestorSharedWithView(view INSView) INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("ancestorSharedWithView:"), view)
 	return NSViewFromID(rv)
 }
-
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
@@ -1343,7 +1326,6 @@ func (v NSView) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject 
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
@@ -1369,7 +1351,6 @@ func (v NSView) Animator() INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("animator"))
 	return NSViewFromID(rv)
 }
-
 // Scrolls the view’s closest ancestor [NSClipView] object proportionally to
 // the distance of an event that occurs outside of it.
 //
@@ -1395,7 +1376,6 @@ func (v NSView) Autoscroll(event INSEvent) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("autoscroll:"), event)
 	return rv
 }
-
 // Returns a backing store pixel-aligned rectangle in local view coordinates.
 //
 // rect: The rectangle in the view’s interior coordinate system.
@@ -1424,7 +1404,6 @@ func (v NSView) BackingAlignedRectOptions(rect corefoundation.CGRect, options fo
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("backingAlignedRect:options:"), rect, options)
 	return corefoundation.CGRect(rv)
 }
-
 // Invoked at the beginning of the printing session, this method sets up the
 // current graphics context.
 //
@@ -1442,7 +1421,6 @@ func (v NSView) BackingAlignedRectOptions(rect corefoundation.CGRect, options fo
 func (v NSView) BeginDocument() {
 	objc.Send[objc.ID](v.ID, objc.Sel("beginDocument"))
 }
-
 // Initiates a dragging session with a group of dragging items.
 //
 // items: The dragging items. The frame property of each [NSDraggingItem] must be in
@@ -1477,7 +1455,6 @@ func (v NSView) BeginDraggingSessionWithItemsEventSource(items []NSDraggingItem,
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("beginDraggingSessionWithItems:event:source:"), objectivec.IObjectSliceToNSArray(items), event, source)
 	return NSDraggingSessionFromID(rv)
 }
-
 // Called at the beginning of each page, this method sets up the coordinate
 // system so that a region inside the view’s bounds is translated to a
 // specified location.
@@ -1494,7 +1471,6 @@ func (v NSView) BeginDraggingSessionWithItemsEventSource(items []NSDraggingItem,
 func (v NSView) BeginPageInRectAtPlacement(rect corefoundation.CGRect, location corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("beginPageInRect:atPlacement:"), rect, location)
 }
-
 // Returns a bitmap-representation object suitable for caching the specified
 // portion of the view.
 //
@@ -1516,7 +1492,6 @@ func (v NSView) BitmapImageRepForCachingDisplayInRect(rect corefoundation.CGRect
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("bitmapImageRepForCachingDisplayInRect:"), rect)
 	return NSBitmapImageRepFromID(rv)
 }
-
 // Draws the specified area of the view, and its descendants, into a provided
 // bitmap-representation object.
 //
@@ -1540,7 +1515,6 @@ func (v NSView) BitmapImageRepForCachingDisplayInRect(rect corefoundation.CGRect
 func (v NSView) CacheDisplayInRectToBitmapImageRep(rect corefoundation.CGRect, bitmapImageRep INSBitmapImageRep) {
 	objc.Send[objc.ID](v.ID, objc.Sel("cacheDisplayInRect:toBitmapImageRep:"), rect, bitmapImageRep)
 }
-
 // Converts the corners of a specified rectangle to lie on the center of
 // device pixels, which is useful in compensating for rendering overscanning
 // when the coordinate system has been scaled.
@@ -1566,7 +1540,6 @@ func (v NSView) CenterScanRect(rect corefoundation.CGRect) corefoundation.CGRect
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("centerScanRect:"), rect)
 	return corefoundation.CGRect(rv)
 }
-
 // Invoked when the dragging operation is complete, signaling the receiver to
 // perform any necessary clean-up.
 //
@@ -1596,7 +1569,6 @@ func (v NSView) CenterScanRect(rect corefoundation.CGRect) corefoundation.CGRect
 func (v NSView) ConcludeDragOperation(sender NSDraggingInfo) {
 	objc.Send[objc.ID](v.ID, objc.Sel("concludeDragOperation:"), sender)
 }
-
 // Returns the constraints impacting the layout of the view for a given
 // orientation.
 //
@@ -1626,7 +1598,6 @@ func (v NSView) ConstraintsAffectingLayoutForOrientation(orientation NSLayoutCon
 		return NSLayoutConstraintFromID(id)
 	})
 }
-
 // Returns the priority with which a view resists being made smaller than its
 // intrinsic size.
 //
@@ -1655,7 +1626,6 @@ func (v NSView) ContentCompressionResistancePriorityForOrientation(orientation N
 	rv := objc.Send[NSLayoutPriority](v.ID, objc.Sel("contentCompressionResistancePriorityForOrientation:"), orientation)
 	return NSLayoutPriority(rv)
 }
-
 // Returns the priority with which a view resists being made larger than its
 // intrinsic size.
 //
@@ -1684,7 +1654,6 @@ func (v NSView) ContentHuggingPriorityForOrientation(orientation NSLayoutConstra
 	rv := objc.Send[NSLayoutPriority](v.ID, objc.Sel("contentHuggingPriorityForOrientation:"), orientation)
 	return NSLayoutPriority(rv)
 }
-
 // Converts a point from its pixel aligned backing store coordinate system to
 // the view’s interior coordinate system.
 //
@@ -1699,7 +1668,6 @@ func (v NSView) ConvertPointFromBacking(point corefoundation.CGPoint) corefounda
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointFromBacking:"), point)
 	return corefoundation.CGPoint(rv)
 }
-
 // Convert the point from the layer’s interior coordinate system to the
 // view’s interior coordinate system.
 //
@@ -1721,7 +1689,6 @@ func (v NSView) ConvertPointFromLayer(point corefoundation.CGPoint) corefoundati
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointFromLayer:"), point)
 	return corefoundation.CGPoint(rv)
 }
-
 // Converts a point from the coordinate system of a given view to that of the
 // view.
 //
@@ -1741,7 +1708,6 @@ func (v NSView) ConvertPointFromView(point corefoundation.CGPoint, view INSView)
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPoint:fromView:"), point, view)
 	return corefoundation.CGPoint(rv)
 }
-
 // Converts a point from the view’s interior coordinate system to its pixel
 // aligned backing store coordinate system.
 //
@@ -1756,7 +1722,6 @@ func (v NSView) ConvertPointToBacking(point corefoundation.CGPoint) corefoundati
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointToBacking:"), point)
 	return corefoundation.CGPoint(rv)
 }
-
 // Convert the size from the view’s interior coordinate system to the
 // layer’s interior coordinate system.
 //
@@ -1778,7 +1743,6 @@ func (v NSView) ConvertPointToLayer(point corefoundation.CGPoint) corefoundation
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPointToLayer:"), point)
 	return corefoundation.CGPoint(rv)
 }
-
 // Converts a point from the view’s coordinate system to that of a given
 // view.
 //
@@ -1798,7 +1762,6 @@ func (v NSView) ConvertPointToView(point corefoundation.CGPoint, view INSView) c
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("convertPoint:toView:"), point, view)
 	return corefoundation.CGPoint(rv)
 }
-
 // Converts a rectangle from its pixel aligned backing store coordinate system
 // to the view’s interior coordinate system.
 //
@@ -1813,7 +1776,6 @@ func (v NSView) ConvertRectFromBacking(rect corefoundation.CGRect) corefoundatio
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectFromBacking:"), rect)
 	return corefoundation.CGRect(rv)
 }
-
 // Convert the rectangle from the layer’s interior coordinate system to the
 // view’s interior coordinate system.
 //
@@ -1835,7 +1797,6 @@ func (v NSView) ConvertRectFromLayer(rect corefoundation.CGRect) corefoundation.
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectFromLayer:"), rect)
 	return corefoundation.CGRect(rv)
 }
-
 // Converts a rectangle from the coordinate system of another view to that of
 // the view.
 //
@@ -1855,7 +1816,6 @@ func (v NSView) ConvertRectFromView(rect corefoundation.CGRect, view INSView) co
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRect:fromView:"), rect, view)
 	return corefoundation.CGRect(rv)
 }
-
 // Converts a rectangle from the view’s interior coordinate system to its
 // pixel aligned backing store coordinate system.
 //
@@ -1870,7 +1830,6 @@ func (v NSView) ConvertRectToBacking(rect corefoundation.CGRect) corefoundation.
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectToBacking:"), rect)
 	return corefoundation.CGRect(rv)
 }
-
 // Convert the size from the view’s interior coordinate system to the
 // layer’s interior coordinate system.
 //
@@ -1892,7 +1851,6 @@ func (v NSView) ConvertRectToLayer(rect corefoundation.CGRect) corefoundation.CG
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRectToLayer:"), rect)
 	return corefoundation.CGRect(rv)
 }
-
 // Converts a rectangle from the view’s coordinate system to that of another
 // view.
 //
@@ -1912,7 +1870,6 @@ func (v NSView) ConvertRectToView(rect corefoundation.CGRect, view INSView) core
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("convertRect:toView:"), rect, view)
 	return corefoundation.CGRect(rv)
 }
-
 // Converts a size from its pixel aligned backing store coordinate system to
 // the view’s interior coordinate system.
 //
@@ -1927,7 +1884,6 @@ func (v NSView) ConvertSizeFromBacking(size corefoundation.CGSize) corefoundatio
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeFromBacking:"), size)
 	return corefoundation.CGSize(rv)
 }
-
 // Convert the size from the layer’s interior coordinate system to the
 // view’s interior coordinate system.
 //
@@ -1952,7 +1908,6 @@ func (v NSView) ConvertSizeFromLayer(size corefoundation.CGSize) corefoundation.
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeFromLayer:"), size)
 	return corefoundation.CGSize(rv)
 }
-
 // Converts a size from another view’s coordinate system to that of the
 // view.
 //
@@ -1984,7 +1939,6 @@ func (v NSView) ConvertSizeFromView(size corefoundation.CGSize, view INSView) co
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSize:fromView:"), size, view)
 	return corefoundation.CGSize(rv)
 }
-
 // Converts a size from the view’s interior coordinate system to its pixel
 // aligned backing store coordinate system.
 //
@@ -1999,7 +1953,6 @@ func (v NSView) ConvertSizeToBacking(size corefoundation.CGSize) corefoundation.
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeToBacking:"), size)
 	return corefoundation.CGSize(rv)
 }
-
 // Convert the size from the view’s interior coordinate system to the
 // layer’s interior coordinate system.
 //
@@ -2024,7 +1977,6 @@ func (v NSView) ConvertSizeToLayer(size corefoundation.CGSize) corefoundation.CG
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSizeToLayer:"), size)
 	return corefoundation.CGSize(rv)
 }
-
 // Converts a size from the view’s coordinate system to that of another
 // view.
 //
@@ -2051,7 +2003,6 @@ func (v NSView) ConvertSizeToView(size corefoundation.CGSize, view INSView) core
 	rv := objc.Send[corefoundation.CGSize](v.ID, objc.Sel("convertSize:toView:"), size, view)
 	return corefoundation.CGSize(rv)
 }
-
 // Returns EPS data that draws the region of the view within a specified
 // rectangle.
 //
@@ -2067,7 +2018,6 @@ func (v NSView) DataWithEPSInsideRect(rect corefoundation.CGRect) foundation.INS
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("dataWithEPSInsideRect:"), rect)
 	return foundation.NSDataFromID(rv)
 }
-
 // Returns PDF data that draws the region of the view within a specified
 // rectangle.
 //
@@ -2083,7 +2033,6 @@ func (v NSView) DataWithPDFInsideRect(rect corefoundation.CGRect) foundation.INS
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("dataWithPDFInsideRect:"), rect)
 	return foundation.NSDataFromID(rv)
 }
-
 // Overridden by subclasses to perform additional actions when subviews are
 // added to the view.
 //
@@ -2097,7 +2046,6 @@ func (v NSView) DataWithPDFInsideRect(rect corefoundation.CGRect) foundation.INS
 func (v NSView) DidAddSubview(subview INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("didAddSubview:"), subview)
 }
-
 // Called after a contextual menu that was displayed from the receiving view
 // has been closed.
 //
@@ -2118,7 +2066,6 @@ func (v NSView) DidAddSubview(subview INSView) {
 func (v NSView) DidCloseMenuWithEvent(menu INSMenu, event INSEvent) {
 	objc.Send[objc.ID](v.ID, objc.Sel("didCloseMenu:withEvent:"), menu, event)
 }
-
 // Invalidates all cursor rectangles set up using [AddCursorRectCursor].
 //
 // # Discussion
@@ -2134,7 +2081,6 @@ func (v NSView) DidCloseMenuWithEvent(menu INSMenu, event INSEvent) {
 func (v NSView) DiscardCursorRects() {
 	objc.Send[objc.ID](v.ID, objc.Sel("discardCursorRects"))
 }
-
 // Displays the view and all its subviews if possible, invoking each of the
 // [NSView] methods [lockFocus()], [DrawRect], and [unlockFocus()] as
 // necessary.
@@ -2152,7 +2098,6 @@ func (v NSView) DiscardCursorRects() {
 func (v NSView) Display() {
 	objc.Send[objc.ID](v.ID, objc.Sel("display"))
 }
-
 // Displays the view and all its subviews if any part of the view has been
 // marked as needing display.
 //
@@ -2171,7 +2116,6 @@ func (v NSView) Display() {
 func (v NSView) DisplayIfNeeded() {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeeded"))
 }
-
 // Acts as [DisplayIfNeeded], except that this method doesn’t back up to the
 // first opaque ancestor—it simply causes the view and its descendants to
 // execute their drawing code.
@@ -2180,7 +2124,6 @@ func (v NSView) DisplayIfNeeded() {
 func (v NSView) DisplayIfNeededIgnoringOpacity() {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeededIgnoringOpacity"))
 }
-
 // Acts as [DisplayIfNeeded], confining drawing to a specified region of the
 // view.
 //
@@ -2191,7 +2134,6 @@ func (v NSView) DisplayIfNeededIgnoringOpacity() {
 func (v NSView) DisplayIfNeededInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeededInRect:"), rect)
 }
-
 // Acts as [DisplayIfNeeded], but confining drawing to `aRect` and not backing
 // up to the first opaque ancestor—it simply causes the view and its
 // descendants to execute their drawing code.
@@ -2203,14 +2145,12 @@ func (v NSView) DisplayIfNeededInRect(rect corefoundation.CGRect) {
 func (v NSView) DisplayIfNeededInRectIgnoringOpacity(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayIfNeededInRectIgnoringOpacity:"), rect)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/displayLink(target:selector:)
 func (v NSView) DisplayLinkWithTargetSelector(target objectivec.IObject, selector objc.SEL) objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("displayLinkWithTarget:selector:"), target, selector)
 	return objectivec.Object{ID: rv}
 }
-
 // Acts as [Display], but confining drawing to a rectangular region of the
 // view.
 //
@@ -2221,7 +2161,6 @@ func (v NSView) DisplayLinkWithTargetSelector(target objectivec.IObject, selecto
 func (v NSView) DisplayRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayRect:"), rect)
 }
-
 // Displays the view but confines drawing to a specified region and does not
 // back up to the first opaque ancestor—it simply causes the view and its
 // descendants to execute their drawing code.
@@ -2233,7 +2172,6 @@ func (v NSView) DisplayRect(rect corefoundation.CGRect) {
 func (v NSView) DisplayRectIgnoringOpacity(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayRectIgnoringOpacity:"), rect)
 }
-
 // Causes the view and its descendants to be redrawn to the specified graphics
 // context.
 //
@@ -2265,7 +2203,6 @@ func (v NSView) DisplayRectIgnoringOpacity(rect corefoundation.CGRect) {
 func (v NSView) DisplayRectIgnoringOpacityInContext(rect corefoundation.CGRect, context INSGraphicsContext) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayRectIgnoringOpacity:inContext:"), rect, context)
 }
-
 // Called when a drag operation ends.
 //
 // sender: The object sending the message; use it to get details about the dragging
@@ -2282,7 +2219,6 @@ func (v NSView) DisplayRectIgnoringOpacityInContext(rect corefoundation.CGRect, 
 func (v NSView) DraggingEnded(sender NSDraggingInfo) {
 	objc.Send[objc.ID](v.ID, objc.Sel("draggingEnded:"), sender)
 }
-
 // Invoked when the dragged image enters destination bounds or frame; delegate
 // returns dragging operation to perform.
 //
@@ -2324,7 +2260,6 @@ func (v NSView) DraggingEntered(sender NSDraggingInfo) NSDragOperation {
 	rv := objc.Send[NSDragOperation](v.ID, objc.Sel("draggingEntered:"), sender)
 	return NSDragOperation(rv)
 }
-
 // Invoked when the dragged image exits the destination’s bounds rectangle
 // (in the case of a view object) or its frame rectangle (in the case of a
 // window object).
@@ -2336,7 +2271,6 @@ func (v NSView) DraggingEntered(sender NSDraggingInfo) NSDragOperation {
 func (v NSView) DraggingExited(sender NSDraggingInfo) {
 	objc.Send[objc.ID](v.ID, objc.Sel("draggingExited:"), sender)
 }
-
 // Invoked periodically as the image is held within the destination area,
 // allowing modification of the dragging operation or mouse-pointer position.
 //
@@ -2382,7 +2316,6 @@ func (v NSView) DraggingUpdated(sender NSDraggingInfo) NSDragOperation {
 	rv := objc.Send[NSDragOperation](v.ID, objc.Sel("draggingUpdated:"), sender)
 	return NSDragOperation(rv)
 }
-
 // Draws the focus ring mask for the view.
 //
 // # Discussion
@@ -2405,7 +2338,6 @@ func (v NSView) DraggingUpdated(sender NSDraggingInfo) NSDragOperation {
 func (v NSView) DrawFocusRingMask() {
 	objc.Send[objc.ID](v.ID, objc.Sel("drawFocusRingMask"))
 }
-
 // Allows applications that use the AppKit pagination facility to draw
 // additional marks on each logical page.
 //
@@ -2420,7 +2352,6 @@ func (v NSView) DrawFocusRingMask() {
 func (v NSView) DrawPageBorderWithSize(borderSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("drawPageBorderWithSize:"), borderSize)
 }
-
 // Overridden by subclasses to draw the view’s image within the specified
 // rectangle.
 //
@@ -2460,7 +2391,6 @@ func (v NSView) DrawPageBorderWithSize(borderSize corefoundation.CGSize) {
 func (v NSView) DrawRect(dirtyRect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("drawRect:"), dirtyRect)
 }
-
 // This method is invoked at the end of the printing session.
 //
 // # Discussion
@@ -2471,7 +2401,6 @@ func (v NSView) DrawRect(dirtyRect corefoundation.CGRect) {
 func (v NSView) EndDocument() {
 	objc.Send[objc.ID](v.ID, objc.Sel("endDocument"))
 }
-
 // Writes the end of a conforming page.
 //
 // # Discussion
@@ -2486,7 +2415,6 @@ func (v NSView) EndDocument() {
 func (v NSView) EndPage() {
 	objc.Send[objc.ID](v.ID, objc.Sel("endPage"))
 }
-
 // Sets the view to full screen mode.
 //
 // screen: The screen the view should cover.
@@ -2530,7 +2458,6 @@ func (v NSView) EnterFullScreenModeWithOptions(screen INSScreen, options foundat
 	rv := objc.Send[bool](v.ID, objc.Sel("enterFullScreenMode:withOptions:"), screen, options)
 	return rv
 }
-
 // Randomly changes the frame of a view with an ambiguous layout between the
 // different valid values.
 //
@@ -2549,7 +2476,6 @@ func (v NSView) EnterFullScreenModeWithOptions(screen INSScreen, options foundat
 func (v NSView) ExerciseAmbiguityInLayout() {
 	objc.Send[objc.ID](v.ID, objc.Sel("exerciseAmbiguityInLayout"))
 }
-
 // Instructs the view to exit full screen mode.
 //
 // options: A dictionary of options for the mode. For possible keys, see `Full Screen
@@ -2567,7 +2493,6 @@ func (v NSView) ExerciseAmbiguityInLayout() {
 func (v NSView) ExitFullScreenModeWithOptions(options foundation.INSDictionary) {
 	objc.Send[objc.ID](v.ID, objc.Sel("exitFullScreenModeWithOptions:"), options)
 }
-
 // Returns the view’s frame for a given alignment rectangle.
 //
 // alignmentRect: The alignment rectangle whose corresponding frame is desired.
@@ -2599,7 +2524,6 @@ func (v NSView) FrameForAlignmentRect(alignmentRect corefoundation.CGRect) coref
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("frameForAlignmentRect:"), alignmentRect)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns by indirection a list of nonoverlapping rectangles that define the
 // area the view is being asked to draw in [DrawRect].
 //
@@ -2630,7 +2554,6 @@ func (v NSView) FrameForAlignmentRect(alignmentRect corefoundation.CGRect) coref
 func (v NSView) GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count unsafe.Pointer) {
 	objc.Send[objc.ID](v.ID, objc.Sel("getRectsBeingDrawn:count:"), objc.CArray(rects), count)
 }
-
 // Returns a list of rectangles indicating the newly exposed areas of the
 // view.
 //
@@ -2661,7 +2584,6 @@ func (v NSView) GetRectsBeingDrawnCount(rects []corefoundation.CGRect, count uns
 func (v NSView) GetRectsExposedDuringLiveResizeCount(exposedRects []corefoundation.CGRect, count unsafe.Pointer) {
 	objc.Send[objc.ID](v.ID, objc.Sel("getRectsExposedDuringLiveResize:count:"), objc.CArray(exposedRects), count)
 }
-
 // Returns the farthest descendant of the view in the view hierarchy
 // (including itself) that contains a specified point, or `nil` if that point
 // lies completely outside the view.
@@ -2685,7 +2607,6 @@ func (v NSView) HitTest(point corefoundation.CGPoint) INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("hitTest:"), point)
 	return NSViewFromID(rv)
 }
-
 // Invalidates the view’s intrinsic content size.
 //
 // # Discussion
@@ -2698,7 +2619,6 @@ func (v NSView) HitTest(point corefoundation.CGPoint) INSView {
 func (v NSView) InvalidateIntrinsicContentSize() {
 	objc.Send[objc.ID](v.ID, objc.Sel("invalidateIntrinsicContentSize"))
 }
-
 // Returns a Boolean value that indicates whether the view is a subview of the
 // specified view.
 //
@@ -2722,7 +2642,6 @@ func (v NSView) IsDescendantOf(view INSView) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isDescendantOf:"), view)
 	return rv
 }
-
 // Returns a Boolean value that indicates whether the view handles page
 // boundaries.
 //
@@ -2751,7 +2670,6 @@ func (v NSView) KnowsPageRange(range_ foundation.NSRange) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("knowsPageRange:"), range_)
 	return rv
 }
-
 // Perform layout in concert with the constraint-based layout system.
 //
 // # Discussion
@@ -2774,7 +2692,6 @@ func (v NSView) KnowsPageRange(range_ foundation.NSRange) bool {
 func (v NSView) Layout() {
 	objc.Send[objc.ID](v.ID, objc.Sel("layout"))
 }
-
 // Updates the layout of the receiving view and its subviews based on the
 // current views and constraints.
 //
@@ -2793,7 +2710,6 @@ func (v NSView) Layout() {
 func (v NSView) LayoutSubtreeIfNeeded() {
 	objc.Send[objc.ID](v.ID, objc.Sel("layoutSubtreeIfNeeded"))
 }
-
 // Invoked by [Print] to determine the location of the region of the view
 // being printed on the physical page.
 //
@@ -2823,7 +2739,6 @@ func (v NSView) LocationOfPrintRect(rect corefoundation.CGRect) corefoundation.C
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("locationOfPrintRect:"), rect)
 	return corefoundation.CGPoint(rv)
 }
-
 // Creates the view’s backing layer.
 //
 // # Return Value
@@ -2835,7 +2750,6 @@ func (v NSView) MakeBackingLayer() objectivec.IObject {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("makeBackingLayer"))
 	return objectivec.Object{ID: rv}
 }
-
 // Overridden by subclasses to return a context-sensitive pop-up menu for a
 // given mouse-down event.
 //
@@ -2856,7 +2770,6 @@ func (v NSView) MenuForEvent(event INSEvent) INSMenu {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("menuForEvent:"), event)
 	return NSMenuFromID(rv)
 }
-
 // Returns whether a region of the view contains a specified point, accounting
 // for whether the view is flipped or not.
 //
@@ -2892,7 +2805,6 @@ func (v NSView) MouseInRect(point corefoundation.CGPoint, rect corefoundation.CG
 	rv := objc.Send[bool](v.ID, objc.Sel("mouse:inRect:"), point, rect)
 	return rv
 }
-
 // Returns a Boolean value indicating whether the specified rectangle
 // intersects any part of the area that the view is being asked to draw.
 //
@@ -2911,7 +2823,6 @@ func (v NSView) NeedsToDrawRect(rect corefoundation.CGRect) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("needsToDrawRect:"), rect)
 	return rv
 }
-
 // Invoked to notify the view that the focus ring mask requires updating.
 //
 // # Discussion
@@ -2936,7 +2847,6 @@ func (v NSView) NeedsToDrawRect(rect corefoundation.CGRect) bool {
 func (v NSView) NoteFocusRingMaskChanged() {
 	objc.Send[objc.ID](v.ID, objc.Sel("noteFocusRingMaskChanged"))
 }
-
 // Invoked after the released image has been removed from the screen,
 // signaling the receiver to import the pasteboard data.
 //
@@ -2970,7 +2880,6 @@ func (v NSView) PerformDragOperation(sender NSDraggingInfo) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("performDragOperation:"), sender)
 	return rv
 }
-
 // Prepares the overdraw region for drawing.
 //
 // rect: The current overdraw region, specified in the view’s coordinate system.
@@ -3008,7 +2917,6 @@ func (v NSView) PerformDragOperation(sender NSDraggingInfo) bool {
 func (v NSView) PrepareContentInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("prepareContentInRect:"), rect)
 }
-
 // Invoked when the image is released, allowing the receiver to agree to or
 // refuse drag operation.
 //
@@ -3040,7 +2948,6 @@ func (v NSView) PrepareForDragOperation(sender NSDraggingInfo) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("prepareForDragOperation:"), sender)
 	return rv
 }
-
 // This action method opens the Print panel, and if the user chooses an option
 // other than canceling, prints the view and all its subviews to the device
 // specified in the Print panel.
@@ -3051,7 +2958,6 @@ func (v NSView) PrepareForDragOperation(sender NSDraggingInfo) bool {
 func (v NSView) Print(sender objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("print:"), sender)
 }
-
 // Implemented by subclasses to determine the portion of the view to be
 // printed for the specified page number.
 //
@@ -3082,7 +2988,6 @@ func (v NSView) RectForPage(page int) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("rectForPage:"), page)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the appropriate rectangle to use when magnifying around the
 // specified point.
 //
@@ -3124,7 +3029,6 @@ func (v NSView) RectForSmartMagnificationAtPointInRect(location corefoundation.C
 	rv := objc.Send[corefoundation.CGRect](v.ID, objc.Sel("rectForSmartMagnificationAtPoint:inRect:"), location, visibleRect)
 	return corefoundation.CGRect(rv)
 }
-
 // Notifies a clip view’s superview that either the clip view’s bounds
 // rectangle or the document view’s frame rectangle has changed, and that
 // any indicators of the scroll position need to be adjusted.
@@ -3139,7 +3043,6 @@ func (v NSView) RectForSmartMagnificationAtPointInRect(location corefoundation.C
 func (v NSView) ReflectScrolledClipView(clipView INSClipView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("reflectScrolledClipView:"), clipView)
 }
-
 // Registers the pasteboard types that the view will accept as the destination
 // of an image-dragging session.
 //
@@ -3162,7 +3065,6 @@ func (v NSView) ReflectScrolledClipView(clipView INSClipView) {
 func (v NSView) RegisterForDraggedTypes(newTypes []string) {
 	objc.Send[objc.ID](v.ID, objc.Sel("registerForDraggedTypes:"), objectivec.StringSliceToNSArray(newTypes))
 }
-
 // Removes all tooltips assigned to the view.
 //
 // # Discussion
@@ -3176,7 +3078,6 @@ func (v NSView) RegisterForDraggedTypes(newTypes []string) {
 func (v NSView) RemoveAllToolTips() {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeAllToolTips"))
 }
-
 // Removes the specified constraint from the view.
 //
 // constraint: The constraint to remove. Removing a constraint not held by the view has no
@@ -3186,7 +3087,6 @@ func (v NSView) RemoveAllToolTips() {
 func (v NSView) RemoveConstraint(constraint INSLayoutConstraint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeConstraint:"), constraint)
 }
-
 // Removes the specified constraints from the view.
 //
 // constraints: The constraints to remove.
@@ -3195,7 +3095,6 @@ func (v NSView) RemoveConstraint(constraint INSLayoutConstraint) {
 func (v NSView) RemoveConstraints(constraints []NSLayoutConstraint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeConstraints:"), objectivec.IObjectSliceToNSArray(constraints))
 }
-
 // Completely removes a cursor rectangle from the view.
 //
 // rect: A rectangle defining a region of the view. Must match a value previously
@@ -3217,7 +3116,6 @@ func (v NSView) RemoveConstraints(constraints []NSLayoutConstraint) {
 func (v NSView) RemoveCursorRectCursor(rect corefoundation.CGRect, object INSCursor) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeCursorRect:cursor:"), rect, object)
 }
-
 // Unlinks the view from its superview and its window, removes it from the
 // responder chain, and invalidates its cursor rectangles.
 //
@@ -3237,7 +3135,6 @@ func (v NSView) RemoveCursorRectCursor(rect corefoundation.CGRect, object INSCur
 func (v NSView) RemoveFromSuperview() {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeFromSuperview"))
 }
-
 // Unlinks the view from its superview and its window and removes it from the
 // responder chain, but does not invalidate its cursor rectangles to cause
 // redrawing.
@@ -3255,7 +3152,6 @@ func (v NSView) RemoveFromSuperview() {
 func (v NSView) RemoveFromSuperviewWithoutNeedingDisplay() {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeFromSuperviewWithoutNeedingDisplay"))
 }
-
 // Detaches a gesture recognizer from the view.
 //
 // gestureRecognizer: The gesture recognizer to remove. This parameter must not be `nil`.
@@ -3269,7 +3165,6 @@ func (v NSView) RemoveFromSuperviewWithoutNeedingDisplay() {
 func (v NSView) RemoveGestureRecognizer(gestureRecognizer INSGestureRecognizer) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeGestureRecognizer:"), gestureRecognizer)
 }
-
 // Removes the provided layout guide from the view.
 //
 // guide: The layout guide to be removed.
@@ -3289,7 +3184,6 @@ func (v NSView) RemoveGestureRecognizer(gestureRecognizer INSGestureRecognizer) 
 func (v NSView) RemoveLayoutGuide(guide INSLayoutGuide) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeLayoutGuide:"), guide)
 }
-
 // Removes the tooltip identified by specified tag.
 //
 // tag: An integer tag that is the value returned by a previous
@@ -3299,7 +3193,6 @@ func (v NSView) RemoveLayoutGuide(guide INSLayoutGuide) {
 func (v NSView) RemoveToolTip(tag objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeToolTip:"), tag)
 }
-
 // Removes a given tracking area from the view.
 //
 // trackingArea: The tracking area to remove from the view.
@@ -3308,7 +3201,6 @@ func (v NSView) RemoveToolTip(tag objectivec.IObject) {
 func (v NSView) RemoveTrackingArea(trackingArea INSTrackingArea) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeTrackingArea:"), trackingArea)
 }
-
 // Removes the tracking rectangle identified by a tag.
 //
 // tag: An integer value identifying a tracking rectangle. It was returned by a
@@ -3318,7 +3210,6 @@ func (v NSView) RemoveTrackingArea(trackingArea INSTrackingArea) {
 func (v NSView) RemoveTrackingRect(tag objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("removeTrackingRect:"), tag)
 }
-
 // Replaces one of the view’s subviews with another view.
 //
 // oldView: The view to be replaced by `newView`. May not be `nil`.
@@ -3343,7 +3234,6 @@ func (v NSView) RemoveTrackingRect(tag objectivec.IObject) {
 func (v NSView) ReplaceSubviewWith(oldView INSView, newView INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("replaceSubview:with:"), oldView, newView)
 }
-
 // Overridden by subclasses to define their default cursor rectangles.
 //
 // # Discussion
@@ -3363,7 +3253,6 @@ func (v NSView) ReplaceSubviewWith(oldView INSView, newView INSView) {
 func (v NSView) ResetCursorRects() {
 	objc.Send[objc.ID](v.ID, objc.Sel("resetCursorRects"))
 }
-
 // Informs the view’s subviews that the view’s bounds rectangle size has
 // changed.
 //
@@ -3383,7 +3272,6 @@ func (v NSView) ResetCursorRects() {
 func (v NSView) ResizeSubviewsWithOldSize(oldSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("resizeSubviewsWithOldSize:"), oldSize)
 }
-
 // Informs the view that the bounds size of its superview has changed.
 //
 // oldSize: The previous size of the superview’s bounds rectangle.
@@ -3408,7 +3296,6 @@ func (v NSView) ResizeSubviewsWithOldSize(oldSize corefoundation.CGSize) {
 func (v NSView) ResizeWithOldSuperviewSize(oldSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("resizeWithOldSuperviewSize:"), oldSize)
 }
-
 // Rotates the view’s bounds rectangle by a specified degree value around
 // the origin of the coordinate system, (0.0, 0.0).
 //
@@ -3432,7 +3319,6 @@ func (v NSView) ResizeWithOldSuperviewSize(oldSize corefoundation.CGSize) {
 func (v NSView) RotateByAngle(angle float64) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rotateByAngle:"), angle)
 }
-
 // Informs the client that `aRulerView` allowed the user to add `aMarker`.
 //
 // # Discussion
@@ -3445,7 +3331,6 @@ func (v NSView) RotateByAngle(angle float64) {
 func (v NSView) RulerViewDidAddMarker(ruler INSRulerView, marker INSRulerMarker) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:didAddMarker:"), ruler, marker)
 }
-
 // Informs the client that `aRulerView` allowed the user to move `aMarker`.
 //
 // # Discussion
@@ -3458,7 +3343,6 @@ func (v NSView) RulerViewDidAddMarker(ruler INSRulerView, marker INSRulerMarker)
 func (v NSView) RulerViewDidMoveMarker(ruler INSRulerView, marker INSRulerMarker) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:didMoveMarker:"), ruler, marker)
 }
-
 // Informs the client that `aRulerView` allowed the user to remove `aMarker`.
 //
 // # Discussion
@@ -3471,7 +3355,6 @@ func (v NSView) RulerViewDidMoveMarker(ruler INSRulerView, marker INSRulerMarker
 func (v NSView) RulerViewDidRemoveMarker(ruler INSRulerView, marker INSRulerMarker) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:didRemoveMarker:"), ruler, marker)
 }
-
 // Informs the client that the user has pressed the mouse button while the
 // cursor is in the ruler area of `aRulerView`.
 //
@@ -3486,21 +3369,18 @@ func (v NSView) RulerViewDidRemoveMarker(ruler INSRulerView, marker INSRulerMark
 func (v NSView) RulerViewHandleMouseDown(ruler INSRulerView, event INSEvent) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:handleMouseDown:"), ruler, event)
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:locationFor:)
 func (v NSView) RulerViewLocationForPoint(ruler INSRulerView, point corefoundation.CGPoint) float64 {
 	rv := objc.Send[float64](v.ID, objc.Sel("rulerView:locationForPoint:"), ruler, point)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/rulerView(_:pointForLocation:)
 func (v NSView) RulerViewPointForLocation(ruler INSRulerView, point float64) corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](v.ID, objc.Sel("rulerView:pointForLocation:"), ruler, point)
 	return corefoundation.CGPoint(rv)
 }
-
 // Requests permission for `aRulerView` to add `aMarker`, an NSRulerMarker
 // being dragged onto the ruler by the user.
 //
@@ -3518,7 +3398,6 @@ func (v NSView) RulerViewShouldAddMarker(ruler INSRulerView, marker INSRulerMark
 	rv := objc.Send[bool](v.ID, objc.Sel("rulerView:shouldAddMarker:"), ruler, marker)
 	return rv
 }
-
 // Requests permission for `aRulerView` to move `aMarker`.
 //
 // # Discussion
@@ -3540,7 +3419,6 @@ func (v NSView) RulerViewShouldMoveMarker(ruler INSRulerView, marker INSRulerMar
 	rv := objc.Send[bool](v.ID, objc.Sel("rulerView:shouldMoveMarker:"), ruler, marker)
 	return rv
 }
-
 // Requests permission for `aRulerView` to remove `aMarker`.
 //
 // # Discussion
@@ -3564,7 +3442,6 @@ func (v NSView) RulerViewShouldRemoveMarker(ruler INSRulerView, marker INSRulerM
 	rv := objc.Send[bool](v.ID, objc.Sel("rulerView:shouldRemoveMarker:"), ruler, marker)
 	return rv
 }
-
 // Informs the client that `aRulerView` will add the new NSRulerMarker,
 // `aMarker`.
 //
@@ -3581,7 +3458,6 @@ func (v NSView) RulerViewWillAddMarkerAtLocation(ruler INSRulerView, marker INSR
 	rv := objc.Send[float64](v.ID, objc.Sel("rulerView:willAddMarker:atLocation:"), ruler, marker, location)
 	return rv
 }
-
 // Informs the client that `aRulerView` will move `aMarker`, an NSRulerMarker
 // already on the ruler view.
 //
@@ -3598,7 +3474,6 @@ func (v NSView) RulerViewWillMoveMarkerToLocation(ruler INSRulerView, marker INS
 	rv := objc.Send[float64](v.ID, objc.Sel("rulerView:willMoveMarker:toLocation:"), ruler, marker, location)
 	return rv
 }
-
 // Informs the client view that `aRulerView` is about to be appropriated by
 // `newClient`.
 //
@@ -3611,7 +3486,6 @@ func (v NSView) RulerViewWillMoveMarkerToLocation(ruler INSRulerView, marker INS
 func (v NSView) RulerViewWillSetClientView(ruler INSRulerView, newClient INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("rulerView:willSetClientView:"), ruler, newClient)
 }
-
 // Scales the view’s coordinate system so that the unit square scales to the
 // specified dimensions.
 //
@@ -3640,7 +3514,6 @@ func (v NSView) RulerViewWillSetClientView(ruler INSRulerView, newClient INSView
 func (v NSView) ScaleUnitSquareToSize(newUnitSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("scaleUnitSquareToSize:"), newUnitSize)
 }
-
 // Notifies the superview of a clip view that the clip view needs to reset the
 // origin of its bounds rectangle.
 //
@@ -3660,7 +3533,6 @@ func (v NSView) ScaleUnitSquareToSize(newUnitSize corefoundation.CGSize) {
 func (v NSView) ScrollClipViewToPoint(clipView INSClipView, point corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("scrollClipView:toPoint:"), clipView, point)
 }
-
 // Scrolls the view’s closest ancestor [NSClipView] object so a point in the
 // view lies at the origin of the clip view’s bounds rectangle.
 //
@@ -3670,7 +3542,6 @@ func (v NSView) ScrollClipViewToPoint(clipView INSClipView, point corefoundation
 func (v NSView) ScrollPoint(point corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("scrollPoint:"), point)
 }
-
 // Scrolls the view’s closest ancestor [NSClipView] object the minimum
 // distance needed so a specified region of the view becomes visible in the
 // clip view.
@@ -3689,7 +3560,6 @@ func (v NSView) ScrollRectToVisible(rect corefoundation.CGRect) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("scrollRectToVisible:"), rect)
 	return rv
 }
-
 // Sets the origin of the view’s bounds rectangle to a specified point.
 //
 // newOrigin: A point specifying the new bounds origin of the view.
@@ -3720,7 +3590,6 @@ func (v NSView) ScrollRectToVisible(rect corefoundation.CGRect) bool {
 func (v NSView) SetBoundsOrigin(newOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setBoundsOrigin:"), newOrigin)
 }
-
 // Sets the size of the view’s bounds rectangle to specified dimensions,
 // inversely scaling its coordinate system relative to its frame rectangle.
 //
@@ -3752,7 +3621,6 @@ func (v NSView) SetBoundsOrigin(newOrigin corefoundation.CGPoint) {
 func (v NSView) SetBoundsSize(newSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setBoundsSize:"), newSize)
 }
-
 // Sets the priority with which a view resists being made smaller than its
 // intrinsic size.
 //
@@ -3779,7 +3647,6 @@ func (v NSView) SetBoundsSize(newSize corefoundation.CGSize) {
 func (v NSView) SetContentCompressionResistancePriorityForOrientation(priority NSLayoutPriority, orientation NSLayoutConstraintOrientation) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setContentCompressionResistancePriority:forOrientation:"), priority, orientation)
 }
-
 // Sets the priority with which a view resists being made larger than its
 // intrinsic size.
 //
@@ -3805,7 +3672,6 @@ func (v NSView) SetContentCompressionResistancePriorityForOrientation(priority N
 func (v NSView) SetContentHuggingPriorityForOrientation(priority NSLayoutPriority, orientation NSLayoutConstraintOrientation) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setContentHuggingPriority:forOrientation:"), priority, orientation)
 }
-
 // Sets the origin of the view’s frame rectangle to the specified point,
 // effectively repositioning it within its superview.
 //
@@ -3829,7 +3695,6 @@ func (v NSView) SetContentHuggingPriorityForOrientation(priority NSLayoutPriorit
 func (v NSView) SetFrameOrigin(newOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setFrameOrigin:"), newOrigin)
 }
-
 // Sets the size of the view’s frame rectangle to the specified dimensions,
 // resizing it within its superview without affecting its coordinate system.
 //
@@ -3860,7 +3725,6 @@ func (v NSView) SetFrameOrigin(newOrigin corefoundation.CGPoint) {
 func (v NSView) SetFrameSize(newSize corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setFrameSize:"), newSize)
 }
-
 // Invalidates the area around the focus ring.
 //
 // rect: The rectangle of the control or cell defining the area around the focus
@@ -3870,7 +3734,6 @@ func (v NSView) SetFrameSize(newSize corefoundation.CGSize) {
 func (v NSView) SetKeyboardFocusRingNeedsDisplayInRect(rect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setKeyboardFocusRingNeedsDisplayInRect:"), rect)
 }
-
 // Marks the region of the view within the specified rectangle as needing
 // display, increasing the view’s existing invalid region to include it.
 //
@@ -3889,7 +3752,6 @@ func (v NSView) SetKeyboardFocusRingNeedsDisplayInRect(rect corefoundation.CGRec
 func (v NSView) SetNeedsDisplayInRect(invalidRect corefoundation.CGRect) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setNeedsDisplayInRect:"), invalidRect)
 }
-
 // Allows the user to drag objects from the view without activating the app or
 // moving the window of the view forward, possibly obscuring the destination.
 //
@@ -3929,7 +3791,6 @@ func (v NSView) ShouldDelayWindowOrderingForEvent(event INSEvent) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("shouldDelayWindowOrderingForEvent:"), event)
 	return rv
 }
-
 // Shows a window displaying the definition of the attributed string at the
 // specified point.
 //
@@ -3953,7 +3814,6 @@ func (v NSView) ShouldDelayWindowOrderingForEvent(event INSEvent) bool {
 func (v NSView) ShowDefinitionForAttributedStringAtPoint(attrString foundation.NSAttributedString, textBaselineOrigin corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("showDefinitionForAttributedString:atPoint:"), attrString, textBaselineOrigin)
 }
-
 // Shows a window displaying the definition of the specified range of the
 // attributed string.
 //
@@ -3995,7 +3855,6 @@ _block3, _cleanup3 := NewRangeBlock(originProvider)
 	defer _cleanup3()
 	objc.Send[objc.ID](v.ID, objc.Sel("showDefinitionForAttributedString:range:options:baselineOriginProvider:"), attrString, targetRange, options, _block3)
 }
-
 // Orders the view’s immediate subviews using the specified comparator
 // function.
 //
@@ -4013,7 +3872,6 @@ _block3, _cleanup3 := NewRangeBlock(originProvider)
 func (v NSView) SortSubviewsUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sortSubviewsUsingFunction:context:"), compare, context)
 }
-
 // Translates the view’s coordinate system so that its origin moves to a new
 // location.
 //
@@ -4043,7 +3901,6 @@ func (v NSView) SortSubviewsUsingFunctionContext(compare objectivec.IObject, con
 func (v NSView) TranslateOriginToPoint(translation corefoundation.CGPoint) {
 	objc.Send[objc.ID](v.ID, objc.Sel("translateOriginToPoint:"), translation)
 }
-
 // Translates the display rectangles by the specified delta.
 //
 // clipRect: A rectangle defining the region of the view, typically the view’s bounds.
@@ -4077,14 +3934,12 @@ func (v NSView) TranslateOriginToPoint(translation corefoundation.CGPoint) {
 func (v NSView) TranslateRectsNeedingDisplayInRectBy(clipRect corefoundation.CGRect, delta corefoundation.CGSize) {
 	objc.Send[objc.ID](v.ID, objc.Sel("translateRectsNeedingDisplayInRect:by:"), clipRect, delta)
 }
-
 // Unregisters the view as a possible destination in a dragging session.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/unregisterDraggedTypes()
 func (v NSView) UnregisterDraggedTypes() {
 	objc.Send[objc.ID](v.ID, objc.Sel("unregisterDraggedTypes"))
 }
-
 // Update constraints for the view.
 //
 // # Discussion
@@ -4115,7 +3970,6 @@ func (v NSView) UnregisterDraggedTypes() {
 func (v NSView) UpdateConstraints() {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateConstraints"))
 }
-
 // Updates the constraints for the receiving view and its subviews.
 //
 // # Discussion
@@ -4132,7 +3986,6 @@ func (v NSView) UpdateConstraints() {
 func (v NSView) UpdateConstraintsForSubtreeIfNeeded() {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateConstraintsForSubtreeIfNeeded"))
 }
-
 // Invoked when the dragging images should be changed.
 //
 // sender: The object sending the message; use this object to get details about the
@@ -4164,7 +4017,6 @@ func (v NSView) UpdateConstraintsForSubtreeIfNeeded() {
 func (v NSView) UpdateDraggingItemsForDrag(sender NSDraggingInfo) {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateDraggingItemsForDrag:"), sender)
 }
-
 // Updates the view’s content by modifying its underlying layer.
 //
 // # Discussion
@@ -4193,7 +4045,6 @@ func (v NSView) UpdateDraggingItemsForDrag(sender NSDraggingInfo) {
 func (v NSView) UpdateLayer() {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateLayer"))
 }
-
 // Invoked automatically when the view’s geometry changes such that its
 // tracking areas need to be recalculated.
 //
@@ -4206,7 +4057,6 @@ func (v NSView) UpdateLayer() {
 func (v NSView) UpdateTrackingAreas() {
 	objc.Send[objc.ID](v.ID, objc.Sel("updateTrackingAreas"))
 }
-
 // Responds when the view’s backing store properties change.
 //
 // # Discussion
@@ -4219,14 +4069,12 @@ func (v NSView) UpdateTrackingAreas() {
 func (v NSView) ViewDidChangeBackingProperties() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidChangeBackingProperties"))
 }
-
 // Informs the view that its effective appearance changed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/viewDidChangeEffectiveAppearance()
 func (v NSView) ViewDidChangeEffectiveAppearance() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidChangeEffectiveAppearance"))
 }
-
 // Informs the view of the end of a live resize—the user has finished
 // resizing the view.
 //
@@ -4261,7 +4109,6 @@ func (v NSView) ViewDidChangeEffectiveAppearance() {
 func (v NSView) ViewDidEndLiveResize() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidEndLiveResize"))
 }
-
 // Invoked when the view is hidden, either directly, or in response to an
 // ancestor being hidden.
 //
@@ -4280,7 +4127,6 @@ func (v NSView) ViewDidEndLiveResize() {
 func (v NSView) ViewDidHide() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidHide"))
 }
-
 // Informs the view that its superview has changed (possibly to `nil`).
 //
 // # Discussion
@@ -4292,7 +4138,6 @@ func (v NSView) ViewDidHide() {
 func (v NSView) ViewDidMoveToSuperview() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidMoveToSuperview"))
 }
-
 // Informs the view that it has been added to a new view hierarchy.
 //
 // # Discussion
@@ -4310,7 +4155,6 @@ func (v NSView) ViewDidMoveToSuperview() {
 func (v NSView) ViewDidMoveToWindow() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidMoveToWindow"))
 }
-
 // Invoked when the view is unhidden, either directly, or in response to an
 // ancestor being unhidden
 //
@@ -4328,7 +4172,6 @@ func (v NSView) ViewDidMoveToWindow() {
 func (v NSView) ViewDidUnhide() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewDidUnhide"))
 }
-
 // Informs the view that it’s required to draw content.
 //
 // # Discussion
@@ -4353,7 +4196,6 @@ func (v NSView) ViewDidUnhide() {
 func (v NSView) ViewWillDraw() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillDraw"))
 }
-
 // Informs the view that its superview is about to change to the specified
 // superview (which may be `nil`).
 //
@@ -4368,7 +4210,6 @@ func (v NSView) ViewWillDraw() {
 func (v NSView) ViewWillMoveToSuperview(newSuperview INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillMoveToSuperview:"), newSuperview)
 }
-
 // Informs the view that it’s being added to the view hierarchy of the
 // specified window object (which may be `nil`).
 //
@@ -4400,7 +4241,6 @@ func (v NSView) ViewWillMoveToSuperview(newSuperview INSView) {
 func (v NSView) ViewWillMoveToWindow(newWindow INSWindow) {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillMoveToWindow:"), newWindow)
 }
-
 // Informs the view of the start of a live resize—the user has started
 // resizing the view.
 //
@@ -4435,7 +4275,6 @@ func (v NSView) ViewWillMoveToWindow(newWindow INSWindow) {
 func (v NSView) ViewWillStartLiveResize() {
 	objc.Send[objc.ID](v.ID, objc.Sel("viewWillStartLiveResize"))
 }
-
 // Returns the view’s nearest descendant (including itself) with a specific
 // tag, or `nil` if no subview has that tag.
 //
@@ -4446,7 +4285,6 @@ func (v NSView) ViewWithTag(tag int) INSView {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("viewWithTag:"), tag)
 	return NSViewFromID(rv)
 }
-
 // Asks the destination object whether it wants to receive periodic
 // [DraggingUpdated] messages.
 //
@@ -4472,7 +4310,6 @@ func (v NSView) WantsPeriodicDraggingUpdates() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("wantsPeriodicDraggingUpdates"))
 	return rv
 }
-
 // Called just before a contextual menu for a view is opened on screen.
 //
 // menu: The menu that will be opened.
@@ -4490,7 +4327,6 @@ func (v NSView) WantsPeriodicDraggingUpdates() bool {
 func (v NSView) WillOpenMenuWithEvent(menu INSMenu, event INSEvent) {
 	objc.Send[objc.ID](v.ID, objc.Sel("willOpenMenu:withEvent:"), menu, event)
 }
-
 // Overridden by subclasses to perform additional actions before subviews are
 // removed from the view.
 //
@@ -4506,7 +4342,6 @@ func (v NSView) WillOpenMenuWithEvent(menu INSMenu, event INSEvent) {
 func (v NSView) WillRemoveSubview(subview INSView) {
 	objc.Send[objc.ID](v.ID, objc.Sel("willRemoveSubview:"), subview)
 }
-
 // Writes EPS data that draws the region of the view within a specified
 // rectangle onto a pasteboard.
 //
@@ -4518,7 +4353,6 @@ func (v NSView) WillRemoveSubview(subview INSView) {
 func (v NSView) WriteEPSInsideRectToPasteboard(rect corefoundation.CGRect, pasteboard INSPasteboard) {
 	objc.Send[objc.ID](v.ID, objc.Sel("writeEPSInsideRect:toPasteboard:"), rect, pasteboard)
 }
-
 // Writes PDF data that draws the region of the view within a specified
 // rectangle onto a pasteboard.
 //
@@ -4584,7 +4418,6 @@ func (v NSView) PrefersCompactControlSizeMetrics() bool {
 func (v NSView) SetPrefersCompactControlSizeMetrics(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPrefersCompactControlSizeMetrics:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSView/writingToolsCoordinator
 func (v NSView) WritingToolsCoordinator() INSWritingToolsCoordinator {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("writingToolsCoordinator"))
@@ -4593,7 +4426,6 @@ func (v NSView) WritingToolsCoordinator() INSWritingToolsCoordinator {
 func (v NSView) SetWritingToolsCoordinator(value INSWritingToolsCoordinator) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWritingToolsCoordinator:"), value)
 }
-
 // A Boolean value indicating whether the view accepts touch events.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/acceptstouchevents
@@ -4604,7 +4436,6 @@ func (v NSView) AcceptsTouchEvents() bool {
 func (v NSView) SetAcceptsTouchEvents(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAcceptsTouchEvents:"), value)
 }
-
 // Custom insets that you specify to modify your view’s safe area
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/additionalsafeareainsets
@@ -4615,7 +4446,6 @@ func (v NSView) AdditionalSafeAreaInsets() foundation.NSEdgeInsets {
 func (v NSView) SetAdditionalSafeAreaInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAdditionalSafeAreaInsets:"), value)
 }
-
 // The insets (in points) from the view’s frame that define its content
 // rectangle.
 //
@@ -4627,7 +4457,6 @@ func (v NSView) AlignmentRectInsets() foundation.NSEdgeInsets {
 func (v NSView) SetAlignmentRectInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAlignmentRectInsets:"), value)
 }
-
 // The types of touch interactions the view allows.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/allowedtouchtypes
@@ -4638,7 +4467,6 @@ func (v NSView) AllowedTouchTypes() NSTouchTypeMask {
 func (v NSView) SetAllowedTouchTypes(value NSTouchTypeMask) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAllowedTouchTypes:"), value)
 }
-
 // A Boolean value indicating whether the view ensures it is vibrant on top of
 // other content.
 //
@@ -4650,7 +4478,6 @@ func (v NSView) AllowsVibrancy() bool {
 func (v NSView) SetAllowsVibrancy(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAllowsVibrancy:"), value)
 }
-
 // The opacity of the view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/alphavalue
@@ -4661,7 +4488,6 @@ func (v NSView) AlphaValue() float64 {
 func (v NSView) SetAlphaValue(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAlphaValue:"), value)
 }
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -4673,7 +4499,6 @@ func (v NSView) Animations() foundation.INSDictionary {
 func (v NSView) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAnimations:"), value)
 }
-
 // The appearance of the receiver, in an [NSAppearance] object.
 //
 // # Discussion
@@ -4691,7 +4516,6 @@ func (v NSView) Appearance() INSAppearance {
 func (v NSView) SetAppearance(value INSAppearance) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAppearance:"), value)
 }
-
 // A Boolean value indicating whether the view applies the autoresizing
 // behavior to its subviews when its frame size changes.
 //
@@ -4703,7 +4527,6 @@ func (v NSView) AutoresizesSubviews() bool {
 func (v NSView) SetAutoresizesSubviews(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAutoresizesSubviews:"), value)
 }
-
 // The options that determine how the view is resized relative to its
 // superview.
 //
@@ -4715,7 +4538,6 @@ func (v NSView) AutoresizingMask() uint {
 func (v NSView) SetAutoresizingMask(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAutoresizingMask:"), value)
 }
-
 // An array of Core Image filters to apply to the view’s background.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/backgroundfilters
@@ -4726,7 +4548,6 @@ func (v NSView) BackgroundFilters() objectivec.IObject {
 func (v NSView) SetBackgroundFilters(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBackgroundFilters:"), value)
 }
-
 // The distance (in points) between the bottom of the view’s alignment
 // rectangle and its baseline.
 //
@@ -4738,7 +4559,6 @@ func (v NSView) BaselineOffsetFromBottom() float64 {
 func (v NSView) SetBaselineOffsetFromBottom(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBaselineOffsetFromBottom:"), value)
 }
-
 // A layout anchor representing the bottom edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/bottomanchor
@@ -4749,7 +4569,6 @@ func (v NSView) BottomAnchor() INSLayoutYAxisAnchor {
 func (v NSView) SetBottomAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBottomAnchor:"), value)
 }
-
 // The view’s bounds rectangle, which expresses its location and size in its
 // own coordinate system.
 //
@@ -4761,7 +4580,6 @@ func (v NSView) Bounds() corefoundation.CGRect {
 func (v NSView) SetBounds(value corefoundation.CGRect) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBounds:"), value)
 }
-
 // The angle of rotation, measured in degrees, applied to the view’s bounds
 // rectangle relative to its frame rectangle.
 //
@@ -4773,7 +4591,6 @@ func (v NSView) BoundsRotation() float64 {
 func (v NSView) SetBoundsRotation(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBoundsRotation:"), value)
 }
-
 // A Boolean value indicating whether the view can become key view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/canbecomekeyview
@@ -4784,7 +4601,6 @@ func (v NSView) CanBecomeKeyView() bool {
 func (v NSView) SetCanBecomeKeyView(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCanBecomeKeyView:"), value)
 }
-
 // A Boolean value indicating whether drawing commands will produce any
 // results.
 //
@@ -4796,7 +4612,6 @@ func (v NSView) CanDraw() bool {
 func (v NSView) SetCanDraw(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCanDraw:"), value)
 }
-
 // A Boolean value indicating whether the view can draw its contents on a
 // background thread.
 //
@@ -4808,7 +4623,6 @@ func (v NSView) CanDrawConcurrently() bool {
 func (v NSView) SetCanDrawConcurrently(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCanDrawConcurrently:"), value)
 }
-
 // A Boolean value indicating whether the view incorporates content from its
 // subviews into its own layer.
 //
@@ -4820,7 +4634,6 @@ func (v NSView) CanDrawSubviewsIntoLayer() bool {
 func (v NSView) SetCanDrawSubviewsIntoLayer(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCanDrawSubviewsIntoLayer:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nsview/candidatelisttouchbaritem
 func (v NSView) CandidateListTouchBarItem() INSCandidateListTouchBarItem {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("candidateListTouchBarItem"))
@@ -4829,7 +4642,6 @@ func (v NSView) CandidateListTouchBarItem() INSCandidateListTouchBarItem {
 func (v NSView) SetCandidateListTouchBarItem(value INSCandidateListTouchBarItem) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCandidateListTouchBarItem:"), value)
 }
-
 // A layout anchor representing the horizontal center of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/centerxanchor
@@ -4840,7 +4652,6 @@ func (v NSView) CenterXAnchor() INSLayoutXAxisAnchor {
 func (v NSView) SetCenterXAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCenterXAnchor:"), value)
 }
-
 // A layout anchor representing the vertical center of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/centeryanchor
@@ -4851,7 +4662,6 @@ func (v NSView) CenterYAnchor() INSLayoutYAxisAnchor {
 func (v NSView) SetCenterYAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCenterYAnchor:"), value)
 }
-
 // A Boolean value that indicates whether the view, and its subviews, confine
 // their drawing areas to the bounds of the view.
 //
@@ -4863,7 +4673,6 @@ func (v NSView) ClipsToBounds() bool {
 func (v NSView) SetClipsToBounds(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setClipsToBounds:"), value)
 }
-
 // The Core Image filter used to composite the view’s contents with its
 // background.
 //
@@ -4875,7 +4684,6 @@ func (v NSView) CompositingFilter() objectivec.IObject {
 func (v NSView) SetCompositingFilter(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCompositingFilter:"), value)
 }
-
 // Returns the constraints held by the view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/constraints
@@ -4886,7 +4694,6 @@ func (v NSView) Constraints() INSLayoutConstraint {
 func (v NSView) SetConstraints(value INSLayoutConstraint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConstraints:"), value)
 }
-
 // An array of Core Image filters to apply to the contents of the view and its
 // sublayers.
 //
@@ -4898,7 +4705,6 @@ func (v NSView) ContentFilters() objectivec.IObject {
 func (v NSView) SetContentFilters(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setContentFilters:"), value)
 }
-
 // The appearance that will be used when the receiver is drawn onscreen, in an
 // [NSAppearance] object. (read-only)
 //
@@ -4915,7 +4721,6 @@ func (v NSView) EffectiveAppearance() INSAppearance {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("effectiveAppearance"))
 	return NSAppearanceFromID(objc.ID(rv))
 }
-
 // The menu item containing the view or any of its superviews in the view
 // hierarchy.
 //
@@ -4927,7 +4732,6 @@ func (v NSView) EnclosingMenuItem() INSMenuItem {
 func (v NSView) SetEnclosingMenuItem(value INSMenuItem) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEnclosingMenuItem:"), value)
 }
-
 // The nearest ancestor scroll view that contains the current view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/enclosingscrollview
@@ -4938,7 +4742,6 @@ func (v NSView) EnclosingScrollView() INSScrollView {
 func (v NSView) SetEnclosingScrollView(value INSScrollView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEnclosingScrollView:"), value)
 }
-
 // A layout anchor representing the baseline for the topmost line of text in
 // the view.
 //
@@ -4950,7 +4753,6 @@ func (v NSView) FirstBaselineAnchor() INSLayoutYAxisAnchor {
 func (v NSView) SetFirstBaselineAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFirstBaselineAnchor:"), value)
 }
-
 // The distance (in points) between the top of the view’s alignment
 // rectangle and its topmost baseline.
 //
@@ -4962,7 +4764,6 @@ func (v NSView) FirstBaselineOffsetFromTop() float64 {
 func (v NSView) SetFirstBaselineOffsetFromTop(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFirstBaselineOffsetFromTop:"), value)
 }
-
 // The minimum size of the view that satisfies the constraints it holds.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/fittingsize
@@ -4973,7 +4774,6 @@ func (v NSView) FittingSize() corefoundation.CGSize {
 func (v NSView) SetFittingSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFittingSize:"), value)
 }
-
 // The focus ring mask bounds, specified in the view’s coordinate space.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/focusringmaskbounds
@@ -4984,7 +4784,6 @@ func (v NSView) FocusRingMaskBounds() corefoundation.CGRect {
 func (v NSView) SetFocusRingMaskBounds(value corefoundation.CGRect) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFocusRingMaskBounds:"), value)
 }
-
 // The type of focus ring drawn around the view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/focusringtype
@@ -4995,7 +4794,6 @@ func (v NSView) FocusRingType() NSFocusRingType {
 func (v NSView) SetFocusRingType(value NSFocusRingType) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFocusRingType:"), value)
 }
-
 // The view’s frame rectangle, which defines its position and size in its
 // superview’s coordinate system.
 //
@@ -5036,7 +4834,6 @@ func (v NSView) Frame() corefoundation.CGRect {
 func (v NSView) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFrame:"), value)
 }
-
 // The rotation angle of the view around the center of its layer.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/framecenterrotation
@@ -5047,7 +4844,6 @@ func (v NSView) FrameCenterRotation() float64 {
 func (v NSView) SetFrameCenterRotation(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFrameCenterRotation:"), value)
 }
-
 // The angle of rotation, measured in degrees, applied to the view’s frame
 // rectangle relative to its superview’s coordinate system.
 //
@@ -5059,7 +4855,6 @@ func (v NSView) FrameRotation() float64 {
 func (v NSView) SetFrameRotation(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFrameRotation:"), value)
 }
-
 // The gesture recognize objects currently attached to the view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/gesturerecognizers
@@ -5070,7 +4865,6 @@ func (v NSView) GestureRecognizers() INSGestureRecognizer {
 func (v NSView) SetGestureRecognizers(value INSGestureRecognizer) {
 	objc.Send[struct{}](v.ID, objc.Sel("setGestureRecognizers:"), value)
 }
-
 // A Boolean value indicating whether the constraints impacting the layout of
 // the view incompletely specify the location of the view.
 //
@@ -5082,7 +4876,6 @@ func (v NSView) HasAmbiguousLayout() bool {
 func (v NSView) SetHasAmbiguousLayout(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHasAmbiguousLayout:"), value)
 }
-
 // The fraction of the page that can be pushed onto the next page during
 // automatic pagination to prevent items such as lines of text from being
 // divided across pages.
@@ -5095,7 +4888,6 @@ func (v NSView) HeightAdjustLimit() float64 {
 func (v NSView) SetHeightAdjustLimit(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHeightAdjustLimit:"), value)
 }
-
 // A layout anchor representing the height of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/heightanchor
@@ -5106,7 +4898,6 @@ func (v NSView) HeightAnchor() INSLayoutDimension {
 func (v NSView) SetHeightAnchor(value INSLayoutDimension) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHeightAnchor:"), value)
 }
-
 // A string that identifies the user interface item.
 //
 // # Discussion
@@ -5144,7 +4935,6 @@ func (v NSView) Identifier() NSUserInterfaceItemIdentifier {
 func (v NSView) SetIdentifier(value NSUserInterfaceItemIdentifier) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIdentifier:"), objc.String(string(value)))
 }
-
 // A Boolean value indicating whether the view is being rendered as part of a
 // live resizing operation.
 //
@@ -5156,7 +4946,6 @@ func (v NSView) InLiveResize() bool {
 func (v NSView) SetInLiveResize(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setInLiveResize:"), value)
 }
-
 // The text input context object for the view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/inputcontext
@@ -5167,7 +4956,6 @@ func (v NSView) InputContext() INSTextInputContext {
 func (v NSView) SetInputContext(value INSTextInputContext) {
 	objc.Send[struct{}](v.ID, objc.Sel("setInputContext:"), value)
 }
-
 // The natural size for the receiving view, considering only properties of the
 // view itself.
 //
@@ -5179,7 +4967,6 @@ func (v NSView) IntrinsicContentSize() corefoundation.CGSize {
 func (v NSView) SetIntrinsicContentSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](v.ID, objc.Sel("setIntrinsicContentSize:"), value)
 }
-
 // A Boolean value indicating whether the view or one of its ancestors is
 // being drawn for a find indicator.
 //
@@ -5191,7 +4978,6 @@ func (v NSView) IsDrawingFindIndicator() bool {
 func (v NSView) SetIsDrawingFindIndicator(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDrawingFindIndicator:"), value)
 }
-
 // A Boolean value indicating whether the view uses a flipped coordinate
 // system.
 //
@@ -5203,7 +4989,6 @@ func (v NSView) IsFlipped() bool {
 func (v NSView) SetIsFlipped(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setFlipped:"), value)
 }
-
 // A Boolean value indicating whether the view is hidden.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/ishidden
@@ -5214,7 +4999,6 @@ func (v NSView) IsHidden() bool {
 func (v NSView) SetIsHidden(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHidden:"), value)
 }
-
 // A Boolean value indicating whether the view is hidden from sight because
 // it, or one of its ancestors, is marked as hidden.
 //
@@ -5226,7 +5010,6 @@ func (v NSView) IsHiddenOrHasHiddenAncestor() bool {
 func (v NSView) SetIsHiddenOrHasHiddenAncestor(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHiddenOrHasHiddenAncestor:"), value)
 }
-
 // A Boolean value that indicates whether the view’s horizontal size
 // constraints are active.
 //
@@ -5238,7 +5021,6 @@ func (v NSView) IsHorizontalContentSizeConstraintActive() bool {
 func (v NSView) SetIsHorizontalContentSizeConstraintActive(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setHorizontalContentSizeConstraintActive:"), value)
 }
-
 // A Boolean value indicating whether the view is in full screen mode.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/isinfullscreenmode
@@ -5249,7 +5031,6 @@ func (v NSView) IsInFullScreenMode() bool {
 func (v NSView) SetIsInFullScreenMode(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setInFullScreenMode:"), value)
 }
-
 // A Boolean value indicating whether the view fills its frame rectangle with
 // opaque content.
 //
@@ -5261,7 +5042,6 @@ func (v NSView) IsOpaque() bool {
 func (v NSView) SetIsOpaque(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setOpaque:"), value)
 }
-
 // A Boolean value indicating whether the view or any of its ancestors has
 // ever had a rotation factor applied to its frame or bounds.
 //
@@ -5273,7 +5053,6 @@ func (v NSView) IsRotatedFromBase() bool {
 func (v NSView) SetIsRotatedFromBase(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRotatedFromBase:"), value)
 }
-
 // A Boolean value indicating whether the view or any of its ancestors has
 // ever had a rotation factor applied to its frame or bounds, or has been
 // scaled from the window’s base coordinate system.
@@ -5286,7 +5065,6 @@ func (v NSView) IsRotatedOrScaledFromBase() bool {
 func (v NSView) SetIsRotatedOrScaledFromBase(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRotatedOrScaledFromBase:"), value)
 }
-
 // A Boolean value that indicates whether the view’s vertical size
 // constraints are active.
 //
@@ -5298,7 +5076,6 @@ func (v NSView) IsVerticalContentSizeConstraintActive() bool {
 func (v NSView) SetIsVerticalContentSizeConstraintActive(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVerticalContentSizeConstraintActive:"), value)
 }
-
 // A layout anchor representing the baseline for the bottommost line of text
 // in the view.
 //
@@ -5310,7 +5087,6 @@ func (v NSView) LastBaselineAnchor() INSLayoutYAxisAnchor {
 func (v NSView) SetLastBaselineAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLastBaselineAnchor:"), value)
 }
-
 // The distance (in points) between the bottom of the view’s alignment
 // rectangle and its bottommost baseline.
 //
@@ -5322,7 +5098,6 @@ func (v NSView) LastBaselineOffsetFromBottom() float64 {
 func (v NSView) SetLastBaselineOffsetFromBottom(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLastBaselineOffsetFromBottom:"), value)
 }
-
 // The Core Animation layer that the view uses as its backing store.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/layer
@@ -5333,7 +5108,6 @@ func (v NSView) Layer() objectivec.IObject {
 func (v NSView) SetLayer(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLayer:"), value)
 }
-
 // The current layer contents placement policy.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/layercontentsplacement-swift.property
@@ -5344,7 +5118,6 @@ func (v NSView) LayerContentsPlacement() objectivec.IObject {
 func (v NSView) SetLayerContentsPlacement(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLayerContentsPlacement:"), value)
 }
-
 // The contents redraw policy for the view’s layer.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/layercontentsredrawpolicy-swift.property
@@ -5355,7 +5128,6 @@ func (v NSView) LayerContentsRedrawPolicy() objectivec.IObject {
 func (v NSView) SetLayerContentsRedrawPolicy(value objectivec.IObject) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLayerContentsRedrawPolicy:"), value)
 }
-
 // A Boolean value indicating whether the view’s layer uses Core Image
 // filters and needs in-process rendering.
 //
@@ -5367,7 +5139,6 @@ func (v NSView) LayerUsesCoreImageFilters() bool {
 func (v NSView) SetLayerUsesCoreImageFilters(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLayerUsesCoreImageFilters:"), value)
 }
-
 // The array of layout guide objects owned by this view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/layoutguides
@@ -5378,7 +5149,6 @@ func (v NSView) LayoutGuides() INSLayoutGuide {
 func (v NSView) SetLayoutGuides(value INSLayoutGuide) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLayoutGuides:"), value)
 }
-
 // A layout guide that provides the recommended amount of padding for content
 // inside of a view.
 //
@@ -5390,7 +5160,6 @@ func (v NSView) LayoutMarginsGuide() INSLayoutGuide {
 func (v NSView) SetLayoutMarginsGuide(value INSLayoutGuide) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLayoutMarginsGuide:"), value)
 }
-
 // A layout anchor representing the leading edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/leadinganchor
@@ -5401,7 +5170,6 @@ func (v NSView) LeadingAnchor() INSLayoutXAxisAnchor {
 func (v NSView) SetLeadingAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLeadingAnchor:"), value)
 }
-
 // A layout anchor representing the left edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/leftanchor
@@ -5412,7 +5180,6 @@ func (v NSView) LeftAnchor() INSLayoutXAxisAnchor {
 func (v NSView) SetLeftAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setLeftAnchor:"), value)
 }
-
 // A Boolean value indicating whether the view can pass mouse down events
 // through to its superviews.
 //
@@ -5424,7 +5191,6 @@ func (v NSView) MouseDownCanMoveWindow() bool {
 func (v NSView) SetMouseDownCanMoveWindow(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMouseDownCanMoveWindow:"), value)
 }
-
 // A Boolean value that determines whether the view needs to be redrawn before
 // being displayed.
 //
@@ -5436,7 +5202,6 @@ func (v NSView) NeedsDisplay() bool {
 func (v NSView) SetNeedsDisplay(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNeedsDisplay:"), value)
 }
-
 // A Boolean value indicating whether the view needs a layout pass before it
 // can be drawn.
 //
@@ -5448,7 +5213,6 @@ func (v NSView) NeedsLayout() bool {
 func (v NSView) SetNeedsLayout(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNeedsLayout:"), value)
 }
-
 // A Boolean value indicating whether the view needs its panel to become the
 // key window before it can handle keyboard input and navigation.
 //
@@ -5460,7 +5224,6 @@ func (v NSView) NeedsPanelToBecomeKey() bool {
 func (v NSView) SetNeedsPanelToBecomeKey(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNeedsPanelToBecomeKey:"), value)
 }
-
 // A Boolean value indicating whether the view’s constraints need to be
 // updated.
 //
@@ -5472,7 +5235,6 @@ func (v NSView) NeedsUpdateConstraints() bool {
 func (v NSView) SetNeedsUpdateConstraints(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNeedsUpdateConstraints:"), value)
 }
-
 // The view object that follows the current view in the key view loop.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/nextkeyview
@@ -5483,7 +5245,6 @@ func (v NSView) NextKeyView() INSView {
 func (v NSView) SetNextKeyView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNextKeyView:"), value)
 }
-
 // The closest view object in the key view loop that follows the current view
 // in the key view loop and accepts first responder status.
 //
@@ -5495,7 +5256,6 @@ func (v NSView) NextValidKeyView() INSView {
 func (v NSView) SetNextValidKeyView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNextValidKeyView:"), value)
 }
-
 // The view’s closest opaque ancestor, which might be the view itself.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/opaqueancestor
@@ -5506,7 +5266,6 @@ func (v NSView) OpaqueAncestor() INSView {
 func (v NSView) SetOpaqueAncestor(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setOpaqueAncestor:"), value)
 }
-
 // A default footer string that includes the current page number and page
 // count.
 //
@@ -5518,7 +5277,6 @@ func (v NSView) PageFooter() foundation.NSAttributedString {
 func (v NSView) SetPageFooter(value foundation.NSAttributedString) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPageFooter:"), value)
 }
-
 // A default header string that includes the print job title and date.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/pageheader
@@ -5529,7 +5287,6 @@ func (v NSView) PageHeader() foundation.NSAttributedString {
 func (v NSView) SetPageHeader(value foundation.NSAttributedString) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPageHeader:"), value)
 }
-
 // A Boolean value indicating whether the view posts notifications when its
 // bounds rectangle changes.
 //
@@ -5541,7 +5298,6 @@ func (v NSView) PostsBoundsChangedNotifications() bool {
 func (v NSView) SetPostsBoundsChangedNotifications(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPostsBoundsChangedNotifications:"), value)
 }
-
 // A Boolean value indicating whether the view posts notifications when its
 // frame rectangle changes.
 //
@@ -5553,7 +5309,6 @@ func (v NSView) PostsFrameChangedNotifications() bool {
 func (v NSView) SetPostsFrameChangedNotifications(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPostsFrameChangedNotifications:"), value)
 }
-
 // The portion of the view that has been rendered and is available for
 // responsive scrolling.
 //
@@ -5565,7 +5320,6 @@ func (v NSView) PreparedContentRect() corefoundation.CGRect {
 func (v NSView) SetPreparedContentRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPreparedContentRect:"), value)
 }
-
 // A Boolean value indicating whether the view optimizes live-resize
 // operations by preserving content that has not moved.
 //
@@ -5577,7 +5331,6 @@ func (v NSView) PreservesContentDuringLiveResize() bool {
 func (v NSView) SetPreservesContentDuringLiveResize(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPreservesContentDuringLiveResize:"), value)
 }
-
 // Configures the behavior and progression of the Force Touch trackpad when
 // responding to touch input produced by the user when the cursor is over the
 // view.
@@ -5590,7 +5343,6 @@ func (v NSView) PressureConfiguration() INSPressureConfiguration {
 func (v NSView) SetPressureConfiguration(value INSPressureConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPressureConfiguration:"), value)
 }
-
 // The view object preceding the current view in the key view loop.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/previouskeyview
@@ -5601,7 +5353,6 @@ func (v NSView) PreviousKeyView() INSView {
 func (v NSView) SetPreviousKeyView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPreviousKeyView:"), value)
 }
-
 // The closest view object in the key view loop that precedes the current view
 // and accepts first responder status.
 //
@@ -5613,7 +5364,6 @@ func (v NSView) PreviousValidKeyView() INSView {
 func (v NSView) SetPreviousValidKeyView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPreviousValidKeyView:"), value)
 }
-
 // The view’s print job title.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/printjobtitle
@@ -5624,7 +5374,6 @@ func (v NSView) PrintJobTitle() string {
 func (v NSView) SetPrintJobTitle(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPrintJobTitle:"), objc.String(value))
 }
-
 // The rectangle identifying the portion of your view that did not change
 // during a live resize operation.
 //
@@ -5636,7 +5385,6 @@ func (v NSView) RectPreservedDuringLiveResize() corefoundation.CGRect {
 func (v NSView) SetRectPreservedDuringLiveResize(value corefoundation.CGRect) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRectPreservedDuringLiveResize:"), value)
 }
-
 // The array of pasteboard drag types that the view can accept.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/registereddraggedtypes
@@ -5647,7 +5395,6 @@ func (v NSView) RegisteredDraggedTypes() NSPasteboardType {
 func (v NSView) SetRegisteredDraggedTypes(value NSPasteboardType) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRegisteredDraggedTypes:"), objc.String(string(value)))
 }
-
 // A layout anchor representing the right edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/rightanchor
@@ -5658,7 +5405,6 @@ func (v NSView) RightAnchor() INSLayoutXAxisAnchor {
 func (v NSView) SetRightAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setRightAnchor:"), value)
 }
-
 // The distances from the edges of your view that define the safe area.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/safeareainsets
@@ -5669,7 +5415,6 @@ func (v NSView) SafeAreaInsets() foundation.NSEdgeInsets {
 func (v NSView) SetSafeAreaInsets(value foundation.NSEdgeInsets) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSafeAreaInsets:"), value)
 }
-
 // The layout guide you use to position content inside your view’s safe
 // area.
 //
@@ -5681,7 +5426,6 @@ func (v NSView) SafeAreaLayoutGuide() INSLayoutGuide {
 func (v NSView) SetSafeAreaLayoutGuide(value INSLayoutGuide) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSafeAreaLayoutGuide:"), value)
 }
-
 // A rectangle in the view’s coordinate system that contains the unobscured
 // portion of the view.
 //
@@ -5693,7 +5437,6 @@ func (v NSView) SafeAreaRect() corefoundation.CGRect {
 func (v NSView) SetSafeAreaRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSafeAreaRect:"), value)
 }
-
 // The shadow displayed underneath the view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/shadow
@@ -5704,7 +5447,6 @@ func (v NSView) Shadow() INSShadow {
 func (v NSView) SetShadow(value INSShadow) {
 	objc.Send[struct{}](v.ID, objc.Sel("setShadow:"), value)
 }
-
 // The array of views embedded in the current view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/subviews
@@ -5715,7 +5457,6 @@ func (v NSView) Subviews() INSView {
 func (v NSView) SetSubviews(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSubviews:"), value)
 }
-
 // The view that is the parent of the current view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/superview
@@ -5726,7 +5467,6 @@ func (v NSView) Superview() INSView {
 func (v NSView) SetSuperview(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSuperview:"), value)
 }
-
 // The view’s tag, which is an integer that you use to identify the view
 // within your app.
 //
@@ -5738,7 +5478,6 @@ func (v NSView) Tag() int {
 func (v NSView) SetTag(value int) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTag:"), value)
 }
-
 // The text for the view’s tooltip.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/tooltip
@@ -5749,7 +5488,6 @@ func (v NSView) ToolTip() string {
 func (v NSView) SetToolTip(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setToolTip:"), objc.String(value))
 }
-
 // A layout anchor representing the top edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/topanchor
@@ -5760,7 +5498,6 @@ func (v NSView) TopAnchor() INSLayoutYAxisAnchor {
 func (v NSView) SetTopAnchor(value INSLayoutYAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTopAnchor:"), value)
 }
-
 // An array of the view’s tracking areas.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/trackingareas
@@ -5771,7 +5508,6 @@ func (v NSView) TrackingAreas() INSTrackingArea {
 func (v NSView) SetTrackingAreas(value INSTrackingArea) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTrackingAreas:"), value)
 }
-
 // A layout anchor representing the trailing edge of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/trailinganchor
@@ -5782,7 +5518,6 @@ func (v NSView) TrailingAnchor() INSLayoutXAxisAnchor {
 func (v NSView) SetTrailingAnchor(value INSLayoutXAxisAnchor) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTrailingAnchor:"), value)
 }
-
 // A Boolean value indicating whether the view’s autoresizing mask is
 // translated into constraints for the constraint-based layout system.
 //
@@ -5794,7 +5529,6 @@ func (v NSView) TranslatesAutoresizingMaskIntoConstraints() bool {
 func (v NSView) SetTranslatesAutoresizingMaskIntoConstraints(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setTranslatesAutoresizingMaskIntoConstraints:"), value)
 }
-
 // The layout direction for content in the view.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/userinterfacelayoutdirection
@@ -5805,7 +5539,6 @@ func (v NSView) UserInterfaceLayoutDirection() NSUserInterfaceLayoutDirection {
 func (v NSView) SetUserInterfaceLayoutDirection(value NSUserInterfaceLayoutDirection) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUserInterfaceLayoutDirection:"), value)
 }
-
 // The portion of the view that isn’t clipped by its superviews.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/visiblerect
@@ -5816,7 +5549,6 @@ func (v NSView) VisibleRect() corefoundation.CGRect {
 func (v NSView) SetVisibleRect(value corefoundation.CGRect) {
 	objc.Send[struct{}](v.ID, objc.Sel("setVisibleRect:"), value)
 }
-
 // A Boolean value indicating whether the view wants an OpenGL backing surface
 // with a resolution greater than 1 pixel per point.
 //
@@ -5828,7 +5560,6 @@ func (v NSView) WantsBestResolutionOpenGLSurface() bool {
 func (v NSView) SetWantsBestResolutionOpenGLSurface(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWantsBestResolutionOpenGLSurface:"), value)
 }
-
 // A Boolean value indicating whether AppKit’s default clipping behavior is
 // in effect.
 //
@@ -5840,7 +5571,6 @@ func (v NSView) WantsDefaultClipping() bool {
 func (v NSView) SetWantsDefaultClipping(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWantsDefaultClipping:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nsview/wantsextendeddynamicrangeopenglsurface
 func (v NSView) WantsExtendedDynamicRangeOpenGLSurface() bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("wantsExtendedDynamicRangeOpenGLSurface"))
@@ -5849,7 +5579,6 @@ func (v NSView) WantsExtendedDynamicRangeOpenGLSurface() bool {
 func (v NSView) SetWantsExtendedDynamicRangeOpenGLSurface(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWantsExtendedDynamicRangeOpenGLSurface:"), value)
 }
-
 // A Boolean value indicating whether the view uses a layer as its backing
 // store.
 //
@@ -5861,7 +5590,6 @@ func (v NSView) WantsLayer() bool {
 func (v NSView) SetWantsLayer(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWantsLayer:"), value)
 }
-
 // A Boolean value indicating whether the view wants resting touches.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/wantsrestingtouches
@@ -5872,7 +5600,6 @@ func (v NSView) WantsRestingTouches() bool {
 func (v NSView) SetWantsRestingTouches(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWantsRestingTouches:"), value)
 }
-
 // A Boolean value indicating which drawing path the view takes when updating
 // its contents.
 //
@@ -5884,7 +5611,6 @@ func (v NSView) WantsUpdateLayer() bool {
 func (v NSView) SetWantsUpdateLayer(value bool) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWantsUpdateLayer:"), value)
 }
-
 // The fraction of the page that can be pushed onto the next page during
 // automatic pagination to prevent items such as small images or text columns
 // from being divided across pages.
@@ -5897,7 +5623,6 @@ func (v NSView) WidthAdjustLimit() float64 {
 func (v NSView) SetWidthAdjustLimit(value float64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWidthAdjustLimit:"), value)
 }
-
 // A layout anchor representing the width of the view’s frame.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/widthanchor
@@ -5908,7 +5633,6 @@ func (v NSView) WidthAnchor() INSLayoutDimension {
 func (v NSView) SetWidthAnchor(value INSLayoutDimension) {
 	objc.Send[struct{}](v.ID, objc.Sel("setWidthAnchor:"), value)
 }
-
 // The view’s window object, if it is installed in a window.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/window
@@ -5930,7 +5654,6 @@ func (_NSViewClass NSViewClass) DefaultFocusRingType() NSFocusRingType {
 func (_NSViewClass NSViewClass) SetDefaultFocusRingType(value NSFocusRingType) {
 	objc.Send[struct{}](objc.ID(_NSViewClass.class), objc.Sel("setDefaultFocusRingType:"), value)
 }
-
 // Overridden by subclasses to return the default pop-up menu for instances of
 // the receiving class.
 //
@@ -5942,7 +5665,6 @@ func (_NSViewClass NSViewClass) DefaultMenu() NSMenu {
 func (_NSViewClass NSViewClass) SetDefaultMenu(value NSMenu) {
 	objc.Send[struct{}](objc.ID(_NSViewClass.class), objc.Sel("setDefaultMenu:"), value)
 }
-
 // The currently focused view object.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/focusview
@@ -5953,7 +5675,6 @@ func (_NSViewClass NSViewClass) FocusView() NSView {
 func (_NSViewClass NSViewClass) SetFocusView(value NSView) {
 	objc.Send[struct{}](objc.ID(_NSViewClass.class), objc.Sel("setFocusView:"), value)
 }
-
 // A Boolean value that indicates whether views support responsive scrolling.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/iscompatiblewithresponsivescrolling
@@ -5964,7 +5685,6 @@ func (_NSViewClass NSViewClass) IsCompatibleWithResponsiveScrolling() bool {
 func (_NSViewClass NSViewClass) SetIsCompatibleWithResponsiveScrolling(value bool) {
 	objc.Send[struct{}](objc.ID(_NSViewClass.class), objc.Sel("setCompatibleWithResponsiveScrolling:"), value)
 }
-
 // Returns a Boolean value indicating whether the view depends on the
 // constraint-based layout system.
 //
@@ -5979,7 +5699,6 @@ func (_NSViewClass NSViewClass) SetRequiresConstraintBasedLayout(value bool) {
 
 			// Protocol methods for NSAccessibilityElementProtocol
 			
-
 // Returns the accessibility element’s frame in screen coordinates.
 //
 // # Return Value
@@ -5997,13 +5716,11 @@ func (_NSViewClass NSViewClass) SetRequiresConstraintBasedLayout(value bool) {
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-
 func (o NSView) AccessibilityFrame() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
-
 // Returns the accessibility element’s parent in the accessibility
 // hierarchy.
 //
@@ -6019,13 +5736,11 @@ func (o NSView) AccessibilityFrame() corefoundation.CGRect {
 // [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-
 func (o NSView) AccessibilityParent() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the accessibility element’s identity.
 //
 // # Return Value
@@ -6041,13 +5756,11 @@ func (o NSView) AccessibilityParent() objectivec.IObject {
 // [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-
 func (o NSView) AccessibilityIdentifier() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element
 // has the keyboard focus.
 //
@@ -6066,7 +5779,6 @@ func (o NSView) AccessibilityIdentifier() string {
 // [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-
 func (o NSView) IsAccessibilityFocused() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
@@ -6075,135 +5787,108 @@ func (o NSView) IsAccessibilityFocused() bool {
 
 			// Protocol methods for NSAccessibilityProtocol
 			
-
 // Returns a Boolean value that determines whether the accessibility element
 // participates in the accessibility hierarchy.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityelement()
-
 func (o NSView) IsAccessibilityElement() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the accessibility element
 // participates in the accessibility hierarchy.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityelement(_:)
-
 func (o NSView) SetAccessibilityElement(accessibilityElement bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityElement:"), accessibilityElement)
 	}
-
 // Returns a Boolean value that determines whether the accessibility element
 // responds to user events.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityenabled()
-
 func (o NSView) IsAccessibilityEnabled() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the accessibility element
 // responds to user events.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityenabled(_:)
-
 func (o NSView) SetAccessibilityEnabled(accessibilityEnabled bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEnabled:"), accessibilityEnabled)
 	}
-
 // Sets the accessibility element’s frame in screen coordinates.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityframe(_:)
-
 func (o NSView) SetAccessibilityFrame(accessibilityFrame corefoundation.CGRect) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrame:"), accessibilityFrame)
 	}
-
 // Returns the help text for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhelp()
-
 func (o NSView) AccessibilityHelp() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHelp"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the help text for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhelp(_:)
-
 func (o NSView) SetAccessibilityHelp(accessibilityHelp string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHelp:"), objc.String(accessibilityHelp))
 	}
-
 // Returns a short description of the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitylabel()
-
 func (o NSView) AccessibilityLabel() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets a short description of the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitylabel(_:)
-
 func (o NSView) SetAccessibilityLabel(accessibilityLabel string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabel:"), objc.String(accessibilityLabel))
 	}
-
 // Returns the title of the accessibility element—for example, a button’s
 // visible text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytitle()
-
 func (o NSView) AccessibilityTitle() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitle"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the title of the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytitle(_:)
-
 func (o NSView) SetAccessibilityTitle(accessibilityTitle string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitle:"), objc.String(accessibilityTitle))
 	}
-
 // Returns the accessibility element’s value.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvalue()
-
 func (o NSView) AccessibilityValue() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the accessibility element’s value.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvalue(_:)
-
 func (o NSView) SetAccessibilityValue(accessibilityValue objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValue:"), accessibilityValue)
 	}
-
 // Returns a Boolean value that indicates whether assistive apps can invoke
 // the specified selector on the accessibility element.
 //
@@ -6217,685 +5902,545 @@ func (o NSView) SetAccessibilityValue(accessibilityValue objectivec.IObject) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelectorAllowed(_:)
-
 func (o NSView) IsAccessibilitySelectorAllowed(selector objc.SEL) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelectorAllowed:"), selector)
 	return rv
 	}
-
 // Returns the contents of the current accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycontents()
-
 func (o NSView) AccessibilityContents() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityContents"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the contents of the current accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycontents(_:)
-
 func (o NSView) SetAccessibilityContents(accessibilityContents foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityContents:"), accessibilityContents)
 	}
-
 // Returns the critical value for the level indicator.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycriticalvalue()
-
 func (o NSView) AccessibilityCriticalValue() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCriticalValue"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the critical value for the level indicator.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycriticalvalue(_:)
-
 func (o NSView) SetAccessibilityCriticalValue(accessibilityCriticalValue objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCriticalValue:"), accessibilityCriticalValue)
 	}
-
 // Sets the accessibility element’s identity.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityidentifier(_:)
-
 func (o NSView) SetAccessibilityIdentifier(accessibilityIdentifier string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIdentifier:"), objc.String(accessibilityIdentifier))
 	}
-
 // Returns the maximum value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymaxvalue()
-
 func (o NSView) AccessibilityMaxValue() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMaxValue"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the maximum value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymaxvalue(_:)
-
 func (o NSView) SetAccessibilityMaxValue(accessibilityMaxValue objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMaxValue:"), accessibilityMaxValue)
 	}
-
 // Returns the minimum value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityminvalue()
-
 func (o NSView) AccessibilityMinValue() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinValue"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the minimum value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityminvalue(_:)
-
 func (o NSView) SetAccessibilityMinValue(accessibilityMinValue objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinValue:"), accessibilityMinValue)
 	}
-
 // Returns the orientation of the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityorientation()
-
 func (o NSView) AccessibilityOrientation() NSAccessibilityOrientation {
 	
 	rv := objc.Send[NSAccessibilityOrientation](o.ID, objc.Sel("accessibilityOrientation"))
 	return rv
 	}
-
 // Sets the orientation of the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityorientation(_:)
-
 func (o NSView) SetAccessibilityOrientation(accessibilityOrientation NSAccessibilityOrientation) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrientation:"), accessibilityOrientation)
 	}
-
 // Returns a Boolean value that determines whether the accessibility element
 // contains protected content.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityprotectedcontent()
-
 func (o NSView) IsAccessibilityProtectedContent() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the accessibility element
 // contains protected content.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityprotectedcontent(_:)
-
 func (o NSView) SetAccessibilityProtectedContent(accessibilityProtectedContent bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProtectedContent:"), accessibilityProtectedContent)
 	}
-
 // Returns a Boolean value that determines whether the accessibility element
 // is currently in a selected state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityselected()
-
 func (o NSView) IsAccessibilitySelected() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the accessibility element is
 // currently in a selected state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselected(_:)
-
 func (o NSView) SetAccessibilitySelected(accessibilitySelected bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelected:"), accessibilitySelected)
 	}
-
 // Returns the URL for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityurl()
-
 func (o NSView) AccessibilityURL() foundation.INSURL {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityURL"))
 	return foundation.NSURLFromID(rv)
 	}
-
 // Sets the URL for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityurl(_:)
-
 func (o NSView) SetAccessibilityURL(accessibilityURL foundation.INSURL) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityURL:"), accessibilityURL)
 	}
-
 // Returns the human-readable description of the accessibility element’s
 // value.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvaluedescription()
-
 func (o NSView) AccessibilityValueDescription() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValueDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the human-readable description of the accessibility element’s value.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvaluedescription(_:)
-
 func (o NSView) SetAccessibilityValueDescription(accessibilityValueDescription string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValueDescription:"), objc.String(accessibilityValueDescription))
 	}
-
 // Returns the warning value for the level indicator.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitywarningvalue()
-
 func (o NSView) AccessibilityWarningValue() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWarningValue"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the warning value for the level indicator.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitywarningvalue(_:)
-
 func (o NSView) SetAccessibilityWarningValue(accessibilityWarningValue objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWarningValue:"), accessibilityWarningValue)
 	}
-
 // Returns the child accessibility elements in the accessibility hierarchy.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitychildren()
-
 func (o NSView) AccessibilityChildren() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility elements in the accessibility hierarchy.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitychildren(_:)
-
 func (o NSView) SetAccessibilityChildren(accessibilityChildren foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildren:"), accessibilityChildren)
 	}
-
 // Returns the array of child accessibility elements in order for linear
 // navigation.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitychildreninnavigationorder()
-
 func (o NSView) AccessibilityChildrenInNavigationOrder() unsafe.Pointer {
 	
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("accessibilityChildrenInNavigationOrder"))
 	return rv
 	}
-
 // Sets the array of child accessibility elements in order for linear
 // navigation.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitychildreninnavigationorder(_:)
-
 func (o NSView) SetAccessibilityChildrenInNavigationOrder(accessibilityChildrenInNavigationOrder foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildrenInNavigationOrder:"), accessibilityChildrenInNavigationOrder)
 	}
-
 // Sets the accessibility element’s parent in the accessibility hierarchy.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityparent(_:)
-
 func (o NSView) SetAccessibilityParent(accessibilityParent objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityParent:"), accessibilityParent)
 	}
-
 // Returns the accessibility element’s currently selected children.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedchildren()
-
 func (o NSView) AccessibilitySelectedChildren() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the accessibility element’s currently selected children.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedchildren(_:)
-
 func (o NSView) SetAccessibilitySelectedChildren(accessibilitySelectedChildren foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedChildren:"), accessibilitySelectedChildren)
 	}
-
 // Returns the top-level element that contains the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytopleveluielement()
-
 func (o NSView) AccessibilityTopLevelUIElement() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTopLevelUIElement"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the top-level element that contains the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytopleveluielement(_:)
-
 func (o NSView) SetAccessibilityTopLevelUIElement(accessibilityTopLevelUIElement objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTopLevelUIElement:"), accessibilityTopLevelUIElement)
 	}
-
 // Returns the accessibility element’s visible child accessibility elements.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblechildren()
-
 func (o NSView) AccessibilityVisibleChildren() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleChildren"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the accessibility element’s visible child accessibility elements.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblechildren(_:)
-
 func (o NSView) SetAccessibilityVisibleChildren(accessibilityVisibleChildren foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleChildren:"), accessibilityVisibleChildren)
 	}
-
 // Returns the child accessibility element with the current focus.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityapplicationfocuseduielement()
-
 func (o NSView) AccessibilityApplicationFocusedUIElement() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityApplicationFocusedUIElement"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element with the current focus.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityapplicationfocuseduielement(_:)
-
 func (o NSView) SetAccessibilityApplicationFocusedUIElement(accessibilityApplicationFocusedUIElement objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityApplicationFocusedUIElement:"), accessibilityApplicationFocusedUIElement)
 	}
-
 // Sets a Boolean value that determines whether the accessibility element has
 // the keyboard focus.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfocused(_:)
-
 func (o NSView) SetAccessibilityFocused(accessibilityFocused bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocused:"), accessibilityFocused)
 	}
-
 // Returns the child window with the current focus.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityfocusedwindow()
-
 func (o NSView) AccessibilityFocusedWindow() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedWindow"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child window with the current focus.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfocusedwindow(_:)
-
 func (o NSView) SetAccessibilityFocusedWindow(accessibilityFocusedWindow objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocusedWindow:"), accessibilityFocusedWindow)
 	}
-
 // Returns the array of elements that shares the keyboard focus with the
 // accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysharedfocuselements()
-
 func (o NSView) AccessibilitySharedFocusElements() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedFocusElements"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the array of elements that shares the keyboard focus with the
 // accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysharedfocuselements(_:)
-
 func (o NSView) SetAccessibilitySharedFocusElements(accessibilitySharedFocusElements foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedFocusElements:"), accessibilitySharedFocusElements)
 	}
-
 // Returns a Boolean value that determines whether the accessibility element
 // must have content for successful submission of a form.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityrequired()
-
 func (o NSView) IsAccessibilityRequired() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the accessibility element must
 // have content for successful submission of a form.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrequired(_:)
-
 func (o NSView) SetAccessibilityRequired(accessibilityRequired bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRequired:"), accessibilityRequired)
 	}
-
 // Returns the type of interface element that the accessibility element
 // represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrole()
-
 func (o NSView) AccessibilityRole() NSAccessibilityRole {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRole"))
 	return NSAccessibilityRole(foundation.NSStringFromID(rv).String())
 	}
-
 // Sets the type of interface element that the accessibility element
 // represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrole(_:)
-
 func (o NSView) SetAccessibilityRole(accessibilityRole NSAccessibilityRole) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRole:"), objc.String(string(accessibilityRole)))
 	}
-
 // Returns a localized, human-intelligible description of the accessibility
 // element’s role, such as
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityroledescription()
-
 func (o NSView) AccessibilityRoleDescription() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRoleDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the localized, human-intelligible description of the accessibility
 // element’s role, such as
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityroledescription(_:)
-
 func (o NSView) SetAccessibilityRoleDescription(accessibilityRoleDescription string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRoleDescription:"), objc.String(accessibilityRoleDescription))
 	}
-
 // Returns the specialized interface element type that the accessibility
 // element represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysubrole()
-
 func (o NSView) AccessibilitySubrole() NSAccessibilitySubrole {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySubrole"))
 	return NSAccessibilitySubrole(foundation.NSStringFromID(rv).String())
 	}
-
 // Sets the specialized interface element type that the accessibility element
 // represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysubrole(_:)
-
 func (o NSView) SetAccessibilitySubrole(accessibilitySubrole NSAccessibilitySubrole) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySubrole:"), objc.String(string(accessibilitySubrole)))
 	}
-
 // Returns the custom actions of the current accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycustomactions()
-
 func (o NSView) AccessibilityCustomActions() INSAccessibilityCustomAction {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCustomActions"))
 	return NSAccessibilityCustomActionFromID(rv)
 	}
-
 // Sets the custom actions of the current accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycustomactions(_:)
-
 func (o NSView) SetAccessibilityCustomActions(accessibilityCustomActions foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomActions:"), accessibilityCustomActions)
 	}
-
 // Returns the custom rotors of the current accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycustomrotors()
-
 func (o NSView) AccessibilityCustomRotors() INSAccessibilityCustomRotor {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCustomRotors"))
 	return NSAccessibilityCustomRotorFromID(rv)
 	}
-
 // Sets the custom rotors of the current accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycustomrotors(_:)
-
 func (o NSView) SetAccessibilityCustomRotors(accessibilityCustomRotors foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomRotors:"), accessibilityCustomRotors)
 	}
-
 // Returns the line number that contains the insertion point.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityinsertionpointlinenumber()
-
 func (o NSView) AccessibilityInsertionPointLineNumber() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityInsertionPointLineNumber"))
 	return rv
 	}
-
 // Sets the line number that contains the insertion point.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityinsertionpointlinenumber(_:)
-
 func (o NSView) SetAccessibilityInsertionPointLineNumber(accessibilityInsertionPointLineNumber int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityInsertionPointLineNumber:"), accessibilityInsertionPointLineNumber)
 	}
-
 // Returns the number of characters in the text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitynumberofcharacters()
-
 func (o NSView) AccessibilityNumberOfCharacters() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityNumberOfCharacters"))
 	return rv
 	}
-
 // Sets the number of characters in the text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitynumberofcharacters(_:)
-
 func (o NSView) SetAccessibilityNumberOfCharacters(accessibilityNumberOfCharacters int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNumberOfCharacters:"), accessibilityNumberOfCharacters)
 	}
-
 // Returns the placeholder value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityplaceholdervalue()
-
 func (o NSView) AccessibilityPlaceholderValue() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPlaceholderValue"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the placeholder value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityplaceholdervalue(_:)
-
 func (o NSView) SetAccessibilityPlaceholderValue(accessibilityPlaceholderValue string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPlaceholderValue:"), objc.String(accessibilityPlaceholderValue))
 	}
-
 // Returns the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedtext()
-
 func (o NSView) AccessibilitySelectedText() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedText"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedtext(_:)
-
 func (o NSView) SetAccessibilitySelectedText(accessibilitySelectedText string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedText:"), objc.String(accessibilitySelectedText))
 	}
-
 // Returns the range of the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedtextrange()
-
 func (o NSView) AccessibilitySelectedTextRange() foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySelectedTextRange"))
 	return rv
 	}
-
 // Sets the range of the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedtextrange(_:)
-
 func (o NSView) SetAccessibilitySelectedTextRange(accessibilitySelectedTextRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRange:"), accessibilitySelectedTextRange)
 	}
-
 // Returns an array of ranges for the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedtextranges()
-
 func (o NSView) AccessibilitySelectedTextRanges() foundation.NSValue {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedTextRanges"))
 	return foundation.NSValueFromID(rv)
 	}
-
 // Sets an array of ranges for the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedtextranges(_:)
-
 func (o NSView) SetAccessibilitySelectedTextRanges(accessibilitySelectedTextRanges foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRanges:"), accessibilitySelectedTextRanges)
 	}
-
 // Returns the range of characters that the accessibility element displays.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysharedcharacterrange()
-
 func (o NSView) AccessibilitySharedCharacterRange() foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySharedCharacterRange"))
 	return rv
 	}
-
 // Sets the range of characters that the accessibility element displays.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysharedcharacterrange(_:)
-
 func (o NSView) SetAccessibilitySharedCharacterRange(accessibilitySharedCharacterRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedCharacterRange:"), accessibilitySharedCharacterRange)
 	}
-
 // Returns the other elements that share text with the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysharedtextuielements()
-
 func (o NSView) AccessibilitySharedTextUIElements() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedTextUIElements"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the other elements that share text with the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysharedtextuielements(_:)
-
 func (o NSView) SetAccessibilitySharedTextUIElements(accessibilitySharedTextUIElements foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedTextUIElements:"), accessibilitySharedTextUIElements)
 	}
-
 // Returns the range of visible characters in the document.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblecharacterrange()
-
 func (o NSView) AccessibilityVisibleCharacterRange() foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityVisibleCharacterRange"))
 	return rv
 	}
-
 // Sets the range of visible characters in the document.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblecharacterrange(_:)
-
 func (o NSView) SetAccessibilityVisibleCharacterRange(accessibilityVisibleCharacterRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCharacterRange:"), accessibilityVisibleCharacterRange)
 	}
-
 // Returns the substring for the specified range.
 //
 // range: A range of characters contained by the element.
@@ -6905,13 +6450,11 @@ func (o NSView) SetAccessibilityVisibleCharacterRange(accessibilityVisibleCharac
 // The substring specified by the given range.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityString(for:)
-
 func (o NSView) AccessibilityStringForRange(range_ foundation.NSRange) string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityStringForRange:"), range_)
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Returns the attributed substring for the specified range of characters.
 //
 // range: The range of characters.
@@ -6921,13 +6464,11 @@ func (o NSView) AccessibilityStringForRange(range_ foundation.NSRange) string {
 // An attributed string representing the specified characters.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityAttributedString(for:)
-
 func (o NSView) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
 	return foundation.NSAttributedStringFromID(rv)
 	}
-
 // Returns the rich text format (RTF) data that describes the specified range
 // of characters.
 //
@@ -6938,13 +6479,11 @@ func (o NSView) AccessibilityAttributedStringForRange(range_ foundation.NSRange)
 // A data object containing an RTF representation of the specified characters.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRTF(for:)
-
 func (o NSView) AccessibilityRTFForRange(range_ foundation.NSRange) foundation.INSData {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRTFForRange:"), range_)
 	return foundation.NSDataFromID(rv)
 	}
-
 // Returns the rectangle that encloses the specified range of characters.
 //
 // range: The range of characters.
@@ -6959,13 +6498,11 @@ func (o NSView) AccessibilityRTFForRange(range_ foundation.NSRange) foundation.I
 // all the lines of characters.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFrame(for:)
-
 func (o NSView) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrameForRange:"), range_)
 	return rv
 	}
-
 // Returns the line number for the line that contains the specified character
 // index.
 //
@@ -6976,13 +6513,11 @@ func (o NSView) AccessibilityFrameForRange(range_ foundation.NSRange) corefounda
 // The line number for the line holding the specified character index.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLine(for:)
-
 func (o NSView) AccessibilityLineForIndex(index int) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityLineForIndex:"), index)
 	return rv
 	}
-
 // Returns the range of characters for the glyph that includes the specified
 // character.
 //
@@ -6998,13 +6533,11 @@ func (o NSView) AccessibilityLineForIndex(index int) int {
 // additional characters if that character is part of a multicharacter glyph.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-6kv3
-
 func (o NSView) AccessibilityRangeForIndex(index int) foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForIndex:"), index)
 	return rv
 	}
-
 // Returns a range of characters that all have the same style as the specified
 // character.
 //
@@ -7023,13 +6556,11 @@ func (o NSView) AccessibilityRangeForIndex(index int) foundation.NSRange {
 // returns only the specified character.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityStyleRange(for:)
-
 func (o NSView) AccessibilityStyleRangeForIndex(index int) foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityStyleRangeForIndex:"), index)
 	return rv
 	}
-
 // Returns the range of characters in the specified line.
 //
 // line: The line number to be examined.
@@ -7040,13 +6571,11 @@ func (o NSView) AccessibilityStyleRangeForIndex(index int) foundation.NSRange {
 // with a newline character, including the newline is preferred.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(forLine:)
-
 func (o NSView) AccessibilityRangeForLine(line int) foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForLine:"), line)
 	return rv
 	}
-
 // Returns the range of characters for the glyph at the specified point.
 //
 // point: A point in screen coordinates.
@@ -7056,959 +6585,765 @@ func (o NSView) AccessibilityRangeForLine(line int) foundation.NSRange {
 // The range of characters that make up the glyph at the given point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-1iudm
-
 func (o NSView) AccessibilityRangeForPosition(point corefoundation.CGPoint) foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForPosition:"), point)
 	return rv
 	}
-
 // Returns the activation point for the user interface element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityactivationpoint()
-
 func (o NSView) AccessibilityActivationPoint() corefoundation.CGPoint {
 	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityActivationPoint"))
 	return rv
 	}
-
 // Sets the activation point for the user interface element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityactivationpoint(_:)
-
 func (o NSView) SetAccessibilityActivationPoint(accessibilityActivationPoint corefoundation.CGPoint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityActivationPoint:"), accessibilityActivationPoint)
 	}
-
 // Returns the Boolean value that determines whether the accessibility
 // element’s alternative UI is currently visible.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityalternateuivisible()
-
 func (o NSView) IsAccessibilityAlternateUIVisible() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
 	return rv
 	}
-
 // Sets the Boolean value that determines whether the accessibility
 // element’s alternative UI is currently visible.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityalternateuivisible(_:)
-
 func (o NSView) SetAccessibilityAlternateUIVisible(accessibilityAlternateUIVisible bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAlternateUIVisible:"), accessibilityAlternateUIVisible)
 	}
-
 // Returns the child accessibility element that represents the window’s
 // cancel button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycancelbutton()
-
 func (o NSView) AccessibilityCancelButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCancelButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s cancel
 // button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycancelbutton(_:)
-
 func (o NSView) SetAccessibilityCancelButton(accessibilityCancelButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCancelButton:"), accessibilityCancelButton)
 	}
-
 // Returns the child accessibility element that represents the window’s
 // close button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityclosebutton()
-
 func (o NSView) AccessibilityCloseButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCloseButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s close
 // button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityclosebutton(_:)
-
 func (o NSView) SetAccessibilityCloseButton(accessibilityCloseButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCloseButton:"), accessibilityCloseButton)
 	}
-
 // Returns the child accessibility element that represents the window’s
 // default button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydefaultbutton()
-
 func (o NSView) AccessibilityDefaultButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDefaultButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s default
 // button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydefaultbutton(_:)
-
 func (o NSView) SetAccessibilityDefaultButton(accessibilityDefaultButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDefaultButton:"), accessibilityDefaultButton)
 	}
-
 // Returns the child accessibility element that represents the window’s
 // full-screen button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityfullscreenbutton()
-
 func (o NSView) AccessibilityFullScreenButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFullScreenButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s
 // full-screen button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfullscreenbutton(_:)
-
 func (o NSView) SetAccessibilityFullScreenButton(accessibilityFullScreenButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFullScreenButton:"), accessibilityFullScreenButton)
 	}
-
 // Returns the child accessibility element that represents the window’s grow
 // area.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitygrowarea()
-
 func (o NSView) AccessibilityGrowArea() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityGrowArea"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s grow
 // area.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitygrowarea(_:)
-
 func (o NSView) SetAccessibilityGrowArea(accessibilityGrowArea objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityGrowArea:"), accessibilityGrowArea)
 	}
-
 // Returns a Boolean value that determines whether the window is the app’s
 // main window.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilitymain()
-
 func (o NSView) IsAccessibilityMain() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the window is the app’s main
 // window.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymain(_:)
-
 func (o NSView) SetAccessibilityMain(accessibilityMain bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMain:"), accessibilityMain)
 	}
-
 // Returns the child accessibility element that represents the window’s
 // minimize button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityminimizebutton()
-
 func (o NSView) AccessibilityMinimizeButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinimizeButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s
 // minimize button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityminimizebutton(_:)
-
 func (o NSView) SetAccessibilityMinimizeButton(accessibilityMinimizeButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimizeButton:"), accessibilityMinimizeButton)
 	}
-
 // Returns the Boolean value that determines whether the window is in a
 // minimized state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityminimized()
-
 func (o NSView) IsAccessibilityMinimized() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
 	return rv
 	}
-
 // Sets the Boolean value that determines whether the window is in a minimized
 // state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityminimized(_:)
-
 func (o NSView) SetAccessibilityMinimized(accessibilityMinimized bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimized:"), accessibilityMinimized)
 	}
-
 // Returns a Boolean value that determines whether the window is modal.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilitymodal()
-
 func (o NSView) IsAccessibilityModal() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the window is modal.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymodal(_:)
-
 func (o NSView) SetAccessibilityModal(accessibilityModal bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityModal:"), accessibilityModal)
 	}
-
 // Returns the child accessibility element that represents the window’s
 // proxy icon.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityproxy()
-
 func (o NSView) AccessibilityProxy() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityProxy"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s proxy
 // icon.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityproxy(_:)
-
 func (o NSView) SetAccessibilityProxy(accessibilityProxy objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProxy:"), accessibilityProxy)
 	}
-
 // Returns the menu currently displaying for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityshownmenu()
-
 func (o NSView) AccessibilityShownMenu() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityShownMenu"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the menu currently displaying for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityshownmenu(_:)
-
 func (o NSView) SetAccessibilityShownMenu(accessibilityShownMenu objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityShownMenu:"), accessibilityShownMenu)
 	}
-
 // Returns the child accessibility element that represents the window’s
 // toolbar button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytoolbarbutton()
-
 func (o NSView) AccessibilityToolbarButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityToolbarButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s toolbar
 // button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytoolbarbutton(_:)
-
 func (o NSView) SetAccessibilityToolbarButton(accessibilityToolbarButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityToolbarButton:"), accessibilityToolbarButton)
 	}
-
 // Returns the window that contains the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitywindow()
-
 func (o NSView) AccessibilityWindow() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindow"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the window that contains the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitywindow(_:)
-
 func (o NSView) SetAccessibilityWindow(accessibilityWindow objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindow:"), accessibilityWindow)
 	}
-
 // Returns the child accessibility element that represents the window’s zoom
 // button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityzoombutton()
-
 func (o NSView) AccessibilityZoomButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityZoomButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child accessibility element that represents the window’s zoom
 // button.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityzoombutton(_:)
-
 func (o NSView) SetAccessibilityZoomButton(accessibilityZoomButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityZoomButton:"), accessibilityZoomButton)
 	}
-
 // Returns the icon for the app’s menu bar extra.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityextrasmenubar()
-
 func (o NSView) AccessibilityExtrasMenuBar() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityExtrasMenuBar"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the icon for the app’s menu bar extra.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityextrasmenubar(_:)
-
 func (o NSView) SetAccessibilityExtrasMenuBar(accessibilityExtrasMenuBar objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExtrasMenuBar:"), accessibilityExtrasMenuBar)
 	}
-
 // Returns a Boolean value that determines whether the app is the frontmost
 // app.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityfrontmost()
-
 func (o NSView) IsAccessibilityFrontmost() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the app is the frontmost app.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfrontmost(_:)
-
 func (o NSView) SetAccessibilityFrontmost(accessibilityFrontmost bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrontmost:"), accessibilityFrontmost)
 	}
-
 // Returns a Boolean value that determines whether the app is in a hidden
 // state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityhidden()
-
 func (o NSView) IsAccessibilityHidden() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the app is in a hidden state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhidden(_:)
-
 func (o NSView) SetAccessibilityHidden(accessibilityHidden bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHidden:"), accessibilityHidden)
 	}
-
 // Returns the app’s main window.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymainwindow()
-
 func (o NSView) AccessibilityMainWindow() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMainWindow"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the app’s main window.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymainwindow(_:)
-
 func (o NSView) SetAccessibilityMainWindow(accessibilityMainWindow objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMainWindow:"), accessibilityMainWindow)
 	}
-
 // Returns the app’s menu bar.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymenubar()
-
 func (o NSView) AccessibilityMenuBar() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMenuBar"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the app’s menu bar.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymenubar(_:)
-
 func (o NSView) SetAccessibilityMenuBar(accessibilityMenuBar objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMenuBar:"), accessibilityMenuBar)
 	}
-
 // Returns an array that contains all the app’s windows.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitywindows()
-
 func (o NSView) AccessibilityWindows() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindows"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the array that contains all the app’s windows.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitywindows(_:)
-
 func (o NSView) SetAccessibilityWindows(accessibilityWindows foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindows:"), accessibilityWindows)
 	}
-
 // Returns the number of columns in the accessibility element’s grid.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumncount()
-
 func (o NSView) AccessibilityColumnCount() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityColumnCount"))
 	return rv
 	}
-
 // Sets the number of columns in the accessibility element’s grid.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumncount(_:)
-
 func (o NSView) SetAccessibilityColumnCount(accessibilityColumnCount int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnCount:"), accessibilityColumnCount)
 	}
-
 // Returns a Boolean value that determines whether the accessibility
 // element’s grid is in row major order or in column major order.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityorderedbyrow()
-
 func (o NSView) IsAccessibilityOrderedByRow() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the element’s grid is in row
 // major order or in column major order.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityorderedbyrow(_:)
-
 func (o NSView) SetAccessibilityOrderedByRow(accessibilityOrderedByRow bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrderedByRow:"), accessibilityOrderedByRow)
 	}
-
 // Returns the number of rows in the accessibility element’s grid.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrowcount()
-
 func (o NSView) AccessibilityRowCount() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityRowCount"))
 	return rv
 	}
-
 // Sets the number of rows in the accessibility element’s grid.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrowcount(_:)
-
 func (o NSView) SetAccessibilityRowCount(accessibilityRowCount int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowCount:"), accessibilityRowCount)
 	}
-
 // Returns the horizontal scroll bar for the scroll view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhorizontalscrollbar()
-
 func (o NSView) AccessibilityHorizontalScrollBar() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalScrollBar"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the horizontal scroll bar for the scroll view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhorizontalscrollbar(_:)
-
 func (o NSView) SetAccessibilityHorizontalScrollBar(accessibilityHorizontalScrollBar objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalScrollBar:"), accessibilityHorizontalScrollBar)
 	}
-
 // Returns the vertical scroll bar for the scroll view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityverticalscrollbar()
-
 func (o NSView) AccessibilityVerticalScrollBar() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalScrollBar"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the vertical scroll bar for the scroll view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityverticalscrollbar(_:)
-
 func (o NSView) SetAccessibilityVerticalScrollBar(accessibilityVerticalScrollBar objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalScrollBar:"), accessibilityVerticalScrollBar)
 	}
-
 // Returns the column header accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumnheaderuielements()
-
 func (o NSView) AccessibilityColumnHeaderUIElements() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the column header accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumnheaderuielements(_:)
-
 func (o NSView) SetAccessibilityColumnHeaderUIElements(accessibilityColumnHeaderUIElements foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnHeaderUIElements:"), accessibilityColumnHeaderUIElements)
 	}
-
 // Returns the column accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumns()
-
 func (o NSView) AccessibilityColumns() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumns"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the column accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumns(_:)
-
 func (o NSView) SetAccessibilityColumns(accessibilityColumns foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumns:"), accessibilityColumns)
 	}
-
 // Returns the column titles for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumntitles()
-
 func (o NSView) AccessibilityColumnTitles() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnTitles"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the column titles for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumntitles(_:)
-
 func (o NSView) SetAccessibilityColumnTitles(accessibilityColumnTitles foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnTitles:"), accessibilityColumnTitles)
 	}
-
 // Returns a Boolean value that determines whether the accessibility element
 // is in an expanded state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityexpanded()
-
 func (o NSView) IsAccessibilityExpanded() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether accessibility element is in an
 // expanded state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityexpanded(_:)
-
 func (o NSView) SetAccessibilityExpanded(accessibilityExpanded bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExpanded:"), accessibilityExpanded)
 	}
-
 // Returns the header for the table view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityheader()
-
 func (o NSView) AccessibilityHeader() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHeader"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the header for the table view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityheader(_:)
-
 func (o NSView) SetAccessibilityHeader(accessibilityHeader objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHeader:"), accessibilityHeader)
 	}
-
 // Returns the index of the row or column that the accessibility element
 // represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityindex()
-
 func (o NSView) AccessibilityIndex() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityIndex"))
 	return rv
 	}
-
 // Sets the index of the row or column that the accessibility element
 // represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityindex(_:)
-
 func (o NSView) SetAccessibilityIndex(accessibilityIndex int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIndex:"), accessibilityIndex)
 	}
-
 // Returns the row header accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrowheaderuielements()
-
 func (o NSView) AccessibilityRowHeaderUIElements() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRowHeaderUIElements"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the row header accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrowheaderuielements(_:)
-
 func (o NSView) SetAccessibilityRowHeaderUIElements(accessibilityRowHeaderUIElements foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowHeaderUIElements:"), accessibilityRowHeaderUIElements)
 	}
-
 // Returns the row accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrows()
-
 func (o NSView) AccessibilityRows() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRows"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the row accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrows(_:)
-
 func (o NSView) SetAccessibilityRows(accessibilityRows foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRows:"), accessibilityRows)
 	}
-
 // Returns the currently selected columns for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedcolumns()
-
 func (o NSView) AccessibilitySelectedColumns() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedColumns"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the currently selected columns for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedcolumns(_:)
-
 func (o NSView) SetAccessibilitySelectedColumns(accessibilitySelectedColumns foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedColumns:"), accessibilitySelectedColumns)
 	}
-
 // Returns the currently selected rows for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedrows()
-
 func (o NSView) AccessibilitySelectedRows() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedRows"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the currently selected rows for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedrows(_:)
-
 func (o NSView) SetAccessibilitySelectedRows(accessibilitySelectedRows foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), accessibilitySelectedRows)
 	}
-
 // Returns the accessibility element’s sort direction.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysortdirection()
-
 func (o NSView) AccessibilitySortDirection() NSAccessibilitySortDirection {
 	
 	rv := objc.Send[NSAccessibilitySortDirection](o.ID, objc.Sel("accessibilitySortDirection"))
 	return rv
 	}
-
 // Sets the accessibility element’s sort direction.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysortdirection(_:)
-
 func (o NSView) SetAccessibilitySortDirection(accessibilitySortDirection NSAccessibilitySortDirection) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySortDirection:"), accessibilitySortDirection)
 	}
-
 // Returns the visible columns for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblecolumns()
-
 func (o NSView) AccessibilityVisibleColumns() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleColumns"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the visible columns for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblecolumns(_:)
-
 func (o NSView) SetAccessibilityVisibleColumns(accessibilityVisibleColumns foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleColumns:"), accessibilityVisibleColumns)
 	}
-
 // Returns the visible rows for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblerows()
-
 func (o NSView) AccessibilityVisibleRows() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleRows"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the visible rows for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblerows(_:)
-
 func (o NSView) SetAccessibilityVisibleRows(accessibilityVisibleRows foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleRows:"), accessibilityVisibleRows)
 	}
-
 // Returns a Boolean value that determines whether the row is disclosing other
 // rows.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilitydisclosed()
-
 func (o NSView) IsAccessibilityDisclosed() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
 	return rv
 	}
-
 // Sets a Boolean value that determines whether the row is disclosing other
 // rows.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydisclosed(_:)
-
 func (o NSView) SetAccessibilityDisclosed(accessibilityDisclosed bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosed:"), accessibilityDisclosed)
 	}
-
 // Returns the row disclosing the current row.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydisclosedbyrow()
-
 func (o NSView) AccessibilityDisclosedByRow() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedByRow"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the row disclosing the current row.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydisclosedbyrow(_:)
-
 func (o NSView) SetAccessibilityDisclosedByRow(accessibilityDisclosedByRow objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedByRow:"), accessibilityDisclosedByRow)
 	}
-
 // Returns the rows that the current row discloses.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydisclosedrows()
-
 func (o NSView) AccessibilityDisclosedRows() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedRows"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the rows that the current row discloses.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydisclosedrows(_:)
-
 func (o NSView) SetAccessibilityDisclosedRows(accessibilityDisclosedRows objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedRows:"), accessibilityDisclosedRows)
 	}
-
 // Returns the indention level for the row.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydisclosurelevel()
-
 func (o NSView) AccessibilityDisclosureLevel() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityDisclosureLevel"))
 	return rv
 	}
-
 // Sets the indention level for the row.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydisclosurelevel(_:)
-
 func (o NSView) SetAccessibilityDisclosureLevel(accessibilityDisclosureLevel int) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosureLevel:"), accessibilityDisclosureLevel)
 	}
-
 // Returns the column index range of the cell.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumnindexrange()
-
 func (o NSView) AccessibilityColumnIndexRange() foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityColumnIndexRange"))
 	return rv
 	}
-
 // Sets the column index range of the cell.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumnindexrange(_:)
-
 func (o NSView) SetAccessibilityColumnIndexRange(accessibilityColumnIndexRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnIndexRange:"), accessibilityColumnIndexRange)
 	}
-
 // Returns the row index range of the cell.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrowindexrange()
-
 func (o NSView) AccessibilityRowIndexRange() foundation.NSRange {
 	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRowIndexRange"))
 	return rv
 	}
-
 // Sets the row index range of the cell.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrowindexrange(_:)
-
 func (o NSView) SetAccessibilityRowIndexRange(accessibilityRowIndexRange foundation.NSRange) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowIndexRange:"), accessibilityRowIndexRange)
 	}
-
 // Returns the currently selected cells for the table.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedcells()
-
 func (o NSView) AccessibilitySelectedCells() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedCells"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the currently selected cells for the table.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedcells(_:)
-
 func (o NSView) SetAccessibilitySelectedCells(accessibilitySelectedCells foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedCells:"), accessibilitySelectedCells)
 	}
-
 // Returns the visible cells for the table.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblecells()
-
 func (o NSView) AccessibilityVisibleCells() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleCells"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the visible cells for the table.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblecells(_:)
-
 func (o NSView) SetAccessibilityVisibleCells(accessibilityVisibleCells foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCells:"), accessibilityVisibleCells)
 	}
-
 // Returns the cell at the specified column and row.
 //
 // column: The column index.
@@ -8025,108 +7360,86 @@ func (o NSView) SetAccessibilityVisibleCells(accessibilityVisibleCells foundatio
 // tables.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCell(forColumn:row:)
-
 func (o NSView) AccessibilityCellForColumnRow(column int, row int) objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCellForColumn:row:"), column, row)
 	return objectivec.Object{ID: rv}
 	}
-
 // Returns the drag handle elements for the layout item element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhandles()
-
 func (o NSView) AccessibilityHandles() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHandles"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the drag handle accessibility elements for the layout item element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhandles(_:)
-
 func (o NSView) SetAccessibilityHandles(accessibilityHandles foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHandles:"), accessibilityHandles)
 	}
-
 // Returns the units that the layout area uses for horizontal values.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhorizontalunits()
-
 func (o NSView) AccessibilityHorizontalUnits() NSAccessibilityUnits {
 	
 	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityHorizontalUnits"))
 	return rv
 	}
-
 // Sets the units that the layout area uses for horizontal values.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhorizontalunits(_:)
-
 func (o NSView) SetAccessibilityHorizontalUnits(accessibilityHorizontalUnits NSAccessibilityUnits) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnits:"), accessibilityHorizontalUnits)
 	}
-
 // Returns the description of the layout area’s horizontal units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhorizontalunitdescription()
-
 func (o NSView) AccessibilityHorizontalUnitDescription() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalUnitDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the description of the layout area’s horizontal units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhorizontalunitdescription(_:)
-
 func (o NSView) SetAccessibilityHorizontalUnitDescription(accessibilityHorizontalUnitDescription string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnitDescription:"), objc.String(accessibilityHorizontalUnitDescription))
 	}
-
 // Returns the units that the layout area uses for vertical values.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityverticalunits()
-
 func (o NSView) AccessibilityVerticalUnits() NSAccessibilityUnits {
 	
 	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityVerticalUnits"))
 	return rv
 	}
-
 // Sets the units that the layout area uses for vertical values.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityverticalunits(_:)
-
 func (o NSView) SetAccessibilityVerticalUnits(accessibilityVerticalUnits NSAccessibilityUnits) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnits:"), accessibilityVerticalUnits)
 	}
-
 // Returns the description of the layout area’s vertical units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityverticalunitdescription()
-
 func (o NSView) AccessibilityVerticalUnitDescription() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalUnitDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the description of the layout area’s vertical units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityverticalunitdescription(_:)
-
 func (o NSView) SetAccessibilityVerticalUnitDescription(accessibilityVerticalUnitDescription string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnitDescription:"), objc.String(accessibilityVerticalUnitDescription))
 	}
-
 // Converts the provided point in screen coordinates to a point in the layout
 // area’s coordinate system.
 //
@@ -8137,13 +7450,11 @@ func (o NSView) SetAccessibilityVerticalUnitDescription(accessibilityVerticalUni
 // A point in the layout area’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLayoutPoint(forScreenPoint:)
-
 func (o NSView) AccessibilityLayoutPointForScreenPoint(point corefoundation.CGPoint) corefoundation.CGPoint {
 	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityLayoutPointForScreenPoint:"), point)
 	return rv
 	}
-
 // Converts the provided size in screen coordinates to a size in the layout
 // area’s coordinate system.
 //
@@ -8154,13 +7465,11 @@ func (o NSView) AccessibilityLayoutPointForScreenPoint(point corefoundation.CGPo
 // A size in the layout area’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLayoutSize(forScreenSize:)
-
 func (o NSView) AccessibilityLayoutSizeForScreenSize(size corefoundation.CGSize) corefoundation.CGSize {
 	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityLayoutSizeForScreenSize:"), size)
 	return rv
 	}
-
 // Converts the provided point in the layout area’s coordinates to a point
 // in the screen’s coordinate system.
 //
@@ -8171,13 +7480,11 @@ func (o NSView) AccessibilityLayoutSizeForScreenSize(size corefoundation.CGSize)
 // A point in the screen’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenPoint(forLayoutPoint:)
-
 func (o NSView) AccessibilityScreenPointForLayoutPoint(point corefoundation.CGPoint) corefoundation.CGPoint {
 	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityScreenPointForLayoutPoint:"), point)
 	return rv
 	}
-
 // Converts the provided size in the layout area’s coordinates to a size in
 // the screen’s coordinate system.
 //
@@ -8188,478 +7495,380 @@ func (o NSView) AccessibilityScreenPointForLayoutPoint(point corefoundation.CGPo
 // A size in the screen’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenSize(forLayoutSize:)
-
 func (o NSView) AccessibilityScreenSizeForLayoutSize(size corefoundation.CGSize) corefoundation.CGSize {
 	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityScreenSizeForLayoutSize:"), size)
 	return rv
 	}
-
 // Returns the allowed values for the slider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityallowedvalues()
-
 func (o NSView) AccessibilityAllowedValues() foundation.NSNumber {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAllowedValues"))
 	return foundation.NSNumberFromID(rv)
 	}
-
 // Sets the allowed values for the slider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityallowedvalues(_:)
-
 func (o NSView) SetAccessibilityAllowedValues(accessibilityAllowedValues foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAllowedValues:"), accessibilityAllowedValues)
 	}
-
 // Returns the child label elements for the slider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitylabeluielements()
-
 func (o NSView) AccessibilityLabelUIElements() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabelUIElements"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the child label elements for the slider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitylabeluielements(_:)
-
 func (o NSView) SetAccessibilityLabelUIElements(accessibilityLabelUIElements foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelUIElements:"), accessibilityLabelUIElements)
 	}
-
 // Returns the value of the label accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitylabelvalue()
-
 func (o NSView) AccessibilityLabelValue() float64 {
 	
 	rv := objc.Send[float64](o.ID, objc.Sel("accessibilityLabelValue"))
 	return rv
 	}
-
 // Sets the value of the label accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitylabelvalue(_:)
-
 func (o NSView) SetAccessibilityLabelValue(accessibilityLabelValue float64) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelValue:"), accessibilityLabelValue)
 	}
-
 // Returns the contents that follow the divider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitynextcontents()
-
 func (o NSView) AccessibilityNextContents() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityNextContents"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the contents that follow the divider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitynextcontents(_:)
-
 func (o NSView) SetAccessibilityNextContents(accessibilityNextContents foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNextContents:"), accessibilityNextContents)
 	}
-
 // Returns the contents that precede the divider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitypreviouscontents()
-
 func (o NSView) AccessibilityPreviousContents() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPreviousContents"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the contents that precede the divider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitypreviouscontents(_:)
-
 func (o NSView) SetAccessibilityPreviousContents(accessibilityPreviousContents foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPreviousContents:"), accessibilityPreviousContents)
 	}
-
 // Returns an array that contains the views and splitter bar from the split
 // view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysplitters()
-
 func (o NSView) AccessibilitySplitters() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySplitters"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the array that contains the views and splitter bar from the split
 // view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysplitters(_:)
-
 func (o NSView) SetAccessibilitySplitters(accessibilitySplitters foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySplitters:"), accessibilitySplitters)
 	}
-
 // Returns the overflow button for the toolbar.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityoverflowbutton()
-
 func (o NSView) AccessibilityOverflowButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityOverflowButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the overflow button for the toolbar.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityoverflowbutton(_:)
-
 func (o NSView) SetAccessibilityOverflowButton(accessibilityOverflowButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOverflowButton:"), accessibilityOverflowButton)
 	}
-
 // Returns the tab accessibility elements for the tab view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytabs()
-
 func (o NSView) AccessibilityTabs() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTabs"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the tab accessibility elements for the tab view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytabs(_:)
-
 func (o NSView) SetAccessibilityTabs(accessibilityTabs foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTabs:"), accessibilityTabs)
 	}
-
 // Returns the user interface element that functions as a marker group for the
 // ruler accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymarkergroupuielement()
-
 func (o NSView) AccessibilityMarkerGroupUIElement() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerGroupUIElement"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the user interface element that functions as a marker group for the
 // ruler accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymarkergroupuielement(_:)
-
 func (o NSView) SetAccessibilityMarkerGroupUIElement(accessibilityMarkerGroupUIElement objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerGroupUIElement:"), accessibilityMarkerGroupUIElement)
 	}
-
 // Returns the human-readable description of the marker type.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymarkertypedescription()
-
 func (o NSView) AccessibilityMarkerTypeDescription() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerTypeDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the human-readable description of the marker type.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymarkertypedescription(_:)
-
 func (o NSView) SetAccessibilityMarkerTypeDescription(accessibilityMarkerTypeDescription string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerTypeDescription:"), objc.String(accessibilityMarkerTypeDescription))
 	}
-
 // Returns the array of marker accessibility elements for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymarkeruielements()
-
 func (o NSView) AccessibilityMarkerUIElements() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerUIElements"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the array of marker accessibility elements for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymarkeruielements(_:)
-
 func (o NSView) SetAccessibilityMarkerUIElements(accessibilityMarkerUIElements foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerUIElements:"), accessibilityMarkerUIElements)
 	}
-
 // Returns the marker values for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymarkervalues()
-
 func (o NSView) AccessibilityMarkerValues() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerValues"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the marker values for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymarkervalues(_:)
-
 func (o NSView) SetAccessibilityMarkerValues(accessibilityMarkerValues objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerValues:"), accessibilityMarkerValues)
 	}
-
 // Returns the type of markers for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrulermarkertype()
-
 func (o NSView) AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType {
 	
 	rv := objc.Send[NSAccessibilityRulerMarkerType](o.ID, objc.Sel("accessibilityRulerMarkerType"))
 	return rv
 	}
-
 // Sets the type of markers for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrulermarkertype(_:)
-
 func (o NSView) SetAccessibilityRulerMarkerType(accessibilityRulerMarkerType NSAccessibilityRulerMarkerType) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRulerMarkerType:"), accessibilityRulerMarkerType)
 	}
-
 // Returns the units for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityunits()
-
 func (o NSView) AccessibilityUnits() NSAccessibilityUnits {
 	
 	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityUnits"))
 	return rv
 	}
-
 // Sets the units used for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityunits(_:)
-
 func (o NSView) SetAccessibilityUnits(accessibilityUnits NSAccessibilityUnits) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnits:"), accessibilityUnits)
 	}
-
 // Returns the human-readable description of the ruler’s units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityunitdescription()
-
 func (o NSView) AccessibilityUnitDescription() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUnitDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the human-readable description of the ruler’s units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityunitdescription(_:)
-
 func (o NSView) SetAccessibilityUnitDescription(accessibilityUnitDescription string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnitDescription:"), objc.String(accessibilityUnitDescription))
 	}
-
 // Returns the URL for the file that the accessibility element represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydocument()
-
 func (o NSView) AccessibilityDocument() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDocument"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the URL for the file that the accessibility element represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydocument(_:)
-
 func (o NSView) SetAccessibilityDocument(accessibilityDocument string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDocument:"), objc.String(accessibilityDocument))
 	}
-
 // Returns a Boolean value that indicates whether the accessibility element is
 // in an edited state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityedited()
-
 func (o NSView) IsAccessibilityEdited() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
 	return rv
 	}
-
 // Sets a Boolean value that indicates whether the accessibility element is in
 // an edited state.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityedited(_:)
-
 func (o NSView) SetAccessibilityEdited(accessibilityEdited bool) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEdited:"), accessibilityEdited)
 	}
-
 // Returns the filename for the file that the accessibility element
 // represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityfilename()
-
 func (o NSView) AccessibilityFilename() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFilename"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Sets the filename for the file that the accessibility element represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfilename(_:)
-
 func (o NSView) SetAccessibilityFilename(accessibilityFilename string) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFilename:"), objc.String(accessibilityFilename))
 	}
-
 // Returns the elements that have links with the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitylinkeduielements()
-
 func (o NSView) AccessibilityLinkedUIElements() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLinkedUIElements"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the elements that have links with the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitylinkeduielements(_:)
-
 func (o NSView) SetAccessibilityLinkedUIElements(accessibilityLinkedUIElements foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLinkedUIElements:"), accessibilityLinkedUIElements)
 	}
-
 // Returns the list of elements that the accessibility element is a title for.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityservesastitleforuielements()
-
 func (o NSView) AccessibilityServesAsTitleForUIElements() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityServesAsTitleForUIElements"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the list of elements that the accessibility element is a title for.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityservesastitleforuielements(_:)
-
 func (o NSView) SetAccessibilityServesAsTitleForUIElements(accessibilityServesAsTitleForUIElements foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityServesAsTitleForUIElements:"), accessibilityServesAsTitleForUIElements)
 	}
-
 // Returns the static text element that represents the accessibility
 // element’s title.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytitleuielement()
-
 func (o NSView) AccessibilityTitleUIElement() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitleUIElement"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the static text element that represents the accessibility element’s
 // title.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytitleuielement(_:)
-
 func (o NSView) SetAccessibilityTitleUIElement(accessibilityTitleUIElement objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitleUIElement:"), accessibilityTitleUIElement)
 	}
-
 // Returns the clear button for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityclearbutton()
-
 func (o NSView) AccessibilityClearButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityClearButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the clear button for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityclearbutton(_:)
-
 func (o NSView) SetAccessibilityClearButton(accessibilityClearButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityClearButton:"), accessibilityClearButton)
 	}
-
 // Returns the search button for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysearchbutton()
-
 func (o NSView) AccessibilitySearchButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the search button for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysearchbutton(_:)
-
 func (o NSView) SetAccessibilitySearchButton(accessibilitySearchButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchButton:"), accessibilitySearchButton)
 	}
-
 // Returns the search menu for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysearchmenu()
-
 func (o NSView) AccessibilitySearchMenu() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchMenu"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the search menu for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysearchmenu(_:)
-
 func (o NSView) SetAccessibilitySearchMenu(accessibilitySearchMenu objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchMenu:"), accessibilitySearchMenu)
 	}
-
 // Cancels the current operation.
 //
 // # Return Value
@@ -8672,13 +7881,11 @@ func (o NSView) SetAccessibilitySearchMenu(accessibilitySearchMenu objectivec.IO
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformCancel()
-
 func (o NSView) AccessibilityPerformCancel() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformCancel"))
 	return rv
 	}
-
 // Simulates pressing Return in the accessibility element.
 //
 // # Return Value
@@ -8695,13 +7902,11 @@ func (o NSView) AccessibilityPerformCancel() bool {
 // Use this method on elements that take keyboard input, such as a text field.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformConfirm()
-
 func (o NSView) AccessibilityPerformConfirm() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformConfirm"))
 	return rv
 	}
-
 // Selects the accessibility element.
 //
 // # Return Value
@@ -8718,13 +7923,11 @@ func (o NSView) AccessibilityPerformConfirm() bool {
 // Use this method on selectable elements, such as a menu item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformPick()
-
 func (o NSView) AccessibilityPerformPick() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPick"))
 	return rv
 	}
-
 // Simulates clicking the accessibility element.
 //
 // # Return Value
@@ -8741,13 +7944,11 @@ func (o NSView) AccessibilityPerformPick() bool {
 // Use this method on elements that behave like buttons.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformPress()
-
 func (o NSView) AccessibilityPerformPress() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPress"))
 	return rv
 	}
-
 // Displays the accessibility element’s alternative UI.
 //
 // # Return Value
@@ -8765,13 +7966,11 @@ func (o NSView) AccessibilityPerformPress() bool {
 // similar event.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowAlternateUI()
-
 func (o NSView) AccessibilityPerformShowAlternateUI() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowAlternateUI"))
 	return rv
 	}
-
 // Returns to the accessibility element’s original UI.
 //
 // # Return Value
@@ -8789,13 +7988,11 @@ func (o NSView) AccessibilityPerformShowAlternateUI() bool {
 // [AccessibilityPerformShowAlternateUI] to return to the original UI.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowDefaultUI()
-
 func (o NSView) AccessibilityPerformShowDefaultUI() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowDefaultUI"))
 	return rv
 	}
-
 // Displays the menu accessibility element.
 //
 // # Return Value
@@ -8812,13 +8009,11 @@ func (o NSView) AccessibilityPerformShowDefaultUI() bool {
 // Use this method to display the contextual menu for the element.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowMenu()
-
 func (o NSView) AccessibilityPerformShowMenu() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowMenu"))
 	return rv
 	}
-
 // Brings the window to the front.
 //
 // # Return Value
@@ -8835,51 +8030,41 @@ func (o NSView) AccessibilityPerformShowMenu() bool {
 // The window behaves as if you had clicked on the window’s title bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformRaise()
-
 func (o NSView) AccessibilityPerformRaise() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformRaise"))
 	return rv
 	}
-
 // Returns the increment button for the stepper accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityincrementbutton()
-
 func (o NSView) AccessibilityIncrementButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIncrementButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the increment button for the stepper accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityincrementbutton(_:)
-
 func (o NSView) SetAccessibilityIncrementButton(accessibilityIncrementButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIncrementButton:"), accessibilityIncrementButton)
 	}
-
 // Returns the decrement button for the stepper accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydecrementbutton()
-
 func (o NSView) AccessibilityDecrementButton() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDecrementButton"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Sets the decrement button for the stepper accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydecrementbutton(_:)
-
 func (o NSView) SetAccessibilityDecrementButton(accessibilityDecrementButton objectivec.IObject) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDecrementButton:"), accessibilityDecrementButton)
 	}
-
 // Increments the accessibility element’s value.
 //
 // # Return Value
@@ -8899,13 +8084,11 @@ func (o NSView) SetAccessibilityDecrementButton(accessibilityDecrementButton obj
 // [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformIncrement()
-
 func (o NSView) AccessibilityPerformIncrement() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformIncrement"))
 	return rv
 	}
-
 // Decrements the accessibility element’s value.
 //
 // # Return Value
@@ -8925,13 +8108,11 @@ func (o NSView) AccessibilityPerformIncrement() bool {
 // [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDecrement()
-
 func (o NSView) AccessibilityPerformDecrement() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDecrement"))
 	return rv
 	}
-
 // Deletes the accessibility element’s value.
 //
 // # Return Value
@@ -8948,40 +8129,31 @@ func (o NSView) AccessibilityPerformDecrement() bool {
 // Use this method on elements with values.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDelete()
-
 func (o NSView) AccessibilityPerformDelete() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDelete"))
 	return rv
 	}
-
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityattributeduserinputlabels()
-
 func (o NSView) AccessibilityAttributedUserInputLabels() foundation.NSAttributedString {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAttributedUserInputLabels"))
 	return foundation.NSAttributedStringFromID(rv)
 	}
-
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityuserinputlabels()
-
 func (o NSView) AccessibilityUserInputLabels() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUserInputLabels"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityattributeduserinputlabels(_:)
-
 func (o NSView) SetAccessibilityAttributedUserInputLabels(accessibilityAttributedUserInputLabels foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAttributedUserInputLabels:"), accessibilityAttributedUserInputLabels)
 	}
-
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityuserinputlabels(_:)
-
 func (o NSView) SetAccessibilityUserInputLabels(accessibilityUserInputLabels foundation.INSArray) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)

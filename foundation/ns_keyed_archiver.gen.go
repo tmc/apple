@@ -200,7 +200,6 @@ func (k NSKeyedArchiver) InitRequiringSecureCoding(requiresSecureCoding bool) NS
 	rv := objc.Send[NSKeyedArchiver](k.ID, objc.Sel("initRequiringSecureCoding:"), requiresSecureCoding)
 	return rv
 }
-
 // Instructs the receiver to construct the final data stream.
 //
 // # Discussion
@@ -238,7 +237,6 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ArchivedDataWithRootObjectRequ
 	return NSDataFromID(rv), nil
 
 }
-
 // Sets a global translation mapping to encode instances of a given class with
 // the provided name, rather than their real name.
 //
@@ -255,7 +253,6 @@ func (_NSKeyedArchiverClass NSKeyedArchiverClass) ArchivedDataWithRootObjectRequ
 func (_NSKeyedArchiverClass NSKeyedArchiverClass) SetClassNameForClass(codedName string, cls objc.Class) {
 	objc.Send[objc.ID](objc.ID(_NSKeyedArchiverClass.class), objc.Sel("setClassName:forClass:"), objc.String(codedName), cls)
 }
-
 // Returns the class name with which the archiver class encodes instances of a
 // given class.
 //
@@ -289,7 +286,6 @@ func (k NSKeyedArchiver) EncodedData() INSData {
 	rv := objc.Send[objc.ID](k.ID, objc.Sel("encodedData"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // The format in which the receiver encodes its data.
 //
 // # Discussion
@@ -309,7 +305,6 @@ func (k NSKeyedArchiver) OutputFormat() NSPropertyListFormat {
 func (k NSKeyedArchiver) SetOutputFormat(value NSPropertyListFormat) {
 	objc.Send[struct{}](k.ID, objc.Sel("setOutputFormat:"), value)
 }
-
 // The archiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiver/delegate

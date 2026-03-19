@@ -230,7 +230,6 @@ func (f MTLFunctionStitchingGraph) FunctionName() string {
 func (f MTLFunctionStitchingGraph) SetFunctionName(value string) {
 	objc.Send[struct{}](f.ID, objc.Sel("setFunctionName:"), objc.String(value))
 }
-
 // The nodes in the function’s call graph.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionStitchingGraph/nodes
@@ -243,7 +242,6 @@ func (f MTLFunctionStitchingGraph) Nodes() []MTLFunctionStitchingFunctionNode {
 func (f MTLFunctionStitchingGraph) SetNodes(value []MTLFunctionStitchingFunctionNode) {
 	objc.Send[struct{}](f.ID, objc.Sel("setNodes:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The node with the output that’s the output of the new stitched function.
 //
 // # Discussion
@@ -259,7 +257,6 @@ func (f MTLFunctionStitchingGraph) OutputNode() IMTLFunctionStitchingFunctionNod
 func (f MTLFunctionStitchingGraph) SetOutputNode(value IMTLFunctionStitchingFunctionNode) {
 	objc.Send[struct{}](f.ID, objc.Sel("setOutputNode:"), value)
 }
-
 // A list of attributes to configure how the Metal device object generates the
 // new stitched function.
 //

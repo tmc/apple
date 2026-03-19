@@ -173,7 +173,6 @@ func (s NSScrubberArrangedView) Highlighted() bool {
 func (s NSScrubberArrangedView) SetHighlighted(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHighlighted:"), value)
 }
-
 // A Boolean value that specifies whether the current view is selected.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberArrangedView/isSelected

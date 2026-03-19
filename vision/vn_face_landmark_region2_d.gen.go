@@ -131,7 +131,6 @@ func (f VNFaceLandmarkRegion2D) PointsClassification() VNPointsClassification {
 	rv := objc.Send[VNPointsClassification](f.ID, objc.Sel("pointsClassification"))
 	return VNPointsClassification(rv)
 }
-
 // A buffer in memory containing normalized landmark points.
 //
 // # Discussion
@@ -149,7 +148,6 @@ func (f VNFaceLandmarkRegion2D) NormalizedPoints() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("normalizedPoints"))
 	return rv
 }
-
 // An array of precision estimates for each landmark point.
 //
 // # Discussion

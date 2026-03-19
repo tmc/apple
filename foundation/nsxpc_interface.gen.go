@@ -172,7 +172,6 @@ func (x NSXPCInterface) ClassesForSelectorArgumentIndexOfReply(sel objc.SEL, arg
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("classesForSelector:argumentIndex:ofReply:"), sel, arg, ofReply)
 	return NSSetFromID(rv)
 }
-
 // Returns the interface previously set for the specified selector and
 // parameter.
 //
@@ -197,7 +196,6 @@ func (x NSXPCInterface) InterfaceForSelectorArgumentIndexOfReply(sel objc.SEL, a
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("interfaceForSelector:argumentIndex:ofReply:"), sel, arg, ofReply)
 	return NSXPCInterfaceFromID(rv)
 }
-
 // Sets the classes that can appear within the (numerically) specified
 // collection object argument to the specified method.
 //
@@ -230,7 +228,6 @@ func (x NSXPCInterface) InterfaceForSelectorArgumentIndexOfReply(sel objc.SEL, a
 func (x NSXPCInterface) SetClassesForSelectorArgumentIndexOfReply(classes INSSet, sel objc.SEL, arg uint, ofReply bool) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setClasses:forSelector:argumentIndex:ofReply:"), classes, sel, arg, ofReply)
 }
-
 // Configures a specific parameter of a method to be sent as a proxy object
 // instead of copied.
 //
@@ -262,13 +259,11 @@ func (x NSXPCInterface) SetClassesForSelectorArgumentIndexOfReply(classes INSSet
 func (x NSXPCInterface) SetInterfaceForSelectorArgumentIndexOfReply(ifc INSXPCInterface, sel objc.SEL, arg uint, ofReply bool) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setInterface:forSelector:argumentIndex:ofReply:"), ifc, sel, arg, ofReply)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCInterface/setXPCType(_:for:argumentIndex:ofReply:)
 func (x NSXPCInterface) SetXPCTypeForSelectorArgumentIndexOfReply(type_ unsafe.Pointer, sel objc.SEL, arg uint, ofReply bool) {
 	objc.Send[objc.ID](x.ID, objc.Sel("setXPCType:forSelector:argumentIndex:ofReply:"), type_, sel, arg, ofReply)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCInterface/xpcType(for:argumentIndex:ofReply:)
 func (x NSXPCInterface) XPCTypeForSelectorArgumentIndexOfReply(sel objc.SEL, arg uint, ofReply bool) unsafe.Pointer {

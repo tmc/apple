@@ -173,76 +173,65 @@ func (r MLRTaskParameters) BoolValueForKeyDefaultValue(key objectivec.IObject, v
 	rv := objc.Send[bool](r.ID, objc.Sel("boolValueForKey:defaultValue:"), key, value)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/doubleValueForKey:defaultValue:
 func (r MLRTaskParameters) DoubleValueForKeyDefaultValue(key objectivec.IObject, value float64) float64 {
 	rv := objc.Send[float64](r.ID, objc.Sel("doubleValueForKey:defaultValue:"), key, value)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/encodeWithCoder:
 func (r MLRTaskParameters) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](r.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/floatValueForKey:defaultValue:
 func (r MLRTaskParameters) FloatValueForKeyDefaultValue(key objectivec.IObject, value float32) float32 {
 	rv := objc.Send[float32](r.ID, objc.Sel("floatValueForKey:defaultValue:"), key, value)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/integerValueForKey:defaultValue:
 func (r MLRTaskParameters) IntegerValueForKeyDefaultValue(key objectivec.IObject, value int64) int64 {
 	rv := objc.Send[int64](r.ID, objc.Sel("integerValueForKey:defaultValue:"), key, value)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/objectForKeyedSubscript:
 func (r MLRTaskParameters) ObjectForKeyedSubscript(subscript objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectForKeyedSubscript:"), subscript)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/stringValueForKey:defaultValue:
 func (r MLRTaskParameters) StringValueForKeyDefaultValue(key objectivec.IObject, value objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("stringValueForKey:defaultValue:"), key, value)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/unsignedIntegerValueForKey:defaultValue:
 func (r MLRTaskParameters) UnsignedIntegerValueForKeyDefaultValue(key objectivec.IObject, value uint64) uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("unsignedIntegerValueForKey:defaultValue:"), key, value)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithCoder:
 func (r MLRTaskParameters) InitWithCoder(coder foundation.INSCoder) MLRTaskParameters {
 	rv := objc.Send[MLRTaskParameters](r.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithDESRecipe:
 func (r MLRTaskParameters) InitWithDESRecipe(dESRecipe objectivec.IObject) MLRTaskParameters {
 	rv := objc.Send[MLRTaskParameters](r.ID, objc.Sel("initWithDESRecipe:"), dESRecipe)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithParametersDict:
 func (r MLRTaskParameters) InitWithParametersDict(dict objectivec.IObject) MLRTaskParameters {
 	rv := objc.Send[MLRTaskParameters](r.ID, objc.Sel("initWithParametersDict:"), dict)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/initWithURL:error:
 func (r MLRTaskParameters) InitWithURLError(url foundation.INSURL) (MLRTaskParameters, error) {
@@ -267,13 +256,11 @@ func (r MLRTaskParameters) Count() uint64 {
 	rv := objc.Send[uint64](r.ID, objc.Sel("count"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/dictionaryRepresentation
 func (r MLRTaskParameters) DictionaryRepresentation() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("dictionaryRepresentation"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTaskParameters/recipeUserInfo
 func (r MLRTaskParameters) RecipeUserInfo() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("recipeUserInfo"))

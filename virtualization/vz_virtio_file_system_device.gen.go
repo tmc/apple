@@ -133,7 +133,6 @@ func (v VZVirtioFileSystemDevice) Share() IVZDirectoryShare {
 func (v VZVirtioFileSystemDevice) SetShare(value IVZDirectoryShare) {
 	objc.Send[struct{}](v.ID, objc.Sel("setShare:"), value)
 }
-
 // A string that identifies the device.
 //
 // # Discussion
@@ -146,7 +145,6 @@ func (v VZVirtioFileSystemDevice) Tag() string {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("tag"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // The list of configured directory-sharing devices on the VM.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachine/directorysharingdevices

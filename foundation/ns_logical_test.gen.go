@@ -189,7 +189,6 @@ func (l NSLogicalTest) InitAndTestWithTests(subTests []NSSpecifierTest) NSLogica
 	rv := objc.Send[NSLogicalTest](l.ID, objc.Sel("initAndTestWithTests:"), objectivec.IObjectSliceToNSArray(subTests))
 	return rv
 }
-
 // Returns an [NSLogicalTest] object initialized to perform a [NOT] operation
 // on the given [NSScriptWhoseTest] object.
 //
@@ -205,7 +204,6 @@ func (l NSLogicalTest) InitNotTestWithTest(subTest INSScriptWhoseTest) NSLogical
 	rv := objc.Send[NSLogicalTest](l.ID, objc.Sel("initNotTestWithTest:"), subTest)
 	return rv
 }
-
 // Returns an [NSLogicalTest] object initialized to perform an [OR] operation
 // with the [NSSpecifierTest] objects in a given array.
 //

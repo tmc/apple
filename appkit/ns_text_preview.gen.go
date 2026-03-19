@@ -202,7 +202,6 @@ func (t NSTextPreview) InitWithSnapshotImagePresentationFrame(snapshotImage core
 	rv := objc.Send[NSTextPreview](t.ID, objc.Sel("initWithSnapshotImage:presentationFrame:"), snapshotImage, presentationFrame)
 	return rv
 }
-
 // Creates a text preview using the specified image and rectangles that
 // indicate the portions of text to highlight.
 //
@@ -243,7 +242,6 @@ func (t NSTextPreview) PreviewImage() coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](t.ID, objc.Sel("previewImage"))
 	return coregraphics.CGImageRef(rv)
 }
-
 // The frame rectangle that places the preview image directly over the
 // matching text.
 //
@@ -258,7 +256,6 @@ func (t NSTextPreview) PresentationFrame() corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("presentationFrame"))
 	return corefoundation.CGRect(rv)
 }
-
 // Rectangles that define the specific portions of text to highlight.
 //
 // # Discussion

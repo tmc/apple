@@ -69,12 +69,10 @@ func NSURLConnectionDelegateObjectFromID(id objc.ID) NSURLConnectionDelegateObje
 // [connection(_:didReceive:)]: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didReceive:)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
-
 func (o NSURLConnectionDelegateObject) ConnectionWillSendRequestForAuthenticationChallenge(connection INSURLConnection, challenge INSURLAuthenticationChallenge) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:willSendRequestForAuthenticationChallenge:"), connection, challenge)
 	}
-
 // Sent to determine whether the URL loader should use the credential storage
 // for authenticating the connection.
 //
@@ -95,13 +93,11 @@ func (o NSURLConnectionDelegateObject) ConnectionWillSendRequestForAuthenticatio
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connectionShouldUseCredentialStorage(_:)
-
 func (o NSURLConnectionDelegateObject) ConnectionShouldUseCredentialStorage(connection INSURLConnection) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("connectionShouldUseCredentialStorage:"), connection)
 	return rv
 	}
-
 // Sent when a connection fails to load its request successfully.
 //
 // connection: The connection sending the message.
@@ -115,7 +111,6 @@ func (o NSURLConnectionDelegateObject) ConnectionShouldUseCredentialStorage(conn
 // messages for `connection`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didFailWithError:)
-
 func (o NSURLConnectionDelegateObject) ConnectionDidFailWithError(connection INSURLConnection, error_ INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)

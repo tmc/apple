@@ -113,7 +113,6 @@ func (b MTLBinaryArchiveDescriptor) Url() foundation.INSURL {
 func (b MTLBinaryArchiveDescriptor) SetUrl(value foundation.INSURL) {
 	objc.Send[struct{}](b.ID, objc.Sel("setUrl:"), value)
 }
-
 // The domain for Metal binary archive errors.
 //
 // See: https://developer.apple.com/documentation/metal/mtlbinaryarchivedomain

@@ -120,7 +120,6 @@ func (t MTLTextureViewDescriptor) PixelFormat() MTLPixelFormat {
 func (t MTLTextureViewDescriptor) SetPixelFormat(value MTLPixelFormat) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPixelFormat:"), value)
 }
-
 //
 // # Discussion
 // 
@@ -134,7 +133,6 @@ func (t MTLTextureViewDescriptor) Swizzle() MTLTextureSwizzleChannels {
 func (t MTLTextureViewDescriptor) SetSwizzle(value MTLTextureSwizzleChannels) {
 	objc.Send[struct{}](t.ID, objc.Sel("setSwizzle:"), value)
 }
-
 //
 // # Discussion
 // 
@@ -148,7 +146,6 @@ func (t MTLTextureViewDescriptor) TextureType() MTLTextureType {
 func (t MTLTextureViewDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextureType:"), value)
 }
-
 //
 // # Discussion
 // 
@@ -162,7 +159,6 @@ func (t MTLTextureViewDescriptor) LevelRange() foundation.NSRange {
 func (t MTLTextureViewDescriptor) SetLevelRange(value foundation.NSRange) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLevelRange:"), value)
 }
-
 //
 // # Discussion
 // 

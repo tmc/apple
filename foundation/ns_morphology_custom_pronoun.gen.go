@@ -149,7 +149,6 @@ func (m NSMorphologyCustomPronoun) InitWithCoder(coder INSCoder) NSMorphologyCus
 	rv := objc.Send[NSMorphologyCustomPronoun](m.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -174,7 +173,6 @@ func (m NSMorphologyCustomPronoun) SubjectForm() string {
 func (m NSMorphologyCustomPronoun) SetSubjectForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setSubjectForm:"), objc.String(value))
 }
-
 // The object pronoun form to apply when using this custom pronoun behavior.
 //
 // # Discussion
@@ -190,7 +188,6 @@ func (m NSMorphologyCustomPronoun) ObjectForm() string {
 func (m NSMorphologyCustomPronoun) SetObjectForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectForm:"), objc.String(value))
 }
-
 // The posessive pronoun form to apply when using this custom pronoun
 // behavior.
 //
@@ -207,7 +204,6 @@ func (m NSMorphologyCustomPronoun) PossessiveForm() string {
 func (m NSMorphologyCustomPronoun) SetPossessiveForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPossessiveForm:"), objc.String(value))
 }
-
 // The posessive adjective pronoun form to apply when using this custom
 // pronoun behavior.
 //
@@ -224,7 +220,6 @@ func (m NSMorphologyCustomPronoun) PossessiveAdjectiveForm() string {
 func (m NSMorphologyCustomPronoun) SetPossessiveAdjectiveForm(value string) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPossessiveAdjectiveForm:"), objc.String(value))
 }
-
 // The reflexive pronoun form to apply when using this custom pronoun
 // behavior.
 //

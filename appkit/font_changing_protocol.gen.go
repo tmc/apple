@@ -32,15 +32,12 @@ func NSFontChangingObjectFromID(id objc.ID) NSFontChangingObject {
 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontChanging/changeFont(_:)
-
 func (o NSFontChangingObject) ChangeFont(sender INSFontManager) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("changeFont:"), sender)
 	}
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontChanging/validModesForFontPanel(_:)
-
 func (o NSFontChangingObject) ValidModesForFontPanel(fontPanel NSFontPanel) NSFontPanelModeMask {
 	
 	rv := objc.Send[NSFontPanelModeMask](o.ID, objc.Sel("validModesForFontPanel:"), fontPanel)

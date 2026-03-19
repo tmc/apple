@@ -119,7 +119,6 @@ func (a ANEPerformanceStatsIOSurface) StatType() int64 {
 	rv := objc.Send[int64](a.ID, objc.Sel("statType"))
 	return rv
 }
-
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEPerformanceStatsIOSurface/stats
 func (a ANEPerformanceStatsIOSurface) Stats() *ANEIOSurfaceObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("stats"))

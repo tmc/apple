@@ -157,7 +157,6 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) FragmentAdditionalBinaryFun
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetFragmentAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setFragmentAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Provides an array of binary functions representing additional binary mesh
 // shader functions.
 //
@@ -171,7 +170,6 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) MeshAdditionalBinaryFunctio
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetMeshAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMeshAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Provides an array of binary functions representing additional binary object
 // shader functions.
 //
@@ -185,7 +183,6 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) ObjectAdditionalBinaryFunct
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetObjectAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setObjectAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Provides an array of binary functions representing additional binary tile
 // shader functions.
 //
@@ -199,7 +196,6 @@ func (m MTL4RenderPipelineBinaryFunctionsDescriptor) TileAdditionalBinaryFunctio
 func (m MTL4RenderPipelineBinaryFunctionsDescriptor) SetTileAdditionalBinaryFunctions(value []objectivec.IObject) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTileAdditionalBinaryFunctions:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Provides an array of binary functions representing additional binary vertex
 // shader functions.
 //

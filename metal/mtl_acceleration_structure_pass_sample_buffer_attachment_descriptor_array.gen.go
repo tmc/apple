@@ -94,7 +94,6 @@ func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray) Objec
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("objectAtIndexedSubscript:"), attachmentIndex)
 	return MTLAccelerationStructurePassSampleBufferAttachmentDescriptorFromID(rv)
 }
-
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray/setObject:atIndexedSubscript:
 func (a MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray) SetObjectAtIndexedSubscript(attachment IMTLAccelerationStructurePassSampleBufferAttachmentDescriptor, attachmentIndex uint) {

@@ -107,7 +107,6 @@ func (p MTLPipelineBufferDescriptorArray) ObjectAtIndexedSubscript(bufferIndex u
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("objectAtIndexedSubscript:"), bufferIndex)
 	return MTLPipelineBufferDescriptorFromID(rv)
 }
-
 // Sets a pipeline buffer descriptor at the specified array index.
 //
 // buffer: The pipeline buffer descriptor to set in the array.

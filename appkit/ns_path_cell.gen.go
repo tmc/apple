@@ -405,7 +405,6 @@ func NewPathCellWithCoder(coder foundation.INSCoder) NSPathCell {
 func (p NSPathCell) MouseEnteredWithFrameInView(event INSEvent, frame corefoundation.CGRect, view INSView) {
 	objc.Send[objc.ID](p.ID, objc.Sel("mouseEntered:withFrame:inView:"), event, frame, view)
 }
-
 // Hides the cell component over which the mouse is hovering.
 //
 // event: The mouse-exited event.
@@ -418,7 +417,6 @@ func (p NSPathCell) MouseEnteredWithFrameInView(event INSEvent, frame corefounda
 func (p NSPathCell) MouseExitedWithFrameInView(event INSEvent, frame corefoundation.CGRect, view INSView) {
 	objc.Send[objc.ID](p.ID, objc.Sel("mouseExited:withFrame:inView:"), event, frame, view)
 }
-
 // Returns the current rectangle being displayed for a given path component
 // cell, with respect to a given frame in a given view.
 //
@@ -438,7 +436,6 @@ func (p NSPathCell) RectOfPathComponentCellWithFrameInView(cell INSPathComponent
 	rv := objc.Send[corefoundation.CGRect](p.ID, objc.Sel("rectOfPathComponentCell:withFrame:inView:"), cell, frame, view)
 	return corefoundation.CGRect(rv)
 }
-
 // Returns the cell located at the given point within the given frame of the
 // given view.
 //
@@ -458,7 +455,6 @@ func (p NSPathCell) PathComponentCellAtPointWithFrameInView(point corefoundation
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("pathComponentCellAtPoint:withFrame:inView:"), point, frame, view)
 	return NSPathComponentCellFromID(rv)
 }
-
 // Tells the delegate that the user changed the selected directory to the
 // directory located at the specified URL.
 //
@@ -473,7 +469,6 @@ func (p NSPathCell) PathComponentCellAtPointWithFrameInView(point corefoundation
 func (p NSPathCell) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panel:didChangeToDirectoryURL:"), sender, url)
 }
-
 // [NSSavePanel]: Optional — Sent when the user changes the current type.
 // [NSOpenPanel]: Not sent.
 //
@@ -481,7 +476,6 @@ func (p NSPathCell) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url 
 func (p NSPathCell) PanelDidSelectType(sender objectivec.IObject, type_ uniformtypeidentifiers.UTType) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panel:didSelectType:"), sender, type_)
 }
-
 // [NSSavePanel]: Optional — Sent when the content type popup is displayed
 // and the save panel needs the display name for a type. If `nil` is returned,
 // the save panel will display type’s `localizedDescription`. [NSOpenPanel]:
@@ -492,7 +486,6 @@ func (p NSPathCell) PanelDisplayNameForType(sender objectivec.IObject, type_ uni
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("panel:displayNameForType:"), sender, type_)
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Tells the delegate that the user changed the selection in the specified
 // Save panel.
 //
@@ -502,7 +495,6 @@ func (p NSPathCell) PanelDisplayNameForType(sender objectivec.IObject, type_ uni
 func (p NSPathCell) PanelSelectionDidChange(sender objectivec.IObject) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panelSelectionDidChange:"), sender)
 }
-
 // Asks the delegate whether the specified URL should be enabled in the Open
 // panel.
 //
@@ -530,7 +522,6 @@ func (p NSPathCell) PanelShouldEnableURL(sender objectivec.IObject, url foundati
 	rv := objc.Send[bool](p.ID, objc.Sel("panel:shouldEnableURL:"), sender, url)
 	return rv
 }
-
 // Tells the delegate that the user confirmed a filename choice by clicking
 // Save in a Save panel.
 //
@@ -573,7 +564,6 @@ func (p NSPathCell) PanelUserEnteredFilenameConfirmed(sender objectivec.IObject,
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("panel:userEnteredFilename:confirmed:"), sender, objc.String(filename), okFlag)
 	return foundation.NSStringFromID(rv).String()
 }
-
 // Asks the delegate to validate the URL for a file that the user selected.
 //
 // sender: The panel that requests URL validation.
@@ -600,7 +590,6 @@ func (p NSPathCell) PanelValidateURLError(sender objectivec.IObject, url foundat
 	return rv, nil
 
 }
-
 // Tells the delegate that the Save panel is about to expand or collapse
 // because the user clicked the disclosure triangle that displays or hides the
 // file browser.
@@ -617,7 +606,6 @@ func (p NSPathCell) PanelValidateURLError(sender objectivec.IObject, url foundat
 func (p NSPathCell) PanelWillExpand(sender objectivec.IObject, expanding bool) {
 	objc.Send[objc.ID](p.ID, objc.Sel("panel:willExpand:"), sender, expanding)
 }
-
 // Implemented to override the default action of enabling or disabling a
 // specific menu item.
 //
@@ -673,7 +661,6 @@ func (p NSPathCell) AllowedTypes() []string {
 func (p NSPathCell) SetAllowedTypes(value []string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAllowedTypes:"), objectivec.StringSliceToNSArray(value))
 }
-
 // Sets the receiver’s path style.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/pathStyle
@@ -684,7 +671,6 @@ func (p NSPathCell) PathStyle() NSPathStyle {
 func (p NSPathCell) SetPathStyle(value NSPathStyle) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPathStyle:"), value)
 }
-
 // Sets the value of the placeholder attributed string.
 //
 // # Discussion
@@ -702,7 +688,6 @@ func (p NSPathCell) PlaceholderAttributedString() foundation.NSAttributedString 
 func (p NSPathCell) SetPlaceholderAttributedString(value foundation.NSAttributedString) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPlaceholderAttributedString:"), value)
 }
-
 // Returns the placeholder string.
 //
 // # Return Value
@@ -724,7 +709,6 @@ func (p NSPathCell) PlaceholderString() string {
 func (p NSPathCell) SetPlaceholderString(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPlaceholderString:"), objc.String(value))
 }
-
 // Returns the current background color of the receiver.
 //
 // # Return Value
@@ -739,7 +723,6 @@ func (p NSPathCell) BackgroundColor() INSColor {
 func (p NSPathCell) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](p.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
 // Sets the array of [NSPathComponentCell] objects currently being displayed.
 //
 // # Discussion
@@ -758,7 +741,6 @@ func (p NSPathCell) PathComponentCells() []NSPathComponentCell {
 func (p NSPathCell) SetPathComponentCells(value []NSPathComponentCell) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPathComponentCells:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // Sets the receiver’s double-click action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/doubleAction
@@ -769,7 +751,6 @@ func (p NSPathCell) DoubleAction() objc.SEL {
 func (p NSPathCell) SetDoubleAction(value objc.SEL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDoubleAction:"), value)
 }
-
 // Returns the path displayed by the receiver.
 //
 // # Return Value
@@ -784,7 +765,6 @@ func (p NSPathCell) URL() foundation.INSURL {
 func (p NSPathCell) SetURL(value foundation.INSURL) {
 	objc.Send[struct{}](p.ID, objc.Sel("setURL:"), value)
 }
-
 // Sets the value of the path displayed by the receiver.
 //
 // # Discussion
@@ -806,7 +786,6 @@ func (p NSPathCell) ClickedPathComponentCell() INSPathComponentCell {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("clickedPathComponentCell"))
 	return NSPathComponentCellFromID(objc.ID(rv))
 }
-
 // Sets the receiver’s delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCell/delegate
@@ -817,7 +796,6 @@ func (p NSPathCell) Delegate() NSPathCellDelegate {
 func (p NSPathCell) SetDelegate(value NSPathCellDelegate) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDelegate:"), value)
 }
-
 // A Boolean value indicating whether the cell is editable.
 //
 // See: https://developer.apple.com/documentation/appkit/nscell/iseditable
@@ -828,7 +806,6 @@ func (p NSPathCell) IsEditable() bool {
 func (p NSPathCell) SetIsEditable(value bool) {
 	objc.Send[struct{}](p.ID, objc.Sel("setEditable:"), value)
 }
-
 // A Boolean value indicating whether the cell’s text can be selected.
 //
 // See: https://developer.apple.com/documentation/appkit/nscell/isselectable

@@ -115,7 +115,6 @@ func (c MTLCommandQueueDescriptor) LogState() MTLLogState {
 func (c MTLCommandQueueDescriptor) SetLogState(value MTLLogState) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLogState:"), value)
 }
-
 // An integer that sets the maximum number of uncompleted command buffers the
 // queue can allow.
 //
@@ -127,7 +126,6 @@ func (c MTLCommandQueueDescriptor) MaxCommandBufferCount() uint {
 func (c MTLCommandQueueDescriptor) SetMaxCommandBufferCount(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxCommandBufferCount:"), value)
 }
-
 // The domain for Metal command buffer errors.
 //
 // See: https://developer.apple.com/documentation/metal/mtlcommandbuffererrordomain

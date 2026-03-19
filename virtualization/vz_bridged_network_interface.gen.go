@@ -125,7 +125,6 @@ func (b VZBridgedNetworkInterface) Identifier() string {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("identifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A user-visible name for the network interface.
 //
 // # Discussion

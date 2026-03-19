@@ -149,7 +149,6 @@ func (l NSLayoutYAxisAnchor) ConstraintEqualToSystemSpacingBelowAnchorMultiplier
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToSystemSpacingBelowAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the minimum distance by which the current
 // anchor is positioned below the specified anchor.
 //
@@ -178,7 +177,6 @@ func (l NSLayoutYAxisAnchor) ConstraintGreaterThanOrEqualToSystemSpacingBelowAnc
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the maximum distance by which the current
 // anchor is positioned below the specified anchor.
 //
@@ -207,7 +205,6 @@ func (l NSLayoutYAxisAnchor) ConstraintLessThanOrEqualToSystemSpacingBelowAnchor
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToSystemSpacingBelowAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Creates a layout dimension object from two anchors.
 //
 // otherAnchor: The second anchor to use when creating the layout dimension.

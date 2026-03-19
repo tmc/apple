@@ -80,7 +80,6 @@ func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) DefaultPlace
 	rv := objc.Send[objc.ID](objc.ID(_NSBindingSelectionMarkerClass.class), objc.Sel("defaultPlaceholderForMarker:onClass:withBinding:"), marker, objectClass, objc.String(binding))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBindingSelectionMarker/setDefaultPlaceholder(_:for:on:withBinding:)
 func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) SetDefaultPlaceholderForMarkerOnClassWithBinding(placeholder objectivec.IObject, marker INSBindingSelectionMarker, objectClass objc.Class, binding string) {
@@ -92,13 +91,11 @@ func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) MultipleValu
 	rv := objc.Send[objc.ID](objc.ID(_NSBindingSelectionMarkerClass.class), objc.Sel("multipleValuesSelectionMarker"))
 	return NSBindingSelectionMarkerFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSBindingSelectionMarker/noSelection
 func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) NoSelectionMarker() NSBindingSelectionMarker {
 	rv := objc.Send[objc.ID](objc.ID(_NSBindingSelectionMarkerClass.class), objc.Sel("noSelectionMarker"))
 	return NSBindingSelectionMarkerFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSBindingSelectionMarker/notApplicable
 func (_NSBindingSelectionMarkerClass NSBindingSelectionMarkerClass) NotApplicableSelectionMarker() NSBindingSelectionMarker {
 	rv := objc.Send[objc.ID](objc.ID(_NSBindingSelectionMarkerClass.class), objc.Sel("notApplicableSelectionMarker"))

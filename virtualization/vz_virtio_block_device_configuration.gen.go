@@ -217,7 +217,6 @@ func (v VZVirtioBlockDeviceConfiguration) BlockDeviceIdentifier() string {
 func (v VZVirtioBlockDeviceConfiguration) SetBlockDeviceIdentifier(value string) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBlockDeviceIdentifier:"), objc.String(value))
 }
-
 // The array of storage devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/storagedevices

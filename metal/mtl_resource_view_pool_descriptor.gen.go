@@ -113,7 +113,6 @@ func (r MTLResourceViewPoolDescriptor) Label() string {
 func (r MTLResourceViewPoolDescriptor) SetLabel(value string) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLabel:"), objc.String(value))
 }
-
 // Configures the number of resource views with which Metal creates the
 // resource view pool.
 //

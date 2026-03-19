@@ -62,13 +62,11 @@ func NSCollectionViewDataSourceObjectFromID(id objc.ID) NSCollectionViewDataSour
 // in the section.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:numberOfItemsInSection:)
-
 func (o NSCollectionViewDataSourceObject) CollectionViewNumberOfItemsInSection(collectionView INSCollectionView, section int) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("collectionView:numberOfItemsInSection:"), collectionView, section)
 	return rv
 	}
-
 // Asks your data source object to provide the item at the specified location
 // in the collection view.
 //
@@ -96,13 +94,11 @@ func (o NSCollectionViewDataSourceObject) CollectionViewNumberOfItemsInSection(c
 // attributes from the layout object during a separate step.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:itemForRepresentedObjectAt:)
-
 func (o NSCollectionViewDataSourceObject) CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath objectivec.IObject) INSCollectionViewItem {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:itemForRepresentedObjectAtIndexPath:"), collectionView, indexPath)
 	return NSCollectionViewItemFromID(rv)
 	}
-
 // Asks your data source object to provide the total number of sections.
 //
 // collectionView: The collection view requesting the information.
@@ -118,13 +114,11 @@ func (o NSCollectionViewDataSourceObject) CollectionViewItemForRepresentedObject
 // creates only one section.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/numberOfSections(in:)
-
 func (o NSCollectionViewDataSourceObject) NumberOfSectionsInCollectionView(collectionView INSCollectionView) int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfSectionsInCollectionView:"), collectionView)
 	return rv
 	}
-
 // Asks your data source object to provide the supplementary view at the
 // specified location in a section of the collection view.
 //
@@ -158,7 +152,6 @@ func (o NSCollectionViewDataSourceObject) NumberOfSectionsInCollectionView(colle
 // separate step.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:viewForSupplementaryElementOfKind:at:)
-
 func (o NSCollectionViewDataSourceObject) CollectionViewViewForSupplementaryElementOfKindAtIndexPath(collectionView INSCollectionView, kind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSView {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:viewForSupplementaryElementOfKind:atIndexPath:"), collectionView, objc.String(string(kind)), indexPath)

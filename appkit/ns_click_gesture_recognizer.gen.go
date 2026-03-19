@@ -191,7 +191,6 @@ func (c NSClickGestureRecognizer) ButtonMask() uint {
 func (c NSClickGestureRecognizer) SetButtonMask(value uint) {
 	objc.Send[struct{}](c.ID, objc.Sel("setButtonMask:"), value)
 }
-
 // The number of clicks required to match.
 //
 // # Discussion
@@ -208,7 +207,6 @@ func (c NSClickGestureRecognizer) NumberOfClicksRequired() int {
 func (c NSClickGestureRecognizer) SetNumberOfClicksRequired(value int) {
 	objc.Send[struct{}](c.ID, objc.Sel("setNumberOfClicksRequired:"), value)
 }
-
 // The number of touches required in an [NSTouchBar] object for the gesture
 // recognizer to match.
 //

@@ -81,7 +81,6 @@ func (_MLROnDemandPluginClass MLROnDemandPluginClass) OnDemandPluginIDs() object
 	rv := objc.Send[objc.ID](objc.ID(_MLROnDemandPluginClass.class), objc.Sel("onDemandPluginIDs"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandPlugin/performTask:forPluginID:completionHandler:
 func (_MLROnDemandPluginClass MLROnDemandPluginClass) PerformTaskForPluginIDCompletionHandler(task objectivec.IObject, id objectivec.IObject, handler ErrorHandler) {
@@ -89,7 +88,6 @@ _block2, _cleanup2 := NewErrorBlock(handler)
 	defer _cleanup2()
 	objc.Send[objc.ID](objc.ID(_MLROnDemandPluginClass.class), objc.Sel("performTask:forPluginID:completionHandler:"), task, id, _block2)
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLROnDemandPlugin/synchronouslyPerformTask:forPluginID:error:
 func (_MLROnDemandPluginClass MLROnDemandPluginClass) SynchronouslyPerformTaskForPluginIDError(task objectivec.IObject, id objectivec.IObject) (objectivec.IObject, error) {

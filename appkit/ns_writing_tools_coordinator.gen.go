@@ -280,7 +280,6 @@ func (w NSWritingToolsCoordinator) InitWithDelegate(delegate NSWritingToolsCoord
 	rv := objc.Send[NSWritingToolsCoordinator](w.ID, objc.Sel("initWithDelegate:"), delegate)
 	return rv
 }
-
 // Informs the coordinator about changes your app made to the text in the
 // specified context object.
 //
@@ -325,7 +324,6 @@ func (w NSWritingToolsCoordinator) InitWithDelegate(delegate NSWritingToolsCoord
 func (w NSWritingToolsCoordinator) UpdateRangeWithTextReasonForContextWithIdentifier(range_ foundation.NSRange, replacementText foundation.NSAttributedString, reason NSWritingToolsCoordinatorTextUpdateReason, contextID foundation.NSUUID) {
 	objc.Send[objc.ID](w.ID, objc.Sel("updateRange:withText:reason:forContextWithIdentifier:"), range_, replacementText, reason, contextID)
 }
-
 // Informs the coordinator that a change occurred to the view or its text that
 // requires a layout update.
 //
@@ -350,7 +348,6 @@ func (w NSWritingToolsCoordinator) UpdateRangeWithTextReasonForContextWithIdenti
 func (w NSWritingToolsCoordinator) UpdateForReflowedTextInContextWithIdentifier(contextID foundation.NSUUID) {
 	objc.Send[objc.ID](w.ID, objc.Sel("updateForReflowedTextInContextWithIdentifier:"), contextID)
 }
-
 // Stops the current Writing Tools operation and dismisses the system UI.
 //
 // # Discussion
@@ -380,7 +377,6 @@ func (w NSWritingToolsCoordinator) Delegate() NSWritingToolsCoordinatorDelegate 
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("delegate"))
 	return NSWritingToolsCoordinatorDelegateObjectFromID(rv)
 }
-
 // The view that currently uses the writing tools coordinator.
 //
 // # Discussion
@@ -395,7 +391,6 @@ func (w NSWritingToolsCoordinator) View() INSView {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("view"))
 	return NSViewFromID(objc.ID(rv))
 }
-
 // The view that Writing Tools uses to display visual effects during the
 // text-rewriting process.
 //
@@ -422,7 +417,6 @@ func (w NSWritingToolsCoordinator) EffectContainerView() INSView {
 func (w NSWritingToolsCoordinator) SetEffectContainerView(value INSView) {
 	objc.Send[struct{}](w.ID, objc.Sel("setEffectContainerView:"), value)
 }
-
 // The view that Writing Tools uses to display background decorations such as
 // proofreading marks.
 //
@@ -450,7 +444,6 @@ func (w NSWritingToolsCoordinator) DecorationContainerView() INSView {
 func (w NSWritingToolsCoordinator) SetDecorationContainerView(value INSView) {
 	objc.Send[struct{}](w.ID, objc.Sel("setDecorationContainerView:"), value)
 }
-
 // The level of Writing Tools support you want the system to provide for your
 // view.
 //
@@ -470,7 +463,6 @@ func (w NSWritingToolsCoordinator) PreferredBehavior() NSWritingToolsBehavior {
 func (w NSWritingToolsCoordinator) SetPreferredBehavior(value NSWritingToolsBehavior) {
 	objc.Send[struct{}](w.ID, objc.Sel("setPreferredBehavior:"), value)
 }
-
 // The actual level of Writing Tools support the system provides for your
 // view.
 //
@@ -492,7 +484,6 @@ func (w NSWritingToolsCoordinator) Behavior() NSWritingToolsBehavior {
 	rv := objc.Send[NSWritingToolsBehavior](w.ID, objc.Sel("behavior"))
 	return NSWritingToolsBehavior(rv)
 }
-
 // The type of content you allow Writing Tools to generate for your custom
 // text view.
 //
@@ -512,7 +503,6 @@ func (w NSWritingToolsCoordinator) PreferredResultOptions() NSWritingToolsResult
 func (w NSWritingToolsCoordinator) SetPreferredResultOptions(value NSWritingToolsResultOptions) {
 	objc.Send[struct{}](w.ID, objc.Sel("setPreferredResultOptions:"), value)
 }
-
 // The type of content the system generates for your custom text view.
 //
 // # Discussion
@@ -526,7 +516,6 @@ func (w NSWritingToolsCoordinator) ResultOptions() NSWritingToolsResultOptions {
 	rv := objc.Send[NSWritingToolsResultOptions](w.ID, objc.Sel("resultOptions"))
 	return NSWritingToolsResultOptions(rv)
 }
-
 // The current level of Writing Tools activity in your view.
 //
 // # Discussion
@@ -542,7 +531,6 @@ func (w NSWritingToolsCoordinator) State() NSWritingToolsCoordinatorState {
 	rv := objc.Send[NSWritingToolsCoordinatorState](w.ID, objc.Sel("state"))
 	return NSWritingToolsCoordinatorState(rv)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsCoordinator/includesTextListMarkers
 func (w NSWritingToolsCoordinator) IncludesTextListMarkers() bool {
 	rv := objc.Send[bool](w.ID, objc.Sel("includesTextListMarkers"))
@@ -551,7 +539,6 @@ func (w NSWritingToolsCoordinator) IncludesTextListMarkers() bool {
 func (w NSWritingToolsCoordinator) SetIncludesTextListMarkers(value bool) {
 	objc.Send[struct{}](w.ID, objc.Sel("setIncludesTextListMarkers:"), value)
 }
-
 // See: https://developer.apple.com/documentation/appkit/nsview/writingtoolscoordinator
 func (w NSWritingToolsCoordinator) WritingToolsCoordinator() INSWritingToolsCoordinator {
 	rv := objc.Send[objc.ID](w.ID, objc.Sel("writingToolsCoordinator"))

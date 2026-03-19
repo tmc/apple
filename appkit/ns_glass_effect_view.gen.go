@@ -166,7 +166,6 @@ func (g NSGlassEffectView) ContentView() INSView {
 func (g NSGlassEffectView) SetContentView(value INSView) {
 	objc.Send[struct{}](g.ID, objc.Sel("setContentView:"), value)
 }
-
 // The amount of curvature for all corners of the glass.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlassEffectView/cornerRadius
@@ -177,7 +176,6 @@ func (g NSGlassEffectView) CornerRadius() float64 {
 func (g NSGlassEffectView) SetCornerRadius(value float64) {
 	objc.Send[struct{}](g.ID, objc.Sel("setCornerRadius:"), value)
 }
-
 // The style of glass this view uses.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlassEffectView/style-swift.property
@@ -188,7 +186,6 @@ func (g NSGlassEffectView) Style() objectivec.IObject {
 func (g NSGlassEffectView) SetStyle(value objectivec.IObject) {
 	objc.Send[struct{}](g.ID, objc.Sel("setStyle:"), value)
 }
-
 // The color the glass effect view uses to tint the background and glass
 // effect toward.
 //

@@ -243,7 +243,6 @@ func (d NSDataAsset) InitWithName(name NSDataAssetName) NSDataAsset {
 	rv := objc.Send[NSDataAsset](d.ID, objc.Sel("initWithName:"), objc.String(string(name)))
 	return rv
 }
-
 // Initializes and returns an object with a reference to the named data asset
 // that’s in an asset catalog in the specified bundle.
 //
@@ -283,7 +282,6 @@ func (d NSDataAsset) Data() foundation.INSData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("data"))
 	return foundation.NSDataFromID(objc.ID(rv))
 }
-
 // The name of the data set in the asset catalog.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDataAsset/name-swift.property
@@ -291,7 +289,6 @@ func (d NSDataAsset) Name() NSDataAssetName {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("name"))
 	return NSDataAssetName(foundation.NSStringFromID(rv).String())
 }
-
 // The uniform type identifier for the data asset.
 //
 // # Discussion

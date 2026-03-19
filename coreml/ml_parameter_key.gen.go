@@ -182,7 +182,6 @@ func (p MLParameterKey) AvailableComputeDevices() objectivec.IObject {
 func (p MLParameterKey) SetAvailableComputeDevices(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAvailableComputeDevices:"), value)
 }
-
 // The configuration of the model set during initialization.
 //
 // See: https://developer.apple.com/documentation/coreml/mlmodel/configuration
@@ -193,7 +192,6 @@ func (p MLParameterKey) Configuration() IMLModelConfiguration {
 func (p MLParameterKey) SetConfiguration(value IMLModelConfiguration) {
 	objc.Send[struct{}](p.ID, objc.Sel("setConfiguration:"), value)
 }
-
 // Model information you use at runtime during development, which Xcode also
 // displays in its Core ML model editor view.
 //
@@ -205,7 +203,6 @@ func (p MLParameterKey) ModelDescription() IMLModelDescription {
 func (p MLParameterKey) SetModelDescription(value IMLModelDescription) {
 	objc.Send[struct{}](p.ID, objc.Sel("setModelDescription:"), value)
 }
-
 // A dictionary of configuration settings your app can override when loading a
 // model.
 //
@@ -232,7 +229,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) NumberOfNeighbors() MLParameterK
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("numberOfNeighbors"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the linked model’s filename.
 //
 // # Discussion
@@ -246,7 +242,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) LinkedModelFileName() MLParamete
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("linkedModelFileName"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the linked model’s search path.
 //
 // # Discussion
@@ -260,7 +255,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) LinkedModelSearchPath() MLParame
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("linkedModelSearchPath"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the weights of a layer in a neural network model.
 //
 // # Discussion
@@ -274,7 +268,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Weights() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("weights"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the biases of a layer in a neural network model.
 //
 // # Discussion
@@ -288,7 +281,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Biases() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("biases"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the optimizer’s learning rate parameter.
 //
 // # Discussion
@@ -312,7 +304,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) LearningRate() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("learningRate"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the stochastic gradient descent (SGD)
 // optimizer’s momentum parameter.
 //
@@ -327,7 +318,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Momentum() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("momentum"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the optimizer’s mini batch-size parameter.
 //
 // # Discussion
@@ -341,7 +331,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) MiniBatchSize() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("miniBatchSize"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the Adam optimizer’s first beta parameter.
 //
 // # Discussion
@@ -355,7 +344,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Beta1() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("beta1"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the Adam optimizer’s second beta parameter.
 //
 // # Discussion
@@ -369,7 +357,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Beta2() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("beta2"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the Adam optimizer’s epsilon parameter.
 //
 // # Discussion
@@ -383,7 +370,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Eps() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("eps"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the optimizer’s epochs parameter.
 //
 // # Discussion
@@ -397,7 +383,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Epochs() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("epochs"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the shuffle parameter, a Boolean value that
 // determines whether the model randomizes the data between epochs.
 //
@@ -412,7 +397,6 @@ func (_MLParameterKeyClass MLParameterKeyClass) Shuffle() MLParameterKey {
 	rv := objc.Send[objc.ID](objc.ID(_MLParameterKeyClass.class), objc.Sel("shuffle"))
 	return MLParameterKeyFromID(objc.ID(rv))
 }
-
 // The key you use to access the seed parameter that initializes the random
 // number generator for the shuffle option.
 //

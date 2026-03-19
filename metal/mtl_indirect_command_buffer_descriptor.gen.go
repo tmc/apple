@@ -262,7 +262,6 @@ func (i MTLIndirectCommandBufferDescriptor) CommandTypes() MTLIndirectCommandTyp
 func (i MTLIndirectCommandBufferDescriptor) SetCommandTypes(value MTLIndirectCommandType) {
 	objc.Send[struct{}](i.ID, objc.Sel("setCommandTypes:"), value)
 }
-
 // A Boolean value that determines where commands in the indirect command
 // buffer get their buffer arguments from when you execute them.
 //
@@ -289,7 +288,6 @@ func (i MTLIndirectCommandBufferDescriptor) InheritBuffers() bool {
 func (i MTLIndirectCommandBufferDescriptor) SetInheritBuffers(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInheritBuffers:"), value)
 }
-
 // A Boolean value that determines where commands in the indirect command
 // buffer get their pipeline state from when you execute them.
 //
@@ -320,7 +318,6 @@ func (i MTLIndirectCommandBufferDescriptor) InheritPipelineState() bool {
 func (i MTLIndirectCommandBufferDescriptor) SetInheritPipelineState(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInheritPipelineState:"), value)
 }
-
 // The maximum number of buffers that you can set per command for the vertex
 // stage.
 //
@@ -342,7 +339,6 @@ func (i MTLIndirectCommandBufferDescriptor) MaxVertexBufferBindCount() uint {
 func (i MTLIndirectCommandBufferDescriptor) SetMaxVertexBufferBindCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxVertexBufferBindCount:"), value)
 }
-
 // The maximum number of buffers that you can set per command for the fragment
 // stage.
 //
@@ -364,7 +360,6 @@ func (i MTLIndirectCommandBufferDescriptor) MaxFragmentBufferBindCount() uint {
 func (i MTLIndirectCommandBufferDescriptor) SetMaxFragmentBufferBindCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxFragmentBufferBindCount:"), value)
 }
-
 // The maximum number of buffers that you can set per command for the compute
 // kernel.
 //
@@ -386,7 +381,6 @@ func (i MTLIndirectCommandBufferDescriptor) MaxKernelBufferBindCount() uint {
 func (i MTLIndirectCommandBufferDescriptor) SetMaxKernelBufferBindCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxKernelBufferBindCount:"), value)
 }
-
 // Configures whether the indirect command buffer inherits the cull mode from
 // the encoder.
 //
@@ -404,7 +398,6 @@ func (i MTLIndirectCommandBufferDescriptor) InheritCullMode() bool {
 func (i MTLIndirectCommandBufferDescriptor) SetInheritCullMode(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInheritCullMode:"), value)
 }
-
 // Configures whether the indirect command buffer inherits the depth bias from
 // the encoder.
 //
@@ -422,7 +415,6 @@ func (i MTLIndirectCommandBufferDescriptor) InheritDepthBias() bool {
 func (i MTLIndirectCommandBufferDescriptor) SetInheritDepthBias(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInheritDepthBias:"), value)
 }
-
 // Configures whether the indirect command buffer inherits the depth clip mode
 // from the encoder.
 //
@@ -440,7 +432,6 @@ func (i MTLIndirectCommandBufferDescriptor) InheritDepthClipMode() bool {
 func (i MTLIndirectCommandBufferDescriptor) SetInheritDepthClipMode(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInheritDepthClipMode:"), value)
 }
-
 // Configures whether the indirect command buffer inherits the depth stencil
 // state from the encoder.
 //
@@ -458,7 +449,6 @@ func (i MTLIndirectCommandBufferDescriptor) InheritDepthStencilState() bool {
 func (i MTLIndirectCommandBufferDescriptor) SetInheritDepthStencilState(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInheritDepthStencilState:"), value)
 }
-
 // Configures whether the indirect command buffer inherits the front facing
 // winding from the encoder.
 //
@@ -476,7 +466,6 @@ func (i MTLIndirectCommandBufferDescriptor) InheritFrontFacingWinding() bool {
 func (i MTLIndirectCommandBufferDescriptor) SetInheritFrontFacingWinding(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInheritFrontFacingWinding:"), value)
 }
-
 // Configures whether the indirect command buffer inherits the triangle fill
 // mode from the encoder.
 //
@@ -494,7 +483,6 @@ func (i MTLIndirectCommandBufferDescriptor) InheritTriangleFillMode() bool {
 func (i MTLIndirectCommandBufferDescriptor) SetInheritTriangleFillMode(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setInheritTriangleFillMode:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/maxKernelThreadgroupMemoryBindCount
 func (i MTLIndirectCommandBufferDescriptor) MaxKernelThreadgroupMemoryBindCount() uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("maxKernelThreadgroupMemoryBindCount"))
@@ -503,7 +491,6 @@ func (i MTLIndirectCommandBufferDescriptor) MaxKernelThreadgroupMemoryBindCount(
 func (i MTLIndirectCommandBufferDescriptor) SetMaxKernelThreadgroupMemoryBindCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxKernelThreadgroupMemoryBindCount:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/maxMeshBufferBindCount
 func (i MTLIndirectCommandBufferDescriptor) MaxMeshBufferBindCount() uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("maxMeshBufferBindCount"))
@@ -512,7 +499,6 @@ func (i MTLIndirectCommandBufferDescriptor) MaxMeshBufferBindCount() uint {
 func (i MTLIndirectCommandBufferDescriptor) SetMaxMeshBufferBindCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxMeshBufferBindCount:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/maxObjectBufferBindCount
 func (i MTLIndirectCommandBufferDescriptor) MaxObjectBufferBindCount() uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("maxObjectBufferBindCount"))
@@ -521,7 +507,6 @@ func (i MTLIndirectCommandBufferDescriptor) MaxObjectBufferBindCount() uint {
 func (i MTLIndirectCommandBufferDescriptor) SetMaxObjectBufferBindCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxObjectBufferBindCount:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/maxObjectThreadgroupMemoryBindCount
 func (i MTLIndirectCommandBufferDescriptor) MaxObjectThreadgroupMemoryBindCount() uint {
 	rv := objc.Send[uint](i.ID, objc.Sel("maxObjectThreadgroupMemoryBindCount"))
@@ -530,7 +515,6 @@ func (i MTLIndirectCommandBufferDescriptor) MaxObjectThreadgroupMemoryBindCount(
 func (i MTLIndirectCommandBufferDescriptor) SetMaxObjectThreadgroupMemoryBindCount(value uint) {
 	objc.Send[struct{}](i.ID, objc.Sel("setMaxObjectThreadgroupMemoryBindCount:"), value)
 }
-
 // Specifies if the indirect command buffer should support color attachment
 // mapping.
 //
@@ -542,7 +526,6 @@ func (i MTLIndirectCommandBufferDescriptor) SupportColorAttachmentMapping() bool
 func (i MTLIndirectCommandBufferDescriptor) SetSupportColorAttachmentMapping(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSupportColorAttachmentMapping:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/supportDynamicAttributeStride
 func (i MTLIndirectCommandBufferDescriptor) SupportDynamicAttributeStride() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("supportDynamicAttributeStride"))
@@ -551,7 +534,6 @@ func (i MTLIndirectCommandBufferDescriptor) SupportDynamicAttributeStride() bool
 func (i MTLIndirectCommandBufferDescriptor) SetSupportDynamicAttributeStride(value bool) {
 	objc.Send[struct{}](i.ID, objc.Sel("setSupportDynamicAttributeStride:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferDescriptor/supportRayTracing
 func (i MTLIndirectCommandBufferDescriptor) SupportRayTracing() bool {
 	rv := objc.Send[bool](i.ID, objc.Sel("supportRayTracing"))

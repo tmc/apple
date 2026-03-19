@@ -168,7 +168,6 @@ func (c NSCreateCommand) CreateClassDescription() INSScriptClassDescription {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("createClassDescription"))
 	return NSScriptClassDescriptionFromID(objc.ID(rv))
 }
-
 // Returns a dictionary that contains the properties that were specified in
 // the `make` Apple event command that has been converted to this
 // [NSCreateCommand] object.

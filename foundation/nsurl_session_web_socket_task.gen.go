@@ -188,7 +188,6 @@ _block0, _cleanup0 := NewErrorBlock(pongReceiveHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](u.ID, objc.Sel("sendPingWithPongReceiveHandler:"), _block0)
 }
-
 // Sends a close frame with the given close code and optional close reason.
 //
 // closeCode: A [URLSessionWebSocketTask.CloseCode] that indicates the reason for closing
@@ -208,7 +207,6 @@ _block0, _cleanup0 := NewErrorBlock(pongReceiveHandler)
 func (u URLSessionWebSocketTask) CancelWithCloseCodeReason(closeCode NSURLSessionWebSocketCloseCode, reason INSData) {
 	objc.Send[objc.ID](u.ID, objc.Sel("cancelWithCloseCode:reason:"), closeCode, reason)
 }
-
 // Reads a WebSocket message once all the frames of the message are available.
 //
 // completionHandler: A closure that receives two parameters: the WebSocket message, and an
@@ -226,7 +224,6 @@ _block0, _cleanup0 := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
 	defer _cleanup0()
 	objc.Send[objc.ID](u.ID, objc.Sel("receiveMessageWithCompletionHandler:"), _block0)
 }
-
 // Sends a WebSocket message, receiving the result in a completion handler.
 //
 // message: The WebSocket message to send.
@@ -262,7 +259,6 @@ func (u URLSessionWebSocketTask) MaximumMessageSize() int {
 func (u URLSessionWebSocketTask) SetMaximumMessageSize(value int) {
 	objc.Send[struct{}](u.ID, objc.Sel("setMaximumMessageSize:"), value)
 }
-
 // A code that indicates the reason a connection closed.
 //
 // # Discussion
@@ -275,7 +271,6 @@ func (u URLSessionWebSocketTask) CloseCode() NSURLSessionWebSocketCloseCode {
 	rv := objc.Send[NSURLSessionWebSocketCloseCode](u.ID, objc.Sel("closeCode"))
 	return NSURLSessionWebSocketCloseCode(rv)
 }
-
 // A block of data that provides further information about why a connection
 // closed.
 //
@@ -295,7 +290,6 @@ func (u URLSessionWebSocketTask) CloseReason() INSData {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("closeReason"))
 	return NSDataFromID(objc.ID(rv))
 }
-
 // The cookie store for storing cookies within this session.
 //
 // See: https://developer.apple.com/documentation/foundation/urlsessionconfiguration/httpcookiestorage

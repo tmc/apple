@@ -227,7 +227,6 @@ func NewTitlebarAccessoryViewControllerWithNibNameBundle(nibNameOrNil NSNibName,
 func (t NSTitlebarAccessoryViewController) AnimationDidEnd(animation INSAnimation) {
 	objc.Send[objc.ID](t.ID, objc.Sel("animationDidEnd:"), animation)
 }
-
 // Sent to the delegate when an animation reaches a specific progress mark.
 //
 // animation: A running [NSAnimation] object that has reached a progress mark.
@@ -249,7 +248,6 @@ func (t NSTitlebarAccessoryViewController) AnimationDidEnd(animation INSAnimatio
 func (t NSTitlebarAccessoryViewController) AnimationDidReachProgressMark(animation INSAnimation, progress NSAnimationProgress) {
 	objc.Send[objc.ID](t.ID, objc.Sel("animation:didReachProgressMark:"), animation, progress)
 }
-
 // Sent to the delegate when the specified animation is stopped before it
 // completes its run.
 //
@@ -264,7 +262,6 @@ func (t NSTitlebarAccessoryViewController) AnimationDidReachProgressMark(animati
 func (t NSTitlebarAccessoryViewController) AnimationDidStop(animation INSAnimation) {
 	objc.Send[objc.ID](t.ID, objc.Sel("animationDidStop:"), animation)
 }
-
 // Returns the animation that should be performed for the specified key.
 //
 // key: The action name or property specified as a string.
@@ -297,7 +294,6 @@ func (t NSTitlebarAccessoryViewController) AnimationForKey(key NSAnimatablePrope
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 }
-
 // Sent to the delegate just after an animation is started.
 //
 // animation: The [NSAnimation] object that was just started.
@@ -320,7 +316,6 @@ func (t NSTitlebarAccessoryViewController) AnimationShouldStart(animation INSAni
 	rv := objc.Send[bool](t.ID, objc.Sel("animationShouldStart:"), animation)
 	return rv
 }
-
 // Requests a custom curve value for the current progress value.
 //
 // animation: An [NSAnimation] object that is running.
@@ -352,7 +347,6 @@ func (t NSTitlebarAccessoryViewController) AnimationValueForProgress(animation I
 	rv := objc.Send[float32](t.ID, objc.Sel("animation:valueForProgress:"), animation, progress)
 	return rv
 }
-
 // Returns a proxy object for the receiver that can be used to initiate
 // implied animation for property changes.
 //
@@ -452,7 +446,6 @@ func (t NSTitlebarAccessoryViewController) FullScreenMinHeight() float64 {
 func (t NSTitlebarAccessoryViewController) SetFullScreenMinHeight(value float64) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFullScreenMinHeight:"), value)
 }
-
 // The location of the accessory view, in relation to the window’s title
 // bar.
 //
@@ -477,7 +470,6 @@ func (t NSTitlebarAccessoryViewController) LayoutAttribute() NSLayoutAttribute {
 func (t NSTitlebarAccessoryViewController) SetLayoutAttribute(value NSLayoutAttribute) {
 	objc.Send[struct{}](t.ID, objc.Sel("setLayoutAttribute:"), value)
 }
-
 // The titlebar accessory’s preferred effect for content scrolling behind
 // it.
 //
@@ -493,7 +485,6 @@ func (t NSTitlebarAccessoryViewController) PreferredScrollEdgeEffectStyle() INSS
 func (t NSTitlebarAccessoryViewController) SetPreferredScrollEdgeEffectStyle(value INSScrollEdgeEffectStyle) {
 	objc.Send[struct{}](t.ID, objc.Sel("setPreferredScrollEdgeEffectStyle:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/automaticallyAdjustsSize
 func (t NSTitlebarAccessoryViewController) AutomaticallyAdjustsSize() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("automaticallyAdjustsSize"))
@@ -502,7 +493,6 @@ func (t NSTitlebarAccessoryViewController) AutomaticallyAdjustsSize() bool {
 func (t NSTitlebarAccessoryViewController) SetAutomaticallyAdjustsSize(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAutomaticallyAdjustsSize:"), value)
 }
-
 // See: https://developer.apple.com/documentation/AppKit/NSTitlebarAccessoryViewController/isHidden
 func (t NSTitlebarAccessoryViewController) Hidden() bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("isHidden"))
@@ -511,7 +501,6 @@ func (t NSTitlebarAccessoryViewController) Hidden() bool {
 func (t NSTitlebarAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
 }
-
 // Sets the option dictionary that maps event trigger keys to animation
 // objects.
 //
@@ -523,7 +512,6 @@ func (t NSTitlebarAccessoryViewController) Animations() foundation.INSDictionary
 func (t NSTitlebarAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAnimations:"), value)
 }
-
 // The toolbar’s full screen accessory view.
 //
 // See: https://developer.apple.com/documentation/appkit/nstoolbar/fullscreenaccessoryview

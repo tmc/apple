@@ -168,7 +168,6 @@ func (p VNPoint) InitWithXY(x float64, y float64) VNPoint {
 	rv := objc.Send[VNPoint](p.ID, objc.Sel("initWithX:y:"), x, y)
 	return rv
 }
-
 // Creates a point object from the specified Core Graphics point.
 //
 // location: The Core Graphics point.
@@ -178,7 +177,6 @@ func (p VNPoint) InitWithLocation(location corefoundation.CGPoint) VNPoint {
 	rv := objc.Send[VNPoint](p.ID, objc.Sel("initWithLocation:"), location)
 	return rv
 }
-
 // Returns the distance to another point.
 //
 // point: The point for which to calculate the distance.
@@ -216,7 +214,6 @@ func (p VNPoint) X() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("x"))
 	return rv
 }
-
 // The y-coordinate.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint/y
@@ -224,7 +221,6 @@ func (p VNPoint) Y() float64 {
 	rv := objc.Send[float64](p.ID, objc.Sel("y"))
 	return rv
 }
-
 // The Core Graphics point for this point.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint/location

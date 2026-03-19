@@ -150,7 +150,6 @@ func (l NSLayoutXAxisAnchor) ConstraintEqualToSystemSpacingAfterAnchorMultiplier
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintEqualToSystemSpacingAfterAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the minimum amount by which the current
 // anchor trails the specified anchor.
 //
@@ -181,7 +180,6 @@ func (l NSLayoutXAxisAnchor) ConstraintGreaterThanOrEqualToSystemSpacingAfterAnc
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintGreaterThanOrEqualToSystemSpacingAfterAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Returns a constraint that defines the maximum amount by which the current
 // anchor trails the specified anchor.
 //
@@ -212,7 +210,6 @@ func (l NSLayoutXAxisAnchor) ConstraintLessThanOrEqualToSystemSpacingAfterAnchor
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("constraintLessThanOrEqualToSystemSpacingAfterAnchor:multiplier:"), anchor, multiplier)
 	return NSLayoutConstraintFromID(rv)
 }
-
 // Creates a layout dimension object from two anchors.
 //
 // otherAnchor: The second anchor to use when creating the layout dimension.

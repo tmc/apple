@@ -778,7 +778,7 @@ type Sec_protocol_challenge_t = func(*objectivec.Object)
 type Sec_protocol_key_update_complete_t = func()
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_key_update_t
-type Sec_protocol_key_update_t = func(*objectivec.Object, func())
+type Sec_protocol_key_update_t = func(*objectivec.Object, )
 
 // Sec_protocol_metadata_t is a `sec_protocol_metadata` instance conatins read-only properties of a connected and configured security protocol. Clients use this object to read information about a protocol instance. Properties include, for example, the negotiated TLS version, ciphersuite, and peer certificates.
 //
@@ -800,7 +800,7 @@ type Sec_protocol_pre_shared_key_selection_t = func(*objectivec.Object)
 type Sec_protocol_verify_complete_t = func(bool)
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_verify_t
-type Sec_protocol_verify_t = func(*objectivec.Object, func(unsafe.Pointer))
+type Sec_protocol_verify_t = func(*objectivec.Object, )
 
 // Sec_trust_t is these are os_object compatible and ARC-able wrappers around existing CoreFoundation Security types, including: SecTrustRef, SecIdentityRef, and SecCertificateRef. They allow clients to use these types in os_object-type APIs and data structures. The underlying CoreFoundation types may be extracted and used by clients as needed.
 //

@@ -113,7 +113,6 @@ func (s NSSymbolDisappearEffect) EffectWithByLayer() INSSymbolDisappearEffect {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("effectWithByLayer"))
 	return NSSymbolDisappearEffectFromID(rv)
 }
-
 // An effect that makes all layers disappear simultaneously.
 //
 // # Return Value
@@ -139,7 +138,6 @@ func (_NSSymbolDisappearEffectClass NSSymbolDisappearEffectClass) DisappearDownE
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolDisappearEffectClass.class), objc.Sel("disappearDownEffect"))
 	return NSSymbolDisappearEffectFromID(rv)
 }
-
 // An effect that scales the symbol up as it disappears.
 //
 // # Return Value
@@ -152,7 +150,6 @@ func (_NSSymbolDisappearEffectClass NSSymbolDisappearEffectClass) DisappearUpEff
 	rv := objc.Send[objc.ID](objc.ID(_NSSymbolDisappearEffectClass.class), objc.Sel("disappearUpEffect"))
 	return NSSymbolDisappearEffectFromID(rv)
 }
-
 // An animation that makes the layers of a symbol-based image disappear
 // separately or as a whole.
 //

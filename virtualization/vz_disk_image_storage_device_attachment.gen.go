@@ -284,7 +284,6 @@ func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundat
 	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
 
 }
-
 // Initialize the attachment from a local file URL.
 //
 // url: Local file URL to the disk image in RAW format.
@@ -322,7 +321,6 @@ func (d VZDiskImageStorageDeviceAttachment) URL() foundation.INSURL {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the underlying disk image is
 // read-only.
 //
@@ -338,7 +336,6 @@ func (d VZDiskImageStorageDeviceAttachment) ReadOnly() bool {
 	rv := objc.Send[bool](d.ID, objc.Sel("isReadOnly"))
 	return rv
 }
-
 // The current cacheing mode for the virtual disk image.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/cachingMode
@@ -346,7 +343,6 @@ func (d VZDiskImageStorageDeviceAttachment) CachingMode() VZDiskImageCachingMode
 	rv := objc.Send[VZDiskImageCachingMode](d.ID, objc.Sel("cachingMode"))
 	return VZDiskImageCachingMode(rv)
 }
-
 // The mode in which the disk image synchronizes data with the underlying
 // storage device.
 //

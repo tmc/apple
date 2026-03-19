@@ -121,7 +121,6 @@ func (r MLRTrialDediscoRecipe) MlrDediscoMetadata() objectivec.IObject {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("mlrDediscoMetadata"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoRecipe/initWithAssetURL:configOverride:error:
 func (r MLRTrialDediscoRecipe) InitWithAssetURLConfigOverrideError(url foundation.INSURL, override objectivec.IObject) (MLRTrialDediscoRecipe, error) {
@@ -140,19 +139,16 @@ func (r MLRTrialDediscoRecipe) BaseKeyFormat() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("baseKeyFormat"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoRecipe/dediscoTaskConfig
 func (r MLRTrialDediscoRecipe) DediscoTaskConfig() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("dediscoTaskConfig"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoRecipe/dpConfig
 func (r MLRTrialDediscoRecipe) DpConfig() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("dpConfig"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-
 // See: https://developer.apple.com/documentation/MLRuntime/MLRTrialDediscoRecipe/encodingSchema
 func (r MLRTrialDediscoRecipe) EncodingSchema() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("encodingSchema"))

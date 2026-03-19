@@ -152,19 +152,16 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) ImageData() objectivec.IObj
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageData"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/imageID
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) ImageID() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageID"))
 	return objectivec.Object{ID: rv}
 }
-
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/labels
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) Labels() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("labels"))
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/nextRecordAndError:
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) NextRecordAndError() (bool, error) {
@@ -180,7 +177,6 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) NextRecordAndError() (bool,
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/seekRecordWithID:error:
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) SeekRecordWithIDError(id objectivec.IObject) (bool, error) {
@@ -196,7 +192,6 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) SeekRecordWithIDError(id ob
 	return rv, nil
 
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/initWithRecFile:error:
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) InitWithRecFileError(file objectivec.IObject) (Espresso_mxnetTools_ImageBinaryRecordReader, error) {
@@ -218,7 +213,6 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) CurrentOffset() uint64 {
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) SetCurrentOffset(value uint64) {
 	objc.Send[struct{}](e.ID, objc.Sel("setCurrentOffset:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/imageHeader
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) ImageHeader() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("imageHeader"))
@@ -227,7 +221,6 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) ImageHeader() objectivec.IO
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) SetImageHeader(value objectivec.IObject) {
 	objc.Send[struct{}](e.ID, objc.Sel("setImageHeader:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/labelsPrivate
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) LabelsPrivate() foundation.INSArray {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("labelsPrivate"))
@@ -236,7 +229,6 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) LabelsPrivate() foundation.
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) SetLabelsPrivate(value foundation.INSArray) {
 	objc.Send[struct{}](e.ID, objc.Sel("setLabelsPrivate:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/recFileHandle
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) RecFileHandle() *foundation.NSFileHandle {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("recFileHandle"))
@@ -253,7 +245,6 @@ func (e Espresso_mxnetTools_ImageBinaryRecordReader) SetRecFileHandle(value *fou
 	}
 	objc.Send[struct{}](e.ID, objc.Sel("setRecFileHandle:"), value)
 }
-
 // See: https://developer.apple.com/documentation/Espresso/Espresso_mxnetTools_ImageBinaryRecordReader/recordHeader
 func (e Espresso_mxnetTools_ImageBinaryRecordReader) RecordHeader() objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("recordHeader"))

@@ -145,7 +145,6 @@ func NewExtensionItemWithCoder(coder INSCoder) NSExtensionItem {
 func (e NSExtensionItem) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (e NSExtensionItem) InitWithCoder(coder INSCoder) NSExtensionItem {
@@ -165,7 +164,6 @@ func (e NSExtensionItem) AttributedTitle() INSAttributedString {
 func (e NSExtensionItem) SetAttributedTitle(value INSAttributedString) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAttributedTitle:"), value)
 }
-
 // An optional dictionary of keys and values corresponding to the extension
 // item’s properties.
 //
@@ -189,7 +187,6 @@ func (e NSExtensionItem) UserInfo() INSDictionary {
 func (e NSExtensionItem) SetUserInfo(value INSDictionary) {
 	objc.Send[struct{}](e.ID, objc.Sel("setUserInfo:"), value)
 }
-
 // An optional array of media data associated with the extension item.
 //
 // # Discussion
@@ -209,7 +206,6 @@ func (e NSExtensionItem) Attachments() []NSItemProvider {
 func (e NSExtensionItem) SetAttachments(value []NSItemProvider) {
 	objc.Send[struct{}](e.ID, objc.Sel("setAttachments:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // An optional string describing the extension item content.
 //
 // # Discussion

@@ -312,7 +312,6 @@ func (u URLCredential) InitWithIdentityCertificatesPersistence(identity objectiv
 	rv := objc.Send[URLCredential](u.ID, objc.Sel("initWithIdentity:certificates:persistence:"), identity, certArray, persistence)
 	return rv
 }
-
 // Creates a URL credential instance for server trust authentication,
 // initialized with a accepted trust.
 //
@@ -345,7 +344,6 @@ func (u URLCredential) InitWithTrust(trust objectivec.IObject) URLCredential {
 	rv := objc.Send[URLCredential](u.ID, objc.Sel("initWithTrust:"), trust)
 	return rv
 }
-
 // Creates a URL credential instance initialized with a given user name and
 // password, using a given persistence setting.
 //
@@ -378,7 +376,6 @@ func (u URLCredential) InitWithUserPasswordPersistence(user string, password str
 	rv := objc.Send[URLCredential](u.ID, objc.Sel("initWithUser:password:persistence:"), objc.String(user), objc.String(password), persistence)
 	return rv
 }
-
 // Encodes the receiver using a given archiver.
 //
 // coder: An archiver object.
@@ -387,7 +384,6 @@ func (u URLCredential) InitWithUserPasswordPersistence(user string, password str
 func (u URLCredential) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/init(coder:)
 func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
@@ -412,7 +408,6 @@ func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objective
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialForTrust:"), trust)
 	return NSURLCredentialFromID(rv)
 }
-
 // Creates a URL credential instance for resolving a client certificate
 // authentication challenge.
 //
@@ -455,7 +450,6 @@ func (_URLCredentialClass URLCredentialClass) CredentialWithIdentityCertificates
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialWithIdentity:certificates:persistence:"), identity, certArray, persistence)
 	return NSURLCredentialFromID(rv)
 }
-
 // Creates a URL credential instance for internet password authentication with
 // a given user name and password, using a given persistence setting.
 //
@@ -496,7 +490,6 @@ func (u URLCredential) User() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("user"))
 	return NSStringFromID(rv).String()
 }
-
 // The intermediate certificates of the credential, if it is a client
 // certificate credential.
 //
@@ -514,7 +507,6 @@ func (u URLCredential) Certificates() INSArray {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("certificates"))
 	return NSArrayFromID(objc.ID(rv))
 }
-
 // A Boolean value that indicates whether the credential has a password.
 //
 // # Discussion
@@ -535,7 +527,6 @@ func (u URLCredential) HasPassword() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("hasPassword"))
 	return rv
 }
-
 // The credential’s password.
 //
 // # Discussion
@@ -550,7 +541,6 @@ func (u URLCredential) Password() string {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("password"))
 	return NSStringFromID(rv).String()
 }
-
 // The identity of this credential if it is a client certificate credential.
 //
 // # Discussion
@@ -563,7 +553,6 @@ func (u URLCredential) Identity() objectivec.IObject {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("identity"))
 	return objectivec.Object{ID: rv}
 }
-
 // The credential’s persistence setting.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/persistence-swift.property

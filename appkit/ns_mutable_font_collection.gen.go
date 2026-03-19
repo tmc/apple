@@ -172,7 +172,6 @@ func NewMutableFontCollectionWithNameVisibility(name NSFontCollectionName, visib
 func (m NSMutableFontCollection) AddQueryForDescriptors(descriptors []NSFontDescriptor) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addQueryForDescriptors:"), objectivec.IObjectSliceToNSArray(descriptors))
 }
-
 // Edits the query and exclusion arrays by removing the specified font
 // descriptors.
 //

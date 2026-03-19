@@ -49,25 +49,20 @@ func MTLDepthStencilStateObjectFromID(id objc.ID) MTLDepthStencilStateObject {
 // The device from which this state object was created.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilState/device
-
 func (o MTLDepthStencilStateObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // A string that identifies this object.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilState/label
-
 func (o MTLDepthStencilStateObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // See: https://developer.apple.com/documentation/Metal/MTLDepthStencilState/gpuResourceID
-
 func (o MTLDepthStencilStateObject) GpuResourceID() MTLResourceID {
 	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))

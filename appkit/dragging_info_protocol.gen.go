@@ -3,7 +3,6 @@
 package appkit
 
 import (
-	"unsafe"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -74,7 +73,7 @@ type NSDraggingInfo interface {
 	// Enumerates through each dragging item.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
-	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block unsafe.Pointer)
+	EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler)
 
 	// A highlighting style for your app’s user interface to display during a spring-loading operation.
 	//
@@ -121,95 +120,77 @@ func NSDraggingInfoObjectFromID(id objc.ID) NSDraggingInfoObject {
 // The pasteboard object that holds the dragged data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingPasteboard
-
 func (o NSDraggingInfoObject) DraggingPasteboard() INSPasteboard {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingPasteboard"))
 	return NSPasteboardFromID(rv)
 	}
-
 // A number that uniquely identifies the dragging session.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSequenceNumber
-
 func (o NSDraggingInfoObject) DraggingSequenceNumber() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("draggingSequenceNumber"))
 	return rv
 	}
-
 // The source, or owner, of the dragged data.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSource
-
 func (o NSDraggingInfoObject) DraggingSource() objectivec.IObject {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingSource"))
 	return objectivec.Object{ID: rv}
 	}
-
 // Information about the dragging operation and the data it contains.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSourceOperationMask
-
 func (o NSDraggingInfoObject) DraggingSourceOperationMask() NSDragOperation {
 	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("draggingSourceOperationMask"))
 	return rv
 	}
-
 // The current location of the mouse pointer in the base coordinate system of
 // the destination object’s window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingLocation
-
 func (o NSDraggingInfoObject) DraggingLocation() corefoundation.CGPoint {
 	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("draggingLocation"))
 	return rv
 	}
-
 // The destination window for the dragging operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingDestinationWindow
-
 func (o NSDraggingInfoObject) DraggingDestinationWindow() INSWindow {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingDestinationWindow"))
 	return NSWindowFromID(rv)
 	}
-
 // The number of valid items for a drop operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/numberOfValidItemsForDrop
-
 func (o NSDraggingInfoObject) NumberOfValidItemsForDrop() int {
 	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfValidItemsForDrop"))
 	return rv
 	}
-
 // The current location of the dragged image’s origin, in the base
 // coordinate system of the destination object’s window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImageLocation
-
 func (o NSDraggingInfoObject) DraggedImageLocation() corefoundation.CGPoint {
 	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("draggedImageLocation"))
 	return rv
 	}
-
 // The image that represents the dragging item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImage
-
 func (o NSDraggingInfoObject) DraggedImage() INSImage {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggedImage"))
 	return NSImageFromID(rv)
 	}
-
 // Slides the image to a specified location.
 //
 // screenPoint: A point that specifies a location in the screen coordinate system.
@@ -232,33 +213,27 @@ func (o NSDraggingInfoObject) DraggedImage() INSImage {
 // implemented until OS X v 10.5. Previous to that version, it did nothing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/slideDraggedImage(to:)
-
 func (o NSDraggingInfoObject) SlideDraggedImageTo(screenPoint corefoundation.CGPoint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("slideDraggedImageTo:"), screenPoint)
 	}
-
 // A Boolean value that indicates whether the dragging formation animates
 // while the drag is over the destination.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/animatesToDestination
-
 func (o NSDraggingInfoObject) AnimatesToDestination() bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("animatesToDestination"))
 	return rv
 	}
-
 // The formation of the dragging items while the drag is over the destination.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingFormation
-
 func (o NSDraggingInfoObject) DraggingFormation() NSDraggingFormation {
 	
 	rv := objc.Send[NSDraggingFormation](o.ID, objc.Sel("draggingFormation"))
 	return rv
 	}
-
 // Enumerates through each dragging item.
 //
 // enumOpts: The enumeration options. See [NSDraggingItemEnumerationOptions] for the
@@ -324,23 +299,19 @@ func (o NSDraggingInfoObject) DraggingFormation() NSDraggingFormation {
 // `enumOpts` and `searchOptions`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
-
-func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block unsafe.Pointer) {
+func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, objectivec.ClassSliceToNSArray(classArray), searchOptions, block)
 	}
-
 // A highlighting style for your app’s user interface to display during a
 // spring-loading operation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/springLoadingHighlight
-
 func (o NSDraggingInfoObject) SpringLoadingHighlight() NSSpringLoadingHighlight {
 	
 	rv := objc.Send[NSSpringLoadingHighlight](o.ID, objc.Sel("springLoadingHighlight"))
 	return rv
 	}
-
 // Resets a spring-loading operation to its initial state.
 //
 // # Discussion
@@ -363,7 +334,6 @@ func (o NSDraggingInfoObject) SpringLoadingHighlight() NSSpringLoadingHighlight 
 // activate the newly entered spring-loaded region.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/resetSpringLoading()
-
 func (o NSDraggingInfoObject) ResetSpringLoading() {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("resetSpringLoading"))

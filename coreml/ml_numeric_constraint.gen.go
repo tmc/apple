@@ -116,7 +116,6 @@ func (n MLNumericConstraint) MinNumber() foundation.NSNumber {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("minNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // The largest numerical value allowed by this constraint.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/maxNumber
@@ -124,7 +123,6 @@ func (n MLNumericConstraint) MaxNumber() foundation.NSNumber {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("maxNumber"))
 	return foundation.NSNumberFromID(objc.ID(rv))
 }
-
 // A set of the numbers allowed in this constraint.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLNumericConstraint/enumeratedNumbers
@@ -132,7 +130,6 @@ func (n MLNumericConstraint) EnumeratedNumbers() foundation.INSSet {
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("enumeratedNumbers"))
 	return foundation.NSSetFromID(objc.ID(rv))
 }
-
 // The constraints of this paramter description value, if and only if the
 // value is numerical.
 //

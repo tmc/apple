@@ -118,7 +118,6 @@ func (r MTLRasterizationRateLayerArray) ObjectAtIndexedSubscript(layerIndex uint
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("objectAtIndexedSubscript:"), layerIndex)
 	return MTLRasterizationRateLayerDescriptorFromID(rv)
 }
-
 // Stores a sample value at the specified index.
 //
 // layer: The layer descriptor to set
@@ -144,7 +143,6 @@ func (r MTLRasterizationRateLayerArray) LayerCount() int {
 func (r MTLRasterizationRateLayerArray) SetLayerCount(value int) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLayerCount:"), value)
 }
-
 // The rasterization rates for one or more layers in the rate map.
 //
 // See: https://developer.apple.com/documentation/metal/mtlrasterizationratemapdescriptor/layers

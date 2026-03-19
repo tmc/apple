@@ -61,7 +61,6 @@ func NSUserActivityRestoringObjectFromID(id objc.ID) NSUserActivityRestoringObje
 // [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserActivityRestoring/restoreUserActivityState(_:)
-
 func (o NSUserActivityRestoringObject) RestoreUserActivityState(userActivity foundation.NSUserActivity) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("restoreUserActivityState:"), userActivity)

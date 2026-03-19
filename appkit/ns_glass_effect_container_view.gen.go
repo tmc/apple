@@ -163,7 +163,6 @@ func (g NSGlassEffectContainerView) ContentView() INSView {
 func (g NSGlassEffectContainerView) SetContentView(value INSView) {
 	objc.Send[struct{}](g.ID, objc.Sel("setContentView:"), value)
 }
-
 // The proximity at which the glass effect container view begins merging
 // eligible descendent glass effect views.
 //

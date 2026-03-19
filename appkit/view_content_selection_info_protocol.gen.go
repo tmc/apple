@@ -37,7 +37,6 @@ func NSViewContentSelectionInfoObjectFromID(id objc.ID) NSViewContentSelectionIn
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSViewContentSelectionInfo/selectionAnchorRect
-
 func (o NSViewContentSelectionInfoObject) SelectionAnchorRect() corefoundation.CGRect {
 	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("selectionAnchorRect"))

@@ -54,33 +54,27 @@ func MTLCounterSampleBufferObjectFromID(id objc.ID) MTLCounterSampleBufferObject
 // A string that identifies the counter sample buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/label
-
 func (o MTLCounterSampleBufferObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // The GPU device instance that owns the counter sample buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/device
-
 func (o MTLCounterSampleBufferObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // The number of samples in the buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/sampleCount
-
 func (o MTLCounterSampleBufferObject) SampleCount() uint {
 	
 	rv := objc.Send[uint](o.ID, objc.Sel("sampleCount"))
 	return rv
 	}
-
 // Transforms samples of a GPU’s counter set from the driver’s internal
 // format to a standard Metal data structure.
 //
@@ -104,7 +98,6 @@ func (o MTLCounterSampleBufferObject) SampleCount() uint {
 // [Converting a GPU’s counter data into a readable format]: https://developer.apple.com/documentation/Metal/converting-a-gpus-counter-data-into-a-readable-format
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/resolveCounterRange:
-
 func (o MTLCounterSampleBufferObject) ResolveCounterRange(range_ foundation.NSRange) foundation.INSData {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resolveCounterRange:"), range_)

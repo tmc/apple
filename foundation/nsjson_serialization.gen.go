@@ -138,7 +138,6 @@ func (_JSONSerializationClass JSONSerializationClass) JSONObjectWithDataOptionsE
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Returns a Foundation object from JSON data in a given stream.
 //
 // stream: A stream from which to read JSON data.
@@ -174,7 +173,6 @@ func (_JSONSerializationClass JSONSerializationClass) JSONObjectWithStreamOption
 	return objectivec.Object{ID: rv}, nil
 
 }
-
 // Returns JSON data from a Foundation object.
 //
 // obj: The object from which to generate JSON data. Must not be `nil`.
@@ -213,7 +211,6 @@ func (_JSONSerializationClass JSONSerializationClass) DataWithJSONObjectOptionsE
 	return NSDataFromID(rv), nil
 
 }
-
 // Writes a given JSON object to a stream.
 //
 // obj: The object to write to `stream`.
@@ -248,7 +245,6 @@ func (_JSONSerializationClass JSONSerializationClass) WriteJSONObjectToStreamOpt
 	return rv, nil
 
 }
-
 // Returns a Boolean value that indicates whether the serializer can convert a
 // given object to JSON data.
 //

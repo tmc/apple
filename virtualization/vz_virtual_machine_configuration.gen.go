@@ -307,7 +307,6 @@ func (v VZVirtualMachineConfiguration) ValidateWithError() (bool, error) {
 	return rv, nil
 
 }
-
 // Determines whether the framework can save or restore the VM’s current
 // configuration.
 //
@@ -352,7 +351,6 @@ func (v VZVirtualMachineConfiguration) BootLoader() IVZBootLoader {
 func (v VZVirtualMachineConfiguration) SetBootLoader(value IVZBootLoader) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBootLoader:"), value)
 }
-
 // The number of CPUs you make available to the guest operating system.
 //
 // # Discussion
@@ -370,7 +368,6 @@ func (v VZVirtualMachineConfiguration) CPUCount() uint {
 func (v VZVirtualMachineConfiguration) SetCPUCount(value uint) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCPUCount:"), value)
 }
-
 // The memory size in bytes for the virtual machine. Must be a multiple of 1MB
 // and between minimumAllowedMemorySize and maximumAllowedMemorySize.
 //
@@ -382,7 +379,6 @@ func (v VZVirtualMachineConfiguration) MemorySize() uint64 {
 func (v VZVirtualMachineConfiguration) SetMemorySize(value uint64) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMemorySize:"), value)
 }
-
 // An array that you configure with a memory balloon device, used to update
 // the memory in the VM.
 //
@@ -413,7 +409,6 @@ func (v VZVirtualMachineConfiguration) MemoryBalloonDevices() []VZMemoryBalloonD
 func (v VZVirtualMachineConfiguration) SetMemoryBalloonDevices(value []VZMemoryBalloonDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setMemoryBalloonDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The array of console devices that you expose to the guest operating system.
 //
 // # Discussion
@@ -430,7 +425,6 @@ func (v VZVirtualMachineConfiguration) ConsoleDevices() []VZConsoleDeviceConfigu
 func (v VZVirtualMachineConfiguration) SetConsoleDevices(value []VZConsoleDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setConsoleDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The array of network devices that you expose to the guest operating system.
 //
 // # Discussion
@@ -449,7 +443,6 @@ func (v VZVirtualMachineConfiguration) NetworkDevices() []VZNetworkDeviceConfigu
 func (v VZVirtualMachineConfiguration) SetNetworkDevices(value []VZNetworkDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setNetworkDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The socket device that you use to implement port-based communication with
 // the guest operating system.
 //
@@ -472,7 +465,6 @@ func (v VZVirtualMachineConfiguration) SocketDevices() []VZSocketDeviceConfigura
 func (v VZVirtualMachineConfiguration) SetSocketDevices(value []VZSocketDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSocketDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The array of serial ports that you expose to the guest operating system.
 //
 // # Discussion
@@ -492,7 +484,6 @@ func (v VZVirtualMachineConfiguration) SerialPorts() []VZSerialPortConfiguration
 func (v VZVirtualMachineConfiguration) SetSerialPorts(value []VZSerialPortConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSerialPorts:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The array of storage devices that you expose to the guest operating system.
 //
 // # Discussion
@@ -511,7 +502,6 @@ func (v VZVirtualMachineConfiguration) StorageDevices() []VZStorageDeviceConfigu
 func (v VZVirtualMachineConfiguration) SetStorageDevices(value []VZStorageDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setStorageDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The array of randomization devices that you expose to the guest operating
 // system.
 //
@@ -531,7 +521,6 @@ func (v VZVirtualMachineConfiguration) EntropyDevices() []VZEntropyDeviceConfigu
 func (v VZVirtualMachineConfiguration) SetEntropyDevices(value []VZEntropyDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setEntropyDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The list of audio devices.
 //
 // # Discussion
@@ -550,7 +539,6 @@ func (v VZVirtualMachineConfiguration) AudioDevices() []VZAudioDeviceConfigurati
 func (v VZVirtualMachineConfiguration) SetAudioDevices(value []VZAudioDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setAudioDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The list of directory sharing devices.
 //
 // # Discussion
@@ -569,7 +557,6 @@ func (v VZVirtualMachineConfiguration) DirectorySharingDevices() []VZDirectorySh
 func (v VZVirtualMachineConfiguration) SetDirectorySharingDevices(value []VZDirectorySharingDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setDirectorySharingDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The list of graphics devices.
 //
 // # Discussion
@@ -588,7 +575,6 @@ func (v VZVirtualMachineConfiguration) GraphicsDevices() []VZGraphicsDeviceConfi
 func (v VZVirtualMachineConfiguration) SetGraphicsDevices(value []VZGraphicsDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setGraphicsDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The list of keyboards.
 //
 // # Discussion
@@ -607,7 +593,6 @@ func (v VZVirtualMachineConfiguration) Keyboards() []VZKeyboardConfiguration {
 func (v VZVirtualMachineConfiguration) SetKeyboards(value []VZKeyboardConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setKeyboards:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The hardware platform to use.
 //
 // # Discussion
@@ -624,7 +609,6 @@ func (v VZVirtualMachineConfiguration) Platform() IVZPlatformConfiguration {
 func (v VZVirtualMachineConfiguration) SetPlatform(value IVZPlatformConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPlatform:"), value)
 }
-
 // The list of pointing devices.
 //
 // # Discussion
@@ -643,7 +627,6 @@ func (v VZVirtualMachineConfiguration) PointingDevices() []VZPointingDeviceConfi
 func (v VZVirtualMachineConfiguration) SetPointingDevices(value []VZPointingDeviceConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setPointingDevices:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The list of configured USB controllers for the VM.
 //
 // # Discussion
@@ -665,7 +648,6 @@ func (v VZVirtualMachineConfiguration) UsbControllers() []VZUSBControllerConfigu
 func (v VZVirtualMachineConfiguration) SetUsbControllers(value []VZUSBControllerConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUsbControllers:"), objectivec.IObjectSliceToNSArray(value))
 }
-
 // The number of CPUs for the virtual machine. Must be between
 // minimumAllowedCPUCount and maximumAllowedCPUCount. [Full Topic]
 func (v VZVirtualMachineConfiguration) CpuCount() uint {
@@ -688,7 +670,6 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Mi
 	rv := objc.Send[uint](objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("minimumAllowedCPUCount"))
 	return rv
 }
-
 // The maximum number of CPUs you may configure for the VM.
 //
 // # Discussion
@@ -701,7 +682,6 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Ma
 	rv := objc.Send[uint](objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("maximumAllowedCPUCount"))
 	return rv
 }
-
 // The minimum amount of memory that you may configure for the VM.
 //
 // # Discussion
@@ -714,7 +694,6 @@ func (_VZVirtualMachineConfigurationClass VZVirtualMachineConfigurationClass) Mi
 	rv := objc.Send[uint64](objc.ID(_VZVirtualMachineConfigurationClass.class), objc.Sel("minimumAllowedMemorySize"))
 	return rv
 }
-
 // The maximum amount of memory that you may configure for the VM.
 //
 // # Discussion

@@ -130,35 +130,30 @@ func NewEspressoFaceLandmarkDetectorWithNetworkAtPathContextPlatformComputePath(
 func (e EspressoFaceLandmarkDetector) CommonInitContextPlatformComputePath(init_ objectivec.IObject, context objectivec.IObject, platform int, path int) {
 	objc.Send[objc.ID](e.ID, objc.Sel("commonInit:context:platform:computePath:"), init_, context, platform, path)
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoFaceLandmarkDetector/detect:face:sublandmark:doFaceRectFix:
 func (e EspressoFaceLandmarkDetector) DetectFaceSublandmarkDoFaceRectFix(detect unsafe.Pointer, face corefoundation.CGRect, sublandmark bool, fix bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("detect:face:sublandmark:doFaceRectFix:"), detect, face, sublandmark, fix)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoFaceLandmarkDetector/detectInImageRect:face:sublandmark:
 func (e EspressoFaceLandmarkDetector) DetectInImageRectFaceSublandmark(rect unsafe.Pointer, face corefoundation.CGRect, sublandmark bool) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("detectInImageRect:face:sublandmark:"), rect, face, sublandmark)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoFaceLandmarkDetector/extractSubLandmarksFromCrop192:centers192:
 func (e EspressoFaceLandmarkDetector) ExtractSubLandmarksFromCrop192Centers192(crop192 unsafe.Pointer, centers192 unsafe.Pointer) objectivec.IObject {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("extractSubLandmarksFromCrop192:centers192:"), crop192, centers192)
 	return objectivec.Object{ID: rv}
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoFaceLandmarkDetector/initWithNetworkAtPath:context:platform:computePath:
 func (e EspressoFaceLandmarkDetector) InitWithNetworkAtPathContextPlatformComputePath(path objectivec.IObject, context objectivec.IObject, platform int, path2 int) EspressoFaceLandmarkDetector {
 	rv := objc.Send[EspressoFaceLandmarkDetector](e.ID, objc.Sel("initWithNetworkAtPath:context:platform:computePath:"), path, context, platform, path2)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoFaceLandmarkDetector/initWithNetworkAtPath:contextObjC:platform:computePath:
 func (e EspressoFaceLandmarkDetector) InitWithNetworkAtPathContextObjCPlatformComputePath(path objectivec.IObject, c objectivec.IObject, platform int, path2 int) EspressoFaceLandmarkDetector {

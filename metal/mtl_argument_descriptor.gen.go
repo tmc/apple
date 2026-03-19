@@ -164,7 +164,6 @@ func (a MTLArgumentDescriptor) DataType() MTLDataType {
 func (a MTLArgumentDescriptor) SetDataType(value MTLDataType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDataType:"), value)
 }
-
 // The index ID of the argument.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/index
@@ -175,7 +174,6 @@ func (a MTLArgumentDescriptor) Index() uint {
 func (a MTLArgumentDescriptor) SetIndex(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setIndex:"), value)
 }
-
 // The access permissions of the argument.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentDescriptor/access
@@ -186,7 +184,6 @@ func (a MTLArgumentDescriptor) Access() MTLBindingAccess {
 func (a MTLArgumentDescriptor) SetAccess(value MTLBindingAccess) {
 	objc.Send[struct{}](a.ID, objc.Sel("setAccess:"), value)
 }
-
 // The length of an array argument.
 //
 // # Discussion
@@ -201,7 +198,6 @@ func (a MTLArgumentDescriptor) ArrayLength() uint {
 func (a MTLArgumentDescriptor) SetArrayLength(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setArrayLength:"), value)
 }
-
 // The alignment of the constant block.
 //
 // # Discussion
@@ -219,7 +215,6 @@ func (a MTLArgumentDescriptor) ConstantBlockAlignment() uint {
 func (a MTLArgumentDescriptor) SetConstantBlockAlignment(value uint) {
 	objc.Send[struct{}](a.ID, objc.Sel("setConstantBlockAlignment:"), value)
 }
-
 // The texture type of a texture argument.
 //
 // # Discussion
@@ -234,7 +229,6 @@ func (a MTLArgumentDescriptor) TextureType() MTLTextureType {
 func (a MTLArgumentDescriptor) SetTextureType(value MTLTextureType) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTextureType:"), value)
 }
-
 // See: https://developer.apple.com/documentation/metal/mtlattributestridestatic
 func (a MTLArgumentDescriptor) MTLAttributeStrideStatic() int {
 	rv := objc.Send[int](a.ID, objc.Sel("MTLAttributeStrideStatic"))

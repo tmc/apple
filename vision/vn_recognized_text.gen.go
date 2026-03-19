@@ -148,7 +148,6 @@ func (r VNRecognizedText) String() string {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()
 }
-
 // A normalized confidence score for the text recognition result.
 //
 // # Discussion
@@ -161,7 +160,6 @@ func (r VNRecognizedText) Confidence() VNConfidence {
 	rv := objc.Send[VNConfidence](r.ID, objc.Sel("confidence"))
 	return VNConfidence(rv)
 }
-
 // The revision of the [VNRequest] subclass used to generate the implementing
 // object.
 //

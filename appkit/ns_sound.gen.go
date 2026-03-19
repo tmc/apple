@@ -408,7 +408,6 @@ func (s NSSound) InitWithContentsOfFileByReference(path string, byRef bool) NSSo
 	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithContentsOfFile:byReference:"), objc.String(path), byRef)
 	return rv
 }
-
 // Initializes the receiver with the audio data located at a given URL.
 //
 // url: URL to the sound file with which the receiver is to be initialized.
@@ -429,7 +428,6 @@ func (s NSSound) InitWithContentsOfURLByReference(url foundation.INSURL, byRef b
 	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithContentsOfURL:byReference:"), url, byRef)
 	return rv
 }
-
 // Initializes the receiver with a given audio data.
 //
 // data: Audio data with which the receiver is to be initialized. The data must have
@@ -445,7 +443,6 @@ func (s NSSound) InitWithData(data foundation.INSData) NSSound {
 	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithData:"), data)
 	return rv
 }
-
 // Initializes the receiver with data from a pasteboard. The pasteboard should
 // contain a type returned by [NSSound]. [NSSound] expects the data to have a
 // proper magic number, sound header, and data for the formats it supports.
@@ -464,14 +461,12 @@ func (s NSSound) InitWithPasteboard(pasteboard INSPasteboard) NSSound {
 	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithPasteboard:"), pasteboard)
 	return rv
 }
-
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSound/setName(_:)
 func (s NSSound) SetName(string_ NSSoundName) bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("setName:"), objc.String(string(string_)))
 	return rv
 }
-
 // Pauses audio playback.
 //
 // # Return Value
@@ -487,7 +482,6 @@ func (s NSSound) Pause() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("pause"))
 	return rv
 }
-
 // Initiates audio playback.
 //
 // # Return Value
@@ -509,7 +503,6 @@ func (s NSSound) Play() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("play"))
 	return rv
 }
-
 // Resumes audio playback.
 //
 // # Return Value
@@ -529,7 +522,6 @@ func (s NSSound) Resume() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("resume"))
 	return rv
 }
-
 // Concludes audio playback.
 //
 // # Return Value
@@ -545,7 +537,6 @@ func (s NSSound) Stop() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("stop"))
 	return rv
 }
-
 // Writes the receiver’s data to a pasteboard.
 //
 // pasteboard: Pasteboard to which the receiver is to write its data.
@@ -554,7 +545,6 @@ func (s NSSound) Stop() bool {
 func (s NSSound) WriteToPasteboard(pasteboard INSPasteboard) {
 	objc.Send[objc.ID](s.ID, objc.Sel("writeToPasteboard:"), pasteboard)
 }
-
 // Initializes an instance with a property list object and a type string.
 //
 // propertyList: A property list containing data to initialize the receiver.
@@ -585,7 +575,6 @@ func (s NSSound) InitWithPasteboardPropertyListOfType(propertyList objectivec.IO
 	rv := objc.Send[NSSound](s.ID, objc.Sel("initWithPasteboardPropertyList:ofType:"), propertyList, objc.String(string(type_)))
 	return rv
 }
-
 // Returns a property list object to represent the receiver on a pasteboard as
 // an object of a specified type.
 //
@@ -609,7 +598,6 @@ func (s NSSound) PasteboardPropertyListForType(type_ NSPasteboardType) objective
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("pasteboardPropertyListForType:"), objc.String(string(type_)))
 	return objectivec.Object{ID: rv}
 }
-
 // Returns an array of UTI strings of data types the receiver can write to a
 // given pasteboard.
 //
@@ -640,7 +628,6 @@ func (s NSSound) WritableTypesForPasteboard(pasteboard INSPasteboard) []string {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("writableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for writing data of a specified type to a given pasteboard.
 //
 // type: One of the types the receiver supports for writing (one of the UTIs
@@ -694,7 +681,6 @@ func (_NSSoundClass NSSoundClass) CanInitWithPasteboard(pasteboard INSPasteboard
 	rv := objc.Send[bool](objc.ID(_NSSoundClass.class), objc.Sel("canInitWithPasteboard:"), pasteboard)
 	return rv
 }
-
 // Returns an array of uniform type identifier strings of data types the
 // receiver can read from the pasteboard and initialize from.
 //
@@ -723,7 +709,6 @@ func (_NSSoundClass NSSoundClass) ReadableTypesForPasteboard(pasteboard INSPaste
 	rv := objc.Send[[]objc.ID](objc.ID(_NSSoundClass.class), objc.Sel("readableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Returns options for reading data of a specified type from a given
 // pasteboard.
 //
@@ -762,7 +747,6 @@ func (s NSSound) Delegate() NSSoundDelegate {
 func (s NSSound) SetDelegate(value NSSoundDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // The name assigned to the sound.
 //
 // # Discussion
@@ -774,7 +758,6 @@ func (s NSSound) Name() NSSoundName {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("name"))
 	return NSSoundName(foundation.NSStringFromID(rv).String())
 }
-
 // The volume of the sound.
 //
 // # Discussion
@@ -791,7 +774,6 @@ func (s NSSound) Volume() float32 {
 func (s NSSound) SetVolume(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVolume:"), value)
 }
-
 // The sound’s playback progress, in seconds.
 //
 // # Discussion
@@ -809,7 +791,6 @@ func (s NSSound) CurrentTime() float64 {
 func (s NSSound) SetCurrentTime(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCurrentTime:"), value)
 }
-
 // A Boolean that indicates whether the sound restarts playback when it
 // reaches the end of its content.
 //
@@ -831,7 +812,6 @@ func (s NSSound) Loops() bool {
 func (s NSSound) SetLoops(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setLoops:"), value)
 }
-
 // Identifies the sound’s output device
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSound/playbackDeviceIdentifier-swift.property
@@ -842,7 +822,6 @@ func (s NSSound) PlaybackDeviceIdentifier() NSSoundPlaybackDeviceIdentifier {
 func (s NSSound) SetPlaybackDeviceIdentifier(value NSSoundPlaybackDeviceIdentifier) {
 	objc.Send[struct{}](s.ID, objc.Sel("setPlaybackDeviceIdentifier:"), objc.String(string(value)))
 }
-
 // The duration of the sound, in seconds.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSound/duration
@@ -850,7 +829,6 @@ func (s NSSound) Duration() float64 {
 	rv := objc.Send[float64](s.ID, objc.Sel("duration"))
 	return rv
 }
-
 // A Boolean that indicates whether the sound is playing its audio data.
 //
 // # Discussion

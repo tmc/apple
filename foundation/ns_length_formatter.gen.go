@@ -157,7 +157,6 @@ func (l LengthFormatter) StringFromMeters(numberInMeters float64) string {
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("stringFromMeters:"), numberInMeters)
 	return NSStringFromID(rv).String()
 }
-
 // Returns a properly formatted length string for the given value and unit.
 //
 // value: The length’s value in the given unit.
@@ -173,7 +172,6 @@ func (l LengthFormatter) StringFromValueUnit(value float64, unit NSLengthFormatt
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("stringFromValue:unit:"), value, unit)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the unit string for the provided value.
 //
 // numberInMeters: The length’s value in meters.
@@ -197,7 +195,6 @@ func (l LengthFormatter) UnitStringFromMetersUsedUnit(numberInMeters float64, un
 	rv := objc.Send[objc.ID](l.ID, objc.Sel("unitStringFromMeters:usedUnit:"), numberInMeters, unitp)
 	return NSStringFromID(rv).String()
 }
-
 // Returns the unit string based on the provided value and unit.
 //
 // value: The length’s value for the provided unit.
@@ -238,7 +235,6 @@ func (l LengthFormatter) ForPersonHeightUse() bool {
 func (l LengthFormatter) SetForPersonHeightUse(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setForPersonHeightUse:"), value)
 }
-
 // The number formatter used to format the numbers in length strings.
 //
 // # Discussion
@@ -255,7 +251,6 @@ func (l LengthFormatter) NumberFormatter() INSNumberFormatter {
 func (l LengthFormatter) SetNumberFormatter(value INSNumberFormatter) {
 	objc.Send[struct{}](l.ID, objc.Sel("setNumberFormatter:"), value)
 }
-
 // The unit style used by this formatter.
 //
 // # Discussion

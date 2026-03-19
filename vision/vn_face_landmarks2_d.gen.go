@@ -160,7 +160,6 @@ func (f VNFaceLandmarks2D) AllPoints() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("allPoints"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that trace the face contour from the left
 // cheek, over the chin, to the right cheek.
 //
@@ -169,7 +168,6 @@ func (f VNFaceLandmarks2D) FaceContour() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("faceContour"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that outline the left eye.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks2D/leftEye
@@ -177,7 +175,6 @@ func (f VNFaceLandmarks2D) LeftEye() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("leftEye"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that outline the right eye.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks2D/rightEye
@@ -185,7 +182,6 @@ func (f VNFaceLandmarks2D) RightEye() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("rightEye"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that trace the left eyebrow.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks2D/leftEyebrow
@@ -193,7 +189,6 @@ func (f VNFaceLandmarks2D) LeftEyebrow() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("leftEyebrow"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that trace the right eyebrow.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks2D/rightEyebrow
@@ -201,7 +196,6 @@ func (f VNFaceLandmarks2D) RightEyebrow() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("rightEyebrow"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that outline the nose.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks2D/nose
@@ -209,7 +203,6 @@ func (f VNFaceLandmarks2D) Nose() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("nose"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that trace the center crest of the nose.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks2D/noseCrest
@@ -217,7 +210,6 @@ func (f VNFaceLandmarks2D) NoseCrest() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("noseCrest"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that trace a vertical line down the center of
 // the face.
 //
@@ -226,7 +218,6 @@ func (f VNFaceLandmarks2D) MedianLine() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("medianLine"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that outline the outside of the lips.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks2D/outerLips
@@ -234,7 +225,6 @@ func (f VNFaceLandmarks2D) OuterLips() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("outerLips"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing points that outline the space between the lips.
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarks2D/innerLips
@@ -242,7 +232,6 @@ func (f VNFaceLandmarks2D) InnerLips() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("innerLips"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing the point where the left pupil is located.
 //
 // # Discussion
@@ -254,7 +243,6 @@ func (f VNFaceLandmarks2D) LeftPupil() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("leftPupil"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The region containing the point where the right pupil is located.
 //
 // # Discussion
@@ -266,7 +254,6 @@ func (f VNFaceLandmarks2D) RightPupil() IVNFaceLandmarkRegion2D {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("rightPupil"))
 	return VNFaceLandmarkRegion2DFromID(objc.ID(rv))
 }
-
 // The bounding box of the object that the request detects.
 //
 // See: https://developer.apple.com/documentation/vision/vndetectedobjectobservation/boundingbox

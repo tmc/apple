@@ -166,7 +166,6 @@ func (t VNTrackOpticalFlowRequest) ComputationAccuracy() VNTrackOpticalFlowReque
 func (t VNTrackOpticalFlowRequest) SetComputationAccuracy(value VNTrackOpticalFlowRequestComputationAccuracy) {
 	objc.Send[struct{}](t.ID, objc.Sel("setComputationAccuracy:"), value)
 }
-
 // A Boolean value that indicates the raw pixel buffer continues to emit from
 // the network.
 //
@@ -185,7 +184,6 @@ func (t VNTrackOpticalFlowRequest) KeepNetworkOutput() bool {
 func (t VNTrackOpticalFlowRequest) SetKeepNetworkOutput(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setKeepNetworkOutput:"), value)
 }
-
 // The pixel format type of the output value.
 //
 // # Discussion

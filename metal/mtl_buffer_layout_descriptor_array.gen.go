@@ -116,7 +116,6 @@ func (b MTLBufferLayoutDescriptorArray) ObjectAtIndexedSubscript(index uint) IMT
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("objectAtIndexedSubscript:"), index)
 	return MTLBufferLayoutDescriptorFromID(rv)
 }
-
 // Sets the state of the specified buffer layout.
 //
 // bufferDesc: A descriptor that contains buffer layout state.

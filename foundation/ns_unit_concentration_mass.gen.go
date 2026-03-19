@@ -165,7 +165,6 @@ func (_UnitConcentrationMassClass UnitConcentrationMassClass) GramsPerLiter() Un
 	rv := objc.Send[objc.ID](objc.ID(_UnitConcentrationMassClass.class), objc.Sel("gramsPerLiter"))
 	return NSUnitConcentrationMassFromID(objc.ID(rv))
 }
-
 // The milligrams per deciliter unit of concentration.
 //
 // See: https://developer.apple.com/documentation/Foundation/UnitConcentrationMass/milligramsPerDeciliter

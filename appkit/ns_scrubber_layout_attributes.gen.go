@@ -151,7 +151,6 @@ func (s NSScrubberLayoutAttributes) Alpha() float64 {
 func (s NSScrubberLayoutAttributes) SetAlpha(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAlpha:"), value)
 }
-
 // The frame of the scrubber item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberLayoutAttributes/frame
@@ -162,7 +161,6 @@ func (s NSScrubberLayoutAttributes) Frame() corefoundation.CGRect {
 func (s NSScrubberLayoutAttributes) SetFrame(value corefoundation.CGRect) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFrame:"), value)
 }
-
 // The index of the scrubber item that is represented by the item’s layout
 // attributes.
 //
@@ -174,7 +172,6 @@ func (s NSScrubberLayoutAttributes) ItemIndex() int {
 func (s NSScrubberLayoutAttributes) SetItemIndex(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemIndex:"), value)
 }
-
 // Returns an integer that can be used as a table address in a hash table
 // structure.
 //

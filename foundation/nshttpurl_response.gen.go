@@ -222,7 +222,6 @@ func (h HTTPURLResponse) InitWithURLStatusCodeHTTPVersionHeaderFields(url INSURL
 	rv := objc.Send[HTTPURLResponse](h.ID, objc.Sel("initWithURL:statusCode:HTTPVersion:headerFields:"), url, statusCode, objc.String(HTTPVersion), headerFields)
 	return rv
 }
-
 // Returns the value that corresponds to the given header field.
 //
 // field: The name of the header field you want to retrieve. The name is
@@ -302,7 +301,6 @@ func (h HTTPURLResponse) AllHeaderFields() INSDictionary {
 	rv := objc.Send[objc.ID](h.ID, objc.Sel("allHeaderFields"))
 	return NSDictionaryFromID(objc.ID(rv))
 }
-
 // The response’s HTTP status code.
 //
 // # Discussion

@@ -64,13 +64,11 @@ func NSPopoverDelegateObjectFromID(id objc.ID) NSPopoverDelegateObject {
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/detachableWindow(for:)
-
 func (o NSPopoverDelegateObject) DetachableWindowForPopover(popover INSPopover) INSWindow {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("detachableWindowForPopover:"), popover)
 	return NSWindowFromID(rv)
 	}
-
 // Allows a delegate to override a close request.
 //
 // popover: The popover.
@@ -91,13 +89,11 @@ func (o NSPopoverDelegateObject) DetachableWindowForPopover(popover INSPopover) 
 // default behavior is that the popover will close.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverShouldClose(_:)
-
 func (o NSPopoverDelegateObject) PopoverShouldClose(popover INSPopover) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("popoverShouldClose:"), popover)
 	return rv
 	}
-
 // Invoked when the popover will show.
 //
 // # Discussion
@@ -111,12 +107,10 @@ func (o NSPopoverDelegateObject) PopoverShouldClose(popover INSPopover) bool {
 // [willShowNotification]: https://developer.apple.com/documentation/AppKit/NSPopover/willShowNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverWillShow(_:)
-
 func (o NSPopoverDelegateObject) PopoverWillShow(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverWillShow:"), notification)
 	}
-
 // Invoked when the popover has been shown.
 //
 // # Discussion
@@ -130,12 +124,10 @@ func (o NSPopoverDelegateObject) PopoverWillShow(notification foundation.NSNotif
 // [didShowNotification]: https://developer.apple.com/documentation/AppKit/NSPopover/didShowNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverDidShow(_:)
-
 func (o NSPopoverDelegateObject) PopoverDidShow(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverDidShow:"), notification)
 	}
-
 // Invoked when the popover is about to close.
 //
 // # Discussion
@@ -149,12 +141,10 @@ func (o NSPopoverDelegateObject) PopoverDidShow(notification foundation.NSNotifi
 // [willCloseNotification]: https://developer.apple.com/documentation/AppKit/NSPopover/willCloseNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverWillClose(_:)
-
 func (o NSPopoverDelegateObject) PopoverWillClose(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverWillClose:"), notification)
 	}
-
 // Invoked when the popover did close.
 //
 // # Discussion
@@ -168,12 +158,10 @@ func (o NSPopoverDelegateObject) PopoverWillClose(notification foundation.NSNoti
 // [didCloseNotification]: https://developer.apple.com/documentation/AppKit/NSPopover/didCloseNotification
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverDidClose(_:)
-
 func (o NSPopoverDelegateObject) PopoverDidClose(notification foundation.NSNotification) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverDidClose:"), notification)
 	}
-
 // Indicates that a popover has been released while it’s in an implicitly
 // detached state.
 //
@@ -185,12 +173,10 @@ func (o NSPopoverDelegateObject) PopoverDidClose(notification foundation.NSNotif
 // by [DetachableWindowForPopover].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverDidDetach(_:)
-
 func (o NSPopoverDelegateObject) PopoverDidDetach(popover INSPopover) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverDidDetach:"), popover)
 	}
-
 // Returns a Boolean value that indicates whether a popover should detach from
 // its positioning view and become a separate window.
 //
@@ -216,7 +202,6 @@ func (o NSPopoverDelegateObject) PopoverDidDetach(popover INSPopover) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverShouldDetach(_:)
-
 func (o NSPopoverDelegateObject) PopoverShouldDetach(popover INSPopover) bool {
 	
 	rv := objc.Send[bool](o.ID, objc.Sel("popoverShouldDetach:"), popover)

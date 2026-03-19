@@ -69,23 +69,19 @@ func MTL4ArgumentTableObjectFromID(id objc.ID) MTL4ArgumentTableObject {
 // The device from which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/device
-
 func (o MTL4ArgumentTableObject) Device() MTLDevice {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
-
 // Assigns an optional label with this argument table for debugging purposes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/label
-
 func (o MTL4ArgumentTableObject) Label() string {
 	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
-
 // Binds a GPU address to a buffer binding slot, providing a dynamic vertex
 // stride.
 //
@@ -103,12 +99,10 @@ func (o MTL4ArgumentTableObject) Label() string {
 // on the descriptor from which you created this argument table is true.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setAddress(_:attributeStride:index:)
-
 func (o MTL4ArgumentTableObject) SetAddressAttributeStrideAtIndex(gpuAddress MTLGPUAddress, stride uint, bindingIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAddress:attributeStride:atIndex:"), gpuAddress, stride, bindingIndex)
 	}
-
 // Binds a GPU address to a buffer binding slot.
 //
 // gpuAddress: The GPU address of a [MTLBuffer] to set.
@@ -118,12 +112,10 @@ func (o MTL4ArgumentTableObject) SetAddressAttributeStrideAtIndex(gpuAddress MTL
 // descriptor from which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setAddress(_:index:)
-
 func (o MTL4ArgumentTableObject) SetAddressAtIndex(gpuAddress MTLGPUAddress, bindingIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setAddress:atIndex:"), gpuAddress, bindingIndex)
 	}
-
 // Binds a resource to a buffer binding slot.
 //
 // resourceID: The [MTLResourceID] of the Metal resource to bind.
@@ -135,12 +127,10 @@ func (o MTL4ArgumentTableObject) SetAddressAtIndex(gpuAddress MTLGPUAddress, bin
 // descriptor from which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setResource(_:bufferIndex:)
-
 func (o MTL4ArgumentTableObject) SetResourceAtBufferIndex(resourceID MTLResourceID, bindingIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setResource:atBufferIndex:"), resourceID, bindingIndex)
 	}
-
 // Binds a sampler state to a sampler state binding slot.
 //
 // resourceID: The [MTLResourceID] of the [MTLSamplerState] instance to bind.
@@ -152,12 +142,10 @@ func (o MTL4ArgumentTableObject) SetResourceAtBufferIndex(resourceID MTLResource
 // on the descriptor from which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setSamplerState(_:index:)
-
 func (o MTL4ArgumentTableObject) SetSamplerStateAtIndex(resourceID MTLResourceID, bindingIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setSamplerState:atIndex:"), resourceID, bindingIndex)
 	}
-
 // Binds a texture to a texture binding slot.
 //
 // resourceID: The [MTLResourceID] of the [MTLTexture] instance to bind.
@@ -169,7 +157,6 @@ func (o MTL4ArgumentTableObject) SetSamplerStateAtIndex(resourceID MTLResourceID
 // descriptor from which you created this argument table.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ArgumentTable/setTexture(_:index:)
-
 func (o MTL4ArgumentTableObject) SetTextureAtIndex(resourceID MTLResourceID, bindingIndex uint) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("setTexture:atIndex:"), resourceID, bindingIndex)

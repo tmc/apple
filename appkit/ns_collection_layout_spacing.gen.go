@@ -132,7 +132,6 @@ func (_NSCollectionLayoutSpacingClass NSCollectionLayoutSpacingClass) FixedSpaci
 	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutSpacingClass.class), objc.Sel("fixedSpacing:"), fixedSpacing)
 	return NSCollectionLayoutSpacingFromID(rv)
 }
-
 // Creates a space equivalent to or greater than the specified number of
 // points, depending on the available space.
 //
@@ -149,7 +148,6 @@ func (c NSCollectionLayoutSpacing) Spacing() float64 {
 	rv := objc.Send[float64](c.ID, objc.Sel("spacing"))
 	return rv
 }
-
 // A Boolean value that indicates whether the space is fixed to a specific
 // number of points.
 //
@@ -158,7 +156,6 @@ func (c NSCollectionLayoutSpacing) IsFixedSpacing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isFixedSpacing"))
 	return rv
 }
-
 // A Boolean value that indicates whether the space is flexible.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSpacing/isFlexible

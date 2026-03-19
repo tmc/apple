@@ -161,7 +161,6 @@ func (s NSScrubberFlowLayout) ItemSpacing() float64 {
 func (s NSScrubberFlowLayout) SetItemSpacing(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemSpacing:"), value)
 }
-
 // The frame size for each item in the scrubber.
 //
 // # Discussion

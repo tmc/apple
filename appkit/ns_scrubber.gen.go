@@ -704,7 +704,6 @@ func NewScrubberWithFrame(frameRect corefoundation.CGRect) NSScrubber {
 func (s NSScrubber) RegisterClassForItemIdentifier(itemViewClass objc.Class, itemIdentifier NSUserInterfaceItemIdentifier) {
 	objc.Send[objc.ID](s.ID, objc.Sel("registerClass:forItemIdentifier:"), itemViewClass, objc.String(string(itemIdentifier)))
 }
-
 // Registers a nib file for the scrubber to use when it creates new items in
 // the scrubber.
 //
@@ -722,7 +721,6 @@ func (s NSScrubber) RegisterClassForItemIdentifier(itemViewClass objc.Class, ite
 func (s NSScrubber) RegisterNibForItemIdentifier(nib INSNib, itemIdentifier NSUserInterfaceItemIdentifier) {
 	objc.Send[objc.ID](s.ID, objc.Sel("registerNib:forItemIdentifier:"), nib, objc.String(string(itemIdentifier)))
 }
-
 // Creates or returns a reusable item object with the specified identifier.
 //
 // itemIdentifier: The string that identifies the type of item you want. This is the
@@ -742,7 +740,6 @@ func (s NSScrubber) MakeItemWithIdentifierOwner(itemIdentifier NSUserInterfaceIt
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("makeItemWithIdentifier:owner:"), objc.String(string(itemIdentifier)), owner)
 	return NSScrubberItemViewFromID(rv)
 }
-
 // Reloads the content of the entire scrubber, and deselects the currently
 // selected item.
 //
@@ -750,7 +747,6 @@ func (s NSScrubber) MakeItemWithIdentifierOwner(itemIdentifier NSUserInterfaceIt
 func (s NSScrubber) ReloadData() {
 	objc.Send[objc.ID](s.ID, objc.Sel("reloadData"))
 }
-
 // Reloads the items at the specified indexes.
 //
 // indexes: The indexes of the items to reload, provided in an index set ([IndexSet]).
@@ -766,7 +762,6 @@ func (s NSScrubber) ReloadData() {
 func (s NSScrubber) ReloadItemsAtIndexes(indexes foundation.NSIndexSet) {
 	objc.Send[objc.ID](s.ID, objc.Sel("reloadItemsAtIndexes:"), indexes)
 }
-
 // Inserts new items at the specified indexes into the scrubber.
 //
 // indexes: An index set ([IndexSet]) of the indexes of the items to insert.
@@ -781,7 +776,6 @@ func (s NSScrubber) ReloadItemsAtIndexes(indexes foundation.NSIndexSet) {
 func (s NSScrubber) InsertItemsAtIndexes(indexes foundation.NSIndexSet) {
 	objc.Send[objc.ID](s.ID, objc.Sel("insertItemsAtIndexes:"), indexes)
 }
-
 // Moves an item from one index to another in the scrubber.
 //
 // oldIndex: The index of the item that you want to move.
@@ -792,7 +786,6 @@ func (s NSScrubber) InsertItemsAtIndexes(indexes foundation.NSIndexSet) {
 func (s NSScrubber) MoveItemAtIndexToIndex(oldIndex int, newIndex int) {
 	objc.Send[objc.ID](s.ID, objc.Sel("moveItemAtIndex:toIndex:"), oldIndex, newIndex)
 }
-
 // Removes the items at the specified indexes from the scrubber.
 //
 // indexes: An index set ([IndexSet]) of the indexes of the items to remove.
@@ -803,7 +796,6 @@ func (s NSScrubber) MoveItemAtIndexToIndex(oldIndex int, newIndex int) {
 func (s NSScrubber) RemoveItemsAtIndexes(indexes foundation.NSIndexSet) {
 	objc.Send[objc.ID](s.ID, objc.Sel("removeItemsAtIndexes:"), indexes)
 }
-
 // Combines multiple scrubber content updates into a single action.
 //
 // updateBlock: A block that represents the combination of insertion, removal, moving, and
@@ -815,7 +807,6 @@ _block0, _cleanup0 := NewVoidBlock(updateBlock)
 	defer _cleanup0()
 	objc.Send[objc.ID](s.ID, objc.Sel("performSequentialBatchUpdates:"), _block0)
 }
-
 // Scrolls an item to a specified alignment within the scrubber.
 //
 // index: The index of the item to be scrolled. Indexes range between `0` and `n-1`,
@@ -837,7 +828,6 @@ _block0, _cleanup0 := NewVoidBlock(updateBlock)
 func (s NSScrubber) ScrollItemAtIndexToAlignment(index int, alignment NSScrubberAlignment) {
 	objc.Send[objc.ID](s.ID, objc.Sel("scrollItemAtIndex:toAlignment:"), index, alignment)
 }
-
 // Returns the view for the item at the specified index.
 //
 // index: The index of the item whose view you want.
@@ -863,7 +853,6 @@ func (s NSScrubber) DataSource() NSScrubberDataSource {
 func (s NSScrubber) SetDataSource(value NSScrubberDataSource) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDataSource:"), value)
 }
-
 // The object that acts as the delegate of the scrubber.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubber/delegate
@@ -874,7 +863,6 @@ func (s NSScrubber) Delegate() NSScrubberDelegate {
 func (s NSScrubber) SetDelegate(value NSScrubberDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // An object used to describe the layout of items within the scrubber.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubber/scrubberLayout
@@ -885,7 +873,6 @@ func (s NSScrubber) ScrubberLayout() INSScrubberLayout {
 func (s NSScrubber) SetScrubberLayout(value INSScrubberLayout) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrubberLayout:"), value)
 }
-
 // A setting that determines whether interaction with the scrubber is fixed or
 // free.
 //
@@ -910,7 +897,6 @@ func (s NSScrubber) Mode() NSScrubberMode {
 func (s NSScrubber) SetMode(value NSScrubberMode) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMode:"), value)
 }
-
 // A setting that specifies the snapping behavior of items in the scrubber.
 //
 // # Discussion
@@ -931,7 +917,6 @@ func (s NSScrubber) ItemAlignment() NSScrubberAlignment {
 func (s NSScrubber) SetItemAlignment(value NSScrubberAlignment) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemAlignment:"), value)
 }
-
 // A Boolean value that, together with the [Mode] property, determines
 // scrubber interaction style.
 //
@@ -948,7 +933,6 @@ func (s NSScrubber) Continuous() bool {
 func (s NSScrubber) SetContinuous(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContinuous:"), value)
 }
-
 // The color displayed behind the scrubber content.
 //
 // # Discussion
@@ -964,7 +948,6 @@ func (s NSScrubber) BackgroundColor() INSColor {
 func (s NSScrubber) SetBackgroundColor(value INSColor) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBackgroundColor:"), value)
 }
-
 // A view that is displayed behind the scrubber content.
 //
 // # Discussion
@@ -983,7 +966,6 @@ func (s NSScrubber) BackgroundView() INSView {
 func (s NSScrubber) SetBackgroundView(value INSView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setBackgroundView:"), value)
 }
-
 // A Boolean value that specifies whether the scrubber should display the
 // existence of additional items beyond the leading and trailing edges.
 //
@@ -1003,7 +985,6 @@ func (s NSScrubber) ShowsAdditionalContentIndicators() bool {
 func (s NSScrubber) SetShowsAdditionalContentIndicators(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsAdditionalContentIndicators:"), value)
 }
-
 // A Boolean value that specifies whether arrow buttons should be displayed at
 // the leading and trailing edges of the scrubber.
 //
@@ -1021,7 +1002,6 @@ func (s NSScrubber) ShowsArrowButtons() bool {
 func (s NSScrubber) SetShowsArrowButtons(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShowsArrowButtons:"), value)
 }
-
 // A Boolean value that determines the behavior of the item selection
 // decorations as the scrubber’s selection changes.
 //
@@ -1052,7 +1032,6 @@ func (s NSScrubber) FloatsSelectionViews() bool {
 func (s NSScrubber) SetFloatsSelectionViews(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFloatsSelectionViews:"), value)
 }
-
 // The style overlaid on selected items.
 //
 // # Discussion
@@ -1071,7 +1050,6 @@ func (s NSScrubber) SelectionOverlayStyle() INSScrubberSelectionStyle {
 func (s NSScrubber) SetSelectionOverlayStyle(value INSScrubberSelectionStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectionOverlayStyle:"), value)
 }
-
 // The style applied to the background of selected items.
 //
 // # Discussion
@@ -1090,7 +1068,6 @@ func (s NSScrubber) SelectionBackgroundStyle() INSScrubberSelectionStyle {
 func (s NSScrubber) SetSelectionBackgroundStyle(value INSScrubberSelectionStyle) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectionBackgroundStyle:"), value)
 }
-
 // The number of items represented by the scrubber.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubber/numberOfItems
@@ -1098,7 +1075,6 @@ func (s NSScrubber) NumberOfItems() int {
 	rv := objc.Send[int](s.ID, objc.Sel("numberOfItems"))
 	return rv
 }
-
 // The index of the highlighted item in the scrubber.
 //
 // # Discussion
@@ -1110,7 +1086,6 @@ func (s NSScrubber) HighlightedIndex() int {
 	rv := objc.Send[int](s.ID, objc.Sel("highlightedIndex"))
 	return rv
 }
-
 // The index of the selected item in the scrubber.
 //
 // # Discussion
@@ -1131,7 +1106,6 @@ func (s NSScrubber) SelectedIndex() int {
 func (s NSScrubber) SetSelectedIndex(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setSelectedIndex:"), value)
 }
-
 // The item’s alpha value.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscrubberlayoutattributes/alpha
@@ -1142,7 +1116,6 @@ func (s NSScrubber) Alpha() float64 {
 func (s NSScrubber) SetAlpha(value float64) {
 	objc.Send[struct{}](s.ID, objc.Sel("setAlpha:"), value)
 }
-
 // The alignment of the image within the scrubber item.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscrubberimageitemview/imagealignment
@@ -1153,7 +1126,6 @@ func (s NSScrubber) ImageAlignment() NSImageAlignment {
 func (s NSScrubber) SetImageAlignment(value NSImageAlignment) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImageAlignment:"), value)
 }
-
 // The image view that the scrubber item uses to display its image.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscrubberimageitemview/imageview
@@ -1164,7 +1136,6 @@ func (s NSScrubber) ImageView() INSImageView {
 func (s NSScrubber) SetImageView(value INSImageView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setImageView:"), value)
 }
-
 // The index of the scrubber item that is represented by the item’s layout
 // attributes.
 //
@@ -1176,7 +1147,6 @@ func (s NSScrubber) ItemIndex() int {
 func (s NSScrubber) SetItemIndex(value int) {
 	objc.Send[struct{}](s.ID, objc.Sel("setItemIndex:"), value)
 }
-
 // The size required to contain all elements within the scrubber.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscrubberlayout/scrubbercontentsize
@@ -1187,7 +1157,6 @@ func (s NSScrubber) ScrubberContentSize() corefoundation.CGSize {
 func (s NSScrubber) SetScrubberContentSize(value corefoundation.CGSize) {
 	objc.Send[struct{}](s.ID, objc.Sel("setScrubberContentSize:"), value)
 }
-
 // Determines whether the scrubber should refresh its layout when an item is
 // highlighted.
 //
@@ -1199,7 +1168,6 @@ func (s NSScrubber) ShouldInvalidateLayoutForHighlightChange() bool {
 func (s NSScrubber) SetShouldInvalidateLayoutForHighlightChange(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShouldInvalidateLayoutForHighlightChange:"), value)
 }
-
 // Determines whether the scrubber should refresh its layout when the
 // selection changes.
 //
@@ -1211,7 +1179,6 @@ func (s NSScrubber) ShouldInvalidateLayoutForSelectionChange() bool {
 func (s NSScrubber) SetShouldInvalidateLayoutForSelectionChange(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setShouldInvalidateLayoutForSelectionChange:"), value)
 }
-
 // The text field that the scrubber item uses to display its text.
 //
 // See: https://developer.apple.com/documentation/appkit/nsscrubbertextitemview/textfield

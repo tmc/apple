@@ -228,7 +228,6 @@ func (s NSSpeechSynthesizer) Delegate() NSSpeechSynthesizerDelegate {
 func (s NSSpeechSynthesizer) SetDelegate(value NSSpeechSynthesizerDelegate) {
 	objc.Send[struct{}](s.ID, objc.Sel("setDelegate:"), value)
 }
-
 // Indicates whether the receiver uses the speech feedback window.
 //
 // # Discussion
@@ -250,7 +249,6 @@ func (s NSSpeechSynthesizer) UsesFeedbackWindow() bool {
 func (s NSSpeechSynthesizer) SetUsesFeedbackWindow(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setUsesFeedbackWindow:"), value)
 }
-
 // The synthesizer’s speaking rate (words per minute).
 //
 // # Discussion
@@ -268,7 +266,6 @@ func (s NSSpeechSynthesizer) Rate() float32 {
 func (s NSSpeechSynthesizer) SetRate(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setRate:"), value)
 }
-
 // The synthesizer’s speaking volume.
 //
 // # Discussion
@@ -287,7 +284,6 @@ func (s NSSpeechSynthesizer) Volume() float32 {
 func (s NSSpeechSynthesizer) SetVolume(value float32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setVolume:"), value)
 }
-
 // Indicates whether the receiver is currently generating synthesized speech.
 //
 // # Discussion
@@ -303,7 +299,6 @@ func (s NSSpeechSynthesizer) Speaking() bool {
 	rv := objc.Send[bool](s.ID, objc.Sel("isSpeaking"))
 	return rv
 }
-
 // The perceived gender of the voice. The supported values are listed in
 //
 // See: https://developer.apple.com/documentation/appkit/nsspeechsynthesizer/voiceattributekey/gender
@@ -324,7 +319,6 @@ func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) AvailableVoices() []st
 	rv := objc.Send[[]objc.ID](objc.ID(_NSSpeechSynthesizerClass.class), objc.Sel("availableVoices"))
 	return objc.ConvertSliceToStrings(rv)
 }
-
 // Provides the identifier of the default voice.
 //
 // # Return Value
@@ -336,7 +330,6 @@ func (_NSSpeechSynthesizerClass NSSpeechSynthesizerClass) DefaultVoice() NSSpeec
 	rv := objc.Send[objc.ID](objc.ID(_NSSpeechSynthesizerClass.class), objc.Sel("defaultVoice"))
 	return NSSpeechSynthesizerVoiceName(foundation.NSStringFromID(rv).String())
 }
-
 // A Boolean value indicating whether any application is currently speaking
 // through the sound output device.
 //

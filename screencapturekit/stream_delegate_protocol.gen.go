@@ -38,23 +38,19 @@ func SCStreamDelegateObjectFromID(id objc.ID) SCStreamDelegateObject {
 // stream: The stream using Presenter Overlay.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/outputVideoEffectDidStart(for:)
-
 func (o SCStreamDelegateObject) OutputVideoEffectDidStartForStream(stream ISCStream) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outputVideoEffectDidStartForStream:"), stream)
 	}
-
 // Tells the delegate that Presenter Overlay stopped.
 //
 // stream: The stream that was using Presenter Overlay.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/outputVideoEffectDidStop(for:)
-
 func (o SCStreamDelegateObject) OutputVideoEffectDidStopForStream(stream ISCStream) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("outputVideoEffectDidStopForStream:"), stream)
 	}
-
 // Tells the delegate that the stream stopped with an error.
 //
 // stream: The stream that stopped.
@@ -64,12 +60,10 @@ func (o SCStreamDelegateObject) OutputVideoEffectDidStopForStream(stream ISCStre
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/stream(_:didStopWithError:)
-
 func (o SCStreamDelegateObject) StreamDidStopWithError(stream ISCStream, error_ foundation.INSError) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("stream:didStopWithError:"), stream, error_)
 	}
-
 //
 // stream: The SCStream object
 //
@@ -83,12 +77,10 @@ func (o SCStreamDelegateObject) StreamDidStopWithError(stream ISCStream, error_ 
 // streamDidBecomeInactive:.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/streamDidBecomeActive(_:)
-
 func (o SCStreamDelegateObject) StreamDidBecomeActive(stream ISCStream) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("streamDidBecomeActive:"), stream)
 	}
-
 //
 // stream: The SCStream object
 //
@@ -100,7 +92,6 @@ func (o SCStreamDelegateObject) StreamDidBecomeActive(stream ISCStream) {
 // are exited. This callback occurs for all content filter types.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/streamDidBecomeInactive(_:)
-
 func (o SCStreamDelegateObject) StreamDidBecomeInactive(stream ISCStream) {
 	
 	objc.Send[struct{}](o.ID, objc.Sel("streamDidBecomeInactive:"), stream)

@@ -118,7 +118,6 @@ func (n VZNATNetworkDeviceAttachment) Attachment() IVZNetworkDeviceAttachment {
 func (n VZNATNetworkDeviceAttachment) SetAttachment(value IVZNetworkDeviceAttachment) {
 	objc.Send[struct{}](n.ID, objc.Sel("setAttachment:"), value)
 }
-
 // The array of network devices that you expose to the guest operating system.
 //
 // See: https://developer.apple.com/documentation/virtualization/vzvirtualmachineconfiguration/networkdevices
