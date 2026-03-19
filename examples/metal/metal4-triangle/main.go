@@ -24,6 +24,7 @@ import (
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/metalkit"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/quartzcore"
 )
 
 const shaderSource = `
@@ -277,12 +278,10 @@ func (r *triangleRenderer) drawFrame(view metalkit.MTKView) {
 	if drawableObj == nil || drawableObj.GetID() == 0 {
 		return
 	}
-	drawable := metal.MTLDrawableObjectFromID(drawableObj.GetID())
+	drawable := quartzcore.CAMetalDrawableObjectFromID(drawableObj.GetID())
 
-	drawableTexture := metal.MTLTextureObjectFromID(
-		objc.Send[objc.ID](drawableObj.GetID(), objc.Sel("texture")),
-	)
-	if drawableTexture.ID == 0 {
+	drawableTexture := drawable.Texture()
+	if drawableTexture == nil || drawableTexture.GetID() == 0 {
 		return
 	}
 	drawableWidth := drawableTexture.Width()
@@ -336,7 +335,7 @@ func (r *triangleRenderer) drawFrame(view metalkit.MTKView) {
 	encoder.EndEncoding()
 
 	r.commandBuff.EndCommandBuffer()
-	r.submitCommandBuffer(drawable)
+	r.submitCommandBuffer(drawable.MTLDrawableObject)
 	r.queue.SignalEventValue(r.event, r.frameNumber)
 	runtime.KeepAlive(drawable)
 }
@@ -364,28 +363,31 @@ func (r *triangleRenderer) waitOnSharedEvent(earlierFrame uint64) {
 
 func (r *triangleRenderer) updateViewportSize(width, height uint32) {
 	viewport := viewportSize{Width: width, Height: height}
-	viewportBuffer := r.device.NewBufferWithBytesLengthOptions(
-		unsafe.Pointer(&viewport),
-		uint(unsafe.Sizeof(viewport)),
-		metal.MTLResourceStorageModeShared,
-	)
-	if viewportBuffer == nil {
-		return
+	dst := bufferContents(r.viewportSizeBuffer)
+	if dst != nil {
+		copyBytes(dst, unsafe.Pointer(&viewport), unsafe.Sizeof(viewport))
 	}
-	r.viewportSizeBuffer = viewportBuffer
 }
 
 func (r *triangleRenderer) updateTriangleVertexData(frameIndex int) {
 	data := currentTriangleData(r.frameNumber)
-	vertexBuffer := r.device.NewBufferWithBytesLengthOptions(
-		unsafe.Pointer(&data),
-		uint(unsafe.Sizeof(data)),
-		metal.MTLResourceStorageModeShared,
-	)
-	if vertexBuffer == nil {
-		return
+	dst := bufferContents(r.triangleVertexBufs[frameIndex])
+	if dst != nil {
+		copyBytes(dst, unsafe.Pointer(&data), unsafe.Sizeof(data))
 	}
-	r.triangleVertexBufs[frameIndex] = vertexBuffer
+}
+
+// bufferContents returns the CPU-accessible pointer for a shared Metal buffer.
+func bufferContents(buf metal.MTLBuffer) unsafe.Pointer {
+	return objc.Send[unsafe.Pointer](buf.GetID(), objc.Sel("contents"))
+}
+
+// copyBytes copies n bytes from src to dst.
+func copyBytes(dst, src unsafe.Pointer, n uintptr) {
+	// Use a byte-slice overlay to let the runtime handle the copy.
+	d := unsafe.Slice((*byte)(dst), n)
+	s := unsafe.Slice((*byte)(src), n)
+	copy(d, s)
 }
 
 func createWindowAndView(device metal.MTLDeviceObject) (appkit.NSWindow, metalkit.MTKView) {
@@ -425,7 +427,7 @@ func buildMenuBar() appkit.NSMenu {
 
 	appMenuItem := appkit.NewMenuItemWithTitleActionKeyEquivalent("", 0, "")
 	appMenu := appkit.NewNSMenu()
-	appMenu.AddItemWithTitleActionKeyEquivalent("Quit", objc.RegisterName("terminate:"), "q")
+	appMenu.AddItemWithTitleActionKeyEquivalent("Quit", objc.Sel("terminate:"), "q")
 	appMenuItem.SetSubmenu(appMenu)
 	menuBar.AddItem(appMenuItem)
 
