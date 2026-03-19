@@ -79,11 +79,11 @@ type IVNFaceLandmarkRegion2D interface {
 	PointsClassification() VNPointsClassification
 
 	// A buffer in memory containing normalized landmark points.
-	NormalizedPoints() unsafe.Pointer
+	NormalizedPoints() *corefoundation.CGPoint
 	// An array of precision estimates for each landmark point.
 	PrecisionEstimatesPerPoint() []foundation.NSNumber
 	// A buffer in memory containing landmark points in the coordinate space of the specified image size.
-	PointsInImageOfSize(imageSize corefoundation.CGSize) corefoundation.CGPoint
+	PointsInImageOfSize(imageSize corefoundation.CGSize) *corefoundation.CGPoint
 }
 
 // Init initializes the instance.
@@ -118,9 +118,9 @@ func NewVNFaceLandmarkRegion2D() VNFaceLandmarkRegion2D {
 // [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion2D/pointsInImageOfSize:
-func (f VNFaceLandmarkRegion2D) PointsInImageOfSize(imageSize corefoundation.CGSize) corefoundation.CGPoint {
-	rv := objc.Send[corefoundation.CGPoint](f.ID, objc.Sel("pointsInImageOfSize:"), imageSize)
-	return corefoundation.CGPoint(rv)
+func (f VNFaceLandmarkRegion2D) PointsInImageOfSize(imageSize corefoundation.CGSize) *corefoundation.CGPoint {
+	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("pointsInImageOfSize:"), imageSize)
+	return (*corefoundation.CGPoint)(rv)
 }
 
 // An enumeration that describes how to interpret the points the region
@@ -144,9 +144,9 @@ func (f VNFaceLandmarkRegion2D) PointsClassification() VNPointsClassification {
 // [CGPoint]: https://developer.apple.com/documentation/CoreFoundation/CGPoint
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceLandmarkRegion2D/normalizedPoints-1o38f
-func (f VNFaceLandmarkRegion2D) NormalizedPoints() unsafe.Pointer {
+func (f VNFaceLandmarkRegion2D) NormalizedPoints() *corefoundation.CGPoint {
 	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("normalizedPoints"))
-	return rv
+	return (*corefoundation.CGPoint)(rv)
 }
 // An array of precision estimates for each landmark point.
 //

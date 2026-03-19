@@ -201,7 +201,7 @@ type INSScriptObjectSpecifier interface {
 	// Topic: Evaluating an object specifier
 
 	// This primitive method must be overridden by subclasses to return a pointer to an array of indices identifying objects in the key of a given container that are identified by the receiver of the message.
-	IndicesOfObjectsByEvaluatingWithContainerCount(container objectivec.IObject, count unsafe.Pointer) int
+	IndicesOfObjectsByEvaluatingWithContainerCount(container objectivec.IObject, count unsafe.Pointer) unsafe.Pointer
 	// Returns the actual object represented by the nested series of object specifiers.
 	ObjectsByEvaluatingSpecifier() objectivec.IObject
 	// Returns the actual object or objects specified by the receiver as evaluated in the context of given container object.
@@ -395,8 +395,8 @@ func (s NSScriptObjectSpecifier) InitWithContainerSpecifierKey(container INSScri
 // implementation returns `nil` directly and –1 indirectly via `numRefs`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/indicesOfObjectsByEvaluating(withContainer:count:)
-func (s NSScriptObjectSpecifier) IndicesOfObjectsByEvaluatingWithContainerCount(container objectivec.IObject, count unsafe.Pointer) int {
-	rv := objc.Send[int](s.ID, objc.Sel("indicesOfObjectsByEvaluatingWithContainer:count:"), container, count)
+func (s NSScriptObjectSpecifier) IndicesOfObjectsByEvaluatingWithContainerCount(container objectivec.IObject, count unsafe.Pointer) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("indicesOfObjectsByEvaluatingWithContainer:count:"), container, count)
 	return rv
 }
 // Returns the actual object or objects specified by the receiver as evaluated

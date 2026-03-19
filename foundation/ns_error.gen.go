@@ -386,8 +386,9 @@ _block1, _ := NewErrorBlock(provider)
 // The user info provider of the error domain, or `nil` if none is specified.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSError/userInfoValueProvider(forDomain:)
-func (_NSErrorClass NSErrorClass) UserInfoValueProviderForDomain(errorDomain NSErrorDomain) {
-	objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("userInfoValueProviderForDomain:"), objc.String(string(errorDomain)))
+func (_NSErrorClass NSErrorClass) UserInfoValueProviderForDomain(errorDomain NSErrorDomain) objectivec.IObject {
+	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("userInfoValueProviderForDomain:"), objc.String(string(errorDomain)))
+	return objectivec.Object{ID: rv}
 }
 // Returns a properly formatted error object with a
 // [NSFileProviderItemCollisionError] error code.

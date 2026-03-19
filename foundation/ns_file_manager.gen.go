@@ -522,7 +522,7 @@ type IFileManager interface {
 	// Topic: Converting file paths to strings
 
 	// Returns a C-string representation of a given path that properly encodes Unicode strings for use by the file system.
-	FileSystemRepresentationWithPath(path string) int8
+	FileSystemRepresentationWithPath(path string) string
 	// Returns an [NSString](<doc://com.apple.foundation/documentation/Foundation/NSString>) object whose contents are derived from the specified C-string path.
 	StringWithFileSystemRepresentationLength(str []byte, len_ uint) string
 
@@ -2660,9 +2660,9 @@ func (f FileManager) GetRelationshipOfDirectoryInDomainToItemAtURLError(outRelat
 // string fails.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/fileSystemRepresentation(withPath:)
-func (f FileManager) FileSystemRepresentationWithPath(path string) int8 {
-	rv := objc.Send[int8](f.ID, objc.Sel("fileSystemRepresentationWithPath:"), objc.String(path))
-	return rv
+func (f FileManager) FileSystemRepresentationWithPath(path string) string {
+	rv := objc.Send[*byte](f.ID, objc.Sel("fileSystemRepresentationWithPath:"), objc.String(path))
+	return objc.GoString(rv)
 }
 // Returns an [NSString] object whose contents are derived from the specified
 // C-string path.

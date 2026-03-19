@@ -172,7 +172,7 @@ type IIOSurface interface {
 
 	AllAttachments() foundation.INSDictionary
 	AttachmentForKey(key string) objectivec.IObject
-	BaseAddressOfPlaneAtIndex(planeIndex uint)
+	BaseAddressOfPlaneAtIndex(planeIndex uint) unsafe.Pointer
 	BytesPerElementOfPlaneAtIndex(planeIndex uint) int
 	BytesPerRowOfPlaneAtIndex(planeIndex uint) int
 	DecrementUseCount()
@@ -238,8 +238,9 @@ func (s IOSurface) AttachmentForKey(key string) objectivec.IObject {
 }
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/baseAddressOfPlane(at:)
-func (s IOSurface) BaseAddressOfPlaneAtIndex(planeIndex uint) {
-	objc.Send[objc.ID](s.ID, objc.Sel("baseAddressOfPlaneAtIndex:"), planeIndex)
+func (s IOSurface) BaseAddressOfPlaneAtIndex(planeIndex uint) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("baseAddressOfPlaneAtIndex:"), planeIndex)
+	return rv
 }
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/bytesPerElementOfPlane(at:)

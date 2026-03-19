@@ -141,7 +141,7 @@ type INSMethodSignature interface {
 	// Topic: Getting Information on Argument Types
 
 	// Returns the type encoding for the argument at a given index.
-	GetArgumentTypeAtIndex(idx uint) int8
+	GetArgumentTypeAtIndex(idx uint) string
 	// The number of arguments recorded in the receiver.
 	NumberOfArguments() uint
 	// The number of bytes that the arguments, taken together, occupy on the stack.
@@ -194,9 +194,9 @@ func NewNSMethodSignature() NSMethodSignature {
 // index 2.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMethodSignature/getArgumentTypeAtIndex:
-func (m NSMethodSignature) GetArgumentTypeAtIndex(idx uint) int8 {
-	rv := objc.Send[int8](m.ID, objc.Sel("getArgumentTypeAtIndex:"), idx)
-	return rv
+func (m NSMethodSignature) GetArgumentTypeAtIndex(idx uint) string {
+	rv := objc.Send[*byte](m.ID, objc.Sel("getArgumentTypeAtIndex:"), idx)
+	return objc.GoString(rv)
 }
 // Whether the receiver is asynchronous when invoked through distributed
 // objects.

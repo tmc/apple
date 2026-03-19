@@ -3,6 +3,7 @@
 package appkit
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -307,11 +308,11 @@ type INSPrintInfo interface {
 	// A mutable dictionary containing the print settings from Core Printing.
 	PrintSettings() foundation.INSDictionary
 	// Returns a Core Printing object configured with the print info’s session information.
-	PMPrintSession()
+	PMPrintSession() unsafe.Pointer
 	// Returns a Core Printing object configured with the print info’s page format information.
-	PMPageFormat()
+	PMPageFormat() unsafe.Pointer
 	// Returns a Core Printing object configured with the print info’s print settings information
-	PMPrintSettings()
+	PMPrintSettings() unsafe.Pointer
 	// Synchronizes the print info’s page format information with information from its associated page format object.
 	UpdateFromPMPageFormat()
 	// Synchronizes the print info’s print settings information with information from its associated print settings object.
@@ -455,8 +456,9 @@ func (p NSPrintInfo) Dictionary() foundation.INSDictionary {
 // changes to the information in the [PMPrintSession] object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/pmPrintSession()
-func (p NSPrintInfo) PMPrintSession() {
-	objc.Send[objc.ID](p.ID, objc.Sel("PMPrintSession"))
+func (p NSPrintInfo) PMPrintSession() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("PMPrintSession"))
+	return rv
 }
 // Returns a Core Printing object configured with the print info’s page
 // format information.
@@ -482,8 +484,9 @@ func (p NSPrintInfo) PMPrintSession() {
 // with the [NSPrintInfo] object that created the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/pmPageFormat()
-func (p NSPrintInfo) PMPageFormat() {
-	objc.Send[objc.ID](p.ID, objc.Sel("PMPageFormat"))
+func (p NSPrintInfo) PMPageFormat() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("PMPageFormat"))
+	return rv
 }
 // Returns a Core Printing object configured with the print info’s print
 // settings information
@@ -509,8 +512,9 @@ func (p NSPrintInfo) PMPageFormat() {
 // with the [NSPrintInfo] object that created the object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/pmPrintSettings()
-func (p NSPrintInfo) PMPrintSettings() {
-	objc.Send[objc.ID](p.ID, objc.Sel("PMPrintSettings"))
+func (p NSPrintInfo) PMPrintSettings() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("PMPrintSettings"))
+	return rv
 }
 // Synchronizes the print info’s page format information with information
 // from its associated page format object.

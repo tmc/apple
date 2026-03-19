@@ -147,7 +147,7 @@ type INSPointerArray interface {
 	// All the objects in the receiver.
 	AllObjects() INSArray
 	// Returns the pointer at a given index.
-	PointerAtIndex(index uint)
+	PointerAtIndex(index uint) unsafe.Pointer
 	// Adds a given pointer to the receiver.
 	AddPointer(pointer unsafe.Pointer)
 	// Removes the pointer at a given index.
@@ -262,8 +262,9 @@ func (p NSPointerArray) InitWithPointerFunctions(functions INSPointerFunctions) 
 // The returned value may be [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPointerArray/pointer(at:)
-func (p NSPointerArray) PointerAtIndex(index uint) {
-	objc.Send[objc.ID](p.ID, objc.Sel("pointerAtIndex:"), index)
+func (p NSPointerArray) PointerAtIndex(index uint) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("pointerAtIndex:"), index)
+	return rv
 }
 // Adds a given pointer to the receiver.
 //

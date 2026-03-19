@@ -676,7 +676,7 @@ type INSString interface {
 	// Topic: Getting C Strings
 
 	// Returns a representation of the string as a C string using a given encoding.
-	CStringUsingEncoding(encoding uint) int8
+	CStringUsingEncoding(encoding uint) string
 	// Converts the string to a given encoding and stores it in a buffer.
 	GetCStringMaxLengthEncoding(buffer []byte, maxBufferCount uint, encoding uint) bool
 	// A null-terminated UTF8 representation of the string.
@@ -1958,9 +1958,9 @@ func (s NSString) GetBytesMaxLengthUsedLengthEncodingOptionsRangeRemainingRange(
 // undefined.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/cString(using:)
-func (s NSString) CStringUsingEncoding(encoding uint) int8 {
-	rv := objc.Send[int8](s.ID, objc.Sel("cStringUsingEncoding:"), encoding)
-	return rv
+func (s NSString) CStringUsingEncoding(encoding uint) string {
+	rv := objc.Send[*byte](s.ID, objc.Sel("cStringUsingEncoding:"), encoding)
+	return objc.GoString(rv)
 }
 // Converts the string to a given encoding and stores it in a buffer.
 //

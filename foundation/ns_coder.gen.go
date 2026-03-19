@@ -396,9 +396,9 @@ type INSCoder interface {
 	// Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
 	DecodeBoolForKey(key string) bool
 	// Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
-	DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Pointer) uint8
+	DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Pointer) unsafe.Pointer
 	// Decodes a buffer of data whose types are unspecified.
-	DecodeBytesWithReturnedLength(lengthp unsafe.Pointer)
+	DecodeBytesWithReturnedLength(lengthp unsafe.Pointer) unsafe.Pointer
 	// Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
 	DecodeDataObject() INSData
 	// Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
@@ -480,9 +480,9 @@ type INSCoder interface {
 	// Topic: Instance Methods
 
 	// Decode bytes from the decoder for a given key. The length of the bytes must be greater than or equal to the `length` parameter. If the result exists, but is of insufficient length, then the decoder uses `failWithError` to fail the entire decode operation. The result of that is configurable on a per-NSCoder basis using [NSDecodingFailurePolicy].
-	DecodeBytesForKeyMinimumLength(key string, length uint) uint8
+	DecodeBytesForKeyMinimumLength(key string, length uint) unsafe.Pointer
 	// Decode bytes from the decoder. The length of the bytes must be greater than or equal to the `length` parameter. If the result exists, but is of insufficient length, then the decoder uses `failWithError` to fail the entire decode operation. The result of that is configurable on a per-NSCoder basis using [NSDecodingFailurePolicy].
-	DecodeBytesWithMinimumLength(length uint)
+	DecodeBytesWithMinimumLength(length uint) unsafe.Pointer
 
 	// Decodes the \c NSArray object for the given  \c key, which should be an \c NSArray, containing the given non-collection class (no nested arrays or arrays of dictionaries, etc) from the coder.
 	DecodeArrayOfObjectsOfClassForKey(cls objc.Class, key string) INSArray
@@ -958,8 +958,8 @@ func (c NSCoder) DecodeBoolForKey(key string) bool {
 // keyed coding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(forKey:returnedLength:)
-func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Pointer) uint8 {
-	rv := objc.Send[uint8](c.ID, objc.Sel("decodeBytesForKey:returnedLength:"), objc.String(key), lengthp)
+func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Pointer) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesForKey:returnedLength:"), objc.String(key), lengthp)
 	return rv
 }
 // Decodes a buffer of data whose types are unspecified.
@@ -975,8 +975,9 @@ func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp unsafe.Poin
 // This method matches an [EncodeBytesLength] message used during encoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(withReturnedLength:)
-func (c NSCoder) DecodeBytesWithReturnedLength(lengthp unsafe.Pointer) {
-	objc.Send[objc.ID](c.ID, objc.Sel("decodeBytesWithReturnedLength:"), lengthp)
+func (c NSCoder) DecodeBytesWithReturnedLength(lengthp unsafe.Pointer) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesWithReturnedLength:"), lengthp)
+	return rv
 }
 // Decodes and returns an [NSData] object that was previously encoded with
 // [EncodeDataObject]. Subclasses must override this method.
@@ -1303,8 +1304,8 @@ func (c NSCoder) VersionForClassName(className string) int {
 // per-NSCoder basis using [NSDecodingFailurePolicy].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(forKey:minimumLength:)
-func (c NSCoder) DecodeBytesForKeyMinimumLength(key string, length uint) uint8 {
-	rv := objc.Send[uint8](c.ID, objc.Sel("decodeBytesForKey:minimumLength:"), objc.String(key), length)
+func (c NSCoder) DecodeBytesForKeyMinimumLength(key string, length uint) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesForKey:minimumLength:"), objc.String(key), length)
 	return rv
 }
 // Decode bytes from the decoder. The length of the bytes must be greater than
@@ -1314,8 +1315,9 @@ func (c NSCoder) DecodeBytesForKeyMinimumLength(key string, length uint) uint8 {
 // per-NSCoder basis using [NSDecodingFailurePolicy].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(withMinimumLength:)
-func (c NSCoder) DecodeBytesWithMinimumLength(length uint) {
-	objc.Send[objc.ID](c.ID, objc.Sel("decodeBytesWithMinimumLength:"), length)
+func (c NSCoder) DecodeBytesWithMinimumLength(length uint) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesWithMinimumLength:"), length)
+	return rv
 }
 // Decodes the \c NSArray object for the given \c key, which should be an \c
 // NSArray, containing the given non-collection class (no nested arrays or
