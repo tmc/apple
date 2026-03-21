@@ -228,7 +228,7 @@ type NSSocketNativeHandle = int
 // See: https://developer.apple.com/documentation/Foundation/StreamNetworkServiceTypeValue
 type NSStreamNetworkServiceTypeValue = string
 
-// NSStreamPropertyKey is [NSStream] defines these string constants as keys for accessing stream properties using [property(forKey:)] and setting properties with [setProperty(_:forKey:)]:
+// NSStreamPropertyKey is [NSStream] defines these string constants as keys for accessing stream properties using [property(forKey:)] and setting properties with [setProperty(_:forKey:)]:.
 //
 // See: https://developer.apple.com/documentation/Foundation/Stream/PropertyKey
 type NSStreamPropertyKey = string
@@ -270,7 +270,7 @@ type NSTextCheckingTypes = uint64
 // See: https://developer.apple.com/documentation/Foundation/TimeInterval
 type NSTimeInterval = float64
 
-// NSURLBookmarkFileCreationOptions is options used when creating file bookmark data
+// NSURLBookmarkFileCreationOptions is options used when creating file bookmark data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/BookmarkFileCreationOptions
 type NSURLBookmarkFileCreationOptions = uint

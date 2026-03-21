@@ -389,7 +389,7 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferOpenGLCompatibilityKey
 	KCVPixelBufferOpenGLCompatibilityKey string
-	// KCVPixelBufferOpenGLTextureCacheCompatibilityKey is a key to a Boolean value that indicates whether OpenGL performs format conversions of the texture-cache data in a shader.
+	// KCVPixelBufferOpenGLTextureCacheCompatibilityKey is a key to a Boolean value that indicates whether OpenGL performs format conversions of the texture-cache data in a shader.
 	//
 	// See: https://developer.apple.com/documentation/CoreVideo/kCVPixelBufferOpenGLTextureCacheCompatibilityKey
 	KCVPixelBufferOpenGLTextureCacheCompatibilityKey string

@@ -382,7 +382,7 @@ type INSEvent interface {
 	// Topic: Configuring swipe event behaviors
 
 	// Allows tracking and user interface feedback of scroll wheel events.
-	TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler func(float64, unsafe.Pointer, bool, *bool))
+	TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler func(float64, uint64, bool, *bool))
 
 	// Topic: Getting gesture and touch information
 
@@ -642,8 +642,8 @@ func (e NSEvent) CharactersByApplyingModifiers(modifiers NSEventModifierFlags) s
 // the user know that there is nothing to swipe to in that direction.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/trackSwipeEvent(options:dampenAmountThresholdMin:max:usingHandler:)
-func (e NSEvent) TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler func(float64, unsafe.Pointer, bool, *bool)) {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 float64, arg1 unsafe.Pointer, arg2 bool, arg3 *bool) { trackingHandler(arg0, arg1, arg2, arg3) })
+func (e NSEvent) TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler(options NSEventSwipeTrackingOptions, minDampenThreshold float64, maxDampenThreshold float64, trackingHandler func(float64, uint64, bool, *bool)) {
+	_block3 := objc.NewBlock(func(_ objc.Block, arg0 float64, arg1 uint64, arg2 bool, arg3 *bool) { trackingHandler(arg0, arg1, arg2, arg3) })
 	defer _block3.Release()
 	objc.Send[objc.ID](e.ID, objc.Sel("trackSwipeEventWithOptions:dampenAmountThresholdMin:max:usingHandler:"), options, minDampenThreshold, maxDampenThreshold, objc.ID(_block3))
 }

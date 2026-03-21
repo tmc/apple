@@ -216,6 +216,10 @@ type ICAAnimation interface {
 	SetPreferredFrameRateRange(value CAFrameRateRange)
 
 	EncodeWithCoder(coder foundation.INSCoder)
+	// Sets the value of the property identified by the given key.
+	SetValueForKey(value objectivec.IObject, key string)
+	// Returns the value of the property identified by the given key.
+	ValueForKey(key string) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -288,6 +292,15 @@ func (a CAAnimation) RunActionForKeyObjectArguments(event string, anObject objec
 }
 func (a CAAnimation) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](a.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+// Sets the value of the property identified by the given key. [Full Topic]
+func (a CAAnimation) SetValueForKey(value objectivec.IObject, key string) {
+	objc.Send[objc.ID](a.ID, objc.Sel("setValue:forKey:"), value, objc.String(key))
+}
+// Returns the value of the property identified by the given key. [Full Topic]
+func (a CAAnimation) ValueForKey(key string) objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("valueForKey:"), objc.String(key))
+	return objectivec.Object{ID: rv}
 }
 
 // Specifies the default value of the property with the specified key.

@@ -8,6 +8,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/quartzcore"
@@ -200,8 +201,8 @@ type INSView interface {
 	AutoresizingMask() uint
 	SetAutoresizingMask(value uint)
 	// An array of Core Image filters to apply to the view’s background.
-	BackgroundFilters() objectivec.IObject
-	SetBackgroundFilters(value objectivec.IObject)
+	BackgroundFilters() coreimage.CIFilter
+	SetBackgroundFilters(value coreimage.CIFilter)
 	// The distance (in points) between the bottom of the view’s alignment rectangle and its baseline.
 	BaselineOffsetFromBottom() float64
 	SetBaselineOffsetFromBottom(value float64)
@@ -238,14 +239,14 @@ type INSView interface {
 	ClipsToBounds() bool
 	SetClipsToBounds(value bool)
 	// The Core Image filter used to composite the view’s contents with its background.
-	CompositingFilter() objectivec.IObject
-	SetCompositingFilter(value objectivec.IObject)
+	CompositingFilter() coreimage.CIFilter
+	SetCompositingFilter(value coreimage.CIFilter)
 	// Returns the constraints held by the view.
 	Constraints() INSLayoutConstraint
 	SetConstraints(value INSLayoutConstraint)
 	// An array of Core Image filters to apply to the contents of the view and its sublayers.
-	ContentFilters() objectivec.IObject
-	SetContentFilters(value objectivec.IObject)
+	ContentFilters() coreimage.CIFilter
+	SetContentFilters(value coreimage.CIFilter)
 	// The menu item containing the view or any of its superviews in the view hierarchy.
 	EnclosingMenuItem() INSMenuItem
 	SetEnclosingMenuItem(value INSMenuItem)
@@ -4542,11 +4543,11 @@ func (v NSView) SetAutoresizingMask(value uint) {
 // An array of Core Image filters to apply to the view’s background.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/backgroundfilters
-func (v NSView) BackgroundFilters() objectivec.IObject {
+func (v NSView) BackgroundFilters() coreimage.CIFilter {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("backgroundFilters"))
-	return objectivec.Object{ID: rv}
+	return coreimage.CIFilterFromID(objc.ID(rv))
 }
-func (v NSView) SetBackgroundFilters(value objectivec.IObject) {
+func (v NSView) SetBackgroundFilters(value coreimage.CIFilter) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBackgroundFilters:"), value)
 }
 // The distance (in points) between the bottom of the view’s alignment
@@ -4678,11 +4679,11 @@ func (v NSView) SetClipsToBounds(value bool) {
 // background.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/compositingfilter
-func (v NSView) CompositingFilter() objectivec.IObject {
+func (v NSView) CompositingFilter() coreimage.CIFilter {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("compositingFilter"))
-	return objectivec.Object{ID: rv}
+	return coreimage.CIFilterFromID(objc.ID(rv))
 }
-func (v NSView) SetCompositingFilter(value objectivec.IObject) {
+func (v NSView) SetCompositingFilter(value coreimage.CIFilter) {
 	objc.Send[struct{}](v.ID, objc.Sel("setCompositingFilter:"), value)
 }
 // Returns the constraints held by the view.
@@ -4699,11 +4700,11 @@ func (v NSView) SetConstraints(value INSLayoutConstraint) {
 // sublayers.
 //
 // See: https://developer.apple.com/documentation/appkit/nsview/contentfilters
-func (v NSView) ContentFilters() objectivec.IObject {
+func (v NSView) ContentFilters() coreimage.CIFilter {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("contentFilters"))
-	return objectivec.Object{ID: rv}
+	return coreimage.CIFilterFromID(objc.ID(rv))
 }
-func (v NSView) SetContentFilters(value objectivec.IObject) {
+func (v NSView) SetContentFilters(value coreimage.CIFilter) {
 	objc.Send[struct{}](v.ID, objc.Sel("setContentFilters:"), value)
 }
 // The appearance that will be used when the receiver is drawn onscreen, in an

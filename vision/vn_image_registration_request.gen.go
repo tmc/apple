@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -189,8 +190,7 @@ func NewImageRegistrationRequestWithTargetedCGImageOrientationOptionsCompletionH
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:options:
-// ciImage is a [coreimage.CIImage].
-func NewImageRegistrationRequestWithTargetedCIImageOptions(ciImage objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
+func NewImageRegistrationRequestWithTargetedCIImageOptions(ciImage coreimage.CIImage, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
 	return VNImageRegistrationRequestFromID(rv)
@@ -207,8 +207,7 @@ func NewImageRegistrationRequestWithTargetedCIImageOptions(ciImage objectivec.IO
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:options:completionHandler:)
-// ciImage is a [coreimage.CIImage].
-func NewImageRegistrationRequestWithTargetedCIImageOptionsCompletionHandler(ciImage objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
+func NewImageRegistrationRequestWithTargetedCIImageOptionsCompletionHandler(ciImage coreimage.CIImage, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
 	return VNImageRegistrationRequestFromID(rv)
@@ -229,9 +228,8 @@ func NewImageRegistrationRequestWithTargetedCIImageOptionsCompletionHandler(ciIm
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:orientation:options:
-// ciImage is a [coreimage.CIImage].
 // orientation is a [imageio.CGImagePropertyOrientation].
-func NewImageRegistrationRequestWithTargetedCIImageOrientationOptions(ciImage objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
+func NewImageRegistrationRequestWithTargetedCIImageOrientationOptions(ciImage coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
 	return VNImageRegistrationRequestFromID(rv)
@@ -255,9 +253,8 @@ func NewImageRegistrationRequestWithTargetedCIImageOrientationOptions(ciImage ob
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:orientation:options:completionHandler:)
-// ciImage is a [coreimage.CIImage].
 // orientation is a [imageio.CGImagePropertyOrientation].
-func NewImageRegistrationRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
+func NewImageRegistrationRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNImageRegistrationRequest {
 	instance := getVNImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, completionHandler)
 	return VNImageRegistrationRequestFromID(rv)

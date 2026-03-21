@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"errors"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -120,9 +121,9 @@ type IVNImageRequestHandler interface {
 	// Creates a handler to be used for performing requests on a Core Graphics image with known orientation.
 	InitWithCGImageOrientationOptions(image coregraphics.CGImageRef, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to use for performing requests on Core Image image data.
-	InitWithCIImageOptions(image objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCIImageOptions(image coreimage.CIImage, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to be used for performing requests on Core Image image data of a known orientation.
-	InitWithCIImageOrientationOptions(image objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCIImageOrientationOptions(image coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler for performing requests on a Core Video pixel buffer.
 	InitWithCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler for performing requests on a Core Video pixel buffer of a known orientation.
@@ -220,8 +221,7 @@ func NewImageRequestHandlerWithCGImageOrientationOptions(image coregraphics.CGIm
 // [properties]: https://developer.apple.com/documentation/Vision/VNImageOption/properties
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(ciImage:options:)
-// image is a [coreimage.CIImage].
-func NewImageRequestHandlerWithCIImageOptions(image objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCIImageOptions(image coreimage.CIImage, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:options:"), image, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -241,9 +241,8 @@ func NewImageRequestHandlerWithCIImageOptions(image objectivec.IObject, options 
 // data.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(ciImage:orientation:options:)
-// image is a [coreimage.CIImage].
 // orientation is a [imageio.CGImagePropertyOrientation].
-func NewImageRequestHandlerWithCIImageOrientationOptions(image objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCIImageOrientationOptions(image coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:orientation:options:"), image, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -505,10 +504,8 @@ func (i VNImageRequestHandler) InitWithCGImageOrientationOptions(image coregraph
 // //
 // [properties]: https://developer.apple.com/documentation/Vision/VNImageOption/properties
 //
-// image is a [coreimage.CIImage].
-//
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(ciImage:options:)
-func (i VNImageRequestHandler) InitWithCIImageOptions(image objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCIImageOptions(image coreimage.CIImage, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCIImage:options:"), image, options)
 	return rv
 }
@@ -525,12 +522,10 @@ func (i VNImageRequestHandler) InitWithCIImageOptions(image objectivec.IObject, 
 // options: An optional dictionary containing [VNImageOption] keys to auxiliary image
 // data.
 //
-// image is a [coreimage.CIImage].
-//
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(ciImage:orientation:options:)
-func (i VNImageRequestHandler) InitWithCIImageOrientationOptions(image objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCIImageOrientationOptions(image coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCIImage:orientation:options:"), image, orientation, options)
 	return rv
 }

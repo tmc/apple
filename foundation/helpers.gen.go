@@ -105,3 +105,35 @@ func (n NSMutableData) Write(p []byte) (int, error) {
 	return len(p), nil
 }
 
+// NSDictionaryToMap converts an NSDictionary to a Go map using converter functions.
+func NSDictionaryToMap[K comparable, V any](dict NSDictionary, fromK func(objc.ID) K, fromV func(objc.ID) V) map[K]V {
+	if dict.GetID() == 0 {
+		return nil
+	}
+	keys := dict.AllKeys()
+	m := make(map[K]V, len(keys))
+	for _, k := range keys {
+		v := dict.ObjectForKey(k)
+		m[fromK(k.GetID())] = fromV(v.GetID())
+	}
+	return m
+}
+
+// NSDictionaryToStringMap converts an NSDictionary with NSString keys to a map[string]V.
+func NSDictionaryToStringMap[V any](dict NSDictionary, fromV func(objc.ID) V) map[string]V {
+	return NSDictionaryToMap(dict, objc.IDToString, fromV)
+}
+
+// NSSetToSlice converts an NSSet to a typed Go slice using a converter function.
+func NSSetToSlice[T any](set NSSet, from func(objc.ID) T) []T {
+	if set.GetID() == 0 {
+		return nil
+	}
+	objs := set.AllObjects()
+	result := make([]T, len(objs))
+	for i, o := range objs {
+		result[i] = from(o.GetID())
+	}
+	return result
+}
+

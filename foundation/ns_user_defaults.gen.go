@@ -403,6 +403,11 @@ type IUserDefaults interface {
 
 	// Waits for any pending asynchronous updates to the defaults database and returns; this method is unnecessary and shouldn’t be used.
 	Synchronize() bool
+
+	// Sets the value of the property identified by the given key.
+	SetValueForKey(value objectivec.IObject, key string)
+	// Returns the value of the property identified by the given key.
+	ValueForKey(key string) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -1178,6 +1183,15 @@ func (u UserDefaults) ObjectIsForcedForKeyInDomain(key string, domain string) bo
 func (u UserDefaults) Synchronize() bool {
 	rv := objc.Send[bool](u.ID, objc.Sel("synchronize"))
 	return rv
+}
+// Sets the value of the property identified by the given key. [Full Topic]
+func (u UserDefaults) SetValueForKey(value objectivec.IObject, key string) {
+	objc.Send[objc.ID](u.ID, objc.Sel("setValue:forKey:"), value, objc.String(key))
+}
+// Returns the value of the property identified by the given key. [Full Topic]
+func (u UserDefaults) ValueForKey(key string) objectivec.IObject {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("valueForKey:"), objc.String(key))
+	return objectivec.Object{ID: rv}
 }
 
 // This method has no effect and shouldn’t be used.

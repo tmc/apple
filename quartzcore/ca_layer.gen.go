@@ -871,6 +871,10 @@ type ICALayer interface {
 	SetToneMapMode(value uint)
 
 	EncodeWithCoder(coder foundation.INSCoder)
+	// Sets the value of the property identified by the given key.
+	SetValueForKey(value objectivec.IObject, key string)
+	// Returns the value of the property identified by the given key.
+	ValueForKey(key string) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -1793,6 +1797,15 @@ func (l CALayer) ShouldArchiveValueForKey(key string) bool {
 }
 func (l CALayer) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](l.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+// Sets the value of the property identified by the given key. [Full Topic]
+func (l CALayer) SetValueForKey(value objectivec.IObject, key string) {
+	objc.Send[objc.ID](l.ID, objc.Sel("setValue:forKey:"), value, objc.String(key))
+}
+// Returns the value of the property identified by the given key. [Full Topic]
+func (l CALayer) ValueForKey(key string) objectivec.IObject {
+	rv := objc.Send[objc.ID](l.ID, objc.Sel("valueForKey:"), objc.String(key))
+	return objectivec.Object{ID: rv}
 }
 
 // Returns a Boolean indicating whether changes to the specified key require

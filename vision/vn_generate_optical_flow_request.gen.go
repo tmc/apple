@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -238,8 +239,7 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptionsCompletio
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:options:
-// ciImage is a [coreimage.CIImage].
-func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage coreimage.CIImage, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
@@ -256,8 +256,7 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage objectivec.
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:options:completionHandler:)
-// ciImage is a [coreimage.CIImage].
-func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ciImage objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ciImage coreimage.CIImage, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
 	return VNGenerateOpticalFlowRequestFromID(rv)
@@ -278,9 +277,8 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ci
 // options: A dictionary with options specifying auxiliary information for the image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:orientation:options:
-// ciImage is a [coreimage.CIImage].
 // orientation is a [imageio.CGImagePropertyOrientation].
-func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
@@ -304,9 +302,8 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage 
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:orientation:options:completionHandler:)
-// ciImage is a [coreimage.CIImage].
 // orientation is a [imageio.CGImagePropertyOrientation].
-func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage coreimage.CIImage, orientation objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, completionHandler)
 	return VNGenerateOpticalFlowRequestFromID(rv)

@@ -348,6 +348,28 @@ func NewEventBlock(handler EventHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// Float64Handler handles The Block used as the tracking handler.
+//   - gestureAmount: The amount of gesture that you should display in the user interface. This may be a fractional amount.
+//   - phase: The phase of the physical gesture as performed by the user. See [NSEvent.Phase](<doc://com.apple.appkit/documentation/AppKit/NSEvent/Phase-swift.struct>) for possible values. When the phase is either [ended](<doc://com.apple.appkit/documentation/AppKit/NSEvent/Phase-swift.struct/ended>), or [mayBegin](<doc://com.apple.appkit/documentation/AppKit/NSEvent/Phase-swift.struct/mayBegin>), the user has physically ended the gesture successfully or un-successfully, respectively.
+//   - isComplete: Signifies the swipe and animation are complete and you should release any temporary animation objects.
+//   - stop: A reference to a Boolean value. The Block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block
+//
+// Used by:
+//   - [NSEvent.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler]
+type Float64Handler = func(float64)
+
+// NewFloat64Block wraps a Go [Float64Handler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSEvent.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler]
+func NewFloat64Block(handler Float64Handler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal float64) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // IntHandler handles The completion handler that runs when the user clicks the OK or Cancel button in the Open dialog.
 //
 // Used by:
@@ -503,6 +525,7 @@ func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
 // Used by:
 //   - [NSCustomImageRep.InitWithSizeFlippedDrawingHandler]
 //   - [NSImage.ImageWithSizeFlippedDrawingHandler]
+//   - [NSLayoutManager.EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock]
 type RectHandler = func(corefoundation.CGRect)
 
 // NewRectBlock wraps a Go [RectHandler] as an Objective-C block.
@@ -511,6 +534,7 @@ type RectHandler = func(corefoundation.CGRect)
 // Used by:
 //   - [NSCustomImageRep.InitWithSizeFlippedDrawingHandler]
 //   - [NSImage.ImageWithSizeFlippedDrawingHandler]
+//   - [NSLayoutManager.EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock]
 func NewRectBlock(handler RectHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal corefoundation.CGRect) {
 		handler(primitiveVal)

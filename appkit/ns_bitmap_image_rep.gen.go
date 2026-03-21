@@ -7,6 +7,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -222,7 +223,7 @@ type INSBitmapImageRep interface {
 	// Returns a bitmap image representation from a Core Graphics image object.
 	InitWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImageRep
 	// Returns a bitmap image representation from a Core Image object.
-	InitWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep
+	InitWithCIImage(ciImage coreimage.CIImage) NSBitmapImageRep
 	// Initializes a newly allocated bitmap image representation from the specified data.
 	InitWithData(data foundation.INSData) NSBitmapImageRep
 	// Initializes a newly allocated bitmap image representation for incremental loading.
@@ -637,8 +638,7 @@ func NewBitmapImageRepWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImage
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)
-// ciImage is a [coreimage.CIImage].
-func NewBitmapImageRepWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep {
+func NewBitmapImageRepWithCIImage(ciImage coreimage.CIImage) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:"), ciImage)
 	return NSBitmapImageRepFromID(rv)
@@ -959,8 +959,6 @@ func (b NSBitmapImageRep) InitWithCGImage(cgImage coregraphics.CGImageRef) NSBit
 // ciImage: A Core Image object whose contents are to be copied to the receiver. This
 // image rectangle must be of a finite size.
 //
-// ciImage is a [coreimage.CIImage].
-//
 // # Return Value
 // 
 // An [NSBitmapImageRep] object initialized from the contents of the Core
@@ -991,7 +989,7 @@ func (b NSBitmapImageRep) InitWithCGImage(cgImage coregraphics.CGImageRef) NSBit
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)
-func (b NSBitmapImageRep) InitWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep {
+func (b NSBitmapImageRep) InitWithCIImage(ciImage coreimage.CIImage) NSBitmapImageRep {
 	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithCIImage:"), ciImage)
 	return rv
 }

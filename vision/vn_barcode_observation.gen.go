@@ -6,8 +6,8 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNBarcodeObservation] class.
@@ -127,7 +127,7 @@ type IVNBarcodeObservation interface {
 	// Topic: Reading Barcode Descriptors
 
 	// An object that describes the low-level details about the barcode and its data.
-	BarcodeDescriptor() objectivec.IObject
+	BarcodeDescriptor() coreimage.CIBarcodeDescriptor
 
 	// Topic: Identifying Barcode Types
 
@@ -277,9 +277,9 @@ func (b VNBarcodeObservation) IsGS1DataCarrier() bool {
 // Use this object to have Core Image regenerate the observed barcode.
 //
 // See: https://developer.apple.com/documentation/Vision/VNBarcodeObservation/barcodeDescriptor
-func (b VNBarcodeObservation) BarcodeDescriptor() objectivec.IObject {
+func (b VNBarcodeObservation) BarcodeDescriptor() coreimage.CIBarcodeDescriptor {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("barcodeDescriptor"))
-	return objectivec.Object{ID: rv}
+	return coreimage.CIBarcodeDescriptorFromID(objc.ID(rv))
 }
 // The symbology of the observed barcode.
 //

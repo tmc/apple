@@ -5,6 +5,7 @@ package foundation
 import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"unsafe"
 )
 
 // ArrayErrorHandler is the signature for a completion handler block.
@@ -644,19 +645,41 @@ func NewOrderedCollectionChangeBlock(handler OrderedCollectionChangeHandler) (ob
 	return objc.ID(block), func() { block.Release() }
 }
 
-// RangeHandler handles The closure or block to apply to ranges of attributes in the attributed string, taking three arguments:
-//   - tag: The located linguistic tag.
-//   - tokenRange: The range of the linguistic tag.
-//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
+// RangeHandler handles The block to apply to elements in the index set.
+//   - range: The range of elements.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
 //
 // Used by:
 //   - [NSAttributedString.EnumerateAttributesInRangeOptionsUsingBlock]
+//   - [NSIndexSet.EnumerateRangesInRangeOptionsUsingBlock]
+//   - [NSIndexSet.EnumerateRangesUsingBlock]
+//   - [NSIndexSet.EnumerateRangesWithOptionsUsingBlock]
 //   - [NSLinguisticTagger.EnumerateTagsForStringRangeUnitSchemeOptionsOrthographyUsingBlock]
 //   - [NSLinguisticTagger.EnumerateTagsInRangeSchemeOptionsUsingBlock]
 //   - [NSLinguisticTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
 //   - [NSString.EnumerateLinguisticTagsInRangeSchemeOptionsOrthographyUsingBlock]
 //   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]
-type RangeHandler = func(*INSDictionary)
+type RangeHandler = func(NSRange)
+
+// NewRangeBlock wraps a Go [RangeHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSAttributedString.EnumerateAttributesInRangeOptionsUsingBlock]
+//   - [NSIndexSet.EnumerateRangesInRangeOptionsUsingBlock]
+//   - [NSIndexSet.EnumerateRangesUsingBlock]
+//   - [NSIndexSet.EnumerateRangesWithOptionsUsingBlock]
+//   - [NSLinguisticTagger.EnumerateTagsForStringRangeUnitSchemeOptionsOrthographyUsingBlock]
+//   - [NSLinguisticTagger.EnumerateTagsInRangeSchemeOptionsUsingBlock]
+//   - [NSLinguisticTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
+//   - [NSString.EnumerateLinguisticTagsInRangeSchemeOptionsOrthographyUsingBlock]
+//   - [NSString.EnumerateSubstringsInRangeOptionsUsingBlock]
+func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NSRange) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringHandler handles The block executed for the enumeration.
 //   - line: The current line of the string being enumerated. The line contains just the contents of the line, without the line terminators. See [getLineStart(_:end:contentsEnd:for:)](<doc://com.apple.foundation/documentation/Foundation/NSString/getLineStart(_:end:contentsEnd:for:)>) for a discussion of line terminators.
@@ -1017,6 +1040,42 @@ func NewURLURLResponseErrorBlock(handler URLURLResponseErrorHandler) (objc.ID, f
 	return objc.ID(block), func() { block.Release() }
 }
 
+// UintHandler handles The Block to apply to elements in the set.
+//   - idx: The index of the object.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to YES within the Block.
+//
+// Used by:
+//   - [NSIndexSet.EnumerateIndexesInRangeOptionsUsingBlock]
+//   - [NSIndexSet.EnumerateIndexesUsingBlock]
+//   - [NSIndexSet.EnumerateIndexesWithOptionsUsingBlock]
+//   - [NSIndexSet.IndexInRangeOptionsPassingTest]
+//   - [NSIndexSet.IndexPassingTest]
+//   - [NSIndexSet.IndexWithOptionsPassingTest]
+//   - [NSIndexSet.IndexesInRangeOptionsPassingTest]
+//   - [NSIndexSet.IndexesPassingTest]
+//   - [NSIndexSet.IndexesWithOptionsPassingTest]
+type UintHandler = func(uint)
+
+// NewUintBlock wraps a Go [UintHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSIndexSet.EnumerateIndexesInRangeOptionsUsingBlock]
+//   - [NSIndexSet.EnumerateIndexesUsingBlock]
+//   - [NSIndexSet.EnumerateIndexesWithOptionsUsingBlock]
+//   - [NSIndexSet.IndexInRangeOptionsPassingTest]
+//   - [NSIndexSet.IndexPassingTest]
+//   - [NSIndexSet.IndexWithOptionsPassingTest]
+//   - [NSIndexSet.IndexesInRangeOptionsPassingTest]
+//   - [NSIndexSet.IndexesPassingTest]
+//   - [NSIndexSet.IndexesWithOptionsPassingTest]
+func NewUintBlock(handler UintHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal uint) {
+		handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // VoidHandler handles The block to add to the new block operation object’s list.
 //   - completionHandler: A completion handler block. The batch accessor must call the completion handler when it has finished its read and write calls.
 //
@@ -1111,6 +1170,27 @@ func NewXPCConnectionErrorBlock(handler XPCConnectionErrorHandler) (objc.ID, fun
 			nserr = &e
 		}
 		handler(result, NSErrorToError(nserr))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// constvoidHandler handles The block to apply to byte ranges in the array.
+//   - bytes: The bytes for the current range. This pointer is valid until the data object is deallocated.
+//   - byteRange: The range of the current data bytes.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the data. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
+//
+// Used by:
+//   - [NSData.EnumerateByteRangesUsingBlock]
+type constvoidHandler = func(unsafe.Pointer)
+
+// NewconstvoidBlock wraps a Go [constvoidHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSData.EnumerateByteRangesUsingBlock]
+func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal unsafe.Pointer) {
+		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

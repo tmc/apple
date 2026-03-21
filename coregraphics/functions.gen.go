@@ -1661,24 +1661,24 @@ func CGContextDrawImageApplyingToneMapping(c CGContextRef, r corefoundation.CGRe
 	return _cGContextDrawImageApplyingToneMapping(c, r, image, method, options)
 }
 
-var _cGContextDrawLayerAtPoint func(context CGContextRef, point corefoundation.CGPoint, layer uintptr)
+var _cGContextDrawLayerAtPoint func(context CGContextRef, point corefoundation.CGPoint, layer unsafe.Pointer)
 
 // CGContextDrawLayerAtPoint draws the contents of a CGLayer object at the specified point.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawLayerAtPoint
-func CGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGPoint, layer uintptr) {
+func CGContextDrawLayerAtPoint(context CGContextRef, point corefoundation.CGPoint, layer unsafe.Pointer) {
 	if _cGContextDrawLayerAtPoint == nil {
 		panic("CoreGraphics: symbol CGContextDrawLayerAtPoint not loaded")
 	}
 	_cGContextDrawLayerAtPoint(context, point, layer)
 }
 
-var _cGContextDrawLayerInRect func(context CGContextRef, rect corefoundation.CGRect, layer uintptr)
+var _cGContextDrawLayerInRect func(context CGContextRef, rect corefoundation.CGRect, layer unsafe.Pointer)
 
 // CGContextDrawLayerInRect draws the contents of a layer object into the specified rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawLayerInRect
-func CGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRect, layer uintptr) {
+func CGContextDrawLayerInRect(context CGContextRef, rect corefoundation.CGRect, layer unsafe.Pointer) {
 	if _cGContextDrawLayerInRect == nil {
 		panic("CoreGraphics: symbol CGContextDrawLayerInRect not loaded")
 	}
@@ -5328,36 +5328,36 @@ func CGImageShouldToneMap(image CGImageRef) bool {
 	return _cGImageShouldToneMap(image)
 }
 
-var _cGLayerCreateWithContext func(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) objectivec.IObject
+var _cGLayerCreateWithContext func(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) unsafe.Pointer
 
 // CGLayerCreateWithContext creates a layer object that is associated with a graphics context.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/init(_:size:auxiliaryInfo:)
-func CGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) objectivec.IObject {
+func CGLayerCreateWithContext(context CGContextRef, size corefoundation.CGSize, auxiliaryInfo corefoundation.CFDictionaryRef) unsafe.Pointer {
 	if _cGLayerCreateWithContext == nil {
 		panic("CoreGraphics: symbol CGLayerCreateWithContext not loaded")
 	}
 	return _cGLayerCreateWithContext(context, size, auxiliaryInfo)
 }
 
-var _cGLayerGetContext func(layer uintptr) CGContextRef
+var _cGLayerGetContext func(layer unsafe.Pointer) CGContextRef
 
 // CGLayerGetContext returns the graphics context associated with a layer object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/context
-func CGLayerGetContext(layer uintptr) CGContextRef {
+func CGLayerGetContext(layer unsafe.Pointer) CGContextRef {
 	if _cGLayerGetContext == nil {
 		panic("CoreGraphics: symbol CGLayerGetContext not loaded")
 	}
 	return _cGLayerGetContext(layer)
 }
 
-var _cGLayerGetSize func(layer uintptr) corefoundation.CGSize
+var _cGLayerGetSize func(layer unsafe.Pointer) corefoundation.CGSize
 
 // CGLayerGetSize returns the width and height of a layer object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayer/size
-func CGLayerGetSize(layer uintptr) corefoundation.CGSize {
+func CGLayerGetSize(layer unsafe.Pointer) corefoundation.CGSize {
 	if _cGLayerGetSize == nil {
 		panic("CoreGraphics: symbol CGLayerGetSize not loaded")
 	}
@@ -5376,24 +5376,24 @@ func CGLayerGetTypeID() uint {
 	return _cGLayerGetTypeID()
 }
 
-var _cGLayerRelease func(layer uintptr)
+var _cGLayerRelease func(layer unsafe.Pointer)
 
 // CGLayerRelease decrements the retain count of a layer object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayerRelease
-func CGLayerRelease(layer uintptr) {
+func CGLayerRelease(layer unsafe.Pointer) {
 	if _cGLayerRelease == nil {
 		panic("CoreGraphics: symbol CGLayerRelease not loaded")
 	}
 	_cGLayerRelease(layer)
 }
 
-var _cGLayerRetain func(layer uintptr) objectivec.IObject
+var _cGLayerRetain func(layer unsafe.Pointer) unsafe.Pointer
 
 // CGLayerRetain increments the retain count of a layer object.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGLayerRetain
-func CGLayerRetain(layer uintptr) objectivec.IObject {
+func CGLayerRetain(layer unsafe.Pointer) unsafe.Pointer {
 	if _cGLayerRetain == nil {
 		panic("CoreGraphics: symbol CGLayerRetain not loaded")
 	}

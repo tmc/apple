@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -483,8 +484,7 @@ func NewColorWithCGColor(cgColor coregraphics.CGColorRef) NSColor {
 // are `nil` or invalid.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(CIColor:)
-// color is a [coreimage.CIColor].
-func NewColorWithCIColor(color objectivec.IObject) NSColor {
+func NewColorWithCIColor(color coreimage.CIColor) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCIColor:"), color)
 	return NSColorFromID(rv)
 }

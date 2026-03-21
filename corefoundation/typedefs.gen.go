@@ -231,7 +231,7 @@ type CFFileSecurityRef uintptr
 // See: https://developer.apple.com/documentation/CoreFoundation/CFHashCode
 type CFHashCode = uint
 
-// CFIndex is priority values used for kAXPriorityKey
+// CFIndex is priority values used for kAXPriorityKey.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFIndex
 type CFIndex = int

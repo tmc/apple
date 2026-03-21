@@ -577,7 +577,7 @@ type NSTextLayoutSectionKey = string
 // See: https://developer.apple.com/documentation/AppKit/NSTextList/MarkerFormat-swift.struct
 type NSTextListMarkerFormat = string
 
-// NSTextStorageEditedOptions is ** Deprecations ***
+// NSTextStorageEditedOptions is ** Deprecations ***.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageEditedOptions
 type NSTextStorageEditedOptions = uint

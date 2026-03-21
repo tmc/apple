@@ -880,7 +880,7 @@ type VFloatPacked = unsafe.Pointer
 // See: https://developer.apple.com/documentation/Accelerate/vImageBufferTypeCode
 type VImageBufferTypeCode = uint32
 
-// VImageCVImageFormatError is additional error codes for functions that use the vImageCVImageFormatRef
+// VImageCVImageFormatError is additional error codes for functions that use the vImageCVImageFormatRef.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageCVImageFormatError
 type VImageCVImageFormatError = int
@@ -930,7 +930,7 @@ type VImage_Flags = uint32
 // See: https://developer.apple.com/documentation/Accelerate/vImage_MultidimensionalTable
 type VImage_MultidimensionalTable = uintptr
 
-// VImage_WarpInterpolation is constants for selecting the interpolation mode
+// VImage_WarpInterpolation is constants for selecting the interpolation mode.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImage_WarpInterpolation
 type VImage_WarpInterpolation = int32

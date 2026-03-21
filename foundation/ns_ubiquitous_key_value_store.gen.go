@@ -285,6 +285,11 @@ type INSUbiquitousKeyValueStore interface {
 	// A constant that indicates the current Apple account changed.
 	NSUbiquitousKeyValueStoreAccountChange() int
 	SetNSUbiquitousKeyValueStoreAccountChange(value int)
+
+	// Sets the value of the property identified by the given key.
+	SetValueForKey(value objectivec.IObject, key string)
+	// Returns the value of the property identified by the given key.
+	ValueForKey(key string) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -609,6 +614,15 @@ func (u NSUbiquitousKeyValueStore) Synchronize() bool {
 // See: https://developer.apple.com/documentation/Foundation/NSUbiquitousKeyValueStore/removeObject(forKey:)
 func (u NSUbiquitousKeyValueStore) RemoveObjectForKey(aKey string) {
 	objc.Send[objc.ID](u.ID, objc.Sel("removeObjectForKey:"), objc.String(aKey))
+}
+// Sets the value of the property identified by the given key. [Full Topic]
+func (u NSUbiquitousKeyValueStore) SetValueForKey(value objectivec.IObject, key string) {
+	objc.Send[objc.ID](u.ID, objc.Sel("setValue:forKey:"), value, objc.String(key))
+}
+// Returns the value of the property identified by the given key. [Full Topic]
+func (u NSUbiquitousKeyValueStore) ValueForKey(key string) objectivec.IObject {
+	rv := objc.Send[objc.ID](u.ID, objc.Sel("valueForKey:"), objc.String(key))
+	return objectivec.Object{ID: rv}
 }
 
 // A dictionary with all of the key-value pairs in the iCloud key-value store.
