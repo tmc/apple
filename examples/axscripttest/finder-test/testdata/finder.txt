@@ -1,0 +1,5 @@
+[!trusted] skip 'no accessibility permission'
+
+app-activate
+exists role=AXWindow
+[screencapture] screenshot finder.png

@@ -49,10 +49,23 @@ func Engine(cfg Config) (*script.Engine, *axuiautomation.Application, error) {
 
 	conds := scripttest.DefaultConds()
 	conds["trusted"] = script.OnceCondition("process has accessibility permissions", func() (bool, error) {
-		return axuiautomation.IsProcessTrusted(), nil
+		if axuiautomation.IsProcessTrusted() {
+			return true, nil
+		}
+		// If running inside a macgo bundle, prompt and wait for the
+		// user to grant accessibility in System Settings.
+		if os.Getenv("MACGO_BUNDLE_PATH") != "" {
+			axuiautomation.PromptForAccessibility()
+			waitForTrust(30 * time.Second)
+			return axuiautomation.IsProcessTrusted(), nil
+		}
+		return false, nil
 	})
 	conds["app-running"] = script.Condition("target application is running", func(s *script.State) (bool, error) {
 		return app.IsRunning(), nil
+	})
+	conds["screencapture"] = script.OnceCondition("process has screen recording permissions", func() (bool, error) {
+		return axuiautomation.IsScreenRecordingTrusted(), nil
 	})
 	e.Conds = conds
 
@@ -61,6 +74,11 @@ func Engine(cfg Config) (*script.Engine, *axuiautomation.Application, error) {
 
 // EnsureTrusted sets up a TCC identity via macgo and triggers the system
 // accessibility permission dialog if the process is not already trusted.
+// After prompting, it polls for up to 30 seconds waiting for the user to
+// approve accessibility in System Settings. If trust is not granted within
+// that window the function returns nil and tests should use the [!trusted]
+// condition to skip gracefully.
+//
 // Call this from TestMain before m.Run, since macgo may re-exec the process
 // inside an app bundle:
 //
@@ -82,8 +100,23 @@ func EnsureTrusted() error {
 	if err := macgo.Start(cfg); err != nil {
 		return fmt.Errorf("macgo start: %w", err)
 	}
-	if !axuiautomation.IsProcessTrusted() {
-		axuiautomation.PromptForAccessibility()
+	if axuiautomation.IsProcessTrusted() {
+		return nil
+	}
+	axuiautomation.PromptForAccessibility()
+	return waitForTrust(30 * time.Second)
+}
+
+// waitForTrust polls IsProcessTrusted at 500ms intervals for up to timeout.
+// Returns nil regardless — callers use the [!trusted] script condition to
+// skip tests when trust is not granted.
+func waitForTrust(timeout time.Duration) error {
+	deadline := time.Now().Add(timeout)
+	for time.Now().Before(deadline) {
+		if axuiautomation.IsProcessTrusted() {
+			return nil
+		}
+		time.Sleep(500 * time.Millisecond)
 	}
 	return nil
 }
