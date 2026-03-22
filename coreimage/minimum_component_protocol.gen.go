@@ -45,7 +45,6 @@ func CIMinimumComponentObjectFromID(id objc.ID) CIMinimumComponentObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMinimumComponent/inputImage
 func (o CIMinimumComponentObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIMinimumComponentObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMinimumComponentObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

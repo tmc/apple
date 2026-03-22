@@ -53,7 +53,6 @@ func NSSeguePerformingObjectFromID(id objc.ID) NSSeguePerformingObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/performSegue(withIdentifier:sender:)
 func (o NSSeguePerformingObject) PerformSegueWithIdentifierSender(identifier NSStoryboardSegueIdentifier, sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("performSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
 	}
 // Called when a segue is about to be performed.
@@ -82,7 +81,6 @@ func (o NSSeguePerformingObject) PerformSegueWithIdentifierSender(identifier NSS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/prepare(for:sender:)
 func (o NSSeguePerformingObject) PrepareForSegueSender(segue INSStoryboardSegue, sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("prepareForSegue:sender:"), segue, sender)
 	}
 // Called immediately prior to the performance of a storyboard segue.
@@ -115,7 +113,6 @@ func (o NSSeguePerformingObject) PrepareForSegueSender(segue INSStoryboardSegue,
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSeguePerforming/shouldPerformSegue(withIdentifier:sender:)
 func (o NSSeguePerformingObject) ShouldPerformSegueWithIdentifierSender(identifier NSStoryboardSegueIdentifier, sender objectivec.IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("shouldPerformSegueWithIdentifier:sender:"), objc.String(string(identifier)), sender)
 	return rv
 	}

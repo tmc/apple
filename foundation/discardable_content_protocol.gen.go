@@ -72,7 +72,6 @@ func NSDiscardableContentObjectFromID(id objc.ID) NSDiscardableContentObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/beginContentAccess()
 func (o NSDiscardableContentObject) BeginContentAccess() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("beginContentAccess"))
 	return rv
 	}
@@ -87,7 +86,6 @@ func (o NSDiscardableContentObject) BeginContentAccess() bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/endContentAccess()
 func (o NSDiscardableContentObject) EndContentAccess() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("endContentAccess"))
 	}
 // Called to discard the contents of the receiver if the value of the accessed
@@ -100,7 +98,6 @@ func (o NSDiscardableContentObject) EndContentAccess() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/discardContentIfPossible()
 func (o NSDiscardableContentObject) DiscardContentIfPossible() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("discardContentIfPossible"))
 	}
 // Returns a Boolean value indicating whether the content has been discarded.
@@ -114,7 +111,6 @@ func (o NSDiscardableContentObject) DiscardContentIfPossible() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDiscardableContent/isContentDiscarded()
 func (o NSDiscardableContentObject) IsContentDiscarded() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isContentDiscarded"))
 	return rv
 	}

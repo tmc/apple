@@ -45,7 +45,6 @@ func CIColorInvertObjectFromID(id objc.ID) CIColorInvertObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorInvert/inputImage
 func (o CIColorInvertObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIColorInvertObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorInvertObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

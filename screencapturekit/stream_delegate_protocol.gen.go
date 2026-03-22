@@ -39,7 +39,6 @@ func SCStreamDelegateObjectFromID(id objc.ID) SCStreamDelegateObject {
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/outputVideoEffectDidStart(for:)
 func (o SCStreamDelegateObject) OutputVideoEffectDidStartForStream(stream ISCStream) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("outputVideoEffectDidStartForStream:"), stream)
 	}
 // Tells the delegate that Presenter Overlay stopped.
@@ -48,7 +47,6 @@ func (o SCStreamDelegateObject) OutputVideoEffectDidStartForStream(stream ISCStr
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/outputVideoEffectDidStop(for:)
 func (o SCStreamDelegateObject) OutputVideoEffectDidStopForStream(stream ISCStream) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("outputVideoEffectDidStopForStream:"), stream)
 	}
 // Tells the delegate that the stream stopped with an error.
@@ -61,7 +59,6 @@ func (o SCStreamDelegateObject) OutputVideoEffectDidStopForStream(stream ISCStre
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/stream(_:didStopWithError:)
 func (o SCStreamDelegateObject) StreamDidStopWithError(stream ISCStream, error_ foundation.INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("stream:didStopWithError:"), stream, error_)
 	}
 //
@@ -78,7 +75,6 @@ func (o SCStreamDelegateObject) StreamDidStopWithError(stream ISCStream, error_ 
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/streamDidBecomeActive(_:)
 func (o SCStreamDelegateObject) StreamDidBecomeActive(stream ISCStream) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("streamDidBecomeActive:"), stream)
 	}
 //
@@ -93,7 +89,6 @@ func (o SCStreamDelegateObject) StreamDidBecomeActive(stream ISCStream) {
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamDelegate/streamDidBecomeInactive(_:)
 func (o SCStreamDelegateObject) StreamDidBecomeInactive(stream ISCStream) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("streamDidBecomeInactive:"), stream)
 	}
 

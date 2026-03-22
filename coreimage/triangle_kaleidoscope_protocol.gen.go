@@ -86,7 +86,6 @@ func CITriangleKaleidoscopeObjectFromID(id objc.ID) CITriangleKaleidoscopeObject
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/decay
 func (o CITriangleKaleidoscopeObject) Decay() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("decay"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CITriangleKaleidoscopeObject) Decay() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/inputImage
 func (o CITriangleKaleidoscopeObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -103,7 +101,6 @@ func (o CITriangleKaleidoscopeObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/point
 func (o CITriangleKaleidoscopeObject) Point() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point"))
 	return rv
 	}
@@ -111,7 +108,6 @@ func (o CITriangleKaleidoscopeObject) Point() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/rotation
 func (o CITriangleKaleidoscopeObject) Rotation() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("rotation"))
 	return rv
 	}
@@ -119,7 +115,6 @@ func (o CITriangleKaleidoscopeObject) Rotation() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITriangleKaleidoscope/size
 func (o CITriangleKaleidoscopeObject) Size() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("size"))
 	return rv
 	}
@@ -128,7 +123,6 @@ func (o CITriangleKaleidoscopeObject) Size() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CITriangleKaleidoscopeObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

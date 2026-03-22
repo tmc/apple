@@ -65,7 +65,6 @@ func CITemperatureAndTintObjectFromID(id objc.ID) CITemperatureAndTintObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/inputImage
 func (o CITemperatureAndTintObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -74,7 +73,6 @@ func (o CITemperatureAndTintObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/neutral
 func (o CITemperatureAndTintObject) Neutral() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("neutral"))
 	return CIVectorFromID(rv)
 	}
@@ -83,7 +81,6 @@ func (o CITemperatureAndTintObject) Neutral() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITemperatureAndTint/targetNeutral
 func (o CITemperatureAndTintObject) TargetNeutral() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetNeutral"))
 	return CIVectorFromID(rv)
 	}
@@ -92,7 +89,6 @@ func (o CITemperatureAndTintObject) TargetNeutral() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CITemperatureAndTintObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

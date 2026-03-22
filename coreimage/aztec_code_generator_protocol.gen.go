@@ -76,7 +76,6 @@ func CIAztecCodeGeneratorObjectFromID(id objc.ID) CIAztecCodeGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/compactStyle
 func (o CIAztecCodeGeneratorObject) CompactStyle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("compactStyle"))
 	return rv
 	}
@@ -84,7 +83,6 @@ func (o CIAztecCodeGeneratorObject) CompactStyle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/correctionLevel
 func (o CIAztecCodeGeneratorObject) CorrectionLevel() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("correctionLevel"))
 	return rv
 	}
@@ -92,7 +90,6 @@ func (o CIAztecCodeGeneratorObject) CorrectionLevel() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/layers
 func (o CIAztecCodeGeneratorObject) Layers() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("layers"))
 	return rv
 	}
@@ -100,7 +97,6 @@ func (o CIAztecCodeGeneratorObject) Layers() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAztecCodeGenerator/message
 func (o CIAztecCodeGeneratorObject) Message() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -109,7 +105,6 @@ func (o CIAztecCodeGeneratorObject) Message() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIAztecCodeGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -105,7 +105,6 @@ func MTLLibraryObjectFromID(id objc.ID) MTLLibraryObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/installName
 func (o MTLLibraryObject) InstallName() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("installName"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -113,7 +112,6 @@ func (o MTLLibraryObject) InstallName() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/type
 func (o MTLLibraryObject) Type() MTLLibraryType {
-	
 	rv := objc.Send[MTLLibraryType](o.ID, objc.Sel("type"))
 	return rv
 	}
@@ -121,7 +119,6 @@ func (o MTLLibraryObject) Type() MTLLibraryType {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/functionNames
 func (o MTLLibraryObject) FunctionNames() []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("functionNames"))
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -151,7 +148,6 @@ func (o MTLLibraryObject) FunctionNames() []string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(name:)
 func (o MTLLibraryObject) NewFunctionWithName(functionName string) MTLFunction {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newFunctionWithName:"), objc.String(functionName))
 	return MTLFunctionObjectFromID(rv)
 	}
@@ -180,7 +176,6 @@ func (o MTLLibraryObject) NewFunctionWithName(functionName string) MTLFunction {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(name:constantValues:completionHandler:)
 func (o MTLLibraryObject) NewFunctionWithNameConstantValuesCompletionHandler(name string, constantValues IMTLFunctionConstantValues, completionHandler MTLFunctionErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newFunctionWithName:constantValues:completionHandler:"), objc.String(name), constantValues, completionHandler)
 	}
 // Synchronously creates a specialized shader function.
@@ -204,7 +199,6 @@ func (o MTLLibraryObject) NewFunctionWithNameConstantValuesCompletionHandler(nam
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(name:constantValues:)
 func (o MTLLibraryObject) NewFunctionWithNameConstantValuesError(name string, constantValues IMTLFunctionConstantValues) (MTLFunction, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newFunctionWithName:constantValues:error:"), objc.String(name), constantValues)
 	if err != nil {
 		return nil, err
@@ -221,7 +215,6 @@ func (o MTLLibraryObject) NewFunctionWithNameConstantValuesError(name string, co
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(descriptor:completionHandler:)
 func (o MTLLibraryObject) NewFunctionWithDescriptorCompletionHandler(descriptor IMTLFunctionDescriptor, completionHandler MTLFunctionErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newFunctionWithDescriptor:completionHandler:"), descriptor, completionHandler)
 	}
 // Synchronously creates an object representing a shader function, using the
@@ -236,7 +229,6 @@ func (o MTLLibraryObject) NewFunctionWithDescriptorCompletionHandler(descriptor 
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(descriptor:)
 func (o MTLLibraryObject) NewFunctionWithDescriptorError(descriptor IMTLFunctionDescriptor) (MTLFunction, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newFunctionWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -248,7 +240,6 @@ func (o MTLLibraryObject) NewFunctionWithDescriptorError(descriptor IMTLFunction
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeIntersectionFunction(descriptor:completionHandler:)
 func (o MTLLibraryObject) NewIntersectionFunctionWithDescriptorCompletionHandler(descriptor IMTLIntersectionFunctionDescriptor, completionHandler MTLFunctionErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newIntersectionFunctionWithDescriptor:completionHandler:"), descriptor, completionHandler)
 	}
 // Synchronously creates an object representing a ray-tracing intersection
@@ -256,7 +247,6 @@ func (o MTLLibraryObject) NewIntersectionFunctionWithDescriptorCompletionHandler
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeIntersectionFunction(descriptor:)
 func (o MTLLibraryObject) NewIntersectionFunctionWithDescriptorError(descriptor IMTLIntersectionFunctionDescriptor) (MTLFunction, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newIntersectionFunctionWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -267,7 +257,6 @@ func (o MTLLibraryObject) NewIntersectionFunctionWithDescriptorError(descriptor 
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/device
 func (o MTLLibraryObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -275,7 +264,6 @@ func (o MTLLibraryObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/label
 func (o MTLLibraryObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -306,7 +294,6 @@ func (o MTLLibraryObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/reflection(functionName:)
 func (o MTLLibraryObject) ReflectionForFunctionWithName(functionName string) IMTLFunctionReflection {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflectionForFunctionWithName:"), objc.String(functionName))
 	return MTLFunctionReflectionFromID(rv)
 	}

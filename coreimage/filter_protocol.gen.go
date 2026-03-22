@@ -40,7 +40,6 @@ func CIFilterProtocolObjectFromID(id objc.ID) CIFilterProtocolObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIFilterProtocolObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

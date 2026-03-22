@@ -75,7 +75,6 @@ func NSSpringLoadingDestinationObjectFromID(id objc.ID) NSSpringLoadingDestinati
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingDestination/springLoadingActivated(_:draggingInfo:)
 func (o NSSpringLoadingDestinationObject) SpringLoadingActivatedDraggingInfo(activated bool, draggingInfo NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("springLoadingActivated:draggingInfo:"), activated, draggingInfo)
 	}
 // Updates the destination’s user interface to display a new highlighting
@@ -96,7 +95,6 @@ func (o NSSpringLoadingDestinationObject) SpringLoadingActivatedDraggingInfo(act
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingDestination/springLoadingHighlightChanged(_:)
 func (o NSSpringLoadingDestinationObject) SpringLoadingHighlightChanged(draggingInfo NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("springLoadingHighlightChanged:"), draggingInfo)
 	}
 // Returns whether to enable or disable spring-loading when a drag enters the
@@ -125,7 +123,6 @@ func (o NSSpringLoadingDestinationObject) SpringLoadingHighlightChanged(dragging
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingDestination/springLoadingEntered(_:)
 func (o NSSpringLoadingDestinationObject) SpringLoadingEntered(draggingInfo NSDraggingInfo) NSSpringLoadingOptions {
-	
 	rv := objc.Send[NSSpringLoadingOptions](o.ID, objc.Sel("springLoadingEntered:"), draggingInfo)
 	return rv
 	}
@@ -156,7 +153,6 @@ func (o NSSpringLoadingDestinationObject) SpringLoadingEntered(draggingInfo NSDr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingDestination/springLoadingUpdated(_:)
 func (o NSSpringLoadingDestinationObject) SpringLoadingUpdated(draggingInfo NSDraggingInfo) NSSpringLoadingOptions {
-	
 	rv := objc.Send[NSSpringLoadingOptions](o.ID, objc.Sel("springLoadingUpdated:"), draggingInfo)
 	return rv
 	}
@@ -175,7 +171,6 @@ func (o NSSpringLoadingDestinationObject) SpringLoadingUpdated(draggingInfo NSDr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingDestination/springLoadingExited(_:)
 func (o NSSpringLoadingDestinationObject) SpringLoadingExited(draggingInfo NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("springLoadingExited:"), draggingInfo)
 	}
 // Responds to the end of a drag operation.
@@ -192,7 +187,6 @@ func (o NSSpringLoadingDestinationObject) SpringLoadingExited(draggingInfo NSDra
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingDestination/draggingEnded(_:)
 func (o NSSpringLoadingDestinationObject) DraggingEnded(draggingInfo NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("draggingEnded:"), draggingInfo)
 	}
 

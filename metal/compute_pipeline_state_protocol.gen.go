@@ -126,7 +126,6 @@ func MTLComputePipelineStateObjectFromID(id objc.ID) MTLComputePipelineStateObje
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/device
 func (o MTLComputePipelineStateObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -135,7 +134,6 @@ func (o MTLComputePipelineStateObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/gpuResourceID
 func (o MTLComputePipelineStateObject) GpuResourceID() MTLResourceID {
-	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
@@ -144,7 +142,6 @@ func (o MTLComputePipelineStateObject) GpuResourceID() MTLResourceID {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/label
 func (o MTLComputePipelineStateObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -153,7 +150,6 @@ func (o MTLComputePipelineStateObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/maxTotalThreadsPerThreadgroup
 func (o MTLComputePipelineStateObject) MaxTotalThreadsPerThreadgroup() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerThreadgroup"))
 	return rv
 	}
@@ -161,7 +157,6 @@ func (o MTLComputePipelineStateObject) MaxTotalThreadsPerThreadgroup() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/threadExecutionWidth
 func (o MTLComputePipelineStateObject) ThreadExecutionWidth() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("threadExecutionWidth"))
 	return rv
 	}
@@ -169,7 +164,6 @@ func (o MTLComputePipelineStateObject) ThreadExecutionWidth() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/staticThreadgroupMemoryLength
 func (o MTLComputePipelineStateObject) StaticThreadgroupMemoryLength() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("staticThreadgroupMemoryLength"))
 	return rv
 	}
@@ -185,7 +179,6 @@ func (o MTLComputePipelineStateObject) StaticThreadgroupMemoryLength() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/imageblockMemoryLength(forDimensions:)
 func (o MTLComputePipelineStateObject) ImageblockMemoryLengthForDimensions(imageblockDimensions MTLSize) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("imageblockMemoryLengthForDimensions:"), imageblockDimensions)
 	return rv
 	}
@@ -194,7 +187,6 @@ func (o MTLComputePipelineStateObject) ImageblockMemoryLengthForDimensions(image
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/supportIndirectCommandBuffers
 func (o MTLComputePipelineStateObject) SupportIndirectCommandBuffers() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportIndirectCommandBuffers"))
 	return rv
 	}
@@ -202,7 +194,6 @@ func (o MTLComputePipelineStateObject) SupportIndirectCommandBuffers() bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/shaderValidation
 func (o MTLComputePipelineStateObject) ShaderValidation() MTLShaderValidation {
-	
 	rv := objc.Send[MTLShaderValidation](o.ID, objc.Sel("shaderValidation"))
 	return rv
 	}
@@ -218,7 +209,6 @@ func (o MTLComputePipelineStateObject) ShaderValidation() MTLShaderValidation {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(function:)-7d523
 func (o MTLComputePipelineStateObject) FunctionHandleWithFunction(function MTLFunction) MTLFunctionHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionHandleWithFunction:"), function)
 	return MTLFunctionHandleObjectFromID(rv)
 	}
@@ -233,7 +223,6 @@ func (o MTLComputePipelineStateObject) FunctionHandleWithFunction(function MTLFu
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeComputePipelineStateWithAdditionalBinaryFunctions(functions:)
 func (o MTLComputePipelineStateObject) NewComputePipelineStateWithAdditionalBinaryFunctionsError(functions []objectivec.IObject) (MTLComputePipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithAdditionalBinaryFunctions:error:"), objectivec.IObjectSliceToNSArray(functions))
 	if err != nil {
 		return nil, err
@@ -251,7 +240,6 @@ func (o MTLComputePipelineStateObject) NewComputePipelineStateWithAdditionalBina
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeVisibleFunctionTable(descriptor:)
 func (o MTLComputePipelineStateObject) NewVisibleFunctionTableWithDescriptor(descriptor IMTLVisibleFunctionTableDescriptor) MTLVisibleFunctionTable {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newVisibleFunctionTableWithDescriptor:"), descriptor)
 	return MTLVisibleFunctionTableObjectFromID(rv)
 	}
@@ -267,7 +255,6 @@ func (o MTLComputePipelineStateObject) NewVisibleFunctionTableWithDescriptor(des
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeIntersectionFunctionTable(descriptor:)
 func (o MTLComputePipelineStateObject) NewIntersectionFunctionTableWithDescriptor(descriptor IMTLIntersectionFunctionTableDescriptor) MTLIntersectionFunctionTable {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newIntersectionFunctionTableWithDescriptor:"), descriptor)
 	return MTLIntersectionFunctionTableObjectFromID(rv)
 	}
@@ -275,13 +262,11 @@ func (o MTLComputePipelineStateObject) NewIntersectionFunctionTableWithDescripto
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/reflection
 func (o MTLComputePipelineStateObject) Reflection() IMTLComputePipelineReflection {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
 	return MTLComputePipelineReflectionFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/requiredThreadsPerThreadgroup
 func (o MTLComputePipelineStateObject) RequiredThreadsPerThreadgroup() MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerThreadgroup"))
 	return rv
 	}
@@ -297,7 +282,6 @@ func (o MTLComputePipelineStateObject) RequiredThreadsPerThreadgroup() MTLSize {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(function:)-8spaa
 func (o MTLComputePipelineStateObject) FunctionHandleWithBinaryFunction(function MTL4BinaryFunction) MTLFunctionHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionHandleWithBinaryFunction:"), function)
 	return MTLFunctionHandleObjectFromID(rv)
 	}
@@ -313,7 +297,6 @@ func (o MTLComputePipelineStateObject) FunctionHandleWithBinaryFunction(function
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/functionHandle(withName:)
 func (o MTLComputePipelineStateObject) FunctionHandleWithName(name string) MTLFunctionHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionHandleWithName:"), objc.String(name))
 	return MTLFunctionHandleObjectFromID(rv)
 	}
@@ -328,7 +311,6 @@ func (o MTLComputePipelineStateObject) FunctionHandleWithName(name string) MTLFu
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputePipelineState/makeComputePipelineState(additionalBinaryFunctions:)
 func (o MTLComputePipelineStateObject) NewComputePipelineStateWithBinaryFunctionsError(additionalBinaryFunctions []objectivec.IObject) (MTLComputePipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithBinaryFunctions:error:"), objectivec.IObjectSliceToNSArray(additionalBinaryFunctions))
 	if err != nil {
 		return nil, err
@@ -340,7 +322,6 @@ func (o MTLComputePipelineStateObject) NewComputePipelineStateWithBinaryFunction
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTLComputePipelineStateObject) AllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}

@@ -86,7 +86,6 @@ func CIParallelogramTileObjectFromID(id objc.ID) CIParallelogramTileObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/acuteAngle
 func (o CIParallelogramTileObject) AcuteAngle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("acuteAngle"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CIParallelogramTileObject) AcuteAngle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/angle
 func (o CIParallelogramTileObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CIParallelogramTileObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/center
 func (o CIParallelogramTileObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -110,7 +107,6 @@ func (o CIParallelogramTileObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/inputImage
 func (o CIParallelogramTileObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -118,7 +114,6 @@ func (o CIParallelogramTileObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIParallelogramTile/width
 func (o CIParallelogramTileObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CIParallelogramTileObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIParallelogramTileObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

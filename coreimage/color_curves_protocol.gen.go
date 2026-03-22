@@ -77,7 +77,6 @@ func CIColorCurvesObjectFromID(id objc.ID) CIColorCurvesObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/colorSpace
 func (o CIColorCurvesObject) ColorSpace() coregraphics.CGColorSpaceRef {
-	
 	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
 	return rv
 	}
@@ -85,7 +84,6 @@ func (o CIColorCurvesObject) ColorSpace() coregraphics.CGColorSpaceRef {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesData
 func (o CIColorCurvesObject) CurvesData() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("curvesData"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -94,7 +92,6 @@ func (o CIColorCurvesObject) CurvesData() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/curvesDomain
 func (o CIColorCurvesObject) CurvesDomain() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("curvesDomain"))
 	return CIVectorFromID(rv)
 	}
@@ -102,7 +99,6 @@ func (o CIColorCurvesObject) CurvesDomain() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCurves/inputImage
 func (o CIColorCurvesObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -111,7 +107,6 @@ func (o CIColorCurvesObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorCurvesObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

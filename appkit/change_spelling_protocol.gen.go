@@ -43,7 +43,6 @@ func NSChangeSpellingObjectFromID(id objc.ID) NSChangeSpellingObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSChangeSpelling/changeSpelling(_:)
 func (o NSChangeSpellingObject) ChangeSpelling(sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("changeSpelling:"), sender)
 	}
 

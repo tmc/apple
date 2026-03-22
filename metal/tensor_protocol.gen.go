@@ -84,7 +84,6 @@ func MTLTensorObjectFromID(id objc.ID) MTLTensorObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/buffer
 func (o MTLTensorObject) Buffer() MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))
 	return MTLBufferObjectFromID(rv)
 	}
@@ -93,7 +92,6 @@ func (o MTLTensorObject) Buffer() MTLBuffer {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/bufferOffset
 func (o MTLTensorObject) BufferOffset() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("bufferOffset"))
 	return rv
 	}
@@ -101,7 +99,6 @@ func (o MTLTensorObject) BufferOffset() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/dataType
 func (o MTLTensorObject) DataType() MTLTensorDataType {
-	
 	rv := objc.Send[MTLTensorDataType](o.ID, objc.Sel("dataType"))
 	return rv
 	}
@@ -109,7 +106,6 @@ func (o MTLTensorObject) DataType() MTLTensorDataType {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/dimensions
 func (o MTLTensorObject) Dimensions() IMTLTensorExtents {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dimensions"))
 	return MTLTensorExtentsFromID(rv)
 	}
@@ -118,7 +114,6 @@ func (o MTLTensorObject) Dimensions() IMTLTensorExtents {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/gpuResourceID
 func (o MTLTensorObject) GpuResourceID() MTLResourceID {
-	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
@@ -126,7 +121,6 @@ func (o MTLTensorObject) GpuResourceID() MTLResourceID {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/strides
 func (o MTLTensorObject) Strides() IMTLTensorExtents {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("strides"))
 	return MTLTensorExtentsFromID(rv)
 	}
@@ -134,7 +128,6 @@ func (o MTLTensorObject) Strides() IMTLTensorExtents {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/usage
 func (o MTLTensorObject) Usage() MTLTensorUsage {
-	
 	rv := objc.Send[MTLTensorUsage](o.ID, objc.Sel("usage"))
 	return rv
 	}
@@ -159,7 +152,6 @@ func (o MTLTensorObject) Usage() MTLTensorUsage {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/getBytes(_:strides:sliceOrigin:sliceDimensions:)
 func (o MTLTensorObject) GetBytesStridesFromSliceOriginSliceDimensions(bytes unsafe.Pointer, strides IMTLTensorExtents, sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("getBytes:strides:fromSliceOrigin:sliceDimensions:"), bytes, strides, sliceOrigin, sliceDimensions)
 	}
 // Replaces the contents of a slice of this tensor with data you provide.
@@ -182,7 +174,6 @@ func (o MTLTensorObject) GetBytesStridesFromSliceOriginSliceDimensions(bytes uns
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/replace(sliceOrigin:sliceDimensions:withBytes:strides:)
 func (o MTLTensorObject) ReplaceSliceOriginSliceDimensionsWithBytesStrides(sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, bytes unsafe.Pointer, strides IMTLTensorExtents) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("replaceSliceOrigin:sliceDimensions:withBytes:strides:"), sliceOrigin, sliceDimensions, bytes, strides)
 	}
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
@@ -190,7 +181,6 @@ func (o MTLTensorObject) ReplaceSliceOriginSliceDimensionsWithBytesStrides(slice
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTLTensorObject) AllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
@@ -198,7 +188,6 @@ func (o MTLTensorObject) AllocatedSize() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/device
 func (o MTLTensorObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -206,7 +195,6 @@ func (o MTLTensorObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/label
 func (o MTLTensorObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -214,7 +202,6 @@ func (o MTLTensorObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/cpuCacheMode
 func (o MTLTensorObject) CpuCacheMode() MTLCPUCacheMode {
-	
 	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
 	return rv
 	}
@@ -222,7 +209,6 @@ func (o MTLTensorObject) CpuCacheMode() MTLCPUCacheMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/storageMode
 func (o MTLTensorObject) StorageMode() MTLStorageMode {
-	
 	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
 	return rv
 	}
@@ -231,7 +217,6 @@ func (o MTLTensorObject) StorageMode() MTLStorageMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/hazardTrackingMode
 func (o MTLTensorObject) HazardTrackingMode() MTLHazardTrackingMode {
-	
 	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
 	return rv
 	}
@@ -239,7 +224,6 @@ func (o MTLTensorObject) HazardTrackingMode() MTLHazardTrackingMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
 func (o MTLTensorObject) ResourceOptions() MTLResourceOptions {
-	
 	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
 	return rv
 	}
@@ -279,7 +263,6 @@ func (o MTLTensorObject) ResourceOptions() MTLResourceOptions {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
 func (o MTLTensorObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
-	
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
 	}
@@ -288,7 +271,6 @@ func (o MTLTensorObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeable
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
 func (o MTLTensorObject) HeapOffset() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("heapOffset"))
 	return rv
 	}
@@ -296,7 +278,6 @@ func (o MTLTensorObject) HeapOffset() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heap
 func (o MTLTensorObject) Heap() MTLHeap {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("heap"))
 	return MTLHeapObjectFromID(rv)
 	}
@@ -335,7 +316,6 @@ func (o MTLTensorObject) Heap() MTLHeap {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/makeAliasable()
 func (o MTLTensorObject) MakeAliasable() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("makeAliasable"))
 	}
 // A Boolean value that indicates whether future heap resource allocations may
@@ -351,14 +331,12 @@ func (o MTLTensorObject) MakeAliasable() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/isAliasable()
 func (o MTLTensorObject) IsAliasable() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAliasable"))
 	return rv
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
 func (o MTLTensorObject) SetOwnerWithIdentity(task_id_token objectivec.IObject) int32 {
-	
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
 	}

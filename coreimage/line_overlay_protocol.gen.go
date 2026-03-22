@@ -96,7 +96,6 @@ func CILineOverlayObjectFromID(id objc.ID) CILineOverlayObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrNoiseLevel
 func (o CILineOverlayObject) NRNoiseLevel() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("NRNoiseLevel"))
 	return rv
 	}
@@ -105,7 +104,6 @@ func (o CILineOverlayObject) NRNoiseLevel() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/nrSharpness
 func (o CILineOverlayObject) NRSharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("NRSharpness"))
 	return rv
 	}
@@ -113,7 +111,6 @@ func (o CILineOverlayObject) NRSharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/contrast
 func (o CILineOverlayObject) Contrast() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("contrast"))
 	return rv
 	}
@@ -122,7 +119,6 @@ func (o CILineOverlayObject) Contrast() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/edgeIntensity
 func (o CILineOverlayObject) EdgeIntensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("edgeIntensity"))
 	return rv
 	}
@@ -130,7 +126,6 @@ func (o CILineOverlayObject) EdgeIntensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/inputImage
 func (o CILineOverlayObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -138,7 +133,6 @@ func (o CILineOverlayObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineOverlay/threshold
 func (o CILineOverlayObject) Threshold() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("threshold"))
 	return rv
 	}
@@ -147,7 +141,6 @@ func (o CILineOverlayObject) Threshold() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CILineOverlayObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

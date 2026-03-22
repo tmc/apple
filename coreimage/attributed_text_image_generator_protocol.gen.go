@@ -66,7 +66,6 @@ func CIAttributedTextImageGeneratorObjectFromID(id objc.ID) CIAttributedTextImag
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/scaleFactor
 func (o CIAttributedTextImageGeneratorObject) ScaleFactor() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scaleFactor"))
 	return rv
 	}
@@ -74,13 +73,11 @@ func (o CIAttributedTextImageGeneratorObject) ScaleFactor() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/text
 func (o CIAttributedTextImageGeneratorObject) Text() foundation.NSAttributedString {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("text"))
 	return foundation.NSAttributedStringFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIAttributedTextImageGenerator/padding
 func (o CIAttributedTextImageGeneratorObject) Padding() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("padding"))
 	return rv
 	}
@@ -89,7 +86,6 @@ func (o CIAttributedTextImageGeneratorObject) Padding() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIAttributedTextImageGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

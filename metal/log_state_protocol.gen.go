@@ -50,7 +50,6 @@ func MTLLogStateObjectFromID(id objc.ID) MTLLogStateObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLogState/addLogHandler(_:)
 func (o MTLLogStateObject) AddLogHandler(block VoidHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addLogHandler:"), block)
 	}
 

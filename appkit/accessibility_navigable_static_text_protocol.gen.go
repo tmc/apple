@@ -69,7 +69,6 @@ func NSAccessibilityNavigableStaticTextObjectFromID(id objc.ID) NSAccessibilityN
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityFrame(for:)
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrameForRange:"), range_)
 	return rv
 	}
@@ -84,7 +83,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityFrameForRange(ran
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityLine(for:)
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityLineForIndex(index int) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityLineForIndex:"), index)
 	return rv
 	}
@@ -99,7 +97,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityLineForIndex(inde
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityRange(forLine:)
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityRangeForLine(lineNumber int) foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForLine:"), lineNumber)
 	return rv
 	}
@@ -113,7 +110,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityRangeForLine(line
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityString(for:)
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityStringForRange(range_ foundation.NSRange) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityStringForRange:"), range_)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -135,7 +131,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityStringForRange(ra
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -155,7 +150,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityFrame() corefound
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -175,7 +169,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityParent() objectiv
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -198,7 +191,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityIdentifier() stri
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilityNavigableStaticTextObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
@@ -217,7 +209,6 @@ func (o NSAccessibilityNavigableStaticTextObject) IsAccessibilityFocused() bool 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityValue()
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityValue() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -231,7 +222,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityValue() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityAttributedString(for:)
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
 	return foundation.NSAttributedStringFromID(rv)
 	}
@@ -252,7 +242,6 @@ func (o NSAccessibilityNavigableStaticTextObject) AccessibilityAttributedStringF
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityVisibleCharacterRange()
 func (o NSAccessibilityNavigableStaticTextObject) AccessibilityVisibleCharacterRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityVisibleCharacterRange"))
 	return rv
 	}

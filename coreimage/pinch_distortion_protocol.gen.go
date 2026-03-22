@@ -74,7 +74,6 @@ func CIPinchDistortionObjectFromID(id objc.ID) CIPinchDistortionObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/center
 func (o CIPinchDistortionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -82,19 +81,16 @@ func (o CIPinchDistortionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/inputImage
 func (o CIPinchDistortionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/radius
 func (o CIPinchDistortionObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIPinchDistortion/scale
 func (o CIPinchDistortionObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -103,7 +99,6 @@ func (o CIPinchDistortionObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPinchDistortionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

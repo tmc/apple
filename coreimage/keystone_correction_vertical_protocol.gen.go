@@ -47,7 +47,6 @@ func CIKeystoneCorrectionVerticalObjectFromID(id objc.ID) CIKeystoneCorrectionVe
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKeystoneCorrectionVertical/focalLength
 func (o CIKeystoneCorrectionVerticalObject) FocalLength() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("focalLength"))
 	return rv
 	}
@@ -56,19 +55,16 @@ func (o CIKeystoneCorrectionVerticalObject) FocalLength() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIKeystoneCorrectionVerticalObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomLeft
 func (o CIKeystoneCorrectionVerticalObject) BottomLeft() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomLeft"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIKeystoneCorrectionVerticalObject) BottomRight() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomRight"))
 	return rv
 	}
@@ -76,19 +72,16 @@ func (o CIKeystoneCorrectionVerticalObject) BottomRight() corefoundation.CGPoint
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIKeystoneCorrectionVerticalObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIKeystoneCorrectionVerticalObject) TopLeft() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topLeft"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIKeystoneCorrectionVerticalObject) TopRight() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topRight"))
 	return rv
 	}

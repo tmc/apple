@@ -86,7 +86,6 @@ func CIBlurredRoundedRectangleGeneratorObjectFromID(id objc.ID) CIBlurredRounded
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/color
 func (o CIBlurredRoundedRectangleGeneratorObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -94,7 +93,6 @@ func (o CIBlurredRoundedRectangleGeneratorObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/extent
 func (o CIBlurredRoundedRectangleGeneratorObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CIBlurredRoundedRectangleGeneratorObject) Extent() corefoundation.CGRect
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/radius
 func (o CIBlurredRoundedRectangleGeneratorObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -110,7 +107,6 @@ func (o CIBlurredRoundedRectangleGeneratorObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/sigma
 func (o CIBlurredRoundedRectangleGeneratorObject) Sigma() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sigma"))
 	return rv
 	}
@@ -119,7 +115,6 @@ func (o CIBlurredRoundedRectangleGeneratorObject) Sigma() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlurredRoundedRectangleGenerator/smoothness
 func (o CIBlurredRoundedRectangleGeneratorObject) Smoothness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("smoothness"))
 	return rv
 	}
@@ -128,7 +123,6 @@ func (o CIBlurredRoundedRectangleGeneratorObject) Smoothness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIBlurredRoundedRectangleGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

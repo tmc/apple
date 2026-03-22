@@ -61,7 +61,6 @@ func MTLSharedEventObjectFromID(id objc.ID) MTLSharedEventObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/signaledValue
 func (o MTLSharedEventObject) SignaledValue() uint64 {
-	
 	rv := objc.Send[uint64](o.ID, objc.Sel("signaledValue"))
 	return rv
 	}
@@ -77,21 +76,18 @@ func (o MTLSharedEventObject) SignaledValue() uint64 {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/notify(_:atValue:block:)
 func (o MTLSharedEventObject) NotifyListenerAtValueBlock(listener IMTLSharedEventListener, value uint64, block MTLSharedEventNotificationBlock) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("notifyListener:atValue:block:"), listener, value, block)
 	}
 // Creates a new shareable event handle.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/makeSharedEventHandle()
 func (o MTLSharedEventObject) NewSharedEventHandle() IMTLSharedEventHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newSharedEventHandle"))
 	return MTLSharedEventHandleFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/wait(untilSignaledValue:timeoutMS:)
 func (o MTLSharedEventObject) WaitUntilSignaledValueTimeoutMS(value uint64, milliseconds uint64) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("waitUntilSignaledValue:timeoutMS:"), value, milliseconds)
 	return rv
 	}
@@ -99,7 +95,6 @@ func (o MTLSharedEventObject) WaitUntilSignaledValueTimeoutMS(value uint64, mill
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/device
 func (o MTLSharedEventObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -107,7 +102,6 @@ func (o MTLSharedEventObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/label
 func (o MTLSharedEventObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}

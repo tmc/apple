@@ -48,7 +48,6 @@ func NSMetadataQueryDelegateObjectFromID(id objc.ID) NSMetadataQueryDelegateObje
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQueryDelegate/metadataQuery(_:replacementObjectForResultObject:)
 func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementObjectForResultObject(query INSMetadataQuery, result INSMetadataItem) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadataQuery:replacementObjectForResultObject:"), query, result)
 	return objectivec.Object{ID: rv}
 	}
@@ -72,7 +71,6 @@ func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementObjectForResultOb
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQueryDelegate/metadataQuery(_:replacementValueForAttribute:value:)
 func (o NSMetadataQueryDelegateObject) MetadataQueryReplacementValueForAttributeValue(query INSMetadataQuery, attrName string, attrValue objectivec.IObject) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metadataQuery:replacementValueForAttribute:value:"), query, objc.String(attrName), attrValue)
 	return objectivec.Object{ID: rv}
 	}

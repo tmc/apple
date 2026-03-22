@@ -45,7 +45,6 @@ func CIComicEffectObjectFromID(id objc.ID) CIComicEffectObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIComicEffect/inputImage
 func (o CIComicEffectObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIComicEffectObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIComicEffectObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

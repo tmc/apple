@@ -86,7 +86,6 @@ func CIOpTileObjectFromID(id objc.ID) CIOpTileObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIOpTile/angle
 func (o CIOpTileObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CIOpTileObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIOpTile/center
 func (o CIOpTileObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CIOpTileObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIOpTile/inputImage
 func (o CIOpTileObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -110,7 +107,6 @@ func (o CIOpTileObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIOpTile/scale
 func (o CIOpTileObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CIOpTileObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIOpTile/width
 func (o CIOpTileObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CIOpTileObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIOpTileObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -55,7 +55,6 @@ func CIGammaAdjustObjectFromID(id objc.ID) CIGammaAdjustObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGammaAdjust/inputImage
 func (o CIGammaAdjustObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIGammaAdjustObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGammaAdjust/power
 func (o CIGammaAdjustObject) Power() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("power"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIGammaAdjustObject) Power() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIGammaAdjustObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

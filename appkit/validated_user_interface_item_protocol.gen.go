@@ -44,7 +44,6 @@ func NSValidatedUserInterfaceItemObjectFromID(id objc.ID) NSValidatedUserInterfa
 //
 // See: https://developer.apple.com/documentation/AppKit/NSValidatedUserInterfaceItem/action
 func (o NSValidatedUserInterfaceItemObject) Action() objc.SEL {
-	
 	rv := objc.Send[objc.SEL](o.ID, objc.Sel("action"))
 	return rv
 	}
@@ -52,7 +51,6 @@ func (o NSValidatedUserInterfaceItemObject) Action() objc.SEL {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSValidatedUserInterfaceItem/tag
 func (o NSValidatedUserInterfaceItemObject) Tag() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("tag"))
 	return rv
 	}

@@ -87,7 +87,6 @@ func CIPageCurlTransitionObjectFromID(id objc.ID) CIPageCurlTransitionObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/angle
 func (o CIPageCurlTransitionObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -96,7 +95,6 @@ func (o CIPageCurlTransitionObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/backsideImage
 func (o CIPageCurlTransitionObject) BacksideImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("backsideImage"))
 	return CIImageFromID(rv)
 	}
@@ -104,7 +102,6 @@ func (o CIPageCurlTransitionObject) BacksideImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/extent
 func (o CIPageCurlTransitionObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -112,7 +109,6 @@ func (o CIPageCurlTransitionObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/radius
 func (o CIPageCurlTransitionObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -120,7 +116,6 @@ func (o CIPageCurlTransitionObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlTransition/shadingImage
 func (o CIPageCurlTransitionObject) ShadingImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
 	return CIImageFromID(rv)
 	}
@@ -129,7 +124,6 @@ func (o CIPageCurlTransitionObject) ShadingImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPageCurlTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -137,7 +131,6 @@ func (o CIPageCurlTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIPageCurlTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -145,7 +138,6 @@ func (o CIPageCurlTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIPageCurlTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -153,7 +145,6 @@ func (o CIPageCurlTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIPageCurlTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

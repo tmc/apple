@@ -44,7 +44,6 @@ func NSComboBoxDelegateObjectFromID(id objc.ID) NSComboBoxDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxDelegate/comboBoxSelectionDidChange(_:)
 func (o NSComboBoxDelegateObject) ComboBoxSelectionDidChange(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("comboBoxSelectionDidChange:"), notification)
 	}
 // Informs the delegate that the pop-up list selection is changing.
@@ -55,7 +54,6 @@ func (o NSComboBoxDelegateObject) ComboBoxSelectionDidChange(notification founda
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxDelegate/comboBoxSelectionIsChanging(_:)
 func (o NSComboBoxDelegateObject) ComboBoxSelectionIsChanging(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("comboBoxSelectionIsChanging:"), notification)
 	}
 // Informs the delegate that the pop-up list is about to be dismissed.
@@ -66,7 +64,6 @@ func (o NSComboBoxDelegateObject) ComboBoxSelectionIsChanging(notification found
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxDelegate/comboBoxWillDismiss(_:)
 func (o NSComboBoxDelegateObject) ComboBoxWillDismiss(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("comboBoxWillDismiss:"), notification)
 	}
 // Informs the delegate that the pop-up list is about to be displayed.
@@ -77,7 +74,6 @@ func (o NSComboBoxDelegateObject) ComboBoxWillDismiss(notification foundation.NS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxDelegate/comboBoxWillPopUp(_:)
 func (o NSComboBoxDelegateObject) ComboBoxWillPopUp(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("comboBoxWillPopUp:"), notification)
 	}
 // Invoked when the insertion point leaves a cell belonging to the specified
@@ -108,7 +104,6 @@ func (o NSComboBoxDelegateObject) ComboBoxWillPopUp(notification foundation.NSNo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:isValidObject:)
 func (o NSComboBoxDelegateObject) ControlIsValidObject(control INSControl, obj objectivec.IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:isValidObject:"), control, obj)
 	return rv
 	}
@@ -129,7 +124,6 @@ func (o NSComboBoxDelegateObject) ControlIsValidObject(control INSControl, obj o
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToValidatePartialString:errorDescription:)
 func (o NSComboBoxDelegateObject) ControlDidFailToValidatePartialStringErrorDescription(control INSControl, string_ string, error_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("control:didFailToValidatePartialString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	}
 // Invoked when the formatter for the cell belonging to the specified control
@@ -158,7 +152,6 @@ func (o NSComboBoxDelegateObject) ControlDidFailToValidatePartialStringErrorDesc
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToFormatString:errorDescription:)
 func (o NSComboBoxDelegateObject) ControlDidFailToFormatStringErrorDescription(control INSControl, string_ string, error_ string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:didFailToFormatString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	return rv
 	}
@@ -184,7 +177,6 @@ func (o NSComboBoxDelegateObject) ControlDidFailToFormatStringErrorDescription(c
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldBeginEditing:)
 func (o NSComboBoxDelegateObject) ControlTextShouldBeginEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldBeginEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -212,7 +204,6 @@ func (o NSComboBoxDelegateObject) ControlTextShouldBeginEditing(control INSContr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldEndEditing:)
 func (o NSComboBoxDelegateObject) ControlTextShouldEndEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldEndEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -259,7 +250,6 @@ func (o NSComboBoxDelegateObject) ControlTextShouldEndEditing(control INSControl
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 func (o NSComboBoxDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -299,7 +289,6 @@ func (o NSComboBoxDelegateObject) ControlTextViewCompletionsForPartialWordRangeI
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:doCommandBy:)
 func (o NSComboBoxDelegateObject) ControlTextViewDoCommandBySelector(control INSControl, textView INSTextView, commandSelector objc.SEL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textView:doCommandBySelector:"), control, textView, commandSelector)
 	return rv
 	}
@@ -315,7 +304,6 @@ func (o NSComboBoxDelegateObject) ControlTextViewDoCommandBySelector(control INS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidBeginEditing(_:)
 func (o NSComboBoxDelegateObject) ControlTextDidBeginEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidBeginEditing:"), obj)
 	}
 // Tells the delegate that the control made changes to its text content.
@@ -330,7 +318,6 @@ func (o NSComboBoxDelegateObject) ControlTextDidBeginEditing(obj foundation.NSNo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidChange(_:)
 func (o NSComboBoxDelegateObject) ControlTextDidChange(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidChange:"), obj)
 	}
 // Tells the delegate that the control finished editing its text content and
@@ -346,20 +333,25 @@ func (o NSComboBoxDelegateObject) ControlTextDidChange(obj foundation.NSNotifica
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidEndEditing(_:)
 func (o NSComboBoxDelegateObject) ControlTextDidEndEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
+	}
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidates:forSelectedRange:)
+func (o NSComboBoxDelegateObject) TextFieldWithTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, candidates []foundation.NSTextCheckingResult, selectedRange foundation.NSRange) []foundation.NSTextCheckingResult {
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textField:textView:candidates:forSelectedRange:"), textField, textView, objectivec.IObjectSliceToNSArray(candidates), selectedRange)
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
+		return foundation.NSTextCheckingResultFromID(id)
+	})
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidatesForSelectedRange:)
 func (o NSComboBoxDelegateObject) TextFieldTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, selectedRange foundation.NSRange) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textField:textView:candidatesForSelectedRange:"), textField, textView, selectedRange)
 	return foundation.NSArrayFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:shouldSelectCandidateAt:)
 func (o NSComboBoxDelegateObject) TextFieldTextViewShouldSelectCandidateAtIndex(textField INSTextField, textView INSTextView, index uint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textField:textView:shouldSelectCandidateAtIndex:"), textField, textView, index)
 	return rv
 	}

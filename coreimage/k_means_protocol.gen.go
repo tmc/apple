@@ -75,31 +75,26 @@ func CIKMeansObjectFromID(id objc.ID) CIKMeansObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIKMeans/count
 func (o CIKMeansObject) Count() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIKMeans/inputMeans
 func (o CIKMeansObject) InputMeans() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputMeans"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIKMeans/passes
 func (o CIKMeansObject) Passes() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("passes"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIKMeans/perceptual
 func (o CIKMeansObject) Perceptual() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("perceptual"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIKMeansObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -107,7 +102,6 @@ func (o CIKMeansObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIKMeansObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -116,7 +110,6 @@ func (o CIKMeansObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIKMeansObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

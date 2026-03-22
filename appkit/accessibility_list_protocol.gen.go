@@ -53,7 +53,6 @@ func NSAccessibilityListObjectFromID(id objc.ID) NSAccessibilityListObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilityListObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -73,7 +72,6 @@ func (o NSAccessibilityListObject) AccessibilityFrame() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilityListObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -93,7 +91,6 @@ func (o NSAccessibilityListObject) AccessibilityParent() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilityListObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -116,7 +113,6 @@ func (o NSAccessibilityListObject) AccessibilityIdentifier() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilityListObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
@@ -141,7 +137,6 @@ func (o NSAccessibilityListObject) IsAccessibilityFocused() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityLabel()
 func (o NSAccessibilityListObject) AccessibilityLabel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -160,7 +155,6 @@ func (o NSAccessibilityListObject) AccessibilityLabel() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityRows()
 func (o NSAccessibilityListObject) AccessibilityRows() []objectivec.IObject {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityRows"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
@@ -181,7 +175,6 @@ func (o NSAccessibilityListObject) AccessibilityRows() []objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityColumnHeaderUIElements()
 func (o NSAccessibilityListObject) AccessibilityColumnHeaderUIElements() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -200,7 +193,6 @@ func (o NSAccessibilityListObject) AccessibilityColumnHeaderUIElements() foundat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityColumns()
 func (o NSAccessibilityListObject) AccessibilityColumns() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumns"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -219,7 +211,6 @@ func (o NSAccessibilityListObject) AccessibilityColumns() foundation.INSArray {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityRowHeaderUIElements()
 func (o NSAccessibilityListObject) AccessibilityRowHeaderUIElements() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRowHeaderUIElements"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -241,7 +232,6 @@ func (o NSAccessibilityListObject) AccessibilityRowHeaderUIElements() foundation
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedCells()
 func (o NSAccessibilityListObject) AccessibilitySelectedCells() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedCells"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -263,7 +253,6 @@ func (o NSAccessibilityListObject) AccessibilitySelectedCells() foundation.INSAr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedColumns()
 func (o NSAccessibilityListObject) AccessibilitySelectedColumns() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedColumns"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -285,7 +274,6 @@ func (o NSAccessibilityListObject) AccessibilitySelectedColumns() foundation.INS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedRows()
 func (o NSAccessibilityListObject) AccessibilitySelectedRows() []objectivec.IObject {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilitySelectedRows"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
@@ -306,7 +294,6 @@ func (o NSAccessibilityListObject) AccessibilitySelectedRows() []objectivec.IObj
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleCells()
 func (o NSAccessibilityListObject) AccessibilityVisibleCells() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleCells"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -325,7 +312,6 @@ func (o NSAccessibilityListObject) AccessibilityVisibleCells() foundation.INSArr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleColumns()
 func (o NSAccessibilityListObject) AccessibilityVisibleColumns() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleColumns"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -344,7 +330,6 @@ func (o NSAccessibilityListObject) AccessibilityVisibleColumns() foundation.INSA
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleRows()
 func (o NSAccessibilityListObject) AccessibilityVisibleRows() []objectivec.IObject {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityVisibleRows"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
@@ -367,7 +352,6 @@ func (o NSAccessibilityListObject) AccessibilityVisibleRows() []objectivec.IObje
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/setAccessibilitySelectedRows(_:)
 func (o NSAccessibilityListObject) SetAccessibilitySelectedRows(selectedRows []objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), objectivec.IObjectSliceToNSArray(selectedRows))
 	}
 

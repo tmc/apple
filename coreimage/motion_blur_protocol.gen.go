@@ -66,7 +66,6 @@ func CIMotionBlurObjectFromID(id objc.ID) CIMotionBlurObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMotionBlur/angle
 func (o CIMotionBlurObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -74,7 +73,6 @@ func (o CIMotionBlurObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMotionBlur/inputImage
 func (o CIMotionBlurObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -82,7 +80,6 @@ func (o CIMotionBlurObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMotionBlur/radius
 func (o CIMotionBlurObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CIMotionBlurObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMotionBlurObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

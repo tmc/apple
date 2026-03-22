@@ -51,7 +51,6 @@ func NSSplitViewDelegateObjectFromID(id objc.ID) NSSplitViewDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitViewWillResizeSubviews(_:)
 func (o NSSplitViewDelegateObject) SplitViewWillResizeSubviews(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("splitViewWillResizeSubviews:"), notification)
 	}
 // Notifies the delegate when the split view resizes its subviews.
@@ -71,7 +70,6 @@ func (o NSSplitViewDelegateObject) SplitViewWillResizeSubviews(notification foun
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitViewDidResizeSubviews(_:)
 func (o NSSplitViewDelegateObject) SplitViewDidResizeSubviews(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("splitViewDidResizeSubviews:"), notification)
 	}
 // Allows the delegate to determine whether the user can collapse and expand
@@ -107,7 +105,6 @@ func (o NSSplitViewDelegateObject) SplitViewDidResizeSubviews(notification found
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:canCollapseSubview:)
 func (o NSSplitViewDelegateObject) SplitViewCanCollapseSubview(splitView INSSplitView, subview INSView) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("splitView:canCollapseSubview:"), splitView, subview)
 	return rv
 	}
@@ -141,7 +138,6 @@ func (o NSSplitViewDelegateObject) SplitViewCanCollapseSubview(splitView INSSpli
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:effectiveRect:forDrawnRect:ofDividerAt:)
 func (o NSSplitViewDelegateObject) SplitViewEffectiveRectForDrawnRectOfDividerAtIndex(splitView INSSplitView, proposedEffectiveRect corefoundation.CGRect, drawnRect corefoundation.CGRect, dividerIndex int) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("splitView:effectiveRect:forDrawnRect:ofDividerAtIndex:"), splitView, proposedEffectiveRect, drawnRect, dividerIndex)
 	return rv
 	}
@@ -169,7 +165,6 @@ func (o NSSplitViewDelegateObject) SplitViewEffectiveRectForDrawnRectOfDividerAt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:shouldHideDividerAt:)
 func (o NSSplitViewDelegateObject) SplitViewShouldHideDividerAtIndex(splitView INSSplitView, dividerIndex int) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("splitView:shouldHideDividerAtIndex:"), splitView, dividerIndex)
 	return rv
 	}
@@ -196,7 +191,6 @@ func (o NSSplitViewDelegateObject) SplitViewShouldHideDividerAtIndex(splitView I
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:additionalEffectiveRectOfDividerAt:)
 func (o NSSplitViewDelegateObject) SplitViewAdditionalEffectiveRectOfDividerAtIndex(splitView INSSplitView, dividerIndex int) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("splitView:additionalEffectiveRectOfDividerAtIndex:"), splitView, dividerIndex)
 	return rv
 	}
@@ -223,7 +217,6 @@ func (o NSSplitViewDelegateObject) SplitViewAdditionalEffectiveRectOfDividerAtIn
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:constrainSplitPosition:ofSubviewAt:)
 func (o NSSplitViewDelegateObject) SplitViewConstrainSplitPositionOfSubviewAt(splitView INSSplitView, proposedPosition float64, dividerIndex int) float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("splitView:constrainSplitPosition:ofSubviewAt:"), splitView, proposedPosition, dividerIndex)
 	return rv
 	}
@@ -255,7 +248,6 @@ func (o NSSplitViewDelegateObject) SplitViewConstrainSplitPositionOfSubviewAt(sp
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:constrainMinCoordinate:ofSubviewAt:)
 func (o NSSplitViewDelegateObject) SplitViewConstrainMinCoordinateOfSubviewAt(splitView INSSplitView, proposedMinimumPosition float64, dividerIndex int) float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("splitView:constrainMinCoordinate:ofSubviewAt:"), splitView, proposedMinimumPosition, dividerIndex)
 	return rv
 	}
@@ -288,7 +280,6 @@ func (o NSSplitViewDelegateObject) SplitViewConstrainMinCoordinateOfSubviewAt(sp
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:constrainMaxCoordinate:ofSubviewAt:)
 func (o NSSplitViewDelegateObject) SplitViewConstrainMaxCoordinateOfSubviewAt(splitView INSSplitView, proposedMaximumPosition float64, dividerIndex int) float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("splitView:constrainMaxCoordinate:ofSubviewAt:"), splitView, proposedMaximumPosition, dividerIndex)
 	return rv
 	}
@@ -315,7 +306,6 @@ func (o NSSplitViewDelegateObject) SplitViewConstrainMaxCoordinateOfSubviewAt(sp
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:resizeSubviewsWithOldSize:)
 func (o NSSplitViewDelegateObject) SplitViewResizeSubviewsWithOldSize(splitView INSSplitView, oldSize corefoundation.CGSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("splitView:resizeSubviewsWithOldSize:"), splitView, oldSize)
 	}
 // Allows the delegate to specify whether to resize the subview.
@@ -346,7 +336,6 @@ func (o NSSplitViewDelegateObject) SplitViewResizeSubviewsWithOldSize(splitView 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSplitViewDelegate/splitView(_:shouldAdjustSizeOfSubview:)
 func (o NSSplitViewDelegateObject) SplitViewShouldAdjustSizeOfSubview(splitView INSSplitView, view INSView) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("splitView:shouldAdjustSizeOfSubview:"), splitView, view)
 	return rv
 	}

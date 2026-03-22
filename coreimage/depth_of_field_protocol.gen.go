@@ -106,7 +106,6 @@ func CIDepthOfFieldObjectFromID(id objc.ID) CIDepthOfFieldObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/inputImage
 func (o CIDepthOfFieldObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -114,7 +113,6 @@ func (o CIDepthOfFieldObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point0
 func (o CIDepthOfFieldObject) Point0() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
 	return rv
 	}
@@ -122,7 +120,6 @@ func (o CIDepthOfFieldObject) Point0() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/point1
 func (o CIDepthOfFieldObject) Point1() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
 	return rv
 	}
@@ -130,7 +127,6 @@ func (o CIDepthOfFieldObject) Point1() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/radius
 func (o CIDepthOfFieldObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -138,7 +134,6 @@ func (o CIDepthOfFieldObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/saturation
 func (o CIDepthOfFieldObject) Saturation() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("saturation"))
 	return rv
 	}
@@ -146,7 +141,6 @@ func (o CIDepthOfFieldObject) Saturation() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskIntensity
 func (o CIDepthOfFieldObject) UnsharpMaskIntensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("unsharpMaskIntensity"))
 	return rv
 	}
@@ -154,7 +148,6 @@ func (o CIDepthOfFieldObject) UnsharpMaskIntensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthOfField/unsharpMaskRadius
 func (o CIDepthOfFieldObject) UnsharpMaskRadius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("unsharpMaskRadius"))
 	return rv
 	}
@@ -163,7 +156,6 @@ func (o CIDepthOfFieldObject) UnsharpMaskRadius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIDepthOfFieldObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

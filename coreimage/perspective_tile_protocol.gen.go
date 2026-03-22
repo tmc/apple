@@ -86,7 +86,6 @@ func CIPerspectiveTileObjectFromID(id objc.ID) CIPerspectiveTileObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/bottomLeft
 func (o CIPerspectiveTileObject) BottomLeft() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomLeft"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CIPerspectiveTileObject) BottomLeft() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/bottomRight
 func (o CIPerspectiveTileObject) BottomRight() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomRight"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CIPerspectiveTileObject) BottomRight() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/inputImage
 func (o CIPerspectiveTileObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -110,7 +107,6 @@ func (o CIPerspectiveTileObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/topLeft
 func (o CIPerspectiveTileObject) TopLeft() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topLeft"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CIPerspectiveTileObject) TopLeft() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTile/topRight
 func (o CIPerspectiveTileObject) TopRight() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topRight"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CIPerspectiveTileObject) TopRight() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPerspectiveTileObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

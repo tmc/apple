@@ -70,7 +70,6 @@ func NSTextAttachmentContainerObjectFromID(id objc.ID) NSTextAttachmentContainer
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentContainer/attachmentBounds(for:proposedLineFragment:glyphPosition:characterIndex:)
 func (o NSTextAttachmentContainerObject) AttachmentBoundsForTextContainerProposedLineFragmentGlyphPositionCharacterIndex(textContainer INSTextContainer, lineFrag corefoundation.CGRect, position corefoundation.CGPoint, charIndex uint) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("attachmentBoundsForTextContainer:proposedLineFragment:glyphPosition:characterIndex:"), textContainer, lineFrag, position, charIndex)
 	return rv
 	}
@@ -98,7 +97,6 @@ func (o NSTextAttachmentContainerObject) AttachmentBoundsForTextContainerPropose
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentContainer/image(forBounds:textContainer:characterIndex:)
 func (o NSTextAttachmentContainerObject) ImageForBoundsTextContainerCharacterIndex(imageBounds corefoundation.CGRect, textContainer INSTextContainer, charIndex uint) INSImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageForBounds:textContainer:characterIndex:"), imageBounds, textContainer, charIndex)
 	return NSImageFromID(rv)
 	}

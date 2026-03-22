@@ -60,7 +60,6 @@ func MTLDynamicLibraryObjectFromID(id objc.ID) MTLDynamicLibraryObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/device
 func (o MTLDynamicLibraryObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -68,7 +67,6 @@ func (o MTLDynamicLibraryObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/installName
 func (o MTLDynamicLibraryObject) InstallName() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("installName"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -76,7 +74,6 @@ func (o MTLDynamicLibraryObject) InstallName() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/label
 func (o MTLDynamicLibraryObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -99,7 +96,6 @@ func (o MTLDynamicLibraryObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibrary/serialize(to:)
 func (o MTLDynamicLibraryObject) SerializeToURLError(url foundation.INSURL) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("serializeToURL:error:"), url)
 	if err != nil {
 		return false, err

@@ -47,20 +47,17 @@ func NSEditorObjectFromID(id objc.ID) NSEditorObject {
 
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditing()
 func (o NSEditorObject) CommitEditing() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("commitEditing"))
 	return rv
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditing(withDelegate:didCommit:contextInfo:)
 func (o NSEditorObject) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditingWithoutPresentingError()
 func (o NSEditorObject) CommitEditingAndReturnError() (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("commitEditingAndReturnError:"))
 	if err != nil {
 		return false, err
@@ -69,7 +66,6 @@ func (o NSEditorObject) CommitEditingAndReturnError() (bool, error) {
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSEditor/discardEditing()
 func (o NSEditorObject) DiscardEditing() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("discardEditing"))
 	}
 

@@ -49,7 +49,6 @@ func VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObjectFromID(id objc.ID)
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachmentDelegate/attachment(_:didEncounterError:)
 func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentDidEncounterError(attachment IVZNetworkBlockDeviceStorageDeviceAttachment, error_ foundation.INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("attachment:didEncounterError:"), attachment, error_)
 	}
 // The method the attachment object calls when the NBD client successfully
@@ -68,7 +67,6 @@ func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentDid
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachmentDelegate/attachmentWasConnected(_:)
 func (o VZNetworkBlockDeviceStorageDeviceAttachmentDelegateObject) AttachmentWasConnected(attachment IVZNetworkBlockDeviceStorageDeviceAttachment) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("attachmentWasConnected:"), attachment)
 	}
 

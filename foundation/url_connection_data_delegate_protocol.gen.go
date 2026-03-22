@@ -56,7 +56,6 @@ func NSURLConnectionDataDelegateObjectFromID(id objc.ID) NSURLConnectionDataDele
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didReceive:)-8t66w
 func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveResponse(connection INSURLConnection, response INSURLResponse) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didReceiveResponse:"), connection, response)
 	}
 // Sent as a connection loads data incrementally.
@@ -74,7 +73,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveResponse(connecti
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didReceive:)-8p5vg
 func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveData(connection INSURLConnection, data INSData) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didReceiveData:"), connection, data)
 	}
 // Sent as the body (message data) of a request is transmitted (such as in an
@@ -98,7 +96,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidReceiveData(connection I
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:)
 func (o NSURLConnectionDataDelegateObject) ConnectionDidSendBodyDataTotalBytesWrittenTotalBytesExpectedToWrite(connection INSURLConnection, bytesWritten int, totalBytesWritten int, totalBytesExpectedToWrite int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:"), connection, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
 	}
 // Sent when a connection has finished loading successfully.
@@ -111,7 +108,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidSendBodyDataTotalBytesWr
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connectionDidFinishLoading(_:)
 func (o NSURLConnectionDataDelegateObject) ConnectionDidFinishLoading(connection INSURLConnection) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidFinishLoading:"), connection)
 	}
 // Sent when the connection determines that it must change URLs in order to
@@ -154,7 +150,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionDidFinishLoading(connection
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:willSend:redirectResponse:)
 func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestRedirectResponse(connection INSURLConnection, request INSURLRequest, response INSURLResponse) INSURLRequest {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:willSendRequest:redirectResponse:"), connection, request, response)
 	return NSURLRequestFromID(rv)
 	}
@@ -181,7 +176,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestRedirectResp
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:needNewBodyStream:)
 func (o NSURLConnectionDataDelegateObject) ConnectionNeedNewBodyStream(connection INSURLConnection, request INSURLRequest) INSInputStream {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:needNewBodyStream:"), connection, request)
 	return NSInputStreamFromID(rv)
 	}
@@ -215,7 +209,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionNeedNewBodyStream(connectio
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDataDelegate/connection(_:willCacheResponse:)
 func (o NSURLConnectionDataDelegateObject) ConnectionWillCacheResponse(connection INSURLConnection, cachedResponse INSCachedURLResponse) INSCachedURLResponse {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("connection:willCacheResponse:"), connection, cachedResponse)
 	return NSCachedURLResponseFromID(rv)
 	}
@@ -257,7 +250,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillCacheResponse(connectio
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
 func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestForAuthenticationChallenge(connection INSURLConnection, challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:willSendRequestForAuthenticationChallenge:"), connection, challenge)
 	}
 // Sent to determine whether the URL loader should use the credential storage
@@ -281,7 +273,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillSendRequestForAuthentic
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connectionShouldUseCredentialStorage(_:)
 func (o NSURLConnectionDataDelegateObject) ConnectionShouldUseCredentialStorage(connection INSURLConnection) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("connectionShouldUseCredentialStorage:"), connection)
 	return rv
 	}
@@ -299,7 +290,6 @@ func (o NSURLConnectionDataDelegateObject) ConnectionShouldUseCredentialStorage(
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didFailWithError:)
 func (o NSURLConnectionDataDelegateObject) ConnectionDidFailWithError(connection INSURLConnection, error_ INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)
 	}
 

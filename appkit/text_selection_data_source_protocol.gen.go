@@ -70,7 +70,6 @@ func NSTextSelectionDataSourceObjectFromID(id objc.ID) NSTextSelectionDataSource
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/documentRange
 func (o NSTextSelectionDataSourceObject) DocumentRange() INSTextRange {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("documentRange"))
 	return NSTextRangeFromID(rv)
 	}
@@ -92,7 +91,6 @@ func (o NSTextSelectionDataSourceObject) DocumentRange() INSTextRange {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
 func (o NSTextSelectionDataSourceObject) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block NSTextLocationHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateCaretOffsetsInLineFragmentAtLocation:usingBlock:"), location, block)
 	}
 // Returns a new location using the location and offset you specify.
@@ -113,7 +111,6 @@ func (o NSTextSelectionDataSourceObject) EnumerateCaretOffsetsInLineFragmentAtLo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/location(_:offsetBy:)
 func (o NSTextSelectionDataSourceObject) LocationFromLocationWithOffset(location NSTextLocation, offset int) NSTextLocation {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("locationFromLocation:withOffset:"), location, offset)
 	return NSTextLocationObjectFromID(rv)
 	}
@@ -131,7 +128,6 @@ func (o NSTextSelectionDataSourceObject) LocationFromLocationWithOffset(location
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/lineFragmentRange(for:inContainerAt:)
 func (o NSTextSelectionDataSourceObject) LineFragmentRangeForPointInContainerAtLocation(point corefoundation.CGPoint, location NSTextLocation) INSTextRange {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("lineFragmentRangeForPoint:inContainerAtLocation:"), point, location)
 	return NSTextRangeFromID(rv)
 	}
@@ -143,7 +139,6 @@ func (o NSTextSelectionDataSourceObject) LineFragmentRangeForPointInContainerAtL
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/offset(from:to:)
 func (o NSTextSelectionDataSourceObject) OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
 	return rv
 	}
@@ -163,7 +158,6 @@ func (o NSTextSelectionDataSourceObject) OffsetFromLocationToLocation(from NSTex
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/textRange(for:enclosing:)
 func (o NSTextSelectionDataSourceObject) TextRangeForSelectionGranularityEnclosingLocation(selectionGranularity NSTextSelectionGranularity, location NSTextLocation) INSTextRange {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textRangeForSelectionGranularity:enclosingLocation:"), selectionGranularity, location)
 	return NSTextRangeFromID(rv)
 	}
@@ -179,7 +173,6 @@ func (o NSTextSelectionDataSourceObject) TextRangeForSelectionGranularityEnclosi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/baseWritingDirection(at:)
 func (o NSTextSelectionDataSourceObject) BaseWritingDirectionAtLocation(location NSTextLocation) NSTextSelectionNavigationWritingDirection {
-	
 	rv := objc.Send[NSTextSelectionNavigationWritingDirection](o.ID, objc.Sel("baseWritingDirectionAtLocation:"), location)
 	return rv
 	}
@@ -202,7 +195,6 @@ func (o NSTextSelectionDataSourceObject) BaseWritingDirectionAtLocation(location
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateContainerBoundaries(from:reverse:using:)
 func (o NSTextSelectionDataSourceObject) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block NSTextLocationHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, block)
 	}
 // Returns the layout orientation at the location you specify.
@@ -218,7 +210,6 @@ func (o NSTextSelectionDataSourceObject) EnumerateContainerBoundariesFromLocatio
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/textLayoutOrientation(at:)
 func (o NSTextSelectionDataSourceObject) TextLayoutOrientationAtLocation(location NSTextLocation) NSTextSelectionNavigationLayoutOrientation {
-	
 	rv := objc.Send[NSTextSelectionNavigationLayoutOrientation](o.ID, objc.Sel("textLayoutOrientationAtLocation:"), location)
 	return rv
 	}

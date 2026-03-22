@@ -40,7 +40,6 @@ func NSAccessibilityElementLoadingObjectFromID(id objc.ID) NSAccessibilityElemen
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementLoading/accessibilityElement(withToken:)
 func (o NSAccessibilityElementLoadingObject) AccessibilityElementWithToken(token NSAccessibilityLoadingToken) NSAccessibilityElement {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityElementWithToken:"), token)
 	return NSAccessibilityElementFromID(rv)
 	}
@@ -49,7 +48,6 @@ func (o NSAccessibilityElementLoadingObject) AccessibilityElementWithToken(token
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementLoading/accessibilityRangeInTargetElement(withToken:)
 func (o NSAccessibilityElementLoadingObject) AccessibilityRangeInTargetElementWithToken(token NSAccessibilityLoadingToken) foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeInTargetElementWithToken:"), token)
 	return rv
 	}

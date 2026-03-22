@@ -55,7 +55,6 @@ func CIPhotoEffectObjectFromID(id objc.ID) CIPhotoEffectObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/inputImage
 func (o CIPhotoEffectObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIPhotoEffectObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPhotoEffect/extrapolate
 func (o CIPhotoEffectObject) Extrapolate() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIPhotoEffectObject) Extrapolate() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPhotoEffectObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

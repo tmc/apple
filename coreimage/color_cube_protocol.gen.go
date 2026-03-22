@@ -76,7 +76,6 @@ func CIColorCubeObjectFromID(id objc.ID) CIColorCubeObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCube/cubeData
 func (o CIColorCubeObject) CubeData() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cubeData"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -84,7 +83,6 @@ func (o CIColorCubeObject) CubeData() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCube/cubeDimension
 func (o CIColorCubeObject) CubeDimension() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("cubeDimension"))
 	return rv
 	}
@@ -92,7 +90,6 @@ func (o CIColorCubeObject) CubeDimension() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCube/inputImage
 func (o CIColorCubeObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -101,7 +98,6 @@ func (o CIColorCubeObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCube/extrapolate
 func (o CIColorCubeObject) Extrapolate() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
 	return rv
 	}
@@ -110,7 +106,6 @@ func (o CIColorCubeObject) Extrapolate() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorCubeObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -50,7 +50,6 @@ func MTLCommandBufferEncoderInfoObjectFromID(id objc.ID) MTLCommandBufferEncoder
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfo/label
 func (o MTLCommandBufferEncoderInfoObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -59,7 +58,6 @@ func (o MTLCommandBufferEncoderInfoObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfo/debugSignposts
 func (o MTLCommandBufferEncoderInfoObject) DebugSignposts() []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("debugSignposts"))
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -67,7 +65,6 @@ func (o MTLCommandBufferEncoderInfoObject) DebugSignposts() []string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferEncoderInfo/errorState
 func (o MTLCommandBufferEncoderInfoObject) ErrorState() MTLCommandEncoderErrorState {
-	
 	rv := objc.Send[MTLCommandEncoderErrorState](o.ID, objc.Sel("errorState"))
 	return rv
 	}

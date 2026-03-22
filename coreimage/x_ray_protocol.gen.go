@@ -45,7 +45,6 @@ func CIXRayObjectFromID(id objc.ID) CIXRayObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIXRay/inputImage
 func (o CIXRayObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIXRayObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIXRayObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

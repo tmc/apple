@@ -62,7 +62,6 @@ func NSMenuDelegateObjectFromID(id objc.ID) NSMenuDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/menuHasKeyEquivalent(_:for:target:action:)
 func (o NSMenuDelegateObject) MenuHasKeyEquivalentForEventTargetAction(menu INSMenu, event INSEvent, target []objectivec.IObject, action objc.SEL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("menuHasKeyEquivalent:forEvent:target:action:"), menu, event, objectivec.IObjectSliceToNSArray(target), action)
 	return rv
 	}
@@ -101,7 +100,6 @@ func (o NSMenuDelegateObject) MenuHasKeyEquivalentForEventTargetAction(menu INSM
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/menu(_:update:at:shouldCancel:)
 func (o NSMenuDelegateObject) MenuUpdateItemAtIndexShouldCancel(menu INSMenu, item INSMenuItem, index int, shouldCancel bool) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("menu:updateItem:atIndex:shouldCancel:"), menu, item, index, shouldCancel)
 	return rv
 	}
@@ -127,7 +125,6 @@ func (o NSMenuDelegateObject) MenuUpdateItemAtIndexShouldCancel(menu INSMenu, it
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/confinementRect(for:on:)
 func (o NSMenuDelegateObject) ConfinementRectForMenuOnScreen(menu INSMenu, screen INSScreen) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("confinementRectForMenu:onScreen:"), menu, screen)
 	return rv
 	}
@@ -144,7 +141,6 @@ func (o NSMenuDelegateObject) ConfinementRectForMenuOnScreen(menu INSMenu, scree
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/menu(_:willHighlight:)
 func (o NSMenuDelegateObject) MenuWillHighlightItem(menu INSMenu, item INSMenuItem) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("menu:willHighlightItem:"), menu, item)
 	}
 // Invoked when a menu is about to open.
@@ -158,7 +154,6 @@ func (o NSMenuDelegateObject) MenuWillHighlightItem(menu INSMenu, item INSMenuIt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/menuWillOpen(_:)
 func (o NSMenuDelegateObject) MenuWillOpen(menu INSMenu) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("menuWillOpen:"), menu)
 	}
 // Invoked after a menu closed.
@@ -172,7 +167,6 @@ func (o NSMenuDelegateObject) MenuWillOpen(menu INSMenu) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/menuDidClose(_:)
 func (o NSMenuDelegateObject) MenuDidClose(menu INSMenu) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("menuDidClose:"), menu)
 	}
 // Invoked when a menu is about to be displayed at the start of a tracking
@@ -196,7 +190,6 @@ func (o NSMenuDelegateObject) MenuDidClose(menu INSMenu) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/numberOfItems(in:)
 func (o NSMenuDelegateObject) NumberOfItemsInMenu(menu INSMenu) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfItemsInMenu:"), menu)
 	return rv
 	}
@@ -219,7 +212,6 @@ func (o NSMenuDelegateObject) NumberOfItemsInMenu(menu INSMenu) int {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/menuNeedsUpdate(_:)
 func (o NSMenuDelegateObject) MenuNeedsUpdate(menu INSMenu) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("menuNeedsUpdate:"), menu)
 	}
 

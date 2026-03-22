@@ -63,7 +63,6 @@ func CIDisplacementDistortionObjectFromID(id objc.ID) CIDisplacementDistortionOb
 
 // See: https://developer.apple.com/documentation/CoreImage/CIDisplacementDistortion/displacementImage
 func (o CIDisplacementDistortionObject) DisplacementImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("displacementImage"))
 	return CIImageFromID(rv)
 	}
@@ -71,13 +70,11 @@ func (o CIDisplacementDistortionObject) DisplacementImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDisplacementDistortion/inputImage
 func (o CIDisplacementDistortionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIDisplacementDistortion/scale
 func (o CIDisplacementDistortionObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -86,7 +83,6 @@ func (o CIDisplacementDistortionObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIDisplacementDistortionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

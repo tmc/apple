@@ -66,7 +66,6 @@ func CIHexagonalPixellateObjectFromID(id objc.ID) CIHexagonalPixellateObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/center
 func (o CIHexagonalPixellateObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -74,7 +73,6 @@ func (o CIHexagonalPixellateObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/inputImage
 func (o CIHexagonalPixellateObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -82,7 +80,6 @@ func (o CIHexagonalPixellateObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHexagonalPixellate/scale
 func (o CIHexagonalPixellateObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CIHexagonalPixellateObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIHexagonalPixellateObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

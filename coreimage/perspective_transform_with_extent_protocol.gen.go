@@ -47,7 +47,6 @@ func CIPerspectiveTransformWithExtentObjectFromID(id objc.ID) CIPerspectiveTrans
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveTransformWithExtent/extent
 func (o CIPerspectiveTransformWithExtentObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -56,19 +55,16 @@ func (o CIPerspectiveTransformWithExtentObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPerspectiveTransformWithExtentObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomLeft
 func (o CIPerspectiveTransformWithExtentObject) BottomLeft() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomLeft"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIPerspectiveTransformWithExtentObject) BottomRight() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomRight"))
 	return rv
 	}
@@ -76,19 +72,16 @@ func (o CIPerspectiveTransformWithExtentObject) BottomRight() corefoundation.CGP
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIPerspectiveTransformWithExtentObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIPerspectiveTransformWithExtentObject) TopLeft() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topLeft"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIPerspectiveTransformWithExtentObject) TopRight() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topRight"))
 	return rv
 	}

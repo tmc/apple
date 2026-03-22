@@ -76,7 +76,6 @@ func NSTextFinderClientObjectFromID(id objc.ID) NSTextFinderClientObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/string
 func (o NSTextFinderClientObject) String() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("string"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -84,7 +83,6 @@ func (o NSTextFinderClientObject) String() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
 func (o NSTextFinderClientObject) IsSelectable() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isSelectable"))
 	return rv
 	}
@@ -92,7 +90,6 @@ func (o NSTextFinderClientObject) IsSelectable() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/allowsMultipleSelection
 func (o NSTextFinderClientObject) AllowsMultipleSelection() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("allowsMultipleSelection"))
 	return rv
 	}
@@ -100,7 +97,6 @@ func (o NSTextFinderClientObject) AllowsMultipleSelection() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/firstSelectedRange
 func (o NSTextFinderClientObject) FirstSelectedRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("firstSelectedRange"))
 	return rv
 	}
@@ -108,7 +104,6 @@ func (o NSTextFinderClientObject) FirstSelectedRange() foundation.NSRange {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/selectedRanges
 func (o NSTextFinderClientObject) SelectedRanges() []foundation.NSValue {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("selectedRanges"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
@@ -118,7 +113,6 @@ func (o NSTextFinderClientObject) SelectedRanges() []foundation.NSValue {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
 func (o NSTextFinderClientObject) IsEditable() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isEditable"))
 	return rv
 	}
@@ -126,7 +120,6 @@ func (o NSTextFinderClientObject) IsEditable() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/visibleCharacterRanges
 func (o NSTextFinderClientObject) VisibleCharacterRanges() []foundation.NSValue {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("visibleCharacterRanges"))
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
@@ -155,7 +148,6 @@ func (o NSTextFinderClientObject) VisibleCharacterRanges() []foundation.NSValue 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/string(at:effectiveRange:endsWithSearchBoundary:)
 func (o NSTextFinderClientObject) StringAtIndexEffectiveRangeEndsWithSearchBoundary(characterIndex uint, outRange foundation.NSRange, outFlag unsafe.Pointer) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("stringAtIndex:effectiveRange:endsWithSearchBoundary:"), characterIndex, outRange, outFlag)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -173,7 +165,6 @@ func (o NSTextFinderClientObject) StringAtIndexEffectiveRangeEndsWithSearchBound
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/stringLength()
 func (o NSTextFinderClientObject) StringLength() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("stringLength"))
 	return rv
 	}
@@ -196,7 +187,6 @@ func (o NSTextFinderClientObject) StringLength() uint {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/shouldReplaceCharacters(inRanges:with:)
 func (o NSTextFinderClientObject) ShouldReplaceCharactersInRangesWithStrings(ranges []foundation.NSValue, strings []string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("shouldReplaceCharactersInRanges:withStrings:"), objectivec.IObjectSliceToNSArray(ranges), objectivec.StringSliceToNSArray(strings))
 	return rv
 	}
@@ -212,7 +202,6 @@ func (o NSTextFinderClientObject) ShouldReplaceCharactersInRangesWithStrings(ran
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/replaceCharacters(in:with:)
 func (o NSTextFinderClientObject) ReplaceCharactersInRangeWithString(range_ foundation.NSRange, string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("replaceCharactersInRange:withString:"), range_, objc.String(string_))
 	}
 // Specifies whether text characters were replaced.
@@ -223,7 +212,6 @@ func (o NSTextFinderClientObject) ReplaceCharactersInRangeWithString(range_ foun
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/didReplaceCharacters()
 func (o NSTextFinderClientObject) DidReplaceCharacters() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didReplaceCharacters"))
 	}
 // Returns the view the context is displayed in.
@@ -238,7 +226,6 @@ func (o NSTextFinderClientObject) DidReplaceCharacters() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/contentView(at:effectiveCharacterRange:)
 func (o NSTextFinderClientObject) ContentViewAtIndexEffectiveCharacterRange(index uint, outRange foundation.NSRange) INSView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("contentViewAtIndex:effectiveCharacterRange:"), index, outRange)
 	return NSViewFromID(rv)
 	}
@@ -262,7 +249,6 @@ func (o NSTextFinderClientObject) ContentViewAtIndexEffectiveCharacterRange(inde
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/rects(forCharacterRange:)
 func (o NSTextFinderClientObject) RectsForCharacterRange(range_ foundation.NSRange) []foundation.NSValue {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("rectsForCharacterRange:"), range_)
 	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSValue {
 		return foundation.NSValueFromID(id)
@@ -278,7 +264,6 @@ func (o NSTextFinderClientObject) RectsForCharacterRange(range_ foundation.NSRan
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/scrollRangeToVisible(_:)
 func (o NSTextFinderClientObject) ScrollRangeToVisible(range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("scrollRangeToVisible:"), range_)
 	}
 // Draw the glyphs for the requested character range as they are drawn in the
@@ -308,7 +293,6 @@ func (o NSTextFinderClientObject) ScrollRangeToVisible(range_ foundation.NSRange
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/drawCharacters(in:forContentView:)
 func (o NSTextFinderClientObject) DrawCharactersInRangeForContentView(range_ foundation.NSRange, view INSView) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawCharactersInRange:forContentView:"), range_, view)
 	}
 

@@ -55,7 +55,6 @@ func MTL4CommandAllocatorObjectFromID(id objc.ID) MTL4CommandAllocatorObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/device
 func (o MTL4CommandAllocatorObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -64,7 +63,6 @@ func (o MTL4CommandAllocatorObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/label
 func (o MTL4CommandAllocatorObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -77,7 +75,6 @@ func (o MTL4CommandAllocatorObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/allocatedSize()
 func (o MTL4CommandAllocatorObject) AllocatedSize() uint64 {
-	
 	rv := objc.Send[uint64](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
@@ -94,7 +91,6 @@ func (o MTL4CommandAllocatorObject) AllocatedSize() uint64 {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandAllocator/reset()
 func (o MTL4CommandAllocatorObject) Reset() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
 	}
 

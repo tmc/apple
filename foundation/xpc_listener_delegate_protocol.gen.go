@@ -52,7 +52,6 @@ func NSXPCListenerDelegateObjectFromID(id objc.ID) NSXPCListenerDelegateObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListenerDelegate/listener(_:shouldAcceptNewConnection:)
 func (o NSXPCListenerDelegateObject) ListenerShouldAcceptNewConnection(listener INSXPCListener, newConnection INSXPCConnection) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:"), listener, newConnection)
 	return rv
 	}

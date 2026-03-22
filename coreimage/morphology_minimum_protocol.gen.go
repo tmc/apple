@@ -55,7 +55,6 @@ func CIMorphologyMinimumObjectFromID(id objc.ID) CIMorphologyMinimumObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMinimum/inputImage
 func (o CIMorphologyMinimumObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIMorphologyMinimumObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMinimum/radius
 func (o CIMorphologyMinimumObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIMorphologyMinimumObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMorphologyMinimumObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

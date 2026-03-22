@@ -52,7 +52,6 @@ func CIFilterConstructorObjectFromID(id objc.ID) CIFilterConstructorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterConstructor/filter(withName:)
 func (o CIFilterConstructorObject) FilterWithName(name string) CIFilter {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("filterWithName:"), objc.String(name))
 	return CIFilterFromID(rv)
 	}

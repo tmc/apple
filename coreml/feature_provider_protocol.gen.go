@@ -51,7 +51,6 @@ func MLFeatureProviderObjectFromID(id objc.ID) MLFeatureProviderObject {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureValue(for:)
 func (o MLFeatureProviderObject) FeatureValueForName(featureName string) IMLFeatureValue {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureValueForName:"), objc.String(featureName))
 	return MLFeatureValueFromID(rv)
 	}
@@ -59,7 +58,6 @@ func (o MLFeatureProviderObject) FeatureValueForName(featureName string) IMLFeat
 //
 // See: https://developer.apple.com/documentation/CoreML/MLFeatureProvider/featureNames
 func (o MLFeatureProviderObject) FeatureNames() foundation.INSSet {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featureNames"))
 	return foundation.NSSetFromID(rv)
 	}

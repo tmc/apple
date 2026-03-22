@@ -50,7 +50,6 @@ func MLBatchProviderObjectFromID(id objc.ID) MLBatchProviderObject {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/features(at:)
 func (o MLBatchProviderObject) FeaturesAtIndex(index int) MLFeatureProvider {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("featuresAtIndex:"), index)
 	return MLFeatureProviderObjectFromID(rv)
 	}
@@ -58,7 +57,6 @@ func (o MLBatchProviderObject) FeaturesAtIndex(index int) MLFeatureProvider {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLBatchProvider/count
 func (o MLBatchProviderObject) Count() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
 	return rv
 	}

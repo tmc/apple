@@ -59,7 +59,6 @@ func NSTextFinderBarContainerObjectFromID(id objc.ID) NSTextFinderBarContainerOb
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
 func (o NSTextFinderBarContainerObject) FindBarView() INSView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("findBarView"))
 	return NSViewFromID(rv)
 	}
@@ -67,7 +66,6 @@ func (o NSTextFinderBarContainerObject) FindBarView() INSView {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
 func (o NSTextFinderBarContainerObject) IsFindBarVisible() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isFindBarVisible"))
 	return rv
 	}
@@ -80,7 +78,6 @@ func (o NSTextFinderBarContainerObject) IsFindBarVisible() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarViewDidChangeHeight()
 func (o NSTextFinderBarContainerObject) FindBarViewDidChangeHeight() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("findBarViewDidChangeHeight"))
 	}
 // A view hierarchy that contains all the views which display the contents
@@ -103,7 +100,6 @@ func (o NSTextFinderBarContainerObject) FindBarViewDidChangeHeight() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/contentView()
 func (o NSTextFinderBarContainerObject) ContentView() INSView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("contentView"))
 	return NSViewFromID(rv)
 	}

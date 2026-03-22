@@ -66,7 +66,6 @@ func NSAccessibilityContainsTransientUIObjectFromID(id objc.ID) NSAccessibilityC
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityContainsTransientUI/accessibilityPerformShowAlternateUI()
 func (o NSAccessibilityContainsTransientUIObject) AccessibilityPerformShowAlternateUI() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowAlternateUI"))
 	return rv
 	}
@@ -88,7 +87,6 @@ func (o NSAccessibilityContainsTransientUIObject) AccessibilityPerformShowAltern
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityContainsTransientUI/accessibilityPerformShowDefaultUI()
 func (o NSAccessibilityContainsTransientUIObject) AccessibilityPerformShowDefaultUI() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowDefaultUI"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o NSAccessibilityContainsTransientUIObject) AccessibilityPerformShowDefaul
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityContainsTransientUI/isAccessibilityAlternateUIVisible()
 func (o NSAccessibilityContainsTransientUIObject) IsAccessibilityAlternateUIVisible() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
 	return rv
 	}
@@ -124,7 +121,6 @@ func (o NSAccessibilityContainsTransientUIObject) IsAccessibilityAlternateUIVisi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilityContainsTransientUIObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -144,7 +140,6 @@ func (o NSAccessibilityContainsTransientUIObject) AccessibilityFrame() corefound
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilityContainsTransientUIObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -164,7 +159,6 @@ func (o NSAccessibilityContainsTransientUIObject) AccessibilityParent() objectiv
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilityContainsTransientUIObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -187,7 +181,6 @@ func (o NSAccessibilityContainsTransientUIObject) AccessibilityIdentifier() stri
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilityContainsTransientUIObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}

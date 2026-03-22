@@ -45,7 +45,6 @@ func CIThermalObjectFromID(id objc.ID) CIThermalObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIThermal/inputImage
 func (o CIThermalObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIThermalObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIThermalObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

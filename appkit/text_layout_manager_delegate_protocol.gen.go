@@ -50,7 +50,6 @@ func NSTextLayoutManagerDelegateObjectFromID(id objc.ID) NSTextLayoutManagerDele
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManagerDelegate/textLayoutManager(_:renderingAttributesForLink:at:defaultAttributes:)
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerRenderingAttributesForLinkAtLocationDefaultAttributes(textLayoutManager INSTextLayoutManager, link objectivec.IObject, location NSTextLocation, renderingAttributes foundation.INSDictionary) foundation.INSDictionary {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textLayoutManager:renderingAttributesForLink:atLocation:defaultAttributes:"), textLayoutManager, link, location, renderingAttributes)
 	return foundation.NSDictionaryFromID(rv)
 	}
@@ -75,7 +74,6 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerRenderingAttributesF
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManagerDelegate/textLayoutManager(_:shouldBreakLineBefore:hyphenating:)
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerShouldBreakLineBeforeLocationHyphenating(textLayoutManager INSTextLayoutManager, location NSTextLocation, hyphenating bool) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textLayoutManager:shouldBreakLineBeforeLocation:hyphenating:"), textLayoutManager, location, hyphenating)
 	return rv
 	}
@@ -100,7 +98,6 @@ func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerShouldBreakLineBefor
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManagerDelegate/textLayoutManager(_:textLayoutFragmentFor:in:)
 func (o NSTextLayoutManagerDelegateObject) TextLayoutManagerTextLayoutFragmentForLocationInTextElement(textLayoutManager INSTextLayoutManager, location NSTextLocation, textElement INSTextElement) INSTextLayoutFragment {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textLayoutManager:textLayoutFragmentForLocation:inTextElement:"), textLayoutManager, location, textElement)
 	return NSTextLayoutFragmentFromID(rv)
 	}

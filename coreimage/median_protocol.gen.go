@@ -45,7 +45,6 @@ func CIMedianObjectFromID(id objc.ID) CIMedianObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMedian/inputImage
 func (o CIMedianObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIMedianObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMedianObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

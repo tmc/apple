@@ -54,7 +54,6 @@ func NSServicesMenuRequestorObjectFromID(id objc.ID) NSServicesMenuRequestorObje
 //
 // See: https://developer.apple.com/documentation/AppKit/NSServicesMenuRequestor/readSelection(from:)
 func (o NSServicesMenuRequestorObject) ReadSelectionFromPasteboard(pboard INSPasteboard) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("readSelectionFromPasteboard:"), pboard)
 	return rv
 	}
@@ -88,7 +87,6 @@ func (o NSServicesMenuRequestorObject) ReadSelectionFromPasteboard(pboard INSPas
 //
 // See: https://developer.apple.com/documentation/AppKit/NSServicesMenuRequestor/writeSelection(to:types:)
 func (o NSServicesMenuRequestorObject) WriteSelectionToPasteboardTypes(pboard INSPasteboard, types []string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("writeSelectionToPasteboard:types:"), pboard, objectivec.StringSliceToNSArray(types))
 	return rv
 	}

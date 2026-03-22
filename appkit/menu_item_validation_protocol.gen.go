@@ -62,7 +62,6 @@ func NSMenuItemValidationObjectFromID(id objc.ID) NSMenuItemValidationObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuItemValidation/validateMenuItem(_:)
 func (o NSMenuItemValidationObject) ValidateMenuItem(menuItem INSMenuItem) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("validateMenuItem:"), menuItem)
 	return rv
 	}

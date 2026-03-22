@@ -107,7 +107,6 @@ func CIPageCurlWithShadowTransitionObjectFromID(id objc.ID) CIPageCurlWithShadow
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/angle
 func (o CIPageCurlWithShadowTransitionObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -116,7 +115,6 @@ func (o CIPageCurlWithShadowTransitionObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/backsideImage
 func (o CIPageCurlWithShadowTransitionObject) BacksideImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("backsideImage"))
 	return CIImageFromID(rv)
 	}
@@ -124,7 +122,6 @@ func (o CIPageCurlWithShadowTransitionObject) BacksideImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/extent
 func (o CIPageCurlWithShadowTransitionObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -132,7 +129,6 @@ func (o CIPageCurlWithShadowTransitionObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/radius
 func (o CIPageCurlWithShadowTransitionObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -140,7 +136,6 @@ func (o CIPageCurlWithShadowTransitionObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowAmount
 func (o CIPageCurlWithShadowTransitionObject) ShadowAmount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("shadowAmount"))
 	return rv
 	}
@@ -148,7 +143,6 @@ func (o CIPageCurlWithShadowTransitionObject) ShadowAmount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowExtent
 func (o CIPageCurlWithShadowTransitionObject) ShadowExtent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("shadowExtent"))
 	return rv
 	}
@@ -156,7 +150,6 @@ func (o CIPageCurlWithShadowTransitionObject) ShadowExtent() corefoundation.CGRe
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPageCurlWithShadowTransition/shadowSize
 func (o CIPageCurlWithShadowTransitionObject) ShadowSize() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("shadowSize"))
 	return rv
 	}
@@ -165,7 +158,6 @@ func (o CIPageCurlWithShadowTransitionObject) ShadowSize() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPageCurlWithShadowTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -173,7 +165,6 @@ func (o CIPageCurlWithShadowTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIPageCurlWithShadowTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -181,7 +172,6 @@ func (o CIPageCurlWithShadowTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIPageCurlWithShadowTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -189,7 +179,6 @@ func (o CIPageCurlWithShadowTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIPageCurlWithShadowTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

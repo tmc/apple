@@ -65,7 +65,6 @@ func CIUnsharpMaskObjectFromID(id objc.ID) CIUnsharpMaskObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/inputImage
 func (o CIUnsharpMaskObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIUnsharpMaskObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/intensity
 func (o CIUnsharpMaskObject) Intensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
 	}
@@ -81,7 +79,6 @@ func (o CIUnsharpMaskObject) Intensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIUnsharpMask/radius
 func (o CIUnsharpMaskObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CIUnsharpMaskObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIUnsharpMaskObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

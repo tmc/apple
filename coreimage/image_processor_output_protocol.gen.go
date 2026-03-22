@@ -85,7 +85,6 @@ func CIImageProcessorOutputObjectFromID(id objc.ID) CIImageProcessorOutputObject
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/baseAddress
 func (o CIImageProcessorOutputObject) BaseAddress() unsafe.Pointer {
-	
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
 	return rv
 	}
@@ -93,7 +92,6 @@ func (o CIImageProcessorOutputObject) BaseAddress() unsafe.Pointer {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/metalTexture
 func (o CIImageProcessorOutputObject) MetalTexture() metal.MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metalTexture"))
 	return metal.MTLTextureObjectFromID(rv)
 	}
@@ -102,7 +100,6 @@ func (o CIImageProcessorOutputObject) MetalTexture() metal.MTLTexture {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/pixelBuffer
 func (o CIImageProcessorOutputObject) PixelBuffer() corevideo.CVImageBufferRef {
-	
 	rv := objc.Send[corevideo.CVImageBufferRef](o.ID, objc.Sel("pixelBuffer"))
 	return rv
 	}
@@ -111,7 +108,6 @@ func (o CIImageProcessorOutputObject) PixelBuffer() corevideo.CVImageBufferRef {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/surface
 func (o CIImageProcessorOutputObject) Surface() iosurface.IOSurfaceRef {
-	
 	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("surface"))
 	return rv
 	}
@@ -120,7 +116,6 @@ func (o CIImageProcessorOutputObject) Surface() iosurface.IOSurfaceRef {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/region
 func (o CIImageProcessorOutputObject) Region() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("region"))
 	return rv
 	}
@@ -129,7 +124,6 @@ func (o CIImageProcessorOutputObject) Region() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/metalCommandBuffer
 func (o CIImageProcessorOutputObject) MetalCommandBuffer() metal.MTLCommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metalCommandBuffer"))
 	return metal.MTLCommandBufferObjectFromID(rv)
 	}
@@ -138,7 +132,6 @@ func (o CIImageProcessorOutputObject) MetalCommandBuffer() metal.MTLCommandBuffe
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/bytesPerRow
 func (o CIImageProcessorOutputObject) BytesPerRow() uintptr {
-	
 	rv := objc.Send[uintptr](o.ID, objc.Sel("bytesPerRow"))
 	return rv
 	}
@@ -147,7 +140,6 @@ func (o CIImageProcessorOutputObject) BytesPerRow() uintptr {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/format
 func (o CIImageProcessorOutputObject) Format() CIFormat {
-	
 	rv := objc.Send[CIFormat](o.ID, objc.Sel("format"))
 	return rv
 	}
@@ -156,7 +148,6 @@ func (o CIImageProcessorOutputObject) Format() CIFormat {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorOutput/digest
 func (o CIImageProcessorOutputObject) Digest() uint64 {
-	
 	rv := objc.Send[uint64](o.ID, objc.Sel("digest"))
 	return rv
 	}

@@ -145,7 +145,6 @@ func MTLBufferObjectFromID(id objc.ID) MTLBufferObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeTexture(descriptor:offset:bytesPerRow:)
 func (o MTLBufferObject) NewTextureWithDescriptorOffsetBytesPerRow(descriptor IMTLTextureDescriptor, offset uint, bytesPerRow uint) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureWithDescriptor:offset:bytesPerRow:"), descriptor, offset, bytesPerRow)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -162,7 +161,6 @@ func (o MTLBufferObject) NewTextureWithDescriptorOffsetBytesPerRow(descriptor IM
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/contents()
 func (o MTLBufferObject) Contents() unsafe.Pointer {
-	
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("contents"))
 	return rv
 	}
@@ -170,14 +168,12 @@ func (o MTLBufferObject) Contents() unsafe.Pointer {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/removeAllDebugMarkers()
 func (o MTLBufferObject) RemoveAllDebugMarkers() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("removeAllDebugMarkers"))
 	}
 // The logical size of the buffer, in bytes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/length
 func (o MTLBufferObject) Length() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("length"))
 	return rv
 	}
@@ -201,7 +197,6 @@ func (o MTLBufferObject) Length() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeRemoteBufferView(_:)
 func (o MTLBufferObject) NewRemoteBufferViewForDevice(device MTLDevice) MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRemoteBufferViewForDevice:"), device)
 	return MTLBufferObjectFromID(rv)
 	}
@@ -209,19 +204,16 @@ func (o MTLBufferObject) NewRemoteBufferViewForDevice(device MTLDevice) MTLBuffe
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/remoteStorageBuffer
 func (o MTLBufferObject) RemoteStorageBuffer() MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteStorageBuffer"))
 	return MTLBufferObjectFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/gpuAddress
 func (o MTLBufferObject) GpuAddress() MTLGPUAddress {
-	
 	rv := objc.Send[MTLGPUAddress](o.ID, objc.Sel("gpuAddress"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/sparseBufferTier
 func (o MTLBufferObject) SparseBufferTier() MTLBufferSparseTier {
-	
 	rv := objc.Send[MTLBufferSparseTier](o.ID, objc.Sel("sparseBufferTier"))
 	return rv
 	}
@@ -243,7 +235,6 @@ func (o MTLBufferObject) SparseBufferTier() MTLBufferSparseTier {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeTensor(descriptor:offset:)
 func (o MTLBufferObject) NewTensorWithDescriptorOffsetError(descriptor IMTLTensorDescriptor, offset uint) (MTLTensor, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newTensorWithDescriptor:offset:error:"), descriptor, offset)
 	if err != nil {
 		return nil, err
@@ -258,7 +249,6 @@ func (o MTLBufferObject) NewTensorWithDescriptorOffsetError(descriptor IMTLTenso
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/addDebugMarker:range:
 func (o MTLBufferObject) AddDebugMarkerRange(marker string, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addDebugMarker:range:"), objc.String(marker), range_)
 	}
 // Informs the GPU that the CPU has modified a section of the buffer.
@@ -275,7 +265,6 @@ func (o MTLBufferObject) AddDebugMarkerRange(marker string, range_ foundation.NS
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/didModifyRange:
 func (o MTLBufferObject) DidModifyRange(range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didModifyRange:"), range_)
 	}
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
@@ -283,7 +272,6 @@ func (o MTLBufferObject) DidModifyRange(range_ foundation.NSRange) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTLBufferObject) AllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
@@ -291,7 +279,6 @@ func (o MTLBufferObject) AllocatedSize() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/device
 func (o MTLBufferObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -299,7 +286,6 @@ func (o MTLBufferObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/label
 func (o MTLBufferObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -307,7 +293,6 @@ func (o MTLBufferObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/cpuCacheMode
 func (o MTLBufferObject) CpuCacheMode() MTLCPUCacheMode {
-	
 	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
 	return rv
 	}
@@ -315,7 +300,6 @@ func (o MTLBufferObject) CpuCacheMode() MTLCPUCacheMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/storageMode
 func (o MTLBufferObject) StorageMode() MTLStorageMode {
-	
 	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
 	return rv
 	}
@@ -324,7 +308,6 @@ func (o MTLBufferObject) StorageMode() MTLStorageMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/hazardTrackingMode
 func (o MTLBufferObject) HazardTrackingMode() MTLHazardTrackingMode {
-	
 	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
 	return rv
 	}
@@ -332,7 +315,6 @@ func (o MTLBufferObject) HazardTrackingMode() MTLHazardTrackingMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
 func (o MTLBufferObject) ResourceOptions() MTLResourceOptions {
-	
 	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
 	return rv
 	}
@@ -372,7 +354,6 @@ func (o MTLBufferObject) ResourceOptions() MTLResourceOptions {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
 func (o MTLBufferObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
-	
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
 	}
@@ -381,7 +362,6 @@ func (o MTLBufferObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeable
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
 func (o MTLBufferObject) HeapOffset() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("heapOffset"))
 	return rv
 	}
@@ -389,7 +369,6 @@ func (o MTLBufferObject) HeapOffset() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heap
 func (o MTLBufferObject) Heap() MTLHeap {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("heap"))
 	return MTLHeapObjectFromID(rv)
 	}
@@ -428,7 +407,6 @@ func (o MTLBufferObject) Heap() MTLHeap {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/makeAliasable()
 func (o MTLBufferObject) MakeAliasable() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("makeAliasable"))
 	}
 // A Boolean value that indicates whether future heap resource allocations may
@@ -444,14 +422,12 @@ func (o MTLBufferObject) MakeAliasable() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/isAliasable()
 func (o MTLBufferObject) IsAliasable() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAliasable"))
 	return rv
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
 func (o MTLBufferObject) SetOwnerWithIdentity(task_id_token objectivec.IObject) int32 {
-	
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
 	}

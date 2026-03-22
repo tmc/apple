@@ -68,7 +68,6 @@ func MLCustomLayerObjectFromID(id objc.ID) MLCustomLayerObject {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/setWeightData(_:)
 func (o MLCustomLayerObject) SetWeightDataError(weights []foundation.NSData) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("setWeightData:error:"), objectivec.IObjectSliceToNSArray(weights))
 	if err != nil {
 		return false, err
@@ -99,7 +98,6 @@ func (o MLCustomLayerObject) SetWeightDataError(weights []foundation.NSData) (bo
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/outputShapes(forInputShapes:)
 func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []foundation.NSArray) ([]foundation.NSArray, error) {
-	
 	rv, err := objc.SendWithError[[]objc.ID](o.ID, objc.Sel("outputShapesForInputShapes:error:"), objectivec.IObjectSliceToNSArray(inputShapes))
 	if err != nil {
 		return nil, err
@@ -131,7 +129,6 @@ func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []found
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/evaluate(inputs:outputs:)
 func (o MLCustomLayerObject) EvaluateOnCPUWithInputsOutputsError(inputs []MLMultiArray, outputs []MLMultiArray) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("evaluateOnCPUWithInputs:outputs:error:"), objectivec.IObjectSliceToNSArray(inputs), objectivec.IObjectSliceToNSArray(outputs))
 	if err != nil {
 		return false, err
@@ -170,7 +167,6 @@ func (o MLCustomLayerObject) EvaluateOnCPUWithInputsOutputsError(inputs []MLMult
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/encode(commandBuffer:inputs:outputs:)
 func (o MLCustomLayerObject) EncodeToCommandBufferInputsOutputsError(commandBuffer metal.MTLCommandBuffer, inputs []objectivec.IObject, outputs []objectivec.IObject) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("encodeToCommandBuffer:inputs:outputs:error:"), commandBuffer, objectivec.IObjectSliceToNSArray(inputs), objectivec.IObjectSliceToNSArray(outputs))
 	if err != nil {
 		return false, err

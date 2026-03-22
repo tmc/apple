@@ -54,7 +54,6 @@ func NSFilePresenterObjectFromID(id objc.ID) NSFilePresenterObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemURL
 func (o NSFilePresenterObject) PresentedItemURL() INSURL {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("presentedItemURL"))
 	return NSURLFromID(rv)
 	}
@@ -62,7 +61,6 @@ func (o NSFilePresenterObject) PresentedItemURL() INSURL {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemOperationQueue
 func (o NSFilePresenterObject) PresentedItemOperationQueue() INSOperationQueue {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("presentedItemOperationQueue"))
 	return NSOperationQueueFromID(rv)
 	}
@@ -70,7 +68,6 @@ func (o NSFilePresenterObject) PresentedItemOperationQueue() INSOperationQueue {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/primaryPresentedItemURL
 func (o NSFilePresenterObject) PrimaryPresentedItemURL() INSURL {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("primaryPresentedItemURL"))
 	return NSURLFromID(rv)
 	}
@@ -79,7 +76,6 @@ func (o NSFilePresenterObject) PrimaryPresentedItemURL() INSURL {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/observedPresentedItemUbiquityAttributes
 func (o NSFilePresenterObject) ObservedPresentedItemUbiquityAttributes() INSSet {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("observedPresentedItemUbiquityAttributes"))
 	return NSSetFromID(rv)
 	}
@@ -115,7 +111,6 @@ func (o NSFilePresenterObject) ObservedPresentedItemUbiquityAttributes() INSSet 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/relinquishPresentedItem(toReader:)
 func (o NSFilePresenterObject) RelinquishPresentedItemToReader(reader VoidHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("relinquishPresentedItemToReader:"), reader)
 	}
 // Notifies your object that another object or process wants to write to the
@@ -155,7 +150,6 @@ func (o NSFilePresenterObject) RelinquishPresentedItemToReader(reader VoidHandle
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/relinquishPresentedItem(toWriter:)
 func (o NSFilePresenterObject) RelinquishPresentedItemToWriter(writer VoidHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("relinquishPresentedItemToWriter:"), writer)
 	}
 // Tells your object to save any unsaved changes for the presented item.
@@ -177,7 +171,6 @@ func (o NSFilePresenterObject) RelinquishPresentedItemToWriter(writer VoidHandle
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/savePresentedItemChanges(completionHandler:)
 func (o NSFilePresenterObject) SavePresentedItemChangesWithCompletionHandler(completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("savePresentedItemChangesWithCompletionHandler:"), completionHandler)
 	}
 // Tells your object that its presented item is about to be deleted.
@@ -198,7 +191,6 @@ func (o NSFilePresenterObject) SavePresentedItemChangesWithCompletionHandler(com
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/accommodatePresentedItemDeletion(completionHandler:)
 func (o NSFilePresenterObject) AccommodatePresentedItemDeletionWithCompletionHandler(completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedItemDeletionWithCompletionHandler:"), completionHandler)
 	}
 // Tells your object that the presented item moved or was renamed.
@@ -212,7 +204,6 @@ func (o NSFilePresenterObject) AccommodatePresentedItemDeletionWithCompletionHan
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemDidMove(to:)
 func (o NSFilePresenterObject) PresentedItemDidMoveToURL(newURL INSURL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedItemDidMoveToURL:"), newURL)
 	}
 // Tells your object that the presented item’s contents or attributes
@@ -237,7 +228,6 @@ func (o NSFilePresenterObject) PresentedItemDidMoveToURL(newURL INSURL) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemDidChange()
 func (o NSFilePresenterObject) PresentedItemDidChange() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedItemDidChange"))
 	}
 // Tells the delegate that a new version of the file or file package was
@@ -255,7 +245,6 @@ func (o NSFilePresenterObject) PresentedItemDidChange() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemDidGain(_:)
 func (o NSFilePresenterObject) PresentedItemDidGainVersion(version INSFileVersion) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedItemDidGainVersion:"), version)
 	}
 // Tells the delegate that a version of the file or file package was removed.
@@ -272,7 +261,6 @@ func (o NSFilePresenterObject) PresentedItemDidGainVersion(version INSFileVersio
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemDidLose(_:)
 func (o NSFilePresenterObject) PresentedItemDidLoseVersion(version INSFileVersion) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedItemDidLoseVersion:"), version)
 	}
 // Tells the delegate that some other entity resolved a version conflict for
@@ -290,7 +278,6 @@ func (o NSFilePresenterObject) PresentedItemDidLoseVersion(version INSFileVersio
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemDidResolveConflict(_:)
 func (o NSFilePresenterObject) PresentedItemDidResolveConflictVersion(version INSFileVersion) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedItemDidResolveConflictVersion:"), version)
 	}
 // Tells the delegate that the item inside the presented directory gained a
@@ -310,7 +297,6 @@ func (o NSFilePresenterObject) PresentedItemDidResolveConflictVersion(version IN
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedSubitem(at:didGain:)
 func (o NSFilePresenterObject) PresentedSubitemAtURLDidGainVersion(url INSURL, version INSFileVersion) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedSubitemAtURL:didGainVersion:"), url, version)
 	}
 // Tells the delegate that the item inside the presented directory lost an
@@ -333,7 +319,6 @@ func (o NSFilePresenterObject) PresentedSubitemAtURLDidGainVersion(url INSURL, v
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedSubitem(at:didLose:)
 func (o NSFilePresenterObject) PresentedSubitemAtURLDidLoseVersion(url INSURL, version INSFileVersion) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedSubitemAtURL:didLoseVersion:"), url, version)
 	}
 // Tells the delegate that the item inside the presented directory had a
@@ -355,7 +340,6 @@ func (o NSFilePresenterObject) PresentedSubitemAtURLDidLoseVersion(url INSURL, v
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedSubitem(at:didResolve:)
 func (o NSFilePresenterObject) PresentedSubitemAtURLDidResolveConflictVersion(url INSURL, version INSFileVersion) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedSubitemAtURL:didResolveConflictVersion:"), url, version)
 	}
 // Tells the delegate that some entity wants to delete an item that is inside
@@ -382,7 +366,6 @@ func (o NSFilePresenterObject) PresentedSubitemAtURLDidResolveConflictVersion(ur
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/accommodatePresentedSubitemDeletion(at:completionHandler:)
 func (o NSFilePresenterObject) AccommodatePresentedSubitemDeletionAtURLCompletionHandler(url INSURL, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedSubitemDeletionAtURL:completionHandler:"), url, completionHandler)
 	}
 // Tells the delegate that an item was added to the presented directory.
@@ -407,7 +390,6 @@ func (o NSFilePresenterObject) AccommodatePresentedSubitemDeletionAtURLCompletio
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedSubitemDidAppear(at:)
 func (o NSFilePresenterObject) PresentedSubitemDidAppearAtURL(url INSURL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedSubitemDidAppearAtURL:"), url)
 	}
 // Tells the delegate that an item in the presented directory moved to a new
@@ -436,7 +418,6 @@ func (o NSFilePresenterObject) PresentedSubitemDidAppearAtURL(url INSURL) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedSubitem(at:didMoveTo:)
 func (o NSFilePresenterObject) PresentedSubitemAtURLDidMoveToURL(oldURL INSURL, newURL INSURL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedSubitemAtURL:didMoveToURL:"), oldURL, newURL)
 	}
 // Tells the delegate that the contents or attributes of the specified item
@@ -460,7 +441,6 @@ func (o NSFilePresenterObject) PresentedSubitemAtURLDidMoveToURL(oldURL INSURL, 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedSubitemDidChange(at:)
 func (o NSFilePresenterObject) PresentedSubitemDidChangeAtURL(url INSURL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedSubitemDidChangeAtURL:"), url)
 	}
 // Tells your object that the file or file package’s ubiquity attributes
@@ -479,13 +459,11 @@ func (o NSFilePresenterObject) PresentedSubitemDidChangeAtURL(url INSURL) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/presentedItemDidChangeUbiquityAttributes(_:)
 func (o NSFilePresenterObject) PresentedItemDidChangeUbiquityAttributes(attributes INSSet) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentedItemDidChangeUbiquityAttributes:"), attributes)
 	}
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/accommodatePresentedItemEviction(completionHandler:)
 func (o NSFilePresenterObject) AccommodatePresentedItemEvictionWithCompletionHandler(completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedItemEvictionWithCompletionHandler:"), completionHandler)
 	}
 

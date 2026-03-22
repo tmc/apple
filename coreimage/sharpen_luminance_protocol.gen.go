@@ -65,7 +65,6 @@ func CISharpenLuminanceObjectFromID(id objc.ID) CISharpenLuminanceObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISharpenLuminance/inputImage
 func (o CISharpenLuminanceObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CISharpenLuminanceObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISharpenLuminance/radius
 func (o CISharpenLuminanceObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -81,7 +79,6 @@ func (o CISharpenLuminanceObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISharpenLuminance/sharpness
 func (o CISharpenLuminanceObject) Sharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CISharpenLuminanceObject) Sharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISharpenLuminanceObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

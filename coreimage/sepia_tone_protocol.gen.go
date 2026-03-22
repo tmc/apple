@@ -55,7 +55,6 @@ func CISepiaToneObjectFromID(id objc.ID) CISepiaToneObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/inputImage
 func (o CISepiaToneObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CISepiaToneObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISepiaTone/intensity
 func (o CISepiaToneObject) Intensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CISepiaToneObject) Intensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISepiaToneObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

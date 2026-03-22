@@ -84,7 +84,6 @@ func CITorusLensDistortionObjectFromID(id objc.ID) CITorusLensDistortionObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CITorusLensDistortion/center
 func (o CITorusLensDistortionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -92,25 +91,21 @@ func (o CITorusLensDistortionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITorusLensDistortion/inputImage
 func (o CITorusLensDistortionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CITorusLensDistortion/radius
 func (o CITorusLensDistortionObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CITorusLensDistortion/refraction
 func (o CITorusLensDistortionObject) Refraction() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("refraction"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CITorusLensDistortion/width
 func (o CITorusLensDistortionObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -119,7 +114,6 @@ func (o CITorusLensDistortionObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CITorusLensDistortionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

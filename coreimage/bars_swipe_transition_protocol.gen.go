@@ -66,7 +66,6 @@ func CIBarsSwipeTransitionObjectFromID(id objc.ID) CIBarsSwipeTransitionObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/angle
 func (o CIBarsSwipeTransitionObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -74,7 +73,6 @@ func (o CIBarsSwipeTransitionObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/barOffset
 func (o CIBarsSwipeTransitionObject) BarOffset() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("barOffset"))
 	return rv
 	}
@@ -82,7 +80,6 @@ func (o CIBarsSwipeTransitionObject) BarOffset() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarsSwipeTransition/width
 func (o CIBarsSwipeTransitionObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CIBarsSwipeTransitionObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIBarsSwipeTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -99,7 +95,6 @@ func (o CIBarsSwipeTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIBarsSwipeTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -107,7 +102,6 @@ func (o CIBarsSwipeTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIBarsSwipeTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -115,7 +109,6 @@ func (o CIBarsSwipeTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIBarsSwipeTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

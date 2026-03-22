@@ -55,7 +55,6 @@ func CIDocumentEnhancerObjectFromID(id objc.ID) CIDocumentEnhancerObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/amount
 func (o CIDocumentEnhancerObject) Amount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
 	return rv
 	}
@@ -63,7 +62,6 @@ func (o CIDocumentEnhancerObject) Amount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDocumentEnhancer/inputImage
 func (o CIDocumentEnhancerObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CIDocumentEnhancerObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIDocumentEnhancerObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

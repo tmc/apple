@@ -50,7 +50,6 @@ func NSTextContentManagerDelegateObjectFromID(id objc.ID) NSTextContentManagerDe
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManagerDelegate/textContentManager(_:textElementAt:)
 func (o NSTextContentManagerDelegateObject) TextContentManagerTextElementAtLocation(textContentManager INSTextContentManager, location NSTextLocation) INSTextElement {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentManager:textElementAtLocation:"), textContentManager, location)
 	return NSTextElementFromID(rv)
 	}
@@ -71,7 +70,6 @@ func (o NSTextContentManagerDelegateObject) TextContentManagerTextElementAtLocat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManagerDelegate/textContentManager(_:shouldEnumerate:options:)
 func (o NSTextContentManagerDelegateObject) TextContentManagerShouldEnumerateTextElementOptions(textContentManager INSTextContentManager, textElement INSTextElement, options NSTextContentManagerEnumerationOptions) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textContentManager:shouldEnumerateTextElement:options:"), textContentManager, textElement, options)
 	return rv
 	}

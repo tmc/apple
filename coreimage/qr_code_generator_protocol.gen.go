@@ -56,7 +56,6 @@ func CIQRCodeGeneratorObjectFromID(id objc.ID) CIQRCodeGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/correctionLevel
 func (o CIQRCodeGeneratorObject) CorrectionLevel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("correctionLevel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -64,7 +63,6 @@ func (o CIQRCodeGeneratorObject) CorrectionLevel() string {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIQRCodeGenerator/message
 func (o CIQRCodeGeneratorObject) Message() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -73,7 +71,6 @@ func (o CIQRCodeGeneratorObject) Message() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIQRCodeGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

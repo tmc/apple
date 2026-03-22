@@ -47,7 +47,6 @@ func MTL4PipelineDataSetSerializerObjectFromID(id objc.ID) MTL4PipelineDataSetSe
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PipelineDataSetSerializer/serializeAsArchiveAndFlush(url:)
 func (o MTL4PipelineDataSetSerializerObject) SerializeAsArchiveAndFlushToURLError(url foundation.INSURL) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("serializeAsArchiveAndFlushToURL:error:"), url)
 	if err != nil {
 		return false, err
@@ -62,7 +61,6 @@ func (o MTL4PipelineDataSetSerializerObject) SerializeAsArchiveAndFlushToURLErro
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4PipelineDataSetSerializer/serializeAsPipelinesScript()
 func (o MTL4PipelineDataSetSerializerObject) SerializeAsPipelinesScriptWithError() (foundation.INSData, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("serializeAsPipelinesScriptWithError:"))
 	if err != nil {
 		return nil, err

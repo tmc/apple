@@ -65,7 +65,6 @@ func CIPaletteCentroidObjectFromID(id objc.ID) CIPaletteCentroidObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPaletteCentroid/inputImage
 func (o CIPaletteCentroidObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIPaletteCentroidObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPaletteCentroid/paletteImage
 func (o CIPaletteCentroidObject) PaletteImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("paletteImage"))
 	return CIImageFromID(rv)
 	}
@@ -82,7 +80,6 @@ func (o CIPaletteCentroidObject) PaletteImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPaletteCentroid/perceptual
 func (o CIPaletteCentroidObject) Perceptual() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("perceptual"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CIPaletteCentroidObject) Perceptual() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPaletteCentroidObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -85,7 +85,6 @@ func NSTextAttachmentLayoutObjectFromID(id objc.ID) NSTextAttachmentLayoutObject
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/attachmentBounds(for:location:textContainer:proposedLineFragment:position:)
 func (o NSTextAttachmentLayoutObject) AttachmentBoundsForAttributesLocationTextContainerProposedLineFragmentPosition(attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer, proposedLineFragment corefoundation.CGRect, position corefoundation.CGPoint) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("attachmentBoundsForAttributes:location:textContainer:proposedLineFragment:position:"), attributes, location, textContainer, proposedLineFragment, position)
 	return rv
 	}
@@ -118,7 +117,6 @@ func (o NSTextAttachmentLayoutObject) AttachmentBoundsForAttributesLocationTextC
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/image(for:attributes:location:textContainer:)
 func (o NSTextAttachmentLayoutObject) ImageForBoundsAttributesLocationTextContainer(bounds corefoundation.CGRect, attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer) INSImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageForBounds:attributes:location:textContainer:"), bounds, attributes, location, textContainer)
 	return NSImageFromID(rv)
 	}
@@ -143,7 +141,6 @@ func (o NSTextAttachmentLayoutObject) ImageForBoundsAttributesLocationTextContai
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentLayout/viewProvider(for:location:textContainer:)
 func (o NSTextAttachmentLayoutObject) ViewProviderForParentViewLocationTextContainer(parentView INSView, location NSTextLocation, textContainer INSTextContainer) INSTextAttachmentViewProvider {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("viewProviderForParentView:location:textContainer:"), parentView, location, textContainer)
 	return NSTextAttachmentViewProviderFromID(rv)
 	}

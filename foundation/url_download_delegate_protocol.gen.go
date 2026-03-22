@@ -54,7 +54,6 @@ func NSURLDownloadDelegateObjectFromID(id objc.ID) NSURLDownloadDelegateObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:canAuthenticateAgainstProtectionSpace:)
 func (o NSURLDownloadDelegateObject) DownloadCanAuthenticateAgainstProtectionSpace(connection INSURLDownload, protectionSpace INSURLProtectionSpace) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("download:canAuthenticateAgainstProtectionSpace:"), connection, protectionSpace)
 	return rv
 	}
@@ -73,7 +72,6 @@ func (o NSURLDownloadDelegateObject) DownloadCanAuthenticateAgainstProtectionSpa
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didCancel:)
 func (o NSURLDownloadDelegateObject) DownloadDidCancelAuthenticationChallenge(download INSURLDownload, challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("download:didCancelAuthenticationChallenge:"), download, challenge)
 	}
 // Sent when the URL download must authenticate a challenge in order to
@@ -126,7 +124,6 @@ func (o NSURLDownloadDelegateObject) DownloadDidCancelAuthenticationChallenge(do
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didReceive:)-1pc0v
 func (o NSURLDownloadDelegateObject) DownloadDidReceiveAuthenticationChallenge(download INSURLDownload, challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveAuthenticationChallenge:"), download, challenge)
 	}
 // Sent to determine whether the URL loader should consult the credential
@@ -149,7 +146,6 @@ func (o NSURLDownloadDelegateObject) DownloadDidReceiveAuthenticationChallenge(d
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/downloadShouldUseCredentialStorage(_:)
 func (o NSURLDownloadDelegateObject) DownloadShouldUseCredentialStorage(download INSURLDownload) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("downloadShouldUseCredentialStorage:"), download)
 	return rv
 	}
@@ -174,7 +170,6 @@ func (o NSURLDownloadDelegateObject) DownloadShouldUseCredentialStorage(download
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:decideDestinationWithSuggestedFilename:)
 func (o NSURLDownloadDelegateObject) DownloadDecideDestinationWithSuggestedFilename(download INSURLDownload, filename string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("download:decideDestinationWithSuggestedFilename:"), download, objc.String(filename))
 	}
 // Sent immediately after a download object begins a download.
@@ -183,7 +178,6 @@ func (o NSURLDownloadDelegateObject) DownloadDecideDestinationWithSuggestedFilen
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/downloadDidBegin(_:)
 func (o NSURLDownloadDelegateObject) DownloadDidBegin(download INSURLDownload) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("downloadDidBegin:"), download)
 	}
 // Sent when the destination file is created.
@@ -194,7 +188,6 @@ func (o NSURLDownloadDelegateObject) DownloadDidBegin(download INSURLDownload) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didCreateDestination:)
 func (o NSURLDownloadDelegateObject) DownloadDidCreateDestination(download INSURLDownload, path string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("download:didCreateDestination:"), download, objc.String(path))
 	}
 // Sent when a download object has received sufficient load data to construct
@@ -214,7 +207,6 @@ func (o NSURLDownloadDelegateObject) DownloadDidCreateDestination(download INSUR
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didReceive:)-817z3
 func (o NSURLDownloadDelegateObject) DownloadDidReceiveResponse(download INSURLDownload, response INSURLResponse) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveResponse:"), download, response)
 	}
 // Sent as a download object receives data incrementally.
@@ -226,7 +218,6 @@ func (o NSURLDownloadDelegateObject) DownloadDidReceiveResponse(download INSURLD
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didReceiveDataOfLength:)
 func (o NSURLDownloadDelegateObject) DownloadDidReceiveDataOfLength(download INSURLDownload, length uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveDataOfLength:"), download, length)
 	}
 // Sent when a download object determines that the downloaded file is encoded
@@ -253,7 +244,6 @@ func (o NSURLDownloadDelegateObject) DownloadDidReceiveDataOfLength(download INS
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:shouldDecodeSourceDataOfMIMEType:)
 func (o NSURLDownloadDelegateObject) DownloadShouldDecodeSourceDataOfMIMEType(download INSURLDownload, encodingType string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("download:shouldDecodeSourceDataOfMIMEType:"), download, objc.String(encodingType))
 	return rv
 	}
@@ -269,7 +259,6 @@ func (o NSURLDownloadDelegateObject) DownloadShouldDecodeSourceDataOfMIMEType(do
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:willResumeWith:fromByte:)
 func (o NSURLDownloadDelegateObject) DownloadWillResumeWithResponseFromByte(download INSURLDownload, response INSURLResponse, startingByte int64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("download:willResumeWithResponse:fromByte:"), download, response, startingByte)
 	}
 // Sent when the download object determines that it must change URLs in order
@@ -310,7 +299,6 @@ func (o NSURLDownloadDelegateObject) DownloadWillResumeWithResponseFromByte(down
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:willSend:redirectResponse:)
 func (o NSURLDownloadDelegateObject) DownloadWillSendRequestRedirectResponse(download INSURLDownload, request INSURLRequest, redirectResponse INSURLResponse) INSURLRequest {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("download:willSendRequest:redirectResponse:"), download, request, redirectResponse)
 	return NSURLRequestFromID(rv)
 	}
@@ -332,7 +320,6 @@ func (o NSURLDownloadDelegateObject) DownloadWillSendRequestRedirectResponse(dow
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/download(_:didFailWithError:)
 func (o NSURLDownloadDelegateObject) DownloadDidFailWithError(download INSURLDownload, error_ INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("download:didFailWithError:"), download, error_)
 	}
 // Sent when a download object has completed downloading successfully and has
@@ -346,7 +333,6 @@ func (o NSURLDownloadDelegateObject) DownloadDidFailWithError(download INSURLDow
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLDownloadDelegate/downloadDidFinish(_:)
 func (o NSURLDownloadDelegateObject) DownloadDidFinish(download INSURLDownload) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("downloadDidFinish:"), download)
 	}
 

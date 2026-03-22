@@ -86,7 +86,6 @@ func CIHueSaturationValueGradientObjectFromID(id objc.ID) CIHueSaturationValueGr
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/colorSpace
 func (o CIHueSaturationValueGradientObject) ColorSpace() coregraphics.CGColorSpaceRef {
-	
 	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CIHueSaturationValueGradientObject) ColorSpace() coregraphics.CGColorSpa
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/dither
 func (o CIHueSaturationValueGradientObject) Dither() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("dither"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CIHueSaturationValueGradientObject) Dither() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/radius
 func (o CIHueSaturationValueGradientObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -110,7 +107,6 @@ func (o CIHueSaturationValueGradientObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/softness
 func (o CIHueSaturationValueGradientObject) Softness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("softness"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CIHueSaturationValueGradientObject) Softness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueSaturationValueGradient/value
 func (o CIHueSaturationValueGradientObject) Value() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("value"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CIHueSaturationValueGradientObject) Value() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIHueSaturationValueGradientObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -68,7 +68,6 @@ func NSDraggingDestinationObjectFromID(id objc.ID) NSDraggingDestinationObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingEntered(_:)
 func (o NSDraggingDestinationObject) DraggingEntered(sender NSDraggingInfo) NSDragOperation {
-	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("draggingEntered:"), sender)
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o NSDraggingDestinationObject) DraggingEntered(sender NSDraggingInfo) NSDr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/wantsPeriodicDraggingUpdates()
 func (o NSDraggingDestinationObject) WantsPeriodicDraggingUpdates() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("wantsPeriodicDraggingUpdates"))
 	return rv
 	}
@@ -140,7 +138,6 @@ func (o NSDraggingDestinationObject) WantsPeriodicDraggingUpdates() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingUpdated(_:)
 func (o NSDraggingDestinationObject) DraggingUpdated(sender NSDraggingInfo) NSDragOperation {
-	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("draggingUpdated:"), sender)
 	return rv
 	}
@@ -153,7 +150,6 @@ func (o NSDraggingDestinationObject) DraggingUpdated(sender NSDraggingInfo) NSDr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingExited(_:)
 func (o NSDraggingDestinationObject) DraggingExited(sender NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("draggingExited:"), sender)
 	}
 // Called when a drag operation ends.
@@ -170,7 +166,6 @@ func (o NSDraggingDestinationObject) DraggingExited(sender NSDraggingInfo) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/draggingEnded(_:)
 func (o NSDraggingDestinationObject) DraggingEnded(sender NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("draggingEnded:"), sender)
 	}
 // Invoked when the image is released, allowing the receiver to agree to or
@@ -201,7 +196,6 @@ func (o NSDraggingDestinationObject) DraggingEnded(sender NSDraggingInfo) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/prepareForDragOperation(_:)
 func (o NSDraggingDestinationObject) PrepareForDragOperation(sender NSDraggingInfo) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("prepareForDragOperation:"), sender)
 	return rv
 	}
@@ -235,7 +229,6 @@ func (o NSDraggingDestinationObject) PrepareForDragOperation(sender NSDraggingIn
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/performDragOperation(_:)
 func (o NSDraggingDestinationObject) PerformDragOperation(sender NSDraggingInfo) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("performDragOperation:"), sender)
 	return rv
 	}
@@ -266,7 +259,6 @@ func (o NSDraggingDestinationObject) PerformDragOperation(sender NSDraggingInfo)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/concludeDragOperation(_:)
 func (o NSDraggingDestinationObject) ConcludeDragOperation(sender NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("concludeDragOperation:"), sender)
 	}
 // Invoked when the dragging images should be changed.
@@ -298,7 +290,6 @@ func (o NSDraggingDestinationObject) ConcludeDragOperation(sender NSDraggingInfo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingDestination/updateDraggingItemsForDrag(_:)
 func (o NSDraggingDestinationObject) UpdateDraggingItemsForDrag(sender NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("updateDraggingItemsForDrag:"), sender)
 	}
 

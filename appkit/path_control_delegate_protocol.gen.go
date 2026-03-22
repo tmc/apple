@@ -57,7 +57,6 @@ func NSPathControlDelegateObjectFromID(id objc.ID) NSPathControlDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlDelegate/pathControl(_:shouldDrag:with:)-35j1e
 func (o NSPathControlDelegateObject) PathControlShouldDragPathComponentCellWithPasteboard(pathControl INSPathControl, pathComponentCell INSPathComponentCell, pasteboard INSPasteboard) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("pathControl:shouldDragPathComponentCell:withPasteboard:"), pathControl, pathComponentCell, pasteboard)
 	return rv
 	}
@@ -80,7 +79,6 @@ func (o NSPathControlDelegateObject) PathControlShouldDragPathComponentCellWithP
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlDelegate/pathControl(_:validateDrop:)
 func (o NSPathControlDelegateObject) PathControlValidateDrop(pathControl INSPathControl, info NSDraggingInfo) NSDragOperation {
-	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("pathControl:validateDrop:"), pathControl, info)
 	return rv
 	}
@@ -106,7 +104,6 @@ func (o NSPathControlDelegateObject) PathControlValidateDrop(pathControl INSPath
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlDelegate/pathControl(_:acceptDrop:)
 func (o NSPathControlDelegateObject) PathControlAcceptDrop(pathControl INSPathControl, info NSDraggingInfo) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("pathControl:acceptDrop:"), pathControl, info)
 	return rv
 	}
@@ -127,7 +124,6 @@ func (o NSPathControlDelegateObject) PathControlAcceptDrop(pathControl INSPathCo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlDelegate/pathControl(_:willDisplay:)
 func (o NSPathControlDelegateObject) PathControlWillDisplayOpenPanel(pathControl INSPathControl, openPanel INSOpenPanel) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("pathControl:willDisplayOpenPanel:"), pathControl, openPanel)
 	}
 // Implement this method to customize the menu of a pop-up–style path.
@@ -145,13 +141,11 @@ func (o NSPathControlDelegateObject) PathControlWillDisplayOpenPanel(pathControl
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlDelegate/pathControl(_:willPopUp:)
 func (o NSPathControlDelegateObject) PathControlWillPopUpMenu(pathControl INSPathControl, menu INSMenu) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("pathControl:willPopUpMenu:"), pathControl, menu)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathControlDelegate/pathControl(_:shouldDrag:with:)-5ciyd
 func (o NSPathControlDelegateObject) PathControlShouldDragItemWithPasteboard(pathControl INSPathControl, pathItem INSPathControlItem, pasteboard INSPasteboard) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("pathControl:shouldDragItem:withPasteboard:"), pathControl, pathItem, pasteboard)
 	return rv
 	}

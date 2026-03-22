@@ -55,7 +55,6 @@ func NSURLSessionDownloadDelegateObjectFromID(id objc.ID) NSURLSessionDownloadDe
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDownloadDelegate/urlSession(_:downloadTask:didFinishDownloadingTo:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionDownloadTaskDidFinishDownloadingToURL(session INSURLSession, downloadTask INSURLSessionDownloadTask, location INSURL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:downloadTask:didFinishDownloadingToURL:"), session, downloadTask, location)
 	}
 // Tells the delegate that the download task has resumed downloading.
@@ -88,7 +87,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionDownloadTaskDidFinishDownl
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDownloadDelegate/urlSession(_:downloadTask:didResumeAtOffset:expectedTotalBytes:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionDownloadTaskDidResumeAtOffsetExpectedTotalBytes(session INSURLSession, downloadTask INSURLSessionDownloadTask, fileOffset int64, expectedTotalBytes int64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:"), session, downloadTask, fileOffset, expectedTotalBytes)
 	}
 // Periodically informs the delegate about the download’s progress.
@@ -110,7 +108,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionDownloadTaskDidResumeAtOff
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDownloadDelegate/urlSession(_:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionDownloadTaskDidWriteDataTotalBytesWrittenTotalBytesExpectedToWrite(session INSURLSession, downloadTask INSURLSessionDownloadTask, bytesWritten int64, totalBytesWritten int64, totalBytesExpectedToWrite int64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:"), session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
 	}
 // Tells the URL session that the session has been invalidated.
@@ -130,7 +127,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionDownloadTaskDidWriteDataTo
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didBecomeInvalidWithError:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionDidBecomeInvalidWithError(session INSURLSession, error_ INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didBecomeInvalidWithError:"), session, error_)
 	}
 // Tells the delegate that all messages enqueued for a session have been
@@ -161,7 +157,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionDidBecomeInvalidWithError(
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSessionDidFinishEvents(forBackgroundURLSession:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionDidFinishEventsForBackgroundURLSession(session INSURLSession) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSessionDidFinishEventsForBackgroundURLSession:"), session)
 	}
 // Requests credentials from the delegate in response to a session-level
@@ -194,7 +189,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionDidFinishEventsForBackgrou
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didReceive:completionHandler:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionDidReceiveChallengeCompletionHandler(session INSURLSession, challenge INSURLAuthenticationChallenge, completionHandler URLSessionAuthChallengeDispositionURLCredentialHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
 	}
 // Tells the delegate that the task finished transferring data.
@@ -215,7 +209,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionDidReceiveChallengeComplet
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didCompleteWithError:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidCompleteWithError(session INSURLSession, task INSURLSessionTask, error_ INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didCompleteWithError:"), session, task, error_)
 	}
 // Tells the delegate that the remote server requested an HTTP redirect.
@@ -239,7 +232,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidCompleteWithError(s
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskWillPerformHTTPRedirectionNewRequestCompletionHandler(session INSURLSession, task INSURLSessionTask, response INSHTTPURLResponse, request INSURLRequest, completionHandler URLRequestHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:"), session, task, response, request, completionHandler)
 	}
 // Periodically informs the delegate of the progress of sending body content
@@ -277,7 +269,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskWillPerformHTTPRedirec
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidSendBodyDataTotalBytesSentTotalBytesExpectedToSend(session INSURLSession, task INSURLSessionTask, bytesSent int64, totalBytesSent int64, totalBytesExpectedToSend int64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:"), session, task, bytesSent, totalBytesSent, totalBytesExpectedToSend)
 	}
 // Tells the delegate when a task requires a new request body stream to send
@@ -301,7 +292,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidSendBodyDataTotalBy
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:needNewBodyStream:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskNeedNewBodyStream(session INSURLSession, task INSURLSessionTask, completionHandler InputStreamHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStream:"), session, task, completionHandler)
 	}
 // Requests credentials from the delegate in response to an authentication
@@ -352,7 +342,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskNeedNewBodyStream(sess
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didReceive:completionHandler:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidReceiveChallengeCompletionHandler(session INSURLSession, task INSURLSessionTask, challenge INSURLAuthenticationChallenge, completionHandler URLSessionAuthChallengeDispositionURLCredentialHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didReceiveChallenge:completionHandler:"), session, task, challenge, completionHandler)
 	}
 // Tells the delegate that a delayed URL session task will now begin loading.
@@ -387,7 +376,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidReceiveChallengeCom
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:willBeginDelayedRequest:completionHandler:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskWillBeginDelayedRequestCompletionHandler(session INSURLSession, task INSURLSessionTask, request INSURLRequest, completionHandler URLSessionDelayedRequestDispositionURLRequestHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:willBeginDelayedRequest:completionHandler:"), session, task, request, completionHandler)
 	}
 // Tells the delegate that the task is waiting until suitable connectivity is
@@ -411,7 +399,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskWillBeginDelayedReques
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:taskIsWaitingForConnectivity:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskIsWaitingForConnectivity(session INSURLSession, task INSURLSessionTask) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:taskIsWaitingForConnectivity:"), session, task)
 	}
 // Tells the delegate that the session finished collecting metrics for the
@@ -425,19 +412,16 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskIsWaitingForConnectivi
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didFinishCollecting:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidFinishCollectingMetrics(session INSURLSession, task INSURLSessionTask, metrics INSURLSessionTaskMetrics) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didFinishCollectingMetrics:"), session, task, metrics)
 	}
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:didCreateTask:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionDidCreateTask(session INSURLSession, task INSURLSessionTask) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didCreateTask:"), session, task)
 	}
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didReceiveInformationalResponse:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidReceiveInformationalResponse(session INSURLSession, task INSURLSessionTask, response INSHTTPURLResponse) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didReceiveInformationalResponse:"), session, task, response)
 	}
 // Tells the delegate if a task requires a new body stream starting from the
@@ -455,7 +439,6 @@ func (o NSURLSessionDownloadDelegateObject) URLSessionTaskDidReceiveInformationa
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:needNewBodyStreamFrom:completionHandler:)
 func (o NSURLSessionDownloadDelegateObject) URLSessionTaskNeedNewBodyStreamFromOffsetCompletionHandler(session INSURLSession, task INSURLSessionTask, offset int64, completionHandler InputStreamHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStreamFromOffset:completionHandler:"), session, task, offset, completionHandler)
 	}
 

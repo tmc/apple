@@ -76,7 +76,6 @@ func CIRoundedRectangleGeneratorObjectFromID(id objc.ID) CIRoundedRectangleGener
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/color
 func (o CIRoundedRectangleGeneratorObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -84,7 +83,6 @@ func (o CIRoundedRectangleGeneratorObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/extent
 func (o CIRoundedRectangleGeneratorObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -92,7 +90,6 @@ func (o CIRoundedRectangleGeneratorObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/radius
 func (o CIRoundedRectangleGeneratorObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -101,7 +98,6 @@ func (o CIRoundedRectangleGeneratorObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedRectangleGenerator/smoothness
 func (o CIRoundedRectangleGeneratorObject) Smoothness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("smoothness"))
 	return rv
 	}
@@ -110,7 +106,6 @@ func (o CIRoundedRectangleGeneratorObject) Smoothness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIRoundedRectangleGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

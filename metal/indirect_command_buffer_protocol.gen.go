@@ -62,7 +62,6 @@ func MTLIndirectCommandBufferObjectFromID(id objc.ID) MTLIndirectCommandBufferOb
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/size
 func (o MTLIndirectCommandBufferObject) Size() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("size"))
 	return rv
 	}
@@ -77,7 +76,6 @@ func (o MTLIndirectCommandBufferObject) Size() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/indirectRenderCommandAt(_:)
 func (o MTLIndirectCommandBufferObject) IndirectRenderCommandAtIndex(commandIndex uint) MTLIndirectRenderCommand {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indirectRenderCommandAtIndex:"), commandIndex)
 	return MTLIndirectRenderCommandObjectFromID(rv)
 	}
@@ -92,13 +90,11 @@ func (o MTLIndirectCommandBufferObject) IndirectRenderCommandAtIndex(commandInde
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/indirectComputeCommandAt(_:)
 func (o MTLIndirectCommandBufferObject) IndirectComputeCommandAtIndex(commandIndex uint) MTLIndirectComputeCommand {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indirectComputeCommandAtIndex:"), commandIndex)
 	return MTLIndirectComputeCommandObjectFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/gpuResourceID
 func (o MTLIndirectCommandBufferObject) GpuResourceID() MTLResourceID {
-	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
@@ -109,7 +105,6 @@ func (o MTLIndirectCommandBufferObject) GpuResourceID() MTLResourceID {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBuffer/resetWithRange:
 func (o MTLIndirectCommandBufferObject) ResetWithRange(range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("resetWithRange:"), range_)
 	}
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
@@ -117,7 +112,6 @@ func (o MTLIndirectCommandBufferObject) ResetWithRange(range_ foundation.NSRange
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTLIndirectCommandBufferObject) AllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
@@ -125,7 +119,6 @@ func (o MTLIndirectCommandBufferObject) AllocatedSize() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/device
 func (o MTLIndirectCommandBufferObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -133,7 +126,6 @@ func (o MTLIndirectCommandBufferObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/label
 func (o MTLIndirectCommandBufferObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -141,7 +133,6 @@ func (o MTLIndirectCommandBufferObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/cpuCacheMode
 func (o MTLIndirectCommandBufferObject) CpuCacheMode() MTLCPUCacheMode {
-	
 	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
 	return rv
 	}
@@ -149,7 +140,6 @@ func (o MTLIndirectCommandBufferObject) CpuCacheMode() MTLCPUCacheMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/storageMode
 func (o MTLIndirectCommandBufferObject) StorageMode() MTLStorageMode {
-	
 	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
 	return rv
 	}
@@ -158,7 +148,6 @@ func (o MTLIndirectCommandBufferObject) StorageMode() MTLStorageMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/hazardTrackingMode
 func (o MTLIndirectCommandBufferObject) HazardTrackingMode() MTLHazardTrackingMode {
-	
 	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
 	return rv
 	}
@@ -166,7 +155,6 @@ func (o MTLIndirectCommandBufferObject) HazardTrackingMode() MTLHazardTrackingMo
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
 func (o MTLIndirectCommandBufferObject) ResourceOptions() MTLResourceOptions {
-	
 	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
 	return rv
 	}
@@ -206,7 +194,6 @@ func (o MTLIndirectCommandBufferObject) ResourceOptions() MTLResourceOptions {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
 func (o MTLIndirectCommandBufferObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
-	
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
 	}
@@ -215,7 +202,6 @@ func (o MTLIndirectCommandBufferObject) SetPurgeableState(state MTLPurgeableStat
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
 func (o MTLIndirectCommandBufferObject) HeapOffset() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("heapOffset"))
 	return rv
 	}
@@ -223,7 +209,6 @@ func (o MTLIndirectCommandBufferObject) HeapOffset() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heap
 func (o MTLIndirectCommandBufferObject) Heap() MTLHeap {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("heap"))
 	return MTLHeapObjectFromID(rv)
 	}
@@ -262,7 +247,6 @@ func (o MTLIndirectCommandBufferObject) Heap() MTLHeap {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/makeAliasable()
 func (o MTLIndirectCommandBufferObject) MakeAliasable() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("makeAliasable"))
 	}
 // A Boolean value that indicates whether future heap resource allocations may
@@ -278,14 +262,12 @@ func (o MTLIndirectCommandBufferObject) MakeAliasable() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/isAliasable()
 func (o MTLIndirectCommandBufferObject) IsAliasable() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAliasable"))
 	return rv
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
 func (o MTLIndirectCommandBufferObject) SetOwnerWithIdentity(task_id_token objectivec.IObject) int32 {
-	
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
 	}

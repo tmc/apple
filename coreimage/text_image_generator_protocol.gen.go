@@ -86,7 +86,6 @@ func CITextImageGeneratorObjectFromID(id objc.ID) CITextImageGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/fontName
 func (o CITextImageGeneratorObject) FontName() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("fontName"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -94,7 +93,6 @@ func (o CITextImageGeneratorObject) FontName() string {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/fontSize
 func (o CITextImageGeneratorObject) FontSize() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("fontSize"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CITextImageGeneratorObject) FontSize() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/scaleFactor
 func (o CITextImageGeneratorObject) ScaleFactor() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scaleFactor"))
 	return rv
 	}
@@ -110,13 +107,11 @@ func (o CITextImageGeneratorObject) ScaleFactor() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/text
 func (o CITextImageGeneratorObject) Text() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("text"))
 	return foundation.NSStringFromID(rv).String()
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CITextImageGenerator/padding
 func (o CITextImageGeneratorObject) Padding() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("padding"))
 	return rv
 	}
@@ -125,7 +120,6 @@ func (o CITextImageGeneratorObject) Padding() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CITextImageGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

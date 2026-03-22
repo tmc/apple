@@ -121,7 +121,6 @@ func NSDraggingInfoObjectFromID(id objc.ID) NSDraggingInfoObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingPasteboard
 func (o NSDraggingInfoObject) DraggingPasteboard() INSPasteboard {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingPasteboard"))
 	return NSPasteboardFromID(rv)
 	}
@@ -129,7 +128,6 @@ func (o NSDraggingInfoObject) DraggingPasteboard() INSPasteboard {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSequenceNumber
 func (o NSDraggingInfoObject) DraggingSequenceNumber() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("draggingSequenceNumber"))
 	return rv
 	}
@@ -137,7 +135,6 @@ func (o NSDraggingInfoObject) DraggingSequenceNumber() int {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSource
 func (o NSDraggingInfoObject) DraggingSource() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingSource"))
 	return objectivec.Object{ID: rv}
 	}
@@ -145,7 +142,6 @@ func (o NSDraggingInfoObject) DraggingSource() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingSourceOperationMask
 func (o NSDraggingInfoObject) DraggingSourceOperationMask() NSDragOperation {
-	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("draggingSourceOperationMask"))
 	return rv
 	}
@@ -154,7 +150,6 @@ func (o NSDraggingInfoObject) DraggingSourceOperationMask() NSDragOperation {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingLocation
 func (o NSDraggingInfoObject) DraggingLocation() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("draggingLocation"))
 	return rv
 	}
@@ -162,7 +157,6 @@ func (o NSDraggingInfoObject) DraggingLocation() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingDestinationWindow
 func (o NSDraggingInfoObject) DraggingDestinationWindow() INSWindow {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggingDestinationWindow"))
 	return NSWindowFromID(rv)
 	}
@@ -170,7 +164,6 @@ func (o NSDraggingInfoObject) DraggingDestinationWindow() INSWindow {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/numberOfValidItemsForDrop
 func (o NSDraggingInfoObject) NumberOfValidItemsForDrop() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfValidItemsForDrop"))
 	return rv
 	}
@@ -179,7 +172,6 @@ func (o NSDraggingInfoObject) NumberOfValidItemsForDrop() int {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImageLocation
 func (o NSDraggingInfoObject) DraggedImageLocation() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("draggedImageLocation"))
 	return rv
 	}
@@ -187,7 +179,6 @@ func (o NSDraggingInfoObject) DraggedImageLocation() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggedImage
 func (o NSDraggingInfoObject) DraggedImage() INSImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("draggedImage"))
 	return NSImageFromID(rv)
 	}
@@ -214,7 +205,6 @@ func (o NSDraggingInfoObject) DraggedImage() INSImage {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/slideDraggedImage(to:)
 func (o NSDraggingInfoObject) SlideDraggedImageTo(screenPoint corefoundation.CGPoint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("slideDraggedImageTo:"), screenPoint)
 	}
 // A Boolean value that indicates whether the dragging formation animates
@@ -222,7 +212,6 @@ func (o NSDraggingInfoObject) SlideDraggedImageTo(screenPoint corefoundation.CGP
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/animatesToDestination
 func (o NSDraggingInfoObject) AnimatesToDestination() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("animatesToDestination"))
 	return rv
 	}
@@ -230,7 +219,6 @@ func (o NSDraggingInfoObject) AnimatesToDestination() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/draggingFormation
 func (o NSDraggingInfoObject) DraggingFormation() NSDraggingFormation {
-	
 	rv := objc.Send[NSDraggingFormation](o.ID, objc.Sel("draggingFormation"))
 	return rv
 	}
@@ -300,7 +288,6 @@ func (o NSDraggingInfoObject) DraggingFormation() NSDraggingFormation {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/enumerateDraggingItems(options:for:classes:searchOptions:using:)
 func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, objectivec.ClassSliceToNSArray(classArray), searchOptions, block)
 	}
 // A highlighting style for your app’s user interface to display during a
@@ -308,7 +295,6 @@ func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSea
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/springLoadingHighlight
 func (o NSDraggingInfoObject) SpringLoadingHighlight() NSSpringLoadingHighlight {
-	
 	rv := objc.Send[NSSpringLoadingHighlight](o.ID, objc.Sel("springLoadingHighlight"))
 	return rv
 	}
@@ -335,7 +321,6 @@ func (o NSDraggingInfoObject) SpringLoadingHighlight() NSSpringLoadingHighlight 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingInfo/resetSpringLoading()
 func (o NSDraggingInfoObject) ResetSpringLoading() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("resetSpringLoading"))
 	}
 

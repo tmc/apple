@@ -90,7 +90,6 @@ func CIImageProcessorInputObjectFromID(id objc.ID) CIImageProcessorInputObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/baseAddress
 func (o CIImageProcessorInputObject) BaseAddress() unsafe.Pointer {
-	
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
 	return rv
 	}
@@ -98,7 +97,6 @@ func (o CIImageProcessorInputObject) BaseAddress() unsafe.Pointer {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/metalTexture
 func (o CIImageProcessorInputObject) MetalTexture() metal.MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("metalTexture"))
 	return metal.MTLTextureObjectFromID(rv)
 	}
@@ -107,7 +105,6 @@ func (o CIImageProcessorInputObject) MetalTexture() metal.MTLTexture {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/pixelBuffer
 func (o CIImageProcessorInputObject) PixelBuffer() corevideo.CVImageBufferRef {
-	
 	rv := objc.Send[corevideo.CVImageBufferRef](o.ID, objc.Sel("pixelBuffer"))
 	return rv
 	}
@@ -116,7 +113,6 @@ func (o CIImageProcessorInputObject) PixelBuffer() corevideo.CVImageBufferRef {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/surface
 func (o CIImageProcessorInputObject) Surface() iosurface.IOSurfaceRef {
-	
 	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("surface"))
 	return rv
 	}
@@ -125,7 +121,6 @@ func (o CIImageProcessorInputObject) Surface() iosurface.IOSurfaceRef {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/region
 func (o CIImageProcessorInputObject) Region() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("region"))
 	return rv
 	}
@@ -134,7 +129,6 @@ func (o CIImageProcessorInputObject) Region() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/bytesPerRow
 func (o CIImageProcessorInputObject) BytesPerRow() uintptr {
-	
 	rv := objc.Send[uintptr](o.ID, objc.Sel("bytesPerRow"))
 	return rv
 	}
@@ -143,7 +137,6 @@ func (o CIImageProcessorInputObject) BytesPerRow() uintptr {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/format
 func (o CIImageProcessorInputObject) Format() CIFormat {
-	
 	rv := objc.Send[CIFormat](o.ID, objc.Sel("format"))
 	return rv
 	}
@@ -152,7 +145,6 @@ func (o CIImageProcessorInputObject) Format() CIFormat {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/digest
 func (o CIImageProcessorInputObject) Digest() uint64 {
-	
 	rv := objc.Send[uint64](o.ID, objc.Sel("digest"))
 	return rv
 	}
@@ -161,7 +153,6 @@ func (o CIImageProcessorInputObject) Digest() uint64 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/roiTileCount
 func (o CIImageProcessorInputObject) RoiTileCount() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("roiTileCount"))
 	return rv
 	}
@@ -170,7 +161,6 @@ func (o CIImageProcessorInputObject) RoiTileCount() uint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/roiTileIndex
 func (o CIImageProcessorInputObject) RoiTileIndex() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("roiTileIndex"))
 	return rv
 	}

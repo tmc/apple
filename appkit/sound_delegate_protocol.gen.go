@@ -44,7 +44,6 @@ func NSSoundDelegateObjectFromID(id objc.ID) NSSoundDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSoundDelegate/sound(_:didFinishPlaying:)
 func (o NSSoundDelegateObject) SoundDidFinishPlaying(sound INSSound, flag bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sound:didFinishPlaying:"), sound, flag)
 	}
 

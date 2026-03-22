@@ -51,7 +51,6 @@ func NSURLAuthenticationChallengeSenderObjectFromID(id objc.ID) NSURLAuthenticat
 //
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallengeSender/cancel(_:)
 func (o NSURLAuthenticationChallengeSenderObject) CancelAuthenticationChallenge(challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("cancelAuthenticationChallenge:"), challenge)
 	}
 // Attempt to continue downloading a request without providing a credential
@@ -66,7 +65,6 @@ func (o NSURLAuthenticationChallengeSenderObject) CancelAuthenticationChallenge(
 //
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallengeSender/continueWithoutCredential(for:)
 func (o NSURLAuthenticationChallengeSenderObject) ContinueWithoutCredentialForAuthenticationChallenge(challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("continueWithoutCredentialForAuthenticationChallenge:"), challenge)
 	}
 // Attempt to use a given credential for a given authentication challenge.
@@ -82,7 +80,6 @@ func (o NSURLAuthenticationChallengeSenderObject) ContinueWithoutCredentialForAu
 //
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallengeSender/use(_:for:)
 func (o NSURLAuthenticationChallengeSenderObject) UseCredentialForAuthenticationChallenge(credential INSURLCredential, challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("useCredential:forAuthenticationChallenge:"), credential, challenge)
 	}
 // Causes the system-provided default behavior to be used.
@@ -91,7 +88,6 @@ func (o NSURLAuthenticationChallengeSenderObject) UseCredentialForAuthentication
 //
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallengeSender/performDefaultHandling(for:)
 func (o NSURLAuthenticationChallengeSenderObject) PerformDefaultHandlingForAuthenticationChallenge(challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("performDefaultHandlingForAuthenticationChallenge:"), challenge)
 	}
 // Rejects the currently supplied protection space.
@@ -100,7 +96,6 @@ func (o NSURLAuthenticationChallengeSenderObject) PerformDefaultHandlingForAuthe
 //
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallengeSender/rejectProtectionSpaceAndContinue(with:)
 func (o NSURLAuthenticationChallengeSenderObject) RejectProtectionSpaceAndContinueWithChallenge(challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("rejectProtectionSpaceAndContinueWithChallenge:"), challenge)
 	}
 

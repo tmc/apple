@@ -36,16 +36,22 @@ func NSTextFieldDelegateObjectFromID(id objc.ID) NSTextFieldDelegateObject {
 }
 
 //
+// See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidates:forSelectedRange:)
+func (o NSTextFieldDelegateObject) TextFieldWithTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, candidates []foundation.NSTextCheckingResult, selectedRange foundation.NSRange) []foundation.NSTextCheckingResult {
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textField:textView:candidates:forSelectedRange:"), textField, textView, objectivec.IObjectSliceToNSArray(candidates), selectedRange)
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
+		return foundation.NSTextCheckingResultFromID(id)
+	})
+	}
+//
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidatesForSelectedRange:)
 func (o NSTextFieldDelegateObject) TextFieldTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, selectedRange foundation.NSRange) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textField:textView:candidatesForSelectedRange:"), textField, textView, selectedRange)
 	return foundation.NSArrayFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:shouldSelectCandidateAt:)
 func (o NSTextFieldDelegateObject) TextFieldTextViewShouldSelectCandidateAtIndex(textField INSTextField, textView INSTextView, index uint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textField:textView:shouldSelectCandidateAtIndex:"), textField, textView, index)
 	return rv
 	}
@@ -77,7 +83,6 @@ func (o NSTextFieldDelegateObject) TextFieldTextViewShouldSelectCandidateAtIndex
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:isValidObject:)
 func (o NSTextFieldDelegateObject) ControlIsValidObject(control INSControl, obj objectivec.IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:isValidObject:"), control, obj)
 	return rv
 	}
@@ -98,7 +103,6 @@ func (o NSTextFieldDelegateObject) ControlIsValidObject(control INSControl, obj 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToValidatePartialString:errorDescription:)
 func (o NSTextFieldDelegateObject) ControlDidFailToValidatePartialStringErrorDescription(control INSControl, string_ string, error_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("control:didFailToValidatePartialString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	}
 // Invoked when the formatter for the cell belonging to the specified control
@@ -127,7 +131,6 @@ func (o NSTextFieldDelegateObject) ControlDidFailToValidatePartialStringErrorDes
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToFormatString:errorDescription:)
 func (o NSTextFieldDelegateObject) ControlDidFailToFormatStringErrorDescription(control INSControl, string_ string, error_ string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:didFailToFormatString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	return rv
 	}
@@ -153,7 +156,6 @@ func (o NSTextFieldDelegateObject) ControlDidFailToFormatStringErrorDescription(
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldBeginEditing:)
 func (o NSTextFieldDelegateObject) ControlTextShouldBeginEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldBeginEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -181,7 +183,6 @@ func (o NSTextFieldDelegateObject) ControlTextShouldBeginEditing(control INSCont
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldEndEditing:)
 func (o NSTextFieldDelegateObject) ControlTextShouldEndEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldEndEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -228,7 +229,6 @@ func (o NSTextFieldDelegateObject) ControlTextShouldEndEditing(control INSContro
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 func (o NSTextFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -268,7 +268,6 @@ func (o NSTextFieldDelegateObject) ControlTextViewCompletionsForPartialWordRange
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:doCommandBy:)
 func (o NSTextFieldDelegateObject) ControlTextViewDoCommandBySelector(control INSControl, textView INSTextView, commandSelector objc.SEL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textView:doCommandBySelector:"), control, textView, commandSelector)
 	return rv
 	}
@@ -284,7 +283,6 @@ func (o NSTextFieldDelegateObject) ControlTextViewDoCommandBySelector(control IN
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidBeginEditing(_:)
 func (o NSTextFieldDelegateObject) ControlTextDidBeginEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidBeginEditing:"), obj)
 	}
 // Tells the delegate that the control made changes to its text content.
@@ -299,7 +297,6 @@ func (o NSTextFieldDelegateObject) ControlTextDidBeginEditing(obj foundation.NSN
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidChange(_:)
 func (o NSTextFieldDelegateObject) ControlTextDidChange(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidChange:"), obj)
 	}
 // Tells the delegate that the control finished editing its text content and
@@ -315,7 +312,6 @@ func (o NSTextFieldDelegateObject) ControlTextDidChange(obj foundation.NSNotific
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidEndEditing(_:)
 func (o NSTextFieldDelegateObject) ControlTextDidEndEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
 	}
 

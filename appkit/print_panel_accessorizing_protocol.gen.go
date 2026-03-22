@@ -67,7 +67,6 @@ func NSPrintPanelAccessorizingObjectFromID(id objc.ID) NSPrintPanelAccessorizing
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintPanelAccessorizing/localizedSummaryItems()
 func (o NSPrintPanelAccessorizingObject) LocalizedSummaryItems() foundation.INSDictionary {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("localizedSummaryItems"))
 	return foundation.NSDictionaryFromID(rv)
 	}
@@ -98,7 +97,6 @@ func (o NSPrintPanelAccessorizingObject) LocalizedSummaryItems() foundation.INSD
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintPanelAccessorizing/keyPathsForValuesAffectingPreview()
 func (o NSPrintPanelAccessorizingObject) KeyPathsForValuesAffectingPreview() foundation.INSSet {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("keyPathsForValuesAffectingPreview"))
 	return foundation.NSSetFromID(rv)
 	}

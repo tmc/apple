@@ -61,7 +61,6 @@ func MTLResourceViewPoolObjectFromID(id objc.ID) MTLResourceViewPoolObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/baseResourceID
 func (o MTLResourceViewPoolObject) BaseResourceID() MTLResourceID {
-	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("baseResourceID"))
 	return rv
 	}
@@ -69,7 +68,6 @@ func (o MTLResourceViewPoolObject) BaseResourceID() MTLResourceID {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/device
 func (o MTLResourceViewPoolObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -77,7 +75,6 @@ func (o MTLResourceViewPoolObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/label
 func (o MTLResourceViewPoolObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -85,7 +82,6 @@ func (o MTLResourceViewPoolObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/resourceViewCount
 func (o MTLResourceViewPoolObject) ResourceViewCount() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("resourceViewCount"))
 	return rv
 	}
@@ -108,7 +104,6 @@ func (o MTLResourceViewPoolObject) ResourceViewCount() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResourceViewPool/copyResourceViewsFromPool:sourceRange:destinationIndex:
 func (o MTLResourceViewPoolObject) CopyResourceViewsFromPoolSourceRangeDestinationIndex(sourcePool MTLResourceViewPool, sourceRange foundation.NSRange, destinationIndex uint) MTLResourceID {
-	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("copyResourceViewsFromPool:sourceRange:destinationIndex:"), sourcePool, sourceRange, destinationIndex)
 	return rv
 	}

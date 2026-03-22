@@ -50,7 +50,6 @@ func NSPreviewRepresentableActivityItemObjectFromID(id objc.ID) NSPreviewReprese
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/item
 func (o NSPreviewRepresentableActivityItemObject) Item() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("item"))
 	return objectivec.Object{ID: rv}
 	}
@@ -58,7 +57,6 @@ func (o NSPreviewRepresentableActivityItemObject) Item() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/title
 func (o NSPreviewRepresentableActivityItemObject) Title() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -66,7 +64,6 @@ func (o NSPreviewRepresentableActivityItemObject) Title() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/imageProvider
 func (o NSPreviewRepresentableActivityItemObject) ImageProvider() foundation.NSItemProvider {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageProvider"))
 	return foundation.NSItemProviderFromID(rv)
 	}
@@ -74,7 +71,6 @@ func (o NSPreviewRepresentableActivityItemObject) ImageProvider() foundation.NSI
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPreviewRepresentableActivityItem/iconProvider
 func (o NSPreviewRepresentableActivityItemObject) IconProvider() foundation.NSItemProvider {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("iconProvider"))
 	return foundation.NSItemProviderFromID(rv)
 	}

@@ -47,7 +47,6 @@ func NSStackViewDelegateObjectFromID(id objc.ID) NSStackViewDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackViewDelegate/stackView(_:didReattach:)
 func (o NSStackViewDelegateObject) StackViewDidReattachViews(stackView INSStackView, views []NSView) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("stackView:didReattachViews:"), stackView, objectivec.IObjectSliceToNSArray(views))
 	}
 // Called when the stack view is about to automatically detach one or more of
@@ -67,7 +66,6 @@ func (o NSStackViewDelegateObject) StackViewDidReattachViews(stackView INSStackV
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStackViewDelegate/stackView(_:willDetach:)
 func (o NSStackViewDelegateObject) StackViewWillDetachViews(stackView INSStackView, views []NSView) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("stackView:willDetachViews:"), stackView, objectivec.IObjectSliceToNSArray(views))
 	}
 

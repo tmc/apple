@@ -89,7 +89,6 @@ func NSColorPickingDefaultObjectFromID(id objc.ID) NSColorPickingDefaultObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/setMode(_:)
 func (o NSColorPickingDefaultObject) SetMode(mode NSColorPanelMode) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setMode:"), mode)
 	}
 // Sets the image of a given button cell.
@@ -107,7 +106,6 @@ func (o NSColorPickingDefaultObject) SetMode(mode NSColorPanelMode) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/insertNewButtonImage(_:in:)
 func (o NSColorPickingDefaultObject) InsertNewButtonImageIn(newButtonImage INSImage, buttonCell INSButtonCell) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertNewButtonImage:in:"), newButtonImage, buttonCell)
 	}
 // Provides the image of the button used to select the receiver in the color
@@ -126,7 +124,6 @@ func (o NSColorPickingDefaultObject) InsertNewButtonImageIn(newButtonImage INSIm
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/provideNewButtonImage()
 func (o NSColorPickingDefaultObject) ProvideNewButtonImage() INSImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("provideNewButtonImage"))
 	return NSImageFromID(rv)
 	}
@@ -138,7 +135,6 @@ func (o NSColorPickingDefaultObject) ProvideNewButtonImage() INSImage {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/minContentSize()
 func (o NSColorPickingDefaultObject) MinContentSize() corefoundation.CGSize {
-	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("minContentSize"))
 	return rv
 	}
@@ -150,7 +146,6 @@ func (o NSColorPickingDefaultObject) MinContentSize() corefoundation.CGSize {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/buttonToolTip()
 func (o NSColorPickingDefaultObject) ButtonToolTip() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("buttonToolTip"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -173,7 +168,6 @@ func (o NSColorPickingDefaultObject) ButtonToolTip() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/alphaControlAddedOrRemoved(_:)
 func (o NSColorPickingDefaultObject) AlphaControlAddedOrRemoved(sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("alphaControlAddedOrRemoved:"), sender)
 	}
 // Tells the recever when the color panel’s view size changes in a way that
@@ -190,7 +184,6 @@ func (o NSColorPickingDefaultObject) AlphaControlAddedOrRemoved(sender objective
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/viewSizeChanged(_:)
 func (o NSColorPickingDefaultObject) ViewSizeChanged(sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("viewSizeChanged:"), sender)
 	}
 // Tells the receiver to attach the given color list, if it isn’t already
@@ -208,7 +201,6 @@ func (o NSColorPickingDefaultObject) ViewSizeChanged(sender objectivec.IObject) 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/attachColorList(_:)
 func (o NSColorPickingDefaultObject) AttachColorList(colorList INSColorList) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("attachColorList:"), colorList)
 	}
 // Tells the receiver to detach the given color list, unless the receiver
@@ -226,7 +218,6 @@ func (o NSColorPickingDefaultObject) AttachColorList(colorList INSColorList) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/detachColorList(_:)
 func (o NSColorPickingDefaultObject) DetachColorList(colorList INSColorList) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("detachColorList:"), colorList)
 	}
 

@@ -36,7 +36,6 @@ func CIRandomGeneratorObjectFromID(id objc.ID) CIRandomGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIRandomGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

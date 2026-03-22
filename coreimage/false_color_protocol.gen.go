@@ -65,7 +65,6 @@ func CIFalseColorObjectFromID(id objc.ID) CIFalseColorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFalseColor/color0
 func (o CIFalseColorObject) Color0() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color0"))
 	return CIColorFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIFalseColorObject) Color0() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFalseColor/color1
 func (o CIFalseColorObject) Color1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color1"))
 	return CIColorFromID(rv)
 	}
@@ -81,7 +79,6 @@ func (o CIFalseColorObject) Color1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFalseColor/inputImage
 func (o CIFalseColorObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -90,7 +87,6 @@ func (o CIFalseColorObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIFalseColorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -2350,6 +2350,21 @@ func (t NSTableView) TextShouldEndEditing(textObject INSText) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("textShouldEndEditing:"), textObject)
 	return rv
 }
+// Returns an array of text objects to include in a text selection.
+//
+// # Return Value
+// 
+// An array of [NSTextCheckingResult] objects.
+//
+// [NSTextCheckingResult]: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextViewDelegate/textView(_:candidates:forSelectedRange:)
+func (t NSTableView) TextViewWithCandidatesForSelectedRange(textView INSTextView, candidates []foundation.NSTextCheckingResult, selectedRange foundation.NSRange) []foundation.NSTextCheckingResult {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("textView:candidates:forSelectedRange:"), textView, objectivec.IObjectSliceToNSArray(candidates), selectedRange)
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
+		return foundation.NSTextCheckingResultFromID(id)
+	})
+}
 // Returns an array of objects that represent the elements of a selection.
 //
 // # Return Value
@@ -4014,7 +4029,6 @@ func (_NSTableViewClass NSTableViewClass) TextDidChangeNotification() foundation
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSTableView) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -4034,7 +4048,6 @@ func (o NSTableView) AccessibilityFrame() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSTableView) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -4054,7 +4067,6 @@ func (o NSTableView) AccessibilityParent() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSTableView) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -4077,7 +4089,6 @@ func (o NSTableView) AccessibilityIdentifier() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSTableView) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}

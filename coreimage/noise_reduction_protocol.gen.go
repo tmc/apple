@@ -65,7 +65,6 @@ func CINoiseReductionObjectFromID(id objc.ID) CINoiseReductionObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CINoiseReduction/inputImage
 func (o CINoiseReductionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CINoiseReductionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CINoiseReduction/noiseLevel
 func (o CINoiseReductionObject) NoiseLevel() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("noiseLevel"))
 	return rv
 	}
@@ -81,7 +79,6 @@ func (o CINoiseReductionObject) NoiseLevel() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CINoiseReduction/sharpness
 func (o CINoiseReductionObject) Sharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CINoiseReductionObject) Sharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CINoiseReductionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

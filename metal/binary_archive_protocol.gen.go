@@ -85,7 +85,6 @@ func MTLBinaryArchiveObjectFromID(id objc.ID) MTLBinaryArchiveObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/device
 func (o MTLBinaryArchiveObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -93,7 +92,6 @@ func (o MTLBinaryArchiveObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/label
 func (o MTLBinaryArchiveObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -103,7 +101,6 @@ func (o MTLBinaryArchiveObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addComputePipelineFunctions(descriptor:)
 func (o MTLBinaryArchiveObject) AddComputePipelineFunctionsWithDescriptorError(descriptor IMTLComputePipelineDescriptor) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("addComputePipelineFunctionsWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return false, err
@@ -116,7 +113,6 @@ func (o MTLBinaryArchiveObject) AddComputePipelineFunctionsWithDescriptorError(d
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addRenderPipelineFunctions(descriptor:)
 func (o MTLBinaryArchiveObject) AddRenderPipelineFunctionsWithDescriptorError(descriptor IMTLRenderPipelineDescriptor) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("addRenderPipelineFunctionsWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return false, err
@@ -129,7 +125,6 @@ func (o MTLBinaryArchiveObject) AddRenderPipelineFunctionsWithDescriptorError(de
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addTileRenderPipelineFunctions(descriptor:)
 func (o MTLBinaryArchiveObject) AddTileRenderPipelineFunctionsWithDescriptorError(descriptor IMTLTileRenderPipelineDescriptor) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("addTileRenderPipelineFunctionsWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return false, err
@@ -140,7 +135,6 @@ func (o MTLBinaryArchiveObject) AddTileRenderPipelineFunctionsWithDescriptorErro
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addFunction(descriptor:library:)
 func (o MTLBinaryArchiveObject) AddFunctionWithDescriptorLibraryError(descriptor IMTLFunctionDescriptor, library MTLLibrary) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("addFunctionWithDescriptor:library:error:"), descriptor, library)
 	if err != nil {
 		return false, err
@@ -157,7 +151,6 @@ func (o MTLBinaryArchiveObject) AddFunctionWithDescriptorLibraryError(descriptor
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/serialize(to:)
 func (o MTLBinaryArchiveObject) SerializeToURLError(url foundation.INSURL) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("serializeToURL:error:"), url)
 	if err != nil {
 		return false, err
@@ -167,7 +160,6 @@ func (o MTLBinaryArchiveObject) SerializeToURLError(url foundation.INSURL) (bool
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addLibrary(descriptor:)
 func (o MTLBinaryArchiveObject) AddLibraryWithDescriptorError(descriptor IMTLStitchedLibraryDescriptor) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("addLibraryWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return false, err
@@ -177,7 +169,6 @@ func (o MTLBinaryArchiveObject) AddLibraryWithDescriptorError(descriptor IMTLSti
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchive/addMeshRenderPipelineFunctions(descriptor:)
 func (o MTLBinaryArchiveObject) AddMeshRenderPipelineFunctionsWithDescriptorError(descriptor IMTLMeshRenderPipelineDescriptor) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("addMeshRenderPipelineFunctionsWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return false, err

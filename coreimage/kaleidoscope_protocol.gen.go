@@ -76,7 +76,6 @@ func CIKaleidoscopeObjectFromID(id objc.ID) CIKaleidoscopeObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKaleidoscope/angle
 func (o CIKaleidoscopeObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -84,7 +83,6 @@ func (o CIKaleidoscopeObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKaleidoscope/center
 func (o CIKaleidoscopeObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -92,7 +90,6 @@ func (o CIKaleidoscopeObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKaleidoscope/count
 func (o CIKaleidoscopeObject) Count() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
 	return rv
 	}
@@ -100,7 +97,6 @@ func (o CIKaleidoscopeObject) Count() int {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKaleidoscope/inputImage
 func (o CIKaleidoscopeObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -109,7 +105,6 @@ func (o CIKaleidoscopeObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIKaleidoscopeObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

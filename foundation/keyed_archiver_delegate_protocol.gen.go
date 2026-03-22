@@ -48,7 +48,6 @@ func NSKeyedArchiverDelegateObjectFromID(id objc.ID) NSKeyedArchiverDelegateObje
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiver(_:didEncode:)
 func (o NSKeyedArchiverDelegateObject) ArchiverDidEncodeObject(archiver INSKeyedArchiver, object objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("archiver:didEncodeObject:"), archiver, object)
 	}
 // Notifies the delegate that encoding has finished.
@@ -57,7 +56,6 @@ func (o NSKeyedArchiverDelegateObject) ArchiverDidEncodeObject(archiver INSKeyed
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiverDidFinish(_:)
 func (o NSKeyedArchiverDelegateObject) ArchiverDidFinish(archiver INSKeyedArchiver) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("archiverDidFinish:"), archiver)
 	}
 // Informs the delegate that `object` is about to be encoded.
@@ -89,7 +87,6 @@ func (o NSKeyedArchiverDelegateObject) ArchiverDidFinish(archiver INSKeyedArchiv
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiver(_:willEncode:)
 func (o NSKeyedArchiverDelegateObject) ArchiverWillEncodeObject(archiver INSKeyedArchiver, object objectivec.IObject) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("archiver:willEncodeObject:"), archiver, object)
 	return objectivec.Object{ID: rv}
 	}
@@ -99,7 +96,6 @@ func (o NSKeyedArchiverDelegateObject) ArchiverWillEncodeObject(archiver INSKeye
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiverWillFinish(_:)
 func (o NSKeyedArchiverDelegateObject) ArchiverWillFinish(archiver INSKeyedArchiver) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("archiverWillFinish:"), archiver)
 	}
 // Informs the delegate that one given object is being substituted for another
@@ -119,7 +115,6 @@ func (o NSKeyedArchiverDelegateObject) ArchiverWillFinish(archiver INSKeyedArchi
 //
 // See: https://developer.apple.com/documentation/Foundation/NSKeyedArchiverDelegate/archiver(_:willReplace:with:)
 func (o NSKeyedArchiverDelegateObject) ArchiverWillReplaceObjectWithObject(archiver INSKeyedArchiver, object objectivec.IObject, newObject objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("archiver:willReplaceObject:withObject:"), archiver, object, newObject)
 	}
 

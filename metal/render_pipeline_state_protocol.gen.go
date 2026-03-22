@@ -166,7 +166,6 @@ func MTLRenderPipelineStateObjectFromID(id objc.ID) MTLRenderPipelineStateObject
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/device
 func (o MTLRenderPipelineStateObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -175,7 +174,6 @@ func (o MTLRenderPipelineStateObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/label
 func (o MTLRenderPipelineStateObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -184,7 +182,6 @@ func (o MTLRenderPipelineStateObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/gpuResourceID
 func (o MTLRenderPipelineStateObject) GpuResourceID() MTLResourceID {
-	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
@@ -193,7 +190,6 @@ func (o MTLRenderPipelineStateObject) GpuResourceID() MTLResourceID {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerObjectThreadgroup
 func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerObjectThreadgroup() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerObjectThreadgroup"))
 	return rv
 	}
@@ -202,7 +198,6 @@ func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerObjectThreadgroup() uint
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/objectThreadExecutionWidth
 func (o MTLRenderPipelineStateObject) ObjectThreadExecutionWidth() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("objectThreadExecutionWidth"))
 	return rv
 	}
@@ -211,7 +206,6 @@ func (o MTLRenderPipelineStateObject) ObjectThreadExecutionWidth() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerMeshThreadgroup
 func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerMeshThreadgroup() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerMeshThreadgroup"))
 	return rv
 	}
@@ -220,7 +214,6 @@ func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerMeshThreadgroup() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadgroupsPerMeshGrid
 func (o MTLRenderPipelineStateObject) MaxTotalThreadgroupsPerMeshGrid() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadgroupsPerMeshGrid"))
 	return rv
 	}
@@ -229,7 +222,6 @@ func (o MTLRenderPipelineStateObject) MaxTotalThreadgroupsPerMeshGrid() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/meshThreadExecutionWidth
 func (o MTLRenderPipelineStateObject) MeshThreadExecutionWidth() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("meshThreadExecutionWidth"))
 	return rv
 	}
@@ -238,7 +230,6 @@ func (o MTLRenderPipelineStateObject) MeshThreadExecutionWidth() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/maxTotalThreadsPerThreadgroup
 func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerThreadgroup() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("maxTotalThreadsPerThreadgroup"))
 	return rv
 	}
@@ -247,7 +238,6 @@ func (o MTLRenderPipelineStateObject) MaxTotalThreadsPerThreadgroup() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/threadgroupSizeMatchesTileSize
 func (o MTLRenderPipelineStateObject) ThreadgroupSizeMatchesTileSize() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("threadgroupSizeMatchesTileSize"))
 	return rv
 	}
@@ -256,7 +246,6 @@ func (o MTLRenderPipelineStateObject) ThreadgroupSizeMatchesTileSize() bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/imageblockSampleLength
 func (o MTLRenderPipelineStateObject) ImageblockSampleLength() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("imageblockSampleLength"))
 	return rv
 	}
@@ -289,7 +278,6 @@ func (o MTLRenderPipelineStateObject) ImageblockSampleLength() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/imageblockMemoryLength(forDimensions:)
 func (o MTLRenderPipelineStateObject) ImageblockMemoryLengthForDimensions(imageblockDimensions MTLSize) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("imageblockMemoryLengthForDimensions:"), imageblockDimensions)
 	return rv
 	}
@@ -298,7 +286,6 @@ func (o MTLRenderPipelineStateObject) ImageblockMemoryLengthForDimensions(imageb
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/supportIndirectCommandBuffers
 func (o MTLRenderPipelineStateObject) SupportIndirectCommandBuffers() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportIndirectCommandBuffers"))
 	return rv
 	}
@@ -306,7 +293,6 @@ func (o MTLRenderPipelineStateObject) SupportIndirectCommandBuffers() bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/shaderValidation
 func (o MTLRenderPipelineStateObject) ShaderValidation() MTLShaderValidation {
-	
 	rv := objc.Send[MTLShaderValidation](o.ID, objc.Sel("shaderValidation"))
 	return rv
 	}
@@ -322,7 +308,6 @@ func (o MTLRenderPipelineStateObject) ShaderValidation() MTLShaderValidation {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(function:stage:)-7uvul
 func (o MTLRenderPipelineStateObject) FunctionHandleWithFunctionStage(function MTLFunction, stage MTLRenderStages) MTLFunctionHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionHandleWithFunction:stage:"), function, stage)
 	return MTLFunctionHandleObjectFromID(rv)
 	}
@@ -338,7 +323,6 @@ func (o MTLRenderPipelineStateObject) FunctionHandleWithFunctionStage(function M
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeVisibleFunctionTable(descriptor:stage:)
 func (o MTLRenderPipelineStateObject) NewVisibleFunctionTableWithDescriptorStage(descriptor IMTLVisibleFunctionTableDescriptor, stage MTLRenderStages) MTLVisibleFunctionTable {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newVisibleFunctionTableWithDescriptor:stage:"), descriptor, stage)
 	return MTLVisibleFunctionTableObjectFromID(rv)
 	}
@@ -354,7 +338,6 @@ func (o MTLRenderPipelineStateObject) NewVisibleFunctionTableWithDescriptorStage
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeIntersectionFunctionTable(descriptor:stage:)
 func (o MTLRenderPipelineStateObject) NewIntersectionFunctionTableWithDescriptorStage(descriptor IMTLIntersectionFunctionTableDescriptor, stage MTLRenderStages) MTLIntersectionFunctionTable {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newIntersectionFunctionTableWithDescriptor:stage:"), descriptor, stage)
 	return MTLIntersectionFunctionTableObjectFromID(rv)
 	}
@@ -366,7 +349,6 @@ func (o MTLRenderPipelineStateObject) NewIntersectionFunctionTableWithDescriptor
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineState(additionalBinaryFunctions:)-84te1
 func (o MTLRenderPipelineStateObject) NewRenderPipelineStateWithAdditionalBinaryFunctionsError(additionalBinaryFunctions IMTLRenderPipelineFunctionsDescriptor) (MTLRenderPipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithAdditionalBinaryFunctions:error:"), additionalBinaryFunctions)
 	if err != nil {
 		return nil, err
@@ -377,25 +359,21 @@ func (o MTLRenderPipelineStateObject) NewRenderPipelineStateWithAdditionalBinary
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/reflection
 func (o MTLRenderPipelineStateObject) Reflection() IMTLRenderPipelineReflection {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
 	return MTLRenderPipelineReflectionFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerMeshThreadgroup
 func (o MTLRenderPipelineStateObject) RequiredThreadsPerMeshThreadgroup() MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerMeshThreadgroup"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerObjectThreadgroup
 func (o MTLRenderPipelineStateObject) RequiredThreadsPerObjectThreadgroup() MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerObjectThreadgroup"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/requiredThreadsPerTileThreadgroup
 func (o MTLRenderPipelineStateObject) RequiredThreadsPerTileThreadgroup() MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("requiredThreadsPerTileThreadgroup"))
 	return rv
 	}
@@ -412,7 +390,6 @@ func (o MTLRenderPipelineStateObject) RequiredThreadsPerTileThreadgroup() MTLSiz
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(function:stage:)-1pgxo
 func (o MTLRenderPipelineStateObject) FunctionHandleWithBinaryFunctionStage(function MTL4BinaryFunction, stage MTLRenderStages) MTLFunctionHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionHandleWithBinaryFunction:stage:"), function, stage)
 	return MTLFunctionHandleObjectFromID(rv)
 	}
@@ -429,7 +406,6 @@ func (o MTLRenderPipelineStateObject) FunctionHandleWithBinaryFunctionStage(func
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/functionHandle(withName:stage:)
 func (o MTLRenderPipelineStateObject) FunctionHandleWithNameStage(name string, stage MTLRenderStages) MTLFunctionHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionHandleWithName:stage:"), objc.String(name), stage)
 	return MTLFunctionHandleObjectFromID(rv)
 	}
@@ -463,7 +439,6 @@ func (o MTLRenderPipelineStateObject) FunctionHandleWithNameStage(name string, s
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineDescriptorForSpecialization()
 func (o MTLRenderPipelineStateObject) NewRenderPipelineDescriptorForSpecialization() IMTL4PipelineDescriptor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRenderPipelineDescriptorForSpecialization"))
 	return MTL4PipelineDescriptorFromID(rv)
 	}
@@ -478,7 +453,6 @@ func (o MTLRenderPipelineStateObject) NewRenderPipelineDescriptorForSpecializati
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderPipelineState/makeRenderPipelineState(additionalBinaryFunctions:)-49r1w
 func (o MTLRenderPipelineStateObject) NewRenderPipelineStateWithBinaryFunctionsError(binaryFunctionsDescriptor IMTL4RenderPipelineBinaryFunctionsDescriptor) (MTLRenderPipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithBinaryFunctions:error:"), binaryFunctionsDescriptor)
 	if err != nil {
 		return nil, err
@@ -490,7 +464,6 @@ func (o MTLRenderPipelineStateObject) NewRenderPipelineStateWithBinaryFunctionsE
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTLRenderPipelineStateObject) AllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}

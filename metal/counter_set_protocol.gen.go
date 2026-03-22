@@ -45,7 +45,6 @@ func MTLCounterSetObjectFromID(id objc.ID) MTLCounterSetObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSet/name
 func (o MTLCounterSetObject) Name() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("name"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -53,7 +52,6 @@ func (o MTLCounterSetObject) Name() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSet/counters
 func (o MTLCounterSetObject) Counters() []objectivec.IObject {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("counters"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}

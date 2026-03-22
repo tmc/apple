@@ -55,7 +55,6 @@ func CIEdgesObjectFromID(id objc.ID) CIEdgesObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdges/inputImage
 func (o CIEdgesObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIEdgesObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdges/intensity
 func (o CIEdgesObject) Intensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIEdgesObject) Intensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIEdgesObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

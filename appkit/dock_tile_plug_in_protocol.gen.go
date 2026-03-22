@@ -51,7 +51,6 @@ func NSDockTilePlugInObjectFromID(id objc.ID) NSDockTilePlugInObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDockTilePlugIn/setDockTile(_:)
 func (o NSDockTilePlugInObject) SetDockTile(dockTile INSDockTile) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDockTile:"), dockTile)
 	}
 // Invoked when the user causes the application’s dock menu to be shown.
@@ -62,7 +61,6 @@ func (o NSDockTilePlugInObject) SetDockTile(dockTile INSDockTile) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDockTilePlugIn/dockMenu()
 func (o NSDockTilePlugInObject) DockMenu() INSMenu {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("dockMenu"))
 	return NSMenuFromID(rv)
 	}

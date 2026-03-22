@@ -55,7 +55,6 @@ func NSURLConnectionDownloadDelegateObjectFromID(id objc.ID) NSURLConnectionDown
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connectionDidFinishDownloading(_:destinationURL:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFinishDownloadingDestinationURL(connection INSURLConnection, destinationURL INSURL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidFinishDownloading:destinationURL:"), connection, destinationURL)
 	}
 // Sent to the delegate to deliver progress information for a download of a
@@ -81,7 +80,6 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFinishDownloadingDes
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connection(_:didWriteData:totalBytesWritten:expectedTotalBytes:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidWriteDataTotalBytesWrittenExpectedTotalBytes(connection INSURLConnection, bytesWritten int64, totalBytesWritten int64, expectedTotalBytes int64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didWriteData:totalBytesWritten:expectedTotalBytes:"), connection, bytesWritten, totalBytesWritten, expectedTotalBytes)
 	}
 // Sent to the delegate when an URL connection resumes downloading a URL asset
@@ -106,7 +104,6 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidWriteDataTotalBytesW
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDownloadDelegate/connectionDidResumeDownloading(_:totalBytesWritten:expectedTotalBytes:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidResumeDownloadingTotalBytesWrittenExpectedTotalBytes(connection INSURLConnection, totalBytesWritten int64, expectedTotalBytes int64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connectionDidResumeDownloading:totalBytesWritten:expectedTotalBytes:"), connection, totalBytesWritten, expectedTotalBytes)
 	}
 // Tells the delegate that the connection will send a request for an
@@ -147,7 +144,6 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidResumeDownloadingTot
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:willSendRequestFor:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionWillSendRequestForAuthenticationChallenge(connection INSURLConnection, challenge INSURLAuthenticationChallenge) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:willSendRequestForAuthenticationChallenge:"), connection, challenge)
 	}
 // Sent to determine whether the URL loader should use the credential storage
@@ -171,7 +167,6 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionWillSendRequestForAuthe
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connectionShouldUseCredentialStorage(_:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionShouldUseCredentialStorage(connection INSURLConnection) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("connectionShouldUseCredentialStorage:"), connection)
 	return rv
 	}
@@ -189,7 +184,6 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionShouldUseCredentialStor
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLConnectionDelegate/connection(_:didFailWithError:)
 func (o NSURLConnectionDownloadDelegateObject) ConnectionDidFailWithError(connection INSURLConnection, error_ INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("connection:didFailWithError:"), connection, error_)
 	}
 

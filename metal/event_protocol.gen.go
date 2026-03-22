@@ -50,7 +50,6 @@ func MTLEventObjectFromID(id objc.ID) MTLEventObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/device
 func (o MTLEventObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -58,7 +57,6 @@ func (o MTLEventObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLEvent/label
 func (o MTLEventObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}

@@ -301,7 +301,6 @@ func MTLTextureObjectFromID(id objc.ID) MTLTextureObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/replace(region:mipmapLevel:slice:withBytes:bytesPerRow:bytesPerImage:)
 func (o MTLTextureObject) ReplaceRegionMipmapLevelSliceWithBytesBytesPerRowBytesPerImage(region MTLRegion, level uint, slice uint, pixelBytes unsafe.Pointer, bytesPerRow uint, bytesPerImage uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("replaceRegion:mipmapLevel:slice:withBytes:bytesPerRow:bytesPerImage:"), region, level, slice, pixelBytes, bytesPerRow, bytesPerImage)
 	}
 // Copies a block of pixels into a section of texture slice 0.
@@ -357,7 +356,6 @@ func (o MTLTextureObject) ReplaceRegionMipmapLevelSliceWithBytesBytesPerRowBytes
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/replace(region:mipmapLevel:withBytes:bytesPerRow:)
 func (o MTLTextureObject) ReplaceRegionMipmapLevelWithBytesBytesPerRow(region MTLRegion, level uint, pixelBytes unsafe.Pointer, bytesPerRow uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("replaceRegion:mipmapLevel:withBytes:bytesPerRow:"), region, level, pixelBytes, bytesPerRow)
 	}
 // Copies pixel data from the texture to a buffer in system memory.
@@ -418,7 +416,6 @@ func (o MTLTextureObject) ReplaceRegionMipmapLevelWithBytesBytesPerRow(region MT
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/getBytes(_:bytesPerRow:bytesPerImage:from:mipmapLevel:slice:)
 func (o MTLTextureObject) GetBytesBytesPerRowBytesPerImageFromRegionMipmapLevelSlice(pixelBytes unsafe.Pointer, bytesPerRow uint, bytesPerImage uint, region MTLRegion, level uint, slice uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("getBytes:bytesPerRow:bytesPerImage:fromRegion:mipmapLevel:slice:"), pixelBytes, bytesPerRow, bytesPerImage, region, level, slice)
 	}
 // Copies pixel data from the first slice of the texture to a buffer in system
@@ -469,7 +466,6 @@ func (o MTLTextureObject) GetBytesBytesPerRowBytesPerImageFromRegionMipmapLevelS
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/getBytes(_:bytesPerRow:from:mipmapLevel:)
 func (o MTLTextureObject) GetBytesBytesPerRowFromRegionMipmapLevel(pixelBytes unsafe.Pointer, bytesPerRow uint, region MTLRegion, level uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("getBytes:bytesPerRow:fromRegion:mipmapLevel:"), pixelBytes, bytesPerRow, region, level)
 	}
 // Creates a new view of the texture, reinterpreting its data using a
@@ -520,7 +516,6 @@ func (o MTLTextureObject) GetBytesBytesPerRowFromRegionMipmapLevel(pixelBytes un
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/makeTextureView(pixelFormat:)
 func (o MTLTextureObject) NewTextureViewWithPixelFormat(pixelFormat MTLPixelFormat) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithPixelFormat:"), pixelFormat)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -528,7 +523,6 @@ func (o MTLTextureObject) NewTextureViewWithPixelFormat(pixelFormat MTLPixelForm
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/textureType
 func (o MTLTextureObject) TextureType() MTLTextureType {
-	
 	rv := objc.Send[MTLTextureType](o.ID, objc.Sel("textureType"))
 	return rv
 	}
@@ -536,7 +530,6 @@ func (o MTLTextureObject) TextureType() MTLTextureType {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/pixelFormat
 func (o MTLTextureObject) PixelFormat() MTLPixelFormat {
-	
 	rv := objc.Send[MTLPixelFormat](o.ID, objc.Sel("pixelFormat"))
 	return rv
 	}
@@ -544,7 +537,6 @@ func (o MTLTextureObject) PixelFormat() MTLPixelFormat {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/width
 func (o MTLTextureObject) Width() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -552,7 +544,6 @@ func (o MTLTextureObject) Width() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/height
 func (o MTLTextureObject) Height() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("height"))
 	return rv
 	}
@@ -560,7 +551,6 @@ func (o MTLTextureObject) Height() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/depth
 func (o MTLTextureObject) Depth() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("depth"))
 	return rv
 	}
@@ -568,7 +558,6 @@ func (o MTLTextureObject) Depth() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/mipmapLevelCount
 func (o MTLTextureObject) MipmapLevelCount() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("mipmapLevelCount"))
 	return rv
 	}
@@ -576,7 +565,6 @@ func (o MTLTextureObject) MipmapLevelCount() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/arrayLength
 func (o MTLTextureObject) ArrayLength() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("arrayLength"))
 	return rv
 	}
@@ -584,7 +572,6 @@ func (o MTLTextureObject) ArrayLength() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/sampleCount
 func (o MTLTextureObject) SampleCount() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("sampleCount"))
 	return rv
 	}
@@ -593,7 +580,6 @@ func (o MTLTextureObject) SampleCount() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/isFramebufferOnly
 func (o MTLTextureObject) IsFramebufferOnly() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isFramebufferOnly"))
 	return rv
 	}
@@ -601,7 +587,6 @@ func (o MTLTextureObject) IsFramebufferOnly() bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/usage
 func (o MTLTextureObject) Usage() MTLTextureUsage {
-	
 	rv := objc.Send[MTLTextureUsage](o.ID, objc.Sel("usage"))
 	return rv
 	}
@@ -610,7 +595,6 @@ func (o MTLTextureObject) Usage() MTLTextureUsage {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/allowGPUOptimizedContents
 func (o MTLTextureObject) AllowGPUOptimizedContents() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("allowGPUOptimizedContents"))
 	return rv
 	}
@@ -619,7 +603,6 @@ func (o MTLTextureObject) AllowGPUOptimizedContents() bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
 func (o MTLTextureObject) IsShareable() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isShareable"))
 	return rv
 	}
@@ -628,7 +611,6 @@ func (o MTLTextureObject) IsShareable() bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/swizzle
 func (o MTLTextureObject) Swizzle() MTLTextureSwizzleChannels {
-	
 	rv := objc.Send[MTLTextureSwizzleChannels](o.ID, objc.Sel("swizzle"))
 	return rv
 	}
@@ -637,7 +619,6 @@ func (o MTLTextureObject) Swizzle() MTLTextureSwizzleChannels {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/iosurface
 func (o MTLTextureObject) Iosurface() iosurface.IOSurfaceRef {
-	
 	rv := objc.Send[iosurface.IOSurfaceRef](o.ID, objc.Sel("iosurface"))
 	return rv
 	}
@@ -646,7 +627,6 @@ func (o MTLTextureObject) Iosurface() iosurface.IOSurfaceRef {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/iosurfacePlane
 func (o MTLTextureObject) IosurfacePlane() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("iosurfacePlane"))
 	return rv
 	}
@@ -654,7 +634,6 @@ func (o MTLTextureObject) IosurfacePlane() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/parent
 func (o MTLTextureObject) ParentTexture() MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("parentTexture"))
 	return MTLTextureObjectFromID(rv)
 	}
@@ -662,7 +641,6 @@ func (o MTLTextureObject) ParentTexture() MTLTexture {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/parentRelativeLevel
 func (o MTLTextureObject) ParentRelativeLevel() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("parentRelativeLevel"))
 	return rv
 	}
@@ -670,7 +648,6 @@ func (o MTLTextureObject) ParentRelativeLevel() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/parentRelativeSlice
 func (o MTLTextureObject) ParentRelativeSlice() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("parentRelativeSlice"))
 	return rv
 	}
@@ -678,7 +655,6 @@ func (o MTLTextureObject) ParentRelativeSlice() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/buffer
 func (o MTLTextureObject) Buffer() MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("buffer"))
 	return MTLBufferObjectFromID(rv)
 	}
@@ -686,7 +662,6 @@ func (o MTLTextureObject) Buffer() MTLBuffer {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/bufferOffset
 func (o MTLTextureObject) BufferOffset() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("bufferOffset"))
 	return rv
 	}
@@ -694,7 +669,6 @@ func (o MTLTextureObject) BufferOffset() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/bufferBytesPerRow
 func (o MTLTextureObject) BufferBytesPerRow() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("bufferBytesPerRow"))
 	return rv
 	}
@@ -702,7 +676,6 @@ func (o MTLTextureObject) BufferBytesPerRow() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/rootResource
 func (o MTLTextureObject) RootResource() MTLResource {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("rootResource"))
 	return MTLResourceObjectFromID(rv)
 	}
@@ -714,7 +687,6 @@ func (o MTLTextureObject) RootResource() MTLResource {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/makeSharedTextureHandle()
 func (o MTLTextureObject) NewSharedTextureHandle() IMTLSharedTextureHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newSharedTextureHandle"))
 	return MTLSharedTextureHandleFromID(rv)
 	}
@@ -739,7 +711,6 @@ func (o MTLTextureObject) NewSharedTextureHandle() IMTLSharedTextureHandle {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/makeRemoteTextureView(_:)
 func (o MTLTextureObject) NewRemoteTextureViewForDevice(device MTLDevice) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRemoteTextureViewForDevice:"), device)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -747,7 +718,6 @@ func (o MTLTextureObject) NewRemoteTextureViewForDevice(device MTLDevice) MTLTex
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/remoteStorageTexture
 func (o MTLTextureObject) RemoteStorageTexture() MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("remoteStorageTexture"))
 	return MTLTextureObjectFromID(rv)
 	}
@@ -755,7 +725,6 @@ func (o MTLTextureObject) RemoteStorageTexture() MTLTexture {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/isSparse
 func (o MTLTextureObject) IsSparse() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isSparse"))
 	return rv
 	}
@@ -763,7 +732,6 @@ func (o MTLTextureObject) IsSparse() bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/firstMipmapInTail
 func (o MTLTextureObject) FirstMipmapInTail() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("firstMipmapInTail"))
 	return rv
 	}
@@ -771,25 +739,21 @@ func (o MTLTextureObject) FirstMipmapInTail() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/tailSizeInBytes
 func (o MTLTextureObject) TailSizeInBytes() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("tailSizeInBytes"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/compressionType
 func (o MTLTextureObject) CompressionType() MTLTextureCompressionType {
-	
 	rv := objc.Send[MTLTextureCompressionType](o.ID, objc.Sel("compressionType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/gpuResourceID
 func (o MTLTextureObject) GpuResourceID() MTLResourceID {
-	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/sparseTextureTier
 func (o MTLTextureObject) SparseTextureTier() MTLTextureSparseTier {
-	
 	rv := objc.Send[MTLTextureSparseTier](o.ID, objc.Sel("sparseTextureTier"))
 	return rv
 	}
@@ -801,7 +765,6 @@ func (o MTLTextureObject) SparseTextureTier() MTLTextureSparseTier {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureView(with:)
 func (o MTLTextureObject) NewTextureViewWithDescriptor(descriptor IMTLTextureViewDescriptor) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithDescriptor:"), descriptor)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -841,7 +804,6 @@ func (o MTLTextureObject) NewTextureViewWithDescriptor(descriptor IMTLTextureVie
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:
 func (o MTLTextureObject) NewTextureViewWithPixelFormatTextureTypeLevelsSlices(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithPixelFormat:textureType:levels:slices:"), pixelFormat, textureType, levelRange, sliceRange)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -877,7 +839,6 @@ func (o MTLTextureObject) NewTextureViewWithPixelFormatTextureTypeLevelsSlices(p
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:
 func (o MTLTextureObject) NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSwizzle(pixelFormat MTLPixelFormat, textureType MTLTextureType, levelRange foundation.NSRange, sliceRange foundation.NSRange, swizzle MTLTextureSwizzleChannels) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:"), pixelFormat, textureType, levelRange, sliceRange, swizzle)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -886,7 +847,6 @@ func (o MTLTextureObject) NewTextureViewWithPixelFormatTextureTypeLevelsSlicesSw
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTLTextureObject) AllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
@@ -894,7 +854,6 @@ func (o MTLTextureObject) AllocatedSize() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/device
 func (o MTLTextureObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -902,7 +861,6 @@ func (o MTLTextureObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/label
 func (o MTLTextureObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -910,7 +868,6 @@ func (o MTLTextureObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/cpuCacheMode
 func (o MTLTextureObject) CpuCacheMode() MTLCPUCacheMode {
-	
 	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
 	return rv
 	}
@@ -918,7 +875,6 @@ func (o MTLTextureObject) CpuCacheMode() MTLCPUCacheMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/storageMode
 func (o MTLTextureObject) StorageMode() MTLStorageMode {
-	
 	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
 	return rv
 	}
@@ -927,7 +883,6 @@ func (o MTLTextureObject) StorageMode() MTLStorageMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/hazardTrackingMode
 func (o MTLTextureObject) HazardTrackingMode() MTLHazardTrackingMode {
-	
 	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
 	return rv
 	}
@@ -935,7 +890,6 @@ func (o MTLTextureObject) HazardTrackingMode() MTLHazardTrackingMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/resourceOptions
 func (o MTLTextureObject) ResourceOptions() MTLResourceOptions {
-	
 	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
 	return rv
 	}
@@ -975,7 +929,6 @@ func (o MTLTextureObject) ResourceOptions() MTLResourceOptions {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setPurgeableState(_:)
 func (o MTLTextureObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
-	
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
 	}
@@ -984,7 +937,6 @@ func (o MTLTextureObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeabl
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heapOffset
 func (o MTLTextureObject) HeapOffset() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("heapOffset"))
 	return rv
 	}
@@ -992,7 +944,6 @@ func (o MTLTextureObject) HeapOffset() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/heap
 func (o MTLTextureObject) Heap() MTLHeap {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("heap"))
 	return MTLHeapObjectFromID(rv)
 	}
@@ -1031,7 +982,6 @@ func (o MTLTextureObject) Heap() MTLHeap {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/makeAliasable()
 func (o MTLTextureObject) MakeAliasable() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("makeAliasable"))
 	}
 // A Boolean value that indicates whether future heap resource allocations may
@@ -1047,14 +997,12 @@ func (o MTLTextureObject) MakeAliasable() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/isAliasable()
 func (o MTLTextureObject) IsAliasable() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAliasable"))
 	return rv
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResource/setOwnerWithIdentity:
 func (o MTLTextureObject) SetOwnerWithIdentity(task_id_token objectivec.IObject) int32 {
-	
 	rv := objc.Send[int32](o.ID, objc.Sel("setOwnerWithIdentity:"), task_id_token)
 	return rv
 	}

@@ -165,7 +165,6 @@ func CISpotColorObjectFromID(id objc.ID) CISpotColorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/centerColor1
 func (o CISpotColorObject) CenterColor1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("centerColor1"))
 	return CIColorFromID(rv)
 	}
@@ -173,7 +172,6 @@ func (o CISpotColorObject) CenterColor1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/centerColor2
 func (o CISpotColorObject) CenterColor2() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("centerColor2"))
 	return CIColorFromID(rv)
 	}
@@ -181,7 +179,6 @@ func (o CISpotColorObject) CenterColor2() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/centerColor3
 func (o CISpotColorObject) CenterColor3() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("centerColor3"))
 	return CIColorFromID(rv)
 	}
@@ -190,7 +187,6 @@ func (o CISpotColorObject) CenterColor3() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/closeness1
 func (o CISpotColorObject) Closeness1() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("closeness1"))
 	return rv
 	}
@@ -199,7 +195,6 @@ func (o CISpotColorObject) Closeness1() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/closeness2
 func (o CISpotColorObject) Closeness2() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("closeness2"))
 	return rv
 	}
@@ -208,7 +203,6 @@ func (o CISpotColorObject) Closeness2() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/closeness3
 func (o CISpotColorObject) Closeness3() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("closeness3"))
 	return rv
 	}
@@ -216,7 +210,6 @@ func (o CISpotColorObject) Closeness3() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/contrast1
 func (o CISpotColorObject) Contrast1() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("contrast1"))
 	return rv
 	}
@@ -224,7 +217,6 @@ func (o CISpotColorObject) Contrast1() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/contrast2
 func (o CISpotColorObject) Contrast2() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("contrast2"))
 	return rv
 	}
@@ -232,7 +224,6 @@ func (o CISpotColorObject) Contrast2() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/contrast3
 func (o CISpotColorObject) Contrast3() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("contrast3"))
 	return rv
 	}
@@ -240,7 +231,6 @@ func (o CISpotColorObject) Contrast3() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/inputImage
 func (o CISpotColorObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -248,7 +238,6 @@ func (o CISpotColorObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/replacementColor1
 func (o CISpotColorObject) ReplacementColor1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("replacementColor1"))
 	return CIColorFromID(rv)
 	}
@@ -256,7 +245,6 @@ func (o CISpotColorObject) ReplacementColor1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/replacementColor2
 func (o CISpotColorObject) ReplacementColor2() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("replacementColor2"))
 	return CIColorFromID(rv)
 	}
@@ -264,7 +252,6 @@ func (o CISpotColorObject) ReplacementColor2() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotColor/replacementColor3
 func (o CISpotColorObject) ReplacementColor3() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("replacementColor3"))
 	return CIColorFromID(rv)
 	}
@@ -273,7 +260,6 @@ func (o CISpotColorObject) ReplacementColor3() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISpotColorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

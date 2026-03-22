@@ -65,7 +65,6 @@ func CIColorMonochromeObjectFromID(id objc.ID) CIColorMonochromeObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/color
 func (o CIColorMonochromeObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIColorMonochromeObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/inputImage
 func (o CIColorMonochromeObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -81,7 +79,6 @@ func (o CIColorMonochromeObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMonochrome/intensity
 func (o CIColorMonochromeObject) Intensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CIColorMonochromeObject) Intensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorMonochromeObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -55,13 +55,11 @@ func CIConvertLabObjectFromID(id objc.ID) CIConvertLabObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/inputImage
 func (o CIConvertLabObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIConvertLab/normalize
 func (o CIConvertLabObject) Normalize() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("normalize"))
 	return rv
 	}
@@ -70,7 +68,6 @@ func (o CIConvertLabObject) Normalize() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIConvertLabObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

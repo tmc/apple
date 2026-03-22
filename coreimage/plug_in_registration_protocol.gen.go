@@ -53,7 +53,6 @@ func CIPlugInRegistrationObjectFromID(id objc.ID) CIPlugInRegistrationObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPlugInRegistration/load(_:)
 func (o CIPlugInRegistrationObject) Load(host unsafe.Pointer) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("load:"), host)
 	return rv
 	}

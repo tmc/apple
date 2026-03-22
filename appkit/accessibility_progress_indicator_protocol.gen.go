@@ -54,7 +54,6 @@ func NSAccessibilityProgressIndicatorObjectFromID(id objc.ID) NSAccessibilityPro
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProgressIndicator/accessibilityValue()
 func (o NSAccessibilityProgressIndicatorObject) AccessibilityValue() foundation.NSNumber {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSNumberFromID(rv)
 	}
@@ -76,7 +75,6 @@ func (o NSAccessibilityProgressIndicatorObject) AccessibilityValue() foundation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilityProgressIndicatorObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -96,7 +94,6 @@ func (o NSAccessibilityProgressIndicatorObject) AccessibilityFrame() corefoundat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilityProgressIndicatorObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -116,7 +113,6 @@ func (o NSAccessibilityProgressIndicatorObject) AccessibilityParent() objectivec
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilityProgressIndicatorObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -139,7 +135,6 @@ func (o NSAccessibilityProgressIndicatorObject) AccessibilityIdentifier() string
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilityProgressIndicatorObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}

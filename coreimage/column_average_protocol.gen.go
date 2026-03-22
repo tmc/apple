@@ -35,7 +35,6 @@ func CIColumnAverageObjectFromID(id objc.ID) CIColumnAverageObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIColumnAverageObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -43,7 +42,6 @@ func (o CIColumnAverageObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIColumnAverageObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -52,7 +50,6 @@ func (o CIColumnAverageObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColumnAverageObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

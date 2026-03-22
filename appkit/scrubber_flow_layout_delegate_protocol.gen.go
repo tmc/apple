@@ -48,7 +48,6 @@ func NSScrubberFlowLayoutDelegateObjectFromID(id objc.ID) NSScrubberFlowLayoutDe
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberFlowLayoutDelegate/scrubber(_:layout:sizeForItemAt:)
 func (o NSScrubberFlowLayoutDelegateObject) ScrubberLayoutSizeForItemAtIndex(scrubber INSScrubber, layout INSScrubberFlowLayout, itemIndex int) corefoundation.CGSize {
-	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("scrubber:layout:sizeForItemAtIndex:"), scrubber, layout, itemIndex)
 	return rv
 	}
@@ -60,7 +59,6 @@ func (o NSScrubberFlowLayoutDelegateObject) ScrubberLayoutSizeForItemAtIndex(scr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/scrubber(_:didSelectItemAt:)
 func (o NSScrubberFlowLayoutDelegateObject) ScrubberDidSelectItemAtIndex(scrubber INSScrubber, selectedIndex int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("scrubber:didSelectItemAtIndex:"), scrubber, selectedIndex)
 	}
 // Tells the delegate that the item at the specified index was highlighted.
@@ -71,7 +69,6 @@ func (o NSScrubberFlowLayoutDelegateObject) ScrubberDidSelectItemAtIndex(scrubbe
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/scrubber(_:didHighlightItemAt:)
 func (o NSScrubberFlowLayoutDelegateObject) ScrubberDidHighlightItemAtIndex(scrubber INSScrubber, highlightedIndex int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("scrubber:didHighlightItemAtIndex:"), scrubber, highlightedIndex)
 	}
 // Tells the delegate that the range of items currently visible in the
@@ -84,7 +81,6 @@ func (o NSScrubberFlowLayoutDelegateObject) ScrubberDidHighlightItemAtIndex(scru
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/scrubber(_:didChangeVisibleRange:)
 func (o NSScrubberFlowLayoutDelegateObject) ScrubberDidChangeVisibleRange(scrubber INSScrubber, visibleRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("scrubber:didChangeVisibleRange:"), scrubber, visibleRange)
 	}
 // Tells the delegate that the user is panning or scrolling the scrubber.
@@ -93,7 +89,6 @@ func (o NSScrubberFlowLayoutDelegateObject) ScrubberDidChangeVisibleRange(scrubb
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/didBeginInteracting(with:)
 func (o NSScrubberFlowLayoutDelegateObject) DidBeginInteractingWithScrubber(scrubber INSScrubber) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didBeginInteractingWithScrubber:"), scrubber)
 	}
 // Tells the delegate that a pan or scroll interaction with the scrubber has
@@ -103,7 +98,6 @@ func (o NSScrubberFlowLayoutDelegateObject) DidBeginInteractingWithScrubber(scru
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/didFinishInteracting(with:)
 func (o NSScrubberFlowLayoutDelegateObject) DidFinishInteractingWithScrubber(scrubber INSScrubber) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didFinishInteractingWithScrubber:"), scrubber)
 	}
 // Tells the delegate that a user interaction with the scrubber has been
@@ -113,7 +107,6 @@ func (o NSScrubberFlowLayoutDelegateObject) DidFinishInteractingWithScrubber(scr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/didCancelInteracting(with:)
 func (o NSScrubberFlowLayoutDelegateObject) DidCancelInteractingWithScrubber(scrubber INSScrubber) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didCancelInteractingWithScrubber:"), scrubber)
 	}
 

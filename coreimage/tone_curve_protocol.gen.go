@@ -106,7 +106,6 @@ func CIToneCurveObjectFromID(id objc.ID) CIToneCurveObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/inputImage
 func (o CIToneCurveObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -114,7 +113,6 @@ func (o CIToneCurveObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point0
 func (o CIToneCurveObject) Point0() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
 	return rv
 	}
@@ -122,7 +120,6 @@ func (o CIToneCurveObject) Point0() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point1
 func (o CIToneCurveObject) Point1() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
 	return rv
 	}
@@ -130,7 +127,6 @@ func (o CIToneCurveObject) Point1() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point2
 func (o CIToneCurveObject) Point2() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point2"))
 	return rv
 	}
@@ -138,7 +134,6 @@ func (o CIToneCurveObject) Point2() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point3
 func (o CIToneCurveObject) Point3() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point3"))
 	return rv
 	}
@@ -146,7 +141,6 @@ func (o CIToneCurveObject) Point3() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/point4
 func (o CIToneCurveObject) Point4() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point4"))
 	return rv
 	}
@@ -155,7 +149,6 @@ func (o CIToneCurveObject) Point4() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIToneCurve/extrapolate
 func (o CIToneCurveObject) Extrapolate() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
 	return rv
 	}
@@ -164,7 +157,6 @@ func (o CIToneCurveObject) Extrapolate() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIToneCurveObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

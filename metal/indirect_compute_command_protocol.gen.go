@@ -105,7 +105,6 @@ func MTLIndirectComputeCommandObjectFromID(id objc.ID) MTLIndirectComputeCommand
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/setComputePipelineState(_:)
 func (o MTLIndirectComputeCommandObject) SetComputePipelineState(pipelineState MTLComputePipelineState) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setComputePipelineState:"), pipelineState)
 	}
 // Sets the size, in pixels, of the imageblock.
@@ -116,7 +115,6 @@ func (o MTLIndirectComputeCommandObject) SetComputePipelineState(pipelineState M
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/setImageblockWidth(_:height:)
 func (o MTLIndirectComputeCommandObject) SetImageblockWidthHeight(width uint, height uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setImageblockWidth:height:"), width, height)
 	}
 // Sets a buffer for the compute function.
@@ -141,7 +139,6 @@ func (o MTLIndirectComputeCommandObject) SetImageblockWidthHeight(width uint, he
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/setKernelBuffer(_:offset:at:)
 func (o MTLIndirectComputeCommandObject) SetKernelBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setKernelBuffer:offset:atIndex:"), buffer, offset, index)
 	}
 // Sets the size of a block of threadgroup memory.
@@ -153,7 +150,6 @@ func (o MTLIndirectComputeCommandObject) SetKernelBufferOffsetAtIndex(buffer MTL
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/setThreadgroupMemoryLength(_:index:)
 func (o MTLIndirectComputeCommandObject) SetThreadgroupMemoryLengthAtIndex(length uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setThreadgroupMemoryLength:atIndex:"), length, index)
 	}
 // Sets the region of the stage-in attributes to apply to the compute kernel.
@@ -163,7 +159,6 @@ func (o MTLIndirectComputeCommandObject) SetThreadgroupMemoryLengthAtIndex(lengt
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/setStageInRegion(_:)
 func (o MTLIndirectComputeCommandObject) SetStageInRegion(region MTLRegion) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setStageInRegion:"), region)
 	}
 // Adds a barrier to ensure that commands executed prior to this command are
@@ -175,7 +170,6 @@ func (o MTLIndirectComputeCommandObject) SetStageInRegion(region MTLRegion) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/setBarrier()
 func (o MTLIndirectComputeCommandObject) SetBarrier() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBarrier"))
 	}
 // Removes any barrier set on the command.
@@ -187,7 +181,6 @@ func (o MTLIndirectComputeCommandObject) SetBarrier() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/clearBarrier()
 func (o MTLIndirectComputeCommandObject) ClearBarrier() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("clearBarrier"))
 	}
 // Encodes a compute command using a grid aligned to threadgroup boundaries.
@@ -216,7 +209,6 @@ func (o MTLIndirectComputeCommandObject) ClearBarrier() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/concurrentDispatchThreadgroups(_:threadsPerThreadgroup:)
 func (o MTLIndirectComputeCommandObject) ConcurrentDispatchThreadgroupsThreadsPerThreadgroup(threadgroupsPerGrid MTLSize, threadsPerThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("concurrentDispatchThreadgroups:threadsPerThreadgroup:"), threadgroupsPerGrid, threadsPerThreadgroup)
 	}
 // Encodes a compute command using an arbitrarily sized grid.
@@ -245,7 +237,6 @@ func (o MTLIndirectComputeCommandObject) ConcurrentDispatchThreadgroupsThreadsPe
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/concurrentDispatchThreads(_:threadsPerThreadgroup:)
 func (o MTLIndirectComputeCommandObject) ConcurrentDispatchThreadsThreadsPerThreadgroup(threadsPerGrid MTLSize, threadsPerThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("concurrentDispatchThreads:threadsPerThreadgroup:"), threadsPerGrid, threadsPerThreadgroup)
 	}
 // Resets the command to its default state.
@@ -257,13 +248,11 @@ func (o MTLIndirectComputeCommandObject) ConcurrentDispatchThreadsThreadsPerThre
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/reset()
 func (o MTLIndirectComputeCommandObject) Reset() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectComputeCommand/setKernelBuffer(_:offset:attributeStride:at:)
 func (o MTLIndirectComputeCommandObject) SetKernelBufferOffsetAttributeStrideAtIndex(buffer MTLBuffer, offset uint, stride uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setKernelBuffer:offset:attributeStride:atIndex:"), buffer, offset, stride, index)
 	}
 

@@ -60,7 +60,6 @@ func MTLIOCommandQueueObjectFromID(id objc.ID) MTLIOCommandQueueObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueue/makeCommandBuffer()
 func (o MTLIOCommandQueueObject) CommandBuffer() MTLIOCommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandBuffer"))
 	return MTLIOCommandBufferObjectFromID(rv)
 	}
@@ -69,7 +68,6 @@ func (o MTLIOCommandQueueObject) CommandBuffer() MTLIOCommandBuffer {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueue/makeCommandBufferWithUnretainedReferences()
 func (o MTLIOCommandQueueObject) CommandBufferWithUnretainedReferences() MTLIOCommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandBufferWithUnretainedReferences"))
 	return MTLIOCommandBufferObjectFromID(rv)
 	}
@@ -79,14 +77,12 @@ func (o MTLIOCommandQueueObject) CommandBufferWithUnretainedReferences() MTLIOCo
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueue/enqueueBarrier()
 func (o MTLIOCommandQueueObject) EnqueueBarrier() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("enqueueBarrier"))
 	}
 // An optional name for the input/output command queue.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandQueue/label
 func (o MTLIOCommandQueueObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}

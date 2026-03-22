@@ -74,19 +74,16 @@ func CINinePartStretchedObjectFromID(id objc.ID) CINinePartStretchedObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartStretched/breakpoint0
 func (o CINinePartStretchedObject) Breakpoint0() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("breakpoint0"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartStretched/breakpoint1
 func (o CINinePartStretchedObject) Breakpoint1() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("breakpoint1"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartStretched/growAmount
 func (o CINinePartStretchedObject) GrowAmount() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("growAmount"))
 	return rv
 	}
@@ -94,7 +91,6 @@ func (o CINinePartStretchedObject) GrowAmount() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CINinePartStretched/inputImage
 func (o CINinePartStretchedObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -103,7 +99,6 @@ func (o CINinePartStretchedObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CINinePartStretchedObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

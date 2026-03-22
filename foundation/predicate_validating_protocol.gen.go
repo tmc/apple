@@ -33,7 +33,6 @@ func NSPredicateValidatingObjectFromID(id objc.ID) NSPredicateValidatingObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicateValidating/visit(_:)-491gq
 func (o NSPredicateValidatingObject) VisitPredicateError(predicate INSPredicate) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("visitPredicate:error:"), predicate)
 	if err != nil {
 		return false, err
@@ -43,7 +42,6 @@ func (o NSPredicateValidatingObject) VisitPredicateError(predicate INSPredicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicateValidating/visit(_:)-9r82q
 func (o NSPredicateValidatingObject) VisitOperatorTypeError(operatorType NSPredicateOperatorType) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("visitOperatorType:error:"), operatorType)
 	if err != nil {
 		return false, err
@@ -53,7 +51,6 @@ func (o NSPredicateValidatingObject) VisitOperatorTypeError(operatorType NSPredi
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicateValidating/visit(_:)-9s9ho
 func (o NSPredicateValidatingObject) VisitExpressionError(expression INSExpression) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("visitExpression:error:"), expression)
 	if err != nil {
 		return false, err
@@ -63,7 +60,6 @@ func (o NSPredicateValidatingObject) VisitExpressionError(expression INSExpressi
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPredicateValidating/visitExpressionKeyPath(_:scope:key:)
 func (o NSPredicateValidatingObject) VisitExpressionKeyPathScopeKeyError(expression INSExpression, scope string, key string) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("visitExpressionKeyPath:scope:key:error:"), expression, objc.String(scope), objc.String(key))
 	if err != nil {
 		return false, err

@@ -55,7 +55,6 @@ func CIColorAbsoluteDifferenceObjectFromID(id objc.ID) CIColorAbsoluteDifference
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorAbsoluteDifference/inputImage
 func (o CIColorAbsoluteDifferenceObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIColorAbsoluteDifferenceObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorAbsoluteDifference/inputImage2
 func (o CIColorAbsoluteDifferenceObject) InputImage2() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage2"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CIColorAbsoluteDifferenceObject) InputImage2() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorAbsoluteDifferenceObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

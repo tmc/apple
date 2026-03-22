@@ -86,7 +86,6 @@ func CILineScreenObjectFromID(id objc.ID) CILineScreenObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineScreen/angle
 func (o CILineScreenObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CILineScreenObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineScreen/center
 func (o CILineScreenObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CILineScreenObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineScreen/inputImage
 func (o CILineScreenObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -110,7 +107,6 @@ func (o CILineScreenObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineScreen/sharpness
 func (o CILineScreenObject) Sharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CILineScreenObject) Sharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILineScreen/width
 func (o CILineScreenObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CILineScreenObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CILineScreenObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

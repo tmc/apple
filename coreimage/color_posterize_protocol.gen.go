@@ -55,7 +55,6 @@ func CIColorPosterizeObjectFromID(id objc.ID) CIColorPosterizeObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/inputImage
 func (o CIColorPosterizeObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIColorPosterizeObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorPosterize/levels
 func (o CIColorPosterizeObject) Levels() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("levels"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIColorPosterizeObject) Levels() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorPosterizeObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

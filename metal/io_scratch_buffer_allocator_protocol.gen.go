@@ -53,7 +53,6 @@ func MTLIOScratchBufferAllocatorObjectFromID(id objc.ID) MTLIOScratchBufferAlloc
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOScratchBufferAllocator/makeScratchBuffer(minimumSize:)
 func (o MTLIOScratchBufferAllocatorObject) NewScratchBufferWithMinimumSize(minimumSize uint) MTLIOScratchBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newScratchBufferWithMinimumSize:"), minimumSize)
 	return MTLIOScratchBufferObjectFromID(rv)
 	}

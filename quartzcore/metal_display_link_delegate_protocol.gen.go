@@ -62,7 +62,6 @@ func CAMetalDisplayLinkDelegateObjectFromID(id objc.ID) CAMetalDisplayLinkDelega
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDisplayLinkDelegate/metalDisplayLink(_:needsUpdate:)
 func (o CAMetalDisplayLinkDelegateObject) MetalDisplayLinkNeedsUpdate(link ICAMetalDisplayLink, update ICAMetalDisplayLinkUpdate) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("metalDisplayLink:needsUpdate:"), link, update)
 	}
 

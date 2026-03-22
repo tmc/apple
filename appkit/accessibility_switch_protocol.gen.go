@@ -54,7 +54,6 @@ func NSAccessibilitySwitchObjectFromID(id objc.ID) NSAccessibilitySwitchObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityValue()
 func (o NSAccessibilitySwitchObject) AccessibilityValue() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -78,7 +77,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityValue() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityPerformDecrement()
 func (o NSAccessibilitySwitchObject) AccessibilityPerformDecrement() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDecrement"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityPerformDecrement() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityPerformIncrement()
 func (o NSAccessibilitySwitchObject) AccessibilityPerformIncrement() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformIncrement"))
 	return rv
 	}
@@ -127,7 +124,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityPerformIncrement() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityLabel()
 func (o NSAccessibilitySwitchObject) AccessibilityLabel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -144,7 +140,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityLabel() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
 func (o NSAccessibilitySwitchObject) AccessibilityPerformPress() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPress"))
 	return rv
 	}
@@ -166,7 +161,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityPerformPress() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilitySwitchObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -186,7 +180,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityFrame() corefoundation.CGRect 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilitySwitchObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -206,7 +199,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityParent() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilitySwitchObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -229,7 +221,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityIdentifier() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilitySwitchObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}

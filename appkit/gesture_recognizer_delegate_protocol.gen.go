@@ -63,7 +63,6 @@ func NSGestureRecognizerDelegateObjectFromID(id objc.ID) NSGestureRecognizerDele
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizerDelegate/gestureRecognizer(_:shouldAttemptToRecognizeWith:)
 func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldAttemptToRecognizeWithEvent(gestureRecognizer INSGestureRecognizer, event INSEvent) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("gestureRecognizer:shouldAttemptToRecognizeWithEvent:"), gestureRecognizer, event)
 	return rv
 	}
@@ -103,7 +102,6 @@ func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldAttemptToRecog
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizerDelegate/gestureRecognizerShouldBegin(_:)
 func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldBegin(gestureRecognizer INSGestureRecognizer) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("gestureRecognizerShouldBegin:"), gestureRecognizer)
 	return rv
 	}
@@ -139,7 +137,6 @@ func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldBegin(gestureR
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizerDelegate/gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)
 func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer(gestureRecognizer INSGestureRecognizer, otherGestureRecognizer INSGestureRecognizer) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:"), gestureRecognizer, otherGestureRecognizer)
 	return rv
 	}
@@ -176,7 +173,6 @@ func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldRecognizeSimul
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizerDelegate/gestureRecognizer(_:shouldRequireFailureOf:)
 func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldRequireFailureOfGestureRecognizer(gestureRecognizer INSGestureRecognizer, otherGestureRecognizer INSGestureRecognizer) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("gestureRecognizer:shouldRequireFailureOfGestureRecognizer:"), gestureRecognizer, otherGestureRecognizer)
 	return rv
 	}
@@ -213,7 +209,6 @@ func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldRequireFailure
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizerDelegate/gestureRecognizer(_:shouldBeRequiredToFailBy:)
 func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldBeRequiredToFailByGestureRecognizer(gestureRecognizer INSGestureRecognizer, otherGestureRecognizer INSGestureRecognizer) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("gestureRecognizer:shouldBeRequiredToFailByGestureRecognizer:"), gestureRecognizer, otherGestureRecognizer)
 	return rv
 	}
@@ -223,7 +218,6 @@ func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldBeRequiredToFa
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizerDelegate/gestureRecognizer(_:shouldReceive:)
 func (o NSGestureRecognizerDelegateObject) GestureRecognizerShouldReceiveTouch(gestureRecognizer INSGestureRecognizer, touch INSTouch) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("gestureRecognizer:shouldReceiveTouch:"), gestureRecognizer, touch)
 	return rv
 	}

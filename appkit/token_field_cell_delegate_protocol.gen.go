@@ -49,7 +49,6 @@ func NSTokenFieldCellDelegateObjectFromID(id objc.ID) NSTokenFieldCellDelegateOb
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:displayStringForRepresentedObject:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellDisplayStringForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:displayStringForRepresentedObject:"), tokenFieldCell, representedObject)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -78,7 +77,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellDisplayStringForRepresente
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:styleForRepresentedObject:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellStyleForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) NSTokenStyle {
-	
 	rv := objc.Send[NSTokenStyle](o.ID, objc.Sel("tokenFieldCell:styleForRepresentedObject:"), tokenFieldCell, representedObject)
 	return rv
 	}
@@ -106,7 +104,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellStyleForRepresentedObject(
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:completionsForSubstring:indexOfToken:indexOfSelectedItem:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenFieldCell INSTokenFieldCell, substring string, tokenIndex int, selectedIndex unsafe.Pointer) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:completionsForSubstring:indexOfToken:indexOfSelectedItem:"), tokenFieldCell, objc.String(substring), tokenIndex, selectedIndex)
 	return foundation.NSArrayFromID(rv)
 	}
@@ -124,7 +121,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellCompletionsForSubstringInd
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:editingStringForRepresentedObject:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellEditingStringForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:editingStringForRepresentedObject:"), tokenFieldCell, representedObject)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -147,7 +143,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellEditingStringForRepresente
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:representedObjectForEditing:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellRepresentedObjectForEditingString(tokenFieldCell INSTokenFieldCell, editingString string) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:representedObjectForEditingString:"), tokenFieldCell, objc.String(editingString))
 	return objectivec.Object{ID: rv}
 	}
@@ -173,7 +168,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellRepresentedObjectForEditin
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:shouldAdd:at:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellShouldAddObjectsAtIndex(tokenFieldCell INSTokenFieldCell, tokens foundation.INSArray, index uint) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:shouldAddObjects:atIndex:"), tokenFieldCell, tokens, index)
 	return foundation.NSArrayFromID(rv)
 	}
@@ -190,7 +184,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellShouldAddObjectsAtIndex(to
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:readFrom:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellReadFromPasteboard(tokenFieldCell INSTokenFieldCell, pboard INSPasteboard) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:readFromPasteboard:"), tokenFieldCell, pboard)
 	return foundation.NSArrayFromID(rv)
 	}
@@ -215,7 +208,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellReadFromPasteboard(tokenFi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:writeRepresentedObjects:to:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellWriteRepresentedObjectsToPasteboard(tokenFieldCell INSTokenFieldCell, objects foundation.INSArray, pboard INSPasteboard) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tokenFieldCell:writeRepresentedObjects:toPasteboard:"), tokenFieldCell, objects, pboard)
 	return rv
 	}
@@ -239,7 +231,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellWriteRepresentedObjectsToP
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:hasMenuForRepresentedObject:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellHasMenuForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tokenFieldCell:hasMenuForRepresentedObject:"), tokenFieldCell, representedObject)
 	return rv
 	}
@@ -260,7 +251,6 @@ func (o NSTokenFieldCellDelegateObject) TokenFieldCellHasMenuForRepresentedObjec
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldCellDelegate/tokenFieldCell(_:menuForRepresentedObject:)
 func (o NSTokenFieldCellDelegateObject) TokenFieldCellMenuForRepresentedObject(tokenFieldCell INSTokenFieldCell, representedObject objectivec.IObject) INSMenu {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenFieldCell:menuForRepresentedObject:"), tokenFieldCell, representedObject)
 	return NSMenuFromID(rv)
 	}

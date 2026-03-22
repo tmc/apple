@@ -66,7 +66,6 @@ func CIPixellateObjectFromID(id objc.ID) CIPixellateObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPixellate/center
 func (o CIPixellateObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -74,7 +73,6 @@ func (o CIPixellateObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPixellate/inputImage
 func (o CIPixellateObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -82,7 +80,6 @@ func (o CIPixellateObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPixellate/scale
 func (o CIPixellateObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CIPixellateObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPixellateObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

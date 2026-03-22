@@ -95,7 +95,6 @@ func CISpotLightObjectFromID(id objc.ID) CISpotLightObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/brightness
 func (o CISpotLightObject) Brightness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("brightness"))
 	return rv
 	}
@@ -103,7 +102,6 @@ func (o CISpotLightObject) Brightness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/color
 func (o CISpotLightObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -111,7 +109,6 @@ func (o CISpotLightObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/concentration
 func (o CISpotLightObject) Concentration() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("concentration"))
 	return rv
 	}
@@ -119,7 +116,6 @@ func (o CISpotLightObject) Concentration() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/inputImage
 func (o CISpotLightObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -127,7 +123,6 @@ func (o CISpotLightObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/lightPointsAt
 func (o CISpotLightObject) LightPointsAt() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("lightPointsAt"))
 	return CIVectorFromID(rv)
 	}
@@ -135,7 +130,6 @@ func (o CISpotLightObject) LightPointsAt() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISpotLight/lightPosition
 func (o CISpotLightObject) LightPosition() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("lightPosition"))
 	return CIVectorFromID(rv)
 	}
@@ -144,7 +138,6 @@ func (o CISpotLightObject) LightPosition() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISpotLightObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

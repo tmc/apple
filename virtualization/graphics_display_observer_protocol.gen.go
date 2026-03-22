@@ -44,7 +44,6 @@ func VZGraphicsDisplayObserverObjectFromID(id objc.ID) VZGraphicsDisplayObserver
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayObserver/displayDidBeginReconfiguration(_:)
 func (o VZGraphicsDisplayObserverObject) DisplayDidBeginReconfiguration(display IVZGraphicsDisplay) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("displayDidBeginReconfiguration:"), display)
 	}
 // The method the framework calls when the reconfiguration operation ends.
@@ -60,7 +59,6 @@ func (o VZGraphicsDisplayObserverObject) DisplayDidBeginReconfiguration(display 
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZGraphicsDisplayObserver/displayDidEndReconfiguration(_:)
 func (o VZGraphicsDisplayObserverObject) DisplayDidEndReconfiguration(display IVZGraphicsDisplay) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("displayDidEndReconfiguration:"), display)
 	}
 

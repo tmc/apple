@@ -74,7 +74,6 @@ func CIGlassDistortionObjectFromID(id objc.ID) CIGlassDistortionObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/center
 func (o CIGlassDistortionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -82,19 +81,16 @@ func (o CIGlassDistortionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/inputImage
 func (o CIGlassDistortionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/scale
 func (o CIGlassDistortionObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIGlassDistortion/textureImage
 func (o CIGlassDistortionObject) TextureImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textureImage"))
 	return CIImageFromID(rv)
 	}
@@ -103,7 +99,6 @@ func (o CIGlassDistortionObject) TextureImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIGlassDistortionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

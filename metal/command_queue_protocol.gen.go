@@ -103,7 +103,6 @@ func MTLCommandQueueObjectFromID(id objc.ID) MTLCommandQueueObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/makeCommandBuffer(descriptor:)
 func (o MTLCommandQueueObject) CommandBufferWithDescriptor(descriptor IMTLCommandBufferDescriptor) MTLCommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandBufferWithDescriptor:"), descriptor)
 	return MTLCommandBufferObjectFromID(rv)
 	}
@@ -130,7 +129,6 @@ func (o MTLCommandQueueObject) CommandBufferWithDescriptor(descriptor IMTLComman
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/makeCommandBuffer()
 func (o MTLCommandQueueObject) CommandBuffer() MTLCommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandBuffer"))
 	return MTLCommandBufferObjectFromID(rv)
 	}
@@ -163,7 +161,6 @@ func (o MTLCommandQueueObject) CommandBuffer() MTLCommandBuffer {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/makeCommandBufferWithUnretainedReferences()
 func (o MTLCommandQueueObject) CommandBufferWithUnretainedReferences() MTLCommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandBufferWithUnretainedReferences"))
 	return MTLCommandBufferObjectFromID(rv)
 	}
@@ -183,7 +180,6 @@ func (o MTLCommandQueueObject) CommandBufferWithUnretainedReferences() MTLComman
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/addResidencySet(_:)
 func (o MTLCommandQueueObject) AddResidencySet(residencySet MTLResidencySet) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addResidencySet:"), residencySet)
 	}
 // Removes a residency set from a command queue’s list, which means Metal
@@ -205,14 +201,12 @@ func (o MTLCommandQueueObject) AddResidencySet(residencySet MTLResidencySet) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/removeResidencySet(_:)
 func (o MTLCommandQueueObject) RemoveResidencySet(residencySet MTLResidencySet) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySet:"), residencySet)
 	}
 // The GPU device that creates the command queue.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/device
 func (o MTLCommandQueueObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -220,7 +214,6 @@ func (o MTLCommandQueueObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/label
 func (o MTLCommandQueueObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -242,7 +235,6 @@ func (o MTLCommandQueueObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/addResidencySets:count:
 func (o MTLCommandQueueObject) AddResidencySetsCount(residencySets []MTLResidencySet, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addResidencySets:count:"), objc.CArray(residencySets), count)
 	}
 // Removes multiple residency sets from a command queue’s list, which means
@@ -267,7 +259,6 @@ func (o MTLCommandQueueObject) AddResidencySetsCount(residencySets []MTLResidenc
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandQueue/removeResidencySets:count:
 func (o MTLCommandQueueObject) RemoveResidencySetsCount(residencySets []MTLResidencySet, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("removeResidencySets:count:"), objc.CArray(residencySets), count)
 	}
 

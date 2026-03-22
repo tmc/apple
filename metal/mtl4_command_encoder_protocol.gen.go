@@ -95,7 +95,6 @@ func MTL4CommandEncoderObjectFromID(id objc.ID) MTL4CommandEncoderObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/commandBuffer
 func (o MTL4CommandEncoderObject) CommandBuffer() MTL4CommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandBuffer"))
 	return MTL4CommandBufferObjectFromID(rv)
 	}
@@ -104,7 +103,6 @@ func (o MTL4CommandEncoderObject) CommandBuffer() MTL4CommandBuffer {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/label
 func (o MTL4CommandEncoderObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -112,7 +110,6 @@ func (o MTL4CommandEncoderObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/endEncoding()
 func (o MTL4CommandEncoderObject) EndEncoding() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("endEncoding"))
 	}
 // Inserts a debug string into the frame data to aid debugging.
@@ -126,7 +123,6 @@ func (o MTL4CommandEncoderObject) EndEncoding() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/insertDebugSignpost(_:)
 func (o MTL4CommandEncoderObject) InsertDebugSignpost(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertDebugSignpost:"), objc.String(string_))
 	}
 // Pops the latest debug group string from this encoder’s stack of debug
@@ -134,7 +130,6 @@ func (o MTL4CommandEncoderObject) InsertDebugSignpost(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/popDebugGroup()
 func (o MTL4CommandEncoderObject) PopDebugGroup() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
 // Pushes a string onto this encoder’s stack of debug groups.
@@ -143,7 +138,6 @@ func (o MTL4CommandEncoderObject) PopDebugGroup() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/pushDebugGroup(_:)
 func (o MTL4CommandEncoderObject) PushDebugGroup(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
 // Encodes a command that instructs the GPU to update a fence after one or
@@ -191,7 +185,6 @@ func (o MTL4CommandEncoderObject) PushDebugGroup(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/updateFence(_:afterEncoderStages:)
 func (o MTL4CommandEncoderObject) UpdateFenceAfterEncoderStages(fence MTLFence, afterEncoderStages MTLStages) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("updateFence:afterEncoderStages:"), fence, afterEncoderStages)
 	}
 // Encodes a command that instructs the GPU to pause before starting one or
@@ -241,7 +234,6 @@ func (o MTL4CommandEncoderObject) UpdateFenceAfterEncoderStages(fence MTLFence, 
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/waitForFence(_:beforeEncoderStages:)
 func (o MTL4CommandEncoderObject) WaitForFenceBeforeEncoderStages(fence MTLFence, beforeEncoderStages MTLStages) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:beforeEncoderStages:"), fence, beforeEncoderStages)
 	}
 // Encodes an intra-pass barrier.
@@ -279,7 +271,6 @@ func (o MTL4CommandEncoderObject) WaitForFenceBeforeEncoderStages(fence MTLFence
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:
 func (o MTL4CommandEncoderObject) BarrierAfterEncoderStagesBeforeEncoderStagesVisibilityOptions(afterEncoderStages MTLStages, beforeEncoderStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:"), afterEncoderStages, beforeEncoderStages, visibilityOptions)
 	}
 // Encodes a consumer barrier on work you commit to the same command queue.
@@ -322,7 +313,6 @@ func (o MTL4CommandEncoderObject) BarrierAfterEncoderStagesBeforeEncoderStagesVi
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterQueueStages:beforeStages:visibilityOptions:
 func (o MTL4CommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisibilityOptions(afterQueueStages MTLStages, beforeStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:visibilityOptions:"), afterQueueStages, beforeStages, visibilityOptions)
 	}
 // Encodes a producer barrier on work committed to the same command queue.
@@ -358,7 +348,6 @@ func (o MTL4CommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisibilityO
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterStages:beforeQueueStages:visibilityOptions:
 func (o MTL4CommandEncoderObject) BarrierAfterStagesBeforeQueueStagesVisibilityOptions(afterStages MTLStages, beforeQueueStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterStages:beforeQueueStages:visibilityOptions:"), afterStages, beforeQueueStages, visibilityOptions)
 	}
 

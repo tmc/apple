@@ -74,13 +74,11 @@ func CITwirlDistortionObjectFromID(id objc.ID) CITwirlDistortionObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/angle
 func (o CITwirlDistortionObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/center
 func (o CITwirlDistortionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -88,13 +86,11 @@ func (o CITwirlDistortionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/inputImage
 func (o CITwirlDistortionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CITwirlDistortion/radius
 func (o CITwirlDistortionObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -103,7 +99,6 @@ func (o CITwirlDistortionObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CITwirlDistortionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

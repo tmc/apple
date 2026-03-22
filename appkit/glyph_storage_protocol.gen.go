@@ -60,7 +60,6 @@ func NSGlyphStorageObjectFromID(id objc.ID) NSGlyphStorageObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/attributedString()
 func (o NSGlyphStorageObject) AttributedString() foundation.NSAttributedString {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(rv)
 	}
@@ -72,7 +71,6 @@ func (o NSGlyphStorageObject) AttributedString() foundation.NSAttributedString {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/layoutOptions()
 func (o NSGlyphStorageObject) LayoutOptions() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("layoutOptions"))
 	return rv
 	}
@@ -93,7 +91,6 @@ func (o NSGlyphStorageObject) LayoutOptions() uint {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/insertGlyphs(_:length:forStartingGlyphAt:characterIndex:)
 func (o NSGlyphStorageObject) InsertGlyphsLengthForStartingGlyphAtIndexCharacterIndex(glyphs NSGlyph, length uint, glyphIndex uint, charIndex uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertGlyphs:length:forStartingGlyphAtIndex:characterIndex:"), glyphs, length, glyphIndex, charIndex)
 	}
 // Sets a custom attribute value for a given glyph.
@@ -114,7 +111,6 @@ func (o NSGlyphStorageObject) InsertGlyphsLengthForStartingGlyphAtIndexCharacter
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphStorage/setIntAttribute(_:value:forGlyphAt:)
 func (o NSGlyphStorageObject) SetIntAttributeValueForGlyphAtIndex(attributeTag int, val int, glyphIndex uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setIntAttribute:value:forGlyphAtIndex:"), attributeTag, val, glyphIndex)
 	}
 

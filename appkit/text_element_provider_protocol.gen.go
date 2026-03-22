@@ -54,7 +54,6 @@ func NSTextElementProviderObjectFromID(id objc.ID) NSTextElementProviderObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/documentRange
 func (o NSTextElementProviderObject) DocumentRange() INSTextRange {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("documentRange"))
 	return NSTextRangeFromID(rv)
 	}
@@ -88,7 +87,6 @@ func (o NSTextElementProviderObject) DocumentRange() INSTextRange {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/enumerateTextElements(from:options:using:)
 func (o NSTextElementProviderObject) EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block TextElementHandler) NSTextLocation {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, block)
 	return NSTextLocationObjectFromID(rv)
 	}
@@ -107,7 +105,6 @@ func (o NSTextElementProviderObject) EnumerateTextElementsFromLocationOptionsUsi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/replaceContents(in:with:)
 func (o NSTextElementProviderObject) ReplaceContentsInRangeWithTextElements(range_ INSTextRange, textElements []NSTextElement) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("replaceContentsInRange:withTextElements:"), range_, objectivec.IObjectSliceToNSArray(textElements))
 	}
 // Synchronizes changes to the backing store.
@@ -124,7 +121,6 @@ func (o NSTextElementProviderObject) ReplaceContentsInRangeWithTextElements(rang
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/synchronizeToBackingStore(_:)
 func (o NSTextElementProviderObject) SynchronizeToBackingStore(completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("synchronizeToBackingStore:"), completionHandler)
 	}
 // Returns a new location from location with offset you provide.
@@ -140,7 +136,6 @@ func (o NSTextElementProviderObject) SynchronizeToBackingStore(completionHandler
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/location(_:offsetBy:)
 func (o NSTextElementProviderObject) LocationFromLocationWithOffset(location NSTextLocation, offset int) NSTextLocation {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("locationFromLocation:withOffset:"), location, offset)
 	return NSTextLocationObjectFromID(rv)
 	}
@@ -160,7 +155,6 @@ func (o NSTextElementProviderObject) LocationFromLocationWithOffset(location NST
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/adjustedRange(from:forEditingTextSelection:)
 func (o NSTextElementProviderObject) AdjustedRangeFromRangeForEditingTextSelection(textRange INSTextRange, forEditingTextSelection bool) INSTextRange {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("adjustedRangeFromRange:forEditingTextSelection:"), textRange, forEditingTextSelection)
 	return NSTextRangeFromID(rv)
 	}
@@ -186,7 +180,6 @@ func (o NSTextElementProviderObject) AdjustedRangeFromRangeForEditingTextSelecti
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/offset(from:to:)
 func (o NSTextElementProviderObject) OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("offsetFromLocation:toLocation:"), from, to)
 	return rv
 	}

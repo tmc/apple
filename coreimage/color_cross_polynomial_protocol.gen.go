@@ -75,7 +75,6 @@ func CIColorCrossPolynomialObjectFromID(id objc.ID) CIColorCrossPolynomialObject
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCrossPolynomial/blueCoefficients
 func (o CIColorCrossPolynomialObject) BlueCoefficients() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("blueCoefficients"))
 	return CIVectorFromID(rv)
 	}
@@ -83,7 +82,6 @@ func (o CIColorCrossPolynomialObject) BlueCoefficients() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCrossPolynomial/greenCoefficients
 func (o CIColorCrossPolynomialObject) GreenCoefficients() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("greenCoefficients"))
 	return CIVectorFromID(rv)
 	}
@@ -91,7 +89,6 @@ func (o CIColorCrossPolynomialObject) GreenCoefficients() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCrossPolynomial/inputImage
 func (o CIColorCrossPolynomialObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -99,7 +96,6 @@ func (o CIColorCrossPolynomialObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCrossPolynomial/redCoefficients
 func (o CIColorCrossPolynomialObject) RedCoefficients() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("redCoefficients"))
 	return CIVectorFromID(rv)
 	}
@@ -108,7 +104,6 @@ func (o CIColorCrossPolynomialObject) RedCoefficients() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorCrossPolynomialObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

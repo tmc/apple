@@ -40,7 +40,6 @@ func NSCollectionLayoutEnvironmentObjectFromID(id objc.ID) NSCollectionLayoutEnv
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutEnvironment/container
 func (o NSCollectionLayoutEnvironmentObject) Container() NSCollectionLayoutContainer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("container"))
 	return NSCollectionLayoutContainerObjectFromID(rv)
 	}

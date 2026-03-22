@@ -116,7 +116,6 @@ func CILenticularHaloGeneratorObjectFromID(id objc.ID) CILenticularHaloGenerator
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/center
 func (o CILenticularHaloGeneratorObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -124,7 +123,6 @@ func (o CILenticularHaloGeneratorObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/color
 func (o CILenticularHaloGeneratorObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -132,7 +130,6 @@ func (o CILenticularHaloGeneratorObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloOverlap
 func (o CILenticularHaloGeneratorObject) HaloOverlap() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("haloOverlap"))
 	return rv
 	}
@@ -140,7 +137,6 @@ func (o CILenticularHaloGeneratorObject) HaloOverlap() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloRadius
 func (o CILenticularHaloGeneratorObject) HaloRadius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("haloRadius"))
 	return rv
 	}
@@ -148,7 +144,6 @@ func (o CILenticularHaloGeneratorObject) HaloRadius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/haloWidth
 func (o CILenticularHaloGeneratorObject) HaloWidth() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("haloWidth"))
 	return rv
 	}
@@ -156,7 +151,6 @@ func (o CILenticularHaloGeneratorObject) HaloWidth() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationContrast
 func (o CILenticularHaloGeneratorObject) StriationContrast() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
 	return rv
 	}
@@ -164,7 +158,6 @@ func (o CILenticularHaloGeneratorObject) StriationContrast() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/striationStrength
 func (o CILenticularHaloGeneratorObject) StriationStrength() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
 	return rv
 	}
@@ -172,7 +165,6 @@ func (o CILenticularHaloGeneratorObject) StriationStrength() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILenticularHaloGenerator/time
 func (o CILenticularHaloGeneratorObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}
@@ -181,7 +173,6 @@ func (o CILenticularHaloGeneratorObject) Time() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CILenticularHaloGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -85,7 +85,6 @@ func NSTableViewDelegateObjectFromID(id objc.ID) NSTableViewDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:viewFor:row:)
 func (o NSTableViewDelegateObject) TableViewViewForTableColumnRow(tableView INSTableView, tableColumn INSTableColumn, row int) INSView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:viewForTableColumn:row:"), tableView, tableColumn, row)
 	return NSViewFromID(rv)
 	}
@@ -111,7 +110,6 @@ func (o NSTableViewDelegateObject) TableViewViewForTableColumnRow(tableView INST
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:rowViewForRow:)
 func (o NSTableViewDelegateObject) TableViewRowViewForRow(tableView INSTableView, row int) INSTableRowView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:rowViewForRow:"), tableView, row)
 	return NSTableRowViewFromID(rv)
 	}
@@ -130,7 +128,6 @@ func (o NSTableViewDelegateObject) TableViewRowViewForRow(tableView INSTableView
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:didAdd:forRow:)
 func (o NSTableViewDelegateObject) TableViewDidAddRowViewForRow(tableView INSTableView, rowView INSTableRowView, row int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:didAddRowView:forRow:"), tableView, rowView, row)
 	}
 // Tells the delegate that a row view was removed from the table at the
@@ -150,7 +147,6 @@ func (o NSTableViewDelegateObject) TableViewDidAddRowViewForRow(tableView INSTab
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:didRemove:forRow:)
 func (o NSTableViewDelegateObject) TableViewDidRemoveRowViewForRow(tableView INSTableView, rowView INSTableRowView, row int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:didRemoveRowView:forRow:"), tableView, rowView, row)
 	}
 // Returns whether the specified row is a group row.
@@ -180,7 +176,6 @@ func (o NSTableViewDelegateObject) TableViewDidRemoveRowViewForRow(tableView INS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:isGroupRow:)
 func (o NSTableViewDelegateObject) TableViewIsGroupRow(tableView INSTableView, row int) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:isGroupRow:"), tableView, row)
 	return rv
 	}
@@ -206,7 +201,6 @@ func (o NSTableViewDelegateObject) TableViewIsGroupRow(tableView INSTableView, r
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:willDisplayCell:for:row:)
 func (o NSTableViewDelegateObject) TableViewWillDisplayCellForTableColumnRow(tableView INSTableView, cell objectivec.IObject, tableColumn INSTableColumn, row int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:willDisplayCell:forTableColumn:row:"), tableView, cell, tableColumn, row)
 	}
 // Asks the delegate for a custom data cell for the specified row and column.
@@ -241,7 +235,6 @@ func (o NSTableViewDelegateObject) TableViewWillDisplayCellForTableColumnRow(tab
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:dataCellFor:row:)
 func (o NSTableViewDelegateObject) TableViewDataCellForTableColumnRow(tableView INSTableView, tableColumn INSTableColumn, row int) INSCell {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:dataCellForTableColumn:row:"), tableView, tableColumn, row)
 	return NSCellFromID(rv)
 	}
@@ -272,7 +265,6 @@ func (o NSTableViewDelegateObject) TableViewDataCellForTableColumnRow(tableView 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:shouldShowCellExpansionFor:row:)
 func (o NSTableViewDelegateObject) TableViewShouldShowCellExpansionForTableColumnRow(tableView INSTableView, tableColumn INSTableColumn, row int) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:shouldShowCellExpansionForTableColumn:row:"), tableView, tableColumn, row)
 	return rv
 	}
@@ -305,7 +297,6 @@ func (o NSTableViewDelegateObject) TableViewShouldShowCellExpansionForTableColum
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:toolTipFor:rect:tableColumn:row:mouseLocation:)
 func (o NSTableViewDelegateObject) TableViewToolTipForCellRectTableColumnRowMouseLocation(tableView INSTableView, cell INSCell, rect foundation.NSRect, tableColumn INSTableColumn, row int, mouseLocation corefoundation.CGPoint) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:toolTipForCell:rect:tableColumn:row:mouseLocation:"), tableView, cell, rect, tableColumn, row, mouseLocation)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -332,7 +323,6 @@ func (o NSTableViewDelegateObject) TableViewToolTipForCellRectTableColumnRowMous
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:shouldEdit:row:)
 func (o NSTableViewDelegateObject) TableViewShouldEditTableColumnRow(tableView INSTableView, tableColumn INSTableColumn, row int) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:shouldEditTableColumn:row:"), tableView, tableColumn, row)
 	return rv
 	}
@@ -364,7 +354,6 @@ func (o NSTableViewDelegateObject) TableViewShouldEditTableColumnRow(tableView I
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:heightOfRow:)
 func (o NSTableViewDelegateObject) TableViewHeightOfRow(tableView INSTableView, row int) float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("tableView:heightOfRow:"), tableView, row)
 	return rv
 	}
@@ -393,7 +382,6 @@ func (o NSTableViewDelegateObject) TableViewHeightOfRow(tableView INSTableView, 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:sizeToFitWidthOfColumn:)
 func (o NSTableViewDelegateObject) TableViewSizeToFitWidthOfColumn(tableView INSTableView, column int) float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("tableView:sizeToFitWidthOfColumn:"), tableView, column)
 	return rv
 	}
@@ -418,7 +406,6 @@ func (o NSTableViewDelegateObject) TableViewSizeToFitWidthOfColumn(tableView INS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/selectionShouldChange(in:)
 func (o NSTableViewDelegateObject) SelectionShouldChangeInTableView(tableView INSTableView) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("selectionShouldChangeInTableView:"), tableView)
 	return rv
 	}
@@ -446,7 +433,6 @@ func (o NSTableViewDelegateObject) SelectionShouldChangeInTableView(tableView IN
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:shouldSelectRow:)
 func (o NSTableViewDelegateObject) TableViewShouldSelectRow(tableView INSTableView, row int) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:shouldSelectRow:"), tableView, row)
 	return rv
 	}
@@ -476,7 +462,6 @@ func (o NSTableViewDelegateObject) TableViewShouldSelectRow(tableView INSTableVi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:selectionIndexesForProposedSelection:)
 func (o NSTableViewDelegateObject) TableViewSelectionIndexesForProposedSelection(tableView INSTableView, proposedSelectionIndexes foundation.NSIndexSet) foundation.NSIndexSet {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:selectionIndexesForProposedSelection:"), tableView, proposedSelectionIndexes)
 	return foundation.NSIndexSetFromID(rv)
 	}
@@ -500,7 +485,6 @@ func (o NSTableViewDelegateObject) TableViewSelectionIndexesForProposedSelection
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:shouldSelect:)
 func (o NSTableViewDelegateObject) TableViewShouldSelectTableColumn(tableView INSTableView, tableColumn INSTableColumn) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:shouldSelectTableColumn:"), tableView, tableColumn)
 	return rv
 	}
@@ -519,7 +503,6 @@ func (o NSTableViewDelegateObject) TableViewShouldSelectTableColumn(tableView IN
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableViewSelectionIsChanging(_:)
 func (o NSTableViewDelegateObject) TableViewSelectionIsChanging(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableViewSelectionIsChanging:"), notification)
 	}
 // Tells the delegate that the table view’s selection has changed.
@@ -530,7 +513,6 @@ func (o NSTableViewDelegateObject) TableViewSelectionIsChanging(notification fou
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableViewSelectionDidChange(_:)
 func (o NSTableViewDelegateObject) TableViewSelectionDidChange(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableViewSelectionDidChange:"), notification)
 	}
 // Asks the delegate to allow or deny type select for the specified event and
@@ -556,7 +538,6 @@ func (o NSTableViewDelegateObject) TableViewSelectionDidChange(notification foun
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:shouldTypeSelectFor:withCurrentSearch:)
 func (o NSTableViewDelegateObject) TableViewShouldTypeSelectForEventWithCurrentSearchString(tableView INSTableView, event INSEvent, searchString string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:shouldTypeSelectForEvent:withCurrentSearchString:"), tableView, event, objc.String(searchString))
 	return rv
 	}
@@ -585,7 +566,6 @@ func (o NSTableViewDelegateObject) TableViewShouldTypeSelectForEventWithCurrentS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:typeSelectStringFor:row:)
 func (o NSTableViewDelegateObject) TableViewTypeSelectStringForTableColumnRow(tableView INSTableView, tableColumn INSTableColumn, row int) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:typeSelectStringForTableColumn:row:"), tableView, tableColumn, row)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -615,7 +595,6 @@ func (o NSTableViewDelegateObject) TableViewTypeSelectStringForTableColumnRow(ta
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:nextTypeSelectMatchFromRow:toRow:for:)
 func (o NSTableViewDelegateObject) TableViewNextTypeSelectMatchFromRowToRowForString(tableView INSTableView, startRow int, endRow int, searchString string) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("tableView:nextTypeSelectMatchFromRow:toRow:forString:"), tableView, startRow, endRow, objc.String(searchString))
 	return rv
 	}
@@ -653,7 +632,6 @@ func (o NSTableViewDelegateObject) TableViewNextTypeSelectMatchFromRowToRowForSt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:shouldReorderColumn:toColumn:)
 func (o NSTableViewDelegateObject) TableViewShouldReorderColumnToColumn(tableView INSTableView, columnIndex int, newColumnIndex int) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:shouldReorderColumn:toColumn:"), tableView, columnIndex, newColumnIndex)
 	return rv
 	}
@@ -673,7 +651,6 @@ func (o NSTableViewDelegateObject) TableViewShouldReorderColumnToColumn(tableVie
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:didDrag:)
 func (o NSTableViewDelegateObject) TableViewDidDragTableColumn(tableView INSTableView, tableColumn INSTableColumn) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:didDragTableColumn:"), tableView, tableColumn)
 	}
 // Tells the delegate that a table column was moved by user action.
@@ -684,7 +661,6 @@ func (o NSTableViewDelegateObject) TableViewDidDragTableColumn(tableView INSTabl
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableViewColumnDidMove(_:)
 func (o NSTableViewDelegateObject) TableViewColumnDidMove(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableViewColumnDidMove:"), notification)
 	}
 // Tells the delegate that a table column was resized.
@@ -695,7 +671,6 @@ func (o NSTableViewDelegateObject) TableViewColumnDidMove(notification foundatio
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableViewColumnDidResize(_:)
 func (o NSTableViewDelegateObject) TableViewColumnDidResize(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableViewColumnDidResize:"), notification)
 	}
 // Tells the delegate that the mouse button was clicked in the specified table
@@ -707,7 +682,6 @@ func (o NSTableViewDelegateObject) TableViewColumnDidResize(notification foundat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:didClick:)
 func (o NSTableViewDelegateObject) TableViewDidClickTableColumn(tableView INSTableView, tableColumn INSTableColumn) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:didClickTableColumn:"), tableView, tableColumn)
 	}
 // Tells the delegate that the mouse button was clicked in the specified table
@@ -719,7 +693,6 @@ func (o NSTableViewDelegateObject) TableViewDidClickTableColumn(tableView INSTab
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:mouseDownInHeaderOf:)
 func (o NSTableViewDelegateObject) TableViewMouseDownInHeaderOfTableColumn(tableView INSTableView, tableColumn INSTableColumn) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:mouseDownInHeaderOfTableColumn:"), tableView, tableColumn)
 	}
 // Asks the delegate whether the specified cell should be tracked.
@@ -752,7 +725,6 @@ func (o NSTableViewDelegateObject) TableViewMouseDownInHeaderOfTableColumn(table
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:shouldTrackCell:for:row:)
 func (o NSTableViewDelegateObject) TableViewShouldTrackCellForTableColumnRow(tableView INSTableView, cell INSCell, tableColumn INSTableColumn, row int) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:shouldTrackCell:forTableColumn:row:"), tableView, cell, tableColumn, row)
 	return rv
 	}
@@ -796,7 +768,6 @@ func (o NSTableViewDelegateObject) TableViewShouldTrackCellForTableColumnRow(tab
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:rowActionsForRow:edge:)
 func (o NSTableViewDelegateObject) TableViewRowActionsForRowEdge(tableView INSTableView, row int, edge NSTableRowActionEdge) []NSTableViewRowAction {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("tableView:rowActionsForRow:edge:"), tableView, row, edge)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSTableViewRowAction {
 		return NSTableViewRowActionFromID(id)
@@ -829,7 +800,6 @@ func (o NSTableViewDelegateObject) TableViewRowActionsForRowEdge(tableView INSTa
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:userCanChangeVisibilityOf:)
 func (o NSTableViewDelegateObject) TableViewUserCanChangeVisibilityOfTableColumn(tableView INSTableView, column INSTableColumn) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:userCanChangeVisibilityOfTableColumn:"), tableView, column)
 	return rv
 	}
@@ -842,7 +812,6 @@ func (o NSTableViewDelegateObject) TableViewUserCanChangeVisibilityOfTableColumn
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDelegate/tableView(_:userDidChangeVisibilityOf:)
 func (o NSTableViewDelegateObject) TableViewUserDidChangeVisibilityOfTableColumns(tableView INSTableView, columns []NSTableColumn) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:userDidChangeVisibilityOfTableColumns:"), tableView, objectivec.IObjectSliceToNSArray(columns))
 	}
 // Invoked when the insertion point leaves a cell belonging to the specified
@@ -873,7 +842,6 @@ func (o NSTableViewDelegateObject) TableViewUserDidChangeVisibilityOfTableColumn
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:isValidObject:)
 func (o NSTableViewDelegateObject) ControlIsValidObject(control INSControl, obj objectivec.IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:isValidObject:"), control, obj)
 	return rv
 	}
@@ -894,7 +862,6 @@ func (o NSTableViewDelegateObject) ControlIsValidObject(control INSControl, obj 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToValidatePartialString:errorDescription:)
 func (o NSTableViewDelegateObject) ControlDidFailToValidatePartialStringErrorDescription(control INSControl, string_ string, error_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("control:didFailToValidatePartialString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	}
 // Invoked when the formatter for the cell belonging to the specified control
@@ -923,7 +890,6 @@ func (o NSTableViewDelegateObject) ControlDidFailToValidatePartialStringErrorDes
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToFormatString:errorDescription:)
 func (o NSTableViewDelegateObject) ControlDidFailToFormatStringErrorDescription(control INSControl, string_ string, error_ string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:didFailToFormatString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	return rv
 	}
@@ -949,7 +915,6 @@ func (o NSTableViewDelegateObject) ControlDidFailToFormatStringErrorDescription(
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldBeginEditing:)
 func (o NSTableViewDelegateObject) ControlTextShouldBeginEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldBeginEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -977,7 +942,6 @@ func (o NSTableViewDelegateObject) ControlTextShouldBeginEditing(control INSCont
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldEndEditing:)
 func (o NSTableViewDelegateObject) ControlTextShouldEndEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldEndEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -1024,7 +988,6 @@ func (o NSTableViewDelegateObject) ControlTextShouldEndEditing(control INSContro
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 func (o NSTableViewDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -1064,7 +1027,6 @@ func (o NSTableViewDelegateObject) ControlTextViewCompletionsForPartialWordRange
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:doCommandBy:)
 func (o NSTableViewDelegateObject) ControlTextViewDoCommandBySelector(control INSControl, textView INSTextView, commandSelector objc.SEL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textView:doCommandBySelector:"), control, textView, commandSelector)
 	return rv
 	}
@@ -1080,7 +1042,6 @@ func (o NSTableViewDelegateObject) ControlTextViewDoCommandBySelector(control IN
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidBeginEditing(_:)
 func (o NSTableViewDelegateObject) ControlTextDidBeginEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidBeginEditing:"), obj)
 	}
 // Tells the delegate that the control made changes to its text content.
@@ -1095,7 +1056,6 @@ func (o NSTableViewDelegateObject) ControlTextDidBeginEditing(obj foundation.NSN
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidChange(_:)
 func (o NSTableViewDelegateObject) ControlTextDidChange(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidChange:"), obj)
 	}
 // Tells the delegate that the control finished editing its text content and
@@ -1111,7 +1071,6 @@ func (o NSTableViewDelegateObject) ControlTextDidChange(obj foundation.NSNotific
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidEndEditing(_:)
 func (o NSTableViewDelegateObject) ControlTextDidEndEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
 	}
 

@@ -45,7 +45,6 @@ func NSTextContentObjectFromID(id objc.ID) NSTextContentObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContent/contentType
 func (o NSTextContentObject) ContentType() NSTextContentType {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("contentType"))
 	return NSTextContentType(foundation.NSStringFromID(rv).String())
 	}

@@ -75,7 +75,6 @@ func CIColorControlsObjectFromID(id objc.ID) CIColorControlsObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorControls/brightness
 func (o CIColorControlsObject) Brightness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("brightness"))
 	return rv
 	}
@@ -83,7 +82,6 @@ func (o CIColorControlsObject) Brightness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorControls/contrast
 func (o CIColorControlsObject) Contrast() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("contrast"))
 	return rv
 	}
@@ -91,7 +89,6 @@ func (o CIColorControlsObject) Contrast() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorControls/inputImage
 func (o CIColorControlsObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -99,7 +96,6 @@ func (o CIColorControlsObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorControls/saturation
 func (o CIColorControlsObject) Saturation() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("saturation"))
 	return rv
 	}
@@ -108,7 +104,6 @@ func (o CIColorControlsObject) Saturation() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorControlsObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

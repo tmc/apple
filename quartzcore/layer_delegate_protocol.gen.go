@@ -51,7 +51,6 @@ func CALayerDelegateObjectFromID(id objc.ID) CALayerDelegateObject {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerDelegate/display(_:)
 func (o CALayerDelegateObject) DisplayLayer(layer ICALayer) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("displayLayer:"), layer)
 	}
 // Tells the delegate to implement the display process using the layer’s
@@ -81,7 +80,6 @@ func (o CALayerDelegateObject) DisplayLayer(layer ICALayer) {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerDelegate/draw(_:in:)
 func (o CALayerDelegateObject) DrawLayerInContext(layer ICALayer, ctx coregraphics.CGContextRef) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawLayer:inContext:"), layer, ctx)
 	}
 // Notifies the delegate of an imminent draw.
@@ -96,7 +94,6 @@ func (o CALayerDelegateObject) DrawLayerInContext(layer ICALayer, ctx coregraphi
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerDelegate/layerWillDraw(_:)
 func (o CALayerDelegateObject) LayerWillDraw(layer ICALayer) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("layerWillDraw:"), layer)
 	}
 // Tells the delegate a layer’s bounds have changed.
@@ -118,7 +115,6 @@ func (o CALayerDelegateObject) LayerWillDraw(layer ICALayer) {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerDelegate/layoutSublayers(of:)
 func (o CALayerDelegateObject) LayoutSublayersOfLayer(layer ICALayer) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("layoutSublayersOfLayer:"), layer)
 	}
 // Returns the default action of the [ActionForKey] method.
@@ -148,7 +144,6 @@ func (o CALayerDelegateObject) LayoutSublayersOfLayer(layer ICALayer) {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayerDelegate/action(for:forKey:)
 func (o CALayerDelegateObject) ActionForLayerForKey(layer ICALayer, event string) CAAction {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("actionForLayer:forKey:"), layer, objc.String(event))
 	return CAActionObjectFromID(rv)
 	}

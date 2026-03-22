@@ -116,7 +116,6 @@ func CAMediaTimingObjectFromID(id objc.ID) CAMediaTimingObject {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/beginTime
 func (o CAMediaTimingObject) BeginTime() float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("beginTime"))
 	return rv
 	}
@@ -124,7 +123,6 @@ func (o CAMediaTimingObject) BeginTime() float64 {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/timeOffset
 func (o CAMediaTimingObject) TimeOffset() float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("timeOffset"))
 	return rv
 	}
@@ -132,7 +130,6 @@ func (o CAMediaTimingObject) TimeOffset() float64 {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatCount
 func (o CAMediaTimingObject) RepeatCount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("repeatCount"))
 	return rv
 	}
@@ -140,7 +137,6 @@ func (o CAMediaTimingObject) RepeatCount() float32 {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/repeatDuration
 func (o CAMediaTimingObject) RepeatDuration() float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("repeatDuration"))
 	return rv
 	}
@@ -148,7 +144,6 @@ func (o CAMediaTimingObject) RepeatDuration() float64 {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/duration
 func (o CAMediaTimingObject) Duration() float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("duration"))
 	return rv
 	}
@@ -157,7 +152,6 @@ func (o CAMediaTimingObject) Duration() float64 {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/speed
 func (o CAMediaTimingObject) Speed() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("speed"))
 	return rv
 	}
@@ -165,7 +159,6 @@ func (o CAMediaTimingObject) Speed() float32 {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/autoreverses
 func (o CAMediaTimingObject) Autoreverses() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("autoreverses"))
 	return rv
 	}
@@ -174,7 +167,6 @@ func (o CAMediaTimingObject) Autoreverses() bool {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMediaTiming/fillMode
 func (o CAMediaTimingObject) FillMode() CAMediaTimingFillMode {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("fillMode"))
 	return CAMediaTimingFillMode(foundation.NSStringFromID(rv).String())
 	}

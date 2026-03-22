@@ -55,19 +55,16 @@ func CIAreaHistogramObjectFromID(id objc.ID) CIAreaHistogramObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaHistogram/count
 func (o CIAreaHistogramObject) Count() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("count"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaHistogram/scale
 func (o CIAreaHistogramObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/extent
 func (o CIAreaHistogramObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -75,7 +72,6 @@ func (o CIAreaHistogramObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAreaReductionFilter/inputImage
 func (o CIAreaHistogramObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -84,7 +80,6 @@ func (o CIAreaHistogramObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIAreaHistogramObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

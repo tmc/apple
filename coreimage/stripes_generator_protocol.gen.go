@@ -86,7 +86,6 @@ func CIStripesGeneratorObjectFromID(id objc.ID) CIStripesGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStripesGenerator/center
 func (o CIStripesGeneratorObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CIStripesGeneratorObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStripesGenerator/color0
 func (o CIStripesGeneratorObject) Color0() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color0"))
 	return CIColorFromID(rv)
 	}
@@ -102,7 +100,6 @@ func (o CIStripesGeneratorObject) Color0() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStripesGenerator/color1
 func (o CIStripesGeneratorObject) Color1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color1"))
 	return CIColorFromID(rv)
 	}
@@ -110,7 +107,6 @@ func (o CIStripesGeneratorObject) Color1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStripesGenerator/sharpness
 func (o CIStripesGeneratorObject) Sharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CIStripesGeneratorObject) Sharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStripesGenerator/width
 func (o CIStripesGeneratorObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CIStripesGeneratorObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIStripesGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

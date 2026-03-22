@@ -85,7 +85,6 @@ func MTLRasterizationRateMapObjectFromID(id objc.ID) MTLRasterizationRateMapObje
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/device
 func (o MTLRasterizationRateMapObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -93,7 +92,6 @@ func (o MTLRasterizationRateMapObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/label
 func (o MTLRasterizationRateMapObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -101,7 +99,6 @@ func (o MTLRasterizationRateMapObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/layerCount
 func (o MTLRasterizationRateMapObject) LayerCount() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("layerCount"))
 	return rv
 	}
@@ -109,7 +106,6 @@ func (o MTLRasterizationRateMapObject) LayerCount() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/screenSize
 func (o MTLRasterizationRateMapObject) ScreenSize() MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("screenSize"))
 	return rv
 	}
@@ -131,7 +127,6 @@ func (o MTLRasterizationRateMapObject) ScreenSize() MTLSize {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/physicalSize(layer:)
 func (o MTLRasterizationRateMapObject) PhysicalSizeForLayer(layerIndex uint) MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("physicalSizeForLayer:"), layerIndex)
 	return rv
 	}
@@ -140,7 +135,6 @@ func (o MTLRasterizationRateMapObject) PhysicalSizeForLayer(layerIndex uint) MTL
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/physicalGranularity
 func (o MTLRasterizationRateMapObject) PhysicalGranularity() MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("physicalGranularity"))
 	return rv
 	}
@@ -163,7 +157,6 @@ func (o MTLRasterizationRateMapObject) PhysicalGranularity() MTLSize {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/physicalCoordinates(screenCoordinates:layer:)
 func (o MTLRasterizationRateMapObject) MapScreenToPhysicalCoordinatesForLayer(screenCoordinates MTLCoordinate2D, layerIndex uint) MTLCoordinate2D {
-	
 	rv := objc.Send[MTLCoordinate2D](o.ID, objc.Sel("mapScreenToPhysicalCoordinates:forLayer:"), screenCoordinates, layerIndex)
 	return rv
 	}
@@ -185,7 +178,6 @@ func (o MTLRasterizationRateMapObject) MapScreenToPhysicalCoordinatesForLayer(sc
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/screenCoordinates(physicalCoordinates:layer:)
 func (o MTLRasterizationRateMapObject) MapPhysicalToScreenCoordinatesForLayer(physicalCoordinates MTLCoordinate2D, layerIndex uint) MTLCoordinate2D {
-	
 	rv := objc.Send[MTLCoordinate2D](o.ID, objc.Sel("mapPhysicalToScreenCoordinates:forLayer:"), physicalCoordinates, layerIndex)
 	return rv
 	}
@@ -194,7 +186,6 @@ func (o MTLRasterizationRateMapObject) MapPhysicalToScreenCoordinatesForLayer(ph
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/parameterDataSizeAndAlign
 func (o MTLRasterizationRateMapObject) ParameterBufferSizeAndAlign() MTLSizeAndAlign {
-	
 	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("parameterBufferSizeAndAlign"))
 	return rv
 	}
@@ -224,7 +215,6 @@ func (o MTLRasterizationRateMapObject) ParameterBufferSizeAndAlign() MTLSizeAndA
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRasterizationRateMap/copyParameterData(buffer:offset:)
 func (o MTLRasterizationRateMapObject) CopyParameterDataToBufferOffset(buffer MTLBuffer, offset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyParameterDataToBuffer:offset:"), buffer, offset)
 	}
 

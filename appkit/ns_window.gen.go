@@ -6702,7 +6702,6 @@ func (_NSWindowClass NSWindowClass) OldScaleFactorUserInfoKey() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSWindow) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -6722,7 +6721,6 @@ func (o NSWindow) AccessibilityFrame() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSWindow) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -6742,7 +6740,6 @@ func (o NSWindow) AccessibilityParent() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSWindow) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -6765,7 +6762,6 @@ func (o NSWindow) AccessibilityIdentifier() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSWindow) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}
@@ -6777,7 +6773,6 @@ func (o NSWindow) IsAccessibilityFocused() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityelement()
 func (o NSWindow) IsAccessibilityElement() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
 	return rv
 	}
@@ -6786,7 +6781,6 @@ func (o NSWindow) IsAccessibilityElement() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityelement(_:)
 func (o NSWindow) SetAccessibilityElement(accessibilityElement bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityElement:"), accessibilityElement)
 	}
 // Returns a Boolean value that determines whether the accessibility element
@@ -6794,7 +6788,6 @@ func (o NSWindow) SetAccessibilityElement(accessibilityElement bool) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityenabled()
 func (o NSWindow) IsAccessibilityEnabled() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
 	return rv
 	}
@@ -6803,21 +6796,18 @@ func (o NSWindow) IsAccessibilityEnabled() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityenabled(_:)
 func (o NSWindow) SetAccessibilityEnabled(accessibilityEnabled bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEnabled:"), accessibilityEnabled)
 	}
 // Sets the accessibility element’s frame in screen coordinates.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityframe(_:)
 func (o NSWindow) SetAccessibilityFrame(accessibilityFrame corefoundation.CGRect) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrame:"), accessibilityFrame)
 	}
 // Returns the help text for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhelp()
 func (o NSWindow) AccessibilityHelp() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHelp"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -6825,14 +6815,12 @@ func (o NSWindow) AccessibilityHelp() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhelp(_:)
 func (o NSWindow) SetAccessibilityHelp(accessibilityHelp string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHelp:"), objc.String(accessibilityHelp))
 	}
 // Returns a short description of the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitylabel()
 func (o NSWindow) AccessibilityLabel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -6840,7 +6828,6 @@ func (o NSWindow) AccessibilityLabel() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitylabel(_:)
 func (o NSWindow) SetAccessibilityLabel(accessibilityLabel string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabel:"), objc.String(accessibilityLabel))
 	}
 // Returns the title of the accessibility element—for example, a button’s
@@ -6848,7 +6835,6 @@ func (o NSWindow) SetAccessibilityLabel(accessibilityLabel string) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytitle()
 func (o NSWindow) AccessibilityTitle() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitle"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -6856,14 +6842,12 @@ func (o NSWindow) AccessibilityTitle() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytitle(_:)
 func (o NSWindow) SetAccessibilityTitle(accessibilityTitle string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitle:"), objc.String(accessibilityTitle))
 	}
 // Returns the accessibility element’s value.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvalue()
 func (o NSWindow) AccessibilityValue() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return objectivec.Object{ID: rv}
 	}
@@ -6871,7 +6855,6 @@ func (o NSWindow) AccessibilityValue() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvalue(_:)
 func (o NSWindow) SetAccessibilityValue(accessibilityValue objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValue:"), accessibilityValue)
 	}
 // Returns a Boolean value that indicates whether assistive apps can invoke
@@ -6888,7 +6871,6 @@ func (o NSWindow) SetAccessibilityValue(accessibilityValue objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelectorAllowed(_:)
 func (o NSWindow) IsAccessibilitySelectorAllowed(selector objc.SEL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelectorAllowed:"), selector)
 	return rv
 	}
@@ -6896,7 +6878,6 @@ func (o NSWindow) IsAccessibilitySelectorAllowed(selector objc.SEL) bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycontents()
 func (o NSWindow) AccessibilityContents() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityContents"))
 	return objectivec.Object{ID: rv}
 	}
@@ -6904,14 +6885,12 @@ func (o NSWindow) AccessibilityContents() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycontents(_:)
 func (o NSWindow) SetAccessibilityContents(accessibilityContents foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityContents:"), accessibilityContents)
 	}
 // Returns the critical value for the level indicator.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycriticalvalue()
 func (o NSWindow) AccessibilityCriticalValue() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCriticalValue"))
 	return objectivec.Object{ID: rv}
 	}
@@ -6919,21 +6898,18 @@ func (o NSWindow) AccessibilityCriticalValue() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycriticalvalue(_:)
 func (o NSWindow) SetAccessibilityCriticalValue(accessibilityCriticalValue objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCriticalValue:"), accessibilityCriticalValue)
 	}
 // Sets the accessibility element’s identity.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityidentifier(_:)
 func (o NSWindow) SetAccessibilityIdentifier(accessibilityIdentifier string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIdentifier:"), objc.String(accessibilityIdentifier))
 	}
 // Returns the maximum value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymaxvalue()
 func (o NSWindow) AccessibilityMaxValue() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMaxValue"))
 	return objectivec.Object{ID: rv}
 	}
@@ -6941,14 +6917,12 @@ func (o NSWindow) AccessibilityMaxValue() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymaxvalue(_:)
 func (o NSWindow) SetAccessibilityMaxValue(accessibilityMaxValue objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMaxValue:"), accessibilityMaxValue)
 	}
 // Returns the minimum value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityminvalue()
 func (o NSWindow) AccessibilityMinValue() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinValue"))
 	return objectivec.Object{ID: rv}
 	}
@@ -6956,14 +6930,12 @@ func (o NSWindow) AccessibilityMinValue() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityminvalue(_:)
 func (o NSWindow) SetAccessibilityMinValue(accessibilityMinValue objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinValue:"), accessibilityMinValue)
 	}
 // Returns the orientation of the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityorientation()
 func (o NSWindow) AccessibilityOrientation() NSAccessibilityOrientation {
-	
 	rv := objc.Send[NSAccessibilityOrientation](o.ID, objc.Sel("accessibilityOrientation"))
 	return rv
 	}
@@ -6971,7 +6943,6 @@ func (o NSWindow) AccessibilityOrientation() NSAccessibilityOrientation {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityorientation(_:)
 func (o NSWindow) SetAccessibilityOrientation(accessibilityOrientation NSAccessibilityOrientation) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrientation:"), accessibilityOrientation)
 	}
 // Returns a Boolean value that determines whether the accessibility element
@@ -6979,7 +6950,6 @@ func (o NSWindow) SetAccessibilityOrientation(accessibilityOrientation NSAccessi
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityprotectedcontent()
 func (o NSWindow) IsAccessibilityProtectedContent() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
 	return rv
 	}
@@ -6988,7 +6958,6 @@ func (o NSWindow) IsAccessibilityProtectedContent() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityprotectedcontent(_:)
 func (o NSWindow) SetAccessibilityProtectedContent(accessibilityProtectedContent bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProtectedContent:"), accessibilityProtectedContent)
 	}
 // Returns a Boolean value that determines whether the accessibility element
@@ -6996,7 +6965,6 @@ func (o NSWindow) SetAccessibilityProtectedContent(accessibilityProtectedContent
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityselected()
 func (o NSWindow) IsAccessibilitySelected() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
 	return rv
 	}
@@ -7005,14 +6973,12 @@ func (o NSWindow) IsAccessibilitySelected() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselected(_:)
 func (o NSWindow) SetAccessibilitySelected(accessibilitySelected bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelected:"), accessibilitySelected)
 	}
 // Returns the URL for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityurl()
 func (o NSWindow) AccessibilityURL() foundation.INSURL {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityURL"))
 	return foundation.NSURLFromID(rv)
 	}
@@ -7020,7 +6986,6 @@ func (o NSWindow) AccessibilityURL() foundation.INSURL {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityurl(_:)
 func (o NSWindow) SetAccessibilityURL(accessibilityURL foundation.INSURL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityURL:"), accessibilityURL)
 	}
 // Returns the human-readable description of the accessibility element’s
@@ -7028,7 +6993,6 @@ func (o NSWindow) SetAccessibilityURL(accessibilityURL foundation.INSURL) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvaluedescription()
 func (o NSWindow) AccessibilityValueDescription() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValueDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -7036,14 +7000,12 @@ func (o NSWindow) AccessibilityValueDescription() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvaluedescription(_:)
 func (o NSWindow) SetAccessibilityValueDescription(accessibilityValueDescription string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityValueDescription:"), objc.String(accessibilityValueDescription))
 	}
 // Returns the warning value for the level indicator.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitywarningvalue()
 func (o NSWindow) AccessibilityWarningValue() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWarningValue"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7051,14 +7013,12 @@ func (o NSWindow) AccessibilityWarningValue() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitywarningvalue(_:)
 func (o NSWindow) SetAccessibilityWarningValue(accessibilityWarningValue objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWarningValue:"), accessibilityWarningValue)
 	}
 // Returns the child accessibility elements in the accessibility hierarchy.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitychildren()
 func (o NSWindow) AccessibilityChildren() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7066,7 +7026,6 @@ func (o NSWindow) AccessibilityChildren() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitychildren(_:)
 func (o NSWindow) SetAccessibilityChildren(accessibilityChildren foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildren:"), accessibilityChildren)
 	}
 // Returns the array of child accessibility elements in order for linear
@@ -7074,7 +7033,6 @@ func (o NSWindow) SetAccessibilityChildren(accessibilityChildren foundation.INSA
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitychildreninnavigationorder()
 func (o NSWindow) AccessibilityChildrenInNavigationOrder() unsafe.Pointer {
-	
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("accessibilityChildrenInNavigationOrder"))
 	return rv
 	}
@@ -7083,21 +7041,18 @@ func (o NSWindow) AccessibilityChildrenInNavigationOrder() unsafe.Pointer {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitychildreninnavigationorder(_:)
 func (o NSWindow) SetAccessibilityChildrenInNavigationOrder(accessibilityChildrenInNavigationOrder foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityChildrenInNavigationOrder:"), accessibilityChildrenInNavigationOrder)
 	}
 // Sets the accessibility element’s parent in the accessibility hierarchy.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityparent(_:)
 func (o NSWindow) SetAccessibilityParent(accessibilityParent objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityParent:"), accessibilityParent)
 	}
 // Returns the accessibility element’s currently selected children.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedchildren()
 func (o NSWindow) AccessibilitySelectedChildren() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7105,14 +7060,12 @@ func (o NSWindow) AccessibilitySelectedChildren() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedchildren(_:)
 func (o NSWindow) SetAccessibilitySelectedChildren(accessibilitySelectedChildren foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedChildren:"), accessibilitySelectedChildren)
 	}
 // Returns the top-level element that contains the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytopleveluielement()
 func (o NSWindow) AccessibilityTopLevelUIElement() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTopLevelUIElement"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7120,14 +7073,12 @@ func (o NSWindow) AccessibilityTopLevelUIElement() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytopleveluielement(_:)
 func (o NSWindow) SetAccessibilityTopLevelUIElement(accessibilityTopLevelUIElement objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTopLevelUIElement:"), accessibilityTopLevelUIElement)
 	}
 // Returns the accessibility element’s visible child accessibility elements.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblechildren()
 func (o NSWindow) AccessibilityVisibleChildren() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleChildren"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7135,14 +7086,12 @@ func (o NSWindow) AccessibilityVisibleChildren() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblechildren(_:)
 func (o NSWindow) SetAccessibilityVisibleChildren(accessibilityVisibleChildren foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleChildren:"), accessibilityVisibleChildren)
 	}
 // Returns the child accessibility element with the current focus.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityapplicationfocuseduielement()
 func (o NSWindow) AccessibilityApplicationFocusedUIElement() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityApplicationFocusedUIElement"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7150,7 +7099,6 @@ func (o NSWindow) AccessibilityApplicationFocusedUIElement() objectivec.IObject 
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityapplicationfocuseduielement(_:)
 func (o NSWindow) SetAccessibilityApplicationFocusedUIElement(accessibilityApplicationFocusedUIElement objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityApplicationFocusedUIElement:"), accessibilityApplicationFocusedUIElement)
 	}
 // Sets a Boolean value that determines whether the accessibility element has
@@ -7158,14 +7106,12 @@ func (o NSWindow) SetAccessibilityApplicationFocusedUIElement(accessibilityAppli
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfocused(_:)
 func (o NSWindow) SetAccessibilityFocused(accessibilityFocused bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocused:"), accessibilityFocused)
 	}
 // Returns the child window with the current focus.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityfocusedwindow()
 func (o NSWindow) AccessibilityFocusedWindow() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedWindow"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7173,7 +7119,6 @@ func (o NSWindow) AccessibilityFocusedWindow() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfocusedwindow(_:)
 func (o NSWindow) SetAccessibilityFocusedWindow(accessibilityFocusedWindow objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFocusedWindow:"), accessibilityFocusedWindow)
 	}
 // Returns the array of elements that shares the keyboard focus with the
@@ -7181,7 +7126,6 @@ func (o NSWindow) SetAccessibilityFocusedWindow(accessibilityFocusedWindow objec
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysharedfocuselements()
 func (o NSWindow) AccessibilitySharedFocusElements() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedFocusElements"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7190,7 +7134,6 @@ func (o NSWindow) AccessibilitySharedFocusElements() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysharedfocuselements(_:)
 func (o NSWindow) SetAccessibilitySharedFocusElements(accessibilitySharedFocusElements foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedFocusElements:"), accessibilitySharedFocusElements)
 	}
 // Returns a Boolean value that determines whether the accessibility element
@@ -7198,7 +7141,6 @@ func (o NSWindow) SetAccessibilitySharedFocusElements(accessibilitySharedFocusEl
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityrequired()
 func (o NSWindow) IsAccessibilityRequired() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
 	return rv
 	}
@@ -7207,7 +7149,6 @@ func (o NSWindow) IsAccessibilityRequired() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrequired(_:)
 func (o NSWindow) SetAccessibilityRequired(accessibilityRequired bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRequired:"), accessibilityRequired)
 	}
 // Returns the type of interface element that the accessibility element
@@ -7215,7 +7156,6 @@ func (o NSWindow) SetAccessibilityRequired(accessibilityRequired bool) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrole()
 func (o NSWindow) AccessibilityRole() NSAccessibilityRole {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRole"))
 	return NSAccessibilityRole(foundation.NSStringFromID(rv).String())
 	}
@@ -7224,7 +7164,6 @@ func (o NSWindow) AccessibilityRole() NSAccessibilityRole {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrole(_:)
 func (o NSWindow) SetAccessibilityRole(accessibilityRole NSAccessibilityRole) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRole:"), objc.String(string(accessibilityRole)))
 	}
 // Returns a localized, human-intelligible description of the accessibility
@@ -7232,7 +7171,6 @@ func (o NSWindow) SetAccessibilityRole(accessibilityRole NSAccessibilityRole) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityroledescription()
 func (o NSWindow) AccessibilityRoleDescription() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRoleDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -7241,7 +7179,6 @@ func (o NSWindow) AccessibilityRoleDescription() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityroledescription(_:)
 func (o NSWindow) SetAccessibilityRoleDescription(accessibilityRoleDescription string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRoleDescription:"), objc.String(accessibilityRoleDescription))
 	}
 // Returns the specialized interface element type that the accessibility
@@ -7249,7 +7186,6 @@ func (o NSWindow) SetAccessibilityRoleDescription(accessibilityRoleDescription s
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysubrole()
 func (o NSWindow) AccessibilitySubrole() NSAccessibilitySubrole {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySubrole"))
 	return NSAccessibilitySubrole(foundation.NSStringFromID(rv).String())
 	}
@@ -7258,14 +7194,12 @@ func (o NSWindow) AccessibilitySubrole() NSAccessibilitySubrole {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysubrole(_:)
 func (o NSWindow) SetAccessibilitySubrole(accessibilitySubrole NSAccessibilitySubrole) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySubrole:"), objc.String(string(accessibilitySubrole)))
 	}
 // Returns the custom actions of the current accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycustomactions()
 func (o NSWindow) AccessibilityCustomActions() INSAccessibilityCustomAction {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCustomActions"))
 	return NSAccessibilityCustomActionFromID(rv)
 	}
@@ -7273,14 +7207,12 @@ func (o NSWindow) AccessibilityCustomActions() INSAccessibilityCustomAction {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycustomactions(_:)
 func (o NSWindow) SetAccessibilityCustomActions(accessibilityCustomActions foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomActions:"), accessibilityCustomActions)
 	}
 // Returns the custom rotors of the current accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycustomrotors()
 func (o NSWindow) AccessibilityCustomRotors() INSAccessibilityCustomRotor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCustomRotors"))
 	return NSAccessibilityCustomRotorFromID(rv)
 	}
@@ -7288,14 +7220,12 @@ func (o NSWindow) AccessibilityCustomRotors() INSAccessibilityCustomRotor {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycustomrotors(_:)
 func (o NSWindow) SetAccessibilityCustomRotors(accessibilityCustomRotors foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCustomRotors:"), accessibilityCustomRotors)
 	}
 // Returns the line number that contains the insertion point.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityinsertionpointlinenumber()
 func (o NSWindow) AccessibilityInsertionPointLineNumber() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityInsertionPointLineNumber"))
 	return rv
 	}
@@ -7303,14 +7233,12 @@ func (o NSWindow) AccessibilityInsertionPointLineNumber() int {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityinsertionpointlinenumber(_:)
 func (o NSWindow) SetAccessibilityInsertionPointLineNumber(accessibilityInsertionPointLineNumber int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityInsertionPointLineNumber:"), accessibilityInsertionPointLineNumber)
 	}
 // Returns the number of characters in the text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitynumberofcharacters()
 func (o NSWindow) AccessibilityNumberOfCharacters() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityNumberOfCharacters"))
 	return rv
 	}
@@ -7318,14 +7246,12 @@ func (o NSWindow) AccessibilityNumberOfCharacters() int {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitynumberofcharacters(_:)
 func (o NSWindow) SetAccessibilityNumberOfCharacters(accessibilityNumberOfCharacters int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNumberOfCharacters:"), accessibilityNumberOfCharacters)
 	}
 // Returns the placeholder value for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityplaceholdervalue()
 func (o NSWindow) AccessibilityPlaceholderValue() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPlaceholderValue"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -7333,14 +7259,12 @@ func (o NSWindow) AccessibilityPlaceholderValue() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityplaceholdervalue(_:)
 func (o NSWindow) SetAccessibilityPlaceholderValue(accessibilityPlaceholderValue string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPlaceholderValue:"), objc.String(accessibilityPlaceholderValue))
 	}
 // Returns the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedtext()
 func (o NSWindow) AccessibilitySelectedText() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedText"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -7348,14 +7272,12 @@ func (o NSWindow) AccessibilitySelectedText() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedtext(_:)
 func (o NSWindow) SetAccessibilitySelectedText(accessibilitySelectedText string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedText:"), objc.String(accessibilitySelectedText))
 	}
 // Returns the range of the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedtextrange()
 func (o NSWindow) AccessibilitySelectedTextRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySelectedTextRange"))
 	return rv
 	}
@@ -7363,14 +7285,12 @@ func (o NSWindow) AccessibilitySelectedTextRange() foundation.NSRange {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedtextrange(_:)
 func (o NSWindow) SetAccessibilitySelectedTextRange(accessibilitySelectedTextRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRange:"), accessibilitySelectedTextRange)
 	}
 // Returns an array of ranges for the currently selected text.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedtextranges()
 func (o NSWindow) AccessibilitySelectedTextRanges() foundation.NSValue {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedTextRanges"))
 	return foundation.NSValueFromID(rv)
 	}
@@ -7378,14 +7298,12 @@ func (o NSWindow) AccessibilitySelectedTextRanges() foundation.NSValue {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedtextranges(_:)
 func (o NSWindow) SetAccessibilitySelectedTextRanges(accessibilitySelectedTextRanges foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedTextRanges:"), accessibilitySelectedTextRanges)
 	}
 // Returns the range of characters that the accessibility element displays.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysharedcharacterrange()
 func (o NSWindow) AccessibilitySharedCharacterRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilitySharedCharacterRange"))
 	return rv
 	}
@@ -7393,14 +7311,12 @@ func (o NSWindow) AccessibilitySharedCharacterRange() foundation.NSRange {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysharedcharacterrange(_:)
 func (o NSWindow) SetAccessibilitySharedCharacterRange(accessibilitySharedCharacterRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedCharacterRange:"), accessibilitySharedCharacterRange)
 	}
 // Returns the other elements that share text with the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysharedtextuielements()
 func (o NSWindow) AccessibilitySharedTextUIElements() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySharedTextUIElements"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7408,14 +7324,12 @@ func (o NSWindow) AccessibilitySharedTextUIElements() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysharedtextuielements(_:)
 func (o NSWindow) SetAccessibilitySharedTextUIElements(accessibilitySharedTextUIElements foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySharedTextUIElements:"), accessibilitySharedTextUIElements)
 	}
 // Returns the range of visible characters in the document.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblecharacterrange()
 func (o NSWindow) AccessibilityVisibleCharacterRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityVisibleCharacterRange"))
 	return rv
 	}
@@ -7423,7 +7337,6 @@ func (o NSWindow) AccessibilityVisibleCharacterRange() foundation.NSRange {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblecharacterrange(_:)
 func (o NSWindow) SetAccessibilityVisibleCharacterRange(accessibilityVisibleCharacterRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCharacterRange:"), accessibilityVisibleCharacterRange)
 	}
 // Returns the substring for the specified range.
@@ -7436,7 +7349,6 @@ func (o NSWindow) SetAccessibilityVisibleCharacterRange(accessibilityVisibleChar
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityString(for:)
 func (o NSWindow) AccessibilityStringForRange(range_ foundation.NSRange) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityStringForRange:"), range_)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -7450,7 +7362,6 @@ func (o NSWindow) AccessibilityStringForRange(range_ foundation.NSRange) string 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityAttributedString(for:)
 func (o NSWindow) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
 	return foundation.NSAttributedStringFromID(rv)
 	}
@@ -7465,7 +7376,6 @@ func (o NSWindow) AccessibilityAttributedStringForRange(range_ foundation.NSRang
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRTF(for:)
 func (o NSWindow) AccessibilityRTFForRange(range_ foundation.NSRange) foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRTFForRange:"), range_)
 	return foundation.NSDataFromID(rv)
 	}
@@ -7484,7 +7394,6 @@ func (o NSWindow) AccessibilityRTFForRange(range_ foundation.NSRange) foundation
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityFrame(for:)
 func (o NSWindow) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrameForRange:"), range_)
 	return rv
 	}
@@ -7499,7 +7408,6 @@ func (o NSWindow) AccessibilityFrameForRange(range_ foundation.NSRange) corefoun
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLine(for:)
 func (o NSWindow) AccessibilityLineForIndex(index int) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityLineForIndex:"), index)
 	return rv
 	}
@@ -7519,7 +7427,6 @@ func (o NSWindow) AccessibilityLineForIndex(index int) int {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-6kv3
 func (o NSWindow) AccessibilityRangeForIndex(index int) foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForIndex:"), index)
 	return rv
 	}
@@ -7542,7 +7449,6 @@ func (o NSWindow) AccessibilityRangeForIndex(index int) foundation.NSRange {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityStyleRange(for:)
 func (o NSWindow) AccessibilityStyleRangeForIndex(index int) foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityStyleRangeForIndex:"), index)
 	return rv
 	}
@@ -7557,7 +7463,6 @@ func (o NSWindow) AccessibilityStyleRangeForIndex(index int) foundation.NSRange 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(forLine:)
 func (o NSWindow) AccessibilityRangeForLine(line int) foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForLine:"), line)
 	return rv
 	}
@@ -7571,7 +7476,6 @@ func (o NSWindow) AccessibilityRangeForLine(line int) foundation.NSRange {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-1iudm
 func (o NSWindow) AccessibilityRangeForPosition(point corefoundation.CGPoint) foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRangeForPosition:"), point)
 	return rv
 	}
@@ -7579,7 +7483,6 @@ func (o NSWindow) AccessibilityRangeForPosition(point corefoundation.CGPoint) fo
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityactivationpoint()
 func (o NSWindow) AccessibilityActivationPoint() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityActivationPoint"))
 	return rv
 	}
@@ -7587,7 +7490,6 @@ func (o NSWindow) AccessibilityActivationPoint() corefoundation.CGPoint {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityactivationpoint(_:)
 func (o NSWindow) SetAccessibilityActivationPoint(accessibilityActivationPoint corefoundation.CGPoint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityActivationPoint:"), accessibilityActivationPoint)
 	}
 // Returns the Boolean value that determines whether the accessibility
@@ -7595,7 +7497,6 @@ func (o NSWindow) SetAccessibilityActivationPoint(accessibilityActivationPoint c
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityalternateuivisible()
 func (o NSWindow) IsAccessibilityAlternateUIVisible() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
 	return rv
 	}
@@ -7604,7 +7505,6 @@ func (o NSWindow) IsAccessibilityAlternateUIVisible() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityalternateuivisible(_:)
 func (o NSWindow) SetAccessibilityAlternateUIVisible(accessibilityAlternateUIVisible bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAlternateUIVisible:"), accessibilityAlternateUIVisible)
 	}
 // Returns the child accessibility element that represents the window’s
@@ -7612,7 +7512,6 @@ func (o NSWindow) SetAccessibilityAlternateUIVisible(accessibilityAlternateUIVis
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycancelbutton()
 func (o NSWindow) AccessibilityCancelButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCancelButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7621,7 +7520,6 @@ func (o NSWindow) AccessibilityCancelButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycancelbutton(_:)
 func (o NSWindow) SetAccessibilityCancelButton(accessibilityCancelButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCancelButton:"), accessibilityCancelButton)
 	}
 // Returns the child accessibility element that represents the window’s
@@ -7629,7 +7527,6 @@ func (o NSWindow) SetAccessibilityCancelButton(accessibilityCancelButton objecti
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityclosebutton()
 func (o NSWindow) AccessibilityCloseButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCloseButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7638,7 +7535,6 @@ func (o NSWindow) AccessibilityCloseButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityclosebutton(_:)
 func (o NSWindow) SetAccessibilityCloseButton(accessibilityCloseButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityCloseButton:"), accessibilityCloseButton)
 	}
 // Returns the child accessibility element that represents the window’s
@@ -7646,7 +7542,6 @@ func (o NSWindow) SetAccessibilityCloseButton(accessibilityCloseButton objective
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydefaultbutton()
 func (o NSWindow) AccessibilityDefaultButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDefaultButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7655,7 +7550,6 @@ func (o NSWindow) AccessibilityDefaultButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydefaultbutton(_:)
 func (o NSWindow) SetAccessibilityDefaultButton(accessibilityDefaultButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDefaultButton:"), accessibilityDefaultButton)
 	}
 // Returns the child accessibility element that represents the window’s
@@ -7663,7 +7557,6 @@ func (o NSWindow) SetAccessibilityDefaultButton(accessibilityDefaultButton objec
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityfullscreenbutton()
 func (o NSWindow) AccessibilityFullScreenButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFullScreenButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7672,7 +7565,6 @@ func (o NSWindow) AccessibilityFullScreenButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfullscreenbutton(_:)
 func (o NSWindow) SetAccessibilityFullScreenButton(accessibilityFullScreenButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFullScreenButton:"), accessibilityFullScreenButton)
 	}
 // Returns the child accessibility element that represents the window’s grow
@@ -7680,7 +7572,6 @@ func (o NSWindow) SetAccessibilityFullScreenButton(accessibilityFullScreenButton
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitygrowarea()
 func (o NSWindow) AccessibilityGrowArea() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityGrowArea"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7689,7 +7580,6 @@ func (o NSWindow) AccessibilityGrowArea() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitygrowarea(_:)
 func (o NSWindow) SetAccessibilityGrowArea(accessibilityGrowArea objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityGrowArea:"), accessibilityGrowArea)
 	}
 // Returns a Boolean value that determines whether the window is the app’s
@@ -7697,7 +7587,6 @@ func (o NSWindow) SetAccessibilityGrowArea(accessibilityGrowArea objectivec.IObj
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilitymain()
 func (o NSWindow) IsAccessibilityMain() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
 	return rv
 	}
@@ -7706,7 +7595,6 @@ func (o NSWindow) IsAccessibilityMain() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymain(_:)
 func (o NSWindow) SetAccessibilityMain(accessibilityMain bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMain:"), accessibilityMain)
 	}
 // Returns the child accessibility element that represents the window’s
@@ -7714,7 +7602,6 @@ func (o NSWindow) SetAccessibilityMain(accessibilityMain bool) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityminimizebutton()
 func (o NSWindow) AccessibilityMinimizeButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinimizeButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7723,7 +7610,6 @@ func (o NSWindow) AccessibilityMinimizeButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityminimizebutton(_:)
 func (o NSWindow) SetAccessibilityMinimizeButton(accessibilityMinimizeButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimizeButton:"), accessibilityMinimizeButton)
 	}
 // Returns the Boolean value that determines whether the window is in a
@@ -7731,7 +7617,6 @@ func (o NSWindow) SetAccessibilityMinimizeButton(accessibilityMinimizeButton obj
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityminimized()
 func (o NSWindow) IsAccessibilityMinimized() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
 	return rv
 	}
@@ -7740,14 +7625,12 @@ func (o NSWindow) IsAccessibilityMinimized() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityminimized(_:)
 func (o NSWindow) SetAccessibilityMinimized(accessibilityMinimized bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMinimized:"), accessibilityMinimized)
 	}
 // Returns a Boolean value that determines whether the window is modal.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilitymodal()
 func (o NSWindow) IsAccessibilityModal() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
 	return rv
 	}
@@ -7755,7 +7638,6 @@ func (o NSWindow) IsAccessibilityModal() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymodal(_:)
 func (o NSWindow) SetAccessibilityModal(accessibilityModal bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityModal:"), accessibilityModal)
 	}
 // Returns the child accessibility element that represents the window’s
@@ -7763,7 +7645,6 @@ func (o NSWindow) SetAccessibilityModal(accessibilityModal bool) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityproxy()
 func (o NSWindow) AccessibilityProxy() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityProxy"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7772,14 +7653,12 @@ func (o NSWindow) AccessibilityProxy() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityproxy(_:)
 func (o NSWindow) SetAccessibilityProxy(accessibilityProxy objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityProxy:"), accessibilityProxy)
 	}
 // Returns the menu currently displaying for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityshownmenu()
 func (o NSWindow) AccessibilityShownMenu() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityShownMenu"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7787,7 +7666,6 @@ func (o NSWindow) AccessibilityShownMenu() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityshownmenu(_:)
 func (o NSWindow) SetAccessibilityShownMenu(accessibilityShownMenu objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityShownMenu:"), accessibilityShownMenu)
 	}
 // Returns the child accessibility element that represents the window’s
@@ -7795,7 +7673,6 @@ func (o NSWindow) SetAccessibilityShownMenu(accessibilityShownMenu objectivec.IO
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytoolbarbutton()
 func (o NSWindow) AccessibilityToolbarButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityToolbarButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7804,14 +7681,12 @@ func (o NSWindow) AccessibilityToolbarButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytoolbarbutton(_:)
 func (o NSWindow) SetAccessibilityToolbarButton(accessibilityToolbarButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityToolbarButton:"), accessibilityToolbarButton)
 	}
 // Returns the window that contains the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitywindow()
 func (o NSWindow) AccessibilityWindow() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindow"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7819,7 +7694,6 @@ func (o NSWindow) AccessibilityWindow() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitywindow(_:)
 func (o NSWindow) SetAccessibilityWindow(accessibilityWindow objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindow:"), accessibilityWindow)
 	}
 // Returns the child accessibility element that represents the window’s zoom
@@ -7827,7 +7701,6 @@ func (o NSWindow) SetAccessibilityWindow(accessibilityWindow objectivec.IObject)
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityzoombutton()
 func (o NSWindow) AccessibilityZoomButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityZoomButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7836,14 +7709,12 @@ func (o NSWindow) AccessibilityZoomButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityzoombutton(_:)
 func (o NSWindow) SetAccessibilityZoomButton(accessibilityZoomButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityZoomButton:"), accessibilityZoomButton)
 	}
 // Returns the icon for the app’s menu bar extra.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityextrasmenubar()
 func (o NSWindow) AccessibilityExtrasMenuBar() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityExtrasMenuBar"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7851,7 +7722,6 @@ func (o NSWindow) AccessibilityExtrasMenuBar() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityextrasmenubar(_:)
 func (o NSWindow) SetAccessibilityExtrasMenuBar(accessibilityExtrasMenuBar objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExtrasMenuBar:"), accessibilityExtrasMenuBar)
 	}
 // Returns a Boolean value that determines whether the app is the frontmost
@@ -7859,7 +7729,6 @@ func (o NSWindow) SetAccessibilityExtrasMenuBar(accessibilityExtrasMenuBar objec
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityfrontmost()
 func (o NSWindow) IsAccessibilityFrontmost() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
 	return rv
 	}
@@ -7867,7 +7736,6 @@ func (o NSWindow) IsAccessibilityFrontmost() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfrontmost(_:)
 func (o NSWindow) SetAccessibilityFrontmost(accessibilityFrontmost bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFrontmost:"), accessibilityFrontmost)
 	}
 // Returns a Boolean value that determines whether the app is in a hidden
@@ -7875,7 +7743,6 @@ func (o NSWindow) SetAccessibilityFrontmost(accessibilityFrontmost bool) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityhidden()
 func (o NSWindow) IsAccessibilityHidden() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
 	return rv
 	}
@@ -7883,14 +7750,12 @@ func (o NSWindow) IsAccessibilityHidden() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhidden(_:)
 func (o NSWindow) SetAccessibilityHidden(accessibilityHidden bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHidden:"), accessibilityHidden)
 	}
 // Returns the app’s main window.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymainwindow()
 func (o NSWindow) AccessibilityMainWindow() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMainWindow"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7898,14 +7763,12 @@ func (o NSWindow) AccessibilityMainWindow() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymainwindow(_:)
 func (o NSWindow) SetAccessibilityMainWindow(accessibilityMainWindow objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMainWindow:"), accessibilityMainWindow)
 	}
 // Returns the app’s menu bar.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymenubar()
 func (o NSWindow) AccessibilityMenuBar() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMenuBar"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7913,14 +7776,12 @@ func (o NSWindow) AccessibilityMenuBar() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymenubar(_:)
 func (o NSWindow) SetAccessibilityMenuBar(accessibilityMenuBar objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMenuBar:"), accessibilityMenuBar)
 	}
 // Returns an array that contains all the app’s windows.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitywindows()
 func (o NSWindow) AccessibilityWindows() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityWindows"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7928,14 +7789,12 @@ func (o NSWindow) AccessibilityWindows() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitywindows(_:)
 func (o NSWindow) SetAccessibilityWindows(accessibilityWindows foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityWindows:"), accessibilityWindows)
 	}
 // Returns the number of columns in the accessibility element’s grid.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumncount()
 func (o NSWindow) AccessibilityColumnCount() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityColumnCount"))
 	return rv
 	}
@@ -7943,7 +7802,6 @@ func (o NSWindow) AccessibilityColumnCount() int {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumncount(_:)
 func (o NSWindow) SetAccessibilityColumnCount(accessibilityColumnCount int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnCount:"), accessibilityColumnCount)
 	}
 // Returns a Boolean value that determines whether the accessibility
@@ -7951,7 +7809,6 @@ func (o NSWindow) SetAccessibilityColumnCount(accessibilityColumnCount int) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityorderedbyrow()
 func (o NSWindow) IsAccessibilityOrderedByRow() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
 	return rv
 	}
@@ -7960,14 +7817,12 @@ func (o NSWindow) IsAccessibilityOrderedByRow() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityorderedbyrow(_:)
 func (o NSWindow) SetAccessibilityOrderedByRow(accessibilityOrderedByRow bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOrderedByRow:"), accessibilityOrderedByRow)
 	}
 // Returns the number of rows in the accessibility element’s grid.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrowcount()
 func (o NSWindow) AccessibilityRowCount() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityRowCount"))
 	return rv
 	}
@@ -7975,14 +7830,12 @@ func (o NSWindow) AccessibilityRowCount() int {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrowcount(_:)
 func (o NSWindow) SetAccessibilityRowCount(accessibilityRowCount int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowCount:"), accessibilityRowCount)
 	}
 // Returns the horizontal scroll bar for the scroll view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhorizontalscrollbar()
 func (o NSWindow) AccessibilityHorizontalScrollBar() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalScrollBar"))
 	return objectivec.Object{ID: rv}
 	}
@@ -7990,14 +7843,12 @@ func (o NSWindow) AccessibilityHorizontalScrollBar() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhorizontalscrollbar(_:)
 func (o NSWindow) SetAccessibilityHorizontalScrollBar(accessibilityHorizontalScrollBar objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalScrollBar:"), accessibilityHorizontalScrollBar)
 	}
 // Returns the vertical scroll bar for the scroll view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityverticalscrollbar()
 func (o NSWindow) AccessibilityVerticalScrollBar() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalScrollBar"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8005,14 +7856,12 @@ func (o NSWindow) AccessibilityVerticalScrollBar() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityverticalscrollbar(_:)
 func (o NSWindow) SetAccessibilityVerticalScrollBar(accessibilityVerticalScrollBar objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalScrollBar:"), accessibilityVerticalScrollBar)
 	}
 // Returns the column header accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumnheaderuielements()
 func (o NSWindow) AccessibilityColumnHeaderUIElements() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8020,14 +7869,12 @@ func (o NSWindow) AccessibilityColumnHeaderUIElements() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumnheaderuielements(_:)
 func (o NSWindow) SetAccessibilityColumnHeaderUIElements(accessibilityColumnHeaderUIElements foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnHeaderUIElements:"), accessibilityColumnHeaderUIElements)
 	}
 // Returns the column accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumns()
 func (o NSWindow) AccessibilityColumns() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumns"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8035,14 +7882,12 @@ func (o NSWindow) AccessibilityColumns() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumns(_:)
 func (o NSWindow) SetAccessibilityColumns(accessibilityColumns foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumns:"), accessibilityColumns)
 	}
 // Returns the column titles for the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumntitles()
 func (o NSWindow) AccessibilityColumnTitles() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnTitles"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8050,7 +7895,6 @@ func (o NSWindow) AccessibilityColumnTitles() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumntitles(_:)
 func (o NSWindow) SetAccessibilityColumnTitles(accessibilityColumnTitles foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnTitles:"), accessibilityColumnTitles)
 	}
 // Returns a Boolean value that determines whether the accessibility element
@@ -8058,7 +7902,6 @@ func (o NSWindow) SetAccessibilityColumnTitles(accessibilityColumnTitles foundat
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityexpanded()
 func (o NSWindow) IsAccessibilityExpanded() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
 	return rv
 	}
@@ -8067,14 +7910,12 @@ func (o NSWindow) IsAccessibilityExpanded() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityexpanded(_:)
 func (o NSWindow) SetAccessibilityExpanded(accessibilityExpanded bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityExpanded:"), accessibilityExpanded)
 	}
 // Returns the header for the table view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityheader()
 func (o NSWindow) AccessibilityHeader() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHeader"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8082,7 +7923,6 @@ func (o NSWindow) AccessibilityHeader() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityheader(_:)
 func (o NSWindow) SetAccessibilityHeader(accessibilityHeader objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHeader:"), accessibilityHeader)
 	}
 // Returns the index of the row or column that the accessibility element
@@ -8090,7 +7930,6 @@ func (o NSWindow) SetAccessibilityHeader(accessibilityHeader objectivec.IObject)
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityindex()
 func (o NSWindow) AccessibilityIndex() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityIndex"))
 	return rv
 	}
@@ -8099,14 +7938,12 @@ func (o NSWindow) AccessibilityIndex() int {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityindex(_:)
 func (o NSWindow) SetAccessibilityIndex(accessibilityIndex int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIndex:"), accessibilityIndex)
 	}
 // Returns the row header accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrowheaderuielements()
 func (o NSWindow) AccessibilityRowHeaderUIElements() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRowHeaderUIElements"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8114,14 +7951,12 @@ func (o NSWindow) AccessibilityRowHeaderUIElements() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrowheaderuielements(_:)
 func (o NSWindow) SetAccessibilityRowHeaderUIElements(accessibilityRowHeaderUIElements foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowHeaderUIElements:"), accessibilityRowHeaderUIElements)
 	}
 // Returns the row accessibility elements for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrows()
 func (o NSWindow) AccessibilityRows() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRows"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8129,14 +7964,12 @@ func (o NSWindow) AccessibilityRows() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrows(_:)
 func (o NSWindow) SetAccessibilityRows(accessibilityRows foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRows:"), accessibilityRows)
 	}
 // Returns the currently selected columns for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedcolumns()
 func (o NSWindow) AccessibilitySelectedColumns() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedColumns"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8144,14 +7977,12 @@ func (o NSWindow) AccessibilitySelectedColumns() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedcolumns(_:)
 func (o NSWindow) SetAccessibilitySelectedColumns(accessibilitySelectedColumns foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedColumns:"), accessibilitySelectedColumns)
 	}
 // Returns the currently selected rows for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedrows()
 func (o NSWindow) AccessibilitySelectedRows() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedRows"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8159,14 +7990,12 @@ func (o NSWindow) AccessibilitySelectedRows() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedrows(_:)
 func (o NSWindow) SetAccessibilitySelectedRows(accessibilitySelectedRows foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), accessibilitySelectedRows)
 	}
 // Returns the accessibility element’s sort direction.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysortdirection()
 func (o NSWindow) AccessibilitySortDirection() NSAccessibilitySortDirection {
-	
 	rv := objc.Send[NSAccessibilitySortDirection](o.ID, objc.Sel("accessibilitySortDirection"))
 	return rv
 	}
@@ -8174,14 +8003,12 @@ func (o NSWindow) AccessibilitySortDirection() NSAccessibilitySortDirection {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysortdirection(_:)
 func (o NSWindow) SetAccessibilitySortDirection(accessibilitySortDirection NSAccessibilitySortDirection) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySortDirection:"), accessibilitySortDirection)
 	}
 // Returns the visible columns for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblecolumns()
 func (o NSWindow) AccessibilityVisibleColumns() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleColumns"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8189,14 +8016,12 @@ func (o NSWindow) AccessibilityVisibleColumns() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblecolumns(_:)
 func (o NSWindow) SetAccessibilityVisibleColumns(accessibilityVisibleColumns foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleColumns:"), accessibilityVisibleColumns)
 	}
 // Returns the visible rows for the table or outline.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblerows()
 func (o NSWindow) AccessibilityVisibleRows() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleRows"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8204,7 +8029,6 @@ func (o NSWindow) AccessibilityVisibleRows() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblerows(_:)
 func (o NSWindow) SetAccessibilityVisibleRows(accessibilityVisibleRows foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleRows:"), accessibilityVisibleRows)
 	}
 // Returns a Boolean value that determines whether the row is disclosing other
@@ -8212,7 +8036,6 @@ func (o NSWindow) SetAccessibilityVisibleRows(accessibilityVisibleRows foundatio
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilitydisclosed()
 func (o NSWindow) IsAccessibilityDisclosed() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
 	return rv
 	}
@@ -8221,14 +8044,12 @@ func (o NSWindow) IsAccessibilityDisclosed() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydisclosed(_:)
 func (o NSWindow) SetAccessibilityDisclosed(accessibilityDisclosed bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosed:"), accessibilityDisclosed)
 	}
 // Returns the row disclosing the current row.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydisclosedbyrow()
 func (o NSWindow) AccessibilityDisclosedByRow() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedByRow"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8236,14 +8057,12 @@ func (o NSWindow) AccessibilityDisclosedByRow() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydisclosedbyrow(_:)
 func (o NSWindow) SetAccessibilityDisclosedByRow(accessibilityDisclosedByRow objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedByRow:"), accessibilityDisclosedByRow)
 	}
 // Returns the rows that the current row discloses.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydisclosedrows()
 func (o NSWindow) AccessibilityDisclosedRows() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDisclosedRows"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8251,14 +8070,12 @@ func (o NSWindow) AccessibilityDisclosedRows() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydisclosedrows(_:)
 func (o NSWindow) SetAccessibilityDisclosedRows(accessibilityDisclosedRows objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosedRows:"), accessibilityDisclosedRows)
 	}
 // Returns the indention level for the row.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydisclosurelevel()
 func (o NSWindow) AccessibilityDisclosureLevel() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityDisclosureLevel"))
 	return rv
 	}
@@ -8266,14 +8083,12 @@ func (o NSWindow) AccessibilityDisclosureLevel() int {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydisclosurelevel(_:)
 func (o NSWindow) SetAccessibilityDisclosureLevel(accessibilityDisclosureLevel int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDisclosureLevel:"), accessibilityDisclosureLevel)
 	}
 // Returns the column index range of the cell.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitycolumnindexrange()
 func (o NSWindow) AccessibilityColumnIndexRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityColumnIndexRange"))
 	return rv
 	}
@@ -8281,14 +8096,12 @@ func (o NSWindow) AccessibilityColumnIndexRange() foundation.NSRange {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitycolumnindexrange(_:)
 func (o NSWindow) SetAccessibilityColumnIndexRange(accessibilityColumnIndexRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityColumnIndexRange:"), accessibilityColumnIndexRange)
 	}
 // Returns the row index range of the cell.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrowindexrange()
 func (o NSWindow) AccessibilityRowIndexRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("accessibilityRowIndexRange"))
 	return rv
 	}
@@ -8296,14 +8109,12 @@ func (o NSWindow) AccessibilityRowIndexRange() foundation.NSRange {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrowindexrange(_:)
 func (o NSWindow) SetAccessibilityRowIndexRange(accessibilityRowIndexRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRowIndexRange:"), accessibilityRowIndexRange)
 	}
 // Returns the currently selected cells for the table.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityselectedcells()
 func (o NSWindow) AccessibilitySelectedCells() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedCells"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8311,14 +8122,12 @@ func (o NSWindow) AccessibilitySelectedCells() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityselectedcells(_:)
 func (o NSWindow) SetAccessibilitySelectedCells(accessibilitySelectedCells foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedCells:"), accessibilitySelectedCells)
 	}
 // Returns the visible cells for the table.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityvisiblecells()
 func (o NSWindow) AccessibilityVisibleCells() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleCells"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8326,7 +8135,6 @@ func (o NSWindow) AccessibilityVisibleCells() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityvisiblecells(_:)
 func (o NSWindow) SetAccessibilityVisibleCells(accessibilityVisibleCells foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVisibleCells:"), accessibilityVisibleCells)
 	}
 // Returns the cell at the specified column and row.
@@ -8346,7 +8154,6 @@ func (o NSWindow) SetAccessibilityVisibleCells(accessibilityVisibleCells foundat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCell(forColumn:row:)
 func (o NSWindow) AccessibilityCellForColumnRow(column int, row int) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityCellForColumn:row:"), column, row)
 	return objectivec.Object{ID: rv}
 	}
@@ -8354,7 +8161,6 @@ func (o NSWindow) AccessibilityCellForColumnRow(column int, row int) objectivec.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhandles()
 func (o NSWindow) AccessibilityHandles() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHandles"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8362,14 +8168,12 @@ func (o NSWindow) AccessibilityHandles() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhandles(_:)
 func (o NSWindow) SetAccessibilityHandles(accessibilityHandles foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHandles:"), accessibilityHandles)
 	}
 // Returns the units that the layout area uses for horizontal values.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhorizontalunits()
 func (o NSWindow) AccessibilityHorizontalUnits() NSAccessibilityUnits {
-	
 	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityHorizontalUnits"))
 	return rv
 	}
@@ -8377,14 +8181,12 @@ func (o NSWindow) AccessibilityHorizontalUnits() NSAccessibilityUnits {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhorizontalunits(_:)
 func (o NSWindow) SetAccessibilityHorizontalUnits(accessibilityHorizontalUnits NSAccessibilityUnits) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnits:"), accessibilityHorizontalUnits)
 	}
 // Returns the description of the layout area’s horizontal units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityhorizontalunitdescription()
 func (o NSWindow) AccessibilityHorizontalUnitDescription() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityHorizontalUnitDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -8392,14 +8194,12 @@ func (o NSWindow) AccessibilityHorizontalUnitDescription() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityhorizontalunitdescription(_:)
 func (o NSWindow) SetAccessibilityHorizontalUnitDescription(accessibilityHorizontalUnitDescription string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityHorizontalUnitDescription:"), objc.String(accessibilityHorizontalUnitDescription))
 	}
 // Returns the units that the layout area uses for vertical values.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityverticalunits()
 func (o NSWindow) AccessibilityVerticalUnits() NSAccessibilityUnits {
-	
 	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityVerticalUnits"))
 	return rv
 	}
@@ -8407,14 +8207,12 @@ func (o NSWindow) AccessibilityVerticalUnits() NSAccessibilityUnits {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityverticalunits(_:)
 func (o NSWindow) SetAccessibilityVerticalUnits(accessibilityVerticalUnits NSAccessibilityUnits) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnits:"), accessibilityVerticalUnits)
 	}
 // Returns the description of the layout area’s vertical units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityverticalunitdescription()
 func (o NSWindow) AccessibilityVerticalUnitDescription() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVerticalUnitDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -8422,7 +8220,6 @@ func (o NSWindow) AccessibilityVerticalUnitDescription() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityverticalunitdescription(_:)
 func (o NSWindow) SetAccessibilityVerticalUnitDescription(accessibilityVerticalUnitDescription string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityVerticalUnitDescription:"), objc.String(accessibilityVerticalUnitDescription))
 	}
 // Converts the provided point in screen coordinates to a point in the layout
@@ -8436,7 +8233,6 @@ func (o NSWindow) SetAccessibilityVerticalUnitDescription(accessibilityVerticalU
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLayoutPoint(forScreenPoint:)
 func (o NSWindow) AccessibilityLayoutPointForScreenPoint(point corefoundation.CGPoint) corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityLayoutPointForScreenPoint:"), point)
 	return rv
 	}
@@ -8451,7 +8247,6 @@ func (o NSWindow) AccessibilityLayoutPointForScreenPoint(point corefoundation.CG
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityLayoutSize(forScreenSize:)
 func (o NSWindow) AccessibilityLayoutSizeForScreenSize(size corefoundation.CGSize) corefoundation.CGSize {
-	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityLayoutSizeForScreenSize:"), size)
 	return rv
 	}
@@ -8466,7 +8261,6 @@ func (o NSWindow) AccessibilityLayoutSizeForScreenSize(size corefoundation.CGSiz
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenPoint(forLayoutPoint:)
 func (o NSWindow) AccessibilityScreenPointForLayoutPoint(point corefoundation.CGPoint) corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("accessibilityScreenPointForLayoutPoint:"), point)
 	return rv
 	}
@@ -8481,7 +8275,6 @@ func (o NSWindow) AccessibilityScreenPointForLayoutPoint(point corefoundation.CG
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenSize(forLayoutSize:)
 func (o NSWindow) AccessibilityScreenSizeForLayoutSize(size corefoundation.CGSize) corefoundation.CGSize {
-	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityScreenSizeForLayoutSize:"), size)
 	return rv
 	}
@@ -8489,7 +8282,6 @@ func (o NSWindow) AccessibilityScreenSizeForLayoutSize(size corefoundation.CGSiz
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityallowedvalues()
 func (o NSWindow) AccessibilityAllowedValues() foundation.NSNumber {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAllowedValues"))
 	return foundation.NSNumberFromID(rv)
 	}
@@ -8497,14 +8289,12 @@ func (o NSWindow) AccessibilityAllowedValues() foundation.NSNumber {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityallowedvalues(_:)
 func (o NSWindow) SetAccessibilityAllowedValues(accessibilityAllowedValues foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAllowedValues:"), accessibilityAllowedValues)
 	}
 // Returns the child label elements for the slider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitylabeluielements()
 func (o NSWindow) AccessibilityLabelUIElements() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabelUIElements"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8512,14 +8302,12 @@ func (o NSWindow) AccessibilityLabelUIElements() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitylabeluielements(_:)
 func (o NSWindow) SetAccessibilityLabelUIElements(accessibilityLabelUIElements foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelUIElements:"), accessibilityLabelUIElements)
 	}
 // Returns the value of the label accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitylabelvalue()
 func (o NSWindow) AccessibilityLabelValue() float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("accessibilityLabelValue"))
 	return rv
 	}
@@ -8527,14 +8315,12 @@ func (o NSWindow) AccessibilityLabelValue() float64 {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitylabelvalue(_:)
 func (o NSWindow) SetAccessibilityLabelValue(accessibilityLabelValue float64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLabelValue:"), accessibilityLabelValue)
 	}
 // Returns the contents that follow the divider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitynextcontents()
 func (o NSWindow) AccessibilityNextContents() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityNextContents"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8542,14 +8328,12 @@ func (o NSWindow) AccessibilityNextContents() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitynextcontents(_:)
 func (o NSWindow) SetAccessibilityNextContents(accessibilityNextContents foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityNextContents:"), accessibilityNextContents)
 	}
 // Returns the contents that precede the divider accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitypreviouscontents()
 func (o NSWindow) AccessibilityPreviousContents() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityPreviousContents"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8557,7 +8341,6 @@ func (o NSWindow) AccessibilityPreviousContents() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitypreviouscontents(_:)
 func (o NSWindow) SetAccessibilityPreviousContents(accessibilityPreviousContents foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityPreviousContents:"), accessibilityPreviousContents)
 	}
 // Returns an array that contains the views and splitter bar from the split
@@ -8565,7 +8348,6 @@ func (o NSWindow) SetAccessibilityPreviousContents(accessibilityPreviousContents
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysplitters()
 func (o NSWindow) AccessibilitySplitters() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySplitters"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8574,14 +8356,12 @@ func (o NSWindow) AccessibilitySplitters() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysplitters(_:)
 func (o NSWindow) SetAccessibilitySplitters(accessibilitySplitters foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySplitters:"), accessibilitySplitters)
 	}
 // Returns the overflow button for the toolbar.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityoverflowbutton()
 func (o NSWindow) AccessibilityOverflowButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityOverflowButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8589,14 +8369,12 @@ func (o NSWindow) AccessibilityOverflowButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityoverflowbutton(_:)
 func (o NSWindow) SetAccessibilityOverflowButton(accessibilityOverflowButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityOverflowButton:"), accessibilityOverflowButton)
 	}
 // Returns the tab accessibility elements for the tab view.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytabs()
 func (o NSWindow) AccessibilityTabs() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTabs"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8604,7 +8382,6 @@ func (o NSWindow) AccessibilityTabs() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytabs(_:)
 func (o NSWindow) SetAccessibilityTabs(accessibilityTabs foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTabs:"), accessibilityTabs)
 	}
 // Returns the user interface element that functions as a marker group for the
@@ -8612,7 +8389,6 @@ func (o NSWindow) SetAccessibilityTabs(accessibilityTabs foundation.INSArray) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymarkergroupuielement()
 func (o NSWindow) AccessibilityMarkerGroupUIElement() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerGroupUIElement"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8621,14 +8397,12 @@ func (o NSWindow) AccessibilityMarkerGroupUIElement() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymarkergroupuielement(_:)
 func (o NSWindow) SetAccessibilityMarkerGroupUIElement(accessibilityMarkerGroupUIElement objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerGroupUIElement:"), accessibilityMarkerGroupUIElement)
 	}
 // Returns the human-readable description of the marker type.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymarkertypedescription()
 func (o NSWindow) AccessibilityMarkerTypeDescription() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerTypeDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -8636,14 +8410,12 @@ func (o NSWindow) AccessibilityMarkerTypeDescription() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymarkertypedescription(_:)
 func (o NSWindow) SetAccessibilityMarkerTypeDescription(accessibilityMarkerTypeDescription string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerTypeDescription:"), objc.String(accessibilityMarkerTypeDescription))
 	}
 // Returns the array of marker accessibility elements for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymarkeruielements()
 func (o NSWindow) AccessibilityMarkerUIElements() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerUIElements"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8651,14 +8423,12 @@ func (o NSWindow) AccessibilityMarkerUIElements() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymarkeruielements(_:)
 func (o NSWindow) SetAccessibilityMarkerUIElements(accessibilityMarkerUIElements foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerUIElements:"), accessibilityMarkerUIElements)
 	}
 // Returns the marker values for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitymarkervalues()
 func (o NSWindow) AccessibilityMarkerValues() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMarkerValues"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8666,14 +8436,12 @@ func (o NSWindow) AccessibilityMarkerValues() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitymarkervalues(_:)
 func (o NSWindow) SetAccessibilityMarkerValues(accessibilityMarkerValues objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityMarkerValues:"), accessibilityMarkerValues)
 	}
 // Returns the type of markers for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityrulermarkertype()
 func (o NSWindow) AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType {
-	
 	rv := objc.Send[NSAccessibilityRulerMarkerType](o.ID, objc.Sel("accessibilityRulerMarkerType"))
 	return rv
 	}
@@ -8681,14 +8449,12 @@ func (o NSWindow) AccessibilityRulerMarkerType() NSAccessibilityRulerMarkerType 
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityrulermarkertype(_:)
 func (o NSWindow) SetAccessibilityRulerMarkerType(accessibilityRulerMarkerType NSAccessibilityRulerMarkerType) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityRulerMarkerType:"), accessibilityRulerMarkerType)
 	}
 // Returns the units for the ruler.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityunits()
 func (o NSWindow) AccessibilityUnits() NSAccessibilityUnits {
-	
 	rv := objc.Send[NSAccessibilityUnits](o.ID, objc.Sel("accessibilityUnits"))
 	return rv
 	}
@@ -8696,14 +8462,12 @@ func (o NSWindow) AccessibilityUnits() NSAccessibilityUnits {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityunits(_:)
 func (o NSWindow) SetAccessibilityUnits(accessibilityUnits NSAccessibilityUnits) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnits:"), accessibilityUnits)
 	}
 // Returns the human-readable description of the ruler’s units.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityunitdescription()
 func (o NSWindow) AccessibilityUnitDescription() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUnitDescription"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -8711,14 +8475,12 @@ func (o NSWindow) AccessibilityUnitDescription() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityunitdescription(_:)
 func (o NSWindow) SetAccessibilityUnitDescription(accessibilityUnitDescription string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUnitDescription:"), objc.String(accessibilityUnitDescription))
 	}
 // Returns the URL for the file that the accessibility element represents.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydocument()
 func (o NSWindow) AccessibilityDocument() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDocument"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -8726,7 +8488,6 @@ func (o NSWindow) AccessibilityDocument() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydocument(_:)
 func (o NSWindow) SetAccessibilityDocument(accessibilityDocument string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDocument:"), objc.String(accessibilityDocument))
 	}
 // Returns a Boolean value that indicates whether the accessibility element is
@@ -8734,7 +8495,6 @@ func (o NSWindow) SetAccessibilityDocument(accessibilityDocument string) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/isaccessibilityedited()
 func (o NSWindow) IsAccessibilityEdited() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
 	return rv
 	}
@@ -8743,7 +8503,6 @@ func (o NSWindow) IsAccessibilityEdited() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityedited(_:)
 func (o NSWindow) SetAccessibilityEdited(accessibilityEdited bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityEdited:"), accessibilityEdited)
 	}
 // Returns the filename for the file that the accessibility element
@@ -8751,7 +8510,6 @@ func (o NSWindow) SetAccessibilityEdited(accessibilityEdited bool) {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityfilename()
 func (o NSWindow) AccessibilityFilename() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFilename"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -8759,14 +8517,12 @@ func (o NSWindow) AccessibilityFilename() string {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityfilename(_:)
 func (o NSWindow) SetAccessibilityFilename(accessibilityFilename string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityFilename:"), objc.String(accessibilityFilename))
 	}
 // Returns the elements that have links with the accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitylinkeduielements()
 func (o NSWindow) AccessibilityLinkedUIElements() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLinkedUIElements"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8774,14 +8530,12 @@ func (o NSWindow) AccessibilityLinkedUIElements() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitylinkeduielements(_:)
 func (o NSWindow) SetAccessibilityLinkedUIElements(accessibilityLinkedUIElements foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityLinkedUIElements:"), accessibilityLinkedUIElements)
 	}
 // Returns the list of elements that the accessibility element is a title for.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityservesastitleforuielements()
 func (o NSWindow) AccessibilityServesAsTitleForUIElements() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityServesAsTitleForUIElements"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8789,7 +8543,6 @@ func (o NSWindow) AccessibilityServesAsTitleForUIElements() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityservesastitleforuielements(_:)
 func (o NSWindow) SetAccessibilityServesAsTitleForUIElements(accessibilityServesAsTitleForUIElements foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityServesAsTitleForUIElements:"), accessibilityServesAsTitleForUIElements)
 	}
 // Returns the static text element that represents the accessibility
@@ -8797,7 +8550,6 @@ func (o NSWindow) SetAccessibilityServesAsTitleForUIElements(accessibilityServes
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitytitleuielement()
 func (o NSWindow) AccessibilityTitleUIElement() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityTitleUIElement"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8806,14 +8558,12 @@ func (o NSWindow) AccessibilityTitleUIElement() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitytitleuielement(_:)
 func (o NSWindow) SetAccessibilityTitleUIElement(accessibilityTitleUIElement objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityTitleUIElement:"), accessibilityTitleUIElement)
 	}
 // Returns the clear button for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityclearbutton()
 func (o NSWindow) AccessibilityClearButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityClearButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8821,14 +8571,12 @@ func (o NSWindow) AccessibilityClearButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityclearbutton(_:)
 func (o NSWindow) SetAccessibilityClearButton(accessibilityClearButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityClearButton:"), accessibilityClearButton)
 	}
 // Returns the search button for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysearchbutton()
 func (o NSWindow) AccessibilitySearchButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8836,14 +8584,12 @@ func (o NSWindow) AccessibilitySearchButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysearchbutton(_:)
 func (o NSWindow) SetAccessibilitySearchButton(accessibilitySearchButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchButton:"), accessibilitySearchButton)
 	}
 // Returns the search menu for the search field.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitysearchmenu()
 func (o NSWindow) AccessibilitySearchMenu() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySearchMenu"))
 	return objectivec.Object{ID: rv}
 	}
@@ -8851,7 +8597,6 @@ func (o NSWindow) AccessibilitySearchMenu() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitysearchmenu(_:)
 func (o NSWindow) SetAccessibilitySearchMenu(accessibilitySearchMenu objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySearchMenu:"), accessibilitySearchMenu)
 	}
 // Cancels the current operation.
@@ -8867,7 +8612,6 @@ func (o NSWindow) SetAccessibilitySearchMenu(accessibilitySearchMenu objectivec.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformCancel()
 func (o NSWindow) AccessibilityPerformCancel() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformCancel"))
 	return rv
 	}
@@ -8888,7 +8632,6 @@ func (o NSWindow) AccessibilityPerformCancel() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformConfirm()
 func (o NSWindow) AccessibilityPerformConfirm() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformConfirm"))
 	return rv
 	}
@@ -8909,7 +8652,6 @@ func (o NSWindow) AccessibilityPerformConfirm() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformPick()
 func (o NSWindow) AccessibilityPerformPick() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPick"))
 	return rv
 	}
@@ -8930,7 +8672,6 @@ func (o NSWindow) AccessibilityPerformPick() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformPress()
 func (o NSWindow) AccessibilityPerformPress() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPress"))
 	return rv
 	}
@@ -8952,7 +8693,6 @@ func (o NSWindow) AccessibilityPerformPress() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowAlternateUI()
 func (o NSWindow) AccessibilityPerformShowAlternateUI() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowAlternateUI"))
 	return rv
 	}
@@ -8974,7 +8714,6 @@ func (o NSWindow) AccessibilityPerformShowAlternateUI() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowDefaultUI()
 func (o NSWindow) AccessibilityPerformShowDefaultUI() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowDefaultUI"))
 	return rv
 	}
@@ -8995,7 +8734,6 @@ func (o NSWindow) AccessibilityPerformShowDefaultUI() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformShowMenu()
 func (o NSWindow) AccessibilityPerformShowMenu() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformShowMenu"))
 	return rv
 	}
@@ -9016,7 +8754,6 @@ func (o NSWindow) AccessibilityPerformShowMenu() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformRaise()
 func (o NSWindow) AccessibilityPerformRaise() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformRaise"))
 	return rv
 	}
@@ -9024,7 +8761,6 @@ func (o NSWindow) AccessibilityPerformRaise() bool {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityincrementbutton()
 func (o NSWindow) AccessibilityIncrementButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIncrementButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -9032,14 +8768,12 @@ func (o NSWindow) AccessibilityIncrementButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityincrementbutton(_:)
 func (o NSWindow) SetAccessibilityIncrementButton(accessibilityIncrementButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityIncrementButton:"), accessibilityIncrementButton)
 	}
 // Returns the decrement button for the stepper accessibility element.
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilitydecrementbutton()
 func (o NSWindow) AccessibilityDecrementButton() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityDecrementButton"))
 	return objectivec.Object{ID: rv}
 	}
@@ -9047,7 +8781,6 @@ func (o NSWindow) AccessibilityDecrementButton() objectivec.IObject {
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilitydecrementbutton(_:)
 func (o NSWindow) SetAccessibilityDecrementButton(accessibilityDecrementButton objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityDecrementButton:"), accessibilityDecrementButton)
 	}
 // Increments the accessibility element’s value.
@@ -9070,7 +8803,6 @@ func (o NSWindow) SetAccessibilityDecrementButton(accessibilityDecrementButton o
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformIncrement()
 func (o NSWindow) AccessibilityPerformIncrement() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformIncrement"))
 	return rv
 	}
@@ -9094,7 +8826,6 @@ func (o NSWindow) AccessibilityPerformIncrement() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDecrement()
 func (o NSWindow) AccessibilityPerformDecrement() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDecrement"))
 	return rv
 	}
@@ -9115,32 +8846,27 @@ func (o NSWindow) AccessibilityPerformDecrement() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDelete()
 func (o NSWindow) AccessibilityPerformDelete() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDelete"))
 	return rv
 	}
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityattributeduserinputlabels()
 func (o NSWindow) AccessibilityAttributedUserInputLabels() foundation.NSAttributedString {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityAttributedUserInputLabels"))
 	return foundation.NSAttributedStringFromID(rv)
 	}
 // See: /documentation/appkit/nsaccessibilityprotocol/accessibilityuserinputlabels()
 func (o NSWindow) AccessibilityUserInputLabels() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityUserInputLabels"))
 	return foundation.NSStringFromID(rv).String()
 	}
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityattributeduserinputlabels(_:)
 func (o NSWindow) SetAccessibilityAttributedUserInputLabels(accessibilityAttributedUserInputLabels foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityAttributedUserInputLabels:"), accessibilityAttributedUserInputLabels)
 	}
 //
 // See: /documentation/appkit/nsaccessibilityprotocol/setaccessibilityuserinputlabels(_:)
 func (o NSWindow) SetAccessibilityUserInputLabels(accessibilityUserInputLabels foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilityUserInputLabels:"), accessibilityUserInputLabels)
 	}
 

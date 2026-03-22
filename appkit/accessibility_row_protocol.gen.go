@@ -54,7 +54,6 @@ func NSAccessibilityRowObjectFromID(id objc.ID) NSAccessibilityRowObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRow/accessibilityIndex()
 func (o NSAccessibilityRowObject) AccessibilityIndex() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityIndex"))
 	return rv
 	}
@@ -73,7 +72,6 @@ func (o NSAccessibilityRowObject) AccessibilityIndex() int {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRow/accessibilityDisclosureLevel()
 func (o NSAccessibilityRowObject) AccessibilityDisclosureLevel() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("accessibilityDisclosureLevel"))
 	return rv
 	}
@@ -95,7 +93,6 @@ func (o NSAccessibilityRowObject) AccessibilityDisclosureLevel() int {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilityRowObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -115,7 +112,6 @@ func (o NSAccessibilityRowObject) AccessibilityFrame() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilityRowObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -135,7 +131,6 @@ func (o NSAccessibilityRowObject) AccessibilityParent() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilityRowObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -158,7 +153,6 @@ func (o NSAccessibilityRowObject) AccessibilityIdentifier() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilityRowObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}

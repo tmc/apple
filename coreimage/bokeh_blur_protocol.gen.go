@@ -85,7 +85,6 @@ func CIBokehBlurObjectFromID(id objc.ID) CIBokehBlurObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/inputImage
 func (o CIBokehBlurObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -93,7 +92,6 @@ func (o CIBokehBlurObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/radius
 func (o CIBokehBlurObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -101,7 +99,6 @@ func (o CIBokehBlurObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringAmount
 func (o CIBokehBlurObject) RingAmount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("ringAmount"))
 	return rv
 	}
@@ -109,7 +106,6 @@ func (o CIBokehBlurObject) RingAmount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/ringSize
 func (o CIBokehBlurObject) RingSize() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("ringSize"))
 	return rv
 	}
@@ -117,7 +113,6 @@ func (o CIBokehBlurObject) RingSize() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBokehBlur/softness
 func (o CIBokehBlurObject) Softness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("softness"))
 	return rv
 	}
@@ -126,7 +121,6 @@ func (o CIBokehBlurObject) Softness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIBokehBlurObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

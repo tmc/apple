@@ -46,7 +46,6 @@ func CAMetalDrawableObjectFromID(id objc.ID) CAMetalDrawableObject {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDrawable/texture
 func (o CAMetalDrawableObject) Texture() metal.MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("texture"))
 	return metal.MTLTextureObjectFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CAMetalDrawableObject) Texture() metal.MTLTexture {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalDrawable/layer
 func (o CAMetalDrawableObject) Layer() ICAMetalLayer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("layer"))
 	return CAMetalLayerFromID(rv)
 	}

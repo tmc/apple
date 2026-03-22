@@ -50,7 +50,6 @@ func NSScrubberDataSourceObjectFromID(id objc.ID) NSScrubberDataSourceObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDataSource/numberOfItems(for:)
 func (o NSScrubberDataSourceObject) NumberOfItemsForScrubber(scrubber INSScrubber) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfItemsForScrubber:"), scrubber)
 	return rv
 	}
@@ -67,7 +66,6 @@ func (o NSScrubberDataSourceObject) NumberOfItemsForScrubber(scrubber INSScrubbe
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDataSource/scrubber(_:viewForItemAt:)
 func (o NSScrubberDataSourceObject) ScrubberViewForItemAtIndex(scrubber INSScrubber, index int) INSScrubberItemView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("scrubber:viewForItemAtIndex:"), scrubber, index)
 	return NSScrubberItemViewFromID(rv)
 	}

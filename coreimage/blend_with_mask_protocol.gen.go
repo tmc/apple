@@ -65,7 +65,6 @@ func CIBlendWithMaskObjectFromID(id objc.ID) CIBlendWithMaskObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlendWithMask/backgroundImage
 func (o CIBlendWithMaskObject) BackgroundImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("backgroundImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIBlendWithMaskObject) BackgroundImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlendWithMask/inputImage
 func (o CIBlendWithMaskObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -81,7 +79,6 @@ func (o CIBlendWithMaskObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBlendWithMask/maskImage
 func (o CIBlendWithMaskObject) MaskImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("maskImage"))
 	return CIImageFromID(rv)
 	}
@@ -90,7 +87,6 @@ func (o CIBlendWithMaskObject) MaskImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIBlendWithMaskObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

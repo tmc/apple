@@ -62,7 +62,6 @@ func NSPasteboardWritingObjectFromID(id objc.ID) NSPasteboardWritingObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardWriting/writableTypes(for:)
 func (o NSPasteboardWritingObject) WritableTypesForPasteboard(pasteboard INSPasteboard) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("writableTypesForPasteboard:"), pasteboard)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -86,7 +85,6 @@ func (o NSPasteboardWritingObject) WritableTypesForPasteboard(pasteboard INSPast
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardWriting/pasteboardPropertyList(forType:)
 func (o NSPasteboardWritingObject) PasteboardPropertyListForType(type_ NSPasteboardType) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("pasteboardPropertyListForType:"), objc.String(string(type_)))
 	return objectivec.Object{ID: rv}
 	}
@@ -113,7 +111,6 @@ func (o NSPasteboardWritingObject) PasteboardPropertyListForType(type_ NSPastebo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboardWriting/writingOptions(forType:pasteboard:)
 func (o NSPasteboardWritingObject) WritingOptionsForTypePasteboard(type_ NSPasteboardType, pasteboard INSPasteboard) NSPasteboardWritingOptions {
-	
 	rv := objc.Send[NSPasteboardWritingOptions](o.ID, objc.Sel("writingOptionsForType:pasteboard:"), objc.String(string(type_)), pasteboard)
 	return rv
 	}

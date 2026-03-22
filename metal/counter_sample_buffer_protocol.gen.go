@@ -55,7 +55,6 @@ func MTLCounterSampleBufferObjectFromID(id objc.ID) MTLCounterSampleBufferObject
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/label
 func (o MTLCounterSampleBufferObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -63,7 +62,6 @@ func (o MTLCounterSampleBufferObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/device
 func (o MTLCounterSampleBufferObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -71,7 +69,6 @@ func (o MTLCounterSampleBufferObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/sampleCount
 func (o MTLCounterSampleBufferObject) SampleCount() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("sampleCount"))
 	return rv
 	}
@@ -99,7 +96,6 @@ func (o MTLCounterSampleBufferObject) SampleCount() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSampleBuffer/resolveCounterRange:
 func (o MTLCounterSampleBufferObject) ResolveCounterRange(range_ foundation.NSRange) foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resolveCounterRange:"), range_)
 	return foundation.NSDataFromID(rv)
 	}

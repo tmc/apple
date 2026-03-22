@@ -45,7 +45,6 @@ func CISRGBToneCurveToLinearObjectFromID(id objc.ID) CISRGBToneCurveToLinearObje
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISRGBToneCurveToLinear/inputImage
 func (o CISRGBToneCurveToLinearObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CISRGBToneCurveToLinearObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISRGBToneCurveToLinearObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

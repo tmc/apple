@@ -55,7 +55,6 @@ func MTLFunctionLogDebugLocationObjectFromID(id objc.ID) MTLFunctionLogDebugLoca
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLogDebugLocation/functionName
 func (o MTLFunctionLogDebugLocationObject) FunctionName() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionName"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -63,7 +62,6 @@ func (o MTLFunctionLogDebugLocationObject) FunctionName() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLogDebugLocation/url
 func (o MTLFunctionLogDebugLocationObject) URL() foundation.INSURL {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("URL"))
 	return foundation.NSURLFromID(rv)
 	}
@@ -71,7 +69,6 @@ func (o MTLFunctionLogDebugLocationObject) URL() foundation.INSURL {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLogDebugLocation/line
 func (o MTLFunctionLogDebugLocationObject) Line() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("line"))
 	return rv
 	}
@@ -79,7 +76,6 @@ func (o MTLFunctionLogDebugLocationObject) Line() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLogDebugLocation/column
 func (o MTLFunctionLogDebugLocationObject) Column() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("column"))
 	return rv
 	}

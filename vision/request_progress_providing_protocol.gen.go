@@ -50,7 +50,6 @@ func VNRequestProgressProvidingObjectFromID(id objc.ID) VNRequestProgressProvidi
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
 func (o VNRequestProgressProvidingObject) ProgressHandler() VNRequestProgressHandler {
-	
 	rv := objc.Send[VNRequestProgressHandler](o.ID, objc.Sel("progressHandler"))
 	return rv
 	}
@@ -59,7 +58,6 @@ func (o VNRequestProgressProvidingObject) ProgressHandler() VNRequestProgressHan
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/indeterminate
 func (o VNRequestProgressProvidingObject) Indeterminate() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("indeterminate"))
 	return rv
 	}

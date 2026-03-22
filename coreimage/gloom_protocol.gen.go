@@ -65,7 +65,6 @@ func CIGloomObjectFromID(id objc.ID) CIGloomObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGloom/inputImage
 func (o CIGloomObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIGloomObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGloom/intensity
 func (o CIGloomObject) Intensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
 	}
@@ -81,7 +79,6 @@ func (o CIGloomObject) Intensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGloom/radius
 func (o CIGloomObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CIGloomObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIGloomObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -244,7 +244,6 @@ func MTL4RenderCommandEncoderObjectFromID(id objc.ID) MTL4RenderCommandEncoderOb
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setRenderPipelineState(_:)
 func (o MTL4RenderCommandEncoderObject) SetRenderPipelineState(pipelineState MTLRenderPipelineState) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setRenderPipelineState:"), pipelineState)
 	}
 // Configures the store action for a color attachment.
@@ -256,7 +255,6 @@ func (o MTL4RenderCommandEncoderObject) SetRenderPipelineState(pipelineState MTL
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setColorStoreAction(_:index:)
 func (o MTL4RenderCommandEncoderObject) SetColorStoreActionAtIndex(storeAction MTLStoreAction, colorAttachmentIndex uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setColorStoreAction:atIndex:"), storeAction, colorAttachmentIndex)
 	}
 // Configures the store action for the depth attachment.
@@ -266,7 +264,6 @@ func (o MTL4RenderCommandEncoderObject) SetColorStoreActionAtIndex(storeAction M
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setDepthStoreAction(_:)
 func (o MTL4RenderCommandEncoderObject) SetDepthStoreAction(storeAction MTLStoreAction) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthStoreAction:"), storeAction)
 	}
 // Configures the store action for the stencil attachment.
@@ -276,7 +273,6 @@ func (o MTL4RenderCommandEncoderObject) SetDepthStoreAction(storeAction MTLStore
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setStencilStoreAction(_:)
 func (o MTL4RenderCommandEncoderObject) SetStencilStoreAction(storeAction MTLStoreAction) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setStencilStoreAction:"), storeAction)
 	}
 // Configures each pixel component value, including alpha, for the render
@@ -292,7 +288,6 @@ func (o MTL4RenderCommandEncoderObject) SetStencilStoreAction(storeAction MTLSto
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setBlendColor(red:green:blue:alpha:)
 func (o MTL4RenderCommandEncoderObject) SetBlendColorRedGreenBlueAlpha(red float32, green float32, blue float32, alpha float32) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBlendColorRed:green:blue:alpha:"), red, green, blue, alpha)
 	}
 // Sets the mapping from logical shader color output to physical render pass
@@ -313,7 +308,6 @@ func (o MTL4RenderCommandEncoderObject) SetBlendColorRedGreenBlueAlpha(red float
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setColorAttachmentMap(_:)
 func (o MTL4RenderCommandEncoderObject) SetColorAttachmentMap(mapping IMTLLogicalToPhysicalColorAttachmentMap) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setColorAttachmentMap:"), mapping)
 	}
 // Configures how subsequent draw commands rasterize triangle and triangle
@@ -326,7 +320,6 @@ func (o MTL4RenderCommandEncoderObject) SetColorAttachmentMap(mapping IMTLLogica
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setTriangleFillMode(_:)
 func (o MTL4RenderCommandEncoderObject) SetTriangleFillMode(fillMode MTLTriangleFillMode) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setTriangleFillMode:"), fillMode)
 	}
 // Configures the vertex winding order that determines which face of a
@@ -339,7 +332,6 @@ func (o MTL4RenderCommandEncoderObject) SetTriangleFillMode(fillMode MTLTriangle
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setFrontFacing(_:)
 func (o MTL4RenderCommandEncoderObject) SetFrontFacingWinding(frontFacingWinding MTLWinding) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setFrontFacingWinding:"), frontFacingWinding)
 	}
 // Controls whether Metal culls front facing primitives, back facing
@@ -351,7 +343,6 @@ func (o MTL4RenderCommandEncoderObject) SetFrontFacingWinding(frontFacingWinding
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setCullMode(_:)
 func (o MTL4RenderCommandEncoderObject) SetCullMode(cullMode MTLCullMode) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setCullMode:"), cullMode)
 	}
 // Configures this encoder with a depth stencil state that applies to your
@@ -361,7 +352,6 @@ func (o MTL4RenderCommandEncoderObject) SetCullMode(cullMode MTLCullMode) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setDepthStencilState(_:)
 func (o MTL4RenderCommandEncoderObject) SetDepthStencilState(depthStencilState MTLDepthStencilState) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthStencilState:"), depthStencilState)
 	}
 // Configures the adjustments a render pass applies to depth values from
@@ -379,7 +369,6 @@ func (o MTL4RenderCommandEncoderObject) SetDepthStencilState(depthStencilState M
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setDepthBias(_:slopeScale:clamp:)
 func (o MTL4RenderCommandEncoderObject) SetDepthBiasSlopeScaleClamp(depthBias float32, slopeScale float32, clamp float32) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthBias:slopeScale:clamp:"), depthBias, slopeScale, clamp)
 	}
 // Controls the behavior for fragments outside of the near or far planes.
@@ -390,7 +379,6 @@ func (o MTL4RenderCommandEncoderObject) SetDepthBiasSlopeScaleClamp(depthBias fl
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setDepthClipMode(_:)
 func (o MTL4RenderCommandEncoderObject) SetDepthClipMode(depthClipMode MTLDepthClipMode) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthClipMode:"), depthClipMode)
 	}
 // Configures this encoder with a reference value for stencil testing.
@@ -404,7 +392,6 @@ func (o MTL4RenderCommandEncoderObject) SetDepthClipMode(depthClipMode MTLDepthC
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setStencilReferenceValue(_:)
 func (o MTL4RenderCommandEncoderObject) SetStencilReferenceValue(referenceValue uint32) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setStencilReferenceValue:"), referenceValue)
 	}
 // Configures the encoder with different stencil test reference values for
@@ -423,7 +410,6 @@ func (o MTL4RenderCommandEncoderObject) SetStencilReferenceValue(referenceValue 
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setStencilReferenceValue(front:back:)
 func (o MTL4RenderCommandEncoderObject) SetStencilFrontReferenceValueBackReferenceValue(frontReferenceValue uint32, backReferenceValue uint32) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setStencilFrontReferenceValue:backReferenceValue:"), frontReferenceValue, backReferenceValue)
 	}
 // Sets the viewport which that transforms vertices from normalized device
@@ -441,7 +427,6 @@ func (o MTL4RenderCommandEncoderObject) SetStencilFrontReferenceValueBackReferen
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setViewport(_:)
 func (o MTL4RenderCommandEncoderObject) SetViewport(viewport MTLViewport) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setViewport:"), viewport)
 	}
 // Sets a scissor rectangle to discard fragments outside a specific area.
@@ -458,7 +443,6 @@ func (o MTL4RenderCommandEncoderObject) SetViewport(viewport MTLViewport) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setScissorRect(_:)
 func (o MTL4RenderCommandEncoderObject) SetScissorRect(rect MTLScissorRect) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setScissorRect:"), rect)
 	}
 // Configures a visibility test for Metal to run, and the destination for any
@@ -481,7 +465,6 @@ func (o MTL4RenderCommandEncoderObject) SetScissorRect(rect MTLScissorRect) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setVisibilityResultMode(_:offset:)
 func (o MTL4RenderCommandEncoderObject) SetVisibilityResultModeOffset(mode MTLVisibilityResultMode, offset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibilityResultMode:offset:"), mode, offset)
 	}
 // Configures the size of a threadgroup memory buffer for a threadgroup
@@ -494,7 +477,6 @@ func (o MTL4RenderCommandEncoderObject) SetVisibilityResultModeOffset(mode MTLVi
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setObjectThreadgroupMemoryLength(_:index:)
 func (o MTL4RenderCommandEncoderObject) SetObjectThreadgroupMemoryLengthAtIndex(length uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectThreadgroupMemoryLength:atIndex:"), length, index)
 	}
 // Configures the size of a threadgroup memory buffer for a threadgroup
@@ -510,7 +492,6 @@ func (o MTL4RenderCommandEncoderObject) SetObjectThreadgroupMemoryLengthAtIndex(
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setThreadgroupMemoryLength(_:offset:index:)
 func (o MTL4RenderCommandEncoderObject) SetThreadgroupMemoryLengthOffsetAtIndex(length uint, offset uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setThreadgroupMemoryLength:offset:atIndex:"), length, offset, index)
 	}
 // Associates an argument table with a set of render stages.
@@ -530,7 +511,6 @@ func (o MTL4RenderCommandEncoderObject) SetThreadgroupMemoryLengthOffsetAtIndex(
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setArgumentTable(_:stages:)
 func (o MTL4RenderCommandEncoderObject) SetArgumentTableAtStages(argumentTable MTL4ArgumentTable, stages MTLRenderStages) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setArgumentTable:atStages:"), argumentTable, stages)
 	}
 // Encodes a draw command that renders an instance of a geometric primitive.
@@ -556,7 +536,6 @@ func (o MTL4RenderCommandEncoderObject) SetArgumentTableAtStages(argumentTable M
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawPrimitives(primitiveType:vertexStart:vertexCount:)
 func (o MTL4RenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCount(primitiveType MTLPrimitiveType, vertexStart uint, vertexCount uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawPrimitives:vertexStart:vertexCount:"), primitiveType, vertexStart, vertexCount)
 	}
 // Encodes a draw command that renders multiple instances of a geometric
@@ -591,7 +570,6 @@ func (o MTL4RenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCount(pri
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawPrimitives(primitiveType:vertexStart:vertexCount:instanceCount:)
 func (o MTL4RenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCountInstanceCount(primitiveType MTLPrimitiveType, vertexStart uint, vertexCount uint, instanceCount uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawPrimitives:vertexStart:vertexCount:instanceCount:"), primitiveType, vertexStart, vertexCount, instanceCount)
 	}
 // Encodes a draw command that renders multiple instances of a geometric
@@ -630,7 +608,6 @@ func (o MTL4RenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCountInst
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawPrimitives(primitiveType:vertexStart:vertexCount:instanceCount:baseInstance:)
 func (o MTL4RenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCountInstanceCountBaseInstance(primitiveType MTLPrimitiveType, vertexStart uint, vertexCount uint, instanceCount uint, baseInstance uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawPrimitives:vertexStart:vertexCount:instanceCount:baseInstance:"), primitiveType, vertexStart, vertexCount, instanceCount, baseInstance)
 	}
 // Encodes a draw command that renders multiple instances of a geometric
@@ -667,7 +644,6 @@ func (o MTL4RenderCommandEncoderObject) DrawPrimitivesVertexStartVertexCountInst
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawPrimitives(primitiveType:indirectBuffer:)
 func (o MTL4RenderCommandEncoderObject) DrawPrimitivesIndirectBuffer(primitiveType MTLPrimitiveType, indirectBuffer MTLGPUAddress) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawPrimitives:indirectBuffer:"), primitiveType, indirectBuffer)
 	}
 // Encodes a draw command that renders an instance of a geometric primitive
@@ -712,7 +688,6 @@ func (o MTL4RenderCommandEncoderObject) DrawPrimitivesIndirectBuffer(primitiveTy
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawIndexedPrimitives(primitiveType:indexCount:indexType:indexBuffer:indexBufferLength:)
 func (o MTL4RenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexTypeIndexBufferIndexBufferLength(primitiveType MTLPrimitiveType, indexCount uint, indexType MTLIndexType, indexBuffer MTLGPUAddress, indexBufferLength uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferLength:"), primitiveType, indexCount, indexType, indexBuffer, indexBufferLength)
 	}
 // Encodes a draw command that renders multiple instances of a geometric
@@ -764,7 +739,6 @@ func (o MTL4RenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexType
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawIndexedPrimitives(primitiveType:indexCount:indexType:indexBuffer:indexBufferLength:instanceCount:)
 func (o MTL4RenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexTypeIndexBufferIndexBufferLengthInstanceCount(primitiveType MTLPrimitiveType, indexCount uint, indexType MTLIndexType, indexBuffer MTLGPUAddress, indexBufferLength uint, instanceCount uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferLength:instanceCount:"), primitiveType, indexCount, indexType, indexBuffer, indexBufferLength, instanceCount)
 	}
 // Encodes a draw command that renders multiple instances of a geometric
@@ -827,7 +801,6 @@ func (o MTL4RenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexType
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawIndexedPrimitives(primitiveType:indexCount:indexType:indexBuffer:indexBufferLength:instanceCount:baseVertex:baseInstance:)
 func (o MTL4RenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexTypeIndexBufferIndexBufferLengthInstanceCountBaseVertexBaseInstance(primitiveType MTLPrimitiveType, indexCount uint, indexType MTLIndexType, indexBuffer MTLGPUAddress, indexBufferLength uint, instanceCount uint, baseVertex int, baseInstance uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferLength:instanceCount:baseVertex:baseInstance:"), primitiveType, indexCount, indexType, indexBuffer, indexBufferLength, instanceCount, baseVertex, baseInstance)
 	}
 // Encodes a draw command that renders multiple instances of a geometric
@@ -891,7 +864,6 @@ func (o MTL4RenderCommandEncoderObject) DrawIndexedPrimitivesIndexCountIndexType
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawIndexedPrimitives(primitiveType:indexType:indexBuffer:indexBufferLength:indirectBuffer:)
 func (o MTL4RenderCommandEncoderObject) DrawIndexedPrimitivesIndexTypeIndexBufferIndexBufferLengthIndirectBuffer(primitiveType MTLPrimitiveType, indexType MTLIndexType, indexBuffer MTLGPUAddress, indexBufferLength uint, indirectBuffer MTLGPUAddress) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawIndexedPrimitives:indexType:indexBuffer:indexBufferLength:indirectBuffer:"), primitiveType, indexType, indexBuffer, indexBufferLength, indirectBuffer)
 	}
 // Encodes a draw command that invokes a mesh shader and, optionally, an
@@ -917,7 +889,6 @@ func (o MTL4RenderCommandEncoderObject) DrawIndexedPrimitivesIndexTypeIndexBuffe
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawMeshThreads(threadsPerGrid:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:)
 func (o MTL4RenderCommandEncoderObject) DrawMeshThreadsThreadsPerObjectThreadgroupThreadsPerMeshThreadgroup(threadsPerGrid MTLSize, threadsPerObjectThreadgroup MTLSize, threadsPerMeshThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawMeshThreads:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:"), threadsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup)
 	}
 // Encodes a draw command that invokes a mesh shader and, optionally, an
@@ -940,7 +911,6 @@ func (o MTL4RenderCommandEncoderObject) DrawMeshThreadsThreadsPerObjectThreadgro
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawMeshThreadgroups(threadgroupsPerGrid:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:)
 func (o MTL4RenderCommandEncoderObject) DrawMeshThreadgroupsThreadsPerObjectThreadgroupThreadsPerMeshThreadgroup(threadgroupsPerGrid MTLSize, threadsPerObjectThreadgroup MTLSize, threadsPerMeshThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawMeshThreadgroups:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:"), threadgroupsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup)
 	}
 // Encodes a draw command that invokes a mesh shader and, optionally, an
@@ -977,7 +947,6 @@ func (o MTL4RenderCommandEncoderObject) DrawMeshThreadgroupsThreadsPerObjectThre
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/drawMeshThreadgroups(indirectBuffer:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:)
 func (o MTL4RenderCommandEncoderObject) DrawMeshThreadgroupsWithIndirectBufferThreadsPerObjectThreadgroupThreadsPerMeshThreadgroup(indirectBuffer MTLGPUAddress, threadsPerObjectThreadgroup MTLSize, threadsPerMeshThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawMeshThreadgroupsWithIndirectBuffer:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:"), indirectBuffer, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup)
 	}
 // Encodes a command that invokes a tile shader function from the encoder’s
@@ -996,14 +965,12 @@ func (o MTL4RenderCommandEncoderObject) DrawMeshThreadgroupsWithIndirectBufferTh
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/dispatchThreadsPerTile(_:)
 func (o MTL4RenderCommandEncoderObject) DispatchThreadsPerTile(threadsPerTile MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("dispatchThreadsPerTile:"), threadsPerTile)
 	}
 // Sets the width of a tile for this render pass.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/tileWidth
 func (o MTL4RenderCommandEncoderObject) TileWidth() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("tileWidth"))
 	return rv
 	}
@@ -1011,7 +978,6 @@ func (o MTL4RenderCommandEncoderObject) TileWidth() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/tileHeight
 func (o MTL4RenderCommandEncoderObject) TileHeight() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("tileHeight"))
 	return rv
 	}
@@ -1046,7 +1012,6 @@ func (o MTL4RenderCommandEncoderObject) TileHeight() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/executeCommands(buffer:indirectBuffer:)
 func (o MTL4RenderCommandEncoderObject) ExecuteCommandsInBufferIndirectBuffer(indirectCommandBuffer MTLIndirectCommandBuffer, indirectRangeBuffer MTLGPUAddress) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:indirectBuffer:"), indirectCommandBuffer, indirectRangeBuffer)
 	}
 // Writes a GPU timestamp into the given [MTL4CounterHeap] at `index` after
@@ -1078,7 +1043,6 @@ func (o MTL4RenderCommandEncoderObject) ExecuteCommandsInBufferIndirectBuffer(in
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/writeTimestamp(granularity:after:counterHeap:index:)
 func (o MTL4RenderCommandEncoderObject) WriteTimestampWithGranularityAfterStageIntoHeapAtIndex(granularity MTL4TimestampGranularity, stage MTLRenderStages, counterHeap MTL4CounterHeap, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("writeTimestampWithGranularity:afterStage:intoHeap:atIndex:"), granularity, stage, counterHeap, index)
 	}
 // Encodes a command that runs a range of commands from an indirect command
@@ -1092,7 +1056,6 @@ func (o MTL4RenderCommandEncoderObject) WriteTimestampWithGranularityAfterStageI
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/executeCommandsInBuffer:withRange:
 func (o MTL4RenderCommandEncoderObject) ExecuteCommandsInBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, executionRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:withRange:"), indirectCommandBuffer, executionRange)
 	}
 // Configures the minimum and maximum bounds for depth bounds testing.
@@ -1115,7 +1078,6 @@ func (o MTL4RenderCommandEncoderObject) ExecuteCommandsInBufferWithRange(indirec
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setDepthTestMinBound:maxBound:
 func (o MTL4RenderCommandEncoderObject) SetDepthTestMinBoundMaxBound(minBound float32, maxBound float32) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthTestMinBound:maxBound:"), minBound, maxBound)
 	}
 // Sets an array of scissor rectangles for a fragment scissor test.
@@ -1137,7 +1099,6 @@ func (o MTL4RenderCommandEncoderObject) SetDepthTestMinBoundMaxBound(minBound fl
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setScissorRects:count:
 func (o MTL4RenderCommandEncoderObject) SetScissorRectsCount(scissorRects []MTLScissorRect, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setScissorRects:count:"), objc.CArray(scissorRects), count)
 	}
 // Sets the vertex amplification count and its view mapping for each
@@ -1163,7 +1124,6 @@ func (o MTL4RenderCommandEncoderObject) SetScissorRectsCount(scissorRects []MTLS
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setVertexAmplificationCount:viewMappings:
 func (o MTL4RenderCommandEncoderObject) SetVertexAmplificationCountViewMappings(count uint, viewMappings *MTLVertexAmplificationViewMapping) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexAmplificationCount:viewMappings:"), count, viewMappings)
 	}
 // Sets an array of viewports to transform vertices from normalized device
@@ -1189,14 +1149,12 @@ func (o MTL4RenderCommandEncoderObject) SetVertexAmplificationCountViewMappings(
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/setViewports:count:
 func (o MTL4RenderCommandEncoderObject) SetViewportsCount(viewports []MTLViewport, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setViewports:count:"), objc.CArray(viewports), count)
 	}
 // Returns the command buffer that is currently encoding commands.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/commandBuffer
 func (o MTL4RenderCommandEncoderObject) CommandBuffer() MTL4CommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("commandBuffer"))
 	return MTL4CommandBufferObjectFromID(rv)
 	}
@@ -1205,7 +1163,6 @@ func (o MTL4RenderCommandEncoderObject) CommandBuffer() MTL4CommandBuffer {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/label
 func (o MTL4RenderCommandEncoderObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -1213,7 +1170,6 @@ func (o MTL4RenderCommandEncoderObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/endEncoding()
 func (o MTL4RenderCommandEncoderObject) EndEncoding() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("endEncoding"))
 	}
 // Inserts a debug string into the frame data to aid debugging.
@@ -1227,7 +1183,6 @@ func (o MTL4RenderCommandEncoderObject) EndEncoding() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/insertDebugSignpost(_:)
 func (o MTL4RenderCommandEncoderObject) InsertDebugSignpost(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertDebugSignpost:"), objc.String(string_))
 	}
 // Pops the latest debug group string from this encoder’s stack of debug
@@ -1235,7 +1190,6 @@ func (o MTL4RenderCommandEncoderObject) InsertDebugSignpost(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/popDebugGroup()
 func (o MTL4RenderCommandEncoderObject) PopDebugGroup() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
 // Pushes a string onto this encoder’s stack of debug groups.
@@ -1244,7 +1198,6 @@ func (o MTL4RenderCommandEncoderObject) PopDebugGroup() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/pushDebugGroup(_:)
 func (o MTL4RenderCommandEncoderObject) PushDebugGroup(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
 // Encodes a command that instructs the GPU to update a fence after one or
@@ -1292,7 +1245,6 @@ func (o MTL4RenderCommandEncoderObject) PushDebugGroup(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/updateFence(_:afterEncoderStages:)
 func (o MTL4RenderCommandEncoderObject) UpdateFenceAfterEncoderStages(fence MTLFence, afterEncoderStages MTLStages) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("updateFence:afterEncoderStages:"), fence, afterEncoderStages)
 	}
 // Encodes a command that instructs the GPU to pause before starting one or
@@ -1342,7 +1294,6 @@ func (o MTL4RenderCommandEncoderObject) UpdateFenceAfterEncoderStages(fence MTLF
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/waitForFence(_:beforeEncoderStages:)
 func (o MTL4RenderCommandEncoderObject) WaitForFenceBeforeEncoderStages(fence MTLFence, beforeEncoderStages MTLStages) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:beforeEncoderStages:"), fence, beforeEncoderStages)
 	}
 // Encodes an intra-pass barrier.
@@ -1380,7 +1331,6 @@ func (o MTL4RenderCommandEncoderObject) WaitForFenceBeforeEncoderStages(fence MT
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:
 func (o MTL4RenderCommandEncoderObject) BarrierAfterEncoderStagesBeforeEncoderStagesVisibilityOptions(afterEncoderStages MTLStages, beforeEncoderStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterEncoderStages:beforeEncoderStages:visibilityOptions:"), afterEncoderStages, beforeEncoderStages, visibilityOptions)
 	}
 // Encodes a consumer barrier on work you commit to the same command queue.
@@ -1423,7 +1373,6 @@ func (o MTL4RenderCommandEncoderObject) BarrierAfterEncoderStagesBeforeEncoderSt
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterQueueStages:beforeStages:visibilityOptions:
 func (o MTL4RenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisibilityOptions(afterQueueStages MTLStages, beforeStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:visibilityOptions:"), afterQueueStages, beforeStages, visibilityOptions)
 	}
 // Encodes a producer barrier on work committed to the same command queue.
@@ -1459,7 +1408,6 @@ func (o MTL4RenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisib
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/barrierAfterStages:beforeQueueStages:visibilityOptions:
 func (o MTL4RenderCommandEncoderObject) BarrierAfterStagesBeforeQueueStagesVisibilityOptions(afterStages MTLStages, beforeQueueStages MTLStages, visibilityOptions MTL4VisibilityOptions) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterStages:beforeQueueStages:visibilityOptions:"), afterStages, beforeQueueStages, visibilityOptions)
 	}
 

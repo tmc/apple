@@ -65,7 +65,6 @@ func CIMaskedVariableBlurObjectFromID(id objc.ID) CIMaskedVariableBlurObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/inputImage
 func (o CIMaskedVariableBlurObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIMaskedVariableBlurObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/mask
 func (o CIMaskedVariableBlurObject) Mask() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("mask"))
 	return CIImageFromID(rv)
 	}
@@ -81,7 +79,6 @@ func (o CIMaskedVariableBlurObject) Mask() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMaskedVariableBlur/radius
 func (o CIMaskedVariableBlurObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CIMaskedVariableBlurObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMaskedVariableBlurObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

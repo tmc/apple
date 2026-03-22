@@ -65,7 +65,6 @@ func NSPopoverDelegateObjectFromID(id objc.ID) NSPopoverDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/detachableWindow(for:)
 func (o NSPopoverDelegateObject) DetachableWindowForPopover(popover INSPopover) INSWindow {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("detachableWindowForPopover:"), popover)
 	return NSWindowFromID(rv)
 	}
@@ -90,7 +89,6 @@ func (o NSPopoverDelegateObject) DetachableWindowForPopover(popover INSPopover) 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverShouldClose(_:)
 func (o NSPopoverDelegateObject) PopoverShouldClose(popover INSPopover) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("popoverShouldClose:"), popover)
 	return rv
 	}
@@ -108,7 +106,6 @@ func (o NSPopoverDelegateObject) PopoverShouldClose(popover INSPopover) bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverWillShow(_:)
 func (o NSPopoverDelegateObject) PopoverWillShow(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverWillShow:"), notification)
 	}
 // Invoked when the popover has been shown.
@@ -125,7 +122,6 @@ func (o NSPopoverDelegateObject) PopoverWillShow(notification foundation.NSNotif
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverDidShow(_:)
 func (o NSPopoverDelegateObject) PopoverDidShow(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverDidShow:"), notification)
 	}
 // Invoked when the popover is about to close.
@@ -142,7 +138,6 @@ func (o NSPopoverDelegateObject) PopoverDidShow(notification foundation.NSNotifi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverWillClose(_:)
 func (o NSPopoverDelegateObject) PopoverWillClose(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverWillClose:"), notification)
 	}
 // Invoked when the popover did close.
@@ -159,7 +154,6 @@ func (o NSPopoverDelegateObject) PopoverWillClose(notification foundation.NSNoti
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverDidClose(_:)
 func (o NSPopoverDelegateObject) PopoverDidClose(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverDidClose:"), notification)
 	}
 // Indicates that a popover has been released while it’s in an implicitly
@@ -174,7 +168,6 @@ func (o NSPopoverDelegateObject) PopoverDidClose(notification foundation.NSNotif
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverDidDetach(_:)
 func (o NSPopoverDelegateObject) PopoverDidDetach(popover INSPopover) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popoverDidDetach:"), popover)
 	}
 // Returns a Boolean value that indicates whether a popover should detach from
@@ -203,7 +196,6 @@ func (o NSPopoverDelegateObject) PopoverDidDetach(popover INSPopover) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverDelegate/popoverShouldDetach(_:)
 func (o NSPopoverDelegateObject) PopoverShouldDetach(popover INSPopover) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("popoverShouldDetach:"), popover)
 	return rv
 	}

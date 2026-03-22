@@ -77,7 +77,6 @@ func CICoreMLModelObjectFromID(id objc.ID) CICoreMLModelObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/headIndex
 func (o CICoreMLModelObject) HeadIndex() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("headIndex"))
 	return rv
 	}
@@ -85,7 +84,6 @@ func (o CICoreMLModelObject) HeadIndex() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/inputImage
 func (o CICoreMLModelObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -93,7 +91,6 @@ func (o CICoreMLModelObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/model
 func (o CICoreMLModelObject) Model() coreml.MLModel {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("model"))
 	return coreml.MLModelFromID(rv)
 	}
@@ -102,7 +99,6 @@ func (o CICoreMLModelObject) Model() coreml.MLModel {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/softmaxNormalization
 func (o CICoreMLModelObject) SoftmaxNormalization() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("softmaxNormalization"))
 	return rv
 	}
@@ -111,7 +107,6 @@ func (o CICoreMLModelObject) SoftmaxNormalization() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CICoreMLModelObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

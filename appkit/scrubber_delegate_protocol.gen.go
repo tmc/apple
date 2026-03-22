@@ -41,7 +41,6 @@ func NSScrubberDelegateObjectFromID(id objc.ID) NSScrubberDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/scrubber(_:didSelectItemAt:)
 func (o NSScrubberDelegateObject) ScrubberDidSelectItemAtIndex(scrubber INSScrubber, selectedIndex int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("scrubber:didSelectItemAtIndex:"), scrubber, selectedIndex)
 	}
 // Tells the delegate that the item at the specified index was highlighted.
@@ -52,7 +51,6 @@ func (o NSScrubberDelegateObject) ScrubberDidSelectItemAtIndex(scrubber INSScrub
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/scrubber(_:didHighlightItemAt:)
 func (o NSScrubberDelegateObject) ScrubberDidHighlightItemAtIndex(scrubber INSScrubber, highlightedIndex int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("scrubber:didHighlightItemAtIndex:"), scrubber, highlightedIndex)
 	}
 // Tells the delegate that the range of items currently visible in the
@@ -65,7 +63,6 @@ func (o NSScrubberDelegateObject) ScrubberDidHighlightItemAtIndex(scrubber INSSc
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/scrubber(_:didChangeVisibleRange:)
 func (o NSScrubberDelegateObject) ScrubberDidChangeVisibleRange(scrubber INSScrubber, visibleRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("scrubber:didChangeVisibleRange:"), scrubber, visibleRange)
 	}
 // Tells the delegate that the user is panning or scrolling the scrubber.
@@ -74,7 +71,6 @@ func (o NSScrubberDelegateObject) ScrubberDidChangeVisibleRange(scrubber INSScru
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/didBeginInteracting(with:)
 func (o NSScrubberDelegateObject) DidBeginInteractingWithScrubber(scrubber INSScrubber) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didBeginInteractingWithScrubber:"), scrubber)
 	}
 // Tells the delegate that a pan or scroll interaction with the scrubber has
@@ -84,7 +80,6 @@ func (o NSScrubberDelegateObject) DidBeginInteractingWithScrubber(scrubber INSSc
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/didFinishInteracting(with:)
 func (o NSScrubberDelegateObject) DidFinishInteractingWithScrubber(scrubber INSScrubber) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didFinishInteractingWithScrubber:"), scrubber)
 	}
 // Tells the delegate that a user interaction with the scrubber has been
@@ -94,7 +89,6 @@ func (o NSScrubberDelegateObject) DidFinishInteractingWithScrubber(scrubber INSS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubberDelegate/didCancelInteracting(with:)
 func (o NSScrubberDelegateObject) DidCancelInteractingWithScrubber(scrubber INSScrubber) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didCancelInteractingWithScrubber:"), scrubber)
 	}
 

@@ -156,7 +156,6 @@ func CIPDF417BarcodeGeneratorObjectFromID(id objc.ID) CIPDF417BarcodeGeneratorOb
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/alwaysSpecifyCompaction
 func (o CIPDF417BarcodeGeneratorObject) AlwaysSpecifyCompaction() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("alwaysSpecifyCompaction"))
 	return rv
 	}
@@ -164,7 +163,6 @@ func (o CIPDF417BarcodeGeneratorObject) AlwaysSpecifyCompaction() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/compactStyle
 func (o CIPDF417BarcodeGeneratorObject) CompactStyle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("compactStyle"))
 	return rv
 	}
@@ -172,7 +170,6 @@ func (o CIPDF417BarcodeGeneratorObject) CompactStyle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/compactionMode
 func (o CIPDF417BarcodeGeneratorObject) CompactionMode() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("compactionMode"))
 	return rv
 	}
@@ -180,7 +177,6 @@ func (o CIPDF417BarcodeGeneratorObject) CompactionMode() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/correctionLevel
 func (o CIPDF417BarcodeGeneratorObject) CorrectionLevel() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("correctionLevel"))
 	return rv
 	}
@@ -188,7 +184,6 @@ func (o CIPDF417BarcodeGeneratorObject) CorrectionLevel() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/dataColumns
 func (o CIPDF417BarcodeGeneratorObject) DataColumns() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("dataColumns"))
 	return rv
 	}
@@ -196,7 +191,6 @@ func (o CIPDF417BarcodeGeneratorObject) DataColumns() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/maxHeight
 func (o CIPDF417BarcodeGeneratorObject) MaxHeight() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("maxHeight"))
 	return rv
 	}
@@ -204,7 +198,6 @@ func (o CIPDF417BarcodeGeneratorObject) MaxHeight() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/maxWidth
 func (o CIPDF417BarcodeGeneratorObject) MaxWidth() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("maxWidth"))
 	return rv
 	}
@@ -212,7 +205,6 @@ func (o CIPDF417BarcodeGeneratorObject) MaxWidth() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/message
 func (o CIPDF417BarcodeGeneratorObject) Message() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -220,7 +212,6 @@ func (o CIPDF417BarcodeGeneratorObject) Message() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/minHeight
 func (o CIPDF417BarcodeGeneratorObject) MinHeight() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("minHeight"))
 	return rv
 	}
@@ -228,7 +219,6 @@ func (o CIPDF417BarcodeGeneratorObject) MinHeight() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/minWidth
 func (o CIPDF417BarcodeGeneratorObject) MinWidth() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("minWidth"))
 	return rv
 	}
@@ -236,7 +226,6 @@ func (o CIPDF417BarcodeGeneratorObject) MinWidth() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/preferredAspectRatio
 func (o CIPDF417BarcodeGeneratorObject) PreferredAspectRatio() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("preferredAspectRatio"))
 	return rv
 	}
@@ -244,7 +233,6 @@ func (o CIPDF417BarcodeGeneratorObject) PreferredAspectRatio() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPDF417BarcodeGenerator/rows
 func (o CIPDF417BarcodeGeneratorObject) Rows() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("rows"))
 	return rv
 	}
@@ -253,7 +241,6 @@ func (o CIPDF417BarcodeGeneratorObject) Rows() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPDF417BarcodeGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

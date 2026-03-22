@@ -63,19 +63,16 @@ func CIMaximumScaleTransformObjectFromID(id objc.ID) CIMaximumScaleTransformObje
 
 // See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/aspectRatio
 func (o CIMaximumScaleTransformObject) AspectRatio() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("aspectRatio"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/inputImage
 func (o CIMaximumScaleTransformObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIMaximumScaleTransform/scale
 func (o CIMaximumScaleTransformObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -84,7 +81,6 @@ func (o CIMaximumScaleTransformObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMaximumScaleTransformObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

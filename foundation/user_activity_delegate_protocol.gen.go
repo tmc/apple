@@ -63,7 +63,6 @@ func NSUserActivityDelegateObjectFromID(id objc.ID) NSUserActivityDelegateObject
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivityDelegate/userActivity(_:didReceive:outputStream:)
 func (o NSUserActivityDelegateObject) UserActivityDidReceiveInputStreamOutputStream(userActivity INSUserActivity, inputStream INSInputStream, outputStream INSOutputStream) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("userActivity:didReceiveInputStream:outputStream:"), userActivity, inputStream, outputStream)
 	}
 // Notifies the delegate that the user activity was continued on another
@@ -73,7 +72,6 @@ func (o NSUserActivityDelegateObject) UserActivityDidReceiveInputStreamOutputStr
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivityDelegate/userActivityWasContinued(_:)
 func (o NSUserActivityDelegateObject) UserActivityWasContinued(userActivity INSUserActivity) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("userActivityWasContinued:"), userActivity)
 	}
 // Notifies the delegate that the user activity will be saved to be continued
@@ -88,7 +86,6 @@ func (o NSUserActivityDelegateObject) UserActivityWasContinued(userActivity INSU
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivityDelegate/userActivityWillSave(_:)
 func (o NSUserActivityDelegateObject) UserActivityWillSave(userActivity INSUserActivity) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("userActivityWillSave:"), userActivity)
 	}
 

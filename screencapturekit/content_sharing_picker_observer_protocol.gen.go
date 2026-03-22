@@ -54,7 +54,6 @@ func SCContentSharingPickerObserverObjectFromID(id objc.ID) SCContentSharingPick
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerObserver/contentSharingPicker(_:didCancelFor:)
 func (o SCContentSharingPickerObserverObject) ContentSharingPickerDidCancelForStream(picker ISCContentSharingPicker, stream ISCStream) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("contentSharingPicker:didCancelForStream:"), picker, stream)
 	}
 // Tells the observer that a sharing picker updated the content filter for a
@@ -68,7 +67,6 @@ func (o SCContentSharingPickerObserverObject) ContentSharingPickerDidCancelForSt
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerObserver/contentSharingPicker(_:didUpdateWith:for:)
 func (o SCContentSharingPickerObserverObject) ContentSharingPickerDidUpdateWithFilterForStream(picker ISCContentSharingPicker, filter ISCContentFilter, stream ISCStream) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("contentSharingPicker:didUpdateWithFilter:forStream:"), picker, filter, stream)
 	}
 // Tells the observer that a sharing picker was unable to start.
@@ -77,7 +75,6 @@ func (o SCContentSharingPickerObserverObject) ContentSharingPickerDidUpdateWithF
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerObserver/contentSharingPickerStartDidFailWithError(_:)
 func (o SCContentSharingPickerObserverObject) ContentSharingPickerStartDidFailWithError(error_ foundation.INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("contentSharingPickerStartDidFailWithError:"), error_)
 	}
 

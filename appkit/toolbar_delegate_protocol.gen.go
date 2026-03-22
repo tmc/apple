@@ -66,7 +66,6 @@ func NSToolbarDelegateObjectFromID(id objc.ID) NSToolbarDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbar(_:itemForItemIdentifier:willBeInsertedIntoToolbar:)
 func (o NSToolbarDelegateObject) ToolbarItemForItemIdentifierWillBeInsertedIntoToolbar(toolbar INSToolbar, itemIdentifier NSToolbarItemIdentifier, flag bool) INSToolbarItem {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:"), toolbar, objc.String(string(itemIdentifier)), flag)
 	return NSToolbarItemFromID(rv)
 	}
@@ -83,7 +82,6 @@ func (o NSToolbarDelegateObject) ToolbarItemForItemIdentifierWillBeInsertedIntoT
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarWillAddItem(_:)
 func (o NSToolbarDelegateObject) ToolbarWillAddItem(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("toolbarWillAddItem:"), notification)
 	}
 // Tells the delegate that the toolbar removed the specified item.
@@ -98,7 +96,6 @@ func (o NSToolbarDelegateObject) ToolbarWillAddItem(notification foundation.NSNo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarDidRemoveItem(_:)
 func (o NSToolbarDelegateObject) ToolbarDidRemoveItem(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("toolbarDidRemoveItem:"), notification)
 	}
 // Asks the delegate to provide the items allowed on the toolbar.
@@ -120,7 +117,6 @@ func (o NSToolbarDelegateObject) ToolbarDidRemoveItem(notification foundation.NS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarAllowedItemIdentifiers(_:)
 func (o NSToolbarDelegateObject) ToolbarAllowedItemIdentifiers(toolbar INSToolbar) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("toolbarAllowedItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -143,7 +139,6 @@ func (o NSToolbarDelegateObject) ToolbarAllowedItemIdentifiers(toolbar INSToolba
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarDefaultItemIdentifiers(_:)
 func (o NSToolbarDelegateObject) ToolbarDefaultItemIdentifiers(toolbar INSToolbar) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("toolbarDefaultItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -166,7 +161,6 @@ func (o NSToolbarDelegateObject) ToolbarDefaultItemIdentifiers(toolbar INSToolba
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarImmovableItemIdentifiers(_:)
 func (o NSToolbarDelegateObject) ToolbarImmovableItemIdentifiers(toolbar INSToolbar) foundation.INSSet {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("toolbarImmovableItemIdentifiers:"), toolbar)
 	return foundation.NSSetFromID(rv)
 	}
@@ -190,7 +184,6 @@ func (o NSToolbarDelegateObject) ToolbarImmovableItemIdentifiers(toolbar INSTool
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbarSelectableItemIdentifiers(_:)
 func (o NSToolbarDelegateObject) ToolbarSelectableItemIdentifiers(toolbar INSToolbar) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("toolbarSelectableItemIdentifiers:"), toolbar)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -227,7 +220,6 @@ func (o NSToolbarDelegateObject) ToolbarSelectableItemIdentifiers(toolbar INSToo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarDelegate/toolbar(_:itemIdentifier:canBeInsertedAt:)
 func (o NSToolbarDelegateObject) ToolbarItemIdentifierCanBeInsertedAtIndex(toolbar INSToolbar, itemIdentifier NSToolbarItemIdentifier, index int) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("toolbar:itemIdentifier:canBeInsertedAtIndex:"), toolbar, objc.String(string(itemIdentifier)), index)
 	return rv
 	}

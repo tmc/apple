@@ -86,7 +86,6 @@ func CIDotScreenObjectFromID(id objc.ID) CIDotScreenObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/angle
 func (o CIDotScreenObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CIDotScreenObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/center
 func (o CIDotScreenObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CIDotScreenObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/inputImage
 func (o CIDotScreenObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -110,7 +107,6 @@ func (o CIDotScreenObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/sharpness
 func (o CIDotScreenObject) Sharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CIDotScreenObject) Sharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDotScreen/width
 func (o CIDotScreenObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CIDotScreenObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIDotScreenObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

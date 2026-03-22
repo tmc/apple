@@ -55,7 +55,6 @@ func CIMorphologyGradientObjectFromID(id objc.ID) CIMorphologyGradientObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyGradient/inputImage
 func (o CIMorphologyGradientObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIMorphologyGradientObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyGradient/radius
 func (o CIMorphologyGradientObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIMorphologyGradientObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMorphologyGradientObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

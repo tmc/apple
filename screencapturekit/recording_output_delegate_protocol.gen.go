@@ -36,19 +36,16 @@ func SCRecordingOutputDelegateObjectFromID(id objc.ID) SCRecordingOutputDelegate
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputDelegate/recordingOutput(_:didFailWithError:)
 func (o SCRecordingOutputDelegateObject) RecordingOutputDidFailWithError(recordingOutput ISCRecordingOutput, error_ foundation.INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("recordingOutput:didFailWithError:"), recordingOutput, error_)
 	}
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputDelegate/recordingOutputDidFinishRecording(_:)
 func (o SCRecordingOutputDelegateObject) RecordingOutputDidFinishRecording(recordingOutput ISCRecordingOutput) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("recordingOutputDidFinishRecording:"), recordingOutput)
 	}
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutputDelegate/recordingOutputDidStartRecording(_:)
 func (o SCRecordingOutputDelegateObject) RecordingOutputDidStartRecording(recordingOutput ISCRecordingOutput) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("recordingOutputDidStartRecording:"), recordingOutput)
 	}
 

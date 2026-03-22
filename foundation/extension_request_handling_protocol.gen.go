@@ -60,7 +60,6 @@ func NSExtensionRequestHandlingObjectFromID(id objc.ID) NSExtensionRequestHandli
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionRequestHandling/beginRequest(with:)
 func (o NSExtensionRequestHandlingObject) BeginRequestWithExtensionContext(context INSExtensionContext) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("beginRequestWithExtensionContext:"), context)
 	}
 

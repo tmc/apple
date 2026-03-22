@@ -41,7 +41,6 @@ func NSIgnoreMisspelledWordsObjectFromID(id objc.ID) NSIgnoreMisspelledWordsObje
 //
 // See: https://developer.apple.com/documentation/AppKit/NSIgnoreMisspelledWords/ignoreSpelling(_:)
 func (o NSIgnoreMisspelledWordsObject) IgnoreSpelling(sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("ignoreSpelling:"), sender)
 	}
 

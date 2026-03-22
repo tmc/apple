@@ -38,7 +38,6 @@ func CAAnimationDelegateObjectFromID(id objc.ID) CAAnimationDelegateObject {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimationDelegate/animationDidStart(_:)
 func (o CAAnimationDelegateObject) AnimationDidStart(anim ICAAnimation) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidStart:"), anim)
 	}
 // Tells the delegate the animation has ended.
@@ -57,7 +56,6 @@ func (o CAAnimationDelegateObject) AnimationDidStart(anim ICAAnimation) {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAnimationDelegate/animationDidStop(_:finished:)
 func (o CAAnimationDelegateObject) AnimationDidStopFinished(anim ICAAnimation, flag bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidStop:finished:"), anim, flag)
 	}
 

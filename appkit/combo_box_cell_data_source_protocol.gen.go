@@ -61,7 +61,6 @@ func NSComboBoxCellDataSourceObjectFromID(id objc.ID) NSComboBoxCellDataSourceOb
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCellDataSource/comboBoxCell(_:completedString:)
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellCompletedString(comboBoxCell INSComboBoxCell, uncompletedString string) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("comboBoxCell:completedString:"), comboBoxCell, objc.String(uncompletedString))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -86,7 +85,6 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellCompletedString(comboBoxCell
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCellDataSource/comboBoxCell(_:indexOfItemWithStringValue:)
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellIndexOfItemWithStringValue(comboBoxCell INSComboBoxCell, string_ string) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("comboBoxCell:indexOfItemWithStringValue:"), comboBoxCell, objc.String(string_))
 	return rv
 	}
@@ -109,7 +107,6 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellIndexOfItemWithStringValue(c
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCellDataSource/comboBoxCell(_:objectValueForItemAt:)
 func (o NSComboBoxCellDataSourceObject) ComboBoxCellObjectValueForItemAtIndex(comboBoxCell INSComboBoxCell, index int) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("comboBoxCell:objectValueForItemAtIndex:"), comboBoxCell, index)
 	return objectivec.Object{ID: rv}
 	}
@@ -129,7 +126,6 @@ func (o NSComboBoxCellDataSourceObject) ComboBoxCellObjectValueForItemAtIndex(co
 //
 // See: https://developer.apple.com/documentation/AppKit/NSComboBoxCellDataSource/numberOfItems(in:)
 func (o NSComboBoxCellDataSourceObject) NumberOfItemsInComboBoxCell(comboBoxCell INSComboBoxCell) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfItemsInComboBoxCell:"), comboBoxCell)
 	return rv
 	}

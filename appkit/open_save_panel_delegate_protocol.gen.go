@@ -71,7 +71,6 @@ func NSOpenSavePanelDelegateObjectFromID(id objc.ID) NSOpenSavePanelDelegateObje
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:userEnteredFilename:confirmed:)
 func (o NSOpenSavePanelDelegateObject) PanelUserEnteredFilenameConfirmed(sender objectivec.IObject, filename string, okFlag bool) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("panel:userEnteredFilename:confirmed:"), sender, objc.String(filename), okFlag)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -82,7 +81,6 @@ func (o NSOpenSavePanelDelegateObject) PanelUserEnteredFilenameConfirmed(sender 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panelSelectionDidChange(_:)
 func (o NSOpenSavePanelDelegateObject) PanelSelectionDidChange(sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("panelSelectionDidChange:"), sender)
 	}
 // Tells the delegate that the user changed the selected directory to the
@@ -97,7 +95,6 @@ func (o NSOpenSavePanelDelegateObject) PanelSelectionDidChange(sender objectivec
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:didChangeToDirectoryURL:)
 func (o NSOpenSavePanelDelegateObject) PanelDidChangeToDirectoryURL(sender objectivec.IObject, url foundation.INSURL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("panel:didChangeToDirectoryURL:"), sender, url)
 	}
 // Tells the delegate that the Save panel is about to expand or collapse
@@ -114,7 +111,6 @@ func (o NSOpenSavePanelDelegateObject) PanelDidChangeToDirectoryURL(sender objec
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:willExpand:)
 func (o NSOpenSavePanelDelegateObject) PanelWillExpand(sender objectivec.IObject, expanding bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("panel:willExpand:"), sender, expanding)
 	}
 // Asks the delegate whether the specified URL should be enabled in the Open
@@ -141,7 +137,6 @@ func (o NSOpenSavePanelDelegateObject) PanelWillExpand(sender objectivec.IObject
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:shouldEnable:)
 func (o NSOpenSavePanelDelegateObject) PanelShouldEnableURL(sender objectivec.IObject, url foundation.INSURL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("panel:shouldEnableURL:"), sender, url)
 	return rv
 	}
@@ -159,7 +154,6 @@ func (o NSOpenSavePanelDelegateObject) PanelShouldEnableURL(sender objectivec.IO
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:validate:)
 func (o NSOpenSavePanelDelegateObject) PanelValidateURLError(sender objectivec.IObject, url foundation.INSURL) (bool, error) {
-	
 	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("panel:validateURL:error:"), sender, url)
 	if err != nil {
 		return false, err
@@ -171,7 +165,6 @@ func (o NSOpenSavePanelDelegateObject) PanelValidateURLError(sender objectivec.I
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:didSelect:)
 func (o NSOpenSavePanelDelegateObject) PanelDidSelectType(sender objectivec.IObject, type_ uniformtypeidentifiers.UTType) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("panel:didSelectType:"), sender, type_)
 	}
 // [NSSavePanel]: Optional — Sent when the content type popup is displayed
@@ -181,7 +174,6 @@ func (o NSOpenSavePanelDelegateObject) PanelDidSelectType(sender objectivec.IObj
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOpenSavePanelDelegate/panel(_:displayNameFor:)
 func (o NSOpenSavePanelDelegateObject) PanelDisplayNameForType(sender objectivec.IObject, type_ uniformtypeidentifiers.UTType) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("panel:displayNameForType:"), sender, type_)
 	return foundation.NSStringFromID(rv).String()
 	}

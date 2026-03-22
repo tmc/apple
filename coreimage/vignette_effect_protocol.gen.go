@@ -86,7 +86,6 @@ func CIVignetteEffectObjectFromID(id objc.ID) CIVignetteEffectObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignetteEffect/center
 func (o CIVignetteEffectObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CIVignetteEffectObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignetteEffect/falloff
 func (o CIVignetteEffectObject) Falloff() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("falloff"))
 	return rv
 	}
@@ -102,7 +100,6 @@ func (o CIVignetteEffectObject) Falloff() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignetteEffect/inputImage
 func (o CIVignetteEffectObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -110,7 +107,6 @@ func (o CIVignetteEffectObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignetteEffect/intensity
 func (o CIVignetteEffectObject) Intensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CIVignetteEffectObject) Intensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignetteEffect/radius
 func (o CIVignetteEffectObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CIVignetteEffectObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIVignetteEffectObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

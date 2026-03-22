@@ -87,7 +87,6 @@ func CICopyMachineTransitionObjectFromID(id objc.ID) CICopyMachineTransitionObje
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/angle
 func (o CICopyMachineTransitionObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -95,7 +94,6 @@ func (o CICopyMachineTransitionObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/color
 func (o CICopyMachineTransitionObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -103,7 +101,6 @@ func (o CICopyMachineTransitionObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/extent
 func (o CICopyMachineTransitionObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -111,7 +108,6 @@ func (o CICopyMachineTransitionObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/opacity
 func (o CICopyMachineTransitionObject) Opacity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("opacity"))
 	return rv
 	}
@@ -119,7 +115,6 @@ func (o CICopyMachineTransitionObject) Opacity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICopyMachineTransition/width
 func (o CICopyMachineTransitionObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -128,7 +123,6 @@ func (o CICopyMachineTransitionObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CICopyMachineTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -136,7 +130,6 @@ func (o CICopyMachineTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CICopyMachineTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -144,7 +137,6 @@ func (o CICopyMachineTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CICopyMachineTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -152,7 +144,6 @@ func (o CICopyMachineTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CICopyMachineTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

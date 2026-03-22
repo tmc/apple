@@ -65,7 +65,6 @@ func MTL4CounterHeapObjectFromID(id objc.ID) MTL4CounterHeapObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/count
 func (o MTL4CounterHeapObject) Count() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("count"))
 	return rv
 	}
@@ -73,7 +72,6 @@ func (o MTL4CounterHeapObject) Count() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/label
 func (o MTL4CounterHeapObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -81,7 +79,6 @@ func (o MTL4CounterHeapObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/type
 func (o MTL4CounterHeapObject) Type() MTL4CounterHeapType {
-	
 	rv := objc.Send[MTL4CounterHeapType](o.ID, objc.Sel("type"))
 	return rv
 	}
@@ -97,7 +94,6 @@ func (o MTL4CounterHeapObject) Type() MTL4CounterHeapType {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/invalidateCounterRange:
 func (o MTL4CounterHeapObject) InvalidateCounterRange(range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("invalidateCounterRange:"), range_)
 	}
 // Resolves heap data on the CPU timeline.
@@ -116,7 +112,6 @@ func (o MTL4CounterHeapObject) InvalidateCounterRange(range_ foundation.NSRange)
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CounterHeap/resolveCounterRange:
 func (o MTL4CounterHeapObject) ResolveCounterRange(range_ foundation.NSRange) foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("resolveCounterRange:"), range_)
 	return foundation.NSDataFromID(rv)
 	}

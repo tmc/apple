@@ -57,7 +57,6 @@ func NSItemProviderWritingObjectFromID(id objc.ID) NSItemProviderWritingObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (o NSItemProviderWritingObject) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), completionHandler)
 	return NSProgressFromID(rv)
 	}
@@ -66,7 +65,6 @@ func (o NSItemProviderWritingObject) LoadDataWithTypeIdentifierForItemProviderCo
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
 func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("writableTypeIdentifiersForItemProvider"))
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -81,7 +79,6 @@ func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/itemProviderVisibilityForRepresentation(withTypeIdentifier:)-swift.method
 func (o NSItemProviderWritingObject) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility {
-	
 	rv := objc.Send[NSItemProviderRepresentationVisibility](o.ID, objc.Sel("itemProviderVisibilityForRepresentationWithTypeIdentifier:"), objc.String(typeIdentifier))
 	return rv
 	}

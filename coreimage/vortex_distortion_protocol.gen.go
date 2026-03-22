@@ -74,13 +74,11 @@ func CIVortexDistortionObjectFromID(id objc.ID) CIVortexDistortionObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/angle
 func (o CIVortexDistortionObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/center
 func (o CIVortexDistortionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -88,13 +86,11 @@ func (o CIVortexDistortionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/inputImage
 func (o CIVortexDistortionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIVortexDistortion/radius
 func (o CIVortexDistortionObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -103,7 +99,6 @@ func (o CIVortexDistortionObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIVortexDistortionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

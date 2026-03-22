@@ -66,7 +66,6 @@ func CICode128BarcodeGeneratorObjectFromID(id objc.ID) CICode128BarcodeGenerator
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/barcodeHeight
 func (o CICode128BarcodeGeneratorObject) BarcodeHeight() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("barcodeHeight"))
 	return rv
 	}
@@ -74,7 +73,6 @@ func (o CICode128BarcodeGeneratorObject) BarcodeHeight() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/message
 func (o CICode128BarcodeGeneratorObject) Message() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -82,7 +80,6 @@ func (o CICode128BarcodeGeneratorObject) Message() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICode128BarcodeGenerator/quietSpace
 func (o CICode128BarcodeGeneratorObject) QuietSpace() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("quietSpace"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CICode128BarcodeGeneratorObject) QuietSpace() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CICode128BarcodeGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

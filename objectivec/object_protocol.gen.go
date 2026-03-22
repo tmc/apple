@@ -93,7 +93,6 @@ func NSObjectObjectFromID(id objc.ID) NSObjectObject {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/superclass
 func (o NSObjectObject) Superclass() objc.Class {
-	
 	rv := objc.Send[objc.Class](o.ID, objc.Sel("superclass"))
 	return rv
 	}
@@ -133,7 +132,6 @@ func (o NSObjectObject) Superclass() objc.Class {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
 func (o NSObjectObject) IsEqual(object IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isEqual:"), object)
 	return rv
 	}
@@ -142,7 +140,6 @@ func (o NSObjectObject) IsEqual(object IObject) bool {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/hash
 func (o NSObjectObject) Hash() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("hash"))
 	return rv
 	}
@@ -154,7 +151,6 @@ func (o NSObjectObject) Hash() uint {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/self()
 func (o NSObjectObject) Self() IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("self"))
 	return Object{ID: rv}
 	}
@@ -200,7 +196,6 @@ func (o NSObjectObject) Self() IObject {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
 func (o NSObjectObject) IsKindOfClass(aClass objc.Class) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isKindOfClass:"), aClass)
 	return rv
 	}
@@ -228,7 +223,6 @@ func (o NSObjectObject) IsKindOfClass(aClass objc.Class) bool {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isMember(of:)
 func (o NSObjectObject) IsMemberOfClass(aClass objc.Class) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isMemberOfClass:"), aClass)
 	return rv
 	}
@@ -270,7 +264,6 @@ func (o NSObjectObject) IsMemberOfClass(aClass objc.Class) bool {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/responds(to:)
 func (o NSObjectObject) RespondsToSelector(aSelector objc.SEL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("respondsToSelector:"), aSelector)
 	return rv
 	}
@@ -298,7 +291,6 @@ func (o NSObjectObject) RespondsToSelector(aSelector objc.SEL) bool {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/conforms(to:)
 func (o NSObjectObject) ConformsToProtocol(aProtocol unsafe.Pointer) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("conformsToProtocol:"), aProtocol)
 	return rv
 	}
@@ -306,7 +298,6 @@ func (o NSObjectObject) ConformsToProtocol(aProtocol unsafe.Pointer) bool {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/description
 func (o NSObjectObject) Description() IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("description"))
 	return Object{ID: rv}
 	}
@@ -314,7 +305,6 @@ func (o NSObjectObject) Description() IObject {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/debugDescription
 func (o NSObjectObject) DebugDescription() IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("debugDescription"))
 	return Object{ID: rv}
 	}
@@ -386,7 +376,6 @@ func (o NSObjectObject) DebugDescription() IObject {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:)
 func (o NSObjectObject) PerformSelector(aSelector objc.SEL) IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:"), aSelector)
 	return Object{ID: rv}
 	}
@@ -414,7 +403,6 @@ func (o NSObjectObject) PerformSelector(aSelector objc.SEL) IObject {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:with:)
 func (o NSObjectObject) PerformSelectorWithObject(aSelector objc.SEL, object IObject) IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:withObject:"), aSelector, object)
 	return Object{ID: rv}
 	}
@@ -444,7 +432,6 @@ func (o NSObjectObject) PerformSelectorWithObject(aSelector objc.SEL, object IOb
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:with:with:)
 func (o NSObjectObject) PerformSelectorWithObjectWithObject(aSelector objc.SEL, object1 IObject, object2 IObject) IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:withObject:withObject:"), aSelector, object1, object2)
 	return Object{ID: rv}
 	}
@@ -472,7 +459,6 @@ func (o NSObjectObject) PerformSelectorWithObjectWithObject(aSelector objc.SEL, 
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isProxy()
 func (o NSObjectObject) IsProxy() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isProxy"))
 	return rv
 	}
@@ -501,7 +487,6 @@ func (o NSObjectObject) IsProxy() bool {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/release
 func (o NSObjectObject) Release() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("release"))
 	}
 // Increments the receiver’s reference count.
@@ -538,7 +523,6 @@ func (o NSObjectObject) Release() {
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (o NSObjectObject) Retain() IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("retain"))
 	return Object{ID: rv}
 	}

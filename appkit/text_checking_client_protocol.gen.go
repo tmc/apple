@@ -77,50 +77,42 @@ func NSTextCheckingClientObjectFromID(id objc.ID) NSTextCheckingClientObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/addAnnotations(_:range:)
 func (o NSTextCheckingClientObject) AddAnnotationsRange(annotations foundation.INSDictionary, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addAnnotations:range:"), annotations, range_)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/annotatedSubstring(forProposedRange:actualRange:)
 func (o NSTextCheckingClientObject) AnnotatedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("annotatedSubstringForProposedRange:actualRange:"), range_, actualRange)
 	return foundation.NSAttributedStringFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/candidateListTouchBarItem()
 func (o NSTextCheckingClientObject) CandidateListTouchBarItem() INSCandidateListTouchBarItem {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("candidateListTouchBarItem"))
 	return NSCandidateListTouchBarItemFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/removeAnnotation(_:range:)
 func (o NSTextCheckingClientObject) RemoveAnnotationRange(annotationName foundation.NSString, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("removeAnnotation:range:"), annotationName, range_)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/replaceCharacters(in:withAnnotatedString:)
 func (o NSTextCheckingClientObject) ReplaceCharactersInRangeWithAnnotatedString(range_ foundation.NSRange, annotatedString foundation.NSAttributedString) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("replaceCharactersInRange:withAnnotatedString:"), range_, annotatedString)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/selectAndShow(_:)
 func (o NSTextCheckingClientObject) SelectAndShowRange(range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("selectAndShowRange:"), range_)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/setAnnotations(_:range:)
 func (o NSTextCheckingClientObject) SetAnnotationsRange(annotations foundation.INSDictionary, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAnnotations:range:"), annotations, range_)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextCheckingClient/view(for:firstRect:actualRange:)
 func (o NSTextCheckingClientObject) ViewForRangeFirstRectActualRange(range_ foundation.NSRange, firstRect foundation.NSRect, actualRange foundation.NSRange) INSView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("viewForRange:firstRect:actualRange:"), range_, firstRect, actualRange)
 	return NSViewFromID(rv)
 	}
@@ -143,7 +135,6 @@ func (o NSTextCheckingClientObject) ViewForRangeFirstRectActualRange(range_ foun
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/hasMarkedText()
 func (o NSTextCheckingClientObject) HasMarkedText() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("hasMarkedText"))
 	return rv
 	}
@@ -163,7 +154,6 @@ func (o NSTextCheckingClientObject) HasMarkedText() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/markedRange()
 func (o NSTextCheckingClientObject) MarkedRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("markedRange"))
 	return rv
 	}
@@ -180,7 +170,6 @@ func (o NSTextCheckingClientObject) MarkedRange() foundation.NSRange {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/selectedRange()
 func (o NSTextCheckingClientObject) SelectedRange() foundation.NSRange {
-	
 	rv := objc.Send[foundation.NSRange](o.ID, objc.Sel("selectedRange"))
 	return rv
 	}
@@ -206,7 +195,6 @@ func (o NSTextCheckingClientObject) SelectedRange() foundation.NSRange {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/setMarkedText(_:selectedRange:replacementRange:)
 func (o NSTextCheckingClientObject) SetMarkedTextSelectedRangeReplacementRange(string_ objectivec.IObject, selectedRange foundation.NSRange, replacementRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setMarkedText:selectedRange:replacementRange:"), string_, selectedRange, replacementRange)
 	}
 // Unmarks the marked text.
@@ -220,7 +208,6 @@ func (o NSTextCheckingClientObject) SetMarkedTextSelectedRangeReplacementRange(s
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unmarkText()
 func (o NSTextCheckingClientObject) UnmarkText() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("unmarkText"))
 	}
 // Returns an array of attribute names recognized by the receiver.
@@ -238,7 +225,6 @@ func (o NSTextCheckingClientObject) UnmarkText() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/validAttributesForMarkedText()
 func (o NSTextCheckingClientObject) ValidAttributesForMarkedText() []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("validAttributesForMarkedText"))
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -266,7 +252,6 @@ func (o NSTextCheckingClientObject) ValidAttributesForMarkedText() []string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
 func (o NSTextCheckingClientObject) AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) foundation.NSAttributedString {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("attributedSubstringForProposedRange:actualRange:"), range_, actualRange)
 	return foundation.NSAttributedStringFromID(rv)
 	}
@@ -287,7 +272,6 @@ func (o NSTextCheckingClientObject) AttributedSubstringForProposedRangeActualRan
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/insertText(_:replacementRange:)
 func (o NSTextCheckingClientObject) InsertTextReplacementRange(string_ objectivec.IObject, replacementRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertText:replacementRange:"), string_, replacementRange)
 	}
 // Returns the index of the character whose bounding rectangle includes the
@@ -303,7 +287,6 @@ func (o NSTextCheckingClientObject) InsertTextReplacementRange(string_ objective
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/characterIndex(for:)
 func (o NSTextCheckingClientObject) CharacterIndexForPoint(point corefoundation.CGPoint) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("characterIndexForPoint:"), point)
 	return rv
 	}
@@ -334,19 +317,16 @@ func (o NSTextCheckingClientObject) CharacterIndexForPoint(point corefoundation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)
 func (o NSTextCheckingClientObject) FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRange) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("firstRectForCharacterRange:actualRange:"), range_, actualRange)
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/documentVisibleRect
 func (o NSTextCheckingClientObject) DocumentVisibleRect() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("documentVisibleRect"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unionRectInVisibleSelectedRange
 func (o NSTextCheckingClientObject) UnionRectInVisibleSelectedRange() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("unionRectInVisibleSelectedRange"))
 	return rv
 	}
@@ -366,7 +346,6 @@ func (o NSTextCheckingClientObject) UnionRectInVisibleSelectedRange() corefounda
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/doCommand(by:)
 func (o NSTextCheckingClientObject) DoCommandBySelector(selector objc.SEL) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("doCommandBySelector:"), selector)
 	}
 // A Boolean value that indicates whether the document supports adaptive
@@ -374,7 +353,6 @@ func (o NSTextCheckingClientObject) DoCommandBySelector(selector objc.SEL) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/supportsAdaptiveImageGlyph
 func (o NSTextCheckingClientObject) SupportsAdaptiveImageGlyph() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsAdaptiveImageGlyph"))
 	return rv
 	}
@@ -393,7 +371,6 @@ func (o NSTextCheckingClientObject) SupportsAdaptiveImageGlyph() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedString()
 func (o NSTextCheckingClientObject) AttributedString() foundation.NSAttributedString {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("attributedString"))
 	return foundation.NSAttributedStringFromID(rv)
 	}
@@ -415,7 +392,6 @@ func (o NSTextCheckingClientObject) AttributedString() foundation.NSAttributedSt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/baselineDeltaForCharacter(at:)
 func (o NSTextCheckingClientObject) BaselineDeltaForCharacterAtIndex(anIndex uint) float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("baselineDeltaForCharacterAtIndex:"), anIndex)
 	return rv
 	}
@@ -433,7 +409,6 @@ func (o NSTextCheckingClientObject) BaselineDeltaForCharacterAtIndex(anIndex uin
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/drawsVerticallyForCharacter(at:)
 func (o NSTextCheckingClientObject) DrawsVerticallyForCharacterAtIndex(charIndex uint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("drawsVerticallyForCharacterAtIndex:"), charIndex)
 	return rv
 	}
@@ -471,13 +446,11 @@ func (o NSTextCheckingClientObject) DrawsVerticallyForCharacterAtIndex(charIndex
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/fractionOfDistanceThroughGlyph(for:)
 func (o NSTextCheckingClientObject) FractionOfDistanceThroughGlyphForPoint(point corefoundation.CGPoint) float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("fractionOfDistanceThroughGlyphForPoint:"), point)
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/preferredTextAccessoryPlacement()
 func (o NSTextCheckingClientObject) PreferredTextAccessoryPlacement() NSTextCursorAccessoryPlacement {
-	
 	rv := objc.Send[NSTextCursorAccessoryPlacement](o.ID, objc.Sel("preferredTextAccessoryPlacement"))
 	return rv
 	}
@@ -495,7 +468,6 @@ func (o NSTextCheckingClientObject) PreferredTextAccessoryPlacement() NSTextCurs
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/windowLevel()
 func (o NSTextCheckingClientObject) WindowLevel() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("windowLevel"))
 	return rv
 	}
@@ -507,90 +479,75 @@ func (o NSTextCheckingClientObject) WindowLevel() int {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/insert(_:replacementRange:)
 func (o NSTextCheckingClientObject) InsertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph INSAdaptiveImageGlyph, replacementRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertAdaptiveImageGlyph:replacementRange:"), adaptiveImageGlyph, replacementRange)
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/autocorrectionType
 func (o NSTextCheckingClientObject) AutocorrectionType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("autocorrectionType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/dataDetectionType
 func (o NSTextCheckingClientObject) DataDetectionType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("dataDetectionType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/grammarCheckingType
 func (o NSTextCheckingClientObject) GrammarCheckingType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("grammarCheckingType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/inlinePredictionType
 func (o NSTextCheckingClientObject) InlinePredictionType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("inlinePredictionType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/linkDetectionType
 func (o NSTextCheckingClientObject) LinkDetectionType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("linkDetectionType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/smartDashesType
 func (o NSTextCheckingClientObject) SmartDashesType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("smartDashesType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/smartInsertDeleteType
 func (o NSTextCheckingClientObject) SmartInsertDeleteType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("smartInsertDeleteType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/smartQuotesType
 func (o NSTextCheckingClientObject) SmartQuotesType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("smartQuotesType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/spellCheckingType
 func (o NSTextCheckingClientObject) SpellCheckingType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("spellCheckingType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/textCompletionType
 func (o NSTextCheckingClientObject) TextCompletionType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("textCompletionType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/textReplacementType
 func (o NSTextCheckingClientObject) TextReplacementType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("textReplacementType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/allowedWritingToolsResultOptions
 func (o NSTextCheckingClientObject) AllowedWritingToolsResultOptions() NSWritingToolsResultOptions {
-	
 	rv := objc.Send[NSWritingToolsResultOptions](o.ID, objc.Sel("allowedWritingToolsResultOptions"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/mathExpressionCompletionType
 func (o NSTextCheckingClientObject) MathExpressionCompletionType() NSTextInputTraitType {
-	
 	rv := objc.Send[NSTextInputTraitType](o.ID, objc.Sel("mathExpressionCompletionType"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/AppKit/NSTextInputTraits/writingToolsBehavior
 func (o NSTextCheckingClientObject) WritingToolsBehavior() NSWritingToolsBehavior {
-	
 	rv := objc.Send[NSWritingToolsBehavior](o.ID, objc.Sel("writingToolsBehavior"))
 	return rv
 	}

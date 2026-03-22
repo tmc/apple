@@ -47,7 +47,6 @@ func CIPerspectiveCorrectionObjectFromID(id objc.ID) CIPerspectiveCorrectionObje
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPerspectiveCorrection/crop
 func (o CIPerspectiveCorrectionObject) Crop() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("crop"))
 	return rv
 	}
@@ -56,19 +55,16 @@ func (o CIPerspectiveCorrectionObject) Crop() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPerspectiveCorrectionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomLeft
 func (o CIPerspectiveCorrectionObject) BottomLeft() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomLeft"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/bottomRight
 func (o CIPerspectiveCorrectionObject) BottomRight() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("bottomRight"))
 	return rv
 	}
@@ -76,19 +72,16 @@ func (o CIPerspectiveCorrectionObject) BottomRight() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/inputImage
 func (o CIPerspectiveCorrectionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topLeft
 func (o CIPerspectiveCorrectionObject) TopLeft() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topLeft"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIFourCoordinateGeometryFilter/topRight
 func (o CIPerspectiveCorrectionObject) TopRight() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("topRight"))
 	return rv
 	}

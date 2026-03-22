@@ -52,7 +52,6 @@ func NSTableViewDataSourceObjectFromID(id objc.ID) NSTableViewDataSourceObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/numberOfRows(in:)
 func (o NSTableViewDataSourceObject) NumberOfRowsInTableView(tableView INSTableView) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("numberOfRowsInTableView:"), tableView)
 	return rv
 	}
@@ -76,7 +75,6 @@ func (o NSTableViewDataSourceObject) NumberOfRowsInTableView(tableView INSTableV
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:objectValueFor:row:)
 func (o NSTableViewDataSourceObject) TableViewObjectValueForTableColumnRow(tableView INSTableView, tableColumn INSTableColumn, row int) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:objectValueForTableColumn:row:"), tableView, tableColumn, row)
 	return objectivec.Object{ID: rv}
 	}
@@ -98,7 +96,6 @@ func (o NSTableViewDataSourceObject) TableViewObjectValueForTableColumnRow(table
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:setObjectValue:for:row:)
 func (o NSTableViewDataSourceObject) TableViewSetObjectValueForTableColumnRow(tableView INSTableView, object objectivec.IObject, tableColumn INSTableColumn, row int) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:setObjectValue:forTableColumn:row:"), tableView, object, tableColumn, row)
 	}
 // Called to allow the table to support multiple item dragging.
@@ -124,7 +121,6 @@ func (o NSTableViewDataSourceObject) TableViewSetObjectValueForTableColumnRow(ta
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:pasteboardWriterForRow:)
 func (o NSTableViewDataSourceObject) TableViewPasteboardWriterForRow(tableView INSTableView, row int) NSPasteboardWriting {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tableView:pasteboardWriterForRow:"), tableView, row)
 	return NSPasteboardWritingObjectFromID(rv)
 	}
@@ -159,7 +155,6 @@ func (o NSTableViewDataSourceObject) TableViewPasteboardWriterForRow(tableView I
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:acceptDrop:row:dropOperation:)
 func (o NSTableViewDataSourceObject) TableViewAcceptDropRowDropOperation(tableView INSTableView, info NSDraggingInfo, row int, dropOperation NSTableViewDropOperation) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tableView:acceptDrop:row:dropOperation:"), tableView, info, row, dropOperation)
 	return rv
 	}
@@ -191,7 +186,6 @@ func (o NSTableViewDataSourceObject) TableViewAcceptDropRowDropOperation(tableVi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:validateDrop:proposedRow:proposedDropOperation:)
 func (o NSTableViewDataSourceObject) TableViewValidateDropProposedRowProposedDropOperation(tableView INSTableView, info NSDraggingInfo, row int, dropOperation NSTableViewDropOperation) NSDragOperation {
-	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("tableView:validateDrop:proposedRow:proposedDropOperation:"), tableView, info, row, dropOperation)
 	return rv
 	}
@@ -219,7 +213,6 @@ func (o NSTableViewDataSourceObject) TableViewValidateDropProposedRowProposedDro
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:draggingSession:willBeginAt:forRowIndexes:)
 func (o NSTableViewDataSourceObject) TableViewDraggingSessionWillBeginAtPointForRowIndexes(tableView INSTableView, session INSDraggingSession, screenPoint corefoundation.CGPoint, rowIndexes foundation.NSIndexSet) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:draggingSession:willBeginAtPoint:forRowIndexes:"), tableView, session, screenPoint, rowIndexes)
 	}
 // Implement this method to allow the table to update dragging items as they
@@ -243,7 +236,6 @@ func (o NSTableViewDataSourceObject) TableViewDraggingSessionWillBeginAtPointFor
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:updateDraggingItemsForDrag:)
 func (o NSTableViewDataSourceObject) TableViewUpdateDraggingItemsForDrag(tableView INSTableView, draggingInfo NSDraggingInfo) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:updateDraggingItemsForDrag:"), tableView, draggingInfo)
 	}
 // Implement this method to determine when a dragging session has ended.
@@ -266,7 +258,6 @@ func (o NSTableViewDataSourceObject) TableViewUpdateDraggingItemsForDrag(tableVi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:draggingSession:endedAt:operation:)
 func (o NSTableViewDataSourceObject) TableViewDraggingSessionEndedAtPointOperation(tableView INSTableView, session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:draggingSession:endedAtPoint:operation:"), tableView, session, screenPoint, operation)
 	}
 // Called by `aTableView` to indicate that sorting may need to be done.
@@ -284,7 +275,6 @@ func (o NSTableViewDataSourceObject) TableViewDraggingSessionEndedAtPointOperati
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDataSource/tableView(_:sortDescriptorsDidChange:)
 func (o NSTableViewDataSourceObject) TableViewSortDescriptorsDidChange(tableView INSTableView, oldDescriptors []foundation.NSSortDescriptor) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tableView:sortDescriptorsDidChange:"), tableView, objectivec.IObjectSliceToNSArray(oldDescriptors))
 	}
 

@@ -50,7 +50,6 @@ func MTLSamplerStateObjectFromID(id objc.ID) MTLSamplerStateObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerState/device
 func (o MTLSamplerStateObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -58,13 +57,11 @@ func (o MTLSamplerStateObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerState/label
 func (o MTLSamplerStateObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerState/gpuResourceID
 func (o MTLSamplerStateObject) GpuResourceID() MTLResourceID {
-	
 	rv := objc.Send[MTLResourceID](o.ID, objc.Sel("gpuResourceID"))
 	return rv
 	}

@@ -42,7 +42,6 @@ func NSColorChangingObjectFromID(id objc.ID) NSColorChangingObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorChanging/changeColor(_:)
 func (o NSColorChangingObject) ChangeColor(sender INSColorPanel) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("changeColor:"), sender)
 	}
 

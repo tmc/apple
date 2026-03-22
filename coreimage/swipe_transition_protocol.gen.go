@@ -87,7 +87,6 @@ func CISwipeTransitionObjectFromID(id objc.ID) CISwipeTransitionObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/angle
 func (o CISwipeTransitionObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -95,7 +94,6 @@ func (o CISwipeTransitionObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/color
 func (o CISwipeTransitionObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -103,7 +101,6 @@ func (o CISwipeTransitionObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/extent
 func (o CISwipeTransitionObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -111,7 +108,6 @@ func (o CISwipeTransitionObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/opacity
 func (o CISwipeTransitionObject) Opacity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("opacity"))
 	return rv
 	}
@@ -119,7 +115,6 @@ func (o CISwipeTransitionObject) Opacity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISwipeTransition/width
 func (o CISwipeTransitionObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -128,7 +123,6 @@ func (o CISwipeTransitionObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISwipeTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -136,7 +130,6 @@ func (o CISwipeTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CISwipeTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -144,7 +137,6 @@ func (o CISwipeTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CISwipeTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -152,7 +144,6 @@ func (o CISwipeTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CISwipeTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

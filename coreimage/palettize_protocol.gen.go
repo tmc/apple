@@ -65,7 +65,6 @@ func CIPalettizeObjectFromID(id objc.ID) CIPalettizeObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPalettize/inputImage
 func (o CIPalettizeObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIPalettizeObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPalettize/paletteImage
 func (o CIPalettizeObject) PaletteImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("paletteImage"))
 	return CIImageFromID(rv)
 	}
@@ -82,7 +80,6 @@ func (o CIPalettizeObject) PaletteImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIPalettize/perceptual
 func (o CIPalettizeObject) Perceptual() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("perceptual"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CIPalettizeObject) Perceptual() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPalettizeObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

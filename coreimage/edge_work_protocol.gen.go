@@ -55,7 +55,6 @@ func CIEdgeWorkObjectFromID(id objc.ID) CIEdgeWorkObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdgeWork/inputImage
 func (o CIEdgeWorkObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIEdgeWorkObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdgeWork/radius
 func (o CIEdgeWorkObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIEdgeWorkObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIEdgeWorkObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

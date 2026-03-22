@@ -138,7 +138,6 @@ func MTLIOCommandBufferObjectFromID(id objc.ID) MTLIOCommandBufferObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/load(_:offset:size:sourceHandle:sourceHandleOffset:)
 func (o MTLIOCommandBufferObject) LoadBufferOffsetSizeSourceHandleSourceHandleOffset(buffer MTLBuffer, offset uint, size uint, sourceHandle MTLIOFileHandle, sourceHandleOffset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("loadBuffer:offset:size:sourceHandle:sourceHandleOffset:"), buffer, offset, size, sourceHandle, sourceHandleOffset)
 	}
 // Encodes a command that loads data from a file handle into a GPU texture.
@@ -164,7 +163,6 @@ func (o MTLIOCommandBufferObject) LoadBufferOffsetSizeSourceHandleSourceHandleOf
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/load(_:slice:level:size:sourceBytesPerRow:sourceBytesPerImage:destinationOrigin:sourceHandle:sourceHandleOffset:)
 func (o MTLIOCommandBufferObject) LoadTextureSliceLevelSizeSourceBytesPerRowSourceBytesPerImageDestinationOriginSourceHandleSourceHandleOffset(texture MTLTexture, slice uint, level uint, size MTLSize, sourceBytesPerRow uint, sourceBytesPerImage uint, destinationOrigin MTLOrigin, sourceHandle MTLIOFileHandle, sourceHandleOffset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("loadTexture:slice:level:size:sourceBytesPerRow:sourceBytesPerImage:destinationOrigin:sourceHandle:sourceHandleOffset:"), texture, slice, level, size, sourceBytesPerRow, sourceBytesPerImage, destinationOrigin, sourceHandle, sourceHandleOffset)
 	}
 // Encodes a command that loads data from a file handle into CPU-accessible
@@ -181,7 +179,6 @@ func (o MTLIOCommandBufferObject) LoadTextureSliceLevelSizeSourceBytesPerRowSour
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/loadBytes(_:size:sourceHandle:sourceHandleOffset:)
 func (o MTLIOCommandBufferObject) LoadBytesSizeSourceHandleSourceHandleOffset(pointer unsafe.Pointer, size uint, sourceHandle MTLIOFileHandle, sourceHandleOffset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("loadBytes:size:sourceHandle:sourceHandleOffset:"), pointer, size, sourceHandle, sourceHandleOffset)
 	}
 // Encodes a barrier into the command buffer.
@@ -193,7 +190,6 @@ func (o MTLIOCommandBufferObject) LoadBytesSizeSourceHandleSourceHandleOffset(po
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/addBarrier()
 func (o MTLIOCommandBufferObject) AddBarrier() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addBarrier"))
 	}
 // Encodes a command that signals a shared event to other parts of your app.
@@ -205,7 +201,6 @@ func (o MTLIOCommandBufferObject) AddBarrier() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/signalEvent(_:value:)
 func (o MTLIOCommandBufferObject) SignalEventValue(event MTLSharedEvent, value uint64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("signalEvent:value:"), event, value)
 	}
 // Encodes a command that pauses the command buffer’s execution until
@@ -218,7 +213,6 @@ func (o MTLIOCommandBufferObject) SignalEventValue(event MTLSharedEvent, value u
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/waitForEvent(_:value:)
 func (o MTLIOCommandBufferObject) WaitForEventValue(event MTLSharedEvent, value uint64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForEvent:value:"), event, value)
 	}
 // Encodes a command that writes the input/output command buffer’s status to
@@ -231,7 +225,6 @@ func (o MTLIOCommandBufferObject) WaitForEventValue(event MTLSharedEvent, value 
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/copyStatus(buffer:offset:)
 func (o MTLIOCommandBufferObject) CopyStatusToBufferOffset(buffer MTLBuffer, offset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyStatusToBuffer:offset:"), buffer, offset)
 	}
 // Adds a closure that Metal calls immediately after the GPU finishes
@@ -241,7 +234,6 @@ func (o MTLIOCommandBufferObject) CopyStatusToBufferOffset(buffer MTLBuffer, off
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/addCompletedHandler(_:)
 func (o MTLIOCommandBufferObject) AddCompletedHandler(block MTLIOCommandBufferHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addCompletedHandler:"), block)
 	}
 // Submits the command buffer to the queue for execution on the GPU.
@@ -258,7 +250,6 @@ func (o MTLIOCommandBufferObject) AddCompletedHandler(block MTLIOCommandBufferHa
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/commit()
 func (o MTLIOCommandBufferObject) Commit() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("commit"))
 	}
 // Reserves a place for the input/output command buffer in the input/output
@@ -280,7 +271,6 @@ func (o MTLIOCommandBufferObject) Commit() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/enqueue()
 func (o MTLIOCommandBufferObject) Enqueue() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("enqueue"))
 	}
 // Submits a request to abandon a command buffer the queue is currently
@@ -294,7 +284,6 @@ func (o MTLIOCommandBufferObject) Enqueue() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/tryCancel()
 func (o MTLIOCommandBufferObject) TryCancel() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tryCancel"))
 	}
 // Blocks the current thread until the GPU finishes executing the input/output
@@ -302,14 +291,12 @@ func (o MTLIOCommandBufferObject) TryCancel() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/waitUntilCompleted()
 func (o MTLIOCommandBufferObject) WaitUntilCompleted() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("waitUntilCompleted"))
 	}
 // Represents the state of the input/output command buffer.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/status
 func (o MTLIOCommandBufferObject) Status() MTLIOStatus {
-	
 	rv := objc.Send[MTLIOStatus](o.ID, objc.Sel("status"))
 	return rv
 	}
@@ -318,7 +305,6 @@ func (o MTLIOCommandBufferObject) Status() MTLIOStatus {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/error
 func (o MTLIOCommandBufferObject) Error() foundation.INSError {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(rv)
 	}
@@ -326,7 +312,6 @@ func (o MTLIOCommandBufferObject) Error() foundation.INSError {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/label
 func (o MTLIOCommandBufferObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -337,7 +322,6 @@ func (o MTLIOCommandBufferObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/pushDebugGroup(_:)
 func (o MTLIOCommandBufferObject) PushDebugGroup(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
 // Restores the previous name for this input/output command encoder by
@@ -345,7 +329,6 @@ func (o MTLIOCommandBufferObject) PushDebugGroup(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBuffer/popDebugGroup()
 func (o MTLIOCommandBufferObject) PopDebugGroup() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
 

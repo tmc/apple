@@ -87,7 +87,6 @@ func CIRippleTransitionObjectFromID(id objc.ID) CIRippleTransitionObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/center
 func (o CIRippleTransitionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -95,7 +94,6 @@ func (o CIRippleTransitionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/extent
 func (o CIRippleTransitionObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -104,7 +102,6 @@ func (o CIRippleTransitionObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/scale
 func (o CIRippleTransitionObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -112,7 +109,6 @@ func (o CIRippleTransitionObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/shadingImage
 func (o CIRippleTransitionObject) ShadingImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
 	return CIImageFromID(rv)
 	}
@@ -120,7 +116,6 @@ func (o CIRippleTransitionObject) ShadingImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRippleTransition/width
 func (o CIRippleTransitionObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -129,7 +124,6 @@ func (o CIRippleTransitionObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIRippleTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -137,7 +131,6 @@ func (o CIRippleTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIRippleTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -145,7 +138,6 @@ func (o CIRippleTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIRippleTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -153,7 +145,6 @@ func (o CIRippleTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIRippleTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

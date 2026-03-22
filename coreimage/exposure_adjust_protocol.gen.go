@@ -55,7 +55,6 @@ func CIExposureAdjustObjectFromID(id objc.ID) CIExposureAdjustObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIExposureAdjust/ev
 func (o CIExposureAdjustObject) EV() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("EV"))
 	return rv
 	}
@@ -63,7 +62,6 @@ func (o CIExposureAdjustObject) EV() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIExposureAdjust/inputImage
 func (o CIExposureAdjustObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CIExposureAdjustObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIExposureAdjustObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

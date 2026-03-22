@@ -76,7 +76,6 @@ func CISixfoldReflectedTileObjectFromID(id objc.ID) CISixfoldReflectedTileObject
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/angle
 func (o CISixfoldReflectedTileObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -84,7 +83,6 @@ func (o CISixfoldReflectedTileObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/center
 func (o CISixfoldReflectedTileObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -92,7 +90,6 @@ func (o CISixfoldReflectedTileObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/inputImage
 func (o CISixfoldReflectedTileObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -100,7 +97,6 @@ func (o CISixfoldReflectedTileObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISixfoldReflectedTile/width
 func (o CISixfoldReflectedTileObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -109,7 +105,6 @@ func (o CISixfoldReflectedTileObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISixfoldReflectedTileObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -43,7 +43,6 @@ func NSAnimationDelegateObjectFromID(id objc.ID) NSAnimationDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidEnd(_:)
 func (o NSAnimationDelegateObject) AnimationDidEnd(animation INSAnimation) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidEnd:"), animation)
 	}
 // Sent to the delegate when the specified animation is stopped before it
@@ -58,7 +57,6 @@ func (o NSAnimationDelegateObject) AnimationDidEnd(animation INSAnimation) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationDidStop(_:)
 func (o NSAnimationDelegateObject) AnimationDidStop(animation INSAnimation) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("animationDidStop:"), animation)
 	}
 // Sent to the delegate just after an animation is started.
@@ -80,7 +78,6 @@ func (o NSAnimationDelegateObject) AnimationDidStop(animation INSAnimation) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animationShouldStart(_:)
 func (o NSAnimationDelegateObject) AnimationShouldStart(animation INSAnimation) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("animationShouldStart:"), animation)
 	return rv
 	}
@@ -112,7 +109,6 @@ func (o NSAnimationDelegateObject) AnimationShouldStart(animation INSAnimation) 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:valueForProgress:)
 func (o NSAnimationDelegateObject) AnimationValueForProgress(animation INSAnimation, progress NSAnimationProgress) float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("animation:valueForProgress:"), animation, progress)
 	return rv
 	}
@@ -135,7 +131,6 @@ func (o NSAnimationDelegateObject) AnimationValueForProgress(animation INSAnimat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate/animation(_:didReachProgressMark:)
 func (o NSAnimationDelegateObject) AnimationDidReachProgressMark(animation INSAnimation, progress NSAnimationProgress) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("animation:didReachProgressMark:"), animation, progress)
 	}
 

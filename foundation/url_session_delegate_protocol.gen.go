@@ -49,7 +49,6 @@ func NSURLSessionDelegateObjectFromID(id objc.ID) NSURLSessionDelegateObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didBecomeInvalidWithError:)
 func (o NSURLSessionDelegateObject) URLSessionDidBecomeInvalidWithError(session INSURLSession, error_ INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didBecomeInvalidWithError:"), session, error_)
 	}
 // Tells the delegate that all messages enqueued for a session have been
@@ -80,7 +79,6 @@ func (o NSURLSessionDelegateObject) URLSessionDidBecomeInvalidWithError(session 
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSessionDidFinishEvents(forBackgroundURLSession:)
 func (o NSURLSessionDelegateObject) URLSessionDidFinishEventsForBackgroundURLSession(session INSURLSession) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSessionDidFinishEventsForBackgroundURLSession:"), session)
 	}
 // Requests credentials from the delegate in response to a session-level
@@ -113,7 +111,6 @@ func (o NSURLSessionDelegateObject) URLSessionDidFinishEventsForBackgroundURLSes
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didReceive:completionHandler:)
 func (o NSURLSessionDelegateObject) URLSessionDidReceiveChallengeCompletionHandler(session INSURLSession, challenge INSURLAuthenticationChallenge, completionHandler URLSessionAuthChallengeDispositionURLCredentialHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
 	}
 

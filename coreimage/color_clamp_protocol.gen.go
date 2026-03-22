@@ -65,7 +65,6 @@ func CIColorClampObjectFromID(id objc.ID) CIColorClampObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/inputImage
 func (o CIColorClampObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIColorClampObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/maxComponents
 func (o CIColorClampObject) MaxComponents() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("maxComponents"))
 	return CIVectorFromID(rv)
 	}
@@ -81,7 +79,6 @@ func (o CIColorClampObject) MaxComponents() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorClamp/minComponents
 func (o CIColorClampObject) MinComponents() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("minComponents"))
 	return CIVectorFromID(rv)
 	}
@@ -90,7 +87,6 @@ func (o CIColorClampObject) MinComponents() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorClampObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

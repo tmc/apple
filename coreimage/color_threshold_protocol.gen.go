@@ -55,7 +55,6 @@ func CIColorThresholdObjectFromID(id objc.ID) CIColorThresholdObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/inputImage
 func (o CIColorThresholdObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIColorThresholdObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorThreshold/threshold
 func (o CIColorThresholdObject) Threshold() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("threshold"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIColorThresholdObject) Threshold() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorThresholdObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

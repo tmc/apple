@@ -55,7 +55,6 @@ func CIColorMapObjectFromID(id objc.ID) CIColorMapObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMap/gradientImage
 func (o CIColorMapObject) GradientImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("gradientImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIColorMapObject) GradientImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMap/inputImage
 func (o CIColorMapObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CIColorMapObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorMapObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

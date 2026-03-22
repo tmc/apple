@@ -50,7 +50,6 @@ func NSUserInterfaceValidationsObjectFromID(id objc.ID) NSUserInterfaceValidatio
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceValidations/validateUserInterfaceItem(_:)
 func (o NSUserInterfaceValidationsObject) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("validateUserInterfaceItem:"), item)
 	return rv
 	}

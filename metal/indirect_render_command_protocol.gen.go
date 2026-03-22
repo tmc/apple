@@ -159,7 +159,6 @@ func MTLIndirectRenderCommandObjectFromID(id objc.ID) MTLIndirectRenderCommandOb
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setRenderPipelineState(_:)
 func (o MTLIndirectRenderCommandObject) SetRenderPipelineState(pipelineState MTLRenderPipelineState) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setRenderPipelineState:"), pipelineState)
 	}
 // Sets a vertex buffer argument for the command.
@@ -186,7 +185,6 @@ func (o MTLIndirectRenderCommandObject) SetRenderPipelineState(pipelineState MTL
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setVertexBuffer(_:offset:at:)
 func (o MTLIndirectRenderCommandObject) SetVertexBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexBuffer:offset:atIndex:"), buffer, offset, index)
 	}
 // Sets a fragment buffer argument for the command.
@@ -213,7 +211,6 @@ func (o MTLIndirectRenderCommandObject) SetVertexBufferOffsetAtIndex(buffer MTLB
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setFragmentBuffer(_:offset:at:)
 func (o MTLIndirectRenderCommandObject) SetFragmentBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBuffer:offset:atIndex:"), buffer, offset, index)
 	}
 // Encodes a command to render a number of instances of primitives using
@@ -236,7 +233,6 @@ func (o MTLIndirectRenderCommandObject) SetFragmentBufferOffsetAtIndex(buffer MT
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/drawPrimitives(_:vertexStart:vertexCount:instanceCount:baseInstance:)
 func (o MTLIndirectRenderCommandObject) DrawPrimitivesVertexStartVertexCountInstanceCountBaseInstance(primitiveType MTLPrimitiveType, vertexStart uint, vertexCount uint, instanceCount uint, baseInstance uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawPrimitives:vertexStart:vertexCount:instanceCount:baseInstance:"), primitiveType, vertexStart, vertexCount, instanceCount, baseInstance)
 	}
 // Encodes a command to render a number of instances of primitives using an
@@ -266,7 +262,6 @@ func (o MTLIndirectRenderCommandObject) DrawPrimitivesVertexStartVertexCountInst
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/drawIndexedPrimitives(_:indexCount:indexType:indexBuffer:indexBufferOffset:instanceCount:baseVertex:baseInstance:)
 func (o MTLIndirectRenderCommandObject) DrawIndexedPrimitivesIndexCountIndexTypeIndexBufferIndexBufferOffsetInstanceCountBaseVertexBaseInstance(primitiveType MTLPrimitiveType, indexCount uint, indexType MTLIndexType, indexBuffer MTLBuffer, indexBufferOffset uint, instanceCount uint, baseVertex int, baseInstance uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:instanceCount:baseVertex:baseInstance:"), primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset, instanceCount, baseVertex, baseInstance)
 	}
 // Encodes a command to render a number of instances of tessellated patches.
@@ -301,7 +296,6 @@ func (o MTLIndirectRenderCommandObject) DrawIndexedPrimitivesIndexCountIndexType
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/drawPatches(_:patchStart:patchCount:patchIndexBuffer:patchIndexBufferOffset:instanceCount:baseInstance:tessellationFactorBuffer:tessellationFactorBufferOffset:tessellationFactorBufferInstanceStride:)
 func (o MTLIndirectRenderCommandObject) DrawPatchesPatchStartPatchCountPatchIndexBufferPatchIndexBufferOffsetInstanceCountBaseInstanceTessellationFactorBufferTessellationFactorBufferOffsetTessellationFactorBufferInstanceStride(numberOfPatchControlPoints uint, patchStart uint, patchCount uint, patchIndexBuffer MTLBuffer, patchIndexBufferOffset uint, instanceCount uint, baseInstance uint, buffer MTLBuffer, offset uint, instanceStride uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawPatches:patchStart:patchCount:patchIndexBuffer:patchIndexBufferOffset:instanceCount:baseInstance:tessellationFactorBuffer:tessellationFactorBufferOffset:tessellationFactorBufferInstanceStride:"), numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, instanceCount, baseInstance, buffer, offset, instanceStride)
 	}
 // Resets the command to its default state.
@@ -313,89 +307,74 @@ func (o MTLIndirectRenderCommandObject) DrawPatchesPatchStartPatchCountPatchInde
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/reset()
 func (o MTLIndirectRenderCommandObject) Reset() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("reset"))
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/clearBarrier()
 func (o MTLIndirectRenderCommandObject) ClearBarrier() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("clearBarrier"))
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/drawMeshThreadgroups(_:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:)
 func (o MTLIndirectRenderCommandObject) DrawMeshThreadgroupsThreadsPerObjectThreadgroupThreadsPerMeshThreadgroup(threadgroupsPerGrid MTLSize, threadsPerObjectThreadgroup MTLSize, threadsPerMeshThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawMeshThreadgroups:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:"), threadgroupsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/drawMeshThreads(_:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:)
 func (o MTLIndirectRenderCommandObject) DrawMeshThreadsThreadsPerObjectThreadgroupThreadsPerMeshThreadgroup(threadsPerGrid MTLSize, threadsPerObjectThreadgroup MTLSize, threadsPerMeshThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawMeshThreads:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:"), threadsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup)
 	}
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setBarrier()
 func (o MTLIndirectRenderCommandObject) SetBarrier() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBarrier"))
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setCullMode(_:)
 func (o MTLIndirectRenderCommandObject) SetCullMode(cullMode MTLCullMode) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setCullMode:"), cullMode)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setDepthBias(_:slopeScale:clamp:)
 func (o MTLIndirectRenderCommandObject) SetDepthBiasSlopeScaleClamp(depthBias float32, slopeScale float32, clamp float32) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthBias:slopeScale:clamp:"), depthBias, slopeScale, clamp)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setDepthClipMode(_:)
 func (o MTLIndirectRenderCommandObject) SetDepthClipMode(depthClipMode MTLDepthClipMode) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthClipMode:"), depthClipMode)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setDepthStencilState(_:)
 func (o MTLIndirectRenderCommandObject) SetDepthStencilState(depthStencilState MTLDepthStencilState) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setDepthStencilState:"), depthStencilState)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setFrontFacing(_:)
 func (o MTLIndirectRenderCommandObject) SetFrontFacingWinding(frontFacingWindning MTLWinding) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setFrontFacingWinding:"), frontFacingWindning)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setMeshBuffer(_:offset:at:)
 func (o MTLIndirectRenderCommandObject) SetMeshBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setMeshBuffer:offset:atIndex:"), buffer, offset, index)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setObjectBuffer(_:offset:at:)
 func (o MTLIndirectRenderCommandObject) SetObjectBufferOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectBuffer:offset:atIndex:"), buffer, offset, index)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setObjectThreadgroupMemoryLength(_:index:)
 func (o MTLIndirectRenderCommandObject) SetObjectThreadgroupMemoryLengthAtIndex(length uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setObjectThreadgroupMemoryLength:atIndex:"), length, index)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setTriangleFillMode(_:)
 func (o MTLIndirectRenderCommandObject) SetTriangleFillMode(fillMode MTLTriangleFillMode) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setTriangleFillMode:"), fillMode)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setVertexBuffer(_:offset:attributeStride:at:)
 func (o MTLIndirectRenderCommandObject) SetVertexBufferOffsetAttributeStrideAtIndex(buffer MTLBuffer, offset uint, stride uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setVertexBuffer:offset:attributeStride:atIndex:"), buffer, offset, stride, index)
 	}
 // Encodes a command to render a number of instances of tessellated patches,
@@ -403,7 +382,6 @@ func (o MTLIndirectRenderCommandObject) SetVertexBufferOffsetAttributeStrideAtIn
 //
 // See: /documentation/metal/mtlindirectrendercommand/drawindexedpatches(_:patchstart:patchcount:patchindexbuffer:patchindexbufferoffset:controlpointindexbuffer:controlpointindexbufferoffset:instancecount:baseinstance:tessellationfactorbuffer:tessellationfactorbufferoffset:tessellationfactorbu-4mdz8
 func (o MTLIndirectRenderCommandObject) DrawIndexedPatches() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("drawIndexedPatches"))
 	}
 

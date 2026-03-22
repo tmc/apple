@@ -58,7 +58,6 @@ func NSRuleEditorDelegateObjectFromID(id objc.ID) NSRuleEditorDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:child:forCriterion:with:)
 func (o NSRuleEditorDelegateObject) RuleEditorChildForCriterionWithRowType(editor INSRuleEditor, index int, criterion objectivec.IObject, rowType NSRuleEditorRowType) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("ruleEditor:child:forCriterion:withRowType:"), editor, index, criterion, rowType)
 	return objectivec.Object{ID: rv}
 	}
@@ -87,7 +86,6 @@ func (o NSRuleEditorDelegateObject) RuleEditorChildForCriterionWithRowType(edito
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:displayValueForCriterion:inRow:)
 func (o NSRuleEditorDelegateObject) RuleEditorDisplayValueForCriterionInRow(editor INSRuleEditor, criterion objectivec.IObject, row int) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("ruleEditor:displayValueForCriterion:inRow:"), editor, criterion, row)
 	return objectivec.Object{ID: rv}
 	}
@@ -110,7 +108,6 @@ func (o NSRuleEditorDelegateObject) RuleEditorDisplayValueForCriterionInRow(edit
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:numberOfChildrenForCriterion:with:)
 func (o NSRuleEditorDelegateObject) RuleEditorNumberOfChildrenForCriterionWithRowType(editor INSRuleEditor, criterion objectivec.IObject, rowType NSRuleEditorRowType) int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("ruleEditor:numberOfChildrenForCriterion:withRowType:"), editor, criterion, rowType)
 	return rv
 	}
@@ -134,7 +131,6 @@ func (o NSRuleEditorDelegateObject) RuleEditorNumberOfChildrenForCriterionWithRo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:predicatePartsForCriterion:withDisplayValue:inRow:)
 func (o NSRuleEditorDelegateObject) RuleEditorPredicatePartsForCriterionWithDisplayValueInRow(editor INSRuleEditor, criterion objectivec.IObject, value objectivec.IObject, row int) foundation.INSDictionary {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("ruleEditor:predicatePartsForCriterion:withDisplayValue:inRow:"), editor, criterion, value, row)
 	return foundation.NSDictionaryFromID(rv)
 	}
@@ -154,7 +150,6 @@ func (o NSRuleEditorDelegateObject) RuleEditorPredicatePartsForCriterionWithDisp
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditorRowsDidChange(_:)
 func (o NSRuleEditorDelegateObject) RuleEditorRowsDidChange(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("ruleEditorRowsDidChange:"), notification)
 	}
 

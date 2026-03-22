@@ -75,7 +75,6 @@ func CIEdgePreserveUpsampleObjectFromID(id objc.ID) CIEdgePreserveUpsampleObject
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/inputImage
 func (o CIEdgePreserveUpsampleObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -84,7 +83,6 @@ func (o CIEdgePreserveUpsampleObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/lumaSigma
 func (o CIEdgePreserveUpsampleObject) LumaSigma() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("lumaSigma"))
 	return rv
 	}
@@ -92,7 +90,6 @@ func (o CIEdgePreserveUpsampleObject) LumaSigma() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/smallImage
 func (o CIEdgePreserveUpsampleObject) SmallImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("smallImage"))
 	return CIImageFromID(rv)
 	}
@@ -101,7 +98,6 @@ func (o CIEdgePreserveUpsampleObject) SmallImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIEdgePreserveUpsample/spatialSigma
 func (o CIEdgePreserveUpsampleObject) SpatialSigma() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("spatialSigma"))
 	return rv
 	}
@@ -110,7 +106,6 @@ func (o CIEdgePreserveUpsampleObject) SpatialSigma() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIEdgePreserveUpsampleObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

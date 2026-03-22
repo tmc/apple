@@ -56,7 +56,6 @@ func MTL4MachineLearningPipelineStateObjectFromID(id objc.ID) MTL4MachineLearnin
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineState/device
 func (o MTL4MachineLearningPipelineStateObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -65,7 +64,6 @@ func (o MTL4MachineLearningPipelineStateObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineState/intermediatesHeapSize
 func (o MTL4MachineLearningPipelineStateObject) IntermediatesHeapSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("intermediatesHeapSize"))
 	return rv
 	}
@@ -73,7 +71,6 @@ func (o MTL4MachineLearningPipelineStateObject) IntermediatesHeapSize() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineState/label
 func (o MTL4MachineLearningPipelineStateObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -81,7 +78,6 @@ func (o MTL4MachineLearningPipelineStateObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineState/reflection
 func (o MTL4MachineLearningPipelineStateObject) Reflection() IMTL4MachineLearningPipelineReflection {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("reflection"))
 	return MTL4MachineLearningPipelineReflectionFromID(rv)
 	}
@@ -90,7 +86,6 @@ func (o MTL4MachineLearningPipelineStateObject) Reflection() IMTL4MachineLearnin
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTL4MachineLearningPipelineStateObject) AllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}

@@ -51,7 +51,6 @@ func NSTokenFieldDelegateObjectFromID(id objc.ID) NSTokenFieldDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:displayStringForRepresentedObject:)
 func (o NSTokenFieldDelegateObject) TokenFieldDisplayStringForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:displayStringForRepresentedObject:"), tokenField, representedObject)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -80,7 +79,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldDisplayStringForRepresentedObject(
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:styleForRepresentedObject:)
 func (o NSTokenFieldDelegateObject) TokenFieldStyleForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) NSTokenStyle {
-	
 	rv := objc.Send[NSTokenStyle](o.ID, objc.Sel("tokenField:styleForRepresentedObject:"), tokenField, representedObject)
 	return rv
 	}
@@ -108,7 +106,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldStyleForRepresentedObject(tokenFie
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:completionsForSubstring:indexOfToken:indexOfSelectedItem:)
 func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfTokenIndexOfSelectedItem(tokenField INSTokenField, substring string, tokenIndex int, selectedIndex unsafe.Pointer) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:completionsForSubstring:indexOfToken:indexOfSelectedItem:"), tokenField, objc.String(substring), tokenIndex, selectedIndex)
 	return foundation.NSArrayFromID(rv)
 	}
@@ -126,7 +123,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldCompletionsForSubstringIndexOfToke
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:editingStringForRepresentedObject:)
 func (o NSTokenFieldDelegateObject) TokenFieldEditingStringForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:editingStringForRepresentedObject:"), tokenField, representedObject)
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -149,7 +145,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldEditingStringForRepresentedObject(
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:representedObjectForEditing:)
 func (o NSTokenFieldDelegateObject) TokenFieldRepresentedObjectForEditingString(tokenField INSTokenField, editingString string) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:representedObjectForEditingString:"), tokenField, objc.String(editingString))
 	return objectivec.Object{ID: rv}
 	}
@@ -175,7 +170,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldRepresentedObjectForEditingString(
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:shouldAdd:at:)
 func (o NSTokenFieldDelegateObject) TokenFieldShouldAddObjectsAtIndex(tokenField INSTokenField, tokens foundation.INSArray, index uint) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:shouldAddObjects:atIndex:"), tokenField, tokens, index)
 	return foundation.NSArrayFromID(rv)
 	}
@@ -192,7 +186,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldShouldAddObjectsAtIndex(tokenField
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:readFrom:)
 func (o NSTokenFieldDelegateObject) TokenFieldReadFromPasteboard(tokenField INSTokenField, pboard INSPasteboard) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:readFromPasteboard:"), tokenField, pboard)
 	return foundation.NSArrayFromID(rv)
 	}
@@ -217,7 +210,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldReadFromPasteboard(tokenField INST
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:writeRepresentedObjects:to:)
 func (o NSTokenFieldDelegateObject) TokenFieldWriteRepresentedObjectsToPasteboard(tokenField INSTokenField, objects foundation.INSArray, pboard INSPasteboard) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tokenField:writeRepresentedObjects:toPasteboard:"), tokenField, objects, pboard)
 	return rv
 	}
@@ -241,7 +233,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldWriteRepresentedObjectsToPasteboar
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:hasMenuForRepresentedObject:)
 func (o NSTokenFieldDelegateObject) TokenFieldHasMenuForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tokenField:hasMenuForRepresentedObject:"), tokenField, representedObject)
 	return rv
 	}
@@ -262,7 +253,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldHasMenuForRepresentedObject(tokenF
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate/tokenField(_:menuForRepresentedObject:)
 func (o NSTokenFieldDelegateObject) TokenFieldMenuForRepresentedObject(tokenField INSTokenField, representedObject objectivec.IObject) INSMenu {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("tokenField:menuForRepresentedObject:"), tokenField, representedObject)
 	return NSMenuFromID(rv)
 	}
@@ -294,7 +284,6 @@ func (o NSTokenFieldDelegateObject) TokenFieldMenuForRepresentedObject(tokenFiel
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:isValidObject:)
 func (o NSTokenFieldDelegateObject) ControlIsValidObject(control INSControl, obj objectivec.IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:isValidObject:"), control, obj)
 	return rv
 	}
@@ -315,7 +304,6 @@ func (o NSTokenFieldDelegateObject) ControlIsValidObject(control INSControl, obj
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToValidatePartialString:errorDescription:)
 func (o NSTokenFieldDelegateObject) ControlDidFailToValidatePartialStringErrorDescription(control INSControl, string_ string, error_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("control:didFailToValidatePartialString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	}
 // Invoked when the formatter for the cell belonging to the specified control
@@ -344,7 +332,6 @@ func (o NSTokenFieldDelegateObject) ControlDidFailToValidatePartialStringErrorDe
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToFormatString:errorDescription:)
 func (o NSTokenFieldDelegateObject) ControlDidFailToFormatStringErrorDescription(control INSControl, string_ string, error_ string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:didFailToFormatString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	return rv
 	}
@@ -370,7 +357,6 @@ func (o NSTokenFieldDelegateObject) ControlDidFailToFormatStringErrorDescription
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldBeginEditing:)
 func (o NSTokenFieldDelegateObject) ControlTextShouldBeginEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldBeginEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -398,7 +384,6 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldBeginEditing(control INSCon
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldEndEditing:)
 func (o NSTokenFieldDelegateObject) ControlTextShouldEndEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldEndEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -445,7 +430,6 @@ func (o NSTokenFieldDelegateObject) ControlTextShouldEndEditing(control INSContr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -485,7 +469,6 @@ func (o NSTokenFieldDelegateObject) ControlTextViewCompletionsForPartialWordRang
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:doCommandBy:)
 func (o NSTokenFieldDelegateObject) ControlTextViewDoCommandBySelector(control INSControl, textView INSTextView, commandSelector objc.SEL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textView:doCommandBySelector:"), control, textView, commandSelector)
 	return rv
 	}
@@ -501,7 +484,6 @@ func (o NSTokenFieldDelegateObject) ControlTextViewDoCommandBySelector(control I
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidBeginEditing(_:)
 func (o NSTokenFieldDelegateObject) ControlTextDidBeginEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidBeginEditing:"), obj)
 	}
 // Tells the delegate that the control made changes to its text content.
@@ -516,7 +498,6 @@ func (o NSTokenFieldDelegateObject) ControlTextDidBeginEditing(obj foundation.NS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidChange(_:)
 func (o NSTokenFieldDelegateObject) ControlTextDidChange(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidChange:"), obj)
 	}
 // Tells the delegate that the control finished editing its text content and
@@ -532,20 +513,25 @@ func (o NSTokenFieldDelegateObject) ControlTextDidChange(obj foundation.NSNotifi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidEndEditing(_:)
 func (o NSTokenFieldDelegateObject) ControlTextDidEndEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
+	}
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidates:forSelectedRange:)
+func (o NSTokenFieldDelegateObject) TextFieldWithTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, candidates []foundation.NSTextCheckingResult, selectedRange foundation.NSRange) []foundation.NSTextCheckingResult {
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textField:textView:candidates:forSelectedRange:"), textField, textView, objectivec.IObjectSliceToNSArray(candidates), selectedRange)
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
+		return foundation.NSTextCheckingResultFromID(id)
+	})
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidatesForSelectedRange:)
 func (o NSTokenFieldDelegateObject) TextFieldTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, selectedRange foundation.NSRange) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textField:textView:candidatesForSelectedRange:"), textField, textView, selectedRange)
 	return foundation.NSArrayFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:shouldSelectCandidateAt:)
 func (o NSTokenFieldDelegateObject) TextFieldTextViewShouldSelectCandidateAtIndex(textField INSTextField, textView INSTextView, index uint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textField:textView:shouldSelectCandidateAtIndex:"), textField, textView, index)
 	return rv
 	}

@@ -69,7 +69,6 @@ func NSAccessibilityStepperObjectFromID(id objc.ID) NSAccessibilityStepperObject
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityLabel()
 func (o NSAccessibilityStepperObject) AccessibilityLabel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -93,7 +92,6 @@ func (o NSAccessibilityStepperObject) AccessibilityLabel() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityPerformDecrement()
 func (o NSAccessibilityStepperObject) AccessibilityPerformDecrement() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDecrement"))
 	return rv
 	}
@@ -117,7 +115,6 @@ func (o NSAccessibilityStepperObject) AccessibilityPerformDecrement() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityPerformIncrement()
 func (o NSAccessibilityStepperObject) AccessibilityPerformIncrement() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformIncrement"))
 	return rv
 	}
@@ -136,7 +133,6 @@ func (o NSAccessibilityStepperObject) AccessibilityPerformIncrement() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityValue()
 func (o NSAccessibilityStepperObject) AccessibilityValue() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return objectivec.Object{ID: rv}
 	}
@@ -158,7 +154,6 @@ func (o NSAccessibilityStepperObject) AccessibilityValue() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilityStepperObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -178,7 +173,6 @@ func (o NSAccessibilityStepperObject) AccessibilityFrame() corefoundation.CGRect
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilityStepperObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -198,7 +192,6 @@ func (o NSAccessibilityStepperObject) AccessibilityParent() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilityStepperObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -221,7 +214,6 @@ func (o NSAccessibilityStepperObject) AccessibilityIdentifier() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilityStepperObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}

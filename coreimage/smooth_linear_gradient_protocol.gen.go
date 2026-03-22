@@ -76,7 +76,6 @@ func CISmoothLinearGradientObjectFromID(id objc.ID) CISmoothLinearGradientObject
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISmoothLinearGradient/color0
 func (o CISmoothLinearGradientObject) Color0() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color0"))
 	return CIColorFromID(rv)
 	}
@@ -84,7 +83,6 @@ func (o CISmoothLinearGradientObject) Color0() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISmoothLinearGradient/color1
 func (o CISmoothLinearGradientObject) Color1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color1"))
 	return CIColorFromID(rv)
 	}
@@ -92,7 +90,6 @@ func (o CISmoothLinearGradientObject) Color1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISmoothLinearGradient/point0
 func (o CISmoothLinearGradientObject) Point0() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
 	return rv
 	}
@@ -100,7 +97,6 @@ func (o CISmoothLinearGradientObject) Point0() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISmoothLinearGradient/point1
 func (o CISmoothLinearGradientObject) Point1() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
 	return rv
 	}
@@ -109,7 +105,6 @@ func (o CISmoothLinearGradientObject) Point1() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISmoothLinearGradientObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

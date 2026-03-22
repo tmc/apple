@@ -55,7 +55,6 @@ func CIMorphologyMaximumObjectFromID(id objc.ID) CIMorphologyMaximumObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/inputImage
 func (o CIMorphologyMaximumObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIMorphologyMaximumObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyMaximum/radius
 func (o CIMorphologyMaximumObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIMorphologyMaximumObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMorphologyMaximumObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

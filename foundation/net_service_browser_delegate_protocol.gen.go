@@ -54,7 +54,6 @@ func NSNetServiceBrowserDelegateObjectFromID(id objc.ID) NSNetServiceBrowserDele
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowserDelegate/netServiceBrowser(_:didFindDomain:moreComing:)
 func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidFindDomainMoreComing(browser INSNetServiceBrowser, domainString string, moreComing bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceBrowser:didFindDomain:moreComing:"), browser, objc.String(domainString), moreComing)
 	}
 // Tells the delegate the a domain has disappeared or has become unavailable.
@@ -79,7 +78,6 @@ func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidFindDomainMoreCom
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowserDelegate/netServiceBrowser(_:didRemoveDomain:moreComing:)
 func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidRemoveDomainMoreComing(browser INSNetServiceBrowser, domainString string, moreComing bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceBrowser:didRemoveDomain:moreComing:"), browser, objc.String(domainString), moreComing)
 	}
 // Tells the delegate the sender found a service.
@@ -113,7 +111,6 @@ func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidRemoveDomainMoreC
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowserDelegate/netServiceBrowser(_:didFind:moreComing:)
 func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidFindServiceMoreComing(browser INSNetServiceBrowser, service INSNetService, moreComing bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceBrowser:didFindService:moreComing:"), browser, service, moreComing)
 	}
 // Tells the delegate a service has disappeared or has become unavailable.
@@ -138,7 +135,6 @@ func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidFindServiceMoreCo
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowserDelegate/netServiceBrowser(_:didRemove:moreComing:)
 func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidRemoveServiceMoreComing(browser INSNetServiceBrowser, service INSNetService, moreComing bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceBrowser:didRemoveService:moreComing:"), browser, service, moreComing)
 	}
 // Tells the delegate that a search is commencing.
@@ -153,7 +149,6 @@ func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidRemoveServiceMore
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowserDelegate/netServiceBrowserWillSearch(_:)
 func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserWillSearch(browser INSNetServiceBrowser) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceBrowserWillSearch:"), browser)
 	}
 // Tells the delegate that a search was not successful.
@@ -169,7 +164,6 @@ func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserWillSearch(browser I
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowserDelegate/netServiceBrowser(_:didNotSearch:)
 func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidNotSearch(browser INSNetServiceBrowser, errorDict INSDictionary) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceBrowser:didNotSearch:"), browser, errorDict)
 	}
 // Tells the delegate that a search was stopped.
@@ -184,7 +178,6 @@ func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidNotSearch(browser
 //
 // See: https://developer.apple.com/documentation/Foundation/NetServiceBrowserDelegate/netServiceBrowserDidStopSearch(_:)
 func (o NSNetServiceBrowserDelegateObject) NetServiceBrowserDidStopSearch(browser INSNetServiceBrowser) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("netServiceBrowserDidStopSearch:"), browser)
 	}
 

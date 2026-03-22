@@ -74,13 +74,11 @@ func CIStretchCropObjectFromID(id objc.ID) CIStretchCropObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIStretchCrop/centerStretchAmount
 func (o CIStretchCropObject) CenterStretchAmount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("centerStretchAmount"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIStretchCrop/cropAmount
 func (o CIStretchCropObject) CropAmount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("cropAmount"))
 	return rv
 	}
@@ -88,13 +86,11 @@ func (o CIStretchCropObject) CropAmount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStretchCrop/inputImage
 func (o CIStretchCropObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIStretchCrop/size
 func (o CIStretchCropObject) Size() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("size"))
 	return rv
 	}
@@ -103,7 +99,6 @@ func (o CIStretchCropObject) Size() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIStretchCropObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

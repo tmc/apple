@@ -75,7 +75,6 @@ func CIHighlightShadowAdjustObjectFromID(id objc.ID) CIHighlightShadowAdjustObje
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHighlightShadowAdjust/highlightAmount
 func (o CIHighlightShadowAdjustObject) HighlightAmount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("highlightAmount"))
 	return rv
 	}
@@ -83,7 +82,6 @@ func (o CIHighlightShadowAdjustObject) HighlightAmount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHighlightShadowAdjust/inputImage
 func (o CIHighlightShadowAdjustObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -91,7 +89,6 @@ func (o CIHighlightShadowAdjustObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHighlightShadowAdjust/radius
 func (o CIHighlightShadowAdjustObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -99,7 +96,6 @@ func (o CIHighlightShadowAdjustObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHighlightShadowAdjust/shadowAmount
 func (o CIHighlightShadowAdjustObject) ShadowAmount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("shadowAmount"))
 	return rv
 	}
@@ -108,7 +104,6 @@ func (o CIHighlightShadowAdjustObject) ShadowAmount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIHighlightShadowAdjustObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

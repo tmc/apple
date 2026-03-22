@@ -106,7 +106,6 @@ func CISunbeamsGeneratorObjectFromID(id objc.ID) CISunbeamsGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/center
 func (o CISunbeamsGeneratorObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -114,7 +113,6 @@ func (o CISunbeamsGeneratorObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/color
 func (o CISunbeamsGeneratorObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -122,7 +120,6 @@ func (o CISunbeamsGeneratorObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/maxStriationRadius
 func (o CISunbeamsGeneratorObject) MaxStriationRadius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("maxStriationRadius"))
 	return rv
 	}
@@ -130,7 +127,6 @@ func (o CISunbeamsGeneratorObject) MaxStriationRadius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationContrast
 func (o CISunbeamsGeneratorObject) StriationContrast() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
 	return rv
 	}
@@ -138,7 +134,6 @@ func (o CISunbeamsGeneratorObject) StriationContrast() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/striationStrength
 func (o CISunbeamsGeneratorObject) StriationStrength() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
 	return rv
 	}
@@ -146,7 +141,6 @@ func (o CISunbeamsGeneratorObject) StriationStrength() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/sunRadius
 func (o CISunbeamsGeneratorObject) SunRadius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sunRadius"))
 	return rv
 	}
@@ -154,7 +148,6 @@ func (o CISunbeamsGeneratorObject) SunRadius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISunbeamsGenerator/time
 func (o CISunbeamsGeneratorObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}
@@ -163,7 +156,6 @@ func (o CISunbeamsGeneratorObject) Time() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISunbeamsGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

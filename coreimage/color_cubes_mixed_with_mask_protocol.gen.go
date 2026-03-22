@@ -107,7 +107,6 @@ func CIColorCubesMixedWithMaskObjectFromID(id objc.ID) CIColorCubesMixedWithMask
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubesMixedWithMask/colorSpace
 func (o CIColorCubesMixedWithMaskObject) ColorSpace() coregraphics.CGColorSpaceRef {
-	
 	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
 	return rv
 	}
@@ -115,7 +114,6 @@ func (o CIColorCubesMixedWithMaskObject) ColorSpace() coregraphics.CGColorSpaceR
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubesMixedWithMask/cube0Data
 func (o CIColorCubesMixedWithMaskObject) Cube0Data() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cube0Data"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -123,7 +121,6 @@ func (o CIColorCubesMixedWithMaskObject) Cube0Data() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubesMixedWithMask/cube1Data
 func (o CIColorCubesMixedWithMaskObject) Cube1Data() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cube1Data"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -131,7 +128,6 @@ func (o CIColorCubesMixedWithMaskObject) Cube1Data() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubesMixedWithMask/cubeDimension
 func (o CIColorCubesMixedWithMaskObject) CubeDimension() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("cubeDimension"))
 	return rv
 	}
@@ -139,7 +135,6 @@ func (o CIColorCubesMixedWithMaskObject) CubeDimension() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubesMixedWithMask/inputImage
 func (o CIColorCubesMixedWithMaskObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -147,7 +142,6 @@ func (o CIColorCubesMixedWithMaskObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubesMixedWithMask/maskImage
 func (o CIColorCubesMixedWithMaskObject) MaskImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("maskImage"))
 	return CIImageFromID(rv)
 	}
@@ -156,7 +150,6 @@ func (o CIColorCubesMixedWithMaskObject) MaskImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubesMixedWithMask/extrapolate
 func (o CIColorCubesMixedWithMaskObject) Extrapolate() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
 	return rv
 	}
@@ -165,7 +158,6 @@ func (o CIColorCubesMixedWithMaskObject) Extrapolate() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorCubesMixedWithMaskObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

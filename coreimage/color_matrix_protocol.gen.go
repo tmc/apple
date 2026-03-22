@@ -95,7 +95,6 @@ func CIColorMatrixObjectFromID(id objc.ID) CIColorMatrixObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/aVector
 func (o CIColorMatrixObject) AVector() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("AVector"))
 	return CIVectorFromID(rv)
 	}
@@ -103,7 +102,6 @@ func (o CIColorMatrixObject) AVector() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/bVector
 func (o CIColorMatrixObject) BVector() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("BVector"))
 	return CIVectorFromID(rv)
 	}
@@ -111,7 +109,6 @@ func (o CIColorMatrixObject) BVector() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/gVector
 func (o CIColorMatrixObject) GVector() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("GVector"))
 	return CIVectorFromID(rv)
 	}
@@ -119,7 +116,6 @@ func (o CIColorMatrixObject) GVector() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/rVector
 func (o CIColorMatrixObject) RVector() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("RVector"))
 	return CIVectorFromID(rv)
 	}
@@ -127,7 +123,6 @@ func (o CIColorMatrixObject) RVector() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/biasVector
 func (o CIColorMatrixObject) BiasVector() ICIVector {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("biasVector"))
 	return CIVectorFromID(rv)
 	}
@@ -135,7 +130,6 @@ func (o CIColorMatrixObject) BiasVector() ICIVector {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorMatrix/inputImage
 func (o CIColorMatrixObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -144,7 +138,6 @@ func (o CIColorMatrixObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorMatrixObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

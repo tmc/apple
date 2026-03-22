@@ -48,7 +48,6 @@ func NSStreamDelegateObjectFromID(id objc.ID) NSStreamDelegateObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/StreamDelegate/stream(_:handle:)
 func (o NSStreamDelegateObject) StreamHandleEvent(aStream INSStream, eventCode NSStreamEvent) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("stream:handleEvent:"), aStream, eventCode)
 	}
 

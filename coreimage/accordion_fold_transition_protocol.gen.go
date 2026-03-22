@@ -66,7 +66,6 @@ func CIAccordionFoldTransitionObjectFromID(id objc.ID) CIAccordionFoldTransition
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/bottomHeight
 func (o CIAccordionFoldTransitionObject) BottomHeight() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("bottomHeight"))
 	return rv
 	}
@@ -74,7 +73,6 @@ func (o CIAccordionFoldTransitionObject) BottomHeight() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/foldShadowAmount
 func (o CIAccordionFoldTransitionObject) FoldShadowAmount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("foldShadowAmount"))
 	return rv
 	}
@@ -82,7 +80,6 @@ func (o CIAccordionFoldTransitionObject) FoldShadowAmount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAccordionFoldTransition/numberOfFolds
 func (o CIAccordionFoldTransitionObject) NumberOfFolds() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("numberOfFolds"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CIAccordionFoldTransitionObject) NumberOfFolds() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIAccordionFoldTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -99,7 +95,6 @@ func (o CIAccordionFoldTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIAccordionFoldTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -107,7 +102,6 @@ func (o CIAccordionFoldTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIAccordionFoldTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -115,7 +109,6 @@ func (o CIAccordionFoldTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIAccordionFoldTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

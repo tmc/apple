@@ -41,7 +41,6 @@ func NSSearchFieldDelegateObjectFromID(id objc.ID) NSSearchFieldDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchFieldDelegate/searchFieldDidStartSearching(_:)
 func (o NSSearchFieldDelegateObject) SearchFieldDidStartSearching(sender INSSearchField) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("searchFieldDidStartSearching:"), sender)
 	}
 // The method that is called when the search field has ended its search for
@@ -49,7 +48,6 @@ func (o NSSearchFieldDelegateObject) SearchFieldDidStartSearching(sender INSSear
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSearchFieldDelegate/searchFieldDidEndSearching(_:)
 func (o NSSearchFieldDelegateObject) SearchFieldDidEndSearching(sender INSSearchField) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("searchFieldDidEndSearching:"), sender)
 	}
 // Invoked when the insertion point leaves a cell belonging to the specified
@@ -80,7 +78,6 @@ func (o NSSearchFieldDelegateObject) SearchFieldDidEndSearching(sender INSSearch
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:isValidObject:)
 func (o NSSearchFieldDelegateObject) ControlIsValidObject(control INSControl, obj objectivec.IObject) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:isValidObject:"), control, obj)
 	return rv
 	}
@@ -101,7 +98,6 @@ func (o NSSearchFieldDelegateObject) ControlIsValidObject(control INSControl, ob
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToValidatePartialString:errorDescription:)
 func (o NSSearchFieldDelegateObject) ControlDidFailToValidatePartialStringErrorDescription(control INSControl, string_ string, error_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("control:didFailToValidatePartialString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	}
 // Invoked when the formatter for the cell belonging to the specified control
@@ -130,7 +126,6 @@ func (o NSSearchFieldDelegateObject) ControlDidFailToValidatePartialStringErrorD
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:didFailToFormatString:errorDescription:)
 func (o NSSearchFieldDelegateObject) ControlDidFailToFormatStringErrorDescription(control INSControl, string_ string, error_ string) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:didFailToFormatString:errorDescription:"), control, objc.String(string_), objc.String(error_))
 	return rv
 	}
@@ -156,7 +151,6 @@ func (o NSSearchFieldDelegateObject) ControlDidFailToFormatStringErrorDescriptio
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldBeginEditing:)
 func (o NSSearchFieldDelegateObject) ControlTextShouldBeginEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldBeginEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -184,7 +178,6 @@ func (o NSSearchFieldDelegateObject) ControlTextShouldBeginEditing(control INSCo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textShouldEndEditing:)
 func (o NSSearchFieldDelegateObject) ControlTextShouldEndEditing(control INSControl, fieldEditor INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textShouldEndEditing:"), control, fieldEditor)
 	return rv
 	}
@@ -231,7 +224,6 @@ func (o NSSearchFieldDelegateObject) ControlTextShouldEndEditing(control INSCont
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:completions:forPartialWordRange:indexOfSelectedItem:)
 func (o NSSearchFieldDelegateObject) ControlTextViewCompletionsForPartialWordRangeIndexOfSelectedItem(control INSControl, textView INSTextView, words []string, charRange foundation.NSRange, index unsafe.Pointer) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("control:textView:completions:forPartialWordRange:indexOfSelectedItem:"), control, textView, objectivec.StringSliceToNSArray(words), charRange, index)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -271,7 +263,6 @@ func (o NSSearchFieldDelegateObject) ControlTextViewCompletionsForPartialWordRan
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/control(_:textView:doCommandBy:)
 func (o NSSearchFieldDelegateObject) ControlTextViewDoCommandBySelector(control INSControl, textView INSTextView, commandSelector objc.SEL) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("control:textView:doCommandBySelector:"), control, textView, commandSelector)
 	return rv
 	}
@@ -287,7 +278,6 @@ func (o NSSearchFieldDelegateObject) ControlTextViewDoCommandBySelector(control 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidBeginEditing(_:)
 func (o NSSearchFieldDelegateObject) ControlTextDidBeginEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidBeginEditing:"), obj)
 	}
 // Tells the delegate that the control made changes to its text content.
@@ -302,7 +292,6 @@ func (o NSSearchFieldDelegateObject) ControlTextDidBeginEditing(obj foundation.N
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidChange(_:)
 func (o NSSearchFieldDelegateObject) ControlTextDidChange(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidChange:"), obj)
 	}
 // Tells the delegate that the control finished editing its text content and
@@ -318,20 +307,25 @@ func (o NSSearchFieldDelegateObject) ControlTextDidChange(obj foundation.NSNotif
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate/controlTextDidEndEditing(_:)
 func (o NSSearchFieldDelegateObject) ControlTextDidEndEditing(obj foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("controlTextDidEndEditing:"), obj)
+	}
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidates:forSelectedRange:)
+func (o NSSearchFieldDelegateObject) TextFieldWithTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, candidates []foundation.NSTextCheckingResult, selectedRange foundation.NSRange) []foundation.NSTextCheckingResult {
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("textField:textView:candidates:forSelectedRange:"), textField, textView, objectivec.IObjectSliceToNSArray(candidates), selectedRange)
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSTextCheckingResult {
+		return foundation.NSTextCheckingResultFromID(id)
+	})
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:candidatesForSelectedRange:)
 func (o NSSearchFieldDelegateObject) TextFieldTextViewCandidatesForSelectedRange(textField INSTextField, textView INSTextView, selectedRange foundation.NSRange) foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textField:textView:candidatesForSelectedRange:"), textField, textView, selectedRange)
 	return foundation.NSArrayFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFieldDelegate/textField(_:textView:shouldSelectCandidateAt:)
 func (o NSSearchFieldDelegateObject) TextFieldTextViewShouldSelectCandidateAtIndex(textField INSTextField, textView INSTextView, index uint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textField:textView:shouldSelectCandidateAtIndex:"), textField, textView, index)
 	return rv
 	}

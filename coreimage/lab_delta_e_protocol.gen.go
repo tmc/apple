@@ -55,7 +55,6 @@ func CILabDeltaEObjectFromID(id objc.ID) CILabDeltaEObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILabDeltaE/image2
 func (o CILabDeltaEObject) Image2() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("image2"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CILabDeltaEObject) Image2() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILabDeltaE/inputImage
 func (o CILabDeltaEObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CILabDeltaEObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CILabDeltaEObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

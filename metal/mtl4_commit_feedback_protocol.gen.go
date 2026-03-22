@@ -51,7 +51,6 @@ func MTL4CommitFeedbackObjectFromID(id objc.ID) MTL4CommitFeedbackObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/error
 func (o MTL4CommitFeedbackObject) Error() foundation.INSError {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("error"))
 	return foundation.NSErrorFromID(rv)
 	}
@@ -60,7 +59,6 @@ func (o MTL4CommitFeedbackObject) Error() foundation.INSError {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/gpuEndTime
 func (o MTL4CommitFeedbackObject) GPUEndTime() float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("GPUEndTime"))
 	return rv
 	}
@@ -69,7 +67,6 @@ func (o MTL4CommitFeedbackObject) GPUEndTime() float64 {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedback/gpuStartTime
 func (o MTL4CommitFeedbackObject) GPUStartTime() float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("GPUStartTime"))
 	return rv
 	}

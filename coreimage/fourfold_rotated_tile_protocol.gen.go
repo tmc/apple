@@ -76,7 +76,6 @@ func CIFourfoldRotatedTileObjectFromID(id objc.ID) CIFourfoldRotatedTileObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourfoldRotatedTile/angle
 func (o CIFourfoldRotatedTileObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -84,7 +83,6 @@ func (o CIFourfoldRotatedTileObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourfoldRotatedTile/center
 func (o CIFourfoldRotatedTileObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -92,7 +90,6 @@ func (o CIFourfoldRotatedTileObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourfoldRotatedTile/inputImage
 func (o CIFourfoldRotatedTileObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -100,7 +97,6 @@ func (o CIFourfoldRotatedTileObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFourfoldRotatedTile/width
 func (o CIFourfoldRotatedTileObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -109,7 +105,6 @@ func (o CIFourfoldRotatedTileObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIFourfoldRotatedTileObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -53,13 +53,11 @@ func CIPersonSegmentationObjectFromID(id objc.ID) CIPersonSegmentationObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/inputImage
 func (o CIPersonSegmentationObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIPersonSegmentation/qualityLevel
 func (o CIPersonSegmentationObject) QualityLevel() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("qualityLevel"))
 	return rv
 	}
@@ -68,7 +66,6 @@ func (o CIPersonSegmentationObject) QualityLevel() uint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIPersonSegmentationObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

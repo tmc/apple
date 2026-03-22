@@ -39,7 +39,6 @@ func NSTabViewDelegateObjectFromID(id objc.ID) NSTabViewDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewDelegate/tabViewDidChangeNumberOfTabViewItems(_:)
 func (o NSTabViewDelegateObject) TabViewDidChangeNumberOfTabViewItems(tabView INSTabView) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tabViewDidChangeNumberOfTabViewItems:"), tabView)
 	}
 // Invoked just before `tabViewItem` in `tabView` is selected.
@@ -57,7 +56,6 @@ func (o NSTabViewDelegateObject) TabViewDidChangeNumberOfTabViewItems(tabView IN
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewDelegate/tabView(_:shouldSelect:)
 func (o NSTabViewDelegateObject) TabViewShouldSelectTabViewItem(tabView INSTabView, tabViewItem INSTabViewItem) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("tabView:shouldSelectTabViewItem:"), tabView, tabViewItem)
 	return rv
 	}
@@ -69,7 +67,6 @@ func (o NSTabViewDelegateObject) TabViewShouldSelectTabViewItem(tabView INSTabVi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewDelegate/tabView(_:willSelect:)
 func (o NSTabViewDelegateObject) TabViewWillSelectTabViewItem(tabView INSTabView, tabViewItem INSTabViewItem) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tabView:willSelectTabViewItem:"), tabView, tabViewItem)
 	}
 // Informs the delegate that `tabView` has selected `tabViewItem`.
@@ -80,7 +77,6 @@ func (o NSTabViewDelegateObject) TabViewWillSelectTabViewItem(tabView INSTabView
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewDelegate/tabView(_:didSelect:)
 func (o NSTabViewDelegateObject) TabViewDidSelectTabViewItem(tabView INSTabView, tabViewItem INSTabViewItem) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("tabView:didSelectTabViewItem:"), tabView, tabViewItem)
 	}
 

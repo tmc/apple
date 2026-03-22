@@ -44,7 +44,6 @@ func NSTextDelegateObjectFromID(id objc.ID) NSTextDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidChange(_:)
 func (o NSTextDelegateObject) TextDidChange(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("textDidChange:"), notification)
 	}
 // Invoked when a text object begins to change its text, this method requests
@@ -62,7 +61,6 @@ func (o NSTextDelegateObject) TextDidChange(notification foundation.NSNotificati
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldBeginEditing(_:)
 func (o NSTextDelegateObject) TextShouldBeginEditing(textObject INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textShouldBeginEditing:"), textObject)
 	return rv
 	}
@@ -77,7 +75,6 @@ func (o NSTextDelegateObject) TextShouldBeginEditing(textObject INSText) bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidBeginEditing(_:)
 func (o NSTextDelegateObject) TextDidBeginEditing(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("textDidBeginEditing:"), notification)
 	}
 // Invoked from a text object’s implementation of [ResignFirstResponder],
@@ -94,7 +91,6 @@ func (o NSTextDelegateObject) TextDidBeginEditing(notification foundation.NSNoti
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textShouldEndEditing(_:)
 func (o NSTextDelegateObject) TextShouldEndEditing(textObject INSText) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textShouldEndEditing:"), textObject)
 	return rv
 	}
@@ -109,7 +105,6 @@ func (o NSTextDelegateObject) TextShouldEndEditing(textObject INSText) bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate/textDidEndEditing(_:)
 func (o NSTextDelegateObject) TextDidEndEditing(notification foundation.NSNotification) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("textDidEndEditing:"), notification)
 	}
 

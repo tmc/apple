@@ -87,7 +87,6 @@ func CIColorCubeWithColorSpaceObjectFromID(id objc.ID) CIColorCubeWithColorSpace
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/colorSpace
 func (o CIColorCubeWithColorSpaceObject) ColorSpace() coregraphics.CGColorSpaceRef {
-	
 	rv := objc.Send[coregraphics.CGColorSpaceRef](o.ID, objc.Sel("colorSpace"))
 	return rv
 	}
@@ -95,7 +94,6 @@ func (o CIColorCubeWithColorSpaceObject) ColorSpace() coregraphics.CGColorSpaceR
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeData
 func (o CIColorCubeWithColorSpaceObject) CubeData() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cubeData"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -103,7 +101,6 @@ func (o CIColorCubeWithColorSpaceObject) CubeData() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/cubeDimension
 func (o CIColorCubeWithColorSpaceObject) CubeDimension() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("cubeDimension"))
 	return rv
 	}
@@ -111,7 +108,6 @@ func (o CIColorCubeWithColorSpaceObject) CubeDimension() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/inputImage
 func (o CIColorCubeWithColorSpaceObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -120,7 +116,6 @@ func (o CIColorCubeWithColorSpaceObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIColorCubeWithColorSpace/extrapolate
 func (o CIColorCubeWithColorSpaceObject) Extrapolate() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("extrapolate"))
 	return rv
 	}
@@ -129,7 +124,6 @@ func (o CIColorCubeWithColorSpaceObject) Extrapolate() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIColorCubeWithColorSpaceObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

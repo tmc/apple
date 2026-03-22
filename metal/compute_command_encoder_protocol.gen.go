@@ -26,6 +26,16 @@ type MTLComputeCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchType
 	DispatchType() MTLDispatchType
 
+	// Binds a buffer to the buffer argument table, allowing compute kernels to access its data on the GPU.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBuffer(_:offset:index:)
+	SetBufferWithOffsetAtIndex(buffer MTLBuffer, offset uint, index uint)
+
+	// Binds a buffer with a stride to the buffer argument table, allowing compute kernels to access its data on the GPU.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBuffer(_:offset:attributeStride:index:)
+	SetBufferWithOffsetAttributeStrideAtIndex(buffer MTLBuffer, offset uint, stride uint, index uint)
+
 	// Changes where the data begins in a buffer already bound to the buffer argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBufferOffset(_:index:)
@@ -235,16 +245,71 @@ func MTLComputeCommandEncoderObjectFromID(id objc.ID) MTLComputeCommandEncoderOb
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setComputePipelineState(_:)
 func (o MTLComputeCommandEncoderObject) SetComputePipelineState(state MTLComputePipelineState) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setComputePipelineState:"), state)
 	}
 // The dispatch type to use when submitting compute work to the GPU.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchType
 func (o MTLComputeCommandEncoderObject) DispatchType() MTLDispatchType {
-	
 	rv := objc.Send[MTLDispatchType](o.ID, objc.Sel("dispatchType"))
 	return rv
+	}
+// Binds a buffer to the buffer argument table, allowing compute kernels to
+// access its data on the GPU.
+//
+// buffer: The [MTLBuffer] instance to bind to the argument table.
+//
+// offset: The number of bytes to skip in the buffer before the first element of data.
+//
+// index: The index the buffer binds to in the argument table.
+//
+// # Discussion
+// 
+// For buffers binding to an argument using the `device` address space, align
+// the offset to the data type’s size. The maximum size for an offset is
+// `16` bytes.
+// 
+// For buffers in the `constant` address space, the minimum alignment depends
+// on the hardware running your app. See the [Metal feature set tables (PDF)]
+// for information on each Apple GPU family.
+// 
+// Rebinding an already bound buffer causes a Metal error.
+//
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBuffer(_:offset:index:)
+func (o MTLComputeCommandEncoderObject) SetBufferWithOffsetAtIndex(buffer MTLBuffer, offset uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
+	}
+// Binds a buffer with a stride to the buffer argument table, allowing compute
+// kernels to access its data on the GPU.
+//
+// buffer: The [MTLBuffer] instance to bind to the argument table.
+//
+// offset: The number of bytes to skip in the buffer before the first element of data.
+//
+// stride: The number of bytes between the start of one element and the start of the
+// next.
+//
+// index: The index the buffer binds to in the argument table.
+//
+// # Discussion
+// 
+// For buffers binding to an argument using the `device` address space, align
+// the offset to the data type’s size. The maximum size for an offset is
+// `16` bytes.
+// 
+// For buffers in the `constant` address space, the minimum alignment depends
+// on the hardware running your app. See the [Metal feature set tables (PDF)]
+// for information on each Apple GPU family.
+// 
+// Rebinding an already bound buffer causes a Metal error.
+//
+// [Metal feature set tables (PDF)]: https://developer.apple.com/metal/Metal-Feature-Set-Tables.pdf
+//
+// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBuffer(_:offset:attributeStride:index:)
+func (o MTLComputeCommandEncoderObject) SetBufferWithOffsetAttributeStrideAtIndex(buffer MTLBuffer, offset uint, stride uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBuffer:offset:attributeStride:atIndex:"), buffer, offset, stride, index)
 	}
 // Changes where the data begins in a buffer already bound to the buffer
 // argument table.
@@ -270,7 +335,6 @@ func (o MTLComputeCommandEncoderObject) DispatchType() MTLDispatchType {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBufferOffset(_:index:)
 func (o MTLComputeCommandEncoderObject) SetBufferOffsetAtIndex(offset uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBufferOffset:atIndex:"), offset, index)
 	}
 // Changes where the data begins and the distance between adjacent elements in
@@ -300,7 +364,6 @@ func (o MTLComputeCommandEncoderObject) SetBufferOffsetAtIndex(offset uint, inde
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBufferOffset(offset:attributeStride:index:)
 func (o MTLComputeCommandEncoderObject) SetBufferOffsetAttributeStrideAtIndex(offset uint, stride uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBufferOffset:attributeStride:atIndex:"), offset, stride, index)
 	}
 // Copies data directly to the GPU to populate an entry in the buffer argument
@@ -320,7 +383,6 @@ func (o MTLComputeCommandEncoderObject) SetBufferOffsetAttributeStrideAtIndex(of
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:index:)
 func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), index)
 	}
 // Copies data with a given stride directly to the GPU to populate an entry in
@@ -343,7 +405,6 @@ func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, inde
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:attributeStride:index:)
 func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), stride, index)
 	}
 // Binds a texture to the texture argument table, allowing compute kernels to
@@ -355,7 +416,6 @@ func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(byt
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setTexture(_:index:)
 func (o MTLComputeCommandEncoderObject) SetTextureAtIndex(texture MTLTexture, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setTexture:atIndex:"), texture, index)
 	}
 // Encodes a texture sampler, allowing compute kernels to use it for sampling
@@ -367,7 +427,6 @@ func (o MTLComputeCommandEncoderObject) SetTextureAtIndex(texture MTLTexture, in
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerState(_:index:)
 func (o MTLComputeCommandEncoderObject) SetSamplerStateAtIndex(sampler MTLSamplerState, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setSamplerState:atIndex:"), sampler, index)
 	}
 // Encodes a texture sampler with a custom level of detail clamping, allowing
@@ -388,7 +447,6 @@ func (o MTLComputeCommandEncoderObject) SetSamplerStateAtIndex(sampler MTLSample
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerState(_:lodMinClamp:lodMaxClamp:index:)
 func (o MTLComputeCommandEncoderObject) SetSamplerStateLodMinClampLodMaxClampAtIndex(sampler MTLSamplerState, lodMinClamp float32, lodMaxClamp float32, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setSamplerState:lodMinClamp:lodMaxClamp:atIndex:"), sampler, lodMinClamp, lodMaxClamp, index)
 	}
 // Binds a visible function table to the buffer argument table, allowing you
@@ -400,7 +458,6 @@ func (o MTLComputeCommandEncoderObject) SetSamplerStateLodMinClampLodMaxClampAtI
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setVisibleFunctionTable(_:bufferIndex:)
 func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTableAtBufferIndex(visibleFunctionTable MTLVisibleFunctionTable, bufferIndex uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTable:atBufferIndex:"), visibleFunctionTable, bufferIndex)
 	}
 // Binds an acceleration structure to the buffer argument table, allowing
@@ -412,7 +469,6 @@ func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTableAtBufferIndex(vis
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setAccelerationStructure(_:bufferIndex:)
 func (o MTLComputeCommandEncoderObject) SetAccelerationStructureAtBufferIndex(accelerationStructure MTLAccelerationStructure, bufferIndex uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setAccelerationStructure:atBufferIndex:"), accelerationStructure, bufferIndex)
 	}
 // Binds an intersection function table to the buffer argument table, making
@@ -425,7 +481,6 @@ func (o MTLComputeCommandEncoderObject) SetAccelerationStructureAtBufferIndex(ac
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setIntersectionFunctionTable(_:bufferIndex:)
 func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTableAtBufferIndex(intersectionFunctionTable MTLIntersectionFunctionTable, bufferIndex uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setIntersectionFunctionTable:atBufferIndex:"), intersectionFunctionTable, bufferIndex)
 	}
 // Ensures kernel calls that the system encodes in subsequent commands have
@@ -466,7 +521,6 @@ func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTableAtBufferInde
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResource(_:usage:)
 func (o MTLComputeCommandEncoderObject) UseResourceUsage(resource MTLResource, usage MTLResourceUsage) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("useResource:usage:"), resource, usage)
 	}
 // Ensures the shaders in the render pass’s subsequent draw commands have
@@ -515,7 +569,6 @@ func (o MTLComputeCommandEncoderObject) UseResourceUsage(resource MTLResource, u
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useHeap(_:)
 func (o MTLComputeCommandEncoderObject) UseHeap(heap MTLHeap) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("useHeap:"), heap)
 	}
 // Configures the size of a block of threadgroup memory.
@@ -540,7 +593,6 @@ func (o MTLComputeCommandEncoderObject) UseHeap(heap MTLHeap) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setThreadgroupMemoryLength(_:index:)
 func (o MTLComputeCommandEncoderObject) SetThreadgroupMemoryLengthAtIndex(length uint, index uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setThreadgroupMemoryLength:atIndex:"), length, index)
 	}
 // Sets the size, in pixels, of imageblock data in tile memory.
@@ -568,7 +620,6 @@ func (o MTLComputeCommandEncoderObject) SetThreadgroupMemoryLengthAtIndex(length
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setImageblockWidth(_:height:)
 func (o MTLComputeCommandEncoderObject) SetImageblockWidthHeight(width uint, height uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setImageblockWidth:height:"), width, height)
 	}
 // Sets the dimensions over the thread grid of how your compute kernel
@@ -594,7 +645,6 @@ func (o MTLComputeCommandEncoderObject) SetImageblockWidthHeight(width uint, hei
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setStageInRegion(_:)
 func (o MTLComputeCommandEncoderObject) SetStageInRegion(region MTLRegion) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setStageInRegion:"), region)
 	}
 // Sets the region of the stage-in attributes to apply to a compute kernel
@@ -622,7 +672,6 @@ func (o MTLComputeCommandEncoderObject) SetStageInRegion(region MTLRegion) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setStageInRegionWithIndirectBuffer(_:indirectBufferOffset:)
 func (o MTLComputeCommandEncoderObject) SetStageInRegionWithIndirectBufferIndirectBufferOffset(indirectBuffer MTLBuffer, indirectBufferOffset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setStageInRegionWithIndirectBuffer:indirectBufferOffset:"), indirectBuffer, indirectBufferOffset)
 	}
 // Encodes a compute command using an arbitrarily sized grid.
@@ -641,7 +690,6 @@ func (o MTLComputeCommandEncoderObject) SetStageInRegionWithIndirectBufferIndire
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchThreads(_:threadsPerThreadgroup:)
 func (o MTLComputeCommandEncoderObject) DispatchThreadsThreadsPerThreadgroup(threadsPerGrid MTLSize, threadsPerThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("dispatchThreads:threadsPerThreadgroup:"), threadsPerGrid, threadsPerThreadgroup)
 	}
 // Encodes a compute dispatch command using a grid aligned to threadgroup
@@ -670,7 +718,6 @@ func (o MTLComputeCommandEncoderObject) DispatchThreadsThreadsPerThreadgroup(thr
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchThreadgroups(_:threadsPerThreadgroup:)
 func (o MTLComputeCommandEncoderObject) DispatchThreadgroupsThreadsPerThreadgroup(threadgroupsPerGrid MTLSize, threadsPerThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("dispatchThreadgroups:threadsPerThreadgroup:"), threadgroupsPerGrid, threadsPerThreadgroup)
 	}
 // Encodes a dispatch call for a compute pass, using an indirect buffer that
@@ -695,7 +742,6 @@ func (o MTLComputeCommandEncoderObject) DispatchThreadgroupsThreadsPerThreadgrou
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/dispatchThreadgroups(indirectBuffer:indirectBufferOffset:threadsPerThreadgroup:)
 func (o MTLComputeCommandEncoderObject) DispatchThreadgroupsWithIndirectBufferIndirectBufferOffsetThreadsPerThreadgroup(indirectBuffer MTLBuffer, indirectBufferOffset uint, threadsPerThreadgroup MTLSize) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("dispatchThreadgroupsWithIndirectBuffer:indirectBufferOffset:threadsPerThreadgroup:"), indirectBuffer, indirectBufferOffset, threadsPerThreadgroup)
 	}
 // Encodes a command that instructs the GPU to pause the compute pass until
@@ -735,7 +781,6 @@ func (o MTLComputeCommandEncoderObject) DispatchThreadgroupsWithIndirectBufferIn
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/waitForFence(_:)
 func (o MTLComputeCommandEncoderObject) WaitForFence(fence MTLFence) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:"), fence)
 	}
 // Encodes a command that instructs the GPU to update a fence after the
@@ -775,7 +820,6 @@ func (o MTLComputeCommandEncoderObject) WaitForFence(fence MTLFence) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/updateFence(_:)
 func (o MTLComputeCommandEncoderObject) UpdateFence(fence MTLFence) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("updateFence:"), fence)
 	}
 // Creates a memory barrier that enforces the order of write and read
@@ -798,7 +842,6 @@ func (o MTLComputeCommandEncoderObject) UpdateFence(fence MTLFence) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/memoryBarrier(scope:)
 func (o MTLComputeCommandEncoderObject) MemoryBarrierWithScope(scope MTLBarrierScope) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("memoryBarrierWithScope:"), scope)
 	}
 // Encodes a command to sample hardware counters, providing performance
@@ -831,7 +874,6 @@ func (o MTLComputeCommandEncoderObject) MemoryBarrierWithScope(scope MTLBarrierS
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/sampleCounters(sampleBuffer:sampleIndex:barrier:)
 func (o MTLComputeCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithBarrier(sampleBuffer MTLCounterSampleBuffer, sampleIndex uint, barrier bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), sampleBuffer, sampleIndex, barrier)
 	}
 // Encodes an instruction to run commands from an indirect buffer, using
@@ -850,7 +892,6 @@ func (o MTLComputeCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithB
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:
 func (o MTLComputeCommandEncoderObject) ExecuteCommandsInBufferIndirectBufferIndirectBufferOffset(indirectCommandbuffer MTLIndirectCommandBuffer, indirectRangeBuffer MTLBuffer, indirectBufferOffset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:"), indirectCommandbuffer, indirectRangeBuffer, indirectBufferOffset)
 	}
 // Encodes an instruction to run commands from an indirect buffer.
@@ -862,7 +903,6 @@ func (o MTLComputeCommandEncoderObject) ExecuteCommandsInBufferIndirectBufferInd
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/executeCommandsInBuffer:withRange:
 func (o MTLComputeCommandEncoderObject) ExecuteCommandsInBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, executionRange foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("executeCommandsInBuffer:withRange:"), indirectCommandBuffer, executionRange)
 	}
 // Creates a memory barrier that enforces the order of write and read
@@ -884,7 +924,6 @@ func (o MTLComputeCommandEncoderObject) ExecuteCommandsInBufferWithRange(indirec
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/memoryBarrierWithResources:count:
 func (o MTLComputeCommandEncoderObject) MemoryBarrierWithResourcesCount(resources []MTLResource, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("memoryBarrierWithResources:count:"), objc.CArray(resources), count)
 	}
 // Binds multiple buffers with data in stride to the buffer argument table at
@@ -918,7 +957,6 @@ func (o MTLComputeCommandEncoderObject) MemoryBarrierWithResourcesCount(resource
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBuffers:offsets:attributeStrides:withRange:
 func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsAttributeStridesWithRange(buffers []MTLBuffer, offsets uint, strides uint, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBuffers:offsets:attributeStrides:withRange:"), buffers, offsets, strides, range_)
 	}
 // Binds multiple buffers to the buffer argument table at once, allowing
@@ -948,7 +986,6 @@ func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsAttributeStridesWithRan
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBuffers:offsets:withRange:
 func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsWithRange(buffers []MTLBuffer, offsets uint, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), buffers, offsets, range_)
 	}
 // Binds multiple intersection function tables to the buffer argument table,
@@ -963,7 +1000,6 @@ func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsWithRange(buffers []MTL
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setIntersectionFunctionTables:withBufferRange:
 func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTablesWithBufferRange(intersectionFunctionTables []MTLIntersectionFunctionTable, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setIntersectionFunctionTables:withBufferRange:"), intersectionFunctionTables, range_)
 	}
 // Encodes multiple texture samplers with custom levels of detail clamping,
@@ -988,7 +1024,6 @@ func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTablesWithBufferR
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerStates:lodMinClamps:lodMaxClamps:withRange:
 func (o MTLComputeCommandEncoderObject) SetSamplerStatesLodMinClampsLodMaxClampsWithRange(samplers []MTLSamplerState, lodMinClamps []float32, lodMaxClamps []float32, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setSamplerStates:lodMinClamps:lodMaxClamps:withRange:"), samplers, lodMinClamps, lodMaxClamps, range_)
 	}
 // Encodes multiple texture samplers, allowing compute kernels to use them for
@@ -1004,7 +1039,6 @@ func (o MTLComputeCommandEncoderObject) SetSamplerStatesLodMinClampsLodMaxClamps
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setSamplerStates:withRange:
 func (o MTLComputeCommandEncoderObject) SetSamplerStatesWithRange(samplers []MTLSamplerState, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setSamplerStates:withRange:"), samplers, range_)
 	}
 // Binds multiple textures to the texture argument table, allowing compute
@@ -1019,7 +1053,6 @@ func (o MTLComputeCommandEncoderObject) SetSamplerStatesWithRange(samplers []MTL
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setTextures:withRange:
 func (o MTLComputeCommandEncoderObject) SetTexturesWithRange(textures []MTLTexture, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setTextures:withRange:"), textures, range_)
 	}
 // Binds multiple visible function tables to the buffer argument table,
@@ -1034,7 +1067,6 @@ func (o MTLComputeCommandEncoderObject) SetTexturesWithRange(textures []MTLTextu
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setVisibleFunctionTables:withBufferRange:
 func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTablesWithBufferRange(visibleFunctionTables []MTLVisibleFunctionTable, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setVisibleFunctionTables:withBufferRange:"), visibleFunctionTables, range_)
 	}
 // Ensures the shaders in the render pass’s subsequent draw commands have
@@ -1086,7 +1118,6 @@ func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTablesWithBufferRange(
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useHeaps:count:
 func (o MTLComputeCommandEncoderObject) UseHeapsCount(heaps []MTLHeap, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("useHeaps:count:"), objc.CArray(heaps), count)
 	}
 // Ensures kernel calls that the system encodes in subsequent commands have
@@ -1130,7 +1161,6 @@ func (o MTLComputeCommandEncoderObject) UseHeapsCount(heaps []MTLHeap, count uin
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResources:count:usage:
 func (o MTLComputeCommandEncoderObject) UseResourcesCountUsage(resources []MTLResource, count uint, usage MTLResourceUsage) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("useResources:count:usage:"), objc.CArray(resources), count, usage)
 	}
 // Declares that all command generation from the encoder is completed.
@@ -1142,7 +1172,6 @@ func (o MTLComputeCommandEncoderObject) UseResourcesCountUsage(resources []MTLRe
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/endEncoding()
 func (o MTLComputeCommandEncoderObject) EndEncoding() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("endEncoding"))
 	}
 // Inserts a debug string into the captured frame data.
@@ -1155,7 +1184,6 @@ func (o MTLComputeCommandEncoderObject) EndEncoding() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/insertDebugSignpost(_:)
 func (o MTLComputeCommandEncoderObject) InsertDebugSignpost(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertDebugSignpost:"), objc.String(string_))
 	}
 // Pushes a specific string onto a stack of debug group strings for the
@@ -1169,7 +1197,6 @@ func (o MTLComputeCommandEncoderObject) InsertDebugSignpost(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/pushDebugGroup(_:)
 func (o MTLComputeCommandEncoderObject) PushDebugGroup(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
 // Pops the latest string off of a stack of debug group strings for the
@@ -1183,14 +1210,12 @@ func (o MTLComputeCommandEncoderObject) PushDebugGroup(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/popDebugGroup()
 func (o MTLComputeCommandEncoderObject) PopDebugGroup() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
 // The Metal device from which the command encoder was created.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
 func (o MTLComputeCommandEncoderObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -1198,7 +1223,6 @@ func (o MTLComputeCommandEncoderObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
 func (o MTLComputeCommandEncoderObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -1236,7 +1260,6 @@ func (o MTLComputeCommandEncoderObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/barrier(afterQueueStages:beforeStages:)
 func (o MTLComputeCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 

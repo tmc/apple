@@ -55,7 +55,6 @@ func CIVibranceObjectFromID(id objc.ID) CIVibranceObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVibrance/amount
 func (o CIVibranceObject) Amount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
 	return rv
 	}
@@ -63,7 +62,6 @@ func (o CIVibranceObject) Amount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVibrance/inputImage
 func (o CIVibranceObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CIVibranceObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIVibranceObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

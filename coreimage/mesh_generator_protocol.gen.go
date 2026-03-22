@@ -66,7 +66,6 @@ func CIMeshGeneratorObjectFromID(id objc.ID) CIMeshGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMeshGenerator/color
 func (o CIMeshGeneratorObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -74,7 +73,6 @@ func (o CIMeshGeneratorObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMeshGenerator/mesh
 func (o CIMeshGeneratorObject) Mesh() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("mesh"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -82,7 +80,6 @@ func (o CIMeshGeneratorObject) Mesh() foundation.INSArray {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMeshGenerator/width
 func (o CIMeshGeneratorObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -91,7 +88,6 @@ func (o CIMeshGeneratorObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMeshGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

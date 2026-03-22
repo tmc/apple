@@ -44,7 +44,6 @@ func VNFaceObservationAcceptingObjectFromID(id objc.ID) VNFaceObservationAccepti
 //
 // See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
 func (o VNFaceObservationAcceptingObject) InputFaceObservations() []VNFaceObservation {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("inputFaceObservations"))
 	return objc.ConvertSlice(rv, func(id objc.ID) VNFaceObservation {
 		return VNFaceObservationFromID(id)

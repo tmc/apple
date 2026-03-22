@@ -116,7 +116,6 @@ func CIStarShineGeneratorObjectFromID(id objc.ID) CIStarShineGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/center
 func (o CIStarShineGeneratorObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -124,7 +123,6 @@ func (o CIStarShineGeneratorObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/color
 func (o CIStarShineGeneratorObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -132,7 +130,6 @@ func (o CIStarShineGeneratorObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossAngle
 func (o CIStarShineGeneratorObject) CrossAngle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("crossAngle"))
 	return rv
 	}
@@ -140,7 +137,6 @@ func (o CIStarShineGeneratorObject) CrossAngle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossOpacity
 func (o CIStarShineGeneratorObject) CrossOpacity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("crossOpacity"))
 	return rv
 	}
@@ -148,7 +144,6 @@ func (o CIStarShineGeneratorObject) CrossOpacity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossScale
 func (o CIStarShineGeneratorObject) CrossScale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("crossScale"))
 	return rv
 	}
@@ -156,7 +151,6 @@ func (o CIStarShineGeneratorObject) CrossScale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/crossWidth
 func (o CIStarShineGeneratorObject) CrossWidth() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("crossWidth"))
 	return rv
 	}
@@ -164,7 +158,6 @@ func (o CIStarShineGeneratorObject) CrossWidth() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/epsilon
 func (o CIStarShineGeneratorObject) Epsilon() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("epsilon"))
 	return rv
 	}
@@ -172,7 +165,6 @@ func (o CIStarShineGeneratorObject) Epsilon() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStarShineGenerator/radius
 func (o CIStarShineGeneratorObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -181,7 +173,6 @@ func (o CIStarShineGeneratorObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIStarShineGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

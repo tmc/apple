@@ -51,14 +51,12 @@ func NSLockingObjectFromID(id objc.ID) NSLockingObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/lock()
 func (o NSLockingObject) Lock() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("lock"))
 	}
 // Relinquishes a previously acquired lock.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSLocking/unlock()
 func (o NSLockingObject) Unlock() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("unlock"))
 	}
 

@@ -65,7 +65,6 @@ func CIVignetteObjectFromID(id objc.ID) CIVignetteObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignette/inputImage
 func (o CIVignetteObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIVignetteObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignette/intensity
 func (o CIVignetteObject) Intensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
 	}
@@ -81,7 +79,6 @@ func (o CIVignetteObject) Intensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIVignette/radius
 func (o CIVignetteObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CIVignetteObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIVignetteObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

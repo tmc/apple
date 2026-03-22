@@ -65,7 +65,6 @@ func CIMixObjectFromID(id objc.ID) CIMixObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMix/amount
 func (o CIMixObject) Amount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
 	return rv
 	}
@@ -73,7 +72,6 @@ func (o CIMixObject) Amount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMix/backgroundImage
 func (o CIMixObject) BackgroundImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("backgroundImage"))
 	return CIImageFromID(rv)
 	}
@@ -81,7 +79,6 @@ func (o CIMixObject) BackgroundImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMix/inputImage
 func (o CIMixObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -90,7 +87,6 @@ func (o CIMixObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMixObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

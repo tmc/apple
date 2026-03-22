@@ -48,7 +48,6 @@ func NSTextLocationObjectFromID(id objc.ID) NSTextLocationObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLocation/compare(_:)
 func (o NSTextLocationObject) Compare(location NSTextLocation) foundation.NSComparisonResult {
-	
 	rv := objc.Send[foundation.NSComparisonResult](o.ID, objc.Sel("compare:"), location)
 	return rv
 	}

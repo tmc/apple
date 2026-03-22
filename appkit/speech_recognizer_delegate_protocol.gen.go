@@ -41,7 +41,6 @@ func NSSpeechRecognizerDelegateObjectFromID(id objc.ID) NSSpeechRecognizerDelega
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechRecognizerDelegate/speechRecognizer(_:didRecognizeCommand:)
 func (o NSSpeechRecognizerDelegateObject) SpeechRecognizerDidRecognizeCommand(sender INSSpeechRecognizer, command string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("speechRecognizer:didRecognizeCommand:"), sender, objc.String(command))
 	}
 

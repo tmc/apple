@@ -698,7 +698,6 @@ func MTLDeviceObjectFromID(id objc.ID) MTLDeviceObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/maximumConcurrentCompilationTaskCount
 func (o MTLDeviceObject) MaximumConcurrentCompilationTaskCount() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("maximumConcurrentCompilationTaskCount"))
 	return rv
 	}
@@ -707,7 +706,6 @@ func (o MTLDeviceObject) MaximumConcurrentCompilationTaskCount() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/shouldMaximizeConcurrentCompilation
 func (o MTLDeviceObject) ShouldMaximizeConcurrentCompilation() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("shouldMaximizeConcurrentCompilation"))
 	return rv
 	}
@@ -719,7 +717,6 @@ func (o MTLDeviceObject) ShouldMaximizeConcurrentCompilation() bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/functionHandle(function:)-4bw39
 func (o MTLDeviceObject) FunctionHandleWithFunction(function MTLFunction) MTLFunctionHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionHandleWithFunction:"), function)
 	return MTLFunctionHandleObjectFromID(rv)
 	}
@@ -735,7 +732,6 @@ func (o MTLDeviceObject) FunctionHandleWithFunction(function MTLFunction) MTLFun
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/functionHandle(function:)-w9ia
 func (o MTLDeviceObject) FunctionHandleWithBinaryFunction(function MTL4BinaryFunction) MTLFunctionHandle {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("functionHandleWithBinaryFunction:"), function)
 	return MTLFunctionHandleObjectFromID(rv)
 	}
@@ -750,7 +746,6 @@ func (o MTLDeviceObject) FunctionHandleWithBinaryFunction(function MTL4BinaryFun
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeArchive(url:)
 func (o MTLDeviceObject) NewArchiveWithURLError(url foundation.INSURL) (MTL4Archive, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newArchiveWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -768,7 +763,6 @@ func (o MTLDeviceObject) NewArchiveWithURLError(url foundation.INSURL) (MTL4Arch
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeArgumentTable(descriptor:)
 func (o MTLDeviceObject) NewArgumentTableWithDescriptorError(descriptor IMTL4ArgumentTableDescriptor) (MTL4ArgumentTable, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newArgumentTableWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -800,7 +794,6 @@ func (o MTLDeviceObject) NewArgumentTableWithDescriptorError(descriptor IMTL4Arg
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(length:options:placementSparsePageSize:)
 func (o MTLDeviceObject) NewBufferWithLengthOptionsPlacementSparsePageSize(length uint, options MTLResourceOptions, placementSparsePageSize MTLSparsePageSize) MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithLength:options:placementSparsePageSize:"), length, options, placementSparsePageSize)
 	return MTLBufferObjectFromID(rv)
 	}
@@ -812,7 +805,6 @@ func (o MTLDeviceObject) NewBufferWithLengthOptionsPlacementSparsePageSize(lengt
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCommandAllocator()
 func (o MTLDeviceObject) NewCommandAllocator() MTL4CommandAllocator {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newCommandAllocator"))
 	return MTL4CommandAllocatorObjectFromID(rv)
 	}
@@ -827,7 +819,6 @@ func (o MTLDeviceObject) NewCommandAllocator() MTL4CommandAllocator {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCommandAllocator(descriptor:)
 func (o MTLDeviceObject) NewCommandAllocatorWithDescriptorError(descriptor IMTL4CommandAllocatorDescriptor) (MTL4CommandAllocator, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newCommandAllocatorWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -842,7 +833,6 @@ func (o MTLDeviceObject) NewCommandAllocatorWithDescriptorError(descriptor IMTL4
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCommandBuffer()
 func (o MTLDeviceObject) NewCommandBuffer() MTL4CommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newCommandBuffer"))
 	return MTL4CommandBufferObjectFromID(rv)
 	}
@@ -852,7 +842,6 @@ func (o MTLDeviceObject) NewCommandBuffer() MTL4CommandBuffer {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCommandQueue(descriptor:)
 func (o MTLDeviceObject) NewCommandQueueWithDescriptor(descriptor IMTLCommandQueueDescriptor) MTLCommandQueue {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newCommandQueueWithDescriptor:"), descriptor)
 	return MTLCommandQueueObjectFromID(rv)
 	}
@@ -867,7 +856,6 @@ func (o MTLDeviceObject) NewCommandQueueWithDescriptor(descriptor IMTLCommandQue
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCompiler(descriptor:)
 func (o MTLDeviceObject) NewCompilerWithDescriptorError(descriptor IMTL4CompilerDescriptor) (MTL4Compiler, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newCompilerWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -885,7 +873,6 @@ func (o MTLDeviceObject) NewCompilerWithDescriptorError(descriptor IMTL4Compiler
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCounterHeap(descriptor:)
 func (o MTLDeviceObject) NewCounterHeapWithDescriptorError(descriptor IMTL4CounterHeapDescriptor) (MTL4CounterHeap, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newCounterHeapWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -903,7 +890,6 @@ func (o MTLDeviceObject) NewCounterHeapWithDescriptorError(descriptor IMTL4Count
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLogState(descriptor:)
 func (o MTLDeviceObject) NewLogStateWithDescriptorError(descriptor IMTLLogStateDescriptor) (MTLLogState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newLogStateWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -918,7 +904,6 @@ func (o MTLDeviceObject) NewLogStateWithDescriptorError(descriptor IMTLLogStateD
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeMTL4CommandQueue()
 func (o MTLDeviceObject) NewMTL4CommandQueue() MTL4CommandQueue {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newMTL4CommandQueue"))
 	return MTL4CommandQueueObjectFromID(rv)
 	}
@@ -933,7 +918,6 @@ func (o MTLDeviceObject) NewMTL4CommandQueue() MTL4CommandQueue {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeMTL4CommandQueue(descriptor:)
 func (o MTLDeviceObject) NewMTL4CommandQueueWithDescriptorError(descriptor IMTL4CommandQueueDescriptor) (MTL4CommandQueue, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newMTL4CommandQueueWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -952,7 +936,6 @@ func (o MTLDeviceObject) NewMTL4CommandQueueWithDescriptorError(descriptor IMTL4
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makePipelineDataSetSerializer(descriptor:)
 func (o MTLDeviceObject) NewPipelineDataSetSerializerWithDescriptor(descriptor IMTL4PipelineDataSetSerializerDescriptor) MTL4PipelineDataSetSerializer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newPipelineDataSetSerializerWithDescriptor:"), descriptor)
 	return MTL4PipelineDataSetSerializerObjectFromID(rv)
 	}
@@ -967,7 +950,6 @@ func (o MTLDeviceObject) NewPipelineDataSetSerializerWithDescriptor(descriptor I
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeTensor(descriptor:)
 func (o MTLDeviceObject) NewTensorWithDescriptorError(descriptor IMTLTensorDescriptor) (MTLTensor, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newTensorWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -985,7 +967,6 @@ func (o MTLDeviceObject) NewTensorWithDescriptorError(descriptor IMTLTensorDescr
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeTextureViewPool(descriptor:)
 func (o MTLDeviceObject) NewTextureViewPoolWithDescriptorError(descriptor IMTLResourceViewPoolDescriptor) (MTLTextureViewPool, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newTextureViewPoolWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -1000,7 +981,6 @@ func (o MTLDeviceObject) NewTextureViewPoolWithDescriptorError(descriptor IMTLRe
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/queryTimestampFrequency()
 func (o MTLDeviceObject) QueryTimestampFrequency() uint64 {
-	
 	rv := objc.Send[uint64](o.ID, objc.Sel("queryTimestampFrequency"))
 	return rv
 	}
@@ -1035,7 +1015,6 @@ func (o MTLDeviceObject) QueryTimestampFrequency() uint64 {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/size(ofCounterHeapEntry:)
 func (o MTLDeviceObject) SizeOfCounterHeapEntry(type_ MTL4CounterHeapType) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("sizeOfCounterHeapEntry:"), type_)
 	return rv
 	}
@@ -1051,7 +1030,6 @@ func (o MTLDeviceObject) SizeOfCounterHeapEntry(type_ MTL4CounterHeapType) uint 
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/tensorSizeAndAlign(descriptor:)
 func (o MTLDeviceObject) TensorSizeAndAlignWithDescriptor(descriptor IMTLTensorDescriptor) MTLSizeAndAlign {
-	
 	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("tensorSizeAndAlignWithDescriptor:"), descriptor)
 	return rv
 	}
@@ -1068,7 +1046,6 @@ func (o MTLDeviceObject) TensorSizeAndAlignWithDescriptor(descriptor IMTLTensorD
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/accelerationStructureSizes(descriptor:)
 func (o MTLDeviceObject) AccelerationStructureSizesWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLAccelerationStructureSizes {
-	
 	rv := objc.Send[MTLAccelerationStructureSizes](o.ID, objc.Sel("accelerationStructureSizesWithDescriptor:"), descriptor)
 	return rv
 	}
@@ -1121,7 +1098,6 @@ func (o MTLDeviceObject) AccelerationStructureSizesWithDescriptor(descriptor IMT
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/getDefaultSamplePositions:count:
 func (o MTLDeviceObject) GetDefaultSamplePositionsCount(positions *MTLSamplePosition, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("getDefaultSamplePositions:count:"), objc.CArray(positions), count)
 	}
 // Returns the size and alignment, in bytes, of an acceleration structure if
@@ -1142,7 +1118,6 @@ func (o MTLDeviceObject) GetDefaultSamplePositionsCount(positions *MTLSamplePosi
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(descriptor:)
 func (o MTLDeviceObject) HeapAccelerationStructureSizeAndAlignWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLSizeAndAlign {
-	
 	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("heapAccelerationStructureSizeAndAlignWithDescriptor:"), descriptor)
 	return rv
 	}
@@ -1164,7 +1139,6 @@ func (o MTLDeviceObject) HeapAccelerationStructureSizeAndAlignWithDescriptor(des
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/heapAccelerationStructureSizeAndAlign(size:)
 func (o MTLDeviceObject) HeapAccelerationStructureSizeAndAlignWithSize(size uint) MTLSizeAndAlign {
-	
 	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("heapAccelerationStructureSizeAndAlignWithSize:"), size)
 	return rv
 	}
@@ -1194,7 +1168,6 @@ func (o MTLDeviceObject) HeapAccelerationStructureSizeAndAlignWithSize(size uint
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/heapBufferSizeAndAlign(length:options:)
 func (o MTLDeviceObject) HeapBufferSizeAndAlignWithLengthOptions(length uint, options MTLResourceOptions) MTLSizeAndAlign {
-	
 	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("heapBufferSizeAndAlignWithLength:options:"), length, options)
 	return rv
 	}
@@ -1216,7 +1189,6 @@ func (o MTLDeviceObject) HeapBufferSizeAndAlignWithLengthOptions(length uint, op
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/heapTextureSizeAndAlign(descriptor:)
 func (o MTLDeviceObject) HeapTextureSizeAndAlignWithDescriptor(desc IMTLTextureDescriptor) MTLSizeAndAlign {
-	
 	rv := objc.Send[MTLSizeAndAlign](o.ID, objc.Sel("heapTextureSizeAndAlignWithDescriptor:"), desc)
 	return rv
 	}
@@ -1236,7 +1208,6 @@ func (o MTLDeviceObject) HeapTextureSizeAndAlignWithDescriptor(desc IMTLTextureD
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/minimumLinearTextureAlignment(for:)
 func (o MTLDeviceObject) MinimumLinearTextureAlignmentForPixelFormat(format MTLPixelFormat) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("minimumLinearTextureAlignmentForPixelFormat:"), format)
 	return rv
 	}
@@ -1255,7 +1226,6 @@ func (o MTLDeviceObject) MinimumLinearTextureAlignmentForPixelFormat(format MTLP
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/minimumTextureBufferAlignment(for:)
 func (o MTLDeviceObject) MinimumTextureBufferAlignmentForPixelFormat(format MTLPixelFormat) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("minimumTextureBufferAlignmentForPixelFormat:"), format)
 	return rv
 	}
@@ -1270,7 +1240,6 @@ func (o MTLDeviceObject) MinimumTextureBufferAlignmentForPixelFormat(format MTLP
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeAccelerationStructure(descriptor:)
 func (o MTLDeviceObject) NewAccelerationStructureWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLAccelerationStructure {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithDescriptor:"), descriptor)
 	return MTLAccelerationStructureObjectFromID(rv)
 	}
@@ -1285,7 +1254,6 @@ func (o MTLDeviceObject) NewAccelerationStructureWithDescriptor(descriptor IMTLA
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeAccelerationStructure(size:)
 func (o MTLDeviceObject) NewAccelerationStructureWithSize(size uint) MTLAccelerationStructure {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithSize:"), size)
 	return MTLAccelerationStructureObjectFromID(rv)
 	}
@@ -1296,7 +1264,6 @@ func (o MTLDeviceObject) NewAccelerationStructureWithSize(size uint) MTLAccelera
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeArgumentEncoder(arguments:)
 func (o MTLDeviceObject) NewArgumentEncoderWithArguments(arguments []MTLArgumentDescriptor) MTLArgumentEncoder {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newArgumentEncoderWithArguments:"), objectivec.IObjectSliceToNSArray(arguments))
 	return MTLArgumentEncoderObjectFromID(rv)
 	}
@@ -1306,7 +1273,6 @@ func (o MTLDeviceObject) NewArgumentEncoderWithArguments(arguments []MTLArgument
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeArgumentEncoder(bufferBinding:)
 func (o MTLDeviceObject) NewArgumentEncoderWithBufferBinding(bufferBinding MTLBufferBinding) MTLArgumentEncoder {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newArgumentEncoderWithBufferBinding:"), bufferBinding)
 	return MTLArgumentEncoderObjectFromID(rv)
 	}
@@ -1316,7 +1282,6 @@ func (o MTLDeviceObject) NewArgumentEncoderWithBufferBinding(bufferBinding MTLBu
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBinaryArchive(descriptor:)
 func (o MTLDeviceObject) NewBinaryArchiveWithDescriptorError(descriptor IMTLBinaryArchiveDescriptor) (MTLBinaryArchive, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newBinaryArchiveWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -1347,7 +1312,6 @@ func (o MTLDeviceObject) NewBinaryArchiveWithDescriptorError(descriptor IMTLBina
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(bytes:length:options:)
 func (o MTLDeviceObject) NewBufferWithBytesLengthOptions(pointer unsafe.Pointer, length uint, options MTLResourceOptions) MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithBytes:length:options:"), pointer, length, options)
 	return MTLBufferObjectFromID(rv)
 	}
@@ -1378,7 +1342,6 @@ func (o MTLDeviceObject) NewBufferWithBytesLengthOptions(pointer unsafe.Pointer,
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(bytesNoCopy:length:options:deallocator:)
 func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(unsafe.Pointer, uint64)) MTLBuffer {
-	
 	_block3 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
 	defer _block3.Release()
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithBytesNoCopy:length:options:deallocator:"), pointer, length, options, objc.ID(_block3))
@@ -1403,7 +1366,6 @@ func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointe
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(length:options:)
 func (o MTLDeviceObject) NewBufferWithLengthOptions(length uint, options MTLResourceOptions) MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithLength:options:"), length, options)
 	return MTLBufferObjectFromID(rv)
 	}
@@ -1425,7 +1387,6 @@ func (o MTLDeviceObject) NewBufferWithLengthOptions(length uint, options MTLReso
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCommandQueue()
 func (o MTLDeviceObject) NewCommandQueue() MTLCommandQueue {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newCommandQueue"))
 	return MTLCommandQueueObjectFromID(rv)
 	}
@@ -1447,7 +1408,6 @@ func (o MTLDeviceObject) NewCommandQueue() MTLCommandQueue {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCommandQueue(maxCommandBufferCount:)
 func (o MTLDeviceObject) NewCommandQueueWithMaxCommandBufferCount(maxCommandBufferCount uint) MTLCommandQueue {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newCommandQueueWithMaxCommandBufferCount:"), maxCommandBufferCount)
 	return MTLCommandQueueObjectFromID(rv)
 	}
@@ -1470,7 +1430,6 @@ func (o MTLDeviceObject) NewCommandQueueWithMaxCommandBufferCount(maxCommandBuff
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(descriptor:options:completionHandler:)
 func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:options:completionHandler:"), descriptor, options, completionHandler)
 	}
 // Synchronously creates a compute pipeline state and reflection information.
@@ -1498,7 +1457,6 @@ func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsCompletionH
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(descriptor:options:reflection:)
 func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:options:reflection:error:"), descriptor, options, reflection)
 	if err != nil {
 		return nil, err
@@ -1519,7 +1477,6 @@ func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsReflectionE
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:completionHandler:)
 func (o MTLDeviceObject) NewComputePipelineStateWithFunctionCompletionHandler(computeFunction MTLFunction, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithFunction:completionHandler:"), computeFunction, completionHandler)
 	}
 // Synchronously creates a compute pipeline state with a function instance.
@@ -1533,7 +1490,6 @@ func (o MTLDeviceObject) NewComputePipelineStateWithFunctionCompletionHandler(co
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:)
 func (o MTLDeviceObject) NewComputePipelineStateWithFunctionError(computeFunction MTLFunction) (MTLComputePipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithFunction:error:"), computeFunction)
 	if err != nil {
 		return nil, err
@@ -1560,7 +1516,6 @@ func (o MTLDeviceObject) NewComputePipelineStateWithFunctionError(computeFunctio
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:options:completionHandler:)
 func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsCompletionHandler(computeFunction MTLFunction, options MTLPipelineOption, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithFunction:options:completionHandler:"), computeFunction, options, completionHandler)
 	}
 // Synchronously creates a compute pipeline state and reflection with a
@@ -1584,7 +1539,6 @@ func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsCompletionHan
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:options:reflection:)
 func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsReflectionError(computeFunction MTLFunction, options MTLPipelineOption, reflection *MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithFunction:options:reflection:error:"), computeFunction, options, reflection)
 	if err != nil {
 		return nil, err
@@ -1608,7 +1562,6 @@ func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsReflectionErr
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeCounterSampleBuffer(descriptor:)
 func (o MTLDeviceObject) NewCounterSampleBufferWithDescriptorError(descriptor IMTLCounterSampleBufferDescriptor) (MTLCounterSampleBuffer, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newCounterSampleBufferWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -1630,7 +1583,6 @@ func (o MTLDeviceObject) NewCounterSampleBufferWithDescriptorError(descriptor IM
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDefaultLibrary()
 func (o MTLDeviceObject) NewDefaultLibrary() MTLLibrary {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newDefaultLibrary"))
 	return MTLLibraryObjectFromID(rv)
 	}
@@ -1646,7 +1598,6 @@ func (o MTLDeviceObject) NewDefaultLibrary() MTLLibrary {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDefaultLibrary(bundle:)
 func (o MTLDeviceObject) NewDefaultLibraryWithBundleError(bundle foundation.NSBundle) (MTLLibrary, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newDefaultLibraryWithBundle:error:"), bundle)
 	if err != nil {
 		return nil, err
@@ -1664,7 +1615,6 @@ func (o MTLDeviceObject) NewDefaultLibraryWithBundleError(bundle foundation.NSBu
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDepthStencilState(descriptor:)
 func (o MTLDeviceObject) NewDepthStencilStateWithDescriptor(descriptor IMTLDepthStencilDescriptor) MTLDepthStencilState {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newDepthStencilStateWithDescriptor:"), descriptor)
 	return MTLDepthStencilStateObjectFromID(rv)
 	}
@@ -1679,7 +1629,6 @@ func (o MTLDeviceObject) NewDepthStencilStateWithDescriptor(descriptor IMTLDepth
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDynamicLibrary(library:)
 func (o MTLDeviceObject) NewDynamicLibraryError(library MTLLibrary) (MTLDynamicLibrary, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newDynamicLibrary:error:"), library)
 	if err != nil {
 		return nil, err
@@ -1698,7 +1647,6 @@ func (o MTLDeviceObject) NewDynamicLibraryError(library MTLLibrary) (MTLDynamicL
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDynamicLibrary(url:)
 func (o MTLDeviceObject) NewDynamicLibraryWithURLError(url foundation.INSURL) (MTLDynamicLibrary, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newDynamicLibraryWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -1710,7 +1658,6 @@ func (o MTLDeviceObject) NewDynamicLibraryWithURLError(url foundation.INSURL) (M
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeEvent()
 func (o MTLDeviceObject) NewEvent() MTLEvent {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newEvent"))
 	return MTLEventObjectFromID(rv)
 	}
@@ -1718,7 +1665,6 @@ func (o MTLDeviceObject) NewEvent() MTLEvent {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeFence()
 func (o MTLDeviceObject) NewFence() MTLFence {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newFence"))
 	return MTLFenceObjectFromID(rv)
 	}
@@ -1739,7 +1685,6 @@ func (o MTLDeviceObject) NewFence() MTLFence {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeHeap(descriptor:)
 func (o MTLDeviceObject) NewHeapWithDescriptor(descriptor IMTLHeapDescriptor) MTLHeap {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newHeapWithDescriptor:"), descriptor)
 	return MTLHeapObjectFromID(rv)
 	}
@@ -1762,7 +1707,6 @@ func (o MTLDeviceObject) NewHeapWithDescriptor(descriptor IMTLHeapDescriptor) MT
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOCommandQueue(descriptor:)
 func (o MTLDeviceObject) NewIOCommandQueueWithDescriptorError(descriptor IMTLIOCommandQueueDescriptor) (MTLIOCommandQueue, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newIOCommandQueueWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -1790,7 +1734,6 @@ func (o MTLDeviceObject) NewIOCommandQueueWithDescriptorError(descriptor IMTLIOC
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOFileHandle(url:compressionMethod:)
 func (o MTLDeviceObject) NewIOFileHandleWithURLCompressionMethodError(url foundation.INSURL, compressionMethod MTLIOCompressionMethod) (MTLIOFileHandle, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newIOFileHandleWithURL:compressionMethod:error:"), url, compressionMethod)
 	if err != nil {
 		return nil, err
@@ -1816,7 +1759,6 @@ func (o MTLDeviceObject) NewIOFileHandleWithURLCompressionMethodError(url founda
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOFileHandle(url:)
 func (o MTLDeviceObject) NewIOFileHandleWithURLError(url foundation.INSURL) (MTLIOFileHandle, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newIOFileHandleWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -1840,7 +1782,6 @@ func (o MTLDeviceObject) NewIOFileHandleWithURLError(url foundation.INSURL) (MTL
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIndirectCommandBuffer(descriptor:maxCommandCount:options:)
 func (o MTLDeviceObject) NewIndirectCommandBufferWithDescriptorMaxCommandCountOptions(descriptor IMTLIndirectCommandBufferDescriptor, maxCount uint, options MTLResourceOptions) MTLIndirectCommandBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newIndirectCommandBufferWithDescriptor:maxCommandCount:options:"), descriptor, maxCount, options)
 	return MTLIndirectCommandBufferObjectFromID(rv)
 	}
@@ -1871,7 +1812,6 @@ func (o MTLDeviceObject) NewIndirectCommandBufferWithDescriptorMaxCommandCountOp
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(data:)
 func (o MTLDeviceObject) NewLibraryWithDataError(data dispatch.Data) (MTLLibrary, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newLibraryWithData:error:"), uintptr(data.Handle()))
 	if err != nil {
 		return nil, err
@@ -1900,7 +1840,6 @@ func (o MTLDeviceObject) NewLibraryWithDataError(data dispatch.Data) (MTLLibrary
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(source:options:completionHandler:)
 func (o MTLDeviceObject) NewLibraryWithSourceOptionsCompletionHandler(source string, options IMTLCompileOptions, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newLibraryWithSource:options:completionHandler:"), objc.String(source), options, completionHandler)
 	}
 // Synchronously creates a Metal library instance by compiling the functions
@@ -1927,7 +1866,6 @@ func (o MTLDeviceObject) NewLibraryWithSourceOptionsCompletionHandler(source str
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(source:options:)
 func (o MTLDeviceObject) NewLibraryWithSourceOptionsError(source string, options IMTLCompileOptions) (MTLLibrary, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newLibraryWithSource:options:error:"), objc.String(source), options)
 	if err != nil {
 		return nil, err
@@ -1944,7 +1882,6 @@ func (o MTLDeviceObject) NewLibraryWithSourceOptionsError(source string, options
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(stitchedDescriptor:completionHandler:)
 func (o MTLDeviceObject) NewLibraryWithStitchedDescriptorCompletionHandler(descriptor IMTLStitchedLibraryDescriptor, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newLibraryWithStitchedDescriptor:completionHandler:"), descriptor, completionHandler)
 	}
 // Synchronously creates a Metal library from the function stitching graphs in
@@ -1959,7 +1896,6 @@ func (o MTLDeviceObject) NewLibraryWithStitchedDescriptorCompletionHandler(descr
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(stitchedDescriptor:)
 func (o MTLDeviceObject) NewLibraryWithStitchedDescriptorError(descriptor IMTLStitchedLibraryDescriptor) (MTLLibrary, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newLibraryWithStitchedDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -1978,7 +1914,6 @@ func (o MTLDeviceObject) NewLibraryWithStitchedDescriptorError(descriptor IMTLSt
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(URL:)
 func (o MTLDeviceObject) NewLibraryWithURLError(url foundation.INSURL) (MTLLibrary, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newLibraryWithURL:error:"), url)
 	if err != nil {
 		return nil, err
@@ -1996,7 +1931,6 @@ func (o MTLDeviceObject) NewLibraryWithURLError(url foundation.INSURL) (MTLLibra
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRasterizationRateMap(descriptor:)
 func (o MTLDeviceObject) NewRasterizationRateMapWithDescriptor(descriptor IMTLRasterizationRateMapDescriptor) MTLRasterizationRateMap {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newRasterizationRateMapWithDescriptor:"), descriptor)
 	return MTLRasterizationRateMapObjectFromID(rv)
 	}
@@ -2015,7 +1949,6 @@ func (o MTLDeviceObject) NewRasterizationRateMapWithDescriptor(descriptor IMTLRa
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:completionHandler:)
 func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorCompletionHandler(descriptor IMTLRenderPipelineDescriptor, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:completionHandler:"), descriptor, completionHandler)
 	}
 // Synchronously creates a render pipeline state.
@@ -2036,7 +1969,6 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorCompletionHandler(d
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:)
 func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorError(descriptor IMTLRenderPipelineDescriptor) (MTLRenderPipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:error:"), descriptor)
 	if err != nil {
 		return nil, err
@@ -2063,7 +1995,6 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorError(descriptor IM
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:completionHandler:)-5gdww
 func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:options:completionHandler:"), descriptor, options, completionHandler)
 	}
 // Synchronously creates a render pipeline state and reflection information.
@@ -2098,7 +2029,6 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsCompletionHa
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:reflection:)
 func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:options:reflection:error:"), descriptor, options, reflection)
 	if err != nil {
 		return nil, err
@@ -2126,7 +2056,6 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsReflectionEr
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:completionHandler:)-1wvya
 func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithMeshDescriptor:options:completionHandler:"), descriptor, options, completionHandler)
 	}
 // Synchronously creates a mesh render pipeline state and reflection
@@ -2164,7 +2093,6 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsCompleti
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/newRenderPipelineStateWithMeshDescriptor:options:reflection:error:
 func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsReflectionError(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithMeshDescriptor:options:reflection:error:"), descriptor, options, reflection)
 	if err != nil {
 		return nil, err
@@ -2186,7 +2114,6 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsReflecti
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(tileDescriptor:options:completionHandler:)
 func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsCompletionHandler(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithTileDescriptor:options:completionHandler:"), descriptor, options, completionHandler)
 	}
 // Synchronously creates a tile shader’s render pipeline state and
@@ -2216,7 +2143,6 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsCompleti
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(tileDescriptor:options:reflection:)
 func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsReflectionError(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithTileDescriptor:options:reflection:error:"), descriptor, options, reflection)
 	if err != nil {
 		return nil, err
@@ -2245,7 +2171,6 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsReflecti
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeResidencySet(descriptor:)
 func (o MTLDeviceObject) NewResidencySetWithDescriptorError(desc IMTLResidencySetDescriptor) (MTLResidencySet, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newResidencySetWithDescriptor:error:"), desc)
 	if err != nil {
 		return nil, err
@@ -2263,7 +2188,6 @@ func (o MTLDeviceObject) NewResidencySetWithDescriptorError(desc IMTLResidencySe
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeSamplerState(descriptor:)
 func (o MTLDeviceObject) NewSamplerStateWithDescriptor(descriptor IMTLSamplerDescriptor) MTLSamplerState {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newSamplerStateWithDescriptor:"), descriptor)
 	return MTLSamplerStateObjectFromID(rv)
 	}
@@ -2272,7 +2196,6 @@ func (o MTLDeviceObject) NewSamplerStateWithDescriptor(descriptor IMTLSamplerDes
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeSharedEvent()
 func (o MTLDeviceObject) NewSharedEvent() MTLSharedEvent {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newSharedEvent"))
 	return MTLSharedEventObjectFromID(rv)
 	}
@@ -2287,7 +2210,6 @@ func (o MTLDeviceObject) NewSharedEvent() MTLSharedEvent {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeSharedEvent(handle:)
 func (o MTLDeviceObject) NewSharedEventWithHandle(sharedEventHandle IMTLSharedEventHandle) MTLSharedEvent {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newSharedEventWithHandle:"), sharedEventHandle)
 	return MTLSharedEventObjectFromID(rv)
 	}
@@ -2311,7 +2233,6 @@ func (o MTLDeviceObject) NewSharedEventWithHandle(sharedEventHandle IMTLSharedEv
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeSharedTexture(descriptor:)
 func (o MTLDeviceObject) NewSharedTextureWithDescriptor(descriptor IMTLTextureDescriptor) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newSharedTextureWithDescriptor:"), descriptor)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -2332,7 +2253,6 @@ func (o MTLDeviceObject) NewSharedTextureWithDescriptor(descriptor IMTLTextureDe
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeSharedTexture(handle:)
 func (o MTLDeviceObject) NewSharedTextureWithHandle(sharedHandle IMTLSharedTextureHandle) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newSharedTextureWithHandle:"), sharedHandle)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -2347,7 +2267,6 @@ func (o MTLDeviceObject) NewSharedTextureWithHandle(sharedHandle IMTLSharedTextu
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeTexture(descriptor:)
 func (o MTLDeviceObject) NewTextureWithDescriptor(descriptor IMTLTextureDescriptor) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureWithDescriptor:"), descriptor)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -2368,7 +2287,6 @@ func (o MTLDeviceObject) NewTextureWithDescriptor(descriptor IMTLTextureDescript
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeTexture(descriptor:iosurface:plane:)
 func (o MTLDeviceObject) NewTextureWithDescriptorIosurfacePlane(descriptor IMTLTextureDescriptor, iosurface iosurface.IOSurfaceRef, plane uint) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureWithDescriptor:iosurface:plane:"), descriptor, iosurface, plane)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -2389,7 +2307,6 @@ func (o MTLDeviceObject) NewTextureWithDescriptorIosurfacePlane(descriptor IMTLT
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/sampleTimestamps:gpuTimestamp:
 func (o MTLDeviceObject) SampleTimestampsGpuTimestamp(cpuTimestamp *MTLTimestamp, gpuTimestamp *MTLTimestamp) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sampleTimestamps:gpuTimestamp:"), cpuTimestamp, gpuTimestamp)
 	}
 // Returns the size, in bytes, of a sparse tile the GPU device creates with a
@@ -2401,7 +2318,6 @@ func (o MTLDeviceObject) SampleTimestampsGpuTimestamp(cpuTimestamp *MTLTimestamp
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/sparseTileSizeInBytes(sparsePageSize:)
 func (o MTLDeviceObject) SparseTileSizeInBytesForSparsePageSize(sparsePageSize MTLSparsePageSize) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("sparseTileSizeInBytesForSparsePageSize:"), sparsePageSize)
 	return rv
 	}
@@ -2434,7 +2350,6 @@ func (o MTLDeviceObject) SparseTileSizeInBytesForSparsePageSize(sparsePageSize M
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/sparseTileSize(with:pixelFormat:sampleCount:)
 func (o MTLDeviceObject) SparseTileSizeWithTextureTypePixelFormatSampleCount(textureType MTLTextureType, pixelFormat MTLPixelFormat, sampleCount uint) MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("sparseTileSizeWithTextureType:pixelFormat:sampleCount:"), textureType, pixelFormat, sampleCount)
 	return rv
 	}
@@ -2463,7 +2378,6 @@ func (o MTLDeviceObject) SparseTileSizeWithTextureTypePixelFormatSampleCount(tex
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/sparseTileSize(textureType:pixelFormat:sampleCount:sparsePageSize:)
 func (o MTLDeviceObject) SparseTileSizeWithTextureTypePixelFormatSampleCountSparsePageSize(textureType MTLTextureType, pixelFormat MTLPixelFormat, sampleCount uint, sparsePageSize MTLSparsePageSize) MTLSize {
-	
 	rv := objc.Send[MTLSize](o.ID, objc.Sel("sparseTileSizeWithTextureType:pixelFormat:sampleCount:sparsePageSize:"), textureType, pixelFormat, sampleCount, sparsePageSize)
 	return rv
 	}
@@ -2474,7 +2388,6 @@ func (o MTLDeviceObject) SparseTileSizeWithTextureTypePixelFormatSampleCountSpar
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsCounterSampling(_:)
 func (o MTLDeviceObject) SupportsCounterSampling(samplingPoint MTLCounterSamplingPoint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsCounterSampling:"), samplingPoint)
 	return rv
 	}
@@ -2487,7 +2400,6 @@ func (o MTLDeviceObject) SupportsCounterSampling(samplingPoint MTLCounterSamplin
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsFamily(_:)
 func (o MTLDeviceObject) SupportsFamily(gpuFamily MTLGPUFamily) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsFamily:"), gpuFamily)
 	return rv
 	}
@@ -2498,7 +2410,6 @@ func (o MTLDeviceObject) SupportsFamily(gpuFamily MTLGPUFamily) bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsRasterizationRateMap(layerCount:)
 func (o MTLDeviceObject) SupportsRasterizationRateMapWithLayerCount(layerCount uint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsRasterizationRateMapWithLayerCount:"), layerCount)
 	return rv
 	}
@@ -2527,7 +2438,6 @@ func (o MTLDeviceObject) SupportsRasterizationRateMapWithLayerCount(layerCount u
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsTextureSampleCount(_:)
 func (o MTLDeviceObject) SupportsTextureSampleCount(sampleCount uint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsTextureSampleCount:"), sampleCount)
 	return rv
 	}
@@ -2549,7 +2459,6 @@ func (o MTLDeviceObject) SupportsTextureSampleCount(sampleCount uint) bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/supportsVertexAmplificationCount(_:)
 func (o MTLDeviceObject) SupportsVertexAmplificationCount(count uint) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsVertexAmplificationCount:"), count)
 	return rv
 	}
@@ -2575,7 +2484,6 @@ func (o MTLDeviceObject) SupportsVertexAmplificationCount(count uint) bool {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/convertSparsePixelRegions(_:toTileRegions:withTileSize:alignmentMode:numRegions:)
 func (o MTLDeviceObject) ConvertSparsePixelRegionsToTileRegionsWithTileSizeAlignmentModeNumRegions(pixelRegions []MTLRegion, tileRegions []MTLRegion, tileSize MTLSize, mode MTLSparseTextureRegionAlignmentMode, numRegions uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("convertSparsePixelRegions:toTileRegions:withTileSize:alignmentMode:numRegions:"), pixelRegions, tileRegions, tileSize, mode, numRegions)
 	}
 // Converts a list of sparse tile regions to pixel regions.
@@ -2596,7 +2504,6 @@ func (o MTLDeviceObject) ConvertSparsePixelRegionsToTileRegionsWithTileSizeAlign
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/convertSparseTileRegions(_:toPixelRegions:withTileSize:numRegions:)
 func (o MTLDeviceObject) ConvertSparseTileRegionsToPixelRegionsWithTileSizeNumRegions(tileRegions []MTLRegion, pixelRegions []MTLRegion, tileSize MTLSize, numRegions uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("convertSparseTileRegions:toPixelRegions:withTileSize:numRegions:"), tileRegions, pixelRegions, tileSize, numRegions)
 	}
 

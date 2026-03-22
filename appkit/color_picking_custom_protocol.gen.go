@@ -68,7 +68,6 @@ func NSColorPickingCustomObjectFromID(id objc.ID) NSColorPickingCustomObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingCustom/setColor(_:)
 func (o NSColorPickingCustomObject) SetColor(newColor INSColor) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setColor:"), newColor)
 	}
 // Returns the receiver’s current mode (or submode, if applicable).
@@ -81,7 +80,6 @@ func (o NSColorPickingCustomObject) SetColor(newColor INSColor) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingCustom/currentMode()
 func (o NSColorPickingCustomObject) CurrentMode() NSColorPanelMode {
-	
 	rv := objc.Send[NSColorPanelMode](o.ID, objc.Sel("currentMode"))
 	return rv
 	}
@@ -109,7 +107,6 @@ func (o NSColorPickingCustomObject) CurrentMode() NSColorPanelMode {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingCustom/supportsMode(_:)
 func (o NSColorPickingCustomObject) SupportsMode(mode NSColorPanelMode) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("supportsMode:"), mode)
 	return rv
 	}
@@ -136,7 +133,6 @@ func (o NSColorPickingCustomObject) SupportsMode(mode NSColorPanelMode) bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingCustom/provideNewView(_:)
 func (o NSColorPickingCustomObject) ProvideNewView(initialRequest bool) INSView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("provideNewView:"), initialRequest)
 	return NSViewFromID(rv)
 	}
@@ -162,7 +158,6 @@ func (o NSColorPickingCustomObject) ProvideNewView(initialRequest bool) INSView 
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/setMode(_:)
 func (o NSColorPickingCustomObject) SetMode(mode NSColorPanelMode) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("setMode:"), mode)
 	}
 // Sets the image of a given button cell.
@@ -180,7 +175,6 @@ func (o NSColorPickingCustomObject) SetMode(mode NSColorPanelMode) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/insertNewButtonImage(_:in:)
 func (o NSColorPickingCustomObject) InsertNewButtonImageIn(newButtonImage INSImage, buttonCell INSButtonCell) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertNewButtonImage:in:"), newButtonImage, buttonCell)
 	}
 // Provides the image of the button used to select the receiver in the color
@@ -199,7 +193,6 @@ func (o NSColorPickingCustomObject) InsertNewButtonImageIn(newButtonImage INSIma
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/provideNewButtonImage()
 func (o NSColorPickingCustomObject) ProvideNewButtonImage() INSImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("provideNewButtonImage"))
 	return NSImageFromID(rv)
 	}
@@ -211,7 +204,6 @@ func (o NSColorPickingCustomObject) ProvideNewButtonImage() INSImage {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/minContentSize()
 func (o NSColorPickingCustomObject) MinContentSize() corefoundation.CGSize {
-	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("minContentSize"))
 	return rv
 	}
@@ -223,7 +215,6 @@ func (o NSColorPickingCustomObject) MinContentSize() corefoundation.CGSize {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/buttonToolTip()
 func (o NSColorPickingCustomObject) ButtonToolTip() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("buttonToolTip"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -246,7 +237,6 @@ func (o NSColorPickingCustomObject) ButtonToolTip() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/alphaControlAddedOrRemoved(_:)
 func (o NSColorPickingCustomObject) AlphaControlAddedOrRemoved(sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("alphaControlAddedOrRemoved:"), sender)
 	}
 // Tells the recever when the color panel’s view size changes in a way that
@@ -263,7 +253,6 @@ func (o NSColorPickingCustomObject) AlphaControlAddedOrRemoved(sender objectivec
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/viewSizeChanged(_:)
 func (o NSColorPickingCustomObject) ViewSizeChanged(sender objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("viewSizeChanged:"), sender)
 	}
 // Tells the receiver to attach the given color list, if it isn’t already
@@ -281,7 +270,6 @@ func (o NSColorPickingCustomObject) ViewSizeChanged(sender objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/attachColorList(_:)
 func (o NSColorPickingCustomObject) AttachColorList(colorList INSColorList) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("attachColorList:"), colorList)
 	}
 // Tells the receiver to detach the given color list, unless the receiver
@@ -299,7 +287,6 @@ func (o NSColorPickingCustomObject) AttachColorList(colorList INSColorList) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/detachColorList(_:)
 func (o NSColorPickingCustomObject) DetachColorList(colorList INSColorList) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("detachColorList:"), colorList)
 	}
 

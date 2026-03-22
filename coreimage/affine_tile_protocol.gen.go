@@ -56,7 +56,6 @@ func CIAffineTileObjectFromID(id objc.ID) CIAffineTileObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/inputImage
 func (o CIAffineTileObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -64,7 +63,6 @@ func (o CIAffineTileObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineTile/transform
 func (o CIAffineTileObject) Transform() corefoundation.CGAffineTransform {
-	
 	rv := objc.Send[corefoundation.CGAffineTransform](o.ID, objc.Sel("transform"))
 	return rv
 	}
@@ -73,7 +71,6 @@ func (o CIAffineTileObject) Transform() corefoundation.CGAffineTransform {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIAffineTileObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

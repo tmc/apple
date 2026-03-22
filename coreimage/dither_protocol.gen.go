@@ -55,7 +55,6 @@ func CIDitherObjectFromID(id objc.ID) CIDitherObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDither/inputImage
 func (o CIDitherObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIDitherObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDither/intensity
 func (o CIDitherObject) Intensity() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("intensity"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIDitherObject) Intensity() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIDitherObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

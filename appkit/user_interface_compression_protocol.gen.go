@@ -61,7 +61,6 @@ func NSUserInterfaceCompressionObjectFromID(id objc.ID) NSUserInterfaceCompressi
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompression/compress(withPrioritizedCompressionOptions:)
 func (o NSUserInterfaceCompressionObject) CompressWithPrioritizedCompressionOptions(prioritizedOptions []NSUserInterfaceCompressionOptions) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("compressWithPrioritizedCompressionOptions:"), objectivec.IObjectSliceToNSArray(prioritizedOptions))
 	}
 // Returns the minimum size a view can achieve by applying the supplied
@@ -81,7 +80,6 @@ func (o NSUserInterfaceCompressionObject) CompressWithPrioritizedCompressionOpti
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompression/minimumSize(withPrioritizedCompressionOptions:)
 func (o NSUserInterfaceCompressionObject) MinimumSizeWithPrioritizedCompressionOptions(prioritizedOptions []NSUserInterfaceCompressionOptions) corefoundation.CGSize {
-	
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("minimumSizeWithPrioritizedCompressionOptions:"), objectivec.IObjectSliceToNSArray(prioritizedOptions))
 	return rv
 	}
@@ -89,7 +87,6 @@ func (o NSUserInterfaceCompressionObject) MinimumSizeWithPrioritizedCompressionO
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceCompression/activeCompressionOptions
 func (o NSUserInterfaceCompressionObject) ActiveCompressionOptions() INSUserInterfaceCompressionOptions {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("activeCompressionOptions"))
 	return NSUserInterfaceCompressionOptionsFromID(rv)
 	}

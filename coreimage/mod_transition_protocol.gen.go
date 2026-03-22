@@ -77,7 +77,6 @@ func CIModTransitionObjectFromID(id objc.ID) CIModTransitionObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIModTransition/angle
 func (o CIModTransitionObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -85,7 +84,6 @@ func (o CIModTransitionObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIModTransition/center
 func (o CIModTransitionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -93,7 +91,6 @@ func (o CIModTransitionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIModTransition/compression
 func (o CIModTransitionObject) Compression() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("compression"))
 	return rv
 	}
@@ -101,7 +98,6 @@ func (o CIModTransitionObject) Compression() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIModTransition/radius
 func (o CIModTransitionObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -110,7 +106,6 @@ func (o CIModTransitionObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIModTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -118,7 +113,6 @@ func (o CIModTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIModTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -126,7 +120,6 @@ func (o CIModTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIModTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -134,7 +127,6 @@ func (o CIModTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIModTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

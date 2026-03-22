@@ -57,7 +57,6 @@ func NSDecimalNumberBehaviorsObjectFromID(id objc.ID) NSDecimalNumberBehaviorsOb
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/roundingMode()
 func (o NSDecimalNumberBehaviorsObject) RoundingMode() NSRoundingMode {
-	
 	rv := objc.Send[NSRoundingMode](o.ID, objc.Sel("roundingMode"))
 	return rv
 	}
@@ -81,7 +80,6 @@ func (o NSDecimalNumberBehaviorsObject) RoundingMode() NSRoundingMode {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/scale()
 func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
-	
 	rv := objc.Send[int16](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -125,7 +123,6 @@ func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/exceptionDuringOperation(_:error:leftOperand:rightOperand:)
 func (o NSDecimalNumberBehaviorsObject) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
 	}

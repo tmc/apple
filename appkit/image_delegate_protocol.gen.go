@@ -53,7 +53,6 @@ func NSImageDelegateObjectFromID(id objc.ID) NSImageDelegateObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSImageDelegate/imageDidNotDraw(_:in:)
 func (o NSImageDelegateObject) ImageDidNotDrawInRect(sender INSImage, rect corefoundation.CGRect) INSImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("imageDidNotDraw:inRect:"), sender, rect)
 	return NSImageFromID(rv)
 	}

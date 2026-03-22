@@ -119,7 +119,6 @@ func CIRoundedQRCodeGeneratorObjectFromID(id objc.ID) CIRoundedQRCodeGeneratorOb
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedQRCodeGenerator/centerSpaceSize
 func (o CIRoundedQRCodeGeneratorObject) CenterSpaceSize() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("centerSpaceSize"))
 	return rv
 	}
@@ -127,7 +126,6 @@ func (o CIRoundedQRCodeGeneratorObject) CenterSpaceSize() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedQRCodeGenerator/color0
 func (o CIRoundedQRCodeGeneratorObject) Color0() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color0"))
 	return CIColorFromID(rv)
 	}
@@ -135,7 +133,6 @@ func (o CIRoundedQRCodeGeneratorObject) Color0() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedQRCodeGenerator/color1
 func (o CIRoundedQRCodeGeneratorObject) Color1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color1"))
 	return CIColorFromID(rv)
 	}
@@ -143,7 +140,6 @@ func (o CIRoundedQRCodeGeneratorObject) Color1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedQRCodeGenerator/correctionLevel
 func (o CIRoundedQRCodeGeneratorObject) CorrectionLevel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("correctionLevel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -151,7 +147,6 @@ func (o CIRoundedQRCodeGeneratorObject) CorrectionLevel() string {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedQRCodeGenerator/message
 func (o CIRoundedQRCodeGeneratorObject) Message() foundation.INSData {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("message"))
 	return foundation.NSDataFromID(rv)
 	}
@@ -160,7 +155,6 @@ func (o CIRoundedQRCodeGeneratorObject) Message() foundation.INSData {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedQRCodeGenerator/roundedData
 func (o CIRoundedQRCodeGeneratorObject) RoundedData() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("roundedData"))
 	return rv
 	}
@@ -169,7 +163,6 @@ func (o CIRoundedQRCodeGeneratorObject) RoundedData() bool {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedQRCodeGenerator/roundedMarkers
 func (o CIRoundedQRCodeGeneratorObject) RoundedMarkers() int {
-	
 	rv := objc.Send[int](o.ID, objc.Sel("roundedMarkers"))
 	return rv
 	}
@@ -177,7 +170,6 @@ func (o CIRoundedQRCodeGeneratorObject) RoundedMarkers() int {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRoundedQRCodeGenerator/scale
 func (o CIRoundedQRCodeGeneratorObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -186,7 +178,6 @@ func (o CIRoundedQRCodeGeneratorObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIRoundedQRCodeGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

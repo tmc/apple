@@ -73,13 +73,11 @@ func CIHistogramDisplayObjectFromID(id objc.ID) CIHistogramDisplayObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/height
 func (o CIHistogramDisplayObject) Height() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("height"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/highLimit
 func (o CIHistogramDisplayObject) HighLimit() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("highLimit"))
 	return rv
 	}
@@ -87,13 +85,11 @@ func (o CIHistogramDisplayObject) HighLimit() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/inputImage
 func (o CIHistogramDisplayObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIHistogramDisplay/lowLimit
 func (o CIHistogramDisplayObject) LowLimit() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("lowLimit"))
 	return rv
 	}
@@ -102,7 +98,6 @@ func (o CIHistogramDisplayObject) LowLimit() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIHistogramDisplayObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

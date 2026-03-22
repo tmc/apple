@@ -39,7 +39,6 @@ func NSTouchBarProviderObjectFromID(id objc.ID) NSTouchBarProviderObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBarProvider/touchBar
 func (o NSTouchBarProviderObject) TouchBar() INSTouchBar {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("touchBar"))
 	return NSTouchBarFromID(rv)
 	}

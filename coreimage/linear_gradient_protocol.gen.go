@@ -76,7 +76,6 @@ func CILinearGradientObjectFromID(id objc.ID) CILinearGradientObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILinearGradient/color0
 func (o CILinearGradientObject) Color0() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color0"))
 	return CIColorFromID(rv)
 	}
@@ -84,7 +83,6 @@ func (o CILinearGradientObject) Color0() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILinearGradient/color1
 func (o CILinearGradientObject) Color1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color1"))
 	return CIColorFromID(rv)
 	}
@@ -92,7 +90,6 @@ func (o CILinearGradientObject) Color1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILinearGradient/point0
 func (o CILinearGradientObject) Point0() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point0"))
 	return rv
 	}
@@ -100,7 +97,6 @@ func (o CILinearGradientObject) Point0() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILinearGradient/point1
 func (o CILinearGradientObject) Point1() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("point1"))
 	return rv
 	}
@@ -109,7 +105,6 @@ func (o CILinearGradientObject) Point1() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CILinearGradientObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

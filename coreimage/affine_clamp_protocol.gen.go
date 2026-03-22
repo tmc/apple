@@ -56,7 +56,6 @@ func CIAffineClampObjectFromID(id objc.ID) CIAffineClampObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/inputImage
 func (o CIAffineClampObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -64,7 +63,6 @@ func (o CIAffineClampObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIAffineClamp/transform
 func (o CIAffineClampObject) Transform() corefoundation.CGAffineTransform {
-	
 	rv := objc.Send[corefoundation.CGAffineTransform](o.ID, objc.Sel("transform"))
 	return rv
 	}
@@ -73,7 +71,6 @@ func (o CIAffineClampObject) Transform() corefoundation.CGAffineTransform {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIAffineClampObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

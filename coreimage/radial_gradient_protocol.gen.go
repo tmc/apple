@@ -86,7 +86,6 @@ func CIRadialGradientObjectFromID(id objc.ID) CIRadialGradientObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/center
 func (o CIRadialGradientObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CIRadialGradientObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/color0
 func (o CIRadialGradientObject) Color0() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color0"))
 	return CIColorFromID(rv)
 	}
@@ -102,7 +100,6 @@ func (o CIRadialGradientObject) Color0() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/color1
 func (o CIRadialGradientObject) Color1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color1"))
 	return CIColorFromID(rv)
 	}
@@ -110,7 +107,6 @@ func (o CIRadialGradientObject) Color1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/radius0
 func (o CIRadialGradientObject) Radius0() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius0"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CIRadialGradientObject) Radius0() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRadialGradient/radius1
 func (o CIRadialGradientObject) Radius1() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius1"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CIRadialGradientObject) Radius1() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIRadialGradientObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -39,7 +39,6 @@ func NSProgressReportingObjectFromID(id objc.ID) NSProgressReportingObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/ProgressReporting/progress
 func (o NSProgressReportingObject) Progress() INSProgress {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("progress"))
 	return NSProgressFromID(rv)
 	}

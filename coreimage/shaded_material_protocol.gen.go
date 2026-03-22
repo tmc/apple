@@ -65,7 +65,6 @@ func CIShadedMaterialObjectFromID(id objc.ID) CIShadedMaterialObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/inputImage
 func (o CIShadedMaterialObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -73,7 +72,6 @@ func (o CIShadedMaterialObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/scale
 func (o CIShadedMaterialObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -81,7 +79,6 @@ func (o CIShadedMaterialObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIShadedMaterial/shadingImage
 func (o CIShadedMaterialObject) ShadingImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("shadingImage"))
 	return CIImageFromID(rv)
 	}
@@ -90,7 +87,6 @@ func (o CIShadedMaterialObject) ShadingImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIShadedMaterialObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

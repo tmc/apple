@@ -141,7 +141,6 @@ func MTLHeapObjectFromID(id objc.ID) MTLHeapObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/label
 func (o MTLHeapObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -167,7 +166,6 @@ func (o MTLHeapObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeBuffer(length:options:)
 func (o MTLHeapObject) NewBufferWithLengthOptions(length uint, options MTLResourceOptions) MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithLength:options:"), length, options)
 	return MTLBufferObjectFromID(rv)
 	}
@@ -199,7 +197,6 @@ func (o MTLHeapObject) NewBufferWithLengthOptions(length uint, options MTLResour
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeBuffer(length:options:offset:)
 func (o MTLHeapObject) NewBufferWithLengthOptionsOffset(length uint, options MTLResourceOptions, offset uint) MTLBuffer {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithLength:options:offset:"), length, options, offset)
 	return MTLBufferObjectFromID(rv)
 	}
@@ -223,7 +220,6 @@ func (o MTLHeapObject) NewBufferWithLengthOptionsOffset(length uint, options MTL
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeTexture(descriptor:)
 func (o MTLHeapObject) NewTextureWithDescriptor(descriptor IMTLTextureDescriptor) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureWithDescriptor:"), descriptor)
 	return MTLTextureObjectFromID(rv)
 	}
@@ -252,35 +248,30 @@ func (o MTLHeapObject) NewTextureWithDescriptor(descriptor IMTLTextureDescriptor
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeTexture(descriptor:offset:)
 func (o MTLHeapObject) NewTextureWithDescriptorOffset(descriptor IMTLTextureDescriptor, offset uint) MTLTexture {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureWithDescriptor:offset:"), descriptor, offset)
 	return MTLTextureObjectFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeAccelerationStructure(size:)
 func (o MTLHeapObject) NewAccelerationStructureWithSize(size uint) MTLAccelerationStructure {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithSize:"), size)
 	return MTLAccelerationStructureObjectFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeAccelerationStructure(size:offset:)
 func (o MTLHeapObject) NewAccelerationStructureWithSizeOffset(size uint, offset uint) MTLAccelerationStructure {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithSize:offset:"), size, offset)
 	return MTLAccelerationStructureObjectFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeAccelerationStructure(descriptor:)
 func (o MTLHeapObject) NewAccelerationStructureWithDescriptor(descriptor IMTLAccelerationStructureDescriptor) MTLAccelerationStructure {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithDescriptor:"), descriptor)
 	return MTLAccelerationStructureObjectFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/makeAccelerationStructure(descriptor:offset:)
 func (o MTLHeapObject) NewAccelerationStructureWithDescriptorOffset(descriptor IMTLAccelerationStructureDescriptor, offset uint) MTLAccelerationStructure {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newAccelerationStructureWithDescriptor:offset:"), descriptor, offset)
 	return MTLAccelerationStructureObjectFromID(rv)
 	}
@@ -306,7 +297,6 @@ func (o MTLHeapObject) NewAccelerationStructureWithDescriptorOffset(descriptor I
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/setPurgeableState(_:)
 func (o MTLHeapObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableState {
-	
 	rv := objc.Send[MTLPurgeableState](o.ID, objc.Sel("setPurgeableState:"), state)
 	return rv
 	}
@@ -329,7 +319,6 @@ func (o MTLHeapObject) SetPurgeableState(state MTLPurgeableState) MTLPurgeableSt
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/maxAvailableSize(alignment:)
 func (o MTLHeapObject) MaxAvailableSizeWithAlignment(alignment uint) uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("maxAvailableSizeWithAlignment:"), alignment)
 	return rv
 	}
@@ -337,7 +326,6 @@ func (o MTLHeapObject) MaxAvailableSizeWithAlignment(alignment uint) uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/size
 func (o MTLHeapObject) Size() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("size"))
 	return rv
 	}
@@ -345,7 +333,6 @@ func (o MTLHeapObject) Size() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/usedSize
 func (o MTLHeapObject) UsedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("usedSize"))
 	return rv
 	}
@@ -353,7 +340,6 @@ func (o MTLHeapObject) UsedSize() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/currentAllocatedSize
 func (o MTLHeapObject) CurrentAllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("currentAllocatedSize"))
 	return rv
 	}
@@ -361,7 +347,6 @@ func (o MTLHeapObject) CurrentAllocatedSize() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/device
 func (o MTLHeapObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -369,7 +354,6 @@ func (o MTLHeapObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/type
 func (o MTLHeapObject) Type() MTLHeapType {
-	
 	rv := objc.Send[MTLHeapType](o.ID, objc.Sel("type"))
 	return rv
 	}
@@ -377,7 +361,6 @@ func (o MTLHeapObject) Type() MTLHeapType {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/storageMode
 func (o MTLHeapObject) StorageMode() MTLStorageMode {
-	
 	rv := objc.Send[MTLStorageMode](o.ID, objc.Sel("storageMode"))
 	return rv
 	}
@@ -385,7 +368,6 @@ func (o MTLHeapObject) StorageMode() MTLStorageMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/cpuCacheMode
 func (o MTLHeapObject) CpuCacheMode() MTLCPUCacheMode {
-	
 	rv := objc.Send[MTLCPUCacheMode](o.ID, objc.Sel("cpuCacheMode"))
 	return rv
 	}
@@ -393,7 +375,6 @@ func (o MTLHeapObject) CpuCacheMode() MTLCPUCacheMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/hazardTrackingMode
 func (o MTLHeapObject) HazardTrackingMode() MTLHazardTrackingMode {
-	
 	rv := objc.Send[MTLHazardTrackingMode](o.ID, objc.Sel("hazardTrackingMode"))
 	return rv
 	}
@@ -401,7 +382,6 @@ func (o MTLHeapObject) HazardTrackingMode() MTLHazardTrackingMode {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLHeap/resourceOptions
 func (o MTLHeapObject) ResourceOptions() MTLResourceOptions {
-	
 	rv := objc.Send[MTLResourceOptions](o.ID, objc.Sel("resourceOptions"))
 	return rv
 	}
@@ -410,7 +390,6 @@ func (o MTLHeapObject) ResourceOptions() MTLResourceOptions {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLAllocation/allocatedSize
 func (o MTLHeapObject) AllocatedSize() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}

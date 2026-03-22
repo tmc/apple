@@ -65,7 +65,6 @@ func CIMorphologyRectangleMaximumObjectFromID(id objc.ID) CIMorphologyRectangleM
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMaximum/height
 func (o CIMorphologyRectangleMaximumObject) Height() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("height"))
 	return rv
 	}
@@ -73,7 +72,6 @@ func (o CIMorphologyRectangleMaximumObject) Height() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMaximum/inputImage
 func (o CIMorphologyRectangleMaximumObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -81,7 +79,6 @@ func (o CIMorphologyRectangleMaximumObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMaximum/width
 func (o CIMorphologyRectangleMaximumObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CIMorphologyRectangleMaximumObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMorphologyRectangleMaximumObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

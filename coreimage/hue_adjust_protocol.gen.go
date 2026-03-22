@@ -55,7 +55,6 @@ func CIHueAdjustObjectFromID(id objc.ID) CIHueAdjustObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/angle
 func (o CIHueAdjustObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -63,7 +62,6 @@ func (o CIHueAdjustObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIHueAdjust/inputImage
 func (o CIHueAdjustObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CIHueAdjustObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIHueAdjustObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

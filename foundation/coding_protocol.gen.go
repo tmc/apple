@@ -41,7 +41,6 @@ func NSCodingObjectFromID(id objc.ID) NSCodingObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (o NSCodingObject) EncodeWithCoder(coder INSCoder) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("encodeWithCoder:"), coder)
 	}
 

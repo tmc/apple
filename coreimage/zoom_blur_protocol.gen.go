@@ -66,7 +66,6 @@ func CIZoomBlurObjectFromID(id objc.ID) CIZoomBlurObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/amount
 func (o CIZoomBlurObject) Amount() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("amount"))
 	return rv
 	}
@@ -74,7 +73,6 @@ func (o CIZoomBlurObject) Amount() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/center
 func (o CIZoomBlurObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -82,7 +80,6 @@ func (o CIZoomBlurObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIZoomBlur/inputImage
 func (o CIZoomBlurObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -91,7 +88,6 @@ func (o CIZoomBlurObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIZoomBlurObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

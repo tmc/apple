@@ -55,7 +55,6 @@ func CIBoxBlurObjectFromID(id objc.ID) CIBoxBlurObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBoxBlur/inputImage
 func (o CIBoxBlurObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIBoxBlurObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBoxBlur/radius
 func (o CIBoxBlurObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -72,7 +70,6 @@ func (o CIBoxBlurObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIBoxBlurObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -106,7 +106,6 @@ func CICMYKHalftoneObjectFromID(id objc.ID) CICMYKHalftoneObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/angle
 func (o CICMYKHalftoneObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -114,7 +113,6 @@ func (o CICMYKHalftoneObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/center
 func (o CICMYKHalftoneObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -122,7 +120,6 @@ func (o CICMYKHalftoneObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/grayComponentReplacement
 func (o CICMYKHalftoneObject) GrayComponentReplacement() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("grayComponentReplacement"))
 	return rv
 	}
@@ -130,7 +127,6 @@ func (o CICMYKHalftoneObject) GrayComponentReplacement() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/inputImage
 func (o CICMYKHalftoneObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -138,7 +134,6 @@ func (o CICMYKHalftoneObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/sharpness
 func (o CICMYKHalftoneObject) Sharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
 	}
@@ -146,7 +141,6 @@ func (o CICMYKHalftoneObject) Sharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/underColorRemoval
 func (o CICMYKHalftoneObject) UnderColorRemoval() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("underColorRemoval"))
 	return rv
 	}
@@ -154,7 +148,6 @@ func (o CICMYKHalftoneObject) UnderColorRemoval() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICMYKHalftone/width
 func (o CICMYKHalftoneObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -163,7 +156,6 @@ func (o CICMYKHalftoneObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CICMYKHalftoneObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

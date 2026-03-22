@@ -86,7 +86,6 @@ func CICheckerboardGeneratorObjectFromID(id objc.ID) CICheckerboardGeneratorObje
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICheckerboardGenerator/center
 func (o CICheckerboardGeneratorObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -94,7 +93,6 @@ func (o CICheckerboardGeneratorObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICheckerboardGenerator/color0
 func (o CICheckerboardGeneratorObject) Color0() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color0"))
 	return CIColorFromID(rv)
 	}
@@ -102,7 +100,6 @@ func (o CICheckerboardGeneratorObject) Color0() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICheckerboardGenerator/color1
 func (o CICheckerboardGeneratorObject) Color1() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color1"))
 	return CIColorFromID(rv)
 	}
@@ -110,7 +107,6 @@ func (o CICheckerboardGeneratorObject) Color1() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICheckerboardGenerator/sharpness
 func (o CICheckerboardGeneratorObject) Sharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
 	}
@@ -118,7 +114,6 @@ func (o CICheckerboardGeneratorObject) Sharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICheckerboardGenerator/width
 func (o CICheckerboardGeneratorObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -127,7 +122,6 @@ func (o CICheckerboardGeneratorObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CICheckerboardGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

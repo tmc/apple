@@ -57,7 +57,6 @@ func NSDraggingSourceObjectFromID(id objc.ID) NSDraggingSourceObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:sourceOperationMaskFor:)
 func (o NSDraggingSourceObject) DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation {
-	
 	rv := objc.Send[NSDragOperation](o.ID, objc.Sel("draggingSession:sourceOperationMaskForDraggingContext:"), session, context)
 	return rv
 	}
@@ -69,7 +68,6 @@ func (o NSDraggingSourceObject) DraggingSessionSourceOperationMaskForDraggingCon
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:willBeginAt:)
 func (o NSDraggingSourceObject) DraggingSessionWillBeginAtPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("draggingSession:willBeginAtPoint:"), session, screenPoint)
 	}
 // Invoked when the drag moves on the screen.
@@ -80,7 +78,6 @@ func (o NSDraggingSourceObject) DraggingSessionWillBeginAtPoint(session INSDragg
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:movedTo:)
 func (o NSDraggingSourceObject) DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("draggingSession:movedToPoint:"), session, screenPoint)
 	}
 // Invoked when the dragging session has completed.
@@ -95,7 +92,6 @@ func (o NSDraggingSourceObject) DraggingSessionMovedToPoint(session INSDraggingS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/draggingSession(_:endedAt:operation:)
 func (o NSDraggingSourceObject) DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("draggingSession:endedAtPoint:operation:"), session, screenPoint, operation)
 	}
 // Returns whether the modifier keys will be ignored for this dragging
@@ -112,7 +108,6 @@ func (o NSDraggingSourceObject) DraggingSessionEndedAtPointOperation(session INS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSource/ignoreModifierKeys(for:)
 func (o NSDraggingSourceObject) IgnoreModifierKeysForDraggingSession(session INSDraggingSession) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("ignoreModifierKeysForDraggingSession:"), session)
 	return rv
 	}

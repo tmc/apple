@@ -177,7 +177,6 @@ func MTLBlitCommandEncoderObjectFromID(id objc.ID) MTLBlitCommandEncoderObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/generateMipmaps(for:)
 func (o MTLBlitCommandEncoderObject) GenerateMipmapsForTexture(texture MTLTexture) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("generateMipmapsForTexture:"), texture)
 	}
 // Encodes a command that copies data from one buffer into another.
@@ -206,7 +205,6 @@ func (o MTLBlitCommandEncoderObject) GenerateMipmapsForTexture(texture MTLTextur
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceOffset:to:destinationOffset:size:)
 func (o MTLBlitCommandEncoderObject) CopyFromBufferSourceOffsetToBufferDestinationOffsetSize(sourceBuffer MTLBuffer, sourceOffset uint, destinationBuffer MTLBuffer, destinationOffset uint, size uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:"), sourceBuffer, sourceOffset, destinationBuffer, destinationOffset, size)
 	}
 // Encodes a command that copies data from one texture to another.
@@ -227,7 +225,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromBufferSourceOffsetToBufferDestinati
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:to:)
 func (o MTLBlitCommandEncoderObject) CopyFromTextureToTexture(sourceTexture MTLTexture, destinationTexture MTLTexture) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromTexture:toTexture:"), sourceTexture, destinationTexture)
 	}
 // Encodes a command that copies slices of a texture to another texture’s
@@ -273,7 +270,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromTextureToTexture(sourceTexture MTLT
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceSlice:sourceLevel:to:destinationSlice:destinationLevel:sliceCount:levelCount:)
 func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelToTextureDestinationSliceDestinationLevelSliceCountLevelCount(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, sliceCount uint, levelCount uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromTexture:sourceSlice:sourceLevel:toTexture:destinationSlice:destinationLevel:sliceCount:levelCount:"), sourceTexture, sourceSlice, sourceLevel, destinationTexture, destinationSlice, destinationLevel, sliceCount, levelCount)
 	}
 // Encodes a command that copies image data from a texture’s slice into
@@ -358,7 +354,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelToText
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceSlice:sourceLevel:sourceOrigin:sourceSize:to:destinationSlice:destinationLevel:destinationOrigin:)
 func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToTextureDestinationSliceDestinationLevelDestinationOrigin(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:"), sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin)
 	}
 // Encodes a command to copy data from a slice of one tensor into a slice of
@@ -387,7 +382,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSource
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceOrigin:sourceDimensions:to:destinationOrigin:destinationDimensions:)
 func (o MTLBlitCommandEncoderObject) CopyFromTensorSourceOriginSourceDimensionsToTensorDestinationOriginDestinationDimensions(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromTensor:sourceOrigin:sourceDimensions:toTensor:destinationOrigin:destinationDimensions:"), sourceTensor, sourceOrigin, sourceDimensions, destinationTensor, destinationOrigin, destinationDimensions)
 	}
 // Encodes a command to copy image data from a source buffer into a
@@ -475,7 +469,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromTensorSourceOriginSourceDimensionsT
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:to:destinationSlice:destinationLevel:destinationOrigin:)
 func (o MTLBlitCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRowSourceBytesPerImageSourceSizeToTextureDestinationSliceDestinationLevelDestinationOrigin(sourceBuffer MTLBuffer, sourceOffset uint, sourceBytesPerRow uint, sourceBytesPerImage uint, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:"), sourceBuffer, sourceOffset, sourceBytesPerRow, sourceBytesPerImage, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin)
 	}
 // Encodes a command to copy image data from a source buffer into a
@@ -571,7 +564,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRow
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:to:destinationSlice:destinationLevel:destinationOrigin:options:)
 func (o MTLBlitCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRowSourceBytesPerImageSourceSizeToTextureDestinationSliceDestinationLevelDestinationOriginOptions(sourceBuffer MTLBuffer, sourceOffset uint, sourceBytesPerRow uint, sourceBytesPerImage uint, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin, options MTLBlitOption) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:options:"), sourceBuffer, sourceOffset, sourceBytesPerRow, sourceBytesPerImage, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin, options)
 	}
 // Encodes a command that copies image data from a texture slice to a buffer.
@@ -658,7 +650,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRow
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceSlice:sourceLevel:sourceOrigin:sourceSize:to:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:)
 func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToBufferDestinationOffsetDestinationBytesPerRowDestinationBytesPerImage(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationBuffer MTLBuffer, destinationOffset uint, destinationBytesPerRow uint, destinationBytesPerImage uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:"), sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationBuffer, destinationOffset, destinationBytesPerRow, destinationBytesPerImage)
 	}
 // Encodes a command that copies image data from a texture slice to a buffer,
@@ -754,7 +745,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSource
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceSlice:sourceLevel:sourceOrigin:sourceSize:to:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:options:)
 func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToBufferDestinationOffsetDestinationBytesPerRowDestinationBytesPerImageOptions(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationBuffer MTLBuffer, destinationOffset uint, destinationBytesPerRow uint, destinationBytesPerImage uint, options MTLBlitOption) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:options:"), sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationBuffer, destinationOffset, destinationBytesPerRow, destinationBytesPerImage, options)
 	}
 // Encodes a command that improves the performance of GPU memory operations
@@ -776,7 +766,6 @@ func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSource
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/optimizeContentsForGPUAccess(texture:)
 func (o MTLBlitCommandEncoderObject) OptimizeContentsForGPUAccess(texture MTLTexture) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("optimizeContentsForGPUAccess:"), texture)
 	}
 // Encodes a command that improves the performance of GPU memory operations
@@ -802,7 +791,6 @@ func (o MTLBlitCommandEncoderObject) OptimizeContentsForGPUAccess(texture MTLTex
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/optimizeContentsForGPUAccess(texture:slice:level:)
 func (o MTLBlitCommandEncoderObject) OptimizeContentsForGPUAccessSliceLevel(texture MTLTexture, slice uint, level uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("optimizeContentsForGPUAccess:slice:level:"), texture, slice, level)
 	}
 // Encodes a command that improves the performance of CPU memory operations
@@ -824,7 +812,6 @@ func (o MTLBlitCommandEncoderObject) OptimizeContentsForGPUAccessSliceLevel(text
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/optimizeContentsForCPUAccess(texture:)
 func (o MTLBlitCommandEncoderObject) OptimizeContentsForCPUAccess(texture MTLTexture) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("optimizeContentsForCPUAccess:"), texture)
 	}
 // Encodes a command that improves the performance of CPU memory operations
@@ -850,7 +837,6 @@ func (o MTLBlitCommandEncoderObject) OptimizeContentsForCPUAccess(texture MTLTex
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/optimizeContentsForCPUAccess(texture:slice:level:)
 func (o MTLBlitCommandEncoderObject) OptimizeContentsForCPUAccessSliceLevel(texture MTLTexture, slice uint, level uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("optimizeContentsForCPUAccess:slice:level:"), texture, slice, level)
 	}
 // Encodes a command that synchronizes the CPU’s copy of a managed resource,
@@ -872,7 +858,6 @@ func (o MTLBlitCommandEncoderObject) OptimizeContentsForCPUAccessSliceLevel(text
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/synchronize(resource:)
 func (o MTLBlitCommandEncoderObject) SynchronizeResource(resource MTLResource) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("synchronizeResource:"), resource)
 	}
 // Encodes a command that synchronizes a part of the CPU’s copy of a texture
@@ -898,7 +883,6 @@ func (o MTLBlitCommandEncoderObject) SynchronizeResource(resource MTLResource) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/synchronize(texture:slice:level:)
 func (o MTLBlitCommandEncoderObject) SynchronizeTextureSliceLevel(texture MTLTexture, slice uint, level uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("synchronizeTexture:slice:level:"), texture, slice, level)
 	}
 // Encodes a command that instructs the GPU to pause the blit pass until
@@ -937,7 +921,6 @@ func (o MTLBlitCommandEncoderObject) SynchronizeTextureSliceLevel(texture MTLTex
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/waitForFence(_:)
 func (o MTLBlitCommandEncoderObject) WaitForFence(fence MTLFence) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("waitForFence:"), fence)
 	}
 // Encodes a command that instructs the GPU to update a fence after the blit
@@ -977,7 +960,6 @@ func (o MTLBlitCommandEncoderObject) WaitForFence(fence MTLFence) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/updateFence(_:)
 func (o MTLBlitCommandEncoderObject) UpdateFence(fence MTLFence) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("updateFence:"), fence)
 	}
 // Encodes a command that samples the GPU’s hardware counters during a blit
@@ -1001,7 +983,6 @@ func (o MTLBlitCommandEncoderObject) UpdateFence(fence MTLFence) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/sampleCounters(sampleBuffer:sampleIndex:barrier:)
 func (o MTLBlitCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithBarrier(sampleBuffer MTLCounterSampleBuffer, sampleIndex uint, barrier bool) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), sampleBuffer, sampleIndex, barrier)
 	}
 // Encodes a command that retrieves a sparse texture’s access data for a
@@ -1045,7 +1026,6 @@ func (o MTLBlitCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithBarr
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/getTextureAccessCounters(_:region:mipLevel:slice:resetCounters:countersBuffer:countersBufferOffset:)
 func (o MTLBlitCommandEncoderObject) GetTextureAccessCountersRegionMipLevelSliceResetCountersCountersBufferCountersBufferOffset(texture MTLTexture, region MTLRegion, mipLevel uint, slice uint, resetCounters bool, countersBuffer MTLBuffer, countersBufferOffset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("getTextureAccessCounters:region:mipLevel:slice:resetCounters:countersBuffer:countersBufferOffset:"), texture, region, mipLevel, slice, resetCounters, countersBuffer, countersBufferOffset)
 	}
 // Encodes a command that resets a sparse texture’s access data for a
@@ -1062,7 +1042,6 @@ func (o MTLBlitCommandEncoderObject) GetTextureAccessCountersRegionMipLevelSlice
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/resetTextureAccessCounters(_:region:mipLevel:slice:)
 func (o MTLBlitCommandEncoderObject) ResetTextureAccessCountersRegionMipLevelSlice(texture MTLTexture, region MTLRegion, mipLevel uint, slice uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("resetTextureAccessCounters:region:mipLevel:slice:"), texture, region, mipLevel, slice)
 	}
 // Encodes a command that copies commands from one indirect command buffer
@@ -1091,7 +1070,6 @@ func (o MTLBlitCommandEncoderObject) ResetTextureAccessCountersRegionMipLevelSli
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:
 func (o MTLBlitCommandEncoderObject) CopyIndirectCommandBufferSourceRangeDestinationDestinationIndex(source MTLIndirectCommandBuffer, sourceRange foundation.NSRange, destination MTLIndirectCommandBuffer, destinationIndex uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("copyIndirectCommandBuffer:sourceRange:destination:destinationIndex:"), source, sourceRange, destination, destinationIndex)
 	}
 // Encodes a command that fills a buffer with a constant value for each byte.
@@ -1111,7 +1089,6 @@ func (o MTLBlitCommandEncoderObject) CopyIndirectCommandBufferSourceRangeDestina
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/fillBuffer:range:value:
 func (o MTLBlitCommandEncoderObject) FillBufferRangeValue(buffer MTLBuffer, range_ foundation.NSRange, value uint8) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("fillBuffer:range:value:"), buffer, range_, value)
 	}
 // Encodes a command that can improve the performance of a range of commands
@@ -1137,7 +1114,6 @@ func (o MTLBlitCommandEncoderObject) FillBufferRangeValue(buffer MTLBuffer, rang
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/optimizeIndirectCommandBuffer:withRange:
 func (o MTLBlitCommandEncoderObject) OptimizeIndirectCommandBufferWithRange(indirectCommandBuffer MTLIndirectCommandBuffer, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("optimizeIndirectCommandBuffer:withRange:"), indirectCommandBuffer, range_)
 	}
 // Encodes a command that resets a range of commands in an indirect command
@@ -1149,7 +1125,6 @@ func (o MTLBlitCommandEncoderObject) OptimizeIndirectCommandBufferWithRange(indi
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/resetCommandsInBuffer:withRange:
 func (o MTLBlitCommandEncoderObject) ResetCommandsInBufferWithRange(buffer MTLIndirectCommandBuffer, range_ foundation.NSRange) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("resetCommandsInBuffer:withRange:"), buffer, range_)
 	}
 // Encodes a command that resolves the data from the samples in a sample
@@ -1174,7 +1149,6 @@ func (o MTLBlitCommandEncoderObject) ResetCommandsInBufferWithRange(buffer MTLIn
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/resolveCounters:inRange:destinationBuffer:destinationOffset:
 func (o MTLBlitCommandEncoderObject) ResolveCountersInRangeDestinationBufferDestinationOffset(sampleBuffer MTLCounterSampleBuffer, range_ foundation.NSRange, destinationBuffer MTLBuffer, destinationOffset uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("resolveCounters:inRange:destinationBuffer:destinationOffset:"), sampleBuffer, range_, destinationBuffer, destinationOffset)
 	}
 // Declares that all command generation from the encoder is completed.
@@ -1186,7 +1160,6 @@ func (o MTLBlitCommandEncoderObject) ResolveCountersInRangeDestinationBufferDest
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/endEncoding()
 func (o MTLBlitCommandEncoderObject) EndEncoding() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("endEncoding"))
 	}
 // Inserts a debug string into the captured frame data.
@@ -1199,7 +1172,6 @@ func (o MTLBlitCommandEncoderObject) EndEncoding() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/insertDebugSignpost(_:)
 func (o MTLBlitCommandEncoderObject) InsertDebugSignpost(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("insertDebugSignpost:"), objc.String(string_))
 	}
 // Pushes a specific string onto a stack of debug group strings for the
@@ -1213,7 +1185,6 @@ func (o MTLBlitCommandEncoderObject) InsertDebugSignpost(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/pushDebugGroup(_:)
 func (o MTLBlitCommandEncoderObject) PushDebugGroup(string_ string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("pushDebugGroup:"), objc.String(string_))
 	}
 // Pops the latest string off of a stack of debug group strings for the
@@ -1227,14 +1198,12 @@ func (o MTLBlitCommandEncoderObject) PushDebugGroup(string_ string) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/popDebugGroup()
 func (o MTLBlitCommandEncoderObject) PopDebugGroup() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("popDebugGroup"))
 	}
 // The Metal device from which the command encoder was created.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/device
 func (o MTLBlitCommandEncoderObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -1242,7 +1211,6 @@ func (o MTLBlitCommandEncoderObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/label
 func (o MTLBlitCommandEncoderObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -1280,7 +1248,6 @@ func (o MTLBlitCommandEncoderObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandEncoder/barrier(afterQueueStages:beforeStages:)
 func (o MTLBlitCommandEncoderObject) BarrierAfterQueueStagesBeforeStages(afterQueueStages MTLStages, beforeStages MTLStages) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("barrierAfterQueueStages:beforeStages:"), afterQueueStages, beforeStages)
 	}
 

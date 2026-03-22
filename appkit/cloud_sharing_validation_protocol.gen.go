@@ -40,7 +40,6 @@ func NSCloudSharingValidationObjectFromID(id objc.ID) NSCloudSharingValidationOb
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingValidation/cloudShare(for:)
 func (o NSCloudSharingValidationObject) CloudShareForUserInterfaceItem(item NSValidatedUserInterfaceItem) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("cloudShareForUserInterfaceItem:"), item)
 	return objectivec.Object{ID: rv}
 	}

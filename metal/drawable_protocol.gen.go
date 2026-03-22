@@ -64,7 +64,6 @@ func MTLDrawableObjectFromID(id objc.ID) MTLDrawableObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDrawable/drawableID
 func (o MTLDrawableObject) DrawableID() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("drawableID"))
 	return rv
 	}
@@ -80,7 +79,6 @@ func (o MTLDrawableObject) DrawableID() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDrawable/present()
 func (o MTLDrawableObject) Present() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("present"))
 	}
 // Presents the drawable onscreen as soon as possible after a previous
@@ -100,7 +98,6 @@ func (o MTLDrawableObject) Present() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDrawable/present(afterMinimumDuration:)
 func (o MTLDrawableObject) PresentAfterMinimumDuration(duration float64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentAfterMinimumDuration:"), duration)
 	}
 // Presents the drawable onscreen at a specific host time.
@@ -120,7 +117,6 @@ func (o MTLDrawableObject) PresentAfterMinimumDuration(duration float64) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDrawable/present(at:)
 func (o MTLDrawableObject) PresentAtTime(presentationTime float64) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("presentAtTime:"), presentationTime)
 	}
 // Registers a block of code to be called immediately after the drawable is
@@ -139,14 +135,12 @@ func (o MTLDrawableObject) PresentAtTime(presentationTime float64) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDrawable/addPresentedHandler(_:)
 func (o MTLDrawableObject) AddPresentedHandler(block MTLDrawablePresentedHandler) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addPresentedHandler:"), block)
 	}
 // The host time, in seconds, when the drawable was displayed onscreen.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDrawable/presentedTime
 func (o MTLDrawableObject) PresentedTime() float64 {
-	
 	rv := objc.Send[float64](o.ID, objc.Sel("presentedTime"))
 	return rv
 	}

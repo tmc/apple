@@ -55,7 +55,6 @@ func CIStraightenObjectFromID(id objc.ID) CIStraightenObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStraighten/angle
 func (o CIStraightenObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
@@ -63,7 +62,6 @@ func (o CIStraightenObject) Angle() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIStraighten/inputImage
 func (o CIStraightenObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CIStraightenObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIStraightenObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

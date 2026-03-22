@@ -50,7 +50,6 @@ func MTL4CompilerTaskObjectFromID(id objc.ID) MTL4CompilerTaskObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/compiler
 func (o MTL4CompilerTaskObject) Compiler() MTL4Compiler {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("compiler"))
 	return MTL4CompilerObjectFromID(rv)
 	}
@@ -58,7 +57,6 @@ func (o MTL4CompilerTaskObject) Compiler() MTL4Compiler {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/status
 func (o MTL4CompilerTaskObject) Status() MTL4CompilerTaskStatus {
-	
 	rv := objc.Send[MTL4CompilerTaskStatus](o.ID, objc.Sel("status"))
 	return rv
 	}
@@ -67,7 +65,6 @@ func (o MTL4CompilerTaskObject) Status() MTL4CompilerTaskStatus {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CompilerTask/waitUntilCompleted
 func (o MTL4CompilerTaskObject) WaitUntilCompleted() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("waitUntilCompleted"))
 	}
 

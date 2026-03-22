@@ -68,7 +68,6 @@ func NSAnimatablePropertyContainerObjectFromID(id objc.ID) NSAnimatablePropertyC
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
 func (o NSAnimatablePropertyContainerObject) Animator() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("animator"))
 	return objectivec.Object{ID: rv}
 	}
@@ -77,7 +76,6 @@ func (o NSAnimatablePropertyContainerObject) Animator() objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
 func (o NSAnimatablePropertyContainerObject) Animations() foundation.INSDictionary {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("animations"))
 	return foundation.NSDictionaryFromID(rv)
 	}
@@ -110,7 +108,6 @@ func (o NSAnimatablePropertyContainerObject) Animations() foundation.INSDictiona
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
 func (o NSAnimatablePropertyContainerObject) AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("animationForKey:"), objc.String(string(key)))
 	return objectivec.Object{ID: rv}
 	}

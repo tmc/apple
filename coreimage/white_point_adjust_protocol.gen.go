@@ -55,7 +55,6 @@ func CIWhitePointAdjustObjectFromID(id objc.ID) CIWhitePointAdjustObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIWhitePointAdjust/color
 func (o CIWhitePointAdjustObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CIWhitePointAdjustObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIWhitePointAdjust/inputImage
 func (o CIWhitePointAdjustObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CIWhitePointAdjustObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIWhitePointAdjustObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

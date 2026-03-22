@@ -66,7 +66,6 @@ func NSAccessibilityLayoutAreaObjectFromID(id objc.ID) NSAccessibilityLayoutArea
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityChildren()
 func (o NSAccessibilityLayoutAreaObject) AccessibilityChildren() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -74,7 +73,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityChildren() foundation.INSA
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityFocusedUIElement
 func (o NSAccessibilityLayoutAreaObject) AccessibilityFocusedUIElement() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityFocusedUIElement"))
 	return objectivec.Object{ID: rv}
 	}
@@ -99,7 +97,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityFocusedUIElement() objecti
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityLabel()
 func (o NSAccessibilityLayoutAreaObject) AccessibilityLabel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -119,7 +116,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityLabel() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilitySelectedChildren()
 func (o NSAccessibilityLayoutAreaObject) AccessibilitySelectedChildren() foundation.INSArray {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
 	return foundation.NSArrayFromID(rv)
 	}
@@ -141,7 +137,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilitySelectedChildren() foundat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilityLayoutAreaObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -161,7 +156,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityFrame() corefoundation.CGR
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilityLayoutAreaObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -181,7 +175,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityParent() objectivec.IObjec
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilityLayoutAreaObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -204,7 +197,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityIdentifier() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilityLayoutAreaObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}

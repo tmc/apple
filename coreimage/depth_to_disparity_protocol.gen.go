@@ -45,7 +45,6 @@ func CIDepthToDisparityObjectFromID(id objc.ID) CIDepthToDisparityObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIDepthToDisparity/inputImage
 func (o CIDepthToDisparityObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIDepthToDisparityObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIDepthToDisparityObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

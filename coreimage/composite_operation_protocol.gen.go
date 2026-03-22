@@ -55,7 +55,6 @@ func CICompositeOperationObjectFromID(id objc.ID) CICompositeOperationObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/backgroundImage
 func (o CICompositeOperationObject) BackgroundImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("backgroundImage"))
 	return CIImageFromID(rv)
 	}
@@ -63,7 +62,6 @@ func (o CICompositeOperationObject) BackgroundImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICompositeOperation/inputImage
 func (o CICompositeOperationObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -72,7 +70,6 @@ func (o CICompositeOperationObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CICompositeOperationObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

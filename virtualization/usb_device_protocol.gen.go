@@ -45,7 +45,6 @@ func VZUSBDeviceObjectFromID(id objc.ID) VZUSBDeviceObject {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDevice/usbController
 func (o VZUSBDeviceObject) UsbController() IVZUSBController {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("usbController"))
 	return VZUSBControllerFromID(rv)
 	}
@@ -53,7 +52,6 @@ func (o VZUSBDeviceObject) UsbController() IVZUSBController {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBDevice/uuid
 func (o VZUSBDeviceObject) Uuid() foundation.NSUUID {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("uuid"))
 	return foundation.NSUUIDFromID(rv)
 	}

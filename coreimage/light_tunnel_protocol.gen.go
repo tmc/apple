@@ -74,7 +74,6 @@ func CILightTunnelObjectFromID(id objc.ID) CILightTunnelObject {
 
 // See: https://developer.apple.com/documentation/CoreImage/CILightTunnel/center
 func (o CILightTunnelObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -82,19 +81,16 @@ func (o CILightTunnelObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CILightTunnel/inputImage
 func (o CILightTunnelObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CILightTunnel/radius
 func (o CILightTunnelObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CILightTunnel/rotation
 func (o CILightTunnelObject) Rotation() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("rotation"))
 	return rv
 	}
@@ -103,7 +99,6 @@ func (o CILightTunnelObject) Rotation() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CILightTunnelObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

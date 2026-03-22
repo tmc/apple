@@ -85,7 +85,6 @@ func CIBicubicScaleTransformObjectFromID(id objc.ID) CIBicubicScaleTransformObje
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBicubicScaleTransform/aspectRatio
 func (o CIBicubicScaleTransformObject) AspectRatio() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("aspectRatio"))
 	return rv
 	}
@@ -93,7 +92,6 @@ func (o CIBicubicScaleTransformObject) AspectRatio() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBicubicScaleTransform/inputImage
 func (o CIBicubicScaleTransformObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -101,7 +99,6 @@ func (o CIBicubicScaleTransformObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBicubicScaleTransform/parameterB
 func (o CIBicubicScaleTransformObject) ParameterB() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("parameterB"))
 	return rv
 	}
@@ -109,7 +106,6 @@ func (o CIBicubicScaleTransformObject) ParameterB() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBicubicScaleTransform/parameterC
 func (o CIBicubicScaleTransformObject) ParameterC() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("parameterC"))
 	return rv
 	}
@@ -117,7 +113,6 @@ func (o CIBicubicScaleTransformObject) ParameterC() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBicubicScaleTransform/scale
 func (o CIBicubicScaleTransformObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -126,7 +121,6 @@ func (o CIBicubicScaleTransformObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIBicubicScaleTransformObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

@@ -47,7 +47,6 @@ func MLCustomModelObjectFromID(id objc.ID) MLCustomModelObject {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModel/prediction(from:options:)
 func (o MLCustomModelObject) PredictionFromFeaturesOptionsError(input MLFeatureProvider, options IMLPredictionOptions) (MLFeatureProvider, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionFromFeatures:options:error:"), input, options)
 	if err != nil {
 		return nil, err
@@ -67,7 +66,6 @@ func (o MLCustomModelObject) PredictionFromFeaturesOptionsError(input MLFeatureP
 //
 // See: https://developer.apple.com/documentation/CoreML/MLCustomModel/predictions(from:options:)
 func (o MLCustomModelObject) PredictionsFromBatchOptionsError(inputBatch MLBatchProvider, options IMLPredictionOptions) (MLBatchProvider, error) {
-	
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("predictionsFromBatch:options:error:"), inputBatch, options)
 	if err != nil {
 		return nil, err

@@ -56,7 +56,6 @@ func NSTextContentStorageDelegateObjectFromID(id objc.ID) NSTextContentStorageDe
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentStorageDelegate/textContentStorage(_:textParagraphWith:)
 func (o NSTextContentStorageDelegateObject) TextContentStorageTextParagraphWithRange(textContentStorage INSTextContentStorage, range_ foundation.NSRange) INSTextParagraph {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentStorage:textParagraphWithRange:"), textContentStorage, range_)
 	return NSTextParagraphFromID(rv)
 	}
@@ -78,7 +77,6 @@ func (o NSTextContentStorageDelegateObject) TextContentStorageTextParagraphWithR
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManagerDelegate/textContentManager(_:textElementAt:)
 func (o NSTextContentStorageDelegateObject) TextContentManagerTextElementAtLocation(textContentManager INSTextContentManager, location NSTextLocation) INSTextElement {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("textContentManager:textElementAtLocation:"), textContentManager, location)
 	return NSTextElementFromID(rv)
 	}
@@ -99,7 +97,6 @@ func (o NSTextContentStorageDelegateObject) TextContentManagerTextElementAtLocat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManagerDelegate/textContentManager(_:shouldEnumerate:options:)
 func (o NSTextContentStorageDelegateObject) TextContentManagerShouldEnumerateTextElementOptions(textContentManager INSTextContentManager, textElement INSTextElement, options NSTextContentManagerEnumerationOptions) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("textContentManager:shouldEnumerateTextElement:options:"), textContentManager, textElement, options)
 	return rv
 	}

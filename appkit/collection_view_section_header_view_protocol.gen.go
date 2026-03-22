@@ -47,7 +47,6 @@ func NSCollectionViewSectionHeaderViewObjectFromID(id objc.ID) NSCollectionViewS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewSectionHeaderView/sectionCollapseButton
 func (o NSCollectionViewSectionHeaderViewObject) SectionCollapseButton() INSButton {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sectionCollapseButton"))
 	return NSButtonFromID(rv)
 	}
@@ -76,7 +75,6 @@ func (o NSCollectionViewSectionHeaderViewObject) SectionCollapseButton() INSButt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/prepareForReuse()
 func (o NSCollectionViewSectionHeaderViewObject) PrepareForReuse() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("prepareForReuse"))
 	}
 // Asks your element if it wants to modify any layout attributes before they
@@ -103,7 +101,6 @@ func (o NSCollectionViewSectionHeaderViewObject) PrepareForReuse() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/preferredLayoutAttributesFitting(_:)
 func (o NSCollectionViewSectionHeaderViewObject) PreferredLayoutAttributesFittingAttributes(layoutAttributes INSCollectionViewLayoutAttributes) INSCollectionViewLayoutAttributes {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("preferredLayoutAttributesFittingAttributes:"), layoutAttributes)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 	}
@@ -122,7 +119,6 @@ func (o NSCollectionViewSectionHeaderViewObject) PreferredLayoutAttributesFittin
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/apply(_:)
 func (o NSCollectionViewSectionHeaderViewObject) ApplyLayoutAttributes(layoutAttributes INSCollectionViewLayoutAttributes) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("applyLayoutAttributes:"), layoutAttributes)
 	}
 // Tells the element that the layout object of the collection view is about to
@@ -143,7 +139,6 @@ func (o NSCollectionViewSectionHeaderViewObject) ApplyLayoutAttributes(layoutAtt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/willTransition(from:to:)
 func (o NSCollectionViewSectionHeaderViewObject) WillTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("willTransitionFromLayout:toLayout:"), oldLayout, newLayout)
 	}
 // Tells the element that the layout object of the collection view changed.
@@ -164,14 +159,12 @@ func (o NSCollectionViewSectionHeaderViewObject) WillTransitionFromLayoutToLayou
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewElement/didTransition(from:to:)
 func (o NSCollectionViewSectionHeaderViewObject) DidTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("didTransitionFromLayout:toLayout:"), oldLayout, newLayout)
 	}
 // A string that identifies the user interface item.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemIdentification/identifier
 func (o NSCollectionViewSectionHeaderViewObject) Identifier() NSUserInterfaceItemIdentifier {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("identifier"))
 	return NSUserInterfaceItemIdentifier(foundation.NSStringFromID(rv).String())
 	}

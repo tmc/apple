@@ -58,7 +58,6 @@ func CISignedDistanceGradientFromRedMaskObjectFromID(id objc.ID) CISignedDistanc
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISignedDistanceGradientFromRedMask/inputImage
 func (o CISignedDistanceGradientFromRedMaskObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -67,7 +66,6 @@ func (o CISignedDistanceGradientFromRedMaskObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISignedDistanceGradientFromRedMask/maximumDistance
 func (o CISignedDistanceGradientFromRedMaskObject) MaximumDistance() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("maximumDistance"))
 	return rv
 	}
@@ -76,7 +74,6 @@ func (o CISignedDistanceGradientFromRedMaskObject) MaximumDistance() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISignedDistanceGradientFromRedMaskObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

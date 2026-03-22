@@ -54,7 +54,6 @@ func NSAccessibilityRadioButtonObjectFromID(id objc.ID) NSAccessibilityRadioButt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRadioButton/accessibilityValue()
 func (o NSAccessibilityRadioButtonObject) AccessibilityValue() foundation.NSNumber {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return foundation.NSNumberFromID(rv)
 	}
@@ -79,7 +78,6 @@ func (o NSAccessibilityRadioButtonObject) AccessibilityValue() foundation.NSNumb
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityLabel()
 func (o NSAccessibilityRadioButtonObject) AccessibilityLabel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -96,7 +94,6 @@ func (o NSAccessibilityRadioButtonObject) AccessibilityLabel() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
 func (o NSAccessibilityRadioButtonObject) AccessibilityPerformPress() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformPress"))
 	return rv
 	}
@@ -118,7 +115,6 @@ func (o NSAccessibilityRadioButtonObject) AccessibilityPerformPress() bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 func (o NSAccessibilityRadioButtonObject) AccessibilityFrame() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
 	return rv
 	}
@@ -138,7 +134,6 @@ func (o NSAccessibilityRadioButtonObject) AccessibilityFrame() corefoundation.CG
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
 func (o NSAccessibilityRadioButtonObject) AccessibilityParent() objectivec.IObject {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
 	}
@@ -158,7 +153,6 @@ func (o NSAccessibilityRadioButtonObject) AccessibilityParent() objectivec.IObje
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
 func (o NSAccessibilityRadioButtonObject) AccessibilityIdentifier() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -181,7 +175,6 @@ func (o NSAccessibilityRadioButtonObject) AccessibilityIdentifier() string {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
 func (o NSAccessibilityRadioButtonObject) IsAccessibilityFocused() bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
 	}

@@ -44,7 +44,6 @@ func CAActionObjectFromID(id objc.ID) CAActionObject {
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAAction/run(forKey:object:arguments:)
 func (o CAActionObject) RunActionForKeyObjectArguments(event string, anObject objectivec.IObject, dict foundation.INSDictionary) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("runActionForKey:object:arguments:"), objc.String(event), anObject, dict)
 	}
 

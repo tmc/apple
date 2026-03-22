@@ -45,7 +45,6 @@ func CIBarcodeGeneratorObjectFromID(id objc.ID) CIBarcodeGeneratorObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBarcodeGenerator/barcodeDescriptor
 func (o CIBarcodeGeneratorObject) BarcodeDescriptor() ICIBarcodeDescriptor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("barcodeDescriptor"))
 	return CIBarcodeDescriptorFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIBarcodeGeneratorObject) BarcodeDescriptor() ICIBarcodeDescriptor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIBarcodeGeneratorObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

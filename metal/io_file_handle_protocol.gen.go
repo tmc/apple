@@ -45,7 +45,6 @@ func MTLIOFileHandleObjectFromID(id objc.ID) MTLIOFileHandleObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOFileHandle/label
 func (o MTLIOFileHandleObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}

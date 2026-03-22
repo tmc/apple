@@ -76,7 +76,6 @@ func CICircularScreenObjectFromID(id objc.ID) CICircularScreenObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICircularScreen/center
 func (o CICircularScreenObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -84,7 +83,6 @@ func (o CICircularScreenObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICircularScreen/inputImage
 func (o CICircularScreenObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -92,7 +90,6 @@ func (o CICircularScreenObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICircularScreen/sharpness
 func (o CICircularScreenObject) Sharpness() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("sharpness"))
 	return rv
 	}
@@ -100,7 +97,6 @@ func (o CICircularScreenObject) Sharpness() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICircularScreen/width
 func (o CICircularScreenObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -109,7 +105,6 @@ func (o CICircularScreenObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CICircularScreenObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

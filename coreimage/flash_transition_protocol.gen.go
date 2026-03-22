@@ -107,7 +107,6 @@ func CIFlashTransitionObjectFromID(id objc.ID) CIFlashTransitionObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/center
 func (o CIFlashTransitionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -115,7 +114,6 @@ func (o CIFlashTransitionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/color
 func (o CIFlashTransitionObject) Color() ICIColor {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("color"))
 	return CIColorFromID(rv)
 	}
@@ -123,7 +121,6 @@ func (o CIFlashTransitionObject) Color() ICIColor {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/extent
 func (o CIFlashTransitionObject) Extent() corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("extent"))
 	return rv
 	}
@@ -131,7 +128,6 @@ func (o CIFlashTransitionObject) Extent() corefoundation.CGRect {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/fadeThreshold
 func (o CIFlashTransitionObject) FadeThreshold() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("fadeThreshold"))
 	return rv
 	}
@@ -139,7 +135,6 @@ func (o CIFlashTransitionObject) FadeThreshold() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/maxStriationRadius
 func (o CIFlashTransitionObject) MaxStriationRadius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("maxStriationRadius"))
 	return rv
 	}
@@ -147,7 +142,6 @@ func (o CIFlashTransitionObject) MaxStriationRadius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/striationContrast
 func (o CIFlashTransitionObject) StriationContrast() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("striationContrast"))
 	return rv
 	}
@@ -155,7 +149,6 @@ func (o CIFlashTransitionObject) StriationContrast() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFlashTransition/striationStrength
 func (o CIFlashTransitionObject) StriationStrength() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("striationStrength"))
 	return rv
 	}
@@ -164,7 +157,6 @@ func (o CIFlashTransitionObject) StriationStrength() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIFlashTransitionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}
@@ -172,7 +164,6 @@ func (o CIFlashTransitionObject) OutputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/inputImage
 func (o CIFlashTransitionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -180,7 +171,6 @@ func (o CIFlashTransitionObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/targetImage
 func (o CIFlashTransitionObject) TargetImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("targetImage"))
 	return CIImageFromID(rv)
 	}
@@ -188,7 +178,6 @@ func (o CIFlashTransitionObject) TargetImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITransitionFilter/time
 func (o CIFlashTransitionObject) Time() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("time"))
 	return rv
 	}

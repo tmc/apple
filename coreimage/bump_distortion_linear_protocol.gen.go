@@ -84,13 +84,11 @@ func CIBumpDistortionLinearObjectFromID(id objc.ID) CIBumpDistortionLinearObject
 
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/angle
 func (o CIBumpDistortionLinearObject) Angle() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("angle"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/center
 func (o CIBumpDistortionLinearObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -98,19 +96,16 @@ func (o CIBumpDistortionLinearObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/inputImage
 func (o CIBumpDistortionLinearObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/radius
 func (o CIBumpDistortionLinearObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CIBumpDistortionLinear/scale
 func (o CIBumpDistortionLinearObject) Scale() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("scale"))
 	return rv
 	}
@@ -119,7 +114,6 @@ func (o CIBumpDistortionLinearObject) Scale() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIBumpDistortionLinearObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

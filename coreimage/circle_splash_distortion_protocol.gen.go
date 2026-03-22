@@ -64,7 +64,6 @@ func CICircleSplashDistortionObjectFromID(id objc.ID) CICircleSplashDistortionOb
 
 // See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/center
 func (o CICircleSplashDistortionObject) Center() corefoundation.CGPoint {
-	
 	rv := objc.Send[corefoundation.CGPoint](o.ID, objc.Sel("center"))
 	return rv
 	}
@@ -72,13 +71,11 @@ func (o CICircleSplashDistortionObject) Center() corefoundation.CGPoint {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/inputImage
 func (o CICircleSplashDistortionObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
 // See: https://developer.apple.com/documentation/CoreImage/CICircleSplashDistortion/radius
 func (o CICircleSplashDistortionObject) Radius() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("radius"))
 	return rv
 	}
@@ -87,7 +84,6 @@ func (o CICircleSplashDistortionObject) Radius() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CICircleSplashDistortionObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

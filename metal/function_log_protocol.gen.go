@@ -55,7 +55,6 @@ func MTLFunctionLogObjectFromID(id objc.ID) MTLFunctionLogObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLog/type
 func (o MTLFunctionLogObject) Type() MTLFunctionLogType {
-	
 	rv := objc.Send[MTLFunctionLogType](o.ID, objc.Sel("type"))
 	return rv
 	}
@@ -63,7 +62,6 @@ func (o MTLFunctionLogObject) Type() MTLFunctionLogType {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLog/debugLocation
 func (o MTLFunctionLogObject) DebugLocation() MTLFunctionLogDebugLocation {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("debugLocation"))
 	return MTLFunctionLogDebugLocationObjectFromID(rv)
 	}
@@ -71,7 +69,6 @@ func (o MTLFunctionLogObject) DebugLocation() MTLFunctionLogDebugLocation {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLog/encoderLabel
 func (o MTLFunctionLogObject) EncoderLabel() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("encoderLabel"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -79,7 +76,6 @@ func (o MTLFunctionLogObject) EncoderLabel() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLog/function
 func (o MTLFunctionLogObject) Function() MTLFunction {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("function"))
 	return MTLFunctionObjectFromID(rv)
 	}

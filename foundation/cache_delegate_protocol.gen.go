@@ -43,7 +43,6 @@ func NSCacheDelegateObjectFromID(id objc.ID) NSCacheDelegateObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCacheDelegate/cache(_:willEvictObject:)
 func (o NSCacheDelegateObject) CacheWillEvictObject(cache INSCache, obj objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("cache:willEvictObject:"), cache, obj)
 	}
 

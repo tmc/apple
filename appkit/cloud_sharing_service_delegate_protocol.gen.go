@@ -56,7 +56,6 @@ func NSCloudSharingServiceDelegateObjectFromID(id objc.ID) NSCloudSharingService
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/sharingService(_:didCompleteForItems:error:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceDidCompleteForItemsError(sharingService INSSharingService, items foundation.INSArray, error_ foundation.INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didCompleteForItems:error:"), sharingService, items, error_)
 	}
 // Tells the delegate when the cloud-sharing service saves the CloudKit share.
@@ -73,7 +72,6 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidCompleteForItemsEr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/sharingService(_:didSave:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceDidSaveShare(sharingService INSSharingService, share objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didSaveShare:"), sharingService, share)
 	}
 // Tells the delegate when the user stops sharing the CloudKit share.
@@ -90,7 +88,6 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidSaveShare(sharingS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/sharingService(_:didStopSharing:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceDidStopSharing(sharingService INSSharingService, share objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didStopSharing:"), sharingService, share)
 	}
 // Asks the delegate for the participant options for the cloud-sharing
@@ -109,7 +106,6 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidStopSharing(sharin
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCloudSharingServiceDelegate/options(for:share:)
 func (o NSCloudSharingServiceDelegateObject) OptionsForSharingServiceShareProvider(cloudKitSharingService INSSharingService, provider foundation.NSItemProvider) NSCloudKitSharingServiceOptions {
-	
 	rv := objc.Send[NSCloudKitSharingServiceOptions](o.ID, objc.Sel("optionsForSharingService:shareProvider:"), cloudKitSharingService, provider)
 	return rv
 	}
@@ -121,7 +117,6 @@ func (o NSCloudSharingServiceDelegateObject) OptionsForSharingServiceShareProvid
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:willShareItems:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceWillShareItems(sharingService INSSharingService, items foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:willShareItems:"), sharingService, items)
 	}
 // Invoked when the sharing service has finished sharing the items.
@@ -132,7 +127,6 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceWillShareItems(sharin
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:didShareItems:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceDidShareItems(sharingService INSSharingService, items foundation.INSArray) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didShareItems:"), sharingService, items)
 	}
 // Invoked when the sharing service encountered an error when sharing items.
@@ -148,7 +142,6 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidShareItems(sharing
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:didFailToShareItems:error:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceDidFailToShareItemsError(sharingService INSSharingService, items foundation.INSArray, error_ foundation.INSError) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("sharingService:didFailToShareItems:error:"), sharingService, items, error_)
 	}
 // Invoked when the sharing service is performed and the sharing window is
@@ -169,7 +162,6 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceDidFailToShareItemsEr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:sourceFrameOnScreenForShareItem:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceSourceFrameOnScreenForShareItem(sharingService INSSharingService, item objectivec.IObject) corefoundation.CGRect {
-	
 	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("sharingService:sourceFrameOnScreenForShareItem:"), sharingService, item)
 	return rv
 	}
@@ -195,7 +187,6 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceSourceFrameOnScreenFo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:transitionImageForShareItem:contentRect:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceTransitionImageForShareItemContentRect(sharingService INSSharingService, item objectivec.IObject, contentRect *corefoundation.CGRect) INSImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:transitionImageForShareItem:contentRect:"), sharingService, item, contentRect)
 	return NSImageFromID(rv)
 	}
@@ -225,14 +216,12 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceTransitionImageForSha
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:sourceWindowForShareItems:sharingContentScope:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceSourceWindowForShareItemsSharingContentScope(sharingService INSSharingService, items foundation.INSArray, sharingContentScope NSSharingContentScope) INSWindow {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:sourceWindowForShareItems:sharingContentScope:"), sharingService, items, sharingContentScope)
 	return NSWindowFromID(rv)
 	}
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/anchoringView(for:showRelativeTo:preferredEdge:)
 func (o NSCloudSharingServiceDelegateObject) AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge(sharingService INSSharingService, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) INSView {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"), sharingService, positioningRect, preferredEdge)
 	return NSViewFromID(rv)
 	}

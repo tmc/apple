@@ -45,7 +45,6 @@ func CIGaborGradientsObjectFromID(id objc.ID) CIGaborGradientsObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIGaborGradients/inputImage
 func (o CIGaborGradientsObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -54,7 +53,6 @@ func (o CIGaborGradientsObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIGaborGradientsObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

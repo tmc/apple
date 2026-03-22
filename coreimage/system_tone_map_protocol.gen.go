@@ -66,7 +66,6 @@ func CISystemToneMapObjectFromID(id objc.ID) CISystemToneMapObject {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/displayHeadroom
 func (o CISystemToneMapObject) DisplayHeadroom() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("displayHeadroom"))
 	return rv
 	}
@@ -75,7 +74,6 @@ func (o CISystemToneMapObject) DisplayHeadroom() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/inputImage
 func (o CISystemToneMapObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -86,7 +84,6 @@ func (o CISystemToneMapObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CISystemToneMap/preferredDynamicRange
 func (o CISystemToneMapObject) PreferredDynamicRange() CIDynamicRangeOption {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("preferredDynamicRange"))
 	return CIDynamicRangeOption(foundation.NSStringFromID(rv).String())
 	}
@@ -95,7 +92,6 @@ func (o CISystemToneMapObject) PreferredDynamicRange() CIDynamicRangeOption {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CISystemToneMapObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

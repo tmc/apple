@@ -64,7 +64,6 @@ func VZVirtioSocketListenerDelegateObjectFromID(id objc.ID) VZVirtioSocketListen
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketListenerDelegate/listener(_:shouldAcceptNewConnection:from:)
 func (o VZVirtioSocketListenerDelegateObject) ListenerShouldAcceptNewConnectionFromSocketDevice(listener IVZVirtioSocketListener, connection IVZVirtioSocketConnection, socketDevice IVZVirtioSocketDevice) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("listener:shouldAcceptNewConnection:fromSocketDevice:"), listener, connection, socketDevice)
 	return rv
 	}

@@ -50,7 +50,6 @@ func MTLFenceObjectFromID(id objc.ID) MTLFenceObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFence/device
 func (o MTLFenceObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -58,7 +57,6 @@ func (o MTLFenceObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLFence/label
 func (o MTLFenceObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}

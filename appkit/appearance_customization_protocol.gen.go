@@ -49,7 +49,6 @@ func NSAppearanceCustomizationObjectFromID(id objc.ID) NSAppearanceCustomization
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/appearance
 func (o NSAppearanceCustomizationObject) Appearance() INSAppearance {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("appearance"))
 	return NSAppearanceFromID(rv)
 	}
@@ -58,7 +57,6 @@ func (o NSAppearanceCustomizationObject) Appearance() INSAppearance {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearanceCustomization/effectiveAppearance
 func (o NSAppearanceCustomizationObject) EffectiveAppearance() INSAppearance {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("effectiveAppearance"))
 	return NSAppearanceFromID(rv)
 	}

@@ -65,7 +65,6 @@ func CIMorphologyRectangleMinimumObjectFromID(id objc.ID) CIMorphologyRectangleM
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/height
 func (o CIMorphologyRectangleMinimumObject) Height() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("height"))
 	return rv
 	}
@@ -73,7 +72,6 @@ func (o CIMorphologyRectangleMinimumObject) Height() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/inputImage
 func (o CIMorphologyRectangleMinimumObject) InputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("inputImage"))
 	return CIImageFromID(rv)
 	}
@@ -81,7 +79,6 @@ func (o CIMorphologyRectangleMinimumObject) InputImage() ICIImage {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIMorphologyRectangleMinimum/width
 func (o CIMorphologyRectangleMinimumObject) Width() float32 {
-	
 	rv := objc.Send[float32](o.ID, objc.Sel("width"))
 	return rv
 	}
@@ -90,7 +87,6 @@ func (o CIMorphologyRectangleMinimumObject) Width() float32 {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 func (o CIMorphologyRectangleMinimumObject) OutputImage() ICIImage {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("outputImage"))
 	return CIImageFromID(rv)
 	}

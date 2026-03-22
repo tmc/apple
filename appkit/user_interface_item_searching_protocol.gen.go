@@ -41,7 +41,6 @@ func NSUserInterfaceItemSearchingObjectFromID(id objc.ID) NSUserInterfaceItemSea
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemSearching/localizedTitles(forItem:)
 func (o NSUserInterfaceItemSearchingObject) LocalizedTitlesForItem(item objectivec.IObject) []string {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("localizedTitlesForItem:"), item)
 	return objc.ConvertSliceToStrings(rv)
 	}
@@ -58,7 +57,6 @@ func (o NSUserInterfaceItemSearchingObject) LocalizedTitlesForItem(item objectiv
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemSearching/showAllHelpTopics(forSearch:)
 func (o NSUserInterfaceItemSearchingObject) ShowAllHelpTopicsForSearchString(searchString string) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("showAllHelpTopicsForSearchString:"), objc.String(searchString))
 	}
 // Invoked when the user selects a search result in Help menu.
@@ -71,7 +69,6 @@ func (o NSUserInterfaceItemSearchingObject) ShowAllHelpTopicsForSearchString(sea
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemSearching/performAction(forItem:)
 func (o NSUserInterfaceItemSearchingObject) PerformActionForItem(item objectivec.IObject) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("performActionForItem:"), item)
 	}
 

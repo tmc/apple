@@ -112,7 +112,6 @@ func MTLResidencySetObjectFromID(id objc.ID) MTLResidencySetObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/addAllocation(_:)
 func (o MTLResidencySetObject) AddAllocation(allocation MTLAllocation) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addAllocation:"), allocation)
 	}
 // Stages all the resources in the residency set to leave its list of
@@ -125,7 +124,6 @@ func (o MTLResidencySetObject) AddAllocation(allocation MTLAllocation) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/removeAllAllocations()
 func (o MTLResidencySetObject) RemoveAllAllocations() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("removeAllAllocations"))
 	}
 // Stages a single resource to leave the residency set’s list of
@@ -140,7 +138,6 @@ func (o MTLResidencySetObject) RemoveAllAllocations() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/removeAllocation(_:)
 func (o MTLResidencySetObject) RemoveAllocation(allocation MTLAllocation) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("removeAllocation:"), allocation)
 	}
 // Applies any pending additions to and removals from the residency set.
@@ -152,7 +149,6 @@ func (o MTLResidencySetObject) RemoveAllocation(allocation MTLAllocation) {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/commit()
 func (o MTLResidencySetObject) Commit() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("commit"))
 	}
 // Tells Metal to do as much preparatory work as it can, with the system’s
@@ -170,7 +166,6 @@ func (o MTLResidencySetObject) Commit() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/requestResidency()
 func (o MTLResidencySetObject) RequestResidency() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("requestResidency"))
 	}
 // Informs Metal that the residency set’s allocations no longer need to be
@@ -178,14 +173,12 @@ func (o MTLResidencySetObject) RequestResidency() {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/endResidency()
 func (o MTLResidencySetObject) EndResidency() {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("endResidency"))
 	}
 // An optional name that can help you identify the residency set.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/label
 func (o MTLResidencySetObject) Label() string {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("label"))
 	return foundation.NSStringFromID(rv).String()
 	}
@@ -193,7 +186,6 @@ func (o MTLResidencySetObject) Label() string {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/device
 func (o MTLResidencySetObject) Device() MTLDevice {
-	
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("device"))
 	return MTLDeviceObjectFromID(rv)
 	}
@@ -204,7 +196,6 @@ func (o MTLResidencySetObject) Device() MTLDevice {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/containsAllocation(_:)
 func (o MTLResidencySetObject) ContainsAllocation(anAllocation MTLAllocation) bool {
-	
 	rv := objc.Send[bool](o.ID, objc.Sel("containsAllocation:"), anAllocation)
 	return rv
 	}
@@ -212,7 +203,6 @@ func (o MTLResidencySetObject) ContainsAllocation(anAllocation MTLAllocation) bo
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/allAllocations
 func (o MTLResidencySetObject) AllAllocations() []objectivec.IObject {
-	
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("allAllocations"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
@@ -222,7 +212,6 @@ func (o MTLResidencySetObject) AllAllocations() []objectivec.IObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/allocationCount
 func (o MTLResidencySetObject) AllocationCount() uint {
-	
 	rv := objc.Send[uint](o.ID, objc.Sel("allocationCount"))
 	return rv
 	}
@@ -231,7 +220,6 @@ func (o MTLResidencySetObject) AllocationCount() uint {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/allocatedSize
 func (o MTLResidencySetObject) AllocatedSize() uint64 {
-	
 	rv := objc.Send[uint64](o.ID, objc.Sel("allocatedSize"))
 	return rv
 	}
@@ -250,7 +238,6 @@ func (o MTLResidencySetObject) AllocatedSize() uint64 {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/addAllocations:count:
 func (o MTLResidencySetObject) AddAllocationsCount(allocations []MTLAllocation, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("addAllocations:count:"), objc.CArray(allocations), count)
 	}
 // Stages multiple resources to leave the residency set’s list of
@@ -268,7 +255,6 @@ func (o MTLResidencySetObject) AddAllocationsCount(allocations []MTLAllocation, 
 //
 // See: https://developer.apple.com/documentation/Metal/MTLResidencySet/removeAllocations:count:
 func (o MTLResidencySetObject) RemoveAllocationsCount(allocations []MTLAllocation, count uint) {
-	
 	objc.Send[struct{}](o.ID, objc.Sel("removeAllocations:count:"), objc.CArray(allocations), count)
 	}
 
