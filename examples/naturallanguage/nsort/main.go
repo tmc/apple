@@ -26,7 +26,6 @@ import (
 	"sort"
 
 	"github.com/tmc/apple/naturallanguage"
-	"github.com/tmc/apple/objc"
 )
 
 func main() {
@@ -75,11 +74,7 @@ func main() {
 
 	var items []scored
 	for _, line := range lines {
-		dist := objc.Send[float64](emb.ID, objc.Sel("distanceBetweenString:andString:distanceType:"),
-			objc.String(seedStr),
-			objc.String(line),
-			naturallanguage.NLDistanceTypeCosine,
-		)
+		dist := emb.DistanceBetweenStringAndStringDistanceType(seedStr, line, naturallanguage.NLDistanceTypeCosine)
 		items = append(items, scored{line, dist})
 	}
 

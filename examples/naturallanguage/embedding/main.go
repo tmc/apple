@@ -16,11 +16,8 @@ import (
 	"fmt"
 	"os"
 	"runtime"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/naturallanguage"
-	"github.com/tmc/apple/objc"
 )
 
 func main() {
@@ -93,12 +90,7 @@ func runDistance(args []string) error {
 		return err
 	}
 
-	// distanceBetweenString:andString:distanceType:
-	dist := objc.Send[float64](emb.ID, objc.Sel("distanceBetweenString:andString:distanceType:"),
-		objc.String(word1),
-		objc.String(word2),
-		naturallanguage.NLDistanceTypeCosine,
-	)
+	dist := emb.DistanceBetweenStringAndStringDistanceType(word1, word2, naturallanguage.NLDistanceTypeCosine)
 
 	return writeJSON(distanceResult{
 		Word1:    word1,
@@ -107,14 +99,9 @@ func runDistance(args []string) error {
 	})
 }
 
-type neighborEntry struct {
-	Word     string  `json:"word"`
-	Distance float64 `json:"distance"`
-}
-
 type neighborsResult struct {
-	Query     string          `json:"query"`
-	Neighbors []neighborEntry `json:"neighbors"`
+	Query     string   `json:"query"`
+	Neighbors []string `json:"neighbors"`
 }
 
 func runNeighbors(args []string) error {
@@ -132,28 +119,9 @@ func runNeighbors(args []string) error {
 		return err
 	}
 
-	var neighbors []neighborEntry
-
-	// Block signature: void(^)(NSString *neighbor, NLDistance distance, BOOL *stop)
-	block := objc.NewBlock(func(_ objc.Block, neighborID objc.ID, distance float64, stop unsafe.Pointer) {
-		neighbor := foundation.NSStringFromID(neighborID).String()
-		neighbors = append(neighbors, neighborEntry{
-			Word:     neighbor,
-			Distance: distance,
-		})
-	})
-	defer block.Release()
-
-	// enumerateNeighborsForString:maximumCount:distanceType:usingBlock:
-	objc.Send[objc.ID](emb.ID, objc.Sel("enumerateNeighborsForString:maximumCount:distanceType:usingBlock:"),
-		objc.String(word),
-		uintptr(*n),
-		naturallanguage.NLDistanceTypeCosine,
-		block,
-	)
-
+	neighbors := emb.NeighborsForStringMaximumCountDistanceType(word, uint(*n), naturallanguage.NLDistanceTypeCosine)
 	if neighbors == nil {
-		neighbors = []neighborEntry{}
+		neighbors = []string{}
 	}
 	return writeJSON(neighborsResult{
 		Query:     word,

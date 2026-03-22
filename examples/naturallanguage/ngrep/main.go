@@ -26,7 +26,6 @@ import (
 	"sort"
 
 	"github.com/tmc/apple/naturallanguage"
-	"github.com/tmc/apple/objc"
 )
 
 func main() {
@@ -77,11 +76,7 @@ func main() {
 
 	var matches []scored
 	for _, line := range lines {
-		dist := objc.Send[float64](emb.ID, objc.Sel("distanceBetweenString:andString:distanceType:"),
-			objc.String(query),
-			objc.String(line),
-			naturallanguage.NLDistanceTypeCosine,
-		)
+		dist := emb.DistanceBetweenStringAndStringDistanceType(query, line, naturallanguage.NLDistanceTypeCosine)
 		if dist <= *threshold {
 			matches = append(matches, scored{line, dist})
 		}

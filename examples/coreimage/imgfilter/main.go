@@ -29,8 +29,6 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 func main() {
@@ -133,9 +131,9 @@ func runSharpen(args []string) error {
 	if filter.ID == 0 {
 		return fmt.Errorf("CISharpenLuminance filter not available")
 	}
-	objc.Send[objc.ID](filter.ID, objc.Sel("setValue:forKey:"), img.GetID(), objc.String("inputImage"))
+	filter.SetValueForKey(img, "inputImage")
 	num := foundation.NewNumberWithDouble(*sharpness)
-	objc.Send[objc.ID](filter.ID, objc.Sel("setValue:forKey:"), num.GetID(), objc.String("inputSharpness"))
+	filter.SetValueForKey(num, "inputSharpness")
 
 	outputImage := filter.OutputImage()
 	if outputImage == nil {
@@ -261,11 +259,10 @@ func runQRGen(args []string) error {
 	// Set message data (NSUTF8StringEncoding = 4).
 	msgStr := foundation.GetNSStringClass().StringWithString(text)
 	dataObj := msgStr.DataUsingEncoding(4)
-	objc.Send[objc.ID](filter.ID, objc.Sel("setValue:forKey:"), dataObj.GetID(), objc.String("inputMessage"))
+	filter.SetValueForKey(dataObj, "inputMessage")
 
 	// Set correction level.
-	objc.Send[objc.ID](filter.ID, objc.Sel("setValue:forKey:"),
-		objectivec.Object{ID: objc.String("M")}, objc.String("inputCorrectionLevel"))
+	filter.SetValueForKey(foundation.NewStringWithString("M"), "inputCorrectionLevel")
 
 	outputImage := filter.OutputImage()
 	if outputImage == nil {
