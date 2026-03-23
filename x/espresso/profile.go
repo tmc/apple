@@ -113,14 +113,17 @@ func ReadProfile(info espresso.EspressoProfilingNetworkInfo) *Profile {
 	return p
 }
 
-// ProfileNetwork attempts to extract profiling data from a loaded network.
+// ProfileNetwork attempts to extract profiling data directly from a loaded
+// network. This is not currently possible because the EspressoNetwork class
+// does not expose a profiling selector. The class provides ctx(),
+// layers_size(), net(), and wipe_layers_blobs(), but none of the profiling
+// selectors (profilingInfo, profileWithOptions:, _profilingNetworkInfo,
+// profilingNetworkInfo) are present in the manifest or respond at runtime.
 //
-// Status: not yet implemented. The EspressoNetwork class exposes ctx(),
-// layers_size(), net(), and wipe_layers_blobs() — but no profiling selector.
-// Attempted selectors: profilingInfo, profileWithOptions:, _profilingNetworkInfo,
-// profilingNetworkInfo. None are present in the manifest or respond at runtime.
-//
-// Use ReadProfile with an externally obtained EspressoProfilingNetworkInfo instead.
+// Use [ReadProfile] with an externally obtained EspressoProfilingNetworkInfo
+// instead. Obtain the profiling info object by running the model through
+// CoreML's profiling infrastructure or by loading it from an Instruments
+// trace, then pass the resulting EspressoProfilingNetworkInfo to ReadProfile.
 func ProfileNetwork(_ *Network) (*Profile, error) {
 	return nil, &Error{Op: "profile", Err: errors.New("espresso: profiling not available via generated bindings; use ReadProfile with external EspressoProfilingNetworkInfo")}
 }

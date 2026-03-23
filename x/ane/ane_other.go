@@ -97,7 +97,19 @@ func (m *Model) Close() error           { return nil }
 func (m *Model) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
 	return ErrNoANE
 }
+func (m *Model) EvalWithWaitEvent(waitPort uint32, waitValue uint64, cfg SharedEventEvalOptions) error {
+	return ErrNoANE
+}
 func (m *Model) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort uint32, signalValue uint64, cfg SharedEventEvalOptions) error {
+	return ErrNoANE
+}
+func (m *Model) EvalWithSignal(_ *SharedEvent, _ uint64, _ SharedEventEvalOptions) error {
+	return ErrNoANE
+}
+func (m *Model) EvalWithWait(_ *SharedEvent, _ uint64, _ SharedEventEvalOptions) error {
+	return ErrNoANE
+}
+func (m *Model) EvalBidirectionalEvents(_ *SharedEvent, _ uint64, _ *SharedEvent, _ uint64, _ SharedEventEvalOptions) error {
 	return ErrNoANE
 }
 

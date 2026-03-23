@@ -2,8 +2,12 @@
 // into compiled model bundles (.mlmodelc) without requiring xcrun or
 // Apple's proprietary coremlcompiler binary.
 //
-// The primary path converts mlprogram models: the protobuf-encoded MIL
-// program is serialized to MIL text, weights are copied byte-for-byte,
+// Only mlprogram models (spec version 5+) are supported. Legacy
+// NeuralNetwork models must first be converted to mlprogram format
+// using coremltools (convert_to="mlprogram").
+//
+// The compilation path converts mlprogram models: the protobuf-encoded
+// MIL program is serialized to MIL text, weights are copied byte-for-byte,
 // and a coremldata.bin header is generated. The result can be loaded
 // directly by CoreML, the ANE runtime, or x/ane.
 //

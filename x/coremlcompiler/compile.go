@@ -11,8 +11,10 @@ import (
 // Compile compiles a CoreML model package (.mlpackage) or model file
 // (.mlmodel) into a compiled bundle (.mlmodelc) at outputPath.
 //
-// Currently supports mlprogram models. NeuralNetwork models will be
-// supported in a future release.
+// Only mlprogram models (spec version 5+) are supported. Legacy
+// NeuralNetwork models must be converted to the mlprogram format
+// before compilation (e.g. via coremltools.convert with
+// convert_to="mlprogram").
 func Compile(inputPath, outputPath string) error {
 	// Read the model protobuf.
 	modelData, weightDir, err := readModelInput(inputPath)
@@ -30,7 +32,7 @@ func Compile(inputPath, outputPath string) error {
 		return compileMLProgram(model, weightDir, outputPath)
 	}
 
-	return fmt.Errorf("coremlcompiler: unsupported model type (only mlprogram is currently supported)")
+	return fmt.Errorf("coremlcompiler: unsupported model type (only mlprogram is supported; convert NeuralNetwork models via coremltools with convert_to=\"mlprogram\")")
 }
 
 // CompileMLProgram compiles an mlprogram model from already-parsed components.

@@ -14,6 +14,7 @@ var (
 	ErrModelLoad                = errors.New("ane: model load failed")
 	ErrEval                     = errors.New("ane: evaluation failed")
 	ErrUnsupportedLayout        = errors.New("ane: unsupported tensor layout")
+	ErrSharedEventRequiresPackage = errors.New("ane: shared events require package-backed models (ModelTypePackage)")
 )
 
 // ANEError wraps an error from the ANE subsystem with context.

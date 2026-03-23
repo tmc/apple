@@ -111,7 +111,7 @@ func (m *Model) EvalBidirectionalEvents(wait *SharedEvent, waitValue uint64, sig
 
 func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
 	if m.modelType != ModelTypePackage {
-		return &ANEError{Op: "eval", Err: fmt.Errorf("shared events require package-backed models")}
+		return &ANEError{Op: "eval", Err: ErrSharedEventRequiresPackage}
 	}
 	m.sharedEventUsed = true
 

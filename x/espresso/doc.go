@@ -51,10 +51,15 @@
 //
 // # Profiling
 //
-// [ProfileNetwork] collects per-layer execution data including which
-// engine ran each layer, runtime samples, and platform support. This
-// is useful for understanding how Espresso partitions a model across
-// backends.
+// [ReadProfile] extracts per-layer execution data from an
+// EspressoProfilingNetworkInfo, including which engine ran each layer,
+// runtime samples, and platform support. This is useful for
+// understanding how Espresso partitions a model across backends.
+//
+// [ProfileNetwork] cannot extract profiling data directly from a loaded
+// network because the EspressoNetwork class does not expose profiling
+// selectors in the generated bindings. Use ReadProfile with an externally
+// obtained EspressoProfilingNetworkInfo instead.
 //
 // # Optimization Passes
 //

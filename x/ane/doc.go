@@ -64,8 +64,21 @@
 // [Model.EvalBidirectional], and related methods for pipelined
 // evaluation across compute domains.
 //
+// Shared events require package-backed models ([ModelTypePackage]).
+// In-memory MIL models ([ModelTypeMIL]) do not support shared events;
+// attempts to use EvalWithSignalEvent or EvalBidirectional on MIL models
+// return an error. To use shared events, compile the model through
+// [github.com/tmc/apple/x/coremlcompiler] and load the .mlmodelc
+// bundle via ModelTypePackage.
+//
 // # Telemetry
 //
 // For hardware performance counters, diagnostics, and runtime
 // snapshots, see the [github.com/tmc/apple/x/ane/telemetry] package.
+//
+// Hardware execution counters (HwExecutionTime, PerfCounters) require
+// [CompileOptions].PerfStatsMask to be non-zero. For in-memory MIL
+// models, hardware counters may be unavailable; the telemetry package
+// returns wall-clock time as a fallback. Package-backed models provide
+// full hardware counter access when running on non-VM hosts.
 package ane

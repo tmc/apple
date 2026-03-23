@@ -303,5 +303,8 @@ func (p *Profile) IsFullyANEResident() bool { return false }
 // CPUFallbackLayers returns supported layers that fell back to CPU instead of ANE.
 func (p *Profile) CPUFallbackLayers() []LayerProfile { return nil }
 
-// ProfileNetwork extracts profiling data from a loaded network.
+// ProfileNetwork attempts to extract profiling data directly from a loaded
+// network. This is not possible because EspressoNetwork does not expose
+// profiling selectors. Use ReadProfile with an externally obtained
+// EspressoProfilingNetworkInfo instead.
 func ProfileNetwork(_ *Network) (*Profile, error) { return nil, ErrUnsupported }
