@@ -209,9 +209,11 @@ func (n *Network) HasLayer(name string) bool {
 // those members via objc_msgSend dereferences nil and causes a fatal
 // SIGSEGV (not recoverable in Go).
 //
-// We avoid objc_msgSend entirely and instead use the ObjC runtime API to
-// read the _ctx ivar directly via its byte offset. This is a plain memory
-// read from alloc'd memory — safe even when the object is in a broken state.
+// EspressoNetwork has a single ivar: _net (shared_ptr<Espresso::net>) at
+// offset 8. The shared_ptr layout is {__ptr_, __cntrl_} — two pointers.
+// If init fails, __ptr_ (the first pointer in the shared_ptr, at the ivar
+// offset) will be nil. We read it directly via the ObjC runtime API,
+// avoiding objc_msgSend entirely.
 func networkInitialized(net espresso.EspressoNetwork) bool {
 	id := net.GetID()
 	if id == 0 {
@@ -223,18 +225,18 @@ func networkInitialized(net espresso.EspressoNetwork) bool {
 		return false
 	}
 
-	// Look up the _ctx ivar on EspressoNetwork. This reads class metadata,
-	// not instance memory, so it's always safe.
-	ivar := objectivec.Class_getInstanceVariable(cls, "_ctx")
+	// Look up the _net ivar (shared_ptr<Espresso::net>) on EspressoNetwork.
+	// This reads class metadata, not instance memory, so it's always safe.
+	ivar := objectivec.Class_getInstanceVariable(cls, "_net")
 	if ivar == 0 {
-		// No _ctx ivar found — can't validate; assume OK to avoid
+		// Ivar not found — can't validate; assume OK to avoid
 		// breaking on future framework versions that rename the ivar.
 		return true
 	}
 
-	// Read the pointer at the ivar's offset from the object base.
+	// Read the first pointer in the shared_ptr (__ptr_) at the ivar's offset.
 	// This is a direct memory read from alloc'd memory — no objc_msgSend.
 	offset := objectivec.Ivar_getOffset(ivar)
-	ptr := *(*uintptr)(unsafe.Pointer(uintptr(id) + uintptr(offset)))
+	ptr := *(*uintptr)(unsafe.Add(unsafe.Pointer(id), offset))
 	return ptr != 0
 }
