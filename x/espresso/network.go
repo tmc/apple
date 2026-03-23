@@ -72,11 +72,11 @@ func (c *Context) LoadNetwork(ir []byte, opts ...NetworkOption) (*Network, error
 	var net espresso.EspressoNetwork
 	if cfg.binSerializerID != nil {
 		net = espresso.NewEspressoNetworkWithJSFileBinSerializerIdContextComputePath(
-			ir, cfg.binSerializerID, c.ctx, cfg.computePath,
+			string(ir), string(cfg.binSerializerID), c.ctx, cfg.computePath,
 		)
 	} else {
 		net = espresso.NewEspressoNetworkWithJSFileContextComputePath(
-			ir, c.ctx, cfg.computePath,
+			string(ir), c.ctx, cfg.computePath,
 		)
 	}
 
