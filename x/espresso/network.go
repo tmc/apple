@@ -76,6 +76,13 @@ func (c *Context) LoadNetwork(ir []byte, opts ...NetworkOption) (*Network, error
 		return nil, ErrNilNetwork
 	}
 
+	// The constructor can return a non-nil ObjC ID even when IR parsing
+	// fails internally, leaving members uninitialized. Verify the network
+	// populated its internal state before exposing it to callers.
+	if !networkInitialized(net) {
+		return nil, &Error{Op: "load", Err: fmt.Errorf("network object created but internal state is nil (IR parse may have failed)")}
+	}
+
 	binder := espresso.NewEspressoDataFrameExecutor()
 	storExec := espresso.NewEspressoDataFrameStorageExecutor()
 
@@ -192,4 +199,20 @@ func (n *Network) LayerNames() []string {
 // HasLayer reports whether the network contains a layer with the given name.
 func (n *Network) HasLayer(name string) bool {
 	return slices.Contains(n.LayerNames(), name)
+}
+
+// networkInitialized checks that an EspressoNetwork has populated internal
+// state after construction. The ObjC init can succeed (non-nil ID) but
+// leave members uninitialized when IR parsing fails silently — accessing
+// those members dereferences nil and SIGSEGVs.
+func networkInitialized(net espresso.EspressoNetwork) (ok bool) {
+	defer func() {
+		if r := recover(); r != nil {
+			ok = false
+		}
+	}()
+	// Ctx() accesses offset 0x20 on the underlying object; if init failed
+	// this will be nil and trigger a fault.
+	ctx := net.Ctx()
+	return ctx != nil && ctx.GetID() != 0
 }
