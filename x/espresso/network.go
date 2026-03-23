@@ -12,7 +12,9 @@ import (
 	"sort"
 	"strings"
 	"sync"
+	"unsafe"
 
+	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/espresso"
 )
 
@@ -204,15 +206,35 @@ func (n *Network) HasLayer(name string) bool {
 // networkInitialized checks that an EspressoNetwork has populated internal
 // state after construction. The ObjC init can succeed (non-nil ID) but
 // leave members uninitialized when IR parsing fails silently — accessing
-// those members dereferences nil and SIGSEGVs.
-func networkInitialized(net espresso.EspressoNetwork) (ok bool) {
-	defer func() {
-		if r := recover(); r != nil {
-			ok = false
-		}
-	}()
-	// Ctx() accesses offset 0x20 on the underlying object; if init failed
-	// this will be nil and trigger a fault.
-	ctx := net.Ctx()
-	return ctx != nil && ctx.GetID() != 0
+// those members via objc_msgSend dereferences nil and causes a fatal
+// SIGSEGV (not recoverable in Go).
+//
+// We avoid objc_msgSend entirely and instead use the ObjC runtime API to
+// read the _ctx ivar directly via its byte offset. This is a plain memory
+// read from alloc'd memory — safe even when the object is in a broken state.
+func networkInitialized(net espresso.EspressoNetwork) bool {
+	id := net.GetID()
+	if id == 0 {
+		return false
+	}
+	obj := objectivec.Object{ID: id}
+	cls := objectivec.Object_getClass(obj)
+	if uintptr(cls) == 0 {
+		return false
+	}
+
+	// Look up the _ctx ivar on EspressoNetwork. This reads class metadata,
+	// not instance memory, so it's always safe.
+	ivar := objectivec.Class_getInstanceVariable(cls, "_ctx")
+	if ivar == 0 {
+		// No _ctx ivar found — can't validate; assume OK to avoid
+		// breaking on future framework versions that rename the ivar.
+		return true
+	}
+
+	// Read the pointer at the ivar's offset from the object base.
+	// This is a direct memory read from alloc'd memory — no objc_msgSend.
+	offset := objectivec.Ivar_getOffset(ivar)
+	ptr := *(*uintptr)(unsafe.Pointer(uintptr(id) + uintptr(offset)))
+	return ptr != 0
 }
