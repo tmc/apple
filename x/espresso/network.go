@@ -63,14 +63,20 @@ func (c *Context) LoadNetwork(ir []byte, opts ...NetworkOption) (*Network, error
 		o(&cfg)
 	}
 
+	// The generated binding passes []byte as const char * via
+	// unsafe.Pointer(unsafe.SliceData(...)). The C++ parser expects a
+	// null-terminated string for the JSON IR. Go slices are not
+	// null-terminated, so we append a zero byte.
+	irZ := append(ir, 0)
+
 	var net espresso.EspressoNetwork
 	if cfg.binSerializerID != nil {
 		net = espresso.NewEspressoNetworkWithJSFileBinSerializerIdContextComputePath(
-			ir, cfg.binSerializerID, c.ctx, cfg.computePath,
+			irZ, cfg.binSerializerID, c.ctx, cfg.computePath,
 		)
 	} else {
 		net = espresso.NewEspressoNetworkWithJSFileContextComputePath(
-			ir, c.ctx, cfg.computePath,
+			irZ, c.ctx, cfg.computePath,
 		)
 	}
 
