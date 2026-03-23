@@ -44,10 +44,14 @@
 // # Execution
 //
 // A [Context] manages execution state and selects the platform.
-// [Context.LoadNetwork] loads a network from Espresso IR (JSON + binary
-// weights). [Frame] binds named input and output tensors using string
-// keys matching the model's tensor names. [Network.Eval] executes
-// the network.
+// [Frame] binds named input and output tensors using string keys
+// matching the model's tensor names. [Network.Eval] executes the network.
+//
+// Note: [Context.LoadNetwork] wraps EspressoNetwork.initWithJSFile, which
+// is an internal CoreML entry point that requires the full CoreML model
+// loading context. It cannot be called standalone with raw Espresso IR.
+// Use [CompileAndLoadEspresso] (via _ANEClient.compileModel) to load
+// models from IR instead.
 //
 // # Profiling
 //
