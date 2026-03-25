@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/x/axuiautomation"
 	"github.com/tmc/macgo"
 	"golang.org/x/tools/txtar"
@@ -47,16 +48,20 @@ func Engine(cfg Config) (*script.Engine, *axuiautomation.Application, error) {
 	cmds["screenshot"] = cmdScreenshot(app)
 	e.Cmds = cmds
 
-	inBundle := os.Getenv("MACGO_BUNDLE_PATH") != ""
 	conds := scripttest.DefaultConds()
 	conds["trusted"] = script.OnceCondition("process has accessibility permissions", func() (bool, error) {
-		if axuiautomation.IsProcessTrusted() {
+		fresh := axuiautomation.IsTrustedFresh(false)
+		fmt.Fprintf(os.Stderr, "axscripttest: IsTrustedFresh(false)=%v\n", fresh)
+		if fresh {
 			return true, nil
 		}
-		if inBundle {
-			axuiautomation.PromptForAccessibility()
-			pollUntil(30*time.Second, axuiautomation.IsProcessTrusted)
-			return axuiautomation.IsProcessTrusted(), nil
+		if os.Getenv("MACGO_BUNDLE_PATH") != "" {
+			prompted := axuiautomation.IsTrustedFresh(true)
+			fmt.Fprintf(os.Stderr, "axscripttest: IsTrustedFresh(true)=%v, polling...\n", prompted)
+			pollUntil(30*time.Second, func() bool { return axuiautomation.IsTrustedFresh(false) })
+			result := axuiautomation.IsTrustedFresh(false)
+			fmt.Fprintf(os.Stderr, "axscripttest: after poll, IsTrustedFresh(false)=%v\n", result)
+			return result, nil
 		}
 		return false, nil
 	})
@@ -64,7 +69,7 @@ func Engine(cfg Config) (*script.Engine, *axuiautomation.Application, error) {
 		if axuiautomation.IsScreenRecordingTrusted() {
 			return true, nil
 		}
-		if inBundle {
+		if os.Getenv("MACGO_BUNDLE_PATH") != "" {
 			axuiautomation.CheckScreenCapture()
 			pollUntil(30*time.Second, axuiautomation.IsScreenRecordingTrusted)
 			return axuiautomation.IsScreenRecordingTrusted(), nil
@@ -107,15 +112,30 @@ func EnsureTrusted() error {
 	return nil
 }
 
-// pollUntil calls check at 500ms intervals until it returns true or timeout.
+// pollUntil polls check at 500ms intervals until it returns true or timeout.
+// It initializes NSApplication in accessory mode and spins the main run
+// loop between checks so TCC permission change notifications are delivered.
+// Must be called from the main OS thread.
 func pollUntil(timeout time.Duration, check func() bool) {
-	deadline := time.Now().Add(timeout)
+	if check() {
+		return
+	}
+
+	app := appkit.GetNSApplicationClass().SharedApplication()
+	app.SetActivationPolicy(appkit.NSApplicationActivationPolicyAccessory)
+
+	start := time.Now()
+	deadline := start.Add(timeout)
+	fmt.Fprintf(os.Stderr, "axscripttest: polling for %v (app.Running=%v)\n", timeout, app.Running())
 	for time.Now().Before(deadline) {
-		if check() {
+		axuiautomation.SpinMainRunLoop(500 * time.Millisecond)
+		result := check()
+		fmt.Fprintf(os.Stderr, "axscripttest: poll %v check=%v\n", time.Since(start).Round(time.Millisecond), result)
+		if result {
 			return
 		}
-		time.Sleep(500 * time.Millisecond)
 	}
+	fmt.Fprintf(os.Stderr, "axscripttest: poll timed out\n")
 }
 
 // RunFile runs a txtar script file against the configured application.

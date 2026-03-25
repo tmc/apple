@@ -18,10 +18,10 @@
 // # Conditions
 //
 //   - [trusted]: true if the process has accessibility permissions.
-//     When running inside a macgo bundle, automatically prompts and
-//     waits up to 30s for the user to grant access in System Settings.
+//     When running inside a macgo bundle, prompts and polls for up
+//     to 30s for the permission to be granted.
 //   - [screencapture]: true if the process has screen recording
-//     permissions. Also prompts and waits when inside a macgo bundle.
+//     permissions. Same prompt-and-poll behavior as [trusted].
 //   - [app-running]: true if the target application is running
 //
 // # Accessibility Permissions
