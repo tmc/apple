@@ -778,7 +778,7 @@ func compilePackageWithStats(c *Client, opts CompileOptions, cs *CompileStats) (
 }
 
 func packageClient(fallback appleneuralengine.ANEClient) appleneuralengine.ANEClient {
-	if c := appleneuralengine.GetANEClientClass().SharedConnection(); c != nil && c.GetID() != 0 {
+	if c := appleneuralengine.GetANEClientClass().SharedConnection(); c != nil && c.ID != 0 {
 		return *c
 	}
 	return fallback

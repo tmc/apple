@@ -46,12 +46,12 @@ func acquireClient() (appleneuralengine.ANEClient, error) {
 	cls := appleneuralengine.GetANEClientClass()
 
 	// Try shared private connection first.
-	if c := cls.SharedPrivateConnection(); c != nil && c.GetID() != 0 {
+	if c := cls.SharedPrivateConnection(); c != nil && c.ID != 0 {
 		return *c, nil
 	}
 
 	// Try shared connection.
-	if c := cls.SharedConnection(); c != nil && c.GetID() != 0 {
+	if c := cls.SharedConnection(); c != nil && c.ID != 0 {
 		return *c, nil
 	}
 
