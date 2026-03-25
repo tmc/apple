@@ -33,7 +33,6 @@ func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 // VoidHandler is the signature for a completion handler block.
 //
 // Used by:
-//   - [ANECompilerService.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathWithReply]
 //   - [ANEDaemonConnection.BeginRealTimeTaskWithReply]
 //   - [ANEDaemonConnection.CompileModelSandboxExtensionOptionsQosWithReply]
 //   - [ANEDaemonConnection.CompiledModelExistsForWithReply]
@@ -46,17 +45,12 @@ func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 //   - [ANEDaemonConnection.PurgeCompiledModelMatchingHashWithReply]
 //   - [ANEDaemonConnection.PurgeCompiledModelWithReply]
 //   - [ANEDaemonConnection.UnloadModelOptionsQosWithReply]
-//   - [ANEModelCacheManager.CacheURLIdentifierForModelUseSourceURLWithReply]
-//   - [ANEStorageMaintainer.PurgeDanglingModelsAtWithReply]
-//   - [ANETask.InitWithNamePeriodHandler]
-//   - [ANETask.TaskWithNamePeriodHandler]
 type VoidHandler = func()
 
 // NewVoidBlock wraps a Go [VoidHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [ANECompilerService.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathWithReply]
 //   - [ANEDaemonConnection.BeginRealTimeTaskWithReply]
 //   - [ANEDaemonConnection.CompileModelSandboxExtensionOptionsQosWithReply]
 //   - [ANEDaemonConnection.CompiledModelExistsForWithReply]
@@ -69,10 +63,6 @@ type VoidHandler = func()
 //   - [ANEDaemonConnection.PurgeCompiledModelMatchingHashWithReply]
 //   - [ANEDaemonConnection.PurgeCompiledModelWithReply]
 //   - [ANEDaemonConnection.UnloadModelOptionsQosWithReply]
-//   - [ANEModelCacheManager.CacheURLIdentifierForModelUseSourceURLWithReply]
-//   - [ANEStorageMaintainer.PurgeDanglingModelsAtWithReply]
-//   - [ANETask.InitWithNamePeriodHandler]
-//   - [ANETask.TaskWithNamePeriodHandler]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()

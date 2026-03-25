@@ -104,7 +104,7 @@ func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.INSURL, numBlocks
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:numBlocks:error:"), url, numBlocks, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DICreateASIFParamsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return DICreateASIFParams{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return DICreateASIFParamsFromID(rv), nil
 }

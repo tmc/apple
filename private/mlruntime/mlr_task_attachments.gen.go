@@ -125,7 +125,7 @@ func NewRTaskAttachmentsWithContentsOfURLError(url foundation.INSURL) (MLRTaskAt
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLRTaskAttachmentsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLRTaskAttachments{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLRTaskAttachmentsFromID(rv), nil
 }

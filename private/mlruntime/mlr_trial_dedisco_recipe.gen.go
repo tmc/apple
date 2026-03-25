@@ -111,7 +111,7 @@ func NewRTrialDediscoRecipeWithAssetURLConfigOverrideError(url foundation.INSURL
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAssetURL:configOverride:error:"), url, override, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLRTrialDediscoRecipeFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLRTrialDediscoRecipe{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLRTrialDediscoRecipeFromID(rv), nil
 }

@@ -126,7 +126,7 @@ func NewDIImageInfoParamsWithExistingParamsError(params IDIImageInfoParams) (DII
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DIImageInfoParamsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return DIImageInfoParams{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return DIImageInfoParamsFromID(rv), nil
 }
@@ -139,7 +139,7 @@ func NewDIImageInfoParamsWithURLError(url foundation.INSURL) (DIImageInfoParams,
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DIImageInfoParamsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return DIImageInfoParams{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return DIImageInfoParamsFromID(rv), nil
 }

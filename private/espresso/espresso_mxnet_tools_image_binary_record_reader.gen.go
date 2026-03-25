@@ -142,7 +142,7 @@ func NewEspresso_mxnetTools_ImageBinaryRecordReaderWithRecFileError(file objecti
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRecFile:error:"), file, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return Espresso_mxnetTools_ImageBinaryRecordReaderFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return Espresso_mxnetTools_ImageBinaryRecordReader{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return Espresso_mxnetTools_ImageBinaryRecordReaderFromID(rv), nil
 }

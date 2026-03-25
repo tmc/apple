@@ -111,7 +111,7 @@ func NewDIResizeParamsWithExistingParamsSizeError(params IDIResizeParams, size u
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExistingParams:size:error:"), params, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DIResizeParamsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return DIResizeParams{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return DIResizeParamsFromID(rv), nil
 }
@@ -124,7 +124,7 @@ func NewDIResizeParamsWithURLSizeError(url foundation.INSURL, size uint64) (DIRe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:size:error:"), url, size, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DIResizeParamsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return DIResizeParams{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return DIResizeParamsFromID(rv), nil
 }

@@ -11,10 +11,10 @@
 //   - [ANEClient]
 //   - [ANEInMemoryModel]
 //   - [ANEErrors]
-//   - [ANEModelCacheManager]
 //   - [ANERequest]
-//   - [EspressoANEIOSurface]
 //   - [ANEDaemonConnection]
+//   - [ANEDeviceInfo]
+//   - [ANEProgramForEvaluation]
 package appleneuralengine
 
 import (

@@ -214,7 +214,7 @@ type IANEVirtualClient interface {
 	CopyOptionsDictionaryVmData(options objectivec.IObject, dictionary objectivec.IObject, data unsafe.Pointer)
 	CopyOptionsVmData(options objectivec.IObject, data unsafe.Pointer)
 	CopyToIOSurfaceLengthIoSID(iOSurface objectivec.IObject, length uint64, sid unsafe.Pointer) coregraphics.IOSurfaceRef
-	CopyToIOSurfaceSizeIoSID(iOSurface []byte, size uint64, sid unsafe.Pointer) coregraphics.IOSurfaceRef
+	CopyToIOSurfaceSizeIoSID(iOSurface string, size uint64, sid unsafe.Pointer) coregraphics.IOSurfaceRef
 	DoEvaluateWithModelOptionsRequestQosCompletionEventError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32, event objectivec.IObject) (bool, error)
 	DoEvaluateWithModelLegacyOptionsRequestQosCompletionEventError(legacy objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32, event objectivec.IObject) (bool, error)
 	DoJsonParsingMatchWeightName(name objectivec.IObject) objectivec.IObject
@@ -414,8 +414,8 @@ func (a ANEVirtualClient) CopyToIOSurfaceLengthIoSID(iOSurface objectivec.IObjec
 }
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/copyToIOSurface:size:ioSID:
-func (a ANEVirtualClient) CopyToIOSurfaceSizeIoSID(iOSurface []byte, size uint64, sid unsafe.Pointer) coregraphics.IOSurfaceRef {
-	rv := objc.Send[coregraphics.IOSurfaceRef](a.ID, objc.Sel("copyToIOSurface:size:ioSID:"), unsafe.Pointer(unsafe.SliceData(iOSurface)), size, sid)
+func (a ANEVirtualClient) CopyToIOSurfaceSizeIoSID(iOSurface string, size uint64, sid unsafe.Pointer) coregraphics.IOSurfaceRef {
+	rv := objc.Send[coregraphics.IOSurfaceRef](a.ID, objc.Sel("copyToIOSurface:size:ioSID:"), unsafe.Pointer(unsafe.StringData(iOSurface + "\x00")), size, sid)
 	return coregraphics.IOSurfaceRef(rv)
 }
 //

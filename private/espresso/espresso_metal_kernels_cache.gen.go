@@ -89,8 +89,8 @@ type IEspressoMetalKernelsCache interface {
 	// Topic: Methods
 
 	AddLibraryAtPath(path objectivec.IObject)
-	KernelForFunction(function []byte) objectivec.IObject
-	KernelForFunctionCacheStringWithConstants(function []byte, string_ []byte, constants objectivec.IObject) objectivec.IObject
+	KernelForFunction(function string) objectivec.IObject
+	KernelForFunctionCacheStringWithConstants(function string, string_ string, constants objectivec.IObject) objectivec.IObject
 	KernelPrefix() string
 	SetKernelPrefix(value string)
 	LazySetup()
@@ -136,14 +136,14 @@ func (e EspressoMetalKernelsCache) AddLibraryAtPath(path objectivec.IObject) {
 }
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/kernelForFunction:
-func (e EspressoMetalKernelsCache) KernelForFunction(function []byte) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:"), unsafe.Pointer(unsafe.SliceData(function)))
+func (e EspressoMetalKernelsCache) KernelForFunction(function string) objectivec.IObject {
+	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:"), unsafe.Pointer(unsafe.StringData(function + "\x00")))
 	return objectivec.Object{ID: rv}
 }
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/kernelForFunction:cacheString:withConstants:
-func (e EspressoMetalKernelsCache) KernelForFunctionCacheStringWithConstants(function []byte, string_ []byte, constants objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:cacheString:withConstants:"), unsafe.Pointer(unsafe.SliceData(function)), unsafe.Pointer(unsafe.SliceData(string_)), constants)
+func (e EspressoMetalKernelsCache) KernelForFunctionCacheStringWithConstants(function string, string_ string, constants objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](e.ID, objc.Sel("kernelForFunction:cacheString:withConstants:"), unsafe.Pointer(unsafe.StringData(function + "\x00")), unsafe.Pointer(unsafe.StringData(string_ + "\x00")), constants)
 	return objectivec.Object{ID: rv}
 }
 // See: https://developer.apple.com/documentation/Espresso/EspressoMetalKernelsCache/lazySetup

@@ -156,7 +156,7 @@ type IDIAttachParams interface {
 	SetCustomCacheURL(value foundation.INSURL)
 	InputMountedFrom() string
 	SetInputMountedFrom(value string)
-	SetPassphraseError(passphrase []byte) (bool, error)
+	SetPassphraseError(passphrase string) (bool, error)
 	NewAttachWithError() (IDIDeviceHandle, error)
 	SetupDefaults()
 	InitWithURLError(url foundation.INSURL) (DIAttachParams, error)
@@ -192,7 +192,7 @@ func NewDIAttachParamsWithExistingParamsError(params IDIAttachParams) (DIAttachP
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExistingParams:error:"), params, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DIAttachParamsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return DIAttachParams{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return DIAttachParamsFromID(rv), nil
 }
@@ -205,7 +205,7 @@ func NewDIAttachParamsWithURLError(url foundation.INSURL) (DIAttachParams, error
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DIAttachParamsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return DIAttachParams{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return DIAttachParamsFromID(rv), nil
 }
@@ -218,16 +218,16 @@ func NewDIAttachParamsWithURLShadowURLsError(url foundation.INSURL, shadowURLs f
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:shadowURLs:error:"), url, shadowURLs, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DIAttachParamsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return DIAttachParams{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return DIAttachParamsFromID(rv), nil
 }
 
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/setPassphrase:error:
-func (d DIAttachParams) SetPassphraseError(passphrase []byte) (bool, error) {
+func (d DIAttachParams) SetPassphraseError(passphrase string) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("setPassphrase:error:"), unsafe.Pointer(unsafe.SliceData(passphrase)), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](d.ID, objc.Sel("setPassphrase:error:"), unsafe.Pointer(unsafe.StringData(passphrase + "\x00")), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)

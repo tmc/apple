@@ -77,14 +77,14 @@ func NewANEHashEncoding() ANEHashEncoding {
 
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/convertToHexString:length:
-func (_ANEHashEncodingClass ANEHashEncodingClass) ConvertToHexStringLength(string_ []byte, length uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("convertToHexString:length:"), unsafe.Pointer(unsafe.SliceData(string_)), length)
+func (_ANEHashEncodingClass ANEHashEncodingClass) ConvertToHexStringLength(string_ string, length uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("convertToHexString:length:"), unsafe.Pointer(unsafe.StringData(string_ + "\x00")), length)
 	return objectivec.Object{ID: rv}
 }
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/copySHA256For:toBuffer:
-func (_ANEHashEncodingClass ANEHashEncodingClass) CopySHA256ForToBuffer(sHA256For objectivec.IObject, buffer []byte) {
-	objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("copySHA256For:toBuffer:"), sHA256For, unsafe.Pointer(unsafe.SliceData(buffer)))
+func (_ANEHashEncodingClass ANEHashEncodingClass) CopySHA256ForToBuffer(sHA256For objectivec.IObject, buffer string) {
+	objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("copySHA256For:toBuffer:"), sHA256For, unsafe.Pointer(unsafe.StringData(buffer + "\x00")))
 }
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/hashForString:seed:
@@ -94,8 +94,8 @@ func (_ANEHashEncodingClass ANEHashEncodingClass) HashForStringSeed(string_ obje
 }
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEHashEncoding/hexStringForBytes:length:
-func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForBytesLength(bytes []byte, length uint64) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), length)
+func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForBytesLength(bytes string, length uint64) objectivec.IObject {
+	rv := objc.Send[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForBytes:length:"), unsafe.Pointer(unsafe.StringData(bytes + "\x00")), length)
 	return objectivec.Object{ID: rv}
 }
 //
