@@ -18,11 +18,11 @@ import (
 
 var checkTrustOnce sync.Once
 
-// isTrustedFresh performs a live TCC query for accessibility permission.
+// IsTrustedFresh performs a live TCC query for accessibility permission.
 // Pass prompt=true to trigger the system permission dialog if not trusted.
 // Unlike AXIsProcessTrusted(), this always queries the current TCC state.
 // Must be called from the main thread (ObjC runtime requirement).
-func isTrustedFresh(prompt bool) bool {
+func IsTrustedFresh(prompt bool) bool {
 	key := objc.Send[uintptr](objc.ID(objc.GetClass("NSString")), objc.Sel("stringWithUTF8String:"), "AXTrustedCheckOptionPrompt\x00")
 	var boolVal bool
 	if prompt {
@@ -64,7 +64,7 @@ func CheckTrust() {
 // disruptive experience.
 func CheckTrustWithPrompt() {
 	checkTrustOnce.Do(func() {
-		if isTrustedFresh(true) {
+		if IsTrustedFresh(true) {
 			return
 		}
 		showWaitingForPermissionWindow()
@@ -74,7 +74,7 @@ func CheckTrustWithPrompt() {
 func openAccessibilityPrefs() {
 	exec.Command("open", "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility").Start()
 	// Re-trigger the system prompt as requested by the user.
-	isTrustedFresh(true)
+	IsTrustedFresh(true)
 }
 
 func resetTCC() {
@@ -87,7 +87,7 @@ func resetTCC() {
 	exec.Command("tccutil", "reset", "Accessibility", bundleID).Run()
 	// Re-query with prompt=true to re-register the entry in TCC and
 	// triggering the system universalAccessAuthWarn popup as requested.
-	isTrustedFresh(true)
+	IsTrustedFresh(true)
 	openAccessibilityPrefs()
 }
 
@@ -381,7 +381,7 @@ func showWaitingForPermissionWindow() {
 		retryBtn := makeButton("Retry", corefoundation.CGRect{
 			Origin: corefoundation.CGPoint{X: labelX + openW + btnGap, Y: padding},
 			Size:   corefoundation.CGSize{Width: smallW, Height: btnH},
-		}, func() { isTrustedFresh(true) })
+		}, func() { IsTrustedFresh(true) })
 		content.AddSubview(retryBtn)
 
 		resetBtn := makeButton("Reset TCC…", corefoundation.CGRect{
@@ -395,13 +395,13 @@ func showWaitingForPermissionWindow() {
 		app.Activate()
 
 		// Poll on the main thread via time.AfterFunc + DispatchMainSafe so all
-		// ObjC calls (including isTrustedFresh and UI mutations) stay on the
+		// ObjC calls (including IsTrustedFresh and UI mutations) stay on the
 		// main thread.
 		var pollTimer *time.Timer
 		var poll func()
 		poll = func() {
-			// Use isTrustedFresh (live TCC query) — AXIsProcessTrusted() may cache.
-			if !isTrustedFresh(false) {
+			// Use IsTrustedFresh (live TCC query) — AXIsProcessTrusted() may cache.
+			if !IsTrustedFresh(false) {
 				pollTimer = time.AfterFunc(500*time.Millisecond, func() {
 					dispatch.MainQueue().Async(poll)
 				})

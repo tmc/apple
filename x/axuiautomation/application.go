@@ -311,7 +311,7 @@ func IsProcessTrusted() bool {
 // PromptForAccessibility triggers the system accessibility permission prompt.
 // Returns true if already trusted, false otherwise.
 func PromptForAccessibility() bool {
-	return isTrustedFresh(true)
+	return IsTrustedFresh(true)
 }
 
 // CheckAccessibilityAccess performs a diagnostic check to see if accessibility API is working.
