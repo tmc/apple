@@ -36,8 +36,8 @@ func EvalWithStats(m *ane.Model) (EvalStats, error) {
 	if perfStatsEntries == 0 {
 		func() {
 			defer func() { recover() }()
-			if ps := req.PerfStats(); ps != nil {
-				perfStats = *ps
+			if ps := req.PerfStats(); ps != nil && ps.GetID() != 0 {
+				perfStats = appleneuralengine.ANEPerformanceStatsFromID(ps.GetID())
 			}
 		}()
 	}
@@ -159,8 +159,8 @@ func (t *HWTimer) Eval() (uint64, error) {
 	if t.perfStats.GetID() == 0 {
 		func() {
 			defer func() { recover() }()
-			if ps := t.req.PerfStats(); ps != nil {
-				t.perfStats = *ps
+			if ps := t.req.PerfStats(); ps != nil && ps.GetID() != 0 {
+				t.perfStats = appleneuralengine.ANEPerformanceStatsFromID(ps.GetID())
 			}
 		}()
 	}

@@ -3,7 +3,6 @@
 package telemetry
 
 import (
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/private/appleneuralengine"
 	"github.com/tmc/apple/x/ane"
@@ -14,8 +13,9 @@ func ProbeClientInfo(c *ane.Client) ClientInfo {
 	var ci ClientInfo
 	client := appleneuralengine.ANEClientFromID(objc.ID(c.ClientObjcID()))
 	vc := client.VirtualClient()
-	if vc != nil {
-		probeVirtualClientInfo(vc, &ci)
+	if vc != nil && vc.GetID() != 0 {
+		avc := appleneuralengine.ANEVirtualClientFromID(vc.GetID())
+		probeVirtualClientInfo(&avc, &ci)
 		return ci
 	}
 	probeDeviceInfoFallback(&ci)
@@ -89,23 +89,10 @@ func probeDeviceInfoFallback(ci *ClientInfo) {
 }
 
 // ProbeCacheInfo returns ANE model cache information.
+// Note: _ANEModelCacheManager is an XPC-only class that cannot be
+// instantiated from client processes, so cache info is unavailable.
 func ProbeCacheInfo(c *ane.Client) CacheInfo {
-	var ci CacheInfo
-	func() {
-		defer func() { recover() }()
-		mgr := appleneuralengine.NewANEModelCacheManager()
-		if mgr.ID == 0 {
-			return
-		}
-		dirURL := mgr.CacheDir()
-		if dirURL == nil || dirURL.GetID() == 0 {
-			return
-		}
-		nsURL := foundation.NSURLFromID(dirURL.GetID())
-		ci.CacheDir = nsURL.Path()
-		ci.CacheDirKnown = true
-	}()
-	return ci
+	return CacheInfo{}
 }
 
 // Snapshot captures a point-in-time snapshot of the host and ANE environment.
