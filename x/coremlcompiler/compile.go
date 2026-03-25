@@ -206,11 +206,23 @@ func resolveManifest(manifestPath, packageDir string) (modelPath, weightDir stri
 		return "", "", fmt.Errorf("parse manifest: %w", err)
 	}
 
+	// Manifest paths are relative (e.g. "com.apple.CoreML/model.mlmodel").
+	// On disk they live under the Data/ subdirectory.
+	resolveEntry := func(entryPath string) (string, string) {
+		// Try Data/ prefix first (standard coremltools layout).
+		candidate := filepath.Join(packageDir, "Data", entryPath)
+		if _, err := os.Stat(candidate); err == nil {
+			return candidate, filepath.Dir(candidate)
+		}
+		// Fall back to path as-is (non-standard layout).
+		candidate = filepath.Join(packageDir, entryPath)
+		return candidate, filepath.Dir(candidate)
+	}
+
 	// Prefer rootModelIdentifier to find the model entry.
 	if manifest.RootModelIdentifier != "" {
 		if entry, ok := manifest.ItemInfoEntries[manifest.RootModelIdentifier]; ok {
-			modelPath = filepath.Join(packageDir, entry.Path)
-			weightDir = filepath.Dir(modelPath)
+			modelPath, weightDir = resolveEntry(entry.Path)
 			return modelPath, weightDir, nil
 		}
 	}
@@ -218,21 +230,16 @@ func resolveManifest(manifestPath, packageDir string) (modelPath, weightDir stri
 	// Fallback: find an entry whose name is "model.mlmodel".
 	for _, entry := range manifest.ItemInfoEntries {
 		if entry.Name == "model.mlmodel" {
-			modelPath = filepath.Join(packageDir, entry.Path)
-			weightDir = filepath.Dir(modelPath)
+			modelPath, weightDir = resolveEntry(entry.Path)
 			return modelPath, weightDir, nil
 		}
 	}
 
-	// Legacy fallback: find by author and append model.mlmodel.
+	// Legacy fallback: find by author.
 	for _, entry := range manifest.ItemInfoEntries {
 		if entry.Author == "com.apple.CoreML" {
-			candidate := filepath.Join(packageDir, entry.Path)
-			info, serr := os.Stat(candidate)
-			if serr == nil && info.IsDir() {
-				return filepath.Join(candidate, "model.mlmodel"), candidate, nil
-			}
-			return candidate, filepath.Dir(candidate), nil
+			modelPath, weightDir = resolveEntry(entry.Path)
+			return modelPath, weightDir, nil
 		}
 	}
 

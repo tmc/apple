@@ -32,15 +32,19 @@ type mlpackageItemInfo struct {
 //
 //	dir/
 //	├── Manifest.json
-//	└── com.apple.CoreML/
-//	    ├── model.mlmodel     (modelProto bytes)
-//	    └── weights/          (copied from weightSrc if provided)
+//	└── Data/
+//	    └── com.apple.CoreML/
+//	        ├── model.mlmodel     (modelProto bytes)
+//	        └── weights/          (copied from weightSrc if provided)
+//
+// Manifest paths use "com.apple.CoreML/..." (without Data/ prefix);
+// the Data/ directory is implicit when resolving paths on disk.
 //
 // If weightSrc is non-empty and is a directory, its contents are copied
 // into the package's CoreML directory preserving relative paths.
 // If weightSrc is a single file, it is copied as weights/weight.bin.
 func WriteMLPackage(dir string, modelProto []byte, weightSrc string) error {
-	coremlDir := filepath.Join(dir, "com.apple.CoreML")
+	coremlDir := filepath.Join(dir, "Data", "com.apple.CoreML")
 	if err := os.MkdirAll(coremlDir, 0o755); err != nil {
 		return fmt.Errorf("coremlcompiler: mkdir coreml dir: %w", err)
 	}

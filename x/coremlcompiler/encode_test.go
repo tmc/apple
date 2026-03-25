@@ -386,11 +386,11 @@ func TestWriteMLPackage(t *testing.T) {
 		t.Fatalf("WriteMLPackage: %v", err)
 	}
 
-	// Verify the on-disk layout matches Apple's format.
+	// Verify the on-disk layout matches Apple's coremltools format.
 	for _, path := range []string{
 		"Manifest.json",
-		"com.apple.CoreML/model.mlmodel",
-		"com.apple.CoreML/weights/weight.bin",
+		"Data/com.apple.CoreML/model.mlmodel",
+		"Data/com.apple.CoreML/weights/weight.bin",
 	} {
 		if _, err := os.Stat(filepath.Join(pkgDir, path)); err != nil {
 			t.Errorf("missing %s: %v", path, err)
