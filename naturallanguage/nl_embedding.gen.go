@@ -169,7 +169,7 @@ func NewEmbeddingWithContentsOfURLError(url foundation.INSURL) (NLEmbedding, err
 	rv := objc.Send[objc.ID](objc.ID(getNLEmbeddingClass().class), objc.Sel("embeddingWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NLEmbeddingFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NLEmbedding{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NLEmbeddingFromID(rv), nil
 }

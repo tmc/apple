@@ -587,7 +587,7 @@ func NewAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markd
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfMarkdownFileAtURL:options:baseURL:error:"), markdownFile, options, baseURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSAttributedStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSAttributedString{}, NSErrorFrom(errorPtr)
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -642,7 +642,7 @@ func NewAttributedStringWithDataOptionsDocumentAttributesError(data INSData, opt
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSAttributedStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSAttributedString{}, NSErrorFrom(errorPtr)
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -711,7 +711,7 @@ func NewAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, op
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSAttributedStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSAttributedString{}, NSErrorFrom(errorPtr)
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -931,7 +931,7 @@ func NewAttributedStringWithMarkdownOptionsBaseURLError(markdown INSData, option
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMarkdown:options:baseURL:error:"), markdown, options, baseURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSAttributedStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSAttributedString{}, NSErrorFrom(errorPtr)
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -964,7 +964,7 @@ func NewAttributedStringWithMarkdownStringOptionsBaseURLError(markdownString str
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMarkdownString:options:baseURL:error:"), objc.String(markdownString), options, baseURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSAttributedStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSAttributedString{}, NSErrorFrom(errorPtr)
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -1143,7 +1143,7 @@ func NewAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, option
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSAttributedStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSAttributedString{}, NSErrorFrom(errorPtr)
 	}
 	return NSAttributedStringFromID(rv), nil
 }

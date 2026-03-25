@@ -222,7 +222,7 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyCachingModeSynchronizatio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:cachingMode:synchronizationMode:error:"), url, readOnly, cachingMode, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZDiskImageStorageDeviceAttachmentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZDiskImageStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
 }
@@ -251,7 +251,7 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.INSU
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:error:"), url, readOnly, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZDiskImageStorageDeviceAttachmentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZDiskImageStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
 }

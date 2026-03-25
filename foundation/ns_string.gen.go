@@ -678,7 +678,7 @@ type INSString interface {
 	// Returns a representation of the string as a C string using a given encoding.
 	CStringUsingEncoding(encoding uint) string
 	// Converts the string to a given encoding and stores it in a buffer.
-	GetCStringMaxLengthEncoding(buffer []byte, maxBufferCount uint, encoding uint) bool
+	GetCStringMaxLengthEncoding(buffer string, maxBufferCount uint, encoding uint) bool
 	// A null-terminated UTF8 representation of the string.
 	UTF8String() string
 
@@ -897,7 +897,7 @@ type INSString interface {
 	// A file system-specific representation of the receiver.
 	FileSystemRepresentation() string
 	// Interprets the receiver as a system-independent path and fills a buffer with a C-string in a format and encoding suitable for use with file-system calls.
-	GetFileSystemRepresentationMaxLength(cname []byte, max uint) bool
+	GetFileSystemRepresentationMaxLength(cname string, max uint) bool
 	// A Boolean value that indicates whether the receiver represents an absolute path.
 	AbsolutePath() bool
 	// The last path component of the receiver.
@@ -942,10 +942,10 @@ type INSString interface {
 	// Topic: Initializers
 
 	InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Pointer, len_ uint, encoding uint, deallocator func(unsafe.Pointer, uint64)) NSString
-	InitWithCStringEncoding(nullTerminatedCString []byte, encoding uint) NSString
+	InitWithCStringEncoding(nullTerminatedCString string, encoding uint) NSString
 	InitWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, error)
 	InitWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer) (NSString, error)
-	InitWithUTF8String(nullTerminatedCString []byte) NSString
+	InitWithUTF8String(nullTerminatedCString string) NSString
 
 	// Topic: Instance Properties
 
@@ -1055,33 +1055,33 @@ func NewStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, le
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:)
-func NewStringWithCString(bytes []byte) NSString {
+func NewStringWithCString(bytes string) NSString {
 	instance := getNSStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.SliceData(bytes)))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:"), unsafe.Pointer(unsafe.StringData(bytes + "\x00")))
 	return NSStringFromID(rv)
 }
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
-func NewStringWithCStringEncoding(nullTerminatedCString []byte, encoding uint) NSString {
+func NewStringWithCStringEncoding(nullTerminatedCString string, encoding uint) NSString {
 	instance := getNSStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)), encoding)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString + "\x00")), encoding)
 	return NSStringFromID(rv)
 }
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:length:)
-func NewStringWithCStringLength(bytes []byte, length uint) NSString {
+func NewStringWithCStringLength(bytes string, length uint) NSString {
 	instance := getNSStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), length)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:length:"), unsafe.Pointer(unsafe.StringData(bytes + "\x00")), length)
 	return NSStringFromID(rv)
 }
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cStringNoCopy:length:freeWhenDone:)
-func NewStringWithCStringNoCopyLengthFreeWhenDone(bytes []byte, length uint, freeBuffer bool) NSString {
+func NewStringWithCStringNoCopyLengthFreeWhenDone(bytes string, length uint, freeBuffer bool) NSString {
 	instance := getNSStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), unsafe.Pointer(unsafe.SliceData(bytes)), length, freeBuffer)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), unsafe.Pointer(unsafe.StringData(bytes + "\x00")), length, freeBuffer)
 	return NSStringFromID(rv)
 }
 
@@ -1191,7 +1191,7 @@ func NewStringWithContentsOfFileEncodingError(path string, enc uint) (NSString, 
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:encoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 }
@@ -1221,7 +1221,7 @@ func NewStringWithContentsOfFileUsedEncodingError(path string, enc unsafe.Pointe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 }
@@ -1242,7 +1242,7 @@ func NewStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSString, er
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:encoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 }
@@ -1255,7 +1255,7 @@ func NewStringWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.Pointer)
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 }
@@ -1450,9 +1450,9 @@ func NewStringWithString(aString string) NSString {
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
-func NewStringWithUTF8String(nullTerminatedCString []byte) NSString {
+func NewStringWithUTF8String(nullTerminatedCString string) NSString {
 	instance := getNSStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString + "\x00")))
 	return NSStringFromID(rv)
 }
 
@@ -1464,7 +1464,7 @@ func NewStringWithValidatedFormatValidFormatSpecifiersArgumentsError(format stri
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), argList, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 }
@@ -1477,7 +1477,7 @@ func NewStringWithValidatedFormatValidFormatSpecifiersError(format string, valid
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:error:"), objc.String(format), objc.String(validFormatSpecifiers), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 }
@@ -1490,7 +1490,7 @@ func NewStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(forma
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, argList, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 }
@@ -1503,7 +1503,7 @@ func NewStringWithValidatedFormatValidFormatSpecifiersLocaleError(format string,
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithValidatedFormat:validFormatSpecifiers:locale:error:"), objc.String(format), objc.String(validFormatSpecifiers), locale, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSStringFromID(rv), NSErrorFrom(errorPtr)
+		return NSString{}, NSErrorFrom(errorPtr)
 	}
 	return NSStringFromID(rv), nil
 }
@@ -1998,8 +1998,8 @@ func (s NSString) CStringUsingEncoding(encoding uint) string {
 // C-string since it does not have a [NULL] terminator).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getCString(_:maxLength:encoding:)
-func (s NSString) GetCStringMaxLengthEncoding(buffer []byte, maxBufferCount uint, encoding uint) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("getCString:maxLength:encoding:"), unsafe.Pointer(unsafe.SliceData(buffer)), maxBufferCount, encoding)
+func (s NSString) GetCStringMaxLengthEncoding(buffer string, maxBufferCount uint, encoding uint) bool {
+	rv := objc.Send[bool](s.ID, objc.Sel("getCString:maxLength:encoding:"), unsafe.Pointer(unsafe.StringData(buffer + "\x00")), maxBufferCount, encoding)
 	return rv
 }
 // Returns the result of invoking [CompareOptions] with
@@ -3811,8 +3811,8 @@ func (s NSString) CompletePathIntoStringCaseSensitiveMatchesIntoArrayFilterTypes
 // termination byte.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/getFileSystemRepresentation(_:maxLength:)
-func (s NSString) GetFileSystemRepresentationMaxLength(cname []byte, max uint) bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("getFileSystemRepresentation:maxLength:"), unsafe.Pointer(unsafe.SliceData(cname)), max)
+func (s NSString) GetFileSystemRepresentationMaxLength(cname string, max uint) bool {
+	rv := objc.Send[bool](s.ID, objc.Sel("getFileSystemRepresentation:maxLength:"), unsafe.Pointer(unsafe.StringData(cname + "\x00")), max)
 	return rv
 }
 // Returns a new string made by appending to the receiver a given string.
@@ -4019,8 +4019,8 @@ func (s NSString) InitWithBytesNoCopyLengthEncodingDeallocator(bytes unsafe.Poin
 }
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)
-func (s NSString) InitWithCStringEncoding(nullTerminatedCString []byte, encoding uint) NSString {
-	rv := objc.Send[NSString](s.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)), encoding)
+func (s NSString) InitWithCStringEncoding(nullTerminatedCString string, encoding uint) NSString {
+	rv := objc.Send[NSString](s.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString + "\x00")), encoding)
 	return rv
 }
 //
@@ -4055,8 +4055,8 @@ func (s NSString) InitWithContentsOfURLUsedEncodingError(url INSURL, enc unsafe.
 }
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(utf8String:)
-func (s NSString) InitWithUTF8String(nullTerminatedCString []byte) NSString {
-	rv := objc.Send[NSString](s.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
+func (s NSString) InitWithUTF8String(nullTerminatedCString string) NSString {
+	rv := objc.Send[NSString](s.ID, objc.Sel("initWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString + "\x00")))
 	return rv
 }
 //
@@ -4457,8 +4457,8 @@ func (_NSStringClass NSStringClass) String() NSString {
 }
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithCString:encoding:
-func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString []byte, enc uint) NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCString:encoding:"), unsafe.Pointer(unsafe.SliceData(cString)), enc)
+func (_NSStringClass NSStringClass) StringWithCStringEncoding(cString string, enc uint) NSString {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(cString + "\x00")), enc)
 	return NSStringFromID(rv)
 }
 // Returns a string containing a given number of characters taken from a given
@@ -4610,8 +4610,8 @@ func (_NSStringClass NSStringClass) StringWithString(string_ string) NSString {
 }
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/stringWithUTF8String:
-func (_NSStringClass NSStringClass) StringWithUTF8String(nullTerminatedCString []byte) NSString {
-	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithUTF8String:"), unsafe.Pointer(unsafe.SliceData(nullTerminatedCString)))
+func (_NSStringClass NSStringClass) StringWithUTF8String(nullTerminatedCString string) NSString {
+	rv := objc.Send[objc.ID](objc.ID(_NSStringClass.class), objc.Sel("stringWithUTF8String:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString + "\x00")))
 	return NSStringFromID(rv)
 }
 //

@@ -146,7 +146,7 @@ func NewFileSerialPortAttachmentWithURLAppendError(url foundation.INSURL, should
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:append:error:"), url, shouldAppend, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZFileSerialPortAttachmentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZFileSerialPortAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZFileSerialPortAttachmentFromID(rv), nil
 }

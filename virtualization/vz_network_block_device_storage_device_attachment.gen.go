@@ -190,7 +190,7 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.INS
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), URL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZNetworkBlockDeviceStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 }
@@ -232,7 +232,7 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySyn
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:timeout:forcedReadOnly:synchronizationMode:error:"), URL, timeout, forcedReadOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZNetworkBlockDeviceStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 }

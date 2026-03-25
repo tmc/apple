@@ -221,7 +221,7 @@ type INSValue interface {
 	// Topic: Working with Raw Values
 
 	// Initializes a value object to contain the specified value, interpreted with the specified Objective-C type.
-	InitWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSValue
+	InitWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue
 	// A C string containing the Objective-C type of the data contained in the value object.
 	ObjCType() string
 
@@ -339,9 +339,9 @@ func NewNSValue() NSValue {
 // [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(bytes:objCType:)
-func NewValueWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSValue {
+func NewValueWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
 	instance := getNSValueClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.SliceData(type_)))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
 	return NSValueFromID(rv)
 }
 
@@ -592,8 +592,8 @@ func NewValueWithNonretainedObject(anObject objectivec.IObject) NSValue {
 // instead.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(_:withObjCType:)
-func NewValueWithObjCType(value unsafe.Pointer, type_ []byte) NSValue {
-	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("value:withObjCType:"), value, unsafe.Pointer(unsafe.SliceData(type_)))
+func NewValueWithObjCType(value unsafe.Pointer, type_ string) NSValue {
+	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("value:withObjCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
 	return NSValueFromID(rv)
 }
 
@@ -782,8 +782,8 @@ func NewValueWithUIOffset(insets objectivec.IObject) NSValue {
 // [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(bytes:objCType:)
-func (v NSValue) InitWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSValue {
-	rv := objc.Send[NSValue](v.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.SliceData(type_)))
+func (v NSValue) InitWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
+	rv := objc.Send[NSValue](v.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
 	return rv
 }
 // Returns a Boolean value that indicates whether the value object and another
@@ -849,8 +849,8 @@ func (v NSValue) EncodeWithCoder(coder INSCoder) {
 // [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/valueWithBytes:objCType:
-func (_NSValueClass NSValueClass) ValueWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSValue {
-	rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithBytes:objCType:"), value, unsafe.Pointer(unsafe.SliceData(type_)))
+func (_NSValueClass NSValueClass) ValueWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
+	rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
 	return NSValueFromID(rv)
 }
 

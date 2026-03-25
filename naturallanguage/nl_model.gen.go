@@ -149,7 +149,7 @@ func NewModelWithContentsOfURLError(url foundation.INSURL) (NLModel, error) {
 	rv := objc.Send[objc.ID](objc.ID(getNLModelClass().class), objc.Sel("modelWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NLModelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NLModel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NLModelFromID(rv), nil
 }
@@ -166,7 +166,7 @@ func NewModelWithMLModelError(mlModel coreml.MLModel) (NLModel, error) {
 	rv := objc.Send[objc.ID](objc.ID(getNLModelClass().class), objc.Sel("modelWithMLModel:error:"), mlModel, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NLModelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NLModel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NLModelFromID(rv), nil
 }

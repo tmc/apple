@@ -517,7 +517,7 @@ func NewDataWithContentsOfFileOptionsError(path string, readOptionsMask NSDataRe
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:options:error:"), objc.String(path), readOptionsMask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSDataFromID(rv), NSErrorFrom(errorPtr)
+		return NSData{}, NSErrorFrom(errorPtr)
 	}
 	return NSDataFromID(rv), nil
 }
@@ -538,7 +538,7 @@ func NewDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSDataRead
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:options:error:"), url, readOptionsMask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSDataFromID(rv), NSErrorFrom(errorPtr)
+		return NSData{}, NSErrorFrom(errorPtr)
 	}
 	return NSDataFromID(rv), nil
 }

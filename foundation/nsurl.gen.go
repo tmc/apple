@@ -422,9 +422,9 @@ type INSURL interface {
 	// Initializes a newly created NSURL that points to a location specified by resolving bookmark data.
 	InitByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(bookmarkData INSData, options NSURLBookmarkResolutionOptions, relativeURL INSURL, isStale unsafe.Pointer) (NSURL, error)
 	// Fills the provided buffer with a C string representing a local file system path.
-	GetFileSystemRepresentationMaxLength(buffer []byte, maxBufferLength uint) bool
+	GetFileSystemRepresentationMaxLength(buffer string, maxBufferLength uint) bool
 	// Initializes a URL object with a C string representing a local file system path.
-	InitFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path []byte, isDir bool, baseURL INSURL) NSURL
+	InitFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path string, isDir bool, baseURL INSURL) NSURL
 	InitAbsoluteURLWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL
 	InitWithDataRepresentationRelativeToURL(data INSData, baseURL INSURL) NSURL
 	DataRepresentation() INSData
@@ -611,7 +611,7 @@ func NewURLByResolvingAliasFileAtURLOptionsError(url INSURL, options NSURLBookma
 	rv := objc.Send[objc.ID](objc.ID(getNSURLClass().class), objc.Sel("URLByResolvingAliasFileAtURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSURLFromID(rv), NSErrorFrom(errorPtr)
+		return NSURL{}, NSErrorFrom(errorPtr)
 	}
 	return NSURLFromID(rv), nil
 }
@@ -642,7 +642,7 @@ func NewURLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(b
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initByResolvingBookmarkData:options:relativeToURL:bookmarkDataIsStale:error:"), bookmarkData, options, relativeURL, isStale, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSURLFromID(rv), NSErrorFrom(errorPtr)
+		return NSURL{}, NSErrorFrom(errorPtr)
 	}
 	return NSURLFromID(rv), nil
 }
@@ -672,9 +672,9 @@ func NewURLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(b
 // Fonts.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(fileURLWithFileSystemRepresentation:isDirectory:relativeTo:)
-func NewURLFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path []byte, isDir bool, baseURL INSURL) NSURL {
+func NewURLFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path string, isDir bool, baseURL INSURL) NSURL {
 	instance := getNSURLClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFileURLWithFileSystemRepresentation:isDirectory:relativeToURL:"), unsafe.Pointer(unsafe.SliceData(path)), isDir, baseURL)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initFileURLWithFileSystemRepresentation:isDirectory:relativeToURL:"), unsafe.Pointer(unsafe.StringData(path + "\x00")), isDir, baseURL)
 	return NSURLFromID(rv)
 }
 
@@ -1114,8 +1114,8 @@ func (u NSURL) InitByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStal
 // Fonts.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/getFileSystemRepresentation(_:maxLength:)
-func (u NSURL) GetFileSystemRepresentationMaxLength(buffer []byte, maxBufferLength uint) bool {
-	rv := objc.Send[bool](u.ID, objc.Sel("getFileSystemRepresentation:maxLength:"), unsafe.Pointer(unsafe.SliceData(buffer)), maxBufferLength)
+func (u NSURL) GetFileSystemRepresentationMaxLength(buffer string, maxBufferLength uint) bool {
+	rv := objc.Send[bool](u.ID, objc.Sel("getFileSystemRepresentation:maxLength:"), unsafe.Pointer(unsafe.StringData(buffer + "\x00")), maxBufferLength)
 	return rv
 }
 // Initializes a URL object with a C string representing a local file system
@@ -1143,8 +1143,8 @@ func (u NSURL) GetFileSystemRepresentationMaxLength(buffer []byte, maxBufferLeng
 // Fonts.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/init(fileURLWithFileSystemRepresentation:isDirectory:relativeTo:)
-func (u NSURL) InitFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path []byte, isDir bool, baseURL INSURL) NSURL {
-	rv := objc.Send[NSURL](u.ID, objc.Sel("initFileURLWithFileSystemRepresentation:isDirectory:relativeToURL:"), unsafe.Pointer(unsafe.SliceData(path)), isDir, baseURL)
+func (u NSURL) InitFileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path string, isDir bool, baseURL INSURL) NSURL {
+	rv := objc.Send[NSURL](u.ID, objc.Sel("initFileURLWithFileSystemRepresentation:isDirectory:relativeToURL:"), unsafe.Pointer(unsafe.StringData(path + "\x00")), isDir, baseURL)
 	return rv
 }
 //
@@ -2074,8 +2074,8 @@ func (_NSURLClass NSURLClass) FileURLWithPathComponents(components []string) NSU
 // [File System Programming Guide]: https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010672
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/fileURL(withFileSystemRepresentation:isDirectory:relativeTo:)
-func (_NSURLClass NSURLClass) FileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path []byte, isDir bool, baseURL INSURL) NSURL {
-	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("fileURLWithFileSystemRepresentation:isDirectory:relativeToURL:"), unsafe.Pointer(unsafe.SliceData(path)), isDir, baseURL)
+func (_NSURLClass NSURLClass) FileURLWithFileSystemRepresentationIsDirectoryRelativeToURL(path string, isDir bool, baseURL INSURL) NSURL {
+	rv := objc.Send[objc.ID](objc.ID(_NSURLClass.class), objc.Sel("fileURLWithFileSystemRepresentation:isDirectory:relativeToURL:"), unsafe.Pointer(unsafe.StringData(path + "\x00")), isDir, baseURL)
 	return NSURLFromID(rv)
 }
 //

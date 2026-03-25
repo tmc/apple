@@ -232,8 +232,8 @@ func (m NSMethodSignature) IsOneway() bool {
 // in `types`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMethodSignature/signatureWithObjCTypes:
-func (_NSMethodSignatureClass NSMethodSignatureClass) SignatureWithObjCTypes(types []byte) NSMethodSignature {
-	rv := objc.Send[objc.ID](objc.ID(_NSMethodSignatureClass.class), objc.Sel("signatureWithObjCTypes:"), unsafe.Pointer(unsafe.SliceData(types)))
+func (_NSMethodSignatureClass NSMethodSignatureClass) SignatureWithObjCTypes(types string) NSMethodSignature {
+	rv := objc.Send[objc.ID](objc.ID(_NSMethodSignatureClass.class), objc.Sel("signatureWithObjCTypes:"), unsafe.Pointer(unsafe.StringData(types + "\x00")))
 	return NSMethodSignatureFromID(rv)
 }
 

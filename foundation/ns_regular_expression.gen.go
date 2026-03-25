@@ -417,7 +417,7 @@ func NewRegularExpressionWithPatternOptionsError(pattern string, options NSRegul
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPattern:options:error:"), objc.String(pattern), options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSRegularExpressionFromID(rv), NSErrorFrom(errorPtr)
+		return NSRegularExpression{}, NSErrorFrom(errorPtr)
 	}
 	return NSRegularExpressionFromID(rv), nil
 }

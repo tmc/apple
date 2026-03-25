@@ -195,7 +195,7 @@ func NewWarpKernelWithFunctionNameFromMetalLibraryDataError(name string, data fo
 	rv := objc.Send[objc.ID](objc.ID(getCIWarpKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:error:"), objc.String(name), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return CIWarpKernelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return CIWarpKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return CIWarpKernelFromID(rv), nil
 }
@@ -227,7 +227,7 @@ func NewWarpKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(nam
 	rv := objc.Send[objc.ID](objc.ID(getCIWarpKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return CIWarpKernelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return CIWarpKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return CIWarpKernelFromID(rv), nil
 }

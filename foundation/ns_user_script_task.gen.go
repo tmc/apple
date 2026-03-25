@@ -144,7 +144,7 @@ func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSUserScriptTaskFromID(rv), NSErrorFrom(errorPtr)
+		return NSUserScriptTask{}, NSErrorFrom(errorPtr)
 	}
 	return NSUserScriptTaskFromID(rv), nil
 }

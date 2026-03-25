@@ -129,7 +129,7 @@ func NewEFIVariableStoreCreatingVariableStoreAtURLOptionsError(URL foundation.IN
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initCreatingVariableStoreAtURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZEFIVariableStoreFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZEFIVariableStore{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZEFIVariableStoreFromID(rv), nil
 }

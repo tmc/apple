@@ -321,7 +321,7 @@ type INSCoder interface {
 	// Topic: Encoding General Data
 
 	// Encodes an array of the given Objective-C type, provided the number of items and a pointer.
-	EncodeArrayOfObjCTypeCountAt(type_ []byte, count uint, array unsafe.Pointer)
+	EncodeArrayOfObjCTypeCountAt(type_ []string, count uint, array unsafe.Pointer)
 	// Encodes a Boolean value and associates it with the string `key`.
 	EncodeBoolForKey(value bool, key string)
 	// An encoding method for subclasses to override such that it creates a copy, rather than a proxy, when decoded.
@@ -371,7 +371,7 @@ type INSCoder interface {
 	// Encodes a size structure and associates it with the given string key.
 	EncodeSizeForKey(size corefoundation.CGSize, key string)
 	// Encodes a value of the given type at the given address.
-	EncodeValueOfObjCTypeAt(type_ []byte, addr unsafe.Pointer)
+	EncodeValueOfObjCTypeAt(type_ string, addr unsafe.Pointer)
 
 	// Topic: Encoding Core Media Time Structures
 
@@ -392,7 +392,7 @@ type INSCoder interface {
 	// Topic: Decoding General Data
 
 	// Decodes an array of `count` items, whose Objective-C type is given by `itemType`.
-	DecodeArrayOfObjCTypeCountAt(itemType []byte, count uint, array unsafe.Pointer)
+	DecodeArrayOfObjCTypeCountAt(itemType []string, count uint, array unsafe.Pointer)
 	// Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
 	DecodeBoolForKey(key string) bool
 	// Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
@@ -432,7 +432,7 @@ type INSCoder interface {
 	// Decodes and returns an NSSize structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu>).
 	DecodeSizeForKey(key string) NSSize
 	// Decodes a single value of a known type from the specified data buffer.
-	DecodeValueOfObjCTypeAtSize(type_ []byte, data unsafe.Pointer, size uint)
+	DecodeValueOfObjCTypeAtSize(type_ string, data unsafe.Pointer, size uint)
 	// Returns a decoded property list for the specified key.
 	DecodePropertyListForKey(key string) objectivec.IObject
 
@@ -501,9 +501,9 @@ type INSCoder interface {
 	// Decode an object as an expected type, failing if the archived type does not match.
 	DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key string) (objectivec.IObject, error)
 	// Decodes a series of potentially different Objective-C types.
-	DecodeValuesOfObjCTypes(types []byte)
+	DecodeValuesOfObjCTypes(types string)
 	// Encodes a series of values of potentially differing Objective-C types.
-	EncodeValuesOfObjCTypes(types []byte)
+	EncodeValuesOfObjCTypes(types string)
 	// This method is present for historical reasons and has no effect.
 	ObjectZone() NSZone
 }
@@ -566,7 +566,7 @@ func (c NSCoder) ContainsValueForKey(key string) bool {
 // [Type Encodings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeArray(ofObjCType:count:at:)
-func (c NSCoder) EncodeArrayOfObjCTypeCountAt(type_ []byte, count uint, array unsafe.Pointer) {
+func (c NSCoder) EncodeArrayOfObjCTypeCountAt(type_ []string, count uint, array unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeArrayOfObjCType:count:at:"), objc.CArray(type_), count, array)
 }
 // Encodes a Boolean value and associates it with the string `key`.
@@ -871,8 +871,8 @@ func (c NSCoder) EncodeSizeForKey(size corefoundation.CGSize, key string) {
 // [Type Encodings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeValue(ofObjCType:at:)
-func (c NSCoder) EncodeValueOfObjCTypeAt(type_ []byte, addr unsafe.Pointer) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeValueOfObjCType:at:"), unsafe.Pointer(unsafe.SliceData(type_)), addr)
+func (c NSCoder) EncodeValueOfObjCTypeAt(type_ string, addr unsafe.Pointer) {
+	objc.Send[objc.ID](c.ID, objc.Sel("encodeValueOfObjCType:at:"), unsafe.Pointer(unsafe.StringData(type_ + "\x00")), addr)
 }
 // Encodes a given Core Media time structure and associates it with a
 // specified key.
@@ -933,7 +933,7 @@ func (c NSCoder) EncodeCMTimeMappingForKey(timeMapping objectivec.IObject, key s
 // [Type Encodings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeArray(ofObjCType:count:at:)
-func (c NSCoder) DecodeArrayOfObjCTypeCountAt(itemType []byte, count uint, array unsafe.Pointer) {
+func (c NSCoder) DecodeArrayOfObjCTypeCountAt(itemType []string, count uint, array unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("decodeArrayOfObjCType:count:at:"), objc.CArray(itemType), count, array)
 }
 // Decodes and returns a boolean value that was previously encoded with
@@ -1193,8 +1193,8 @@ func (c NSCoder) DecodeSizeForKey(key string) NSSize {
 // encoding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeValue(ofObjCType:at:size:)
-func (c NSCoder) DecodeValueOfObjCTypeAtSize(type_ []byte, data unsafe.Pointer, size uint) {
-	objc.Send[objc.ID](c.ID, objc.Sel("decodeValueOfObjCType:at:size:"), unsafe.Pointer(unsafe.SliceData(type_)), data, size)
+func (c NSCoder) DecodeValueOfObjCTypeAtSize(type_ string, data unsafe.Pointer, size uint) {
+	objc.Send[objc.ID](c.ID, objc.Sel("decodeValueOfObjCType:at:size:"), unsafe.Pointer(unsafe.StringData(type_ + "\x00")), data, size)
 }
 // Returns a decoded property list for the specified key.
 //
@@ -1529,8 +1529,8 @@ func (c NSCoder) DecodeTopLevelObjectOfClassForKeyError(aClass objc.Class, key s
 // [Type Encodings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeValuesOfObjCTypes:
-func (c NSCoder) DecodeValuesOfObjCTypes(types []byte) {
-	objc.Send[objc.ID](c.ID, objc.Sel("decodeValuesOfObjCTypes:"), unsafe.Pointer(unsafe.SliceData(types)))
+func (c NSCoder) DecodeValuesOfObjCTypes(types string) {
+	objc.Send[objc.ID](c.ID, objc.Sel("decodeValuesOfObjCTypes:"), unsafe.Pointer(unsafe.StringData(types + "\x00")))
 }
 // Encodes a series of values of potentially differing Objective-C types.
 //
@@ -1562,8 +1562,8 @@ func (c NSCoder) DecodeValuesOfObjCTypes(types []byte) {
 // [Type Encodings]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeValuesOfObjCTypes:
-func (c NSCoder) EncodeValuesOfObjCTypes(types []byte) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeValuesOfObjCTypes:"), unsafe.Pointer(unsafe.SliceData(types)))
+func (c NSCoder) EncodeValuesOfObjCTypes(types string) {
+	objc.Send[objc.ID](c.ID, objc.Sel("encodeValuesOfObjCTypes:"), unsafe.Pointer(unsafe.StringData(types + "\x00")))
 }
 // This method is present for historical reasons and has no effect.
 //

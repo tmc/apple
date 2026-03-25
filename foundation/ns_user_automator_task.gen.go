@@ -141,7 +141,7 @@ func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSUserAutomatorTaskFromID(rv), NSErrorFrom(errorPtr)
+		return NSUserAutomatorTask{}, NSErrorFrom(errorPtr)
 	}
 	return NSUserAutomatorTaskFromID(rv), nil
 }

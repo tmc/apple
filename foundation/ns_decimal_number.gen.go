@@ -219,9 +219,9 @@ func NewDecimalNumberValueWithGCPoint2(point objectivec.IObject) NSDecimalNumber
 // [Number and Value Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NumbersandValues/NumbersandValues.html#//apple_ref/doc/uid/10000038i
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(bytes:objCType:)
-func NewDecimalNumberWithBytesObjCType(value unsafe.Pointer, type_ []byte) NSDecimalNumber {
+func NewDecimalNumberWithBytesObjCType(value unsafe.Pointer, type_ string) NSDecimalNumber {
 	instance := getNSDecimalNumberClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.SliceData(type_)))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:objCType:"), value, unsafe.Pointer(unsafe.StringData(type_ + "\x00")))
 	return NSDecimalNumberFromID(rv)
 }
 

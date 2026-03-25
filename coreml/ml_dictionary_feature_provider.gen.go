@@ -131,7 +131,7 @@ func NewDictionaryFeatureProviderWithDictionaryError(dictionary foundation.INSDi
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLDictionaryFeatureProviderFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLDictionaryFeatureProvider{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLDictionaryFeatureProviderFromID(rv), nil
 }

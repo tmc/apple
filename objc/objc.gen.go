@@ -156,6 +156,10 @@ func Send[T any](id ID, sel SEL, args ...any) T {
 		if tKind == reflect.Uintptr || isVoidStruct {
 			if uargs, ok := tryFastArgs(args); ok {
 				rv := fastSend(id, sel, uargs)
+				// Keep args alive through the msgSend call so GC does not
+				// collect backing storage behind unsafe.Pointer arguments
+				// (e.g. []byte → unsafe.SliceData, string → unsafe.StringData).
+				runtime.KeepAlive(args)
 				if isVoidStruct {
 					// void return — return zero value of T (struct{}{})
 					return zero

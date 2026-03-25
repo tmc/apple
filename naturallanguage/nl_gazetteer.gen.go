@@ -170,7 +170,7 @@ func NewGazetteerWithContentsOfURLError(url foundation.INSURL) (NLGazetteer, err
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NLGazetteerFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NLGazetteer{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NLGazetteerFromID(rv), nil
 }
@@ -186,7 +186,7 @@ func NewGazetteerWithDataError(data foundation.INSData) (NLGazetteer, error) {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NLGazetteerFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NLGazetteer{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NLGazetteerFromID(rv), nil
 }
@@ -205,7 +205,7 @@ func NewGazetteerWithDictionaryLanguageError(dictionary foundation.INSDictionary
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:language:error:"), dictionary, objc.String(string(language)), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NLGazetteerFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NLGazetteer{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NLGazetteerFromID(rv), nil
 }

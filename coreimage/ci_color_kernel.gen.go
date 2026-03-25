@@ -194,7 +194,7 @@ func NewColorKernelWithFunctionNameFromMetalLibraryDataError(name string, data f
 	rv := objc.Send[objc.ID](objc.ID(getCIColorKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:error:"), objc.String(name), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return CIColorKernelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return CIColorKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return CIColorKernelFromID(rv), nil
 }
@@ -226,7 +226,7 @@ func NewColorKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(na
 	rv := objc.Send[objc.ID](objc.ID(getCIColorKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return CIColorKernelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return CIColorKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return CIColorKernelFromID(rv), nil
 }

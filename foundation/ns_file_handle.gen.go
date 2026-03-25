@@ -351,7 +351,7 @@ func NewFileHandleForReadingFromURLError(url INSURL) (FileHandle, error) {
 	rv := objc.Send[objc.ID](objc.ID(getFileHandleClass().class), objc.Sel("fileHandleForReadingFromURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return FileHandleFromID(rv), NSErrorFrom(errorPtr)
+		return FileHandle{}, NSErrorFrom(errorPtr)
 	}
 	return FileHandleFromID(rv), nil
 }
@@ -386,7 +386,7 @@ func NewFileHandleForUpdatingURLError(url INSURL) (FileHandle, error) {
 	rv := objc.Send[objc.ID](objc.ID(getFileHandleClass().class), objc.Sel("fileHandleForUpdatingURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return FileHandleFromID(rv), NSErrorFrom(errorPtr)
+		return FileHandle{}, NSErrorFrom(errorPtr)
 	}
 	return FileHandleFromID(rv), nil
 }
@@ -422,7 +422,7 @@ func NewFileHandleForWritingToURLError(url INSURL) (FileHandle, error) {
 	rv := objc.Send[objc.ID](objc.ID(getFileHandleClass().class), objc.Sel("fileHandleForWritingToURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return FileHandleFromID(rv), NSErrorFrom(errorPtr)
+		return FileHandle{}, NSErrorFrom(errorPtr)
 	}
 	return FileHandleFromID(rv), nil
 }

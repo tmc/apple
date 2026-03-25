@@ -234,7 +234,7 @@ func NewXMLDTDWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:options:error:"), url, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDTDFromID(rv), NSErrorFrom(errorPtr)
+		return XMLDTD{}, NSErrorFrom(errorPtr)
 	}
 	return XMLDTDFromID(rv), nil
 }
@@ -268,7 +268,7 @@ func NewXMLDTDWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD,
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:error:"), data, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDTDFromID(rv), NSErrorFrom(errorPtr)
+		return XMLDTD{}, NSErrorFrom(errorPtr)
 	}
 	return XMLDTDFromID(rv), nil
 }

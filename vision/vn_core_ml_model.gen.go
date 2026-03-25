@@ -134,7 +134,7 @@ func NewCoreMLModelForMLModelError(model coreml.MLModel) (VNCoreMLModel, error) 
 	rv := objc.Send[objc.ID](objc.ID(getVNCoreMLModelClass().class), objc.Sel("modelForMLModel:error:"), model, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VNCoreMLModelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VNCoreMLModel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VNCoreMLModelFromID(rv), nil
 }

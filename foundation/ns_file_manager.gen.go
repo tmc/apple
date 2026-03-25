@@ -524,7 +524,7 @@ type IFileManager interface {
 	// Returns a C-string representation of a given path that properly encodes Unicode strings for use by the file system.
 	FileSystemRepresentationWithPath(path string) string
 	// Returns an [NSString](<doc://com.apple.foundation/documentation/Foundation/NSString>) object whose contents are derived from the specified C-string path.
-	StringWithFileSystemRepresentationLength(str []byte, len_ uint) string
+	StringWithFileSystemRepresentationLength(str string, len_ uint) string
 
 	// Topic: Managing the delegate
 
@@ -2682,8 +2682,8 @@ func (f FileManager) FileSystemRepresentationWithPath(path string) string {
 // routines.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/string(withFileSystemRepresentation:length:)
-func (f FileManager) StringWithFileSystemRepresentationLength(str []byte, len_ uint) string {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("stringWithFileSystemRepresentation:length:"), unsafe.Pointer(unsafe.SliceData(str)), len_)
+func (f FileManager) StringWithFileSystemRepresentationLength(str string, len_ uint) string {
+	rv := objc.Send[objc.ID](f.ID, objc.Sel("stringWithFileSystemRepresentation:length:"), unsafe.Pointer(unsafe.StringData(str + "\x00")), len_)
 	return NSStringFromID(rv).String()
 }
 // Changes the path of the current working directory to the specified path.

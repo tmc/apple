@@ -180,7 +180,7 @@ func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice)
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMesh:device:error:"), mesh, device, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MTKMeshFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MTKMesh{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MTKMeshFromID(rv), nil
 }

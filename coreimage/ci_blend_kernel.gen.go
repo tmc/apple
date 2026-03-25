@@ -196,7 +196,7 @@ func NewBlendKernelWithFunctionNameFromMetalLibraryDataError(name string, data f
 	rv := objc.Send[objc.ID](objc.ID(getCIBlendKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:error:"), objc.String(name), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return CIBlendKernelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return CIBlendKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return CIBlendKernelFromID(rv), nil
 }
@@ -228,7 +228,7 @@ func NewBlendKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(na
 	rv := objc.Send[objc.ID](objc.ID(getCIBlendKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return CIBlendKernelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return CIBlendKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return CIBlendKernelFromID(rv), nil
 }

@@ -183,7 +183,7 @@ func NewKeyedUnarchiverForReadingFromDataError(data INSData) (NSKeyedUnarchiver,
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForReadingFromData:error:"), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSKeyedUnarchiverFromID(rv), NSErrorFrom(errorPtr)
+		return NSKeyedUnarchiver{}, NSErrorFrom(errorPtr)
 	}
 	return NSKeyedUnarchiverFromID(rv), nil
 }

@@ -164,7 +164,7 @@ func NewDiskBlockDeviceStorageDeviceAttachmentWithFileHandleReadOnlySynchronizat
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileHandle:readOnly:synchronizationMode:error:"), fileHandle, readOnly, synchronizationMode, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZDiskBlockDeviceStorageDeviceAttachmentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZDiskBlockDeviceStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZDiskBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 }

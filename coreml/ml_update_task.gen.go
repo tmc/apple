@@ -115,7 +115,7 @@ func NewUpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(mo
 	rv := objc.Send[objc.ID](objc.ID(getMLUpdateTaskClass().class), objc.Sel("updateTaskForModelAtURL:trainingData:configuration:progressHandlers:error:"), modelURL, trainingData, configuration, progressHandlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLUpdateTaskFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLUpdateTask{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLUpdateTaskFromID(rv), nil
 }
@@ -136,7 +136,7 @@ func NewUpdateTaskForModelAtURLTrainingDataProgressHandlersError(modelURL founda
 	rv := objc.Send[objc.ID](objc.ID(getMLUpdateTaskClass().class), objc.Sel("updateTaskForModelAtURL:trainingData:progressHandlers:error:"), modelURL, trainingData, progressHandlers, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLUpdateTaskFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLUpdateTask{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLUpdateTaskFromID(rv), nil
 }

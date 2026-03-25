@@ -219,7 +219,7 @@ func NewKernelWithFunctionNameFromMetalLibraryDataError(name string, data founda
 	rv := objc.Send[objc.ID](objc.ID(getCIKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:error:"), objc.String(name), data, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return CIKernelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return CIKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return CIKernelFromID(rv), nil
 }
@@ -251,7 +251,7 @@ func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name st
 	rv := objc.Send[objc.ID](objc.ID(getCIKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return CIKernelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return CIKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return CIKernelFromID(rv), nil
 }

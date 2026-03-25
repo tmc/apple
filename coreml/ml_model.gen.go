@@ -204,7 +204,7 @@ func NewModelWithContentsOfURLConfigurationError(url foundation.INSURL, configur
 	rv := objc.Send[objc.ID](objc.ID(getMLModelClass().class), objc.Sel("modelWithContentsOfURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLModelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLModel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLModelFromID(rv), nil
 }
@@ -239,7 +239,7 @@ func NewModelWithContentsOfURLError(url foundation.INSURL) (MLModel, error) {
 	rv := objc.Send[objc.ID](objc.ID(getMLModelClass().class), objc.Sel("modelWithContentsOfURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLModelFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLModel{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLModelFromID(rv), nil
 }

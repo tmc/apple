@@ -1153,8 +1153,8 @@ func (_NSBezierPathClass NSBezierPathClass) StrokeLineFromPointToPoint(point1 co
 // [appendGlyphs(_:count:in:)]: https://developer.apple.com/documentation/AppKit/NSBezierPath/appendGlyphs(_:count:in:)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/drawPackedGlyphs(_:at:)
-func (_NSBezierPathClass NSBezierPathClass) DrawPackedGlyphsAtPoint(packedGlyphs []byte, point corefoundation.CGPoint) {
-	objc.Send[objc.ID](objc.ID(_NSBezierPathClass.class), objc.Sel("drawPackedGlyphs:atPoint:"), unsafe.Pointer(unsafe.SliceData(packedGlyphs)), point)
+func (_NSBezierPathClass NSBezierPathClass) DrawPackedGlyphsAtPoint(packedGlyphs string, point corefoundation.CGPoint) {
+	objc.Send[objc.ID](objc.ID(_NSBezierPathClass.class), objc.Sel("drawPackedGlyphs:atPoint:"), unsafe.Pointer(unsafe.StringData(packedGlyphs + "\x00")), point)
 }
 // Intersects the specified rectangle with the clipping path of the current
 // graphics context and makes the resulting shape the current clipping path.

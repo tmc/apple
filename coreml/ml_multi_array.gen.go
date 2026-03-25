@@ -297,7 +297,7 @@ func NewMultiArrayWithShapeDataTypeError(shape []foundation.NSNumber, dataType M
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:error:"), objectivec.IObjectSliceToNSArray(shape), dataType, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLMultiArrayFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLMultiArray{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLMultiArrayFromID(rv), nil
 }

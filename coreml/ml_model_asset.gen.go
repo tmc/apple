@@ -141,7 +141,7 @@ func NewModelAssetWithSpecificationDataBlobMappingError(specificationData founda
 	rv := objc.Send[objc.ID](objc.ID(getMLModelAssetClass().class), objc.Sel("modelAssetWithSpecificationData:blobMapping:error:"), specificationData, blobMapping, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLModelAssetFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLModelAsset{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLModelAssetFromID(rv), nil
 }
@@ -156,7 +156,7 @@ func NewModelAssetWithSpecificationDataError(specificationData foundation.INSDat
 	rv := objc.Send[objc.ID](objc.ID(getMLModelAssetClass().class), objc.Sel("modelAssetWithSpecificationData:error:"), specificationData, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLModelAssetFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLModelAsset{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLModelAssetFromID(rv), nil
 }
@@ -175,7 +175,7 @@ func NewModelAssetWithURLError(compiledModelURL foundation.INSURL) (MLModelAsset
 	rv := objc.Send[objc.ID](objc.ID(getMLModelAssetClass().class), objc.Sel("modelAssetWithURL:error:"), compiledModelURL, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLModelAssetFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLModelAsset{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLModelAssetFromID(rv), nil
 }

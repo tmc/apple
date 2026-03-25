@@ -199,7 +199,7 @@ func NewFeatureValueWithCGImageConstraintOptionsError(cgImage coregraphics.CGIma
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:constraint:options:error:"), cgImage, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -229,7 +229,7 @@ func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregra
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:orientation:constraint:options:error:"), cgImage, orientation, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -265,7 +265,7 @@ func NewFeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOpt
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), cgImage, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -296,7 +296,7 @@ func NewFeatureValueWithCGImagePixelsWidePixelsHighPixelFormatTypeOptionsError(c
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), cgImage, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -311,7 +311,7 @@ func NewFeatureValueWithDictionaryError(value foundation.INSDictionary) (MLFeatu
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithDictionary:error:"), value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -347,7 +347,7 @@ func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.INSURL, 
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:constraint:options:error:"), url, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -378,7 +378,7 @@ func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundati
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:constraint:options:error:"), url, orientation, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -415,7 +415,7 @@ func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatType
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), url, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -447,7 +447,7 @@ func NewFeatureValueWithImageAtURLPixelsWidePixelsHighPixelFormatTypeOptionsErro
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), url, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLFeatureValueFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLFeatureValueFromID(rv), nil
 }

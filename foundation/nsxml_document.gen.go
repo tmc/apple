@@ -334,7 +334,7 @@ func NewXMLDocumentWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:options:error:"), url, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDocumentFromID(rv), NSErrorFrom(errorPtr)
+		return XMLDocument{}, NSErrorFrom(errorPtr)
 	}
 	return XMLDocumentFromID(rv), nil
 }
@@ -368,7 +368,7 @@ func NewXMLDocumentWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XM
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:error:"), data, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDocumentFromID(rv), NSErrorFrom(errorPtr)
+		return XMLDocument{}, NSErrorFrom(errorPtr)
 	}
 	return XMLDocumentFromID(rv), nil
 }
@@ -480,7 +480,7 @@ func NewXMLDocumentWithXMLStringOptionsError(string_ string, mask NSXMLNodeOptio
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXMLString:options:error:"), objc.String(string_), mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDocumentFromID(rv), NSErrorFrom(errorPtr)
+		return XMLDocument{}, NSErrorFrom(errorPtr)
 	}
 	return XMLDocumentFromID(rv), nil
 }

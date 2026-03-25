@@ -135,7 +135,7 @@ func NewArrayBatchProviderWithDictionaryError(dictionary foundation.INSDictionar
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return MLArrayBatchProviderFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return MLArrayBatchProvider{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return MLArrayBatchProviderFromID(rv), nil
 }

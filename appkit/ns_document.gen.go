@@ -1073,7 +1073,7 @@ func NewDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.INSURL, c
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initForURL:withContentsOfURL:ofType:error:"), urlOrNil, contentsURL, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSDocumentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NSDocument{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NSDocumentFromID(rv), nil
 }
@@ -1115,7 +1115,7 @@ func NewDocumentWithContentsOfURLOfTypeError(url foundation.INSURL, typeName str
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:ofType:error:"), url, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSDocumentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NSDocument{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NSDocumentFromID(rv), nil
 }
@@ -1147,7 +1147,7 @@ func NewDocumentWithTypeError(typeName string) (NSDocument, error) {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithType:error:"), objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSDocumentFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return NSDocument{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return NSDocumentFromID(rv), nil
 }

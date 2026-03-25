@@ -394,7 +394,7 @@ func NewMutableDataWithContentsOfFileOptionsError(path string, readOptionsMask N
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:options:error:"), objc.String(path), readOptionsMask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSMutableDataFromID(rv), NSErrorFrom(errorPtr)
+		return NSMutableData{}, NSErrorFrom(errorPtr)
 	}
 	return NSMutableDataFromID(rv), nil
 }
@@ -415,7 +415,7 @@ func NewMutableDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSD
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:options:error:"), url, readOptionsMask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return NSMutableDataFromID(rv), NSErrorFrom(errorPtr)
+		return NSMutableData{}, NSErrorFrom(errorPtr)
 	}
 	return NSMutableDataFromID(rv), nil
 }

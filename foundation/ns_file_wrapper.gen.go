@@ -433,7 +433,7 @@ func NewFileWrapperWithURLOptionsError(url INSURL, options NSFileWrapperReadingO
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return FileWrapperFromID(rv), NSErrorFrom(errorPtr)
+		return FileWrapper{}, NSErrorFrom(errorPtr)
 	}
 	return FileWrapperFromID(rv), nil
 }

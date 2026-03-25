@@ -195,7 +195,7 @@ func NewMacAuxiliaryStorageCreatingStorageAtURLHardwareModelOptionsError(URL fou
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initCreatingStorageAtURL:hardwareModel:options:error:"), URL, hardwareModel, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZMacAuxiliaryStorageFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZMacAuxiliaryStorage{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZMacAuxiliaryStorageFromID(rv), nil
 }

@@ -406,7 +406,7 @@ func NewXMLElementWithXMLStringError(string_ string) (XMLElement, error) {
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXMLString:error:"), objc.String(string_), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLElementFromID(rv), NSErrorFrom(errorPtr)
+		return XMLElement{}, NSErrorFrom(errorPtr)
 	}
 	return XMLElementFromID(rv), nil
 }

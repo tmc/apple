@@ -132,7 +132,7 @@ func NewLinuxRosettaUnixSocketCachingOptionsWithPathError(path string) (VZLinuxR
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPath:error:"), objc.String(path), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZLinuxRosettaUnixSocketCachingOptionsFromID(rv), foundation.NSErrorFrom(errorPtr)
+		return VZLinuxRosettaUnixSocketCachingOptions{}, foundation.NSErrorFrom(errorPtr)
 	}
 	return VZLinuxRosettaUnixSocketCachingOptionsFromID(rv), nil
 }
