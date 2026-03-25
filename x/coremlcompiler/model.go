@@ -10,7 +10,7 @@ import "fmt"
 type Model struct {
 	SpecVersion int32            // field 1
 	Description ModelDescription // field 2
-	MLProgram   *program         // field 502 (oneof)
+	MLProgram   *Program         // field 502 (oneof)
 
 	// Raw bytes of the description submessage, used for coremldata.bin.
 	descriptionRaw []byte
@@ -54,76 +54,76 @@ const (
 	ArrayDataTypeInt32   ArrayDataType = 131104
 )
 
-// MIL program types.
+// MIL Program types.
 
-// program is an MIL program.
+// Program is an MIL Program.
 // Proto: MILSpec.Program
-type program struct {
+type Program struct {
 	Version    int64                 // field 1
-	Functions  map[string]*function  // field 2
-	Attributes map[string]*value    // field 4
+	Functions  map[string]*Function  // field 2
+	Attributes map[string]*Value    // field 4
 }
 
-// function is an MIL function.
+// Function is an MIL Function.
 // Proto: MILSpec.Function
-type function struct {
-	Inputs               []namedValueType  // field 1
+type Function struct {
+	Inputs               []NamedValueType  // field 1
 	OpSet                string            // field 2
-	BlockSpecializations map[string]*block // field 3
-	Attributes           map[string]*value // field 4
+	BlockSpecializations map[string]*Block // field 3
+	Attributes           map[string]*Value // field 4
 }
 
-// block is a sequence of operations.
+// Block is a sequence of operations.
 // Proto: MILSpec.Block
-type block struct {
-	Inputs     []namedValueType // field 1
+type Block struct {
+	Inputs     []NamedValueType // field 1
 	Outputs    []string         // field 2
-	Operations []*operation     // field 3
+	Operations []*Operation     // field 3
 }
 
-// operation is a single MIL operation.
+// Operation is a single MIL Operation.
 // Proto: MILSpec.Operation
-type operation struct {
+type Operation struct {
 	Type       string               // field 1
-	Inputs     map[string]*argument // field 2
-	Outputs    []namedValueType     // field 3
-	Blocks     []*block             // field 4
-	Attributes map[string]*value    // field 5
+	Inputs     map[string]*Argument // field 2
+	Outputs    []NamedValueType     // field 3
+	Blocks     []*Block             // field 4
+	Attributes map[string]*Value    // field 5
 }
 
-// namedValueType is a (name, type) pair.
+// NamedValueType is a (name, type) pair.
 // Proto: MILSpec.NamedValueType
-type namedValueType struct {
+type NamedValueType struct {
 	Name string     // field 1
-	Type *valueType // field 2
+	Type *ValueType // field 2
 }
 
-// valueType describes a MIL value's type.
+// ValueType describes a MIL value's type.
 // Proto: MILSpec.ValueType
-type valueType struct {
+type ValueType struct {
 	// Exactly one of these is set.
-	TensorType *tensorType // field 1
-	StateType  *stateType  // field 5
+	TensorType *TensorType // field 1
+	StateType  *StateType  // field 5
 	// ListType, TupleType, DictionaryType omitted for now.
 }
 
-// tensorType describes a tensor's element type and shape.
+// TensorType describes a tensor's element type and shape.
 // Proto: MILSpec.TensorType
-type tensorType struct {
+type TensorType struct {
 	DataType   DataType    // field 1
 	Rank       int64       // field 2
-	Dimensions []dimension // field 3
+	Dimensions []Dimension // field 3
 }
 
-// stateType wraps a valueType for stateful operations.
+// StateType wraps a ValueType for stateful operations.
 // Proto: MILSpec.StateType
-type stateType struct {
-	WrappedType *valueType // field 1
+type StateType struct {
+	WrappedType *ValueType // field 1
 }
 
-// dimension is a tensor dimension (constant or unknown).
+// Dimension is a tensor Dimension (constant or unknown).
 // Proto: MILSpec.Dimension
-type dimension struct {
+type Dimension struct {
 	Constant uint64 // from ConstantDimension.size (field 1.1)
 	Unknown  bool   // true if UnknownDimension
 }
@@ -190,24 +190,24 @@ func (dt DataType) String() string {
 
 // value is an MIL value (immediate or blob reference).
 // Proto: MILSpec.Value
-type value struct {
-	Type *valueType // field 2
+type Value struct {
+	Type *ValueType // field 2
 
 	// Exactly one of these is set.
-	Immediate *immediateValue // field 3
-	BlobFile  *blobFileValue  // field 5
+	Immediate *ImmediateValue // field 3
+	BlobFile  *BlobFileValue  // field 5
 }
 
-// immediateValue holds inline constant data.
+// ImmediateValue holds inline constant data.
 // Proto: MILSpec.ImmediateValue
-type immediateValue struct {
+type ImmediateValue struct {
 	// Exactly one of these is set.
-	Tensor *tensorValue // field 1
+	Tensor *TensorValue // field 1
 }
 
-// tensorValue holds tensor data inline.
+// TensorValue holds tensor data inline.
 // Proto: MILSpec.TensorValue
-type tensorValue struct {
+type TensorValue struct {
 	// Exactly one of these is set.
 	Floats  []float32 // field 1
 	Ints    []int32   // field 2
@@ -218,22 +218,22 @@ type tensorValue struct {
 	Bytes   []byte    // field 7
 }
 
-// blobFileValue references weight data in a blob file.
+// BlobFileValue references weight data in a blob file.
 // Proto: MILSpec.BlobFileValue
-type blobFileValue struct {
+type BlobFileValue struct {
 	FileName string // field 1
 	Offset   uint64 // field 2
 }
 
-// argument is an operation input (list of bindings).
+// Argument is an Operation input (list of bindings).
 // Proto: MILSpec.Argument
-type argument struct {
-	Bindings []binding // field 1
+type Argument struct {
+	Bindings []Binding // field 1
 }
 
-// binding is either a name reference or an inline value.
+// Binding is either a name reference or an inline value.
 // Proto: MILSpec.Argument.Binding
-type binding struct {
+type Binding struct {
 	Name  string // field 1 (oneof)
-	Value *value // field 2 (oneof)
+	Value *Value // field 2 (oneof)
 }

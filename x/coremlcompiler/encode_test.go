@@ -27,70 +27,70 @@ func TestEncodeModelRoundTrip(t *testing.T) {
 				{Name: "k_cache", Type: &FeatureType{MultiArrayType: &ArrayFeatureType{Shape: []int64{1, 32, 128, 64}, DataType: ArrayDataTypeFloat16}}},
 			},
 		},
-		MLProgram: &program{
+		MLProgram: &Program{
 			Version: 1,
-			Functions: map[string]*function{
+			Functions: map[string]*Function{
 				"main": {
 					OpSet: "ios18",
-					Inputs: []namedValueType{
+					Inputs: []NamedValueType{
 						{
 							Name: "x",
-							Type: &valueType{TensorType: &tensorType{
+							Type: &ValueType{TensorType: &TensorType{
 								DataType:   DataTypeFloat16,
 								Rank:       2,
-								Dimensions: []dimension{{Constant: 1}, {Constant: 128}},
+								Dimensions: []Dimension{{Constant: 1}, {Constant: 128}},
 							}},
 						},
 						{
 							Name: "k_state",
-							Type: &valueType{StateType: &stateType{
-								WrappedType: &valueType{TensorType: &tensorType{
+							Type: &ValueType{StateType: &StateType{
+								WrappedType: &ValueType{TensorType: &TensorType{
 									DataType:   DataTypeFloat16,
-									Dimensions: []dimension{{Constant: 1}, {Constant: 32}, {Constant: 128}, {Constant: 64}},
+									Dimensions: []Dimension{{Constant: 1}, {Constant: 32}, {Constant: 128}, {Constant: 64}},
 								}},
 							}},
 						},
 					},
-					BlockSpecializations: map[string]*block{
+					BlockSpecializations: map[string]*Block{
 						"CoreML8": {
 							Outputs: []string{"y"},
-							Operations: []*operation{
+							Operations: []*Operation{
 								{
 									Type: "const",
-									Inputs: map[string]*argument{
-										"val": {Bindings: []binding{{
-											Value: &value{
-												Type: &valueType{TensorType: &tensorType{
+									Inputs: map[string]*Argument{
+										"val": {Bindings: []Binding{{
+											Value: &Value{
+												Type: &ValueType{TensorType: &TensorType{
 													DataType:   DataTypeFloat16,
-													Dimensions: []dimension{{Constant: 1}, {Constant: 64}},
+													Dimensions: []Dimension{{Constant: 1}, {Constant: 64}},
 												}},
-												BlobFile: &blobFileValue{
+												BlobFile: &BlobFileValue{
 													FileName: "@model_path/weights/weight.bin",
 													Offset:   64,
 												},
 											},
 										}}},
 									},
-									Outputs: []namedValueType{{
+									Outputs: []NamedValueType{{
 										Name: "y",
-										Type: &valueType{TensorType: &tensorType{
+										Type: &ValueType{TensorType: &TensorType{
 											DataType:   DataTypeFloat16,
-											Dimensions: []dimension{{Constant: 1}, {Constant: 64}},
+											Dimensions: []Dimension{{Constant: 1}, {Constant: 64}},
 										}},
 									}},
-									Attributes: map[string]*value{
+									Attributes: map[string]*Value{
 										"name": stringVal("const_y"),
 									},
 								},
 							},
 						},
 					},
-					Attributes: map[string]*value{
+					Attributes: map[string]*Value{
 						"version": stringVal("1.0"),
 					},
 				},
 			},
-			Attributes: map[string]*value{
+			Attributes: map[string]*Value{
 				"buildInfo": stringVal("test"),
 			},
 		},
@@ -115,106 +115,106 @@ func TestEncodeModelRoundTrip(t *testing.T) {
 	comparePrograms(t, decoded.MLProgram, original.MLProgram)
 }
 
-// TestEncodeMLProgramRoundTrip focuses on a complex program with multiple
+// TestEncodeMLProgramRoundTrip focuses on a complex Program with multiple
 // functions, blob references, immediate values, nested blocks, and attributes.
 func TestEncodeMLProgramRoundTrip(t *testing.T) {
-	original := &program{
+	original := &Program{
 		Version: 1,
-		Functions: map[string]*function{
+		Functions: map[string]*Function{
 			"main": {
 				OpSet: "ios18",
-				Inputs: []namedValueType{{
+				Inputs: []NamedValueType{{
 					Name: "x",
-					Type: &valueType{TensorType: &tensorType{
+					Type: &ValueType{TensorType: &TensorType{
 						DataType:   DataTypeFloat32,
 						Rank:       2,
-						Dimensions: []dimension{{Constant: 1}, {Constant: 768}},
+						Dimensions: []Dimension{{Constant: 1}, {Constant: 768}},
 					}},
 				}},
-				BlockSpecializations: map[string]*block{
+				BlockSpecializations: map[string]*Block{
 					"CoreML8": {
 						Outputs: []string{"out"},
-						Operations: []*operation{
+						Operations: []*Operation{
 							{
 								Type: "const",
-								Inputs: map[string]*argument{
-									"val": {Bindings: []binding{{
-										Value: &value{
-											Type: &valueType{TensorType: &tensorType{
+								Inputs: map[string]*Argument{
+									"val": {Bindings: []Binding{{
+										Value: &Value{
+											Type: &ValueType{TensorType: &TensorType{
 												DataType:   DataTypeFloat32,
-												Dimensions: []dimension{{Constant: 768}, {Constant: 768}},
+												Dimensions: []Dimension{{Constant: 768}, {Constant: 768}},
 											}},
-											BlobFile: &blobFileValue{
+											BlobFile: &BlobFileValue{
 												FileName: "@model_path/weights/weight.bin",
 												Offset:   0,
 											},
 										},
 									}}},
 								},
-								Outputs: []namedValueType{{
+								Outputs: []NamedValueType{{
 									Name: "w",
-									Type: &valueType{TensorType: &tensorType{
+									Type: &ValueType{TensorType: &TensorType{
 										DataType:   DataTypeFloat32,
-										Dimensions: []dimension{{Constant: 768}, {Constant: 768}},
+										Dimensions: []Dimension{{Constant: 768}, {Constant: 768}},
 									}},
 								}},
-								Attributes: map[string]*value{
+								Attributes: map[string]*Value{
 									"name": stringVal("weights_0"),
 								},
 							},
 							{
 								Type: "linear",
-								Inputs: map[string]*argument{
-									"x":      {Bindings: []binding{{Name: "x"}}},
-									"weight": {Bindings: []binding{{Name: "w"}}},
-									"bias": {Bindings: []binding{{
-										Value: &value{
-											Type: &valueType{TensorType: &tensorType{
+								Inputs: map[string]*Argument{
+									"x":      {Bindings: []Binding{{Name: "x"}}},
+									"weight": {Bindings: []Binding{{Name: "w"}}},
+									"bias": {Bindings: []Binding{{
+										Value: &Value{
+											Type: &ValueType{TensorType: &TensorType{
 												DataType:   DataTypeFloat32,
-												Dimensions: []dimension{{Constant: 768}},
+												Dimensions: []Dimension{{Constant: 768}},
 											}},
-											Immediate: &immediateValue{Tensor: &tensorValue{
+											Immediate: &ImmediateValue{Tensor: &TensorValue{
 												Floats: []float32{0.1, 0.2, 0.3},
 											}},
 										},
 									}}},
 								},
-								Outputs: []namedValueType{{
+								Outputs: []NamedValueType{{
 									Name: "out",
-									Type: &valueType{TensorType: &tensorType{
+									Type: &ValueType{TensorType: &TensorType{
 										DataType:   DataTypeFloat32,
-										Dimensions: []dimension{{Constant: 1}, {Constant: 768}},
+										Dimensions: []Dimension{{Constant: 1}, {Constant: 768}},
 									}},
 								}},
-								Attributes: map[string]*value{
+								Attributes: map[string]*Value{
 									"name": stringVal("linear_0"),
 								},
 							},
 						},
 					},
 				},
-				Attributes: map[string]*value{
+				Attributes: map[string]*Value{
 					"description": stringVal("test function"),
 				},
 			},
 			"preprocess": {
 				OpSet: "ios18",
-				Inputs: []namedValueType{{
+				Inputs: []NamedValueType{{
 					Name: "raw",
-					Type: &valueType{TensorType: &tensorType{
+					Type: &ValueType{TensorType: &TensorType{
 						DataType:   DataTypeInt32,
-						Dimensions: []dimension{{Constant: 1}, {Constant: 256}},
+						Dimensions: []Dimension{{Constant: 1}, {Constant: 256}},
 					}},
 				}},
-				BlockSpecializations: map[string]*block{
+				BlockSpecializations: map[string]*Block{
 					"CoreML8": {
 						Outputs:    []string{"cast_out"},
-						Operations: []*operation{},
+						Operations: []*Operation{},
 					},
 				},
 			},
 		},
-		Attributes: map[string]*value{
+		Attributes: map[string]*Value{
 			"buildVersion": stringVal("v1.0.0"),
 		},
 	}
@@ -231,43 +231,43 @@ func TestEncodeMLProgramRoundTrip(t *testing.T) {
 func TestEncodeTensorValues(t *testing.T) {
 	tests := []struct {
 		name string
-		tv   *tensorValue
+		tv   *TensorValue
 	}{
 		{
 			name: "float32",
-			tv:   &tensorValue{Floats: []float32{1.5, -2.25, 0, 3.14}},
+			tv:   &TensorValue{Floats: []float32{1.5, -2.25, 0, 3.14}},
 		},
 		{
 			name: "float64",
-			tv:   &tensorValue{Doubles: []float64{1.5, -2.25, 0, 3.14159265358979}},
+			tv:   &TensorValue{Doubles: []float64{1.5, -2.25, 0, 3.14159265358979}},
 		},
 		{
 			name: "int32",
-			tv:   &tensorValue{Ints: []int32{0, 1, -1, 42, 2147483647}},
+			tv:   &TensorValue{Ints: []int32{0, 1, -1, 42, 2147483647}},
 		},
 		{
 			name: "int64",
-			tv:   &tensorValue{Longs: []int64{0, 1, -1, 42, 9223372036854775807}},
+			tv:   &TensorValue{Longs: []int64{0, 1, -1, 42, 9223372036854775807}},
 		},
 		{
 			name: "bool",
-			tv:   &tensorValue{Bools: []bool{true, false, true, true, false}},
+			tv:   &TensorValue{Bools: []bool{true, false, true, true, false}},
 		},
 		{
 			name: "string",
-			tv:   &tensorValue{Strings: []string{"hello", "world", "", "test with spaces"}},
+			tv:   &TensorValue{Strings: []string{"hello", "world", "", "test with spaces"}},
 		},
 		{
 			name: "bytes",
-			tv:   &tensorValue{Bytes: []byte{0x00, 0x01, 0xFE, 0xFF, 0xDE, 0xAD}},
+			tv:   &TensorValue{Bytes: []byte{0x00, 0x01, 0xFE, 0xFF, 0xDE, 0xAD}},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			v := &value{
-				Type: &valueType{TensorType: &tensorType{DataType: DataTypeFloat32}},
-				Immediate: &immediateValue{
+			v := &Value{
+				Type: &ValueType{TensorType: &TensorType{DataType: DataTypeFloat32}},
+				Immediate: &ImmediateValue{
 					Tensor: tt.tv,
 				},
 			}
@@ -287,35 +287,35 @@ func TestEncodeTensorValues(t *testing.T) {
 // TestEncodeMapEntries verifies that map encoding works for functions,
 // attributes, and inputs maps with multiple entries.
 func TestEncodeMapEntries(t *testing.T) {
-	prog := &program{
+	prog := &Program{
 		Version: 1,
-		Functions: map[string]*function{
-			"main":       {OpSet: "ios18", BlockSpecializations: map[string]*block{}, Attributes: map[string]*value{}},
-			"preprocess": {OpSet: "ios17", BlockSpecializations: map[string]*block{}, Attributes: map[string]*value{}},
+		Functions: map[string]*Function{
+			"main":       {OpSet: "ios18", BlockSpecializations: map[string]*Block{}, Attributes: map[string]*Value{}},
+			"preprocess": {OpSet: "ios17", BlockSpecializations: map[string]*Block{}, Attributes: map[string]*Value{}},
 			"postprocess": {
 				OpSet: "ios18",
-				BlockSpecializations: map[string]*block{
+				BlockSpecializations: map[string]*Block{
 					"CoreML8": {
 						Outputs: []string{"out"},
-						Operations: []*operation{{
+						Operations: []*Operation{{
 							Type: "relu",
-							Inputs: map[string]*argument{
-								"x":     {Bindings: []binding{{Name: "input_0"}}},
-								"alpha": {Bindings: []binding{{Name: "alpha_0"}}},
-								"beta":  {Bindings: []binding{{Name: "beta_0"}}},
+							Inputs: map[string]*Argument{
+								"x":     {Bindings: []Binding{{Name: "input_0"}}},
+								"alpha": {Bindings: []Binding{{Name: "alpha_0"}}},
+								"beta":  {Bindings: []Binding{{Name: "beta_0"}}},
 							},
-							Outputs: []namedValueType{{Name: "out", Type: &valueType{TensorType: &tensorType{DataType: DataTypeFloat32}}}},
-							Attributes: map[string]*value{
+							Outputs: []NamedValueType{{Name: "out", Type: &ValueType{TensorType: &TensorType{DataType: DataTypeFloat32}}}},
+							Attributes: map[string]*Value{
 								"name":  stringVal("relu_0"),
 								"label": stringVal("activation"),
 							},
 						}},
 					},
 				},
-				Attributes: map[string]*value{},
+				Attributes: map[string]*Value{},
 			},
 		},
-		Attributes: map[string]*value{
+		Attributes: map[string]*Value{
 			"a": stringVal("1"),
 			"b": stringVal("2"),
 			"c": stringVal("3"),
@@ -328,10 +328,10 @@ func TestEncodeMapEntries(t *testing.T) {
 		t.Fatalf("decode: %v", err)
 	}
 
-	// Check all function keys present.
+	// Check all Function keys present.
 	for _, key := range []string{"main", "preprocess", "postprocess"} {
 		if _, ok := decoded.Functions[key]; !ok {
-			t.Errorf("missing function %q", key)
+			t.Errorf("missing Function %q", key)
 		}
 	}
 
@@ -342,24 +342,24 @@ func TestEncodeMapEntries(t *testing.T) {
 		}
 	}
 
-	// Check operation inputs map.
+	// Check Operation inputs map.
 	pp := decoded.Functions["postprocess"]
 	if pp == nil {
-		t.Fatal("missing postprocess function")
+		t.Fatal("missing postprocess Function")
 	}
 	blk, ok := pp.BlockSpecializations["CoreML8"]
 	if !ok || len(blk.Operations) == 0 {
-		t.Fatal("missing CoreML8 block or operations")
+		t.Fatal("missing CoreML8 Block or operations")
 	}
 	op := blk.Operations[0]
 	for _, key := range []string{"x", "alpha", "beta"} {
 		if _, ok := op.Inputs[key]; !ok {
-			t.Errorf("missing operation input %q", key)
+			t.Errorf("missing Operation input %q", key)
 		}
 	}
 	for _, key := range []string{"name", "label"} {
 		if _, ok := op.Attributes[key]; !ok {
-			t.Errorf("missing operation attribute %q", key)
+			t.Errorf("missing Operation attribute %q", key)
 		}
 	}
 }
@@ -483,28 +483,28 @@ func compareFeatureList(t *testing.T, prefix string, got, want []FeatureDescript
 	}
 }
 
-func comparePrograms(t *testing.T, got, want *program) {
+func comparePrograms(t *testing.T, got, want *Program) {
 	t.Helper()
 	if got.Version != want.Version {
-		t.Errorf("program.Version = %d, want %d", got.Version, want.Version)
+		t.Errorf("Program.Version = %d, want %d", got.Version, want.Version)
 	}
 	if len(got.Functions) != len(want.Functions) {
-		t.Errorf("program.Functions: len = %d, want %d", len(got.Functions), len(want.Functions))
+		t.Errorf("Program.Functions: len = %d, want %d", len(got.Functions), len(want.Functions))
 	}
 	for name, wantFn := range want.Functions {
 		gotFn, ok := got.Functions[name]
 		if !ok {
-			t.Errorf("missing function %q", name)
+			t.Errorf("missing Function %q", name)
 			continue
 		}
 		compareFunctions(t, name, gotFn, wantFn)
 	}
-	compareValueMaps(t, "program.Attributes", got.Attributes, want.Attributes)
+	compareValueMaps(t, "Program.Attributes", got.Attributes, want.Attributes)
 }
 
-func compareFunctions(t *testing.T, name string, got, want *function) {
+func compareFunctions(t *testing.T, name string, got, want *Function) {
 	t.Helper()
-	prefix := fmt.Sprintf("function[%s]", name)
+	prefix := fmt.Sprintf("Function[%s]", name)
 	if got.OpSet != want.OpSet {
 		t.Errorf("%s.OpSet = %q, want %q", prefix, got.OpSet, want.OpSet)
 	}
@@ -521,7 +521,7 @@ func compareFunctions(t *testing.T, name string, got, want *function) {
 	for bname, wantBlk := range want.BlockSpecializations {
 		gotBlk, ok := got.BlockSpecializations[bname]
 		if !ok {
-			t.Errorf("%s: missing block %q", prefix, bname)
+			t.Errorf("%s: missing Block %q", prefix, bname)
 			continue
 		}
 		compareBlocks(t, fmt.Sprintf("%s.Block[%s]", prefix, bname), gotBlk, wantBlk)
@@ -529,7 +529,7 @@ func compareFunctions(t *testing.T, name string, got, want *function) {
 	compareValueMaps(t, prefix+".Attributes", got.Attributes, want.Attributes)
 }
 
-func compareBlocks(t *testing.T, prefix string, got, want *block) {
+func compareBlocks(t *testing.T, prefix string, got, want *Block) {
 	t.Helper()
 	if !reflect.DeepEqual(got.Outputs, want.Outputs) {
 		t.Errorf("%s.Outputs = %v, want %v", prefix, got.Outputs, want.Outputs)
@@ -546,7 +546,7 @@ func compareBlocks(t *testing.T, prefix string, got, want *block) {
 	}
 }
 
-func compareOperations(t *testing.T, prefix string, got, want *operation) {
+func compareOperations(t *testing.T, prefix string, got, want *Operation) {
 	t.Helper()
 	if got.Type != want.Type {
 		t.Errorf("%s.Type = %q, want %q", prefix, got.Type, want.Type)
@@ -579,7 +579,7 @@ func compareOperations(t *testing.T, prefix string, got, want *operation) {
 	}
 }
 
-func compareArguments(t *testing.T, prefix string, got, want *argument) {
+func compareArguments(t *testing.T, prefix string, got, want *Argument) {
 	t.Helper()
 	if len(got.Bindings) != len(want.Bindings) {
 		t.Errorf("%s.Bindings: len = %d, want %d", prefix, len(got.Bindings), len(want.Bindings))
@@ -598,7 +598,7 @@ func compareArguments(t *testing.T, prefix string, got, want *argument) {
 	}
 }
 
-func compareValues(t *testing.T, prefix string, got, want *value) {
+func compareValues(t *testing.T, prefix string, got, want *Value) {
 	t.Helper()
 	if (got.BlobFile == nil) != (want.BlobFile == nil) {
 		t.Errorf("%s.BlobFile: nil mismatch", prefix)
@@ -621,7 +621,7 @@ func compareValues(t *testing.T, prefix string, got, want *value) {
 	}
 }
 
-func compareTensorValues(t *testing.T, got, want *tensorValue) {
+func compareTensorValues(t *testing.T, got, want *TensorValue) {
 	t.Helper()
 	if !reflect.DeepEqual(got.Floats, want.Floats) {
 		t.Errorf("Floats = %v, want %v", got.Floats, want.Floats)
@@ -646,7 +646,7 @@ func compareTensorValues(t *testing.T, got, want *tensorValue) {
 	}
 }
 
-func compareNamedValueTypes(t *testing.T, prefix string, got, want namedValueType) {
+func compareNamedValueTypes(t *testing.T, prefix string, got, want NamedValueType) {
 	t.Helper()
 	if got.Name != want.Name {
 		t.Errorf("%s.Name = %q, want %q", prefix, got.Name, want.Name)
@@ -661,7 +661,7 @@ func compareNamedValueTypes(t *testing.T, prefix string, got, want namedValueTyp
 	compareValueTypes(t, prefix+".Type", got.Type, want.Type)
 }
 
-func compareValueTypes(t *testing.T, prefix string, got, want *valueType) {
+func compareValueTypes(t *testing.T, prefix string, got, want *ValueType) {
 	t.Helper()
 	if (got.TensorType == nil) != (want.TensorType == nil) {
 		t.Errorf("%s.TensorType: nil mismatch", prefix)
@@ -687,7 +687,7 @@ func compareValueTypes(t *testing.T, prefix string, got, want *valueType) {
 	}
 }
 
-func compareValueMaps(t *testing.T, prefix string, got, want map[string]*value) {
+func compareValueMaps(t *testing.T, prefix string, got, want map[string]*Value) {
 	t.Helper()
 	// Treat nil and empty as equivalent.
 	if len(got) != len(want) {

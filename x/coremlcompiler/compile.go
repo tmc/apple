@@ -246,9 +246,9 @@ func resolveManifest(manifestPath, packageDir string) (modelPath, weightDir stri
 	return "", "", fmt.Errorf("no CoreML entry in manifest")
 }
 
-// copyWeights copies weight files referenced by the MIL program.
+// copyWeights copies weight files referenced by the MIL Program.
 // Weight references in BLOBFILE use paths like "@model_path/weights/weight.bin".
-func copyWeights(srcDir, dstDir string, prog *program) error {
+func copyWeights(srcDir, dstDir string, prog *Program) error {
 	// Collect all referenced blob files.
 	refs := collectBlobRefs(prog)
 	if len(refs) == 0 {
@@ -281,12 +281,12 @@ func copyWeights(srcDir, dstDir string, prog *program) error {
 	return nil
 }
 
-// collectBlobRefs walks the program and collects unique blob file names.
-func collectBlobRefs(prog *program) []string {
+// collectBlobRefs walks the Program and collects unique blob file names.
+func collectBlobRefs(prog *Program) []string {
 	seen := make(map[string]bool)
 	for _, fn := range prog.Functions {
-		for _, block := range fn.BlockSpecializations {
-			collectBlockBlobRefs(block, seen)
+		for _, blk := range fn.BlockSpecializations {
+			collectBlockBlobRefs(blk, seen)
 		}
 	}
 	refs := make([]string, 0, len(seen))
@@ -296,13 +296,13 @@ func collectBlobRefs(prog *program) []string {
 	return refs
 }
 
-func collectBlockBlobRefs(block *block, seen map[string]bool) {
-	for _, op := range block.Operations {
+func collectBlockBlobRefs(blk *Block, seen map[string]bool) {
+	for _, op := range blk.Operations {
 		// Check operation inputs for blob references.
 		for _, arg := range op.Inputs {
-			for _, binding := range arg.Bindings {
-				if binding.Value != nil && binding.Value.BlobFile != nil {
-					seen[binding.Value.BlobFile.FileName] = true
+			for _, b := range arg.Bindings {
+				if b.Value != nil && b.Value.BlobFile != nil {
+					seen[b.Value.BlobFile.FileName] = true
 				}
 			}
 		}

@@ -105,7 +105,7 @@ func EncodeModel(m *Model) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeProgram(p *program) []byte {
+func encodeProgram(p *Program) []byte {
 	var parts [][]byte
 	if p.Version != 0 {
 		parts = append(parts, encodeVarint(uint64(1)<<3|wireVarint, encodeVarintVal(uint64(p.Version))))
@@ -121,7 +121,7 @@ func encodeProgram(p *program) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeFunction(f *function) []byte {
+func encodeFunction(f *Function) []byte {
 	var parts [][]byte
 	for _, nvt := range f.Inputs {
 		parts = append(parts, encodeBytes(1, encodeNamedValueType(nvt)))
@@ -140,7 +140,7 @@ func encodeFunction(f *function) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeBlock(b *block) []byte {
+func encodeBlock(b *Block) []byte {
 	var parts [][]byte
 	for _, nvt := range b.Inputs {
 		parts = append(parts, encodeBytes(1, encodeNamedValueType(nvt)))
@@ -154,7 +154,7 @@ func encodeBlock(b *block) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeOperation(op *operation) []byte {
+func encodeOperation(op *Operation) []byte {
 	var parts [][]byte
 	if op.Type != "" {
 		parts = append(parts, encodeBytes(1, []byte(op.Type)))
@@ -176,7 +176,7 @@ func encodeOperation(op *operation) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeNamedValueType(nvt namedValueType) []byte {
+func encodeNamedValueType(nvt NamedValueType) []byte {
 	var parts [][]byte
 	if nvt.Name != "" {
 		parts = append(parts, encodeBytes(1, []byte(nvt.Name)))
@@ -187,7 +187,7 @@ func encodeNamedValueType(nvt namedValueType) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeValueType(vt *valueType) []byte {
+func encodeValueType(vt *ValueType) []byte {
 	var parts [][]byte
 	if vt.TensorType != nil {
 		parts = append(parts, encodeBytes(1, encodeTensorType(vt.TensorType)))
@@ -198,7 +198,7 @@ func encodeValueType(vt *valueType) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeTensorType(tt *tensorType) []byte {
+func encodeTensorType(tt *TensorType) []byte {
 	var parts [][]byte
 	if tt.DataType != 0 {
 		parts = append(parts, encodeVarint(uint64(1)<<3|wireVarint, encodeVarintVal(uint64(tt.DataType))))
@@ -212,7 +212,7 @@ func encodeTensorType(tt *tensorType) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeStateType(st *stateType) []byte {
+func encodeStateType(st *StateType) []byte {
 	var parts [][]byte
 	if st.WrappedType != nil {
 		parts = append(parts, encodeBytes(1, encodeValueType(st.WrappedType)))
@@ -220,7 +220,7 @@ func encodeStateType(st *stateType) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeDimension(d dimension) []byte {
+func encodeDimension(d Dimension) []byte {
 	if d.Unknown {
 		// Dimension { field 2 = UnknownDimension {} }
 		return encodeBytes(2, nil)
@@ -230,7 +230,7 @@ func encodeDimension(d dimension) []byte {
 	return encodeBytes(1, inner)
 }
 
-func encodeValue(v *value) []byte {
+func encodeValue(v *Value) []byte {
 	var parts [][]byte
 	if v.Type != nil {
 		parts = append(parts, encodeBytes(2, encodeValueType(v.Type)))
@@ -244,7 +244,7 @@ func encodeValue(v *value) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeImmediateValue(iv *immediateValue) []byte {
+func encodeImmediateValue(iv *ImmediateValue) []byte {
 	var parts [][]byte
 	if iv.Tensor != nil {
 		parts = append(parts, encodeBytes(1, encodeTensorValue(iv.Tensor)))
@@ -252,7 +252,7 @@ func encodeImmediateValue(iv *immediateValue) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeTensorValue(tv *tensorValue) []byte {
+func encodeTensorValue(tv *TensorValue) []byte {
 	var parts [][]byte
 	if len(tv.Floats) > 0 {
 		// RepeatedFloats { field 1 = packed float32 }
@@ -295,7 +295,7 @@ func encodeTensorValue(tv *tensorValue) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeBlobFileValue(bf *blobFileValue) []byte {
+func encodeBlobFileValue(bf *BlobFileValue) []byte {
 	var parts [][]byte
 	if bf.FileName != "" {
 		parts = append(parts, encodeBytes(1, []byte(bf.FileName)))
@@ -306,7 +306,7 @@ func encodeBlobFileValue(bf *blobFileValue) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeArgument(a *argument) []byte {
+func encodeArgument(a *Argument) []byte {
 	var parts [][]byte
 	for _, b := range a.Bindings {
 		parts = append(parts, encodeBytes(1, encodeBinding(b)))
@@ -314,7 +314,7 @@ func encodeArgument(a *argument) []byte {
 	return concatBytes(parts...)
 }
 
-func encodeBinding(b binding) []byte {
+func encodeBinding(b Binding) []byte {
 	var parts [][]byte
 	if b.Name != "" {
 		parts = append(parts, encodeBytes(1, []byte(b.Name)))

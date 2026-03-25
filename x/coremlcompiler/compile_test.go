@@ -32,84 +32,84 @@ func TestProtoRoundTrip(t *testing.T) {
 		t.Fatal("mlprogram is nil")
 	}
 	if model.MLProgram.Version != 1 {
-		t.Errorf("program version = %d, want 1", model.MLProgram.Version)
+		t.Errorf("Program version = %d, want 1", model.MLProgram.Version)
 	}
 
 	fn, ok := model.MLProgram.Functions["main"]
 	if !ok {
-		t.Fatal("no main function")
+		t.Fatal("no main Function")
 	}
 	if len(fn.Inputs) != 1 {
-		t.Fatalf("function inputs = %d, want 1", len(fn.Inputs))
+		t.Fatalf("Function inputs = %d, want 1", len(fn.Inputs))
 	}
 	if fn.Inputs[0].Name != "x" {
-		t.Errorf("function input name = %q, want %q", fn.Inputs[0].Name, "x")
+		t.Errorf("Function input name = %q, want %q", fn.Inputs[0].Name, "x")
 	}
 	if fn.OpSet != "ios18" {
 		t.Errorf("opset = %q, want %q", fn.OpSet, "ios18")
 	}
 
-	block, ok := fn.BlockSpecializations["CoreML8"]
+	Block, ok := fn.BlockSpecializations["CoreML8"]
 	if !ok {
-		t.Fatal("no CoreML8 block specialization")
+		t.Fatal("no CoreML8 Block specialization")
 	}
-	if len(block.Operations) != 1 {
-		t.Fatalf("operations = %d, want 1", len(block.Operations))
+	if len(Block.Operations) != 1 {
+		t.Fatalf("operations = %d, want 1", len(Block.Operations))
 	}
-	if block.Operations[0].Type != "const" {
-		t.Errorf("op type = %q, want %q", block.Operations[0].Type, "const")
+	if Block.Operations[0].Type != "const" {
+		t.Errorf("op type = %q, want %q", Block.Operations[0].Type, "const")
 	}
-	if len(block.Outputs) != 1 || block.Outputs[0] != "y" {
-		t.Errorf("block outputs = %v, want [y]", block.Outputs)
+	if len(Block.Outputs) != 1 || Block.Outputs[0] != "y" {
+		t.Errorf("Block outputs = %v, want [y]", Block.Outputs)
 	}
 }
 
-// TestMILTextEmit verifies MIL text generation from a parsed program.
+// TestMILTextEmit verifies MIL text generation from a parsed Program.
 func TestMILTextEmit(t *testing.T) {
-	prog := &program{
+	prog := &Program{
 		Version: 1,
-		Functions: map[string]*function{
+		Functions: map[string]*Function{
 			"main": {
 				OpSet: "ios18",
-				Inputs: []namedValueType{
+				Inputs: []NamedValueType{
 					{
 						Name: "x",
-						Type: &valueType{
-							TensorType: &tensorType{
+						Type: &ValueType{
+							TensorType: &TensorType{
 								DataType:   DataTypeFloat16,
-								Dimensions: []dimension{{Constant: 1}, {Constant: 64}},
+								Dimensions: []Dimension{{Constant: 1}, {Constant: 64}},
 							},
 						},
 					},
 				},
-				BlockSpecializations: map[string]*block{
+				BlockSpecializations: map[string]*Block{
 					"CoreML8": {
-						Operations: []*operation{
+						Operations: []*Operation{
 							{
 								Type: "const",
-								Outputs: []namedValueType{
+								Outputs: []NamedValueType{
 									{
 										Name: "y",
-										Type: &valueType{
-											TensorType: &tensorType{
+										Type: &ValueType{
+											TensorType: &TensorType{
 												DataType:   DataTypeFloat16,
-												Dimensions: []dimension{{Constant: 1}, {Constant: 64}},
+												Dimensions: []Dimension{{Constant: 1}, {Constant: 64}},
 											},
 										},
 									},
 								},
-								Inputs: map[string]*argument{
+								Inputs: map[string]*Argument{
 									"val": {
-										Bindings: []binding{
+										Bindings: []Binding{
 											{
-												Value: &value{
-													Type: &valueType{
-														TensorType: &tensorType{
+												Value: &Value{
+													Type: &ValueType{
+														TensorType: &TensorType{
 															DataType:   DataTypeFloat16,
-															Dimensions: []dimension{{Constant: 1}, {Constant: 64}},
+															Dimensions: []Dimension{{Constant: 1}, {Constant: 64}},
 														},
 													},
-													BlobFile: &blobFileValue{
+													BlobFile: &BlobFileValue{
 														FileName: "@model_path/weights/weight.bin",
 														Offset:   64,
 													},
@@ -118,13 +118,13 @@ func TestMILTextEmit(t *testing.T) {
 										},
 									},
 								},
-								Attributes: map[string]*value{
+								Attributes: map[string]*Value{
 									"name": {
-										Type: &valueType{
-											TensorType: &tensorType{DataType: DataTypeString},
+										Type: &ValueType{
+											TensorType: &TensorType{DataType: DataTypeString},
 										},
-										Immediate: &immediateValue{
-											Tensor: &tensorValue{
+										Immediate: &ImmediateValue{
+											Tensor: &TensorValue{
 												Strings: []string{"const_y"},
 											},
 										},
@@ -143,7 +143,7 @@ func TestMILTextEmit(t *testing.T) {
 
 	// Verify key elements are present in the real Apple MIL format.
 	checks := []string{
-		"program(1.3)",
+		"Program(1.3)",
 		"func main<ios18>(",
 		"tensor<fp16, [1, 64]>",
 		"const(",
@@ -266,11 +266,11 @@ func TestCompileMLProgram(t *testing.T) {
 		t.Fatal(err)
 	}
 	milText := string(milData)
-	if !strings.Contains(milText, "program(") {
-		t.Errorf("model.mil missing program header")
+	if !strings.Contains(milText, "Program(") {
+		t.Errorf("model.mil missing Program header")
 	}
 	if !strings.Contains(milText, "func main<ios18>") {
-		t.Errorf("model.mil missing main function")
+		t.Errorf("model.mil missing main Function")
 	}
 }
 
@@ -289,7 +289,7 @@ func TestCompileMILText(t *testing.T) {
 	}
 
 	milText := strings.TrimSpace(`
-program(1.3) {
+Program(1.3) {
     func main<ios18>(tensor<fp16, [1, 64]> x, state<tensor<fp16, [1, 1, 4, 64]>> k_state) {
         tensor<fp16, [1, 1, 4, 64]> cached = read_state(state = k_state)[name = tensor<string, []>("read_k")];
     } -> (cached);
@@ -354,20 +354,20 @@ func buildTestModelProto() []byte {
 	dimMsg64 := encodeBytes(1, dim64)
 
 	// TensorType { dataType=FLOAT16(10), rank=2, dimensions=[1, 64] }
-	tensorType := concatBytes(
+	TensorType := concatBytes(
 		encodeVarint(1<<3|wireVarint, encodeVarintVal(10)), // dataType = FLOAT16
 		encodeVarint(2<<3|wireVarint, encodeVarintVal(2)),  // rank = 2
 		encodeBytes(3, dimMsg1),                            // dimensions[0]
 		encodeBytes(3, dimMsg64),                           // dimensions[1]
 	)
 
-	// ValueType { tensorType = ... }
-	valueType := encodeBytes(1, tensorType)
+	// ValueType { TensorType = ... }
+	ValueType := encodeBytes(1, TensorType)
 
-	// NamedValueType { name="x", type=valueType }
+	// NamedValueType { name="x", type=ValueType }
 	nvtX := concatBytes(
 		encodeBytes(1, []byte("x")),
-		encodeBytes(2, valueType),
+		encodeBytes(2, ValueType),
 	)
 
 	// BlobFileValue { fileName="@model_path/weights/weight.bin", offset=64 }
@@ -376,22 +376,22 @@ func buildTestModelProto() []byte {
 		encodeVarint(2<<3|wireVarint, encodeVarintVal(64)),
 	)
 
-	// Value { type=valueType, blobFileValue=blobFile }
+	// Value { type=ValueType, BlobFileValue=blobFile }
 	val := concatBytes(
-		encodeBytes(2, valueType),
+		encodeBytes(2, ValueType),
 		encodeBytes(5, blobFile),
 	)
 
 	// Binding { value = val }
-	binding := encodeBytes(2, val)
+	Binding := encodeBytes(2, val)
 
-	// Argument { arguments = [binding] }
-	argument := encodeBytes(1, binding)
+	// Argument { arguments = [Binding] }
+	Argument := encodeBytes(1, Binding)
 
-	// Map entry for inputs: key="val", value=argument
+	// Map entry for inputs: key="val", value=Argument
 	inputMapEntry := concatBytes(
 		encodeBytes(1, []byte("val")),
-		encodeBytes(2, argument),
+		encodeBytes(2, Argument),
 	)
 
 	// String type for attribute.
@@ -400,11 +400,11 @@ func buildTestModelProto() []byte {
 
 	// TensorValue with string "const_y"
 	repeatedStrings := encodeBytes(1, []byte("const_y"))
-	tensorValue := encodeBytes(4, repeatedStrings)
-	immediateValue := encodeBytes(1, tensorValue)
+	TensorValue := encodeBytes(4, repeatedStrings)
+	ImmediateValue := encodeBytes(1, TensorValue)
 	nameVal := concatBytes(
 		encodeBytes(2, stringValueType),
-		encodeBytes(3, immediateValue),
+		encodeBytes(3, ImmediateValue),
 	)
 	attrMapEntry := concatBytes(
 		encodeBytes(1, []byte("name")),
@@ -414,11 +414,11 @@ func buildTestModelProto() []byte {
 	// NamedValueType for output "y"
 	nvtY := concatBytes(
 		encodeBytes(1, []byte("y")),
-		encodeBytes(2, valueType),
+		encodeBytes(2, ValueType),
 	)
 
 	// Operation { type="const", inputs={val: arg}, outputs=[y], attributes={name: ...} }
-	operation := concatBytes(
+	Operation := concatBytes(
 		encodeBytes(1, []byte("const")), // type
 		encodeBytes(2, inputMapEntry),   // inputs map entry
 		encodeBytes(3, nvtY),            // outputs
@@ -426,32 +426,32 @@ func buildTestModelProto() []byte {
 	)
 
 	// Block { operations=[op], outputs=["y"] }
-	block := concatBytes(
+	Block := concatBytes(
 		encodeBytes(2, []byte("y")), // outputs
-		encodeBytes(3, operation),   // operations
+		encodeBytes(3, Operation),   // operations
 	)
 
-	// Function block_specializations map entry: key="CoreML8", value=block
+	// Function block_specializations map entry: key="CoreML8", value=Block
 	blockMapEntry := concatBytes(
 		encodeBytes(1, []byte("CoreML8")),
-		encodeBytes(2, block),
+		encodeBytes(2, Block),
 	)
 
-	// Function { inputs=[x], opset="ios18", block_specializations={CoreML8: block} }
-	function := concatBytes(
+	// Function { inputs=[x], opset="ios18", block_specializations={CoreML8: Block} }
+	Function := concatBytes(
 		encodeBytes(1, nvtX),            // inputs
 		encodeBytes(2, []byte("ios18")), // opset
 		encodeBytes(3, blockMapEntry),   // block_specializations
 	)
 
-	// Program functions map entry: key="main", value=function
+	// Program functions map entry: key="main", value=Function
 	funcMapEntry := concatBytes(
 		encodeBytes(1, []byte("main")),
-		encodeBytes(2, function),
+		encodeBytes(2, Function),
 	)
 
-	// Program { version=1, functions={main: function} }
-	program := concatBytes(
+	// Program { version=1, functions={main: Function} }
+	Program := concatBytes(
 		encodeVarint(1<<3|wireVarint, encodeVarintVal(1)), // version
 		encodeBytes(2, funcMapEntry),                      // functions
 	)
@@ -462,11 +462,11 @@ func buildTestModelProto() []byte {
 	// ModelDescription { input=[featureDesc] }
 	modelDesc := encodeBytes(1, featureDesc)
 
-	// Model { specificationVersion=8, description=modelDesc, mlProgram=program }
+	// Model { specificationVersion=8, description=modelDesc, mlProgram=Program }
 	model := concatBytes(
 		encodeVarint(1<<3|wireVarint, encodeVarintVal(8)), // specificationVersion
 		encodeBytes(2, modelDesc),                         // description
-		encodeBytes(502, program),                         // mlProgram (field 502)
+		encodeBytes(502, Program),                         // mlProgram (field 502)
 	)
 
 	return model
@@ -474,57 +474,57 @@ func buildTestModelProto() []byte {
 
 // TestMILTextWithState verifies state type formatting for iOS 18+ stateful inference.
 func TestMILTextWithState(t *testing.T) {
-	prog := &program{
+	prog := &Program{
 		Version: 1,
-		Functions: map[string]*function{
+		Functions: map[string]*Function{
 			"main": {
 				OpSet: "ios18",
-				Inputs: []namedValueType{
+				Inputs: []NamedValueType{
 					{
 						Name: "x",
-						Type: &valueType{
-							TensorType: &tensorType{
+						Type: &ValueType{
+							TensorType: &TensorType{
 								DataType:   DataTypeFloat16,
-								Dimensions: []dimension{{Constant: 1}, {Constant: 8}},
+								Dimensions: []Dimension{{Constant: 1}, {Constant: 8}},
 							},
 						},
 					},
 					{
 						Name: "state_k",
-						Type: &valueType{
-							StateType: &stateType{
-								WrappedType: &valueType{
-									TensorType: &tensorType{
+						Type: &ValueType{
+							StateType: &StateType{
+								WrappedType: &ValueType{
+									TensorType: &TensorType{
 										DataType:   DataTypeFloat16,
-										Dimensions: []dimension{{Constant: 1}, {Constant: 1}, {Constant: 128}, {Constant: 64}},
+										Dimensions: []Dimension{{Constant: 1}, {Constant: 1}, {Constant: 128}, {Constant: 64}},
 									},
 								},
 							},
 						},
 					},
 				},
-				BlockSpecializations: map[string]*block{
+				BlockSpecializations: map[string]*Block{
 					"CoreML8": {
-						Operations: []*operation{
+						Operations: []*Operation{
 							{
 								Type: "read_state",
-								Outputs: []namedValueType{
+								Outputs: []NamedValueType{
 									{
 										Name: "cached",
-										Type: &valueType{
-											TensorType: &tensorType{
+										Type: &ValueType{
+											TensorType: &TensorType{
 												DataType:   DataTypeFloat16,
-												Dimensions: []dimension{{Constant: 1}, {Constant: 1}, {Constant: 128}, {Constant: 64}},
+												Dimensions: []Dimension{{Constant: 1}, {Constant: 1}, {Constant: 128}, {Constant: 64}},
 											},
 										},
 									},
 								},
-								Inputs: map[string]*argument{
+								Inputs: map[string]*Argument{
 									"state": {
-										Bindings: []binding{{Name: "state_k"}},
+										Bindings: []Binding{{Name: "state_k"}},
 									},
 								},
-								Attributes: map[string]*value{
+								Attributes: map[string]*Value{
 									"name": stringVal("read_k"),
 								},
 							},
@@ -539,7 +539,7 @@ func TestMILTextWithState(t *testing.T) {
 	text := emitMILTextWithSpec(prog, 8)
 
 	checks := []string{
-		"program(1.3)",
+		"Program(1.3)",
 		"state<tensor<fp16, [1, 1, 128, 64]>>",
 		"read_state(",
 		"state = state_k",
@@ -551,13 +551,13 @@ func TestMILTextWithState(t *testing.T) {
 	}
 }
 
-func stringVal(s string) *value {
-	return &value{
-		Type: &valueType{
-			TensorType: &tensorType{DataType: DataTypeString},
+func stringVal(s string) *Value {
+	return &Value{
+		Type: &ValueType{
+			TensorType: &TensorType{DataType: DataTypeString},
 		},
-		Immediate: &immediateValue{
-			Tensor: &tensorValue{Strings: []string{s}},
+		Immediate: &ImmediateValue{
+			Tensor: &TensorValue{Strings: []string{s}},
 		},
 	}
 }
@@ -586,27 +586,27 @@ func TestDataTypeString(t *testing.T) {
 func TestFormatTensorType(t *testing.T) {
 	tests := []struct {
 		name string
-		tt   *tensorType
+		tt   *TensorType
 		want string
 	}{
 		{
 			name: "scalar fp32",
-			tt:   &tensorType{DataType: DataTypeFloat32},
+			tt:   &TensorType{DataType: DataTypeFloat32},
 			want: "fp32",
 		},
 		{
 			name: "2D fp16",
-			tt: &tensorType{
+			tt: &TensorType{
 				DataType:   DataTypeFloat16,
-				Dimensions: []dimension{{Constant: 1}, {Constant: 128}},
+				Dimensions: []Dimension{{Constant: 1}, {Constant: 128}},
 			},
 			want: "tensor<fp16, [1, 128]>",
 		},
 		{
 			name: "4D int32",
-			tt: &tensorType{
+			tt: &TensorType{
 				DataType:   DataTypeInt32,
-				Dimensions: []dimension{{Constant: 1}, {Constant: 3}, {Constant: 224}, {Constant: 224}},
+				Dimensions: []Dimension{{Constant: 1}, {Constant: 3}, {Constant: 224}, {Constant: 224}},
 			},
 			want: "tensor<int32, [1, 3, 224, 224]>",
 		},
