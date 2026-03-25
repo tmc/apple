@@ -150,23 +150,33 @@ func readModelInput(path string) (modelData []byte, weightDir string, err error)
 }
 
 // readMLPackage reads an .mlpackage directory.
-// The structure is:
+// The standard layout (matching coremltools output) is:
 //
 //	model.mlpackage/
 //	├── Manifest.json
-//	└── Data/
-//	    └── com.apple.CoreML/
-//	        ├── model.mlmodel      (protobuf)
-//	        └── weights/
-//	            └── weight.bin     (optional)
+//	└── com.apple.CoreML/
+//	    ├── model.mlmodel      (protobuf)
+//	    └── weights/
+//	        └── weight.bin     (optional)
 func readMLPackage(dir string) ([]byte, string, error) {
 	// Find the model file via Manifest.json.
 	manifestPath := filepath.Join(dir, "Manifest.json")
 	modelPath, weightDir, err := resolveManifest(manifestPath, dir)
 	if err != nil {
-		// Fallback: try the conventional path.
-		modelPath = filepath.Join(dir, "Data", "com.apple.CoreML", "model.mlmodel")
-		weightDir = filepath.Join(dir, "Data", "com.apple.CoreML")
+		// Fallback: try conventional paths.
+		for _, candidate := range []string{
+			filepath.Join(dir, "com.apple.CoreML", "model.mlmodel"),
+			filepath.Join(dir, "Data", "com.apple.CoreML", "model.mlmodel"),
+		} {
+			if _, serr := os.Stat(candidate); serr == nil {
+				modelPath = candidate
+				weightDir = filepath.Dir(candidate)
+				break
+			}
+		}
+		if modelPath == "" {
+			return nil, "", fmt.Errorf("read mlpackage: no model.mlmodel found: %w", err)
+		}
 	}
 
 	data, err := os.ReadFile(modelPath)
@@ -185,8 +195,10 @@ func resolveManifest(manifestPath, packageDir string) (modelPath, weightDir stri
 	}
 
 	var manifest struct {
-		ItemInfoEntries map[string]struct {
+		RootModelIdentifier string `json:"rootModelIdentifier"`
+		ItemInfoEntries     map[string]struct {
 			Path   string `json:"path"`
+			Name   string `json:"name"`
 			Author string `json:"author"`
 		} `json:"itemInfoEntries"`
 	}
@@ -194,12 +206,33 @@ func resolveManifest(manifestPath, packageDir string) (modelPath, weightDir stri
 		return "", "", fmt.Errorf("parse manifest: %w", err)
 	}
 
-	// Find the model entry (author = "com.apple.CoreML").
+	// Prefer rootModelIdentifier to find the model entry.
+	if manifest.RootModelIdentifier != "" {
+		if entry, ok := manifest.ItemInfoEntries[manifest.RootModelIdentifier]; ok {
+			modelPath = filepath.Join(packageDir, entry.Path)
+			weightDir = filepath.Dir(modelPath)
+			return modelPath, weightDir, nil
+		}
+	}
+
+	// Fallback: find an entry whose name is "model.mlmodel".
+	for _, entry := range manifest.ItemInfoEntries {
+		if entry.Name == "model.mlmodel" {
+			modelPath = filepath.Join(packageDir, entry.Path)
+			weightDir = filepath.Dir(modelPath)
+			return modelPath, weightDir, nil
+		}
+	}
+
+	// Legacy fallback: find by author and append model.mlmodel.
 	for _, entry := range manifest.ItemInfoEntries {
 		if entry.Author == "com.apple.CoreML" {
-			modelPath = filepath.Join(packageDir, entry.Path, "model.mlmodel")
-			weightDir = filepath.Join(packageDir, entry.Path)
-			return modelPath, weightDir, nil
+			candidate := filepath.Join(packageDir, entry.Path)
+			info, serr := os.Stat(candidate)
+			if serr == nil && info.IsDir() {
+				return filepath.Join(candidate, "model.mlmodel"), candidate, nil
+			}
+			return candidate, filepath.Dir(candidate), nil
 		}
 	}
 

@@ -2,6 +2,7 @@ package coremlcompiler
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -385,7 +386,37 @@ func TestWriteMLPackage(t *testing.T) {
 		t.Fatalf("WriteMLPackage: %v", err)
 	}
 
-	// Read back.
+	// Verify the on-disk layout matches Apple's format.
+	for _, path := range []string{
+		"Manifest.json",
+		"com.apple.CoreML/model.mlmodel",
+		"com.apple.CoreML/weights/weight.bin",
+	} {
+		if _, err := os.Stat(filepath.Join(pkgDir, path)); err != nil {
+			t.Errorf("missing %s: %v", path, err)
+		}
+	}
+
+	// Verify Manifest.json has rootModelIdentifier and UUID keys.
+	manifestData, err := os.ReadFile(filepath.Join(pkgDir, "Manifest.json"))
+	if err != nil {
+		t.Fatalf("read manifest: %v", err)
+	}
+	var manifest struct {
+		RootModelIdentifier string                 `json:"rootModelIdentifier"`
+		ItemInfoEntries     map[string]interface{} `json:"itemInfoEntries"`
+	}
+	if err := json.Unmarshal(manifestData, &manifest); err != nil {
+		t.Fatalf("parse manifest: %v", err)
+	}
+	if manifest.RootModelIdentifier == "" {
+		t.Error("manifest missing rootModelIdentifier")
+	}
+	if _, ok := manifest.ItemInfoEntries[manifest.RootModelIdentifier]; !ok {
+		t.Error("rootModelIdentifier not found in itemInfoEntries")
+	}
+
+	// Read back via readMLPackage.
 	data, wDir, err := readMLPackage(pkgDir)
 	if err != nil {
 		t.Fatalf("readMLPackage: %v", err)
