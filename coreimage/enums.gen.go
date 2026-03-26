@@ -73,7 +73,7 @@ func (e CIQRCodeErrorCorrectionLevel) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestinationAlphaMode
-type CIRenderDestinationAlphaMode int
+type CIRenderDestinationAlphaMode uint
 
 const (
 	// CIRenderDestinationAlphaNone: Designates a destination with no alpha compositing.

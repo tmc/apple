@@ -7,7 +7,7 @@ import (
 )
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVAttachmentMode
-type CVAttachmentMode int
+type CVAttachmentMode uint32
 
 const (
 	// KCVAttachmentMode_ShouldNotPropagate: Indicates to not propagate the attachment.
@@ -62,7 +62,7 @@ func (e CVPixelBufferPoolFlushFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVSMPTETimeFlags
-type CVSMPTETimeFlags int
+type CVSMPTETimeFlags uint32
 
 const (
 	// KCVSMPTETimeRunning: Time is running.
@@ -83,7 +83,7 @@ func (e CVSMPTETimeFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVSMPTETimeType
-type CVSMPTETimeType int
+type CVSMPTETimeType uint32
 
 const (
 	// KCVSMPTETimeType24: 24 frames per second (standard film).
@@ -128,7 +128,7 @@ func (e CVSMPTETimeType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVTimeFlags
-type CVTimeFlags int
+type CVTimeFlags int32
 
 const (
 	// KCVTimeIsIndefinite: The time value is unknown.
@@ -145,7 +145,7 @@ func (e CVTimeFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreVideo/CVTimeStampFlags
-type CVTimeStampFlags int
+type CVTimeStampFlags uint64
 
 const (
 	// KCVTimeStampBottomField: The timestamp represents the bottom lines of an interlaced image.

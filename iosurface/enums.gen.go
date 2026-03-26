@@ -7,7 +7,7 @@ import (
 )
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceComponentName
-type IOSurfaceComponentName int
+type IOSurfaceComponentName int32
 
 const (
 	KIOSurfaceComponentNameAlpha IOSurfaceComponentName = 1
@@ -44,7 +44,7 @@ func (e IOSurfaceComponentName) String() string {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceComponentRange
-type IOSurfaceComponentRange int
+type IOSurfaceComponentRange int32
 
 const (
 	KIOSurfaceComponentRangeFullRange IOSurfaceComponentRange = 1
@@ -69,7 +69,7 @@ func (e IOSurfaceComponentRange) String() string {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceComponentType
-type IOSurfaceComponentType int
+type IOSurfaceComponentType int32
 
 const (
 	KIOSurfaceComponentTypeFloat IOSurfaceComponentType = 3
@@ -97,7 +97,7 @@ func (e IOSurfaceComponentType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceLockOptions
-type IOSurfaceLockOptions int
+type IOSurfaceLockOptions uint32
 
 const (
 	// KIOSurfaceLockAvoidSync: # Discussion
@@ -118,7 +118,7 @@ func (e IOSurfaceLockOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceMemoryLedgerFlags
-type IOSurfaceMemoryLedgerFlags int
+type IOSurfaceMemoryLedgerFlags uint32
 
 const (
 	KIOSurfaceMemoryLedgerFlagNoFootprint IOSurfaceMemoryLedgerFlags = 1
@@ -134,7 +134,7 @@ func (e IOSurfaceMemoryLedgerFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceMemoryLedgerTags
-type IOSurfaceMemoryLedgerTags int
+type IOSurfaceMemoryLedgerTags int32
 
 const (
 	KIOSurfaceMemoryLedgerTagDefault IOSurfaceMemoryLedgerTags = 1
@@ -162,7 +162,7 @@ func (e IOSurfaceMemoryLedgerTags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfacePurgeabilityState
-type IOSurfacePurgeabilityState int
+type IOSurfacePurgeabilityState uint32
 
 const (
 	KIOSurfacePurgeableEmpty IOSurfacePurgeabilityState = 2
@@ -187,7 +187,7 @@ func (e IOSurfacePurgeabilityState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceSubsampling
-type IOSurfaceSubsampling int
+type IOSurfaceSubsampling int32
 
 const (
 	KIOSurfaceSubsampling411 IOSurfaceSubsampling = 4

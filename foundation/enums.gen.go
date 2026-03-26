@@ -489,7 +489,7 @@ func (e NS) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/ActivityOptions
-type NSActivityOptions int
+type NSActivityOptions uint64
 
 const (
 	// NSActivityAnimationTrackingEnabled: A flag to track the activity with an animation signpost interval.
@@ -641,7 +641,7 @@ func (e AlignmentOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventDescriptor/SendOptions
-type NSAppleEventSendOptions int
+type NSAppleEventSendOptions uint
 
 const (
 	NSAppleEventSendAlwaysInteract NSAppleEventSendOptions = 48
@@ -685,7 +685,7 @@ func (e NSAppleEventSendOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/EnumerationOptions
-type NSAttributedStringEnumerationOptions int
+type NSAttributedStringEnumerationOptions uint
 
 const (
 	// NSAttributedStringEnumerationLongestEffectiveRangeNotRequired: If [NSAttributedStringEnumerationLongestEffectiveRangeNotRequired] option is supplied, then the longest effective range computation is not performed; the blocks may be invoked with consecutive attribute runs that have the same value.
@@ -794,7 +794,7 @@ func (e NSBackgroundActivityResult) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSBinarySearchingOptions
-type NSBinarySearchingOptions int
+type NSBinarySearchingOptions uint
 
 const (
 	// NSBinarySearchingFirstEqual: Specifies that the search should return the first object in the range that is equal to the given object.
@@ -880,7 +880,7 @@ func (e NSByteCountFormatterCountStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/ByteCountFormatter/Units
-type NSByteCountFormatterUnits int
+type NSByteCountFormatterUnits uint
 
 const (
 	// NSByteCountFormatterUseAll: Can use any unit in the formatter content.
@@ -970,7 +970,7 @@ func (e NSCalculationError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/Options
-type NSCalendarOptions int
+type NSCalendarOptions uint
 
 const (
 	// NSCalendarMatchFirst: Specifies that, if there are two or more matching times, the operation should return the first occurrence.
@@ -1015,7 +1015,7 @@ func (e NSCalendarOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/Unit
-type NSCalendarUnit int
+type NSCalendarUnit uint
 
 const (
 	// NSCalendarUnitCalendar: Identifier for the calendar of a date components object.
@@ -1156,7 +1156,7 @@ func (e NSCollectionChangeType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Modifier
-type NSComparisonPredicateModifier int
+type NSComparisonPredicateModifier uint
 
 const (
 	// NSAllPredicateModifier: A predicate to compare all entries in the destination of a to-many relationship.
@@ -1181,7 +1181,7 @@ func (e NSComparisonPredicateModifier) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Options-swift.struct
-type NSComparisonPredicateOptions int
+type NSComparisonPredicateOptions uint
 
 const (
 	// NSCaseInsensitivePredicateOption: A case-insensitive predicate.
@@ -1231,7 +1231,7 @@ func (e ComparisonResult) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSCompoundPredicate/LogicalType
-type NSCompoundPredicateType int
+type NSCompoundPredicateType uint
 
 const (
 	// NSAndPredicateType: A logical AND predicate.
@@ -1256,7 +1256,7 @@ func (e NSCompoundPredicateType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSData/Base64DecodingOptions
-type NSDataBase64DecodingOptions int
+type NSDataBase64DecodingOptions uint
 
 const (
 	// NSDataBase64DecodingIgnoreUnknownCharacters: Modify the decoding algorithm so that it ignores unknown non-Base-64 bytes, including line ending characters.
@@ -1273,7 +1273,7 @@ func (e NSDataBase64DecodingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSData/Base64EncodingOptions
-type NSDataBase64EncodingOptions int
+type NSDataBase64EncodingOptions uint
 
 const (
 	// NSDataBase64Encoding64CharacterLineLength: Set the maximum line length to 64 characters, after which a line ending is inserted.
@@ -1331,7 +1331,7 @@ func (e NSDataCompressionAlgorithm) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSData/ReadingOptions
-type NSDataReadingOptions int
+type NSDataReadingOptions uint
 
 const (
 	// NSDataReadingMappedAlways: Hint to map the file in if possible.
@@ -1362,7 +1362,7 @@ func (e NSDataReadingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSData/SearchOptions
-type NSDataSearchOptions int
+type NSDataSearchOptions uint
 
 const (
 	// NSDataSearchAnchored: Search is limited to start (or end, if searching backwards) of the data object.
@@ -1383,7 +1383,7 @@ func (e NSDataSearchOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSData/WritingOptions
-type NSDataWritingOptions int
+type NSDataWritingOptions uint
 
 const (
 	// NSDataWritingAtomic: An option to write data to an auxiliary file first and then replace the original file with the auxiliary file when the write completes.
@@ -1468,7 +1468,7 @@ func (e NSDateComponentsFormatterUnitsStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/ZeroFormattingBehavior-swift.struct
-type NSDateComponentsFormatterZeroFormattingBehavior int
+type NSDateComponentsFormatterZeroFormattingBehavior uint
 
 const (
 	// NSDateComponentsFormatterZeroFormattingBehaviorDefault: The default formatting behavior.
@@ -1507,7 +1507,7 @@ func (e NSDateComponentsFormatterZeroFormattingBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/Behavior
-type NSDateFormatterBehavior int
+type NSDateFormatterBehavior uint
 
 const (
 	// NSDateFormatterBehavior10_0: # Discussion
@@ -1532,7 +1532,7 @@ func (e NSDateFormatterBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/DateFormatter/Style
-type NSDateFormatterStyle int
+type NSDateFormatterStyle uint
 
 const (
 	// NSDateFormatterFullStyle: # Discussion
@@ -1563,7 +1563,7 @@ func (e NSDateFormatterStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/DateIntervalFormatter/Style
-type NSDateIntervalFormatterStyle int
+type NSDateIntervalFormatterStyle uint
 
 const (
 	// NSDateIntervalFormatterFullStyle: A fully spelled out date or time format.
@@ -1617,7 +1617,7 @@ func (e NSDecodingFailurePolicy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerationOptions
-type NSDirectoryEnumerationOptions int
+type NSDirectoryEnumerationOptions uint
 
 const (
 	NSDirectoryEnumerationIncludesDirectoriesPostOrder NSDirectoryEnumerationOptions = 8
@@ -1648,7 +1648,7 @@ func (e NSDirectoryEnumerationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/DistributedNotificationCenter/Options
-type NSDistributedNotificationOptions int
+type NSDistributedNotificationOptions uint
 
 const (
 	NSDistributedNotificationDeliverImmediately NSDistributedNotificationOptions = 1
@@ -1694,7 +1694,7 @@ func (e NSEnergyFormatterUnit) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
-type NSEnumerationOptions int
+type NSEnumerationOptions uint
 
 const (
 	// NSEnumerationConcurrent: Specifies that the Block enumeration should be concurrent.
@@ -1715,7 +1715,7 @@ func (e NSEnumerationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSExpression/ExpressionType-swift.enum
-type NSExpressionType int
+type NSExpressionType uint
 
 const (
 	// NSAggregateExpressionType: An expression that defines an aggregate of [NSExpression] objects.
@@ -1779,7 +1779,7 @@ func (e NSExpressionType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/ReadingOptions
-type NSFileCoordinatorReadingOptions int
+type NSFileCoordinatorReadingOptions uint
 
 const (
 	// NSFileCoordinatorReadingForUploading: Specify this content when reading an item for the purpose of uploading its contents.
@@ -1808,7 +1808,7 @@ func (e NSFileCoordinatorReadingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/WritingOptions
-type NSFileCoordinatorWritingOptions int
+type NSFileCoordinatorWritingOptions uint
 
 const (
 	// NSFileCoordinatorWritingContentIndependentMetadataOnly: Select this option when writing to change the file’s metadata only and not its contents.
@@ -1841,7 +1841,7 @@ func (e NSFileCoordinatorWritingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/FileManager/ItemReplacementOptions
-type NSFileManagerItemReplacementOptions int
+type NSFileManagerItemReplacementOptions uint
 
 const (
 	// NSFileManagerItemReplacementUsingNewMetadataOnly: Only metadata from the new item is used, and metadata from the original item isn’t preserved (default).
@@ -1887,7 +1887,7 @@ func (e NSFileManagerResumeSyncBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSFileManagerSupportedSyncControls
-type NSFileManagerSupportedSyncControls int
+type NSFileManagerSupportedSyncControls uint
 
 const (
 	// NSFileManagerSupportedSyncControlsFailUploadOnConflict: The file provider supports failing an upload if the local and server versions conflict.
@@ -1908,7 +1908,7 @@ func (e NSFileManagerSupportedSyncControls) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/FileManager/UnmountOptions
-type NSFileManagerUnmountOptions int
+type NSFileManagerUnmountOptions uint
 
 const (
 	// NSFileManagerUnmountAllPartitionsAndEjectDisk: Specifies that all partitions on an unmountable disk should be unmounted.
@@ -1950,7 +1950,7 @@ func (e NSFileManagerUploadLocalVersionConflictPolicy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/AddingOptions
-type NSFileVersionAddingOptions int
+type NSFileVersionAddingOptions uint
 
 const (
 	// NSFileVersionAddingByMoving: # Discussion
@@ -1967,7 +1967,7 @@ func (e NSFileVersionAddingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSFileVersion/ReplacingOptions
-type NSFileVersionReplacingOptions int
+type NSFileVersionReplacingOptions uint
 
 const (
 	// NSFileVersionReplacingByMoving: An option to perform replacing by moving a file.
@@ -1984,7 +1984,7 @@ func (e NSFileVersionReplacingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/ReadingOptions
-type NSFileWrapperReadingOptions int
+type NSFileWrapperReadingOptions uint
 
 const (
 	// NSFileWrapperReadingImmediate: The option to read files immediately after creating a file wrapper.
@@ -2005,7 +2005,7 @@ func (e NSFileWrapperReadingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper/WritingOptions
-type NSFileWrapperWritingOptions int
+type NSFileWrapperWritingOptions uint
 
 const (
 	// NSFileWrapperWritingAtomic: Whether writing is done atomically.
@@ -2377,7 +2377,7 @@ func (e NSGrammaticalPronounType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/HTTPCookie/AcceptPolicy
-type NSHTTPCookieAcceptPolicy int
+type NSHTTPCookieAcceptPolicy uint
 
 const (
 	// NSHTTPCookieAcceptPolicyAlways: Accept all cookies.
@@ -2402,7 +2402,7 @@ func (e NSHTTPCookieAcceptPolicy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/Options
-type NSISO8601DateFormatOptions int
+type NSISO8601DateFormatOptions uint
 
 const (
 	// NSISO8601DateFormatWithColonSeparatorInTime: # Discussion
@@ -2464,7 +2464,7 @@ func (e NSISO8601DateFormatOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/InlinePresentationIntent
-type InlinePresentationIntent int
+type InlinePresentationIntent uint
 
 const (
 	// NSInlinePresentationIntentBlockHTML: An intent that represents a block HTML presentation.
@@ -2509,7 +2509,7 @@ func (e InlinePresentationIntent) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSPositionalSpecifier/InsertionPosition
-type NSInsertionPosition int
+type NSInsertionPosition uint
 
 const (
 	// NSPositionAfter: Specifies a position after another object.
@@ -2617,7 +2617,7 @@ func (e NSItemProviderRepresentationVisibility) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization/ReadingOptions
-type NSJSONReadingOptions int
+type NSJSONReadingOptions uint
 
 const (
 	// NSJSONReadingFragmentsAllowed: Specifies that the parser allows top-level objects that aren’t arrays or dictionaries.
@@ -2652,7 +2652,7 @@ func (e NSJSONReadingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/JSONSerialization/WritingOptions
-type NSJSONWritingOptions int
+type NSJSONWritingOptions uint
 
 const (
 	// NSJSONWritingFragmentsAllowed: Specifies that the parser should allow top-level objects that aren’t arrays or dictionaries.
@@ -2795,7 +2795,7 @@ func (e NSLengthFormatterUnit) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSLinguisticTagger/Options
-type NSLinguisticTaggerOptions int
+type NSLinguisticTaggerOptions uint
 
 const (
 	// NSLinguisticTaggerJoinNames: Typically, multiple-word names will be returned as multiple tokens, following the standard tokenization practice of the tagger.
@@ -2857,7 +2857,7 @@ func (e NSLinguisticTaggerUnit) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSLocale/LanguageDirection
-type NSLocaleLanguageDirection int
+type NSLocaleLanguageDirection uint
 
 const (
 	// NSLocaleLanguageDirectionBottomToTop: The language direction is from bottom to top.
@@ -2888,7 +2888,7 @@ func (e NSLocaleLanguageDirection) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSMachPort/Options
-type NSMachPortOptions int
+type NSMachPortOptions uint
 
 const (
 	// NSMachPortDeallocateReceiveRight: Remove a receive right when the [NSMachPort] object is invalidated or destroyed.
@@ -2938,7 +2938,7 @@ func (e NSMassFormatterUnit) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/MatchingFlags
-type NSMatchingFlags int
+type NSMatchingFlags uint
 
 const (
 	// NSMatchingCompleted: Set when the Block is called after matching has completed.
@@ -2971,7 +2971,7 @@ func (e NSMatchingFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/MatchingOptions
-type NSMatchingOptions int
+type NSMatchingOptions uint
 
 const (
 	// NSMatchingAnchored: Specifies that matches are limited to those at the start of the search range.
@@ -3004,7 +3004,7 @@ func (e NSMatchingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/MeasurementFormatter/UnitOptions-swift.struct
-type NSMeasurementFormatterUnitOptions int
+type NSMeasurementFormatterUnitOptions uint
 
 const (
 	// NSMeasurementFormatterUnitOptionsNaturalScale: # Discussion
@@ -3029,7 +3029,7 @@ func (e NSMeasurementFormatterUnitOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NetService/Options
-type NSNetServiceOptions int
+type NSNetServiceOptions uint
 
 const (
 	// NSNetServiceListenForConnections: # Discussion
@@ -3095,7 +3095,7 @@ func (e NSNetServicesError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/NotificationCoalescing
-type NSNotificationCoalescing int
+type NSNotificationCoalescing uint
 
 const (
 	// NSNotificationCoalescingOnName: Coalesce notifications with the same name.
@@ -3120,7 +3120,7 @@ func (e NSNotificationCoalescing) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/DistributedNotificationCenter/SuspensionBehavior
-type NSNotificationSuspensionBehavior int
+type NSNotificationSuspensionBehavior uint
 
 const (
 	// NSNotificationSuspensionBehaviorCoalesce: The server only queues the last notification of the specified name and object; earlier notifications are dropped.
@@ -3149,7 +3149,7 @@ func (e NSNotificationSuspensionBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/Behavior
-type NSNumberFormatterBehavior int
+type NSNumberFormatterBehavior uint
 
 const (
 	// NSNumberFormatterBehavior10_0: The number-formatter behavior as it existed prior to macOS 10.4.
@@ -3174,7 +3174,7 @@ func (e NSNumberFormatterBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/PadPosition
-type NSNumberFormatterPadPosition int
+type NSNumberFormatterPadPosition uint
 
 const (
 	// NSNumberFormatterPadAfterPrefix: Specifies that the padding should occur after the prefix.
@@ -3201,7 +3201,7 @@ func (e NSNumberFormatterPadPosition) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/RoundingMode-swift.enum
-type NSNumberFormatterRoundingMode int
+type NSNumberFormatterRoundingMode uint
 
 const (
 	// NSNumberFormatterRoundCeiling: Round towards positive infinity.
@@ -3240,7 +3240,7 @@ func (e NSNumberFormatterRoundingMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NumberFormatter/Style
-type NSNumberFormatterStyle int
+type NSNumberFormatterStyle uint
 
 const (
 	// NSNumberFormatterCurrencyAccountingStyle: An accounting currency style format that uses the currency symbol defined by the number formatter locale.
@@ -3342,7 +3342,7 @@ func (e NSOperationQueuePriority) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionDifferenceCalculationOptions
-type NSOrderedCollectionDifferenceCalculationOptions int
+type NSOrderedCollectionDifferenceCalculationOptions uint
 
 const (
 	// NSOrderedCollectionDifferenceCalculationInferMoves: An option that identifies insertions or removals as moves.
@@ -3367,7 +3367,7 @@ func (e NSOrderedCollectionDifferenceCalculationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/PersonNameComponentsFormatter/Options
-type NSPersonNameComponentsFormatterOptions int
+type NSPersonNameComponentsFormatterOptions uint
 
 const (
 	// NSPersonNameComponentsFormatterPhonetic: The formatter should format the component object’s `phoneticRepresentation` components instead of its own components.
@@ -3417,7 +3417,7 @@ func (e NSPersonNameComponentsFormatterStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSPointerFunctions/Options
-type NSPointerFunctionsOptions int
+type NSPointerFunctionsOptions uint
 
 const (
 	// NSPointerFunctionsCStringPersonality: Use a string hash and `strcmp`; C-string ‘`%s`’ style description.
@@ -3480,7 +3480,7 @@ func (e NSPointerFunctionsOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NotificationQueue/PostingStyle
-type NSPostingStyle int
+type NSPostingStyle uint
 
 const (
 	// NSPostASAP: The notification is posted at the end of the current notification callout or timer.
@@ -3505,7 +3505,7 @@ func (e NSPostingStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSComparisonPredicate/Operator
-type NSPredicateOperatorType int
+type NSPredicateOperatorType uint
 
 const (
 	// NSBeginsWithPredicateOperatorType: A begins-with predicate.
@@ -3685,7 +3685,7 @@ func (e NSProcessInfoThermalState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/PropertyListSerialization/PropertyListFormat
-type NSPropertyListFormat int
+type NSPropertyListFormat uint
 
 const (
 	// NSPropertyListBinaryFormat_v1_0: Specifies the binary property list format.
@@ -3710,7 +3710,7 @@ func (e NSPropertyListFormat) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/PropertyListSerialization/MutabilityOptions
-type NSPropertyListMutabilityOptions int
+type NSPropertyListMutabilityOptions uint
 
 const (
 	// NSPropertyListMutableContainers: Causes the returned property list to have mutable containers but immutable leaves.
@@ -3780,7 +3780,7 @@ func (e QualityOfService) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSRectEdge
-type NSRectEdge int
+type NSRectEdge uint
 
 const (
 	// NSMaxXEdge: The maximum X edge.
@@ -3817,7 +3817,7 @@ func (e NSRectEdge) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/Options-swift.struct
-type NSRegularExpressionOptions int
+type NSRegularExpressionOptions uint
 
 const (
 	// NSRegularExpressionAllowCommentsAndWhitespace: Ignore whitespace and #-prefixed comments in the pattern.
@@ -3908,7 +3908,7 @@ func (e NSRelativeDateTimeFormatterUnitsStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSRelativeSpecifier/RelativePosition-swift.enum
-type NSRelativePosition int
+type NSRelativePosition uint
 
 const (
 	// NSRelativeAfter: Specifies a position after another object.
@@ -3929,7 +3929,7 @@ func (e NSRelativePosition) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/RoundingMode
-type NSRoundingMode int
+type NSRoundingMode uint
 
 const (
 	// NSRoundBankers: Round to the closest possible return value; when halfway between two possibilities, return the possibility whose last digit is even.
@@ -3958,7 +3958,7 @@ func (e NSRoundingMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSSaveOptions
-type NSSaveOptions int
+type NSSaveOptions uint
 
 const (
 	// NSSaveOptionsAsk: Indicates the user should be asked before saving any modified documents on closing.
@@ -3983,7 +3983,7 @@ func (e NSSaveOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/FileManager/SearchPathDirectory
-type NSSearchPathDirectory int
+type NSSearchPathDirectory uint
 
 const (
 	// NSAdminApplicationDirectory: System and network administration applications.
@@ -4104,7 +4104,7 @@ func (e NSSearchPathDirectory) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/FileManager/SearchPathDomainMask
-type NSSearchPathDomainMask int
+type NSSearchPathDomainMask uint
 
 const (
 	// NSAllDomainsMask: All domains.
@@ -4137,7 +4137,7 @@ func (e NSSearchPathDomainMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSSortOptions
-type NSSortOptions int
+type NSSortOptions uint
 
 const (
 	// NSSortConcurrent: Specifies that the Block sort operation should be concurrent.
@@ -4164,7 +4164,7 @@ const (
 )
 
 // See: https://developer.apple.com/documentation/Foundation/Stream/Event
-type NSStreamEvent int
+type NSStreamEvent uint
 
 const (
 	// NSStreamEventEndEncountered: The end of the stream has been reached.
@@ -4242,7 +4242,7 @@ func (e NSStreamStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/CompareOptions
-type NSStringCompareOptions int
+type NSStringCompareOptions uint
 
 const (
 	// NSAnchoredSearch: Search is limited to start (or end, if [NSBackwardsSearch]) of source string.
@@ -4291,7 +4291,7 @@ func (e NSStringCompareOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/DrawingOptions
-type NSStringDrawingOptions int
+type NSStringDrawingOptions uint32
 
 const (
 	OptionsResolvesNaturalAlignmentWithBaseWritingDirection NSStringDrawingOptions = 0
@@ -4315,7 +4315,7 @@ func (e NSStringDrawingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/EncodingConversionOptions
-type NSStringEncodingConversionOptions int
+type NSStringEncodingConversionOptions uint
 
 const (
 	// NSStringEncodingConversionAllowLossy: Allows lossy conversion.
@@ -4336,7 +4336,7 @@ func (e NSStringEncodingConversionOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/EnumerationOptions
-type NSStringEnumerationOptions int
+type NSStringEnumerationOptions uint
 
 const (
 	NSStringEnumerationByCaretPositions NSStringEnumerationOptions = 5
@@ -4408,7 +4408,7 @@ func (e NSTaskTerminationReason) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSSpecifierTest/TestComparisonOperation
-type NSTestComparisonOperation int
+type NSTestComparisonOperation uint
 
 const (
 	// NSBeginsWithComparison: Binary containment operator that results in true if the test object is a list or string that matches the beginning of the other object (which is also a list or string).
@@ -4475,7 +4475,7 @@ func (e NSTextCheckingAll) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult/CheckingType
-type NSTextCheckingType int
+type NSTextCheckingType uint64
 
 const (
 	// NSTextCheckingTypeAddress: Attempts to locate addresses.
@@ -4577,7 +4577,7 @@ func (e NSTimeZoneNameStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSURL/BookmarkCreationOptions
-type NSURLBookmarkCreationOptions int
+type NSURLBookmarkCreationOptions uint
 
 const (
 	// NSURLBookmarkCreationMinimalBookmark: Specifies that when creating a bookmark, it includes minimal information.
@@ -4614,7 +4614,7 @@ func (e NSURLBookmarkCreationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSURL/BookmarkResolutionOptions
-type NSURLBookmarkResolutionOptions int
+type NSURLBookmarkResolutionOptions uint
 
 const (
 	// NSURLBookmarkResolutionWithSecurityScope: Specifies that the security scope, applied to the bookmark when it was created, should be used during resolution of the bookmark data.
@@ -4643,7 +4643,7 @@ func (e NSURLBookmarkResolutionOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/URLCache/StoragePolicy
-type NSURLCacheStoragePolicy int
+type NSURLCacheStoragePolicy uint
 
 const (
 	// NSURLCacheStorageAllowed: Storage in URLCache is allowed without restriction.
@@ -4668,7 +4668,7 @@ func (e NSURLCacheStoragePolicy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/Persistence-swift.enum
-type NSURLCredentialPersistence int
+type NSURLCredentialPersistence uint
 
 const (
 	// NSURLCredentialPersistenceSynchronizable: The credential should be stored permanently in the keychain, and in addition should be distributed to other devices based on the owning Apple ID.
@@ -4979,7 +4979,7 @@ func (e NSURLRelationship) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/Attribution-swift.enum
-type NSURLRequestAttribution int
+type NSURLRequestAttribution uint
 
 const (
 	// NSURLRequestAttributionDeveloper: A developer-initiated network request.
@@ -5000,7 +5000,7 @@ func (e NSURLRequestAttribution) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/CachePolicy-swift.enum
-type NSURLRequestCachePolicy int
+type NSURLRequestCachePolicy uint
 
 const (
 	// NSURLRequestReloadIgnoringLocalCacheData: The URL load should be loaded only from the originating source.
@@ -5029,7 +5029,7 @@ func (e NSURLRequestCachePolicy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSURLRequest/NetworkServiceType-swift.enum
-type NSURLRequestNetworkServiceType int
+type NSURLRequestNetworkServiceType uint
 
 const (
 	// NSURLNetworkServiceTypeAVStreaming: A service type for medium-delay tolerant, low-medium-loss tolerant, elastic flow, constant packet interval, and variable rate and size connections.
@@ -5397,7 +5397,7 @@ func (e NSUserNotificationActivationType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/FileManager/VolumeEnumerationOptions
-type NSVolumeEnumerationOptions int
+type NSVolumeEnumerationOptions uint
 
 const (
 	// NSVolumeEnumerationProduceFileReferenceURLs: The enumeration produces file reference URLs rather than path-based URLs.
@@ -5418,7 +5418,7 @@ func (e NSVolumeEnumerationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSWhoseSpecifier/SubelementIdentifier
-type NSWhoseSubelementIdentifier int
+type NSWhoseSubelementIdentifier uint
 
 const (
 	// NSEverySubelement: Every element that meets the specifier test.
@@ -5467,7 +5467,7 @@ func (e NSWrapCalendar) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/XMLDTDNode/DTDKind-swift.enum
-type NSXMLDTDNodeKind int
+type NSXMLDTDNodeKind uint
 
 const (
 	// NSXMLAttributeCDATAKind: Identifies an attribute-list declaration with a [CDATA] (character data) value type.
@@ -5560,7 +5560,7 @@ func (e NSXMLDTDNodeKind) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/XMLDocument/ContentKind
-type NSXMLDocumentContentKind int
+type NSXMLDocumentContentKind uint
 
 const (
 	// NSXMLDocumentHTMLKind: Outputs empty tags in HTML without a close tag, such as `<br>`.
@@ -5639,7 +5639,7 @@ func (e NSXMLNodeKind) String() string {
 	}
 }
 
-type NSXMLNodeOptions int
+type NSXMLNodeOptions uint32
 
 const (
 	NSXMLDocumentIncludeContentTypeDeclaration NSXMLNodeOptions = 262144
@@ -6112,7 +6112,7 @@ func (e NSXMLParserError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/XMLParser/ExternalEntityResolvingPolicy-swift.enum
-type NSXMLParserExternalEntityResolvingPolicy int
+type NSXMLParserExternalEntityResolvingPolicy uint
 
 const (
 	NSXMLParserResolveExternalEntitiesAlways NSXMLParserExternalEntityResolvingPolicy = 3
@@ -6137,7 +6137,7 @@ func (e NSXMLParserExternalEntityResolvingPolicy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/Options
-type NSXPCConnectionOptions int
+type NSXPCConnectionOptions uint
 
 const (
 	// NSXPCConnectionPrivileged: # Discussion

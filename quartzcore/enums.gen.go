@@ -7,7 +7,7 @@ import (
 )
 
 // See: https://developer.apple.com/documentation/QuartzCore/CAAutoresizingMask
-type CAAutoresizingMask int
+type CAAutoresizingMask uint32
 
 const (
 	// KCALayerHeightSizable: The receiver’s height is flexible.
@@ -44,7 +44,7 @@ func (e CAAutoresizingMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/QuartzCore/CAConstraintAttribute
-type CAConstraintAttribute int
+type CAConstraintAttribute int32
 
 const (
 	// KCAConstraintHeight: The height of a layer.
@@ -89,7 +89,7 @@ func (e CAConstraintAttribute) String() string {
 }
 
 // See: https://developer.apple.com/documentation/QuartzCore/CACornerMask
-type CACornerMask int
+type CACornerMask uint
 
 const (
 	KCALayerMaxXMaxYCorner CACornerMask = 8
@@ -114,7 +114,7 @@ func (e CACornerMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/QuartzCore/CAEdgeAntialiasingMask
-type CAEdgeAntialiasingMask int
+type CAEdgeAntialiasingMask uint32
 
 const (
 	// KCALayerBottomEdge: # Discussion

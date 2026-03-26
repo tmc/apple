@@ -230,7 +230,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidChangeItemsAtIndexPaths
 // related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:willDisplay:forRepresentedObjectAt:)
-func (o NSCollectionViewDelegateObject) CollectionViewWillDisplayItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath objectivec.IObject) {
+func (o NSCollectionViewDelegateObject) CollectionViewWillDisplayItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath foundation.INSIndexPath) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:willDisplayItem:forRepresentedObjectAtIndexPath:"), collectionView, item, indexPath)
 	}
 // Notifies the delegate that the specified item was removed from the
@@ -249,7 +249,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewWillDisplayItemForRepresen
 // related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didEndDisplaying:forRepresentedObjectAt:)
-func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath objectivec.IObject) {
+func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, item INSCollectionViewItem, indexPath foundation.INSIndexPath) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didEndDisplayingItem:forRepresentedObjectAtIndexPath:"), collectionView, item, indexPath)
 	}
 // Notifies the delegate that the specified supplementary view is about to be
@@ -271,7 +271,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingItemForRep
 // views and perform related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:willDisplaySupplementaryView:forElementKind:at:)
-func (o NSCollectionViewDelegateObject) CollectionViewWillDisplaySupplementaryViewForElementKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) {
+func (o NSCollectionViewDelegateObject) CollectionViewWillDisplaySupplementaryViewForElementKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:willDisplaySupplementaryView:forElementKind:atIndexPath:"), collectionView, view, objc.String(string(elementKind)), indexPath)
 	}
 // Notifies the delegate that the specified supplementary view was removed
@@ -293,7 +293,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewWillDisplaySupplementaryVi
 // perform related tasks.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:didEndDisplayingSupplementaryView:forElementOfKind:at:)
-func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingSupplementaryViewForElementOfKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) {
+func (o NSCollectionViewDelegateObject) CollectionViewDidEndDisplayingSupplementaryViewForElementOfKindAtIndexPath(collectionView INSCollectionView, view INSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) {
 	objc.Send[struct{}](o.ID, objc.Sel("collectionView:didEndDisplayingSupplementaryView:forElementOfKind:atIndexPath:"), collectionView, view, objc.String(string(elementKind)), indexPath)
 	}
 // Returns the transition layout object to use when performing an animated
@@ -406,7 +406,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewCanDragItemsAtIndexPathsWi
 // [collectionView(_:writeItemsAt:to:)]: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:writeItemsAt:to:)-23ozm
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:pasteboardWriterForItemAt:)-5eyyl
-func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtIndexPath(collectionView INSCollectionView, indexPath objectivec.IObject) NSPasteboardWriting {
+func (o NSCollectionViewDelegateObject) CollectionViewPasteboardWriterForItemAtIndexPath(collectionView INSCollectionView, indexPath foundation.INSIndexPath) NSPasteboardWriting {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("collectionView:pasteboardWriterForItemAtIndexPath:"), collectionView, indexPath)
 	return NSPasteboardWritingObjectFromID(rv)
 	}
@@ -604,7 +604,7 @@ func (o NSCollectionViewDelegateObject) CollectionViewValidateDropProposedIndexP
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDelegate/collectionView(_:acceptDrop:indexPath:dropOperation:)
-func (o NSCollectionViewDelegateObject) CollectionViewAcceptDropIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, indexPath objectivec.IObject, dropOperation NSCollectionViewDropOperation) bool {
+func (o NSCollectionViewDelegateObject) CollectionViewAcceptDropIndexPathDropOperation(collectionView INSCollectionView, draggingInfo NSDraggingInfo, indexPath foundation.INSIndexPath, dropOperation NSCollectionViewDropOperation) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("collectionView:acceptDrop:indexPath:dropOperation:"), collectionView, draggingInfo, indexPath, dropOperation)
 	return rv
 	}

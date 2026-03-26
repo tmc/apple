@@ -74,7 +74,7 @@ func AVVideoCompositionInstructionFromID(id objc.ID) AVVideoCompositionInstructi
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class
 type IAVVideoCompositionInstruction interface {
 	objectivec.IObject
-	
+	AVVideoCompositionInstructionProtocol
 
 	// Topic: Inspecting the instruction
 

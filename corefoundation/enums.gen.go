@@ -1854,7 +1854,7 @@ func (e CFXMLParserStatusCode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CGRectEdge
-type CGRectEdge int
+type CGRectEdge uint32
 
 const (
 	CGRectMaxXEdge CGRectEdge = 2

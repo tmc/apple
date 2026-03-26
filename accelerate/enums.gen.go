@@ -7,7 +7,7 @@ import (
 )
 
 // See: https://developer.apple.com/documentation/Accelerate/BLAS_THREADING
-type BLAS_THREADING int
+type BLAS_THREADING uint32
 
 const (
 	BLAS_THREADING_MAX_OPTIONS BLAS_THREADING = 2
@@ -31,7 +31,7 @@ func (e BLAS_THREADING) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_DIAG
-type CBLAS_DIAG int
+type CBLAS_DIAG uint32
 
 const (
 	CblasNonUnit CBLAS_DIAG = 131
@@ -50,7 +50,7 @@ func (e CBLAS_DIAG) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_ORDER
-type CBLAS_ORDER int
+type CBLAS_ORDER uint32
 
 const (
 	CblasColMajor CBLAS_ORDER = 102
@@ -69,7 +69,7 @@ func (e CBLAS_ORDER) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_SIDE
-type CBLAS_SIDE int
+type CBLAS_SIDE uint32
 
 const (
 	CblasLeft CBLAS_SIDE = 141
@@ -88,7 +88,7 @@ func (e CBLAS_SIDE) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_TRANSPOSE
-type CBLAS_TRANSPOSE int
+type CBLAS_TRANSPOSE uint32
 
 const (
 	AtlasConj CBLAS_TRANSPOSE = 114
@@ -113,7 +113,7 @@ func (e CBLAS_TRANSPOSE) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Accelerate/CBLAS_UPLO
-type CBLAS_UPLO int
+type CBLAS_UPLO uint32
 
 const (
 	CblasLower CBLAS_UPLO = 122
@@ -563,7 +563,7 @@ func (e VdspHa) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DCT_Type
-type VDSP_DCT_Type int
+type VDSP_DCT_Type int32
 
 const (
 	// VDSP_DCT_II: A constant that specifies a type II discrete cosine transform.
@@ -588,7 +588,7 @@ func (e VDSP_DCT_Type) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Accelerate/vDSP_DFT_Direction
-type VDSP_DFT_Direction int
+type VDSP_DFT_Direction int32
 
 const (
 	// VDSP_DFT_FORWARD: A constant that specifies a forward transform.

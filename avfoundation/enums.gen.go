@@ -102,7 +102,7 @@ func (e AVAssetReaderStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReferenceRestrictions
-type AVAssetReferenceRestrictions int
+type AVAssetReferenceRestrictions uint
 
 const (
 	// AVAssetReferenceRestrictionDefaultPolicy: The asset should use the default reference restrictions policy.
@@ -162,7 +162,7 @@ func (e AVAssetSegmentType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackGroupOutputHandling
-type AVAssetTrackGroupOutputHandling int
+type AVAssetTrackGroupOutputHandling uint
 
 const (
 	// AVAssetTrackGroupOutputHandlingDefaultPolicy: The default track group output handling policy.
@@ -218,7 +218,7 @@ func (e AVAssetWriterStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioSpatializationFormats
-type AVAudioSpatializationFormats int
+type AVAudioSpatializationFormats uint
 
 const (
 	// AVAudioSpatializationFormatMonoAndStereo: A value that indicates the player item only supports mono and stereo layouts for audio spatialization.
@@ -326,7 +326,7 @@ func (e AVCaptionConversionValidatorStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Decoration
-type AVCaptionDecoration int
+type AVCaptionDecoration uint
 
 const (
 	// AVCaptionDecorationLineThrough: A decoration representing a line through the text.
@@ -1074,7 +1074,7 @@ func (e AVCapturePhotoQualityPrioritization) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/PrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions-swift.struct
-type AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions int
+type AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditions uint
 
 const (
 	// AVCapturePrimaryConstituentDeviceRestrictedSwitchingBehaviorConditionExposureModeChanged: Restrict switching to a fallback camera only when the device’s exposure mode changes.
@@ -1169,7 +1169,7 @@ func (e AVCaptureSessionInterruptionReason) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/SystemPressureState-swift.class/Factors-swift.struct
-type AVCaptureSystemPressureFactors int
+type AVCaptureSystemPressureFactors uint
 
 const (
 	// AVCaptureSystemPressureFactorCameraTemperature: The camera module is operating at an elevated temperature.
@@ -1495,7 +1495,7 @@ func (e AVContentKeyRequestStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorRateChangeOptions
-type AVDelegatingPlaybackCoordinatorRateChangeOptions int
+type AVDelegatingPlaybackCoordinatorRateChangeOptions uint
 
 const (
 	// AVDelegatingPlaybackCoordinatorRateChangeOptionPlayImmediately: Indicates that the coordinator should begin playback as soon as possible, regardless of other participant’s readiness or suspensions.
@@ -1512,7 +1512,7 @@ func (e AVDelegatingPlaybackCoordinatorRateChangeOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorSeekOptions
-type AVDelegatingPlaybackCoordinatorSeekOptions int
+type AVDelegatingPlaybackCoordinatorSeekOptions uint
 
 const (
 	// AVDelegatingPlaybackCoordinatorSeekOptionResumeImmediately: An option that Indicates that the coordinator needs to resume playback as soon as possible, regardless of other participant’s readiness or suspensions.
@@ -2018,7 +2018,7 @@ func (e AVKeyValueStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovieWritingOptions
-type AVMovieWritingOptions int
+type AVMovieWritingOptions uint
 
 const (
 	// AVMovieWritingAddMovieHeaderToDestination: The new movie header overwrites any existing movie header.
@@ -2139,7 +2139,7 @@ func (e AVPlayerInterstitialEventAssetListResponseStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/Restrictions-swift.struct
-type AVPlayerInterstitialEventRestrictions int
+type AVPlayerInterstitialEventRestrictions uint
 
 const (
 	// AVPlayerInterstitialEventRestrictionConstrainsSeekingForwardInPrimaryContent: A restriction that indicates the event doesn’t allow seeking forward within an interstitial item.
@@ -2460,7 +2460,7 @@ func (e AVSampleBufferRequestMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVVariantPreferences
-type AVVariantPreferences int
+type AVVariantPreferences uint
 
 const (
 	// AVVariantPreferenceNone: Indicates that the player item uses the default behavior for determining variant playlist selection.

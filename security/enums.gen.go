@@ -7,13 +7,13 @@ import (
 )
 
 // See: https://developer.apple.com/documentation/Security/AuthorizationContextFlags
-type AuthorizationContextFlags int
+type AuthorizationContextFlags uint32
 
 const (
 )
 
 // See: https://developer.apple.com/documentation/Security/AuthorizationFlags
-type AuthorizationFlags int
+type AuthorizationFlags uint32
 
 const (
 	// KAuthorizationFlagDestroyRights: A flag that instructs the Security Server to revoke authorization.
@@ -53,13 +53,13 @@ func (e AuthorizationFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/AuthorizationResult
-type AuthorizationResult int
+type AuthorizationResult int32
 
 const (
 )
 
 // See: https://developer.apple.com/documentation/Security/CMSCertificateChainMode
-type CMSCertificateChainMode int
+type CMSCertificateChainMode uint32
 
 const (
 	// KCMSCertificateChain: Include the signer certificate chain up to but not including the root certificate.
@@ -88,7 +88,7 @@ func (e CMSCertificateChainMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/CMSSignedAttributes
-type CMSSignedAttributes int
+type CMSSignedAttributes uint32
 
 const (
 	// KCMSAttrAppleCodesigningHashAgility: Include Apple codesigning hash agility.
@@ -129,7 +129,7 @@ func (e CMSSignedAttributes) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/CMSSignerStatus
-type CMSSignerStatus int
+type CMSSignerStatus int32
 
 const (
 	// KCMSSignerInvalidCert: The message was signed but the signer’s certificate could not be verified.
@@ -7659,7 +7659,7 @@ func (e NoSecuritySession) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SSLAuthenticate
-type SSLAuthenticate int
+type SSLAuthenticate int32
 
 const (
 	// KAlwaysAuthenticate: Indicates that client-side authentication is required.
@@ -7684,13 +7684,13 @@ func (e SSLAuthenticate) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SSLCiphersuiteGroup
-type SSLCiphersuiteGroup int
+type SSLCiphersuiteGroup int32
 
 const (
 )
 
 // See: https://developer.apple.com/documentation/Security/SSLClientCertificateState
-type SSLClientCertificateState int
+type SSLClientCertificateState int32
 
 const (
 	// KSSLClientCertNone: Indicates that the server hasn’t asked for a certificate and that the client hasn’t sent one.
@@ -7719,7 +7719,7 @@ func (e SSLClientCertificateState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SSLConnectionType
-type SSLConnectionType int
+type SSLConnectionType int32
 
 const (
 	// KSSLDatagramType: Datagram-based communication (UDP).
@@ -8250,7 +8250,7 @@ func (e SSLNullWithNullNull) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SSLProtocol
-type SSLProtocol int
+type SSLProtocol int32
 
 const (
 	// KDTLSProtocol1: Specifies the DTLS 1.0 protocol.
@@ -8315,7 +8315,7 @@ func (e SSLProtocol) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SSLProtocolSide
-type SSLProtocolSide int
+type SSLProtocolSide int32
 
 const (
 	// KSSLClientSide: Client side.
@@ -8336,7 +8336,7 @@ func (e SSLProtocolSide) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SSLSessionOption
-type SSLSessionOption int
+type SSLSessionOption int32
 
 const (
 	// KSSLSessionOptionAllowRenegotiation: Allow renegotiation.
@@ -8389,7 +8389,7 @@ func (e SSLSessionOption) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SSLSessionState
-type SSLSessionState int
+type SSLSessionState int32
 
 const (
 	// KSSLAborted: The connection aborted.
@@ -8509,13 +8509,13 @@ func (e SecAuthenticationType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecCSDigestAlgorithm
-type SecCSDigestAlgorithm int
+type SecCSDigestAlgorithm uint32
 
 const (
 )
 
 // See: https://developer.apple.com/documentation/Security/SecCSFlags
-type SecCSFlags int
+type SecCSFlags uint32
 
 const (
 	KSecCSApplyEmbeddedPolicy SecCSFlags = 33554432
@@ -8557,7 +8557,7 @@ func (e SecCSFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecCodeSignatureFlags
-type SecCodeSignatureFlags int
+type SecCodeSignatureFlags uint32
 
 const (
 	// KSecCodeSignatureAdhoc: Must be used without a signing identity.
@@ -8609,7 +8609,7 @@ func (e SecCodeSignatureFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecCodeStatus
-type SecCodeStatus int
+type SecCodeStatus int32
 
 const (
 	// KSecCodeStatusDebugged: The code has been debugged by another process that was allowed to do so.
@@ -8667,7 +8667,7 @@ func (e SecCredentialType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecExternalFormat
-type SecExternalFormat int
+type SecExternalFormat uint32
 
 const (
 	// KSecFormatBSAFE: Format for asymmetric keys.
@@ -8736,7 +8736,7 @@ func (e SecExternalFormat) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecExternalItemType
-type SecExternalItemType int
+type SecExternalItemType uint32
 
 const (
 	// KSecItemTypeAggregate: Indicates a set of certificates or certificates and private keys.
@@ -8935,7 +8935,7 @@ func (e SecItemClass) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecItemImportExportFlags
-type SecItemImportExportFlags int
+type SecItemImportExportFlags uint32
 
 const (
 	// KSecItemPemArmour: A flag that indicates the exported data should have PEM armor.
@@ -8952,7 +8952,7 @@ func (e SecItemImportExportFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecKeyImportExportFlags
-type SecKeyImportExportFlags int
+type SecKeyImportExportFlags uint32
 
 const (
 	// KSecKeyImportOnlyOne: A flag that you set to prevent importing more than one private key.
@@ -8983,7 +8983,7 @@ const (
 )
 
 // See: https://developer.apple.com/documentation/Security/SecKeySizes
-type SecKeySizes int
+type SecKeySizes uint32
 
 const (
 	// KSec3DES192: 192-bit DES.
@@ -9028,7 +9028,7 @@ func (e SecKeySizes) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecKeyUsage
-type SecKeyUsage int
+type SecKeyUsage uint32
 
 const (
 	// KSecKeyUsageAll: All flags set.
@@ -9087,7 +9087,7 @@ func (e SecKeyUsage) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecKeychainEvent
-type SecKeychainEvent int
+type SecKeychainEvent uint32
 
 const (
 	// KSecAddEvent: Indicates an item was added to a keychain.
@@ -9140,7 +9140,7 @@ func (e SecKeychainEvent) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecKeychainEventMask
-type SecKeychainEventMask int
+type SecKeychainEventMask uint32
 
 const (
 	// KSecAddEventMask: If the bit specified by this mask is set, your callback function is invoked when an item is added to a keychain.
@@ -9230,7 +9230,7 @@ func (e SecKeychainPromptSelector) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecPadding
-type SecPadding int
+type SecPadding uint32
 
 const (
 	// Deprecated.
@@ -9283,7 +9283,7 @@ func (e SecPadding) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecPreferencesDomain
-type SecPreferencesDomain int
+type SecPreferencesDomain int32
 
 const (
 	// KSecPreferencesDomainCommon: Indicates the preferences are common to everyone.
@@ -9465,7 +9465,7 @@ func (e SecProtocolType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecRequirementType
-type SecRequirementType int
+type SecRequirementType uint32
 
 const (
 	// KSecDesignatedRequirementType: A designated requirement.
@@ -9559,7 +9559,7 @@ func (e SecTransformMetaAttributeType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecTrustOptionFlags
-type SecTrustOptionFlags int
+type SecTrustOptionFlags uint32
 
 const (
 	// KSecTrustOptionAllowExpired: Allow expired certificates (except for the root certificate).
@@ -9600,7 +9600,7 @@ func (e SecTrustOptionFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecTrustResultType
-type SecTrustResultType int
+type SecTrustResultType int32
 
 const (
 	// KSecTrustResultConfirm: User confirmation is required before proceeding.
@@ -9645,7 +9645,7 @@ func (e SecTrustResultType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecTrustSettingsDomain
-type SecTrustSettingsDomain int
+type SecTrustSettingsDomain uint32
 
 const (
 	// KSecTrustSettingsDomainAdmin: Locally administered, system-wide trust settings.
@@ -9670,7 +9670,7 @@ func (e SecTrustSettingsDomain) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecTrustSettingsKeyUsage
-type SecTrustSettingsKeyUsage int
+type SecTrustSettingsKeyUsage uint32
 
 const (
 	// KSecTrustSettingsKeyUseAny: The key can be used for any purpose.
@@ -9711,7 +9711,7 @@ func (e SecTrustSettingsKeyUsage) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecTrustSettingsResult
-type SecTrustSettingsResult int
+type SecTrustSettingsResult int32
 
 const (
 	// KSecTrustSettingsResultDeny: This certificate is explicitly distrusted.
@@ -9744,7 +9744,7 @@ func (e SecTrustSettingsResult) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SessionAttributeBits
-type SessionAttributeBits int
+type SessionAttributeBits uint32
 
 const (
 	// SessionHasGraphicAccess: A bit that indicates a graphic subsystem is available.
@@ -9773,7 +9773,7 @@ func (e SessionAttributeBits) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SessionCreationFlags
-type SessionCreationFlags int
+type SessionCreationFlags uint32
 
 const (
 	// SessionKeepCurrentBootstrap: The caller has allocated sub-bootstrap.
@@ -9790,13 +9790,13 @@ func (e SessionCreationFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecureDownloadTrustCallbackResult
-type SecureDownloadTrustCallbackResult int
+type SecureDownloadTrustCallbackResult int32
 
 const (
 )
 
 // See: https://developer.apple.com/documentation/Security/CE_CrlDistributionPointNameType
-type CE_CrlDistributionPointNameType uint
+type CE_CrlDistributionPointNameType uint32
 
 const (
 	// Deprecated.
@@ -9817,7 +9817,7 @@ func (e CE_CrlDistributionPointNameType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/CE_DataType-c.enum
-type CE_DataType uint
+type CE_DataType uint32
 
 const (
 	DT_AuthorityInfoAccess CE_DataType = 14
@@ -9893,7 +9893,7 @@ func (e CE_DataType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/CE_GeneralNameType-c.enum
-type CE_GeneralNameType uint
+type CE_GeneralNameType uint32
 
 const (
 	GNT_DNSName CE_GeneralNameType = 2
@@ -9933,7 +9933,7 @@ func (e CE_GeneralNameType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/cssm_appledl_open_parameters_mask
-type Cssm_appledl_open_parameters_mask int
+type Cssm_appledl_open_parameters_mask uint32
 
 const (
 	KCSSM_APPLEDL_MASK_MODE Cssm_appledl_open_parameters_mask = 1
@@ -9949,7 +9949,7 @@ func (e Cssm_appledl_open_parameters_mask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/extension_data_format
-type Extension_data_format int
+type Extension_data_format uint32
 
 const (
 	CSSM_X509_DATAFORMAT_ENCODED Extension_data_format = 0
@@ -9971,19 +9971,19 @@ func (e Extension_data_format) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/tls_ciphersuite_group_t
-type Tls_ciphersuite_group_t int
+type Tls_ciphersuite_group_t uint16
 
 const (
 )
 
 // See: https://developer.apple.com/documentation/Security/tls_ciphersuite_t
-type Tls_ciphersuite_t int
+type Tls_ciphersuite_t uint16
 
 const (
 )
 
 // See: https://developer.apple.com/documentation/Security/tls_protocol_version_t
-type Tls_protocol_version_t int
+type Tls_protocol_version_t uint16
 
 const (
 	// Tls_protocol_version_DTLSv10: The DTLS 1.0 protocol.

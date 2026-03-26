@@ -845,7 +845,7 @@ const (
 )
 
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/Style
-type NSAlertStyle int
+type NSAlertStyle uint
 
 const (
 	// NSAlertStyleCritical: An alert style to inform someone about a critical event.
@@ -870,7 +870,7 @@ func (e NSAlertStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/BlockingMode
-type NSAnimationBlockingMode int
+type NSAnimationBlockingMode uint
 
 const (
 	// NSAnimationBlocking: Requests the animation to run in the main thread in a custom run-loop mode that blocks user input.
@@ -895,7 +895,7 @@ func (e NSAnimationBlockingMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSAnimation/Curve
-type NSAnimationCurve int
+type NSAnimationCurve uint
 
 const (
 	// NSAnimationEaseIn: Describes an animation that slows down as it reaches the end.
@@ -924,7 +924,7 @@ func (e NSAnimationCurve) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationEffect
-type NSAnimationEffect int
+type NSAnimationEffect uint
 
 const (
 	// NSAnimationEffectDisappearingItemDefault: The default effect.
@@ -945,7 +945,7 @@ func (e NSAnimationEffect) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/ActivationOptions
-type NSApplicationActivationOptions int
+type NSApplicationActivationOptions uint
 
 const (
 	// NSApplicationActivateAllWindows: By default, activation brings only the main and key windows forward.
@@ -991,7 +991,7 @@ func (e NSApplicationActivationPolicy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/DelegateReply
-type NSApplicationDelegateReply int
+type NSApplicationDelegateReply uint
 
 const (
 	// NSApplicationDelegateReplyCancel: Indicates the user cancelled the operation.
@@ -1016,7 +1016,7 @@ func (e NSApplicationDelegateReply) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/PresentationOptions-swift.struct
-type NSApplicationPresentationOptions int
+type NSApplicationPresentationOptions uint
 
 const (
 	// NSApplicationPresentationAutoHideDock: The dock is normally hidden, but automatically appears when moused near.
@@ -1081,7 +1081,7 @@ func (e NSApplicationPresentationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/PrintReply
-type NSApplicationPrintReply int
+type NSApplicationPrintReply uint
 
 const (
 	// NSPrintingCancelled: Printing was cancelled.
@@ -1106,7 +1106,7 @@ func (e NSApplicationPrintReply) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/TerminateReply
-type NSApplicationTerminateReply int
+type NSApplicationTerminateReply uint
 
 const (
 	// NSTerminateCancel: The app should not be terminated.
@@ -1156,7 +1156,7 @@ func (e NSBackgroundStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/BackingStoreType
-type NSBackingStoreType int
+type NSBackingStoreType uint
 
 const (
 	// NSBackingStoreBuffered: The window renders all drawing into a display buffer and then flushes it to the screen.
@@ -1181,7 +1181,7 @@ func (e NSBackingStoreType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSButton/BezelStyle-swift.enum
-type NSBezelStyle int
+type NSBezelStyle uint
 
 const (
 	// NSBezelStyleAccessoryBar: A button style that’s typically used in the context of an accessory toolbar for buttons that narrow the focus of a search or other operation.
@@ -1246,7 +1246,7 @@ func (e NSBezelStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/ElementType
-type NSBezierPathElement int
+type NSBezierPathElement uint
 
 const (
 	// NSBezierPathElementClosePath: Marks the end of the current subpath at the specified point.
@@ -1271,7 +1271,7 @@ func (e NSBezierPathElement) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/Format
-type NSBitmapFormat int
+type NSBitmapFormat uint
 
 const (
 	// NSBitmapFormatAlphaFirst: A format where the alpha value comes first.
@@ -1312,7 +1312,7 @@ func (e NSBitmapFormat) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/FileType
-type NSBitmapImageFileType int
+type NSBitmapImageFileType uint
 
 const (
 	// NSBitmapImageFileTypeBMP: Windows bitmap image (BMP) format.
@@ -1349,7 +1349,7 @@ func (e NSBitmapImageFileType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBorderType
-type NSBorderType int
+type NSBorderType uint
 
 const (
 	// NSBezelBorder: A concave border that makes the view look sunken.
@@ -1378,7 +1378,7 @@ func (e NSBorderType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBox/BoxType-swift.enum
-type NSBoxType int
+type NSBoxType uint
 
 const (
 	NSBoxCustom NSBoxType = 4
@@ -1400,7 +1400,7 @@ func (e NSBoxType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/ColumnResizingType-swift.enum
-type NSBrowserColumnResizingType int
+type NSBrowserColumnResizingType uint
 
 const (
 	NSBrowserAutoColumnResizing NSBrowserColumnResizingType = 1
@@ -1422,7 +1422,7 @@ func (e NSBrowserColumnResizingType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/DropOperation
-type NSBrowserDropOperation int
+type NSBrowserDropOperation uint
 
 const (
 	NSBrowserDropAbove NSBrowserDropOperation = 1
@@ -1441,7 +1441,7 @@ func (e NSBrowserDropOperation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSButton/ButtonType
-type NSButtonType int
+type NSButtonType uint
 
 const (
 	// NSButtonTypeAccelerator: A button that sends repeating actions as pressure changes occur.
@@ -1494,7 +1494,7 @@ func (e NSButtonType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCell/Attribute
-type NSCellAttribute int
+type NSCellAttribute uint
 
 const (
 	// NSCellAllowsMixedState: Lets the cell’s state be , as well as  and .
@@ -1600,7 +1600,7 @@ func (e NSCellHitResult) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSControl/ImagePosition
-type NSCellImagePosition int
+type NSCellImagePosition uint
 
 const (
 	// NSImageAbove: The image is above the title.
@@ -1649,7 +1649,7 @@ func (e NSCellImagePosition) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCell/StyleMask
-type NSCellStyleMask int
+type NSCellStyleMask uint
 
 const (
 	// NSChangeBackgroundCellMask: Same as [NSChangeGrayCellMask], but only background pixels are changed.
@@ -1678,7 +1678,7 @@ func (e NSCellStyleMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCell/CellType
-type NSCellType int
+type NSCellType uint
 
 const (
 	// NSImageCellType: Cell displays images.
@@ -1703,7 +1703,7 @@ func (e NSCellType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCharacterCollection
-type NSCharacterCollection int
+type NSCharacterCollection uint
 
 const (
 	// NSAdobeCNS1CharacterCollection: Indicates the Adobe-CNS1 mapping.
@@ -1740,7 +1740,7 @@ func (e NSCharacterCollection) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/CloudKitOptions
-type NSCloudKitSharingServiceOptions int
+type NSCloudKitSharingServiceOptions uint
 
 const (
 	// NSCloudKitSharingServiceAllowPrivate: An option that allows the participant to privately distribute the share to other iCloud users.
@@ -1943,7 +1943,7 @@ func (e NSCollectionViewScrollDirection) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/ScrollPosition
-type NSCollectionViewScrollPosition int
+type NSCollectionViewScrollPosition uint
 
 const (
 	// NSCollectionViewScrollPositionBottom: Scroll so that the bottom edge of the bounding box is adjacent to the bottom of the collection view’s bounds.
@@ -2045,7 +2045,7 @@ func (e NSColorPanelMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSColorPanel/Options
-type NSColorPanelOptions int
+type NSColorPanelOptions uint
 
 const (
 	// NSColorPanelAllModesMask: All color modes.
@@ -2276,7 +2276,7 @@ func (e NSComboButtonStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCompositingOperation
-type NSCompositingOperation int
+type NSCompositingOperation uint
 
 const (
 	// NSCompositingOperationClear: Transparency everywhere.
@@ -2467,7 +2467,7 @@ func (e NSControlCharacterAction) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSControl/ControlSize-swift.enum
-type NSControlSize int
+type NSControlSize uint
 
 const (
 	// NSControlSizeLarge: A size larger than the default control size.
@@ -2496,7 +2496,7 @@ func (e NSControlSize) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSControlTint
-type NSControlTint int
+type NSControlTint uint
 
 const (
 	// NSBlueControlTint: Aqua control tint.
@@ -2606,7 +2606,7 @@ func (e NSCursorFrameResizeDirections) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/ElementFlags
-type NSDatePickerElementFlags int
+type NSDatePickerElementFlags uint
 
 const (
 	NSDatePickerElementFlagEra NSDatePickerElementFlags = 256
@@ -2637,7 +2637,7 @@ func (e NSDatePickerElementFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/Mode
-type NSDatePickerMode int
+type NSDatePickerMode uint
 
 const (
 	NSDatePickerModeRange NSDatePickerMode = 1
@@ -2656,7 +2656,7 @@ func (e NSDatePickerMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDatePicker/Style
-type NSDatePickerStyle int
+type NSDatePickerStyle uint
 
 const (
 	NSDatePickerStyleClockAndCalendar NSDatePickerStyle = 1
@@ -2678,7 +2678,7 @@ func (e NSDatePickerStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDirectionalRectEdge
-type NSDirectionalRectEdge int
+type NSDirectionalRectEdge uint
 
 const (
 	NSDirectionalRectEdgeAll NSDirectionalRectEdge = 1
@@ -2723,7 +2723,7 @@ func (e NSDisplayGamut) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/ChangeType
-type NSDocumentChangeType int
+type NSDocumentChangeType uint
 
 const (
 	// NSChangeAutosaved: The document’s contents have been autosaved.
@@ -2764,7 +2764,7 @@ func (e NSDocumentChangeType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDragOperation
-type NSDragOperation int
+type NSDragOperation uint
 
 const (
 	// NSDragOperationCopy: A constant that indicates the drag can copy the data that the image represents.
@@ -2865,7 +2865,7 @@ func (e NSDraggingFormation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingItemEnumerationOptions
-type NSDraggingItemEnumerationOptions int
+type NSDraggingItemEnumerationOptions uint
 
 const (
 	// NSDraggingItemEnumerationClearNonenumeratedImages: A constant that indicates the enumeration clears the image components provider for all dragging items that don’t meet the classes and search options criteria.
@@ -2886,7 +2886,7 @@ func (e NSDraggingItemEnumerationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDrawer/State-swift.enum
-type NSDrawerState int
+type NSDrawerState uint
 
 const (
 	NSDrawerClosedState NSDrawerState = 0
@@ -2911,7 +2911,7 @@ func (e NSDrawerState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/ButtonMask-swift.struct
-type NSEventButtonMask int
+type NSEventButtonMask uint
 
 const (
 	// NSEventButtonMaskPenLowerSide: A mask that matches the button on the lower side of the device.
@@ -3113,7 +3113,7 @@ func (e NSEventMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/ModifierFlags-swift.struct
-type NSEventModifierFlags int
+type NSEventModifierFlags uint
 
 const (
 	// NSEventModifierFlagCapsLock: The Caps Lock key has been pressed.
@@ -3162,7 +3162,7 @@ func (e NSEventModifierFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/Phase-swift.struct
-type NSEventPhase int
+type NSEventPhase uint
 
 const (
 	// NSEventPhaseBegan: An event phase has begun.
@@ -3189,7 +3189,7 @@ func (e NSEventPhase) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/EventSubtype
-type NSEventSubtype int
+type NSEventSubtype int16
 
 const (
 	// NSEventSubtypeApplicationActivated: An app-activation event occurred.
@@ -3226,7 +3226,7 @@ func (e NSEventSubtype) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/SwipeTrackingOptions
-type NSEventSwipeTrackingOptions int
+type NSEventSwipeTrackingOptions uint
 
 const (
 	// NSEventSwipeTrackingClampGestureAmount: Don’t allow gestureAmount to go beyond +/-1.0
@@ -3245,7 +3245,7 @@ func (e NSEventSwipeTrackingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/EventType
-type NSEventType int
+type NSEventType uint
 
 const (
 	// NSEventTypeAppKitDefined: An AppKit-related event occurred.
@@ -3412,7 +3412,7 @@ func (e NSFileHandlingPanel) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFindPanelAction
-type NSFindPanelAction int
+type NSFindPanelAction uint
 
 const (
 	// NSFindPanelActionNext: Finds the next instance of the queried text.
@@ -3465,7 +3465,7 @@ func (e NSFindPanelAction) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFindPanelSubstringMatchType
-type NSFindPanelSubstringMatchType int
+type NSFindPanelSubstringMatchType uint
 
 const (
 	NSFindPanelSubstringMatchTypeContains NSFindPanelSubstringMatchType = 0
@@ -3490,7 +3490,7 @@ func (e NSFindPanelSubstringMatchType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFocusRingPlacement
-type NSFocusRingPlacement int
+type NSFocusRingPlacement uint
 
 const (
 	// NSFocusRingAbove: Draw the focus ring over an image.
@@ -3515,7 +3515,7 @@ func (e NSFocusRingPlacement) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFocusRingType
-type NSFocusRingType int
+type NSFocusRingType uint
 
 const (
 	// NSFocusRingTypeDefault: The default focus ring type for a view or cell.
@@ -3579,7 +3579,7 @@ const (
 )
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontAction
-type NSFontAction int
+type NSFontAction uint
 
 const (
 	// NSAddTraitFontAction: Converts the font to have an additional trait using .
@@ -3624,7 +3624,7 @@ func (e NSFontAction) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/Options
-type NSFontAssetRequestOptions int
+type NSFontAssetRequestOptions uint
 
 const (
 	NSFontAssetRequestOptionUsesStandardUI NSFontAssetRequestOptions = 1
@@ -3640,7 +3640,7 @@ func (e NSFontAssetRequestOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollectionOptions
-type NSFontCollectionOptions int
+type NSFontCollectionOptions uint
 
 const (
 	// NSFontCollectionApplicationOnlyMask: Makes the collection available only to the application.
@@ -3657,7 +3657,7 @@ func (e NSFontCollectionOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontCollection/Visibility
-type NSFontCollectionVisibility int
+type NSFontCollectionVisibility uint
 
 const (
 	// NSFontCollectionVisibilityComputer: The font collection is visible to all users and is stored persistently.
@@ -3682,7 +3682,7 @@ func (e NSFontCollectionVisibility) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontDescriptor/SymbolicTraits-swift.struct
-type NSFontDescriptorSymbolicTraits int
+type NSFontDescriptorSymbolicTraits uint32
 
 const (
 	// NSFontDescriptorClassClarendonSerifs: The font’s characters include variations of old style and transitional serifs.
@@ -3816,7 +3816,7 @@ const (
 )
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontPanel/ModeMask
-type NSFontPanelModeMask int
+type NSFontPanelModeMask uint
 
 const (
 	NSFontPanelModeMaskAllEffects NSFontPanelModeMask = 1048320
@@ -3862,7 +3862,7 @@ func (e NSFontPanelModeMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontRenderingMode
-type NSFontRenderingMode int
+type NSFontRenderingMode uint
 
 const (
 	// NSFontAntialiasedIntegerAdvancementsRenderingMode: Specifies antialiased, integer advancements rendering mode.
@@ -3891,7 +3891,7 @@ func (e NSFontRenderingMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontTraitMask
-type NSFontTraitMask int
+type NSFontTraitMask uint
 
 const (
 	// NSBoldFontMask: A mask that specifies a bold font.
@@ -4074,7 +4074,7 @@ func (e NSGlyphProperty) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSGradient/DrawingOptions
-type NSGradientDrawingOptions int
+type NSGradientDrawingOptions uint
 
 const (
 	// NSGradientDrawsAfterEndingLocation: Drawing extends beyond the gradient end point.
@@ -4095,7 +4095,7 @@ func (e NSGradientDrawingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSButton/GradientType
-type NSGradientType int
+type NSGradientType uint
 
 const (
 	// NSGradientConcaveStrong: As with , the top-left corner is light gray, and the bottom-right corner is dark gray, but the difference between the grays is greater, so the appearance of being pushed in is stronger.
@@ -4211,7 +4211,7 @@ func (e NSHapticFeedbackPattern) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSHapticFeedbackManager/PerformanceTime
-type NSHapticFeedbackPerformanceTime int
+type NSHapticFeedbackPerformanceTime uint
 
 const (
 	// NSHapticFeedbackPerformanceTimeDefault: Allows the system to choose the most appropriate time for feedback to be provided.
@@ -4255,7 +4255,7 @@ func (e NSHorizontalDirections) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSImageAlignment
-type NSImageAlignment int
+type NSImageAlignment uint
 
 const (
 	NSImageAlignBottom NSImageAlignment = 5
@@ -4295,7 +4295,7 @@ func (e NSImageAlignment) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSImage/CacheMode-swift.enum
-type NSImageCacheMode int
+type NSImageCacheMode uint
 
 const (
 	// NSImageCacheAlways: Always generate a cache when drawing.
@@ -4353,7 +4353,7 @@ func (e NSImageDynamicRange) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/FrameStyle
-type NSImageFrameStyle int
+type NSImageFrameStyle uint
 
 const (
 	// NSImageFrameButton: A convex bezel that makes the image stand out in relief, like a button.
@@ -4386,7 +4386,7 @@ func (e NSImageFrameStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSImageInterpolation
-type NSImageInterpolation int
+type NSImageInterpolation uint
 
 const (
 	// NSImageInterpolationDefault: Use the context’s default interpolation.
@@ -4551,7 +4551,7 @@ func (e NSImageResizingMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSImageScaling
-type NSImageScaling int
+type NSImageScaling uint
 
 const (
 	// NSImageScaleAxesIndependently: Scale each dimension to exactly fit destination.
@@ -4741,7 +4741,7 @@ func (e NSLayoutConstraintOrientation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutConstraint/FormatOptions
-type NSLayoutFormatOptions int
+type NSLayoutFormatOptions uint
 
 const (
 	// NSLayoutFormatAlignAllBottom: Align all specified interface elements using NSLayoutConstraint.Attribute.bottom on each.
@@ -4861,7 +4861,7 @@ func (e NSLevelIndicatorPlaceholderVisibility) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSLevelIndicator/Style
-type NSLevelIndicatorStyle int
+type NSLevelIndicatorStyle uint
 
 const (
 	// NSLevelIndicatorStyleContinuousCapacity: A style that indicates the capacity of something, such as how much data is on a hard disk.
@@ -4890,7 +4890,7 @@ func (e NSLevelIndicatorStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSLineBreakMode
-type NSLineBreakMode int
+type NSLineBreakMode uint
 
 const (
 	// NSLineBreakByCharWrapping: The value that indicates wrapping occurs before the first character that doesn’t fit.
@@ -4927,7 +4927,7 @@ func (e NSLineBreakMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/LineBreakStrategy-swift.struct
-type NSLineBreakStrategy int
+type NSLineBreakStrategy uint
 
 const (
 	// NSLineBreakStrategyHangulWordPriority: The text system prohibits breaking between Hangul characters.
@@ -4952,7 +4952,7 @@ func (e NSLineBreakStrategy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/LineCapStyle-swift.enum
-type NSLineCapStyle int
+type NSLineCapStyle uint
 
 const (
 	// NSLineCapStyleButt: Specifies a butt line cap style for endpoints for an open path when stroked.
@@ -4977,7 +4977,7 @@ func (e NSLineCapStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/LineJoinStyle-swift.enum
-type NSLineJoinStyle int
+type NSLineJoinStyle uint
 
 const (
 	// NSLineJoinStyleBevel: Specifies a bevel line shape of the joints between connected segments of a stroked path.
@@ -5055,7 +5055,7 @@ func (e NSLineSweepDirection) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/Mode-swift.enum
-type NSMatrixMode int
+type NSMatrixMode uint
 
 const (
 	// NSHighlightModeMatrix: An  is highlighted before it’s asked to track the mouse, then unhighlighted when it’s done tracking.
@@ -5084,7 +5084,7 @@ func (e NSMatrixMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSMediaLibraryBrowserController/Library
-type NSMediaLibrary int
+type NSMediaLibrary uint
 
 const (
 	// NSMediaLibraryAudio: Display audio media.
@@ -5159,7 +5159,7 @@ func (e NSMenuPresentationStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSMenu/Properties
-type NSMenuProperties int
+type NSMenuProperties uint
 
 const (
 	// NSMenuPropertyItemAccessibilityDescription: The menu item’s accessibility description.
@@ -5221,7 +5221,7 @@ func (e NSMenuSelectionMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSMultibyteGlyphPacking
-type NSMultibyteGlyphPacking int
+type NSMultibyteGlyphPacking uint
 
 const (
 	// NSNativeShortGlyphPacking: The native format for macOS.
@@ -5307,7 +5307,7 @@ func (e NSOpenGLContextParameter) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSOpenGLGlobalOption
-type NSOpenGLGlobalOption int
+type NSOpenGLGlobalOption uint32
 
 const (
 	// NSOpenGLGOClearFormatCache: Resets the pixel format cache if true.
@@ -5661,7 +5661,7 @@ func (e NSPasteboardAccessBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/ContentsOptions
-type NSPasteboardContentsOptions int
+type NSPasteboardContentsOptions uint
 
 const (
 	// NSPasteboardContentsCurrentHostOnly: The pasteboard contents are available only on the current device, and not on any other devices.
@@ -5678,7 +5678,7 @@ func (e NSPasteboardContentsOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/ReadingOptions
-type NSPasteboardReadingOptions int
+type NSPasteboardReadingOptions uint
 
 const (
 	// NSPasteboardReadingAsData: An option to read data from the pasteboard as-is and return it as a data object.
@@ -5707,7 +5707,7 @@ func (e NSPasteboardReadingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/WritingOptions
-type NSPasteboardWritingOptions int
+type NSPasteboardWritingOptions uint
 
 const (
 	// NSPasteboardWritingPromised: Data for a type with this option is promised, not immediately written.
@@ -5796,7 +5796,7 @@ func (e NSPickerTouchBarItemSelectionMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/PointingDeviceType-swift.enum
-type NSPointingDeviceType int
+type NSPointingDeviceType uint
 
 const (
 	// NSPointingDeviceTypeCursor: Represents a cursor pointing device.
@@ -5825,7 +5825,7 @@ func (e NSPointingDeviceType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPopUpButton/ArrowPosition
-type NSPopUpArrowPosition int
+type NSPopUpArrowPosition uint
 
 const (
 	// NSPopUpArrowAtBottom: Arrow is drawn at the edge of the button, pointing toward the .
@@ -5937,7 +5937,7 @@ func (e NSPressureBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/Options-swift.struct
-type NSPrintPanelOptions int
+type NSPrintPanelOptions uint
 
 const (
 	// NSPrintPanelShowsCopies: The Print panel includes a field for manipulating the number of copies being printed.
@@ -6047,7 +6047,7 @@ func (e NSPrinterTableStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/Orientation-swift.enum
-type NSPrintingOrientation int
+type NSPrintingOrientation uint
 
 const (
 	// NSLandscapeOrientation: Orientation is landscape (page is wider than it is tall).
@@ -6097,7 +6097,7 @@ func (e NSPrintingPageOrder) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPrintInfo/PaginationMode
-type NSPrintingPaginationMode int
+type NSPrintingPaginationMode uint
 
 const (
 	NSPrintingPaginationModeAutomatic NSPrintingPaginationMode = 0
@@ -6119,7 +6119,7 @@ func (e NSPrintingPaginationMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/Style-swift.enum
-type NSProgressIndicatorStyle int
+type NSProgressIndicatorStyle uint
 
 const (
 	// NSProgressIndicatorStyleBar: A rectangular indicator that can be determinate or indeterminate.
@@ -6214,7 +6214,7 @@ func (e NSRectAlignment) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/RemoteNotificationType
-type NSRemoteNotificationType int
+type NSRemoteNotificationType uint
 
 const (
 	// NSRemoteNotificationTypeAlert: The app should display an alert.
@@ -6239,7 +6239,7 @@ func (e NSRemoteNotificationType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/RequestUserAttentionType
-type NSRequestUserAttentionType int
+type NSRequestUserAttentionType uint
 
 const (
 	// NSCriticalRequest: The user attention request is a critical request.
@@ -6260,7 +6260,7 @@ func (e NSRequestUserAttentionType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/NestingMode-swift.enum
-type NSRuleEditorNestingMode int
+type NSRuleEditorNestingMode uint
 
 const (
 	// NSRuleEditorNestingModeCompound: Unlimited nesting and compound rows.
@@ -6289,7 +6289,7 @@ func (e NSRuleEditorNestingMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditor/RowType
-type NSRuleEditorRowType int
+type NSRuleEditorRowType uint
 
 const (
 	// NSRuleEditorRowTypeCompound: Specifies a compound row.
@@ -6310,7 +6310,7 @@ func (e NSRuleEditorRowType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSRulerView/Orientation-swift.enum
-type NSRulerOrientation int
+type NSRulerOrientation uint
 
 const (
 	// NSHorizontalRuler: Ruler is oriented horizontally.
@@ -6355,7 +6355,7 @@ func (e NSRun) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/SaveOperationType
-type NSSaveOperationType int
+type NSSaveOperationType uint
 
 const (
 	// NSAutosaveAsOperation: An operation that writes a document’s contents to a new file or file package even though the user has not explicitly requested it, then changes the document’s current location to point to the just-written file or file package.
@@ -6392,7 +6392,7 @@ func (e NSSaveOperationType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/ArrowPosition
-type NSScrollArrowPosition int
+type NSScrollArrowPosition uint
 
 const (
 	// NSScrollerArrowsMaxEnd: Buttons at bottom or right.
@@ -6467,7 +6467,7 @@ func (e NSScrollViewFindBarPosition) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/Arrow
-type NSScrollerArrow int
+type NSScrollerArrow uint
 
 const (
 	// NSScrollerDecrementArrow: The up or left scroll button.
@@ -6513,7 +6513,7 @@ func (e NSScrollerKnobStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/Part
-type NSScrollerPart int
+type NSScrollerPart uint
 
 const (
 	// NSScrollerDecrementLine: Up or left by a small amount.
@@ -6695,7 +6695,7 @@ func (e NSSegmentStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSegmentedControl/SwitchTracking
-type NSSegmentSwitchTracking int
+type NSSegmentSwitchTracking uint
 
 const (
 	// NSSegmentSwitchTrackingMomentary: A segment is selected only when the user is pressing the mouse down within the bounds of the segment.
@@ -6724,7 +6724,7 @@ func (e NSSegmentSwitchTracking) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSelectionAffinity
-type NSSelectionAffinity int
+type NSSelectionAffinity uint
 
 const (
 	// NSSelectionAffinityDownstream: The selection is moving toward the bottom of the document.
@@ -6745,7 +6745,7 @@ func (e NSSelectionAffinity) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/SelectionDirection
-type NSSelectionDirection int
+type NSSelectionDirection uint
 
 const (
 	// NSDirectSelection: The window isn’t traversing the key view loop.
@@ -6770,7 +6770,7 @@ func (e NSSelectionDirection) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSelectionGranularity
-type NSSelectionGranularity int
+type NSSelectionGranularity uint
 
 const (
 	// NSSelectByCharacter: Extends the selection character by character.
@@ -6839,7 +6839,7 @@ func (e NSSharingContentScope) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/SliderType-swift.enum
-type NSSliderType int
+type NSSliderType uint
 
 const (
 	// NSSliderTypeCircular: A dial representing an angular range.
@@ -6860,7 +6860,7 @@ func (e NSSliderType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechSynthesizer/Boundary
-type NSSpeechBoundary int
+type NSSpeechBoundary uint
 
 const (
 	// NSSpeechImmediateBoundary: Speech should be paused or stopped immediately.
@@ -7012,7 +7012,7 @@ func (e NSSpringLoadingHighlight) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingOptions
-type NSSpringLoadingOptions int
+type NSSpringLoadingOptions uint
 
 const (
 	// NSSpringLoadingContinuousActivation: Spring-loading on the destination object is enabled.
@@ -7152,7 +7152,7 @@ func (e NSStringDrawingOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/TIFFCompression
-type NSTIFFCompression int
+type NSTIFFCompression uint
 
 const (
 	// NSTIFFCompressionCCITTFAX3: CCITT Fax Group 3 compression.
@@ -7197,7 +7197,7 @@ func (e NSTIFFCompression) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/TabPosition-swift.enum
-type NSTabPosition int
+type NSTabPosition uint
 
 const (
 	NSTabPositionBottom NSTabPosition = 3
@@ -7225,7 +7225,7 @@ func (e NSTabPosition) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTabViewItem/State
-type NSTabState int
+type NSTabState uint
 
 const (
 	// NSBackgroundTab: A tab that’s not being displayed.
@@ -7250,7 +7250,7 @@ func (e NSTabState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/TabViewBorderType-swift.enum
-type NSTabViewBorderType int
+type NSTabViewBorderType uint
 
 const (
 	NSTabViewBorderTypeBezel NSTabViewBorderType = 2
@@ -7301,7 +7301,7 @@ func (e NSTabViewControllerTabStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/TabType
-type NSTabViewType int
+type NSTabViewType uint
 
 const (
 	// NSBottomTabsBezelBorder: Tabs are on the bottom of the view with a bezeled border.
@@ -7342,7 +7342,7 @@ func (e NSTabViewType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTableColumn/ResizingOptions
-type NSTableColumnResizingOptions int
+type NSTableColumnResizingOptions uint
 
 const (
 	// NSTableColumnAutoresizingMask: Allows the table column to resize automatically in response to resizing the table view.
@@ -7384,7 +7384,7 @@ func (e NSTableRowActionEdge) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/AnimationOptions
-type NSTableViewAnimationOptions int
+type NSTableViewAnimationOptions uint
 
 const (
 	// NSTableViewAnimationEffectFade: Use a fade for row or column removal.
@@ -7421,7 +7421,7 @@ func (e NSTableViewAnimationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/ColumnAutoresizingStyle-swift.enum
-type NSTableViewColumnAutoresizingStyle int
+type NSTableViewColumnAutoresizingStyle uint
 
 const (
 	// NSTableViewFirstColumnOnlyAutoresizingStyle: Autoresize only the first table column.
@@ -7487,7 +7487,7 @@ func (e NSTableViewDraggingDestinationFeedbackStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/DropOperation
-type NSTableViewDropOperation int
+type NSTableViewDropOperation uint
 
 const (
 	// NSTableViewDropAbove: Specifies that the drop should occur above the specified row.
@@ -7508,7 +7508,7 @@ func (e NSTableViewDropOperation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/GridLineStyle
-type NSTableViewGridLineStyle int
+type NSTableViewGridLineStyle uint
 
 const (
 	// NSTableViewDashedHorizontalGridLineMask: Specifies that the horizontal grid lines should be drawn dashed.
@@ -7675,7 +7675,7 @@ func (e NSTextAlignment) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/Dimension
-type NSTextBlockDimension int
+type NSTextBlockDimension uint
 
 const (
 	// NSTextBlockHeight: Height of the text block.
@@ -7737,7 +7737,7 @@ func (e NSTextBlockLayer) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/ValueType
-type NSTextBlockValueType int
+type NSTextBlockValueType uint
 
 const (
 	// NSTextBlockAbsoluteValueType: Absolute value in points.
@@ -7758,7 +7758,7 @@ func (e NSTextBlockValueType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextBlock/VerticalAlignment-swift.enum
-type NSTextBlockVerticalAlignment int
+type NSTextBlockVerticalAlignment uint
 
 const (
 	// NSTextBlockBaselineAlignment: Aligns adjacent blocks at the baseline of the first line of text in the block.
@@ -7787,7 +7787,7 @@ func (e NSTextBlockVerticalAlignment) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/EnumerationOptions
-type NSTextContentManagerEnumerationOptions int
+type NSTextContentManagerEnumerationOptions uint
 
 const (
 	// NSTextContentManagerEnumerationOptionsReverse: Returns whether enumerations start from the end of the text element.
@@ -7844,7 +7844,7 @@ func (e NSTextCursorAccessoryPlacement) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextField/BezelStyle-swift.enum
-type NSTextFieldBezelStyle int
+type NSTextFieldBezelStyle uint
 
 const (
 	// NSTextFieldRoundedBezel: A style that draws a bezel with rounded corners around a single-line text field.
@@ -8024,7 +8024,7 @@ func (e NSTextInsertionIndicatorDisplayMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/EnumerationOptions
-type NSTextLayoutFragmentEnumerationOptions int
+type NSTextLayoutFragmentEnumerationOptions uint
 
 const (
 	// NSTextLayoutFragmentEnumerationOptionsEnsuresExtraLineFragment: Synthesize the extra line fragment when necessary.
@@ -8053,7 +8053,7 @@ func (e NSTextLayoutFragmentEnumerationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/State-swift.enum
-type NSTextLayoutFragmentState int
+type NSTextLayoutFragmentState uint
 
 const (
 	// NSTextLayoutFragmentStateCalculatedUsageBounds: The layout fragment measurements are available without text line fragments.
@@ -8082,7 +8082,7 @@ func (e NSTextLayoutFragmentState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/SegmentOptions
-type NSTextLayoutManagerSegmentOptions int
+type NSTextLayoutManagerSegmentOptions uint
 
 const (
 	// NSTextLayoutManagerSegmentOptionsHeadSegmentExtended: Returns the value that causes the framework to extend the segment to the tail edge.
@@ -8161,7 +8161,7 @@ func (e NSTextLayoutOrientation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextList/Options
-type NSTextListOptions int
+type NSTextListOptions uint
 
 const (
 	// NSTextListPrependEnclosingMarker: Specifies that a nested list should include the marker for its enclosing superlist before its own marker.
@@ -8392,7 +8392,7 @@ func (e NSTextSelectionNavigationLayoutOrientation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionNavigation/Modifier
-type NSTextSelectionNavigationModifier int
+type NSTextSelectionNavigationModifier uint
 
 const (
 	// NSTextSelectionNavigationModifierExtend: The value that indicates the framework extends the selection by not moving the initial location while in a drag selection.
@@ -8438,7 +8438,7 @@ func (e NSTextSelectionNavigationWritingDirection) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageEditActions
-type NSTextStorageEditActions int
+type NSTextStorageEditActions uint
 
 const (
 	// NSTextStorageEditedAttributes: Attributes were added, removed, or changed.
@@ -8459,7 +8459,7 @@ func (e NSTextStorageEditActions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSParagraphStyle/TextTabType
-type NSTextTabType int
+type NSTextTabType uint
 
 const (
 	// NSCenterTabStopType: A center-aligned tab stop.
@@ -8488,7 +8488,7 @@ func (e NSTextTabType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextTable/LayoutAlgorithm-swift.enum
-type NSTextTableLayoutAlgorithm int
+type NSTextTableLayoutAlgorithm uint
 
 const (
 	// NSTextTableAutomaticLayoutAlgorithm: Specifies automatic layout algorithm
@@ -8529,7 +8529,7 @@ func (e NSTextWritingDirection) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/TickMarkPosition-swift.enum
-type NSTickMarkPosition int
+type NSTickMarkPosition uint
 
 const (
 	// NSTickMarkPositionAbove: A constant indicating that tick marks are displayed above the slider.
@@ -8575,7 +8575,7 @@ func (e NSTintProminence) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBox/TitlePosition-swift.enum
-type NSTitlePosition int
+type NSTitlePosition uint
 
 const (
 	NSAboveBottom NSTitlePosition = 4
@@ -8638,7 +8638,7 @@ func (e NSTitlebarSeparatorStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTokenField/TokenStyle-swift.enum
-type NSTokenStyle int
+type NSTokenStyle uint
 
 const (
 	NSTokenStyleDefault NSTokenStyle = 0
@@ -8666,7 +8666,7 @@ func (e NSTokenStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/DisplayMode-swift.enum
-type NSToolbarDisplayMode int
+type NSToolbarDisplayMode uint
 
 const (
 	// NSToolbarDisplayModeDefault: The default display mode.
@@ -8761,7 +8761,7 @@ func (e NSToolbarItemStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSToolbar/SizeMode-swift.enum
-type NSToolbarSizeMode int
+type NSToolbarSizeMode uint
 
 const (
 	// NSToolbarSizeModeDefault: The toolbar uses the system-defined default size, which is .
@@ -8786,7 +8786,7 @@ func (e NSToolbarSizeMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTouch/Phase-swift.struct
-type NSTouchPhase int
+type NSTouchPhase uint
 
 const (
 	// NSTouchPhaseAny: Matches any phase of a touch.
@@ -8846,7 +8846,7 @@ func (e NSTouchType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTouch/TouchTypeMask
-type NSTouchTypeMask int
+type NSTouchTypeMask uint
 
 const (
 	// NSTouchTypeMaskDirect: A direct touch from a user’s finger on a screen.
@@ -8867,7 +8867,7 @@ func (e NSTouchTypeMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTrackingArea/Options-swift.struct
-type NSTrackingAreaOptions int
+type NSTrackingAreaOptions uint
 
 const (
 	// NSTrackingActiveAlways: The owner receives messages regardless of first-responder status, window status, or application status.
@@ -8957,7 +8957,7 @@ func (e NSTypesetterBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetterControlCharacterAction
-type NSTypesetterControlCharacterAction int
+type NSTypesetterControlCharacterAction uint
 
 const (
 	// NSTypesetterContainerBreakAction: Causes container break.
@@ -9039,7 +9039,7 @@ func (e NSUnderlineStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSScroller/UsableParts-swift.enum
-type NSUsableScrollerParts int
+type NSUsableScrollerParts uint
 
 const (
 	// NSAllScrollerParts: Specifies that the scroller has at least a knob, possibly also scroll buttons.
@@ -9125,7 +9125,7 @@ func (e NSVerticalDirections) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/TransitionOptions
-type NSViewControllerTransitionOptions int
+type NSViewControllerTransitionOptions uint
 
 const (
 	// NSViewControllerTransitionAllowUserInteraction: A transition animation that allows user interaction during the transition.
@@ -9327,7 +9327,7 @@ func (e NSVisualEffectState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/WindingRule-swift.enum
-type NSWindingRule int
+type NSWindingRule uint
 
 const (
 	// NSWindingRuleEvenOdd: Specifies the even-odd winding rule.
@@ -9381,7 +9381,7 @@ func (e NSWindowAnimationBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/ButtonType
-type NSWindowButton int
+type NSWindowButton uint
 
 const (
 	// NSWindowCloseButton: The close button.
@@ -9418,7 +9418,7 @@ func (e NSWindowButton) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/CollectionBehavior-swift.struct
-type NSWindowCollectionBehavior int
+type NSWindowCollectionBehavior uint
 
 const (
 	// NSWindowCollectionBehaviorAuxiliary: The behavior marking this window as auxiliary for both Stage Manager and full screen.
@@ -9491,7 +9491,7 @@ func (e NSWindowCollectionBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/Depth
-type NSWindowDepth int
+type NSWindowDepth int32
 
 const (
 	// NSWindowDepthOnehundredtwentyeightBitRGB: One hundred and twenty eight bit RGB depth limit.
@@ -9516,7 +9516,7 @@ func (e NSWindowDepth) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/NumberListOptions
-type NSWindowNumberListOptions int
+type NSWindowNumberListOptions uint
 
 const (
 	// NSWindowNumberListAllApplications: # Discussion
@@ -9537,7 +9537,7 @@ func (e NSWindowNumberListOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/OcclusionState-swift.struct
-type NSWindowOcclusionState int
+type NSWindowOcclusionState uint
 
 const (
 	// NSWindowOcclusionStateVisible: If set, at least part of the window is visible; if not set, the entire window is occluded.
@@ -9579,7 +9579,7 @@ func (e NSWindowOrderingMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/SharingType-swift.enum
-type NSWindowSharingType int
+type NSWindowSharingType uint
 
 const (
 	// NSWindowSharingNone: A legacy constant that macOS no longer uses.
@@ -9596,7 +9596,7 @@ func (e NSWindowSharingType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/StyleMask-swift.struct
-type NSWindowStyleMask int
+type NSWindowStyleMask uint
 
 const (
 	// NSWindowStyleMaskBorderless: The window displays none of the usual peripheral elements.
@@ -9786,7 +9786,7 @@ func (e NSWorkspaceAuthorizationType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/IconCreationOptions
-type NSWorkspaceIconCreationOptions int
+type NSWorkspaceIconCreationOptions uint
 
 const (
 	// NSExclude10_4ElementsIconCreationOption: An option to suppress generation of the new higher resolution icon representations that are supported in macOS 10.4.

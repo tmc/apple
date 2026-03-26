@@ -49,7 +49,7 @@ func (e MTL4AlphaToOneState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTL4BinaryFunctionOptions
-type MTL4BinaryFunctionOptions int
+type MTL4BinaryFunctionOptions uint
 
 const (
 	// MTL4BinaryFunctionOptionNone: Represents the default value: no options.
@@ -228,7 +228,7 @@ func (e MTL4LogicalToPhysicalColorAttachmentMappingState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTL4PipelineDataSetSerializerConfiguration
-type MTL4PipelineDataSetSerializerConfiguration int
+type MTL4PipelineDataSetSerializerConfiguration uint
 
 const (
 	// MTL4PipelineDataSetSerializerConfigurationCaptureBinaries: Enables serializing pipeline binary functions.
@@ -249,7 +249,7 @@ func (e MTL4PipelineDataSetSerializerConfiguration) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTL4RenderEncoderOptions
-type MTL4RenderEncoderOptions int
+type MTL4RenderEncoderOptions uint
 
 const (
 	// MTL4RenderEncoderOptionNone: Declares that this render pass doesn’t suspend nor resume.
@@ -274,7 +274,7 @@ func (e MTL4RenderEncoderOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTL4ShaderReflection
-type MTL4ShaderReflection int
+type MTL4ShaderReflection uint
 
 const (
 	// MTL4ShaderReflectionBindingInfo: Requests reflection information for bindings.
@@ -320,7 +320,7 @@ func (e MTL4TimestampGranularity) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTL4VisibilityOptions
-type MTL4VisibilityOptions int
+type MTL4VisibilityOptions uint
 
 const (
 	// MTL4VisibilityOptionDevice: Flushes caches to the GPU (device) memory coherence point.
@@ -345,7 +345,7 @@ func (e MTL4VisibilityOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureInstanceDescriptorType
-type MTLAccelerationStructureInstanceDescriptorType int
+type MTLAccelerationStructureInstanceDescriptorType uint
 
 const (
 	// MTLAccelerationStructureInstanceDescriptorTypeDefault: An option specifying that the instance uses the default characteristics.
@@ -378,7 +378,7 @@ func (e MTLAccelerationStructureInstanceDescriptorType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureInstanceOptions
-type MTLAccelerationStructureInstanceOptions int
+type MTLAccelerationStructureInstanceOptions uint32
 
 const (
 	// MTLAccelerationStructureInstanceOptionDisableTriangleCulling: An option that turns off culling for this instance if ray intersector has culling enabled.
@@ -411,7 +411,7 @@ func (e MTLAccelerationStructureInstanceOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureRefitOptions
-type MTLAccelerationStructureRefitOptions int
+type MTLAccelerationStructureRefitOptions uint
 
 const (
 	MTLAccelerationStructureRefitOptionPerPrimitiveData MTLAccelerationStructureRefitOptions = 2
@@ -430,7 +430,7 @@ func (e MTLAccelerationStructureRefitOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureUsage
-type MTLAccelerationStructureUsage int
+type MTLAccelerationStructureUsage uint
 
 const (
 	// MTLAccelerationStructureUsageExtendedLimits: An option that increases an acceleration structure’s storage capacity.
@@ -467,7 +467,7 @@ func (e MTLAccelerationStructureUsage) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentBuffersTier
-type MTLArgumentBuffersTier int
+type MTLArgumentBuffersTier uint
 
 const (
 	// MTLArgumentBuffersTier1: Support for tier 1 argument buffers.
@@ -488,7 +488,7 @@ func (e MTLArgumentBuffersTier) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLArgumentType
-type MTLArgumentType int
+type MTLArgumentType uint
 
 const (
 	// Deprecated.
@@ -541,7 +541,7 @@ func (e MTLArgumentType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLAttributeFormat
-type MTLAttributeFormat int
+type MTLAttributeFormat uint
 
 const (
 	// MTLAttributeFormatChar: An 8-bit, signed integer value.
@@ -770,7 +770,7 @@ func (e MTLAttributeFormat) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBarrierScope
-type MTLBarrierScope int
+type MTLBarrierScope uint
 
 const (
 	// MTLBarrierScopeBuffers: The barrier affects any buffer objects.
@@ -828,7 +828,7 @@ func (e MTLBinaryArchiveError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBindingAccess
-type MTLBindingAccess int
+type MTLBindingAccess uint
 
 const (
 	MTLBindingAccessReadOnly MTLBindingAccess = 0
@@ -905,7 +905,7 @@ func (e MTLBindingType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBlendFactor
-type MTLBlendFactor int
+type MTLBlendFactor uint
 
 const (
 	// MTLBlendFactorBlendAlpha: Blend factor of alpha value.
@@ -998,7 +998,7 @@ func (e MTLBlendFactor) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBlendOperation
-type MTLBlendOperation int
+type MTLBlendOperation uint
 
 const (
 	// MTLBlendOperationAdd: Add portions of both source and destination pixel values.
@@ -1035,7 +1035,7 @@ func (e MTLBlendOperation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBlitOption
-type MTLBlitOption int
+type MTLBlitOption uint
 
 const (
 	// MTLBlitOptionDepthFromDepthStencil: A blit option that copies the depth portion of a combined depth and stencil texture to or from a buffer.
@@ -1085,7 +1085,7 @@ func (e MTLBufferSparseTier) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLCPUCacheMode
-type MTLCPUCacheMode int
+type MTLCPUCacheMode uint
 
 const (
 	// MTLCPUCacheModeDefaultCache: The default CPU cache mode for the resource, which guarantees that read and write operations are executed in the expected order.
@@ -1152,7 +1152,7 @@ func (e MTLCaptureError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLColorWriteMask
-type MTLColorWriteMask int
+type MTLColorWriteMask uint
 
 const (
 	// MTLColorWriteMaskAll: All color channels are enabled.
@@ -1337,7 +1337,7 @@ func (e MTLCommandEncoderErrorState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLCompareFunction
-type MTLCompareFunction int
+type MTLCompareFunction uint
 
 const (
 	// MTLCompareFunctionAlways: A new value always passes the comparison test.
@@ -1426,7 +1426,7 @@ func (e MTLCounterSampleBufferError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLCounterSamplingPoint
-type MTLCounterSamplingPoint int
+type MTLCounterSamplingPoint uint
 
 const (
 	// MTLCounterSamplingPointAtBlitBoundary: Counter sampling is allowed between blit commands in a blit pass.
@@ -1459,7 +1459,7 @@ func (e MTLCounterSamplingPoint) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLCullMode
-type MTLCullMode int
+type MTLCullMode uint
 
 const (
 	// MTLCullModeBack: Culls back-facing primitives.
@@ -1550,7 +1550,7 @@ func (e MTLCurveType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLDataType
-type MTLDataType int
+type MTLDataType uint
 
 const (
 	// MTLDataTypeArray: An array instance.
@@ -1951,7 +1951,7 @@ func (e MTLDataType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLDepthClipMode
-type MTLDepthClipMode int
+type MTLDepthClipMode uint
 
 const (
 	// MTLDepthClipModeClamp: Clamp fragments outside the near or far planes.
@@ -1972,7 +1972,7 @@ func (e MTLDepthClipMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLDeviceLocation
-type MTLDeviceLocation int
+type MTLDeviceLocation uint
 
 const (
 	// MTLDeviceLocationBuiltIn: A location that indicates the GPU is permanently connected to the system internally.
@@ -1999,7 +1999,7 @@ func (e MTLDeviceLocation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLDispatchType
-type MTLDispatchType int
+type MTLDispatchType uint
 
 const (
 	// MTLDispatchTypeConcurrent: Sets a command encoder to dispatch encoded commands concurrently during your pass.
@@ -2057,7 +2057,7 @@ func (e MTLDynamicLibraryError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLFeatureSet
-type MTLFeatureSet int
+type MTLFeatureSet uint
 
 const (
 	// Deprecated.
@@ -2194,7 +2194,7 @@ func (e MTLFeatureSet) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionLogType
-type MTLFunctionLogType int
+type MTLFunctionLogType uint
 
 const (
 	// MTLFunctionLogTypeValidation: A message related to usage validation.
@@ -2211,7 +2211,7 @@ func (e MTLFunctionLogType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionOptions
-type MTLFunctionOptions int
+type MTLFunctionOptions uint
 
 const (
 	// MTLFunctionOptionCompileToBinary: An option that instructs the compiler to generate a binary format for dynamic linking.
@@ -2246,7 +2246,7 @@ func (e MTLFunctionOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLFunctionType
-type MTLFunctionType int
+type MTLFunctionType uint
 
 const (
 	// MTLFunctionTypeFragment: A fragment function you can use in a render pipeline state object.
@@ -2372,7 +2372,7 @@ func (e MTLGPUFamily) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLHazardTrackingMode
-type MTLHazardTrackingMode int
+type MTLHazardTrackingMode uint
 
 const (
 	// MTLHazardTrackingModeDefault: An option that applies the default tracking behavior in Metal based on the resource or heap type you’re creating.
@@ -2572,7 +2572,7 @@ func (e MTLIOStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLIndexType
-type MTLIndexType int
+type MTLIndexType uint
 
 const (
 	// MTLIndexTypeUInt16: A 16-bit unsigned integer used as a primitive index.
@@ -2593,7 +2593,7 @@ func (e MTLIndexType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectCommandType
-type MTLIndirectCommandType int
+type MTLIndirectCommandType uint
 
 const (
 	// MTLIndirectCommandTypeConcurrentDispatch: A compute command using a grid aligned to threadgroup boundaries.
@@ -2636,7 +2636,7 @@ func (e MTLIndirectCommandType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLIntersectionFunctionSignature
-type MTLIntersectionFunctionSignature int
+type MTLIntersectionFunctionSignature uint
 
 const (
 	MTLIntersectionFunctionSignatureCurveData MTLIntersectionFunctionSignature = 128
@@ -2688,7 +2688,7 @@ func (e MTLIntersectionFunctionSignature) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLLanguageVersion
-type MTLLanguageVersion int
+type MTLLanguageVersion uint
 
 const (
 	// MTLLanguageVersion1_1: Version 1.1 of the Metal shading language.
@@ -2815,7 +2815,7 @@ func (e MTLLibraryType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLLoadAction
-type MTLLoadAction int
+type MTLLoadAction uint
 
 const (
 	// MTLLoadActionClear: The GPU writes a value to every pixel in the attachment at the start of the render pass.
@@ -2961,7 +2961,7 @@ func (e MTLMatrixLayout) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLMotionBorderMode
-type MTLMotionBorderMode int
+type MTLMotionBorderMode uint32
 
 const (
 	// MTLMotionBorderModeClamp: A mode that specifies treating times outside the specified endpoint as if they were at the endpoint.
@@ -2982,7 +2982,7 @@ func (e MTLMotionBorderMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLMultisampleDepthResolveFilter
-type MTLMultisampleDepthResolveFilter int
+type MTLMultisampleDepthResolveFilter uint
 
 const (
 	// MTLMultisampleDepthResolveFilterMax: The GPU compares all depth samples in the pixel and selects the sample with the largest value.
@@ -3007,7 +3007,7 @@ func (e MTLMultisampleDepthResolveFilter) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLMultisampleStencilResolveFilter
-type MTLMultisampleStencilResolveFilter int
+type MTLMultisampleStencilResolveFilter uint
 
 const (
 	// MTLMultisampleStencilResolveFilterDepthResolvedSample: Chooses the stencil sample corresponding to the depth sample selected by the depth resolve filter.
@@ -3028,7 +3028,7 @@ func (e MTLMultisampleStencilResolveFilter) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLMutability
-type MTLMutability int
+type MTLMutability uint
 
 const (
 	// MTLMutabilityDefault: The default behavior, based on the buffer’s type.
@@ -3053,7 +3053,7 @@ func (e MTLMutability) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLPatchType
-type MTLPatchType int
+type MTLPatchType uint
 
 const (
 	// MTLPatchTypeNone: An option that indicates that this isn’t a post-tessellation vertex function.
@@ -3078,7 +3078,7 @@ func (e MTLPatchType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLPipelineOption
-type MTLPipelineOption int
+type MTLPipelineOption uint
 
 const (
 	// MTLPipelineOptionBindingInfo: An option that provides binding information for pipeline state resources.
@@ -3109,7 +3109,7 @@ func (e MTLPipelineOption) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLPixelFormat
-type MTLPixelFormat int
+type MTLPixelFormat uint
 
 const (
 	// MTLPixelFormatA1BGR5Unorm: Packed 16-bit format with normalized unsigned integer color components: 5 bits each for BGR and 1 for alpha, packed into 16 bits.
@@ -3682,7 +3682,7 @@ func (e MTLPixelFormat) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLPrimitiveTopologyClass
-type MTLPrimitiveTopologyClass int
+type MTLPrimitiveTopologyClass uint
 
 const (
 	// MTLPrimitiveTopologyClassLine: A line primitive.
@@ -3711,7 +3711,7 @@ func (e MTLPrimitiveTopologyClass) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLPrimitiveType
-type MTLPrimitiveType int
+type MTLPrimitiveType uint
 
 const (
 	// MTLPrimitiveTypeLine: Rasterize a line between each separate pair of vertices, resulting in a series of unconnected lines.
@@ -3744,7 +3744,7 @@ func (e MTLPrimitiveType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLPurgeableState
-type MTLPurgeableState int
+type MTLPurgeableState uint
 
 const (
 	// MTLPurgeableStateEmpty: A state that indicates to the system that it needs to consider the contents of a resource as invalid, typically because you’re discarding it.
@@ -3773,7 +3773,7 @@ func (e MTLPurgeableState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLReadWriteTextureTier
-type MTLReadWriteTextureTier int
+type MTLReadWriteTextureTier uint
 
 const (
 	// MTLReadWriteTextureTier1: Indicates the system supports tier 1 read-write textures.
@@ -3798,7 +3798,7 @@ func (e MTLReadWriteTextureTier) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLRenderStages
-type MTLRenderStages int
+type MTLRenderStages uint
 
 const (
 	// MTLRenderStageFragment: The fragment rendering stage.
@@ -3831,7 +3831,7 @@ func (e MTLRenderStages) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResourceOptions
-type MTLResourceOptions int
+type MTLResourceOptions uint
 
 const (
 	// MTLResourceCPUCacheModeDefaultCache: The default CPU cache mode for the resource, which guarantees that read and write operations are executed in the expected order.
@@ -3874,7 +3874,7 @@ func (e MTLResourceOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLResourceUsage
-type MTLResourceUsage int
+type MTLResourceUsage uint
 
 const (
 	// MTLResourceUsageRead: An option that enables reading from the resource.
@@ -3899,7 +3899,7 @@ func (e MTLResourceUsage) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerAddressMode
-type MTLSamplerAddressMode int
+type MTLSamplerAddressMode uint
 
 const (
 	// MTLSamplerAddressModeClampToBorderColor: Out-of-range texture coordinates return the value specified by the borderColor property.
@@ -3936,7 +3936,7 @@ func (e MTLSamplerAddressMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerBorderColor
-type MTLSamplerBorderColor int
+type MTLSamplerBorderColor uint
 
 const (
 	// MTLSamplerBorderColorOpaqueBlack: An opaque black color `(0,0,0,1)` for texture values outside the border
@@ -3961,7 +3961,7 @@ func (e MTLSamplerBorderColor) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerMinMagFilter
-type MTLSamplerMinMagFilter int
+type MTLSamplerMinMagFilter uint
 
 const (
 	// MTLSamplerMinMagFilterLinear: Select two pixels in each dimension and interpolate linearly between them.
@@ -3982,7 +3982,7 @@ func (e MTLSamplerMinMagFilter) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerMipFilter
-type MTLSamplerMipFilter int
+type MTLSamplerMipFilter uint
 
 const (
 	// MTLSamplerMipFilterLinear: If the filter falls between mipmap levels, both levels are sampled and the results are determined by linear interpolation between levels.
@@ -4007,7 +4007,7 @@ func (e MTLSamplerMipFilter) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLSamplerReductionMode
-type MTLSamplerReductionMode int
+type MTLSamplerReductionMode uint
 
 const (
 	// MTLSamplerReductionModeMaximum: A reduction mode that finds the maximum contributing sample value by separately evaluating each channel.
@@ -4082,7 +4082,7 @@ func (e MTLSparsePageSize) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLSparseTextureMappingMode
-type MTLSparseTextureMappingMode int
+type MTLSparseTextureMappingMode uint
 
 const (
 	// MTLSparseTextureMappingModeMap: A request to map sparse tiles from the heap to a region in the texture.
@@ -4103,7 +4103,7 @@ func (e MTLSparseTextureMappingMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLSparseTextureRegionAlignmentMode
-type MTLSparseTextureRegionAlignmentMode int
+type MTLSparseTextureRegionAlignmentMode uint
 
 const (
 	// MTLSparseTextureRegionAlignmentModeInward: The tile region ignores partially covered tiles.
@@ -4124,7 +4124,7 @@ func (e MTLSparseTextureRegionAlignmentMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLStages
-type MTLStages int
+type MTLStages uint
 
 const (
 	// MTLStageAccelerationStructure: Represents all acceleration structure operations.
@@ -4181,7 +4181,7 @@ func (e MTLStages) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLStencilOperation
-type MTLStencilOperation int
+type MTLStencilOperation uint
 
 const (
 	// MTLStencilOperationDecrementClamp: A stencil operation that decreases a nonzero stencil value by one.
@@ -4226,7 +4226,7 @@ func (e MTLStencilOperation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLStepFunction
-type MTLStepFunction int
+type MTLStepFunction uint
 
 const (
 	// MTLStepFunctionConstant: The function fetches attribute data once.
@@ -4275,7 +4275,7 @@ func (e MTLStepFunction) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLStitchedLibraryOptions
-type MTLStitchedLibraryOptions int
+type MTLStitchedLibraryOptions uint
 
 const (
 	// MTLStitchedLibraryOptionFailOnBinaryArchiveMiss: An option that instructs the compiler to return an error when a GPU function for a stitched library isn’t in a binary archive.
@@ -4298,7 +4298,7 @@ func (e MTLStitchedLibraryOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLStorageMode
-type MTLStorageMode int
+type MTLStorageMode uint
 
 const (
 	// MTLStorageModeManaged: The CPU and GPU may maintain separate copies of the resource, and any changes need to be explicitly synchronized.
@@ -4327,7 +4327,7 @@ func (e MTLStorageMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLStoreAction
-type MTLStoreAction int
+type MTLStoreAction uint
 
 const (
 	// MTLStoreActionCustomSampleDepthStore: The GPU stores depth data in a sample-position–agnostic representation.
@@ -4364,7 +4364,7 @@ func (e MTLStoreAction) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLStoreActionOptions
-type MTLStoreActionOptions int
+type MTLStoreActionOptions uint
 
 const (
 	// MTLStoreActionOptionCustomSamplePositions: An option that stores data in a sample-position–agnostic representation.
@@ -4452,7 +4452,7 @@ func (e MTLTensorError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTensorUsage
-type MTLTensorUsage int
+type MTLTensorUsage uint
 
 const (
 	// MTLTensorUsageCompute: A tensor context that applies to compute encoders.
@@ -4477,7 +4477,7 @@ func (e MTLTensorUsage) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTessellationControlPointIndexType
-type MTLTessellationControlPointIndexType int
+type MTLTessellationControlPointIndexType uint
 
 const (
 	// MTLTessellationControlPointIndexTypeNone: No size.
@@ -4502,7 +4502,7 @@ func (e MTLTessellationControlPointIndexType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTessellationFactorFormat
-type MTLTessellationFactorFormat int
+type MTLTessellationFactorFormat uint
 
 const (
 	// MTLTessellationFactorFormatHalf: A 16-bit floating-point format.
@@ -4519,7 +4519,7 @@ func (e MTLTessellationFactorFormat) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTessellationFactorStepFunction
-type MTLTessellationFactorStepFunction int
+type MTLTessellationFactorStepFunction uint
 
 const (
 	// MTLTessellationFactorStepFunctionConstant: A constant step function.
@@ -4548,7 +4548,7 @@ func (e MTLTessellationFactorStepFunction) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTessellationPartitionMode
-type MTLTessellationPartitionMode int
+type MTLTessellationPartitionMode uint
 
 const (
 	// MTLTessellationPartitionModeFractionalEven: A fractional even partitioning mode.
@@ -4621,7 +4621,7 @@ func (e MTLTextureSparseTier) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTextureSwizzle
-type MTLTextureSwizzle int
+type MTLTextureSwizzle uint8
 
 const (
 	// MTLTextureSwizzleAlpha: The alpha channel of the source pixel is copied to the destination channel.
@@ -4658,7 +4658,7 @@ func (e MTLTextureSwizzle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTextureType
-type MTLTextureType int
+type MTLTextureType uint
 
 const (
 	// MTLTextureType1D: A one-dimensional texture image.
@@ -4711,7 +4711,7 @@ func (e MTLTextureType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTextureUsage
-type MTLTextureUsage int
+type MTLTextureUsage uint
 
 const (
 	// MTLTextureUsagePixelFormatView: An option to create texture views with a different component layout.
@@ -4767,7 +4767,7 @@ func (e MTLTransformType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTriangleFillMode
-type MTLTriangleFillMode int
+type MTLTriangleFillMode uint
 
 const (
 	// MTLTriangleFillModeFill: Rasterize triangle and triangle strip primitives as filled triangles.
@@ -4788,7 +4788,7 @@ func (e MTLTriangleFillMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLVertexFormat
-type MTLVertexFormat int
+type MTLVertexFormat uint
 
 const (
 	// MTLVertexFormatChar: An 8-bit, signed integer value.
@@ -5017,7 +5017,7 @@ func (e MTLVertexFormat) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLVertexStepFunction
-type MTLVertexStepFunction int
+type MTLVertexStepFunction uint
 
 const (
 	// MTLVertexStepFunctionConstant: The vertex function fetches attribute data once and uses that data for every vertex.
@@ -5096,7 +5096,7 @@ func (e MTLVisibilityResultType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLWinding
-type MTLWinding int
+type MTLWinding uint
 
 const (
 	// MTLWindingClockwise: Primitives whose vertices are specified in clockwise order are front-facing.

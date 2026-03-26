@@ -221,7 +221,7 @@ func NewNSCollectionViewLayoutAttributes() NSCollectionViewLayoutAttributes {
 // [IndexPath] and [RepresentedElementKind] properties the returned object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forDecorationViewOfKind:with:)
-func NewCollectionViewLayoutAttributesForDecorationViewOfKindWithIndexPath(decorationViewKind NSCollectionViewDecorationElementKind, indexPath objectivec.IObject) NSCollectionViewLayoutAttributes {
+func NewCollectionViewLayoutAttributesForDecorationViewOfKindWithIndexPath(decorationViewKind NSCollectionViewDecorationElementKind, indexPath foundation.INSIndexPath) NSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionViewLayoutAttributesClass().class), objc.Sel("layoutAttributesForDecorationViewOfKind:withIndexPath:"), objc.String(string(decorationViewKind)), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -250,7 +250,7 @@ func NewCollectionViewLayoutAttributesForDecorationViewOfKindWithIndexPath(decor
 // [elementKindInterItemGapIndicator]: https://developer.apple.com/documentation/AppKit/NSCollectionView/elementKindInterItemGapIndicator
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forInterItemGapBefore:)
-func NewCollectionViewLayoutAttributesForInterItemGapBeforeIndexPath(indexPath objectivec.IObject) NSCollectionViewLayoutAttributes {
+func NewCollectionViewLayoutAttributesForInterItemGapBeforeIndexPath(indexPath foundation.INSIndexPath) NSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionViewLayoutAttributesClass().class), objc.Sel("layoutAttributesForInterItemGapBeforeIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -276,7 +276,7 @@ func NewCollectionViewLayoutAttributesForInterItemGapBeforeIndexPath(indexPath o
 // to the [IndexPath] property of the returned object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forItemWith:)
-func NewCollectionViewLayoutAttributesForItemWithIndexPath(indexPath objectivec.IObject) NSCollectionViewLayoutAttributes {
+func NewCollectionViewLayoutAttributesForItemWithIndexPath(indexPath foundation.INSIndexPath) NSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionViewLayoutAttributesClass().class), objc.Sel("layoutAttributesForItemWithIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -308,7 +308,7 @@ func NewCollectionViewLayoutAttributesForItemWithIndexPath(indexPath objectivec.
 // returned object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayoutAttributes/init(forSupplementaryViewOfKind:with:)
-func NewCollectionViewLayoutAttributesForSupplementaryViewOfKindWithIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) NSCollectionViewLayoutAttributes {
+func NewCollectionViewLayoutAttributesForSupplementaryViewOfKindWithIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) NSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](objc.ID(getNSCollectionViewLayoutAttributesClass().class), objc.Sel("layoutAttributesForSupplementaryViewOfKind:withIndexPath:"), objc.String(string(elementKind)), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }

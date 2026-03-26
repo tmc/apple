@@ -7,7 +7,7 @@ import (
 )
 
 // See: https://developer.apple.com/documentation/vmnet/interface_event_t
-type Interface_event_t int
+type Interface_event_t uint32
 
 const (
 	// VMNET_INTERFACE_PACKETS_AVAILABLE: # Discussion
@@ -24,13 +24,13 @@ func (e Interface_event_t) String() string {
 }
 
 // See: https://developer.apple.com/documentation/vmnet/operating_modes_t
-type Operating_modes_t int
+type Operating_modes_t uint32
 
 const (
 )
 
 // See: https://developer.apple.com/documentation/vmnet/vmnet_return_t
-type Vmnet_return_t int
+type Vmnet_return_t uint32
 
 const (
 )

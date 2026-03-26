@@ -57,7 +57,7 @@ func (e SCCaptureResolutionType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCContentSharingPickerMode
-type SCContentSharingPickerMode int
+type SCContentSharingPickerMode uint
 
 const (
 	// SCContentSharingPickerModeMultipleApplications: The mode allowing the selection of multiple applications through the presented picker.

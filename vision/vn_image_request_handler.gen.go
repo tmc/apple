@@ -7,6 +7,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"errors"
+	"github.com/tmc/apple/avfoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/corevideo"
@@ -128,13 +129,13 @@ type IVNImageRequestHandler interface {
 	InitWithCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler for performing requests on a Core Video pixel buffer of a known orientation.
 	InitWithCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
-	InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a request handler that performs requests on an image contained within a sample buffer.
 	InitWithCMSampleBufferOptions(sampleBuffer objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a request handler that performs requests on an image of a specified orientation contained within a sample buffer.
 	InitWithCMSampleBufferOrientationOptions(sampleBuffer objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a request handler that performs requests on an image in a sample buffer that contains depth data.
-	InitWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer objectivec.IObject, depthData objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
+	InitWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer objectivec.IObject, depthData avfoundation.AVDepthData, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to use for performing requests on an image in a data object.
 	InitWithDataOptions(imageData foundation.INSData, options foundation.INSDictionary) VNImageRequestHandler
 	// Creates a handler to use for performing requests on an image of known orientation.
@@ -269,9 +270,8 @@ func NewImageRequestHandlerWithCIImageOrientationOptions(image coreimage.CIImage
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cmSampleBuffer:depthData:orientation:options:)
 // sampleBuffer is a [coremedia.CMSampleBufferRef].
-// depthData is a [avfoundation.AVDepthData].
 // orientation is a [imageio.CGImagePropertyOrientation].
-func NewImageRequestHandlerWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer objectivec.IObject, depthData objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer objectivec.IObject, depthData avfoundation.AVDepthData, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCMSampleBuffer:depthData:orientation:options:"), sampleBuffer, depthData, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -328,9 +328,8 @@ func NewImageRequestHandlerWithCMSampleBufferOrientationOptions(sampleBuffer obj
 
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:depthData:orientation:options:)
-// depthData is a [avfoundation.AVDepthData].
 // orientation is a [imageio.CGImagePropertyOrientation].
-func NewImageRequestHandlerWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
+func NewImageRequestHandlerWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
 	instance := getVNImageRequestHandlerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:depthData:orientation:options:"), pixelBuffer, depthData, orientation, options)
 	return VNImageRequestHandlerFromID(rv)
@@ -559,12 +558,10 @@ func (i VNImageRequestHandler) InitWithCVPixelBufferOrientationOptions(pixelBuff
 	return rv
 }
 //
-// depthData is a [avfoundation.AVDepthData].
-//
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cvPixelBuffer:depthData:orientation:options:)
-func (i VNImageRequestHandler) InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCVPixelBufferDepthDataOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, depthData avfoundation.AVDepthData, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCVPixelBuffer:depthData:orientation:options:"), pixelBuffer, depthData, orientation, options)
 	return rv
 }
@@ -631,8 +628,6 @@ func (i VNImageRequestHandler) InitWithCMSampleBufferOrientationOptions(sampleBu
 //
 // sampleBuffer is a [coremedia.CMSampleBufferRef].
 //
-// depthData is a [avfoundation.AVDepthData].
-//
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // # Discussion
@@ -642,7 +637,7 @@ func (i VNImageRequestHandler) InitWithCMSampleBufferOrientationOptions(sampleBu
 // overwritten by the options you specify.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageRequestHandler/init(cmSampleBuffer:depthData:orientation:options:)
-func (i VNImageRequestHandler) InitWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer objectivec.IObject, depthData objectivec.IObject, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
+func (i VNImageRequestHandler) InitWithCMSampleBufferDepthDataOrientationOptions(sampleBuffer objectivec.IObject, depthData avfoundation.AVDepthData, orientation objectivec.IObject, options foundation.INSDictionary) VNImageRequestHandler {
 	rv := objc.Send[VNImageRequestHandler](i.ID, objc.Sel("initWithCMSampleBuffer:depthData:orientation:options:"), sampleBuffer, depthData, orientation, options)
 	return rv
 }

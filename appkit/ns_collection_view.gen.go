@@ -513,13 +513,13 @@ type INSCollectionView interface {
 	// Topic: Creating Collection View Items
 
 	// Creates or returns a reusable item object of the specified type.
-	MakeItemWithIdentifierForIndexPath(identifier NSUserInterfaceItemIdentifier, indexPath objectivec.IObject) INSCollectionViewItem
+	MakeItemWithIdentifierForIndexPath(identifier NSUserInterfaceItemIdentifier, indexPath foundation.INSIndexPath) INSCollectionViewItem
 	// Registers a class to use when creating new items in the collection view.
 	RegisterClassForItemWithIdentifier(itemClass objc.Class, identifier NSUserInterfaceItemIdentifier)
 	// Registers a nib file to use when creating items in the collection view.
 	RegisterNibForItemWithIdentifier(nib INSNib, identifier NSUserInterfaceItemIdentifier)
 	// Creates or returns a reusable supplementary view of the specified type.
-	MakeSupplementaryViewOfKindWithIdentifierForIndexPath(elementKind NSCollectionViewSupplementaryElementKind, identifier NSUserInterfaceItemIdentifier, indexPath objectivec.IObject) INSView
+	MakeSupplementaryViewOfKindWithIdentifierForIndexPath(elementKind NSCollectionViewSupplementaryElementKind, identifier NSUserInterfaceItemIdentifier, indexPath foundation.INSIndexPath) INSView
 	// Registers a class to use when creating new supplementary views in the collection view.
 	RegisterClassForSupplementaryViewOfKindWithIdentifier(viewClass objc.Class, kind NSCollectionViewSupplementaryElementKind, identifier NSUserInterfaceItemIdentifier)
 	// Registers a nib file to use when creating supplementary views in the collection view.
@@ -557,7 +557,7 @@ type INSCollectionView interface {
 	// Inserts new items into the collection view at the specified locations.
 	InsertItemsAtIndexPaths(indexPaths foundation.INSSet)
 	// Moves an item from one location to another in the collection view.
-	MoveItemAtIndexPathToIndexPath(indexPath objectivec.IObject, newIndexPath objectivec.IObject)
+	MoveItemAtIndexPathToIndexPath(indexPath foundation.INSIndexPath, newIndexPath foundation.INSIndexPath)
 	// Deletes the items at the specified index paths.
 	DeleteItemsAtIndexPaths(indexPaths foundation.INSSet)
 
@@ -608,18 +608,18 @@ type INSCollectionView interface {
 	// Returns the index path of the item at the specified point.
 	IndexPathForItemAtPoint(point corefoundation.CGPoint) objc.ID
 	// Returns the item associated with the specified index path.
-	ItemAtIndexPath(indexPath objectivec.IObject) INSCollectionViewItem
+	ItemAtIndexPath(indexPath foundation.INSIndexPath) INSCollectionViewItem
 	// Returns the supplementary view associated with the specified index path.
-	SupplementaryViewForElementKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSView
+	SupplementaryViewForElementKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSView
 	// Scrolls the collection view contents until the specified items are visible.
 	ScrollToItemsAtIndexPathsScrollPosition(indexPaths foundation.INSSet, scrollPosition NSCollectionViewScrollPosition)
 
 	// Topic: Getting Layout Information
 
 	// Returns the layout information for the item at the specified index path.
-	LayoutAttributesForItemAtIndexPath(indexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	LayoutAttributesForItemAtIndexPath(indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 	// Returns the layout information for the supplementary view at the specified index path.
-	LayoutAttributesForSupplementaryElementOfKindAtIndexPath(kind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	LayoutAttributesForSupplementaryElementOfKindAtIndexPath(kind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 
 	// Topic: Animating Multiple Changes
 
@@ -736,7 +736,7 @@ func NewCollectionViewWithFrame(frameRect corefoundation.CGRect) NSCollectionVie
 // and returns it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/makeItem(withIdentifier:for:)
-func (c NSCollectionView) MakeItemWithIdentifierForIndexPath(identifier NSUserInterfaceItemIdentifier, indexPath objectivec.IObject) INSCollectionViewItem {
+func (c NSCollectionView) MakeItemWithIdentifierForIndexPath(identifier NSUserInterfaceItemIdentifier, indexPath foundation.INSIndexPath) INSCollectionViewItem {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("makeItemWithIdentifier:forIndexPath:"), objc.String(string(identifier)), indexPath)
 	return NSCollectionViewItemFromID(rv)
 }
@@ -840,7 +840,7 @@ func (c NSCollectionView) RegisterNibForItemWithIdentifier(nib INSNib, identifie
 // and returns it.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/makeSupplementaryView(ofKind:withIdentifier:for:)
-func (c NSCollectionView) MakeSupplementaryViewOfKindWithIdentifierForIndexPath(elementKind NSCollectionViewSupplementaryElementKind, identifier NSUserInterfaceItemIdentifier, indexPath objectivec.IObject) INSView {
+func (c NSCollectionView) MakeSupplementaryViewOfKindWithIdentifierForIndexPath(elementKind NSCollectionViewSupplementaryElementKind, identifier NSUserInterfaceItemIdentifier, indexPath foundation.INSIndexPath) INSView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("makeSupplementaryViewOfKind:withIdentifier:forIndexPath:"), objc.String(string(elementKind)), objc.String(string(identifier)), indexPath)
 	return NSViewFromID(rv)
 }
@@ -1054,7 +1054,7 @@ func (c NSCollectionView) InsertItemsAtIndexPaths(indexPaths foundation.INSSet) 
 // method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/moveItem(at:to:)
-func (c NSCollectionView) MoveItemAtIndexPathToIndexPath(indexPath objectivec.IObject, newIndexPath objectivec.IObject) {
+func (c NSCollectionView) MoveItemAtIndexPathToIndexPath(indexPath foundation.INSIndexPath, newIndexPath foundation.INSIndexPath) {
 	objc.Send[objc.ID](c.ID, objc.Sel("moveItemAtIndexPath:toIndexPath:"), indexPath, newIndexPath)
 }
 // Deletes the items at the specified index paths.
@@ -1397,7 +1397,7 @@ func (c NSCollectionView) IndexPathForItemAtPoint(point corefoundation.CGPoint) 
 // method returns `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/item(at:)-2vx2h
-func (c NSCollectionView) ItemAtIndexPath(indexPath objectivec.IObject) INSCollectionViewItem {
+func (c NSCollectionView) ItemAtIndexPath(indexPath foundation.INSIndexPath) INSCollectionViewItem {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemAtIndexPath:"), indexPath)
 	return NSCollectionViewItemFromID(rv)
 }
@@ -1422,7 +1422,7 @@ func (c NSCollectionView) ItemAtIndexPath(indexPath objectivec.IObject) INSColle
 // positioned offscreen, this method returns `nil`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/supplementaryView(forElementKind:at:)
-func (c NSCollectionView) SupplementaryViewForElementKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSView {
+func (c NSCollectionView) SupplementaryViewForElementKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("supplementaryViewForElementKind:atIndexPath:"), objc.String(string(elementKind)), indexPath)
 	return NSViewFromID(rv)
 }
@@ -1462,7 +1462,7 @@ func (c NSCollectionView) ScrollToItemsAtIndexPathsScrollPosition(indexPaths fou
 // directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/layoutAttributesForItem(at:)
-func (c NSCollectionView) LayoutAttributesForItemAtIndexPath(indexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionView) LayoutAttributesForItemAtIndexPath(indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForItemAtIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -1488,7 +1488,7 @@ func (c NSCollectionView) LayoutAttributesForItemAtIndexPath(indexPath objective
 // layout object directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/layoutAttributesForSupplementaryElement(ofKind:at:)
-func (c NSCollectionView) LayoutAttributesForSupplementaryElementOfKindAtIndexPath(kind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionView) LayoutAttributesForSupplementaryElementOfKindAtIndexPath(kind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForSupplementaryElementOfKind:atIndexPath:"), objc.String(string(kind)), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }

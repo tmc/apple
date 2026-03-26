@@ -814,7 +814,6 @@ func NewImageWithDataOptions(data foundation.INSData, options foundation.INSDict
 
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(depthData:)
-// data is a [avfoundation.AVDepthData].
 func NewImageWithDepthData(data objectivec.IObject) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDepthData:"), data)
@@ -823,7 +822,6 @@ func NewImageWithDepthData(data objectivec.IObject) CIImage {
 
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(depthData:options:)
-// data is a [avfoundation.AVDepthData].
 func NewImageWithDepthDataOptions(data objectivec.IObject, options foundation.INSDictionary) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDepthData:options:"), data, options)
@@ -961,7 +959,6 @@ func NewImageWithMTLTextureOptions(texture objectivec.IObject, options foundatio
 
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(portaitEffectsMatte:)
-// matte is a [avfoundation.AVPortraitEffectsMatte].
 func NewImageWithPortaitEffectsMatte(matte objectivec.IObject) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPortaitEffectsMatte:"), matte)
@@ -970,7 +967,6 @@ func NewImageWithPortaitEffectsMatte(matte objectivec.IObject) CIImage {
 
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(portaitEffectsMatte:options:)
-// matte is a [avfoundation.AVPortraitEffectsMatte].
 func NewImageWithPortaitEffectsMatteOptions(matte objectivec.IObject, options foundation.INSDictionary) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPortaitEffectsMatte:options:"), matte, options)
@@ -979,7 +975,6 @@ func NewImageWithPortaitEffectsMatteOptions(matte objectivec.IObject, options fo
 
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(semanticSegmentationMatte:)
-// matte is a [avfoundation.AVSemanticSegmentationMatte].
 func NewImageWithSemanticSegmentationMatte(matte objectivec.IObject) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSemanticSegmentationMatte:"), matte)
@@ -988,7 +983,6 @@ func NewImageWithSemanticSegmentationMatte(matte objectivec.IObject) CIImage {
 
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(semanticSegmentationMatte:options:)
-// matte is a [avfoundation.AVSemanticSegmentationMatte].
 func NewImageWithSemanticSegmentationMatteOptions(matte objectivec.IObject, options foundation.INSDictionary) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSemanticSegmentationMatte:options:"), matte, options)
@@ -1181,15 +1175,11 @@ func (i CIImage) InitWithImageProviderSizeFormatColorSpaceOptions(provider objec
 	return rv
 }
 //
-// data is a [avfoundation.AVDepthData].
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(depthData:)
 func (i CIImage) InitWithDepthData(data objectivec.IObject) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithDepthData:"), data)
 	return rv
 }
-//
-// data is a [avfoundation.AVDepthData].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(depthData:options:)
 func (i CIImage) InitWithDepthDataOptions(data objectivec.IObject, options foundation.INSDictionary) CIImage {
@@ -1197,15 +1187,11 @@ func (i CIImage) InitWithDepthDataOptions(data objectivec.IObject, options found
 	return rv
 }
 //
-// matte is a [avfoundation.AVPortraitEffectsMatte].
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(portaitEffectsMatte:)
 func (i CIImage) InitWithPortaitEffectsMatte(matte objectivec.IObject) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithPortaitEffectsMatte:"), matte)
 	return rv
 }
-//
-// matte is a [avfoundation.AVPortraitEffectsMatte].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(portaitEffectsMatte:options:)
 func (i CIImage) InitWithPortaitEffectsMatteOptions(matte objectivec.IObject, options foundation.INSDictionary) CIImage {
@@ -1213,15 +1199,11 @@ func (i CIImage) InitWithPortaitEffectsMatteOptions(matte objectivec.IObject, op
 	return rv
 }
 //
-// matte is a [avfoundation.AVSemanticSegmentationMatte].
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(semanticSegmentationMatte:)
 func (i CIImage) InitWithSemanticSegmentationMatte(matte objectivec.IObject) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithSemanticSegmentationMatte:"), matte)
 	return rv
 }
-//
-// matte is a [avfoundation.AVSemanticSegmentationMatte].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(semanticSegmentationMatte:options:)
 func (i CIImage) InitWithSemanticSegmentationMatteOptions(matte objectivec.IObject, options foundation.INSDictionary) CIImage {
@@ -2330,15 +2312,11 @@ func (_CIImageClass CIImageClass) ImageWithDataOptions(data foundation.INSData, 
 	return CIImageFromID(rv)
 }
 //
-// data is a [avfoundation.AVDepthData].
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithDepthData:
 func (_CIImageClass CIImageClass) ImageWithDepthData(data objectivec.IObject) CIImage {
 	rv := objc.Send[objc.ID](objc.ID(_CIImageClass.class), objc.Sel("imageWithDepthData:"), data)
 	return CIImageFromID(rv)
 }
-//
-// data is a [avfoundation.AVDepthData].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithDepthData:options:
 func (_CIImageClass CIImageClass) ImageWithDepthDataOptions(data objectivec.IObject, options foundation.INSDictionary) CIImage {
@@ -2439,15 +2417,11 @@ func (_CIImageClass CIImageClass) ImageWithMTLTextureOptions(texture objectivec.
 	return CIImageFromID(rv)
 }
 //
-// matte is a [avfoundation.AVPortraitEffectsMatte].
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithPortaitEffectsMatte:
 func (_CIImageClass CIImageClass) ImageWithPortaitEffectsMatte(matte objectivec.IObject) CIImage {
 	rv := objc.Send[objc.ID](objc.ID(_CIImageClass.class), objc.Sel("imageWithPortaitEffectsMatte:"), matte)
 	return CIImageFromID(rv)
 }
-//
-// matte is a [avfoundation.AVPortraitEffectsMatte].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithPortaitEffectsMatte:options:
 func (_CIImageClass CIImageClass) ImageWithPortaitEffectsMatteOptions(matte objectivec.IObject, options foundation.INSDictionary) CIImage {
@@ -2455,15 +2429,11 @@ func (_CIImageClass CIImageClass) ImageWithPortaitEffectsMatteOptions(matte obje
 	return CIImageFromID(rv)
 }
 //
-// matte is a [avfoundation.AVSemanticSegmentationMatte].
-//
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithSemanticSegmentationMatte:
 func (_CIImageClass CIImageClass) ImageWithSemanticSegmentationMatte(matte objectivec.IObject) CIImage {
 	rv := objc.Send[objc.ID](objc.ID(_CIImageClass.class), objc.Sel("imageWithSemanticSegmentationMatte:"), matte)
 	return CIImageFromID(rv)
 }
-//
-// matte is a [avfoundation.AVSemanticSegmentationMatte].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithSemanticSegmentationMatte:options:
 func (_CIImageClass CIImageClass) ImageWithSemanticSegmentationMatteOptions(matte objectivec.IObject, options foundation.INSDictionary) CIImage {

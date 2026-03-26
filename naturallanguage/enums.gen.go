@@ -95,7 +95,7 @@ func (e NLTaggerAssetsResult) String() string {
 }
 
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/Options
-type NLTaggerOptions int
+type NLTaggerOptions uint
 
 const (
 	// NLTaggerJoinContractions: Contractions will be returned as one token.
@@ -161,7 +161,7 @@ func (e NLTokenUnit) String() string {
 }
 
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTokenizer/Attributes
-type NLTokenizerAttributes int
+type NLTokenizerAttributes uint
 
 const (
 	// NLTokenizerAttributeEmoji: The string contains emoji.

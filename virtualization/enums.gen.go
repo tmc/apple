@@ -78,7 +78,7 @@ func (e VZDiskSynchronizationMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/InitializationOptions
-type VZEFIVariableStoreInitializationOptions int
+type VZEFIVariableStoreInitializationOptions uint
 
 const (
 	// VZEFIVariableStoreInitializationOptionAllowOverwrite: A Boolean value that indicates whether the framework can overwrite the EFI variable store.
@@ -233,7 +233,7 @@ func (e VZLinuxRosettaAvailability) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZMacAuxiliaryStorage/InitializationOptions
-type VZMacAuxiliaryStorageInitializationOptions int
+type VZMacAuxiliaryStorageInitializationOptions uint
 
 const (
 	// VZMacAuxiliaryStorageInitializationOptionAllowOverwrite: A Boolean value that indicates whether the VM can overwrite an existing auxiliary storage file.

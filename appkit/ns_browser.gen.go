@@ -480,9 +480,9 @@ type INSBrowser interface {
 	// Loads, if necessary, and returns the cell at the specified row and column location.
 	LoadedCellAtRowColumn(row int, col int) objectivec.IObject
 	// Begins editing the item at the specified path.
-	EditItemAtIndexPathWithEventSelect(indexPath objectivec.IObject, event INSEvent, select_ bool)
+	EditItemAtIndexPathWithEventSelect(indexPath foundation.INSIndexPath, event INSEvent, select_ bool)
 	// Returns the item at the specified index path.
-	ItemAtIndexPath(indexPath objectivec.IObject) objectivec.IObject
+	ItemAtIndexPath(indexPath foundation.INSIndexPath) objectivec.IObject
 	// Returns the item located at the specified row and column.
 	ItemAtRowInColumn(row int, column int) objectivec.IObject
 	// Returns the index path of the item whose children are displayed in the given column.
@@ -790,7 +790,7 @@ func (b NSBrowser) LoadedCellAtRowColumn(row int, col int) objectivec.IObject {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/editItem(at:with:select:)
-func (b NSBrowser) EditItemAtIndexPathWithEventSelect(indexPath objectivec.IObject, event INSEvent, select_ bool) {
+func (b NSBrowser) EditItemAtIndexPathWithEventSelect(indexPath foundation.INSIndexPath, event INSEvent, select_ bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("editItemAtIndexPath:withEvent:select:"), indexPath, event, select_)
 }
 // Returns the item at the specified index path.
@@ -808,7 +808,7 @@ func (b NSBrowser) EditItemAtIndexPathWithEventSelect(indexPath objectivec.IObje
 // browser.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBrowser/item(at:)
-func (b NSBrowser) ItemAtIndexPath(indexPath objectivec.IObject) objectivec.IObject {
+func (b NSBrowser) ItemAtIndexPath(indexPath foundation.INSIndexPath) objectivec.IObject {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("itemAtIndexPath:"), indexPath)
 	return objectivec.Object{ID: rv}
 }

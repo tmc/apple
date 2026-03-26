@@ -5,6 +5,7 @@ package appkit
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -135,7 +136,7 @@ type INSCollectionViewDiffableDataSource interface {
 	// Topic: Identifying Items
 
 	// Returns an identifier for the item at the specified index path in the collection view.
-	ItemIdentifierForIndexPath(indexPath objectivec.IObject) objectivec.IObject
+	ItemIdentifierForIndexPath(indexPath foundation.INSIndexPath) objectivec.IObject
 	// Returns an index path for the item with the specified identifier in the collection view.
 	IndexPathForItemIdentifier(identifier objectivec.IObject) objc.ID
 
@@ -213,7 +214,7 @@ func (c NSCollectionViewDiffableDataSource) InitWithCollectionViewItemProvider(c
 // overhead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReference/itemIdentifier(for:)
-func (c NSCollectionViewDiffableDataSource) ItemIdentifierForIndexPath(indexPath objectivec.IObject) objectivec.IObject {
+func (c NSCollectionViewDiffableDataSource) ItemIdentifierForIndexPath(indexPath foundation.INSIndexPath) objectivec.IObject {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("itemIdentifierForIndexPath:"), indexPath)
 	return objectivec.Object{ID: rv}
 }
@@ -305,7 +306,7 @@ func (c NSCollectionViewDiffableDataSource) ApplySnapshotAnimatingDifferences(sn
 // attributes from the layout object during a separate step.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:itemForRepresentedObjectAt:)
-func (c NSCollectionViewDiffableDataSource) CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath objectivec.IObject) INSCollectionViewItem {
+func (c NSCollectionViewDiffableDataSource) CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath foundation.INSIndexPath) INSCollectionViewItem {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView:itemForRepresentedObjectAtIndexPath:"), collectionView, indexPath)
 	return NSCollectionViewItemFromID(rv)
 }
@@ -368,7 +369,7 @@ func (c NSCollectionViewDiffableDataSource) CollectionViewNumberOfItemsInSection
 // separate step.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDataSource/collectionView(_:viewForSupplementaryElementOfKind:at:)
-func (c NSCollectionViewDiffableDataSource) CollectionViewViewForSupplementaryElementOfKindAtIndexPath(collectionView INSCollectionView, kind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSView {
+func (c NSCollectionViewDiffableDataSource) CollectionViewViewForSupplementaryElementOfKindAtIndexPath(collectionView INSCollectionView, kind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSView {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("collectionView:viewForSupplementaryElementOfKind:atIndexPath:"), collectionView, objc.String(string(kind)), indexPath)
 	return NSViewFromID(rv)
 }

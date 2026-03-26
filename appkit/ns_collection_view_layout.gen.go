@@ -384,15 +384,15 @@ type INSCollectionViewLayout interface {
 	// Returns the layout attribute objects for all items and views in the specified rectangle.
 	LayoutAttributesForElementsInRect(rect corefoundation.CGRect) []NSCollectionViewLayoutAttributes
 	// Returns the layout attributes for the item at the specified index path.
-	LayoutAttributesForItemAtIndexPath(indexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	LayoutAttributesForItemAtIndexPath(indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 	// Returns the layout attributes of the supplementary view at the specified location in your layout.
-	LayoutAttributesForSupplementaryViewOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	LayoutAttributesForSupplementaryViewOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 	// Returns the layout attributes of the decoration view at the specified location in your layout.
-	LayoutAttributesForDecorationViewOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, indexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	LayoutAttributesForDecorationViewOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 	// Returns layout attributes for the drop target at the specified point.
 	LayoutAttributesForDropTargetAtPoint(pointInCollectionView corefoundation.CGPoint) INSCollectionViewLayoutAttributes
 	// Returns layout attributes for the inter-item gap at the specified location in your layout.
-	LayoutAttributesForInterItemGapBeforeIndexPath(indexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	LayoutAttributesForInterItemGapBeforeIndexPath(indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 	// Returns the offset value to use after an animated layout update or change.
 	TargetContentOffsetForProposedContentOffset(proposedContentOffset corefoundation.CGPoint) corefoundation.CGPoint
 	// Returns the offset value to use for the collection view’s content at the end of scrolling.
@@ -409,21 +409,21 @@ type INSCollectionViewLayout interface {
 	// Returns the index paths for any decoration views that the layout object wants to add to the collection view.
 	IndexPathsToInsertForDecorationViewOfKind(elementKind NSCollectionViewDecorationElementKind) foundation.INSSet
 	// Returns the starting layout information for an item being inserted into the collection view.
-	InitialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath objectivec.IObject) NSCollectionViewLayout
+	InitialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath foundation.INSIndexPath) NSCollectionViewLayout
 	// Returns the starting layout information for a supplementary view being added to the collection view.
-	InitialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, elementIndexPath objectivec.IObject) NSCollectionViewLayout
+	InitialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, elementIndexPath foundation.INSIndexPath) NSCollectionViewLayout
 	// Returns the starting layout information for a decoration view being added to the collection view.
-	InitialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, decorationIndexPath objectivec.IObject) NSCollectionViewLayout
+	InitialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, decorationIndexPath foundation.INSIndexPath) NSCollectionViewLayout
 	// Returns the index paths for any supplementary views that the layout object wants to remove from the collection view.
 	IndexPathsToDeleteForSupplementaryViewOfKind(elementKind NSCollectionViewSupplementaryElementKind) foundation.INSSet
 	// Returns index paths for any decoration views that the layout object wants to remove from the collection view.
 	IndexPathsToDeleteForDecorationViewOfKind(elementKind NSCollectionViewDecorationElementKind) foundation.INSSet
 	// Returns the ending layout information for an item being removed from the collection view.
-	FinalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	FinalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 	// Returns the ending layout information for a supplementary view being removed from the collection view.
-	FinalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, elementIndexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	FinalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, elementIndexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 	// Returns the ending layout information for a decoration view being removed from the collection view.
-	FinalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, decorationIndexPath objectivec.IObject) INSCollectionViewLayoutAttributes
+	FinalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, decorationIndexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes
 
 	// Topic: Invalidating the Layout
 
@@ -557,7 +557,7 @@ func (c NSCollectionViewLayout) LayoutAttributesForElementsInRect(rect corefound
 // or decoration views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/layoutAttributesForItem(at:)
-func (c NSCollectionViewLayout) LayoutAttributesForItemAtIndexPath(indexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionViewLayout) LayoutAttributesForItemAtIndexPath(indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForItemAtIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -591,7 +591,7 @@ func (c NSCollectionViewLayout) LayoutAttributesForItemAtIndexPath(indexPath obj
 // items or decoration views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/layoutAttributesForSupplementaryView(ofKind:at:)
-func (c NSCollectionViewLayout) LayoutAttributesForSupplementaryViewOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionViewLayout) LayoutAttributesForSupplementaryViewOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForSupplementaryViewOfKind:atIndexPath:"), objc.String(string(elementKind)), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -625,7 +625,7 @@ func (c NSCollectionViewLayout) LayoutAttributesForSupplementaryViewOfKindAtInde
 // supplementary views.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/layoutAttributesForDecorationView(ofKind:at:)
-func (c NSCollectionViewLayout) LayoutAttributesForDecorationViewOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, indexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionViewLayout) LayoutAttributesForDecorationViewOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForDecorationViewOfKind:atIndexPath:"), objc.String(string(elementKind)), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -684,7 +684,7 @@ func (c NSCollectionViewLayout) LayoutAttributesForDropTargetAtPoint(pointInColl
 // computed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/layoutAttributesForInterItemGap(before:)
-func (c NSCollectionViewLayout) LayoutAttributesForInterItemGapBeforeIndexPath(indexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionViewLayout) LayoutAttributesForInterItemGapBeforeIndexPath(indexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("layoutAttributesForInterItemGapBeforeIndexPath:"), indexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -881,7 +881,7 @@ func (c NSCollectionViewLayout) IndexPathsToInsertForDecorationViewOfKind(elemen
 // attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/initialLayoutAttributesForAppearingItem(at:)
-func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath objectivec.IObject) NSCollectionViewLayout {
+func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath foundation.INSIndexPath) NSCollectionViewLayout {
 	rv := objc.Send[NSCollectionViewLayout](c.ID, objc.Sel("initialLayoutAttributesForAppearingItemAtIndexPath:"), itemIndexPath)
 	return rv
 }
@@ -917,7 +917,7 @@ func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingItemAtIndexPa
 // attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/initialLayoutAttributesForAppearingSupplementaryElement(ofKind:at:)
-func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, elementIndexPath objectivec.IObject) NSCollectionViewLayout {
+func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, elementIndexPath foundation.INSIndexPath) NSCollectionViewLayout {
 	rv := objc.Send[NSCollectionViewLayout](c.ID, objc.Sel("initialLayoutAttributesForAppearingSupplementaryElementOfKind:atIndexPath:"), objc.String(string(elementKind)), elementIndexPath)
 	return rv
 }
@@ -953,7 +953,7 @@ func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingSupplementary
 // attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/initialLayoutAttributesForAppearingDecorationElement(ofKind:at:)
-func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, decorationIndexPath objectivec.IObject) NSCollectionViewLayout {
+func (c NSCollectionViewLayout) InitialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, decorationIndexPath foundation.INSIndexPath) NSCollectionViewLayout {
 	rv := objc.Send[NSCollectionViewLayout](c.ID, objc.Sel("initialLayoutAttributesForAppearingDecorationElementOfKind:atIndexPath:"), objc.String(string(elementKind)), decorationIndexPath)
 	return rv
 }
@@ -1061,7 +1061,7 @@ func (c NSCollectionViewLayout) IndexPathsToDeleteForDecorationViewOfKind(elemen
 // attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/finalLayoutAttributesForDisappearingItem(at:)
-func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("finalLayoutAttributesForDisappearingItemAtIndexPath:"), itemIndexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -1096,7 +1096,7 @@ func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingItemAtIndexP
 // attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/finalLayoutAttributesForDisappearingSupplementaryElement(ofKind:at:)
-func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, elementIndexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath(elementKind NSCollectionViewSupplementaryElementKind, elementIndexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("finalLayoutAttributesForDisappearingSupplementaryElementOfKind:atIndexPath:"), objc.String(string(elementKind)), elementIndexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }
@@ -1131,7 +1131,7 @@ func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingSupplementar
 // attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewLayout/finalLayoutAttributesForDisappearingDecorationElement(ofKind:at:)
-func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, decorationIndexPath objectivec.IObject) INSCollectionViewLayoutAttributes {
+func (c NSCollectionViewLayout) FinalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath(elementKind NSCollectionViewDecorationElementKind, decorationIndexPath foundation.INSIndexPath) INSCollectionViewLayoutAttributes {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("finalLayoutAttributesForDisappearingDecorationElementOfKind:atIndexPath:"), objc.String(string(elementKind)), decorationIndexPath)
 	return NSCollectionViewLayoutAttributesFromID(rv)
 }

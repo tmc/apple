@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNContoursObservation] class.
@@ -92,7 +91,7 @@ type IVNContoursObservation interface {
 	// Retrieves the contour object at the specified index, irrespective of hierarchy.
 	ContourAtIndexError(contourIndex int) (IVNContour, error)
 	// Retrieves the contour object at the specified index path.
-	ContourAtIndexPathError(indexPath objectivec.IObject) (IVNContour, error)
+	ContourAtIndexPathError(indexPath foundation.INSIndexPath) (IVNContour, error)
 
 	// The results of the request to detect contours.
 	Results() IVNContoursObservation
@@ -148,7 +147,7 @@ func (c VNContoursObservation) ContourAtIndexError(contourIndex int) (IVNContour
 // The contour object at the specified index path.
 //
 // See: https://developer.apple.com/documentation/Vision/VNContoursObservation/contour(at:)-52odo
-func (c VNContoursObservation) ContourAtIndexPathError(indexPath objectivec.IObject) (IVNContour, error) {
+func (c VNContoursObservation) ContourAtIndexPathError(indexPath foundation.INSIndexPath) (IVNContour, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("contourAtIndexPath:error:"), indexPath, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

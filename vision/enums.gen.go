@@ -65,7 +65,7 @@ func (e VNChirality) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNElementType
-type VNElementType int
+type VNElementType uint
 
 const (
 	// VNElementTypeDouble: The elements are double-precision floating-point numbers.
@@ -199,7 +199,7 @@ func (e VNErrorCode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNGenerateOpticalFlowRequest/ComputationAccuracy-swift.enum
-type VNGenerateOpticalFlowRequestComputationAccuracy int
+type VNGenerateOpticalFlowRequestComputationAccuracy uint
 
 const (
 	// VNGenerateOpticalFlowRequestComputationAccuracyHigh: High accuracy.
@@ -228,7 +228,7 @@ func (e VNGenerateOpticalFlowRequestComputationAccuracy) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/QualityLevel-swift.enum
-type VNGeneratePersonSegmentationRequestQualityLevel int
+type VNGeneratePersonSegmentationRequestQualityLevel uint
 
 const (
 	// VNGeneratePersonSegmentationRequestQualityLevelAccurate: Prefers image quality over performance.
@@ -274,7 +274,7 @@ func (e VNHumanBodyPose3DObservationHeightEstimation) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-type VNImageCropAndScaleOption int
+type VNImageCropAndScaleOption uint
 
 const (
 	// VNImageCropAndScaleOptionCenterCrop: An option that scales the image to fit its shorter side within the input dimensions, while preserving its aspect ratio, and center-crops the image.
@@ -327,7 +327,7 @@ func (e VNPointsClassification) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNRequestFaceLandmarksConstellation
-type VNRequestFaceLandmarksConstellation int
+type VNRequestFaceLandmarksConstellation uint
 
 const (
 	// VNRequestFaceLandmarksConstellation65Points: A constellation with 65 points.
@@ -373,7 +373,7 @@ func (e VNRequestTextRecognitionLevel) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNRequestTrackingLevel
-type VNRequestTrackingLevel int
+type VNRequestTrackingLevel uint
 
 const (
 	// VNRequestTrackingLevelAccurate: Tracking level that favors location accuracy over speed.
@@ -394,7 +394,7 @@ func (e VNRequestTrackingLevel) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequest/ComputationAccuracy-swift.enum
-type VNTrackOpticalFlowRequestComputationAccuracy int
+type VNTrackOpticalFlowRequestComputationAccuracy uint
 
 const (
 	// VNTrackOpticalFlowRequestComputationAccuracyHigh: An option that indicates a high level of computational accuracy.
