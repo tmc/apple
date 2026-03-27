@@ -19,11 +19,13 @@ func NSErrorToError(nserr *NSError) error {
 }
 
 // NSErrorFrom converts an Objective-C NSError object ID to Go error.
-// Returns nil for a zero object ID.
+// Returns nil for a zero object ID. The NSError is retained so it
+// survives autorelease pool drain when sent across goroutine boundaries.
 func NSErrorFrom(errorPtr objc.ID) error {
 	if errorPtr == 0 {
 		return nil
 	}
+	objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 	v := NSErrorFromID(errorPtr)
 	return &v
 }
@@ -31,6 +33,35 @@ func NSErrorFrom(errorPtr objc.ID) error {
 // ErrorFrom is a compatibility alias for NSErrorFrom.
 func ErrorFrom(errorPtr objc.ID) error {
 	return NSErrorFrom(errorPtr)
+}
+
+// SafeErrorFrom converts an Objective-C object ID to Go error, checking at
+// runtime whether the object is actually an NSError. If not (e.g., a private
+// framework passes NSString or another type where NSError is declared), it
+// falls back to calling -description and wrapping the result as a plain error.
+//
+// The object is retained so it survives autorelease pool drain. This is
+// necessary when the error is sent across goroutine boundaries (e.g.,
+// from an async completion handler block to a channel consumer).
+func SafeErrorFrom(errorPtr objc.ID) error {
+	if errorPtr == 0 {
+		return nil
+	}
+	// Retain so the object survives autorelease pool drain on the
+	// calling thread (critical for async completion handler blocks).
+	objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+	nsErrorClass := objc.GetClass("NSError")
+	if nsErrorClass != 0 && objc.Send[bool](errorPtr, objc.Sel("isKindOfClass:"), nsErrorClass) {
+		v := NSErrorFromID(errorPtr)
+		return &v
+	}
+	// Not an NSError — use -description as the error message.
+	desc := objc.Send[*byte](errorPtr, objc.Sel("description"))
+	objc.Send[objc.ID](errorPtr, objc.Sel("release"))
+	if desc != nil {
+		return errors.New(objc.GoString(desc))
+	}
+	return errors.New("unknown Objective-C error")
 }
 
 // NewDataFromBytes creates an NSData from a Go byte slice.
