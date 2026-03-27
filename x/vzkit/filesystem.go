@@ -11,22 +11,27 @@ import (
 )
 
 // VolumeMount represents a host-to-guest volume mount configuration.
-// Format: host_path[:tag][:ro|rw]
+// Format: host_path[:tag][:ro|rw][:opt=val,...]
 type VolumeMount struct {
-	HostPath string // Absolute path on host
-	Tag      string // VirtioFS tag (empty = auto from dir name; MacOSAutomountTag for macOS automount)
-	ReadOnly bool
+	HostPath  string   // Absolute path on host
+	Tag       string   // VirtioFS tag (empty = auto from dir name; MacOSAutomountTag for macOS automount)
+	ReadOnly  bool
+	MountOpts []string // Extra mount options passed to mount_virtiofs / mount -t virtiofs (e.g. "cache=none")
 }
 
 // ParseVolumeSpec parses a docker-style volume specification.
-// Format: host_path[:tag][:ro|rw]
+// Format: host_path[:tag][:ro|rw][:opt=val,...]
+//
+// Parts containing "=" are treated as comma-separated mount options
+// (e.g. "cache=none"). These are passed through to the guest mount command.
 //
 // Examples:
 //
-//	/path/to/dir                    -> auto-mount tag, read-write
-//	/path/to/dir:ro                 -> auto-mount tag, read-only
-//	/path/to/dir:MyVolume           -> /Volumes/MyVolume, read-write
-//	/path/to/dir:MyVolume:ro        -> /Volumes/MyVolume, read-only
+//	/path/to/dir                          -> auto-mount tag, read-write
+//	/path/to/dir:ro                       -> auto-mount tag, read-only
+//	/path/to/dir:MyVolume                 -> /Volumes/MyVolume, read-write
+//	/path/to/dir:MyVolume:ro              -> /Volumes/MyVolume, read-only
+//	/path/to/dir:MyVolume:ro:cache=none   -> read-only, no VirtioFS caching
 func ParseVolumeSpec(spec string) (VolumeMount, error) {
 	parts := strings.Split(spec, ":")
 	if len(parts) == 0 || parts[0] == "" {
@@ -56,17 +61,28 @@ func ParseVolumeSpec(spec string) (VolumeMount, error) {
 	}
 
 	for i := 1; i < len(parts); i++ {
-		part := strings.ToLower(parts[i])
-		switch part {
+		part := parts[i]
+		lower := strings.ToLower(part)
+		switch lower {
 		case "ro", "readonly":
 			mount.ReadOnly = true
 		case "rw", "readwrite":
 			mount.ReadOnly = false
 		default:
-			if mount.Tag != "" {
-				return VolumeMount{}, fmt.Errorf("multiple tags specified: %s and %s", mount.Tag, parts[i])
+			// Parts containing "=" are mount options (e.g. "cache=none,noac").
+			if strings.Contains(part, "=") {
+				for _, opt := range strings.Split(part, ",") {
+					opt = strings.TrimSpace(opt)
+					if opt != "" {
+						mount.MountOpts = append(mount.MountOpts, opt)
+					}
+				}
+			} else {
+				if mount.Tag != "" {
+					return VolumeMount{}, fmt.Errorf("multiple tags specified: %s and %s", mount.Tag, parts[i])
+				}
+				mount.Tag = parts[i]
 			}
-			mount.Tag = parts[i]
 		}
 	}
 
