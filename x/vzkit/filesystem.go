@@ -14,7 +14,7 @@ import (
 // Format: host_path[:tag][:ro|rw]
 type VolumeMount struct {
 	HostPath string // Absolute path on host
-	Tag      string // VirtioFS tag (empty = auto-mount tag)
+	Tag      string // VirtioFS tag (empty = auto from dir name; MacOSAutomountTag for macOS automount)
 	ReadOnly bool
 }
 
@@ -93,12 +93,26 @@ func CreateVirtioFSDevices(mounts []VolumeMount) ([]vz.VZVirtioFileSystemDeviceC
 	return configs, nil
 }
 
+// MacOSAutomountTag is a sentinel value that requests the macOS guest
+// automount tag. Pass this as VolumeMount.Tag to use macOS auto-mounting
+// under /Volumes/My Shared Files/. For Linux VMs, use an explicit tag
+// or leave Tag empty for an auto-generated name based on the directory.
+const MacOSAutomountTag = "\x00macos-automount"
+
 func createVirtioFSDevice(mount VolumeMount, usedTags map[string]bool) (vz.VZVirtioFileSystemDeviceConfiguration, error) {
 	tag := mount.Tag
-	if tag == "" {
+	if tag == MacOSAutomountTag {
 		tag = vz.GetVZVirtioFileSystemDeviceConfigurationClass().MacOSGuestAutomountTag()
 		if tag == "" {
 			return vz.VZVirtioFileSystemDeviceConfiguration{}, fmt.Errorf("failed to get macOSGuestAutomountTag")
+		}
+	} else if tag == "" {
+		// Generate a tag from the directory basename for cross-platform compatibility.
+		base := filepath.Base(mount.HostPath)
+		tag = base
+		// Deduplicate if needed.
+		for i := 1; usedTags[tag]; i++ {
+			tag = fmt.Sprintf("%s-%d", base, i)
 		}
 	}
 

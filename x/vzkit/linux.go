@@ -25,9 +25,14 @@ type LinuxVMConfig struct {
 	// EFI state directory (for efi.nvram and linux-machine.id).
 	StateDir string
 
+	// Nested virtualization (requires macOS 15+, M3+ chip).
+	// Defaults to true; set to false to disable.
+	NestedVirtualization *bool
+
 	// Peripherals
 	Volumes  []VolumeMount // VirtioFS mounts
 	Network  NetworkConfig // Network configuration
+	Audio    *AudioConfig  // Audio device configuration (nil for no audio)
 	Headless bool          // Skip graphics if true
 }
 
@@ -47,6 +52,13 @@ func BuildLinuxVMConfig(cfg LinuxVMConfig) (vz.VZVirtualMachineConfiguration, er
 		return config, err
 	}
 	platformConfig.SetMachineIdentifier(&machineID)
+
+	// Nested virtualization: default on, opt-out with NestedVirtualization=false.
+	enableNested := cfg.NestedVirtualization == nil || *cfg.NestedVirtualization
+	if enableNested && vz.GetVZGenericPlatformConfigurationClass().NestedVirtualizationSupported() {
+		platformConfig.SetNestedVirtualizationEnabled(true)
+	}
+
 	config.SetPlatform(&platformConfig.VZPlatformConfiguration)
 
 	// Boot loader
@@ -95,6 +107,13 @@ func BuildLinuxVMConfig(cfg LinuxVMConfig) (vz.VZVirtualMachineConfiguration, er
 		config.SetNetworkDevices([]vz.VZNetworkDeviceConfiguration{
 			vz.VZNetworkDeviceConfigurationFromID(netDev.ID),
 		})
+	}
+
+	// Audio
+	if cfg.Audio != nil {
+		if err := AddAudioDevice(config, *cfg.Audio); err != nil {
+			return config, fmt.Errorf("create audio device: %w", err)
+		}
 	}
 
 	// Entropy

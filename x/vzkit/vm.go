@@ -54,6 +54,38 @@ func CanStop(queue *Queue, vm vz.VZVirtualMachine) bool {
 	return ok
 }
 
+// PauseVM pauses a running VZVirtualMachine on its queue.
+func PauseVM(queue *Queue, vm vz.VZVirtualMachine, completion func(error)) {
+	queue.Sync(func() {
+		vm.PauseWithCompletionHandler(completion)
+	})
+}
+
+// ResumeVM resumes a paused VZVirtualMachine on its queue.
+func ResumeVM(queue *Queue, vm vz.VZVirtualMachine, completion func(error)) {
+	queue.Sync(func() {
+		vm.ResumeWithCompletionHandler(completion)
+	})
+}
+
+// CanPause reports whether the VM is in a state that allows pausing.
+func CanPause(queue *Queue, vm vz.VZVirtualMachine) bool {
+	var ok bool
+	queue.Sync(func() {
+		ok = vm.CanPause()
+	})
+	return ok
+}
+
+// CanResume reports whether the VM is in a state that allows resuming.
+func CanResume(queue *Queue, vm vz.VZVirtualMachine) bool {
+	var ok bool
+	queue.Sync(func() {
+		ok = vm.CanResume()
+	})
+	return ok
+}
+
 // ValidateConfig validates a VZVirtualMachineConfiguration and returns any error.
 func ValidateConfig(config vz.VZVirtualMachineConfiguration) error {
 	valid, err := config.ValidateWithError()

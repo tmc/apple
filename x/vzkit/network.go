@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/ebitengine/purego"
 	vz "github.com/tmc/apple/virtualization"
+	"github.com/tmc/apple/vmnet"
 )
 
 // NetworkMode represents the type of network configuration.
@@ -50,6 +52,55 @@ func ParseNetworkMode(s string) (NetworkConfig, error) {
 	return NetworkConfig{}, fmt.Errorf("unknown network mode: %s (use nat, bridged:<iface>, vmnet, or none)", s)
 }
 
+// vmnet operating mode constants (not yet in the generated vmnet bindings).
+const (
+	vmnetSharedMode vmnet.Operating_modes_t = 1001
+	vmnetSuccess    vmnet.Vmnet_return_t    = 1000
+)
+
+// vmnet_network_configuration_create and vmnet_network_create are macOS 26+
+// functions needed to create a vmnet network for VZVmnetNetworkDeviceAttachment.
+var (
+	_vmnetNetworkConfigurationCreate func(mode vmnet.Vmnet_mode_t, status *vmnet.Vmnet_return_t) vmnet.Vmnet_network_configuration_ref
+	_vmnetNetworkCreate              func(config vmnet.Vmnet_network_configuration_ref, status *vmnet.Vmnet_return_t) vmnet.Vmnet_network_ref
+	vmnetFuncsLoaded                 bool
+)
+
+func init() {
+	handle, err := purego.Dlopen("/System/Library/Frameworks/vmnet.framework/vmnet", purego.RTLD_LAZY)
+	if err != nil {
+		return
+	}
+	sym1, err := purego.Dlsym(handle, "vmnet_network_configuration_create")
+	if err != nil {
+		return
+	}
+	sym2, err := purego.Dlsym(handle, "vmnet_network_create")
+	if err != nil {
+		return
+	}
+	purego.RegisterFunc(&_vmnetNetworkConfigurationCreate, sym1)
+	purego.RegisterFunc(&_vmnetNetworkCreate, sym2)
+	vmnetFuncsLoaded = true
+}
+
+// createVMNetNetwork creates a shared-mode vmnet network.
+func createVMNetNetwork() (vmnet.Vmnet_network_ref, error) {
+	if !vmnetFuncsLoaded {
+		return 0, fmt.Errorf("vmnet network APIs unavailable (requires macOS 26+)")
+	}
+	var status vmnet.Vmnet_return_t
+	config := _vmnetNetworkConfigurationCreate(vmnetSharedMode, &status)
+	if config == 0 || status != vmnetSuccess {
+		return 0, fmt.Errorf("create vmnet network configuration (status %d)", status)
+	}
+	network := _vmnetNetworkCreate(config, &status)
+	if network == 0 || status != vmnetSuccess {
+		return 0, fmt.Errorf("create vmnet network (status %d)", status)
+	}
+	return network, nil
+}
+
 // CreateNetworkAttachment creates a network device attachment based on config.
 func CreateNetworkAttachment(config NetworkConfig) (vz.VZNetworkDeviceAttachment, error) {
 	switch config.Mode {
@@ -88,8 +139,15 @@ func CreateNetworkAttachment(config NetworkConfig) (vz.VZNetworkDeviceAttachment
 		return attachment.VZNetworkDeviceAttachment, nil
 
 	case NetworkModeVMNet:
-		return vz.VZNetworkDeviceAttachment{}, fmt.Errorf(
-			"VMNet attachment not yet implemented — use 'nat' or 'bridged:<iface>'")
+		network, err := createVMNetNetwork()
+		if err != nil {
+			return vz.VZNetworkDeviceAttachment{}, fmt.Errorf("vmnet: %w", err)
+		}
+		attachment := vz.NewVmnetNetworkDeviceAttachmentWithNetwork(network)
+		if attachment.ID == 0 {
+			return vz.VZNetworkDeviceAttachment{}, fmt.Errorf("create vmnet attachment")
+		}
+		return attachment.VZNetworkDeviceAttachment, nil
 
 	case NetworkModeNone:
 		return vz.VZNetworkDeviceAttachment{}, nil
