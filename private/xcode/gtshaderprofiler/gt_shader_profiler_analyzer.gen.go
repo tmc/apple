@@ -4,8 +4,11 @@ package gtshaderprofiler
 
 import (
 	"context"
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"errors"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -31,6 +34,11 @@ type GTShaderProfilerAnalyzerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerAnalyzerClass) Class() objc.Class {
+	return gc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerAnalyzerClass) Alloc() GTShaderProfilerAnalyzer {
 	rv := objc.Send[GTShaderProfilerAnalyzer](objc.ID(gc.class), objc.Sel("alloc"))
@@ -40,6 +48,8 @@ func (gc GTShaderProfilerAnalyzerClass) Alloc() GTShaderProfilerAnalyzer {
 //
 // # Methods
 //
+//   - [GTShaderProfilerAnalyzer._executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError]
+//   - [GTShaderProfilerAnalyzer._generateMCAOutputSync]
 //   - [GTShaderProfilerAnalyzer.Binary]
 //   - [GTShaderProfilerAnalyzer.GenerateFullMCAReport]
 //   - [GTShaderProfilerAnalyzer.GenerateMCAOutputCallback]
@@ -61,6 +71,8 @@ var _ IGTShaderProfilerAnalyzer = GTShaderProfilerAnalyzer{}
 //
 // # Methods
 //
+//   - [IGTShaderProfilerAnalyzer._executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError]
+//   - [IGTShaderProfilerAnalyzer._generateMCAOutputSync]
 //   - [IGTShaderProfilerAnalyzer.Binary]
 //   - [IGTShaderProfilerAnalyzer.GenerateFullMCAReport]
 //   - [IGTShaderProfilerAnalyzer.GenerateMCAOutputCallback]
@@ -73,6 +85,8 @@ type IGTShaderProfilerAnalyzer interface {
 
 	// Topic: Methods
 
+	_executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError(task objectivec.IObject, arguments objectivec.IObject, environment objectivec.IObject, output []objectivec.IObject, directory objectivec.IObject, description objectivec.IObject) (bool, error)
+	_generateMCAOutputSync(sync bool) objectivec.IObject
 	Binary() objectivec.IObject
 	GenerateFullMCAReport(mCAReport VoidHandler)
 	GenerateMCAOutputCallback(mCAOutput bool, callback VoidHandler)
@@ -108,24 +122,52 @@ func NewGTShaderProfilerAnalyzerWithToolchainBinaryGpu(toolchain objectivec.IObj
 }
 
 //
+// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/_executeTask:arguments:environment:standardOutput:workingDirectory:description:error:
+func (g GTShaderProfilerAnalyzer) _executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError(task objectivec.IObject, arguments objectivec.IObject, environment objectivec.IObject, output []objectivec.IObject, directory objectivec.IObject, description objectivec.IObject) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](g.ID, objc.Sel("_executeTask:arguments:environment:standardOutput:workingDirectory:description:error:"), task, arguments, environment, objectivec.IObjectSliceToNSArray(output), directory, description, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("_executeTask:arguments:environment:standardOutput:workingDirectory:description:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+
+// ExecuteTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError is an exported wrapper for the private method _executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError.
+func (g GTShaderProfilerAnalyzer) ExecuteTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError(task objectivec.IObject, arguments objectivec.IObject, environment objectivec.IObject, output []objectivec.IObject, directory objectivec.IObject, description objectivec.IObject) (bool, error) {
+	return g._executeTaskArgumentsEnvironmentStandardOutputWorkingDirectoryDescriptionError(task, arguments, environment, output, directory, description)
+}
+//
+// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/_generateMCAOutputSync:
+func (g GTShaderProfilerAnalyzer) _generateMCAOutputSync(sync bool) objectivec.IObject {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("_generateMCAOutputSync:"), sync)
+	return objectivec.Object{ID: rv}
+}
+
+// GenerateMCAOutputSync is an exported wrapper for the private method _generateMCAOutputSync.
+func (g GTShaderProfilerAnalyzer) GenerateMCAOutputSync(sync bool) objectivec.IObject {
+	return g._generateMCAOutputSync(sync)
+}
+//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/generateFullMCAReport:
 func (g GTShaderProfilerAnalyzer) GenerateFullMCAReport(mCAReport VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(mCAReport)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(mCAReport)
 	objc.Send[objc.ID](g.ID, objc.Sel("generateFullMCAReport:"), _block0)
 }
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/generateMCAOutput:callback:
 func (g GTShaderProfilerAnalyzer) GenerateMCAOutputCallback(mCAOutput bool, callback VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(callback)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(callback)
 	objc.Send[objc.ID](g.ID, objc.Sel("generateMCAOutput:callback:"), mCAOutput, _block1)
 }
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerAnalyzer/generateRegisterPressureView:
 func (g GTShaderProfilerAnalyzer) GenerateRegisterPressureView(view VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(view)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(view)
 	objc.Send[objc.ID](g.ID, objc.Sel("generateRegisterPressureView:"), _block0)
 }
 //

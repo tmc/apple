@@ -5,16 +5,16 @@
 //
 // # Key Types
 //
+//   - [GTMioTraceTimelineData]
+//   - [GTMioTraceData]
+//   - [XRGPUAPSDataProcessor]
 //   - [GTShaderProfilerStreamData]
+//   - [GTMioShaderBinaryData]
+//   - [GTMioUSCTraceData]
+//   - [GTMioTraceDataHelper]
 //   - [GTShaderProfilerBinaryAnalysisResult]
-//   - [GTShaderProfilerCounterInfo]
-//   - [GTShaderProfilerStreamDataProcessor]
-//   - [GTShaderProfilerProcessedData]
-//   - [GTShaderProfilerCounterGroupInfo]
-//   - [GTShaderProfilerDeviceInfo]
-//   - [GTShaderProfilerMCABinary]
-//   - [GTShaderProfilerCounterSpec]
-//   - [GTShaderProfilerDiassemblyRegisterPressure]
+//   - [GTAGX2ShaderBinary]
+//   - [GTAGX2ShaderProfilerResult]
 package gtshaderprofiler
 
 import (

@@ -31,6 +31,11 @@ type GTShaderProfilerMCABinaryClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerMCABinaryClass) Class() objc.Class {
+	return gc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerMCABinaryClass) Alloc() GTShaderProfilerMCABinary {
 	rv := objc.Send[GTShaderProfilerMCABinary](objc.ID(gc.class), objc.Sel("alloc"))

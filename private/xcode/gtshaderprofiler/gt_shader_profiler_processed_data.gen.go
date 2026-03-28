@@ -33,6 +33,11 @@ type GTShaderProfilerProcessedDataClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerProcessedDataClass) Class() objc.Class {
+	return gc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerProcessedDataClass) Alloc() GTShaderProfilerProcessedData {
 	rv := objc.Send[GTShaderProfilerProcessedData](objc.ID(gc.class), objc.Sel("alloc"))
@@ -95,13 +100,13 @@ type IGTShaderProfilerProcessedData interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 	GpuGeneration() uint32
 	SetGpuGeneration(value uint32)
-	MioData() unsafe.Pointer
+	MioData() IGTMioTraceData
 	ShaderProfilerResult() objectivec.IObject
 	SetShaderProfilerResult(value objectivec.IObject)
 	StreamData() IGTShaderProfilerStreamData
 	SetStreamData(value IGTShaderProfilerStreamData)
-	TimelineInfo() unsafe.Pointer
-	SetTimelineInfo(value unsafe.Pointer)
+	TimelineInfo() IDYWorkloadGPUTimelineInfo
+	SetTimelineInfo(value IDYWorkloadGPUTimelineInfo)
 	InitWithCoder(coder foundation.INSCoder) GTShaderProfilerProcessedData
 	InitWithMioData(data objectivec.IObject) GTShaderProfilerProcessedData
 }
@@ -213,9 +218,9 @@ func (g GTShaderProfilerProcessedData) SetGpuGeneration(value uint32) {
 	objc.Send[struct{}](g.ID, objc.Sel("setGpuGeneration:"), value)
 }
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/mioData
-func (g GTShaderProfilerProcessedData) MioData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("mioData"))
-	return rv
+func (g GTShaderProfilerProcessedData) MioData() IGTMioTraceData {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("mioData"))
+	return GTMioTraceDataFromID(objc.ID(rv))
 }
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/shaderProfilerResult
 func (g GTShaderProfilerProcessedData) ShaderProfilerResult() objectivec.IObject {
@@ -234,11 +239,11 @@ func (g GTShaderProfilerProcessedData) SetStreamData(value IGTShaderProfilerStre
 	objc.Send[struct{}](g.ID, objc.Sel("setStreamData:"), value)
 }
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerProcessedData/timelineInfo
-func (g GTShaderProfilerProcessedData) TimelineInfo() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("timelineInfo"))
-	return rv
+func (g GTShaderProfilerProcessedData) TimelineInfo() IDYWorkloadGPUTimelineInfo {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("timelineInfo"))
+	return DYWorkloadGPUTimelineInfoFromID(objc.ID(rv))
 }
-func (g GTShaderProfilerProcessedData) SetTimelineInfo(value unsafe.Pointer) {
+func (g GTShaderProfilerProcessedData) SetTimelineInfo(value IDYWorkloadGPUTimelineInfo) {
 	objc.Send[struct{}](g.ID, objc.Sel("setTimelineInfo:"), value)
 }
 

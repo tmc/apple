@@ -30,6 +30,11 @@ type GTShaderProfilerDebugDumpClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerDebugDumpClass) Class() objc.Class {
+	return gc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerDebugDumpClass) Alloc() GTShaderProfilerDebugDump {
 	rv := objc.Send[GTShaderProfilerDebugDump](objc.ID(gc.class), objc.Sel("alloc"))

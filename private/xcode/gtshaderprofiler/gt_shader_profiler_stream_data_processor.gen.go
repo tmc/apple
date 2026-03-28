@@ -3,7 +3,6 @@
 package gtshaderprofiler
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -29,6 +28,11 @@ func GetGTShaderProfilerStreamDataProcessorClass() GTShaderProfilerStreamDataPro
 
 type GTShaderProfilerStreamDataProcessorClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerStreamDataProcessorClass) Class() objc.Class {
+	return gc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -125,7 +129,7 @@ type IGTShaderProfilerStreamDataProcessor interface {
 	SetDelegate(value objectivec.IObject)
 	IsaPrinter() objectivec.IObject
 	SetIsaPrinter(value objectivec.IObject)
-	MioData() unsafe.Pointer
+	MioData() IGTMioTraceData
 	ProcessAPSCostData() bool
 	ProcessBatchIDFilteringData(data objectivec.IObject)
 	ProcessBatchIdFilteredCounterStreamData()
@@ -271,8 +275,8 @@ func (g GTShaderProfilerStreamDataProcessor) SetIsaPrinter(value objectivec.IObj
 	objc.Send[struct{}](g.ID, objc.Sel("setIsaPrinter:"), value)
 }
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamDataProcessor/mioData
-func (g GTShaderProfilerStreamDataProcessor) MioData() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](g.ID, objc.Sel("mioData"))
-	return rv
+func (g GTShaderProfilerStreamDataProcessor) MioData() IGTMioTraceData {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("mioData"))
+	return GTMioTraceDataFromID(objc.ID(rv))
 }
 

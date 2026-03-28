@@ -31,6 +31,11 @@ type GTShaderProfilerSessionRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerSessionRequestClass) Class() objc.Class {
+	return gc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerSessionRequestClass) Alloc() GTShaderProfilerSessionRequest {
 	rv := objc.Send[GTShaderProfilerSessionRequest](objc.ID(gc.class), objc.Sel("alloc"))

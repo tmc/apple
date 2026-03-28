@@ -33,6 +33,11 @@ type GTShaderProfilerStreamDataClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerStreamDataClass) Class() objc.Class {
+	return gc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerStreamDataClass) Alloc() GTShaderProfilerStreamData {
 	rv := objc.Send[GTShaderProfilerStreamData](objc.ID(gc.class), objc.Sel("alloc"))
@@ -55,6 +60,8 @@ func (gc GTShaderProfilerStreamDataClass) Alloc() GTShaderProfilerStreamData {
 //   - [GTShaderProfilerStreamData.MetalDeviceName]
 //   - [GTShaderProfilerStreamData.MetalPluginName]
 //   - [GTShaderProfilerStreamData.GPUCommandInfoFromFunctionIndexSubCommandIndex]
+//   - [GTShaderProfilerStreamData._setupDataPath]
+//   - [GTShaderProfilerStreamData._writeLocalDataDataPathTo]
 //   - [GTShaderProfilerStreamData.BatchIdFilterableCounters]
 //   - [GTShaderProfilerStreamData.BlitCallCount]
 //   - [GTShaderProfilerStreamData.CommandBufferInfoCount]
@@ -140,6 +147,8 @@ var _ IGTShaderProfilerStreamData = GTShaderProfilerStreamData{}
 //   - [IGTShaderProfilerStreamData.MetalDeviceName]
 //   - [IGTShaderProfilerStreamData.MetalPluginName]
 //   - [IGTShaderProfilerStreamData.GPUCommandInfoFromFunctionIndexSubCommandIndex]
+//   - [IGTShaderProfilerStreamData._setupDataPath]
+//   - [IGTShaderProfilerStreamData._writeLocalDataDataPathTo]
 //   - [IGTShaderProfilerStreamData.BatchIdFilterableCounters]
 //   - [IGTShaderProfilerStreamData.BlitCallCount]
 //   - [IGTShaderProfilerStreamData.CommandBufferInfoCount]
@@ -216,6 +225,8 @@ type IGTShaderProfilerStreamData interface {
 	MetalDeviceName() string
 	MetalPluginName() string
 	GPUCommandInfoFromFunctionIndexSubCommandIndex(index uint32, index2 int) objectivec.IObject
+	_setupDataPath() objectivec.IObject
+	_writeLocalDataDataPathTo(data objectivec.IObject, path objectivec.IObject, to objectivec.IObject)
 	BatchIdFilterableCounters() foundation.INSArray
 	BlitCallCount() uint64
 	CommandBufferInfoCount() uint64
@@ -327,6 +338,26 @@ func (g GTShaderProfilerStreamData) GPUCommandInfoFromFunctionIndexSubCommandInd
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("GPUCommandInfoFromFunctionIndex:subCommandIndex:"), index, index2)
 	return objectivec.Object{ID: rv}
 }
+// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/_setupDataPath
+func (g GTShaderProfilerStreamData) _setupDataPath() objectivec.IObject {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("_setupDataPath"))
+	return objectivec.Object{ID: rv}
+}
+
+// SetupDataPath is an exported wrapper for the private method _setupDataPath.
+func (g GTShaderProfilerStreamData) SetupDataPath() objectivec.IObject {
+	return g._setupDataPath()
+}
+//
+// See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/_writeLocalData:dataPath:to:
+func (g GTShaderProfilerStreamData) _writeLocalDataDataPathTo(data objectivec.IObject, path objectivec.IObject, to objectivec.IObject) {
+	objc.Send[objc.ID](g.ID, objc.Sel("_writeLocalData:dataPath:to:"), data, path, to)
+}
+
+// WriteLocalDataDataPathTo is an exported wrapper for the private method _writeLocalDataDataPathTo.
+func (g GTShaderProfilerStreamData) WriteLocalDataDataPathTo(data objectivec.IObject, path objectivec.IObject, to objectivec.IObject) {
+	g._writeLocalDataDataPathTo(data, path, to)
+}
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/dataFromUnarchvedMetadata:
 func (g GTShaderProfilerStreamData) DataFromUnarchvedMetadata(metadata objectivec.IObject) objectivec.IObject {
@@ -369,22 +400,19 @@ func (g GTShaderProfilerStreamData) EncoderInfoFromFunctionIndex(index uint32) o
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/enumerateUnarchivedBatchIdFilteredCounterData:
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedBatchIdFilteredCounterData(data VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(data)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedBatchIdFilteredCounterData:"), _block0)
 }
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/enumerateUnarchivedGPUTimelineData:
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedGPUTimelineData(data VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(data)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedGPUTimelineData:"), _block0)
 }
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTShaderProfilerStreamData/enumerateUnarchivedShaderProfilerData:
 func (g GTShaderProfilerStreamData) EnumerateUnarchivedShaderProfilerData(data VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(data)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(data)
 	objc.Send[objc.ID](g.ID, objc.Sel("enumerateUnarchivedShaderProfilerData:"), _block0)
 }
 //

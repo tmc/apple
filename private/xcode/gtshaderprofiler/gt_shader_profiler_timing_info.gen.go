@@ -31,6 +31,11 @@ type GTShaderProfilerTimingInfoClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerTimingInfoClass) Class() objc.Class {
+	return gc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerTimingInfoClass) Alloc() GTShaderProfilerTimingInfo {
 	rv := objc.Send[GTShaderProfilerTimingInfo](objc.ID(gc.class), objc.Sel("alloc"))

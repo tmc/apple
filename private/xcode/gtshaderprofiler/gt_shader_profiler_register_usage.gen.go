@@ -30,6 +30,11 @@ type GTShaderProfilerRegisterUsageClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerRegisterUsageClass) Class() objc.Class {
+	return gc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (gc GTShaderProfilerRegisterUsageClass) Alloc() GTShaderProfilerRegisterUsage {
 	rv := objc.Send[GTShaderProfilerRegisterUsage](objc.ID(gc.class), objc.Sel("alloc"))
