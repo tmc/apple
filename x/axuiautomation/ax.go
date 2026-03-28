@@ -29,6 +29,7 @@ var (
 	axObserverGetRunLoopSource        func(observer AXObserverRef) uintptr
 	axObserverAddNotification         func(observer AXObserverRef, element AXUIElementRef, notification uintptr, refcon unsafe.Pointer) AXError
 	axIsProcessTrusted                func() bool
+	axUIElementSetMessagingTimeout    func(element AXUIElementRef, timeoutInSeconds float32) AXError
 	axIsProcessTrustedWithOptions     func(options uintptr) bool
 
 	axInitOnce sync.Once
@@ -53,6 +54,7 @@ func initAX() {
 		purego.RegisterLibFunc(&axObserverCreate, lib, "AXObserverCreate")
 		purego.RegisterLibFunc(&axObserverGetRunLoopSource, lib, "AXObserverGetRunLoopSource")
 		purego.RegisterLibFunc(&axObserverAddNotification, lib, "AXObserverAddNotification")
+		purego.RegisterLibFunc(&axUIElementSetMessagingTimeout, lib, "AXUIElementSetMessagingTimeout")
 		purego.RegisterLibFunc(&axIsProcessTrusted, lib, "AXIsProcessTrusted")
 		purego.RegisterLibFunc(&axIsProcessTrustedWithOptions, lib, "AXIsProcessTrustedWithOptions")
 
@@ -162,6 +164,14 @@ func AXObserverAddNotification(observer AXObserverRef, element AXUIElementRef, n
 		return -1
 	}
 	return axObserverAddNotification(observer, element, notification, refcon)
+}
+
+func AXUIElementSetMessagingTimeout(element AXUIElementRef, timeout float32) AXError {
+	initAX()
+	if !axLoaded || axUIElementSetMessagingTimeout == nil {
+		return -1
+	}
+	return axUIElementSetMessagingTimeout(element, timeout)
 }
 
 func AXIsProcessTrusted() bool {
