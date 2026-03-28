@@ -1,6 +1,8 @@
 package vzkit
 
 import (
+	"fmt"
+	"sync"
 	"unsafe"
 
 	"github.com/ebitengine/purego"
@@ -25,10 +27,22 @@ const (
 	RunLoopRunHandledSource = 4
 )
 
-func initRunLoop() {
+var (
+	runLoopOnce sync.Once
+	runLoopErr  error
+)
+
+func ensureRunLoop() error {
+	runLoopOnce.Do(func() {
+		runLoopErr = doInitRunLoop()
+	})
+	return runLoopErr
+}
+
+func doInitRunLoop() error {
 	cfLib, err := purego.Dlopen("/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation", purego.RTLD_LAZY)
 	if err != nil {
-		panic(err)
+		return fmt.Errorf("vzkit: load CoreFoundation: %w", err)
 	}
 	purego.RegisterLibFunc(&cfRunLoopRunInMode, cfLib, "CFRunLoopRunInMode")
 	purego.RegisterLibFunc(&cfRunLoopGetMain, cfLib, "CFRunLoopGetMain")
@@ -36,16 +50,20 @@ func initRunLoop() {
 	purego.RegisterLibFunc(&cfRunLoopRun, cfLib, "CFRunLoopRun")
 	purego.RegisterLibFunc(&cfRunLoopWakeUp, cfLib, "CFRunLoopWakeUp")
 
-	kCFRunLoopDefaultMode, err = purego.Dlsym(cfLib, "kCFRunLoopDefaultMode")
+	sym, err := purego.Dlsym(cfLib, "kCFRunLoopDefaultMode")
 	if err != nil {
-		panic(err)
+		return fmt.Errorf("vzkit: resolve kCFRunLoopDefaultMode: %w", err)
 	}
 	// kCFRunLoopDefaultMode is a pointer to CFStringRef, dereference it.
-	kCFRunLoopDefaultMode = *(*uintptr)(unsafe.Pointer(kCFRunLoopDefaultMode))
+	kCFRunLoopDefaultMode = *(*uintptr)(unsafe.Pointer(sym))
+	return nil
 }
 
 // RunRunLoopOnce runs the main CFRunLoop briefly to process pending callbacks.
 func RunRunLoopOnce() {
+	if err := ensureRunLoop(); err != nil {
+		return
+	}
 	cfRunLoopRunInMode(kCFRunLoopDefaultMode, 0.01, false)
 }
 
@@ -53,6 +71,9 @@ func RunRunLoopOnce() {
 // It pumps both CFRunLoop and NSRunLoop to ensure async callbacks are delivered.
 // The optional progress callback is invoked each iteration.
 func RunRunLoopUntilDone(done func() bool, progress func()) {
+	if err := ensureRunLoop(); err != nil {
+		return
+	}
 	for !done() {
 		cfRunLoopRunInMode(kCFRunLoopDefaultMode, 0.1, false)
 
@@ -73,6 +94,9 @@ func RunRunLoopUntilDone(done func() bool, progress func()) {
 // RunRunLoopAggressively pumps both CFRunLoop and NSRunLoop multiple times.
 // Use this for long-running async operations that need thorough event processing.
 func RunRunLoopAggressively() {
+	if err := ensureRunLoop(); err != nil {
+		return
+	}
 	mainRL := cfRunLoopGetMain()
 	if mainRL != 0 {
 		cfRunLoopWakeUp(mainRL)

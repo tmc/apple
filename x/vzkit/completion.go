@@ -2,6 +2,8 @@ package vzkit
 
 import (
 	"fmt"
+	"sync"
+	"sync/atomic"
 
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/objc"
@@ -18,9 +20,10 @@ import (
 //	if err := h.Error(); err != nil { ... }
 type ErrorCompletionHandler struct {
 	sema   dispatch.Semaphore
-	errMsg string
 	block  objc.Block
-	done   bool
+	done   atomic.Bool
+	mu     sync.Mutex
+	errMsg string
 }
 
 // NewErrorCompletionHandler creates a completion handler for error-only callbacks.
@@ -30,9 +33,12 @@ func NewErrorCompletionHandler() *ErrorCompletionHandler {
 	}
 	h.block = objc.NewBlock(func(_ objc.Block, err objc.ID) {
 		if err != 0 {
-			h.errMsg = ExtractNSErrorMessage(err)
+			msg := ExtractNSErrorMessage(err)
+			h.mu.Lock()
+			h.errMsg = msg
+			h.mu.Unlock()
 		}
-		h.done = true
+		h.done.Store(true)
 		h.sema.Signal()
 	})
 	return h
@@ -50,11 +56,13 @@ func (h *ErrorCompletionHandler) Wait() {
 
 // Done reports whether the completion handler has been called.
 func (h *ErrorCompletionHandler) Done() bool {
-	return h.done
+	return h.done.Load()
 }
 
 // Error returns the error if one was received, or nil.
 func (h *ErrorCompletionHandler) Error() error {
+	h.mu.Lock()
+	defer h.mu.Unlock()
 	if h.errMsg == "" {
 		return nil
 	}

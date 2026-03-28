@@ -5,6 +5,7 @@ import (
 	"net"
 	"os"
 	"sync"
+	"syscall"
 	"time"
 
 	vz "github.com/tmc/apple/virtualization"
@@ -26,7 +27,12 @@ func NewVsockConn(vzConn vz.VZVirtioSocketConnection) (*VsockConn, error) {
 		return nil, fmt.Errorf("vsock connection closed (fd=%d)", fd)
 	}
 
-	file := os.NewFile(uintptr(fd), "vsock")
+	// Dup the fd so vzConn retains ownership of the original.
+	dupFd, err := syscall.Dup(int(fd))
+	if err != nil {
+		return nil, fmt.Errorf("dup vsock fd: %w", err)
+	}
+	file := os.NewFile(uintptr(dupFd), "vsock")
 	rawConn, err := net.FileConn(file)
 	file.Close() // FileConn dups the fd
 	if err != nil {

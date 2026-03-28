@@ -3,6 +3,7 @@ package vzkit
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
@@ -89,7 +90,7 @@ func CreateDirectoryShare(path string, readOnly bool) (vz.VZSingleDirectoryShare
 	return share, nil
 }
 
-// NSDataToBytes extracts the bytes from an NSData object.
+// NSDataToBytes extracts the bytes from an NSData object into a Go-owned slice.
 func NSDataToBytes(data foundation.NSData) []byte {
 	length := data.Length()
 	if length == 0 {
@@ -99,7 +100,11 @@ func NSDataToBytes(data foundation.NSData) []byte {
 	if bytesPtr == nil {
 		return nil
 	}
-	return unsafe.Slice((*byte)(bytesPtr), length)
+	src := unsafe.Slice((*byte)(bytesPtr), length)
+	dst := make([]byte, length)
+	copy(dst, src)
+	runtime.KeepAlive(data)
+	return dst
 }
 
 // NSDataFromBytes creates an NSData object from Go bytes.
