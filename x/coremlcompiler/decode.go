@@ -110,6 +110,16 @@ func decodeFeatureDescription(data []byte) (*FeatureDescription, error) {
 			if err != nil {
 				return nil, err
 			}
+		case 3: // type: FeatureType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			ft, err := decodeFeatureType(raw)
+			if err != nil {
+				return nil, err
+			}
+			fd.Type = ft
 		default:
 			if err := r.skip(wire); err != nil {
 				return nil, err
@@ -117,6 +127,116 @@ func decodeFeatureDescription(data []byte) (*FeatureDescription, error) {
 		}
 	}
 	return fd, nil
+}
+
+func decodeFeatureType(data []byte) (*FeatureType, error) {
+	ft := &FeatureType{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 5: // multiArrayType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			mat, err := decodeArrayFeatureType(raw)
+			if err != nil {
+				return nil, err
+			}
+			ft.MultiArrayType = mat
+		case 8: // stateFeatureType (wraps ArrayFeatureType at field 1)
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			mat, err := decodeStateFeatureType(raw)
+			if err != nil {
+				return nil, err
+			}
+			ft.MultiArrayType = mat
+		case 1000: // isOptional
+			v, err := r.readVarint()
+			if err != nil {
+				return nil, err
+			}
+			ft.IsOptional = v != 0
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return ft, nil
+}
+
+func decodeStateFeatureType(data []byte) (*ArrayFeatureType, error) {
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		if field == 1 {
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			return decodeArrayFeatureType(raw)
+		}
+		if err := r.skip(wire); err != nil {
+			return nil, err
+		}
+	}
+	return nil, nil
+}
+
+func decodeArrayFeatureType(data []byte) (*ArrayFeatureType, error) {
+	aft := &ArrayFeatureType{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // shape: repeated int64 (packed or individual)
+			if wire == wireBytes {
+				raw, err := r.readBytes()
+				if err != nil {
+					return nil, err
+				}
+				pr := newProtoReader(raw)
+				for !pr.done() {
+					v, err := pr.readVarint()
+					if err != nil {
+						return nil, err
+					}
+					aft.Shape = append(aft.Shape, int64(v))
+				}
+			} else {
+				v, err := r.readVarint()
+				if err != nil {
+					return nil, err
+				}
+				aft.Shape = append(aft.Shape, int64(v))
+			}
+		case 2: // dataType: ArrayDataType
+			v, err := r.readVarint()
+			if err != nil {
+				return nil, err
+			}
+			aft.DataType = ArrayDataType(v)
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return aft, nil
 }
 
 func decodeProgram(data []byte) (*Program, error) {

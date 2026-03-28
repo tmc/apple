@@ -8,6 +8,7 @@ import (
 	"runtime"
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/private/appleneuralengine"
@@ -303,12 +304,25 @@ func (m *Model) Close() error {
 		}
 		if m.sharedEventUsed {
 			// Package-model unload after a shared-event eval still crashes inside
-			// AppleNeuralEngine on this host. Keep Close non-crashing and let the
-			// process reclaim the model until the driver-side teardown is understood.
-			return nil
+			// AppleNeuralEngine on this host. Skip unload but still release IOSurfaces below.
+		} else {
+			m.aneClient.UnloadModelOptionsQosError(m.aneModel, nil, qos)
 		}
-		m.aneClient.UnloadModelOptionsQosError(m.aneModel, nil, qos)
 	}
+
+	// Release all IOSurface refs. IOSurfaceCreate returns +1; balance here.
+	for _, ref := range m.inputs {
+		if ref != 0 {
+			corefoundation.CFRelease(corefoundation.CFTypeRef(ref))
+		}
+	}
+	for _, ref := range m.outputs {
+		if ref != 0 {
+			corefoundation.CFRelease(corefoundation.CFTypeRef(ref))
+		}
+	}
+	m.inputs = nil
+	m.outputs = nil
 
 	return nil
 }

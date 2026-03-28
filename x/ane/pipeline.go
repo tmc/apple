@@ -12,8 +12,8 @@ import (
 // Pipeline formalizes the SharedEvent + MetalDevice pattern for
 // synchronizing ANE and Metal GPU execution.
 //
-// Each call to ANEToMetal, WaitOnANE, or Bidirectional auto-increments
-// the event counter to sequence operations.
+// Each call to ANEToMetal or Bidirectional auto-increments the event
+// counter to sequence operations. WaitOnANE only waits without signaling.
 type Pipeline struct {
 	metal    *MetalDevice
 	aneEvent *SharedEvent
@@ -50,17 +50,13 @@ func (p *Pipeline) ANEToMetal(m *Model) error {
 }
 
 // WaitOnANE evaluates the model on ANE after waiting for Metal to signal.
-// Uses the current counter as the wait value, then increments and signals.
+// Uses the current counter as the wait value. Does not signal back or
+// increment the counter.
 func (p *Pipeline) WaitOnANE(m *Model) error {
 	waitVal := p.counter.Load()
-	signalVal := p.counter.Add(1)
-	return m.EvalBidirectional(
-		p.aneEvent.Port(), waitVal,
-		p.aneEvent.Port(), signalVal,
-		SharedEventEvalOptions{
-			DisableIOFencesUseSharedEvents: true,
-		},
-	)
+	return m.EvalWithWaitEvent(p.aneEvent.Port(), waitVal, SharedEventEvalOptions{
+		DisableIOFencesUseSharedEvents: true,
+	})
 }
 
 // Bidirectional evaluates the model with both wait and signal events.

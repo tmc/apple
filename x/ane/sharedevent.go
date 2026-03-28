@@ -52,8 +52,12 @@ func (e *SharedEvent) Wait(value uint64, timeout time.Duration) bool {
 	return e.ev.WaitUntilSignaledValueTimeoutMS(value, uint64(timeout.Milliseconds()))
 }
 
-// Close releases the shared event.
+// Close releases the shared event's underlying ObjC object.
 func (e *SharedEvent) Close() error {
+	if e.ev.ID != 0 {
+		e.ev.Release()
+		e.ev.ID = 0
+	}
 	return nil
 }
 
@@ -64,6 +68,7 @@ func (m *Model) EvalWithSignalEvent(signalPort uint32, signalValue uint64, cfg S
 	if err != nil {
 		return err
 	}
+	defer signal.Close()
 	return m.EvalWithSignal(signal, signalValue, cfg)
 }
 
@@ -74,6 +79,7 @@ func (m *Model) EvalWithWaitEvent(waitPort uint32, waitValue uint64, cfg SharedE
 	if err != nil {
 		return err
 	}
+	defer wait.Close()
 	return m.EvalWithWait(wait, waitValue, cfg)
 }
 
@@ -85,10 +91,12 @@ func (m *Model) EvalBidirectional(waitPort uint32, waitValue uint64, signalPort 
 	if err != nil {
 		return err
 	}
+	defer wait.Close()
 	signal, err := SharedEventFromPort(signalPort)
 	if err != nil {
 		return err
 	}
+	defer signal.Close()
 	return m.EvalBidirectionalEvents(wait, waitValue, signal, signalValue, cfg)
 }
 
@@ -113,7 +121,9 @@ func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal
 	if m.modelType != ModelTypePackage {
 		return &ANEError{Op: "eval", Err: ErrSharedEventRequiresPackage}
 	}
+	m.mu.Lock()
 	m.sharedEventUsed = true
+	m.mu.Unlock()
 
 	signalArr := foundation.NewNSMutableArray()
 	if signal != nil {

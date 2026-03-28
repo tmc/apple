@@ -13,8 +13,8 @@ import "encoding/binary"
 //	[0x2b] byte       spec format indicator
 //	[0x2c] [20]byte   zeros (pad to 0x40)
 //	[0x40] [11]byte   zeros
-//	[0x4b] uint16 LE  ModelDescription proto length
-//	[0x4d] [6]byte    zeros (pad to 0x53)
+//	[0x4b] uint32 LE  ModelDescription proto length
+//	[0x4f] [4]byte    zeros (pad to 0x53)
 //	[0x53] []byte     ModelDescription protobuf
 //	[EOF-16] uint32 LE magic (repeated)
 //	[EOF-12] [12]byte  zeros
@@ -48,8 +48,8 @@ func buildCoreMLData(m *Model) []byte {
 	// [0x2b] Spec format indicator (observed: 0x06 for spec=5 mlprogram).
 	buf[0x2b] = specFormatByte(m.SpecVersion)
 
-	// [0x4b] Proto data length as uint16 LE.
-	binary.LittleEndian.PutUint16(buf[0x4b:], uint16(protoLen))
+	// [0x4b] Proto data length as uint32 LE.
+	binary.LittleEndian.PutUint32(buf[0x4b:], uint32(protoLen))
 
 	// [0x53] ModelDescription protobuf bytes.
 	copy(buf[coremldataHeaderLen:], m.descriptionRaw)

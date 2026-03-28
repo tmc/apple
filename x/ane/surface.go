@@ -102,6 +102,15 @@ func createSurfaceForLayout(layout TensorLayout) (coregraphics.IOSurfaceRef, err
 		nil,
 	)
 	ref := iosurface.IOSurfaceCreate(corefoundation.CFDictionaryRef(dict))
+
+	// Release the dictionary and all keys/values. CFDictionaryCreate with nil
+	// callbacks does not retain, so these are still at +1 from creation.
+	corefoundation.CFRelease(corefoundation.CFTypeRef(dict))
+	for i := range keys {
+		corefoundation.CFRelease(corefoundation.CFTypeRef(uintptr(keys[i])))
+		corefoundation.CFRelease(corefoundation.CFTypeRef(uintptr(values[i])))
+	}
+
 	if ref == 0 {
 		return 0, fmt.Errorf("ane: failed to create IOSurface for tensor [%d, %d, %d] x %d (alloc=%d stride=%d)",
 			layout.Channels, layout.Height, layout.Width, layout.ElemSize, alloc, layout.RowStride)

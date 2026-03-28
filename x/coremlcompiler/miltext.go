@@ -36,18 +36,21 @@ func emitFunction(b *strings.Builder, name string, fn *Function) {
 	b.WriteString(") {\n")
 
 	// Flatten Block specializations into the Function body.
-	// Use the first Block (sorted by name for determinism).
+	// Prefer the block matching fn.OpSet; fall back to first sorted name.
 	blockNames := sortedKeys(fn.BlockSpecializations)
-	for _, bname := range blockNames {
-		Block := fn.BlockSpecializations[bname]
-		emitBlockBody(b, Block, 2)
-		// Only emit the first Block's content; the Block name
-		// is a proto-level concept not present in MIL text.
-		_ = bname
-		break
+	if len(blockNames) > 0 {
+		targetBlock := blockNames[0]
+		for _, bname := range blockNames {
+			if bname == fn.OpSet {
+				targetBlock = bname
+				break
+			}
+		}
+		block := fn.BlockSpecializations[targetBlock]
+		emitBlockBody(b, block, 2)
+	} else {
+		b.WriteString("    }\n")
 	}
-
-	b.WriteString("    }\n")
 }
 
 // emitBlockBody emits the operations and return statement of a Block.
