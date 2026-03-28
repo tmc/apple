@@ -307,10 +307,10 @@ func skipXMLToEnd(decoder *xml.Decoder, endTag string) {
 // Binary plist parsing
 func parseBinary(data []byte) (any, error) {
 	if len(data) < 32 {
-		return nil, fmt.Errorf("binary plist too short")
+		return nil, fmt.Errorf("plist: binary plist too short")
 	}
 	if string(data[:6]) != "bplist" {
-		return nil, fmt.Errorf("not a binary plist")
+		return nil, fmt.Errorf("plist: not a binary plist")
 	}
 
 	// Parse trailer (last 32 bytes)
@@ -321,12 +321,28 @@ func parseBinary(data []byte) (any, error) {
 	topObject := int(binary.BigEndian.Uint64(trailer[16:24]))
 	offsetTableOffset := int(binary.BigEndian.Uint64(trailer[24:32]))
 
+	if offsetSize == 0 || offsetSize > 8 {
+		return nil, fmt.Errorf("plist: invalid offset size: %d", offsetSize)
+	}
+	if objectRefSize == 0 || objectRefSize > 8 {
+		return nil, fmt.Errorf("plist: invalid object ref size: %d", objectRefSize)
+	}
+	if numObjects < 0 || numObjects > len(data) {
+		return nil, fmt.Errorf("plist: invalid object count: %d", numObjects)
+	}
+	if offsetTableOffset < 0 || offsetTableOffset+numObjects*offsetSize > len(data)-32 {
+		return nil, fmt.Errorf("plist: offset table overflows data")
+	}
+
 	// Parse offset table
 	offsets := make([]int, numObjects)
 	for i := 0; i < numObjects; i++ {
 		offset := 0
 		for j := 0; j < offsetSize; j++ {
 			offset = offset<<8 | int(data[offsetTableOffset+i*offsetSize+j])
+		}
+		if offset < 0 || offset >= len(data) {
+			return nil, fmt.Errorf("plist: offset %d out of bounds at index %d", offset, i)
 		}
 		offsets[i] = offset
 	}
@@ -343,11 +359,11 @@ type binaryParser struct {
 
 func (bp *binaryParser) parseObject(index int) (any, error) {
 	if index >= len(bp.offsets) {
-		return nil, fmt.Errorf("invalid object index: %d", index)
+		return nil, fmt.Errorf("plist: invalid object index: %d", index)
 	}
 	offset := bp.offsets[index]
 	if offset >= len(bp.data) {
-		return nil, fmt.Errorf("invalid offset: %d", offset)
+		return nil, fmt.Errorf("plist: invalid offset: %d", offset)
 	}
 
 	marker := bp.data[offset]
@@ -373,13 +389,28 @@ func (bp *binaryParser) parseObject(index int) (any, error) {
 	case 0x3: // date
 		return bp.parseDate(offset + 1)
 	case 0x4: // data
-		length, dataOffset := bp.parseLength(offset, objInfo)
-		return bp.data[dataOffset : dataOffset+length], nil
+		length, dataOffset, err := bp.parseLength(offset, objInfo)
+		if err != nil {
+			return nil, err
+		}
+		if dataOffset+length > len(bp.data) {
+			return nil, fmt.Errorf("plist: data object out of bounds at offset %d", offset)
+		}
+		return append([]byte(nil), bp.data[dataOffset:dataOffset+length]...), nil
 	case 0x5: // ascii string
-		length, dataOffset := bp.parseLength(offset, objInfo)
+		length, dataOffset, err := bp.parseLength(offset, objInfo)
+		if err != nil {
+			return nil, err
+		}
+		if dataOffset+length > len(bp.data) {
+			return nil, fmt.Errorf("plist: string object out of bounds at offset %d", offset)
+		}
 		return string(bp.data[dataOffset : dataOffset+length]), nil
 	case 0x6: // unicode string
-		length, dataOffset := bp.parseLength(offset, objInfo)
+		length, dataOffset, err := bp.parseLength(offset, objInfo)
+		if err != nil {
+			return nil, err
+		}
 		return bp.parseUTF16(dataOffset, length)
 	case 0x8: // uid
 		size := objInfo + 1
@@ -389,30 +420,44 @@ func (bp *binaryParser) parseObject(index int) (any, error) {
 		}
 		return UID(val), nil
 	case 0xA: // array
-		length, dataOffset := bp.parseLength(offset, objInfo)
+		length, dataOffset, err := bp.parseLength(offset, objInfo)
+		if err != nil {
+			return nil, err
+		}
 		return bp.parseArray(dataOffset, length)
 	case 0xD: // dict
-		length, dataOffset := bp.parseLength(offset, objInfo)
+		length, dataOffset, err := bp.parseLength(offset, objInfo)
+		if err != nil {
+			return nil, err
+		}
 		return bp.parseDict(dataOffset, length)
 	}
 
-	return nil, fmt.Errorf("unknown object type: %x at offset %d", marker, offset)
+	return nil, fmt.Errorf("plist: unknown object type: %x at offset %d", marker, offset)
 }
 
-func (bp *binaryParser) parseLength(offset, objInfo int) (int, int) {
+func (bp *binaryParser) parseLength(offset, objInfo int) (int, int, error) {
 	if objInfo == 0x0F {
-		// Length is in next byte(s)
+		if offset+1 >= len(bp.data) {
+			return 0, 0, fmt.Errorf("plist: length marker out of bounds at offset %d", offset)
+		}
 		intMarker := bp.data[offset+1]
 		intSize := 1 << (intMarker & 0x0F)
-		length, _ := bp.parseInt(offset+2, intSize)
-		return int(length), offset + 2 + intSize
+		if offset+2+intSize > len(bp.data) {
+			return 0, 0, fmt.Errorf("plist: length value out of bounds at offset %d", offset)
+		}
+		length, err := bp.parseInt(offset+2, intSize)
+		if err != nil {
+			return 0, 0, err
+		}
+		return int(length), offset + 2 + intSize, nil
 	}
-	return objInfo, offset + 1
+	return objInfo, offset + 1, nil
 }
 
 func (bp *binaryParser) parseInt(offset, size int) (int64, error) {
 	if offset+size > len(bp.data) {
-		return 0, fmt.Errorf("int out of bounds")
+		return 0, fmt.Errorf("plist: int out of bounds at offset %d", offset)
 	}
 	// CoreFoundation sometimes writes large 64-bit values as 128-bit
 	// integers with an empty high half. Drop the high 64 bits.
@@ -428,6 +473,9 @@ func (bp *binaryParser) parseInt(offset, size int) (int64, error) {
 }
 
 func (bp *binaryParser) parseReal(offset, size int) (float64, error) {
+	if offset+size > len(bp.data) {
+		return 0, fmt.Errorf("plist: real out of bounds at offset %d", offset)
+	}
 	if size == 4 {
 		bits := binary.BigEndian.Uint32(bp.data[offset : offset+4])
 		return float64(math.Float32frombits(bits)), nil
@@ -435,10 +483,13 @@ func (bp *binaryParser) parseReal(offset, size int) (float64, error) {
 		bits := binary.BigEndian.Uint64(bp.data[offset : offset+8])
 		return math.Float64frombits(bits), nil
 	}
-	return 0, fmt.Errorf("invalid real size: %d", size)
+	return 0, fmt.Errorf("plist: invalid real size: %d", size)
 }
 
 func (bp *binaryParser) parseDate(offset int) (time.Time, error) {
+	if offset+8 > len(bp.data) {
+		return time.Time{}, fmt.Errorf("plist: date out of bounds at offset %d", offset)
+	}
 	bits := binary.BigEndian.Uint64(bp.data[offset : offset+8])
 	secs := math.Float64frombits(bits)
 	// Apple epoch is 2001-01-01
@@ -447,6 +498,9 @@ func (bp *binaryParser) parseDate(offset int) (time.Time, error) {
 }
 
 func (bp *binaryParser) parseUTF16(offset, length int) (string, error) {
+	if offset+length*2 > len(bp.data) {
+		return "", fmt.Errorf("plist: utf16 string out of bounds at offset %d", offset)
+	}
 	var runes []rune
 	for i := 0; i < length; i++ {
 		u := binary.BigEndian.Uint16(bp.data[offset+i*2:])
@@ -467,7 +521,10 @@ func (bp *binaryParser) parseUTF16(offset, length int) (string, error) {
 func (bp *binaryParser) parseArray(offset, length int) ([]any, error) {
 	result := make([]any, length)
 	for i := 0; i < length; i++ {
-		ref := bp.readRef(offset + i*bp.objectRefSize)
+		ref, err := bp.readRef(offset + i*bp.objectRefSize)
+		if err != nil {
+			return nil, err
+		}
 		val, err := bp.parseObject(ref)
 		if err != nil {
 			return nil, err
@@ -483,8 +540,14 @@ func (bp *binaryParser) parseDict(offset, length int) (map[string]any, error) {
 	valOffset := offset + length*bp.objectRefSize
 
 	for i := 0; i < length; i++ {
-		keyRef := bp.readRef(keyOffset + i*bp.objectRefSize)
-		valRef := bp.readRef(valOffset + i*bp.objectRefSize)
+		keyRef, err := bp.readRef(keyOffset + i*bp.objectRefSize)
+		if err != nil {
+			return nil, err
+		}
+		valRef, err := bp.readRef(valOffset + i*bp.objectRefSize)
+		if err != nil {
+			return nil, err
+		}
 
 		key, err := bp.parseObject(keyRef)
 		if err != nil {
@@ -492,7 +555,7 @@ func (bp *binaryParser) parseDict(offset, length int) (map[string]any, error) {
 		}
 		keyStr, ok := key.(string)
 		if !ok {
-			return nil, fmt.Errorf("dict key is not a string")
+			return nil, fmt.Errorf("plist: dict key is not a string")
 		}
 
 		val, err := bp.parseObject(valRef)
@@ -504,12 +567,15 @@ func (bp *binaryParser) parseDict(offset, length int) (map[string]any, error) {
 	return result, nil
 }
 
-func (bp *binaryParser) readRef(offset int) int {
+func (bp *binaryParser) readRef(offset int) (int, error) {
+	if offset+bp.objectRefSize > len(bp.data) {
+		return 0, fmt.Errorf("plist: object ref out of bounds at offset %d", offset)
+	}
 	ref := 0
 	for i := 0; i < bp.objectRefSize; i++ {
 		ref = ref<<8 | int(bp.data[offset+i])
 	}
-	return ref
+	return ref, nil
 }
 
 // Writing functions
