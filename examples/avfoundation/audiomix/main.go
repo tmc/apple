@@ -29,24 +29,11 @@ import (
 	"time"
 
 	"github.com/tmc/apple/avfoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
-
-// cmTime mirrors CoreMedia's CMTime struct layout.
-type cmTime struct {
-	Value     int64
-	Timescale int32
-	Flags     uint32
-	Epoch     int64
-}
-
-// cmTimeRange mirrors CoreMedia's CMTimeRange struct layout.
-type cmTimeRange struct {
-	Start    cmTime
-	Duration cmTime
-}
 
 const kCMTimeFlagsValid uint32 = 1
 
@@ -189,11 +176,8 @@ func bake(inputPath, outputPath string, fadeIn, fadeOut float64) error {
 	reader.StartReading()
 	writer.StartWriting()
 
-	// startSessionAtSourceTime: takes a CMTime struct. The generated
-	// coremedia.CMTime has extra fields from docs (Seconds, wrong size),
-	// so pass the correctly-sized local struct via objc.Send.
-	zero := cmTime{Value: 0, Timescale: 1, Flags: kCMTimeFlagsValid}
-	objc.Send[objc.ID](writer.ID, objc.Sel("startSessionAtSourceTime:"), zero)
+	zero := coremedia.CMTime{Value: 0, Timescale: 1, Flags: kCMTimeFlagsValid}
+	writer.StartSessionAtSourceTime(zero)
 
 	samples := 0
 	for {
@@ -232,7 +216,8 @@ func loadFirstAudioTrack(asset avfoundation.AVURLAsset) (avfoundation.AVAssetTra
 
 // loadTrackDuration returns the track duration in seconds.
 func loadTrackDuration(track avfoundation.AVAssetTrack) float64 {
-	tr := objc.Send[cmTimeRange](track.ID, objc.Sel("timeRange"))
+	// AVAssetTrack.timeRange is deprecated and not generated; use objc.Send.
+	tr := objc.Send[coremedia.CMTimeRange](track.ID, objc.Sel("timeRange"))
 	if tr.Duration.Timescale == 0 {
 		return 0
 	}
@@ -250,18 +235,12 @@ func buildFadeMix(track avfoundation.AVAssetTrack, fadeIn, fadeOut, totalDuratio
 
 	if fadeIn > 0 {
 		r := newCMTimeRange(0, fadeIn)
-		// SetVolumeRamp... generated binding uses coremedia.CMTimeRange which
-		// has wrong struct layout (extra fields from docs). Use objc.Send.
-		objc.Send[objc.ID](params.ID,
-			objc.Sel("setVolumeRampFromStartVolume:toEndVolume:timeRange:"),
-			float32(0.0), float32(1.0), r)
+		params.SetVolumeRampFromStartVolumeToEndVolumeTimeRange(0.0, 1.0, r)
 	}
 
 	if fadeOut > 0 && totalDuration > fadeOut {
 		r := newCMTimeRange(totalDuration-fadeOut, fadeOut)
-		objc.Send[objc.ID](params.ID,
-			objc.Sel("setVolumeRampFromStartVolume:toEndVolume:timeRange:"),
-			float32(1.0), float32(0.0), r)
+		params.SetVolumeRampFromStartVolumeToEndVolumeTimeRange(1.0, 0.0, r)
 	}
 
 	mix := avfoundation.GetAVMutableAudioMixClass().AudioMix()
@@ -269,15 +248,15 @@ func buildFadeMix(track avfoundation.AVAssetTrack, fadeIn, fadeOut, totalDuratio
 	return mix
 }
 
-func newCMTimeRange(startSeconds, durationSeconds float64) cmTimeRange {
+func newCMTimeRange(startSeconds, durationSeconds float64) coremedia.CMTimeRange {
 	const timescale int32 = 600
-	return cmTimeRange{
-		Start: cmTime{
+	return coremedia.CMTimeRange{
+		Start: coremedia.CMTime{
 			Value:     int64(startSeconds * float64(timescale)),
 			Timescale: timescale,
 			Flags:     kCMTimeFlagsValid,
 		},
-		Duration: cmTime{
+		Duration: coremedia.CMTime{
 			Value:     int64(durationSeconds * float64(timescale)),
 			Timescale: timescale,
 			Flags:     kCMTimeFlagsValid,

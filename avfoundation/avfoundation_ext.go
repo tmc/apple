@@ -7,13 +7,6 @@
 //     at macOS 11.0 and filtered by --skip-deprecated=13.0 default.
 //   - SetTrackID: trackID is read-only in Apple docs but writable via ObjC header.
 //   - SetInputParameters: property setter not generated for AVMutableAudioMix.
-//
-// Note: config.yaml CMTime/CMTimeRange mapping is fixed (now uses coremedia types),
-// and block typedef resolution is fixed (resolveTypedefForBlock called from
-// parseBlockHandlerInfo). However, the generated coremedia.CMTime/CMTimeRange
-// structs have extra fields from Apple docs scraping (Seconds, End) that make
-// them ABI-incompatible with the real C structs. Examples using CMTime should
-// define local structs with the correct layout until this is fixed.
 package avfoundation
 
 import (
