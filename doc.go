@@ -12,6 +12,7 @@
 //go:generate applegen-bootstrap -f "accelerate"
 //go:generate applegen-bootstrap -f "appkit"
 //go:generate applegen-bootstrap -f "avfoundation"
+//go:generate applegen-bootstrap -f "coreaudio"
 //go:generate applegen-bootstrap -f "corefoundation"
 //go:generate applegen-bootstrap -f "coregraphics"
 //go:generate applegen-bootstrap -f "coreimage"
