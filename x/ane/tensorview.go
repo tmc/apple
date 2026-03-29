@@ -209,6 +209,48 @@ func (v *TensorView) Float32Slice() []float32 {
 	return unsafe.Slice((*float32)(v.Ptr), n)
 }
 
+// WithMultiArrayBytes calls fn with a scoped TensorView over an MLMultiArray's
+// data using the non-deprecated GetBytesWithHandler API (macOS 12.3+).
+//
+// The TensorView is valid only for the duration of fn. Do not retain the
+// view or its Ptr after fn returns.
+//
+// For zero-copy handoff where the pointer must outlive the callback (Metal,
+// MLX), use TensorViewFromMultiArray or RetainedTensorView instead.
+func WithMultiArrayBytes(arr coreml.MLMultiArray, fn func(view *TensorView)) error {
+	if arr.ID == 0 {
+		return fmt.Errorf("ane: nil MLMultiArray")
+	}
+
+	dt, err := mlDtype(arr.DataType())
+	if err != nil {
+		return err
+	}
+
+	shapeNums := arr.Shape()
+	strideNums := arr.Strides()
+	if len(shapeNums) == 0 {
+		return fmt.Errorf("ane: MLMultiArray shape is empty")
+	}
+	if len(strideNums) != len(shapeNums) {
+		return fmt.Errorf("ane: MLMultiArray strides length %d != shape length %d", len(strideNums), len(shapeNums))
+	}
+
+	shape := nsNumbersToInts(shapeNums)
+	strides := nsNumbersToInts(strideNums)
+
+	arr.GetBytesWithHandler(func(bytes unsafe.Pointer, size int) {
+		fn(&TensorView{
+			Ptr:     bytes,
+			Shape:   shape,
+			Strides: strides,
+			Dtype:   dt,
+			ByteLen: size,
+		})
+	})
+	return nil
+}
+
 func mlDtype(dt coreml.MLMultiArrayDataType) (Dtype, error) {
 	switch dt {
 	case coreml.MLMultiArrayDataTypeFloat16:
