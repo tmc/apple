@@ -241,9 +241,11 @@ func cgEventClick(x, y int) error {
 		return errors.New("CGEvents not initialized")
 	}
 
-	oldX, oldY := getCurrentMousePosition()
-	cgWarpMouseCursorPosition(float64(x), float64(y))
-	time.Sleep(10 * time.Millisecond)
+	// Post mouse events at the target coordinates without moving the
+	// visible cursor.  CGEventCreateMouseEvent delivers the click to
+	// the correct screen location via the event's coordinates; warping
+	// the cursor is unnecessary and causes it to jump visibly, which is
+	// wrong on multi-monitor setups with negative display coordinates.
 
 	mouseDown := cgEventCreateMouseEvent(0, cgEventLeftMouseDown, float64(x), float64(y), 0)
 	if mouseDown == 0 {
@@ -261,9 +263,6 @@ func cgEventClick(x, y int) error {
 	cgEventPost(cgHIDEventTap, mouseUp)
 	corefoundation.CFRelease(corefoundation.CFTypeRef(mouseUp))
 
-	time.Sleep(10 * time.Millisecond)
-	cgWarpMouseCursorPosition(oldX, oldY)
-
 	return nil
 }
 
@@ -272,10 +271,6 @@ func cgEventDoubleClick(x, y int) error {
 	if !cgEventsInitialized {
 		return errors.New("CGEvents not initialized")
 	}
-
-	oldX, oldY := getCurrentMousePosition()
-	cgWarpMouseCursorPosition(float64(x), float64(y))
-	time.Sleep(10 * time.Millisecond)
 
 	// First click
 	mouseDown1 := cgEventCreateMouseEvent(0, cgEventLeftMouseDown, float64(x), float64(y), 0)
@@ -316,9 +311,6 @@ func cgEventDoubleClick(x, y int) error {
 	cgEventSetIntegerValueField(mouseUp2, cgMouseEventClickState, 2)
 	cgEventPost(cgHIDEventTap, mouseUp2)
 	corefoundation.CFRelease(corefoundation.CFTypeRef(mouseUp2))
-
-	time.Sleep(10 * time.Millisecond)
-	cgWarpMouseCursorPosition(oldX, oldY)
 
 	return nil
 }
