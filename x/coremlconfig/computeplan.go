@@ -45,6 +45,15 @@ type OperationPlan struct {
 	MilID  int64         // MIL operation ID for source mapping
 }
 
+// SupportState classifies a CoreML validation/support message.
+type SupportState int64
+
+// SupportStatePattern describes a matcher regex and the support state it maps to.
+type SupportStatePattern struct {
+	Regex string
+	State SupportState
+}
+
 // Plan holds a loaded compute plan and its analyzed operations.
 type Plan struct {
 	raw        coreml.MLComputePlan
@@ -264,4 +273,33 @@ func classifyDevice(id objc.ID) ComputeDevice {
 	default:
 		return DeviceUnknown
 	}
+}
+
+// SupportStateForValidationMessage classifies a CoreML validation message using
+// the private support-state matcher shipped with the framework.
+func SupportStateForValidationMessage(message string) SupportState {
+	matcher := privatecoreml.GetMLComputePlanDeviceUsageSupportStateMatcherClass().SharedInstance()
+	if matcher.GetID() == 0 {
+		return 0
+	}
+	return SupportState(matcher.MatchingSupportStateForValidationMessage(foundation.NewStringWithString(message)))
+}
+
+// SupportStatePatterns returns the framework's current support-state regex patterns.
+func SupportStatePatterns() []SupportStatePattern {
+	matcher := privatecoreml.GetMLComputePlanDeviceUsageSupportStateMatcherClass().SharedInstance()
+	if matcher.GetID() == 0 {
+		return nil
+	}
+	patterns := matcher.SupportStatePatterns()
+	out := make([]SupportStatePattern, 0, patterns.Count())
+	for i := uint(0); i < patterns.Count(); i++ {
+		pattern := privatecoreml.MLComputePlanDeviceUsageSupportStatePatternFromID(patterns.ObjectAtIndex(i).GetID())
+		regex := pattern.Regex()
+		out = append(out, SupportStatePattern{
+			Regex: regex.Pattern(),
+			State: SupportState(pattern.SupportState()),
+		})
+	}
+	return out
 }
