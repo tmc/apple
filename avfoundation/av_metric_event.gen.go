@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -79,7 +80,7 @@ type IAVMetricEvent interface {
 	// Topic: Inspecting an event
 
 	Date() foundation.INSDate
-	MediaTime() uintptr
+	MediaTime() coremedia.CMTime
 	SessionID() string
 
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -114,9 +115,9 @@ func (m AVMetricEvent) Date() foundation.INSDate {
 	return foundation.NSDateFromID(objc.ID(rv))
 }
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/mediaTime
-func (m AVMetricEvent) MediaTime() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("mediaTime"))
-	return rv
+func (m AVMetricEvent) MediaTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("mediaTime"))
+	return coremedia.CMTime(rv)
 }
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/sessionID
 func (m AVMetricEvent) SessionID() string {

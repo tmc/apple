@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"errors"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -347,8 +348,8 @@ type IAVMutableMovie interface {
 	Timescale() int32
 	SetTimescale(value int32)
 	// A time period indicating the duration for interleaving runs of samples for each track.
-	InterleavingPeriod() uintptr
-	SetInterleavingPeriod(value uintptr)
+	InterleavingPeriod() coremedia.CMTime
+	SetInterleavingPeriod(value coremedia.CMTime)
 
 	// Topic: Accessing tracks
 
@@ -381,25 +382,25 @@ type IAVMutableMovie interface {
 	// Topic: Managing time ranges
 
 	// Adds an empty time range to a movie.
-	InsertEmptyTimeRange(timeRange uintptr)
+	InsertEmptyTimeRange(timeRange coremedia.CMTimeRange)
 	// Inserts all of the tracks in a specified time range of an asset into a movie.
-	InsertTimeRangeOfAssetAtTimeCopySampleDataError(timeRange uintptr, asset IAVAsset, startTime uintptr, copySampleData bool) (bool, error)
+	InsertTimeRangeOfAssetAtTimeCopySampleDataError(timeRange coremedia.CMTimeRange, asset IAVAsset, startTime coremedia.CMTime, copySampleData bool) (bool, error)
 	// Changes the duration of a time range in a movie.
-	ScaleTimeRangeToDuration(timeRange uintptr, duration uintptr)
+	ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime)
 	// Removes the specified time range from a movie.
-	RemoveTimeRange(timeRange uintptr)
+	RemoveTimeRange(timeRange coremedia.CMTimeRange)
 
 	// Topic: Accessing duration and timing
 
 	// A time value that indicates the asset’s duration.
-	Duration() uintptr
-	SetDuration(value uintptr)
+	Duration() coremedia.CMTime
+	SetDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether the asset provides precise duration and timing.
 	ProvidesPreciseDurationAndTiming() bool
 	SetProvidesPreciseDurationAndTiming(value bool)
 	// A time value that indicates how closely playback follows the latest live stream content.
-	MinimumTimeOffsetFromLive() uintptr
-	SetMinimumTimeOffsetFromLive(value uintptr)
+	MinimumTimeOffsetFromLive() coremedia.CMTime
+	SetMinimumTimeOffsetFromLive(value coremedia.CMTime)
 
 	// Topic: Accessing metadata
 
@@ -490,8 +491,8 @@ type IAVMutableMovie interface {
 	ContainsFragments() bool
 	SetContainsFragments(value bool)
 	// The total duration of fragments that currently exist, or may exist in the future.
-	OverallDurationHint() uintptr
-	SetOverallDurationHint(value uintptr)
+	OverallDurationHint() coremedia.CMTime
+	SetOverallDurationHint(value coremedia.CMTime)
 
 	// A preset to export the asset in its current format, unless otherwise prohibited.
 	AVAssetExportPresetPassthrough() string
@@ -919,7 +920,7 @@ func (m AVMutableMovie) RemoveTrack(track IAVMovieTrack) {
 // You can’t add empty time ranges to the end of a movie.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/insertEmptyTimeRange(_:)
-func (m AVMutableMovie) InsertEmptyTimeRange(timeRange uintptr) {
+func (m AVMutableMovie) InsertEmptyTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertEmptyTimeRange:"), timeRange)
 }
 // Inserts all of the tracks in a specified time range of an asset into a
@@ -941,7 +942,7 @@ func (m AVMutableMovie) InsertEmptyTimeRange(timeRange uintptr) {
 // tracks of the asset are represented in the inserted time range.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/insertTimeRange(_:of:at:copySampleData:)
-func (m AVMutableMovie) InsertTimeRangeOfAssetAtTimeCopySampleDataError(timeRange uintptr, asset IAVAsset, startTime uintptr, copySampleData bool) (bool, error) {
+func (m AVMutableMovie) InsertTimeRangeOfAssetAtTimeCopySampleDataError(timeRange coremedia.CMTimeRange, asset IAVAsset, startTime coremedia.CMTime, copySampleData bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("insertTimeRange:ofAsset:atTime:copySampleData:error:"), timeRange, asset, startTime, copySampleData, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -961,7 +962,7 @@ func (m AVMutableMovie) InsertTimeRangeOfAssetAtTimeCopySampleDataError(timeRang
 // duration: The new duration for the time range.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/scale(_:toDuration:)
-func (m AVMutableMovie) ScaleTimeRangeToDuration(timeRange uintptr, duration uintptr) {
+func (m AVMutableMovie) ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime) {
 	objc.Send[objc.ID](m.ID, objc.Sel("scaleTimeRange:toDuration:"), timeRange, duration)
 }
 // Removes the specified time range from a movie.
@@ -969,7 +970,7 @@ func (m AVMutableMovie) ScaleTimeRangeToDuration(timeRange uintptr, duration uin
 // timeRange: The time range to be removed.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/removeTimeRange(_:)
-func (m AVMutableMovie) RemoveTimeRange(timeRange uintptr) {
+func (m AVMutableMovie) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTimeRange:"), timeRange)
 }
 // Returns an array of metadata items from the container with the specified
@@ -1269,11 +1270,11 @@ func (m AVMutableMovie) SetTimescale(value int32) {
 // Default value is `0.5` seconds.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/interleavingPeriod
-func (m AVMutableMovie) InterleavingPeriod() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("interleavingPeriod"))
-	return rv
+func (m AVMutableMovie) InterleavingPeriod() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("interleavingPeriod"))
+	return coremedia.CMTime(rv)
 }
-func (m AVMutableMovie) SetInterleavingPeriod(value uintptr) {
+func (m AVMutableMovie) SetInterleavingPeriod(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setInterleavingPeriod:"), value)
 }
 // The track groups an asset contains.
@@ -1304,11 +1305,11 @@ func (m AVMutableMovie) SetTrackGroups(value IAVAssetTrackGroup) {
 // [providesPreciseDurationAndTiming]: https://developer.apple.com/documentation/AVFoundation/AVAsset/providesPreciseDurationAndTiming
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/duration
-func (m AVMutableMovie) Duration() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("duration"))
-	return rv
+func (m AVMutableMovie) Duration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("duration"))
+	return coremedia.CMTime(rv)
 }
-func (m AVMutableMovie) SetDuration(value uintptr) {
+func (m AVMutableMovie) SetDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDuration:"), value)
 }
 // A Boolean value that indicates whether the asset provides precise duration
@@ -1343,11 +1344,11 @@ func (m AVMutableMovie) SetProvidesPreciseDurationAndTiming(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/minimumTimeOffsetFromLive
-func (m AVMutableMovie) MinimumTimeOffsetFromLive() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("minimumTimeOffsetFromLive"))
-	return rv
+func (m AVMutableMovie) MinimumTimeOffsetFromLive() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("minimumTimeOffsetFromLive"))
+	return coremedia.CMTime(rv)
 }
-func (m AVMutableMovie) SetMinimumTimeOffsetFromLive(value uintptr) {
+func (m AVMutableMovie) SetMinimumTimeOffsetFromLive(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMinimumTimeOffsetFromLive:"), value)
 }
 // An array of metadata items for all metadata identifiers for which a value
@@ -1686,11 +1687,11 @@ func (m AVMutableMovie) SetContainsFragments(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/overallDurationHint
-func (m AVMutableMovie) OverallDurationHint() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("overallDurationHint"))
-	return rv
+func (m AVMutableMovie) OverallDurationHint() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("overallDurationHint"))
+	return coremedia.CMTime(rv)
 }
-func (m AVMutableMovie) SetOverallDurationHint(value uintptr) {
+func (m AVMutableMovie) SetOverallDurationHint(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setOverallDurationHint:"), value)
 }
 // A preset to export the asset in its current format, unless otherwise

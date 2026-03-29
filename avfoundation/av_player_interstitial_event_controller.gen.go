@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 )
 
@@ -98,7 +99,7 @@ type IAVPlayerInterstitialEventController interface {
 	// Topic: Configuring the event schedule
 
 	// Cancels the playback of all currently playing and scheduled interstitial events, and resumes playback of primary content.
-	CancelCurrentEventWithResumptionOffset(resumptionOffset uintptr)
+	CancelCurrentEventWithResumptionOffset(resumptionOffset coremedia.CMTime)
 	// Causes the playback of the currently playing interstital event to be abandoned.
 	SkipCurrentEvent()
 
@@ -156,7 +157,7 @@ func NewPlayerInterstitialEventControllerWithPrimaryPlayer(primaryPlayer IAVPlay
 // value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventController/cancelCurrentEvent(withResumptionOffset:)
-func (p AVPlayerInterstitialEventController) CancelCurrentEventWithResumptionOffset(resumptionOffset uintptr) {
+func (p AVPlayerInterstitialEventController) CancelCurrentEventWithResumptionOffset(resumptionOffset coremedia.CMTime) {
 	objc.Send[objc.ID](p.ID, objc.Sel("cancelCurrentEventWithResumptionOffset:"), resumptionOffset)
 }
 // Causes the playback of the currently playing interstital event to be

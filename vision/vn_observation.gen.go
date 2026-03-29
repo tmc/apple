@@ -5,6 +5,7 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -96,7 +97,7 @@ type IVNObservation interface {
 	// Topic: Evaluating Observations
 
 	// The time range of the reported observation.
-	TimeRange() objectivec.IObject
+	TimeRange() coremedia.CMTimeRange
 	// The level of confidence in the observation’s accuracy.
 	Confidence() VNConfidence
 
@@ -145,9 +146,9 @@ func (o VNObservation) Uuid() foundation.NSUUID {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/zero
 //
 // See: https://developer.apple.com/documentation/Vision/VNObservation/timeRange
-func (o VNObservation) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (o VNObservation) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](o.ID, objc.Sel("timeRange"))
+	return coremedia.CMTimeRange(rv)
 }
 // The level of confidence in the observation’s accuracy.
 //

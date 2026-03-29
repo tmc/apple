@@ -6,8 +6,8 @@ import (
 	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNDetectHumanBodyPose3DRequest] class.
@@ -149,8 +149,7 @@ func NewDetectHumanBodyPose3DRequestWithCompletionHandler(completionHandler VNRe
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func NewDetectHumanBodyPose3DRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler VNRequestCompletionHandler) VNDetectHumanBodyPose3DRequest {
+func NewDetectHumanBodyPose3DRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNDetectHumanBodyPose3DRequest {
 	instance := getVNDetectHumanBodyPose3DRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNDetectHumanBodyPose3DRequestFromID(rv)

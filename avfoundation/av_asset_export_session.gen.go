@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -236,8 +237,8 @@ type IAVAssetExportSession interface {
 	CanPerformMultiplePassesOverSourceMediaData() bool
 	SetCanPerformMultiplePassesOverSourceMediaData(value bool)
 	// The time range of the source asset to export.
-	TimeRange() uintptr
-	SetTimeRange(value uintptr)
+	TimeRange() coremedia.CMTimeRange
+	SetTimeRange(value coremedia.CMTimeRange)
 	// The file length that the output of the session must not exceed.
 	FileLengthLimit() int64
 	SetFileLengthLimit(value int64)
@@ -296,7 +297,7 @@ type IAVAssetExportSession interface {
 	// Starts estimating the maximum duration of the export while considering the asset, preset, and time range configuration of the export session.
 	EstimateMaximumDurationWithCompletionHandler(handler CMTimeErrorHandler)
 	// Provides an estimate of the maximum duration of the exported media.
-	MaxDuration() uintptr
+	MaxDuration() coremedia.CMTime
 
 	// Topic: Accessing the asset
 
@@ -534,11 +535,11 @@ func (a AVAssetExportSession) SetCanPerformMultiplePassesOverSourceMediaData(val
 // The time range of the source asset to export.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/timeRange
-func (a AVAssetExportSession) TimeRange() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("timeRange"))
-	return rv
+func (a AVAssetExportSession) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](a.ID, objc.Sel("timeRange"))
+	return coremedia.CMTimeRange(rv)
 }
-func (a AVAssetExportSession) SetTimeRange(value uintptr) {
+func (a AVAssetExportSession) SetTimeRange(value coremedia.CMTimeRange) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimeRange:"), value)
 }
 // The file length that the output of the session must not exceed.
@@ -706,9 +707,9 @@ func (a AVAssetExportSession) EstimatedOutputFileLength() int64 {
 // Provides an estimate of the maximum duration of the exported media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/maxDuration
-func (a AVAssetExportSession) MaxDuration() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("maxDuration"))
-	return rv
+func (a AVAssetExportSession) MaxDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("maxDuration"))
+	return coremedia.CMTime(rv)
 }
 // An asset that a session exports.
 //
@@ -769,20 +770,20 @@ func (a AVAssetExportSession) EstimateOutputFileLength(ctx context.Context) (int
 
 // EstimateMaximumDuration is a synchronous wrapper around [AVAssetExportSession.EstimateMaximumDurationWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetExportSession) EstimateMaximumDuration(ctx context.Context) (uintptr, error) {
+func (a AVAssetExportSession) EstimateMaximumDuration(ctx context.Context) (coremedia.CMTime, error) {
 	type result struct {
-		val uintptr
+		val coremedia.CMTime
 		err error
 	}
 	done := make(chan result, 1)
-	a.EstimateMaximumDurationWithCompletionHandler(func(val uintptr, err error) {
+	a.EstimateMaximumDurationWithCompletionHandler(func(val coremedia.CMTime, err error) {
 		done <- result{val, err}
 	})
 	select {
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return coremedia.CMTime{}, ctx.Err()
 	}
 }
 

@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -76,7 +77,7 @@ type IAVAssetTrackSegment interface {
 	// Topic: Retrieving segment information
 
 	// The time range of the track that this segment presents.
-	TimeMapping() uintptr
+	TimeMapping() coremedia.CMTimeMapping
 	// A Boolean value that indicates whether the segment is empty.
 	Empty() bool
 }
@@ -103,9 +104,9 @@ func NewAVAssetTrackSegment() AVAssetTrackSegment {
 // The time range of the track that this segment presents.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackSegment/timeMapping
-func (a AVAssetTrackSegment) TimeMapping() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("timeMapping"))
-	return rv
+func (a AVAssetTrackSegment) TimeMapping() coremedia.CMTimeMapping {
+	rv := objc.Send[coremedia.CMTimeMapping](a.ID, objc.Sel("timeMapping"))
+	return coremedia.CMTimeMapping(rv)
 }
 // A Boolean value that indicates whether the segment is empty.
 //

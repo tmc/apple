@@ -6,8 +6,8 @@ import (
 	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TextToSpeechTTSAURenderer] class.

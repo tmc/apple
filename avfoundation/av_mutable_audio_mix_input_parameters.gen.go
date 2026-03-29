@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 )
 
 // The class instance for the [AVMutableAudioMixInputParameters] class.
@@ -75,9 +76,9 @@ type IAVMutableAudioMixInputParameters interface {
 	// Topic: Setting the volume
 
 	// Sets the value of the audio volume starting at the specified time.
-	SetVolumeAtTime(volume float32, time uintptr)
+	SetVolumeAtTime(volume float32, time coremedia.CMTime)
 	// Sets a volume ramp to apply during a specified time range.
-	SetVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume float32, endVolume float32, timeRange uintptr)
+	SetVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume float32, endVolume float32, timeRange coremedia.CMTimeRange)
 }
 
 // Init initializes the instance.
@@ -127,7 +128,7 @@ func NewMutableAudioMixInputParametersWithTrack(track IAVAssetTrack) AVMutableAu
 // volume level to start at a later time.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableAudioMixInputParameters/setVolume(_:at:)
-func (m AVMutableAudioMixInputParameters) SetVolumeAtTime(volume float32, time uintptr) {
+func (m AVMutableAudioMixInputParameters) SetVolumeAtTime(volume float32, time coremedia.CMTime) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setVolume:atTime:"), volume, time)
 }
 // Sets a volume ramp to apply during a specified time range.
@@ -139,7 +140,7 @@ func (m AVMutableAudioMixInputParameters) SetVolumeAtTime(volume float32, time u
 // timeRange: The time range over which to apply the ramp.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableAudioMixInputParameters/setVolumeRamp(fromStartVolume:toEndVolume:timeRange:)
-func (m AVMutableAudioMixInputParameters) SetVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume float32, endVolume float32, timeRange uintptr) {
+func (m AVMutableAudioMixInputParameters) SetVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume float32, endVolume float32, timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setVolumeRampFromStartVolume:toEndVolume:timeRange:"), startVolume, endVolume, timeRange)
 }
 

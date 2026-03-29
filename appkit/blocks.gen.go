@@ -463,7 +463,7 @@ func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// PageLayoutResultHandler is the signature for a completion handler block.
+// PageLayoutResultHandler handles completion with a primitive value.
 //
 // Used by:
 //   - [NSPageLayout.BeginSheetUsingPrintInfoOnWindowCompletionHandler]
@@ -475,14 +475,13 @@ type PageLayoutResultHandler = func(NSPageLayoutResult)
 // Used by:
 //   - [NSPageLayout.BeginSheetUsingPrintInfoOnWindowCompletionHandler]
 func NewPageLayoutResultBlock(handler PageLayoutResultHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result NSPageLayoutResult = NSPageLayoutResult(resultID)
-		handler(result)
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NSPageLayoutResult) {
+		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
 
-// PrintPanelResultHandler is the signature for a completion handler block.
+// PrintPanelResultHandler handles completion with a primitive value.
 //
 // Used by:
 //   - [NSPrintPanel.BeginSheetUsingPrintInfoOnWindowCompletionHandler]
@@ -494,9 +493,8 @@ type PrintPanelResultHandler = func(NSPrintPanelResult)
 // Used by:
 //   - [NSPrintPanel.BeginSheetUsingPrintInfoOnWindowCompletionHandler]
 func NewPrintPanelResultBlock(handler PrintPanelResultHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result NSPrintPanelResult = NSPrintPanelResult(resultID)
-		handler(result)
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NSPrintPanelResult) {
+		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

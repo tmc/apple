@@ -3,7 +3,6 @@
 package accelerate
 import (
 	"unsafe"
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/objectivec"
 )
@@ -96,9 +95,6 @@ type BNNSFilterParameters struct {
 	N_threads uintptr // The number of worker threads to execute.
 	Alloc_memory BNNSAlloc // The function called to allocate memory.
 	Free_memory BNNSFree // The function called to deallocate memory.
-	Allocator BNNSAlloc
-	Deallocator BNNSFree
-	Options uint
 
 }
 
@@ -721,7 +717,6 @@ type BNNSTensor struct {
 	Name *byte // An optional name for the tensor that you can use for debugging.
 	Shape int // A tuple of unsigned-integer elements that specify the size of the tensor.
 	Stride int // A tuple of unsigned-integer elements that specify the stride of the tensor.
-	Count int // The number of elements in the tensor.
 
 }
 
@@ -1744,7 +1739,6 @@ type VImage_Buffer struct {
 	Width uint // The width of the image, in pixels.
 	RowBytes uintptr // The distance, in bytes, between the start of one pixel row and the next in an image, including any unused space between them.
 	Data unsafe.Pointer // A pointer to the top-left pixel of the image.
-	Size corefoundation.CGSize // The size of the image, in pixels.
 
 }
 

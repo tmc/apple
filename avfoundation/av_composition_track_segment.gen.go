@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 )
 
@@ -93,9 +94,9 @@ type IAVCompositionTrackSegment interface {
 	// Topic: Creating a segment
 
 	// Creates an object that presents an empty composition track segment.
-	InitWithTimeRange(timeRange uintptr) AVCompositionTrackSegment
+	InitWithTimeRange(timeRange coremedia.CMTimeRange) AVCompositionTrackSegment
 	// Creates an object that presents a segment of a media file that the specified URL references.
-	InitWithURLTrackIDSourceTimeRangeTargetTimeRange(URL foundation.INSURL, trackID int32, sourceTimeRange uintptr, targetTimeRange uintptr) AVCompositionTrackSegment
+	InitWithURLTrackIDSourceTimeRangeTargetTimeRange(URL foundation.INSURL, trackID int32, sourceTimeRange coremedia.CMTimeRange, targetTimeRange coremedia.CMTimeRange) AVCompositionTrackSegment
 
 	// Topic: Accessing segment properties
 
@@ -129,7 +130,7 @@ func NewAVCompositionTrackSegment() AVCompositionTrackSegment {
 // timeRange: The time range of the empty track segment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackSegment/init(timeRange:)
-func NewCompositionTrackSegmentWithTimeRange(timeRange uintptr) AVCompositionTrackSegment {
+func NewCompositionTrackSegmentWithTimeRange(timeRange coremedia.CMTimeRange) AVCompositionTrackSegment {
 	instance := getAVCompositionTrackSegmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTimeRange:"), timeRange)
 	return AVCompositionTrackSegmentFromID(rv)
@@ -147,7 +148,7 @@ func NewCompositionTrackSegmentWithTimeRange(timeRange uintptr) AVCompositionTra
 // targetTimeRange: The time range of the composition track to present the segment’s media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackSegment/init(url:trackID:sourceTimeRange:targetTimeRange:)
-func NewCompositionTrackSegmentWithURLTrackIDSourceTimeRangeTargetTimeRange(URL foundation.INSURL, trackID int32, sourceTimeRange uintptr, targetTimeRange uintptr) AVCompositionTrackSegment {
+func NewCompositionTrackSegmentWithURLTrackIDSourceTimeRangeTargetTimeRange(URL foundation.INSURL, trackID int32, sourceTimeRange coremedia.CMTimeRange, targetTimeRange coremedia.CMTimeRange) AVCompositionTrackSegment {
 	instance := getAVCompositionTrackSegmentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:trackID:sourceTimeRange:targetTimeRange:"), URL, trackID, sourceTimeRange, targetTimeRange)
 	return AVCompositionTrackSegmentFromID(rv)
@@ -158,7 +159,7 @@ func NewCompositionTrackSegmentWithURLTrackIDSourceTimeRangeTargetTimeRange(URL 
 // timeRange: The time range of the empty track segment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackSegment/init(timeRange:)
-func (c AVCompositionTrackSegment) InitWithTimeRange(timeRange uintptr) AVCompositionTrackSegment {
+func (c AVCompositionTrackSegment) InitWithTimeRange(timeRange coremedia.CMTimeRange) AVCompositionTrackSegment {
 	rv := objc.Send[AVCompositionTrackSegment](c.ID, objc.Sel("initWithTimeRange:"), timeRange)
 	return rv
 }
@@ -174,7 +175,7 @@ func (c AVCompositionTrackSegment) InitWithTimeRange(timeRange uintptr) AVCompos
 // targetTimeRange: The time range of the composition track to present the segment’s media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackSegment/init(url:trackID:sourceTimeRange:targetTimeRange:)
-func (c AVCompositionTrackSegment) InitWithURLTrackIDSourceTimeRangeTargetTimeRange(URL foundation.INSURL, trackID int32, sourceTimeRange uintptr, targetTimeRange uintptr) AVCompositionTrackSegment {
+func (c AVCompositionTrackSegment) InitWithURLTrackIDSourceTimeRangeTargetTimeRange(URL foundation.INSURL, trackID int32, sourceTimeRange coremedia.CMTimeRange, targetTimeRange coremedia.CMTimeRange) AVCompositionTrackSegment {
 	rv := objc.Send[AVCompositionTrackSegment](c.ID, objc.Sel("initWithURL:trackID:sourceTimeRange:targetTimeRange:"), URL, trackID, sourceTimeRange, targetTimeRange)
 	return rv
 }
@@ -188,7 +189,7 @@ func (c AVCompositionTrackSegment) InitWithURLTrackIDSourceTimeRangeTargetTimeRa
 // A new composition track segment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackSegment/compositionTrackSegmentWithTimeRange:
-func (_AVCompositionTrackSegmentClass AVCompositionTrackSegmentClass) CompositionTrackSegmentWithTimeRange(timeRange uintptr) AVCompositionTrackSegment {
+func (_AVCompositionTrackSegmentClass AVCompositionTrackSegmentClass) CompositionTrackSegmentWithTimeRange(timeRange coremedia.CMTimeRange) AVCompositionTrackSegment {
 	rv := objc.Send[objc.ID](objc.ID(_AVCompositionTrackSegmentClass.class), objc.Sel("compositionTrackSegmentWithTimeRange:"), timeRange)
 	return AVCompositionTrackSegmentFromID(rv)
 }
@@ -208,7 +209,7 @@ func (_AVCompositionTrackSegmentClass AVCompositionTrackSegmentClass) Compositio
 // A new composition track segment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackSegment/compositionTrackSegmentWithURL:trackID:sourceTimeRange:targetTimeRange:
-func (_AVCompositionTrackSegmentClass AVCompositionTrackSegmentClass) CompositionTrackSegmentWithURLTrackIDSourceTimeRangeTargetTimeRange(URL foundation.INSURL, trackID int32, sourceTimeRange uintptr, targetTimeRange uintptr) AVCompositionTrackSegment {
+func (_AVCompositionTrackSegmentClass AVCompositionTrackSegmentClass) CompositionTrackSegmentWithURLTrackIDSourceTimeRangeTargetTimeRange(URL foundation.INSURL, trackID int32, sourceTimeRange coremedia.CMTimeRange, targetTimeRange coremedia.CMTimeRange) AVCompositionTrackSegment {
 	rv := objc.Send[objc.ID](objc.ID(_AVCompositionTrackSegmentClass.class), objc.Sel("compositionTrackSegmentWithURL:trackID:sourceTimeRange:targetTimeRange:"), URL, trackID, sourceTimeRange, targetTimeRange)
 	return AVCompositionTrackSegmentFromID(rv)
 }

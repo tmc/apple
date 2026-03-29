@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"errors"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -326,18 +327,18 @@ type IAVMutableMovieTrack interface {
 	// Topic: Managing time ranges
 
 	// Inserts a portion of an asset track into the target movie.
-	InsertTimeRangeOfTrackAtTimeCopySampleDataError(timeRange uintptr, track IAVAssetTrack, startTime uintptr, copySampleData bool) (bool, error)
+	InsertTimeRangeOfTrackAtTimeCopySampleDataError(timeRange coremedia.CMTimeRange, track IAVAssetTrack, startTime coremedia.CMTime, copySampleData bool) (bool, error)
 	// Adds an empty time range to a track.
-	InsertEmptyTimeRange(timeRange uintptr)
+	InsertEmptyTimeRange(timeRange coremedia.CMTimeRange)
 	// Removes the specified time range from a track.
-	RemoveTimeRange(timeRange uintptr)
+	RemoveTimeRange(timeRange coremedia.CMTimeRange)
 	// Changes the duration of a time range in a track.
-	ScaleTimeRangeToDuration(timeRange uintptr, duration uintptr)
+	ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime)
 
 	// Topic: Appending sample data
 
 	// Inserts a reference to a media time range into a track.
-	InsertMediaTimeRangeIntoTimeRange(mediaTimeRange uintptr, trackTimeRange uintptr) bool
+	InsertMediaTimeRangeIntoTimeRange(mediaTimeRange coremedia.CMTimeRange, trackTimeRange coremedia.CMTimeRange) bool
 
 	// Topic: Accessing media chunks
 
@@ -345,8 +346,8 @@ type IAVMutableMovieTrack interface {
 	PreferredMediaChunkAlignment() int
 	SetPreferredMediaChunkAlignment(value int)
 	// The maximum duration to use for each chunk of sample data written to the file for file types that support media chunk duration.
-	PreferredMediaChunkDuration() uintptr
-	SetPreferredMediaChunkDuration(value uintptr)
+	PreferredMediaChunkDuration() coremedia.CMTime
+	SetPreferredMediaChunkDuration(value coremedia.CMTime)
 	// The maximum size to use for each chunk of sample data written to the file for file types that support media chunk duration.
 	PreferredMediaChunkSize() int
 	SetPreferredMediaChunkSize(value int)
@@ -393,8 +394,8 @@ type IAVMutableMovieTrack interface {
 	// Topic: Accessing temporal information
 
 	// The time range of the track within the overall timeline of the asset.
-	TimeRange() uintptr
-	SetTimeRange(value uintptr)
+	TimeRange() coremedia.CMTimeRange
+	SetTimeRange(value coremedia.CMTimeRange)
 	// The time scale for tracks that contain the `moov` atom.
 	Timescale() int32
 	SetTimescale(value int32)
@@ -405,7 +406,7 @@ type IAVMutableMovieTrack interface {
 	EstimatedDataRate() float32
 	SetEstimatedDataRate(value float32)
 	// Maps the specified track time through the appropriate time mapping and returns the resulting sample presentation time.
-	SamplePresentationTimeForTrackTime(trackTime uintptr) uintptr
+	SamplePresentationTimeForTrackTime(trackTime coremedia.CMTime) coremedia.CMTime
 
 	// Topic: Accessing language support
 
@@ -452,8 +453,8 @@ type IAVMutableMovieTrack interface {
 	NominalFrameRate() float32
 	SetNominalFrameRate(value float32)
 	// The minimum duration of the track’s frames.
-	MinFrameDuration() uintptr
-	SetMinFrameDuration(value uintptr)
+	MinFrameDuration() coremedia.CMTime
+	SetMinFrameDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether samples in the track may have different presentation and decode timestamps.
 	RequiresFrameReordering() bool
 	SetRequiresFrameReordering(value bool)
@@ -478,7 +479,7 @@ type IAVMutableMovieTrack interface {
 	Segments() IAVAssetTrackSegment
 	SetSegments(value IAVAssetTrackSegment)
 	// Returns a segment whose target time range contains, or is closest to, the specified track time.
-	SegmentForTrackTime(trackTime uintptr) IAVAssetTrackSegment
+	SegmentForTrackTime(trackTime coremedia.CMTime) IAVAssetTrackSegment
 
 	// Topic: Managing track associations
 
@@ -536,7 +537,7 @@ func NewAVMutableMovieTrack() AVMutableMovieTrack {
 // original container are added as necessary.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/insertTimeRange(_:of:at:copySampleData:)
-func (m AVMutableMovieTrack) InsertTimeRangeOfTrackAtTimeCopySampleDataError(timeRange uintptr, track IAVAssetTrack, startTime uintptr, copySampleData bool) (bool, error) {
+func (m AVMutableMovieTrack) InsertTimeRangeOfTrackAtTimeCopySampleDataError(timeRange coremedia.CMTimeRange, track IAVAssetTrack, startTime coremedia.CMTime, copySampleData bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("insertTimeRange:ofTrack:atTime:copySampleData:error:"), timeRange, track, startTime, copySampleData, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -558,7 +559,7 @@ func (m AVMutableMovieTrack) InsertTimeRangeOfTrackAtTimeCopySampleDataError(tim
 // You can’t add empty time ranges to the end of a track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/insertEmptyTimeRange(_:)
-func (m AVMutableMovieTrack) InsertEmptyTimeRange(timeRange uintptr) {
+func (m AVMutableMovieTrack) InsertEmptyTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertEmptyTimeRange:"), timeRange)
 }
 // Removes the specified time range from a track.
@@ -566,7 +567,7 @@ func (m AVMutableMovieTrack) InsertEmptyTimeRange(timeRange uintptr) {
 // timeRange: The time range to remove.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/removeTimeRange(_:)
-func (m AVMutableMovieTrack) RemoveTimeRange(timeRange uintptr) {
+func (m AVMutableMovieTrack) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTimeRange:"), timeRange)
 }
 // Changes the duration of a time range in a track.
@@ -576,7 +577,7 @@ func (m AVMutableMovieTrack) RemoveTimeRange(timeRange uintptr) {
 // duration: The new duration for the time range.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/scaleTimeRange(_:toDuration:)
-func (m AVMutableMovieTrack) ScaleTimeRangeToDuration(timeRange uintptr, duration uintptr) {
+func (m AVMutableMovieTrack) ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime) {
 	objc.Send[objc.ID](m.ID, objc.Sel("scaleTimeRange:toDuration:"), timeRange, duration)
 }
 // Inserts a reference to a media time range into a track.
@@ -601,7 +602,7 @@ func (m AVMutableMovieTrack) ScaleTimeRangeToDuration(timeRange uintptr, duratio
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/insertMediaTimeRange(_:into:)
-func (m AVMutableMovieTrack) InsertMediaTimeRangeIntoTimeRange(mediaTimeRange uintptr, trackTimeRange uintptr) bool {
+func (m AVMutableMovieTrack) InsertMediaTimeRangeIntoTimeRange(mediaTimeRange coremedia.CMTimeRange, trackTimeRange coremedia.CMTimeRange) bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("insertMediaTimeRange:intoTimeRange:"), mediaTimeRange, trackTimeRange)
 	return rv
 }
@@ -664,9 +665,9 @@ func (m AVMutableMovieTrack) HasMediaCharacteristic(mediaCharacteristic AVMediaC
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/samplePresentationTime(forTrackTime:)
-func (m AVMutableMovieTrack) SamplePresentationTimeForTrackTime(trackTime uintptr) uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("samplePresentationTimeForTrackTime:"), trackTime)
-	return rv
+func (m AVMutableMovieTrack) SamplePresentationTimeForTrackTime(trackTime coremedia.CMTime) coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("samplePresentationTimeForTrackTime:"), trackTime)
+	return coremedia.CMTime(rv)
 }
 // Returns metadata items that a track contains for the specified format.
 //
@@ -694,7 +695,7 @@ func (m AVMutableMovieTrack) MetadataForFormat(format AVMetadataFormat) []AVMeta
 // The [AVCompositionTrackSegment] associated with the track time.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/segment(forTrackTime:)
-func (m AVMutableMovieTrack) SegmentForTrackTime(trackTime uintptr) IAVAssetTrackSegment {
+func (m AVMutableMovieTrack) SegmentForTrackTime(trackTime coremedia.CMTime) IAVAssetTrackSegment {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("segmentForTrackTime:"), trackTime)
 	return AVAssetTrackSegmentFromID(rv)
 }
@@ -778,11 +779,11 @@ func (m AVMutableMovieTrack) SetPreferredMediaChunkAlignment(value int) {
 // non-numeric value for the chunk duration will cause an error.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/preferredMediaChunkDuration
-func (m AVMutableMovieTrack) PreferredMediaChunkDuration() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("preferredMediaChunkDuration"))
-	return rv
+func (m AVMutableMovieTrack) PreferredMediaChunkDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("preferredMediaChunkDuration"))
+	return coremedia.CMTime(rv)
 }
-func (m AVMutableMovieTrack) SetPreferredMediaChunkDuration(value uintptr) {
+func (m AVMutableMovieTrack) SetPreferredMediaChunkDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMediaChunkDuration:"), value)
 }
 // The maximum size to use for each chunk of sample data written to the file
@@ -967,11 +968,11 @@ func (m AVMutableMovieTrack) SetTotalSampleDataLength(value objectivec.IObject) 
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/timeRange
-func (m AVMutableMovieTrack) TimeRange() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("timeRange"))
-	return rv
+func (m AVMutableMovieTrack) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](m.ID, objc.Sel("timeRange"))
+	return coremedia.CMTimeRange(rv)
 }
-func (m AVMutableMovieTrack) SetTimeRange(value uintptr) {
+func (m AVMutableMovieTrack) SetTimeRange(value coremedia.CMTimeRange) {
 	objc.Send[struct{}](m.ID, objc.Sel("setTimeRange:"), value)
 }
 // The time scale for tracks that contain the `moov` atom.
@@ -1160,11 +1161,11 @@ func (m AVMutableMovieTrack) SetNominalFrameRate(value float32) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/minFrameDuration
-func (m AVMutableMovieTrack) MinFrameDuration() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("minFrameDuration"))
-	return rv
+func (m AVMutableMovieTrack) MinFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("minFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (m AVMutableMovieTrack) SetMinFrameDuration(value uintptr) {
+func (m AVMutableMovieTrack) SetMinFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](m.ID, objc.Sel("setMinFrameDuration:"), value)
 }
 // A Boolean value that indicates whether samples in the track may have

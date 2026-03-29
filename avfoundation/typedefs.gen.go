@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 )
 
@@ -20,7 +21,7 @@ type AVAssetImageGeneratorApertureMode = string
 // AVAssetImageGeneratorCompletionHandler is a type alias for a closure that provides the result of an image generation request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGeneratorCompletionHandler
-type AVAssetImageGeneratorCompletionHandler = func(uintptr, *coregraphics.CGImageRef, uintptr, AVAssetImageGeneratorResult, foundation.NSError)
+type AVAssetImageGeneratorCompletionHandler = func(coremedia.CMTime, *coregraphics.CGImageRef, coremedia.CMTime, AVAssetImageGeneratorResult, foundation.NSError)
 
 // AVAssetImageGeneratorDynamicRangePolicy is a type that specifies the dynamic range policy to apply when generating images.
 //

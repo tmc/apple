@@ -5,6 +5,7 @@ package screencapturekit
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -83,7 +84,7 @@ type ISCRecordingOutput interface {
 
 	// Topic: Configuring the recording output
 
-	RecordedDuration() objectivec.IObject
+	RecordedDuration() coremedia.CMTime
 	RecordedFileSize() int
 }
 
@@ -122,9 +123,9 @@ func (r SCRecordingOutput) InitWithConfigurationDelegate(recordingOutputConfigur
 }
 
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/recordedDuration
-func (r SCRecordingOutput) RecordedDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](r.ID, objc.Sel("recordedDuration"))
-	return objectivec.Object{ID: rv}
+func (r SCRecordingOutput) RecordedDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](r.ID, objc.Sel("recordedDuration"))
+	return coremedia.CMTime(rv)
 }
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCRecordingOutput/recordedFileSize
 func (r SCRecordingOutput) RecordedFileSize() int {

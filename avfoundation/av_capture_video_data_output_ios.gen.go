@@ -5,6 +5,7 @@ package avfoundation
 
 import (
 "github.com/tmc/apple/objc"
+"github.com/tmc/apple/coremedia"
 )
 
 // A Boolean value that indicates whether the output automatically configures
@@ -97,11 +98,11 @@ objc.Send[struct{}](c.ID, objc.Sel("setPreparesCellularRadioForNetworkConnection
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutput/minFrameDuration
-func (c AVCaptureVideoDataOutput) MinFrameDuration() uintptr {
-rv := objc.Send[uintptr](c.ID, objc.Sel("minFrameDuration"))
-		return rv
+func (c AVCaptureVideoDataOutput) MinFrameDuration() coremedia.CMTime {
+rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("minFrameDuration"))
+		return coremedia.CMTime(rv)
 }
-func (c AVCaptureVideoDataOutput) SetMinFrameDuration(value uintptr) {
+func (c AVCaptureVideoDataOutput) SetMinFrameDuration(value coremedia.CMTime) {
 objc.Send[struct{}](c.ID, objc.Sel("setMinFrameDuration:"), value)
 }
 

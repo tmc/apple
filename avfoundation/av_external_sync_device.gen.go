@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -101,8 +102,8 @@ type IAVExternalSyncDevice interface {
 	// The USB product identifier associated with the external sync device.
 	ProductID() uint32
 	// Delay to wait before starting the frame capture.
-	SignalCompensationDelay() uintptr
-	SetSignalCompensationDelay(value uintptr)
+	SignalCompensationDelay() coremedia.CMTime
+	SetSignalCompensationDelay(value coremedia.CMTime)
 	// The status of the externally connected device.
 	Status() AVExternalSyncDeviceStatus
 	// A unique identifier for an external sync device.
@@ -167,11 +168,11 @@ func (e AVExternalSyncDevice) ProductID() uint32 {
 // scale.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDevice/signalCompensationDelay
-func (e AVExternalSyncDevice) SignalCompensationDelay() uintptr {
-	rv := objc.Send[uintptr](e.ID, objc.Sel("signalCompensationDelay"))
-	return rv
+func (e AVExternalSyncDevice) SignalCompensationDelay() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](e.ID, objc.Sel("signalCompensationDelay"))
+	return coremedia.CMTime(rv)
 }
-func (e AVExternalSyncDevice) SetSignalCompensationDelay(value uintptr) {
+func (e AVExternalSyncDevice) SetSignalCompensationDelay(value coremedia.CMTime) {
 	objc.Send[struct{}](e.ID, objc.Sel("setSignalCompensationDelay:"), value)
 }
 // The status of the externally connected device.

@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -117,19 +118,19 @@ type IAVOutputSettingsAssistant interface {
 	// An audio settings dictionary.
 	AudioSettings() foundation.INSDictionary
 	// The format of the source audio data.
-	SourceAudioFormat() uintptr
-	SetSourceAudioFormat(value uintptr)
+	SourceAudioFormat() coremedia.CMFormatDescriptionRef
+	SetSourceAudioFormat(value coremedia.CMFormatDescriptionRef)
 	// A video settings dictionary.
 	VideoSettings() foundation.INSDictionary
 	// The format of the source video data.
-	SourceVideoFormat() uintptr
-	SetSourceVideoFormat(value uintptr)
+	SourceVideoFormat() coremedia.CMFormatDescriptionRef
+	SetSourceVideoFormat(value coremedia.CMFormatDescriptionRef)
 	// A time value that describes the minimum frame duration of the video data.
-	SourceVideoMinFrameDuration() uintptr
-	SetSourceVideoMinFrameDuration(value uintptr)
+	SourceVideoMinFrameDuration() coremedia.CMTime
+	SetSourceVideoMinFrameDuration(value coremedia.CMTime)
 	// A time value that describes the average frame duration of the video data.
-	SourceVideoAverageFrameDuration() uintptr
-	SetSourceVideoAverageFrameDuration(value uintptr)
+	SourceVideoAverageFrameDuration() coremedia.CMTime
+	SetSourceVideoAverageFrameDuration(value coremedia.CMTime)
 
 	// A preset for HEVC with Alpha video at 3840 by 2160 pixels.
 	Hevc3840x2160WithAlpha() AVOutputSettingsPreset
@@ -213,11 +214,11 @@ func (o AVOutputSettingsAssistant) AudioSettings() foundation.INSDictionary {
 // [AudioSettings] property to get the latest values.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceAudioFormat
-func (o AVOutputSettingsAssistant) SourceAudioFormat() uintptr {
-	rv := objc.Send[uintptr](o.ID, objc.Sel("sourceAudioFormat"))
-	return rv
+func (o AVOutputSettingsAssistant) SourceAudioFormat() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](o.ID, objc.Sel("sourceAudioFormat"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
-func (o AVOutputSettingsAssistant) SetSourceAudioFormat(value uintptr) {
+func (o AVOutputSettingsAssistant) SetSourceAudioFormat(value coremedia.CMFormatDescriptionRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceAudioFormat:"), value)
 }
 // A video settings dictionary.
@@ -245,11 +246,11 @@ func (o AVOutputSettingsAssistant) VideoSettings() foundation.INSDictionary {
 // [VideoSettings] property to get the latest values.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceVideoFormat
-func (o AVOutputSettingsAssistant) SourceVideoFormat() uintptr {
-	rv := objc.Send[uintptr](o.ID, objc.Sel("sourceVideoFormat"))
-	return rv
+func (o AVOutputSettingsAssistant) SourceVideoFormat() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](o.ID, objc.Sel("sourceVideoFormat"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
-func (o AVOutputSettingsAssistant) SetSourceVideoFormat(value uintptr) {
+func (o AVOutputSettingsAssistant) SetSourceVideoFormat(value coremedia.CMFormatDescriptionRef) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceVideoFormat:"), value)
 }
 // A time value that describes the minimum frame duration of the video data.
@@ -270,11 +271,11 @@ func (o AVOutputSettingsAssistant) SetSourceVideoFormat(value uintptr) {
 // [minFrameDuration]: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/minFrameDuration
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceVideoMinFrameDuration
-func (o AVOutputSettingsAssistant) SourceVideoMinFrameDuration() uintptr {
-	rv := objc.Send[uintptr](o.ID, objc.Sel("sourceVideoMinFrameDuration"))
-	return rv
+func (o AVOutputSettingsAssistant) SourceVideoMinFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](o.ID, objc.Sel("sourceVideoMinFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (o AVOutputSettingsAssistant) SetSourceVideoMinFrameDuration(value uintptr) {
+func (o AVOutputSettingsAssistant) SetSourceVideoMinFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceVideoMinFrameDuration:"), value)
 }
 // A time value that describes the average frame duration of the video data.
@@ -289,11 +290,11 @@ func (o AVOutputSettingsAssistant) SetSourceVideoMinFrameDuration(value uintptr)
 // assumes that your source video has a frame rate of 30fps.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceVideoAverageFrameDuration
-func (o AVOutputSettingsAssistant) SourceVideoAverageFrameDuration() uintptr {
-	rv := objc.Send[uintptr](o.ID, objc.Sel("sourceVideoAverageFrameDuration"))
-	return rv
+func (o AVOutputSettingsAssistant) SourceVideoAverageFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](o.ID, objc.Sel("sourceVideoAverageFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (o AVOutputSettingsAssistant) SetSourceVideoAverageFrameDuration(value uintptr) {
+func (o AVOutputSettingsAssistant) SetSourceVideoAverageFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceVideoAverageFrameDuration:"), value)
 }
 // A preset for HEVC with Alpha video at 3840 by 2160 pixels.

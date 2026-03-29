@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -535,7 +536,7 @@ func NewCMPersistentTrackIDErrorBlock(handler CMPersistentTrackIDErrorHandler) (
 //   - [AVAssetExportSession.EstimateMaximumDurationWithCompletionHandler]
 //   - [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]
 //   - [AVCaptureDevice.SetDynamicAspectRatioCompletionHandler]
-type CMTimeErrorHandler = func(uintptr, error)
+type CMTimeErrorHandler = func(coremedia.CMTime, error)
 
 // NewCMTimeErrorBlock wraps a Go [CMTimeErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -545,7 +546,7 @@ type CMTimeErrorHandler = func(uintptr, error)
 //   - [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]
 //   - [AVCaptureDevice.SetDynamicAspectRatioCompletionHandler]
 func NewCMTimeErrorBlock(handler CMTimeErrorHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, primitiveVal uintptr, errID objc.ID) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal coremedia.CMTime, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
@@ -563,7 +564,7 @@ func NewCMTimeErrorBlock(handler CMTimeErrorHandler) (objc.ID, func()) {
 //   - [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVPlayerItemIntegratedTimeline.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
-type CMTimeHandler = func(uintptr)
+type CMTimeHandler = func(coremedia.CMTime)
 
 // NewCMTimeBlock wraps a Go [CMTimeHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -578,7 +579,7 @@ type CMTimeHandler = func(uintptr)
 //   - [AVPlayerItemIntegratedTimeline.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 func NewCMTimeBlock(handler CMTimeHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, primitiveVal uintptr) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal coremedia.CMTime) {
 		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }

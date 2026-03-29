@@ -5,7 +5,7 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/coremedia"
 )
 
 // The class instance for the [VNTrackTranslationalImageRegistrationRequest] class.
@@ -119,8 +119,7 @@ func NewTrackTranslationalImageRegistrationRequestWithCompletionHandler(completi
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func NewTrackTranslationalImageRegistrationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler VNRequestCompletionHandler) VNTrackTranslationalImageRegistrationRequest {
+func NewTrackTranslationalImageRegistrationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNTrackTranslationalImageRegistrationRequest {
 	instance := getVNTrackTranslationalImageRegistrationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNTrackTranslationalImageRegistrationRequestFromID(rv)

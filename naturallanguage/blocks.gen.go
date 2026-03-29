@@ -35,27 +35,6 @@ func NewNLContextualEmbeddingAssetsResultErrorBlock(handler NLContextualEmbeddin
 //   - [NLEmbedding.EnumerateNeighborsForVectorMaximumCountMaximumDistanceDistanceTypeUsingBlock]
 type NLDistanceHandler = func(*string)
 
-// NLTagHandler handles The block this method uses to iterate over the tagger’s string property.
-//   - tag: The tag of the token.
-//   - tokenRange: The range of the token.
-//   - stop: A reference to a Boolean value. The block can set the value to `true` to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to `true` within the block.
-//
-// Used by:
-//   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
-type NLTagHandler = func(NLTag)
-
-// NewNLTagBlock wraps a Go [NLTagHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
-func NewNLTagBlock(handler NLTagHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, primitiveVal NLTag) {
-		handler(primitiveVal)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // NLTaggerAssetsResultErrorHandler handles A closure the framework uses to notify your app when the tag scheme request has completed.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -76,9 +55,13 @@ func NewNLTaggerAssetsResultErrorBlock(handler NLTaggerAssetsResultErrorHandler)
 }
 
 // RangeHandler handles The closure to call after each token; return false if processing should stop.
+//   - tag: The tag of the token.
+//   - tokenRange: The range of the token.
+//   - stop: A reference to a Boolean value. The block can set the value to `true` to stop further processing of the set. The `stop` argument is an out-only argument. You should only ever set this Boolean to `true` within the block.
 //
 // Used by:
 //   - [NLContextualEmbeddingResult.EnumerateTokenVectorsInRangeUsingBlock]
+//   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
 //   - [NLTokenizer.EnumerateTokensInRangeUsingBlock]
 type RangeHandler = func(foundation.NSRange)
 
@@ -87,6 +70,7 @@ type RangeHandler = func(foundation.NSRange)
 //
 // Used by:
 //   - [NLContextualEmbeddingResult.EnumerateTokenVectorsInRangeUsingBlock]
+//   - [NLTagger.EnumerateTagsInRangeUnitSchemeOptionsUsingBlock]
 //   - [NLTokenizer.EnumerateTokensInRangeUsingBlock]
 func NewRangeBlock(handler RangeHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal foundation.NSRange) {

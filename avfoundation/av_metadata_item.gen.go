@@ -7,6 +7,7 @@ import (
 	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -178,11 +179,11 @@ type IAVMetadataItem interface {
 	// Topic: Accessing timing
 
 	// The timestamp of the metadata item.
-	Time() uintptr
+	Time() coremedia.CMTime
 	// The start date of the timed metadata.
 	StartDate() foundation.INSDate
 	// The duration of the metadata item.
-	Duration() uintptr
+	Duration() coremedia.CMTime
 
 	// Topic: Accessing language support
 
@@ -512,9 +513,9 @@ func (m AVMetadataItem) KeySpace() AVMetadataKeySpace {
 // The timestamp of the metadata item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem/time
-func (m AVMetadataItem) Time() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("time"))
-	return rv
+func (m AVMetadataItem) Time() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("time"))
+	return coremedia.CMTime(rv)
 }
 // The start date of the timed metadata.
 //
@@ -530,9 +531,9 @@ func (m AVMetadataItem) StartDate() foundation.INSDate {
 // The duration of the metadata item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem/duration
-func (m AVMetadataItem) Duration() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("duration"))
-	return rv
+func (m AVMetadataItem) Duration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("duration"))
+	return coremedia.CMTime(rv)
 }
 // The locale of the metadata item.
 //

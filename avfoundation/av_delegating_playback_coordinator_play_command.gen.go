@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 )
 
 // The class instance for the [AVDelegatingPlaybackCoordinatorPlayCommand] class.
@@ -79,9 +80,9 @@ type IAVDelegatingPlaybackCoordinatorPlayCommand interface {
 	// A rate to use when starting playback.
 	Rate() float32
 	// A time in the item timeline to use to begin playback.
-	ItemTime() uintptr
+	ItemTime() coremedia.CMTime
 	// A host clock time to use to begin playback.
-	HostClockTime() uintptr
+	HostClockTime() coremedia.CMTime
 }
 
 // Init initializes the instance.
@@ -117,15 +118,15 @@ func (d AVDelegatingPlaybackCoordinatorPlayCommand) Rate() float32 {
 // A time in the item timeline to use to begin playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPlayCommand/itemTime
-func (d AVDelegatingPlaybackCoordinatorPlayCommand) ItemTime() uintptr {
-	rv := objc.Send[uintptr](d.ID, objc.Sel("itemTime"))
-	return rv
+func (d AVDelegatingPlaybackCoordinatorPlayCommand) ItemTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](d.ID, objc.Sel("itemTime"))
+	return coremedia.CMTime(rv)
 }
 // A host clock time to use to begin playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPlayCommand/hostClockTime
-func (d AVDelegatingPlaybackCoordinatorPlayCommand) HostClockTime() uintptr {
-	rv := objc.Send[uintptr](d.ID, objc.Sel("hostClockTime"))
-	return rv
+func (d AVDelegatingPlaybackCoordinatorPlayCommand) HostClockTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](d.ID, objc.Sel("hostClockTime"))
+	return coremedia.CMTime(rv)
 }
 

@@ -381,11 +381,11 @@ type INSCoder interface {
 	// Topic: Encoding Core Media Time Structures
 
 	// Encodes a given Core Media time structure and associates it with a specified key.
-	EncodeCMTimeForKey(time uintptr, key string)
+	EncodeCMTimeForKey(time objectivec.IObject, key string)
 	// Encodes a given Core Media time range structure and associates it with a specified key.
-	EncodeCMTimeRangeForKey(timeRange uintptr, key string)
+	EncodeCMTimeRangeForKey(timeRange objectivec.IObject, key string)
 	// Encodes a given Core Media time mapping structure and associates it with a specified key.
-	EncodeCMTimeMappingForKey(timeMapping uintptr, key string)
+	EncodeCMTimeMappingForKey(timeMapping objectivec.IObject, key string)
 
 	// Topic: Secure Coding
 
@@ -444,11 +444,11 @@ type INSCoder interface {
 	// Topic: Decoding Core Media Time Structures
 
 	// Returns the Core Media time structure associated with a given key.
-	DecodeCMTimeForKey(key string) uintptr
+	DecodeCMTimeForKey(key string) objectivec.IObject
 	// Returns the Core Media time range structure associated with a given key.
-	DecodeCMTimeRangeForKey(key string) uintptr
+	DecodeCMTimeRangeForKey(key string) objectivec.IObject
 	// Returns the Core Media time mapping structure associated with a given key.
-	DecodeCMTimeMappingForKey(key string) uintptr
+	DecodeCMTimeMappingForKey(key string) objectivec.IObject
 
 	// Topic: Managing Decode Errors
 
@@ -886,8 +886,11 @@ func (c NSCoder) EncodeValueOfObjCTypeAt(type_ string, addr unsafe.Pointer) {
 //
 // key: The key with which to associate `time` in the archive.
 //
+// time is a [coremedia.CMTime].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-6wbby
-func (c NSCoder) EncodeCMTimeForKey(time uintptr, key string) {
+// time is a [coremedia.CMTime].
+func (c NSCoder) EncodeCMTimeForKey(time objectivec.IObject, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTime:forKey:"), time, objc.String(key))
 }
 // Encodes a given Core Media time range structure and associates it with a
@@ -897,8 +900,11 @@ func (c NSCoder) EncodeCMTimeForKey(time uintptr, key string) {
 //
 // key: The key with which to associate `timeRange` in the archive.
 //
+// timeRange is a [coremedia.CMTimeRange].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-46lo8
-func (c NSCoder) EncodeCMTimeRangeForKey(timeRange uintptr, key string) {
+// timeRange is a [coremedia.CMTimeRange].
+func (c NSCoder) EncodeCMTimeRangeForKey(timeRange objectivec.IObject, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTimeRange:forKey:"), timeRange, objc.String(key))
 }
 // Encodes a given Core Media time mapping structure and associates it with a
@@ -908,8 +914,11 @@ func (c NSCoder) EncodeCMTimeRangeForKey(timeRange uintptr, key string) {
 //
 // key: The key with which to associate `timeMapping` in the archive.
 //
+// timeMapping is a [coremedia.CMTimeMapping].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-8tefb
-func (c NSCoder) EncodeCMTimeMappingForKey(timeMapping uintptr, key string) {
+// timeMapping is a [coremedia.CMTimeMapping].
+func (c NSCoder) EncodeCMTimeMappingForKey(timeMapping objectivec.IObject, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTimeMapping:forKey:"), timeMapping, objc.String(key))
 }
 // Decodes an array of `count` items, whose Objective-C type is given by
@@ -1228,9 +1237,9 @@ func (c NSCoder) DecodePropertyListForKey(key string) objectivec.IObject {
 // The [CMTime] structure associated with `key` in the archive.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeTime(forKey:)
-func (c NSCoder) DecodeCMTimeForKey(key string) uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("decodeCMTimeForKey:"), objc.String(key))
-	return rv
+func (c NSCoder) DecodeCMTimeForKey(key string) objectivec.IObject {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeCMTimeForKey:"), objc.String(key))
+	return objectivec.Object{ID: rv}
 }
 // Returns the Core Media time range structure associated with a given key.
 //
@@ -1241,9 +1250,9 @@ func (c NSCoder) DecodeCMTimeForKey(key string) uintptr {
 // The [CMTimeRange] structure associated with `key` in the archive.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeTimeRange(forKey:)
-func (c NSCoder) DecodeCMTimeRangeForKey(key string) uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("decodeCMTimeRangeForKey:"), objc.String(key))
-	return rv
+func (c NSCoder) DecodeCMTimeRangeForKey(key string) objectivec.IObject {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeCMTimeRangeForKey:"), objc.String(key))
+	return objectivec.Object{ID: rv}
 }
 // Returns the Core Media time mapping structure associated with a given key.
 //
@@ -1254,9 +1263,9 @@ func (c NSCoder) DecodeCMTimeRangeForKey(key string) uintptr {
 // The [CMTimeMapping] structure associated with `key` in the archive.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeTimeMapping(forKey:)
-func (c NSCoder) DecodeCMTimeMappingForKey(key string) uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("decodeCMTimeMappingForKey:"), objc.String(key))
-	return rv
+func (c NSCoder) DecodeCMTimeMappingForKey(key string) objectivec.IObject {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("decodeCMTimeMappingForKey:"), objc.String(key))
+	return objectivec.Object{ID: rv}
 }
 // Signals to this coder that the decode operation has failed.
 //

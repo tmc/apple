@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -94,7 +95,7 @@ type IAVPlayerItemSegment interface {
 	// Topic: Inspecting the segment
 
 	// The time mapping for this segment.
-	TimeMapping() uintptr
+	TimeMapping() coremedia.CMTimeMapping
 	// The date at which a segment starts.
 	StartDate() foundation.INSDate
 	// The associated interstitial event for this segment.
@@ -107,11 +108,11 @@ type IAVPlayerItemSegment interface {
 	CurrentSegment() IAVPlayerItemSegment
 	SetCurrentSegment(value IAVPlayerItemSegment)
 	// The current time on the integrated timeline when the system created the snapshot.
-	CurrentTime() uintptr
-	SetCurrentTime(value uintptr)
+	CurrentTime() coremedia.CMTime
+	SetCurrentTime(value coremedia.CMTime)
 	// The total duration of the primary item and scheduled interstitial events.
-	Duration() uintptr
-	SetDuration(value uintptr)
+	Duration() coremedia.CMTime
+	SetDuration(value coremedia.CMTime)
 	// The time ranges for the segment that have media data is readily available.
 	LoadedTimeRanges() []foundation.NSValue
 	// The segments for this snapshot.
@@ -158,9 +159,9 @@ func (p AVPlayerItemSegment) SegmentType() AVPlayerItemSegmentType {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemSegment/timeMapping
-func (p AVPlayerItemSegment) TimeMapping() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("timeMapping"))
-	return rv
+func (p AVPlayerItemSegment) TimeMapping() coremedia.CMTimeMapping {
+	rv := objc.Send[coremedia.CMTimeMapping](p.ID, objc.Sel("timeMapping"))
+	return coremedia.CMTimeMapping(rv)
 }
 // The date at which a segment starts.
 //
@@ -210,21 +211,21 @@ func (p AVPlayerItemSegment) SetCurrentSegment(value IAVPlayerItemSegment) {
 // snapshot.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimelinesnapshot/currenttime
-func (p AVPlayerItemSegment) CurrentTime() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("currentTime"))
-	return rv
+func (p AVPlayerItemSegment) CurrentTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("currentTime"))
+	return coremedia.CMTime(rv)
 }
-func (p AVPlayerItemSegment) SetCurrentTime(value uintptr) {
+func (p AVPlayerItemSegment) SetCurrentTime(value coremedia.CMTime) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCurrentTime:"), value)
 }
 // The total duration of the primary item and scheduled interstitial events.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avplayeritemintegratedtimelinesnapshot/duration
-func (p AVPlayerItemSegment) Duration() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("duration"))
-	return rv
+func (p AVPlayerItemSegment) Duration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("duration"))
+	return coremedia.CMTime(rv)
 }
-func (p AVPlayerItemSegment) SetDuration(value uintptr) {
+func (p AVPlayerItemSegment) SetDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDuration:"), value)
 }
 // The time ranges for the segment that have media data is readily available.

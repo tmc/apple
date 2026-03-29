@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -154,7 +155,7 @@ type IAVAudioFormat interface {
 	// Creates an audio format instance from a stream description and channel layout.
 	InitWithStreamDescriptionChannelLayout(asbd objectivec.IObject, layout IAVAudioChannelLayout) AVAudioFormat
 	// Creates an audio format instance from a Core Media audio format description.
-	InitWithCMAudioFormatDescription(formatDescription uintptr) AVAudioFormat
+	InitWithCMAudioFormatDescription(formatDescription coremedia.CMFormatDescriptionRef) AVAudioFormat
 
 	// Topic: Getting the Audio Stream Description
 
@@ -170,7 +171,7 @@ type IAVAudioFormat interface {
 	// The underlying audio channel layout.
 	ChannelLayout() IAVAudioChannelLayout
 	// The audio format description to use with Core Media APIs.
-	FormatDescription() uintptr
+	FormatDescription() coremedia.CMFormatDescriptionRef
 
 	// Topic: Determining the Audio Format
 
@@ -266,7 +267,7 @@ func NewAudioFormatStandardFormatWithSampleRateChannels(sampleRate float64, chan
 // valid.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(cmAudioFormatDescription:)
-func NewAudioFormatWithCMAudioFormatDescription(formatDescription uintptr) AVAudioFormat {
+func NewAudioFormatWithCMAudioFormatDescription(formatDescription coremedia.CMFormatDescriptionRef) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCMAudioFormatDescription:"), formatDescription)
 	return AVAudioFormatFromID(rv)
@@ -577,7 +578,7 @@ func (a AVAudioFormat) InitWithStreamDescriptionChannelLayout(asbd objectivec.IO
 // valid.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(cmAudioFormatDescription:)
-func (a AVAudioFormat) InitWithCMAudioFormatDescription(formatDescription uintptr) AVAudioFormat {
+func (a AVAudioFormat) InitWithCMAudioFormatDescription(formatDescription coremedia.CMFormatDescriptionRef) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithCMAudioFormatDescription:"), formatDescription)
 	return rv
 }
@@ -627,9 +628,9 @@ func (a AVAudioFormat) ChannelLayout() IAVAudioChannelLayout {
 // The audio format description to use with Core Media APIs.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/formatDescription
-func (a AVAudioFormat) FormatDescription() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("formatDescription"))
-	return rv
+func (a AVAudioFormat) FormatDescription() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](a.ID, objc.Sel("formatDescription"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
 // A Boolean value that indicates whether the samples mix into one stream.
 //

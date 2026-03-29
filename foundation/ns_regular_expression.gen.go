@@ -334,7 +334,7 @@ type INSRegularExpression interface {
 	// Returns the number of matches of the regular expression within the specified range of the string.
 	NumberOfMatchesInStringOptionsRange(string_ string, options NSMatchingOptions, range_ NSRange) uint
 	// Enumerates the string allowing the Block to handle each regular expression match.
-	EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block TextCheckingResultMatchingFlagsHandler)
+	EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block MatchingFlagsHandler)
 	// Returns an array containing all the matches of the regular expression in the string.
 	MatchesInStringOptionsRange(string_ string, options NSMatchingOptions, range_ NSRange) []NSTextCheckingResult
 	// Returns the first match of the regular expression within the specified range of the string.
@@ -577,8 +577,8 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/enumerateMatches(in:options:range:using:)
-func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block TextCheckingResultMatchingFlagsHandler) {
-_block3, _ := NewTextCheckingResultMatchingFlagsBlock(block)
+func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block MatchingFlagsHandler) {
+_block3, _ := NewMatchingFlagsBlock(block)
 	objc.Send[objc.ID](r.ID, objc.Sel("enumerateMatchesInString:options:range:usingBlock:"), objc.String(string_), options, range_, _block3)
 }
 // Returns an array containing all the matches of the regular expression in

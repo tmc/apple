@@ -79,7 +79,6 @@ type CMTag struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreMedia/CMTime
 type CMTime struct {
-	Seconds float64 // A representation of the time in seconds.
 	Value int64 // A time value that represents the numerator of a rational time.
 	Timescale int32 // A timescale that represents the denominator of a rational time.
 	Flags uint32 // The flags associated with a time.
@@ -103,7 +102,6 @@ type CMTimeMapping struct {
 // [Full Topic]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
 type CMTimeRange struct {
 	Start CMTime // The start time of the time range.
-	End CMTime // The end time of the time range.
 	Duration CMTime // The duration of the time range.
 
 }

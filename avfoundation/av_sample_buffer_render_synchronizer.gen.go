@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -126,21 +127,21 @@ type IAVSampleBufferRenderSynchronizer interface {
 	// Adds a renderer to the list of renderers under the synchronizer’s control.
 	AddRenderer(renderer AVQueuedSampleBufferRendering)
 	// Removes a renderer from the synchronizer.
-	RemoveRendererAtTimeCompletionHandler(renderer AVQueuedSampleBufferRendering, time uintptr, completionHandler BoolHandler)
+	RemoveRendererAtTimeCompletionHandler(renderer AVQueuedSampleBufferRendering, time coremedia.CMTime, completionHandler BoolHandler)
 
 	// Topic: Accessing time information
 
 	// Returns the current time of the synchronizer.
-	CurrentTime() uintptr
+	CurrentTime() coremedia.CMTime
 	// The synchronizer’s rendering timebase which determines how it interprets timestamps.
 	Timebase() uintptr
 	// The current playback rate.
 	Rate() float32
 	SetRate(value float32)
 	// Sets the renderer’s time and rate.
-	SetRateTime(rate float32, time uintptr)
+	SetRateTime(rate float32, time coremedia.CMTime)
 	// Sets the playback rate and the relationship between the current time and host time.
-	SetRateTimeAtHostTime(rate float32, time uintptr, hostTime uintptr)
+	SetRateTimeAtHostTime(rate float32, time coremedia.CMTime, hostTime coremedia.CMTime)
 	// A Boolean value that Indicates whether the playback should start immediately on rate change requests.
 	DelaysRateChangeUntilHasSufficientMediaData() bool
 	SetDelaysRateChangeUntilHasSufficientMediaData(value bool)
@@ -148,7 +149,7 @@ type IAVSampleBufferRenderSynchronizer interface {
 	// Topic: Observing time
 
 	// Requests invocation of a block during rendering at specified time intervals.
-	AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval uintptr, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject
+	AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject
 	// Requests invocation of a block when specified times are traversed during normal rendering.
 	AddBoundaryTimeObserverForTimesQueueUsingBlock(times []foundation.NSValue, queue dispatch.Queue, block VoidHandler) objectivec.IObject
 	// Cancels the specified time observer.
@@ -217,7 +218,7 @@ func (s AVSampleBufferRenderSynchronizer) AddRenderer(renderer AVQueuedSampleBuf
 // `didRemoveRenderer` set to YES.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/removeRenderer(_:at:completionHandler:)
-func (s AVSampleBufferRenderSynchronizer) RemoveRendererAtTimeCompletionHandler(renderer AVQueuedSampleBufferRendering, time uintptr, completionHandler BoolHandler) {
+func (s AVSampleBufferRenderSynchronizer) RemoveRendererAtTimeCompletionHandler(renderer AVQueuedSampleBufferRendering, time coremedia.CMTime, completionHandler BoolHandler) {
 _block2, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("removeRenderer:atTime:completionHandler:"), renderer, time, _block2)
 }
@@ -230,9 +231,9 @@ _block2, _ := NewBoolBlock(completionHandler)
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/currentTime()
-func (s AVSampleBufferRenderSynchronizer) CurrentTime() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("currentTime"))
-	return rv
+func (s AVSampleBufferRenderSynchronizer) CurrentTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("currentTime"))
+	return coremedia.CMTime(rv)
 }
 // Sets the renderer’s time and rate.
 //
@@ -251,7 +252,7 @@ func (s AVSampleBufferRenderSynchronizer) CurrentTime() uintptr {
 // of `1.0` indicates playback should be at the natural rate of the media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/setRate(_:time:)
-func (s AVSampleBufferRenderSynchronizer) SetRateTime(rate float32, time uintptr) {
+func (s AVSampleBufferRenderSynchronizer) SetRateTime(rate float32, time coremedia.CMTime) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setRate:time:"), rate, time)
 }
 // Sets the playback rate and the relationship between the current time and
@@ -272,7 +273,7 @@ func (s AVSampleBufferRenderSynchronizer) SetRateTime(rate float32, time uintptr
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/setRate(_:time:atHostTime:)
-func (s AVSampleBufferRenderSynchronizer) SetRateTimeAtHostTime(rate float32, time uintptr, hostTime uintptr) {
+func (s AVSampleBufferRenderSynchronizer) SetRateTimeAtHostTime(rate float32, time coremedia.CMTime, hostTime coremedia.CMTime) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setRate:time:atHostTime:"), rate, time, hostTime)
 }
 // Requests invocation of a block during rendering at specified time
@@ -310,7 +311,7 @@ func (s AVSampleBufferRenderSynchronizer) SetRateTimeAtHostTime(rate float32, ti
 // undefined behavior.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/addPeriodicTimeObserver(forInterval:queue:using:)
-func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval uintptr, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject {
+func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject {
 _block2, _ := NewCMTimeBlock(block)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("addPeriodicTimeObserverForInterval:queue:usingBlock:"), interval, uintptr(queue.Handle()), _block2)
 	return objectivec.Object{ID: rv}
@@ -432,7 +433,7 @@ func (s AVSampleBufferRenderSynchronizer) SetDelaysRateChangeUntilHasSufficientM
 
 // RemoveRendererAtTime is a synchronous wrapper around [AVSampleBufferRenderSynchronizer.RemoveRendererAtTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s AVSampleBufferRenderSynchronizer) RemoveRendererAtTime(ctx context.Context, renderer AVQueuedSampleBufferRendering, time uintptr) (bool, error) {
+func (s AVSampleBufferRenderSynchronizer) RemoveRendererAtTime(ctx context.Context, renderer AVQueuedSampleBufferRendering, time coremedia.CMTime) (bool, error) {
 	done := make(chan bool, 1)
 	s.RemoveRendererAtTimeCompletionHandler(renderer, time, func(val bool) {
 		done <- val
@@ -447,16 +448,16 @@ func (s AVSampleBufferRenderSynchronizer) RemoveRendererAtTime(ctx context.Conte
 
 // AddPeriodicTimeObserverForIntervalQueueUsingBlockSync is a synchronous wrapper around [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueueUsingBlockSync(ctx context.Context, interval uintptr, queue dispatch.Queue) (uintptr, error) {
-	done := make(chan uintptr, 1)
-	s.AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval, queue, func(val uintptr) {
+func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueueUsingBlockSync(ctx context.Context, interval coremedia.CMTime, queue dispatch.Queue) (coremedia.CMTime, error) {
+	done := make(chan coremedia.CMTime, 1)
+	s.AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval, queue, func(val coremedia.CMTime) {
 		done <- val
 	})
 	select {
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return 0, ctx.Err()
+		return coremedia.CMTime{}, ctx.Err()
 	}
 }
 

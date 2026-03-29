@@ -5,7 +5,7 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/coremedia"
 )
 
 // The class instance for the [VNDetectTrajectoriesRequest] class.
@@ -110,13 +110,13 @@ type IVNDetectTrajectoriesRequest interface {
 	// Topic: Creating a Request
 
 	// Creates a new request to detect trajectories.
-	InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing objectivec.IObject, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest
+	InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest
 
 	// Topic: Configuring the Request
 
 	// The requested target frame time for processing trajectory detection.
-	TargetFrameTime() objectivec.IObject
-	SetTargetFrameTime(value objectivec.IObject)
+	TargetFrameTime() coremedia.CMTime
+	SetTargetFrameTime(value coremedia.CMTime)
 	// The number of points to detect before calculating a trajectory.
 	TrajectoryLength() int
 	// The minimum radius of the bounding circle of the object to track.
@@ -182,8 +182,7 @@ func NewDetectTrajectoriesRequestWithCompletionHandler(completionHandler VNReque
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
+func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
 	instance := getVNDetectTrajectoriesRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNDetectTrajectoriesRequestFromID(rv)
@@ -206,8 +205,7 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frame
 // request uses to perform its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/init(frameAnalysisSpacing:trajectoryLength:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing objectivec.IObject, trajectoryLength int, completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
+func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
 	instance := getVNDetectTrajectoriesRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, completionHandler)
 	return VNDetectTrajectoriesRequestFromID(rv)
@@ -229,11 +227,8 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthComplet
 // system invokes the completion handler on the same dispatch queue that the
 // request uses to perform its processing.
 //
-// frameAnalysisSpacing is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/init(frameAnalysisSpacing:trajectoryLength:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing objectivec.IObject, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest {
+func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest {
 _block2, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
 	return VNDetectTrajectoriesRequestFromID(rv)
@@ -257,11 +252,11 @@ _block2, _ := NewErrorBlock(completionHandler)
 // [indefinite]: https://developer.apple.com/documentation/CoreMedia/CMTime/indefinite
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/targetFrameTime
-func (d VNDetectTrajectoriesRequest) TargetFrameTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("targetFrameTime"))
-	return objectivec.Object{ID: rv}
+func (d VNDetectTrajectoriesRequest) TargetFrameTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](d.ID, objc.Sel("targetFrameTime"))
+	return coremedia.CMTime(rv)
 }
-func (d VNDetectTrajectoriesRequest) SetTargetFrameTime(value objectivec.IObject) {
+func (d VNDetectTrajectoriesRequest) SetTargetFrameTime(value coremedia.CMTime) {
 	objc.Send[struct{}](d.ID, objc.Sel("setTargetFrameTime:"), value)
 }
 // The number of points to detect before calculating a trajectory.

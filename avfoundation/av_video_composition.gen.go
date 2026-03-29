@@ -7,6 +7,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -142,7 +143,7 @@ type IAVVideoComposition interface {
 	// The scale at which the video composition should render.
 	RenderScale() float32
 	// A time interval for which the video composition should render composed video frames.
-	FrameDuration() uintptr
+	FrameDuration() coremedia.CMTime
 	// A video composition tool to use with Core Animation in offline rendering.
 	AnimationTool() IAVVideoCompositionCoreAnimationTool
 	// The color primaries used for video composition.
@@ -157,7 +158,7 @@ type IAVVideoComposition interface {
 	// Topic: Validating the time range
 
 	// Indicates whether the time ranges of the composition’s instructions conform to validation requirements.
-	IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration uintptr, timeRange uintptr, validationDelegate AVVideoCompositionValidationHandling) bool
+	IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration coremedia.CMTime, timeRange coremedia.CMTimeRange, validationDelegate AVVideoCompositionValidationHandling) bool
 
 	// Topic: Reading instructions
 
@@ -271,7 +272,7 @@ func NewVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVVideoComposition
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/isValid(for:assetDuration:timeRange:validationDelegate:)
-func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration uintptr, timeRange uintptr, validationDelegate AVVideoCompositionValidationHandling) bool {
+func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration coremedia.CMTime, timeRange coremedia.CMTimeRange, validationDelegate AVVideoCompositionValidationHandling) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isValidForTracks:assetDuration:timeRange:validationDelegate:"), objectivec.IObjectSliceToNSArray(tracks), duration, timeRange, validationDelegate)
 	return rv
 }
@@ -341,9 +342,9 @@ func (v AVVideoComposition) RenderScale() float32 {
 // video frames.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/frameDuration
-func (v AVVideoComposition) FrameDuration() uintptr {
-	rv := objc.Send[uintptr](v.ID, objc.Sel("frameDuration"))
-	return rv
+func (v AVVideoComposition) FrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](v.ID, objc.Sel("frameDuration"))
+	return coremedia.CMTime(rv)
 }
 // A video composition tool to use with Core Animation in offline rendering.
 //

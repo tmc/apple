@@ -7,6 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -309,8 +310,8 @@ type ISCStreamConfiguration interface {
 	QueueDepth() int
 	SetQueueDepth(value int)
 	// The desired minimum time between frame updates, in seconds.
-	MinimumFrameInterval() objectivec.IObject
-	SetMinimumFrameInterval(value objectivec.IObject)
+	MinimumFrameInterval() coremedia.CMTime
+	SetMinimumFrameInterval(value coremedia.CMTime)
 	// The resolution at which to capture source content.
 	CaptureResolution() SCCaptureResolutionType
 	SetCaptureResolution(value SCCaptureResolutionType)
@@ -656,11 +657,11 @@ func (s SCStreamConfiguration) SetQueueDepth(value int) {
 // specify a minimum frame interval equal to `1/60`.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStreamConfiguration/minimumFrameInterval
-func (s SCStreamConfiguration) MinimumFrameInterval() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("minimumFrameInterval"))
-	return objectivec.Object{ID: rv}
+func (s SCStreamConfiguration) MinimumFrameInterval() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("minimumFrameInterval"))
+	return coremedia.CMTime(rv)
 }
-func (s SCStreamConfiguration) SetMinimumFrameInterval(value objectivec.IObject) {
+func (s SCStreamConfiguration) SetMinimumFrameInterval(value coremedia.CMTime) {
 	objc.Send[struct{}](s.ID, objc.Sel("setMinimumFrameInterval:"), value)
 }
 // The resolution at which to capture source content.

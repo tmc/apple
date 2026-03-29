@@ -7,6 +7,7 @@ import (
 	"os"
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 )
 
@@ -96,24 +97,24 @@ func AVCaptureTimecodeAdvancedByFrames(timecode AVCaptureTimecode, framesToAdd i
 	return _aVCaptureTimecodeAdvancedByFrames(timecode, framesToAdd)
 }
 
-var _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp func(timecode AVCaptureTimecode, presentationTimeStamp uintptr) uintptr
+var _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp func(timecode AVCaptureTimecode, presentationTimeStamp coremedia.CMTime) uintptr
 
 // AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp creates a sample buffer containing Timecode Media Description metadata for integration with a video track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode/createMetadataSampleBuffer(from:associatedWithPresentationTimeStamp:)
-func AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode AVCaptureTimecode, presentationTimeStamp uintptr) uintptr {
+func AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode AVCaptureTimecode, presentationTimeStamp coremedia.CMTime) uintptr {
 	if _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp == nil {
 		panic("AVFoundation: symbol AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp not loaded")
 	}
 	return _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode, presentationTimeStamp)
 }
 
-var _aVCaptureTimecodeCreateMetadataSampleBufferForDuration func(timecode AVCaptureTimecode, duration uintptr) uintptr
+var _aVCaptureTimecodeCreateMetadataSampleBufferForDuration func(timecode AVCaptureTimecode, duration coremedia.CMTime) uintptr
 
 // AVCaptureTimecodeCreateMetadataSampleBufferForDuration creates a sample buffer containing Timecode Media Description metadata for a specified duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode/createMetadataSampleBuffer(from:forDuration:)
-func AVCaptureTimecodeCreateMetadataSampleBufferForDuration(timecode AVCaptureTimecode, duration uintptr) uintptr {
+func AVCaptureTimecodeCreateMetadataSampleBufferForDuration(timecode AVCaptureTimecode, duration coremedia.CMTime) uintptr {
 	if _aVCaptureTimecodeCreateMetadataSampleBufferForDuration == nil {
 		panic("AVFoundation: symbol AVCaptureTimecodeCreateMetadataSampleBufferForDuration not loaded")
 	}
@@ -146,12 +147,12 @@ func AVSampleBufferAttachContentKey(sbuf uintptr, contentKey AVContentKey, outEr
 	return _aVSampleBufferAttachContentKey(sbuf, contentKey, outError)
 }
 
-var _cMTagCollectionCreateWithVideoOutputPreset func(allocator corefoundation.CFAllocatorRef, preset CMTagCollectionVideoOutputPreset, newCollectionOut uintptr) int32
+var _cMTagCollectionCreateWithVideoOutputPreset func(allocator corefoundation.CFAllocatorRef, preset CMTagCollectionVideoOutputPreset, newCollectionOut *coremedia.CMTagCollectionRef) int32
 
 // CMTagCollectionCreateWithVideoOutputPreset creates a collection with the required tags to describe the specified video output requirements.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/CMTagCollectionCreateWithVideoOutputPreset
-func CMTagCollectionCreateWithVideoOutputPreset(allocator corefoundation.CFAllocatorRef, preset CMTagCollectionVideoOutputPreset, newCollectionOut uintptr) int32 {
+func CMTagCollectionCreateWithVideoOutputPreset(allocator corefoundation.CFAllocatorRef, preset CMTagCollectionVideoOutputPreset, newCollectionOut *coremedia.CMTagCollectionRef) int32 {
 	if _cMTagCollectionCreateWithVideoOutputPreset == nil {
 		panic("AVFoundation: symbol CMTagCollectionCreateWithVideoOutputPreset not loaded")
 	}

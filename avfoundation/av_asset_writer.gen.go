@@ -7,6 +7,7 @@ import (
 	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/uniformtypeidentifiers"
@@ -260,11 +261,11 @@ type IAVAssetWriter interface {
 	// Topic: Configuring fragment output
 
 	// The interval at which to write movie fragments.
-	MovieFragmentInterval() uintptr
-	SetMovieFragmentInterval(value uintptr)
+	MovieFragmentInterval() coremedia.CMTime
+	SetMovieFragmentInterval(value coremedia.CMTime)
 	// The interval at which to write the initial movie fragment.
-	InitialMovieFragmentInterval() uintptr
-	SetInitialMovieFragmentInterval(value uintptr)
+	InitialMovieFragmentInterval() coremedia.CMTime
+	SetInitialMovieFragmentInterval(value coremedia.CMTime)
 	// The sequence number of the initial movie fragment.
 	InitialMovieFragmentSequenceNumber() int
 	SetInitialMovieFragmentSequenceNumber(value int)
@@ -272,8 +273,8 @@ type IAVAssetWriter interface {
 	ProducesCombinableFragments() bool
 	SetProducesCombinableFragments(value bool)
 	// A hint of the final duration of the output file.
-	OverallDurationHint() uintptr
-	SetOverallDurationHint(value uintptr)
+	OverallDurationHint() coremedia.CMTime
+	SetOverallDurationHint(value coremedia.CMTime)
 	// The time scale of the movie.
 	MovieTimeScale() int32
 	SetMovieTimeScale(value int32)
@@ -281,9 +282,9 @@ type IAVAssetWriter interface {
 	// Topic: Managing writing sessions
 
 	// Starts an asset-writing session.
-	StartSessionAtSourceTime(startTime uintptr)
+	StartSessionAtSourceTime(startTime coremedia.CMTime)
 	// Finishes an asset-writing session.
-	EndSessionAtSourceTime(endTime uintptr)
+	EndSessionAtSourceTime(endTime coremedia.CMTime)
 	// Marks all unfinished inputs as finished and completes the writing of the output file.
 	FinishWritingWithCompletionHandler(handler VoidHandler)
 	// Cancels the creation of the output file.
@@ -302,11 +303,11 @@ type IAVAssetWriter interface {
 	Delegate() AVAssetWriterDelegate
 	SetDelegate(value AVAssetWriterDelegate)
 	// The interval of output segments that you prefer.
-	PreferredOutputSegmentInterval() uintptr
-	SetPreferredOutputSegmentInterval(value uintptr)
+	PreferredOutputSegmentInterval() coremedia.CMTime
+	SetPreferredOutputSegmentInterval(value coremedia.CMTime)
 	// The start time of the initial segment.
-	InitialSegmentStartTime() uintptr
-	SetInitialSegmentStartTime(value uintptr)
+	InitialSegmentStartTime() coremedia.CMTime
+	SetInitialSegmentStartTime(value coremedia.CMTime)
 	// A profile for the output file type.
 	OutputFileTypeProfile() AVFileTypeProfile
 	SetOutputFileTypeProfile(value AVFileTypeProfile)
@@ -536,7 +537,7 @@ func (a AVAssetWriter) AddInputGroup(inputGroup IAVAssetWriterInputGroup) {
 // [startWriting()]: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/startWriting()
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/startSession(atSourceTime:)
-func (a AVAssetWriter) StartSessionAtSourceTime(startTime uintptr) {
+func (a AVAssetWriter) StartSessionAtSourceTime(startTime coremedia.CMTime) {
 	objc.Send[objc.ID](a.ID, objc.Sel("startSessionAtSourceTime:"), startTime)
 }
 // Finishes an asset-writing session.
@@ -567,7 +568,7 @@ func (a AVAssetWriter) StartSessionAtSourceTime(startTime uintptr) {
 // sample you append.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/endSession(atSourceTime:)
-func (a AVAssetWriter) EndSessionAtSourceTime(endTime uintptr) {
+func (a AVAssetWriter) EndSessionAtSourceTime(endTime coremedia.CMTime) {
 	objc.Send[objc.ID](a.ID, objc.Sel("endSessionAtSourceTime:"), endTime)
 }
 // Marks all unfinished inputs as finished and completes the writing of the
@@ -756,11 +757,11 @@ func (a AVAssetWriter) SetDirectoryForTemporaryFiles(value foundation.INSURL) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/movieFragmentInterval
-func (a AVAssetWriter) MovieFragmentInterval() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("movieFragmentInterval"))
-	return rv
+func (a AVAssetWriter) MovieFragmentInterval() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("movieFragmentInterval"))
+	return coremedia.CMTime(rv)
 }
-func (a AVAssetWriter) SetMovieFragmentInterval(value uintptr) {
+func (a AVAssetWriter) SetMovieFragmentInterval(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMovieFragmentInterval:"), value)
 }
 // The interval at which to write the initial movie fragment.
@@ -783,11 +784,11 @@ func (a AVAssetWriter) SetMovieFragmentInterval(value uintptr) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/initialMovieFragmentInterval
-func (a AVAssetWriter) InitialMovieFragmentInterval() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("initialMovieFragmentInterval"))
-	return rv
+func (a AVAssetWriter) InitialMovieFragmentInterval() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("initialMovieFragmentInterval"))
+	return coremedia.CMTime(rv)
 }
-func (a AVAssetWriter) SetInitialMovieFragmentInterval(value uintptr) {
+func (a AVAssetWriter) SetInitialMovieFragmentInterval(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInitialMovieFragmentInterval:"), value)
 }
 // The sequence number of the initial movie fragment.
@@ -844,11 +845,11 @@ func (a AVAssetWriter) SetProducesCombinableFragments(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/overallDurationHint
-func (a AVAssetWriter) OverallDurationHint() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("overallDurationHint"))
-	return rv
+func (a AVAssetWriter) OverallDurationHint() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("overallDurationHint"))
+	return coremedia.CMTime(rv)
 }
-func (a AVAssetWriter) SetOverallDurationHint(value uintptr) {
+func (a AVAssetWriter) SetOverallDurationHint(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOverallDurationHint:"), value)
 }
 // The time scale of the movie.
@@ -911,11 +912,11 @@ func (a AVAssetWriter) SetDelegate(value AVAssetWriterDelegate) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/preferredOutputSegmentInterval
-func (a AVAssetWriter) PreferredOutputSegmentInterval() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("preferredOutputSegmentInterval"))
-	return rv
+func (a AVAssetWriter) PreferredOutputSegmentInterval() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("preferredOutputSegmentInterval"))
+	return coremedia.CMTime(rv)
 }
-func (a AVAssetWriter) SetPreferredOutputSegmentInterval(value uintptr) {
+func (a AVAssetWriter) SetPreferredOutputSegmentInterval(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreferredOutputSegmentInterval:"), value)
 }
 // The start time of the initial segment.
@@ -929,11 +930,11 @@ func (a AVAssetWriter) SetPreferredOutputSegmentInterval(value uintptr) {
 // You can’t change this value after writing starts.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/initialSegmentStartTime
-func (a AVAssetWriter) InitialSegmentStartTime() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("initialSegmentStartTime"))
-	return rv
+func (a AVAssetWriter) InitialSegmentStartTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("initialSegmentStartTime"))
+	return coremedia.CMTime(rv)
 }
-func (a AVAssetWriter) SetInitialSegmentStartTime(value uintptr) {
+func (a AVAssetWriter) SetInitialSegmentStartTime(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInitialSegmentStartTime:"), value)
 }
 // A profile for the output file type.

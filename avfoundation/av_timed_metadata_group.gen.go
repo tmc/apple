@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -97,17 +98,17 @@ type IAVTimedMetadataGroup interface {
 	// Topic: Creating a timed metadata group
 
 	// Creates a timed metadata group initialized with the given metadata items.
-	InitWithItemsTimeRange(items []AVMetadataItem, timeRange uintptr) AVTimedMetadataGroup
+	InitWithItemsTimeRange(items []AVMetadataItem, timeRange coremedia.CMTimeRange) AVTimedMetadataGroup
 
 	// Topic: Accessing group attributes
 
 	// The time range for the timed metadata.
-	TimeRange() uintptr
+	TimeRange() coremedia.CMTimeRange
 
 	// Topic: Creating a format description
 
 	// Creates a format description based on the receiver’s items.
-	CopyFormatDescription() objectivec.IObject
+	CopyFormatDescription() coremedia.CMFormatDescriptionRef
 }
 
 // Init initializes the instance.
@@ -140,7 +141,7 @@ func NewAVTimedMetadataGroup() AVTimedMetadataGroup {
 // A metadata group initialized with `items`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/init(items:timeRange:)
-func NewTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange uintptr) AVTimedMetadataGroup {
+func NewTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange coremedia.CMTimeRange) AVTimedMetadataGroup {
 	instance := getAVTimedMetadataGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:timeRange:"), objectivec.IObjectSliceToNSArray(items), timeRange)
 	return AVTimedMetadataGroupFromID(rv)
@@ -157,7 +158,7 @@ func NewTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange u
 // A metadata group initialized with `items`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/init(items:timeRange:)
-func (t AVTimedMetadataGroup) InitWithItemsTimeRange(items []AVMetadataItem, timeRange uintptr) AVTimedMetadataGroup {
+func (t AVTimedMetadataGroup) InitWithItemsTimeRange(items []AVMetadataItem, timeRange coremedia.CMTimeRange) AVTimedMetadataGroup {
 	rv := objc.Send[AVTimedMetadataGroup](t.ID, objc.Sel("initWithItems:timeRange:"), objectivec.IObjectSliceToNSArray(items), timeRange)
 	return rv
 }
@@ -180,16 +181,16 @@ func (t AVTimedMetadataGroup) InitWithItemsTimeRange(items []AVMetadataItem, tim
 // a data type.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/copyFormatDescription()
-func (t AVTimedMetadataGroup) CopyFormatDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("copyFormatDescription"))
-	return objectivec.Object{ID: rv}
+func (t AVTimedMetadataGroup) CopyFormatDescription() coremedia.CMFormatDescriptionRef {
+	rv := objc.Send[coremedia.CMFormatDescriptionRef](t.ID, objc.Sel("copyFormatDescription"))
+	return coremedia.CMFormatDescriptionRef(rv)
 }
 
 // The time range for the timed metadata.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/timeRange
-func (t AVTimedMetadataGroup) TimeRange() uintptr {
-	rv := objc.Send[uintptr](t.ID, objc.Sel("timeRange"))
-	return rv
+func (t AVTimedMetadataGroup) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](t.ID, objc.Sel("timeRange"))
+	return coremedia.CMTimeRange(rv)
 }
 

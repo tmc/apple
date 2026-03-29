@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -87,9 +88,9 @@ type IAVAssetSegmentTrackReport interface {
 	// The type of media a track contains.
 	MediaType() AVMediaType
 	// The duration of a track.
-	Duration() uintptr
+	Duration() coremedia.CMTime
 	// The earliest presentation timestamp (PTS) for this track.
-	EarliestPresentationTimeStamp() uintptr
+	EarliestPresentationTimeStamp() coremedia.CMTime
 	// Information about the first video sample in a track.
 	FirstVideoSampleInformation() IAVAssetSegmentReportSampleInformation
 
@@ -143,9 +144,9 @@ func (a AVAssetSegmentTrackReport) MediaType() AVMediaType {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentTrackReport/duration
-func (a AVAssetSegmentTrackReport) Duration() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("duration"))
-	return rv
+func (a AVAssetSegmentTrackReport) Duration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("duration"))
+	return coremedia.CMTime(rv)
 }
 // The earliest presentation timestamp (PTS) for this track.
 //
@@ -156,9 +157,9 @@ func (a AVAssetSegmentTrackReport) Duration() uintptr {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentTrackReport/earliestPresentationTimeStamp
-func (a AVAssetSegmentTrackReport) EarliestPresentationTimeStamp() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("earliestPresentationTimeStamp"))
-	return rv
+func (a AVAssetSegmentTrackReport) EarliestPresentationTimeStamp() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("earliestPresentationTimeStamp"))
+	return coremedia.CMTime(rv)
 }
 // Information about the first video sample in a track.
 //

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -88,10 +89,10 @@ type IAVPlayerVideoOutputConfiguration interface {
 	// The player item that’s the source of this configuration.
 	SourcePlayerItem() IAVPlayerItem
 	// An array of data channels selected for this configuration.
-	DataChannelDescription() objectivec.IObject
-	SetDataChannelDescription(value objectivec.IObject)
+	DataChannelDescription() coremedia.CMTag
+	SetDataChannelDescription(value coremedia.CMTag)
 	// The host time this configuration became active on its associated player object.
-	ActivationTime() uintptr
+	ActivationTime() coremedia.CMTime
 	// The preferred transform of the visual media.
 	PreferredTransform() corefoundation.CGAffineTransform
 
@@ -128,20 +129,20 @@ func (p AVPlayerVideoOutputConfiguration) SourcePlayerItem() IAVPlayerItem {
 // An array of data channels selected for this configuration.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avplayervideooutput/configuration/datachanneldescription
-func (p AVPlayerVideoOutputConfiguration) DataChannelDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("dataChannelDescription"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerVideoOutputConfiguration) DataChannelDescription() coremedia.CMTag {
+	rv := objc.Send[coremedia.CMTag](p.ID, objc.Sel("dataChannelDescription"))
+	return coremedia.CMTag(rv)
 }
-func (p AVPlayerVideoOutputConfiguration) SetDataChannelDescription(value objectivec.IObject) {
+func (p AVPlayerVideoOutputConfiguration) SetDataChannelDescription(value coremedia.CMTag) {
 	objc.Send[struct{}](p.ID, objc.Sel("setDataChannelDescription:"), value)
 }
 // The host time this configuration became active on its associated player
 // object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutput/Configuration/activationTime
-func (p AVPlayerVideoOutputConfiguration) ActivationTime() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("activationTime"))
-	return rv
+func (p AVPlayerVideoOutputConfiguration) ActivationTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("activationTime"))
+	return coremedia.CMTime(rv)
 }
 // The preferred transform of the visual media.
 //

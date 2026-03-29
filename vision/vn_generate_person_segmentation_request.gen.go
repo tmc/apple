@@ -6,8 +6,8 @@ import (
 	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNGeneratePersonSegmentationRequest] class.
@@ -167,8 +167,7 @@ func NewGeneratePersonSegmentationRequestWithCompletionHandler(completionHandler
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func NewGeneratePersonSegmentationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler VNRequestCompletionHandler) VNGeneratePersonSegmentationRequest {
+func NewGeneratePersonSegmentationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNGeneratePersonSegmentationRequest {
 	instance := getVNGeneratePersonSegmentationRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNGeneratePersonSegmentationRequestFromID(rv)

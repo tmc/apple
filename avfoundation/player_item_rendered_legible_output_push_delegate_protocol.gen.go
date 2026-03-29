@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -44,7 +45,7 @@ func AVPlayerItemRenderedLegibleOutputPushDelegateObjectFromID(id objc.ID) AVPla
 // itemTime: The item time at which to present the caption images.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemRenderedLegibleOutputPushDelegate/renderedLegibleOutput(_:didOutputRenderedCaptionImages:forItemTime:)
-func (o AVPlayerItemRenderedLegibleOutputPushDelegateObject) RenderedLegibleOutputDidOutputRenderedCaptionImagesForItemTime(output IAVPlayerItemRenderedLegibleOutput, captionImages []AVRenderedCaptionImage, itemTime uintptr) {
+func (o AVPlayerItemRenderedLegibleOutputPushDelegateObject) RenderedLegibleOutputDidOutputRenderedCaptionImagesForItemTime(output IAVPlayerItemRenderedLegibleOutput, captionImages []AVRenderedCaptionImage, itemTime coremedia.CMTime) {
 	objc.Send[struct{}](o.ID, objc.Sel("renderedLegibleOutput:didOutputRenderedCaptionImages:forItemTime:"), output, objectivec.IObjectSliceToNSArray(captionImages), itemTime)
 	}
 // Tells the delegate that the output is starting a new sequence of media

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -117,14 +118,14 @@ type IAVCaption interface {
 	// Topic: Creating a caption
 
 	// Creates a caption that contains text and a time range.
-	InitWithTextTimeRange(text string, timeRange uintptr) AVCaption
+	InitWithTextTimeRange(text string, timeRange coremedia.CMTimeRange) AVCaption
 
 	// Topic: Accessing text and timing
 
 	// The caption text.
 	Text() string
 	// The time range over which the system presents the caption.
-	TimeRange() uintptr
+	TimeRange() coremedia.CMTimeRange
 
 	// Topic: Accessing the region
 
@@ -184,7 +185,7 @@ func NewAVCaption() AVCaption {
 // timeRange: The range of time when the caption is active.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(_:timeRange:)
-func NewCaptionWithTextTimeRange(text string, timeRange uintptr) AVCaption {
+func NewCaptionWithTextTimeRange(text string, timeRange coremedia.CMTimeRange) AVCaption {
 	instance := getAVCaptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithText:timeRange:"), objc.String(text), timeRange)
 	return AVCaptionFromID(rv)
@@ -197,7 +198,7 @@ func NewCaptionWithTextTimeRange(text string, timeRange uintptr) AVCaption {
 // timeRange: The range of time when the caption is active.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(_:timeRange:)
-func (c AVCaption) InitWithTextTimeRange(text string, timeRange uintptr) AVCaption {
+func (c AVCaption) InitWithTextTimeRange(text string, timeRange coremedia.CMTimeRange) AVCaption {
 	rv := objc.Send[AVCaption](c.ID, objc.Sel("initWithText:timeRange:"), objc.String(text), timeRange)
 	return rv
 }
@@ -343,9 +344,9 @@ func (c AVCaption) Text() string {
 // rate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/timeRange
-func (c AVCaption) TimeRange() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("timeRange"))
-	return rv
+func (c AVCaption) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](c.ID, objc.Sel("timeRange"))
+	return coremedia.CMTimeRange(rv)
 }
 // The region in which the caption exists.
 //

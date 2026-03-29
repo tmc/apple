@@ -463,6 +463,33 @@ func NewKeyTypeBlock(handler KeyTypeHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// MatchingFlagsHandler handles The Block enumerates the matches of the regular expression in the string.
+//   - result: An [NSTextCheckingResult](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult>) specifying the match. This result gives the overall matched range via its [range](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult/range>) property, and the range of each individual capture group via its [range(at:)](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult/range(at:)>) method. The range {[NSNotFound], 0} is returned if one of the capture groups did not participate in this particular match.
+//   - flags: The current state of the matching progress. See [NSRegularExpression.MatchingFlags](<doc://com.apple.foundation/documentation/Foundation/NSRegularExpression/MatchingFlags>) for the possible values.
+//   - stop: A reference to a Boolean value. The Block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
+//
+// Used by:
+//   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
+type MatchingFlagsHandler = func(*NSTextCheckingResult)
+
+// NewMatchingFlagsBlock wraps a Go [MatchingFlagsHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
+func NewMatchingFlagsBlock(handler MatchingFlagsHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *NSTextCheckingResult
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSTextCheckingResultFromID(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSItemProviderReadingErrorHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -699,34 +726,6 @@ func NewTaskBlock(handler TaskHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// TextCheckingResultMatchingFlagsHandler handles The Block enumerates the matches of the regular expression in the string.
-//   - result: An [NSTextCheckingResult](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult>) specifying the match. This result gives the overall matched range via its [range](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult/range>) property, and the range of each individual capture group via its [range(at:)](<doc://com.apple.foundation/documentation/Foundation/NSTextCheckingResult/range(at:)>) method. The range {[NSNotFound], 0} is returned if one of the capture groups did not participate in this particular match.
-//   - flags: The current state of the matching progress. See [NSRegularExpression.MatchingFlags](<doc://com.apple.foundation/documentation/Foundation/NSRegularExpression/MatchingFlags>) for the possible values.
-//   - stop: A reference to a Boolean value. The Block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block.
-//
-// Used by:
-//   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
-type TextCheckingResultMatchingFlagsHandler = func(*NSTextCheckingResult, NSMatchingFlags)
-
-// NewTextCheckingResultMatchingFlagsBlock wraps a Go [TextCheckingResultMatchingFlagsHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSRegularExpression.EnumerateMatchesInStringOptionsRangeUsingBlock]
-func NewTextCheckingResultMatchingFlagsBlock(handler TextCheckingResultMatchingFlagsHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
-		var result *NSTextCheckingResult
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := NSTextCheckingResultFromID(resultID)
-			result = &v
-		}
-		var extra0 NSMatchingFlags = NSMatchingFlags(extra0ID)
-		handler(result, extra0)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // TimerHandler handles A block to be executed when the timer fires.
 //
 // Used by:
@@ -759,6 +758,8 @@ func NewTimerBlock(handler TimerHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [NSURLCredentialStorage.GetDefaultCredentialForProtectionSpaceTaskCompletionHandler]
+//   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
+//   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
 type URLCredentialHandler = func(*NSURLCredential)
 
 // NewURLCredentialBlock wraps a Go [URLCredentialHandler] as an Objective-C block.
@@ -766,6 +767,8 @@ type URLCredentialHandler = func(*NSURLCredential)
 //
 // Used by:
 //   - [NSURLCredentialStorage.GetDefaultCredentialForProtectionSpaceTaskCompletionHandler]
+//   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
+//   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
 func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSURLCredential
@@ -841,6 +844,7 @@ func NewURLBlock(handler URLHandler) (objc.ID, func()) {
 // URLRequestHandler handles A block that your handler should call with either the value of the `request` parameter, a modified URL request object, or [NULL] to refuse the redirect and return the body of the redirect response.
 //
 // Used by:
+//   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
 //   - [NSURLSessionTaskDelegate.URLSessionTaskWillPerformHTTPRedirectionNewRequestCompletionHandler]
 type URLRequestHandler = func(*NSURLRequest)
 
@@ -848,6 +852,7 @@ type URLRequestHandler = func(*NSURLRequest)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
+//   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
 //   - [NSURLSessionTaskDelegate.URLSessionTaskWillPerformHTTPRedirectionNewRequestCompletionHandler]
 func NewURLRequestBlock(handler URLRequestHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
@@ -858,58 +863,6 @@ func NewURLRequestBlock(handler URLRequestHandler) (objc.ID, func()) {
 			result = &v
 		}
 		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// URLSessionAuthChallengeDispositionURLCredentialHandler handles A handler that your delegate method must call.
-//
-// Used by:
-//   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
-//   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
-type URLSessionAuthChallengeDispositionURLCredentialHandler = func(NSURLSessionAuthChallengeDisposition, *NSURLCredential)
-
-// NewURLSessionAuthChallengeDispositionURLCredentialBlock wraps a Go [URLSessionAuthChallengeDispositionURLCredentialHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSURLSessionDelegate.URLSessionDidReceiveChallengeCompletionHandler]
-//   - [NSURLSessionTaskDelegate.URLSessionTaskDidReceiveChallengeCompletionHandler]
-func NewURLSessionAuthChallengeDispositionURLCredentialBlock(handler URLSessionAuthChallengeDispositionURLCredentialHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
-		var result NSURLSessionAuthChallengeDisposition = NSURLSessionAuthChallengeDisposition(resultID)
-		var extra0 *NSURLCredential
-		if extra0ID != 0 {
-			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
-			v := NSURLCredentialFromID(extra0ID)
-			extra0 = &v
-		}
-		handler(result, extra0)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// URLSessionDelayedRequestDispositionURLRequestHandler handles A completion handler to perform the request.
-//
-// Used by:
-//   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
-type URLSessionDelayedRequestDispositionURLRequestHandler = func(NSURLSessionDelayedRequestDisposition, *NSURLRequest)
-
-// NewURLSessionDelayedRequestDispositionURLRequestBlock wraps a Go [URLSessionDelayedRequestDispositionURLRequestHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSURLSessionTaskDelegate.URLSessionTaskWillBeginDelayedRequestCompletionHandler]
-func NewURLSessionDelayedRequestDispositionURLRequestBlock(handler URLSessionDelayedRequestDispositionURLRequestHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
-		var result NSURLSessionDelayedRequestDisposition = NSURLSessionDelayedRequestDisposition(resultID)
-		var extra0 *NSURLRequest
-		if extra0ID != 0 {
-			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
-			v := NSURLRequestFromID(extra0ID)
-			extra0 = &v
-		}
-		handler(result, extra0)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -926,9 +879,8 @@ type URLSessionResponseDispositionHandler = func(NSURLSessionResponseDisposition
 // Used by:
 //   - [NSURLSessionDataDelegate.URLSessionDataTaskDidReceiveResponseCompletionHandler]
 func NewURLSessionResponseDispositionBlock(handler URLSessionResponseDispositionHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result NSURLSessionResponseDisposition = NSURLSessionResponseDisposition(resultID)
-		handler(result)
+	block := objc.NewBlock(func(b objc.Block, primitiveVal NSURLSessionResponseDisposition) {
+		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -1176,12 +1128,12 @@ func NewconstvoidBlock(handler constvoidHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// unicharHandler is the signature for a completion handler block.
+// unsignedshortHandler is the signature for a completion handler block.
 //
 // Used by:
 //   - [NSConstantString.InitWithCharactersNoCopyLengthDeallocator]
 //   - [NSMutableString.InitWithCharactersNoCopyLengthDeallocator]
 //   - [NSSimpleCString.InitWithCharactersNoCopyLengthDeallocator]
 //   - [NSString.InitWithCharactersNoCopyLengthDeallocator]
-type unicharHandler = func(*uint16)
+type unsignedshortHandler = func(*uint16)
 

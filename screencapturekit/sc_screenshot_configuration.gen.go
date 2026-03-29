@@ -3,7 +3,6 @@
 package screencapturekit
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
@@ -134,8 +133,8 @@ type ISCScreenshotConfiguration interface {
 	// Topic: Instance Properties
 
 	// A uniform type identifier that specifies the screenshot’s file format; HEIC, JPEG, or PNG.
-	ContentType() *uniformtypeidentifiers.UTType
-	SetContentType(value *uniformtypeidentifiers.UTType)
+	ContentType() uniformtypeidentifiers.UTType
+	SetContentType(value uniformtypeidentifiers.UTType)
 	// A rectangle that specifies whether to output screenshots in a subset of the output image.
 	DestinationRect() corefoundation.CGRect
 	SetDestinationRect(value corefoundation.CGRect)
@@ -194,11 +193,11 @@ func NewSCScreenshotConfiguration() SCScreenshotConfiguration {
 // HEIC, JPEG, or PNG.
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotConfiguration/contentType
-func (s SCScreenshotConfiguration) ContentType() *uniformtypeidentifiers.UTType {
-	rv := objc.Send[unsafe.Pointer](s.ID, objc.Sel("contentType"))
-	return (*uniformtypeidentifiers.UTType)(rv)
+func (s SCScreenshotConfiguration) ContentType() uniformtypeidentifiers.UTType {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("contentType"))
+	return uniformtypeidentifiers.UTTypeFromID(objc.ID(rv))
 }
-func (s SCScreenshotConfiguration) SetContentType(value *uniformtypeidentifiers.UTType) {
+func (s SCScreenshotConfiguration) SetContentType(value uniformtypeidentifiers.UTType) {
 	objc.Send[struct{}](s.ID, objc.Sel("setContentType:"), value)
 }
 // A rectangle that specifies whether to output screenshots in a subset of the

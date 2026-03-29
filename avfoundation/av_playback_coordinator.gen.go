@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -141,7 +142,7 @@ type IAVPlaybackCoordinator interface {
 	// Tells the coordinator to stop sending playback commands temporarily when the playback object disconnects from the group activity.
 	BeginSuspensionForReason(suspensionReason AVCoordinatedPlaybackSuspensionReason) IAVCoordinatedPlaybackSuspension
 	// Returns a time in the current item’s timeline that the coordinator expects to play at the specified host time.
-	ExpectedItemTimeAtHostTime(hostClockTime uintptr) uintptr
+	ExpectedItemTimeAtHostTime(hostClockTime coremedia.CMTime) coremedia.CMTime
 
 	// Topic: Observing suspension reasons
 
@@ -236,9 +237,9 @@ func (p AVPlaybackCoordinator) BeginSuspensionForReason(suspensionReason AVCoord
 // A time in the current item’s timeline.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/expectedItemTime(atHostTime:)
-func (p AVPlaybackCoordinator) ExpectedItemTimeAtHostTime(hostClockTime uintptr) uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("expectedItemTimeAtHostTime:"), hostClockTime)
-	return rv
+func (p AVPlaybackCoordinator) ExpectedItemTimeAtHostTime(hostClockTime coremedia.CMTime) coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("expectedItemTimeAtHostTime:"), hostClockTime)
+	return coremedia.CMTime(rv)
 }
 
 // The reasons that cause a coordinator to suspend playback.

@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -91,11 +92,11 @@ type IAVFrameRateRange interface {
 	// Topic: Accessing properties
 
 	// The maximum frame duration supported by the range.
-	MaxFrameDuration() uintptr
+	MaxFrameDuration() coremedia.CMTime
 	// The maximum frame rate supported by the range.
 	MaxFrameRate() float64
 	// The minimum frame duration supported by the range.
-	MinFrameDuration() uintptr
+	MinFrameDuration() coremedia.CMTime
 	// The minimum frame rate supported by the range.
 	MinFrameRate() float64
 
@@ -143,9 +144,9 @@ func NewAVFrameRateRange() AVFrameRateRange {
 // frame rate as a duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFrameRateRange/maxFrameDuration
-func (f AVFrameRateRange) MaxFrameDuration() uintptr {
-	rv := objc.Send[uintptr](f.ID, objc.Sel("maxFrameDuration"))
-	return rv
+func (f AVFrameRateRange) MaxFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](f.ID, objc.Sel("maxFrameDuration"))
+	return coremedia.CMTime(rv)
 }
 // The maximum frame rate supported by the range.
 //
@@ -166,9 +167,9 @@ func (f AVFrameRateRange) MaxFrameRate() float64 {
 // frame rate as a duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFrameRateRange/minFrameDuration
-func (f AVFrameRateRange) MinFrameDuration() uintptr {
-	rv := objc.Send[uintptr](f.ID, objc.Sel("minFrameDuration"))
-	return rv
+func (f AVFrameRateRange) MinFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](f.ID, objc.Sel("minFrameDuration"))
+	return coremedia.CMTime(rv)
 }
 // The minimum frame rate supported by the range.
 //

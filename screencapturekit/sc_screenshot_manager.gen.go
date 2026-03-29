@@ -195,20 +195,20 @@ func (sc SCScreenshotManagerClass) CaptureImageWithFilterConfiguration(ctx conte
 
 // CaptureSampleBufferWithFilterConfiguration is a synchronous wrapper around [SCScreenshotManager.CaptureSampleBufferWithFilterConfigurationCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (sc SCScreenshotManagerClass) CaptureSampleBufferWithFilterConfiguration(ctx context.Context, contentFilter ISCContentFilter, config ISCStreamConfiguration) (objectivec.IObject, error) {
+func (sc SCScreenshotManagerClass) CaptureSampleBufferWithFilterConfiguration(ctx context.Context, contentFilter ISCContentFilter, config ISCStreamConfiguration) (uintptr, error) {
 	type result struct {
-		val objectivec.IObject
+		val uintptr
 		err error
 	}
 	done := make(chan result, 1)
-	sc.CaptureSampleBufferWithFilterConfigurationCompletionHandler(contentFilter, config, func(val objectivec.IObject, err error) {
+	sc.CaptureSampleBufferWithFilterConfigurationCompletionHandler(contentFilter, config, func(val uintptr, err error) {
 		done <- result{val, err}
 	})
 	select {
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return nil, ctx.Err()
+		return 0, ctx.Err()
 	}
 }
 

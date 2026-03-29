@@ -7,6 +7,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"errors"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -136,15 +137,15 @@ type IAVMutableCompositionTrack interface {
 	// Topic: Managing time ranges
 
 	// Adds or extends an empty time range within the track.
-	InsertEmptyTimeRange(timeRange uintptr)
+	InsertEmptyTimeRange(timeRange coremedia.CMTimeRange)
 	// Inserts a time range of media from a source track into a composition track.
-	InsertTimeRangeOfTrackAtTimeError(timeRange uintptr, track IAVAssetTrack, startTime uintptr) (bool, error)
+	InsertTimeRangeOfTrackAtTimeError(timeRange coremedia.CMTimeRange, track IAVAssetTrack, startTime coremedia.CMTime) (bool, error)
 	// Inserts the time ranges of multiple source tracks into a track of a composition.
-	InsertTimeRangesOfTracksAtTimeError(timeRanges []foundation.NSValue, tracks []AVAssetTrack, startTime uintptr) (bool, error)
+	InsertTimeRangesOfTracksAtTimeError(timeRanges []foundation.NSValue, tracks []AVAssetTrack, startTime coremedia.CMTime) (bool, error)
 	// Removes a time range of media from a composition track.
-	RemoveTimeRange(timeRange uintptr)
+	RemoveTimeRange(timeRange coremedia.CMTimeRange)
 	// Changes the duration of a time range of the track.
-	ScaleTimeRangeToDuration(timeRange uintptr, duration uintptr)
+	ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime)
 
 	// Topic: Associating tracks
 
@@ -188,7 +189,7 @@ func NewAVMutableCompositionTrack() AVMutableCompositionTrack {
 // timeRange: The empty time range to insert.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack/insertEmptyTimeRange(_:)
-func (m AVMutableCompositionTrack) InsertEmptyTimeRange(timeRange uintptr) {
+func (m AVMutableCompositionTrack) InsertEmptyTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertEmptyTimeRange:"), timeRange)
 }
 // Inserts a time range of media from a source track into a composition track.
@@ -206,7 +207,7 @@ func (m AVMutableCompositionTrack) InsertEmptyTimeRange(timeRange uintptr) {
 // [ScaleTimeRangeToDuration] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack/insertTimeRange(_:of:at:)
-func (m AVMutableCompositionTrack) InsertTimeRangeOfTrackAtTimeError(timeRange uintptr, track IAVAssetTrack, startTime uintptr) (bool, error) {
+func (m AVMutableCompositionTrack) InsertTimeRangeOfTrackAtTimeError(timeRange coremedia.CMTimeRange, track IAVAssetTrack, startTime coremedia.CMTime) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("insertTimeRange:ofTrack:atTime:error:"), timeRange, track, startTime, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -229,7 +230,7 @@ func (m AVMutableCompositionTrack) InsertTimeRangeOfTrackAtTimeError(timeRange u
 // startTime: A start time within composition the track to insert the time range.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack/insertTimeRanges(_:of:at:)
-func (m AVMutableCompositionTrack) InsertTimeRangesOfTracksAtTimeError(timeRanges []foundation.NSValue, tracks []AVAssetTrack, startTime uintptr) (bool, error) {
+func (m AVMutableCompositionTrack) InsertTimeRangesOfTracksAtTimeError(timeRanges []foundation.NSValue, tracks []AVAssetTrack, startTime coremedia.CMTime) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](m.ID, objc.Sel("insertTimeRanges:ofTracks:atTime:error:"), objectivec.IObjectSliceToNSArray(timeRanges), objectivec.IObjectSliceToNSArray(tracks), startTime, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -247,7 +248,7 @@ func (m AVMutableCompositionTrack) InsertTimeRangesOfTracksAtTimeError(timeRange
 // timeRange: The time range to remove.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack/removeTimeRange(_:)
-func (m AVMutableCompositionTrack) RemoveTimeRange(timeRange uintptr) {
+func (m AVMutableCompositionTrack) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTimeRange:"), timeRange)
 }
 // Changes the duration of a time range of the track.
@@ -257,7 +258,7 @@ func (m AVMutableCompositionTrack) RemoveTimeRange(timeRange uintptr) {
 // duration: A new duration value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack/scaleTimeRange(_:toDuration:)
-func (m AVMutableCompositionTrack) ScaleTimeRangeToDuration(timeRange uintptr, duration uintptr) {
+func (m AVMutableCompositionTrack) ScaleTimeRangeToDuration(timeRange coremedia.CMTimeRange, duration coremedia.CMTime) {
 	objc.Send[objc.ID](m.ID, objc.Sel("scaleTimeRange:toDuration:"), timeRange, duration)
 }
 // Establishes a track association of a specific type between two tracks.

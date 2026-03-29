@@ -7,6 +7,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"errors"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -100,7 +101,7 @@ type IVNVideoProcessor interface {
 	// Removes a Vision request from the video processor’s request queue.
 	RemoveRequestError(request IVNRequest) (bool, error)
 	// Analyzes a time range of video content.
-	AnalyzeTimeRangeError(timeRange objectivec.IObject) (bool, error)
+	AnalyzeTimeRangeError(timeRange coremedia.CMTimeRange) (bool, error)
 	// Cancels the video processing.
 	Cancel()
 }
@@ -196,8 +197,6 @@ func (v VNVideoProcessor) RemoveRequestError(request IVNRequest) (bool, error) {
 // timeRange: The time range to analyze. The value must be within the time range of the
 // video asset.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // # Discussion
 // 
 // The system executes this method synchronously, so you typically call it
@@ -205,8 +204,7 @@ func (v VNVideoProcessor) RemoveRequestError(request IVNRequest) (bool, error) {
 // finishes analyzing the time range or if an error prevents processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/analyze(_:)
-// timeRange is a [coremedia.CMTimeRange].
-func (v VNVideoProcessor) AnalyzeTimeRangeError(timeRange objectivec.IObject) (bool, error) {
+func (v VNVideoProcessor) AnalyzeTimeRangeError(timeRange coremedia.CMTimeRange) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("analyzeTimeRange:error:"), timeRange, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

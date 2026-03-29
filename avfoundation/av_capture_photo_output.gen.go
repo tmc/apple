@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -293,8 +294,8 @@ type IAVCapturePhotoOutput interface {
 	// Topic: Configuring high-resolution still capture
 
 	// The maximum resolution of the requested photo.
-	MaxPhotoDimensions() objectivec.IObject
-	SetMaxPhotoDimensions(value objectivec.IObject)
+	MaxPhotoDimensions() coremedia.CMVideoDimensions
+	SetMaxPhotoDimensions(value coremedia.CMVideoDimensions)
 
 	// Topic: Configuring Live Photo capture
 
@@ -586,11 +587,11 @@ func (c AVCapturePhotoOutput) ShutterSoundSuppressionSupported() bool {
 // [supportedMaxPhotoDimensions]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/supportedMaxPhotoDimensions
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/maxPhotoDimensions
-func (c AVCapturePhotoOutput) MaxPhotoDimensions() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("maxPhotoDimensions"))
-	return objectivec.Object{ID: rv}
+func (c AVCapturePhotoOutput) MaxPhotoDimensions() coremedia.CMVideoDimensions {
+	rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("maxPhotoDimensions"))
+	return coremedia.CMVideoDimensions(rv)
 }
-func (c AVCapturePhotoOutput) SetMaxPhotoDimensions(value objectivec.IObject) {
+func (c AVCapturePhotoOutput) SetMaxPhotoDimensions(value coremedia.CMVideoDimensions) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxPhotoDimensions:"), value)
 }
 // A Boolean value that indicates whether to preserve the suspended state of

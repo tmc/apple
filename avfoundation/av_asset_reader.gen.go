@@ -6,6 +6,7 @@ import (
 	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -135,8 +136,8 @@ type IAVAssetReader interface {
 	// Topic: Configuring reading
 
 	// The time range within the asset to read.
-	TimeRange() uintptr
-	SetTimeRange(value uintptr)
+	TimeRange() coremedia.CMTimeRange
+	SetTimeRange(value coremedia.CMTimeRange)
 	// The status of reading sample buffers from the asset.
 	Status() AVAssetReaderStatus
 	// An error that describes the reason for a failure.
@@ -287,11 +288,11 @@ func (a AVAssetReader) Outputs() []AVAssetReaderOutput {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/timeRange
-func (a AVAssetReader) TimeRange() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("timeRange"))
-	return rv
+func (a AVAssetReader) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](a.ID, objc.Sel("timeRange"))
+	return coremedia.CMTimeRange(rv)
 }
-func (a AVAssetReader) SetTimeRange(value uintptr) {
+func (a AVAssetReader) SetTimeRange(value coremedia.CMTimeRange) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimeRange:"), value)
 }
 // The status of reading sample buffers from the asset.

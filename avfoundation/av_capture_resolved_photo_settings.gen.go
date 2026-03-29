@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -141,7 +142,7 @@ type IAVCaptureResolvedPhotoSettings interface {
 	// Topic: Examining output dimensions
 
 	// The size, in pixels, of the photo image (in a processed format, such as JPEG) that the capture delivers.
-	PhotoDimensions() objectivec.IObject
+	PhotoDimensions() coremedia.CMVideoDimensions
 
 	// A setting for whether to fire the flash when capturing photos.
 	FlashMode() AVCaptureFlashMode
@@ -233,9 +234,9 @@ func (c AVCaptureResolvedPhotoSettings) FastCapturePrioritizationEnabled() bool 
 // and zero height.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/photoDimensions
-func (c AVCaptureResolvedPhotoSettings) PhotoDimensions() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("photoDimensions"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) PhotoDimensions() coremedia.CMVideoDimensions {
+	rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("photoDimensions"))
+	return coremedia.CMVideoDimensions(rv)
 }
 // A setting for whether to fire the flash when capturing photos.
 //

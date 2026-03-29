@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -238,13 +239,13 @@ type IAVCaptureConnection interface {
 	// A Boolean value that indicates whether the connection supports a minimum frame duration.
 	SupportsVideoMinFrameDuration() bool
 	// The smallest time interval the connection can apply between consecutive video frames.
-	VideoMinFrameDuration() uintptr
-	SetVideoMinFrameDuration(value uintptr)
+	VideoMinFrameDuration() coremedia.CMTime
+	SetVideoMinFrameDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether the connection supports a maximum frame duration.
 	SupportsVideoMaxFrameDuration() bool
 	// The largest time interval the connection can apply between consecutive video frames.
-	VideoMaxFrameDuration() uintptr
-	SetVideoMaxFrameDuration(value uintptr)
+	VideoMaxFrameDuration() coremedia.CMTime
+	SetVideoMaxFrameDuration(value coremedia.CMTime)
 
 	// Topic: Interlacing video
 
@@ -670,11 +671,11 @@ func (c AVCaptureConnection) SupportsVideoMinFrameDuration() bool {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoMinFrameDuration
-func (c AVCaptureConnection) VideoMinFrameDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("videoMinFrameDuration"))
-	return rv
+func (c AVCaptureConnection) VideoMinFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("videoMinFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (c AVCaptureConnection) SetVideoMinFrameDuration(value uintptr) {
+func (c AVCaptureConnection) SetVideoMinFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVideoMinFrameDuration:"), value)
 }
 // A Boolean value that indicates whether the connection supports a maximum
@@ -708,11 +709,11 @@ func (c AVCaptureConnection) SupportsVideoMaxFrameDuration() bool {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoMaxFrameDuration
-func (c AVCaptureConnection) VideoMaxFrameDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("videoMaxFrameDuration"))
-	return rv
+func (c AVCaptureConnection) VideoMaxFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("videoMaxFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (c AVCaptureConnection) SetVideoMaxFrameDuration(value uintptr) {
+func (c AVCaptureConnection) SetVideoMaxFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVideoMaxFrameDuration:"), value)
 }
 // A Boolean value that indicates whether the connection supports setting a

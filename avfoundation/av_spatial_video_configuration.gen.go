@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -131,8 +132,8 @@ type IAVSpatialVideoConfiguration interface {
 	CustomVideoCompositorClass() AVVideoCompositing
 	SetCustomVideoCompositorClass(value AVVideoCompositing)
 	// A time interval for which the video composition should render composed video frames.
-	FrameDuration() uintptr
-	SetFrameDuration(value uintptr)
+	FrameDuration() coremedia.CMTime
+	SetFrameDuration(value coremedia.CMTime)
 	// The scale at which the video composition should render.
 	RenderScale() float32
 	SetRenderScale(value float32)
@@ -316,11 +317,11 @@ func (s AVSpatialVideoConfiguration) SetCustomVideoCompositorClass(value AVVideo
 // video frames.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/frameduration
-func (s AVSpatialVideoConfiguration) FrameDuration() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("frameDuration"))
-	return rv
+func (s AVSpatialVideoConfiguration) FrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("frameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (s AVSpatialVideoConfiguration) SetFrameDuration(value uintptr) {
+func (s AVSpatialVideoConfiguration) SetFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFrameDuration:"), value)
 }
 // The scale at which the video composition should render.

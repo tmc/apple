@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -283,14 +284,14 @@ type IAVComposition interface {
 	// Topic: Accessing duration and timing
 
 	// A time value that indicates the asset’s duration.
-	Duration() uintptr
-	SetDuration(value uintptr)
+	Duration() coremedia.CMTime
+	SetDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether the asset provides precise duration and timing.
 	ProvidesPreciseDurationAndTiming() bool
 	SetProvidesPreciseDurationAndTiming(value bool)
 	// A time value that indicates how closely playback follows the latest live stream content.
-	MinimumTimeOffsetFromLive() uintptr
-	SetMinimumTimeOffsetFromLive(value uintptr)
+	MinimumTimeOffsetFromLive() coremedia.CMTime
+	SetMinimumTimeOffsetFromLive(value coremedia.CMTime)
 
 	// Topic: Accessing metadata
 
@@ -386,8 +387,8 @@ type IAVComposition interface {
 	ContainsFragments() bool
 	SetContainsFragments(value bool)
 	// The total duration of fragments that currently exist, or may exist in the future.
-	OverallDurationHint() uintptr
-	SetOverallDurationHint(value uintptr)
+	OverallDurationHint() coremedia.CMTime
+	SetOverallDurationHint(value coremedia.CMTime)
 }
 
 // Init initializes the instance.
@@ -686,11 +687,11 @@ func (c AVComposition) SetTrackGroups(value IAVAssetTrackGroup) {
 // [providesPreciseDurationAndTiming]: https://developer.apple.com/documentation/AVFoundation/AVAsset/providesPreciseDurationAndTiming
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/duration
-func (c AVComposition) Duration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("duration"))
-	return rv
+func (c AVComposition) Duration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("duration"))
+	return coremedia.CMTime(rv)
 }
-func (c AVComposition) SetDuration(value uintptr) {
+func (c AVComposition) SetDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDuration:"), value)
 }
 // A Boolean value that indicates whether the asset provides precise duration
@@ -725,11 +726,11 @@ func (c AVComposition) SetProvidesPreciseDurationAndTiming(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/minimumTimeOffsetFromLive
-func (c AVComposition) MinimumTimeOffsetFromLive() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("minimumTimeOffsetFromLive"))
-	return rv
+func (c AVComposition) MinimumTimeOffsetFromLive() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("minimumTimeOffsetFromLive"))
+	return coremedia.CMTime(rv)
 }
-func (c AVComposition) SetMinimumTimeOffsetFromLive(value uintptr) {
+func (c AVComposition) SetMinimumTimeOffsetFromLive(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumTimeOffsetFromLive:"), value)
 }
 // An array of metadata items for all metadata identifiers for which a value
@@ -1073,11 +1074,11 @@ func (c AVComposition) SetContainsFragments(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/overallDurationHint
-func (c AVComposition) OverallDurationHint() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("overallDurationHint"))
-	return rv
+func (c AVComposition) OverallDurationHint() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("overallDurationHint"))
+	return coremedia.CMTime(rv)
 }
-func (c AVComposition) SetOverallDurationHint(value uintptr) {
+func (c AVComposition) SetOverallDurationHint(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOverallDurationHint:"), value)
 }
 

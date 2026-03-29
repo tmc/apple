@@ -6,7 +6,6 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // CGImageRefErrorHandler handles Closure that processes the screenshot taken from the streaming content.
@@ -35,7 +34,7 @@ func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [SCScreenshotManager.CaptureSampleBufferWithFilterConfigurationCompletionHandler]
-type CMSampleBufferRefErrorHandler = func(objectivec.IObject, error)
+type CMSampleBufferRefErrorHandler = func(uintptr, error)
 
 // NewCMSampleBufferRefErrorBlock wraps a Go [CMSampleBufferRefErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -43,7 +42,7 @@ type CMSampleBufferRefErrorHandler = func(objectivec.IObject, error)
 // Used by:
 //   - [SCScreenshotManager.CaptureSampleBufferWithFilterConfigurationCompletionHandler]
 func NewCMSampleBufferRefErrorBlock(handler CMSampleBufferRefErrorHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject, errID objc.ID) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal uintptr, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }

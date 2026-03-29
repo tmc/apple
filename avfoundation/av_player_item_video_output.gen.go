@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 )
@@ -122,7 +123,7 @@ type IAVPlayerItemVideoOutput interface {
 	// Topic: Getting pixel buffer data
 
 	// Returns a Boolean value that indicates whether video output is available for the specified item time.
-	HasNewPixelBufferForItemTime(itemTime uintptr) bool
+	HasNewPixelBufferForItemTime(itemTime coremedia.CMTime) bool
 }
 
 // Init initializes the instance.
@@ -250,7 +251,7 @@ func (p AVPlayerItemVideoOutput) RequestNotificationOfMediaDataChangeWithAdvance
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemVideoOutput/hasNewPixelBuffer(forItemTime:)
-func (p AVPlayerItemVideoOutput) HasNewPixelBufferForItemTime(itemTime uintptr) bool {
+func (p AVPlayerItemVideoOutput) HasNewPixelBufferForItemTime(itemTime coremedia.CMTime) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("hasNewPixelBufferForItemTime:"), itemTime)
 	return rv
 }

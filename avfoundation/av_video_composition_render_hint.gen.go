@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -78,9 +79,9 @@ type IAVVideoCompositionRenderHint interface {
 	// Topic: Managing composition timing
 
 	// The start time of the upcoming composition requests.
-	StartCompositionTime() uintptr
+	StartCompositionTime() coremedia.CMTime
 	// The end time of the upcoming composition requests.
-	EndCompositionTime() uintptr
+	EndCompositionTime() coremedia.CMTime
 }
 
 // Init initializes the instance.
@@ -105,15 +106,15 @@ func NewAVVideoCompositionRenderHint() AVVideoCompositionRenderHint {
 // The start time of the upcoming composition requests.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderHint/startCompositionTime
-func (v AVVideoCompositionRenderHint) StartCompositionTime() uintptr {
-	rv := objc.Send[uintptr](v.ID, objc.Sel("startCompositionTime"))
-	return rv
+func (v AVVideoCompositionRenderHint) StartCompositionTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](v.ID, objc.Sel("startCompositionTime"))
+	return coremedia.CMTime(rv)
 }
 // The end time of the upcoming composition requests.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderHint/endCompositionTime
-func (v AVVideoCompositionRenderHint) EndCompositionTime() uintptr {
-	rv := objc.Send[uintptr](v.ID, objc.Sel("endCompositionTime"))
-	return rv
+func (v AVVideoCompositionRenderHint) EndCompositionTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](v.ID, objc.Sel("endCompositionTime"))
+	return coremedia.CMTime(rv)
 }
 

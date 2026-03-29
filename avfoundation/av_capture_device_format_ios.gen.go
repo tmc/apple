@@ -5,6 +5,7 @@ package avfoundation
 
 import (
 "github.com/tmc/apple/objc"
+"github.com/tmc/apple/coremedia"
 "github.com/tmc/apple/foundation"
 "github.com/tmc/apple/objectivec"
 )
@@ -173,16 +174,16 @@ rv := objc.Send[float32](c.ID, objc.Sel("maxISO"))
 // A time value that indicates the minimum supported exposure duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/minExposureDuration
-func (c AVCaptureDeviceFormat) MinExposureDuration() uintptr {
-rv := objc.Send[uintptr](c.ID, objc.Sel("minExposureDuration"))
-		return rv
+func (c AVCaptureDeviceFormat) MinExposureDuration() coremedia.CMTime {
+rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("minExposureDuration"))
+		return coremedia.CMTime(rv)
 }
 // A time value that indicates the maximum supported exposure duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/maxExposureDuration
-func (c AVCaptureDeviceFormat) MaxExposureDuration() uintptr {
-rv := objc.Send[uintptr](c.ID, objc.Sel("maxExposureDuration"))
-		return rv
+func (c AVCaptureDeviceFormat) MaxExposureDuration() coremedia.CMTime {
+rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("maxExposureDuration"))
+		return coremedia.CMTime(rv)
 }
 // A maximum zoom factor the format allows.
 //
@@ -280,9 +281,9 @@ return objc.ConvertSlice(rv, func(id objc.ID) AVCaptureDeviceFormat {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/highResolutionStillImageDimensions
-func (c AVCaptureDeviceFormat) HighResolutionStillImageDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("highResolutionStillImageDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureDeviceFormat) HighResolutionStillImageDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("highResolutionStillImageDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // The zoom factors that a format supports for depth data delivery.
 //

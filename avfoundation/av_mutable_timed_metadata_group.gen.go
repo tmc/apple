@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -96,7 +97,7 @@ func NewAVMutableTimedMetadataGroup() AVMutableTimedMetadataGroup {
 // A metadata group initialized with `items`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/init(items:timeRange:)
-func NewMutableTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange uintptr) AVMutableTimedMetadataGroup {
+func NewMutableTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange coremedia.CMTimeRange) AVMutableTimedMetadataGroup {
 	instance := getAVMutableTimedMetadataGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:timeRange:"), objectivec.IObjectSliceToNSArray(items), timeRange)
 	return AVMutableTimedMetadataGroupFromID(rv)

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -170,9 +171,9 @@ func (v AVVideoCompositionInstruction) LayerInstructions() []AVVideoCompositionL
 // described in the [AVVideoComposition] class’s [Instructions] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/timeRange
-func (v AVVideoCompositionInstruction) TimeRange() uintptr {
-	rv := objc.Send[uintptr](v.ID, objc.Sel("timeRange"))
-	return rv
+func (v AVVideoCompositionInstruction) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](v.ID, objc.Sel("timeRange"))
+	return coremedia.CMTimeRange(rv)
 }
 // A Boolean value that indicates whether the instruction requires post
 // processing.

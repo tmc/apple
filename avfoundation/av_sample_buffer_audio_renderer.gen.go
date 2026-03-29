@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -146,7 +147,7 @@ type IAVSampleBufferAudioRenderer interface {
 	// Topic: Removing queued buffers
 
 	// Flushes queued sample buffers with presentation time stamps later than or equal to the specified time.
-	FlushFromSourceTimeCompletionHandler(time uintptr, completionHandler BoolHandler)
+	FlushFromSourceTimeCompletionHandler(time coremedia.CMTime, completionHandler BoolHandler)
 	// The key that indicates the presentation timestamp of the first queued sample that was flushed.
 	AVSampleBufferAudioRendererFlushTimeKey() string
 
@@ -228,7 +229,7 @@ func NewAVSampleBufferAudioRenderer() AVSampleBufferAudioRenderer {
 // flush all enqueued media data by invoking [Flush].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/flush(fromSourceTime:completionHandler:)
-func (s AVSampleBufferAudioRenderer) FlushFromSourceTimeCompletionHandler(time uintptr, completionHandler BoolHandler) {
+func (s AVSampleBufferAudioRenderer) FlushFromSourceTimeCompletionHandler(time coremedia.CMTime, completionHandler BoolHandler) {
 _block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("flushFromSourceTime:completionHandler:"), time, _block1)
 }
@@ -497,7 +498,7 @@ func (s AVSampleBufferAudioRenderer) Timebase() uintptr {
 
 // FlushFromSourceTime is a synchronous wrapper around [AVSampleBufferAudioRenderer.FlushFromSourceTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s AVSampleBufferAudioRenderer) FlushFromSourceTime(ctx context.Context, time uintptr) (bool, error) {
+func (s AVSampleBufferAudioRenderer) FlushFromSourceTime(ctx context.Context, time coremedia.CMTime) (bool, error) {
 	done := make(chan bool, 1)
 	s.FlushFromSourceTimeCompletionHandler(time, func(val bool) {
 		done <- val

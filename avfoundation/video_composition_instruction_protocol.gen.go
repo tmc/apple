@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,7 +43,7 @@ type AVVideoCompositionInstructionProtocol interface {
 	// The time range during which the instruction is effective.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/timeRange
-	TimeRange() uintptr
+	TimeRange() coremedia.CMTimeRange
 }
 
 // AVVideoCompositionInstructionProtocolObject wraps an existing Objective-C object that conforms to the AVVideoCompositionInstructionProtocol protocol.
@@ -106,8 +107,8 @@ func (o AVVideoCompositionInstructionProtocolObject) EnablePostProcessing() bool
 // The time range during which the instruction is effective.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/timeRange
-func (o AVVideoCompositionInstructionProtocolObject) TimeRange() uintptr {
-	rv := objc.Send[uintptr](o.ID, objc.Sel("timeRange"))
+func (o AVVideoCompositionInstructionProtocolObject) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](o.ID, objc.Sel("timeRange"))
 	return rv
 	}
 

@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/objectivec"
 )
@@ -97,11 +98,11 @@ type IAVPlayerItemOutput interface {
 	// Topic: Time conversion
 
 	// Converts a host time, specified in seconds, to the item’s timebase.
-	ItemTimeForHostTime(hostTimeInSeconds float64) uintptr
+	ItemTimeForHostTime(hostTimeInSeconds float64) coremedia.CMTime
 	// Converts a Mach host time to the item’s timebase.
-	ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) uintptr
+	ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) coremedia.CMTime
 	// Converts a Core Video timestamp to the item’s timebase.
-	ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeStamp) uintptr
+	ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeStamp) coremedia.CMTime
 
 	// Topic: Configuring the playback options
 
@@ -153,9 +154,9 @@ func NewAVPlayerItemOutput() AVPlayerItemOutput {
 // [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(forHostTime:)
-func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds float64) uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("itemTimeForHostTime:"), hostTimeInSeconds)
-	return rv
+func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds float64) coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("itemTimeForHostTime:"), hostTimeInSeconds)
+	return coremedia.CMTime(rv)
 }
 // Converts a Mach host time to the item’s timebase.
 //
@@ -167,9 +168,9 @@ func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds float64) uintp
 // The equivalent time in the item’s timebase.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(forMachAbsoluteTime:)
-func (p AVPlayerItemOutput) ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("itemTimeForMachAbsoluteTime:"), machAbsoluteTime)
-	return rv
+func (p AVPlayerItemOutput) ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("itemTimeForMachAbsoluteTime:"), machAbsoluteTime)
+	return coremedia.CMTime(rv)
 }
 // Converts a Core Video timestamp to the item’s timebase.
 //
@@ -180,9 +181,9 @@ func (p AVPlayerItemOutput) ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) 
 // The equivalent time in the item’s timebase.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(for:)
-func (p AVPlayerItemOutput) ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeStamp) uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("itemTimeForCVTimeStamp:"), timestamp)
-	return rv
+func (p AVPlayerItemOutput) ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeStamp) coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("itemTimeForCVTimeStamp:"), timestamp)
+	return coremedia.CMTime(rv)
 }
 
 // A Boolean value that indicates whether the player object renders the

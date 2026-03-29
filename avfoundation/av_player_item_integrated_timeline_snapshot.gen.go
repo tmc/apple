@@ -3,9 +3,9 @@
 package avfoundation
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -92,20 +92,20 @@ type IAVPlayerItemIntegratedTimelineSnapshot interface {
 	// Topic: Inspecting the snapshot
 
 	// The total duration of the primary item and scheduled interstitial events.
-	Duration() uintptr
+	Duration() coremedia.CMTime
 	// The currently playing segment.
 	CurrentSegment() IAVPlayerItemSegment
 	// The segments for this snapshot.
 	Segments() []AVPlayerItemSegment
 	// The current time on the integrated timeline when the system created the snapshot.
-	CurrentTime() uintptr
+	CurrentTime() coremedia.CMTime
 	// The current date on the integrated timeline when the system created the snapshot.
 	CurrentDate() foundation.INSDate
 
 	// An immutable representation of the timeline state at time of request.
 	CurrentSnapshot() IAVPlayerItemIntegratedTimelineSnapshot
 	SetCurrentSnapshot(value IAVPlayerItemIntegratedTimelineSnapshot)
-	MapTimeToSegmentAtSegmentOffset(time uintptr, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut unsafe.Pointer)
+	MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut *coremedia.CMTime)
 }
 
 // Init initializes the instance.
@@ -129,7 +129,7 @@ func NewAVPlayerItemIntegratedTimelineSnapshot() AVPlayerItemIntegratedTimelineS
 
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/mapTime:toSegment:atSegmentOffset:
-func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time uintptr, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut unsafe.Pointer) {
+func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut *coremedia.CMTime) {
 	objc.Send[objc.ID](p.ID, objc.Sel("mapTime:toSegment:atSegmentOffset:"), time, timeSegmentOut, segmentOffsetOut)
 }
 
@@ -147,9 +147,9 @@ func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/duration
-func (p AVPlayerItemIntegratedTimelineSnapshot) Duration() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("duration"))
-	return rv
+func (p AVPlayerItemIntegratedTimelineSnapshot) Duration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("duration"))
+	return coremedia.CMTime(rv)
 }
 // The currently playing segment.
 //
@@ -180,9 +180,9 @@ func (p AVPlayerItemIntegratedTimelineSnapshot) Segments() []AVPlayerItemSegment
 // This value doesn’t change as time progresses.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/currentTime
-func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentTime() uintptr {
-	rv := objc.Send[uintptr](p.ID, objc.Sel("currentTime"))
-	return rv
+func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](p.ID, objc.Sel("currentTime"))
+	return coremedia.CMTime(rv)
 }
 // The current date on the integrated timeline when the system created the
 // snapshot.

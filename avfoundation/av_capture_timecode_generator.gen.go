@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/objectivec"
 )
@@ -149,8 +150,8 @@ type IAVCaptureTimecodeGenerator interface {
 	TimecodeAlignmentOffset() float64
 	SetTimecodeAlignmentOffset(value float64)
 	// The frame duration that the generator will use to generate timecodes.
-	TimecodeFrameDuration() uintptr
-	SetTimecodeFrameDuration(value uintptr)
+	TimecodeFrameDuration() coremedia.CMTime
+	SetTimecodeFrameDuration(value coremedia.CMTime)
 	// Assigns a delegate to receive real-time timecode updates and specifies a queue for callbacks.
 	SetDelegateQueue(delegate AVCaptureTimecodeGeneratorDelegate, callbackQueue dispatch.Queue)
 
@@ -307,11 +308,11 @@ func (c AVCaptureTimecodeGenerator) SetTimecodeAlignmentOffset(value float64) {
 // The frame duration that the generator will use to generate timecodes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/timecodeFrameDuration
-func (c AVCaptureTimecodeGenerator) TimecodeFrameDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("timecodeFrameDuration"))
-	return rv
+func (c AVCaptureTimecodeGenerator) TimecodeFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("timecodeFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (c AVCaptureTimecodeGenerator) SetTimecodeFrameDuration(value uintptr) {
+func (c AVCaptureTimecodeGenerator) SetTimecodeFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimecodeFrameDuration:"), value)
 }
 // The delegate that receives timecode updates from the timecode generator.

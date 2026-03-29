@@ -7,6 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -113,12 +114,12 @@ type IAVCaptionRenderer interface {
 	// Topic: Determining scene changes
 
 	// Determine render time ranges within an enclosing time range to account for visual changes among captions.
-	CaptionSceneChangesInRange(consideredTimeRange uintptr) []AVCaptionRendererScene
+	CaptionSceneChangesInRange(consideredTimeRange coremedia.CMTimeRange) []AVCaptionRendererScene
 
 	// Topic: Rendering a caption
 
 	// Draw the captions for the time you specify.
-	RenderInContextForTime(ctx coregraphics.CGContextRef, time uintptr)
+	RenderInContextForTime(ctx coregraphics.CGContextRef, time coremedia.CMTime)
 }
 
 // Init initializes the instance.
@@ -151,7 +152,7 @@ func NewAVCaptionRenderer() AVCaptionRenderer {
 // are none.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRenderer/captionSceneChanges(in:)
-func (c AVCaptionRenderer) CaptionSceneChangesInRange(consideredTimeRange uintptr) []AVCaptionRendererScene {
+func (c AVCaptionRenderer) CaptionSceneChangesInRange(consideredTimeRange coremedia.CMTimeRange) []AVCaptionRendererScene {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("captionSceneChangesInRange:"), consideredTimeRange)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVCaptionRendererScene {
 		return AVCaptionRendererSceneFromID(id)
@@ -164,7 +165,7 @@ func (c AVCaptionRenderer) CaptionSceneChangesInRange(consideredTimeRange uintpt
 // time: The time value for which the system draws the captions.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRenderer/render(in:for:)
-func (c AVCaptionRenderer) RenderInContextForTime(ctx coregraphics.CGContextRef, time uintptr) {
+func (c AVCaptionRenderer) RenderInContextForTime(ctx coregraphics.CGContextRef, time coremedia.CMTime) {
 	objc.Send[objc.ID](c.ID, objc.Sel("renderInContext:forTime:"), ctx, time)
 }
 

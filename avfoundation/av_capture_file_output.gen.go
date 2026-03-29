@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 )
 
@@ -117,8 +118,8 @@ type IAVCaptureFileOutput interface {
 	Delegate() AVCaptureFileOutputDelegate
 	SetDelegate(value AVCaptureFileOutputDelegate)
 	// The longest duration allowed for the recording.
-	MaxRecordedDuration() uintptr
-	SetMaxRecordedDuration(value uintptr)
+	MaxRecordedDuration() coremedia.CMTime
+	SetMaxRecordedDuration(value coremedia.CMTime)
 	// The maximum size, in bytes, of the data that should be recorded by the receiver.
 	MaxRecordedFileSize() int64
 	SetMaxRecordedFileSize(value int64)
@@ -128,7 +129,7 @@ type IAVCaptureFileOutput interface {
 	// The URL to which output is directed.
 	OutputFileURL() foundation.INSURL
 	// Indicates the duration of the media recorded to the current output file.
-	RecordedDuration() uintptr
+	RecordedDuration() coremedia.CMTime
 	// Indicates the size, in bytes, of the data recorded to the current output file.
 	RecordedFileSize() int64
 	// Indicates whether recording is in progress.
@@ -304,11 +305,11 @@ func (c AVCaptureFileOutput) SetDelegate(value AVCaptureFileOutputDelegate) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/maxRecordedDuration
-func (c AVCaptureFileOutput) MaxRecordedDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("maxRecordedDuration"))
-	return rv
+func (c AVCaptureFileOutput) MaxRecordedDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("maxRecordedDuration"))
+	return coremedia.CMTime(rv)
 }
-func (c AVCaptureFileOutput) SetMaxRecordedDuration(value uintptr) {
+func (c AVCaptureFileOutput) SetMaxRecordedDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxRecordedDuration:"), value)
 }
 // The maximum size, in bytes, of the data that should be recorded by the
@@ -364,9 +365,9 @@ func (c AVCaptureFileOutput) OutputFileURL() foundation.INSURL {
 // so far.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/recordedDuration
-func (c AVCaptureFileOutput) RecordedDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("recordedDuration"))
-	return rv
+func (c AVCaptureFileOutput) RecordedDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("recordedDuration"))
+	return coremedia.CMTime(rv)
 }
 // Indicates the size, in bytes, of the data recorded to the current output
 // file.

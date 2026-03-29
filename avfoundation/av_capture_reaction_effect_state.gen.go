@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -96,9 +97,9 @@ type IAVCaptureReactionEffectState interface {
 	// The type of reaction.
 	ReactionType() AVCaptureReactionType
 	// The presentation time of the first frame where the system renders the effect.
-	StartTime() uintptr
+	StartTime() coremedia.CMTime
 	// The presentation time of the first frame following the end of a reaction effect.
-	EndTime() uintptr
+	EndTime() coremedia.CMTime
 
 	// A set of reactions types that a device supports performing.
 	AvailableReactionTypes() AVCaptureReactionType
@@ -147,9 +148,9 @@ func (c AVCaptureReactionEffectState) ReactionType() AVCaptureReactionType {
 // effect.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureReactionEffectState/startTime
-func (c AVCaptureReactionEffectState) StartTime() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("startTime"))
-	return rv
+func (c AVCaptureReactionEffectState) StartTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("startTime"))
+	return coremedia.CMTime(rv)
 }
 // The presentation time of the first frame following the end of a reaction
 // effect.
@@ -163,9 +164,9 @@ func (c AVCaptureReactionEffectState) StartTime() uintptr {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureReactionEffectState/endTime
-func (c AVCaptureReactionEffectState) EndTime() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("endTime"))
-	return rv
+func (c AVCaptureReactionEffectState) EndTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("endTime"))
+	return coremedia.CMTime(rv)
 }
 // A set of reactions types that a device supports performing.
 //

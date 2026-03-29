@@ -1,6 +1,9 @@
 // Code generated from Apple documentation for AVFoundation. DO NOT EDIT.
 
 package avfoundation
+import (
+	"github.com/tmc/apple/coremedia"
+)
 
 // C struct types
 // AVCaptionDimension - A structure that defines a caption dimension.
@@ -38,7 +41,7 @@ type AVCaptionSize struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode
 type AVCaptureTimecode struct {
-	FrameDuration uintptr // Frame duration of the timecode. If unknown, the value is `kCMTimeInvalid`.
+	FrameDuration coremedia.CMTime // Frame duration of the timecode. If unknown, the value is `kCMTimeInvalid`.
 	Frames uint8 // Frame component of the timecode, indicating the frame count within the second.
 	Hours uint8 // Time component representing the current timecode in hours.
 	Minutes uint8 // Time component representing the current timecode in minutes.

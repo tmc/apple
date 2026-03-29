@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 )
 
 // The class instance for the [AVCaptureScreenInput] class.
@@ -122,8 +123,8 @@ type IAVCaptureScreenInput interface {
 	// Topic: Setting video capture options
 
 	// The screen input’s minimum frame duration.
-	MinFrameDuration() uintptr
-	SetMinFrameDuration(value uintptr)
+	MinFrameDuration() coremedia.CMTime
+	SetMinFrameDuration(value coremedia.CMTime)
 	// Indicates the bounding rectangle of the screen area to be captured, in pixels.
 	CropRect() corefoundation.CGRect
 	SetCropRect(value corefoundation.CGRect)
@@ -210,11 +211,11 @@ func (c AVCaptureScreenInput) InitWithDisplayID(displayID uint32) AVCaptureScree
 // overall bandwidth, so actual frame rates may be lower.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureScreenInput/minFrameDuration
-func (c AVCaptureScreenInput) MinFrameDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("minFrameDuration"))
-	return rv
+func (c AVCaptureScreenInput) MinFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("minFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (c AVCaptureScreenInput) SetMinFrameDuration(value uintptr) {
+func (c AVCaptureScreenInput) SetMinFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinFrameDuration:"), value)
 }
 // Indicates the bounding rectangle of the screen area to be captured, in

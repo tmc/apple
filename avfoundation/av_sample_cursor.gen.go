@@ -6,6 +6,7 @@ import (
 	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -155,9 +156,9 @@ type IAVSampleCursor interface {
 	// Topic: Navigating samples
 
 	// Moves the cursor by a given delta time on the decode timeline.
-	StepByDecodeTimeWasPinned(deltaDecodeTime uintptr, outWasPinned unsafe.Pointer) uintptr
+	StepByDecodeTimeWasPinned(deltaDecodeTime coremedia.CMTime, outWasPinned unsafe.Pointer) coremedia.CMTime
 	// Moves the cursor by a given delta time on the presentation timeline.
-	StepByPresentationTimeWasPinned(deltaPresentationTime uintptr, outWasPinned unsafe.Pointer) uintptr
+	StepByPresentationTimeWasPinned(deltaPresentationTime coremedia.CMTime, outWasPinned unsafe.Pointer) coremedia.CMTime
 	// Moves the cursor a given number of samples in decode order.
 	StepInDecodeOrderByCount(stepCount int64) int64
 	// Moves the cursor a given number of samples in presentation order.
@@ -166,9 +167,9 @@ type IAVSampleCursor interface {
 	// Topic: Getting timestamps
 
 	// The decode timestamp of the sample at the current position of the cursor.
-	DecodeTimeStamp() uintptr
+	DecodeTimeStamp() coremedia.CMTime
 	// The presentation timestamp of the sample at the current position of the cursor.
-	PresentationTimeStamp() uintptr
+	PresentationTimeStamp() coremedia.CMTime
 
 	// Topic: Getting sample information
 
@@ -181,7 +182,7 @@ type IAVSampleCursor interface {
 	// The dependency information that describes relationships between a media sample and other media samples in the same sample sequence.
 	CurrentSampleDependencyInfo() AVSampleCursorDependencyInfo
 	// The decode duration of the sample at the cursor’s current position.
-	CurrentSampleDuration() uintptr
+	CurrentSampleDuration() coremedia.CMTime
 	// The index of the current sample within the chunk to which it belongs.
 	CurrentSampleIndexInChunk() int64
 	// The offset and length of the current sample in the current chunk storage URL.
@@ -247,9 +248,9 @@ func NewAVSampleCursor() AVSampleCursor {
 // be equal to the specified time delta even if the cursor wasn’t pinned.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/step(byDecodeTime:wasPinned:)
-func (s AVSampleCursor) StepByDecodeTimeWasPinned(deltaDecodeTime uintptr, outWasPinned unsafe.Pointer) uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("stepByDecodeTime:wasPinned:"), deltaDecodeTime, outWasPinned)
-	return rv
+func (s AVSampleCursor) StepByDecodeTimeWasPinned(deltaDecodeTime coremedia.CMTime, outWasPinned unsafe.Pointer) coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("stepByDecodeTime:wasPinned:"), deltaDecodeTime, outWasPinned)
+	return coremedia.CMTime(rv)
 }
 // Moves the cursor by a given delta time on the presentation timeline.
 //
@@ -270,9 +271,9 @@ func (s AVSampleCursor) StepByDecodeTimeWasPinned(deltaDecodeTime uintptr, outWa
 // pinned.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/step(byPresentationTime:wasPinned:)
-func (s AVSampleCursor) StepByPresentationTimeWasPinned(deltaPresentationTime uintptr, outWasPinned unsafe.Pointer) uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("stepByPresentationTime:wasPinned:"), deltaPresentationTime, outWasPinned)
-	return rv
+func (s AVSampleCursor) StepByPresentationTimeWasPinned(deltaPresentationTime coremedia.CMTime, outWasPinned unsafe.Pointer) coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("stepByPresentationTime:wasPinned:"), deltaPresentationTime, outWasPinned)
+	return coremedia.CMTime(rv)
 }
 // Moves the cursor a given number of samples in decode order.
 //
@@ -398,17 +399,17 @@ func (s AVSampleCursor) ComparePositionInDecodeOrderWithPositionOfCursor(cursor 
 // The decode timestamp of the sample at the current position of the cursor.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/decodeTimeStamp
-func (s AVSampleCursor) DecodeTimeStamp() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("decodeTimeStamp"))
-	return rv
+func (s AVSampleCursor) DecodeTimeStamp() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("decodeTimeStamp"))
+	return coremedia.CMTime(rv)
 }
 // The presentation timestamp of the sample at the current position of the
 // cursor.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/presentationTimeStamp
-func (s AVSampleCursor) PresentationTimeStamp() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("presentationTimeStamp"))
-	return rv
+func (s AVSampleCursor) PresentationTimeStamp() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("presentationTimeStamp"))
+	return coremedia.CMTime(rv)
 }
 // A value that provides information about the chunk of samples to which the
 // current sample belongs.
@@ -473,9 +474,9 @@ func (s AVSampleCursor) CurrentSampleDependencyInfo() AVSampleCursorDependencyIn
 // [indefinite]: https://developer.apple.com/documentation/CoreMedia/CMTime/indefinite
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/currentSampleDuration
-func (s AVSampleCursor) CurrentSampleDuration() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("currentSampleDuration"))
-	return rv
+func (s AVSampleCursor) CurrentSampleDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("currentSampleDuration"))
+	return coremedia.CMTime(rv)
 }
 // The index of the current sample within the chunk to which it belongs.
 //

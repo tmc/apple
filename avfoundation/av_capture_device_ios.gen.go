@@ -5,6 +5,7 @@ package avfoundation
 
 import (
 "github.com/tmc/apple/objc"
+"github.com/tmc/apple/coremedia"
 "github.com/tmc/apple/foundation"
 "github.com/tmc/apple/objectivec"
 )
@@ -225,7 +226,7 @@ objc.Send[objc.ID](c.ID, objc.Sel("rampToVideoZoomFactor:withRate:"), factor, ra
 // [CapturePhotoQualityPrioritizationSpeed].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setExposureModeCustom(duration:iso:completionHandler:)
-func (c AVCaptureDevice) SetExposureModeCustomWithDurationISOCompletionHandler(duration uintptr, ISO float32, handler CMTimeHandler) {
+func (c AVCaptureDevice) SetExposureModeCustomWithDurationISOCompletionHandler(duration coremedia.CMTime, ISO float32, handler CMTimeHandler) {
 	_block2, _cleanup2 := NewCMTimeBlock(handler)
 	defer _cleanup2()
 	objc.Send[objc.ID](c.ID, objc.Sel("setExposureModeCustomWithDuration:ISO:completionHandler:"), duration, ISO, _block2)
@@ -555,9 +556,9 @@ rv := objc.Send[objc.ID](c.ID, objc.Sel("dynamicAspectRatio"))
 // empty array, this property returns {0,0}.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/dynamicDimensions
-func (c AVCaptureDevice) DynamicDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("dynamicDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureDevice) DynamicDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("dynamicDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // A value that indicates the capture device’s current system pressure
 // state.
@@ -678,11 +679,11 @@ objc.Send[struct{}](c.ID, objc.Sel("setActiveDepthDataFormat:"), value)
 // [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/activeDepthDataMinFrameDuration
-func (c AVCaptureDevice) ActiveDepthDataMinFrameDuration() uintptr {
-rv := objc.Send[uintptr](c.ID, objc.Sel("activeDepthDataMinFrameDuration"))
-		return rv
+func (c AVCaptureDevice) ActiveDepthDataMinFrameDuration() coremedia.CMTime {
+rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("activeDepthDataMinFrameDuration"))
+		return coremedia.CMTime(rv)
 }
-func (c AVCaptureDevice) SetActiveDepthDataMinFrameDuration(value uintptr) {
+func (c AVCaptureDevice) SetActiveDepthDataMinFrameDuration(value coremedia.CMTime) {
 objc.Send[struct{}](c.ID, objc.Sel("setActiveDepthDataMinFrameDuration:"), value)
 }
 // The maximum exposure duration, in seconds, defined in the autoexposure
@@ -718,11 +719,11 @@ objc.Send[struct{}](c.ID, objc.Sel("setActiveDepthDataMinFrameDuration:"), value
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/activeMaxExposureDuration
-func (c AVCaptureDevice) ActiveMaxExposureDuration() uintptr {
-rv := objc.Send[uintptr](c.ID, objc.Sel("activeMaxExposureDuration"))
-		return rv
+func (c AVCaptureDevice) ActiveMaxExposureDuration() coremedia.CMTime {
+rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("activeMaxExposureDuration"))
+		return coremedia.CMTime(rv)
 }
-func (c AVCaptureDevice) SetActiveMaxExposureDuration(value uintptr) {
+func (c AVCaptureDevice) SetActiveMaxExposureDuration(value coremedia.CMTime) {
 objc.Send[struct{}](c.ID, objc.Sel("setActiveMaxExposureDuration:"), value)
 }
 // A value that controls the allowable range for automatic focusing.
@@ -924,9 +925,9 @@ rv := objc.Send[float64](c.ID, objc.Sel("dualCameraSwitchOverVideoZoomFactor"))
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/exposureDuration
-func (c AVCaptureDevice) ExposureDuration() uintptr {
-rv := objc.Send[uintptr](c.ID, objc.Sel("exposureDuration"))
-		return rv
+func (c AVCaptureDevice) ExposureDuration() coremedia.CMTime {
+rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("exposureDuration"))
+		return coremedia.CMTime(rv)
 }
 // The bias to apply to the target exposure value, in exposure value (EV)
 // units.

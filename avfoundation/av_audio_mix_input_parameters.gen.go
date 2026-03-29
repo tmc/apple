@@ -6,6 +6,7 @@ import (
 	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -131,7 +132,7 @@ type IAVAudioMixInputParameters interface {
 	// Topic: Getting volume ramps
 
 	// Retrieves the volume ramp that includes the specified time.
-	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time uintptr, timeRange *uintptr) (float32, float32, bool)
+	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool)
 
 	// Topic: Getting an audio tap
 
@@ -201,7 +202,7 @@ func NewAVAudioMixInputParameters() AVAudioMixInputParameters {
 // instance of [AVMutableAudioMixInputParameters].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParameters/getVolumeRamp(for:startVolume:endVolume:timeRange:)
-func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time uintptr, timeRange *uintptr) (float32, float32, bool) {
+func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time coremedia.CMTime, timeRange *coremedia.CMTimeRange) (float32, float32, bool) {
 	var startVolume float32
 	var endVolume float32
 	rv := objc.Send[bool](a.ID, objc.Sel("getVolumeRampForTime:startVolume:endVolume:timeRange:"), time, unsafe.Pointer(&startVolume), unsafe.Pointer(&endVolume), timeRange)

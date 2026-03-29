@@ -123,9 +123,9 @@ type IVNSequenceRequestHandler interface {
 	// Schedules one or more Vision requests to be performed on a Core Video pixel buffer with known orientation.
 	PerformRequestsOnCVPixelBufferOrientationError(requests []VNRequest, pixelBuffer corevideo.CVImageBufferRef, orientation objectivec.IObject) (bool, error)
 	// Performs one or more requests on an image contained within a sample buffer.
-	PerformRequestsOnCMSampleBufferError(requests []VNRequest, sampleBuffer objectivec.IObject) (bool, error)
+	PerformRequestsOnCMSampleBufferError(requests []VNRequest, sampleBuffer uintptr) (bool, error)
 	// Performs one or more requests on an image of a specified orientation contained within a sample buffer.
-	PerformRequestsOnCMSampleBufferOrientationError(requests []VNRequest, sampleBuffer objectivec.IObject, orientation objectivec.IObject) (bool, error)
+	PerformRequestsOnCMSampleBufferOrientationError(requests []VNRequest, sampleBuffer uintptr, orientation objectivec.IObject) (bool, error)
 	// Schedules one or more Vision requests to be performed on raw image data.
 	PerformRequestsOnImageDataError(requests []VNRequest, imageData foundation.INSData) (bool, error)
 	// Schedules one or more Vision requests to be performed on raw data containing an image with known orientation.
@@ -315,11 +315,8 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCVPixelBufferOrientationError
 // //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 //
-// sampleBuffer is a [coremedia.CMSampleBufferRef].
-//
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:)-45e73
-// sampleBuffer is a [coremedia.CMSampleBufferRef].
-func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferError(requests []VNRequest, sampleBuffer objectivec.IObject) (bool, error) {
+func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferError(requests []VNRequest, sampleBuffer uintptr) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCMSampleBuffer:error:"), objectivec.IObjectSliceToNSArray(requests), sampleBuffer, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -343,14 +340,11 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferError(requests 
 //
 // orientation: The orientation of the image contained within the sample buffer.
 //
-// sampleBuffer is a [coremedia.CMSampleBufferRef].
-//
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:orientation:)-6b7rk
-// sampleBuffer is a [coremedia.CMSampleBufferRef].
 // orientation is a [imageio.CGImagePropertyOrientation].
-func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferOrientationError(requests []VNRequest, sampleBuffer objectivec.IObject, orientation objectivec.IObject) (bool, error) {
+func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferOrientationError(requests []VNRequest, sampleBuffer uintptr, orientation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCMSampleBuffer:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), sampleBuffer, orientation, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

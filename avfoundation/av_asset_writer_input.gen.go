@@ -7,6 +7,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -258,8 +259,8 @@ type IAVAssetWriterInput interface {
 	PreferredMediaChunkAlignment() int
 	SetPreferredMediaChunkAlignment(value int)
 	// The duration to use for each chunk of sample data in the output file.
-	PreferredMediaChunkDuration() uintptr
-	SetPreferredMediaChunkDuration(value uintptr)
+	PreferredMediaChunkDuration() coremedia.CMTime
+	SetPreferredMediaChunkDuration(value coremedia.CMTime)
 	// The base URL sample references are relative to.
 	SampleReferenceBaseURL() foundation.INSURL
 	SetSampleReferenceBaseURL(value foundation.INSURL)
@@ -936,11 +937,11 @@ func (a AVAssetWriterInput) SetPreferredMediaChunkAlignment(value int) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/preferredMediaChunkDuration
-func (a AVAssetWriterInput) PreferredMediaChunkDuration() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("preferredMediaChunkDuration"))
-	return rv
+func (a AVAssetWriterInput) PreferredMediaChunkDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("preferredMediaChunkDuration"))
+	return coremedia.CMTime(rv)
 }
-func (a AVAssetWriterInput) SetPreferredMediaChunkDuration(value uintptr) {
+func (a AVAssetWriterInput) SetPreferredMediaChunkDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreferredMediaChunkDuration:"), value)
 }
 // The base URL sample references are relative to.

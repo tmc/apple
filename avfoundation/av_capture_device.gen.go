@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"errors"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -348,9 +349,9 @@ type IAVCaptureDevice interface {
 	// Whether camera lens smudge detection is enabled.
 	CameraLensSmudgeDetectionEnabled() bool
 	// Specify whether to enable camera lens smudge detection, and the interval time between each run of detections.
-	SetCameraLensSmudgeDetectionEnabledDetectionInterval(cameraLensSmudgeDetectionEnabled bool, detectionInterval uintptr)
+	SetCameraLensSmudgeDetectionEnabledDetectionInterval(cameraLensSmudgeDetectionEnabled bool, detectionInterval coremedia.CMTime)
 	// The camera lens smudge detection interval.
-	CameraLensSmudgeDetectionInterval() uintptr
+	CameraLensSmudgeDetectionInterval() coremedia.CMTime
 	// A value specifying the status of camera lens smudge detection.
 	CameraLensSmudgeDetectionStatus() AVCaptureCameraLensSmudgeDetectionStatus
 
@@ -359,11 +360,11 @@ type IAVCaptureDevice interface {
 	// Whether the device is following an external sync device.
 	FollowingExternalSyncDevice() bool
 	// The minimum frame duration that can be passed as the `videoFrameDuration` when directing your device input to follow an external sync device.
-	MinSupportedExternalSyncFrameDuration() uintptr
+	MinSupportedExternalSyncFrameDuration() coremedia.CMTime
 	// Whether the device’s video frame rate (expressed as a duration) is currently locked.
 	VideoFrameDurationLocked() bool
 	// The maximum frame rate (expressed as a minimum duration) that can be set on an input associated with this device.
-	MinSupportedLockedVideoFrameDuration() uintptr
+	MinSupportedLockedVideoFrameDuration() coremedia.CMTime
 
 	// The currently active color space for capture.
 	ActiveColorSpace() AVCaptureColorSpace
@@ -375,11 +376,11 @@ type IAVCaptureDevice interface {
 	ActiveInputSource() IAVCaptureDeviceInputSource
 	SetActiveInputSource(value IAVCaptureDeviceInputSource)
 	// The currently active maximum frame duration.
-	ActiveVideoMaxFrameDuration() uintptr
-	SetActiveVideoMaxFrameDuration(value uintptr)
+	ActiveVideoMaxFrameDuration() coremedia.CMTime
+	SetActiveVideoMaxFrameDuration(value coremedia.CMTime)
 	// The currently active minimum frame duration.
-	ActiveVideoMinFrameDuration() uintptr
-	SetActiveVideoMinFrameDuration(value uintptr)
+	ActiveVideoMinFrameDuration() coremedia.CMTime
+	SetActiveVideoMinFrameDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether the device is currently adjusting its exposure setting.
 	AdjustingExposure() bool
 	// A Boolean value that indicates whether the device is currently adjusting its focus setting.
@@ -699,7 +700,7 @@ func (c AVCaptureDevice) SetPrimaryConstituentDeviceSwitchingBehaviorRestrictedS
 // [AVCaptureCameraLensSmudgeDetectionStatus]: https://developer.apple.com/documentation/AVFoundation/AVCaptureCameraLensSmudgeDetectionStatus
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/setCameraLensSmudgeDetectionEnabled(_:detectionInterval:)
-func (c AVCaptureDevice) SetCameraLensSmudgeDetectionEnabledDetectionInterval(cameraLensSmudgeDetectionEnabled bool, detectionInterval uintptr) {
+func (c AVCaptureDevice) SetCameraLensSmudgeDetectionEnabledDetectionInterval(cameraLensSmudgeDetectionEnabled bool, detectionInterval coremedia.CMTime) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setCameraLensSmudgeDetectionEnabled:detectionInterval:"), cameraLensSmudgeDetectionEnabled, detectionInterval)
 }
 // The default rectangle of interest used for a given exposure point of
@@ -1387,9 +1388,9 @@ func (c AVCaptureDevice) CameraLensSmudgeDetectionEnabled() bool {
 // property returns `kCMTimeInvalid`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/cameraLensSmudgeDetectionInterval
-func (c AVCaptureDevice) CameraLensSmudgeDetectionInterval() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("cameraLensSmudgeDetectionInterval"))
-	return rv
+func (c AVCaptureDevice) CameraLensSmudgeDetectionInterval() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("cameraLensSmudgeDetectionInterval"))
+	return coremedia.CMTime(rv)
 }
 // A value specifying the status of camera lens smudge detection.
 //
@@ -1429,9 +1430,9 @@ func (c AVCaptureDevice) FollowingExternalSyncDevice() bool {
 // configuration does not support external sync device following.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/minSupportedExternalSyncFrameDuration
-func (c AVCaptureDevice) MinSupportedExternalSyncFrameDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("minSupportedExternalSyncFrameDuration"))
-	return rv
+func (c AVCaptureDevice) MinSupportedExternalSyncFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("minSupportedExternalSyncFrameDuration"))
+	return coremedia.CMTime(rv)
 }
 // Whether the device’s video frame rate (expressed as a duration) is
 // currently locked.
@@ -1458,9 +1459,9 @@ func (c AVCaptureDevice) VideoFrameDurationLocked() bool {
 // set the locked frame rate on the input.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/minSupportedLockedVideoFrameDuration
-func (c AVCaptureDevice) MinSupportedLockedVideoFrameDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("minSupportedLockedVideoFrameDuration"))
-	return rv
+func (c AVCaptureDevice) MinSupportedLockedVideoFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("minSupportedLockedVideoFrameDuration"))
+	return coremedia.CMTime(rv)
 }
 // The currently active color space for capture.
 //
@@ -1569,11 +1570,11 @@ func (c AVCaptureDevice) SetActiveInputSource(value IAVCaptureDeviceInputSource)
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/activeVideoMaxFrameDuration
-func (c AVCaptureDevice) ActiveVideoMaxFrameDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("activeVideoMaxFrameDuration"))
-	return rv
+func (c AVCaptureDevice) ActiveVideoMaxFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("activeVideoMaxFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (c AVCaptureDevice) SetActiveVideoMaxFrameDuration(value uintptr) {
+func (c AVCaptureDevice) SetActiveVideoMaxFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setActiveVideoMaxFrameDuration:"), value)
 }
 // The currently active minimum frame duration.
@@ -1598,11 +1599,11 @@ func (c AVCaptureDevice) SetActiveVideoMaxFrameDuration(value uintptr) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/activeVideoMinFrameDuration
-func (c AVCaptureDevice) ActiveVideoMinFrameDuration() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("activeVideoMinFrameDuration"))
-	return rv
+func (c AVCaptureDevice) ActiveVideoMinFrameDuration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("activeVideoMinFrameDuration"))
+	return coremedia.CMTime(rv)
 }
-func (c AVCaptureDevice) SetActiveVideoMinFrameDuration(value uintptr) {
+func (c AVCaptureDevice) SetActiveVideoMinFrameDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setActiveVideoMinFrameDuration:"), value)
 }
 // A Boolean value that indicates whether the device is currently adjusting

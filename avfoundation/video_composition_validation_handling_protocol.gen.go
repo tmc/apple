@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -65,7 +66,7 @@ func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContin
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionValidationHandling/videoComposition(_:shouldContinueValidatingAfterFindingEmptyTimeRange:)
-func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingEmptyTimeRange(videoComposition IAVVideoComposition, timeRange uintptr) bool {
+func (o AVVideoCompositionValidationHandlingObject) VideoCompositionShouldContinueValidatingAfterFindingEmptyTimeRange(videoComposition IAVVideoComposition, timeRange coremedia.CMTimeRange) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("videoComposition:shouldContinueValidatingAfterFindingEmptyTimeRange:"), videoComposition, timeRange)
 	return rv
 	}

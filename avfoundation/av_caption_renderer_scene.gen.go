@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -90,7 +91,7 @@ type IAVCaptionRendererScene interface {
 	// Topic: Inspecting the scene
 
 	// The time range during which the system doesn’t modify the scene.
-	TimeRange() uintptr
+	TimeRange() coremedia.CMTimeRange
 	// A Boolean value that indicates whether the scene contains one or more active captions.
 	HasActiveCaptions() bool
 	// A Boolean value that indicates whether the scene requires redrawing while your app progresses through the content.
@@ -119,9 +120,9 @@ func NewAVCaptionRendererScene() AVCaptionRendererScene {
 // The time range during which the system doesn’t modify the scene.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRenderer/Scene/timeRange
-func (c AVCaptionRendererScene) TimeRange() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("timeRange"))
-	return rv
+func (c AVCaptionRendererScene) TimeRange() coremedia.CMTimeRange {
+	rv := objc.Send[coremedia.CMTimeRange](c.ID, objc.Sel("timeRange"))
+	return coremedia.CMTimeRange(rv)
 }
 // A Boolean value that indicates whether the scene contains one or more
 // active captions.

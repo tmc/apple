@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -95,8 +96,8 @@ type IAVCaptureExternalDisplayConfiguration interface {
 	BypassColorSpaceConversion() bool
 	SetBypassColorSpaceConversion(value bool)
 	// Your preferred external display resolution.
-	PreferredResolution() objectivec.IObject
-	SetPreferredResolution(value objectivec.IObject)
+	PreferredResolution() coremedia.CMVideoDimensions
+	SetPreferredResolution(value coremedia.CMVideoDimensions)
 	// A property indicating whether the frame rate of the external display should be configured to match the camera’s frame rate.
 	ShouldMatchFrameRate() bool
 	SetShouldMatchFrameRate(value bool)
@@ -150,11 +151,11 @@ func (c AVCaptureExternalDisplayConfiguration) SetBypassColorSpaceConversion(val
 // of the external display is used.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureExternalDisplayConfiguration/preferredResolution
-func (c AVCaptureExternalDisplayConfiguration) PreferredResolution() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("preferredResolution"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureExternalDisplayConfiguration) PreferredResolution() coremedia.CMVideoDimensions {
+	rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("preferredResolution"))
+	return coremedia.CMVideoDimensions(rv)
 }
-func (c AVCaptureExternalDisplayConfiguration) SetPreferredResolution(value objectivec.IObject) {
+func (c AVCaptureExternalDisplayConfiguration) SetPreferredResolution(value coremedia.CMVideoDimensions) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPreferredResolution:"), value)
 }
 // A property indicating whether the frame rate of the external display should

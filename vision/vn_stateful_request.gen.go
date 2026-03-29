@@ -5,7 +5,7 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/coremedia"
 )
 
 // The class instance for the [VNStatefulRequest] class.
@@ -84,14 +84,14 @@ type IVNStatefulRequest interface {
 	// Topic: Initializing a Request
 
 	// Initializes a video-based request.
-	InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler ErrorHandler) VNStatefulRequest
+	InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler ErrorHandler) VNStatefulRequest
 
 	// Topic: Configuring the Request
 
 	// The minimum number of frames a request processes before reporting an observation.
 	MinimumLatencyFrameCount() int
 	// A time value that indicates the interval between analysis operations.
-	FrameAnalysisSpacing() objectivec.IObject
+	FrameAnalysisSpacing() coremedia.CMTime
 }
 
 // Init initializes the instance.
@@ -144,8 +144,7 @@ func NewStatefulRequestWithCompletionHandler(completionHandler VNRequestCompleti
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler VNRequestCompletionHandler) VNStatefulRequest {
+func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNStatefulRequest {
 	instance := getVNStatefulRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNStatefulRequestFromID(rv)
@@ -164,11 +163,8 @@ func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSp
 // The system invokes the completion handler on the same dispatch queue as the
 // request performs its processing.
 //
-// frameAnalysisSpacing is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func (s VNStatefulRequest) InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler ErrorHandler) VNStatefulRequest {
+func (s VNStatefulRequest) InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler ErrorHandler) VNStatefulRequest {
 _block1, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNStatefulRequestFromID(rv)
@@ -192,8 +188,8 @@ func (s VNStatefulRequest) MinimumLatencyFrameCount() int {
 // A time value that indicates the interval between analysis operations.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/frameAnalysisSpacing
-func (s VNStatefulRequest) FrameAnalysisSpacing() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("frameAnalysisSpacing"))
-	return objectivec.Object{ID: rv}
+func (s VNStatefulRequest) FrameAnalysisSpacing() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("frameAnalysisSpacing"))
+	return coremedia.CMTime(rv)
 }
 

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 )
 
@@ -120,7 +121,7 @@ func NewAVMutableCaption() AVMutableCaption {
 // timeRange: The range of time when the caption is active.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(_:timeRange:)
-func NewMutableCaptionWithTextTimeRange(text string, timeRange uintptr) AVMutableCaption {
+func NewMutableCaptionWithTextTimeRange(text string, timeRange coremedia.CMTimeRange) AVMutableCaption {
 	instance := getAVMutableCaptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithText:timeRange:"), objc.String(text), timeRange)
 	return AVMutableCaptionFromID(rv)

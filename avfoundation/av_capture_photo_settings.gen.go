@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -150,8 +151,8 @@ type IAVCapturePhotoSettings interface {
 	FlashMode() AVCaptureFlashMode
 	SetFlashMode(value AVCaptureFlashMode)
 	// The maximum resolution of the photo to capture.
-	MaxPhotoDimensions() objectivec.IObject
-	SetMaxPhotoDimensions(value objectivec.IObject)
+	MaxPhotoDimensions() coremedia.CMVideoDimensions
+	SetMaxPhotoDimensions(value coremedia.CMVideoDimensions)
 	// A setting that indicates how to prioritize photo quality against speed of photo delivery.
 	PhotoQualityPrioritization() AVCapturePhotoQualityPrioritization
 	SetPhotoQualityPrioritization(value AVCapturePhotoQualityPrioritization)
@@ -550,11 +551,11 @@ func (c AVCapturePhotoSettings) SetFlashMode(value AVCaptureFlashMode) {
 // [supportedMaxPhotoDimensions]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/supportedMaxPhotoDimensions
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoSettings/maxPhotoDimensions
-func (c AVCapturePhotoSettings) MaxPhotoDimensions() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("maxPhotoDimensions"))
-	return objectivec.Object{ID: rv}
+func (c AVCapturePhotoSettings) MaxPhotoDimensions() coremedia.CMVideoDimensions {
+	rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("maxPhotoDimensions"))
+	return coremedia.CMVideoDimensions(rv)
 }
-func (c AVCapturePhotoSettings) SetMaxPhotoDimensions(value objectivec.IObject) {
+func (c AVCapturePhotoSettings) SetMaxPhotoDimensions(value coremedia.CMVideoDimensions) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxPhotoDimensions:"), value)
 }
 // A setting that indicates how to prioritize photo quality against speed of

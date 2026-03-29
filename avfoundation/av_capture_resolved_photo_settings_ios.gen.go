@@ -5,7 +5,7 @@ package avfoundation
 
 import (
 "github.com/tmc/apple/objc"
-"github.com/tmc/apple/objectivec"
+"github.com/tmc/apple/coremedia"
 )
 
 // Retrieves the resolved dimensions of the semantic segmentation mattes that
@@ -21,9 +21,9 @@ import (
 // [CMVideoDimensions]: https://developer.apple.com/documentation/CoreMedia/CMVideoDimensions
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/dimensionsForSemanticSegmentationMatte(ofType:)
-func (c AVCaptureResolvedPhotoSettings) DimensionsForSemanticSegmentationMatteOfType(semanticSegmentationMatteType AVSemanticSegmentationMatteType) objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("dimensionsForSemanticSegmentationMatteOfType:"), objc.String(string(semanticSegmentationMatteType)))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) DimensionsForSemanticSegmentationMatteOfType(semanticSegmentationMatteType AVSemanticSegmentationMatteType) coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("dimensionsForSemanticSegmentationMatteOfType:"), objc.String(string(semanticSegmentationMatteType)))
+return coremedia.CMVideoDimensions(rv)
 }
 
 // A Boolean value indicating whether the camera flash fires for this capture.
@@ -142,9 +142,9 @@ rv := objc.Send[bool](c.ID, objc.Sel("isDualCameraFusionEnabled"))
 // [AVCaptureDeferredPhotoProxy]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeferredPhotoProxy
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/deferredPhotoProxyDimensions
-func (c AVCaptureResolvedPhotoSettings) DeferredPhotoProxyDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("deferredPhotoProxyDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) DeferredPhotoProxyDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("deferredPhotoProxyDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // The size, in pixels, of the RAW-format photo image that the capture
 // delivers.
@@ -164,9 +164,9 @@ return objectivec.Object{ID: rv}
 // zero width and zero height.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/rawPhotoDimensions
-func (c AVCaptureResolvedPhotoSettings) RawPhotoDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("rawPhotoDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) RawPhotoDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("rawPhotoDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // The size, in pixels, of the preview image that the system delivers with the
 // capture.
@@ -189,9 +189,9 @@ return objectivec.Object{ID: rv}
 // width and zero height.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/previewDimensions
-func (c AVCaptureResolvedPhotoSettings) PreviewDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("previewDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) PreviewDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("previewDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // The size, in pixels, of the thumbnail image that the capture delivers.
 //
@@ -213,17 +213,17 @@ return objectivec.Object{ID: rv}
 // width and zero height.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/embeddedThumbnailDimensions
-func (c AVCaptureResolvedPhotoSettings) EmbeddedThumbnailDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("embeddedThumbnailDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) EmbeddedThumbnailDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("embeddedThumbnailDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // The size, in pixels, of the RAW-format embedded thumbnail image that the
 // capture delivers.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/rawEmbeddedThumbnailDimensions
-func (c AVCaptureResolvedPhotoSettings) RawEmbeddedThumbnailDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("rawEmbeddedThumbnailDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) RawEmbeddedThumbnailDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("rawEmbeddedThumbnailDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // The size, in pixels, of the Live Photo movie content that the capture
 // delivers.
@@ -247,17 +247,17 @@ return objectivec.Object{ID: rv}
 // width and zero height.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/livePhotoMovieDimensions
-func (c AVCaptureResolvedPhotoSettings) LivePhotoMovieDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("livePhotoMovieDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) LivePhotoMovieDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("livePhotoMovieDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // The size, in pixels, of the portrait effects matte that the capture
 // delivers.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/portraitEffectsMatteDimensions
-func (c AVCaptureResolvedPhotoSettings) PortraitEffectsMatteDimensions() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("portraitEffectsMatteDimensions"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) PortraitEffectsMatteDimensions() coremedia.CMVideoDimensions {
+rv := objc.Send[coremedia.CMVideoDimensions](c.ID, objc.Sel("portraitEffectsMatteDimensions"))
+		return coremedia.CMVideoDimensions(rv)
 }
 // The time range in which to expect the system to deliver the photo to the
 // delegate.
@@ -273,8 +273,8 @@ return objectivec.Object{ID: rv}
 // affordance if the max processing time is uncomfortably long.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/photoProcessingTimeRange
-func (c AVCaptureResolvedPhotoSettings) PhotoProcessingTimeRange() uintptr {
-rv := objc.Send[uintptr](c.ID, objc.Sel("photoProcessingTimeRange"))
-		return rv
+func (c AVCaptureResolvedPhotoSettings) PhotoProcessingTimeRange() coremedia.CMTimeRange {
+rv := objc.Send[coremedia.CMTimeRange](c.ID, objc.Sel("photoProcessingTimeRange"))
+		return coremedia.CMTimeRange(rv)
 }
 

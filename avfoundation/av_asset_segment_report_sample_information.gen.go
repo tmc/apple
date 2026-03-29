@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -81,7 +82,7 @@ type IAVAssetSegmentReportSampleInformation interface {
 	// Topic: Inspecting the information
 
 	// The presentation timestamp (PTS) of a sample.
-	PresentationTimeStamp() uintptr
+	PresentationTimeStamp() coremedia.CMTime
 	// The offset of a sample in the segment.
 	Offset() int
 	// The length of the sample data.
@@ -90,11 +91,11 @@ type IAVAssetSegmentReportSampleInformation interface {
 	IsSyncSample() bool
 
 	// The duration of a track.
-	Duration() uintptr
-	SetDuration(value uintptr)
+	Duration() coremedia.CMTime
+	SetDuration(value coremedia.CMTime)
 	// The earliest presentation timestamp (PTS) for this track.
-	EarliestPresentationTimeStamp() uintptr
-	SetEarliestPresentationTimeStamp(value uintptr)
+	EarliestPresentationTimeStamp() coremedia.CMTime
+	SetEarliestPresentationTimeStamp(value coremedia.CMTime)
 	// Information about the first video sample in a track.
 	FirstVideoSampleInformation() IAVAssetSegmentReportSampleInformation
 	SetFirstVideoSampleInformation(value IAVAssetSegmentReportSampleInformation)
@@ -133,9 +134,9 @@ func NewAVAssetSegmentReportSampleInformation() AVAssetSegmentReportSampleInform
 // the video’s author encodes it using frame reordering.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentReportSampleInformation/presentationTimeStamp
-func (a AVAssetSegmentReportSampleInformation) PresentationTimeStamp() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("presentationTimeStamp"))
-	return rv
+func (a AVAssetSegmentReportSampleInformation) PresentationTimeStamp() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("presentationTimeStamp"))
+	return coremedia.CMTime(rv)
 }
 // The offset of a sample in the segment.
 //
@@ -161,21 +162,21 @@ func (a AVAssetSegmentReportSampleInformation) IsSyncSample() bool {
 // The duration of a track.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/duration
-func (a AVAssetSegmentReportSampleInformation) Duration() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("duration"))
-	return rv
+func (a AVAssetSegmentReportSampleInformation) Duration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("duration"))
+	return coremedia.CMTime(rv)
 }
-func (a AVAssetSegmentReportSampleInformation) SetDuration(value uintptr) {
+func (a AVAssetSegmentReportSampleInformation) SetDuration(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
 // The earliest presentation timestamp (PTS) for this track.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/earliestpresentationtimestamp
-func (a AVAssetSegmentReportSampleInformation) EarliestPresentationTimeStamp() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("earliestPresentationTimeStamp"))
-	return rv
+func (a AVAssetSegmentReportSampleInformation) EarliestPresentationTimeStamp() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("earliestPresentationTimeStamp"))
+	return coremedia.CMTime(rv)
 }
-func (a AVAssetSegmentReportSampleInformation) SetEarliestPresentationTimeStamp(value uintptr) {
+func (a AVAssetSegmentReportSampleInformation) SetEarliestPresentationTimeStamp(value coremedia.CMTime) {
 	objc.Send[struct{}](a.ID, objc.Sel("setEarliestPresentationTimeStamp:"), value)
 }
 // Information about the first video sample in a track.

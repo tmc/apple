@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -123,8 +124,8 @@ type IAVSampleBufferRequest interface {
 	Mode() AVSampleBufferRequestMode
 	SetMode(value AVSampleBufferRequestMode)
 	// The deadline for sample data and output PTS for the sample buffer.
-	OverrideTime() uintptr
-	SetOverrideTime(value uintptr)
+	OverrideTime() coremedia.CMTime
+	SetOverrideTime(value coremedia.CMTime)
 	// The preferred minimum number of samples to load.
 	PreferredMinSampleCount() int
 	SetPreferredMinSampleCount(value int)
@@ -242,11 +243,11 @@ func (s AVSampleBufferRequest) SetMode(value AVSampleBufferRequestMode) {
 // The deadline for sample data and output PTS for the sample buffer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/overrideTime
-func (s AVSampleBufferRequest) OverrideTime() uintptr {
-	rv := objc.Send[uintptr](s.ID, objc.Sel("overrideTime"))
-	return rv
+func (s AVSampleBufferRequest) OverrideTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("overrideTime"))
+	return coremedia.CMTime(rv)
 }
-func (s AVSampleBufferRequest) SetOverrideTime(value uintptr) {
+func (s AVSampleBufferRequest) SetOverrideTime(value coremedia.CMTime) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOverrideTime:"), value)
 }
 // The preferred minimum number of samples to load.

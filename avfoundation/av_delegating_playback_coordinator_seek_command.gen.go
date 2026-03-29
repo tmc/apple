@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 )
 
@@ -84,7 +85,7 @@ type IAVDelegatingPlaybackCoordinatorSeekCommand interface {
 	// The rate at which the coordinator expects playback to resume.
 	AnticipatedPlaybackRate() float32
 	// The time to seek to in the item timeline.
-	ItemTime() uintptr
+	ItemTime() coremedia.CMTime
 	// The deadline by which the coordinator expects the delegate to handle the command.
 	CompletionDueDate() foundation.INSDate
 }
@@ -128,9 +129,9 @@ func (d AVDelegatingPlaybackCoordinatorSeekCommand) AnticipatedPlaybackRate() fl
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorSeekCommand/itemTime
-func (d AVDelegatingPlaybackCoordinatorSeekCommand) ItemTime() uintptr {
-	rv := objc.Send[uintptr](d.ID, objc.Sel("itemTime"))
-	return rv
+func (d AVDelegatingPlaybackCoordinatorSeekCommand) ItemTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](d.ID, objc.Sel("itemTime"))
+	return coremedia.CMTime(rv)
 }
 // The deadline by which the coordinator expects the delegate to handle the
 // command.

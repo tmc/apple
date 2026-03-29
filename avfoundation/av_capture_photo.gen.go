@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -133,7 +134,7 @@ type IAVCapturePhoto interface {
 	// The 1-based index of this photo capture relative to other results from the same capture request.
 	PhotoCount() int
 	// The time at which the image was captured.
-	Timestamp() uintptr
+	Timestamp() coremedia.CMTime
 
 	// Topic: Accessing photo pixel data
 
@@ -257,9 +258,9 @@ func (c AVCapturePhoto) PhotoCount() int {
 // [masterClock]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/masterClock
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/timestamp
-func (c AVCapturePhoto) Timestamp() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("timestamp"))
-	return rv
+func (c AVCapturePhoto) Timestamp() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("timestamp"))
+	return coremedia.CMTime(rv)
 }
 // The uncompressed or RAW image sample buffer for the photo, if requested.
 //

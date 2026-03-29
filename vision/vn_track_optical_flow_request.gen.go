@@ -5,7 +5,7 @@ package vision
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/coremedia"
 )
 
 // The class instance for the [VNTrackOpticalFlowRequest] class.
@@ -149,8 +149,7 @@ func NewTrackOpticalFlowRequestWithCompletionHandler(completionHandler VNRequest
 // request performs its processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
-// frameAnalysisSpacing is a [coremedia.CMTime].
-func NewTrackOpticalFlowRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler VNRequestCompletionHandler) VNTrackOpticalFlowRequest {
+func NewTrackOpticalFlowRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNTrackOpticalFlowRequest {
 	instance := getVNTrackOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
 	return VNTrackOpticalFlowRequestFromID(rv)

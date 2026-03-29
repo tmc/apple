@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"fmt"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -228,7 +229,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLive
 // The photo output calls this method only once for each Live Photo capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishProcessingLivePhotoToMovieFileAt:duration:photoDisplayTime:resolvedSettings:error:)
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError(output IAVCapturePhotoOutput, outputFileURL foundation.INSURL, duration uintptr, photoDisplayTime uintptr, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.INSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError(output IAVCapturePhotoOutput, outputFileURL foundation.INSURL, duration coremedia.CMTime, photoDisplayTime coremedia.CMTime, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:"), output, outputFileURL, duration, photoDisplayTime, resolvedSettings, error_)
 	}
 // Tells the delegate when the system finishes capturing the photo proxy.

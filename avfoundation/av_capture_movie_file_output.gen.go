@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -127,8 +128,8 @@ type IAVCaptureMovieFileOutput interface {
 	// Topic: Configuring movies
 
 	// The number of seconds of output that are written per fragment.
-	MovieFragmentInterval() uintptr
-	SetMovieFragmentInterval(value uintptr)
+	MovieFragmentInterval() coremedia.CMTime
+	SetMovieFragmentInterval(value coremedia.CMTime)
 	// The metadata for the output file.
 	Metadata() []AVMetadataItem
 	SetMetadata(value []AVMetadataItem)
@@ -302,11 +303,11 @@ func (c AVCaptureMovieFileOutput) SetPrimaryConstituentDeviceSwitchingBehaviorFo
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/movieFragmentInterval
-func (c AVCaptureMovieFileOutput) MovieFragmentInterval() uintptr {
-	rv := objc.Send[uintptr](c.ID, objc.Sel("movieFragmentInterval"))
-	return rv
+func (c AVCaptureMovieFileOutput) MovieFragmentInterval() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("movieFragmentInterval"))
+	return coremedia.CMTime(rv)
 }
-func (c AVCaptureMovieFileOutput) SetMovieFragmentInterval(value uintptr) {
+func (c AVCaptureMovieFileOutput) SetMovieFragmentInterval(value coremedia.CMTime) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMovieFragmentInterval:"), value)
 }
 // The metadata for the output file.

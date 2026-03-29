@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -83,7 +84,7 @@ type IAVVideoOutputSpecification interface {
 
 	PreferredTagCollections() foundation.INSArray
 	InitWithTagCollections(tagCollections foundation.INSArray) AVVideoOutputSpecification
-	SetOutputSettingsForTagCollection(outputSettings foundation.INSDictionary, tagCollection objectivec.IObject)
+	SetOutputSettingsForTagCollection(outputSettings foundation.INSDictionary, tagCollection coremedia.CMTagCollectionRef)
 }
 
 // Init initializes the instance.
@@ -120,11 +121,8 @@ func (v AVVideoOutputSpecification) InitWithTagCollections(tagCollections founda
 	return rv
 }
 //
-// tagCollection is a [coremedia.CMTagCollectionRef].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoOutputSpecification/setOutputSettings:forTagCollection:
-// tagCollection is a [coremedia.CMTagCollectionRef].
-func (v AVVideoOutputSpecification) SetOutputSettingsForTagCollection(outputSettings foundation.INSDictionary, tagCollection objectivec.IObject) {
+func (v AVVideoOutputSpecification) SetOutputSettingsForTagCollection(outputSettings foundation.INSDictionary, tagCollection coremedia.CMTagCollectionRef) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setOutputSettings:forTagCollection:"), outputSettings, tagCollection)
 }
 

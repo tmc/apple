@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -101,7 +102,7 @@ type IAVCoordinatedPlaybackSuspension interface {
 	// Ends a suspension.
 	End()
 	// Ends a suspension and proposes a new playback time to the group.
-	EndProposingNewTime(time uintptr)
+	EndProposingNewTime(time coremedia.CMTime)
 }
 
 // Init initializes the instance.
@@ -153,7 +154,7 @@ func (c AVCoordinatedPlaybackSuspension) End() {
 // suspension ends, override a pending proposal.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCoordinatedPlaybackSuspension/end(proposingNewTime:)
-func (c AVCoordinatedPlaybackSuspension) EndProposingNewTime(time uintptr) {
+func (c AVCoordinatedPlaybackSuspension) EndProposingNewTime(time coremedia.CMTime) {
 	objc.Send[objc.ID](c.ID, objc.Sel("endProposingNewTime:"), time)
 }
 

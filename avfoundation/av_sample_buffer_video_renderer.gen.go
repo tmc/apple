@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
@@ -142,7 +143,7 @@ type IAVSampleBufferVideoRenderer interface {
 	LoadVideoPerformanceMetricsWithCompletionHandler(completionHandler AVVideoPerformanceMetricsHandler)
 
 	RecommendedPixelBufferAttributes() foundation.INSDictionary
-	ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime uintptr)
+	ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime coremedia.CMTime)
 	ExpectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes()
 	ResetUpcomingSampleBufferPresentationTimeExpectations()
 }
@@ -219,7 +220,7 @@ func (s AVSampleBufferVideoRenderer) EnqueueSampleBuffer(sampleBuffer uintptr) {
 }
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/expectMinimumUpcomingSampleBufferPresentationTime:
-func (s AVSampleBufferVideoRenderer) ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime uintptr) {
+func (s AVSampleBufferVideoRenderer) ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime coremedia.CMTime) {
 	objc.Send[objc.ID](s.ID, objc.Sel("expectMinimumUpcomingSampleBufferPresentationTime:"), minimumUpcomingPresentationTime)
 }
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/expectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes

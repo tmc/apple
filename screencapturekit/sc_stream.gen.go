@@ -166,7 +166,7 @@ type ISCStream interface {
 	// Topic: Stream synchronization
 
 	// A clock to use for output synchronization.
-	SynchronizationClock() objectivec.IObject
+	SynchronizationClock() uintptr
 }
 
 // Init initializes the instance.
@@ -352,9 +352,9 @@ _block0, _ := NewErrorBlock(completionHandler)
 // [synchronizationClock]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/synchronizationClock
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/synchronizationClock
-func (s SCStream) SynchronizationClock() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("synchronizationClock"))
-	return objectivec.Object{ID: rv}
+func (s SCStream) SynchronizationClock() uintptr {
+	rv := objc.Send[uintptr](s.ID, objc.Sel("synchronizationClock"))
+	return rv
 }
 
 // UpdateConfiguration is a synchronous wrapper around [SCStream.UpdateConfigurationCompletionHandler].

@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -105,9 +106,9 @@ type IAVMetadataObject interface {
 	// The bounding rectangle associated with the metadata.
 	Bounds() corefoundation.CGRect
 	// The duration of the media associated with this metadata object.
-	Duration() uintptr
+	Duration() coremedia.CMTime
 	// The media time value associated with the metadata object.
-	Time() uintptr
+	Time() coremedia.CMTime
 	// The type of metadata that this object provides.
 	Type() AVMetadataObjectType
 	// A BOOL indicating whether this metadata object represents a fixed focus.
@@ -174,9 +175,9 @@ func (m AVMetadataObject) Bounds() corefoundation.CGRect {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/duration
-func (m AVMetadataObject) Duration() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("duration"))
-	return rv
+func (m AVMetadataObject) Duration() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("duration"))
+	return coremedia.CMTime(rv)
 }
 // The media time value associated with the metadata object.
 //
@@ -192,9 +193,9 @@ func (m AVMetadataObject) Duration() uintptr {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/time
-func (m AVMetadataObject) Time() uintptr {
-	rv := objc.Send[uintptr](m.ID, objc.Sel("time"))
-	return rv
+func (m AVMetadataObject) Time() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("time"))
+	return coremedia.CMTime(rv)
 }
 // The type of metadata that this object provides.
 //

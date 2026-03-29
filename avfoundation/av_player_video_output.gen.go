@@ -3,9 +3,9 @@
 package avfoundation
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -84,7 +84,7 @@ type IAVPlayerVideoOutput interface {
 	// Creates a video output from a specification.
 	InitWithSpecification(specification IAVVideoOutputSpecification) AVPlayerVideoOutput
 
-	CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime uintptr, presentationTimeStampOut unsafe.Pointer, activeConfigurationOut *AVPlayerVideoOutputConfiguration) objectivec.IObject
+	CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime coremedia.CMTime, presentationTimeStampOut *coremedia.CMTime, activeConfigurationOut *AVPlayerVideoOutputConfiguration) coremedia.CMTaggedBufferGroupRef
 }
 
 // Init initializes the instance.
@@ -124,8 +124,8 @@ func (p AVPlayerVideoOutput) InitWithSpecification(specification IAVVideoOutputS
 }
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutput/copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:
-func (p AVPlayerVideoOutput) CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime uintptr, presentationTimeStampOut unsafe.Pointer, activeConfigurationOut *AVPlayerVideoOutputConfiguration) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:"), hostTime, presentationTimeStampOut, activeConfigurationOut)
-	return objectivec.Object{ID: rv}
+func (p AVPlayerVideoOutput) CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime coremedia.CMTime, presentationTimeStampOut *coremedia.CMTime, activeConfigurationOut *AVPlayerVideoOutputConfiguration) coremedia.CMTaggedBufferGroupRef {
+	rv := objc.Send[coremedia.CMTaggedBufferGroupRef](p.ID, objc.Sel("copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:"), hostTime, presentationTimeStampOut, activeConfigurationOut)
+	return coremedia.CMTaggedBufferGroupRef(rv)
 }
 

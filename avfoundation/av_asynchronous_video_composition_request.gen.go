@@ -5,6 +5,7 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
@@ -106,7 +107,7 @@ type IAVAsynchronousVideoCompositionRequest interface {
 	// Topic: Inspecting the request
 
 	// A time for which to compose the frame.
-	CompositionTime() uintptr
+	CompositionTime() coremedia.CMTime
 	// The rendering context of the video composition.
 	RenderContext() IAVVideoCompositionRenderContext
 	// A video composition instruction that indicates how to compose the frame.
@@ -131,9 +132,9 @@ type IAVAsynchronousVideoCompositionRequest interface {
 	// Associates the pixel buffer with the specified spatial configuration.
 	AttachSpatialVideoConfigurationToPixelBuffer(spatialVideoConfiguration IAVSpatialVideoConfiguration, pixelBuffer corevideo.CVImageBufferRef)
 	// The method that the custom compositor calls when composition succeeds.
-	FinishWithComposedTaggedBufferGroup(taggedBufferGroup objectivec.IObject)
+	FinishWithComposedTaggedBufferGroup(taggedBufferGroup coremedia.CMTaggedBufferGroupRef)
 	// Returns the source CMTaggedBufferGroupRef for the given track ID.
-	SourceTaggedBufferGroupByTrackID(trackID int32) objectivec.IObject
+	SourceTaggedBufferGroupByTrackID(trackID int32) coremedia.CMTaggedBufferGroupRef
 }
 
 // Init initializes the instance.
@@ -219,11 +220,8 @@ func (a AVAsynchronousVideoCompositionRequest) AttachSpatialVideoConfigurationTo
 // buffers must be associated with the same spatial configuration. An
 // exception will be thrown otherwise.
 //
-// taggedBufferGroup is a [coremedia.CMTaggedBufferGroupRef].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/finishWithComposedTaggedBufferGroup:
-// taggedBufferGroup is a [coremedia.CMTaggedBufferGroupRef].
-func (a AVAsynchronousVideoCompositionRequest) FinishWithComposedTaggedBufferGroup(taggedBufferGroup objectivec.IObject) {
+func (a AVAsynchronousVideoCompositionRequest) FinishWithComposedTaggedBufferGroup(taggedBufferGroup coremedia.CMTaggedBufferGroupRef) {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishWithComposedTaggedBufferGroup:"), taggedBufferGroup)
 }
 // Returns the source CMTaggedBufferGroupRef for the given track ID.
@@ -237,17 +235,17 @@ func (a AVAsynchronousVideoCompositionRequest) FinishWithComposedTaggedBufferGro
 // when supportsSourceTaggedBuffers is YES.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/sourceTaggedBufferGroupByTrackID:
-func (a AVAsynchronousVideoCompositionRequest) SourceTaggedBufferGroupByTrackID(trackID int32) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sourceTaggedBufferGroupByTrackID:"), trackID)
-	return objectivec.Object{ID: rv}
+func (a AVAsynchronousVideoCompositionRequest) SourceTaggedBufferGroupByTrackID(trackID int32) coremedia.CMTaggedBufferGroupRef {
+	rv := objc.Send[coremedia.CMTaggedBufferGroupRef](a.ID, objc.Sel("sourceTaggedBufferGroupByTrackID:"), trackID)
+	return coremedia.CMTaggedBufferGroupRef(rv)
 }
 
 // A time for which to compose the frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/compositionTime
-func (a AVAsynchronousVideoCompositionRequest) CompositionTime() uintptr {
-	rv := objc.Send[uintptr](a.ID, objc.Sel("compositionTime"))
-	return rv
+func (a AVAsynchronousVideoCompositionRequest) CompositionTime() coremedia.CMTime {
+	rv := objc.Send[coremedia.CMTime](a.ID, objc.Sel("compositionTime"))
+	return coremedia.CMTime(rv)
 }
 // The rendering context of the video composition.
 //
