@@ -25,6 +25,7 @@
 //go:generate applegen-bootstrap -f "diskarbitration"
 //go:generate applegen-bootstrap -f "endpointsecurity"
 //go:generate applegen-bootstrap -f "foundation"
+//go:generate applegen-bootstrap -f "kernel"
 //go:generate applegen-bootstrap -f "iosurface"
 //go:generate applegen-bootstrap -f "iokit"
 //go:generate applegen-bootstrap -f "launchservices"
