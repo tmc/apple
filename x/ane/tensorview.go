@@ -9,6 +9,7 @@ import (
 
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -128,7 +129,7 @@ func TensorViewFromMultiArray(arr coreml.MLMultiArray) (*TensorView, error) {
 		return nil, fmt.Errorf("ane: nil MLMultiArray")
 	}
 
-	ptr := arr.DataPointer()
+	ptr := objc.Send[unsafe.Pointer](arr.ID, objc.Sel("dataPointer"))
 	if ptr == nil {
 		return nil, fmt.Errorf("ane: MLMultiArray data pointer is nil")
 	}
@@ -239,7 +240,7 @@ func WithMultiArrayBytes(arr coreml.MLMultiArray, fn func(view *TensorView)) err
 	shape := nsNumbersToInts(shapeNums)
 	strides := nsNumbersToInts(strideNums)
 
-	arr.GetBytesWithHandler(func(bytes unsafe.Pointer, size int) {
+	block := objc.NewBlock(func(_ objc.Block, bytes unsafe.Pointer, size int) {
 		fn(&TensorView{
 			Ptr:     bytes,
 			Shape:   shape,
@@ -248,6 +249,8 @@ func WithMultiArrayBytes(arr coreml.MLMultiArray, fn func(view *TensorView)) err
 			ByteLen: size,
 		})
 	})
+	defer block.Release()
+	objc.Send[objc.ID](arr.ID, objc.Sel("getBytesWithHandler:"), objc.ID(block))
 	return nil
 }
 
