@@ -30,6 +30,11 @@ type BoundsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (bc BoundsClass) Class() objc.Class {
+	return bc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (bc BoundsClass) Alloc() Bounds {
 	rv := objc.Send[Bounds](objc.ID(bc.class), objc.Sel("alloc"))

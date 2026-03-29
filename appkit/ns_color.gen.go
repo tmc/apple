@@ -36,6 +36,11 @@ type NSColorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSColorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSColorClass) Alloc() NSColor {
 	rv := objc.Send[NSColor](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1488,8 +1493,7 @@ func (c NSColor) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(name:dynamicProvider:)
 func (_NSColorClass NSColorClass) ColorWithNameDynamicProvider(colorName string, dynamicProvider AppearanceHandler) NSColor {
-_block1, _cleanup1 := NewAppearanceBlock(dynamicProvider)
-	defer _cleanup1()
+_block1, _ := NewAppearanceBlock(dynamicProvider)
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("colorWithName:dynamicProvider:"), objc.String(colorName), _block1)
 	return NSColorFromID(rv)
 }

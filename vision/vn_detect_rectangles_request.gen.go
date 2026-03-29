@@ -29,6 +29,11 @@ type VNDetectRectanglesRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNDetectRectanglesRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNDetectRectanglesRequestClass) Alloc() VNDetectRectanglesRequest {
 	rv := objc.Send[VNDetectRectanglesRequest](objc.ID(vc.class), objc.Sel("alloc"))

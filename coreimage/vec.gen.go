@@ -30,6 +30,11 @@ type VecClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VecClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VecClass) Alloc() Vec {
 	rv := objc.Send[Vec](objc.ID(vc.class), objc.Sel("alloc"))

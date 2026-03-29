@@ -31,6 +31,11 @@ type NSAccessibilityCustomActionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAccessibilityCustomActionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAccessibilityCustomActionClass) Alloc() NSAccessibilityCustomAction {
 	rv := objc.Send[NSAccessibilityCustomAction](objc.ID(nc.class), objc.Sel("alloc"))
@@ -179,8 +184,7 @@ func NewAccessibilityCustomActionWithNameTargetSelector(name string, target obje
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/init(name:handler:)
 func (a NSAccessibilityCustomAction) InitWithNameHandler(name string, handler ErrorHandler) NSAccessibilityCustomAction {
-_block1, _cleanup1 := NewErrorBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(handler)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithName:handler:"), objc.String(name), _block1)
 	return NSAccessibilityCustomActionFromID(rv)
 }

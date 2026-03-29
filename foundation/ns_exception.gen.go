@@ -31,6 +31,11 @@ type NSExceptionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSExceptionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSExceptionClass) Alloc() NSException {
 	rv := objc.Send[NSException](objc.ID(nc.class), objc.Sel("alloc"))

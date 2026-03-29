@@ -30,6 +30,11 @@ type FormatterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (fc FormatterClass) Class() objc.Class {
+	return fc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (fc FormatterClass) Alloc() Formatter {
 	rv := objc.Send[Formatter](objc.ID(fc.class), objc.Sel("alloc"))

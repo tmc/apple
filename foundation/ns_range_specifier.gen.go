@@ -29,6 +29,11 @@ type NSRangeSpecifierClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSRangeSpecifierClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSRangeSpecifierClass) Alloc() NSRangeSpecifier {
 	rv := objc.Send[NSRangeSpecifier](objc.ID(nc.class), objc.Sel("alloc"))

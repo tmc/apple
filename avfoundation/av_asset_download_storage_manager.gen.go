@@ -31,6 +31,11 @@ type AVAssetDownloadStorageManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetDownloadStorageManagerClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetDownloadStorageManagerClass) Alloc() AVAssetDownloadStorageManager {
 	rv := objc.Send[AVAssetDownloadStorageManager](objc.ID(ac.class), objc.Sel("alloc"))

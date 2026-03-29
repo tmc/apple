@@ -31,6 +31,11 @@ type NSFileProviderServiceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFileProviderServiceClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFileProviderServiceClass) Alloc() NSFileProviderService {
 	rv := objc.Send[NSFileProviderService](objc.ID(nc.class), objc.Sel("alloc"))
@@ -152,8 +157,7 @@ func NewNSFileProviderService() NSFileProviderService {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileProviderService/getFileProviderConnection(completionHandler:)
 func (f NSFileProviderService) GetFileProviderConnectionWithCompletionHandler(completionHandler XPCConnectionErrorHandler) {
-_block0, _cleanup0 := NewXPCConnectionErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewXPCConnectionErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("getFileProviderConnectionWithCompletionHandler:"), _block0)
 }
 

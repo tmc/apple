@@ -29,6 +29,11 @@ type MTLTextureReferenceTypeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLTextureReferenceTypeClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLTextureReferenceTypeClass) Alloc() MTLTextureReferenceType {
 	rv := objc.Send[MTLTextureReferenceType](objc.ID(mc.class), objc.Sel("alloc"))

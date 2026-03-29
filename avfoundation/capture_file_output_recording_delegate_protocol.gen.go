@@ -125,7 +125,7 @@ func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordi
 // thread, and should also try to make this method as efficient as possible.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputRecordingDelegate/fileOutput(_:didStartRecordingTo:startPTS:from:)
-func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordingToOutputFileAtURLStartPTSFromConnections(output IAVCaptureFileOutput, fileURL foundation.INSURL, startPTS objectivec.IObject, connections []AVCaptureConnection) {
+func (o AVCaptureFileOutputRecordingDelegateObject) CaptureOutputDidStartRecordingToOutputFileAtURLStartPTSFromConnections(output IAVCaptureFileOutput, fileURL foundation.INSURL, startPTS uintptr, connections []AVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didStartRecordingToOutputFileAtURL:startPTS:fromConnections:"), output, fileURL, startPTS, objectivec.IObjectSliceToNSArray(connections))
 	}
 // Informs the delegate when the output will stop writing new samples to a

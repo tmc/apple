@@ -31,6 +31,11 @@ type AVSampleBufferGeneratorBatchClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVSampleBufferGeneratorBatchClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSampleBufferGeneratorBatchClass) Alloc() AVSampleBufferGeneratorBatch {
 	rv := objc.Send[AVSampleBufferGeneratorBatch](objc.ID(ac.class), objc.Sel("alloc"))
@@ -121,8 +126,7 @@ func NewAVSampleBufferGeneratorBatch() AVSampleBufferGeneratorBatch {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferGeneratorBatch/makeDataReady(completionHandler:)
 func (s AVSampleBufferGeneratorBatch) MakeDataReadyWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("makeDataReadyWithCompletionHandler:"), _block0)
 }
 // Cancels any I/O for this batch.

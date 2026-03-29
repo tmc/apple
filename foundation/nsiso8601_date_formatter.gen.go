@@ -29,6 +29,11 @@ type ISO8601DateFormatterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ic ISO8601DateFormatterClass) Class() objc.Class {
+	return ic.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ic ISO8601DateFormatterClass) Alloc() ISO8601DateFormatter {
 	rv := objc.Send[ISO8601DateFormatter](objc.ID(ic.class), objc.Sel("alloc"))

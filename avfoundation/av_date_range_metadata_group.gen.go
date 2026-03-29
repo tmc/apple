@@ -31,6 +31,11 @@ type AVDateRangeMetadataGroupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVDateRangeMetadataGroupClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVDateRangeMetadataGroupClass) Alloc() AVDateRangeMetadataGroup {
 	rv := objc.Send[AVDateRangeMetadataGroup](objc.ID(ac.class), objc.Sel("alloc"))

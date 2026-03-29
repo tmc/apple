@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVMovieTrack] class.
@@ -28,6 +27,11 @@ func GetAVMovieTrackClass() AVMovieTrackClass {
 
 type AVMovieTrackClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMovieTrackClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -81,9 +85,9 @@ type IAVMovieTrack interface {
 	// The storage container for media data added to a track.
 	MediaDataStorage() IAVMediaDataStorage
 	// A range of decode times for the track’s media.
-	MediaDecodeTimeRange() objectivec.IObject
+	MediaDecodeTimeRange() uintptr
 	// A range of presentation times for the track’s media.
-	MediaPresentationTimeRange() objectivec.IObject
+	MediaPresentationTimeRange() uintptr
 }
 
 // Init initializes the instance.
@@ -129,15 +133,15 @@ func (m AVMovieTrack) MediaDataStorage() IAVMediaDataStorage {
 // A range of decode times for the track’s media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovieTrack/mediaDecodeTimeRange
-func (m AVMovieTrack) MediaDecodeTimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaDecodeTimeRange"))
-	return objectivec.Object{ID: rv}
+func (m AVMovieTrack) MediaDecodeTimeRange() uintptr {
+	rv := objc.Send[uintptr](m.ID, objc.Sel("mediaDecodeTimeRange"))
+	return rv
 }
 // A range of presentation times for the track’s media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMovieTrack/mediaPresentationTimeRange
-func (m AVMovieTrack) MediaPresentationTimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaPresentationTimeRange"))
-	return objectivec.Object{ID: rv}
+func (m AVMovieTrack) MediaPresentationTimeRange() uintptr {
+	rv := objc.Send[uintptr](m.ID, objc.Sel("mediaPresentationTimeRange"))
+	return rv
 }
 

@@ -30,6 +30,11 @@ type SCRecordingOutputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCRecordingOutputClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCRecordingOutputClass) Alloc() SCRecordingOutput {
 	rv := objc.Send[SCRecordingOutput](objc.ID(sc.class), objc.Sel("alloc"))

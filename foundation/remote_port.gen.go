@@ -30,6 +30,11 @@ type RemotePortClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (rc RemotePortClass) Class() objc.Class {
+	return rc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (rc RemotePortClass) Alloc() RemotePort {
 	rv := objc.Send[RemotePort](objc.ID(rc.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type MTLIndirectInstanceAccelerationStructureDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLIndirectInstanceAccelerationStructureDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLIndirectInstanceAccelerationStructureDescriptorClass) Alloc() MTLIndirectInstanceAccelerationStructureDescriptor {
 	rv := objc.Send[MTLIndirectInstanceAccelerationStructureDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

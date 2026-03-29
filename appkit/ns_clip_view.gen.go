@@ -31,6 +31,11 @@ type NSClipViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSClipViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSClipViewClass) Alloc() NSClipView {
 	rv := objc.Send[NSClipView](objc.ID(nc.class), objc.Sel("alloc"))

@@ -228,7 +228,7 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishRecordingLive
 // The photo output calls this method only once for each Live Photo capture.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishProcessingLivePhotoToMovieFileAt:duration:photoDisplayTime:resolvedSettings:error:)
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError(output IAVCapturePhotoOutput, outputFileURL foundation.INSURL, duration objectivec.IObject, photoDisplayTime objectivec.IObject, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.INSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLivePhotoToMovieFileAtURLDurationPhotoDisplayTimeResolvedSettingsError(output IAVCapturePhotoOutput, outputFileURL foundation.INSURL, duration uintptr, photoDisplayTime uintptr, resolvedSettings IAVCaptureResolvedPhotoSettings, error_ foundation.INSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:"), output, outputFileURL, duration, photoDisplayTime, resolvedSettings, error_)
 	}
 // Tells the delegate when the system finishes capturing the photo proxy.
@@ -287,10 +287,6 @@ type AVCapturePhotoCaptureDelegateConfig struct {
 	CaptureOutputDidFinishCaptureForResolvedSettingsError func(output AVCapturePhotoOutput, resolvedSettings AVCaptureResolvedPhotoSettings, error_ foundation.NSError)
 	// CaptureOutputDidFinishProcessingPhotoError — Provides the delegate with the captured image and associated metadata resulting from a photo capture.
 	CaptureOutputDidFinishProcessingPhotoError func(output AVCapturePhotoOutput, photo AVCapturePhoto, error_ foundation.NSError)
-	// CaptureOutputDidFinishRecordingLivePhotoMovieForEventualFileAtURLResolvedSettings — Notifies the delegate that the movie content of a Live Photo has finished recording.
-	CaptureOutputDidFinishRecordingLivePhotoMovieForEventualFileAtURLResolvedSettings func(output AVCapturePhotoOutput, outputFileURL foundation.NSURL, resolvedSettings AVCaptureResolvedPhotoSettings)
-	// CaptureOutputDidFinishCapturingDeferredPhotoProxyError — Tells the delegate when the system finishes capturing the photo proxy.
-	CaptureOutputDidFinishCapturingDeferredPhotoProxyError func(output AVCapturePhotoOutput, deferredPhotoProxy objc.ID, error_ foundation.NSError)
 }
 
 // NewAVCapturePhotoCaptureDelegate creates an Objective-C object implementing the [AVCapturePhotoCaptureDelegate] protocol.
@@ -369,32 +365,6 @@ func NewAVCapturePhotoCaptureDelegate(config AVCapturePhotoCaptureDelegateConfig
 				photo := AVCapturePhotoFromID(photoID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(output, photo, error_)
-			},
-		})
-	}
-
-	if config.CaptureOutputDidFinishRecordingLivePhotoMovieForEventualFileAtURLResolvedSettings != nil {
-		fn := config.CaptureOutputDidFinishRecordingLivePhotoMovieForEventualFileAtURLResolvedSettings
-		methods = append(methods, objc.MethodDef{
-			Cmd: objc.RegisterName("captureOutput:didFinishRecordingLivePhotoMovieForEventualFileAtURL:resolvedSettings:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, outputFileURLID objc.ID, resolvedSettingsID objc.ID) {
-				output := AVCapturePhotoOutputFromID(outputID)
-				outputFileURL := foundation.NSURLFromID(outputFileURLID)
-				resolvedSettings := AVCaptureResolvedPhotoSettingsFromID(resolvedSettingsID)
-				fn(output, outputFileURL, resolvedSettings)
-			},
-		})
-	}
-
-	if config.CaptureOutputDidFinishCapturingDeferredPhotoProxyError != nil {
-		fn := config.CaptureOutputDidFinishCapturingDeferredPhotoProxyError
-		methods = append(methods, objc.MethodDef{
-			Cmd: objc.RegisterName("captureOutput:didFinishCapturingDeferredPhotoProxy:error:"),
-			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, deferredPhotoProxyID objc.ID, error_ID objc.ID) {
-				output := AVCapturePhotoOutputFromID(outputID)
-				deferredPhotoProxy := deferredPhotoProxyID
-				error_ := foundation.NSErrorFromID(error_ID)
-				fn(output, deferredPhotoProxy, error_)
 			},
 		})
 	}

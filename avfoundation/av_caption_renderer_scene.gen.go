@@ -30,6 +30,11 @@ type AVCaptionRendererSceneClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptionRendererSceneClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptionRendererSceneClass) Alloc() AVCaptionRendererScene {
 	rv := objc.Send[AVCaptionRendererScene](objc.ID(ac.class), objc.Sel("alloc"))
@@ -85,7 +90,7 @@ type IAVCaptionRendererScene interface {
 	// Topic: Inspecting the scene
 
 	// The time range during which the system doesn’t modify the scene.
-	TimeRange() objectivec.IObject
+	TimeRange() uintptr
 	// A Boolean value that indicates whether the scene contains one or more active captions.
 	HasActiveCaptions() bool
 	// A Boolean value that indicates whether the scene requires redrawing while your app progresses through the content.
@@ -114,9 +119,9 @@ func NewAVCaptionRendererScene() AVCaptionRendererScene {
 // The time range during which the system doesn’t modify the scene.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRenderer/Scene/timeRange
-func (c AVCaptionRendererScene) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptionRendererScene) TimeRange() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("timeRange"))
+	return rv
 }
 // A Boolean value that indicates whether the scene contains one or more
 // active captions.

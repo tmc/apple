@@ -33,6 +33,11 @@ type CAEmitterCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAEmitterCellClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAEmitterCellClass) Alloc() CAEmitterCell {
 	rv := objc.Send[CAEmitterCell](objc.ID(cc.class), objc.Sel("alloc"))

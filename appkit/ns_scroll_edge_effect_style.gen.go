@@ -30,6 +30,11 @@ type NSScrollEdgeEffectStyleClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScrollEdgeEffectStyleClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScrollEdgeEffectStyleClass) Alloc() NSScrollEdgeEffectStyle {
 	rv := objc.Send[NSScrollEdgeEffectStyle](objc.ID(nc.class), objc.Sel("alloc"))

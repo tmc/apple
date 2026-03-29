@@ -30,6 +30,11 @@ type MTLBufferLayoutDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLBufferLayoutDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLBufferLayoutDescriptorClass) Alloc() MTLBufferLayoutDescriptor {
 	rv := objc.Send[MTLBufferLayoutDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

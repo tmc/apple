@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -31,6 +32,11 @@ func GetCARendererClass() CARendererClass {
 
 type CARendererClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (cc CARendererClass) Class() objc.Class {
+	return cc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -145,7 +151,7 @@ type ICARenderer interface {
 
 	// Topic: Instance Methods
 
-	SetDestination(tex objectivec.IObject)
+	SetDestination(tex metal.MTLTexture)
 }
 
 // Init initializes the instance.
@@ -170,7 +176,7 @@ func NewCARenderer() CARenderer {
 // Creates a layer renderer from a Metal texture.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/init(mtlTexture:options:)
-func NewRendererWithMTLTextureOptions(tex objectivec.IObject, dict foundation.INSDictionary) CARenderer {
+func NewRendererWithMTLTextureOptions(tex metal.MTLTexture, dict foundation.INSDictionary) CARenderer {
 	rv := objc.Send[objc.ID](objc.ID(getCARendererClass().class), objc.Sel("rendererWithMTLTexture:options:"), tex, dict)
 	return CARendererFromID(rv)
 }
@@ -241,7 +247,7 @@ func (r CARenderer) EndFrame() {
 }
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/setDestination(_:)
-func (r CARenderer) SetDestination(tex objectivec.IObject) {
+func (r CARenderer) SetDestination(tex metal.MTLTexture) {
 	objc.Send[objc.ID](r.ID, objc.Sel("setDestination:"), tex)
 }
 

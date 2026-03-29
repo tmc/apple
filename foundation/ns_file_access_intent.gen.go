@@ -30,6 +30,11 @@ type NSFileAccessIntentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFileAccessIntentClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFileAccessIntentClass) Alloc() NSFileAccessIntent {
 	rv := objc.Send[NSFileAccessIntent](objc.ID(nc.class), objc.Sel("alloc"))

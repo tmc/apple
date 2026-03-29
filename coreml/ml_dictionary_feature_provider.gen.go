@@ -32,6 +32,11 @@ type MLDictionaryFeatureProviderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLDictionaryFeatureProviderClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDictionaryFeatureProviderClass) Alloc() MLDictionaryFeatureProvider {
 	rv := objc.Send[MLDictionaryFeatureProvider](objc.ID(mc.class), objc.Sel("alloc"))

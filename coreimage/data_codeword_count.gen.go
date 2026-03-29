@@ -30,6 +30,11 @@ type DataCodewordCountClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (dc DataCodewordCountClass) Class() objc.Class {
+	return dc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (dc DataCodewordCountClass) Alloc() DataCodewordCount {
 	rv := objc.Send[DataCodewordCount](objc.ID(dc.class), objc.Sel("alloc"))

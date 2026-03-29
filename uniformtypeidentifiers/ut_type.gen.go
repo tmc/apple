@@ -31,6 +31,11 @@ type UTTypeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UTTypeClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UTTypeClass) Alloc() UTType {
 	rv := objc.Send[UTType](objc.ID(uc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type AVPlayerLooperClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerLooperClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerLooperClass) Alloc() AVPlayerLooper {
 	rv := objc.Send[AVPlayerLooper](objc.ID(ac.class), objc.Sel("alloc"))
@@ -109,9 +114,9 @@ type IAVPlayerLooper interface {
 	// Topic: Creating a player looper
 
 	// Creates a player looper that continuously plays the full duration of a player item while adhering to the specified ordering of existing items in the queue.
-	InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange objectivec.IObject, itemOrdering AVPlayerLooperItemOrdering) AVPlayerLooper
+	InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange uintptr, itemOrdering AVPlayerLooperItemOrdering) AVPlayerLooper
 	// Creates a player looper that continuously plays the specified time range of a player item.
-	InitWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange objectivec.IObject) AVPlayerLooper
+	InitWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange uintptr) AVPlayerLooper
 
 	// Topic: Configuring looping
 
@@ -221,8 +226,7 @@ func NewPlayerLooperWithPlayerTemplateItem(player IAVQueuePlayer, itemToLoop IAV
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:)
-// loopRange is a [coremedia.CMTimeRange].
-func NewPlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange objectivec.IObject) AVPlayerLooper {
+func NewPlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange uintptr) AVPlayerLooper {
 	instance := getAVPlayerLooperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPlayer:templateItem:timeRange:"), player, itemToLoop, loopRange)
 	return AVPlayerLooperFromID(rv)
@@ -253,8 +257,7 @@ func NewPlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemT
 // initialization aren’t reflected in the looping playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:existingItemsOrdering:)
-// loopRange is a [coremedia.CMTimeRange].
-func NewPlayerLooperWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange objectivec.IObject, itemOrdering AVPlayerLooperItemOrdering) AVPlayerLooper {
+func NewPlayerLooperWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange uintptr, itemOrdering AVPlayerLooperItemOrdering) AVPlayerLooper {
 	instance := getAVPlayerLooperClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPlayer:templateItem:timeRange:existingItemsOrdering:"), player, itemToLoop, loopRange, itemOrdering)
 	return AVPlayerLooperFromID(rv)
@@ -276,8 +279,6 @@ func NewPlayerLooperWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player 
 // itemOrdering: A value that indicates whether the looper inserts replica items before or
 // after existing items in the specified queue player.
 //
-// loopRange is a [coremedia.CMTimeRange].
-//
 // # Discussion
 // 
 // The player looper doesn’t use the player item you specify for playback,
@@ -287,7 +288,7 @@ func NewPlayerLooperWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player 
 // initialization aren’t reflected in the looping playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:existingItemsOrdering:)
-func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange objectivec.IObject, itemOrdering AVPlayerLooperItemOrdering) AVPlayerLooper {
+func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange uintptr, itemOrdering AVPlayerLooperItemOrdering) AVPlayerLooper {
 	rv := objc.Send[AVPlayerLooper](p.ID, objc.Sel("initWithPlayer:templateItem:timeRange:existingItemsOrdering:"), player, itemToLoop, loopRange, itemOrdering)
 	return rv
 }
@@ -302,8 +303,6 @@ func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering
 // equivalent to a time range of [0, player item’s duration].
 // //
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
-//
-// loopRange is a [coremedia.CMTimeRange].
 //
 // # Return Value
 // 
@@ -337,7 +336,7 @@ func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/init(player:templateItem:timeRange:)
-func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange objectivec.IObject) AVPlayerLooper {
+func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange uintptr) AVPlayerLooper {
 	rv := objc.Send[AVPlayerLooper](p.ID, objc.Sel("initWithPlayer:templateItem:timeRange:"), player, itemToLoop, loopRange)
 	return rv
 }
@@ -365,8 +364,6 @@ func (p AVPlayerLooper) DisableLooping() {
 // equivalent to a time range of [0, player item’s duration].
 // //
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
-//
-// loopRange is a [coremedia.CMTimeRange].
 //
 // # Return Value
 // 
@@ -400,7 +397,7 @@ func (p AVPlayerLooper) DisableLooping() {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerLooper/playerLooperWithPlayer:templateItem:timeRange:
-func (_AVPlayerLooperClass AVPlayerLooperClass) PlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange objectivec.IObject) AVPlayerLooper {
+func (_AVPlayerLooperClass AVPlayerLooperClass) PlayerLooperWithPlayerTemplateItemTimeRange(player IAVQueuePlayer, itemToLoop IAVPlayerItem, loopRange uintptr) AVPlayerLooper {
 	rv := objc.Send[objc.ID](objc.ID(_AVPlayerLooperClass.class), objc.Sel("playerLooperWithPlayer:templateItem:timeRange:"), player, itemToLoop, loopRange)
 	return AVPlayerLooperFromID(rv)
 }

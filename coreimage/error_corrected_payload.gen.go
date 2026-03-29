@@ -30,6 +30,11 @@ type ErrorCorrectedPayloadClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec ErrorCorrectedPayloadClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec ErrorCorrectedPayloadClass) Alloc() ErrorCorrectedPayload {
 	rv := objc.Send[ErrorCorrectedPayload](objc.ID(ec.class), objc.Sel("alloc"))

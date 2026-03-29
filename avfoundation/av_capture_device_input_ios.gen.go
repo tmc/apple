@@ -5,7 +5,6 @@ package avfoundation
 
 import (
 "github.com/tmc/apple/objc"
-"github.com/tmc/apple/objectivec"
 )
 
 // Retrieves a virtual device’s constituent device ports for use in a
@@ -127,11 +126,11 @@ objc.Send[struct{}](c.ID, objc.Sel("setUnifiedAutoExposureDefaultsEnabled:"), va
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/videoMinFrameDurationOverride
-func (c AVCaptureDeviceInput) VideoMinFrameDurationOverride() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("videoMinFrameDurationOverride"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureDeviceInput) VideoMinFrameDurationOverride() uintptr {
+rv := objc.Send[uintptr](c.ID, objc.Sel("videoMinFrameDurationOverride"))
+		return rv
 }
-func (c AVCaptureDeviceInput) SetVideoMinFrameDurationOverride(value objectivec.IObject) {
+func (c AVCaptureDeviceInput) SetVideoMinFrameDurationOverride(value uintptr) {
 objc.Send[struct{}](c.ID, objc.Sel("setVideoMinFrameDurationOverride:"), value)
 }
 

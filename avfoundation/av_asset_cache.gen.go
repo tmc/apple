@@ -31,6 +31,11 @@ type AVAssetCacheClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetCacheClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetCacheClass) Alloc() AVAssetCache {
 	rv := objc.Send[AVAssetCache](objc.ID(ac.class), objc.Sel("alloc"))

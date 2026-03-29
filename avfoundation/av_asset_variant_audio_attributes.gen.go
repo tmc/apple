@@ -31,6 +31,11 @@ type AVAssetVariantAudioAttributesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetVariantAudioAttributesClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetVariantAudioAttributesClass) Alloc() AVAssetVariantAudioAttributes {
 	rv := objc.Send[AVAssetVariantAudioAttributes](objc.ID(ac.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type NSDataDetectorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDataDetectorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDataDetectorClass) Alloc() NSDataDetector {
 	rv := objc.Send[NSDataDetector](objc.ID(nc.class), objc.Sel("alloc"))

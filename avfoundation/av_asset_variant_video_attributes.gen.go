@@ -32,6 +32,11 @@ type AVAssetVariantVideoAttributesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetVariantVideoAttributesClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetVariantVideoAttributesClass) Alloc() AVAssetVariantVideoAttributes {
 	rv := objc.Send[AVAssetVariantVideoAttributes](objc.ID(ac.class), objc.Sel("alloc"))

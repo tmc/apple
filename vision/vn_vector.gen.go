@@ -31,6 +31,11 @@ type VNVectorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNVectorClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNVectorClass) Alloc() VNVector {
 	rv := objc.Send[VNVector](objc.ID(vc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type VNRecognizeAnimalsRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNRecognizeAnimalsRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNRecognizeAnimalsRequestClass) Alloc() VNRecognizeAnimalsRequest {
 	rv := objc.Send[VNRecognizeAnimalsRequest](objc.ID(vc.class), objc.Sel("alloc"))

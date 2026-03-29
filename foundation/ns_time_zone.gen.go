@@ -30,6 +30,11 @@ type NSTimeZoneClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTimeZoneClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTimeZoneClass) Alloc() NSTimeZone {
 	rv := objc.Send[NSTimeZone](objc.ID(nc.class), objc.Sel("alloc"))

@@ -34,6 +34,11 @@ type AVAssetImageGeneratorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetImageGeneratorClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetImageGeneratorClass) Alloc() AVAssetImageGenerator {
 	rv := objc.Send[AVAssetImageGenerator](objc.ID(ac.class), objc.Sel("alloc"))
@@ -148,11 +153,11 @@ type IAVAssetImageGenerator interface {
 	MaximumSize() corefoundation.CGSize
 	SetMaximumSize(value corefoundation.CGSize)
 	// A maximum length of time before the requested time to allow image generation to occur.
-	RequestedTimeToleranceBefore() objectivec.IObject
-	SetRequestedTimeToleranceBefore(value objectivec.IObject)
+	RequestedTimeToleranceBefore() uintptr
+	SetRequestedTimeToleranceBefore(value uintptr)
 	// A maximum length of time after the requested time to allow image generation to occur.
-	RequestedTimeToleranceAfter() objectivec.IObject
-	SetRequestedTimeToleranceAfter(value objectivec.IObject)
+	RequestedTimeToleranceAfter() uintptr
+	SetRequestedTimeToleranceAfter(value uintptr)
 	// The dynamic range policy to use when generating images.
 	DynamicRangePolicy() AVAssetImageGeneratorDynamicRangePolicy
 	SetDynamicRangePolicy(value AVAssetImageGeneratorDynamicRangePolicy)
@@ -174,7 +179,7 @@ type IAVAssetImageGenerator interface {
 	// Topic: Generating images
 
 	// Generates an image asynchronously for a requested time, and returns the result in a callback.
-	GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime objectivec.IObject, handler CGImageRefErrorHandler)
+	GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime uintptr, handler CGImageRefErrorHandler)
 	// Generates images asynchronously for an array of requested times, and returns the results in a callback.
 	GenerateCGImagesAsynchronouslyForTimesCompletionHandler(requestedTimes []foundation.NSValue, handler ErrorHandler)
 	// Cancels all pending image generation requests.
@@ -234,8 +239,6 @@ func (a AVAssetImageGenerator) InitWithAsset(asset IAVAsset) AVAssetImageGenerat
 //
 // handler: A callback that the image generator invokes with the result of the request.
 //
-// requestedTime is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // Swift clients should use the asynchronous [image(at:)] method instead.
@@ -243,9 +246,8 @@ func (a AVAssetImageGenerator) InitWithAsset(asset IAVAsset) AVAssetImageGenerat
 // [image(at:)]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/image(at:)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/generateCGImageAsynchronously(for:completionHandler:)
-func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime objectivec.IObject, handler CGImageRefErrorHandler) {
-_block1, _cleanup1 := NewCGImageRefErrorBlock(handler)
-	defer _cleanup1()
+func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime uintptr, handler CGImageRefErrorHandler) {
+_block1, _ := NewCGImageRefErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("generateCGImageAsynchronouslyForTime:completionHandler:"), requestedTime, _block1)
 }
 // Generates images asynchronously for an array of requested times, and
@@ -262,8 +264,7 @@ _block1, _cleanup1 := NewCGImageRefErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/generateCGImagesAsynchronously(forTimes:completionHandler:)
 func (a AVAssetImageGenerator) GenerateCGImagesAsynchronouslyForTimesCompletionHandler(requestedTimes []foundation.NSValue, handler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("generateCGImagesAsynchronouslyForTimes:completionHandler:"), requestedTimes, _block1)
 }
 // Cancels all pending image generation requests.
@@ -328,11 +329,11 @@ func (a AVAssetImageGenerator) SetMaximumSize(value corefoundation.CGSize) {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/requestedTimeToleranceBefore
-func (a AVAssetImageGenerator) RequestedTimeToleranceBefore() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("requestedTimeToleranceBefore"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetImageGenerator) RequestedTimeToleranceBefore() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("requestedTimeToleranceBefore"))
+	return rv
 }
-func (a AVAssetImageGenerator) SetRequestedTimeToleranceBefore(value objectivec.IObject) {
+func (a AVAssetImageGenerator) SetRequestedTimeToleranceBefore(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRequestedTimeToleranceBefore:"), value)
 }
 // A maximum length of time after the requested time to allow image generation
@@ -349,11 +350,11 @@ func (a AVAssetImageGenerator) SetRequestedTimeToleranceBefore(value objectivec.
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/requestedTimeToleranceAfter
-func (a AVAssetImageGenerator) RequestedTimeToleranceAfter() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("requestedTimeToleranceAfter"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetImageGenerator) RequestedTimeToleranceAfter() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("requestedTimeToleranceAfter"))
+	return rv
 }
-func (a AVAssetImageGenerator) SetRequestedTimeToleranceAfter(value objectivec.IObject) {
+func (a AVAssetImageGenerator) SetRequestedTimeToleranceAfter(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setRequestedTimeToleranceAfter:"), value)
 }
 // The dynamic range policy to use when generating images.
@@ -455,7 +456,7 @@ func (a AVAssetImageGenerator) Asset() IAVAsset {
 
 // GenerateCGImageAsynchronouslyForTime is a synchronous wrapper around [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTime(ctx context.Context, requestedTime objectivec.IObject) (coregraphics.CGImageRef, error) {
+func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTime(ctx context.Context, requestedTime uintptr) (coregraphics.CGImageRef, error) {
 	type result struct {
 		val coregraphics.CGImageRef
 		err error

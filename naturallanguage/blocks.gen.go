@@ -21,12 +21,7 @@ type NLContextualEmbeddingAssetsResultErrorHandler = func(NLContextualEmbeddingA
 //   - [NLContextualEmbedding.RequestEmbeddingAssetsWithCompletionHandler]
 func NewNLContextualEmbeddingAssetsResultErrorBlock(handler NLContextualEmbeddingAssetsResultErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NLContextualEmbeddingAssetsResult, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -75,12 +70,7 @@ type NLTaggerAssetsResultErrorHandler = func(NLTaggerAssetsResult, error)
 //   - [NLTagger.RequestAssetsForLanguageTagSchemeCompletionHandler]
 func NewNLTaggerAssetsResultErrorBlock(handler NLTaggerAssetsResultErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal NLTaggerAssetsResult, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }

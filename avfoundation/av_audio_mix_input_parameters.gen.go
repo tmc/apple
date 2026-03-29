@@ -32,6 +32,11 @@ type AVAudioMixInputParametersClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAudioMixInputParametersClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAudioMixInputParametersClass) Alloc() AVAudioMixInputParameters {
 	rv := objc.Send[AVAudioMixInputParameters](objc.ID(ac.class), objc.Sel("alloc"))
@@ -126,7 +131,7 @@ type IAVAudioMixInputParameters interface {
 	// Topic: Getting volume ramps
 
 	// Retrieves the volume ramp that includes the specified time.
-	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time objectivec.IObject, timeRange objectivec.IObject) (float32, float32, bool)
+	GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time uintptr, timeRange *uintptr) (float32, float32, bool)
 
 	// Topic: Getting an audio tap
 
@@ -181,10 +186,6 @@ func NewAVAudioMixInputParameters() AVAudioMixInputParameters {
 // //
 // [CMTimeRange]: https://developer.apple.com/documentation/CoreMedia/CMTimeRange
 //
-// time is a [coremedia.CMTime].
-//
-// timeRange is a [coremedia.CMTimeRange].
-//
 // # Return Value
 // 
 // [true] if the values were retrieved successfully, otherwise [false].
@@ -200,7 +201,7 @@ func NewAVAudioMixInputParameters() AVAudioMixInputParameters {
 // instance of [AVMutableAudioMixInputParameters].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParameters/getVolumeRamp(for:startVolume:endVolume:timeRange:)
-func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time objectivec.IObject, timeRange objectivec.IObject) (float32, float32, bool) {
+func (a AVAudioMixInputParameters) GetVolumeRampForTimeStartVolumeEndVolumeTimeRange(time uintptr, timeRange *uintptr) (float32, float32, bool) {
 	var startVolume float32
 	var endVolume float32
 	rv := objc.Send[bool](a.ID, objc.Sel("getVolumeRampForTime:startVolume:endVolume:timeRange:"), time, unsafe.Pointer(&startVolume), unsafe.Pointer(&endVolume), timeRange)

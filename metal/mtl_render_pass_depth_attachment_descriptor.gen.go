@@ -29,6 +29,11 @@ type MTLRenderPassDepthAttachmentDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLRenderPassDepthAttachmentDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLRenderPassDepthAttachmentDescriptorClass) Alloc() MTLRenderPassDepthAttachmentDescriptor {
 	rv := objc.Send[MTLRenderPassDepthAttachmentDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

@@ -3,9 +3,11 @@
 package avfoundation
 
 import (
+	"fmt"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
+var _ = fmt.Sprintf
 
 // Methods for receiving sample buffers from, and monitoring the status of, a video data output.
 //
@@ -72,7 +74,7 @@ func AVCaptureVideoDataOutputSampleBufferDelegateObjectFromID(id objc.ID) AVCapt
 // [CMSampleBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutputSampleBufferDelegate/captureOutput(_:didOutput:from:)
-func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer objectivec.IObject, connection IAVCaptureConnection) {
+func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer uintptr, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didOutputSampleBuffer:fromConnection:"), output, sampleBuffer, connection)
 	}
 // Notifies the delegate that a video frame was discarded.
@@ -115,7 +117,83 @@ func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidOutp
 // [kCMSampleBufferDroppedFrameReason_OutOfBuffers]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferDroppedFrameReason_OutOfBuffers
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureVideoDataOutputSampleBufferDelegate/captureOutput(_:didDrop:from:)
-func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidDropSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer objectivec.IObject, connection IAVCaptureConnection) {
+func (o AVCaptureVideoDataOutputSampleBufferDelegateObject) CaptureOutputDidDropSampleBufferFromConnection(output IAVCaptureOutput, sampleBuffer uintptr, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didDropSampleBuffer:fromConnection:"), output, sampleBuffer, connection)
 	}
+
+// AVCaptureVideoDataOutputSampleBufferDelegateConfig holds optional typed callbacks for [AVCaptureVideoDataOutputSampleBufferDelegate] methods.
+// Set non-nil fields to register the corresponding Objective-C delegate method.
+// Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
+// returns false for them — matching the Objective-C delegate pattern exactly.
+//
+// See [Apple Documentation] for protocol details.
+//
+// [Apple Documentation]: https://developer.apple.com/documentation/avfoundation/avcapturevideodataoutputsamplebufferdelegate
+type AVCaptureVideoDataOutputSampleBufferDelegateConfig struct {
+
+	// Other Methods
+	// CaptureOutputDidOutputSampleBufferFromConnection — Notifies the delegate that a new video frame was written.
+	CaptureOutputDidOutputSampleBufferFromConnection func(output AVCaptureOutput, sampleBuffer uintptr, connection AVCaptureConnection)
+	// CaptureOutputDidDropSampleBufferFromConnection — Notifies the delegate that a video frame was discarded.
+	CaptureOutputDidDropSampleBufferFromConnection func(output AVCaptureOutput, sampleBuffer uintptr, connection AVCaptureConnection)
+}
+
+// NewAVCaptureVideoDataOutputSampleBufferDelegate creates an Objective-C object implementing the [AVCaptureVideoDataOutputSampleBufferDelegate] protocol.
+//
+// Each call registers a unique Objective-C class containing only the methods
+// set in config. This means [NSObject.RespondsToSelector] works correctly
+// for optional delegate methods — only non-nil callbacks are registered.
+//
+// The returned [AVCaptureVideoDataOutputSampleBufferDelegateObject] satisfies the [AVCaptureVideoDataOutputSampleBufferDelegate] interface
+// and can be passed directly to SetDelegate and similar methods.
+//
+// See [Apple Documentation] for protocol details.
+//
+// [Apple Documentation]: https://developer.apple.com/documentation/avfoundation/avcapturevideodataoutputsamplebufferdelegate
+func NewAVCaptureVideoDataOutputSampleBufferDelegate(config AVCaptureVideoDataOutputSampleBufferDelegateConfig) AVCaptureVideoDataOutputSampleBufferDelegateObject {
+	n := delegateClassCounter.Add(1)
+	className := fmt.Sprintf("GoAVCaptureVideoDataOutputSampleBufferDelegate_%d", n)
+
+	var methods []objc.MethodDef
+
+	if config.CaptureOutputDidOutputSampleBufferFromConnection != nil {
+		fn := config.CaptureOutputDidOutputSampleBufferFromConnection
+		methods = append(methods, objc.MethodDef{
+			Cmd: objc.RegisterName("captureOutput:didOutputSampleBuffer:fromConnection:"),
+			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer uintptr, connectionID objc.ID) {
+				output := AVCaptureOutputFromID(outputID)
+				connection := AVCaptureConnectionFromID(connectionID)
+				fn(output, sampleBuffer, connection)
+			},
+		})
+	}
+
+	if config.CaptureOutputDidDropSampleBufferFromConnection != nil {
+		fn := config.CaptureOutputDidDropSampleBufferFromConnection
+		methods = append(methods, objc.MethodDef{
+			Cmd: objc.RegisterName("captureOutput:didDropSampleBuffer:fromConnection:"),
+			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer uintptr, connectionID objc.ID) {
+				output := AVCaptureOutputFromID(outputID)
+				connection := AVCaptureConnectionFromID(connectionID)
+				fn(output, sampleBuffer, connection)
+			},
+		})
+	}
+
+	nsObjectClass := objc.GetClass("NSObject")
+	proto := objc.GetProtocol("AVCaptureVideoDataOutputSampleBufferDelegate")
+
+	var protocols []*objc.Protocol
+	if proto != nil {
+		protocols = append(protocols, proto)
+	}
+
+	cls, err := objc.RegisterClass(className, nsObjectClass, protocols, nil, methods)
+	if err != nil {
+		panic(fmt.Sprintf("NewAVCaptureVideoDataOutputSampleBufferDelegate: RegisterClass %s: %v", className, err))
+	}
+
+	instance := objc.ID(cls).Send(objc.RegisterName("alloc")).Send(objc.RegisterName("init"))
+	return AVCaptureVideoDataOutputSampleBufferDelegateObjectFromID(instance)
+}
 

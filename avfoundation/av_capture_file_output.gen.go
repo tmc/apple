@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVCaptureFileOutput] class.
@@ -29,6 +28,11 @@ func GetAVCaptureFileOutputClass() AVCaptureFileOutputClass {
 
 type AVCaptureFileOutputClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureFileOutputClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -113,8 +117,8 @@ type IAVCaptureFileOutput interface {
 	Delegate() AVCaptureFileOutputDelegate
 	SetDelegate(value AVCaptureFileOutputDelegate)
 	// The longest duration allowed for the recording.
-	MaxRecordedDuration() objectivec.IObject
-	SetMaxRecordedDuration(value objectivec.IObject)
+	MaxRecordedDuration() uintptr
+	SetMaxRecordedDuration(value uintptr)
 	// The maximum size, in bytes, of the data that should be recorded by the receiver.
 	MaxRecordedFileSize() int64
 	SetMaxRecordedFileSize(value int64)
@@ -124,7 +128,7 @@ type IAVCaptureFileOutput interface {
 	// The URL to which output is directed.
 	OutputFileURL() foundation.INSURL
 	// Indicates the duration of the media recorded to the current output file.
-	RecordedDuration() objectivec.IObject
+	RecordedDuration() uintptr
 	// Indicates the size, in bytes, of the data recorded to the current output file.
 	RecordedFileSize() int64
 	// Indicates whether recording is in progress.
@@ -300,11 +304,11 @@ func (c AVCaptureFileOutput) SetDelegate(value AVCaptureFileOutputDelegate) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/maxRecordedDuration
-func (c AVCaptureFileOutput) MaxRecordedDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("maxRecordedDuration"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureFileOutput) MaxRecordedDuration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("maxRecordedDuration"))
+	return rv
 }
-func (c AVCaptureFileOutput) SetMaxRecordedDuration(value objectivec.IObject) {
+func (c AVCaptureFileOutput) SetMaxRecordedDuration(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMaxRecordedDuration:"), value)
 }
 // The maximum size, in bytes, of the data that should be recorded by the
@@ -360,9 +364,9 @@ func (c AVCaptureFileOutput) OutputFileURL() foundation.INSURL {
 // so far.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/recordedDuration
-func (c AVCaptureFileOutput) RecordedDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordedDuration"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureFileOutput) RecordedDuration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("recordedDuration"))
+	return rv
 }
 // Indicates the size, in bytes, of the data recorded to the current output
 // file.

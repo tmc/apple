@@ -32,6 +32,11 @@ type NSTextAttachmentViewProviderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextAttachmentViewProviderClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextAttachmentViewProviderClass) Alloc() NSTextAttachmentViewProvider {
 	rv := objc.Send[NSTextAttachmentViewProvider](objc.ID(nc.class), objc.Sel("alloc"))

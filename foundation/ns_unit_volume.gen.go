@@ -29,6 +29,11 @@ type UnitVolumeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitVolumeClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitVolumeClass) Alloc() UnitVolume {
 	rv := objc.Send[UnitVolume](objc.ID(uc.class), objc.Sel("alloc"))

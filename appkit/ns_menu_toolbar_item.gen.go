@@ -29,6 +29,11 @@ type NSMenuToolbarItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMenuToolbarItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMenuToolbarItemClass) Alloc() NSMenuToolbarItem {
 	rv := objc.Send[NSMenuToolbarItem](objc.ID(nc.class), objc.Sel("alloc"))

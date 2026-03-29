@@ -30,6 +30,11 @@ type StreamClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc StreamClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc StreamClass) Alloc() Stream {
 	rv := objc.Send[Stream](objc.ID(sc.class), objc.Sel("alloc"))

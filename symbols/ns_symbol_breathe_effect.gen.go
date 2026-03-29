@@ -29,6 +29,11 @@ type NSSymbolBreatheEffectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSymbolBreatheEffectClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSymbolBreatheEffectClass) Alloc() NSSymbolBreatheEffect {
 	rv := objc.Send[NSSymbolBreatheEffect](objc.ID(nc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type NSScrollerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScrollerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScrollerClass) Alloc() NSScroller {
 	rv := objc.Send[NSScroller](objc.ID(nc.class), objc.Sel("alloc"))

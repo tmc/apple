@@ -30,6 +30,11 @@ type VNRecognizedTextObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNRecognizedTextObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNRecognizedTextObservationClass) Alloc() VNRecognizedTextObservation {
 	rv := objc.Send[VNRecognizedTextObservation](objc.ID(vc.class), objc.Sel("alloc"))

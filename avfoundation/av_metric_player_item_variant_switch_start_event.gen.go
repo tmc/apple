@@ -30,6 +30,11 @@ type AVMetricPlayerItemVariantSwitchStartEventClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetricPlayerItemVariantSwitchStartEventClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetricPlayerItemVariantSwitchStartEventClass) Alloc() AVMetricPlayerItemVariantSwitchStartEvent {
 	rv := objc.Send[AVMetricPlayerItemVariantSwitchStartEvent](objc.ID(ac.class), objc.Sel("alloc"))

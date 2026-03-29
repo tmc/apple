@@ -31,6 +31,11 @@ type AVMetricEventClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetricEventClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetricEventClass) Alloc() AVMetricEvent {
 	rv := objc.Send[AVMetricEvent](objc.ID(ac.class), objc.Sel("alloc"))
@@ -74,7 +79,7 @@ type IAVMetricEvent interface {
 	// Topic: Inspecting an event
 
 	Date() foundation.INSDate
-	MediaTime() objectivec.IObject
+	MediaTime() uintptr
 	SessionID() string
 
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -109,9 +114,9 @@ func (m AVMetricEvent) Date() foundation.INSDate {
 	return foundation.NSDateFromID(objc.ID(rv))
 }
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/mediaTime
-func (m AVMetricEvent) MediaTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("mediaTime"))
-	return objectivec.Object{ID: rv}
+func (m AVMetricEvent) MediaTime() uintptr {
+	rv := objc.Send[uintptr](m.ID, objc.Sel("mediaTime"))
+	return rv
 }
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetricEvent/sessionID
 func (m AVMetricEvent) SessionID() string {

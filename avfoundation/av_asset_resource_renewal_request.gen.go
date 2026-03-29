@@ -30,6 +30,11 @@ type AVAssetResourceRenewalRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetResourceRenewalRequestClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetResourceRenewalRequestClass) Alloc() AVAssetResourceRenewalRequest {
 	rv := objc.Send[AVAssetResourceRenewalRequest](objc.ID(ac.class), objc.Sel("alloc"))

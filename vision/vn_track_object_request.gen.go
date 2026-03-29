@@ -29,6 +29,11 @@ type VNTrackObjectRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNTrackObjectRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNTrackObjectRequestClass) Alloc() VNTrackObjectRequest {
 	rv := objc.Send[VNTrackObjectRequest](objc.ID(vc.class), objc.Sel("alloc"))
@@ -177,8 +182,7 @@ func (t VNTrackObjectRequest) InitWithDetectedObjectObservation(observation IVND
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequest/init(detectedObjectObservation:completionHandler:)
 func (t VNTrackObjectRequest) InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler ErrorHandler) VNTrackObjectRequest {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, _block1)
 	return VNTrackObjectRequestFromID(rv)
 }

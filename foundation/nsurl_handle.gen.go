@@ -30,6 +30,11 @@ type NSURLHandleClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSURLHandleClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSURLHandleClass) Alloc() NSURLHandle {
 	rv := objc.Send[NSURLHandle](objc.ID(nc.class), objc.Sel("alloc"))

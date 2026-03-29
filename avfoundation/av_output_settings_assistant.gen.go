@@ -31,6 +31,11 @@ type AVOutputSettingsAssistantClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVOutputSettingsAssistantClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVOutputSettingsAssistantClass) Alloc() AVOutputSettingsAssistant {
 	rv := objc.Send[AVOutputSettingsAssistant](objc.ID(ac.class), objc.Sel("alloc"))
@@ -61,7 +66,11 @@ func (ac AVOutputSettingsAssistantClass) Alloc() AVOutputSettingsAssistant {
 //
 //   - [AVOutputSettingsAssistant.OutputFileType]: A uniform type identifier (UTI) that indicates the type of file to write.
 //   - [AVOutputSettingsAssistant.AudioSettings]: An audio settings dictionary.
+//   - [AVOutputSettingsAssistant.SourceAudioFormat]: The format of the source audio data.
+//   - [AVOutputSettingsAssistant.SetSourceAudioFormat]
 //   - [AVOutputSettingsAssistant.VideoSettings]: A video settings dictionary.
+//   - [AVOutputSettingsAssistant.SourceVideoFormat]: The format of the source video data.
+//   - [AVOutputSettingsAssistant.SetSourceVideoFormat]
 //   - [AVOutputSettingsAssistant.SourceVideoMinFrameDuration]: A time value that describes the minimum frame duration of the video data.
 //   - [AVOutputSettingsAssistant.SetSourceVideoMinFrameDuration]
 //   - [AVOutputSettingsAssistant.SourceVideoAverageFrameDuration]: A time value that describes the average frame duration of the video data.
@@ -87,7 +96,11 @@ func AVOutputSettingsAssistantFromID(id objc.ID) AVOutputSettingsAssistant {
 //
 //   - [IAVOutputSettingsAssistant.OutputFileType]: A uniform type identifier (UTI) that indicates the type of file to write.
 //   - [IAVOutputSettingsAssistant.AudioSettings]: An audio settings dictionary.
+//   - [IAVOutputSettingsAssistant.SourceAudioFormat]: The format of the source audio data.
+//   - [IAVOutputSettingsAssistant.SetSourceAudioFormat]
 //   - [IAVOutputSettingsAssistant.VideoSettings]: A video settings dictionary.
+//   - [IAVOutputSettingsAssistant.SourceVideoFormat]: The format of the source video data.
+//   - [IAVOutputSettingsAssistant.SetSourceVideoFormat]
 //   - [IAVOutputSettingsAssistant.SourceVideoMinFrameDuration]: A time value that describes the minimum frame duration of the video data.
 //   - [IAVOutputSettingsAssistant.SetSourceVideoMinFrameDuration]
 //   - [IAVOutputSettingsAssistant.SourceVideoAverageFrameDuration]: A time value that describes the average frame duration of the video data.
@@ -103,14 +116,20 @@ type IAVOutputSettingsAssistant interface {
 	OutputFileType() AVFileType
 	// An audio settings dictionary.
 	AudioSettings() foundation.INSDictionary
+	// The format of the source audio data.
+	SourceAudioFormat() uintptr
+	SetSourceAudioFormat(value uintptr)
 	// A video settings dictionary.
 	VideoSettings() foundation.INSDictionary
+	// The format of the source video data.
+	SourceVideoFormat() uintptr
+	SetSourceVideoFormat(value uintptr)
 	// A time value that describes the minimum frame duration of the video data.
-	SourceVideoMinFrameDuration() objectivec.IObject
-	SetSourceVideoMinFrameDuration(value objectivec.IObject)
+	SourceVideoMinFrameDuration() uintptr
+	SetSourceVideoMinFrameDuration(value uintptr)
 	// A time value that describes the average frame duration of the video data.
-	SourceVideoAverageFrameDuration() objectivec.IObject
-	SetSourceVideoAverageFrameDuration(value objectivec.IObject)
+	SourceVideoAverageFrameDuration() uintptr
+	SetSourceVideoAverageFrameDuration(value uintptr)
 
 	// A preset for HEVC with Alpha video at 3840 by 2160 pixels.
 	Hevc3840x2160WithAlpha() AVOutputSettingsPreset
@@ -184,6 +203,23 @@ func (o AVOutputSettingsAssistant) AudioSettings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("audioSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
+// The format of the source audio data.
+//
+// # Discussion
+// 
+// The default value is `nil`, which means the assistant doesn’t know the
+// audio format. Setting a value for this property helps the assistant
+// generate more complete audio settings. After setting a value, requery the
+// [AudioSettings] property to get the latest values.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceAudioFormat
+func (o AVOutputSettingsAssistant) SourceAudioFormat() uintptr {
+	rv := objc.Send[uintptr](o.ID, objc.Sel("sourceAudioFormat"))
+	return rv
+}
+func (o AVOutputSettingsAssistant) SetSourceAudioFormat(value uintptr) {
+	objc.Send[struct{}](o.ID, objc.Sel("setSourceAudioFormat:"), value)
+}
 // A video settings dictionary.
 //
 // # Discussion
@@ -198,6 +234,23 @@ func (o AVOutputSettingsAssistant) AudioSettings() foundation.INSDictionary {
 func (o AVOutputSettingsAssistant) VideoSettings() foundation.INSDictionary {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("videoSettings"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
+}
+// The format of the source video data.
+//
+// # Discussion
+// 
+// The default value is `nil`, which means the assistant doesn’t know the
+// video format. Setting a value for this property helps the assistant
+// generate more complete video settings. After setting a value, requery the
+// [VideoSettings] property to get the latest values.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceVideoFormat
+func (o AVOutputSettingsAssistant) SourceVideoFormat() uintptr {
+	rv := objc.Send[uintptr](o.ID, objc.Sel("sourceVideoFormat"))
+	return rv
+}
+func (o AVOutputSettingsAssistant) SetSourceVideoFormat(value uintptr) {
+	objc.Send[struct{}](o.ID, objc.Sel("setSourceVideoFormat:"), value)
 }
 // A time value that describes the minimum frame duration of the video data.
 //
@@ -217,11 +270,11 @@ func (o AVOutputSettingsAssistant) VideoSettings() foundation.INSDictionary {
 // [minFrameDuration]: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/minFrameDuration
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceVideoMinFrameDuration
-func (o AVOutputSettingsAssistant) SourceVideoMinFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("sourceVideoMinFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (o AVOutputSettingsAssistant) SourceVideoMinFrameDuration() uintptr {
+	rv := objc.Send[uintptr](o.ID, objc.Sel("sourceVideoMinFrameDuration"))
+	return rv
 }
-func (o AVOutputSettingsAssistant) SetSourceVideoMinFrameDuration(value objectivec.IObject) {
+func (o AVOutputSettingsAssistant) SetSourceVideoMinFrameDuration(value uintptr) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceVideoMinFrameDuration:"), value)
 }
 // A time value that describes the average frame duration of the video data.
@@ -236,11 +289,11 @@ func (o AVOutputSettingsAssistant) SetSourceVideoMinFrameDuration(value objectiv
 // assumes that your source video has a frame rate of 30fps.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVOutputSettingsAssistant/sourceVideoAverageFrameDuration
-func (o AVOutputSettingsAssistant) SourceVideoAverageFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("sourceVideoAverageFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (o AVOutputSettingsAssistant) SourceVideoAverageFrameDuration() uintptr {
+	rv := objc.Send[uintptr](o.ID, objc.Sel("sourceVideoAverageFrameDuration"))
+	return rv
 }
-func (o AVOutputSettingsAssistant) SetSourceVideoAverageFrameDuration(value objectivec.IObject) {
+func (o AVOutputSettingsAssistant) SetSourceVideoAverageFrameDuration(value uintptr) {
 	objc.Send[struct{}](o.ID, objc.Sel("setSourceVideoAverageFrameDuration:"), value)
 }
 // A preset for HEVC with Alpha video at 3840 by 2160 pixels.

@@ -34,6 +34,11 @@ type NSDocumentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDocumentClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDocumentClass) Alloc() NSDocument {
 	rv := objc.Send[NSDocument](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1698,8 +1703,7 @@ func (d NSDocument) SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContex
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/save(to:ofType:for:completionHandler:)
 func (d NSDocument) SaveToURLOfTypeForSaveOperationCompletionHandler(url foundation.INSURL, typeName string, saveOperation NSSaveOperationType, completionHandler ErrorHandler) {
-_block3, _cleanup3 := NewErrorBlock(completionHandler)
-	defer _cleanup3()
+_block3, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("saveToURL:ofType:forSaveOperation:completionHandler:"), url, objc.String(typeName), saveOperation, _block3)
 }
 // Returns the attributes to write to the file or file package at the
@@ -2233,8 +2237,7 @@ func (d NSDocument) AutosaveDocumentWithDelegateDidAutosaveSelectorContextInfo(d
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/autosave(withImplicitCancellability:completionHandler:)
 func (d NSDocument) AutosaveWithImplicitCancellabilityCompletionHandler(autosavingIsImplicitlyCancellable bool, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("autosaveWithImplicitCancellability:completionHandler:"), autosavingIsImplicitlyCancellable, _block1)
 }
 // Opens the Versions browser in the document’s main window.
@@ -2261,8 +2264,7 @@ func (d NSDocument) BrowseDocumentVersions(sender objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/stopBrowsingVersions(completionHandler:)
 func (d NSDocument) StopBrowsingVersionsWithCompletionHandler(completionHandler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("stopBrowsingVersionsWithCompletionHandler:"), _block0)
 }
 // Moves the document to the user’s iCloud storage.
@@ -2464,8 +2466,7 @@ func (d NSDocument) InvalidateRestorableState() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/restoreWindow(withIdentifier:state:completionHandler:)
 func (d NSDocument) RestoreDocumentWindowWithIdentifierStateCompletionHandler(identifier NSUserInterfaceItemIdentifier, state foundation.INSCoder, completionHandler WindowErrorHandler) {
-_block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewWindowErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("restoreDocumentWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
 }
 // Presents a modal Save panel to the user, then tries to save the document if
@@ -2614,8 +2615,7 @@ func (d NSDocument) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/performSynchronousFileAccess(_:)
 func (d NSDocument) PerformSynchronousFileAccessUsingBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("performSynchronousFileAccessUsingBlock:"), _block0)
 }
 // Waits for any scheduled file access to complete but without blocking the
@@ -2641,8 +2641,7 @@ _block0, _cleanup0 := NewVoidBlock(block)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/performAsynchronousFileAccess(_:)
 func (d NSDocument) PerformAsynchronousFileAccessUsingBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("performAsynchronousFileAccessUsingBlock:"), _block0)
 }
 // Waits for any work scheduled by previous invocations of this method to
@@ -2743,8 +2742,7 @@ _block0, _cleanup0 := NewVoidBlock(block)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/performActivity(withSynchronousWaiting:using:)
 func (d NSDocument) PerformActivityWithSynchronousWaitingUsingBlock(waitSynchronously bool, block VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(block)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("performActivityWithSynchronousWaiting:usingBlock:"), waitSynchronously, _block1)
 }
 // Continues to perform the task for a user activity object using a different
@@ -2780,8 +2778,7 @@ _block1, _cleanup1 := NewVoidBlock(block)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/continueActivity(_:)
 func (d NSDocument) ContinueActivityUsingBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("continueActivityUsingBlock:"), _block0)
 }
 // Invokes the passed-in block on the main thread.
@@ -2809,8 +2806,7 @@ _block0, _cleanup0 := NewVoidBlock(block)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/continueAsynchronousWorkOnMainThread(_:)
 func (d NSDocument) ContinueAsynchronousWorkOnMainThreadUsingBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("continueAsynchronousWorkOnMainThreadUsingBlock:"), _block0)
 }
 // Prints the receiver in response to the user choosing the Print menu
@@ -3159,8 +3155,7 @@ func (d NSDocument) MoveDocument(sender objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/move(completionHandler:)
 func (d NSDocument) MoveDocumentWithCompletionHandler(completionHandler BoolHandler) {
-_block0, _cleanup0 := NewBoolBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("moveDocumentWithCompletionHandler:"), _block0)
 }
 // Moves the document’s file to the given URL.
@@ -3183,8 +3178,7 @@ _block0, _cleanup0 := NewBoolBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/move(to:completionHandler:)
 func (d NSDocument) MoveToURLCompletionHandler(url foundation.INSURL, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("moveToURL:completionHandler:"), url, _block1)
 }
 // Locks the document in response to the user choosing the Lock menu item.
@@ -3231,8 +3225,7 @@ func (d NSDocument) UnlockDocument(sender objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/lock(completionHandler:)-6zuhh
 func (d NSDocument) LockDocumentWithCompletionHandler(completionHandler BoolHandler) {
-_block0, _cleanup0 := NewBoolBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("lockDocumentWithCompletionHandler:"), _block0)
 }
 // Prevents the user from making changes to the document’s file.
@@ -3248,8 +3241,7 @@ _block0, _cleanup0 := NewBoolBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/lock(completionHandler:)-161qv
 func (d NSDocument) LockWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("lockWithCompletionHandler:"), _block0)
 }
 // Allows the user to make modifications to the document.
@@ -3269,8 +3261,7 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/unlock(completionHandler:)-8p8zd
 func (d NSDocument) UnlockDocumentWithCompletionHandler(completionHandler BoolHandler) {
-_block0, _cleanup0 := NewBoolBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("unlockDocumentWithCompletionHandler:"), _block0)
 }
 // Allows the user to make modifications to the document’s file.
@@ -3285,8 +3276,7 @@ _block0, _cleanup0 := NewBoolBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/unlock(completionHandler:)-6m7rh
 func (d NSDocument) UnlockWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("unlockWithCompletionHandler:"), _block0)
 }
 // Adds document-specific content to the Page Layout panel.
@@ -3549,8 +3539,7 @@ func (d NSDocument) PrepareSharingServicePicker(sharingServicePicker INSSharingS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/share(with:completionHandler:)
 func (d NSDocument) ShareDocumentWithSharingServiceCompletionHandler(sharingService INSSharingService, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("shareDocumentWithSharingService:completionHandler:"), sharingService, _block1)
 }
 // Handles the Close AppleScript command by attempting to close the document.
@@ -3725,8 +3714,7 @@ func (d NSDocument) WillNotPresentError(error_ foundation.INSError) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/accommodatePresentedItemDeletion(completionHandler:)
 func (d NSDocument) AccommodatePresentedItemDeletionWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("accommodatePresentedItemDeletionWithCompletionHandler:"), _block0)
 }
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentedItemDidChange()
@@ -3761,15 +3749,13 @@ func (d NSDocument) PresentedItemDidResolveConflictVersion(version foundation.NS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/relinquishPresentedItem(toReader:)
 func (d NSDocument) RelinquishPresentedItemToReader(reader VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(reader)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(reader)
 	objc.Send[objc.ID](d.ID, objc.Sel("relinquishPresentedItemToReader:"), _block0)
 }
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/relinquishPresentedItem(toWriter:)
 func (d NSDocument) RelinquishPresentedItemToWriter(writer VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(writer)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(writer)
 	objc.Send[objc.ID](d.ID, objc.Sel("relinquishPresentedItemToWriter:"), _block0)
 }
 //
@@ -3777,8 +3763,7 @@ _block0, _cleanup0 := NewVoidBlock(writer)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/savePresentedItemChanges(completionHandler:)
 func (d NSDocument) SavePresentedItemChangesWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("savePresentedItemChangesWithCompletionHandler:"), _block0)
 }
 //

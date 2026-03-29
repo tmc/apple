@@ -31,6 +31,11 @@ type NSButtonCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSButtonCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSButtonCellClass) Alloc() NSButtonCell {
 	rv := objc.Send[NSButtonCell](objc.ID(nc.class), objc.Sel("alloc"))

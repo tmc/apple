@@ -30,6 +30,11 @@ type URLAuthenticationChallengeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLAuthenticationChallengeClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLAuthenticationChallengeClass) Alloc() URLAuthenticationChallenge {
 	rv := objc.Send[URLAuthenticationChallenge](objc.ID(uc.class), objc.Sel("alloc"))

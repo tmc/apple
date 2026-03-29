@@ -31,6 +31,11 @@ type NSFilePromiseProviderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFilePromiseProviderClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFilePromiseProviderClass) Alloc() NSFilePromiseProvider {
 	rv := objc.Send[NSFilePromiseProvider](objc.ID(nc.class), objc.Sel("alloc"))

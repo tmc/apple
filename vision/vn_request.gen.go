@@ -33,6 +33,11 @@ type VNRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNRequestClass) Alloc() VNRequest {
 	rv := objc.Send[VNRequest](objc.ID(vc.class), objc.Sel("alloc"))
@@ -203,8 +208,7 @@ func NewRequestWithCompletionHandler(completionHandler VNRequestCompletionHandle
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
 func (r VNRequest) InitWithCompletionHandler(completionHandler ErrorHandler) VNRequest {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNRequestFromID(rv)
 }

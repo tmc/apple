@@ -30,6 +30,11 @@ type AVAssetSegmentReportClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetSegmentReportClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetSegmentReportClass) Alloc() AVAssetSegmentReport {
 	rv := objc.Send[AVAssetSegmentReport](objc.ID(ac.class), objc.Sel("alloc"))

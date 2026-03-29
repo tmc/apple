@@ -34,6 +34,11 @@ type AVAssetWriterInputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetWriterInputClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetWriterInputClass) Alloc() AVAssetWriterInput {
 	rv := objc.Send[AVAssetWriterInput](objc.ID(ac.class), objc.Sel("alloc"))
@@ -212,7 +217,7 @@ type IAVAssetWriterInput interface {
 	// Creates an input to append sample buffers of the specified type to the output file.
 	InitWithMediaTypeOutputSettings(mediaType AVMediaType, outputSettings foundation.INSDictionary) AVAssetWriterInput
 	// Creates an input that appends sample buffers of the specified type and format hint to the output file.
-	InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint objectivec.IObject) AVAssetWriterInput
+	InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint uintptr) AVAssetWriterInput
 
 	// Topic: Configuring presentation
 
@@ -253,8 +258,8 @@ type IAVAssetWriterInput interface {
 	PreferredMediaChunkAlignment() int
 	SetPreferredMediaChunkAlignment(value int)
 	// The duration to use for each chunk of sample data in the output file.
-	PreferredMediaChunkDuration() objectivec.IObject
-	SetPreferredMediaChunkDuration(value objectivec.IObject)
+	PreferredMediaChunkDuration() uintptr
+	SetPreferredMediaChunkDuration(value uintptr)
 	// The base URL sample references are relative to.
 	SampleReferenceBaseURL() foundation.INSURL
 	SetSampleReferenceBaseURL(value foundation.INSURL)
@@ -295,7 +300,7 @@ type IAVAssetWriterInput interface {
 	// The settings to use for encoding media data you append to the output.
 	OutputSettings() foundation.INSDictionary
 	// A hint about the format of the sample buffers to append to the input.
-	SourceFormatHint() objectivec.IObject
+	SourceFormatHint() uintptr
 }
 
 // Init initializes the instance.
@@ -405,8 +410,7 @@ func NewAssetWriterInputWithMediaTypeOutputSettings(mediaType AVMediaType, outpu
 // are of the specified format.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/init(mediaType:outputSettings:sourceFormatHint:)
-// sourceFormatHint is a [coremedia.CMFormatDescriptionRef].
-func NewAssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint objectivec.IObject) AVAssetWriterInput {
+func NewAssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint uintptr) AVAssetWriterInput {
 	instance := getAVAssetWriterInputClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMediaType:outputSettings:sourceFormatHint:"), objc.String(string(mediaType)), outputSettings, sourceFormatHint)
 	return AVAssetWriterInputFromID(rv)
@@ -492,15 +496,13 @@ func (a AVAssetWriterInput) InitWithMediaTypeOutputSettings(mediaType AVMediaTyp
 // //
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 //
-// sourceFormatHint is a [coremedia.CMFormatDescriptionRef].
-//
 // # Discussion
 // 
 // To guarantee successful file writing, ensure that sample buffers you append
 // are of the specified format.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/init(mediaType:outputSettings:sourceFormatHint:)
-func (a AVAssetWriterInput) InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint objectivec.IObject) AVAssetWriterInput {
+func (a AVAssetWriterInput) InitWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint uintptr) AVAssetWriterInput {
 	rv := objc.Send[AVAssetWriterInput](a.ID, objc.Sel("initWithMediaType:outputSettings:sourceFormatHint:"), objc.String(string(mediaType)), outputSettings, sourceFormatHint)
 	return rv
 }
@@ -727,8 +729,6 @@ func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMedi
 // //
 // [AVVideoCodecKey]: https://developer.apple.com/documentation/AVFoundation/AVVideoCodecKey
 //
-// sourceFormatHint is a [coremedia.CMFormatDescriptionRef].
-//
 // # Return Value
 // 
 // A new asset writer input.
@@ -739,7 +739,7 @@ func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMedi
 // are of the specified format.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/assetWriterInputWithMediaType:outputSettings:sourceFormatHint:
-func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint objectivec.IObject) AVAssetWriterInput {
+func (_AVAssetWriterInputClass AVAssetWriterInputClass) AssetWriterInputWithMediaTypeOutputSettingsSourceFormatHint(mediaType AVMediaType, outputSettings foundation.INSDictionary, sourceFormatHint uintptr) AVAssetWriterInput {
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetWriterInputClass.class), objc.Sel("assetWriterInputWithMediaType:outputSettings:sourceFormatHint:"), objc.String(string(mediaType)), outputSettings, sourceFormatHint)
 	return AVAssetWriterInputFromID(rv)
 }
@@ -936,11 +936,11 @@ func (a AVAssetWriterInput) SetPreferredMediaChunkAlignment(value int) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/preferredMediaChunkDuration
-func (a AVAssetWriterInput) PreferredMediaChunkDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("preferredMediaChunkDuration"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetWriterInput) PreferredMediaChunkDuration() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("preferredMediaChunkDuration"))
+	return rv
 }
-func (a AVAssetWriterInput) SetPreferredMediaChunkDuration(value objectivec.IObject) {
+func (a AVAssetWriterInput) SetPreferredMediaChunkDuration(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreferredMediaChunkDuration:"), value)
 }
 // The base URL sample references are relative to.
@@ -1129,8 +1129,8 @@ func (a AVAssetWriterInput) OutputSettings() foundation.INSDictionary {
 // additional upfront validation of samples.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/sourceFormatHint
-func (a AVAssetWriterInput) SourceFormatHint() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("sourceFormatHint"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetWriterInput) SourceFormatHint() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("sourceFormatHint"))
+	return rv
 }
 

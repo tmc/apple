@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVDelegatingPlaybackCoordinatorSeekCommand] class.
@@ -29,6 +28,11 @@ func GetAVDelegatingPlaybackCoordinatorSeekCommandClass() AVDelegatingPlaybackCo
 
 type AVDelegatingPlaybackCoordinatorSeekCommandClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVDelegatingPlaybackCoordinatorSeekCommandClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -80,7 +84,7 @@ type IAVDelegatingPlaybackCoordinatorSeekCommand interface {
 	// The rate at which the coordinator expects playback to resume.
 	AnticipatedPlaybackRate() float32
 	// The time to seek to in the item timeline.
-	ItemTime() objectivec.IObject
+	ItemTime() uintptr
 	// The deadline by which the coordinator expects the delegate to handle the command.
 	CompletionDueDate() foundation.INSDate
 }
@@ -124,9 +128,9 @@ func (d AVDelegatingPlaybackCoordinatorSeekCommand) AnticipatedPlaybackRate() fl
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorSeekCommand/itemTime
-func (d AVDelegatingPlaybackCoordinatorSeekCommand) ItemTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("itemTime"))
-	return objectivec.Object{ID: rv}
+func (d AVDelegatingPlaybackCoordinatorSeekCommand) ItemTime() uintptr {
+	rv := objc.Send[uintptr](d.ID, objc.Sel("itemTime"))
+	return rv
 }
 // The deadline by which the coordinator expects the delegate to handle the
 // command.

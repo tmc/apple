@@ -30,6 +30,11 @@ type URLSessionStreamTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLSessionStreamTaskClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLSessionStreamTaskClass) Alloc() URLSessionStreamTask {
 	rv := objc.Send[URLSessionStreamTask](objc.ID(uc.class), objc.Sel("alloc"))
@@ -192,8 +197,7 @@ func NewURLSessionStreamTask() URLSessionStreamTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamTask/readData(ofMinLength:maxLength:timeout:completionHandler:)
 func (u URLSessionStreamTask) ReadDataOfMinLengthMaxLengthTimeoutCompletionHandler(minBytes uint, maxBytes uint, timeout float64, completionHandler DataErrorHandler) {
-_block3, _cleanup3 := NewDataErrorBlock(completionHandler)
-	defer _cleanup3()
+_block3, _ := NewDataErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("readDataOfMinLength:maxLength:timeout:completionHandler:"), minBytes, maxBytes, timeout, _block3)
 }
 // Asynchronously writes the specified data to the stream, and calls a handler
@@ -221,8 +225,7 @@ _block3, _cleanup3 := NewDataErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionStreamTask/write(_:timeout:completionHandler:)
 func (u URLSessionStreamTask) WriteDataTimeoutCompletionHandler(data INSData, timeout float64, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("writeData:timeout:completionHandler:"), data, timeout, _block2)
 }
 // Completes any already enqueued reads and writes, and then invokes the

@@ -29,6 +29,11 @@ type PersonNameComponentsFormatterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (pc PersonNameComponentsFormatterClass) Class() objc.Class {
+	return pc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (pc PersonNameComponentsFormatterClass) Alloc() PersonNameComponentsFormatter {
 	rv := objc.Send[PersonNameComponentsFormatter](objc.ID(pc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type NSScriptExecutionContextClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScriptExecutionContextClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScriptExecutionContextClass) Alloc() NSScriptExecutionContext {
 	rv := objc.Send[NSScriptExecutionContext](objc.ID(nc.class), objc.Sel("alloc"))

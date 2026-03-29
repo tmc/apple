@@ -31,6 +31,11 @@ type AVAssetSegmentTrackReportClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetSegmentTrackReportClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetSegmentTrackReportClass) Alloc() AVAssetSegmentTrackReport {
 	rv := objc.Send[AVAssetSegmentTrackReport](objc.ID(ac.class), objc.Sel("alloc"))
@@ -82,9 +87,9 @@ type IAVAssetSegmentTrackReport interface {
 	// The type of media a track contains.
 	MediaType() AVMediaType
 	// The duration of a track.
-	Duration() objectivec.IObject
+	Duration() uintptr
 	// The earliest presentation timestamp (PTS) for this track.
-	EarliestPresentationTimeStamp() objectivec.IObject
+	EarliestPresentationTimeStamp() uintptr
 	// Information about the first video sample in a track.
 	FirstVideoSampleInformation() IAVAssetSegmentReportSampleInformation
 
@@ -138,9 +143,9 @@ func (a AVAssetSegmentTrackReport) MediaType() AVMediaType {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentTrackReport/duration
-func (a AVAssetSegmentTrackReport) Duration() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("duration"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetSegmentTrackReport) Duration() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("duration"))
+	return rv
 }
 // The earliest presentation timestamp (PTS) for this track.
 //
@@ -151,9 +156,9 @@ func (a AVAssetSegmentTrackReport) Duration() objectivec.IObject {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentTrackReport/earliestPresentationTimeStamp
-func (a AVAssetSegmentTrackReport) EarliestPresentationTimeStamp() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("earliestPresentationTimeStamp"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetSegmentTrackReport) EarliestPresentationTimeStamp() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("earliestPresentationTimeStamp"))
+	return rv
 }
 // Information about the first video sample in a track.
 //

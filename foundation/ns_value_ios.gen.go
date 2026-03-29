@@ -91,6 +91,7 @@ return NSValueFromID(rv)
 // A new value object that contains the edge inset information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(UIEdgeInsets:)
+// insets is a [uikit.UIEdgeInsets].
 func (_NSValueClass NSValueClass) ValueWithUIEdgeInsets(insets objectivec.IObject) NSValue {
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithUIEdgeInsets:"), insets)
 return NSValueFromID(rv)
@@ -106,6 +107,7 @@ return NSValueFromID(rv)
 // A new value object that contains the offset information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(UIOffset:)
+// insets is a [uikit.UIOffset].
 func (_NSValueClass NSValueClass) ValueWithUIOffset(insets objectivec.IObject) NSValue {
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithUIOffset:"), insets)
 return NSValueFromID(rv)
@@ -114,6 +116,7 @@ return NSValueFromID(rv)
 // insets is a [appkit.NSDirectionalEdgeInsets].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(directionalEdgeInsets:)
+// insets is a [appkit.NSDirectionalEdgeInsets].
 func (_NSValueClass NSValueClass) ValueWithDirectionalEdgeInsets(insets objectivec.IObject) NSValue {
 rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithDirectionalEdgeInsets:"), insets)
 return NSValueFromID(rv)

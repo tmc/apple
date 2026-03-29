@@ -32,6 +32,11 @@ type VZLinuxRosettaDirectoryShareClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZLinuxRosettaDirectoryShareClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZLinuxRosettaDirectoryShareClass) Alloc() VZLinuxRosettaDirectoryShare {
 	rv := objc.Send[VZLinuxRosettaDirectoryShare](objc.ID(vc.class), objc.Sel("alloc"))
@@ -191,8 +196,7 @@ func (l VZLinuxRosettaDirectoryShare) InitWithError() (VZLinuxRosettaDirectorySh
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZLinuxRosettaDirectoryShare/installRosetta(completionHandler:)
 func (_VZLinuxRosettaDirectoryShareClass VZLinuxRosettaDirectoryShareClass) InstallRosettaWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_VZLinuxRosettaDirectoryShareClass.class), objc.Sel("installRosettaWithCompletionHandler:"), _block0)
 }
 

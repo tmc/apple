@@ -33,6 +33,11 @@ type AVSampleBufferAudioRendererClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVSampleBufferAudioRendererClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSampleBufferAudioRendererClass) Alloc() AVSampleBufferAudioRenderer {
 	rv := objc.Send[AVSampleBufferAudioRenderer](objc.ID(ac.class), objc.Sel("alloc"))
@@ -141,7 +146,7 @@ type IAVSampleBufferAudioRenderer interface {
 	// Topic: Removing queued buffers
 
 	// Flushes queued sample buffers with presentation time stamps later than or equal to the specified time.
-	FlushFromSourceTimeCompletionHandler(time objectivec.IObject, completionHandler BoolHandler)
+	FlushFromSourceTimeCompletionHandler(time uintptr, completionHandler BoolHandler)
 	// The key that indicates the presentation timestamp of the first queued sample that was flushed.
 	AVSampleBufferAudioRendererFlushTimeKey() string
 
@@ -205,8 +210,6 @@ func NewAVSampleBufferAudioRenderer() AVSampleBufferAudioRenderer {
 // flushSucceeded: A Boolean value indicating whether the sample buffers were
 // flushed.
 //
-// time is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // This method can be used to replace media data scheduled to be rendered in
@@ -225,16 +228,13 @@ func NewAVSampleBufferAudioRenderer() AVSampleBufferAudioRenderer {
 // flush all enqueued media data by invoking [Flush].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferAudioRenderer/flush(fromSourceTime:completionHandler:)
-func (s AVSampleBufferAudioRenderer) FlushFromSourceTimeCompletionHandler(time objectivec.IObject, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+func (s AVSampleBufferAudioRenderer) FlushFromSourceTimeCompletionHandler(time uintptr, completionHandler BoolHandler) {
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("flushFromSourceTime:completionHandler:"), time, _block1)
 }
 // Sends a sample buffer to the queue for rendering.
 //
 // sampleBuffer: The sample buffer to be enqueued.
-//
-// sampleBuffer is a [coremedia.CMSampleBufferRef].
 //
 // # Discussion
 // 
@@ -258,7 +258,7 @@ _block1, _cleanup1 := NewBoolBlock(completionHandler)
 // [kCMSampleBufferAttachmentKey_EmptyMedia]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_EmptyMedia
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
-func (s AVSampleBufferAudioRenderer) EnqueueSampleBuffer(sampleBuffer objectivec.IObject) {
+func (s AVSampleBufferAudioRenderer) EnqueueSampleBuffer(sampleBuffer uintptr) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enqueueSampleBuffer:"), sampleBuffer)
 }
 // Discards all pending enqueued sample buffers.
@@ -299,8 +299,7 @@ func (s AVSampleBufferAudioRenderer) IsReadyForMoreMediaData() bool {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/requestMediaDataWhenReady(on:using:)
 func (s AVSampleBufferAudioRenderer) RequestMediaDataWhenReadyOnQueueUsingBlock(queue dispatch.Queue, block VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(block)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("requestMediaDataWhenReadyOnQueue:usingBlock:"), uintptr(queue.Handle()), _block1)
 }
 // Cancels any current [RequestMediaDataWhenReadyOnQueueUsingBlock] call.
@@ -481,37 +480,6 @@ func (s AVSampleBufferAudioRenderer) HasSufficientMediaDataForReliablePlaybackSt
 	rv := objc.Send[bool](s.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
 	return rv
 }
-// A Boolean value that indicates whether the receiver is able to accept more
-// sample buffers.
-//
-// # Discussion
-// 
-// An object conforming to [AVQueuedSampleBufferRendering] keeps track of the
-// occupancy levels of its internal queues for the benefit of clients that
-// enqueue sample buffers from non-real-time sources, for example, clients
-// that can supply sample buffers faster than they are consumed, and so need
-// to decide when to hold back. Clients enqueueing sample buffers from
-// non-real-time sources may hold off from generating or obtaining more sample
-// buffers to enqueue when the value of `readyForMoreMediaData` is [NO]. It is
-// safe to call [EnqueueSampleBuffer] when `readyForMoreMediaData` is [NO],
-// but don’t enqueue sample buffers without bound.
-// 
-// To help with control of the non-real-time supply of sample buffers, clients
-// can call [RequestMediaDataWhenReadyOnQueueUsingBlock] in order to specify a
-// block that the receiver should invoke whenever it’s ready for sample
-// buffers to be appended.
-// 
-// The value of `readyForMoreMediaData` often changes` from [NO] to [YES]
-// asynchronously, as previously supplied sample buffers are decoded and
-// rendered.
-// 
-// This property is not key-value observable.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
-func (s AVSampleBufferAudioRenderer) ReadyForMoreMediaData() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isReadyForMoreMediaData"))
-	return rv
-}
 // The timebase for a renderer.
 //
 // # Discussion
@@ -519,9 +487,9 @@ func (s AVSampleBufferAudioRenderer) ReadyForMoreMediaData() bool {
 // The timebase governs how time stamps are interpreted by the renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-func (s AVSampleBufferAudioRenderer) Timebase() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("timebase"))
-	return objectivec.Object{ID: rv}
+func (s AVSampleBufferAudioRenderer) Timebase() uintptr {
+	rv := objc.Send[uintptr](s.ID, objc.Sel("timebase"))
+	return rv
 }
 
 			// Protocol methods for AVQueuedSampleBufferRendering
@@ -529,7 +497,7 @@ func (s AVSampleBufferAudioRenderer) Timebase() objectivec.IObject {
 
 // FlushFromSourceTime is a synchronous wrapper around [AVSampleBufferAudioRenderer.FlushFromSourceTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (s AVSampleBufferAudioRenderer) FlushFromSourceTime(ctx context.Context, time objectivec.IObject) (bool, error) {
+func (s AVSampleBufferAudioRenderer) FlushFromSourceTime(ctx context.Context, time uintptr) (bool, error) {
 	done := make(chan bool, 1)
 	s.FlushFromSourceTimeCompletionHandler(time, func(val bool) {
 		done <- val

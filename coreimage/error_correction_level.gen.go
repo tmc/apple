@@ -30,6 +30,11 @@ type ErrorCorrectionLevelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec ErrorCorrectionLevelClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec ErrorCorrectionLevelClass) Alloc() ErrorCorrectionLevel {
 	rv := objc.Send[ErrorCorrectionLevel](objc.ID(ec.class), objc.Sel("alloc"))

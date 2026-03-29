@@ -31,6 +31,11 @@ type VNPoint3DClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNPoint3DClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNPoint3DClass) Alloc() VNPoint3D {
 	rv := objc.Send[VNPoint3D](objc.ID(vc.class), objc.Sel("alloc"))
@@ -126,6 +131,7 @@ func NewPoint3DWithPosition(position objectivec.IObject) VNPoint3D {
 // position is a [simd.simd_float4x4].
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint3D/init(position:)
+// position is a [simd.simd_float4x4].
 func (p VNPoint3D) InitWithPosition(position objectivec.IObject) VNPoint3D {
 	rv := objc.Send[VNPoint3D](p.ID, objc.Sel("initWithPosition:"), position)
 	return rv

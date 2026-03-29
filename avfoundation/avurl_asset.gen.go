@@ -32,6 +32,11 @@ type AVURLAssetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVURLAssetClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVURLAssetClass) Alloc() AVURLAsset {
 	rv := objc.Send[AVURLAsset](objc.ID(ac.class), objc.Sel("alloc"))
@@ -266,8 +271,7 @@ func (u AVURLAsset) InitWithURLOptions(URL foundation.INSURL, options foundation
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/findCompatibleTrack(for:completionHandler:)
 func (u AVURLAsset) FindCompatibleTrackForCompositionTrackCompletionHandler(compositionTrack IAVCompositionTrack, completionHandler AVAssetTrackErrorHandler) {
-_block1, _cleanup1 := NewAVAssetTrackErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewAVAssetTrackErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("findCompatibleTrackForCompositionTrack:completionHandler:"), compositionTrack, _block1)
 }
 // Tells the recipient that a content key is available.

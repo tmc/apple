@@ -30,6 +30,11 @@ type UserDefaultsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UserDefaultsClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UserDefaultsClass) Alloc() UserDefaults {
 	rv := objc.Send[UserDefaults](objc.ID(uc.class), objc.Sel("alloc"))

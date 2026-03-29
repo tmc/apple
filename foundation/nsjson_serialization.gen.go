@@ -31,6 +31,11 @@ type JSONSerializationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (jc JSONSerializationClass) Class() objc.Class {
+	return jc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (jc JSONSerializationClass) Alloc() JSONSerialization {
 	rv := objc.Send[JSONSerialization](objc.ID(jc.class), objc.Sel("alloc"))

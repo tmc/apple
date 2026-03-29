@@ -31,6 +31,11 @@ type MLMultiArrayConstraintClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLMultiArrayConstraintClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLMultiArrayConstraintClass) Alloc() MLMultiArrayConstraint {
 	rv := objc.Send[MLMultiArrayConstraint](objc.ID(mc.class), objc.Sel("alloc"))

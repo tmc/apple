@@ -31,6 +31,11 @@ type NSXPCConnectionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSXPCConnectionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSXPCConnectionClass) Alloc() NSXPCConnection {
 	rv := objc.Send[NSXPCConnection](objc.ID(nc.class), objc.Sel("alloc"))
@@ -437,8 +442,7 @@ func (x NSXPCConnection) Suspend() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/scheduleSendBarrierBlock(_:)
 func (x NSXPCConnection) ScheduleSendBarrierBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](x.ID, objc.Sel("scheduleSendBarrierBlock:"), _block0)
 }
 // Returns a proxy for the remote object (that is, the object exported from
@@ -450,16 +454,14 @@ _block0, _cleanup0 := NewVoidBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/remoteObjectProxyWithErrorHandler(_:)
 func (x NSXPCConnection) RemoteObjectProxyWithErrorHandler(handler ErrorHandler) objectivec.IObject {
-_block0, _cleanup0 := NewErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(handler)
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("remoteObjectProxyWithErrorHandler:"), _block0)
 	return objectivec.Object{ID: rv}
 }
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCConnection/synchronousRemoteObjectProxyWithErrorHandler(_:)
 func (x NSXPCConnection) SynchronousRemoteObjectProxyWithErrorHandler(handler ErrorHandler) objectivec.IObject {
-_block0, _cleanup0 := NewErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(handler)
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("synchronousRemoteObjectProxyWithErrorHandler:"), _block0)
 	return objectivec.Object{ID: rv}
 }

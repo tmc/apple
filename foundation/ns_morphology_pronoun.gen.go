@@ -30,6 +30,11 @@ type NSMorphologyPronounClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMorphologyPronounClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMorphologyPronounClass) Alloc() NSMorphologyPronoun {
 	rv := objc.Send[NSMorphologyPronoun](objc.ID(nc.class), objc.Sel("alloc"))

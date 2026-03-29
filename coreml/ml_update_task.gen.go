@@ -31,6 +31,11 @@ type MLUpdateTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLUpdateTaskClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLUpdateTaskClass) Alloc() MLUpdateTask {
 	rv := objc.Send[MLUpdateTask](objc.ID(mc.class), objc.Sel("alloc"))

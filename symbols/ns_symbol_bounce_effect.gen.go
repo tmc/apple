@@ -29,6 +29,11 @@ type NSSymbolBounceEffectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSymbolBounceEffectClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSymbolBounceEffectClass) Alloc() NSSymbolBounceEffect {
 	rv := objc.Send[NSSymbolBounceEffect](objc.ID(nc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type CABasicAnimationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CABasicAnimationClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CABasicAnimationClass) Alloc() CABasicAnimation {
 	rv := objc.Send[CABasicAnimation](objc.ID(cc.class), objc.Sel("alloc"))

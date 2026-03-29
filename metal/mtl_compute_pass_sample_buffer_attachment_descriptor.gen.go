@@ -30,6 +30,11 @@ type MTLComputePassSampleBufferAttachmentDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLComputePassSampleBufferAttachmentDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLComputePassSampleBufferAttachmentDescriptorClass) Alloc() MTLComputePassSampleBufferAttachmentDescriptor {
 	rv := objc.Send[MTLComputePassSampleBufferAttachmentDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

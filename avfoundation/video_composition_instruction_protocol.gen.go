@@ -42,7 +42,7 @@ type AVVideoCompositionInstructionProtocol interface {
 	// The time range during which the instruction is effective.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/timeRange
-	TimeRange() objectivec.IObject
+	TimeRange() uintptr
 }
 
 // AVVideoCompositionInstructionProtocolObject wraps an existing Objective-C object that conforms to the AVVideoCompositionInstructionProtocol protocol.
@@ -106,8 +106,8 @@ func (o AVVideoCompositionInstructionProtocolObject) EnablePostProcessing() bool
 // The time range during which the instruction is effective.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/timeRange
-func (o AVVideoCompositionInstructionProtocolObject) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (o AVVideoCompositionInstructionProtocolObject) TimeRange() uintptr {
+	rv := objc.Send[uintptr](o.ID, objc.Sel("timeRange"))
+	return rv
 	}
 

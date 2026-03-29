@@ -30,6 +30,11 @@ type NSPressureConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPressureConfigurationClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPressureConfigurationClass) Alloc() NSPressureConfiguration {
 	rv := objc.Send[NSPressureConfiguration](objc.ID(nc.class), objc.Sel("alloc"))

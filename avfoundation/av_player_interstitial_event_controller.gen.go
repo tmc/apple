@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVPlayerInterstitialEventController] class.
@@ -29,6 +28,11 @@ func GetAVPlayerInterstitialEventControllerClass() AVPlayerInterstitialEventCont
 
 type AVPlayerInterstitialEventControllerClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerInterstitialEventControllerClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -94,7 +98,7 @@ type IAVPlayerInterstitialEventController interface {
 	// Topic: Configuring the event schedule
 
 	// Cancels the playback of all currently playing and scheduled interstitial events, and resumes playback of primary content.
-	CancelCurrentEventWithResumptionOffset(resumptionOffset objectivec.IObject)
+	CancelCurrentEventWithResumptionOffset(resumptionOffset uintptr)
 	// Causes the playback of the currently playing interstital event to be abandoned.
 	SkipCurrentEvent()
 
@@ -145,8 +149,6 @@ func NewPlayerInterstitialEventControllerWithPrimaryPlayer(primaryPlayer IAVPlay
 // resumptionOffset: The time offset at which playback of the primary content resumes after
 // interstitial playback finishes.
 //
-// resumptionOffset is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // When you cancel interstitial events using this method, the resumption
@@ -154,7 +156,7 @@ func NewPlayerInterstitialEventControllerWithPrimaryPlayer(primaryPlayer IAVPlay
 // value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEventController/cancelCurrentEvent(withResumptionOffset:)
-func (p AVPlayerInterstitialEventController) CancelCurrentEventWithResumptionOffset(resumptionOffset objectivec.IObject) {
+func (p AVPlayerInterstitialEventController) CancelCurrentEventWithResumptionOffset(resumptionOffset uintptr) {
 	objc.Send[objc.ID](p.ID, objc.Sel("cancelCurrentEventWithResumptionOffset:"), resumptionOffset)
 }
 // Causes the playback of the currently playing interstital event to be

@@ -33,6 +33,11 @@ type FileManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (fc FileManagerClass) Class() objc.Class {
+	return fc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (fc FileManagerClass) Alloc() FileManager {
 	rv := objc.Send[FileManager](objc.ID(fc.class), objc.Sel("alloc"))
@@ -1840,8 +1845,7 @@ func (f FileManager) URLForPublishingUbiquitousItemAtURLExpirationDateError(url 
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/pauseSyncForUbiquitousItem(at:completionHandler:)
 func (f FileManager) PauseSyncForUbiquitousItemAtURLCompletionHandler(url INSURL, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("pauseSyncForUbiquitousItemAtURL:completionHandler:"), url, _block1)
 }
 // Asynchronously resumes the sync on a paused item using the given resume
@@ -1878,8 +1882,7 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/resumeSyncForUbiquitousItem(at:with:completionHandler:)
 func (f FileManager) ResumeSyncForUbiquitousItemAtURLWithBehaviorCompletionHandler(url INSURL, behavior NSFileManagerResumeSyncBehavior, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("resumeSyncForUbiquitousItemAtURL:withBehavior:completionHandler:"), url, behavior, _block2)
 }
 // Asynchronously fetches the latest remote version of a given item from the
@@ -1918,8 +1921,7 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/fetchLatestRemoteVersionOfItem(at:completionHandler:)
 func (f FileManager) FetchLatestRemoteVersionOfItemAtURLCompletionHandler(url INSURL, completionHandler FileVersionErrorHandler) {
-_block1, _cleanup1 := NewFileVersionErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewFileVersionErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("fetchLatestRemoteVersionOfItemAtURL:completionHandler:"), url, _block1)
 }
 // Asynchronously uploads the local version of the item using the provided
@@ -1957,8 +1959,7 @@ _block1, _cleanup1 := NewFileVersionErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/uploadLocalVersionOfUbiquitousItem(at:withConflictResolutionPolicy:completionHandler:)
 func (f FileManager) UploadLocalVersionOfUbiquitousItemAtURLWithConflictResolutionPolicyCompletionHandler(url INSURL, conflictResolutionPolicy NSFileManagerUploadLocalVersionConflictPolicy, completionHandler FileVersionErrorHandler) {
-_block2, _cleanup2 := NewFileVersionErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewFileVersionErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("uploadLocalVersionOfUbiquitousItemAtURL:withConflictResolutionPolicy:completionHandler:"), url, conflictResolutionPolicy, _block2)
 }
 // Creates a symbolic link at the specified URL that points to an item at the
@@ -2725,8 +2726,7 @@ func (f FileManager) ChangeCurrentDirectoryPath(path string) bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/FileManager/unmountVolume(at:options:completionHandler:)
 func (f FileManager) UnmountVolumeAtURLOptionsCompletionHandler(url INSURL, mask NSFileManagerUnmountOptions, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("unmountVolumeAtURL:options:completionHandler:"), url, mask, _block2)
 }
 // Returns a directory enumerator object that can be used to perform a deep
@@ -2799,8 +2799,7 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileManager/enumeratorAtURL:includingPropertiesForKeys:options:errorHandler:
 func (f FileManager) EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler(url INSURL, keys []string, mask NSDirectoryEnumerationOptions, handler URLErrorHandler) INSDirectoryEnumerator {
-_block3, _cleanup3 := NewURLErrorBlock(handler)
-	defer _cleanup3()
+_block3, _ := NewURLErrorBlock(handler)
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("enumeratorAtURL:includingPropertiesForKeys:options:errorHandler:"), url, keys, mask, _block3)
 	return NSDirectoryEnumeratorFromID(rv)
 }

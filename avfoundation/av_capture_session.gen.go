@@ -32,6 +32,11 @@ type AVCaptureSessionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureSessionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureSessionClass) Alloc() AVCaptureSession {
 	rv := objc.Send[AVCaptureSession](objc.ID(ac.class), objc.Sel("alloc"))
@@ -319,7 +324,7 @@ type IAVCaptureSession interface {
 	// Topic: Synchronizing output
 
 	// A clock to use for output synchronization.
-	SynchronizationClock() objectivec.IObject
+	SynchronizationClock() uintptr
 }
 
 // Init initializes the instance.
@@ -996,8 +1001,8 @@ func (c AVCaptureSession) Running() bool {
 // This property is key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/synchronizationClock
-func (c AVCaptureSession) SynchronizationClock() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("synchronizationClock"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureSession) SynchronizationClock() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("synchronizationClock"))
+	return rv
 }
 

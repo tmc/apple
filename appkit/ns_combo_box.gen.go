@@ -32,6 +32,11 @@ type NSComboBoxClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSComboBoxClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSComboBoxClass) Alloc() NSComboBox {
 	rv := objc.Send[NSComboBox](objc.ID(nc.class), objc.Sel("alloc"))

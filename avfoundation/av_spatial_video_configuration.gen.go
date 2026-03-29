@@ -32,6 +32,11 @@ type AVSpatialVideoConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVSpatialVideoConfigurationClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSpatialVideoConfigurationClass) Alloc() AVSpatialVideoConfiguration {
 	rv := objc.Send[AVSpatialVideoConfiguration](objc.ID(ac.class), objc.Sel("alloc"))
@@ -93,7 +98,7 @@ type IAVSpatialVideoConfiguration interface {
 	// Topic: Creating a configuration
 
 	// Initializes an AVSpatialVideoConfiguration with a format description.
-	InitWithFormatDescription(formatDescription objectivec.IObject) AVSpatialVideoConfiguration
+	InitWithFormatDescription(formatDescription uintptr) AVSpatialVideoConfiguration
 
 	// Topic: Modifying the configuration
 
@@ -126,8 +131,8 @@ type IAVSpatialVideoConfiguration interface {
 	CustomVideoCompositorClass() AVVideoCompositing
 	SetCustomVideoCompositorClass(value AVVideoCompositing)
 	// A time interval for which the video composition should render composed video frames.
-	FrameDuration() objectivec.IObject
-	SetFrameDuration(value objectivec.IObject)
+	FrameDuration() uintptr
+	SetFrameDuration(value uintptr)
 	// The scale at which the video composition should render.
 	RenderScale() float32
 	SetRenderScale(value float32)
@@ -168,8 +173,7 @@ func NewAVSpatialVideoConfiguration() AVSpatialVideoConfiguration {
 // The format description is not stored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSpatialVideoConfiguration-c.class/initWithFormatDescription:
-// formatDescription is a [coremedia.CMFormatDescriptionRef].
-func NewSpatialVideoConfigurationWithFormatDescription(formatDescription objectivec.IObject) AVSpatialVideoConfiguration {
+func NewSpatialVideoConfigurationWithFormatDescription(formatDescription uintptr) AVSpatialVideoConfiguration {
 	instance := getAVSpatialVideoConfigurationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormatDescription:"), formatDescription)
 	return AVSpatialVideoConfigurationFromID(rv)
@@ -178,8 +182,6 @@ func NewSpatialVideoConfigurationWithFormatDescription(formatDescription objecti
 // Initializes an AVSpatialVideoConfiguration with a format description.
 //
 // formatDescription: Format description to use to initialize the AVSpatialVideoConfiguration.
-//
-// formatDescription is a [coremedia.CMFormatDescriptionRef].
 //
 // # Return Value
 // 
@@ -190,7 +192,7 @@ func NewSpatialVideoConfigurationWithFormatDescription(formatDescription objecti
 // The format description is not stored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSpatialVideoConfiguration-c.class/initWithFormatDescription:
-func (s AVSpatialVideoConfiguration) InitWithFormatDescription(formatDescription objectivec.IObject) AVSpatialVideoConfiguration {
+func (s AVSpatialVideoConfiguration) InitWithFormatDescription(formatDescription uintptr) AVSpatialVideoConfiguration {
 	rv := objc.Send[AVSpatialVideoConfiguration](s.ID, objc.Sel("initWithFormatDescription:"), formatDescription)
 	return rv
 }
@@ -314,11 +316,11 @@ func (s AVSpatialVideoConfiguration) SetCustomVideoCompositorClass(value AVVideo
 // video frames.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avvideocomposition/frameduration
-func (s AVSpatialVideoConfiguration) FrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("frameDuration"))
-	return objectivec.Object{ID: rv}
+func (s AVSpatialVideoConfiguration) FrameDuration() uintptr {
+	rv := objc.Send[uintptr](s.ID, objc.Sel("frameDuration"))
+	return rv
 }
-func (s AVSpatialVideoConfiguration) SetFrameDuration(value objectivec.IObject) {
+func (s AVSpatialVideoConfiguration) SetFrameDuration(value uintptr) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFrameDuration:"), value)
 }
 // The scale at which the video composition should render.

@@ -29,6 +29,11 @@ type MessagePortClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MessagePortClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MessagePortClass) Alloc() MessagePort {
 	rv := objc.Send[MessagePort](objc.ID(mc.class), objc.Sel("alloc"))

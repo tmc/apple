@@ -30,6 +30,11 @@ type AVPlaybackCoordinationMediumClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlaybackCoordinationMediumClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlaybackCoordinationMediumClass) Alloc() AVPlaybackCoordinationMedium {
 	rv := objc.Send[AVPlaybackCoordinationMedium](objc.ID(ac.class), objc.Sel("alloc"))

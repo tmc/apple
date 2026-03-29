@@ -31,6 +31,11 @@ type NSImageSymbolConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSImageSymbolConfigurationClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSImageSymbolConfigurationClass) Alloc() NSImageSymbolConfiguration {
 	rv := objc.Send[NSImageSymbolConfiguration](objc.ID(nc.class), objc.Sel("alloc"))

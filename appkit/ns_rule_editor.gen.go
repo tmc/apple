@@ -32,6 +32,11 @@ type NSRuleEditorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSRuleEditorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSRuleEditorClass) Alloc() NSRuleEditor {
 	rv := objc.Send[NSRuleEditor](objc.ID(nc.class), objc.Sel("alloc"))

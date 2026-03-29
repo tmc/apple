@@ -30,6 +30,11 @@ type VZMemoryBalloonDeviceConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMemoryBalloonDeviceConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMemoryBalloonDeviceConfigurationClass) Alloc() VZMemoryBalloonDeviceConfiguration {
 	rv := objc.Send[VZMemoryBalloonDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

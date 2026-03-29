@@ -32,6 +32,11 @@ type NSCursorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCursorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCursorClass) Alloc() NSCursor {
 	rv := objc.Send[NSCursor](objc.ID(nc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type NSMutableSetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMutableSetClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMutableSetClass) Alloc() NSMutableSet {
 	rv := objc.Send[NSMutableSet](objc.ID(nc.class), objc.Sel("alloc"))

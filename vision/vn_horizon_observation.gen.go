@@ -30,6 +30,11 @@ type VNHorizonObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNHorizonObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNHorizonObservationClass) Alloc() VNHorizonObservation {
 	rv := objc.Send[VNHorizonObservation](objc.ID(vc.class), objc.Sel("alloc"))

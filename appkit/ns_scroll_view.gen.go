@@ -31,6 +31,11 @@ type NSScrollViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScrollViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScrollViewClass) Alloc() NSScrollView {
 	rv := objc.Send[NSScrollView](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1456,27 +1461,6 @@ func (s NSScrollView) FindBarView() INSView {
 }
 func (s NSScrollView) SetFindBarView(value INSView) {
 	objc.Send[struct{}](s.ID, objc.Sel("setFindBarView:"), value)
-}
-// Returns whether the container should display its find bar.
-//
-// # Discussion
-// 
-// When this property is [true] and the [FindBarView] property is set, then
-// the find bar is displayed by the container. Otherwise, the find bar is not
-// displayed.
-// 
-// The default value should be [false].
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
-func (s NSScrollView) FindBarVisible() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isFindBarVisible"))
-	return rv
-}
-func (s NSScrollView) SetFindBarVisible(value bool) {
-	objc.Send[struct{}](s.ID, objc.Sel("setFindBarVisible:"), value)
 }
 
 // Returns the default class to be used for ruler objects in NSScrollViews.

@@ -32,6 +32,11 @@ type AVAsynchronousVideoCompositionRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAsynchronousVideoCompositionRequestClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAsynchronousVideoCompositionRequestClass) Alloc() AVAsynchronousVideoCompositionRequest {
 	rv := objc.Send[AVAsynchronousVideoCompositionRequest](objc.ID(ac.class), objc.Sel("alloc"))
@@ -101,7 +106,7 @@ type IAVAsynchronousVideoCompositionRequest interface {
 	// Topic: Inspecting the request
 
 	// A time for which to compose the frame.
-	CompositionTime() objectivec.IObject
+	CompositionTime() uintptr
 	// The rendering context of the video composition.
 	RenderContext() IAVVideoCompositionRenderContext
 	// A video composition instruction that indicates how to compose the frame.
@@ -217,6 +222,7 @@ func (a AVAsynchronousVideoCompositionRequest) AttachSpatialVideoConfigurationTo
 // taggedBufferGroup is a [coremedia.CMTaggedBufferGroupRef].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/finishWithComposedTaggedBufferGroup:
+// taggedBufferGroup is a [coremedia.CMTaggedBufferGroupRef].
 func (a AVAsynchronousVideoCompositionRequest) FinishWithComposedTaggedBufferGroup(taggedBufferGroup objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("finishWithComposedTaggedBufferGroup:"), taggedBufferGroup)
 }
@@ -239,9 +245,9 @@ func (a AVAsynchronousVideoCompositionRequest) SourceTaggedBufferGroupByTrackID(
 // A time for which to compose the frame.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsynchronousVideoCompositionRequest/compositionTime
-func (a AVAsynchronousVideoCompositionRequest) CompositionTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("compositionTime"))
-	return objectivec.Object{ID: rv}
+func (a AVAsynchronousVideoCompositionRequest) CompositionTime() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("compositionTime"))
+	return rv
 }
 // The rendering context of the video composition.
 //

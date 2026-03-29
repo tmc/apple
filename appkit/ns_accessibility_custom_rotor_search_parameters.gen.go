@@ -31,6 +31,11 @@ type NSAccessibilityCustomRotorSearchParametersClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAccessibilityCustomRotorSearchParametersClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAccessibilityCustomRotorSearchParametersClass) Alloc() NSAccessibilityCustomRotorSearchParameters {
 	rv := objc.Send[NSAccessibilityCustomRotorSearchParameters](objc.ID(nc.class), objc.Sel("alloc"))

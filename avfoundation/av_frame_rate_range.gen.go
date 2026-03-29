@@ -30,6 +30,11 @@ type AVFrameRateRangeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVFrameRateRangeClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVFrameRateRangeClass) Alloc() AVFrameRateRange {
 	rv := objc.Send[AVFrameRateRange](objc.ID(ac.class), objc.Sel("alloc"))
@@ -86,11 +91,11 @@ type IAVFrameRateRange interface {
 	// Topic: Accessing properties
 
 	// The maximum frame duration supported by the range.
-	MaxFrameDuration() objectivec.IObject
+	MaxFrameDuration() uintptr
 	// The maximum frame rate supported by the range.
 	MaxFrameRate() float64
 	// The minimum frame duration supported by the range.
-	MinFrameDuration() objectivec.IObject
+	MinFrameDuration() uintptr
 	// The minimum frame rate supported by the range.
 	MinFrameRate() float64
 
@@ -138,9 +143,9 @@ func NewAVFrameRateRange() AVFrameRateRange {
 // frame rate as a duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFrameRateRange/maxFrameDuration
-func (f AVFrameRateRange) MaxFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("maxFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (f AVFrameRateRange) MaxFrameDuration() uintptr {
+	rv := objc.Send[uintptr](f.ID, objc.Sel("maxFrameDuration"))
+	return rv
 }
 // The maximum frame rate supported by the range.
 //
@@ -161,9 +166,9 @@ func (f AVFrameRateRange) MaxFrameRate() float64 {
 // frame rate as a duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFrameRateRange/minFrameDuration
-func (f AVFrameRateRange) MinFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](f.ID, objc.Sel("minFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (f AVFrameRateRange) MinFrameDuration() uintptr {
+	rv := objc.Send[uintptr](f.ID, objc.Sel("minFrameDuration"))
+	return rv
 }
 // The minimum frame rate supported by the range.
 //

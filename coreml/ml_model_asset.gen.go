@@ -33,6 +33,11 @@ type MLModelAssetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLModelAssetClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelAssetClass) Alloc() MLModelAsset {
 	rv := objc.Send[MLModelAsset](objc.ID(mc.class), objc.Sel("alloc"))
@@ -192,8 +197,7 @@ func NewModelAssetWithURLError(compiledModelURL foundation.INSURL) (MLModelAsset
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/functionNames(completionHandler:)
 func (m MLModelAsset) FunctionNamesWithCompletionHandler(handler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("functionNamesWithCompletionHandler:"), _block0)
 }
 // The default model descripton.
@@ -209,8 +213,7 @@ _block0, _cleanup0 := NewErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelDescription(completionHandler:)
 func (m MLModelAsset) ModelDescriptionWithCompletionHandler(handler MLModelDescriptionErrorHandler) {
-_block0, _cleanup0 := NewMLModelDescriptionErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewMLModelDescriptionErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionWithCompletionHandler:"), _block0)
 }
 // The model descripton for a specified function.
@@ -222,8 +225,7 @@ _block0, _cleanup0 := NewMLModelDescriptionErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelAsset/modelDescription(ofFunctionNamed:completionHandler:)
 func (m MLModelAsset) ModelDescriptionOfFunctionNamedCompletionHandler(functionName string, handler MLModelDescriptionErrorHandler) {
-_block1, _cleanup1 := NewMLModelDescriptionErrorBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewMLModelDescriptionErrorBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("modelDescriptionOfFunctionNamed:completionHandler:"), objc.String(functionName), _block1)
 }
 

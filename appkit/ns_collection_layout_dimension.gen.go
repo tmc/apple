@@ -30,6 +30,11 @@ type NSCollectionLayoutDimensionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCollectionLayoutDimensionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCollectionLayoutDimensionClass) Alloc() NSCollectionLayoutDimension {
 	rv := objc.Send[NSCollectionLayoutDimension](objc.ID(nc.class), objc.Sel("alloc"))

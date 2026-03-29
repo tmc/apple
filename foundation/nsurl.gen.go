@@ -33,6 +33,11 @@ type NSURLClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSURLClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSURLClass) Alloc() NSURL {
 	rv := objc.Send[NSURL](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1907,6 +1912,7 @@ func (u NSURL) PromisedItemResourceValuesForKeysError(keys []string) (INSDiction
 // invoking this method. Otherwise, the method returns without doing anything.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/write(to:)
+// pasteBoard is a [appkit.NSPasteboard].
 func (u NSURL) WriteToPasteboard(pasteBoard objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("writeToPasteboard:"), pasteBoard)
 }
@@ -1955,8 +1961,7 @@ func (u NSURL) ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIde
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (u NSURL) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }

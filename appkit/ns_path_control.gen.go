@@ -32,6 +32,11 @@ type NSPathControlClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPathControlClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPathControlClass) Alloc() NSPathControl {
 	rv := objc.Send[NSPathControl](objc.ID(nc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type NSCollectionLayoutSpacingClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCollectionLayoutSpacingClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCollectionLayoutSpacingClass) Alloc() NSCollectionLayoutSpacing {
 	rv := objc.Send[NSCollectionLayoutSpacing](objc.ID(nc.class), objc.Sel("alloc"))

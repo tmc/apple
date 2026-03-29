@@ -33,6 +33,11 @@ type NSPrintInfoClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPrintInfoClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPrintInfoClass) Alloc() NSPrintInfo {
 	rv := objc.Send[NSPrintInfo](objc.ID(nc.class), objc.Sel("alloc"))

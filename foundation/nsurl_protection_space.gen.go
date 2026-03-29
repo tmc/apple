@@ -30,6 +30,11 @@ type URLProtectionSpaceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLProtectionSpaceClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLProtectionSpaceClass) Alloc() URLProtectionSpace {
 	rv := objc.Send[URLProtectionSpace](objc.ID(uc.class), objc.Sel("alloc"))

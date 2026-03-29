@@ -29,6 +29,11 @@ type UnitAreaClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitAreaClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitAreaClass) Alloc() UnitArea {
 	rv := objc.Send[UnitArea](objc.ID(uc.class), objc.Sel("alloc"))

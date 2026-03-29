@@ -29,6 +29,11 @@ type VZVirtioGraphicsScanoutConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZVirtioGraphicsScanoutConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioGraphicsScanoutConfigurationClass) Alloc() VZVirtioGraphicsScanoutConfiguration {
 	rv := objc.Send[VZVirtioGraphicsScanoutConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

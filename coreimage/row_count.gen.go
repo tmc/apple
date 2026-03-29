@@ -30,6 +30,11 @@ type RowCountClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (rc RowCountClass) Class() objc.Class {
+	return rc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (rc RowCountClass) Alloc() RowCount {
 	rv := objc.Send[RowCount](objc.ID(rc.class), objc.Sel("alloc"))

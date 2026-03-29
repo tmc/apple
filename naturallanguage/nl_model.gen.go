@@ -33,6 +33,11 @@ type NLModelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NLModelClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NLModelClass) Alloc() NLModel {
 	rv := objc.Send[NLModel](objc.ID(nc.class), objc.Sel("alloc"))

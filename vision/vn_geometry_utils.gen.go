@@ -33,6 +33,11 @@ type VNGeometryUtilsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNGeometryUtilsClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNGeometryUtilsClass) Alloc() VNGeometryUtils {
 	rv := objc.Send[VNGeometryUtils](objc.ID(vc.class), objc.Sel("alloc"))
@@ -132,6 +137,7 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForPointsError(p
 // The bounding [VNCircle] object.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(forSIMDPoints:pointCount:)
+// points is a [simd.simd_float2].
 func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPointCountError(points objectivec.IObject, pointCount int) (VNCircle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_VNGeometryUtilsClass.class), objc.Sel("boundingCircleForSIMDPoints:pointCount:error:"), points, pointCount, unsafe.Pointer(&errorPtr))

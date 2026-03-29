@@ -30,6 +30,11 @@ type NSUserAutomatorTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSUserAutomatorTaskClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSUserAutomatorTaskClass) Alloc() NSUserAutomatorTask {
 	rv := objc.Send[NSUserAutomatorTask](objc.ID(nc.class), objc.Sel("alloc"))
@@ -165,8 +170,7 @@ func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserAutomatorTask/execute(withInput:completionHandler:)
 func (u NSUserAutomatorTask) ExecuteWithInputCompletionHandler(input NSSecureCoding, handler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("executeWithInput:completionHandler:"), input, _block1)
 }
 

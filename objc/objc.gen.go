@@ -542,9 +542,11 @@ func selName(sel SEL) string {
 }
 
 var (
-	class_addMethod        func(Class, SEL, uintptr, string) bool
-	objc_registerClassPair func(Class)
-	libobjc                uintptr
+	class_addMethod                func(Class, SEL, uintptr, string) bool
+	objc_registerClassPair         func(Class)
+	objc_autoreleasePoolPush       func() uintptr
+	objc_autoreleasePoolPop        func(uintptr)
+	libobjc                        uintptr
 )
 
 func ensureLibObjC() {
@@ -558,6 +560,17 @@ func ensureLibObjC() {
 	}
 	basepurego.RegisterLibFunc(&class_addMethod, libobjc, "class_addMethod")
 	basepurego.RegisterLibFunc(&objc_registerClassPair, libobjc, "objc_registerClassPair")
+	basepurego.RegisterLibFunc(&objc_autoreleasePoolPush, libobjc, "objc_autoreleasePoolPush")
+	basepurego.RegisterLibFunc(&objc_autoreleasePoolPop, libobjc, "objc_autoreleasePoolPop")
+}
+
+// AutoreleasePool executes fn within an Objective-C autorelease pool.
+// Any autoreleased objects created during fn are released when fn returns.
+func AutoreleasePool(fn func()) {
+	ensureLibObjC()
+	pool := objc_autoreleasePoolPush()
+	defer objc_autoreleasePoolPop(pool)
+	fn()
 }
 
 // RegisterClassPair registers a class pair with the runtime.

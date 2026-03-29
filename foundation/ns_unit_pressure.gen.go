@@ -29,6 +29,11 @@ type UnitPressureClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitPressureClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitPressureClass) Alloc() UnitPressure {
 	rv := objc.Send[UnitPressure](objc.ID(uc.class), objc.Sel("alloc"))

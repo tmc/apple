@@ -29,6 +29,11 @@ type XMLDTDNodeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (xc XMLDTDNodeClass) Class() objc.Class {
+	return xc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (xc XMLDTDNodeClass) Alloc() XMLDTDNode {
 	rv := objc.Send[XMLDTDNode](objc.ID(xc.class), objc.Sel("alloc"))

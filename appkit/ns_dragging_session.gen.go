@@ -32,6 +32,11 @@ type NSDraggingSessionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDraggingSessionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDraggingSessionClass) Alloc() NSDraggingSession {
 	rv := objc.Send[NSDraggingSession](objc.ID(nc.class), objc.Sel("alloc"))
@@ -246,8 +251,7 @@ func NewNSDraggingSession() NSDraggingSession {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingSession/enumerateDraggingItems(options:for:classes:searchOptions:using:)
 func (d NSDraggingSession) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objc.Class, searchOptions foundation.INSDictionary, block DraggingItemHandler) {
-_block4, _cleanup4 := NewDraggingItemBlock(block)
-	defer _cleanup4()
+_block4, _ := NewDraggingItemBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, classArray, searchOptions, _block4)
 }
 

@@ -30,6 +30,11 @@ type XMLParserClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (xc XMLParserClass) Class() objc.Class {
+	return xc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (xc XMLParserClass) Alloc() XMLParser {
 	rv := objc.Send[XMLParser](objc.ID(xc.class), objc.Sel("alloc"))

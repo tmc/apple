@@ -33,6 +33,11 @@ type NSObjectControllerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSObjectControllerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSObjectControllerClass) Alloc() NSObjectController {
 	rv := objc.Send[NSObjectController](objc.ID(nc.class), objc.Sel("alloc"))
@@ -515,6 +520,7 @@ func (o NSObjectController) DefaultFetchRequest() objectivec.IObject {
 // and then invoke `super`’s implementation with the new fetch request.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/fetch(with:merge:)
+// fetchRequest is a [coredata.NSFetchRequest].
 func (o NSObjectController) FetchWithRequestMergeError(fetchRequest objectivec.IObject, merge bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](o.ID, objc.Sel("fetchWithRequest:merge:error:"), fetchRequest, merge, unsafe.Pointer(&errorPtr))

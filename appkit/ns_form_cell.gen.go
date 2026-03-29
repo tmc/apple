@@ -30,6 +30,11 @@ type NSFormCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFormCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFormCellClass) Alloc() NSFormCell {
 	rv := objc.Send[NSFormCell](objc.ID(nc.class), objc.Sel("alloc"))
@@ -56,8 +61,6 @@ func (nc NSFormCellClass) Alloc() NSFormCell {
 //   - [NSFormCell.SetTitleBaseWritingDirection]
 //   - [NSFormCell.TitleFont]: The font used to draw cell’s title.
 //   - [NSFormCell.SetTitleFont]
-//   - [NSFormCell.TitleWidth]: The width of the title field.
-//   - [NSFormCell.SetTitleWidth]
 //
 // # Asking About Placeholder Values
 //
@@ -99,8 +102,6 @@ func NSFormCellFromID(id objc.ID) NSFormCell {
 //   - [INSFormCell.SetTitleBaseWritingDirection]
 //   - [INSFormCell.TitleFont]: The font used to draw cell’s title.
 //   - [INSFormCell.SetTitleFont]
-//   - [INSFormCell.TitleWidth]: The width of the title field.
-//   - [INSFormCell.SetTitleWidth]
 //
 // # Asking About Placeholder Values
 //
@@ -132,9 +133,6 @@ type INSFormCell interface {
 	// The font used to draw cell’s title.
 	TitleFont() NSFont
 	SetTitleFont(value NSFont)
-	// The width of the title field.
-	TitleWidth() float64
-	SetTitleWidth(value float64)
 
 	// Topic: Asking About Placeholder Values
 
@@ -273,29 +271,6 @@ func (f NSFormCell) TitleFont() NSFont {
 }
 func (f NSFormCell) SetTitleFont(value NSFont) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleFont:"), value)
-}
-// The width of the title field.
-//
-// # Discussion
-// 
-// The width of the title field, measured in points in the user coordinate
-// space. You usually do not need to set this property. AppKit automatically
-// sets the title width whenever the title changes. If the automatic width
-// doesn’t suit your needs, though, you can use this property to set the
-// width explicitly.
-// 
-// After you have set the width this way, AppKit stops setting the width
-// automatically, so you must set this property every time the title changes.
-// If you want AppKit to resume automatic width assignments, set this property
-// to a negative value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSFormCell/titleWidth
-func (f NSFormCell) TitleWidth() float64 {
-	rv := objc.Send[float64](f.ID, objc.Sel("titleWidth"))
-	return rv
-}
-func (f NSFormCell) SetTitleWidth(value float64) {
-	objc.Send[struct{}](f.ID, objc.Sel("setTitleWidth:"), value)
 }
 // The cell’s attributed placeholder string.
 //

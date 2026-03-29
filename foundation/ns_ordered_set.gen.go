@@ -31,6 +31,11 @@ type NSOrderedSetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSOrderedSetClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSOrderedSetClass) Alloc() NSOrderedSet {
 	rv := objc.Send[NSOrderedSet](objc.ID(nc.class), objc.Sel("alloc"))
@@ -811,8 +816,7 @@ func (o NSOrderedSet) ContainsObject(object objectivec.IObject) bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(at:options:using:)
 func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block ObjectTypeHandler) {
-_block2, _cleanup2 := NewObjectTypeBlock(block)
-	defer _cleanup2()
+_block2, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsAtIndexes:options:usingBlock:"), s, opts, _block2)
 }
 // Executes a given block using each object in the ordered set.
@@ -833,8 +837,7 @@ _block2, _cleanup2 := NewObjectTypeBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(_:)
 func (o NSOrderedSet) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
-_block0, _cleanup0 := NewObjectTypeBlock(block)
-	defer _cleanup0()
+_block0, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
 // Executes a given block using each object in the set, using the specified
@@ -860,8 +863,7 @@ _block0, _cleanup0 := NewObjectTypeBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(options:using:)
 func (o NSOrderedSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler) {
-_block1, _cleanup1 := NewObjectTypeBlock(block)
-	defer _cleanup1()
+_block1, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 // Returns the object at the specified index of the set.
@@ -1042,8 +1044,7 @@ func (o NSOrderedSet) IndexOfObjectInSortedRangeOptionsUsingComparator(object ob
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(ofObjectAt:options:passingTest:)
 func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) uint {
-_block2, _cleanup2 := NewObjectTypeBlock(predicate)
-	defer _cleanup2()
+_block2, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectAtIndexes:options:passingTest:"), s, opts, _block2)
 	return rv
 }
@@ -1070,8 +1071,7 @@ _block2, _cleanup2 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(ofObjectPassingTest:)
 func (o NSOrderedSet) IndexOfObjectPassingTest(predicate ObjectTypeHandler) uint {
-_block0, _cleanup0 := NewObjectTypeBlock(predicate)
-	defer _cleanup0()
+_block0, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectPassingTest:"), _block0)
 	return rv
 }
@@ -1112,8 +1112,7 @@ _block0, _cleanup0 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(_:ofObjectPassingTest:)
 func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) uint {
-_block1, _cleanup1 := NewObjectTypeBlock(predicate)
-	defer _cleanup1()
+_block1, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectWithOptions:passingTest:"), opts, _block1)
 	return rv
 }
@@ -1157,8 +1156,7 @@ _block1, _cleanup1 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(ofObjectsAt:options:passingTest:)
 func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet {
-_block2, _cleanup2 := NewObjectTypeBlock(predicate)
-	defer _cleanup2()
+_block2, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsAtIndexes:options:passingTest:"), s, opts, _block2)
 	return NSIndexSetFromID(rv)
 }
@@ -1189,8 +1187,7 @@ _block2, _cleanup2 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(ofObjectsPassingTest:)
 func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate ObjectTypeHandler) INSIndexSet {
-_block0, _cleanup0 := NewObjectTypeBlock(predicate)
-	defer _cleanup0()
+_block0, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsPassingTest:"), _block0)
 	return NSIndexSetFromID(rv)
 }
@@ -1230,8 +1227,7 @@ _block0, _cleanup0 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(options:ofObjectsPassingTest:)
 func (o NSOrderedSet) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet {
-_block1, _cleanup1 := NewObjectTypeBlock(predicate)
-	defer _cleanup1()
+_block1, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsWithOptions:passingTest:"), opts, _block1)
 	return NSIndexSetFromID(rv)
 }
@@ -1597,8 +1593,7 @@ func (o NSOrderedSet) DifferenceFromOrderedSetWithOptions(other INSOrderedSet, o
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/differenceFromOrderedSet:withOptions:usingEquivalenceTest:
 func (o NSOrderedSet) DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block ObjectTypeHandler) INSOrderedCollectionDifference {
-_block2, _cleanup2 := NewObjectTypeBlock(block)
-	defer _cleanup2()
+_block2, _ := NewObjectTypeBlock(block)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("differenceFromOrderedSet:withOptions:usingEquivalenceTest:"), other, options, _block2)
 	return NSOrderedCollectionDifferenceFromID(rv)
 }

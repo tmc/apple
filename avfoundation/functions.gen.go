@@ -8,7 +8,6 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // registerFunc resolves a framework symbol and registers it as a Go function.
@@ -97,24 +96,24 @@ func AVCaptureTimecodeAdvancedByFrames(timecode AVCaptureTimecode, framesToAdd i
 	return _aVCaptureTimecodeAdvancedByFrames(timecode, framesToAdd)
 }
 
-var _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp func(timecode AVCaptureTimecode, presentationTimeStamp uintptr) objectivec.IObject
+var _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp func(timecode AVCaptureTimecode, presentationTimeStamp uintptr) uintptr
 
 // AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp creates a sample buffer containing Timecode Media Description metadata for integration with a video track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode/createMetadataSampleBuffer(from:associatedWithPresentationTimeStamp:)
-func AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode AVCaptureTimecode, presentationTimeStamp uintptr) objectivec.IObject {
+func AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode AVCaptureTimecode, presentationTimeStamp uintptr) uintptr {
 	if _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp == nil {
 		panic("AVFoundation: symbol AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp not loaded")
 	}
 	return _aVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(timecode, presentationTimeStamp)
 }
 
-var _aVCaptureTimecodeCreateMetadataSampleBufferForDuration func(timecode AVCaptureTimecode, duration uintptr) objectivec.IObject
+var _aVCaptureTimecodeCreateMetadataSampleBufferForDuration func(timecode AVCaptureTimecode, duration uintptr) uintptr
 
 // AVCaptureTimecodeCreateMetadataSampleBufferForDuration creates a sample buffer containing Timecode Media Description metadata for a specified duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode/createMetadataSampleBuffer(from:forDuration:)
-func AVCaptureTimecodeCreateMetadataSampleBufferForDuration(timecode AVCaptureTimecode, duration uintptr) objectivec.IObject {
+func AVCaptureTimecodeCreateMetadataSampleBufferForDuration(timecode AVCaptureTimecode, duration uintptr) uintptr {
 	if _aVCaptureTimecodeCreateMetadataSampleBufferForDuration == nil {
 		panic("AVFoundation: symbol AVCaptureTimecodeCreateMetadataSampleBufferForDuration not loaded")
 	}

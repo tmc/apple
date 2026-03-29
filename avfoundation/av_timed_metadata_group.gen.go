@@ -30,6 +30,11 @@ type AVTimedMetadataGroupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVTimedMetadataGroupClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVTimedMetadataGroupClass) Alloc() AVTimedMetadataGroup {
 	rv := objc.Send[AVTimedMetadataGroup](objc.ID(ac.class), objc.Sel("alloc"))
@@ -51,6 +56,10 @@ func (ac AVTimedMetadataGroupClass) Alloc() AVTimedMetadataGroup {
 // # Accessing group attributes
 //
 //   - [AVTimedMetadataGroup.TimeRange]: The time range for the timed metadata.
+//
+// # Creating a format description
+//
+//   - [AVTimedMetadataGroup.CopyFormatDescription]: Creates a format description based on the receiver’s items.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup
 type AVTimedMetadataGroup struct {
@@ -77,6 +86,10 @@ func AVTimedMetadataGroupFromID(id objc.ID) AVTimedMetadataGroup {
 //
 //   - [IAVTimedMetadataGroup.TimeRange]: The time range for the timed metadata.
 //
+// # Creating a format description
+//
+//   - [IAVTimedMetadataGroup.CopyFormatDescription]: Creates a format description based on the receiver’s items.
+//
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup
 type IAVTimedMetadataGroup interface {
 	IAVMetadataGroup
@@ -84,12 +97,17 @@ type IAVTimedMetadataGroup interface {
 	// Topic: Creating a timed metadata group
 
 	// Creates a timed metadata group initialized with the given metadata items.
-	InitWithItemsTimeRange(items []AVMetadataItem, timeRange objectivec.IObject) AVTimedMetadataGroup
+	InitWithItemsTimeRange(items []AVMetadataItem, timeRange uintptr) AVTimedMetadataGroup
 
 	// Topic: Accessing group attributes
 
 	// The time range for the timed metadata.
-	TimeRange() objectivec.IObject
+	TimeRange() uintptr
+
+	// Topic: Creating a format description
+
+	// Creates a format description based on the receiver’s items.
+	CopyFormatDescription() objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -122,8 +140,7 @@ func NewAVTimedMetadataGroup() AVTimedMetadataGroup {
 // A metadata group initialized with `items`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/init(items:timeRange:)
-// timeRange is a [coremedia.CMTimeRange].
-func NewTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange objectivec.IObject) AVTimedMetadataGroup {
+func NewTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange uintptr) AVTimedMetadataGroup {
 	instance := getAVTimedMetadataGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:timeRange:"), objectivec.IObjectSliceToNSArray(items), timeRange)
 	return AVTimedMetadataGroupFromID(rv)
@@ -135,23 +152,44 @@ func NewTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange o
 //
 // timeRange: The time range of the metadata contained in `items`.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // # Return Value
 // 
 // A metadata group initialized with `items`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/init(items:timeRange:)
-func (t AVTimedMetadataGroup) InitWithItemsTimeRange(items []AVMetadataItem, timeRange objectivec.IObject) AVTimedMetadataGroup {
+func (t AVTimedMetadataGroup) InitWithItemsTimeRange(items []AVMetadataItem, timeRange uintptr) AVTimedMetadataGroup {
 	rv := objc.Send[AVTimedMetadataGroup](t.ID, objc.Sel("initWithItems:timeRange:"), objectivec.IObjectSliceToNSArray(items), timeRange)
 	return rv
+}
+// Creates a format description based on the receiver’s items.
+//
+// # Return Value
+// 
+// An instance of [CMMetadataFormatDescription] sufficient to describe the
+// contents of all the items referenced by the object.
+//
+// [CMMetadataFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMMetadataFormatDescription
+//
+// # Discussion
+// 
+// The returned format description is suitable for use as the format hint
+// parameter when creating an instance of [AVAssetWriterInput].
+// 
+// Each item referenced by the receiver must carry a non-`nil` value for its
+// `dataType` property. An exception will be thrown if any item does not have
+// a data type.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/copyFormatDescription()
+func (t AVTimedMetadataGroup) CopyFormatDescription() objectivec.IObject {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("copyFormatDescription"))
+	return objectivec.Object{ID: rv}
 }
 
 // The time range for the timed metadata.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/timeRange
-func (t AVTimedMetadataGroup) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (t AVTimedMetadataGroup) TimeRange() uintptr {
+	rv := objc.Send[uintptr](t.ID, objc.Sel("timeRange"))
+	return rv
 }
 

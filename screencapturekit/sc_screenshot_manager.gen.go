@@ -33,6 +33,11 @@ type SCScreenshotManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCScreenshotManagerClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCScreenshotManagerClass) Alloc() SCScreenshotManager {
 	rv := objc.Send[SCScreenshotManager](objc.ID(sc.class), objc.Sel("alloc"))
@@ -91,8 +96,7 @@ func NewSCScreenshotManager() SCScreenshotManager {
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureImage(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureImageWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCStreamConfiguration, completionHandler CGImageRefErrorHandler) {
-_block2, _cleanup2 := NewCGImageRefErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewCGImageRefErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
 // Captures a single frame directly from a stream’s buffer, using a filter.
@@ -105,8 +109,7 @@ _block2, _cleanup2 := NewCGImageRefErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureSampleBuffer(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureSampleBufferWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCStreamConfiguration, completionHandler CMSampleBufferRefErrorHandler) {
-_block2, _cleanup2 := NewCMSampleBufferRefErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewCMSampleBufferRefErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureSampleBufferWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
 //
@@ -124,8 +127,7 @@ _block2, _cleanup2 := NewCMSampleBufferRefErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureImage(in:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureImageInRectCompletionHandler(rect corefoundation.CGRect, completionHandler CGImageRefErrorHandler) {
-_block1, _cleanup1 := NewCGImageRefErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewCGImageRefErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureImageInRect:completionHandler:"), rect, _block1)
 }
 //
@@ -146,8 +148,7 @@ _block1, _cleanup1 := NewCGImageRefErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureScreenshot(contentFilter:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureScreenshotWithFilterConfigurationCompletionHandler(contentFilter ISCContentFilter, config ISCScreenshotConfiguration, completionHandler SCScreenshotOutputErrorHandler) {
-_block2, _cleanup2 := NewSCScreenshotOutputErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewSCScreenshotOutputErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithFilter:configuration:completionHandler:"), contentFilter, config, _block2)
 }
 //
@@ -169,8 +170,7 @@ _block2, _cleanup2 := NewSCScreenshotOutputErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCScreenshotManager/captureScreenshot(rect:configuration:completionHandler:)
 func (_SCScreenshotManagerClass SCScreenshotManagerClass) CaptureScreenshotWithRectConfigurationCompletionHandler(rect corefoundation.CGRect, config ISCScreenshotConfiguration, completionHandler SCScreenshotOutputErrorHandler) {
-_block2, _cleanup2 := NewSCScreenshotOutputErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewSCScreenshotOutputErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_SCScreenshotManagerClass.class), objc.Sel("captureScreenshotWithRect:configuration:completionHandler:"), rect, config, _block2)
 }
 

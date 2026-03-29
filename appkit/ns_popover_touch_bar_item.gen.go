@@ -31,6 +31,11 @@ type NSPopoverTouchBarItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPopoverTouchBarItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPopoverTouchBarItemClass) Alloc() NSPopoverTouchBarItem {
 	rv := objc.Send[NSPopoverTouchBarItem](objc.ID(nc.class), objc.Sel("alloc"))

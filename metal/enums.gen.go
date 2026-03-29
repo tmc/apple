@@ -4393,12 +4393,12 @@ const (
 	MTLTensorDataTypeFloat32 MTLTensorDataType = 3
 	MTLTensorDataTypeInt16 MTLTensorDataType = 37
 	MTLTensorDataTypeInt32 MTLTensorDataType = 29
-	MTLTensorDataTypeInt4 MTLTensorDataType = 0
+	MTLTensorDataTypeInt4 MTLTensorDataType = 143
 	MTLTensorDataTypeInt8 MTLTensorDataType = 45
 	MTLTensorDataTypeNone MTLTensorDataType = 0
 	MTLTensorDataTypeUInt16 MTLTensorDataType = 41
 	MTLTensorDataTypeUInt32 MTLTensorDataType = 33
-	MTLTensorDataTypeUInt4 MTLTensorDataType = 0
+	MTLTensorDataTypeUInt4 MTLTensorDataType = 144
 	MTLTensorDataTypeUInt8 MTLTensorDataType = 49
 )
 
@@ -4418,10 +4418,14 @@ func (e MTLTensorDataType) String() string {
 		return "MTLTensorDataTypeInt4"
 	case MTLTensorDataTypeInt8:
 		return "MTLTensorDataTypeInt8"
+	case MTLTensorDataTypeNone:
+		return "MTLTensorDataTypeNone"
 	case MTLTensorDataTypeUInt16:
 		return "MTLTensorDataTypeUInt16"
 	case MTLTensorDataTypeUInt32:
 		return "MTLTensorDataTypeUInt32"
+	case MTLTensorDataTypeUInt4:
+		return "MTLTensorDataTypeUInt4"
 	case MTLTensorDataTypeUInt8:
 		return "MTLTensorDataTypeUInt8"
 	default:

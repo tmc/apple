@@ -31,6 +31,11 @@ type NSTokenFieldClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTokenFieldClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTokenFieldClass) Alloc() NSTokenField {
 	rv := objc.Send[NSTokenField](objc.ID(nc.class), objc.Sel("alloc"))

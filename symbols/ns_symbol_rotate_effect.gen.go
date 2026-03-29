@@ -29,6 +29,11 @@ type NSSymbolRotateEffectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSymbolRotateEffectClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSymbolRotateEffectClass) Alloc() NSSymbolRotateEffect {
 	rv := objc.Send[NSSymbolRotateEffect](objc.ID(nc.class), objc.Sel("alloc"))

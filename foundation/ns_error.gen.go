@@ -31,6 +31,11 @@ type NSErrorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSErrorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSErrorClass) Alloc() NSError {
 	rv := objc.Send[NSError](objc.ID(nc.class), objc.Sel("alloc"))
@@ -393,20 +398,29 @@ func (_NSErrorClass NSErrorClass) UserInfoValueProviderForDomain(errorDomain NSE
 // Returns a properly formatted error object with a
 // [NSFileProviderItemCollisionError] error code.
 //
+// existingItem is a [fileprovider.NSFileProviderItem].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForCollision(with:)
-func (_NSErrorClass NSErrorClass) FileProviderErrorForCollisionWithItem(existingItem objectivec.Id) NSError {
+// existingItem is a [fileprovider.NSFileProviderItem].
+func (_NSErrorClass NSErrorClass) FileProviderErrorForCollisionWithItem(existingItem objectivec.IObject) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForCollisionWithItem:"), existingItem)
 	return NSErrorFromID(rv)
 }
 //
+// itemIdentifier is a [fileprovider.NSFileProviderItemIdentifier].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForNonExistentItem(withIdentifier:)
-func (_NSErrorClass NSErrorClass) FileProviderErrorForNonExistentItemWithIdentifier(itemIdentifier INSString) NSError {
+// itemIdentifier is a [fileprovider.NSFileProviderItemIdentifier].
+func (_NSErrorClass NSErrorClass) FileProviderErrorForNonExistentItemWithIdentifier(itemIdentifier objectivec.IObject) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForNonExistentItemWithIdentifier:"), itemIdentifier)
 	return NSErrorFromID(rv)
 }
 //
+// updatedVersion is a [fileprovider.NSFileProviderItem].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForRejectedDeletion(of:)
-func (_NSErrorClass NSErrorClass) FileProviderErrorForRejectedDeletionOfItem(updatedVersion objectivec.Id) NSError {
+// updatedVersion is a [fileprovider.NSFileProviderItem].
+func (_NSErrorClass NSErrorClass) FileProviderErrorForRejectedDeletionOfItem(updatedVersion objectivec.IObject) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForRejectedDeletionOfItem:"), updatedVersion)
 	return NSErrorFromID(rv)
 }

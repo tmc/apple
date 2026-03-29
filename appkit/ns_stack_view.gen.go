@@ -32,6 +32,11 @@ type NSStackViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSStackViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSStackViewClass) Alloc() NSStackView {
 	rv := objc.Send[NSStackView](objc.ID(nc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type MTL4PipelineStageDynamicLinkingDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4PipelineStageDynamicLinkingDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4PipelineStageDynamicLinkingDescriptorClass) Alloc() MTL4PipelineStageDynamicLinkingDescriptor {
 	rv := objc.Send[MTL4PipelineStageDynamicLinkingDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

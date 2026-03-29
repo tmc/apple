@@ -29,6 +29,11 @@ type UnitLengthClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitLengthClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitLengthClass) Alloc() UnitLength {
 	rv := objc.Send[UnitLength](objc.ID(uc.class), objc.Sel("alloc"))

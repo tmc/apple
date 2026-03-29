@@ -30,6 +30,11 @@ type VZConsoleDeviceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZConsoleDeviceClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZConsoleDeviceClass) Alloc() VZConsoleDevice {
 	rv := objc.Send[VZConsoleDevice](objc.ID(vc.class), objc.Sel("alloc"))

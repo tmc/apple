@@ -30,6 +30,11 @@ type MLCPUComputeDeviceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLCPUComputeDeviceClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLCPUComputeDeviceClass) Alloc() MLCPUComputeDevice {
 	rv := objc.Send[MLCPUComputeDevice](objc.ID(mc.class), objc.Sel("alloc"))

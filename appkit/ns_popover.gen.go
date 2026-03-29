@@ -33,6 +33,11 @@ type NSPopoverClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPopoverClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPopoverClass) Alloc() NSPopover {
 	rv := objc.Send[NSPopover](objc.ID(nc.class), objc.Sel("alloc"))
@@ -164,8 +169,6 @@ func NSPopoverFromID(id objc.ID) NSPopover {
 // See: https://developer.apple.com/documentation/AppKit/NSPopover
 type INSPopover interface {
 	INSResponder
-	NSAccessibilityElementProtocol
-	NSAccessibilityProtocol
 
 	// Topic: Accessing a Popover’s Content View Controller
 

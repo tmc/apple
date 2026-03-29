@@ -31,6 +31,11 @@ type NSDecimalNumberClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDecimalNumberClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDecimalNumberClass) Alloc() NSDecimalNumber {
 	rv := objc.Send[NSDecimalNumber](objc.ID(nc.class), objc.Sel("alloc"))

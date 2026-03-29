@@ -35,6 +35,11 @@ type VZVirtualMachineClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZVirtualMachineClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 	rv := objc.Send[VZVirtualMachine](objc.ID(vc.class), objc.Sel("alloc"))
@@ -353,8 +358,7 @@ func (v VZVirtualMachine) InitWithConfigurationQueue(configuration IVZVirtualMac
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/start()
 func (v VZVirtualMachine) StartWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("startWithCompletionHandler:"), _block0)
 }
 // Starts the VM with the options and a completion handler you provide.
@@ -372,8 +376,7 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/start(options:completionHandler:)
 func (v VZVirtualMachine) StartWithOptionsCompletionHandler(options IVZVirtualMachineStartOptions, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("startWithOptions:completionHandler:"), options, _block1)
 }
 // Stops a VM that’s in either a running or paused state.
@@ -388,8 +391,7 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/stop(completionHandler:)
 func (v VZVirtualMachine) StopWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("stopWithCompletionHandler:"), _block0)
 }
 // Asks the guest operating system to stop running.
@@ -424,8 +426,7 @@ func (v VZVirtualMachine) RequestStopWithError() (bool, error) {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/pause()
 func (v VZVirtualMachine) PauseWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("pauseWithCompletionHandler:"), _block0)
 }
 // Resumes a paused VM and notifies the specified completion handler of the
@@ -439,8 +440,7 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/resume()
 func (v VZVirtualMachine) ResumeWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("resumeWithCompletionHandler:"), _block0)
 }
 // Saves the state of a VM.
@@ -470,8 +470,7 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/saveMachineStateTo(url:completionHandler:)
 func (v VZVirtualMachine) SaveMachineStateToURLCompletionHandler(saveFileURL foundation.INSURL, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("saveMachineStateToURL:completionHandler:"), saveFileURL, _block1)
 }
 // Restores a VM from a previously saved state.
@@ -503,8 +502,7 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/restoreMachineStateFrom(url:completionHandler:)
 func (v VZVirtualMachine) RestoreMachineStateFromURLCompletionHandler(saveFileURL foundation.INSURL, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("restoreMachineStateFromURL:completionHandler:"), saveFileURL, _block1)
 }
 

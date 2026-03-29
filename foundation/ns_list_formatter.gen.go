@@ -30,6 +30,11 @@ type ListFormatterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (lc ListFormatterClass) Class() objc.Class {
+	return lc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (lc ListFormatterClass) Alloc() ListFormatter {
 	rv := objc.Send[ListFormatter](objc.ID(lc.class), objc.Sel("alloc"))

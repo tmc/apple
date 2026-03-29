@@ -30,6 +30,11 @@ type AVPlayerItemMediaDataCollectorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerItemMediaDataCollectorClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerItemMediaDataCollectorClass) Alloc() AVPlayerItemMediaDataCollector {
 	rv := objc.Send[AVPlayerItemMediaDataCollector](objc.ID(ac.class), objc.Sel("alloc"))

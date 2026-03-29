@@ -30,6 +30,11 @@ type ISAClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ic ISAClass) Class() objc.Class {
+	return ic.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ic ISAClass) Alloc() ISA {
 	rv := objc.Send[ISA](objc.ID(ic.class), objc.Sel("alloc"))

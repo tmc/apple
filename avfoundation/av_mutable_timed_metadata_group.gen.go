@@ -30,6 +30,11 @@ type AVMutableTimedMetadataGroupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMutableTimedMetadataGroupClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMutableTimedMetadataGroupClass) Alloc() AVMutableTimedMetadataGroup {
 	rv := objc.Send[AVMutableTimedMetadataGroup](objc.ID(ac.class), objc.Sel("alloc"))
@@ -91,8 +96,7 @@ func NewAVMutableTimedMetadataGroup() AVMutableTimedMetadataGroup {
 // A metadata group initialized with `items`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVTimedMetadataGroup/init(items:timeRange:)
-// timeRange is a [coremedia.CMTimeRange].
-func NewMutableTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange objectivec.IObject) AVMutableTimedMetadataGroup {
+func NewMutableTimedMetadataGroupWithItemsTimeRange(items []AVMetadataItem, timeRange uintptr) AVMutableTimedMetadataGroup {
 	instance := getAVMutableTimedMetadataGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithItems:timeRange:"), objectivec.IObjectSliceToNSArray(items), timeRange)
 	return AVMutableTimedMetadataGroupFromID(rv)

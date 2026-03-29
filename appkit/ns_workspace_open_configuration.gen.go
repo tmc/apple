@@ -31,6 +31,11 @@ type NSWorkspaceOpenConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSWorkspaceOpenConfigurationClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSWorkspaceOpenConfigurationClass) Alloc() NSWorkspaceOpenConfiguration {
 	rv := objc.Send[NSWorkspaceOpenConfiguration](objc.ID(nc.class), objc.Sel("alloc"))

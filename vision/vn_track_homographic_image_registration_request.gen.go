@@ -30,6 +30,11 @@ type VNTrackHomographicImageRegistrationRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNTrackHomographicImageRegistrationRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNTrackHomographicImageRegistrationRequestClass) Alloc() VNTrackHomographicImageRegistrationRequest {
 	rv := objc.Send[VNTrackHomographicImageRegistrationRequest](objc.ID(vc.class), objc.Sel("alloc"))

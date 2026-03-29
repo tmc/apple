@@ -33,6 +33,11 @@ type NSTextLayoutFragmentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextLayoutFragmentClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextLayoutFragmentClass) Alloc() NSTextLayoutFragment {
 	rv := objc.Send[NSTextLayoutFragment](objc.ID(nc.class), objc.Sel("alloc"))

@@ -33,6 +33,11 @@ type VNHumanBodyPose3DObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNHumanBodyPose3DObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNHumanBodyPose3DObservationClass) Alloc() VNHumanBodyPose3DObservation {
 	rv := objc.Send[VNHumanBodyPose3DObservation](objc.ID(vc.class), objc.Sel("alloc"))
@@ -253,6 +258,7 @@ func (h VNHumanBodyPose3DObservation) ParentJointNameForJointName(jointName VNHu
 // A Boolean value that indicates the success of determining the position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/getCameraRelativePosition:forJointName:error:
+// modelPositionOut is a [simd.simd_float4x4].
 func (h VNHumanBodyPose3DObservation) GetCameraRelativePositionForJointNameError(modelPositionOut objectivec.IObject, jointName VNHumanBodyPose3DObservationJointName) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](h.ID, objc.Sel("getCameraRelativePosition:forJointName:error:"), modelPositionOut, jointName, unsafe.Pointer(&errorPtr))

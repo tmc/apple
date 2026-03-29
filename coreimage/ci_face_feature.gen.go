@@ -30,6 +30,11 @@ type CIFaceFeatureClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CIFaceFeatureClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CIFaceFeatureClass) Alloc() CIFaceFeature {
 	rv := objc.Send[CIFaceFeature](objc.ID(cc.class), objc.Sel("alloc"))

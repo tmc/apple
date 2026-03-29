@@ -31,6 +31,11 @@ type NSLayoutAnchorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSLayoutAnchorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSLayoutAnchorClass) Alloc() NSLayoutAnchor {
 	rv := objc.Send[NSLayoutAnchor](objc.ID(nc.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type NSCollectionViewTransitionLayoutClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCollectionViewTransitionLayoutClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCollectionViewTransitionLayoutClass) Alloc() NSCollectionViewTransitionLayout {
 	rv := objc.Send[NSCollectionViewTransitionLayout](objc.ID(nc.class), objc.Sel("alloc"))

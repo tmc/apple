@@ -31,6 +31,11 @@ type ProgressClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (pc ProgressClass) Class() objc.Class {
+	return pc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (pc ProgressClass) Alloc() Progress {
 	rv := objc.Send[Progress](objc.ID(pc.class), objc.Sel("alloc"))
@@ -721,8 +726,7 @@ func (p Progress) Unpublish() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProgress/performAsCurrentWithPendingUnitCount:usingBlock:
 func (p Progress) PerformAsCurrentWithPendingUnitCountUsingBlock(unitCount int64, work VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(work)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(work)
 	objc.Send[objc.ID](p.ID, objc.Sel("performAsCurrentWithPendingUnitCount:usingBlock:"), unitCount, _block1)
 }
 
@@ -811,9 +815,9 @@ func (_ProgressClass ProgressClass) CurrentProgress() Progress {
 // [fileURLKey]: https://developer.apple.com/documentation/Foundation/ProgressUserInfoKey/fileURLKey
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/addSubscriber(forFileURL:withPublishingHandler:)
+// publishingHandler is a [foundation.NSProgressPublishingHandler].
 func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler(url INSURL, publishingHandler ErrorHandler) objectivec.IObject {
-_block1, _cleanup1 := NewErrorBlock(publishingHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(publishingHandler)
 	rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("addSubscriberForFileURL:withPublishingHandler:"), url, _block1)
 	return objectivec.Object{ID: rv}
 }

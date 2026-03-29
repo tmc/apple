@@ -30,6 +30,11 @@ type AVFragmentedAssetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVFragmentedAssetClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVFragmentedAssetClass) Alloc() AVFragmentedAsset {
 	rv := objc.Send[AVFragmentedAsset](objc.ID(ac.class), objc.Sel("alloc"))
@@ -168,19 +173,6 @@ func (_AVFragmentedAssetClass AVFragmentedAssetClass) FragmentedAssetWithURLOpti
 	return AVFragmentedAssetFromID(rv)
 }
 
-// A Boolean value that indicates whether an asset that supports fragment
-// minding is currently associated with a fragment minder.
-//
-// # Discussion
-// 
-// Only asset objects associated with a fragment minder post change
-// notifications.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
-func (f AVFragmentedAsset) AssociatedWithFragmentMinder() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("isAssociatedWithFragmentMinder"))
-	return rv
-}
 // A Boolean value that indicates whether you can extend the asset by
 // fragments.
 //

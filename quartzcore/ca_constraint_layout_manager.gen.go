@@ -32,6 +32,11 @@ type CAConstraintLayoutManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAConstraintLayoutManagerClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAConstraintLayoutManagerClass) Alloc() CAConstraintLayoutManager {
 	rv := objc.Send[CAConstraintLayoutManager](objc.ID(cc.class), objc.Sel("alloc"))

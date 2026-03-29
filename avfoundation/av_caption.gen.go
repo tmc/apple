@@ -32,6 +32,11 @@ type AVCaptionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptionClass) Alloc() AVCaption {
 	rv := objc.Send[AVCaption](objc.ID(ac.class), objc.Sel("alloc"))
@@ -112,14 +117,14 @@ type IAVCaption interface {
 	// Topic: Creating a caption
 
 	// Creates a caption that contains text and a time range.
-	InitWithTextTimeRange(text string, timeRange objectivec.IObject) AVCaption
+	InitWithTextTimeRange(text string, timeRange uintptr) AVCaption
 
 	// Topic: Accessing text and timing
 
 	// The caption text.
 	Text() string
 	// The time range over which the system presents the caption.
-	TimeRange() objectivec.IObject
+	TimeRange() uintptr
 
 	// Topic: Accessing the region
 
@@ -179,8 +184,7 @@ func NewAVCaption() AVCaption {
 // timeRange: The range of time when the caption is active.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(_:timeRange:)
-// timeRange is a [coremedia.CMTimeRange].
-func NewCaptionWithTextTimeRange(text string, timeRange objectivec.IObject) AVCaption {
+func NewCaptionWithTextTimeRange(text string, timeRange uintptr) AVCaption {
 	instance := getAVCaptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithText:timeRange:"), objc.String(text), timeRange)
 	return AVCaptionFromID(rv)
@@ -192,10 +196,8 @@ func NewCaptionWithTextTimeRange(text string, timeRange objectivec.IObject) AVCa
 //
 // timeRange: The range of time when the caption is active.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(_:timeRange:)
-func (c AVCaption) InitWithTextTimeRange(text string, timeRange objectivec.IObject) AVCaption {
+func (c AVCaption) InitWithTextTimeRange(text string, timeRange uintptr) AVCaption {
 	rv := objc.Send[AVCaption](c.ID, objc.Sel("initWithText:timeRange:"), objc.String(text), timeRange)
 	return rv
 }
@@ -341,9 +343,9 @@ func (c AVCaption) Text() string {
 // rate.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/timeRange
-func (c AVCaption) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (c AVCaption) TimeRange() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("timeRange"))
+	return rv
 }
 // The region in which the caption exists.
 //

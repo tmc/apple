@@ -44,6 +44,8 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLCounterErrorDomain
 	MTLCounterErrorDomain foundation.NSErrorDomain
+	// See: https://developer.apple.com/documentation/Metal/MTLDeviceErrorDomain
+	MTLDeviceErrorDomain foundation.NSErrorDomain
 	// MTLDynamicLibraryDomain is the domain for Metal dynamic library errors.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDynamicLibraryDomain
@@ -229,6 +231,16 @@ func init() {
 			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
 			if cstr != nil {
 				MTLCounterErrorDomain = foundation.NSErrorDomain(objc.GoString(cstr))
+			}
+		}
+	}
+
+	if ptr, err := purego.Dlsym(frameworkHandle, "MTLDeviceErrorDomain"); err == nil && ptr != 0 {
+		nsStringID := objc.IDValueAt(ptr)
+		if nsStringID != 0 {
+			cstr := objc.Send[*byte](nsStringID, objc.Sel("UTF8String"))
+			if cstr != nil {
+				MTLDeviceErrorDomain = foundation.NSErrorDomain(objc.GoString(cstr))
 			}
 		}
 	}

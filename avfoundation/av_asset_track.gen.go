@@ -32,6 +32,11 @@ type AVAssetTrackClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetTrackClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetTrackClass) Alloc() AVAssetTrack {
 	rv := objc.Send[AVAssetTrack](objc.ID(ac.class), objc.Sel("alloc"))
@@ -138,14 +143,14 @@ type IAVAssetTrack interface {
 	// Topic: Loading track segments
 
 	// Loads a segment with a target time range that contains, or is closest to, the specified track time.
-	LoadSegmentForTrackTimeCompletionHandler(trackTime objectivec.IObject, completionHandler AVAssetTrackSegmentErrorHandler)
+	LoadSegmentForTrackTimeCompletionHandler(trackTime uintptr, completionHandler AVAssetTrackSegmentErrorHandler)
 	// Loads a sample presentation time that maps to the specified track time.
-	LoadSamplePresentationTimeForTrackTimeCompletionHandler(trackTime objectivec.IObject, completionHandler CMTimeErrorHandler)
+	LoadSamplePresentationTimeForTrackTimeCompletionHandler(trackTime uintptr, completionHandler CMTimeErrorHandler)
 
 	// Topic: Creating sample cursors
 
 	// Creates a sample cursor and positions it at or near the specified presentation timestamp.
-	MakeSampleCursorWithPresentationTimeStamp(presentationTimeStamp objectivec.IObject) IAVSampleCursor
+	MakeSampleCursorWithPresentationTimeStamp(presentationTimeStamp uintptr) IAVSampleCursor
 	// Creates a sample cursor and positions it at the track’s first media sample in decode order.
 	MakeSampleCursorAtFirstSampleInDecodeOrder() IAVSampleCursor
 	// Creates a sample cursor and positions it at the track’s last media sample in decode order.
@@ -182,17 +187,14 @@ func NewAVAssetTrack() AVAssetTrack {
 // segment: The loaded track segment, or `nil` if an error occurs. error: An
 // error object if the request fails; otherwise, `nil`.
 //
-// trackTime is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // If the specified track time doesn’t map to a sample presentation time,
 // the system returns the segment with the closest matching time.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/loadSegment(forTrackTime:completionHandler:)
-func (a AVAssetTrack) LoadSegmentForTrackTimeCompletionHandler(trackTime objectivec.IObject, completionHandler AVAssetTrackSegmentErrorHandler) {
-_block1, _cleanup1 := NewAVAssetTrackSegmentErrorBlock(completionHandler)
-	defer _cleanup1()
+func (a AVAssetTrack) LoadSegmentForTrackTimeCompletionHandler(trackTime uintptr, completionHandler AVAssetTrackSegmentErrorHandler) {
+_block1, _ := NewAVAssetTrackSegmentErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadSegmentForTrackTime:completionHandler:"), trackTime, _block1)
 }
 // Loads a sample presentation time that maps to the specified track time.
@@ -209,20 +211,15 @@ _block1, _cleanup1 := NewAVAssetTrackSegmentErrorBlock(completionHandler)
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
-// trackTime is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/loadSamplePresentationTime(forTrackTime:completionHandler:)
-func (a AVAssetTrack) LoadSamplePresentationTimeForTrackTimeCompletionHandler(trackTime objectivec.IObject, completionHandler CMTimeErrorHandler) {
-_block1, _cleanup1 := NewCMTimeErrorBlock(completionHandler)
-	defer _cleanup1()
+func (a AVAssetTrack) LoadSamplePresentationTimeForTrackTimeCompletionHandler(trackTime uintptr, completionHandler CMTimeErrorHandler) {
+_block1, _ := NewCMTimeErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadSamplePresentationTimeForTrackTime:completionHandler:"), trackTime, _block1)
 }
 // Creates a sample cursor and positions it at or near the specified
 // presentation timestamp.
 //
 // presentationTimeStamp: The initial presentation timestamp of the sample cursor.
-//
-// presentationTimeStamp is a [coremedia.CMTime].
 //
 // # Return Value
 // 
@@ -246,7 +243,7 @@ _block1, _cleanup1 := NewCMTimeErrorBlock(completionHandler)
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrack/makeSampleCursor(presentationTimeStamp:)
-func (a AVAssetTrack) MakeSampleCursorWithPresentationTimeStamp(presentationTimeStamp objectivec.IObject) IAVSampleCursor {
+func (a AVAssetTrack) MakeSampleCursorWithPresentationTimeStamp(presentationTimeStamp uintptr) IAVSampleCursor {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("makeSampleCursorWithPresentationTimeStamp:"), presentationTimeStamp)
 	return AVSampleCursorFromID(rv)
 }
@@ -312,7 +309,7 @@ func (a AVAssetTrack) SetMediaCharacteristics(value AVMediaCharacteristic) {
 
 // LoadSegmentForTrackTime is a synchronous wrapper around [AVAssetTrack.LoadSegmentForTrackTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetTrack) LoadSegmentForTrackTime(ctx context.Context, trackTime objectivec.IObject) (*AVAssetTrackSegment, error) {
+func (a AVAssetTrack) LoadSegmentForTrackTime(ctx context.Context, trackTime uintptr) (*AVAssetTrackSegment, error) {
 	type result struct {
 		val *AVAssetTrackSegment
 		err error
@@ -331,20 +328,20 @@ func (a AVAssetTrack) LoadSegmentForTrackTime(ctx context.Context, trackTime obj
 
 // LoadSamplePresentationTimeForTrackTime is a synchronous wrapper around [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetTrack) LoadSamplePresentationTimeForTrackTime(ctx context.Context, trackTime objectivec.IObject) (objectivec.IObject, error) {
+func (a AVAssetTrack) LoadSamplePresentationTimeForTrackTime(ctx context.Context, trackTime uintptr) (uintptr, error) {
 	type result struct {
-		val objectivec.IObject
+		val uintptr
 		err error
 	}
 	done := make(chan result, 1)
-	a.LoadSamplePresentationTimeForTrackTimeCompletionHandler(trackTime, func(val objectivec.IObject, err error) {
+	a.LoadSamplePresentationTimeForTrackTimeCompletionHandler(trackTime, func(val uintptr, err error) {
 		done <- result{val, err}
 	})
 	select {
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return nil, ctx.Err()
+		return 0, ctx.Err()
 	}
 }
 

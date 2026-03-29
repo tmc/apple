@@ -33,6 +33,11 @@ type NSFontCollectionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFontCollectionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFontCollectionClass) Alloc() NSFontCollection {
 	rv := objc.Send[NSFontCollection](objc.ID(nc.class), objc.Sel("alloc"))

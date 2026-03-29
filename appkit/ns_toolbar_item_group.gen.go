@@ -30,6 +30,11 @@ type NSToolbarItemGroupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSToolbarItemGroupClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSToolbarItemGroupClass) Alloc() NSToolbarItemGroup {
 	rv := objc.Send[NSToolbarItemGroup](objc.ID(nc.class), objc.Sel("alloc"))

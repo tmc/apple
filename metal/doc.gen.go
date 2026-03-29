@@ -26,7 +26,7 @@
 //
 //   - Render passes: Encode a render pass to draw graphics into an image. ([MTL4RenderCommandEncoder], [MTLRenderCommandEncoder], [MTL4RenderEncoderOptions], [MTLTriangleFillMode], [MTLWinding])
 //   - Compute passes: Encode a compute pass that runs computations in parallel on a thread grid, processing and manipulating Metal resource data on multiple cores of a GPU. ([MTL4ComputeCommandEncoder], [MTLComputeCommandEncoder], [MTL4ComputePipelineDescriptor], [MTLComputePipelineDescriptor], [MTLComputePipelineState])
-//   - Machine-learning passes: Add machine-learning model inference to your Metal app’s GPU workflow. ([MTL4MachineLearningCommandEncoder], [MTL4MachineLearningPipelineState], [MTL4MachineLearningPipelineDescriptor], [MTL4MachineLearningPipelineReflection])
+//   - Machine learning passes: Add machine learning model inference to your Metal app’s GPU workflow. ([MTL4MachineLearningCommandEncoder], [MTL4MachineLearningPipelineState], [MTL4MachineLearningPipelineDescriptor], [MTL4MachineLearningPipelineReflection])
 //   - Blit passes: Encode a block information transfer pass to adjust and copy data to and from GPU resources, such as buffers and textures. ([MTLBlitCommandEncoder], [MTLBlitOption], [MTLBlitPassDescriptor], [MTLBlitPassSampleBufferAttachmentDescriptor], [MTLBlitPassSampleBufferAttachmentDescriptorArray])
 //   - Indirect command encoding: Store draw commands in Metal buffers and run them at a later time on the GPU, either once or repeatedly. ([MTLIndirectCommandBuffer], [MTLIndirectCommandBufferDescriptor], [MTLIndirectCommandType], [MTLIndirectCommandBufferExecutionRange], [MTLIndirectComputeCommand])
 //   - Ray tracing with acceleration structures: Build a representation of your scene’s geometry using triangles and bounding volumes to quickly trace rays through the scene. ([MTLAccelerationStructure], [MTL4AccelerationStructureDescriptor], [MTLAccelerationStructureDescriptor], [MTL4PrimitiveAccelerationStructureDescriptor], [MTLPrimitiveAccelerationStructureDescriptor])
@@ -70,6 +70,10 @@
 //
 //   - Porting your Metal code to Apple silicon: Create a version of your Metal app that runs on both Apple silicon and Intel-based Mac computers.
 //   - Tailor your apps for Apple GPUs and tile-based deferred rendering: Learn about characteristic Apple GPU features, including imageblocks, tile shaders, and raster order groups.
+//
+// # Variables
+//
+//   - MTLDeviceErrorDomain
 //
 // # Key Types
 //

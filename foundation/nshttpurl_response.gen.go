@@ -29,6 +29,11 @@ type HTTPURLResponseClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (hc HTTPURLResponseClass) Class() objc.Class {
+	return hc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (hc HTTPURLResponseClass) Alloc() HTTPURLResponse {
 	rv := objc.Send[HTTPURLResponse](objc.ID(hc.class), objc.Sel("alloc"))

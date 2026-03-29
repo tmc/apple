@@ -31,6 +31,11 @@ type NSPageLayoutClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPageLayoutClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPageLayoutClass) Alloc() NSPageLayout {
 	rv := objc.Send[NSPageLayout](objc.ID(nc.class), objc.Sel("alloc"))
@@ -151,8 +156,7 @@ func NewNSPageLayout() NSPageLayout {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPageLayout/beginSheet(using:on:completionHandler:)
 func (p NSPageLayout) BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler PageLayoutResultHandler) {
-_block2, _cleanup2 := NewPageLayoutResultBlock(handler)
-	defer _cleanup2()
+_block2, _ := NewPageLayoutResultBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetUsingPrintInfo:onWindow:completionHandler:"), printInfo, parentWindow, _block2)
 }
 // Displays the page layout panel and begins the modal loop using the shared

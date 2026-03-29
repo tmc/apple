@@ -31,6 +31,11 @@ type MLSequenceConstraintClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLSequenceConstraintClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLSequenceConstraintClass) Alloc() MLSequenceConstraint {
 	rv := objc.Send[MLSequenceConstraint](objc.ID(mc.class), objc.Sel("alloc"))

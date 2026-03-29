@@ -31,6 +31,11 @@ type MTLTensorDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLTensorDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLTensorDescriptorClass) Alloc() MTLTensorDescriptor {
 	rv := objc.Send[MTLTensorDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

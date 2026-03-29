@@ -7,7 +7,6 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVPlayerItemVideoOutput] class.
@@ -30,6 +29,11 @@ func GetAVPlayerItemVideoOutputClass() AVPlayerItemVideoOutputClass {
 
 type AVPlayerItemVideoOutputClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerItemVideoOutputClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -118,7 +122,7 @@ type IAVPlayerItemVideoOutput interface {
 	// Topic: Getting pixel buffer data
 
 	// Returns a Boolean value that indicates whether video output is available for the specified item time.
-	HasNewPixelBufferForItemTime(itemTime objectivec.IObject) bool
+	HasNewPixelBufferForItemTime(itemTime uintptr) bool
 }
 
 // Init initializes the instance.
@@ -227,8 +231,6 @@ func (p AVPlayerItemVideoOutput) RequestNotificationOfMediaDataChangeWithAdvance
 // itemTime: The item time to query. The time value is relative to the [AVPlayerItem]
 // object with which the receiver is associated.
 //
-// itemTime is a [coremedia.CMTime].
-//
 // # Return Value
 // 
 // [true] if there is available video output that has not been previously
@@ -248,7 +250,7 @@ func (p AVPlayerItemVideoOutput) RequestNotificationOfMediaDataChangeWithAdvance
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemVideoOutput/hasNewPixelBuffer(forItemTime:)
-func (p AVPlayerItemVideoOutput) HasNewPixelBufferForItemTime(itemTime objectivec.IObject) bool {
+func (p AVPlayerItemVideoOutput) HasNewPixelBufferForItemTime(itemTime uintptr) bool {
 	rv := objc.Send[bool](p.ID, objc.Sel("hasNewPixelBufferForItemTime:"), itemTime)
 	return rv
 }

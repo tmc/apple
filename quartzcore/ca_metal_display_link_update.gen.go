@@ -30,6 +30,11 @@ type CAMetalDisplayLinkUpdateClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAMetalDisplayLinkUpdateClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAMetalDisplayLinkUpdateClass) Alloc() CAMetalDisplayLinkUpdate {
 	rv := objc.Send[CAMetalDisplayLinkUpdate](objc.ID(cc.class), objc.Sel("alloc"))

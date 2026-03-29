@@ -31,6 +31,11 @@ type MLFeatureDescriptionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLFeatureDescriptionClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLFeatureDescriptionClass) Alloc() MLFeatureDescription {
 	rv := objc.Send[MLFeatureDescription](objc.ID(mc.class), objc.Sel("alloc"))

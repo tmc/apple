@@ -36,6 +36,11 @@ type NSViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSViewClass) Alloc() NSView {
 	rv := objc.Send[NSView](objc.ID(nc.class), objc.Sel("alloc"))
@@ -157,8 +162,6 @@ func NSViewFromID(id objc.ID) NSView {
 // See: https://developer.apple.com/documentation/AppKit/NSView
 type INSView interface {
 	INSResponder
-	NSAccessibilityElementProtocol
-	NSAccessibilityProtocol
 	NSAppearanceCustomization
 	NSDraggingDestination
 	NSUserInterfaceItemIdentification
@@ -3853,8 +3856,7 @@ func (v NSView) ShowDefinitionForAttributedStringAtPoint(attrString foundation.N
 //
 // See: https://developer.apple.com/documentation/AppKit/NSView/showDefinition(for:range:options:baselineOriginProvider:)
 func (v NSView) ShowDefinitionForAttributedStringRangeOptionsBaselineOriginProvider(attrString foundation.NSAttributedString, targetRange foundation.NSRange, options foundation.INSDictionary, originProvider RangeHandler) {
-_block3, _cleanup3 := NewRangeBlock(originProvider)
-	defer _cleanup3()
+_block3, _ := NewRangeBlock(originProvider)
 	objc.Send[objc.ID](v.ID, objc.Sel("showDefinitionForAttributedString:range:options:baselineOriginProvider:"), attrString, targetRange, options, _block3)
 }
 // Orders the view’s immediate subviews using the specified comparator

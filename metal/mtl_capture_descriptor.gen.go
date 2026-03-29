@@ -31,6 +31,11 @@ type MTLCaptureDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLCaptureDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLCaptureDescriptorClass) Alloc() MTLCaptureDescriptor {
 	rv := objc.Send[MTLCaptureDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

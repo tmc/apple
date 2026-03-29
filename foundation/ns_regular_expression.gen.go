@@ -31,6 +31,11 @@ type NSRegularExpressionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSRegularExpressionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSRegularExpressionClass) Alloc() NSRegularExpression {
 	rv := objc.Send[NSRegularExpression](objc.ID(nc.class), objc.Sel("alloc"))
@@ -573,8 +578,7 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression/enumerateMatches(in:options:range:using:)
 func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block TextCheckingResultMatchingFlagsHandler) {
-_block3, _cleanup3 := NewTextCheckingResultMatchingFlagsBlock(block)
-	defer _cleanup3()
+_block3, _ := NewTextCheckingResultMatchingFlagsBlock(block)
 	objc.Send[objc.ID](r.ID, objc.Sel("enumerateMatchesInString:options:range:usingBlock:"), objc.String(string_), options, range_, _block3)
 }
 // Returns an array containing all the matches of the regular expression in

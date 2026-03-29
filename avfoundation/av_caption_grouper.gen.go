@@ -30,6 +30,11 @@ type AVCaptionGrouperClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptionGrouperClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptionGrouperClass) Alloc() AVCaptionGrouper {
 	rv := objc.Send[AVCaptionGrouper](objc.ID(ac.class), objc.Sel("alloc"))
@@ -84,7 +89,7 @@ type IAVCaptionGrouper interface {
 	// Topic: Generating captions groups
 
 	// Creates caption groups for the captions you enqueue up to the time.
-	FlushAddedCaptionsIntoGroupsUpToTime(upToTime objectivec.IObject) []AVCaptionGroup
+	FlushAddedCaptionsIntoGroupsUpToTime(upToTime uintptr) []AVCaptionGroup
 }
 
 // Init initializes the instance.
@@ -118,14 +123,12 @@ func (c AVCaptionGrouper) AddCaption(input IAVCaption) {
 //
 // upToTime: The time up to which the system flushes the queue.
 //
-// upToTime is a [coremedia.CMTime].
-//
 // # Return Value
 // 
 // An array of zero or more caption groups.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionGrouper/flushAddedCaptions(upTo:)
-func (c AVCaptionGrouper) FlushAddedCaptionsIntoGroupsUpToTime(upToTime objectivec.IObject) []AVCaptionGroup {
+func (c AVCaptionGrouper) FlushAddedCaptionsIntoGroupsUpToTime(upToTime uintptr) []AVCaptionGroup {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("flushAddedCaptionsIntoGroupsUpToTime:"), upToTime)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVCaptionGroup {
 		return AVCaptionGroupFromID(id)

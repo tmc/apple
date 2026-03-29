@@ -31,6 +31,11 @@ type MTL4BinaryFunctionDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4BinaryFunctionDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4BinaryFunctionDescriptorClass) Alloc() MTL4BinaryFunctionDescriptor {
 	rv := objc.Send[MTL4BinaryFunctionDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

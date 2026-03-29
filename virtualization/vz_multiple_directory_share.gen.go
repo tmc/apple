@@ -32,6 +32,11 @@ type VZMultipleDirectoryShareClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMultipleDirectoryShareClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMultipleDirectoryShareClass) Alloc() VZMultipleDirectoryShare {
 	rv := objc.Send[VZMultipleDirectoryShare](objc.ID(vc.class), objc.Sel("alloc"))

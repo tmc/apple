@@ -30,6 +30,11 @@ type PortMessageClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (pc PortMessageClass) Class() objc.Class {
+	return pc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (pc PortMessageClass) Alloc() PortMessage {
 	rv := objc.Send[PortMessage](objc.ID(pc.class), objc.Sel("alloc"))

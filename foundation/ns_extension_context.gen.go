@@ -31,6 +31,11 @@ type NSExtensionContextClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSExtensionContextClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSExtensionContextClass) Alloc() NSExtensionContext {
 	rv := objc.Send[NSExtensionContext](objc.ID(nc.class), objc.Sel("alloc"))
@@ -238,8 +243,7 @@ func NewNSExtensionContext() NSExtensionContext {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/completeRequest(returningItems:completionHandler:)
 func (e NSExtensionContext) CompleteRequestReturningItemsCompletionHandler(items INSArray, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](e.ID, objc.Sel("completeRequestReturningItems:completionHandler:"), items, _block1)
 }
 // Tells the host app to cancel the app extension request, with a supplied
@@ -277,8 +281,7 @@ func (e NSExtensionContext) CancelRequestWithError(error_ INSError) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/open(_:completionHandler:)
 func (e NSExtensionContext) OpenURLCompletionHandler(URL INSURL, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](e.ID, objc.Sel("openURL:completionHandler:"), URL, _block1)
 }
 // Tells the system that the Notification Content app extension began playing
@@ -321,8 +324,7 @@ func (e NSExtensionContext) MediaPlayingPaused() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/loadBroadcastingApplicationInfo(completion:)
 func (e NSExtensionContext) LoadBroadcastingApplicationInfoWithCompletion(handler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](e.ID, objc.Sel("loadBroadcastingApplicationInfoWithCompletion:"), _block0)
 }
 //

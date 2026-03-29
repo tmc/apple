@@ -33,6 +33,11 @@ type NSTableViewDiffableDataSourceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTableViewDiffableDataSourceClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTableViewDiffableDataSourceClass) Alloc() NSTableViewDiffableDataSource {
 	rv := objc.Send[NSTableViewDiffableDataSource](objc.ID(nc.class), objc.Sel("alloc"))
@@ -335,8 +340,7 @@ func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferences(snapsho
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/applySnapshot(_:animatingDifferences:completion:)
 func (t NSTableViewDiffableDataSource) ApplySnapshotAnimatingDifferencesCompletion(snapshot INSDiffableDataSourceSnapshot, animatingDifferences bool, completion VoidHandler) {
-_block2, _cleanup2 := NewVoidBlock(completion)
-	defer _cleanup2()
+_block2, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](t.ID, objc.Sel("applySnapshot:animatingDifferences:completion:"), snapshot, animatingDifferences, _block2)
 }
 // Returns the number of records managed for `aTableView` by the data source

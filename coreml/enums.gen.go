@@ -171,19 +171,23 @@ type MLMultiArrayDataType int
 
 const (
 	// MLMultiArrayDataTypeDouble: Designates the multiarray’s elements as doubles.
-	MLMultiArrayDataTypeDouble MLMultiArrayDataType = 65536
+	MLMultiArrayDataTypeDouble MLMultiArrayDataType = 65600
 	// MLMultiArrayDataTypeFloat16: Designates the multiarray’s elements as 16-bit floats.
-	MLMultiArrayDataTypeFloat16 MLMultiArrayDataType = 65536
+	MLMultiArrayDataTypeFloat16 MLMultiArrayDataType = 65552
 	// MLMultiArrayDataTypeFloat32: Designates the multiarray’s elements as 32-bit floats.
-	MLMultiArrayDataTypeFloat32 MLMultiArrayDataType = 65536
+	MLMultiArrayDataTypeFloat32 MLMultiArrayDataType = 65568
 	// MLMultiArrayDataTypeInt32: Designates the multiarray’s elements as 32-bit integers.
-	MLMultiArrayDataTypeInt32 MLMultiArrayDataType = 131072
+	MLMultiArrayDataTypeInt32 MLMultiArrayDataType = 131104
 )
 
 func (e MLMultiArrayDataType) String() string {
 	switch e {
 	case MLMultiArrayDataTypeDouble:
 		return "MLMultiArrayDataTypeDouble"
+	case MLMultiArrayDataTypeFloat16:
+		return "MLMultiArrayDataTypeFloat16"
+	case MLMultiArrayDataTypeFloat32:
+		return "MLMultiArrayDataTypeFloat32"
 	case MLMultiArrayDataTypeInt32:
 		return "MLMultiArrayDataTypeInt32"
 	default:

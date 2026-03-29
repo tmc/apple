@@ -30,6 +30,11 @@ type AVCaptureControlClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureControlClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureControlClass) Alloc() AVCaptureControl {
 	rv := objc.Send[AVCaptureControl](objc.ID(ac.class), objc.Sel("alloc"))

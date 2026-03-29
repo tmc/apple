@@ -34,6 +34,11 @@ type NSSavePanelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSavePanelClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSavePanelClass) Alloc() NSSavePanel {
 	rv := objc.Send[NSSavePanel](objc.ID(nc.class), objc.Sel("alloc"))
@@ -486,8 +491,7 @@ func NewSavePanelWithContentRectStyleMaskBackingDeferScreen(contentRect corefoun
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/beginSheetModal(for:completionHandler:)
 func (s NSSavePanel) BeginSheetModalForWindowCompletionHandler(window INSWindow, handler ModalResponseHandler) {
-_block1, _cleanup1 := NewModalResponseBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewModalResponseBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), window, _block1)
 }
 // Presents the panel as a modeless window.
@@ -506,8 +510,7 @@ _block1, _cleanup1 := NewModalResponseBlock(handler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSavePanel/begin(completionHandler:)
 func (s NSSavePanel) BeginWithCompletionHandler(handler ModalResponseHandler) {
-_block0, _cleanup0 := NewModalResponseBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewModalResponseBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("beginWithCompletionHandler:"), _block0)
 }
 // Displays the panel and begins its event loop with the current working (or

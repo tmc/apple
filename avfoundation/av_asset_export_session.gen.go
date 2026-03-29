@@ -32,6 +32,11 @@ type AVAssetExportSessionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetExportSessionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetExportSessionClass) Alloc() AVAssetExportSession {
 	rv := objc.Send[AVAssetExportSession](objc.ID(ac.class), objc.Sel("alloc"))
@@ -231,8 +236,8 @@ type IAVAssetExportSession interface {
 	CanPerformMultiplePassesOverSourceMediaData() bool
 	SetCanPerformMultiplePassesOverSourceMediaData(value bool)
 	// The time range of the source asset to export.
-	TimeRange() objectivec.IObject
-	SetTimeRange(value objectivec.IObject)
+	TimeRange() uintptr
+	SetTimeRange(value uintptr)
 	// The file length that the output of the session must not exceed.
 	FileLengthLimit() int64
 	SetFileLengthLimit(value int64)
@@ -291,7 +296,7 @@ type IAVAssetExportSession interface {
 	// Starts estimating the maximum duration of the export while considering the asset, preset, and time range configuration of the export session.
 	EstimateMaximumDurationWithCompletionHandler(handler CMTimeErrorHandler)
 	// Provides an estimate of the maximum duration of the exported media.
-	MaxDuration() objectivec.IObject
+	MaxDuration() uintptr
 
 	// Topic: Accessing the asset
 
@@ -356,8 +361,7 @@ func (a AVAssetExportSession) InitWithAssetPresetName(asset IAVAsset, presetName
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/determineCompatibleFileTypes(completionHandler:)
 func (a AVAssetExportSession) DetermineCompatibleFileTypesWithCompletionHandler(handler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("determineCompatibleFileTypesWithCompletionHandler:"), _block0)
 }
 // Starts estimating the output file length of the export while considering
@@ -371,8 +375,7 @@ _block0, _cleanup0 := NewVoidBlock(handler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/estimateOutputFileLength(completionHandler:)
 func (a AVAssetExportSession) EstimateOutputFileLengthWithCompletionHandler(handler int64_tErrorHandler) {
-_block0, _cleanup0 := Newint64_tErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := Newint64_tErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("estimateOutputFileLengthWithCompletionHandler:"), _block0)
 }
 // Starts estimating the maximum duration of the export while considering the
@@ -387,8 +390,7 @@ _block0, _cleanup0 := Newint64_tErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/estimateMaximumDuration(completionHandler:)
 func (a AVAssetExportSession) EstimateMaximumDurationWithCompletionHandler(handler CMTimeErrorHandler) {
-_block0, _cleanup0 := NewCMTimeErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewCMTimeErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("estimateMaximumDurationWithCompletionHandler:"), _block0)
 }
 
@@ -426,8 +428,7 @@ func (_AVAssetExportSessionClass AVAssetExportSessionClass) AllExportPresets() [
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/determineCompatibility(ofExportPreset:with:outputFileType:completionHandler:)
 func (_AVAssetExportSessionClass AVAssetExportSessionClass) DetermineCompatibilityOfExportPresetWithAssetOutputFileTypeCompletionHandler(presetName string, asset IAVAsset, outputFileType AVFileType, handler BoolHandler) {
-_block3, _cleanup3 := NewBoolBlock(handler)
-	defer _cleanup3()
+_block3, _ := NewBoolBlock(handler)
 	objc.Send[objc.ID](objc.ID(_AVAssetExportSessionClass.class), objc.Sel("determineCompatibilityOfExportPreset:withAsset:outputFileType:completionHandler:"), objc.String(presetName), asset, outputFileType, _block3)
 }
 // Returns a new asset export session that uses the specified preset.
@@ -533,11 +534,11 @@ func (a AVAssetExportSession) SetCanPerformMultiplePassesOverSourceMediaData(val
 // The time range of the source asset to export.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/timeRange
-func (a AVAssetExportSession) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetExportSession) TimeRange() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("timeRange"))
+	return rv
 }
-func (a AVAssetExportSession) SetTimeRange(value objectivec.IObject) {
+func (a AVAssetExportSession) SetTimeRange(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimeRange:"), value)
 }
 // The file length that the output of the session must not exceed.
@@ -705,9 +706,9 @@ func (a AVAssetExportSession) EstimatedOutputFileLength() int64 {
 // Provides an estimate of the maximum duration of the exported media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/maxDuration
-func (a AVAssetExportSession) MaxDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("maxDuration"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetExportSession) MaxDuration() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("maxDuration"))
+	return rv
 }
 // An asset that a session exports.
 //
@@ -768,20 +769,20 @@ func (a AVAssetExportSession) EstimateOutputFileLength(ctx context.Context) (int
 
 // EstimateMaximumDuration is a synchronous wrapper around [AVAssetExportSession.EstimateMaximumDurationWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetExportSession) EstimateMaximumDuration(ctx context.Context) (objectivec.IObject, error) {
+func (a AVAssetExportSession) EstimateMaximumDuration(ctx context.Context) (uintptr, error) {
 	type result struct {
-		val objectivec.IObject
+		val uintptr
 		err error
 	}
 	done := make(chan result, 1)
-	a.EstimateMaximumDurationWithCompletionHandler(func(val objectivec.IObject, err error) {
+	a.EstimateMaximumDurationWithCompletionHandler(func(val uintptr, err error) {
 		done <- result{val, err}
 	})
 	select {
 	case r := <-done:
 		return r.val, r.err
 	case <-ctx.Done():
-		return nil, ctx.Err()
+		return 0, ctx.Err()
 	}
 }
 

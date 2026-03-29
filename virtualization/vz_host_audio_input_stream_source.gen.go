@@ -29,6 +29,11 @@ type VZHostAudioInputStreamSourceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZHostAudioInputStreamSourceClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZHostAudioInputStreamSourceClass) Alloc() VZHostAudioInputStreamSource {
 	rv := objc.Send[VZHostAudioInputStreamSource](objc.ID(vc.class), objc.Sel("alloc"))

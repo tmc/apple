@@ -31,6 +31,11 @@ type CAReplicatorLayerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAReplicatorLayerClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAReplicatorLayerClass) Alloc() CAReplicatorLayer {
 	rv := objc.Send[CAReplicatorLayer](objc.ID(cc.class), objc.Sel("alloc"))

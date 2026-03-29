@@ -26,6 +26,7 @@ import (
 // [Network Extension]: https://developer.apple.com/documentation/NetworkExtension
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableURLRequest/bind(to:)
+// command is a [networkextension.NEHotspotHelperCommand].
 func (m NSMutableURLRequest) BindToHotspotHelperCommand(command objectivec.IObject) {
 objc.Send[objc.ID](m.ID, objc.Sel("bindToHotspotHelperCommand:"), command)
 }

@@ -31,6 +31,11 @@ type MLDictionaryConstraintClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLDictionaryConstraintClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLDictionaryConstraintClass) Alloc() MLDictionaryConstraint {
 	rv := objc.Send[MLDictionaryConstraint](objc.ID(mc.class), objc.Sel("alloc"))

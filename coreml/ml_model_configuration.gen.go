@@ -6,6 +6,7 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -29,6 +30,11 @@ func GetMLModelConfigurationClass() MLModelConfigurationClass {
 
 type MLModelConfigurationClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (mc MLModelConfigurationClass) Class() objc.Class {
+	return mc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -144,8 +150,8 @@ type IMLModelConfiguration interface {
 	// Topic: Configuring GPU usage
 
 	// The metal device you prefer this model use to make predictions (inference) and update the model.
-	PreferredMetalDevice() objectivec.IObject
-	SetPreferredMetalDevice(value objectivec.IObject)
+	PreferredMetalDevice() metal.MTLDevice
+	SetPreferredMetalDevice(value metal.MTLDevice)
 	// A Boolean value that determines whether to allow low-precision accumulation on a GPU.
 	AllowLowPrecisionAccumulationOnGPU() bool
 	SetAllowLowPrecisionAccumulationOnGPU(value bool)
@@ -237,11 +243,11 @@ func (m MLModelConfiguration) SetParameters(value foundation.INSDictionary) {
 // metal device for you.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelConfiguration/preferredMetalDevice
-func (m MLModelConfiguration) PreferredMetalDevice() objectivec.IObject {
+func (m MLModelConfiguration) PreferredMetalDevice() metal.MTLDevice {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("preferredMetalDevice"))
-	return objectivec.Object{ID: rv}
+	return metal.MTLDeviceObjectFromID(rv)
 }
-func (m MLModelConfiguration) SetPreferredMetalDevice(value objectivec.IObject) {
+func (m MLModelConfiguration) SetPreferredMetalDevice(value metal.MTLDevice) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMetalDevice:"), value)
 }
 // A Boolean value that determines whether to allow low-precision accumulation

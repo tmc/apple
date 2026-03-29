@@ -30,6 +30,11 @@ type NSStepperCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSStepperCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSStepperCellClass) Alloc() NSStepperCell {
 	rv := objc.Send[NSStepperCell](objc.ID(nc.class), objc.Sel("alloc"))

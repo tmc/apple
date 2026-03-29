@@ -29,6 +29,11 @@ type NSIndexSpecifierClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSIndexSpecifierClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSIndexSpecifierClass) Alloc() NSIndexSpecifier {
 	rv := objc.Send[NSIndexSpecifier](objc.ID(nc.class), objc.Sel("alloc"))

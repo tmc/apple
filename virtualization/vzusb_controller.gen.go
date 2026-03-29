@@ -31,6 +31,11 @@ type VZUSBControllerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZUSBControllerClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZUSBControllerClass) Alloc() VZUSBController {
 	rv := objc.Send[VZUSBController](objc.ID(vc.class), objc.Sel("alloc"))
@@ -150,8 +155,7 @@ func NewVZUSBController() VZUSBController {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/attach(device:completionHandler:)
 func (u VZUSBController) AttachDeviceCompletionHandler(device VZUSBDevice, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("attachDevice:completionHandler:"), device, _block1)
 }
 // Detaches a USB device from the controller.
@@ -175,8 +179,7 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZUSBController/detach(device:completionHandler:)
 func (u VZUSBController) DetachDeviceCompletionHandler(device VZUSBDevice, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("detachDevice:completionHandler:"), device, _block1)
 }
 

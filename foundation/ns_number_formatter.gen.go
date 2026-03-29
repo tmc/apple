@@ -32,6 +32,11 @@ type NumberFormatterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NumberFormatterClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NumberFormatterClass) Alloc() NumberFormatter {
 	rv := objc.Send[NumberFormatter](objc.ID(nc.class), objc.Sel("alloc"))

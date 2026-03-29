@@ -32,6 +32,11 @@ type AVCompositionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCompositionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCompositionClass) Alloc() AVComposition {
 	rv := objc.Send[AVComposition](objc.ID(ac.class), objc.Sel("alloc"))
@@ -278,14 +283,14 @@ type IAVComposition interface {
 	// Topic: Accessing duration and timing
 
 	// A time value that indicates the asset’s duration.
-	Duration() objectivec.IObject
-	SetDuration(value objectivec.IObject)
+	Duration() uintptr
+	SetDuration(value uintptr)
 	// A Boolean value that indicates whether the asset provides precise duration and timing.
 	ProvidesPreciseDurationAndTiming() bool
 	SetProvidesPreciseDurationAndTiming(value bool)
 	// A time value that indicates how closely playback follows the latest live stream content.
-	MinimumTimeOffsetFromLive() objectivec.IObject
-	SetMinimumTimeOffsetFromLive(value objectivec.IObject)
+	MinimumTimeOffsetFromLive() uintptr
+	SetMinimumTimeOffsetFromLive(value uintptr)
 
 	// Topic: Accessing metadata
 
@@ -381,8 +386,8 @@ type IAVComposition interface {
 	ContainsFragments() bool
 	SetContainsFragments(value bool)
 	// The total duration of fragments that currently exist, or may exist in the future.
-	OverallDurationHint() objectivec.IObject
-	SetOverallDurationHint(value objectivec.IObject)
+	OverallDurationHint() uintptr
+	SetOverallDurationHint(value uintptr)
 }
 
 // Init initializes the instance.
@@ -681,11 +686,11 @@ func (c AVComposition) SetTrackGroups(value IAVAssetTrackGroup) {
 // [providesPreciseDurationAndTiming]: https://developer.apple.com/documentation/AVFoundation/AVAsset/providesPreciseDurationAndTiming
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/duration
-func (c AVComposition) Duration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("duration"))
-	return objectivec.Object{ID: rv}
+func (c AVComposition) Duration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("duration"))
+	return rv
 }
-func (c AVComposition) SetDuration(value objectivec.IObject) {
+func (c AVComposition) SetDuration(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setDuration:"), value)
 }
 // A Boolean value that indicates whether the asset provides precise duration
@@ -720,11 +725,11 @@ func (c AVComposition) SetProvidesPreciseDurationAndTiming(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/minimumTimeOffsetFromLive
-func (c AVComposition) MinimumTimeOffsetFromLive() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("minimumTimeOffsetFromLive"))
-	return objectivec.Object{ID: rv}
+func (c AVComposition) MinimumTimeOffsetFromLive() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("minimumTimeOffsetFromLive"))
+	return rv
 }
-func (c AVComposition) SetMinimumTimeOffsetFromLive(value objectivec.IObject) {
+func (c AVComposition) SetMinimumTimeOffsetFromLive(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinimumTimeOffsetFromLive:"), value)
 }
 // An array of metadata items for all metadata identifiers for which a value
@@ -1068,11 +1073,11 @@ func (c AVComposition) SetContainsFragments(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/overallDurationHint
-func (c AVComposition) OverallDurationHint() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("overallDurationHint"))
-	return objectivec.Object{ID: rv}
+func (c AVComposition) OverallDurationHint() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("overallDurationHint"))
+	return rv
 }
-func (c AVComposition) SetOverallDurationHint(value objectivec.IObject) {
+func (c AVComposition) SetOverallDurationHint(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOverallDurationHint:"), value)
 }
 

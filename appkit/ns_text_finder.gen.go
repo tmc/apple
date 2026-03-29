@@ -32,6 +32,11 @@ type NSTextFinderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextFinderClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextFinderClass) Alloc() NSTextFinder {
 	rv := objc.Send[NSTextFinder](objc.ID(nc.class), objc.Sel("alloc"))

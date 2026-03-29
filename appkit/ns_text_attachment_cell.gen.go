@@ -31,6 +31,11 @@ type NSTextAttachmentCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextAttachmentCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextAttachmentCellClass) Alloc() NSTextAttachmentCell {
 	rv := objc.Send[NSTextAttachmentCell](objc.ID(nc.class), objc.Sel("alloc"))
@@ -66,7 +71,6 @@ func NSTextAttachmentCellFromID(id objc.ID) NSTextAttachmentCell {
 // See: https://developer.apple.com/documentation/AppKit/NSTextAttachmentCell-swift.class
 type INSTextAttachmentCell interface {
 	INSCell
-	NSTextAttachmentCellProtocol
 }
 
 // Init initializes the instance.

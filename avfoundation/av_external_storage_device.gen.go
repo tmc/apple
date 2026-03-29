@@ -33,6 +33,11 @@ type AVExternalStorageDeviceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVExternalStorageDeviceClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVExternalStorageDeviceClass) Alloc() AVExternalStorageDevice {
 	rv := objc.Send[AVExternalStorageDevice](objc.ID(ac.class), objc.Sel("alloc"))
@@ -204,8 +209,7 @@ func (e AVExternalStorageDevice) NextAvailableURLsWithPathExtensionsError(extens
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalStorageDevice/requestAccess(completionHandler:)
 func (_AVExternalStorageDeviceClass AVExternalStorageDeviceClass) RequestAccessWithCompletionHandler(handler BoolHandler) {
-_block0, _cleanup0 := NewBoolBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewBoolBlock(handler)
 	objc.Send[objc.ID](objc.ID(_AVExternalStorageDeviceClass.class), objc.Sel("requestAccessWithCompletionHandler:"), _block0)
 }
 

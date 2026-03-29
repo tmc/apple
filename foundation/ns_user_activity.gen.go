@@ -32,6 +32,11 @@ type NSUserActivityClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSUserActivityClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSUserActivityClass) Alloc() NSUserActivity {
 	rv := objc.Send[NSUserActivity](objc.ID(nc.class), objc.Sel("alloc"))
@@ -674,8 +679,7 @@ func (u NSUserActivity) Invalidate() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/getContinuationStreams(completionHandler:)
 func (u NSUserActivity) GetContinuationStreamsWithCompletionHandler(completionHandler InputStreamOutputStreamErrorHandler) {
-_block0, _cleanup0 := NewInputStreamOutputStreamErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewInputStreamOutputStreamErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("getContinuationStreamsWithCompletionHandler:"), _block0)
 }
 // Asks the item provider for the representation visibility specification for
@@ -709,8 +713,7 @@ func (u NSUserActivity) ItemProviderVisibilityForRepresentationWithTypeIdentifie
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (u NSUserActivity) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
@@ -728,8 +731,7 @@ _block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/deleteAllSavedUserActivities(completionHandler:)
 func (_NSUserActivityClass NSUserActivityClass) DeleteAllSavedUserActivitiesWithCompletionHandler(handler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](objc.ID(_NSUserActivityClass.class), objc.Sel("deleteAllSavedUserActivitiesWithCompletionHandler:"), _block0)
 }
 // Deletes user activities created by your app that have the specified
@@ -749,8 +751,7 @@ _block0, _cleanup0 := NewVoidBlock(handler)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserActivity/deleteSavedUserActivities(withPersistentIdentifiers:completionHandler:)
 func (_NSUserActivityClass NSUserActivityClass) DeleteSavedUserActivitiesWithPersistentIdentifiersCompletionHandler(persistentIdentifiers []string, handler VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](objc.ID(_NSUserActivityClass.class), objc.Sel("deleteSavedUserActivitiesWithPersistentIdentifiers:completionHandler:"), persistentIdentifiers, _block1)
 }
 // Creates a new instance of a class using the given data and UTI string.

@@ -31,6 +31,11 @@ type AVCaptureInputPortClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureInputPortClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureInputPortClass) Alloc() AVCaptureInputPort {
 	rv := objc.Send[AVCaptureInputPort](objc.ID(ac.class), objc.Sel("alloc"))
@@ -97,9 +102,9 @@ type IAVCaptureInputPort interface {
 	// The media type of the port.
 	MediaType() AVMediaType
 	// A description of the port format.
-	FormatDescription() objectivec.IObject
+	FormatDescription() uintptr
 	// An object that represents the capture device’s clock.
-	Clock() objectivec.IObject
+	Clock() uintptr
 
 	// Topic: Accessing the input
 
@@ -164,9 +169,9 @@ func (c AVCaptureInputPort) MediaType() AVMediaType {
 // [formatDescriptionDidChangeNotification]: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/formatDescriptionDidChangeNotification
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/formatDescription
-func (c AVCaptureInputPort) FormatDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("formatDescription"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureInputPort) FormatDescription() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("formatDescription"))
+	return rv
 }
 // An object that represents the capture device’s clock.
 //
@@ -176,9 +181,9 @@ func (c AVCaptureInputPort) FormatDescription() objectivec.IObject {
 // in the capture device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureInput/Port/clock
-func (c AVCaptureInputPort) Clock() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("clock"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureInputPort) Clock() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("clock"))
+	return rv
 }
 // The input object that owns the port.
 //

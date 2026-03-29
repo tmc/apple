@@ -31,6 +31,11 @@ type VNDetectHumanBodyPoseRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNDetectHumanBodyPoseRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNDetectHumanBodyPoseRequestClass) Alloc() VNDetectHumanBodyPoseRequest {
 	rv := objc.Send[VNDetectHumanBodyPoseRequest](objc.ID(vc.class), objc.Sel("alloc"))

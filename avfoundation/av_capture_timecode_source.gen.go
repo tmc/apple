@@ -31,6 +31,11 @@ type AVCaptureTimecodeSourceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureTimecodeSourceClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureTimecodeSourceClass) Alloc() AVCaptureTimecodeSource {
 	rv := objc.Send[AVCaptureTimecodeSource](objc.ID(ac.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type VZLinuxRosettaAbstractSocketCachingOptionsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZLinuxRosettaAbstractSocketCachingOptionsClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZLinuxRosettaAbstractSocketCachingOptionsClass) Alloc() VZLinuxRosettaAbstractSocketCachingOptions {
 	rv := objc.Send[VZLinuxRosettaAbstractSocketCachingOptions](objc.ID(vc.class), objc.Sel("alloc"))

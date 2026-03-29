@@ -31,6 +31,11 @@ type UndoManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UndoManagerClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UndoManagerClass) Alloc() UndoManager {
 	rv := objc.Send[UndoManager](objc.ID(uc.class), objc.Sel("alloc"))
@@ -787,8 +792,7 @@ func (u UndoManager) SetActionIsDiscardable(discardable bool) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUndoManager/registerUndoWithTarget:handler:
 func (u UndoManager) RegisterUndoWithTargetHandler(target objectivec.IObject, undoHandler ObjectHandler) {
-_block1, _cleanup1 := NewObjectBlock(undoHandler)
-	defer _cleanup1()
+_block1, _ := NewObjectBlock(undoHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("registerUndoWithTarget:handler:"), target, _block1)
 }
 

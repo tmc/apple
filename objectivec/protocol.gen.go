@@ -29,6 +29,11 @@ type ProtocolClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (pc ProtocolClass) Class() objc.Class {
+	return pc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (pc ProtocolClass) Alloc() Protocol {
 	rv := objc.Send[Protocol](objc.ID(pc.class), objc.Sel("alloc"))

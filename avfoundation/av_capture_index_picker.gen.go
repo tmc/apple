@@ -33,6 +33,11 @@ type AVCaptureIndexPickerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureIndexPickerClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureIndexPickerClass) Alloc() AVCaptureIndexPicker {
 	rv := objc.Send[AVCaptureIndexPicker](objc.ID(ac.class), objc.Sel("alloc"))
@@ -229,8 +234,7 @@ func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexes(lo
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/init(_:symbolName:numberOfIndexes:localizedTitleTransform:)
 func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle string, symbolName string, numberOfIndexes int, localizedTitleTransform IntHandler) AVCaptureIndexPicker {
-_block3, _cleanup3 := NewIntBlock(localizedTitleTransform)
-	defer _cleanup3()
+_block3, _ := NewIntBlock(localizedTitleTransform)
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:numberOfIndexes:localizedTitleTransform:"), objc.String(localizedTitle), objc.String(symbolName), numberOfIndexes, _block3)
 	return AVCaptureIndexPickerFromID(rv)
 }

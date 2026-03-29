@@ -30,6 +30,11 @@ type AVAssetTrackSegmentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetTrackSegmentClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetTrackSegmentClass) Alloc() AVAssetTrackSegment {
 	rv := objc.Send[AVAssetTrackSegment](objc.ID(ac.class), objc.Sel("alloc"))
@@ -71,7 +76,7 @@ type IAVAssetTrackSegment interface {
 	// Topic: Retrieving segment information
 
 	// The time range of the track that this segment presents.
-	TimeMapping() objectivec.IObject
+	TimeMapping() uintptr
 	// A Boolean value that indicates whether the segment is empty.
 	Empty() bool
 }
@@ -98,9 +103,9 @@ func NewAVAssetTrackSegment() AVAssetTrackSegment {
 // The time range of the track that this segment presents.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetTrackSegment/timeMapping
-func (a AVAssetTrackSegment) TimeMapping() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("timeMapping"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetTrackSegment) TimeMapping() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("timeMapping"))
+	return rv
 }
 // A Boolean value that indicates whether the segment is empty.
 //

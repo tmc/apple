@@ -29,6 +29,11 @@ type UnitIlluminanceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitIlluminanceClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitIlluminanceClass) Alloc() UnitIlluminance {
 	rv := objc.Send[UnitIlluminance](objc.ID(uc.class), objc.Sel("alloc"))

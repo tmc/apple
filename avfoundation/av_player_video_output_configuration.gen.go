@@ -32,6 +32,11 @@ type AVPlayerVideoOutputConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerVideoOutputConfigurationClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerVideoOutputConfigurationClass) Alloc() AVPlayerVideoOutputConfiguration {
 	rv := objc.Send[AVPlayerVideoOutputConfiguration](objc.ID(ac.class), objc.Sel("alloc"))
@@ -86,7 +91,7 @@ type IAVPlayerVideoOutputConfiguration interface {
 	DataChannelDescription() objectivec.IObject
 	SetDataChannelDescription(value objectivec.IObject)
 	// The host time this configuration became active on its associated player object.
-	ActivationTime() objectivec.IObject
+	ActivationTime() uintptr
 	// The preferred transform of the visual media.
 	PreferredTransform() corefoundation.CGAffineTransform
 
@@ -134,9 +139,9 @@ func (p AVPlayerVideoOutputConfiguration) SetDataChannelDescription(value object
 // object.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutput/Configuration/activationTime
-func (p AVPlayerVideoOutputConfiguration) ActivationTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("activationTime"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerVideoOutputConfiguration) ActivationTime() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("activationTime"))
+	return rv
 }
 // The preferred transform of the visual media.
 //

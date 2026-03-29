@@ -30,6 +30,11 @@ type NSPurgeableDataClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPurgeableDataClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPurgeableDataClass) Alloc() NSPurgeableData {
 	rv := objc.Send[NSPurgeableData](objc.ID(nc.class), objc.Sel("alloc"))

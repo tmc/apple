@@ -32,6 +32,11 @@ type VNPixelBufferObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNPixelBufferObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNPixelBufferObservationClass) Alloc() VNPixelBufferObservation {
 	rv := objc.Send[VNPixelBufferObservation](objc.ID(vc.class), objc.Sel("alloc"))

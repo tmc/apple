@@ -29,6 +29,11 @@ type VNImageAlignmentObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNImageAlignmentObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNImageAlignmentObservationClass) Alloc() VNImageAlignmentObservation {
 	rv := objc.Send[VNImageAlignmentObservation](objc.ID(vc.class), objc.Sel("alloc"))

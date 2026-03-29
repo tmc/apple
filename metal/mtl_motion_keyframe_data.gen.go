@@ -30,6 +30,11 @@ type MTLMotionKeyframeDataClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLMotionKeyframeDataClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLMotionKeyframeDataClass) Alloc() MTLMotionKeyframeData {
 	rv := objc.Send[MTLMotionKeyframeData](objc.ID(mc.class), objc.Sel("alloc"))

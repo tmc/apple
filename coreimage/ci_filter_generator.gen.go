@@ -31,6 +31,11 @@ type CIFilterGeneratorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CIFilterGeneratorClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CIFilterGeneratorClass) Alloc() CIFilterGenerator {
 	rv := objc.Send[CIFilterGenerator](objc.ID(cc.class), objc.Sel("alloc"))

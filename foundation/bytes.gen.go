@@ -30,6 +30,11 @@ type BytesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (bc BytesClass) Class() objc.Class {
+	return bc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (bc BytesClass) Alloc() Bytes {
 	rv := objc.Send[Bytes](objc.ID(bc.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type UnitAngleClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitAngleClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitAngleClass) Alloc() UnitAngle {
 	rv := objc.Send[UnitAngle](objc.ID(uc.class), objc.Sel("alloc"))

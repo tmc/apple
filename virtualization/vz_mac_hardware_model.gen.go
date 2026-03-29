@@ -31,6 +31,11 @@ type VZMacHardwareModelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMacHardwareModelClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacHardwareModelClass) Alloc() VZMacHardwareModel {
 	rv := objc.Send[VZMacHardwareModel](objc.ID(vc.class), objc.Sel("alloc"))

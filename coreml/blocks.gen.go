@@ -25,12 +25,7 @@ type ErrorHandler = func(error)
 //   - [MLUpdateTask.UpdateTaskForModelAtURLTrainingDataProgressHandlersError]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(foundation.NSErrorToError(nserr))
+		handler(foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -53,15 +48,11 @@ func NewMLComputePlanErrorBlock(handler MLComputePlanErrorHandler) (objc.ID, fun
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLComputePlan
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := MLComputePlanFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -83,15 +74,11 @@ func NewMLModelDescriptionErrorBlock(handler MLModelDescriptionErrorHandler) (ob
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLModelDescription
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := MLModelDescriptionFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -112,15 +99,11 @@ func NewMLModelErrorBlock(handler MLModelErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLModel
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := MLModelFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -143,15 +126,11 @@ func NewMLModelStructureErrorBlock(handler MLModelStructureErrorHandler) (objc.I
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *MLModelStructure
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := MLModelStructureFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -175,6 +154,7 @@ func NewMLUpdateContextBlock(handler MLUpdateContextHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *MLUpdateContext
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := MLUpdateContextFromID(resultID)
 			result = &v
 		}

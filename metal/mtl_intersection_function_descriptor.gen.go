@@ -29,6 +29,11 @@ type MTLIntersectionFunctionDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLIntersectionFunctionDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLIntersectionFunctionDescriptorClass) Alloc() MTLIntersectionFunctionDescriptor {
 	rv := objc.Send[MTLIntersectionFunctionDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

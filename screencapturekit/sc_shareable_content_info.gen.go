@@ -31,6 +31,11 @@ type SCShareableContentInfoClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCShareableContentInfoClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCShareableContentInfoClass) Alloc() SCShareableContentInfo {
 	rv := objc.Send[SCShareableContentInfo](objc.ID(sc.class), objc.Sel("alloc"))

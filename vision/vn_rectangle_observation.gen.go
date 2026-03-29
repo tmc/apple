@@ -30,6 +30,11 @@ type VNRectangleObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNRectangleObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNRectangleObservationClass) Alloc() VNRectangleObservation {
 	rv := objc.Send[VNRectangleObservation](objc.ID(vc.class), objc.Sel("alloc"))

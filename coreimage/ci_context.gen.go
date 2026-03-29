@@ -12,6 +12,7 @@ import (
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/iosurface"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -35,6 +36,11 @@ func GetCIContextClass() CIContextClass {
 
 type CIContextClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (cc CIContextClass) Class() objc.Class {
+	return cc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -242,7 +248,7 @@ type ICIContext interface {
 	// Renders a region of an image into an IOSurface object.
 	RenderToIOSurfaceBoundsColorSpace(image ICIImage, surface iosurface.IOSurfaceRef, bounds corefoundation.CGRect, colorSpace coregraphics.CGColorSpaceRef)
 	// Renders a region of an image to a Metal texture.
-	RenderToMTLTextureCommandBufferBoundsColorSpace(image ICIImage, texture objectivec.IObject, commandBuffer objectivec.IObject, bounds corefoundation.CGRect, colorSpace coregraphics.CGColorSpaceRef)
+	RenderToMTLTextureCommandBufferBoundsColorSpace(image ICIImage, texture metal.MTLTexture, commandBuffer metal.MTLCommandBuffer, bounds corefoundation.CGRect, colorSpace coregraphics.CGColorSpaceRef)
 
 	// Topic: Drawing Images
 
@@ -420,14 +426,14 @@ func NewContextWithEAGLContextOptions(eaglContext objectivec.IObject, options fo
 
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlCommandQueue:)
-func NewContextWithMTLCommandQueue(commandQueue objectivec.IObject) CIContext {
+func NewContextWithMTLCommandQueue(commandQueue metal.MTLCommandQueue) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLCommandQueue:"), commandQueue)
 	return CIContextFromID(rv)
 }
 
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlCommandQueue:options:)
-func NewContextWithMTLCommandQueueOptions(commandQueue objectivec.IObject, options foundation.INSDictionary) CIContext {
+func NewContextWithMTLCommandQueueOptions(commandQueue metal.MTLCommandQueue, options foundation.INSDictionary) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLCommandQueue:options:"), commandQueue, options)
 	return CIContextFromID(rv)
 }
@@ -448,7 +454,7 @@ func NewContextWithMTLCommandQueueOptions(commandQueue objectivec.IObject, optio
 // method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:)
-func NewContextWithMTLDevice(device objectivec.IObject) CIContext {
+func NewContextWithMTLDevice(device metal.MTLDevice) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLDevice:"), device)
 	return CIContextFromID(rv)
 }
@@ -473,7 +479,7 @@ func NewContextWithMTLDevice(device objectivec.IObject) CIContext {
 // method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:options:)
-func NewContextWithMTLDeviceOptions(device objectivec.IObject, options foundation.INSDictionary) CIContext {
+func NewContextWithMTLDeviceOptions(device metal.MTLDevice, options foundation.INSDictionary) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLDevice:options:"), device, options)
 	return CIContextFromID(rv)
 }
@@ -689,7 +695,7 @@ func (c CIContext) RenderToIOSurfaceBoundsColorSpace(image ICIImage, surface ios
 // [sampleCount]: https://developer.apple.com/documentation/Metal/MTLTexture/sampleCount
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/render(_:to:commandBuffer:bounds:colorSpace:)
-func (c CIContext) RenderToMTLTextureCommandBufferBoundsColorSpace(image ICIImage, texture objectivec.IObject, commandBuffer objectivec.IObject, bounds corefoundation.CGRect, colorSpace coregraphics.CGColorSpaceRef) {
+func (c CIContext) RenderToMTLTextureCommandBufferBoundsColorSpace(image ICIImage, texture metal.MTLTexture, commandBuffer metal.MTLCommandBuffer, bounds corefoundation.CGRect, colorSpace coregraphics.CGColorSpaceRef) {
 	objc.Send[objc.ID](c.ID, objc.Sel("render:toMTLTexture:commandBuffer:bounds:colorSpace:"), image, texture, commandBuffer, bounds, colorSpace)
 }
 // Renders a region of an image to a rectangle in the context destination.
@@ -1142,6 +1148,7 @@ func (c CIContext) WriteOpenEXRRepresentationOfImageToURLOptionsError(image ICII
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(for:disparityImage:portraitEffectsMatte:hairSemanticSegmentation:glassesMatte:gainMap:orientation:options:)
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation objectivec.IObject, options foundation.INSDictionary) CIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:hairSemanticSegmentation:glassesMatte:gainMap:orientation:options:"), image, disparityImage, portraitEffectsMatte, hairSemanticSegmentation, glassesMatte, gainMap, orientation, options)
 	return CIFilterFromID(rv)
@@ -1150,6 +1157,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(for:disparityImage:portraitEffectsMatte:hairSemanticSegmentation:orientation:options:)
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation objectivec.IObject, options foundation.INSDictionary) CIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:hairSemanticSegmentation:orientation:options:"), image, disparityImage, portraitEffectsMatte, hairSemanticSegmentation, orientation, options)
 	return CIFilterFromID(rv)
@@ -1158,6 +1166,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(for:disparityImage:portraitEffectsMatte:orientation:options:)
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation objectivec.IObject, options foundation.INSDictionary) CIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:orientation:options:"), image, disparityImage, portraitEffectsMatte, orientation, options)
 	return CIFilterFromID(rv)

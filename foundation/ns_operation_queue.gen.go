@@ -32,6 +32,11 @@ type OperationQueueClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (oc OperationQueueClass) Class() objc.Class {
+	return oc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (oc OperationQueueClass) Alloc() OperationQueue {
 	rv := objc.Send[OperationQueue](objc.ID(oc.class), objc.Sel("alloc"))
@@ -325,8 +330,7 @@ func (o OperationQueue) AddOperationsWaitUntilFinished(ops []NSOperation, wait b
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/addOperation(_:)-5s294
 func (o OperationQueue) AddOperationWithBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](o.ID, objc.Sel("addOperationWithBlock:"), _block0)
 }
 // Invokes a block when the queue finishes all enqueued operations, and
@@ -344,8 +348,7 @@ _block0, _cleanup0 := NewVoidBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/OperationQueue/addBarrierBlock(_:)
 func (o OperationQueue) AddBarrierBlock(barrier VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(barrier)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(barrier)
 	objc.Send[objc.ID](o.ID, objc.Sel("addBarrierBlock:"), _block0)
 }
 // Cancels all queued and executing operations.

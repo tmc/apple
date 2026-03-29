@@ -173,16 +173,16 @@ rv := objc.Send[float32](c.ID, objc.Sel("maxISO"))
 // A time value that indicates the minimum supported exposure duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/minExposureDuration
-func (c AVCaptureDeviceFormat) MinExposureDuration() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("minExposureDuration"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureDeviceFormat) MinExposureDuration() uintptr {
+rv := objc.Send[uintptr](c.ID, objc.Sel("minExposureDuration"))
+		return rv
 }
 // A time value that indicates the maximum supported exposure duration.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/maxExposureDuration
-func (c AVCaptureDeviceFormat) MaxExposureDuration() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("maxExposureDuration"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureDeviceFormat) MaxExposureDuration() uintptr {
+rv := objc.Send[uintptr](c.ID, objc.Sel("maxExposureDuration"))
+		return rv
 }
 // A maximum zoom factor the format allows.
 //

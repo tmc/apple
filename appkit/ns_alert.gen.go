@@ -32,6 +32,11 @@ type NSAlertClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAlertClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAlertClass) Alloc() NSAlert {
 	rv := objc.Send[NSAlert](objc.ID(nc.class), objc.Sel("alloc"))
@@ -372,8 +377,7 @@ func (a NSAlert) RunModal() NSModalResponse {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/beginSheetModal(for:completionHandler:)
 func (a NSAlert) BeginSheetModalForWindowCompletionHandler(sheetWindow INSWindow, handler ModalResponseHandler) {
-_block1, _cleanup1 := NewModalResponseBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewModalResponseBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("beginSheetModalForWindow:completionHandler:"), sheetWindow, _block1)
 }
 // Adds a button with a given title to the alert.

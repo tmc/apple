@@ -32,6 +32,11 @@ type VZMacOSRestoreImageClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMacOSRestoreImageClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSRestoreImageClass) Alloc() VZMacOSRestoreImage {
 	rv := objc.Send[VZMacOSRestoreImage](objc.ID(vc.class), objc.Sel("alloc"))
@@ -141,8 +146,7 @@ func NewVZMacOSRestoreImage() VZMacOSRestoreImage {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/latestSupported
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) FetchLatestSupportedWithCompletionHandler(completionHandler MacOSRestoreImageErrorHandler) {
-_block0, _cleanup0 := NewMacOSRestoreImageErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewMacOSRestoreImageErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("fetchLatestSupportedWithCompletionHandler:"), _block0)
 }
 // Load a restore image from a file on the local file system.
@@ -157,8 +161,7 @@ _block0, _cleanup0 := NewMacOSRestoreImageErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSRestoreImage/image(from:)
 func (_VZMacOSRestoreImageClass VZMacOSRestoreImageClass) LoadFileURLCompletionHandler(fileURL foundation.INSURL, completionHandler MacOSRestoreImageErrorHandler) {
-_block1, _cleanup1 := NewMacOSRestoreImageErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewMacOSRestoreImageErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_VZMacOSRestoreImageClass.class), objc.Sel("loadFileURL:completionHandler:"), fileURL, _block1)
 }
 

@@ -91,7 +91,7 @@ func (e CBLAS_SIDE) String() string {
 type CBLAS_TRANSPOSE uint32
 
 const (
-	AtlasConj CBLAS_TRANSPOSE = 114
+	AtlasConj CBLAS_TRANSPOSE = 0
 	CblasConjTrans CBLAS_TRANSPOSE = 113
 	CblasNoTrans CBLAS_TRANSPOSE = 111
 	CblasTrans CBLAS_TRANSPOSE = 112
@@ -131,24 +131,28 @@ func (e CBLAS_UPLO) String() string {
 	}
 }
 
-type Fft uint
+type Fft int
 
 const (
 	// FFT_FORWARD: Forward FFT.
 	FFT_FORWARD Fft = 0
 	// FFT_INVERSE: Inverse FFT.
-	FFT_INVERSE Fft = 0
+	FFT_INVERSE Fft = -1
 	FFT_RADIX2 Fft = 0
 	FFT_RADIX3 Fft = 1
-	FFT_RADIX5 Fft = 0
+	FFT_RADIX5 Fft = 2
 )
 
 func (e Fft) String() string {
 	switch e {
 	case FFT_FORWARD:
 		return "FFT_FORWARD"
+	case FFT_INVERSE:
+		return "FFT_INVERSE"
 	case FFT_RADIX3:
 		return "FFT_RADIX3"
+	case FFT_RADIX5:
+		return "FFT_RADIX5"
 	default:
 		return fmt.Sprintf("Fft(%d)", e)
 	}

@@ -31,6 +31,11 @@ type MTLStructMemberClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLStructMemberClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLStructMemberClass) Alloc() MTLStructMember {
 	rv := objc.Send[MTLStructMember](objc.ID(mc.class), objc.Sel("alloc"))

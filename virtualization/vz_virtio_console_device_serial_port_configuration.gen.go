@@ -29,6 +29,11 @@ type VZVirtioConsoleDeviceSerialPortConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZVirtioConsoleDeviceSerialPortConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioConsoleDeviceSerialPortConfigurationClass) Alloc() VZVirtioConsoleDeviceSerialPortConfiguration {
 	rv := objc.Send[VZVirtioConsoleDeviceSerialPortConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

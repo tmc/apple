@@ -34,6 +34,11 @@ type AVSampleBufferVideoRendererClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVSampleBufferVideoRendererClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSampleBufferVideoRendererClass) Alloc() AVSampleBufferVideoRenderer {
 	rv := objc.Send[AVSampleBufferVideoRenderer](objc.ID(ac.class), objc.Sel("alloc"))
@@ -137,7 +142,7 @@ type IAVSampleBufferVideoRenderer interface {
 	LoadVideoPerformanceMetricsWithCompletionHandler(completionHandler AVVideoPerformanceMetricsHandler)
 
 	RecommendedPixelBufferAttributes() foundation.INSDictionary
-	ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime objectivec.IObject)
+	ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime uintptr)
 	ExpectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes()
 	ResetUpcomingSampleBufferPresentationTimeExpectations()
 }
@@ -169,8 +174,7 @@ func NewAVSampleBufferVideoRenderer() AVSampleBufferVideoRenderer {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/flush(removingDisplayedImage:completionHandler:)
 func (s AVSampleBufferVideoRenderer) FlushWithRemovalOfDisplayedImageCompletionHandler(removeDisplayedImage bool, handler VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](s.ID, objc.Sel("flushWithRemovalOfDisplayedImage:completionHandler:"), removeDisplayedImage, _block1)
 }
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/displayedPixelBuffer()
@@ -181,15 +185,12 @@ func (s AVSampleBufferVideoRenderer) CopyDisplayedPixelBuffer() corevideo.CVImag
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/loadVideoPerformanceMetrics(completionHandler:)
 func (s AVSampleBufferVideoRenderer) LoadVideoPerformanceMetricsWithCompletionHandler(completionHandler AVVideoPerformanceMetricsHandler) {
-_block0, _cleanup0 := NewAVVideoPerformanceMetricsBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewAVVideoPerformanceMetricsBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("loadVideoPerformanceMetricsWithCompletionHandler:"), _block0)
 }
 // Sends a sample buffer to the queue for rendering.
 //
 // sampleBuffer: The sample buffer to be enqueued.
-//
-// sampleBuffer is a [coremedia.CMSampleBufferRef].
 //
 // # Discussion
 // 
@@ -213,14 +214,12 @@ _block0, _cleanup0 := NewAVVideoPerformanceMetricsBlock(completionHandler)
 // [kCMSampleBufferAttachmentKey_EmptyMedia]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_EmptyMedia
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
-func (s AVSampleBufferVideoRenderer) EnqueueSampleBuffer(sampleBuffer objectivec.IObject) {
+func (s AVSampleBufferVideoRenderer) EnqueueSampleBuffer(sampleBuffer uintptr) {
 	objc.Send[objc.ID](s.ID, objc.Sel("enqueueSampleBuffer:"), sampleBuffer)
 }
 //
-// minimumUpcomingPresentationTime is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/expectMinimumUpcomingSampleBufferPresentationTime:
-func (s AVSampleBufferVideoRenderer) ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime objectivec.IObject) {
+func (s AVSampleBufferVideoRenderer) ExpectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime uintptr) {
 	objc.Send[objc.ID](s.ID, objc.Sel("expectMinimumUpcomingSampleBufferPresentationTime:"), minimumUpcomingPresentationTime)
 }
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/expectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes
@@ -265,8 +264,7 @@ func (s AVSampleBufferVideoRenderer) IsReadyForMoreMediaData() bool {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/requestMediaDataWhenReady(on:using:)
 func (s AVSampleBufferVideoRenderer) RequestMediaDataWhenReadyOnQueueUsingBlock(queue dispatch.Queue, block VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(block)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("requestMediaDataWhenReadyOnQueue:usingBlock:"), uintptr(queue.Handle()), _block1)
 }
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferVideoRenderer/resetUpcomingSampleBufferPresentationTimeExpectations
@@ -363,37 +361,6 @@ func (s AVSampleBufferVideoRenderer) HasSufficientMediaDataForReliablePlaybackSt
 	rv := objc.Send[bool](s.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
 	return rv
 }
-// A Boolean value that indicates whether the receiver is able to accept more
-// sample buffers.
-//
-// # Discussion
-// 
-// An object conforming to [AVQueuedSampleBufferRendering] keeps track of the
-// occupancy levels of its internal queues for the benefit of clients that
-// enqueue sample buffers from non-real-time sources, for example, clients
-// that can supply sample buffers faster than they are consumed, and so need
-// to decide when to hold back. Clients enqueueing sample buffers from
-// non-real-time sources may hold off from generating or obtaining more sample
-// buffers to enqueue when the value of `readyForMoreMediaData` is [NO]. It is
-// safe to call [EnqueueSampleBuffer] when `readyForMoreMediaData` is [NO],
-// but don’t enqueue sample buffers without bound.
-// 
-// To help with control of the non-real-time supply of sample buffers, clients
-// can call [RequestMediaDataWhenReadyOnQueueUsingBlock] in order to specify a
-// block that the receiver should invoke whenever it’s ready for sample
-// buffers to be appended.
-// 
-// The value of `readyForMoreMediaData` often changes` from [NO] to [YES]
-// asynchronously, as previously supplied sample buffers are decoded and
-// rendered.
-// 
-// This property is not key-value observable.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
-func (s AVSampleBufferVideoRenderer) ReadyForMoreMediaData() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isReadyForMoreMediaData"))
-	return rv
-}
 //
 // # Discussion
 // 
@@ -417,9 +384,9 @@ func (s AVSampleBufferVideoRenderer) RecommendedPixelBufferAttributes() foundati
 // The timebase governs how time stamps are interpreted by the renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-func (s AVSampleBufferVideoRenderer) Timebase() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("timebase"))
-	return objectivec.Object{ID: rv}
+func (s AVSampleBufferVideoRenderer) Timebase() uintptr {
+	rv := objc.Send[uintptr](s.ID, objc.Sel("timebase"))
+	return rv
 }
 
 			// Protocol methods for AVQueuedSampleBufferRendering

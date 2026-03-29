@@ -32,6 +32,11 @@ type MLComputePlanClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLComputePlanClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLComputePlanClass) Alloc() MLComputePlan {
 	rv := objc.Send[MLComputePlan](objc.ID(mc.class), objc.Sel("alloc"))
@@ -186,8 +191,7 @@ func (c MLComputePlan) EstimatedCostOfMLProgramOperation(operation IMLModelStruc
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan-85vdw/loadContentsOfURL:configuration:completionHandler:
 func (_MLComputePlanClass MLComputePlanClass) LoadContentsOfURLConfigurationCompletionHandler(url foundation.INSURL, configuration IMLModelConfiguration, handler MLComputePlanErrorHandler) {
-_block2, _cleanup2 := NewMLComputePlanErrorBlock(handler)
-	defer _cleanup2()
+_block2, _ := NewMLComputePlanErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadContentsOfURL:configuration:completionHandler:"), url, configuration, _block2)
 }
 // Construct the compute plan of a model asynchronously given the model asset.
@@ -202,8 +206,7 @@ _block2, _cleanup2 := NewMLComputePlanErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/CoreML/MLComputePlan-85vdw/loadModelAsset:configuration:completionHandler:
 func (_MLComputePlanClass MLComputePlanClass) LoadModelAssetConfigurationCompletionHandler(asset IMLModelAsset, configuration IMLModelConfiguration, handler MLComputePlanErrorHandler) {
-_block2, _cleanup2 := NewMLComputePlanErrorBlock(handler)
-	defer _cleanup2()
+_block2, _ := NewMLComputePlanErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLComputePlanClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
 }
 

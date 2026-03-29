@@ -31,6 +31,11 @@ type NSFontPanelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFontPanelClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFontPanelClass) Alloc() NSFontPanel {
 	rv := objc.Send[NSFontPanel](objc.ID(nc.class), objc.Sel("alloc"))

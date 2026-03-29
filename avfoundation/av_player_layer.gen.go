@@ -32,6 +32,11 @@ type AVPlayerLayerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerLayerClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerLayerClass) Alloc() AVPlayerLayer {
 	rv := objc.Send[AVPlayerLayer](objc.ID(ac.class), objc.Sel("alloc"))

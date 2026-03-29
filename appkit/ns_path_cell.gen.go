@@ -35,6 +35,11 @@ type NSPathCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPathCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPathCellClass) Alloc() NSPathCell {
 	rv := objc.Send[NSPathCell](objc.ID(nc.class), objc.Sel("alloc"))

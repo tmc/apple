@@ -31,6 +31,11 @@ type NSLevelIndicatorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSLevelIndicatorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSLevelIndicatorClass) Alloc() NSLevelIndicator {
 	rv := objc.Send[NSLevelIndicator](objc.ID(nc.class), objc.Sel("alloc"))

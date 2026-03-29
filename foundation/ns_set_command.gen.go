@@ -29,6 +29,11 @@ type NSSetCommandClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSetCommandClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSetCommandClass) Alloc() NSSetCommand {
 	rv := objc.Send[NSSetCommand](objc.ID(nc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type NSUserUnixTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSUserUnixTaskClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSUserUnixTaskClass) Alloc() NSUserUnixTask {
 	rv := objc.Send[NSUserUnixTask](objc.ID(nc.class), objc.Sel("alloc"))
@@ -189,8 +194,7 @@ func NewUserUnixTaskWithURLError(url INSURL) (NSUserUnixTask, error) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserUnixTask/execute(withArguments:completionHandler:)
 func (u NSUserUnixTask) ExecuteWithArgumentsCompletionHandler(arguments []string, handler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("executeWithArguments:completionHandler:"), arguments, _block1)
 }
 

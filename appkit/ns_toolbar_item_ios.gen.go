@@ -32,6 +32,7 @@ import (
 // [UIBarButtonItem]: https://developer.apple.com/documentation/UIKit/UIBarButtonItem
 //
 // See: https://developer.apple.com/documentation/AppKit/NSToolbarItem/init(itemIdentifier:barButtonItem:)
+// barButtonItem is a [uikit.UIBarButtonItem].
 func (_NSToolbarItemClass NSToolbarItemClass) ItemWithItemIdentifierBarButtonItem(itemIdentifier NSToolbarItemIdentifier, barButtonItem objectivec.IObject) NSToolbarItem {
 rv := objc.Send[objc.ID](objc.ID(_NSToolbarItemClass.class), objc.Sel("itemWithItemIdentifier:barButtonItem:"), objc.String(string(itemIdentifier)), barButtonItem)
 return NSToolbarItemFromID(rv)

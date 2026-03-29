@@ -31,6 +31,11 @@ type AVCaptureMovieFileOutputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureMovieFileOutputClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureMovieFileOutputClass) Alloc() AVCaptureMovieFileOutput {
 	rv := objc.Send[AVCaptureMovieFileOutput](objc.ID(ac.class), objc.Sel("alloc"))
@@ -122,8 +127,8 @@ type IAVCaptureMovieFileOutput interface {
 	// Topic: Configuring movies
 
 	// The number of seconds of output that are written per fragment.
-	MovieFragmentInterval() objectivec.IObject
-	SetMovieFragmentInterval(value objectivec.IObject)
+	MovieFragmentInterval() uintptr
+	SetMovieFragmentInterval(value uintptr)
 	// The metadata for the output file.
 	Metadata() []AVMetadataItem
 	SetMetadata(value []AVMetadataItem)
@@ -297,11 +302,11 @@ func (c AVCaptureMovieFileOutput) SetPrimaryConstituentDeviceSwitchingBehaviorFo
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureMovieFileOutput/movieFragmentInterval
-func (c AVCaptureMovieFileOutput) MovieFragmentInterval() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("movieFragmentInterval"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureMovieFileOutput) MovieFragmentInterval() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("movieFragmentInterval"))
+	return rv
 }
-func (c AVCaptureMovieFileOutput) SetMovieFragmentInterval(value objectivec.IObject) {
+func (c AVCaptureMovieFileOutput) SetMovieFragmentInterval(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMovieFragmentInterval:"), value)
 }
 // The metadata for the output file.

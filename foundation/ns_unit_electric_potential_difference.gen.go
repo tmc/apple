@@ -29,6 +29,11 @@ type UnitElectricPotentialDifferenceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitElectricPotentialDifferenceClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitElectricPotentialDifferenceClass) Alloc() UnitElectricPotentialDifference {
 	rv := objc.Send[UnitElectricPotentialDifference](objc.ID(uc.class), objc.Sel("alloc"))

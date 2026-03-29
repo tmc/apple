@@ -22,7 +22,7 @@ type AVQueuedSampleBufferRendering interface {
 	// Sends a sample buffer to the queue for rendering.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
-	EnqueueSampleBuffer(sampleBuffer objectivec.IObject)
+	EnqueueSampleBuffer(sampleBuffer uintptr)
 
 	// Tells the target to invoke a client-supplied block in order to gather sample buffers for playback.
 	//
@@ -47,7 +47,7 @@ type AVQueuedSampleBufferRendering interface {
 	// The timebase for a renderer.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-	Timebase() objectivec.IObject
+	Timebase() uintptr
 }
 
 // AVQueuedSampleBufferRenderingObject wraps an existing Objective-C object that conforms to the AVQueuedSampleBufferRendering protocol.
@@ -100,7 +100,7 @@ func (o AVQueuedSampleBufferRenderingObject) IsReadyForMoreMediaData() bool {
 // [kCMSampleBufferAttachmentKey_EmptyMedia]: https://developer.apple.com/documentation/CoreMedia/kCMSampleBufferAttachmentKey_EmptyMedia
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
-func (o AVQueuedSampleBufferRenderingObject) EnqueueSampleBuffer(sampleBuffer objectivec.IObject) {
+func (o AVQueuedSampleBufferRenderingObject) EnqueueSampleBuffer(sampleBuffer uintptr) {
 	objc.Send[struct{}](o.ID, objc.Sel("enqueueSampleBuffer:"), sampleBuffer)
 	}
 // Tells the target to invoke a client-supplied block in order to gather
@@ -158,8 +158,8 @@ func (o AVQueuedSampleBufferRenderingObject) Flush() {
 // The timebase for a renderer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/timebase
-func (o AVQueuedSampleBufferRenderingObject) Timebase() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("timebase"))
-	return objectivec.Object{ID: rv}
+func (o AVQueuedSampleBufferRenderingObject) Timebase() uintptr {
+	rv := objc.Send[uintptr](o.ID, objc.Sel("timebase"))
+	return rv
 	}
 

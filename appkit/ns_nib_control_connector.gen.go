@@ -29,6 +29,11 @@ type NSNibControlConnectorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSNibControlConnectorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSNibControlConnectorClass) Alloc() NSNibControlConnector {
 	rv := objc.Send[NSNibControlConnector](objc.ID(nc.class), objc.Sel("alloc"))

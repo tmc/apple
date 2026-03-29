@@ -32,6 +32,11 @@ type NSSharingServiceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSharingServiceClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSharingServiceClass) Alloc() NSSharingService {
 	rv := objc.Send[NSSharingService](objc.ID(nc.class), objc.Sel("alloc"))
@@ -275,8 +280,7 @@ func NewSharingServiceNamed(serviceName NSSharingServiceName) NSSharingService {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingService/init(title:image:alternateImage:handler:)
 func (s NSSharingService) InitWithTitleImageAlternateImageHandler(title string, image INSImage, alternateImage INSImage, block VoidHandler) NSSharingService {
-_block3, _cleanup3 := NewVoidBlock(block)
-	defer _cleanup3()
+_block3, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithTitle:image:alternateImage:handler:"), objc.String(title), image, alternateImage, _block3)
 	return NSSharingServiceFromID(rv)
 }

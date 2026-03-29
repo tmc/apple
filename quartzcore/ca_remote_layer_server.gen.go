@@ -30,6 +30,11 @@ type CARemoteLayerServerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CARemoteLayerServerClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CARemoteLayerServerClass) Alloc() CARemoteLayerServer {
 	rv := objc.Send[CARemoteLayerServer](objc.ID(cc.class), objc.Sel("alloc"))

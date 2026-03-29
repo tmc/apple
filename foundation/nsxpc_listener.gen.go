@@ -30,6 +30,11 @@ type NSXPCListenerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSXPCListenerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSXPCListenerClass) Alloc() NSXPCListener {
 	rv := objc.Send[NSXPCListener](objc.ID(nc.class), objc.Sel("alloc"))

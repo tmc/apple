@@ -30,6 +30,11 @@ type ValueTransformerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc ValueTransformerClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc ValueTransformerClass) Alloc() ValueTransformer {
 	rv := objc.Send[ValueTransformer](objc.ID(vc.class), objc.Sel("alloc"))

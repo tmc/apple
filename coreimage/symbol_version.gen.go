@@ -30,6 +30,11 @@ type SymbolVersionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SymbolVersionClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SymbolVersionClass) Alloc() SymbolVersion {
 	rv := objc.Send[SymbolVersion](objc.ID(sc.class), objc.Sel("alloc"))

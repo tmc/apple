@@ -33,6 +33,11 @@ type AVVideoCompositionLayerInstructionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVVideoCompositionLayerInstructionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVideoCompositionLayerInstructionClass) Alloc() AVVideoCompositionLayerInstruction {
 	rv := objc.Send[AVVideoCompositionLayerInstruction](objc.ID(ac.class), objc.Sel("alloc"))
@@ -91,11 +96,11 @@ type IAVVideoCompositionLayerInstruction interface {
 	// Topic: Getting opacity, transform, and cropping ramps
 
 	// Obtains the crop rectangle ramp that includes the specified time.
-	GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time objectivec.IObject, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange objectivec.IObject) bool
+	GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time uintptr, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange unsafe.Pointer) bool
 	// Obtains the opacity ramp that includes a specified time.
-	GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time objectivec.IObject, timeRange objectivec.IObject) (float32, float32, bool)
+	GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time uintptr, timeRange *uintptr) (float32, float32, bool)
 	// Obtains the transform ramp that includes a specified time.
-	GetTransformRampForTimeStartTransformEndTransformTimeRange(time objectivec.IObject, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange objectivec.IObject) bool
+	GetTransformRampForTimeStartTransformEndTransformTimeRange(time uintptr, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange unsafe.Pointer) bool
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -141,10 +146,6 @@ func NewAVVideoCompositionLayerInstruction() AVVideoCompositionLayerInstruction 
 // 
 // This value may be [NULL].
 //
-// time is a [coremedia.CMTime].
-//
-// timeRange is a [coremedia.CMTimeRange].
-//
 // # Return Value
 // 
 // [false] will be returned if the specified time is beyond the duration of
@@ -153,7 +154,7 @@ func NewAVVideoCompositionLayerInstruction() AVVideoCompositionLayerInstruction 
 // [false]: https://developer.apple.com/documentation/Swift/false
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getCropRectangleRamp(for:startCropRectangle:endCropRectangle:timeRange:)
-func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time objectivec.IObject, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange objectivec.IObject) bool {
+func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time uintptr, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange unsafe.Pointer) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("getCropRectangleRampForTime:startCropRectangle:endCropRectangle:timeRange:"), time, startCropRectangle, endCropRectangle, timeRange)
 	return rv
 }
@@ -178,10 +179,6 @@ func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCrop
 // 
 // This value may be [NULL].
 //
-// time is a [coremedia.CMTime].
-//
-// timeRange is a [coremedia.CMTimeRange].
-//
 // # Return Value
 // 
 // [true] if values are returned successfully, otherwise [false]. [false] is
@@ -192,7 +189,7 @@ func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCrop
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getOpacityRamp(for:startOpacity:endOpacity:timeRange:)
-func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time objectivec.IObject, timeRange objectivec.IObject) (float32, float32, bool) {
+func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEndOpacityTimeRange(time uintptr, timeRange *uintptr) (float32, float32, bool) {
 	var startOpacity float32
 	var endOpacity float32
 	rv := objc.Send[bool](v.ID, objc.Sel("getOpacityRampForTime:startOpacity:endOpacity:timeRange:"), time, unsafe.Pointer(&startOpacity), unsafe.Pointer(&endOpacity), timeRange)
@@ -220,10 +217,6 @@ func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEnd
 // 
 // This value may be [NULL].
 //
-// time is a [coremedia.CMTime].
-//
-// timeRange is a [coremedia.CMTimeRange].
-//
 // # Return Value
 // 
 // [true] if values are returned successfully, otherwise [false]. [false] is
@@ -234,7 +227,7 @@ func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEnd
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getTransformRamp(for:start:end:timeRange:)
-func (v AVVideoCompositionLayerInstruction) GetTransformRampForTimeStartTransformEndTransformTimeRange(time objectivec.IObject, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange objectivec.IObject) bool {
+func (v AVVideoCompositionLayerInstruction) GetTransformRampForTimeStartTransformEndTransformTimeRange(time uintptr, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange unsafe.Pointer) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("getTransformRampForTime:startTransform:endTransform:timeRange:"), time, startTransform, endTransform, timeRange)
 	return rv
 }

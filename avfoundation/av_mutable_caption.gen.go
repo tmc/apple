@@ -7,7 +7,6 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVMutableCaption] class.
@@ -30,6 +29,11 @@ func GetAVMutableCaptionClass() AVMutableCaptionClass {
 
 type AVMutableCaptionClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMutableCaptionClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -116,8 +120,7 @@ func NewAVMutableCaption() AVMutableCaption {
 // timeRange: The range of time when the caption is active.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/init(_:timeRange:)
-// timeRange is a [coremedia.CMTimeRange].
-func NewMutableCaptionWithTextTimeRange(text string, timeRange objectivec.IObject) AVMutableCaption {
+func NewMutableCaptionWithTextTimeRange(text string, timeRange uintptr) AVMutableCaption {
 	instance := getAVMutableCaptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithText:timeRange:"), objc.String(text), timeRange)
 	return AVMutableCaptionFromID(rv)

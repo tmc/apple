@@ -31,6 +31,11 @@ type NSRunningApplicationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSRunningApplicationClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSRunningApplicationClass) Alloc() NSRunningApplication {
 	rv := objc.Send[NSRunningApplication](objc.ID(nc.class), objc.Sel("alloc"))

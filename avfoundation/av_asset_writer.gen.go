@@ -34,6 +34,11 @@ type AVAssetWriterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetWriterClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetWriterClass) Alloc() AVAssetWriter {
 	rv := objc.Send[AVAssetWriter](objc.ID(ac.class), objc.Sel("alloc"))
@@ -255,11 +260,11 @@ type IAVAssetWriter interface {
 	// Topic: Configuring fragment output
 
 	// The interval at which to write movie fragments.
-	MovieFragmentInterval() objectivec.IObject
-	SetMovieFragmentInterval(value objectivec.IObject)
+	MovieFragmentInterval() uintptr
+	SetMovieFragmentInterval(value uintptr)
 	// The interval at which to write the initial movie fragment.
-	InitialMovieFragmentInterval() objectivec.IObject
-	SetInitialMovieFragmentInterval(value objectivec.IObject)
+	InitialMovieFragmentInterval() uintptr
+	SetInitialMovieFragmentInterval(value uintptr)
 	// The sequence number of the initial movie fragment.
 	InitialMovieFragmentSequenceNumber() int
 	SetInitialMovieFragmentSequenceNumber(value int)
@@ -267,8 +272,8 @@ type IAVAssetWriter interface {
 	ProducesCombinableFragments() bool
 	SetProducesCombinableFragments(value bool)
 	// A hint of the final duration of the output file.
-	OverallDurationHint() objectivec.IObject
-	SetOverallDurationHint(value objectivec.IObject)
+	OverallDurationHint() uintptr
+	SetOverallDurationHint(value uintptr)
 	// The time scale of the movie.
 	MovieTimeScale() int32
 	SetMovieTimeScale(value int32)
@@ -276,9 +281,9 @@ type IAVAssetWriter interface {
 	// Topic: Managing writing sessions
 
 	// Starts an asset-writing session.
-	StartSessionAtSourceTime(startTime objectivec.IObject)
+	StartSessionAtSourceTime(startTime uintptr)
 	// Finishes an asset-writing session.
-	EndSessionAtSourceTime(endTime objectivec.IObject)
+	EndSessionAtSourceTime(endTime uintptr)
 	// Marks all unfinished inputs as finished and completes the writing of the output file.
 	FinishWritingWithCompletionHandler(handler VoidHandler)
 	// Cancels the creation of the output file.
@@ -297,11 +302,11 @@ type IAVAssetWriter interface {
 	Delegate() AVAssetWriterDelegate
 	SetDelegate(value AVAssetWriterDelegate)
 	// The interval of output segments that you prefer.
-	PreferredOutputSegmentInterval() objectivec.IObject
-	SetPreferredOutputSegmentInterval(value objectivec.IObject)
+	PreferredOutputSegmentInterval() uintptr
+	SetPreferredOutputSegmentInterval(value uintptr)
 	// The start time of the initial segment.
-	InitialSegmentStartTime() objectivec.IObject
-	SetInitialSegmentStartTime(value objectivec.IObject)
+	InitialSegmentStartTime() uintptr
+	SetInitialSegmentStartTime(value uintptr)
 	// A profile for the output file type.
 	OutputFileTypeProfile() AVFileTypeProfile
 	SetOutputFileTypeProfile(value AVFileTypeProfile)
@@ -509,8 +514,6 @@ func (a AVAssetWriter) AddInputGroup(inputGroup IAVAssetWriterInputGroup) {
 // startTime: The starting asset time for the sample-writing session, in the timeline of
 // the source samples.
 //
-// startTime is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // You must call this method after you call [startWriting()], but before you
@@ -533,15 +536,13 @@ func (a AVAssetWriter) AddInputGroup(inputGroup IAVAssetWriterInputGroup) {
 // [startWriting()]: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/startWriting()
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/startSession(atSourceTime:)
-func (a AVAssetWriter) StartSessionAtSourceTime(startTime objectivec.IObject) {
+func (a AVAssetWriter) StartSessionAtSourceTime(startTime uintptr) {
 	objc.Send[objc.ID](a.ID, objc.Sel("startSessionAtSourceTime:"), startTime)
 }
 // Finishes an asset-writing session.
 //
 // endTime: The ending asset time for the session, in the timeline of the source
 // samples.
-//
-// endTime is a [coremedia.CMTime].
 //
 // # Discussion
 // 
@@ -566,7 +567,7 @@ func (a AVAssetWriter) StartSessionAtSourceTime(startTime objectivec.IObject) {
 // sample you append.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/endSession(atSourceTime:)
-func (a AVAssetWriter) EndSessionAtSourceTime(endTime objectivec.IObject) {
+func (a AVAssetWriter) EndSessionAtSourceTime(endTime uintptr) {
 	objc.Send[objc.ID](a.ID, objc.Sel("endSessionAtSourceTime:"), endTime)
 }
 // Marks all unfinished inputs as finished and completes the writing of the
@@ -587,8 +588,7 @@ func (a AVAssetWriter) EndSessionAtSourceTime(endTime objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/finishWriting(completionHandler:)
 func (a AVAssetWriter) FinishWritingWithCompletionHandler(handler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("finishWritingWithCompletionHandler:"), _block0)
 }
 // Cancels the creation of the output file.
@@ -756,11 +756,11 @@ func (a AVAssetWriter) SetDirectoryForTemporaryFiles(value foundation.INSURL) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/movieFragmentInterval
-func (a AVAssetWriter) MovieFragmentInterval() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("movieFragmentInterval"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetWriter) MovieFragmentInterval() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("movieFragmentInterval"))
+	return rv
 }
-func (a AVAssetWriter) SetMovieFragmentInterval(value objectivec.IObject) {
+func (a AVAssetWriter) SetMovieFragmentInterval(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMovieFragmentInterval:"), value)
 }
 // The interval at which to write the initial movie fragment.
@@ -783,11 +783,11 @@ func (a AVAssetWriter) SetMovieFragmentInterval(value objectivec.IObject) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/initialMovieFragmentInterval
-func (a AVAssetWriter) InitialMovieFragmentInterval() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initialMovieFragmentInterval"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetWriter) InitialMovieFragmentInterval() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("initialMovieFragmentInterval"))
+	return rv
 }
-func (a AVAssetWriter) SetInitialMovieFragmentInterval(value objectivec.IObject) {
+func (a AVAssetWriter) SetInitialMovieFragmentInterval(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInitialMovieFragmentInterval:"), value)
 }
 // The sequence number of the initial movie fragment.
@@ -844,11 +844,11 @@ func (a AVAssetWriter) SetProducesCombinableFragments(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/overallDurationHint
-func (a AVAssetWriter) OverallDurationHint() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("overallDurationHint"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetWriter) OverallDurationHint() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("overallDurationHint"))
+	return rv
 }
-func (a AVAssetWriter) SetOverallDurationHint(value objectivec.IObject) {
+func (a AVAssetWriter) SetOverallDurationHint(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setOverallDurationHint:"), value)
 }
 // The time scale of the movie.
@@ -911,11 +911,11 @@ func (a AVAssetWriter) SetDelegate(value AVAssetWriterDelegate) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/preferredOutputSegmentInterval
-func (a AVAssetWriter) PreferredOutputSegmentInterval() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("preferredOutputSegmentInterval"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetWriter) PreferredOutputSegmentInterval() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("preferredOutputSegmentInterval"))
+	return rv
 }
-func (a AVAssetWriter) SetPreferredOutputSegmentInterval(value objectivec.IObject) {
+func (a AVAssetWriter) SetPreferredOutputSegmentInterval(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setPreferredOutputSegmentInterval:"), value)
 }
 // The start time of the initial segment.
@@ -929,11 +929,11 @@ func (a AVAssetWriter) SetPreferredOutputSegmentInterval(value objectivec.IObjec
 // You can’t change this value after writing starts.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/initialSegmentStartTime
-func (a AVAssetWriter) InitialSegmentStartTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initialSegmentStartTime"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetWriter) InitialSegmentStartTime() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("initialSegmentStartTime"))
+	return rv
 }
-func (a AVAssetWriter) SetInitialSegmentStartTime(value objectivec.IObject) {
+func (a AVAssetWriter) SetInitialSegmentStartTime(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setInitialSegmentStartTime:"), value)
 }
 // A profile for the output file type.

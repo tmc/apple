@@ -30,6 +30,11 @@ type NSScriptCommandDescriptionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScriptCommandDescriptionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScriptCommandDescriptionClass) Alloc() NSScriptCommandDescription {
 	rv := objc.Send[NSScriptCommandDescription](objc.ID(nc.class), objc.Sel("alloc"))

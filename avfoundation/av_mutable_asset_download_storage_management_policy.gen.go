@@ -29,6 +29,11 @@ type AVMutableAssetDownloadStorageManagementPolicyClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMutableAssetDownloadStorageManagementPolicyClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMutableAssetDownloadStorageManagementPolicyClass) Alloc() AVMutableAssetDownloadStorageManagementPolicy {
 	rv := objc.Send[AVMutableAssetDownloadStorageManagementPolicy](objc.ID(ac.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type AVCaptureDeskViewApplicationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureDeskViewApplicationClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureDeskViewApplicationClass) Alloc() AVCaptureDeskViewApplication {
 	rv := objc.Send[AVCaptureDeskViewApplication](objc.ID(ac.class), objc.Sel("alloc"))
@@ -123,8 +128,7 @@ func NewAVCaptureDeskViewApplication() AVCaptureDeskViewApplication {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeskViewApplication/present(completionHandler:)
 func (c AVCaptureDeskViewApplication) PresentWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("presentWithCompletionHandler:"), _block0)
 }
 // Launches Desk View with the configuration and completion handler that you
@@ -151,8 +155,7 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeskViewApplication/present(launchConfiguration:completionHandler:)
 func (c AVCaptureDeskViewApplication) PresentWithLaunchConfigurationCompletionHandler(launchConfiguration IAVCaptureDeskViewApplicationLaunchConfiguration, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("presentWithLaunchConfiguration:completionHandler:"), launchConfiguration, _block1)
 }
 

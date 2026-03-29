@@ -32,6 +32,11 @@ type NSTabViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTabViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTabViewClass) Alloc() NSTabView {
 	rv := objc.Send[NSTabView](objc.ID(nc.class), objc.Sel("alloc"))

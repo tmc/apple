@@ -29,6 +29,11 @@ type MTLArrayTypeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLArrayTypeClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLArrayTypeClass) Alloc() MTLArrayType {
 	rv := objc.Send[MTLArrayType](objc.ID(mc.class), objc.Sel("alloc"))

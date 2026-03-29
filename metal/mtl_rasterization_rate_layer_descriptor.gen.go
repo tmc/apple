@@ -31,6 +31,11 @@ type MTLRasterizationRateLayerDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLRasterizationRateLayerDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLRasterizationRateLayerDescriptorClass) Alloc() MTLRasterizationRateLayerDescriptor {
 	rv := objc.Send[MTLRasterizationRateLayerDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

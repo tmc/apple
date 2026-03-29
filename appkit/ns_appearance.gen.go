@@ -32,6 +32,11 @@ type NSAppearanceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAppearanceClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAppearanceClass) Alloc() NSAppearance {
 	rv := objc.Send[NSAppearance](objc.ID(nc.class), objc.Sel("alloc"))
@@ -290,8 +295,7 @@ func (a NSAppearance) BestMatchFromAppearancesWithNames(appearances []string) NS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/performAsCurrentDrawingAppearance(_:)
 func (a NSAppearance) PerformAsCurrentDrawingAppearance(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("performAsCurrentDrawingAppearance:"), _block0)
 }
 func (a NSAppearance) EncodeWithCoder(coder foundation.INSCoder) {

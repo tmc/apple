@@ -30,6 +30,11 @@ type VNTrackTranslationalImageRegistrationRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNTrackTranslationalImageRegistrationRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNTrackTranslationalImageRegistrationRequestClass) Alloc() VNTrackTranslationalImageRegistrationRequest {
 	rv := objc.Send[VNTrackTranslationalImageRegistrationRequest](objc.ID(vc.class), objc.Sel("alloc"))

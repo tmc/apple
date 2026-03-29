@@ -30,6 +30,11 @@ type VNFaceLandmarks2DClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNFaceLandmarks2DClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNFaceLandmarks2DClass) Alloc() VNFaceLandmarks2D {
 	rv := objc.Send[VNFaceLandmarks2D](objc.ID(vc.class), objc.Sel("alloc"))

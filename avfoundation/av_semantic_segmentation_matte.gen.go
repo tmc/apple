@@ -34,6 +34,11 @@ type AVSemanticSegmentationMatteClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVSemanticSegmentationMatteClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSemanticSegmentationMatteClass) Alloc() AVSemanticSegmentationMatte {
 	rv := objc.Send[AVSemanticSegmentationMatte](objc.ID(ac.class), objc.Sel("alloc"))
@@ -220,6 +225,7 @@ func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByReplacingSemanti
 // unrecognized `exifOrientation`.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/applyingExifOrientation(_:)
+// exifOrientation is a [imageio.CGImagePropertyOrientation].
 func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation objectivec.IObject) IAVSemanticSegmentationMatte {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("semanticSegmentationMatteByApplyingExifOrientation:"), exifOrientation)
 	return AVSemanticSegmentationMatteFromID(rv)

@@ -31,6 +31,11 @@ type NSXPCCoderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSXPCCoderClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSXPCCoderClass) Alloc() NSXPCCoder {
 	rv := objc.Send[NSXPCCoder](objc.ID(nc.class), objc.Sel("alloc"))
@@ -103,9 +108,9 @@ type INSXPCCoder interface {
 	// Topic: Encoding and Decoding
 
 	// Encodes an object to send over an XPC connection.
-	EncodeXPCObjectForKey(xpcObject objectivec.Object, key string)
+	EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string)
 	// Decodes an object and validates that its type matches the type a service provides over XPC.
-	DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string) objectivec.Object
+	DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string) unsafe.Pointer
 }
 
 // Init initializes the instance.
@@ -134,7 +139,7 @@ func NewNSXPCCoder() NSXPCCoder {
 // key: A string that your app uses to reference the encoded object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/encodeXPCObject(_:forKey:)
-func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject objectivec.Object, key string) {
+func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeXPCObject:forKey:"), xpcObject, objc.String(key))
 }
 // Decodes an object and validates that its type matches the type a service
@@ -160,9 +165,9 @@ func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject objectivec.Object, key strin
 // [XPC]: https://developer.apple.com/documentation/XPC
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/decodeXPCObject(ofType:forKey:)
-func (x NSXPCCoder) DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string) objectivec.Object {
-	rv := objc.Send[objc.ID](x.ID, objc.Sel("decodeXPCObjectOfType:forKey:"), type_, objc.String(key))
-	return objectivec.ObjectFromID(rv)
+func (x NSXPCCoder) DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string) unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](x.ID, objc.Sel("decodeXPCObjectOfType:forKey:"), type_, objc.String(key))
+	return rv
 }
 
 // The connection currently performing encoding or decoding.

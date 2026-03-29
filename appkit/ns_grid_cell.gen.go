@@ -31,6 +31,11 @@ type NSGridCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSGridCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSGridCellClass) Alloc() NSGridCell {
 	rv := objc.Send[NSGridCell](objc.ID(nc.class), objc.Sel("alloc"))

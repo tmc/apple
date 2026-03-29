@@ -32,6 +32,11 @@ type NSCollectionViewGridLayoutClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCollectionViewGridLayoutClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCollectionViewGridLayoutClass) Alloc() NSCollectionViewGridLayout {
 	rv := objc.Send[NSCollectionViewGridLayout](objc.ID(nc.class), objc.Sel("alloc"))

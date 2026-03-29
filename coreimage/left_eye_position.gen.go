@@ -30,6 +30,11 @@ type LeftEyePositionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (lc LeftEyePositionClass) Class() objc.Class {
+	return lc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (lc LeftEyePositionClass) Alloc() LeftEyePosition {
 	rv := objc.Send[LeftEyePosition](objc.ID(lc.class), objc.Sel("alloc"))

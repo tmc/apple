@@ -29,6 +29,11 @@ type NSMoveCommandClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMoveCommandClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMoveCommandClass) Alloc() NSMoveCommand {
 	rv := objc.Send[NSMoveCommand](objc.ID(nc.class), objc.Sel("alloc"))

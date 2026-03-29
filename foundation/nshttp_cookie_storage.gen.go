@@ -30,6 +30,11 @@ type HTTPCookieStorageClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (hc HTTPCookieStorageClass) Class() objc.Class {
+	return hc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (hc HTTPCookieStorageClass) Alloc() HTTPCookieStorage {
 	rv := objc.Send[HTTPCookieStorage](objc.ID(hc.class), objc.Sel("alloc"))

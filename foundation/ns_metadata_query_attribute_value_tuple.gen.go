@@ -30,6 +30,11 @@ type NSMetadataQueryAttributeValueTupleClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMetadataQueryAttributeValueTupleClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMetadataQueryAttributeValueTupleClass) Alloc() NSMetadataQueryAttributeValueTuple {
 	rv := objc.Send[NSMetadataQueryAttributeValueTuple](objc.ID(nc.class), objc.Sel("alloc"))

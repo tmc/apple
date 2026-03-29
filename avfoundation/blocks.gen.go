@@ -6,7 +6,6 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // AVAssetTrackErrorHandler handles A callback that the system invokes after it finishes the loading request.
@@ -29,15 +28,11 @@ func NewAVAssetTrackErrorBlock(handler AVAssetTrackErrorHandler) (objc.ID, func(
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVAssetTrack
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVAssetTrackFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -60,15 +55,11 @@ func NewAVAssetTrackSegmentErrorBlock(handler AVAssetTrackSegmentErrorHandler) (
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVAssetTrackSegment
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVAssetTrackSegmentFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -97,6 +88,7 @@ func NewAVCaptionConversionWarningBlock(handler AVCaptionConversionWarningHandle
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *AVCaptionConversionWarning
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVCaptionConversionWarningFromID(resultID)
 			result = &v
 		}
@@ -123,15 +115,11 @@ func NewAVCompositionTrackErrorBlock(handler AVCompositionTrackErrorHandler) (ob
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVCompositionTrack
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVCompositionTrackFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -154,15 +142,11 @@ func NewAVFragmentedAssetTrackErrorBlock(handler AVFragmentedAssetTrackErrorHand
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVFragmentedAssetTrack
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVFragmentedAssetTrackFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -185,15 +169,11 @@ func NewAVFragmentedMovieTrackErrorBlock(handler AVFragmentedMovieTrackErrorHand
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVFragmentedMovieTrack
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVFragmentedMovieTrackFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -216,15 +196,11 @@ func NewAVMediaSelectionGroupErrorBlock(handler AVMediaSelectionGroupErrorHandle
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMediaSelectionGroup
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVMediaSelectionGroupFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -246,6 +222,7 @@ func NewAVMetadataItemValueRequestBlock(handler AVMetadataItemValueRequestHandle
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *AVMetadataItemValueRequest
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVMetadataItemValueRequestFromID(resultID)
 			result = &v
 		}
@@ -272,15 +249,11 @@ func NewAVMovieTrackErrorBlock(handler AVMovieTrackErrorHandler) (objc.ID, func(
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMovieTrack
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVMovieTrackFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -303,15 +276,11 @@ func NewAVMutableCompositionTrackErrorBlock(handler AVMutableCompositionTrackErr
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMutableCompositionTrack
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVMutableCompositionTrackFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -334,15 +303,11 @@ func NewAVMutableMovieTrackErrorBlock(handler AVMutableMovieTrackErrorHandler) (
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMutableMovieTrack
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVMutableMovieTrackFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -367,15 +332,11 @@ func NewAVMutableVideoCompositionErrorBlock(handler AVMutableVideoCompositionErr
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVMutableVideoComposition
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVMutableVideoCompositionFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -396,15 +357,11 @@ func NewAVVideoCompositionErrorBlock(handler AVVideoCompositionErrorHandler) (ob
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *AVVideoComposition
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVVideoCompositionFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -424,6 +381,7 @@ func NewAVVideoPerformanceMetricsBlock(handler AVVideoPerformanceMetricsHandler)
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *AVVideoPerformanceMetrics
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := AVVideoPerformanceMetricsFromID(resultID)
 			result = &v
 		}
@@ -478,12 +436,7 @@ type BoolErrorHandler = func(bool, error)
 //   - [AVVideoComposition.DetermineValidityForAssetTimeRangeValidationDelegateCompletionHandler]
 func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal bool, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -549,12 +502,7 @@ type CGImageRefErrorHandler = func(coregraphics.CGImageRef, error)
 //   - [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler]
 func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal coregraphics.CGImageRef, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -573,12 +521,7 @@ type CMPersistentTrackIDErrorHandler = func(int32, error)
 //   - [AVAsset.FindUnusedTrackIDWithCompletionHandler]
 func NewCMPersistentTrackIDErrorBlock(handler CMPersistentTrackIDErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int32, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -592,7 +535,7 @@ func NewCMPersistentTrackIDErrorBlock(handler CMPersistentTrackIDErrorHandler) (
 //   - [AVAssetExportSession.EstimateMaximumDurationWithCompletionHandler]
 //   - [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]
 //   - [AVCaptureDevice.SetDynamicAspectRatioCompletionHandler]
-type CMTimeErrorHandler = func(objectivec.IObject, error)
+type CMTimeErrorHandler = func(uintptr, error)
 
 // NewCMTimeErrorBlock wraps a Go [CMTimeErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -602,13 +545,8 @@ type CMTimeErrorHandler = func(objectivec.IObject, error)
 //   - [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]
 //   - [AVCaptureDevice.SetDynamicAspectRatioCompletionHandler]
 func NewCMTimeErrorBlock(handler CMTimeErrorHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+	block := objc.NewBlock(func(b objc.Block, primitiveVal uintptr, errID objc.ID) {
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -625,7 +563,7 @@ func NewCMTimeErrorBlock(handler CMTimeErrorHandler) (objc.ID, func()) {
 //   - [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVPlayerItemIntegratedTimeline.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
-type CMTimeHandler = func(objectivec.IObject)
+type CMTimeHandler = func(uintptr)
 
 // NewCMTimeBlock wraps a Go [CMTimeHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -640,7 +578,7 @@ type CMTimeHandler = func(objectivec.IObject)
 //   - [AVPlayerItemIntegratedTimeline.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 func NewCMTimeBlock(handler CMTimeHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject) {
+	block := objc.NewBlock(func(b objc.Block, primitiveVal uintptr) {
 		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
@@ -670,15 +608,11 @@ func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSData
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := foundation.NSDataFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -705,12 +639,7 @@ type ErrorHandler = func(error)
 //   - [AVSampleBufferGeneratorBatch.MakeDataReadyWithCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(foundation.NSErrorToError(nserr))
+		handler(foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -837,12 +766,7 @@ type int64_tErrorHandler = func(int64, error)
 //   - [AVAssetExportSession.EstimateOutputFileLengthWithCompletionHandler]
 func Newint64_tErrorBlock(handler int64_tErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int64, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }

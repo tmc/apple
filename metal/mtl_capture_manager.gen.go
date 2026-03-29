@@ -33,6 +33,11 @@ type MTLCaptureManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLCaptureManagerClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLCaptureManagerClass) Alloc() MTLCaptureManager {
 	rv := objc.Send[MTLCaptureManager](objc.ID(mc.class), objc.Sel("alloc"))

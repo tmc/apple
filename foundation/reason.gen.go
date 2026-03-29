@@ -30,6 +30,11 @@ type ReasonClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (rc ReasonClass) Class() objc.Class {
+	return rc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (rc ReasonClass) Alloc() Reason {
 	rv := objc.Send[Reason](objc.ID(rc.class), objc.Sel("alloc"))

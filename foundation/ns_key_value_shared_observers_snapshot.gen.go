@@ -30,6 +30,11 @@ type NSKeyValueSharedObserversSnapshotClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSKeyValueSharedObserversSnapshotClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSKeyValueSharedObserversSnapshotClass) Alloc() NSKeyValueSharedObserversSnapshot {
 	rv := objc.Send[NSKeyValueSharedObserversSnapshot](objc.ID(nc.class), objc.Sel("alloc"))

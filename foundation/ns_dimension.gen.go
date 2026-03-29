@@ -29,6 +29,11 @@ type DimensionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (dc DimensionClass) Class() objc.Class {
+	return dc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (dc DimensionClass) Alloc() Dimension {
 	rv := objc.Send[Dimension](objc.ID(dc.class), objc.Sel("alloc"))

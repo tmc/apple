@@ -32,6 +32,11 @@ type NSValueClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSValueClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSValueClass) Alloc() NSValue {
 	rv := objc.Send[NSValue](objc.ID(nc.class), objc.Sel("alloc"))
@@ -254,11 +259,11 @@ type INSValue interface {
 	// Topic: Working with Media Time Values
 
 	// The CoreMedia time structure representation of the value.
-	CMTimeValue() objectivec.IObject
+	CMTimeValue() uintptr
 	// The CoreMedia time range structure representation of the value.
-	CMTimeRangeValue() objectivec.IObject
+	CMTimeRangeValue() uintptr
 	// The CoreMedia time mapping structure representation of the value.
-	CMTimeMappingValue() objectivec.IObject
+	CMTimeMappingValue() uintptr
 
 	// Topic: Working with Geographic Coordinate Values
 
@@ -355,6 +360,7 @@ func NewValueWithBytesObjCType(value unsafe.Pointer, type_ string) NSValue {
 // A new value object that contains the transform information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CATransform3D:)
+// t is a [quartzcore.CATransform3D].
 func NewValueWithCATransform3D(t objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCATransform3D:"), t)
 	return NSValueFromID(rv)
@@ -445,7 +451,7 @@ func NewValueWithCGVector(vector corefoundation.CGVector) NSValue {
 // A new value object that contains the media time information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTime:)
-func NewValueWithCMTime(time objectivec.IObject) NSValue {
+func NewValueWithCMTime(time uintptr) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMTime:"), time)
 	return NSValueFromID(rv)
 }
@@ -460,7 +466,7 @@ func NewValueWithCMTime(time objectivec.IObject) NSValue {
 // A new value object that contains the time mapping information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTimeMapping:)
-func NewValueWithCMTimeMapping(timeMapping objectivec.IObject) NSValue {
+func NewValueWithCMTimeMapping(timeMapping uintptr) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMTimeMapping:"), timeMapping)
 	return NSValueFromID(rv)
 }
@@ -475,13 +481,14 @@ func NewValueWithCMTimeMapping(timeMapping objectivec.IObject) NSValue {
 // A new value object that contains the time range information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMTimeRange:)
-func NewValueWithCMTimeRange(timeRange objectivec.IObject) NSValue {
+func NewValueWithCMTimeRange(timeRange uintptr) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMTimeRange:"), timeRange)
 	return NSValueFromID(rv)
 }
 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(CMVideoDimensions:)
+// dimensions is a [coremedia.CMVideoDimensions].
 func NewValueWithCMVideoDimensions(dimensions objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithCMVideoDimensions:"), dimensions)
 	return NSValueFromID(rv)
@@ -528,6 +535,7 @@ func NewValueWithGCPoint2(point objectivec.IObject) NSValue {
 // A new value object that contains the geographic coordinate information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(MKCoordinate:)
+// coordinate is a [corelocation.CLLocationCoordinate2D].
 func NewValueWithMKCoordinate(coordinate objectivec.IObject) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithMKCoordinate:"), coordinate)
 	return NSValueFromID(rv)
@@ -929,23 +937,23 @@ func (v NSValue) CATransform3DValue() objectivec.IObject {
 // The CoreMedia time structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeValue
-func (v NSValue) CMTimeValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) CMTimeValue() uintptr {
+	rv := objc.Send[uintptr](v.ID, objc.Sel("CMTimeValue"))
+	return rv
 }
 // The CoreMedia time range structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeRangeValue
-func (v NSValue) CMTimeRangeValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeRangeValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) CMTimeRangeValue() uintptr {
+	rv := objc.Send[uintptr](v.ID, objc.Sel("CMTimeRangeValue"))
+	return rv
 }
 // The CoreMedia time mapping structure representation of the value.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/timeMappingValue
-func (v NSValue) CMTimeMappingValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("CMTimeMappingValue"))
-	return objectivec.Object{ID: rv}
+func (v NSValue) CMTimeMappingValue() uintptr {
+	rv := objc.Send[uintptr](v.ID, objc.Sel("CMTimeMappingValue"))
+	return rv
 }
 // The CoreLocation geographic coordinate structure representation of the
 // value.

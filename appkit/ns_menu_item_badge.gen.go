@@ -31,6 +31,11 @@ type NSMenuItemBadgeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMenuItemBadgeClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMenuItemBadgeClass) Alloc() NSMenuItemBadge {
 	rv := objc.Send[NSMenuItemBadge](objc.ID(nc.class), objc.Sel("alloc"))

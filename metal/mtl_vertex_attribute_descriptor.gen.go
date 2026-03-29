@@ -30,6 +30,11 @@ type MTLVertexAttributeDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLVertexAttributeDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLVertexAttributeDescriptorClass) Alloc() MTLVertexAttributeDescriptor {
 	rv := objc.Send[MTLVertexAttributeDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

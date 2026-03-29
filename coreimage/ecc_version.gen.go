@@ -30,6 +30,11 @@ type EccVersionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EccVersionClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EccVersionClass) Alloc() EccVersion {
 	rv := objc.Send[EccVersion](objc.ID(ec.class), objc.Sel("alloc"))

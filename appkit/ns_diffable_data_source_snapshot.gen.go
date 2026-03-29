@@ -30,6 +30,11 @@ type NSDiffableDataSourceSnapshotClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDiffableDataSourceSnapshotClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDiffableDataSourceSnapshotClass) Alloc() NSDiffableDataSourceSnapshot {
 	rv := objc.Send[NSDiffableDataSourceSnapshot](objc.ID(nc.class), objc.Sel("alloc"))

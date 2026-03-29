@@ -29,6 +29,11 @@ type NSCountCommandClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCountCommandClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCountCommandClass) Alloc() NSCountCommand {
 	rv := objc.Send[NSCountCommand](objc.ID(nc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type MTLLogStateDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLLogStateDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLLogStateDescriptorClass) Alloc() MTLLogStateDescriptor {
 	rv := objc.Send[MTLLogStateDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

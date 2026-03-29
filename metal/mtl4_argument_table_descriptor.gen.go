@@ -31,6 +31,11 @@ type MTL4ArgumentTableDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4ArgumentTableDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4ArgumentTableDescriptorClass) Alloc() MTL4ArgumentTableDescriptor {
 	rv := objc.Send[MTL4ArgumentTableDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

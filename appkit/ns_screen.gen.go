@@ -33,6 +33,11 @@ type NSScreenClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScreenClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScreenClass) Alloc() NSScreen {
 	rv := objc.Send[NSScreen](objc.ID(nc.class), objc.Sel("alloc"))

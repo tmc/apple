@@ -31,6 +31,11 @@ type NSGlassEffectContainerViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSGlassEffectContainerViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSGlassEffectContainerViewClass) Alloc() NSGlassEffectContainerView {
 	rv := objc.Send[NSGlassEffectContainerView](objc.ID(nc.class), objc.Sel("alloc"))

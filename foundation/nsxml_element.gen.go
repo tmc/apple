@@ -31,6 +31,11 @@ type XMLElementClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (xc XMLElementClass) Class() objc.Class {
+	return xc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (xc XMLElementClass) Alloc() XMLElement {
 	rv := objc.Send[XMLElement](objc.ID(xc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type NSCompoundPredicateClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCompoundPredicateClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCompoundPredicateClass) Alloc() NSCompoundPredicate {
 	rv := objc.Send[NSCompoundPredicate](objc.ID(nc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type CIRectangleFeatureClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CIRectangleFeatureClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CIRectangleFeatureClass) Alloc() CIRectangleFeature {
 	rv := objc.Send[CIRectangleFeature](objc.ID(cc.class), objc.Sel("alloc"))

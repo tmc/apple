@@ -30,6 +30,11 @@ type ArgumentsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ArgumentsClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ArgumentsClass) Alloc() Arguments {
 	rv := objc.Send[Arguments](objc.ID(ac.class), objc.Sel("alloc"))

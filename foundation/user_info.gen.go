@@ -30,6 +30,11 @@ type UserInfoClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UserInfoClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UserInfoClass) Alloc() UserInfo {
 	rv := objc.Send[UserInfo](objc.ID(uc.class), objc.Sel("alloc"))

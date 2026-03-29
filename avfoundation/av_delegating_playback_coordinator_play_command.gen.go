@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVDelegatingPlaybackCoordinatorPlayCommand] class.
@@ -28,6 +27,11 @@ func GetAVDelegatingPlaybackCoordinatorPlayCommandClass() AVDelegatingPlaybackCo
 
 type AVDelegatingPlaybackCoordinatorPlayCommandClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVDelegatingPlaybackCoordinatorPlayCommandClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -75,9 +79,9 @@ type IAVDelegatingPlaybackCoordinatorPlayCommand interface {
 	// A rate to use when starting playback.
 	Rate() float32
 	// A time in the item timeline to use to begin playback.
-	ItemTime() objectivec.IObject
+	ItemTime() uintptr
 	// A host clock time to use to begin playback.
-	HostClockTime() objectivec.IObject
+	HostClockTime() uintptr
 }
 
 // Init initializes the instance.
@@ -113,15 +117,15 @@ func (d AVDelegatingPlaybackCoordinatorPlayCommand) Rate() float32 {
 // A time in the item timeline to use to begin playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPlayCommand/itemTime
-func (d AVDelegatingPlaybackCoordinatorPlayCommand) ItemTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("itemTime"))
-	return objectivec.Object{ID: rv}
+func (d AVDelegatingPlaybackCoordinatorPlayCommand) ItemTime() uintptr {
+	rv := objc.Send[uintptr](d.ID, objc.Sel("itemTime"))
+	return rv
 }
 // A host clock time to use to begin playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinatorPlayCommand/hostClockTime
-func (d AVDelegatingPlaybackCoordinatorPlayCommand) HostClockTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("hostClockTime"))
-	return objectivec.Object{ID: rv}
+func (d AVDelegatingPlaybackCoordinatorPlayCommand) HostClockTime() uintptr {
+	rv := objc.Send[uintptr](d.ID, objc.Sel("hostClockTime"))
+	return rv
 }
 

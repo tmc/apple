@@ -31,6 +31,11 @@ type NSWindowTabClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSWindowTabClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSWindowTabClass) Alloc() NSWindowTab {
 	rv := objc.Send[NSWindowTab](objc.ID(nc.class), objc.Sel("alloc"))

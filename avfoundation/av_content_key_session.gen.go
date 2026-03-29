@@ -33,6 +33,11 @@ type AVContentKeySessionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVContentKeySessionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVContentKeySessionClass) Alloc() AVContentKeySession {
 	rv := objc.Send[AVContentKeySession](objc.ID(ac.class), objc.Sel("alloc"))
@@ -317,8 +322,7 @@ func (c AVContentKeySession) Expire() {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/makeSecureTokenForExpirationDate(ofPersistableContentKey:completionHandler:)
 func (c AVContentKeySession) MakeSecureTokenForExpirationDateOfPersistableContentKeyCompletionHandler(persistableContentKeyData foundation.INSData, handler DataErrorHandler) {
-_block1, _cleanup1 := NewDataErrorBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("makeSecureTokenForExpirationDateOfPersistableContentKey:completionHandler:"), persistableContentKeyData, _block1)
 }
 // Tells the delegate that previously provided response data for a content key
@@ -342,8 +346,7 @@ func (c AVContentKeySession) RenewExpiringResponseDataForContentKeyRequest(conte
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/invalidatePersistableContentKey(_:options:completionHandler:)
 func (c AVContentKeySession) InvalidatePersistableContentKeyOptionsCompletionHandler(persistableContentKeyData foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler) {
-_block2, _cleanup2 := NewDataErrorBlock(handler)
-	defer _cleanup2()
+_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidatePersistableContentKey:options:completionHandler:"), persistableContentKeyData, options, _block2)
 }
 // Invalidates all of an app’s persistable content keys and creates a secure
@@ -361,8 +364,7 @@ _block2, _cleanup2 := NewDataErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeySession/invalidateAllPersistableContentKeys(forApp:options:completionHandler:)
 func (c AVContentKeySession) InvalidateAllPersistableContentKeysForAppOptionsCompletionHandler(appIdentifier foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler) {
-_block2, _cleanup2 := NewDataErrorBlock(handler)
-	defer _cleanup2()
+_block2, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("invalidateAllPersistableContentKeysForApp:options:completionHandler:"), appIdentifier, options, _block2)
 }
 

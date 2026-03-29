@@ -31,6 +31,11 @@ type NSAnimationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAnimationClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAnimationClass) Alloc() NSAnimation {
 	rv := objc.Send[NSAnimation](objc.ID(nc.class), objc.Sel("alloc"))

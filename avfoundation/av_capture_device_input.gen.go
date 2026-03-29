@@ -7,7 +7,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVCaptureDeviceInput] class.
@@ -30,6 +29,11 @@ func GetAVCaptureDeviceInputClass() AVCaptureDeviceInputClass {
 
 type AVCaptureDeviceInputClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureDeviceInputClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -175,8 +179,8 @@ type IAVCaptureDeviceInput interface {
 	// Topic: Locking frame duration
 
 	// The receiver’s locked frame duration (the reciprocal of its frame rate). Setting this property guarantees the intra-frame duration delivered by the device input is precisely the frame duration you request.
-	ActiveLockedVideoFrameDuration() objectivec.IObject
-	SetActiveLockedVideoFrameDuration(value objectivec.IObject)
+	ActiveLockedVideoFrameDuration() uintptr
+	SetActiveLockedVideoFrameDuration(value uintptr)
 	// Indicates whether the device input supports locked frame durations.
 	LockedVideoFrameDurationSupported() bool
 
@@ -185,11 +189,11 @@ type IAVCaptureDeviceInput interface {
 	// Indicates whether the device input supports being configured to follow an external sync device.
 	ExternalSyncSupported() bool
 	// Configures the the device input to follow an external sync device at the given frame duration.
-	FollowExternalSyncDeviceVideoFrameDurationDelegate(externalSyncDevice IAVExternalSyncDevice, frameDuration objectivec.IObject, delegate AVExternalSyncDeviceDelegate)
+	FollowExternalSyncDeviceVideoFrameDurationDelegate(externalSyncDevice IAVExternalSyncDevice, frameDuration uintptr, delegate AVExternalSyncDeviceDelegate)
 	// Discontinues external sync.
 	UnfollowExternalSyncDevice()
 	// The receiver’s external sync frame duration (the reciprocal of its frame rate) when being driven by an external sync device.
-	ActiveExternalSyncVideoFrameDuration() objectivec.IObject
+	ActiveExternalSyncVideoFrameDuration() uintptr
 	// The external sync device currently being followed by this input.
 	ExternalSyncDevice() IAVExternalSyncDevice
 
@@ -279,8 +283,6 @@ func (c AVCaptureDeviceInput) IsMultichannelAudioModeSupported(multichannelAudio
 // delegate: The delegate to notify when the connection status changes, or an error
 // occurs.
 //
-// frameDuration is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // Call this method to direct your [AVCaptureDeviceInput] to follow the
@@ -317,7 +319,7 @@ func (c AVCaptureDeviceInput) IsMultichannelAudioModeSupported(multichannelAudio
 // [runtimeErrorNotification]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/runtimeErrorNotification
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/follow(_:videoFrameDuration:delegate:)
-func (c AVCaptureDeviceInput) FollowExternalSyncDeviceVideoFrameDurationDelegate(externalSyncDevice IAVExternalSyncDevice, frameDuration objectivec.IObject, delegate AVExternalSyncDeviceDelegate) {
+func (c AVCaptureDeviceInput) FollowExternalSyncDeviceVideoFrameDurationDelegate(externalSyncDevice IAVExternalSyncDevice, frameDuration uintptr, delegate AVExternalSyncDeviceDelegate) {
 	objc.Send[objc.ID](c.ID, objc.Sel("followExternalSyncDevice:videoFrameDuration:delegate:"), externalSyncDevice, frameDuration, delegate)
 }
 // Discontinues external sync.
@@ -488,11 +490,11 @@ func (c AVCaptureDeviceInput) SetSimulatedAperture(value float32) {
 // [ActiveVideoMaxFrameDuration].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/activeLockedVideoFrameDuration
-func (c AVCaptureDeviceInput) ActiveLockedVideoFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("activeLockedVideoFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureDeviceInput) ActiveLockedVideoFrameDuration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("activeLockedVideoFrameDuration"))
+	return rv
 }
-func (c AVCaptureDeviceInput) SetActiveLockedVideoFrameDuration(value objectivec.IObject) {
+func (c AVCaptureDeviceInput) SetActiveLockedVideoFrameDuration(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setActiveLockedVideoFrameDuration:"), value)
 }
 // Indicates whether the device input supports locked frame durations.
@@ -529,9 +531,9 @@ func (c AVCaptureDeviceInput) ExternalSyncSupported() bool {
 // [FollowExternalSyncDeviceVideoFrameDurationDelegate].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput/activeExternalSyncVideoFrameDuration
-func (c AVCaptureDeviceInput) ActiveExternalSyncVideoFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("activeExternalSyncVideoFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureDeviceInput) ActiveExternalSyncVideoFrameDuration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("activeExternalSyncVideoFrameDuration"))
+	return rv
 }
 // The external sync device currently being followed by this input.
 //

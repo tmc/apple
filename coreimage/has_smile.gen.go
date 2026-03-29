@@ -30,6 +30,11 @@ type HasSmileClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (hc HasSmileClass) Class() objc.Class {
+	return hc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (hc HasSmileClass) Alloc() HasSmile {
 	rv := objc.Send[HasSmile](objc.ID(hc.class), objc.Sel("alloc"))

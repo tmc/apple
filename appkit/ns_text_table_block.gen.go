@@ -29,6 +29,11 @@ type NSTextTableBlockClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextTableBlockClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextTableBlockClass) Alloc() NSTextTableBlock {
 	rv := objc.Send[NSTextTableBlock](objc.ID(nc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type PropertyListSerializationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (pc PropertyListSerializationClass) Class() objc.Class {
+	return pc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (pc PropertyListSerializationClass) Alloc() PropertyListSerialization {
 	rv := objc.Send[PropertyListSerialization](objc.ID(pc.class), objc.Sel("alloc"))

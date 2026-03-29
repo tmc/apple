@@ -32,6 +32,11 @@ type CAGradientLayerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAGradientLayerClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAGradientLayerClass) Alloc() CAGradientLayer {
 	rv := objc.Send[CAGradientLayer](objc.ID(cc.class), objc.Sel("alloc"))

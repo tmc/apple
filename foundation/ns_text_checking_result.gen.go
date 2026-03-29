@@ -30,6 +30,11 @@ type NSTextCheckingResultClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextCheckingResultClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextCheckingResultClass) Alloc() NSTextCheckingResult {
 	rv := objc.Send[NSTextCheckingResult](objc.ID(nc.class), objc.Sel("alloc"))

@@ -33,6 +33,11 @@ type AVCapturePhotoClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCapturePhotoClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCapturePhotoClass) Alloc() AVCapturePhoto {
 	rv := objc.Send[AVCapturePhoto](objc.ID(ac.class), objc.Sel("alloc"))
@@ -128,7 +133,7 @@ type IAVCapturePhoto interface {
 	// The 1-based index of this photo capture relative to other results from the same capture request.
 	PhotoCount() int
 	// The time at which the image was captured.
-	Timestamp() objectivec.IObject
+	Timestamp() uintptr
 
 	// Topic: Accessing photo pixel data
 
@@ -252,9 +257,9 @@ func (c AVCapturePhoto) PhotoCount() int {
 // [masterClock]: https://developer.apple.com/documentation/AVFoundation/AVCaptureSession/masterClock
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhoto/timestamp
-func (c AVCapturePhoto) Timestamp() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("timestamp"))
-	return objectivec.Object{ID: rv}
+func (c AVCapturePhoto) Timestamp() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("timestamp"))
+	return rv
 }
 // The uncompressed or RAW image sample buffer for the photo, if requested.
 //

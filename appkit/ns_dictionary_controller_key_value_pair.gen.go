@@ -31,6 +31,11 @@ type NSDictionaryControllerKeyValuePairClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDictionaryControllerKeyValuePairClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDictionaryControllerKeyValuePairClass) Alloc() NSDictionaryControllerKeyValuePair {
 	rv := objc.Send[NSDictionaryControllerKeyValuePair](objc.ID(nc.class), objc.Sel("alloc"))

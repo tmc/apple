@@ -33,6 +33,11 @@ type NSCollectionViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCollectionViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 	rv := objc.Send[NSCollectionView](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1534,10 +1539,8 @@ func (c NSCollectionView) LayoutAttributesForSupplementaryElementOfKindAtIndexPa
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/performBatchUpdates(_:completionHandler:)
 func (c NSCollectionView) PerformBatchUpdatesCompletionHandler(updates VoidHandler, completionHandler BoolHandler) {
-_block0, _cleanup0 := NewVoidBlock(updates)
-	defer _cleanup0()
-	_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+_block0, _ := NewVoidBlock(updates)
+	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("performBatchUpdates:completionHandler:"), _block0, _block1)
 }
 // Returns an image to use for dragging the specified items.

@@ -32,6 +32,11 @@ type IOSurfaceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ic IOSurfaceClass) Class() objc.Class {
+	return ic.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ic IOSurfaceClass) Alloc() IOSurface {
 	rv := objc.Send[IOSurface](objc.ID(ic.class), objc.Sel("alloc"))

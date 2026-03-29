@@ -31,6 +31,11 @@ type NSKeyedArchiverClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSKeyedArchiverClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSKeyedArchiverClass) Alloc() NSKeyedArchiver {
 	rv := objc.Send[NSKeyedArchiver](objc.ID(nc.class), objc.Sel("alloc"))

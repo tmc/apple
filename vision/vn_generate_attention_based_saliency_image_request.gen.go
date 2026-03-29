@@ -29,6 +29,11 @@ type VNGenerateAttentionBasedSaliencyImageRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNGenerateAttentionBasedSaliencyImageRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNGenerateAttentionBasedSaliencyImageRequestClass) Alloc() VNGenerateAttentionBasedSaliencyImageRequest {
 	rv := objc.Send[VNGenerateAttentionBasedSaliencyImageRequest](objc.ID(vc.class), objc.Sel("alloc"))

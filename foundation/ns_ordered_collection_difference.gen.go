@@ -31,6 +31,11 @@ type NSOrderedCollectionDifferenceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSOrderedCollectionDifferenceClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSOrderedCollectionDifferenceClass) Alloc() NSOrderedCollectionDifference {
 	rv := objc.Send[NSOrderedCollectionDifference](objc.ID(nc.class), objc.Sel("alloc"))
@@ -291,8 +296,7 @@ func (o NSOrderedCollectionDifference) InitWithInsertIndexesInsertedObjectsRemov
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionDifference/transformingChanges(_:)
 func (o NSOrderedCollectionDifference) DifferenceByTransformingChangesWithBlock(block OrderedCollectionChangeHandler) INSOrderedCollectionDifference {
-_block0, _cleanup0 := NewOrderedCollectionChangeBlock(block)
-	defer _cleanup0()
+_block0, _ := NewOrderedCollectionChangeBlock(block)
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("differenceByTransformingChangesWithBlock:"), _block0)
 	return NSOrderedCollectionDifferenceFromID(rv)
 }

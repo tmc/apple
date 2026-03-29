@@ -30,6 +30,11 @@ type URLResponseClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLResponseClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLResponseClass) Alloc() URLResponse {
 	rv := objc.Send[URLResponse](objc.ID(uc.class), objc.Sel("alloc"))

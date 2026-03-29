@@ -31,6 +31,11 @@ type VNCoreMLRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNCoreMLRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNCoreMLRequestClass) Alloc() VNCoreMLRequest {
 	rv := objc.Send[VNCoreMLRequest](objc.ID(vc.class), objc.Sel("alloc"))
@@ -259,8 +264,7 @@ func (c VNCoreMLRequest) InitWithModel(model IVNCoreMLModel) VNCoreMLRequest {
 //
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLRequest/init(model:completionHandler:)
 func (c VNCoreMLRequest) InitWithModelCompletionHandler(model IVNCoreMLModel, completionHandler ErrorHandler) VNCoreMLRequest {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithModel:completionHandler:"), model, _block1)
 	return VNCoreMLRequestFromID(rv)
 }

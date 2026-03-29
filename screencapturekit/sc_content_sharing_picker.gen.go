@@ -30,6 +30,11 @@ type SCContentSharingPickerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCContentSharingPickerClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCContentSharingPickerClass) Alloc() SCContentSharingPicker {
 	rv := objc.Send[SCContentSharingPicker](objc.ID(sc.class), objc.Sel("alloc"))

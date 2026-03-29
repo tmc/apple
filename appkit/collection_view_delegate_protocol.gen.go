@@ -833,13 +833,13 @@ type NSCollectionViewDelegateConfig struct {
 	// DidChangeItemsAtIndexPathsToHighlightState — Notifies the delegate that the highlight state of the specified items changed.
 	DidChangeItemsAtIndexPathsToHighlightState func(collectionView NSCollectionView, indexPaths foundation.INSSet, highlightState NSCollectionViewItemHighlightState)
 	// WillDisplayItemForRepresentedObjectAtIndexPath — Notifies the delegate that the specified item is about to be displayed by the collection view.
-	WillDisplayItemForRepresentedObjectAtIndexPath func(collectionView NSCollectionView, item NSCollectionViewItem, indexPath objc.ID)
+	WillDisplayItemForRepresentedObjectAtIndexPath func(collectionView NSCollectionView, item NSCollectionViewItem, indexPath foundation.NSIndexPath)
 	// DidEndDisplayingItemForRepresentedObjectAtIndexPath — Notifies the delegate that the specified item was removed from the collection view.
-	DidEndDisplayingItemForRepresentedObjectAtIndexPath func(collectionView NSCollectionView, item NSCollectionViewItem, indexPath objc.ID)
+	DidEndDisplayingItemForRepresentedObjectAtIndexPath func(collectionView NSCollectionView, item NSCollectionViewItem, indexPath foundation.NSIndexPath)
 	// WillDisplaySupplementaryViewForElementKindAtIndexPath — Notifies the delegate that the specified supplementary view is about to be displayed by the collection view.
-	WillDisplaySupplementaryViewForElementKindAtIndexPath func(collectionView NSCollectionView, view NSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath objc.ID)
+	WillDisplaySupplementaryViewForElementKindAtIndexPath func(collectionView NSCollectionView, view NSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.NSIndexPath)
 	// DidEndDisplayingSupplementaryViewForElementOfKindAtIndexPath — Notifies the delegate that the specified supplementary view was removed from the collection view.
-	DidEndDisplayingSupplementaryViewForElementOfKindAtIndexPath func(collectionView NSCollectionView, view NSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath objc.ID)
+	DidEndDisplayingSupplementaryViewForElementOfKindAtIndexPath func(collectionView NSCollectionView, view NSView, elementKind NSCollectionViewSupplementaryElementKind, indexPath foundation.NSIndexPath)
 	// CanDragItemsAtIndexPathsWithEvent — Returns a Boolean indicating whether a drag operation involving the specified items can begin.
 	CanDragItemsAtIndexPathsWithEvent func(collectionView NSCollectionView, indexPaths foundation.INSSet, event NSEvent) bool
 	// DraggingImageForItemsAtIndexPathsWithEventOffset — Creates and returns a drag image to represent the specified items during a drag.
@@ -947,7 +947,7 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, itemID objc.ID, indexPathID objc.ID) {
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				item := NSCollectionViewItemFromID(itemID)
-				indexPath := indexPathID
+				indexPath := foundation.NSIndexPathFromID(indexPathID)
 				fn(collectionView, item, indexPath)
 			},
 		})
@@ -960,7 +960,7 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, itemID objc.ID, indexPathID objc.ID) {
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				item := NSCollectionViewItemFromID(itemID)
-				indexPath := indexPathID
+				indexPath := foundation.NSIndexPathFromID(indexPathID)
 				fn(collectionView, item, indexPath)
 			},
 		})
@@ -974,7 +974,7 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				view := NSViewFromID(viewID)
 				elementKind := NSCollectionViewSupplementaryElementKind(objc.GoString(objc.Send[*byte](elementKindID, objc.Sel("UTF8String"))))
-				indexPath := indexPathID
+				indexPath := foundation.NSIndexPathFromID(indexPathID)
 				fn(collectionView, view, elementKind, indexPath)
 			},
 		})
@@ -988,7 +988,7 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				view := NSViewFromID(viewID)
 				elementKind := NSCollectionViewSupplementaryElementKind(objc.GoString(objc.Send[*byte](elementKindID, objc.Sel("UTF8String"))))
-				indexPath := indexPathID
+				indexPath := foundation.NSIndexPathFromID(indexPathID)
 				fn(collectionView, view, elementKind, indexPath)
 			},
 		})

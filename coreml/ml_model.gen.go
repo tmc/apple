@@ -33,6 +33,11 @@ type MLModelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLModelClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelClass) Alloc() MLModel {
 	rv := objc.Send[MLModel](objc.ID(mc.class), objc.Sel("alloc"))
@@ -373,8 +378,7 @@ func (m MLModel) ParameterValueForKeyError(key IMLParameterKey) (objectivec.IObj
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModel/load(_:configuration:completionHandler:)
 func (_MLModelClass MLModelClass) LoadModelAssetConfigurationCompletionHandler(asset IMLModelAsset, configuration IMLModelConfiguration, handler MLModelErrorHandler) {
-_block2, _cleanup2 := NewMLModelErrorBlock(handler)
-	defer _cleanup2()
+_block2, _ := NewMLModelErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLModelClass.class), objc.Sel("loadModelAsset:configuration:completionHandler:"), asset, configuration, _block2)
 }
 //

@@ -30,6 +30,11 @@ type AVExternalStorageDeviceDiscoverySessionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVExternalStorageDeviceDiscoverySessionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVExternalStorageDeviceDiscoverySessionClass) Alloc() AVExternalStorageDeviceDiscoverySession {
 	rv := objc.Send[AVExternalStorageDeviceDiscoverySession](objc.ID(ac.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type UnitDispersionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitDispersionClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitDispersionClass) Alloc() UnitDispersion {
 	rv := objc.Send[UnitDispersion](objc.ID(uc.class), objc.Sel("alloc"))

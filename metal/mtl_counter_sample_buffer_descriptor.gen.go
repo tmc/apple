@@ -31,6 +31,11 @@ type MTLCounterSampleBufferDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLCounterSampleBufferDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLCounterSampleBufferDescriptorClass) Alloc() MTLCounterSampleBufferDescriptor {
 	rv := objc.Send[MTLCounterSampleBufferDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

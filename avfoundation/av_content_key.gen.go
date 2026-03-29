@@ -30,6 +30,11 @@ type AVContentKeyClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVContentKeyClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVContentKeyClass) Alloc() AVContentKey {
 	rv := objc.Send[AVContentKey](objc.ID(ac.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type NameClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NameClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NameClass) Alloc() Name {
 	rv := objc.Send[Name](objc.ID(nc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type VNHumanBodyRecognizedPoint3DClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNHumanBodyRecognizedPoint3DClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNHumanBodyRecognizedPoint3DClass) Alloc() VNHumanBodyRecognizedPoint3D {
 	rv := objc.Send[VNHumanBodyRecognizedPoint3D](objc.ID(vc.class), objc.Sel("alloc"))

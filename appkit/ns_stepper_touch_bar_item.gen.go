@@ -32,6 +32,11 @@ type NSStepperTouchBarItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSStepperTouchBarItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSStepperTouchBarItemClass) Alloc() NSStepperTouchBarItem {
 	rv := objc.Send[NSStepperTouchBarItem](objc.ID(nc.class), objc.Sel("alloc"))

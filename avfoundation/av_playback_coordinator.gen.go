@@ -30,6 +30,11 @@ type AVPlaybackCoordinatorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlaybackCoordinatorClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlaybackCoordinatorClass) Alloc() AVPlaybackCoordinator {
 	rv := objc.Send[AVPlaybackCoordinator](objc.ID(ac.class), objc.Sel("alloc"))
@@ -136,7 +141,7 @@ type IAVPlaybackCoordinator interface {
 	// Tells the coordinator to stop sending playback commands temporarily when the playback object disconnects from the group activity.
 	BeginSuspensionForReason(suspensionReason AVCoordinatedPlaybackSuspensionReason) IAVCoordinatedPlaybackSuspension
 	// Returns a time in the current item’s timeline that the coordinator expects to play at the specified host time.
-	ExpectedItemTimeAtHostTime(hostClockTime objectivec.IObject) objectivec.IObject
+	ExpectedItemTimeAtHostTime(hostClockTime uintptr) uintptr
 
 	// Topic: Observing suspension reasons
 
@@ -226,16 +231,14 @@ func (p AVPlaybackCoordinator) BeginSuspensionForReason(suspensionReason AVCoord
 //
 // hostClockTime: The host time to return a player item time for.
 //
-// hostClockTime is a [coremedia.CMTime].
-//
 // # Return Value
 // 
 // A time in the current item’s timeline.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinator/expectedItemTime(atHostTime:)
-func (p AVPlaybackCoordinator) ExpectedItemTimeAtHostTime(hostClockTime objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("expectedItemTimeAtHostTime:"), hostClockTime)
-	return objectivec.Object{ID: rv}
+func (p AVPlaybackCoordinator) ExpectedItemTimeAtHostTime(hostClockTime uintptr) uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("expectedItemTimeAtHostTime:"), hostClockTime)
+	return rv
 }
 
 // The reasons that cause a coordinator to suspend playback.

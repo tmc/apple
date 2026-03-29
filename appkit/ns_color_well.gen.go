@@ -32,6 +32,11 @@ type NSColorWellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSColorWellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSColorWellClass) Alloc() NSColorWell {
 	rv := objc.Send[NSColorWell](objc.ID(nc.class), objc.Sel("alloc"))

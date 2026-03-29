@@ -32,6 +32,11 @@ type NSSwitchClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSwitchClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSwitchClass) Alloc() NSSwitch {
 	rv := objc.Send[NSSwitch](objc.ID(nc.class), objc.Sel("alloc"))

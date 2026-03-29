@@ -30,6 +30,11 @@ type NSURLRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSURLRequestClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSURLRequestClass) Alloc() NSURLRequest {
 	rv := objc.Send[NSURLRequest](objc.ID(nc.class), objc.Sel("alloc"))

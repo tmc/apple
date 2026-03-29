@@ -29,6 +29,11 @@ type VNCalculateImageAestheticsScoresRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNCalculateImageAestheticsScoresRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNCalculateImageAestheticsScoresRequestClass) Alloc() VNCalculateImageAestheticsScoresRequest {
 	rv := objc.Send[VNCalculateImageAestheticsScoresRequest](objc.ID(vc.class), objc.Sel("alloc"))

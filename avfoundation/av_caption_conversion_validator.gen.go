@@ -32,6 +32,11 @@ type AVCaptionConversionValidatorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptionConversionValidatorClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptionConversionValidatorClass) Alloc() AVCaptionConversionValidator {
 	rv := objc.Send[AVCaptionConversionValidator](objc.ID(ac.class), objc.Sel("alloc"))
@@ -101,14 +106,14 @@ type IAVCaptionConversionValidator interface {
 	// Topic: Creating a validator
 
 	// Creates an object that validates captions for a conversion operation.
-	InitWithCaptionsTimeRangeConversionSettings(captions []AVCaption, timeRange objectivec.IObject, conversionSettings foundation.INSDictionary) AVCaptionConversionValidator
+	InitWithCaptionsTimeRangeConversionSettings(captions []AVCaption, timeRange uintptr, conversionSettings foundation.INSDictionary) AVCaptionConversionValidator
 
 	// Topic: Inspecting the validator
 
 	// The array of captions that the system validates.
 	Captions() []AVCaption
 	// The time range of the media timeline in which the captions must exist.
-	TimeRange() objectivec.IObject
+	TimeRange() uintptr
 
 	// Topic: Validating captions
 
@@ -153,8 +158,7 @@ func NewAVCaptionConversionValidator() AVCaptionConversionValidator {
 // conversionSettings: A dictionary that describes the conversion operation.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/init(captions:timeRange:conversionSettings:)
-// timeRange is a [coremedia.CMTimeRange].
-func NewCaptionConversionValidatorWithCaptionsTimeRangeConversionSettings(captions []AVCaption, timeRange objectivec.IObject, conversionSettings foundation.INSDictionary) AVCaptionConversionValidator {
+func NewCaptionConversionValidatorWithCaptionsTimeRangeConversionSettings(captions []AVCaption, timeRange uintptr, conversionSettings foundation.INSDictionary) AVCaptionConversionValidator {
 	instance := getAVCaptionConversionValidatorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCaptions:timeRange:conversionSettings:"), objectivec.IObjectSliceToNSArray(captions), timeRange, conversionSettings)
 	return AVCaptionConversionValidatorFromID(rv)
@@ -168,10 +172,8 @@ func NewCaptionConversionValidatorWithCaptionsTimeRangeConversionSettings(captio
 //
 // conversionSettings: A dictionary that describes the conversion operation.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/init(captions:timeRange:conversionSettings:)
-func (c AVCaptionConversionValidator) InitWithCaptionsTimeRangeConversionSettings(captions []AVCaption, timeRange objectivec.IObject, conversionSettings foundation.INSDictionary) AVCaptionConversionValidator {
+func (c AVCaptionConversionValidator) InitWithCaptionsTimeRangeConversionSettings(captions []AVCaption, timeRange uintptr, conversionSettings foundation.INSDictionary) AVCaptionConversionValidator {
 	rv := objc.Send[AVCaptionConversionValidator](c.ID, objc.Sel("initWithCaptions:timeRange:conversionSettings:"), objectivec.IObjectSliceToNSArray(captions), timeRange, conversionSettings)
 	return rv
 }
@@ -190,8 +192,7 @@ func (c AVCaptionConversionValidator) InitWithCaptionsTimeRangeConversionSetting
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/validateCaptionConversion(warningHandler:)
 func (c AVCaptionConversionValidator) ValidateCaptionConversionWithWarningHandler(handler AVCaptionConversionWarningHandler) {
-_block0, _cleanup0 := NewAVCaptionConversionWarningBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewAVCaptionConversionWarningBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("validateCaptionConversionWithWarningHandler:"), _block0)
 }
 // Stops the active validation operation.
@@ -218,10 +219,8 @@ func (c AVCaptionConversionValidator) StopValidating() {
 //
 // conversionSettings: A dictionary that describes the conversion operation.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/captionConversionValidatorWithCaptions:timeRange:conversionSettings:
-func (_AVCaptionConversionValidatorClass AVCaptionConversionValidatorClass) CaptionConversionValidatorWithCaptionsTimeRangeConversionSettings(captions []AVCaption, timeRange objectivec.IObject, conversionSettings foundation.INSDictionary) AVCaptionConversionValidator {
+func (_AVCaptionConversionValidatorClass AVCaptionConversionValidatorClass) CaptionConversionValidatorWithCaptionsTimeRangeConversionSettings(captions []AVCaption, timeRange uintptr, conversionSettings foundation.INSDictionary) AVCaptionConversionValidator {
 	rv := objc.Send[objc.ID](objc.ID(_AVCaptionConversionValidatorClass.class), objc.Sel("captionConversionValidatorWithCaptions:timeRange:conversionSettings:"), objectivec.IObjectSliceToNSArray(captions), timeRange, conversionSettings)
 	return AVCaptionConversionValidatorFromID(rv)
 }
@@ -251,9 +250,9 @@ func (c AVCaptionConversionValidator) Captions() []AVCaption {
 // [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionValidator/timeRange
-func (c AVCaptionConversionValidator) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptionConversionValidator) TimeRange() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("timeRange"))
+	return rv
 }
 // The collection of warnings the validator encountered.
 //

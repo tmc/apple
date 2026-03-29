@@ -30,6 +30,11 @@ type AVVideoCompositionRenderHintClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVVideoCompositionRenderHintClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVideoCompositionRenderHintClass) Alloc() AVVideoCompositionRenderHint {
 	rv := objc.Send[AVVideoCompositionRenderHint](objc.ID(ac.class), objc.Sel("alloc"))
@@ -73,9 +78,9 @@ type IAVVideoCompositionRenderHint interface {
 	// Topic: Managing composition timing
 
 	// The start time of the upcoming composition requests.
-	StartCompositionTime() objectivec.IObject
+	StartCompositionTime() uintptr
 	// The end time of the upcoming composition requests.
-	EndCompositionTime() objectivec.IObject
+	EndCompositionTime() uintptr
 }
 
 // Init initializes the instance.
@@ -100,15 +105,15 @@ func NewAVVideoCompositionRenderHint() AVVideoCompositionRenderHint {
 // The start time of the upcoming composition requests.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderHint/startCompositionTime
-func (v AVVideoCompositionRenderHint) StartCompositionTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("startCompositionTime"))
-	return objectivec.Object{ID: rv}
+func (v AVVideoCompositionRenderHint) StartCompositionTime() uintptr {
+	rv := objc.Send[uintptr](v.ID, objc.Sel("startCompositionTime"))
+	return rv
 }
 // The end time of the upcoming composition requests.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionRenderHint/endCompositionTime
-func (v AVVideoCompositionRenderHint) EndCompositionTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("endCompositionTime"))
-	return objectivec.Object{ID: rv}
+func (v AVVideoCompositionRenderHint) EndCompositionTime() uintptr {
+	rv := objc.Send[uintptr](v.ID, objc.Sel("endCompositionTime"))
+	return rv
 }
 

@@ -30,6 +30,11 @@ type DistributedNotificationCenterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (dc DistributedNotificationCenterClass) Class() objc.Class {
+	return dc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (dc DistributedNotificationCenterClass) Alloc() DistributedNotificationCenter {
 	rv := objc.Send[DistributedNotificationCenter](objc.ID(dc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type MLStateConstraintClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLStateConstraintClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLStateConstraintClass) Alloc() MLStateConstraint {
 	rv := objc.Send[MLStateConstraint](objc.ID(mc.class), objc.Sel("alloc"))

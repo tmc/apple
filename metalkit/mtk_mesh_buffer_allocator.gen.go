@@ -31,6 +31,11 @@ type MTKMeshBufferAllocatorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTKMeshBufferAllocatorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTKMeshBufferAllocatorClass) Alloc() MTKMeshBufferAllocator {
 	rv := objc.Send[MTKMeshBufferAllocator](objc.ID(mc.class), objc.Sel("alloc"))

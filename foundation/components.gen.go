@@ -30,6 +30,11 @@ type ComponentsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc ComponentsClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc ComponentsClass) Alloc() Components {
 	rv := objc.Send[Components](objc.ID(cc.class), objc.Sel("alloc"))

@@ -32,6 +32,11 @@ type NSSegmentedControlClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSegmentedControlClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSegmentedControlClass) Alloc() NSSegmentedControl {
 	rv := objc.Send[NSSegmentedControl](objc.ID(nc.class), objc.Sel("alloc"))

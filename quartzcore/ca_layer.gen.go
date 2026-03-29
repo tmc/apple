@@ -33,6 +33,11 @@ type CALayerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CALayerClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CALayerClass) Alloc() CALayer {
 	rv := objc.Send[CALayer](objc.ID(cc.class), objc.Sel("alloc"))

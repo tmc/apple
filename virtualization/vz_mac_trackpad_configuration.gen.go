@@ -29,6 +29,11 @@ type VZMacTrackpadConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMacTrackpadConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacTrackpadConfigurationClass) Alloc() VZMacTrackpadConfiguration {
 	rv := objc.Send[VZMacTrackpadConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type MTLRenderPassSampleBufferAttachmentDescriptorArrayClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLRenderPassSampleBufferAttachmentDescriptorArrayClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLRenderPassSampleBufferAttachmentDescriptorArrayClass) Alloc() MTLRenderPassSampleBufferAttachmentDescriptorArray {
 	rv := objc.Send[MTLRenderPassSampleBufferAttachmentDescriptorArray](objc.ID(mc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type AVVideoCompositionCoreAnimationToolClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVVideoCompositionCoreAnimationToolClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVideoCompositionCoreAnimationToolClass) Alloc() AVVideoCompositionCoreAnimationTool {
 	rv := objc.Send[AVVideoCompositionCoreAnimationTool](objc.ID(ac.class), objc.Sel("alloc"))

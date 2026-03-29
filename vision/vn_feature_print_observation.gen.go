@@ -32,6 +32,11 @@ type VNFeaturePrintObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNFeaturePrintObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNFeaturePrintObservationClass) Alloc() VNFeaturePrintObservation {
 	rv := objc.Send[VNFeaturePrintObservation](objc.ID(vc.class), objc.Sel("alloc"))

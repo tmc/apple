@@ -31,6 +31,11 @@ type NSTableViewRowActionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTableViewRowActionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTableViewRowActionClass) Alloc() NSTableViewRowAction {
 	rv := objc.Send[NSTableViewRowAction](objc.ID(nc.class), objc.Sel("alloc"))
@@ -179,8 +184,7 @@ func NewNSTableViewRowAction() NSTableViewRowAction {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewRowAction/init(style:title:handler:)
 func (_NSTableViewRowActionClass NSTableViewRowActionClass) RowActionWithStyleTitleHandler(style NSTableViewRowActionStyle, title string, handler TableViewRowActionHandler) NSTableViewRowAction {
-_block2, _cleanup2 := NewTableViewRowActionBlock(handler)
-	defer _cleanup2()
+_block2, _ := NewTableViewRowActionBlock(handler)
 	rv := objc.Send[objc.ID](objc.ID(_NSTableViewRowActionClass.class), objc.Sel("rowActionWithStyle:title:handler:"), style, objc.String(title), _block2)
 	return NSTableViewRowActionFromID(rv)
 }

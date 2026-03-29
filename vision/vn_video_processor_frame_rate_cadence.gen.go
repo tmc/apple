@@ -29,6 +29,11 @@ type VNVideoProcessorFrameRateCadenceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNVideoProcessorFrameRateCadenceClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNVideoProcessorFrameRateCadenceClass) Alloc() VNVideoProcessorFrameRateCadence {
 	rv := objc.Send[VNVideoProcessorFrameRateCadence](objc.ID(vc.class), objc.Sel("alloc"))

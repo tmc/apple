@@ -29,6 +29,11 @@ type NSCloseCommandClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCloseCommandClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCloseCommandClass) Alloc() NSCloseCommand {
 	rv := objc.Send[NSCloseCommand](objc.ID(nc.class), objc.Sel("alloc"))

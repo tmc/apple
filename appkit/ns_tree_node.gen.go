@@ -31,6 +31,11 @@ type NSTreeNodeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTreeNodeClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTreeNodeClass) Alloc() NSTreeNode {
 	rv := objc.Send[NSTreeNode](objc.ID(nc.class), objc.Sel("alloc"))

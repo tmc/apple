@@ -605,7 +605,7 @@ type SecCodeRef uintptr
 // SecGuestRef is a reference to a guest object, which identifies a particular block of guest code in the context of its code signing host.
 //
 // See: https://developer.apple.com/documentation/Security/SecGuestRef
-type SecGuestRef = objectivec.IObject
+type SecGuestRef = uint32
 
 // SecIdentityRef is an abstract Core Foundation-type object representing an identity.
 //

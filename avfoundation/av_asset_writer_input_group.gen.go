@@ -30,6 +30,11 @@ type AVAssetWriterInputGroupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetWriterInputGroupClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetWriterInputGroupClass) Alloc() AVAssetWriterInputGroup {
 	rv := objc.Send[AVAssetWriterInputGroup](objc.ID(ac.class), objc.Sel("alloc"))

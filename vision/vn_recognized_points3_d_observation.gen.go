@@ -31,6 +31,11 @@ type VNRecognizedPoints3DObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNRecognizedPoints3DObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNRecognizedPoints3DObservationClass) Alloc() VNRecognizedPoints3DObservation {
 	rv := objc.Send[VNRecognizedPoints3DObservation](objc.ID(vc.class), objc.Sel("alloc"))

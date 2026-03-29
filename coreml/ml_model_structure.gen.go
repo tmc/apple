@@ -32,6 +32,11 @@ type MLModelStructureClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLModelStructureClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureClass) Alloc() MLModelStructure {
 	rv := objc.Send[MLModelStructure](objc.ID(mc.class), objc.Sel("alloc"))
@@ -114,8 +119,7 @@ func NewMLModelStructure() MLModelStructure {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure-c.class/loadContentsOfURL:completionHandler:
 func (_MLModelStructureClass MLModelStructureClass) LoadContentsOfURLCompletionHandler(url foundation.INSURL, handler MLModelStructureErrorHandler) {
-_block1, _cleanup1 := NewMLModelStructureErrorBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewMLModelStructureErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadContentsOfURL:completionHandler:"), url, _block1)
 }
 // Construct the model structure asynchronously given the model asset.
@@ -128,8 +132,7 @@ _block1, _cleanup1 := NewMLModelStructureErrorBlock(handler)
 //
 // See: https://developer.apple.com/documentation/CoreML/MLModelStructure-c.class/loadModelAsset:completionHandler:
 func (_MLModelStructureClass MLModelStructureClass) LoadModelAssetCompletionHandler(asset IMLModelAsset, handler MLModelStructureErrorHandler) {
-_block1, _cleanup1 := NewMLModelStructureErrorBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewMLModelStructureErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_MLModelStructureClass.class), objc.Sel("loadModelAsset:completionHandler:"), asset, _block1)
 }
 

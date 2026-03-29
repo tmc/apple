@@ -29,6 +29,11 @@ type NSCollectionViewCompositionalLayoutClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCollectionViewCompositionalLayoutClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCollectionViewCompositionalLayoutClass) Alloc() NSCollectionViewCompositionalLayout {
 	rv := objc.Send[NSCollectionViewCompositionalLayout](objc.ID(nc.class), objc.Sel("alloc"))

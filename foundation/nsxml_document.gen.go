@@ -32,6 +32,11 @@ type XMLDocumentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (xc XMLDocumentClass) Class() objc.Class {
+	return xc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (xc XMLDocumentClass) Alloc() XMLDocument {
 	rv := objc.Send[XMLDocument](objc.ID(xc.class), objc.Sel("alloc"))

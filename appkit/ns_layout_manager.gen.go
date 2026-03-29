@@ -34,6 +34,11 @@ type NSLayoutManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSLayoutManagerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSLayoutManagerClass) Alloc() NSLayoutManager {
 	rv := objc.Send[NSLayoutManager](objc.ID(nc.class), objc.Sel("alloc"))
@@ -2057,8 +2062,7 @@ func (l NSLayoutManager) EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyph
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManager/enumerateLineFragments(forGlyphRange:using:)
 func (l NSLayoutManager) EnumerateLineFragmentsForGlyphRangeUsingBlock(glyphRange foundation.NSRange, block TextContainerHandler) {
-_block1, _cleanup1 := NewTextContainerBlock(block)
-	defer _cleanup1()
+_block1, _ := NewTextContainerBlock(block)
 	objc.Send[objc.ID](l.ID, objc.Sel("enumerateLineFragmentsForGlyphRange:usingBlock:"), glyphRange, _block1)
 }
 // Returns the fraction of the distance between the glyph at the specified

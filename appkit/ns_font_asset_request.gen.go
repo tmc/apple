@@ -32,6 +32,11 @@ type NSFontAssetRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFontAssetRequestClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFontAssetRequestClass) Alloc() NSFontAssetRequest {
 	rv := objc.Send[NSFontAssetRequest](objc.ID(nc.class), objc.Sel("alloc"))
@@ -132,8 +137,7 @@ func (f NSFontAssetRequest) InitWithFontDescriptorsOptions(fontDescriptors []NSF
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/download(withCompletionHandler:)
 func (f NSFontAssetRequest) DownloadFontAssetsWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("downloadFontAssetsWithCompletionHandler:"), _block0)
 }
 

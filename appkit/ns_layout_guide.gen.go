@@ -32,6 +32,11 @@ type NSLayoutGuideClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSLayoutGuideClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSLayoutGuideClass) Alloc() NSLayoutGuide {
 	rv := objc.Send[NSLayoutGuide](objc.ID(nc.class), objc.Sel("alloc"))

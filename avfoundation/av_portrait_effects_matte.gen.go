@@ -33,6 +33,11 @@ type AVPortraitEffectsMatteClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPortraitEffectsMatteClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPortraitEffectsMatteClass) Alloc() AVPortraitEffectsMatte {
 	rv := objc.Send[AVPortraitEffectsMatte](objc.ID(ac.class), objc.Sel("alloc"))
@@ -204,6 +209,7 @@ func NewPortraitEffectsMatteFromDictionaryRepresentationError(imageSourceAuxData
 // exifOrientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPortraitEffectsMatte/applyingExifOrientation(_:)
+// exifOrientation is a [imageio.CGImagePropertyOrientation].
 func (p AVPortraitEffectsMatte) PortraitEffectsMatteByApplyingExifOrientation(exifOrientation objectivec.IObject) IAVPortraitEffectsMatte {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("portraitEffectsMatteByApplyingExifOrientation:"), exifOrientation)
 	return AVPortraitEffectsMatteFromID(rv)

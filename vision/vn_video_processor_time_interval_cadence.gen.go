@@ -29,6 +29,11 @@ type VNVideoProcessorTimeIntervalCadenceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNVideoProcessorTimeIntervalCadenceClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNVideoProcessorTimeIntervalCadenceClass) Alloc() VNVideoProcessorTimeIntervalCadence {
 	rv := objc.Send[VNVideoProcessorTimeIntervalCadence](objc.ID(vc.class), objc.Sel("alloc"))

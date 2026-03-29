@@ -29,6 +29,11 @@ type NSMiddleSpecifierClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMiddleSpecifierClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMiddleSpecifierClass) Alloc() NSMiddleSpecifier {
 	rv := objc.Send[NSMiddleSpecifier](objc.ID(nc.class), objc.Sel("alloc"))

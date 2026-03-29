@@ -30,6 +30,11 @@ type VZLinuxRosettaCachingOptionsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZLinuxRosettaCachingOptionsClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZLinuxRosettaCachingOptionsClass) Alloc() VZLinuxRosettaCachingOptions {
 	rv := objc.Send[VZLinuxRosettaCachingOptions](objc.ID(vc.class), objc.Sel("alloc"))

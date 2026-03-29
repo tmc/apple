@@ -30,6 +30,11 @@ type MTLBlitPassDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLBlitPassDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLBlitPassDescriptorClass) Alloc() MTLBlitPassDescriptor {
 	rv := objc.Send[MTLBlitPassDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

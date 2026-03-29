@@ -3,11 +3,13 @@
 package quartzcore
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -31,6 +33,11 @@ func GetCAMetalLayerClass() CAMetalLayerClass {
 
 type CAMetalLayerClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (cc CAMetalLayerClass) Class() objc.Class {
+	return cc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -223,16 +230,16 @@ type ICAMetalLayer interface {
 	// Topic: Configuring the Metal Device
 
 	// The Metal device responsible for the layer’s drawable resources.
-	Device() objectivec.IObject
-	SetDevice(value objectivec.IObject)
+	Device() metal.MTLDevice
+	SetDevice(value metal.MTLDevice)
 	// The device object that the system recommends using for this layer.
-	PreferredDevice() objectivec.IObject
+	PreferredDevice() metal.MTLDevice
 
 	// Topic: Configuring the Layer’s Drawable Objects
 
 	// The pixel format of the layer’s textures.
-	PixelFormat() objectivec.IObject
-	SetPixelFormat(value objectivec.IObject)
+	PixelFormat() unsafe.Pointer
+	SetPixelFormat(value metal.MTLPixelFormat)
 	// The color space of the rendered content.
 	Colorspace() coregraphics.CGColorSpaceRef
 	SetColorspace(value coregraphics.CGColorSpaceRef)
@@ -277,7 +284,7 @@ type ICAMetalLayer interface {
 
 	// Topic: Instance Properties
 
-	ResidencySet() objectivec.IObject
+	ResidencySet() metal.MTLResidencySet
 
 	// A positive integer that identifies the drawable.
 	DrawableID() int
@@ -378,11 +385,11 @@ func (m CAMetalLayer) NextDrawable() CAMetalDrawable {
 // [MTLTexture]: https://developer.apple.com/documentation/Metal/MTLTexture
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/device
-func (m CAMetalLayer) Device() objectivec.IObject {
+func (m CAMetalLayer) Device() metal.MTLDevice {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("device"))
-	return objectivec.Object{ID: rv}
+	return metal.MTLDeviceObjectFromID(rv)
 }
-func (m CAMetalLayer) SetDevice(value objectivec.IObject) {
+func (m CAMetalLayer) SetDevice(value metal.MTLDevice) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDevice:"), value)
 }
 // The device object that the system recommends using for this layer.
@@ -402,9 +409,9 @@ func (m CAMetalLayer) SetDevice(value objectivec.IObject) {
 // [MTLDevice]: https://developer.apple.com/documentation/Metal/MTLDevice
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/preferredDevice
-func (m CAMetalLayer) PreferredDevice() objectivec.IObject {
+func (m CAMetalLayer) PreferredDevice() metal.MTLDevice {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("preferredDevice"))
-	return objectivec.Object{ID: rv}
+	return metal.MTLDeviceObjectFromID(rv)
 }
 // The pixel format of the layer’s textures.
 //
@@ -431,11 +438,11 @@ func (m CAMetalLayer) PreferredDevice() objectivec.IObject {
 // [MTLPixelFormat.rgba16Float]: https://developer.apple.com/documentation/Metal/MTLPixelFormat/rgba16Float
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/pixelFormat
-func (m CAMetalLayer) PixelFormat() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("pixelFormat"))
-	return objectivec.Object{ID: rv}
+func (m CAMetalLayer) PixelFormat() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("pixelFormat"))
+	return rv
 }
-func (m CAMetalLayer) SetPixelFormat(value objectivec.IObject) {
+func (m CAMetalLayer) SetPixelFormat(value metal.MTLPixelFormat) {
 	objc.Send[struct{}](m.ID, objc.Sel("setPixelFormat:"), value)
 }
 // The color space of the rendered content.
@@ -646,9 +653,9 @@ func (m CAMetalLayer) SetDeveloperHUDProperties(value foundation.INSDictionary) 
 	objc.Send[struct{}](m.ID, objc.Sel("setDeveloperHUDProperties:"), value)
 }
 // See: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/residencySet
-func (m CAMetalLayer) ResidencySet() objectivec.IObject {
+func (m CAMetalLayer) ResidencySet() metal.MTLResidencySet {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("residencySet"))
-	return objectivec.Object{ID: rv}
+	return metal.MTLResidencySetObjectFromID(rv)
 }
 // A positive integer that identifies the drawable.
 //

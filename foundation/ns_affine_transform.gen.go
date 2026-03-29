@@ -31,6 +31,11 @@ type NSAffineTransformClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAffineTransformClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAffineTransformClass) Alloc() NSAffineTransform {
 	rv := objc.Send[NSAffineTransform](objc.ID(nc.class), objc.Sel("alloc"))
@@ -429,6 +434,7 @@ func (a NSAffineTransform) TransformSize(aSize corefoundation.CGSize) NSSize {
 // The original [NSBezierPath] object is not modified.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/transform(_:)-6z1xo
+// path is a [appkit.NSBezierPath].
 func (a NSAffineTransform) TransformBezierPath(path objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("transformBezierPath:"), path)
 	return objectivec.Object{ID: rv}

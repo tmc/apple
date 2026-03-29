@@ -35,6 +35,11 @@ type NSEventClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSEventClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSEventClass) Alloc() NSEvent {
 	rv := objc.Send[NSEvent](objc.ID(nc.class), objc.Sel("alloc"))
@@ -741,6 +746,7 @@ func (e NSEvent) CoalescedTouchesForTouch(touch INSTouch) []NSTouch {
 // The location of the event in the node’s coordinate system.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/location(in:)
+// node is a [spritekit.SKNode].
 func (e NSEvent) LocationInNode(node objectivec.IObject) corefoundation.CGPoint {
 	rv := objc.Send[corefoundation.CGPoint](e.ID, objc.Sel("locationInNode:"), node)
 	return corefoundation.CGPoint(rv)
@@ -1004,8 +1010,7 @@ func (_NSEventClass NSEventClass) StopPeriodicEvents() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/addGlobalMonitorForEvents(matching:handler:)
 func (_NSEventClass NSEventClass) AddGlobalMonitorForEventsMatchingMaskHandler(mask NSEventMask, block EventHandler) objectivec.IObject {
-_block1, _cleanup1 := NewEventBlock(block)
-	defer _cleanup1()
+_block1, _ := NewEventBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_NSEventClass.class), objc.Sel("addGlobalMonitorForEventsMatchingMask:handler:"), mask, _block1)
 	return objectivec.Object{ID: rv}
 }
@@ -1062,8 +1067,7 @@ _block1, _cleanup1 := NewEventBlock(block)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/addLocalMonitorForEvents(matching:handler:)
 func (_NSEventClass NSEventClass) AddLocalMonitorForEventsMatchingMaskHandler(mask NSEventMask, block EventHandler) objectivec.IObject {
-_block1, _cleanup1 := NewEventBlock(block)
-	defer _cleanup1()
+_block1, _ := NewEventBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_NSEventClass.class), objc.Sel("addLocalMonitorForEventsMatchingMask:handler:"), mask, _block1)
 	return objectivec.Object{ID: rv}
 }

@@ -31,6 +31,11 @@ type CADisplayLinkClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CADisplayLinkClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CADisplayLinkClass) Alloc() CADisplayLink {
 	rv := objc.Send[CADisplayLink](objc.ID(cc.class), objc.Sel("alloc"))

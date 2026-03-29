@@ -32,6 +32,11 @@ type VZEFIVariableStoreClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZEFIVariableStoreClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZEFIVariableStoreClass) Alloc() VZEFIVariableStore {
 	rv := objc.Send[VZEFIVariableStore](objc.ID(vc.class), objc.Sel("alloc"))

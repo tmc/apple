@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVDelegatingPlaybackCoordinator] class.
@@ -29,6 +28,11 @@ func GetAVDelegatingPlaybackCoordinatorClass() AVDelegatingPlaybackCoordinatorCl
 
 type AVDelegatingPlaybackCoordinatorClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVDelegatingPlaybackCoordinatorClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -134,9 +138,9 @@ type IAVDelegatingPlaybackCoordinator interface {
 	// Coordinates a rate change across all participants, waiting for others to become ready, if necessary.
 	CoordinateRateChangeToRateOptions(rate float32, options AVDelegatingPlaybackCoordinatorRateChangeOptions)
 	// Coordinates a seek to the specified time for all connected participants.
-	CoordinateSeekToTimeOptions(time objectivec.IObject, options AVDelegatingPlaybackCoordinatorSeekOptions)
+	CoordinateSeekToTimeOptions(time uintptr, options AVDelegatingPlaybackCoordinatorSeekOptions)
 	// Tells the coordinator to transition to a new item.
-	TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase(itemIdentifier string, snapshotTimebase objectivec.IObject)
+	TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase(itemIdentifier string, snapshotTimebase uintptr)
 	// Tells the coordinator to reissue current play state commands to synchronize the current item to the state of other participants.
 	ReapplyCurrentItemStateToPlaybackControlDelegate()
 }
@@ -223,15 +227,13 @@ func (d AVDelegatingPlaybackCoordinator) CoordinateRateChangeToRateOptions(rate 
 //
 // options: Additional configuration of the seek.
 //
-// time is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // To end a suspension and also affect the group timing, see
 // [EndProposingNewTime].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinator/coordinateSeek(to:options:)
-func (d AVDelegatingPlaybackCoordinator) CoordinateSeekToTimeOptions(time objectivec.IObject, options AVDelegatingPlaybackCoordinatorSeekOptions) {
+func (d AVDelegatingPlaybackCoordinator) CoordinateSeekToTimeOptions(time uintptr, options AVDelegatingPlaybackCoordinatorSeekOptions) {
 	objc.Send[objc.ID](d.ID, objc.Sel("coordinateSeekToTime:options:"), time, options)
 }
 // Tells the coordinator to transition to a new item.
@@ -252,10 +254,8 @@ func (d AVDelegatingPlaybackCoordinator) CoordinateSeekToTimeOptions(time object
 // [CMTimebaseCreateWithSourceClock(allocator:sourceClock:timebaseOut:)]: https://developer.apple.com/documentation/CoreMedia/CMTimebaseCreateWithSourceClock(allocator:sourceClock:timebaseOut:)
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
-// snapshotTimebase is a [coremedia.CMTimebaseRef].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVDelegatingPlaybackCoordinator/transitionToItem(withIdentifier:proposingInitialTimingBasedOn:)
-func (d AVDelegatingPlaybackCoordinator) TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase(itemIdentifier string, snapshotTimebase objectivec.IObject) {
+func (d AVDelegatingPlaybackCoordinator) TransitionToItemWithIdentifierProposingInitialTimingBasedOnTimebase(itemIdentifier string, snapshotTimebase uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("transitionToItemWithIdentifier:proposingInitialTimingBasedOnTimebase:"), objc.String(itemIdentifier), snapshotTimebase)
 }
 // Tells the coordinator to reissue current play state commands to synchronize

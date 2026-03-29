@@ -31,6 +31,11 @@ type AVAssetSegmentReportSampleInformationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetSegmentReportSampleInformationClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetSegmentReportSampleInformationClass) Alloc() AVAssetSegmentReportSampleInformation {
 	rv := objc.Send[AVAssetSegmentReportSampleInformation](objc.ID(ac.class), objc.Sel("alloc"))
@@ -76,7 +81,7 @@ type IAVAssetSegmentReportSampleInformation interface {
 	// Topic: Inspecting the information
 
 	// The presentation timestamp (PTS) of a sample.
-	PresentationTimeStamp() objectivec.IObject
+	PresentationTimeStamp() uintptr
 	// The offset of a sample in the segment.
 	Offset() int
 	// The length of the sample data.
@@ -85,11 +90,11 @@ type IAVAssetSegmentReportSampleInformation interface {
 	IsSyncSample() bool
 
 	// The duration of a track.
-	Duration() objectivec.IObject
-	SetDuration(value objectivec.IObject)
+	Duration() uintptr
+	SetDuration(value uintptr)
 	// The earliest presentation timestamp (PTS) for this track.
-	EarliestPresentationTimeStamp() objectivec.IObject
-	SetEarliestPresentationTimeStamp(value objectivec.IObject)
+	EarliestPresentationTimeStamp() uintptr
+	SetEarliestPresentationTimeStamp(value uintptr)
 	// Information about the first video sample in a track.
 	FirstVideoSampleInformation() IAVAssetSegmentReportSampleInformation
 	SetFirstVideoSampleInformation(value IAVAssetSegmentReportSampleInformation)
@@ -128,9 +133,9 @@ func NewAVAssetSegmentReportSampleInformation() AVAssetSegmentReportSampleInform
 // the video’s author encodes it using frame reordering.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetSegmentReportSampleInformation/presentationTimeStamp
-func (a AVAssetSegmentReportSampleInformation) PresentationTimeStamp() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("presentationTimeStamp"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetSegmentReportSampleInformation) PresentationTimeStamp() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("presentationTimeStamp"))
+	return rv
 }
 // The offset of a sample in the segment.
 //
@@ -156,21 +161,21 @@ func (a AVAssetSegmentReportSampleInformation) IsSyncSample() bool {
 // The duration of a track.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/duration
-func (a AVAssetSegmentReportSampleInformation) Duration() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("duration"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetSegmentReportSampleInformation) Duration() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("duration"))
+	return rv
 }
-func (a AVAssetSegmentReportSampleInformation) SetDuration(value objectivec.IObject) {
+func (a AVAssetSegmentReportSampleInformation) SetDuration(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setDuration:"), value)
 }
 // The earliest presentation timestamp (PTS) for this track.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avassetsegmenttrackreport/earliestpresentationtimestamp
-func (a AVAssetSegmentReportSampleInformation) EarliestPresentationTimeStamp() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("earliestPresentationTimeStamp"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetSegmentReportSampleInformation) EarliestPresentationTimeStamp() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("earliestPresentationTimeStamp"))
+	return rv
 }
-func (a AVAssetSegmentReportSampleInformation) SetEarliestPresentationTimeStamp(value objectivec.IObject) {
+func (a AVAssetSegmentReportSampleInformation) SetEarliestPresentationTimeStamp(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setEarliestPresentationTimeStamp:"), value)
 }
 // Information about the first video sample in a track.

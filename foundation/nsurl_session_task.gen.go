@@ -30,6 +30,11 @@ type URLSessionTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLSessionTaskClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLSessionTaskClass) Alloc() URLSessionTask {
 	rv := objc.Send[URLSessionTask](objc.ID(uc.class), objc.Sel("alloc"))

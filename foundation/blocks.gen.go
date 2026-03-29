@@ -36,6 +36,7 @@ func NewArrayBlock(handler ArrayHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
 		var val objectivec.IObject
 		if valID != 0 {
+			objc.Send[objc.ID](valID, objc.Sel("retain"))
 			obj := objectivec.ObjectFromID(valID)
 			val = &obj
 		}
@@ -90,6 +91,7 @@ func NewCachedURLResponseBlock(handler CachedURLResponseHandler) (objc.ID, func(
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSCachedURLResponse
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSCachedURLResponseFromID(resultID)
 			result = &v
 		}
@@ -130,15 +132,11 @@ func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSData
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSDataFromID(resultID)
 			result = &v
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, NSErrorToError(nserr))
+		handler(result, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -160,6 +158,7 @@ func NewDataBlock(handler DataHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSData
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSDataFromID(resultID)
 			result = &v
 		}
@@ -192,20 +191,17 @@ func NewDataURLResponseErrorBlock(handler DataURLResponseErrorHandler) (objc.ID,
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, errID objc.ID) {
 		var result *NSData
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSDataFromID(resultID)
 			result = &v
 		}
 		var extra0 *NSURLResponse
 		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
 			v := NSURLResponseFromID(extra0ID)
 			extra0 = &v
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, extra0, NSErrorToError(nserr))
+		handler(result, extra0, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -228,6 +224,7 @@ func NewDateBlock(handler DateHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSDate
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSDateFromID(resultID)
 			result = &v
 		}
@@ -329,12 +326,7 @@ type ErrorHandler = func(error)
 //   - [NSXPCProxyCreating.SynchronousRemoteObjectProxyWithErrorHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(NSErrorToError(nserr))
+		handler(SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -348,6 +340,7 @@ func NewFileHandleBlock(handler FileHandleHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSFileHandle
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSFileHandleFromID(resultID)
 			result = &v
 		}
@@ -374,15 +367,11 @@ func NewFileVersionErrorBlock(handler FileVersionErrorHandler) (objc.ID, func())
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSFileVersion
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSFileVersionFromID(resultID)
 			result = &v
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, NSErrorToError(nserr))
+		handler(result, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -410,6 +399,7 @@ func NewInputStreamBlock(handler InputStreamHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSInputStream
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSInputStreamFromID(resultID)
 			result = &v
 		}
@@ -434,20 +424,17 @@ func NewInputStreamOutputStreamErrorBlock(handler InputStreamOutputStreamErrorHa
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, errID objc.ID) {
 		var result *NSInputStream
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSInputStreamFromID(resultID)
 			result = &v
 		}
 		var extra0 *NSOutputStream
 		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
 			v := NSOutputStreamFromID(extra0ID)
 			extra0 = &v
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, extra0, NSErrorToError(nserr))
+		handler(result, extra0, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -491,14 +478,10 @@ func NewNSItemProviderReadingErrorBlock(handler NSItemProviderReadingErrorHandle
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result NSItemProviderReading
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			result = NSItemProviderReadingObjectFromID(resultID)
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, NSErrorToError(nserr))
+		handler(result, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -518,6 +501,7 @@ func NewNotificationBlock(handler NotificationHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSNotification
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSNotificationFromID(resultID)
 			result = &v
 		}
@@ -547,6 +531,7 @@ func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
 		var val objectivec.IObject
 		if valID != 0 {
+			objc.Send[objc.ID](valID, objc.Sel("retain"))
 			obj := objectivec.ObjectFromID(valID)
 			val = &obj
 		}
@@ -637,6 +622,7 @@ func NewOrderedCollectionChangeBlock(handler OrderedCollectionChangeHandler) (ob
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSOrderedCollectionChange
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSOrderedCollectionChangeFromID(resultID)
 			result = &v
 		}
@@ -704,6 +690,7 @@ func NewTaskBlock(handler TaskHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTask
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTaskFromID(resultID)
 			result = &v
 		}
@@ -730,6 +717,7 @@ func NewTextCheckingResultMatchingFlagsBlock(handler TextCheckingResultMatchingF
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
 		var result *NSTextCheckingResult
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTextCheckingResultFromID(resultID)
 			result = &v
 		}
@@ -758,6 +746,7 @@ func NewTimerBlock(handler TimerHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTimer
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTimerFromID(resultID)
 			result = &v
 		}
@@ -781,6 +770,7 @@ func NewURLCredentialBlock(handler URLCredentialHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSURLCredential
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSURLCredentialFromID(resultID)
 			result = &v
 		}
@@ -813,15 +803,11 @@ func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSURL
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSURLFromID(resultID)
 			result = &v
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, NSErrorToError(nserr))
+		handler(result, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -843,6 +829,7 @@ func NewURLBlock(handler URLHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSURL
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSURLFromID(resultID)
 			result = &v
 		}
@@ -866,6 +853,7 @@ func NewURLRequestBlock(handler URLRequestHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSURLRequest
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSURLRequestFromID(resultID)
 			result = &v
 		}
@@ -892,6 +880,7 @@ func NewURLSessionAuthChallengeDispositionURLCredentialBlock(handler URLSessionA
 		var result NSURLSessionAuthChallengeDisposition = NSURLSessionAuthChallengeDisposition(resultID)
 		var extra0 *NSURLCredential
 		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
 			v := NSURLCredentialFromID(extra0ID)
 			extra0 = &v
 		}
@@ -916,6 +905,7 @@ func NewURLSessionDelayedRequestDispositionURLRequestBlock(handler URLSessionDel
 		var result NSURLSessionDelayedRequestDisposition = NSURLSessionDelayedRequestDisposition(resultID)
 		var extra0 *NSURLRequest
 		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
 			v := NSURLRequestFromID(extra0ID)
 			extra0 = &v
 		}
@@ -959,15 +949,11 @@ func NewURLSessionWebSocketMessageErrorBlock(handler URLSessionWebSocketMessageE
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSURLSessionWebSocketMessage
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSURLSessionWebSocketMessageFromID(resultID)
 			result = &v
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, NSErrorToError(nserr))
+		handler(result, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -989,11 +975,13 @@ func NewURLURLBlock(handler URLURLHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
 		var result *NSURL
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSURLFromID(resultID)
 			result = &v
 		}
 		var extra0 *NSURL
 		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
 			v := NSURLFromID(extra0ID)
 			extra0 = &v
 		}
@@ -1022,20 +1010,17 @@ func NewURLURLResponseErrorBlock(handler URLURLResponseErrorHandler) (objc.ID, f
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, errID objc.ID) {
 		var result *NSURL
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSURLFromID(resultID)
 			result = &v
 		}
 		var extra0 *NSURLResponse
 		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
 			v := NSURLResponseFromID(extra0ID)
 			extra0 = &v
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, extra0, NSErrorToError(nserr))
+		handler(result, extra0, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -1161,15 +1146,11 @@ func NewXPCConnectionErrorBlock(handler XPCConnectionErrorHandler) (objc.ID, fun
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSXPCConnection
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSXPCConnectionFromID(resultID)
 			result = &v
 		}
-		var nserr *NSError
-		if errID != 0 {
-			e := NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, NSErrorToError(nserr))
+		handler(result, SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }

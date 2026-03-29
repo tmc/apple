@@ -31,6 +31,11 @@ type AVCaptureVideoDataOutputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureVideoDataOutputClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureVideoDataOutputClass) Alloc() AVCaptureVideoDataOutput {
 	rv := objc.Send[AVCaptureVideoDataOutput](objc.ID(ac.class), objc.Sel("alloc"))

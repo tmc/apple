@@ -33,6 +33,11 @@ type NSSliderAccessoryClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSliderAccessoryClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSliderAccessoryClass) Alloc() NSSliderAccessory {
 	rv := objc.Send[NSSliderAccessory](objc.ID(nc.class), objc.Sel("alloc"))
@@ -70,8 +75,6 @@ func NSSliderAccessoryFromID(id objc.ID) NSSliderAccessory {
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessory
 type INSSliderAccessory interface {
 	objectivec.IObject
-	NSAccessibilityElementProtocol
-	NSAccessibilityProtocol
 
 	// Topic: Instance Properties
 

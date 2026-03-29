@@ -32,6 +32,11 @@ type NSPredicateEditorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPredicateEditorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPredicateEditorClass) Alloc() NSPredicateEditor {
 	rv := objc.Send[NSPredicateEditor](objc.ID(nc.class), objc.Sel("alloc"))

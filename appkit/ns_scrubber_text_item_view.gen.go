@@ -31,6 +31,11 @@ type NSScrubberTextItemViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScrubberTextItemViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScrubberTextItemViewClass) Alloc() NSScrubberTextItemView {
 	rv := objc.Send[NSScrubberTextItemView](objc.ID(nc.class), objc.Sel("alloc"))

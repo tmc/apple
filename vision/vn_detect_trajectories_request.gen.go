@@ -30,6 +30,11 @@ type VNDetectTrajectoriesRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNDetectTrajectoriesRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNDetectTrajectoriesRequestClass) Alloc() VNDetectTrajectoriesRequest {
 	rv := objc.Send[VNDetectTrajectoriesRequest](objc.ID(vc.class), objc.Sel("alloc"))
@@ -227,9 +232,9 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthComplet
 // frameAnalysisSpacing is a [coremedia.CMTime].
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectTrajectoriesRequest/init(frameAnalysisSpacing:trajectoryLength:completionHandler:)
+// frameAnalysisSpacing is a [coremedia.CMTime].
 func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing objectivec.IObject, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
 	return VNDetectTrajectoriesRequestFromID(rv)
 }

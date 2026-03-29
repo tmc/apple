@@ -33,6 +33,11 @@ type AVVideoCompositionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVVideoCompositionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVideoCompositionClass) Alloc() AVVideoComposition {
 	rv := objc.Send[AVVideoComposition](objc.ID(ac.class), objc.Sel("alloc"))
@@ -137,7 +142,7 @@ type IAVVideoComposition interface {
 	// The scale at which the video composition should render.
 	RenderScale() float32
 	// A time interval for which the video composition should render composed video frames.
-	FrameDuration() objectivec.IObject
+	FrameDuration() uintptr
 	// A video composition tool to use with Core Animation in offline rendering.
 	AnimationTool() IAVVideoCompositionCoreAnimationTool
 	// The color primaries used for video composition.
@@ -152,7 +157,7 @@ type IAVVideoComposition interface {
 	// Topic: Validating the time range
 
 	// Indicates whether the time ranges of the composition’s instructions conform to validation requirements.
-	IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration objectivec.IObject, timeRange objectivec.IObject, validationDelegate AVVideoCompositionValidationHandling) bool
+	IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration uintptr, timeRange uintptr, validationDelegate AVVideoCompositionValidationHandling) bool
 
 	// Topic: Reading instructions
 
@@ -258,10 +263,6 @@ func NewVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVVideoComposition
 //
 // validationDelegate: A delegate that handles validation requests. May be `nil`.
 //
-// duration is a [coremedia.CMTime].
-//
-// timeRange is a [coremedia.CMTimeRange].
-//
 // # Return Value
 // 
 // [true] if the validation succeeds; otherwise; [false].
@@ -270,7 +271,7 @@ func NewVideoCompositionWithPropertiesOfAsset(asset IAVAsset) AVVideoComposition
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/isValid(for:assetDuration:timeRange:validationDelegate:)
-func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration objectivec.IObject, timeRange objectivec.IObject, validationDelegate AVVideoCompositionValidationHandling) bool {
+func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDelegate(tracks []AVAssetTrack, duration uintptr, timeRange uintptr, validationDelegate AVVideoCompositionValidationHandling) bool {
 	rv := objc.Send[bool](v.ID, objc.Sel("isValidForTracks:assetDuration:timeRange:validationDelegate:"), objectivec.IObjectSliceToNSArray(tracks), duration, timeRange, validationDelegate)
 	return rv
 }
@@ -306,8 +307,7 @@ func (v AVVideoComposition) IsValidForTracksAssetDurationTimeRangeValidationDele
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/videoComposition(withPropertiesOf:completionHandler:)
 func (_AVVideoCompositionClass AVVideoCompositionClass) VideoCompositionWithPropertiesOfAssetCompletionHandler(asset IAVAsset, completionHandler AVVideoCompositionErrorHandler) {
-_block1, _cleanup1 := NewAVVideoCompositionErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewAVVideoCompositionErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_AVVideoCompositionClass.class), objc.Sel("videoCompositionWithPropertiesOfAsset:completionHandler:"), asset, _block1)
 }
 // Pass-through initializer, for internal use in AVFoundation only
@@ -341,9 +341,9 @@ func (v AVVideoComposition) RenderScale() float32 {
 // video frames.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoComposition/frameDuration
-func (v AVVideoComposition) FrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("frameDuration"))
-	return objectivec.Object{ID: rv}
+func (v AVVideoComposition) FrameDuration() uintptr {
+	rv := objc.Send[uintptr](v.ID, objc.Sel("frameDuration"))
+	return rv
 }
 // A video composition tool to use with Core Animation in offline rendering.
 //

@@ -32,6 +32,11 @@ type NSColorPanelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSColorPanelClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSColorPanelClass) Alloc() NSColorPanel {
 	rv := objc.Send[NSColorPanel](objc.ID(nc.class), objc.Sel("alloc"))

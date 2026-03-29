@@ -32,6 +32,11 @@ type NSImageViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSImageViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSImageViewClass) Alloc() NSImageView {
 	rv := objc.Send[NSImageView](objc.ID(nc.class), objc.Sel("alloc"))

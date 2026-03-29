@@ -32,6 +32,11 @@ type FileHandleClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (fc FileHandleClass) Class() objc.Class {
+	return fc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (fc FileHandleClass) Alloc() FileHandle {
 	rv := objc.Send[FileHandle](objc.ID(fc.class), objc.Sel("alloc"))

@@ -11,6 +11,7 @@ import (
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/iosurface"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -34,6 +35,11 @@ func GetCIRenderDestinationClass() CIRenderDestinationClass {
 
 type CIRenderDestinationClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (cc CIRenderDestinationClass) Class() objc.Class {
+	return cc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -157,9 +163,9 @@ type ICIRenderDestination interface {
 	// Creates a render destination based on an [IOSurface] object.
 	InitWithIOSurface(surface iosurface.IOSurface) CIRenderDestination
 	// Creates a render destination based on a Metal texture.
-	InitWithMTLTextureCommandBuffer(texture objectivec.IObject, commandBuffer objectivec.IObject) CIRenderDestination
+	InitWithMTLTextureCommandBuffer(texture metal.MTLTexture, commandBuffer metal.MTLCommandBuffer) CIRenderDestination
 	// Creates a render destination based on a Metal texture with specified pixel format.
-	InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat objectivec.IObject, commandBuffer objectivec.IObject, block VoidHandler) CIRenderDestination
+	InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer, block VoidHandler) CIRenderDestination
 	// Creates a render destination based on an OpenGL texture.
 	InitWithGLTextureTargetWidthHeight(texture uint32, target uint32, width uint, height uint) CIRenderDestination
 	// Creates a render destination based on a client-managed buffer.
@@ -352,7 +358,7 @@ func NewRenderDestinationWithIOSurface(surface iosurface.IOSurface) CIRenderDest
 // [sRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/sRGB
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)
-func NewRenderDestinationWithMTLTextureCommandBuffer(texture objectivec.IObject, commandBuffer objectivec.IObject) CIRenderDestination {
+func NewRenderDestinationWithMTLTextureCommandBuffer(texture metal.MTLTexture, commandBuffer metal.MTLCommandBuffer) CIRenderDestination {
 	instance := getCIRenderDestinationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMTLTexture:commandBuffer:"), texture, commandBuffer)
 	return CIRenderDestinationFromID(rv)
@@ -467,7 +473,7 @@ func (r CIRenderDestination) InitWithIOSurface(surface iosurface.IOSurface) CIRe
 // [sRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/sRGB
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)
-func (r CIRenderDestination) InitWithMTLTextureCommandBuffer(texture objectivec.IObject, commandBuffer objectivec.IObject) CIRenderDestination {
+func (r CIRenderDestination) InitWithMTLTextureCommandBuffer(texture metal.MTLTexture, commandBuffer metal.MTLCommandBuffer) CIRenderDestination {
 	rv := objc.Send[CIRenderDestination](r.ID, objc.Sel("initWithMTLTexture:commandBuffer:"), texture, commandBuffer)
 	return rv
 }
@@ -514,9 +520,8 @@ func (r CIRenderDestination) InitWithMTLTextureCommandBuffer(texture objectivec.
 // [sRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/sRGB
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(width:height:pixelFormat:commandBuffer:mtlTextureProvider:)
-func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat objectivec.IObject, commandBuffer objectivec.IObject, block VoidHandler) CIRenderDestination {
-_block4, _cleanup4 := NewVoidBlock(block)
-	defer _cleanup4()
+func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer, block VoidHandler) CIRenderDestination {
+_block4, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("initWithWidth:height:pixelFormat:commandBuffer:mtlTextureProvider:"), width, height, pixelFormat, commandBuffer, _block4)
 	return CIRenderDestinationFromID(rv)
 }
@@ -699,7 +704,7 @@ func (r CIRenderDestination) SetCaptureTraceURL(value foundation.INSURL) {
 
 // InitWithWidthHeightPixelFormatCommandBufferMtlTextureProviderSync is a synchronous wrapper around [CIRenderDestination.InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider].
 // It blocks until the completion handler fires or the context is cancelled.
-func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextureProviderSync(ctx context.Context, width uint, height uint, pixelFormat objectivec.IObject, commandBuffer objectivec.IObject) error {
+func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextureProviderSync(ctx context.Context, width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer) error {
 	done := make(chan struct{}, 1)
 	r.InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width, height, pixelFormat, commandBuffer, func() {
 		done <- struct{}{}

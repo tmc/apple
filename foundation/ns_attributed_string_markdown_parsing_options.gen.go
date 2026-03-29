@@ -30,6 +30,11 @@ type NSAttributedStringMarkdownParsingOptionsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAttributedStringMarkdownParsingOptionsClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAttributedStringMarkdownParsingOptionsClass) Alloc() NSAttributedStringMarkdownParsingOptions {
 	rv := objc.Send[NSAttributedStringMarkdownParsingOptions](objc.ID(nc.class), objc.Sel("alloc"))

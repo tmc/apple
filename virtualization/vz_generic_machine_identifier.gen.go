@@ -31,6 +31,11 @@ type VZGenericMachineIdentifierClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZGenericMachineIdentifierClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZGenericMachineIdentifierClass) Alloc() VZGenericMachineIdentifier {
 	rv := objc.Send[VZGenericMachineIdentifier](objc.ID(vc.class), objc.Sel("alloc"))

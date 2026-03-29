@@ -33,6 +33,11 @@ type SCStreamConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCStreamConfigurationClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCStreamConfigurationClass) Alloc() SCStreamConfiguration {
 	rv := objc.Send[SCStreamConfiguration](objc.ID(sc.class), objc.Sel("alloc"))

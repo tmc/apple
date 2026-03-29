@@ -30,6 +30,11 @@ type AVExposureBiasRangeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVExposureBiasRangeClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVExposureBiasRangeClass) Alloc() AVExposureBiasRange {
 	rv := objc.Send[AVExposureBiasRange](objc.ID(ac.class), objc.Sel("alloc"))
@@ -86,14 +91,14 @@ type IAVExposureBiasRange interface {
 	ContainsExposureBias(exposureBias float32) bool
 
 	// A time value that indicates the maximum supported exposure duration.
-	MaxExposureDuration() objectivec.IObject
-	SetMaxExposureDuration(value objectivec.IObject)
+	MaxExposureDuration() uintptr
+	SetMaxExposureDuration(value uintptr)
 	// A floating-point number that indicates the maximum supported exposure ISO value.
 	MaxISO() float32
 	SetMaxISO(value float32)
 	// A time value that indicates the minimum supported exposure duration.
-	MinExposureDuration() objectivec.IObject
-	SetMinExposureDuration(value objectivec.IObject)
+	MinExposureDuration() uintptr
+	SetMinExposureDuration(value uintptr)
 	// A floating-point number that indicates the minimum supported exposure ISO value.
 	MinISO() float32
 	SetMinISO(value float32)
@@ -149,11 +154,11 @@ func (e AVExposureBiasRange) MaxExposureBias() float32 {
 // A time value that indicates the maximum supported exposure duration.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/maxexposureduration
-func (e AVExposureBiasRange) MaxExposureDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("maxExposureDuration"))
-	return objectivec.Object{ID: rv}
+func (e AVExposureBiasRange) MaxExposureDuration() uintptr {
+	rv := objc.Send[uintptr](e.ID, objc.Sel("maxExposureDuration"))
+	return rv
 }
-func (e AVExposureBiasRange) SetMaxExposureDuration(value objectivec.IObject) {
+func (e AVExposureBiasRange) SetMaxExposureDuration(value uintptr) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMaxExposureDuration:"), value)
 }
 // A floating-point number that indicates the maximum supported exposure ISO
@@ -170,11 +175,11 @@ func (e AVExposureBiasRange) SetMaxISO(value float32) {
 // A time value that indicates the minimum supported exposure duration.
 //
 // See: https://developer.apple.com/documentation/avfoundation/avcapturedevice/format/minexposureduration
-func (e AVExposureBiasRange) MinExposureDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("minExposureDuration"))
-	return objectivec.Object{ID: rv}
+func (e AVExposureBiasRange) MinExposureDuration() uintptr {
+	rv := objc.Send[uintptr](e.ID, objc.Sel("minExposureDuration"))
+	return rv
 }
-func (e AVExposureBiasRange) SetMinExposureDuration(value objectivec.IObject) {
+func (e AVExposureBiasRange) SetMinExposureDuration(value uintptr) {
 	objc.Send[struct{}](e.ID, objc.Sel("setMinExposureDuration:"), value)
 }
 // A floating-point number that indicates the minimum supported exposure ISO

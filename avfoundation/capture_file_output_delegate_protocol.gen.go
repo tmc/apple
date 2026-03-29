@@ -127,7 +127,7 @@ func (o AVCaptureFileOutputDelegateObject) CaptureOutputShouldProvideSampleAccur
 // prevent capture performance problems.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutput(_:didOutputSampleBuffer:from:)
-func (o AVCaptureFileOutputDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureFileOutput, sampleBuffer objectivec.IObject, connection IAVCaptureConnection) {
+func (o AVCaptureFileOutputDelegateObject) CaptureOutputDidOutputSampleBufferFromConnection(output IAVCaptureFileOutput, sampleBuffer uintptr, connection IAVCaptureConnection) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didOutputSampleBuffer:fromConnection:"), output, sampleBuffer, connection)
 	}
 
@@ -144,6 +144,8 @@ type AVCaptureFileOutputDelegateConfig struct {
 	// Other Methods
 	// CaptureOutputShouldProvideSampleAccurateRecordingStart — Allows a client to opt in to frame accurate recording in [fileOutput(_:didOutputSampleBuffer:from:)](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutput(_:didOutputSampleBuffer:from:)>).
 	CaptureOutputShouldProvideSampleAccurateRecordingStart func(output AVCaptureOutput) bool
+	// CaptureOutputDidOutputSampleBufferFromConnection — Gives the delegate the opportunity to inspect samples as they are received by the output and start and stop recording at exact times.
+	CaptureOutputDidOutputSampleBufferFromConnection func(output AVCaptureFileOutput, sampleBuffer uintptr, connection AVCaptureConnection)
 }
 
 // NewAVCaptureFileOutputDelegate creates an Objective-C object implementing the [AVCaptureFileOutputDelegate] protocol.
@@ -171,6 +173,18 @@ func NewAVCaptureFileOutputDelegate(config AVCaptureFileOutputDelegateConfig) AV
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID) bool {
 				output := AVCaptureOutputFromID(outputID)
 				return fn(output)
+			},
+		})
+	}
+
+	if config.CaptureOutputDidOutputSampleBufferFromConnection != nil {
+		fn := config.CaptureOutputDidOutputSampleBufferFromConnection
+		methods = append(methods, objc.MethodDef{
+			Cmd: objc.RegisterName("captureOutput:didOutputSampleBuffer:fromConnection:"),
+			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer uintptr, connectionID objc.ID) {
+				output := AVCaptureFileOutputFromID(outputID)
+				connection := AVCaptureConnectionFromID(connectionID)
+				fn(output, sampleBuffer, connection)
 			},
 		})
 	}

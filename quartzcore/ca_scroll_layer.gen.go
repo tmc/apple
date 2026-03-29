@@ -32,6 +32,11 @@ type CAScrollLayerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAScrollLayerClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAScrollLayerClass) Alloc() CAScrollLayer {
 	rv := objc.Send[CAScrollLayer](objc.ID(cc.class), objc.Sel("alloc"))

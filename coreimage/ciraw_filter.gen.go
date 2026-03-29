@@ -33,6 +33,11 @@ type CIRAWFilterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CIRAWFilterClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CIRAWFilterClass) Alloc() CIRAWFilter {
 	rv := objc.Send[CIRAWFilter](objc.ID(cc.class), objc.Sel("alloc"))

@@ -32,6 +32,11 @@ type NSPrintPanelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPrintPanelClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPrintPanelClass) Alloc() NSPrintPanel {
 	rv := objc.Send[NSPrintPanel](objc.ID(nc.class), objc.Sel("alloc"))
@@ -246,8 +251,7 @@ func (p NSPrintPanel) RemoveAccessoryController(accessoryController INSViewContr
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintPanel/beginSheet(using:on:completionHandler:)
 func (p NSPrintPanel) BeginSheetUsingPrintInfoOnWindowCompletionHandler(printInfo INSPrintInfo, parentWindow INSWindow, handler PrintPanelResultHandler) {
-_block2, _cleanup2 := NewPrintPanelResultBlock(handler)
-	defer _cleanup2()
+_block2, _ := NewPrintPanelResultBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetUsingPrintInfo:onWindow:completionHandler:"), printInfo, parentWindow, _block2)
 }
 // Displays the Print panel and begins the modal loop.

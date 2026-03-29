@@ -33,6 +33,11 @@ type AVPlayerItemIntegratedTimelineClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerItemIntegratedTimelineClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerItemIntegratedTimelineClass) Alloc() AVPlayerItemIntegratedTimeline {
 	rv := objc.Send[AVPlayerItemIntegratedTimeline](objc.ID(ac.class), objc.Sel("alloc"))
@@ -105,21 +110,21 @@ type IAVPlayerItemIntegratedTimeline interface {
 	// Topic: Inspecting the time and date
 
 	// The current time on the integrated timeline.
-	CurrentTime() objectivec.IObject
+	CurrentTime() uintptr
 	// The current date of playback.
 	CurrentDate() foundation.INSDate
 
 	// Topic: Seeking
 
 	// Seeks to a particular time in the integrated time domain.
-	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject, completionHandler BoolHandler)
+	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time uintptr, toleranceBefore uintptr, toleranceAfter uintptr, completionHandler BoolHandler)
 	// Seeks to a particular date in the integrated time domain.
 	SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler)
 
 	// Requests invocation of a block when traversing an offset in a segment during playback.
 	AddBoundaryTimeObserverForSegmentOffsetsIntoSegmentQueueUsingBlock(segment IAVPlayerItemSegment, offsetsIntoSegment foundation.INSArray, queue dispatch.Queue, block BoolHandler) AVPlayerItemIntegratedTimelineObserver
 	// Requests invocation of a block during playback to report changing time.
-	AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval objectivec.IObject, queue dispatch.Queue, block CMTimeHandler) AVPlayerItemIntegratedTimelineObserver
+	AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval uintptr, queue dispatch.Queue, block CMTimeHandler) AVPlayerItemIntegratedTimelineObserver
 	// Cancels a previously registered time observer.
 	RemoveTimeObserver(observer AVPlayerItemIntegratedTimelineObserver)
 }
@@ -154,16 +159,9 @@ func NewAVPlayerItemIntegratedTimeline() AVPlayerItemIntegratedTimeline {
 // completionHandler: A callback the system invokes after the seek completes. It passes a Boolean
 // value of `true` if the playhead moved to the new time.
 //
-// time is a [coremedia.CMTime].
-//
-// toleranceBefore is a [coremedia.CMTime].
-//
-// toleranceAfter is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/seek(to:toleranceBefore:toleranceAfter:completionHandler:)
-func (p AVPlayerItemIntegratedTimeline) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject, completionHandler BoolHandler) {
-_block3, _cleanup3 := NewBoolBlock(completionHandler)
-	defer _cleanup3()
+func (p AVPlayerItemIntegratedTimeline) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time uintptr, toleranceBefore uintptr, toleranceAfter uintptr, completionHandler BoolHandler) {
+_block3, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:toleranceBefore:toleranceAfter:completionHandler:"), time, toleranceBefore, toleranceAfter, _block3)
 }
 // Seeks to a particular date in the integrated time domain.
@@ -175,8 +173,7 @@ _block3, _cleanup3 := NewBoolBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/seek(to:completionHandler:)
 func (p AVPlayerItemIntegratedTimeline) SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToDate:completionHandler:"), date, _block1)
 }
 // Requests invocation of a block when traversing an offset in a segment
@@ -184,19 +181,15 @@ _block1, _cleanup1 := NewBoolBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/addBoundaryTimeObserverForSegment:offsetsIntoSegment:queue:usingBlock:
 func (p AVPlayerItemIntegratedTimeline) AddBoundaryTimeObserverForSegmentOffsetsIntoSegmentQueueUsingBlock(segment IAVPlayerItemSegment, offsetsIntoSegment foundation.INSArray, queue dispatch.Queue, block BoolHandler) AVPlayerItemIntegratedTimelineObserver {
-_block3, _cleanup3 := NewBoolBlock(block)
-	defer _cleanup3()
+_block3, _ := NewBoolBlock(block)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("addBoundaryTimeObserverForSegment:offsetsIntoSegment:queue:usingBlock:"), segment, offsetsIntoSegment, uintptr(queue.Handle()), _block3)
 	return AVPlayerItemIntegratedTimelineObserverObjectFromID(rv)
 }
 // Requests invocation of a block during playback to report changing time.
 //
-// interval is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/addPeriodicTimeObserverForInterval:queue:usingBlock:
-func (p AVPlayerItemIntegratedTimeline) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval objectivec.IObject, queue dispatch.Queue, block CMTimeHandler) AVPlayerItemIntegratedTimelineObserver {
-_block2, _cleanup2 := NewCMTimeBlock(block)
-	defer _cleanup2()
+func (p AVPlayerItemIntegratedTimeline) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval uintptr, queue dispatch.Queue, block CMTimeHandler) AVPlayerItemIntegratedTimelineObserver {
+_block2, _ := NewCMTimeBlock(block)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("addPeriodicTimeObserverForInterval:queue:usingBlock:"), interval, uintptr(queue.Handle()), _block2)
 	return AVPlayerItemIntegratedTimelineObserverObjectFromID(rv)
 }
@@ -228,9 +221,9 @@ func (p AVPlayerItemIntegratedTimeline) CurrentSnapshot() IAVPlayerItemIntegrate
 // value doesn’t change.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimeline/currentTime
-func (p AVPlayerItemIntegratedTimeline) CurrentTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentTime"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItemIntegratedTimeline) CurrentTime() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("currentTime"))
+	return rv
 }
 // The current date of playback.
 //
@@ -255,7 +248,7 @@ func (_AVPlayerItemIntegratedTimelineClass AVPlayerItemIntegratedTimelineClass) 
 
 // SeekToTimeToleranceBeforeToleranceAfter is a synchronous wrapper around [AVPlayerItemIntegratedTimeline.SeekToTimeToleranceBeforeToleranceAfterCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayerItemIntegratedTimeline) SeekToTimeToleranceBeforeToleranceAfter(ctx context.Context, time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject) (bool, error) {
+func (p AVPlayerItemIntegratedTimeline) SeekToTimeToleranceBeforeToleranceAfter(ctx context.Context, time uintptr, toleranceBefore uintptr, toleranceAfter uintptr) (bool, error) {
 	done := make(chan bool, 1)
 	p.SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time, toleranceBefore, toleranceAfter, func(val bool) {
 		done <- val
@@ -300,16 +293,16 @@ func (p AVPlayerItemIntegratedTimeline) AddBoundaryTimeObserverForSegmentOffsets
 
 // AddPeriodicTimeObserverForIntervalQueueUsingBlockSync is a synchronous wrapper around [AVPlayerItemIntegratedTimeline.AddPeriodicTimeObserverForIntervalQueueUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayerItemIntegratedTimeline) AddPeriodicTimeObserverForIntervalQueueUsingBlockSync(ctx context.Context, interval objectivec.IObject, queue dispatch.Queue) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	p.AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval, queue, func(val objectivec.IObject) {
+func (p AVPlayerItemIntegratedTimeline) AddPeriodicTimeObserverForIntervalQueueUsingBlockSync(ctx context.Context, interval uintptr, queue dispatch.Queue) (uintptr, error) {
+	done := make(chan uintptr, 1)
+	p.AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval, queue, func(val uintptr) {
 		done <- val
 	})
 	select {
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return nil, ctx.Err()
+		return 0, ctx.Err()
 	}
 }
 

@@ -32,6 +32,11 @@ type NSFilePromiseReceiverClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFilePromiseReceiverClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFilePromiseReceiverClass) Alloc() NSFilePromiseReceiver {
 	rv := objc.Send[NSFilePromiseReceiver](objc.ID(nc.class), objc.Sel("alloc"))
@@ -178,8 +183,7 @@ func NewFilePromiseReceiverWithPasteboardPropertyListOfType(propertyList objecti
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFilePromiseReceiver/receivePromisedFiles(atDestination:options:operationQueue:reader:)
 func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReader(destinationDir foundation.INSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue, reader URLErrorHandler) {
-_block3, _cleanup3 := NewURLErrorBlock(reader)
-	defer _cleanup3()
+_block3, _ := NewURLErrorBlock(reader)
 	objc.Send[objc.ID](f.ID, objc.Sel("receivePromisedFilesAtDestination:options:operationQueue:reader:"), destinationDir, options, operationQueue, _block3)
 }
 // Initializes an instance with a property list object and a type string.

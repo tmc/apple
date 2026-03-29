@@ -110,6 +110,7 @@ objc.Send[objc.ID](c.ID, objc.Sel("encodeCGVector:forKey:"), vector, objc.String
 // to retrieve the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-7oo2n
+// insets is a [appkit.NSDirectionalEdgeInsets].
 func (c NSCoder) EncodeDirectionalEdgeInsetsForKey(insets objectivec.IObject, key string) {
 objc.Send[objc.ID](c.ID, objc.Sel("encodeDirectionalEdgeInsets:forKey:"), insets, objc.String(key))
 }
@@ -129,6 +130,7 @@ objc.Send[objc.ID](c.ID, objc.Sel("encodeDirectionalEdgeInsets:forKey:"), insets
 // retrieve the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-44zsc
+// insets is a [uikit.UIEdgeInsets].
 func (c NSCoder) EncodeUIEdgeInsetsForKey(insets objectivec.IObject, key string) {
 objc.Send[objc.ID](c.ID, objc.Sel("encodeUIEdgeInsets:forKey:"), insets, objc.String(key))
 }
@@ -148,6 +150,7 @@ objc.Send[objc.ID](c.ID, objc.Sel("encodeUIEdgeInsets:forKey:"), insets, objc.St
 // the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9d1qy
+// offset is a [uikit.UIOffset].
 func (c NSCoder) EncodeUIOffsetForKey(offset objectivec.IObject, key string) {
 objc.Send[objc.ID](c.ID, objc.Sel("encodeUIOffset:forKey:"), offset, objc.String(key))
 }

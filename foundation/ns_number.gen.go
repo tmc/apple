@@ -31,6 +31,11 @@ type NSNumberClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSNumberClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSNumberClass) Alloc() NSNumber {
 	rv := objc.Send[NSNumber](objc.ID(nc.class), objc.Sel("alloc"))

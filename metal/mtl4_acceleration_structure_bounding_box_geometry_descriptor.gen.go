@@ -29,6 +29,11 @@ type MTL4AccelerationStructureBoundingBoxGeometryDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4AccelerationStructureBoundingBoxGeometryDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4AccelerationStructureBoundingBoxGeometryDescriptorClass) Alloc() MTL4AccelerationStructureBoundingBoxGeometryDescriptor {
 	rv := objc.Send[MTL4AccelerationStructureBoundingBoxGeometryDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

@@ -32,6 +32,11 @@ type NSSearchFieldCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSearchFieldCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSearchFieldCellClass) Alloc() NSSearchFieldCell {
 	rv := objc.Send[NSSearchFieldCell](objc.ID(nc.class), objc.Sel("alloc"))

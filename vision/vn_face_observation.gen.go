@@ -31,6 +31,11 @@ type VNFaceObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNFaceObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNFaceObservationClass) Alloc() VNFaceObservation {
 	rv := objc.Send[VNFaceObservation](objc.ID(vc.class), objc.Sel("alloc"))

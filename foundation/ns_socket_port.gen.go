@@ -29,6 +29,11 @@ type SocketPortClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SocketPortClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SocketPortClass) Alloc() SocketPort {
 	rv := objc.Send[SocketPort](objc.ID(sc.class), objc.Sel("alloc"))

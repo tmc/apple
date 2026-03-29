@@ -32,6 +32,11 @@ type NSTextContentManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextContentManagerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextContentManagerClass) Alloc() NSTextContentManager {
 	rv := objc.Send[NSTextContentManager](objc.ID(nc.class), objc.Sel("alloc"))
@@ -240,8 +245,7 @@ func (t NSTextContentManager) InitWithCoder(coder foundation.INSCoder) NSTextCon
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/performEditingTransaction(_:)
 func (t NSTextContentManager) PerformEditingTransactionUsingBlock(transaction VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(transaction)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(transaction)
 	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionUsingBlock:"), _block0)
 }
 // Records information about an edit action to the transaction.
@@ -287,8 +291,7 @@ func (t NSTextContentManager) RemoveTextLayoutManager(textLayoutManager INSTextL
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/synchronizeTextLayoutManagers(_:)
 func (t NSTextContentManager) SynchronizeTextLayoutManagers(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](t.ID, objc.Sel("synchronizeTextLayoutManagers:"), _block0)
 }
 // Returns an array of text elements that intersect with the range you
@@ -362,8 +365,7 @@ func (t NSTextContentManager) AdjustedRangeFromRangeForEditingTextSelection(text
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/enumerateTextElements(from:options:using:)
 func (t NSTextContentManager) EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block TextElementHandler) NSTextLocation {
-_block2, _cleanup2 := NewTextElementBlock(block)
-	defer _cleanup2()
+_block2, _ := NewTextElementBlock(block)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, _block2)
 	return NSTextLocationObjectFromID(rv)
 }
@@ -439,8 +441,7 @@ func (t NSTextContentManager) ReplaceContentsInRangeWithTextElements(range_ INST
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/synchronizeToBackingStore(_:)
 func (t NSTextContentManager) SynchronizeToBackingStore(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](t.ID, objc.Sel("synchronizeToBackingStore:"), _block0)
 }
 func (t NSTextContentManager) EncodeWithCoder(coder foundation.INSCoder) {

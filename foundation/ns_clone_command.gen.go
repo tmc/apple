@@ -29,6 +29,11 @@ type NSCloneCommandClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCloneCommandClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCloneCommandClass) Alloc() NSCloneCommand {
 	rv := objc.Send[NSCloneCommand](objc.ID(nc.class), objc.Sel("alloc"))

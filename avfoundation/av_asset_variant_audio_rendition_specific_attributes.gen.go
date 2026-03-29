@@ -30,6 +30,11 @@ type AVAssetVariantAudioRenditionSpecificAttributesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetVariantAudioRenditionSpecificAttributesClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetVariantAudioRenditionSpecificAttributesClass) Alloc() AVAssetVariantAudioRenditionSpecificAttributes {
 	rv := objc.Send[AVAssetVariantAudioRenditionSpecificAttributes](objc.ID(ac.class), objc.Sel("alloc"))
@@ -81,6 +86,9 @@ type IAVAssetVariantAudioRenditionSpecificAttributes interface {
 
 	// The count of audio channels in the rendition.
 	ChannelCount() int
+	// The audio formats of the renditions present in the variant.
+	FormatIDs() objectivec.IObject
+	SetFormatIDs(value objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -150,5 +158,15 @@ func (a AVAssetVariantAudioRenditionSpecificAttributes) Downmix() bool {
 func (a AVAssetVariantAudioRenditionSpecificAttributes) ChannelCount() int {
 	rv := objc.Send[int](a.ID, objc.Sel("channelCount"))
 	return rv
+}
+// The audio formats of the renditions present in the variant.
+//
+// See: https://developer.apple.com/documentation/avfoundation/avassetvariant/audioattributes-swift.class/formatids
+func (a AVAssetVariantAudioRenditionSpecificAttributes) FormatIDs() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("formatIDs"))
+	return objectivec.Object{ID: rv}
+}
+func (a AVAssetVariantAudioRenditionSpecificAttributes) SetFormatIDs(value objectivec.IObject) {
+	objc.Send[struct{}](a.ID, objc.Sel("setFormatIDs:"), value)
 }
 

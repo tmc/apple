@@ -30,6 +30,11 @@ type NSCountedSetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCountedSetClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCountedSetClass) Alloc() NSCountedSet {
 	rv := objc.Send[NSCountedSet](objc.ID(nc.class), objc.Sel("alloc"))

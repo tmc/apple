@@ -31,6 +31,11 @@ type MTLDepthStencilDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLDepthStencilDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLDepthStencilDescriptorClass) Alloc() MTLDepthStencilDescriptor {
 	rv := objc.Send[MTLDepthStencilDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

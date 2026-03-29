@@ -34,6 +34,11 @@ type NSApplicationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSApplicationClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSApplicationClass) Alloc() NSApplication {
 	rv := objc.Send[NSApplication](objc.ID(nc.class), objc.Sel("alloc"))
@@ -454,8 +459,6 @@ func NSApplicationFromID(id objc.ID) NSApplication {
 // See: https://developer.apple.com/documentation/AppKit/NSApplication
 type INSApplication interface {
 	INSResponder
-	NSAccessibilityElementProtocol
-	NSAccessibilityProtocol
 	NSAppearanceCustomization
 	NSMenuItemValidation
 	NSUserInterfaceValidations
@@ -1323,8 +1326,7 @@ func (a NSApplication) ReplyToOpenOrPrint(reply NSApplicationDelegateReply) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/registerUserInterfaceItemSearchHandler(_:)
 func (a NSApplication) RegisterUserInterfaceItemSearchHandler(handler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("registerUserInterfaceItemSearchHandler:"), _block0)
 }
 // Searches for the string in the user interface.
@@ -1367,8 +1369,7 @@ func (a NSApplication) SearchStringInUserInterfaceItemStringSearchRangeFoundRang
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/unregisterUserInterfaceItemSearchHandler(_:)
 func (a NSApplication) UnregisterUserInterfaceItemSearchHandler(handler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("unregisterUserInterfaceItemSearchHandler:"), _block0)
 }
 // If your project is properly registered, and the necessary keys have been
@@ -1609,8 +1610,7 @@ func (a NSApplication) EndModalSession(session objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/enumerateWindows(options:using:)
 func (a NSApplication) EnumerateWindowsWithOptionsUsingBlock(options uint, block WindowHandler) {
-_block1, _cleanup1 := NewWindowBlock(block)
-	defer _cleanup1()
+_block1, _ := NewWindowBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateWindowsWithOptions:usingBlock:"), options, _block1)
 }
 // Allows an app to extend its state restoration period.
@@ -1826,8 +1826,7 @@ func (a NSApplication) RemoveWindowsItem(win INSWindow) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplication/restoreWindow(withIdentifier:state:completionHandler:)
 func (a NSApplication) RestoreWindowWithIdentifierStateCompletionHandler(identifier NSUserInterfaceItemIdentifier, state foundation.INSCoder, completionHandler WindowErrorHandler) bool {
-_block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewWindowErrorBlock(completionHandler)
 	rv := objc.Send[bool](a.ID, objc.Sel("restoreWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
 	return rv
 }

@@ -31,6 +31,11 @@ type MTL4StaticLinkingDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4StaticLinkingDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4StaticLinkingDescriptorClass) Alloc() MTL4StaticLinkingDescriptor {
 	rv := objc.Send[MTL4StaticLinkingDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

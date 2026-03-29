@@ -25,12 +25,7 @@ type CGImageRefErrorHandler = func(coregraphics.CGImageRef, error)
 //   - [SCScreenshotManager.CaptureImageWithFilterConfigurationCompletionHandler]
 func NewCGImageRefErrorBlock(handler CGImageRefErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal coregraphics.CGImageRef, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -49,12 +44,7 @@ type CMSampleBufferRefErrorHandler = func(objectivec.IObject, error)
 //   - [SCScreenshotManager.CaptureSampleBufferWithFilterConfigurationCompletionHandler]
 func NewCMSampleBufferRefErrorBlock(handler CMSampleBufferRefErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, primitiveVal objectivec.IObject, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(primitiveVal, foundation.NSErrorToError(nserr))
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -79,12 +69,7 @@ type ErrorHandler = func(error)
 //   - [SCStream.UpdateContentFilterCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(foundation.NSErrorToError(nserr))
+		handler(foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -107,15 +92,11 @@ func NewSCScreenshotOutputErrorBlock(handler SCScreenshotOutputErrorHandler) (ob
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *SCScreenshotOutput
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := SCScreenshotOutputFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -144,15 +125,11 @@ func NewSCShareableContentErrorBlock(handler SCShareableContentErrorHandler) (ob
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *SCShareableContent
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := SCShareableContentFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }

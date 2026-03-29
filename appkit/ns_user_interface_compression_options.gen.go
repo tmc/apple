@@ -31,6 +31,11 @@ type NSUserInterfaceCompressionOptionsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSUserInterfaceCompressionOptionsClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSUserInterfaceCompressionOptionsClass) Alloc() NSUserInterfaceCompressionOptions {
 	rv := objc.Send[NSUserInterfaceCompressionOptions](objc.ID(nc.class), objc.Sel("alloc"))

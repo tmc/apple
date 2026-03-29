@@ -29,6 +29,11 @@ type AVMetadataDogHeadObjectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetadataDogHeadObjectClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetadataDogHeadObjectClass) Alloc() AVMetadataDogHeadObject {
 	rv := objc.Send[AVMetadataDogHeadObject](objc.ID(ac.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type NSSymbolWiggleEffectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSymbolWiggleEffectClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSymbolWiggleEffectClass) Alloc() NSSymbolWiggleEffect {
 	rv := objc.Send[NSSymbolWiggleEffect](objc.ID(nc.class), objc.Sel("alloc"))

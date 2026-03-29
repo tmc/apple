@@ -30,6 +30,11 @@ type VNDetectContoursRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNDetectContoursRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNDetectContoursRequestClass) Alloc() VNDetectContoursRequest {
 	rv := objc.Send[VNDetectContoursRequest](objc.ID(vc.class), objc.Sel("alloc"))

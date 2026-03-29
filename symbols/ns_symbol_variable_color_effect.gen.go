@@ -29,6 +29,11 @@ type NSSymbolVariableColorEffectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSymbolVariableColorEffectClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSymbolVariableColorEffectClass) Alloc() NSSymbolVariableColorEffect {
 	rv := objc.Send[NSSymbolVariableColorEffect](objc.ID(nc.class), objc.Sel("alloc"))

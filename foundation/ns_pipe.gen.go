@@ -30,6 +30,11 @@ type PipeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (pc PipeClass) Class() objc.Class {
+	return pc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (pc PipeClass) Alloc() Pipe {
 	rv := objc.Send[Pipe](objc.ID(pc.class), objc.Sel("alloc"))

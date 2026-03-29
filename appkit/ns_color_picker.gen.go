@@ -32,6 +32,11 @@ type NSColorPickerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSColorPickerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSColorPickerClass) Alloc() NSColorPicker {
 	rv := objc.Send[NSColorPicker](objc.ID(nc.class), objc.Sel("alloc"))

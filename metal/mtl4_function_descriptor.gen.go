@@ -30,6 +30,11 @@ type MTL4FunctionDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4FunctionDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4FunctionDescriptorClass) Alloc() MTL4FunctionDescriptor {
 	rv := objc.Send[MTL4FunctionDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

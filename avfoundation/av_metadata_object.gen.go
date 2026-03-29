@@ -32,6 +32,11 @@ type AVMetadataObjectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetadataObjectClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetadataObjectClass) Alloc() AVMetadataObject {
 	rv := objc.Send[AVMetadataObject](objc.ID(ac.class), objc.Sel("alloc"))
@@ -100,9 +105,9 @@ type IAVMetadataObject interface {
 	// The bounding rectangle associated with the metadata.
 	Bounds() corefoundation.CGRect
 	// The duration of the media associated with this metadata object.
-	Duration() objectivec.IObject
+	Duration() uintptr
 	// The media time value associated with the metadata object.
-	Time() objectivec.IObject
+	Time() uintptr
 	// The type of metadata that this object provides.
 	Type() AVMetadataObjectType
 	// A BOOL indicating whether this metadata object represents a fixed focus.
@@ -169,9 +174,9 @@ func (m AVMetadataObject) Bounds() corefoundation.CGRect {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/duration
-func (m AVMetadataObject) Duration() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("duration"))
-	return objectivec.Object{ID: rv}
+func (m AVMetadataObject) Duration() uintptr {
+	rv := objc.Send[uintptr](m.ID, objc.Sel("duration"))
+	return rv
 }
 // The media time value associated with the metadata object.
 //
@@ -187,9 +192,9 @@ func (m AVMetadataObject) Duration() objectivec.IObject {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataObject/time
-func (m AVMetadataObject) Time() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("time"))
-	return objectivec.Object{ID: rv}
+func (m AVMetadataObject) Time() uintptr {
+	rv := objc.Send[uintptr](m.ID, objc.Sel("time"))
+	return rv
 }
 // The type of metadata that this object provides.
 //

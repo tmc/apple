@@ -30,6 +30,11 @@ type NSCustomTouchBarItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCustomTouchBarItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCustomTouchBarItemClass) Alloc() NSCustomTouchBarItem {
 	rv := objc.Send[NSCustomTouchBarItem](objc.ID(nc.class), objc.Sel("alloc"))

@@ -32,6 +32,11 @@ type RunLoopClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (rc RunLoopClass) Class() objc.Class {
+	return rc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (rc RunLoopClass) Alloc() RunLoop {
 	rv := objc.Send[RunLoop](objc.ID(rc.class), objc.Sel("alloc"))
@@ -415,8 +420,7 @@ func (r RunLoop) AcceptInputForModeBeforeDate(mode NSRunLoopMode, limitDate INSD
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/perform(_:)
 func (r RunLoop) PerformBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](r.ID, objc.Sel("performBlock:"), _block0)
 }
 // Schedules a block that the run loop invokes when it’s running in any of
@@ -428,8 +432,7 @@ _block0, _cleanup0 := NewVoidBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/RunLoop/perform(inModes:block:)
 func (r RunLoop) PerformInModesBlock(modes []string, block VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(block)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](r.ID, objc.Sel("performInModes:block:"), modes, _block1)
 }
 // Schedules the sending of a message on the receiver.

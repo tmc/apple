@@ -31,6 +31,11 @@ type MTLFunctionStitchingGraphClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLFunctionStitchingGraphClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLFunctionStitchingGraphClass) Alloc() MTLFunctionStitchingGraph {
 	rv := objc.Send[MTLFunctionStitchingGraph](objc.ID(mc.class), objc.Sel("alloc"))

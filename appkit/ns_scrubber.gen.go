@@ -33,6 +33,11 @@ type NSScrubberClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScrubberClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScrubberClass) Alloc() NSScrubber {
 	rv := objc.Send[NSScrubber](objc.ID(nc.class), objc.Sel("alloc"))
@@ -803,8 +808,7 @@ func (s NSScrubber) RemoveItemsAtIndexes(indexes foundation.NSIndexSet) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubber/performSequentialBatchUpdates(_:)
 func (s NSScrubber) PerformSequentialBatchUpdates(updateBlock VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(updateBlock)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(updateBlock)
 	objc.Send[objc.ID](s.ID, objc.Sel("performSequentialBatchUpdates:"), _block0)
 }
 // Scrolls an item to a specified alignment within the scrubber.

@@ -29,6 +29,11 @@ type MTL4RenderPipelineDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4RenderPipelineDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4RenderPipelineDescriptorClass) Alloc() MTL4RenderPipelineDescriptor {
 	rv := objc.Send[MTL4RenderPipelineDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

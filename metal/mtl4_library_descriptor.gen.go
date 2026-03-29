@@ -31,6 +31,11 @@ type MTL4LibraryDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4LibraryDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4LibraryDescriptorClass) Alloc() MTL4LibraryDescriptor {
 	rv := objc.Send[MTL4LibraryDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

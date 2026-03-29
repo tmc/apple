@@ -32,6 +32,11 @@ type AVAssetReaderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetReaderClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetReaderClass) Alloc() AVAssetReader {
 	rv := objc.Send[AVAssetReader](objc.ID(ac.class), objc.Sel("alloc"))
@@ -130,8 +135,8 @@ type IAVAssetReader interface {
 	// Topic: Configuring reading
 
 	// The time range within the asset to read.
-	TimeRange() objectivec.IObject
-	SetTimeRange(value objectivec.IObject)
+	TimeRange() uintptr
+	SetTimeRange(value uintptr)
 	// The status of reading sample buffers from the asset.
 	Status() AVAssetReaderStatus
 	// An error that describes the reason for a failure.
@@ -282,11 +287,11 @@ func (a AVAssetReader) Outputs() []AVAssetReaderOutput {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReader/timeRange
-func (a AVAssetReader) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (a AVAssetReader) TimeRange() uintptr {
+	rv := objc.Send[uintptr](a.ID, objc.Sel("timeRange"))
+	return rv
 }
-func (a AVAssetReader) SetTimeRange(value objectivec.IObject) {
+func (a AVAssetReader) SetTimeRange(value uintptr) {
 	objc.Send[struct{}](a.ID, objc.Sel("setTimeRange:"), value)
 }
 // The status of reading sample buffers from the asset.

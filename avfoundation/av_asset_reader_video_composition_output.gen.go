@@ -31,6 +31,11 @@ type AVAssetReaderVideoCompositionOutputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetReaderVideoCompositionOutputClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetReaderVideoCompositionOutputClass) Alloc() AVAssetReaderVideoCompositionOutput {
 	rv := objc.Send[AVAssetReaderVideoCompositionOutput](objc.ID(ac.class), objc.Sel("alloc"))

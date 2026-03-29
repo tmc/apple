@@ -31,6 +31,11 @@ type AVCaptureDeviceFormatClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureDeviceFormatClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureDeviceFormatClass) Alloc() AVCaptureDeviceFormat {
 	rv := objc.Send[AVCaptureDeviceFormat](objc.ID(ac.class), objc.Sel("alloc"))
@@ -245,7 +250,7 @@ type IAVCaptureDeviceFormat interface {
 	// A constant describing the media type of an [AVCaptureDevice] active or supported format.
 	MediaType() AVMediaType
 	// An object describing the capture format.
-	FormatDescription() objectivec.IObject
+	FormatDescription() uintptr
 
 	// Topic: Determining photo quality
 
@@ -461,9 +466,9 @@ func (c AVCaptureDeviceFormat) MediaType() AVMediaType {
 // [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/Format/formatDescription
-func (c AVCaptureDeviceFormat) FormatDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("formatDescription"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureDeviceFormat) FormatDescription() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("formatDescription"))
+	return rv
 }
 // A Boolean value that indicates whether this format supports high-quality
 // capture with the current quality prioritization setting.

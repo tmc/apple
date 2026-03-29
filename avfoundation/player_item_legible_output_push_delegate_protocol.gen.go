@@ -65,7 +65,7 @@ func AVPlayerItemLegibleOutputPushDelegateObjectFromID(id objc.ID) AVPlayerItemL
 // [CMTextMarkup]: https://developer.apple.com/documentation/CoreMedia/cmtextmarkup
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemLegibleOutputPushDelegate/legibleOutput(_:didOutputAttributedStrings:nativeSampleBuffers:forItemTime:)
-func (o AVPlayerItemLegibleOutputPushDelegateObject) LegibleOutputDidOutputAttributedStringsNativeSampleBuffersForItemTime(output IAVPlayerItemLegibleOutput, strings []foundation.NSAttributedString, nativeSamples foundation.INSArray, itemTime objectivec.IObject) {
+func (o AVPlayerItemLegibleOutputPushDelegateObject) LegibleOutputDidOutputAttributedStringsNativeSampleBuffersForItemTime(output IAVPlayerItemLegibleOutput, strings []foundation.NSAttributedString, nativeSamples foundation.INSArray, itemTime uintptr) {
 	objc.Send[struct{}](o.ID, objc.Sel("legibleOutput:didOutputAttributedStrings:nativeSampleBuffers:forItemTime:"), output, objectivec.IObjectSliceToNSArray(strings), nativeSamples, itemTime)
 	}
 // Tells the delegate that the output is starting a new sequence of media

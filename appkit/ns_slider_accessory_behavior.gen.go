@@ -32,6 +32,11 @@ type NSSliderAccessoryBehaviorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSliderAccessoryBehaviorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSliderAccessoryBehaviorClass) Alloc() NSSliderAccessoryBehavior {
 	rv := objc.Send[NSSliderAccessoryBehavior](objc.ID(nc.class), objc.Sel("alloc"))
@@ -109,8 +114,7 @@ func (s NSSliderAccessoryBehavior) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSliderAccessoryBehavior/init(handler:)
 func (_NSSliderAccessoryBehaviorClass NSSliderAccessoryBehaviorClass) BehaviorWithHandler(handler SliderAccessoryHandler) NSSliderAccessoryBehavior {
-_block0, _cleanup0 := NewSliderAccessoryBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewSliderAccessoryBlock(handler)
 	rv := objc.Send[objc.ID](objc.ID(_NSSliderAccessoryBehaviorClass.class), objc.Sel("behaviorWithHandler:"), _block0)
 	return NSSliderAccessoryBehaviorFromID(rv)
 }

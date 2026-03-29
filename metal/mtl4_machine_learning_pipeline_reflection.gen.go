@@ -30,6 +30,11 @@ type MTL4MachineLearningPipelineReflectionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4MachineLearningPipelineReflectionClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4MachineLearningPipelineReflectionClass) Alloc() MTL4MachineLearningPipelineReflection {
 	rv := objc.Send[MTL4MachineLearningPipelineReflection](objc.ID(mc.class), objc.Sel("alloc"))

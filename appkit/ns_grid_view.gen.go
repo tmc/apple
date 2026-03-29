@@ -32,6 +32,11 @@ type NSGridViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSGridViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSGridViewClass) Alloc() NSGridView {
 	rv := objc.Send[NSGridView](objc.ID(nc.class), objc.Sel("alloc"))

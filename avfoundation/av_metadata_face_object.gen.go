@@ -29,6 +29,11 @@ type AVMetadataFaceObjectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetadataFaceObjectClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetadataFaceObjectClass) Alloc() AVMetadataFaceObject {
 	rv := objc.Send[AVMetadataFaceObject](objc.ID(ac.class), objc.Sel("alloc"))

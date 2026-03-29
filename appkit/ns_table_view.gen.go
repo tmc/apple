@@ -33,6 +33,11 @@ type NSTableViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTableViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTableViewClass) Alloc() NSTableView {
 	rv := objc.Send[NSTableView](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1510,8 +1515,7 @@ func (t NSTableView) DeselectAll(sender objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/enumerateAvailableRowViews(_:)
 func (t NSTableView) EnumerateAvailableRowViewsUsingBlock(handler TableRowViewHandler) {
-_block0, _cleanup0 := NewTableRowViewBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewTableRowViewBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateAvailableRowViewsUsingBlock:"), _block0)
 }
 // Edits the cell at the specified column and row using the specified event

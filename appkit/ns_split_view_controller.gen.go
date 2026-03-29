@@ -32,6 +32,11 @@ type NSSplitViewControllerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSplitViewControllerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSplitViewControllerClass) Alloc() NSSplitViewController {
 	rv := objc.Send[NSSplitViewController](objc.ID(nc.class), objc.Sel("alloc"))

@@ -10,9 +10,9 @@ type CFByteOrder uint
 
 const (
 	// CFByteOrderBigEndian: Multi-byte values are stored with the most-significant bytes stored first.
-	CFByteOrderBigEndian CFByteOrder = 2
+	CFByteOrderBigEndian CFByteOrder = 0
 	// CFByteOrderLittleEndian: Multi-byte values are stored with the least-significant bytes stored first.
-	CFByteOrderLittleEndian CFByteOrder = 1
+	CFByteOrderLittleEndian CFByteOrder = 0
 	// CFByteOrderUnknown: The byte order is unknown.
 	CFByteOrderUnknown CFByteOrder = 0
 )
@@ -21,10 +21,6 @@ func (e CFByteOrder) String() string {
 	switch e {
 	case CFByteOrderBigEndian:
 		return "CFByteOrderBigEndian"
-	case CFByteOrderLittleEndian:
-		return "CFByteOrderLittleEndian"
-	case CFByteOrderUnknown:
-		return "CFByteOrderUnknown"
 	default:
 		return fmt.Sprintf("CFByteOrder(%d)", e)
 	}

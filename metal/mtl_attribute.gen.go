@@ -31,6 +31,11 @@ type MTLAttributeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLAttributeClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLAttributeClass) Alloc() MTLAttribute {
 	rv := objc.Send[MTLAttribute](objc.ID(mc.class), objc.Sel("alloc"))

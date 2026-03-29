@@ -30,6 +30,11 @@ type MTLAccelerationStructureMotionTriangleGeometryDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLAccelerationStructureMotionTriangleGeometryDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLAccelerationStructureMotionTriangleGeometryDescriptorClass) Alloc() MTLAccelerationStructureMotionTriangleGeometryDescriptor {
 	rv := objc.Send[MTLAccelerationStructureMotionTriangleGeometryDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type AVVideoCompositionRenderContextClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVVideoCompositionRenderContextClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVideoCompositionRenderContextClass) Alloc() AVVideoCompositionRenderContext {
 	rv := objc.Send[AVVideoCompositionRenderContext](objc.ID(ac.class), objc.Sel("alloc"))

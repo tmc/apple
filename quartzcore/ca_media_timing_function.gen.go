@@ -32,6 +32,11 @@ type CAMediaTimingFunctionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAMediaTimingFunctionClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAMediaTimingFunctionClass) Alloc() CAMediaTimingFunction {
 	rv := objc.Send[CAMediaTimingFunction](objc.ID(cc.class), objc.Sel("alloc"))

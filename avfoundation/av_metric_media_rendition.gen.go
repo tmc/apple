@@ -31,6 +31,11 @@ type AVMetricMediaRenditionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetricMediaRenditionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetricMediaRenditionClass) Alloc() AVMetricMediaRendition {
 	rv := objc.Send[AVMetricMediaRendition](objc.ID(ac.class), objc.Sel("alloc"))

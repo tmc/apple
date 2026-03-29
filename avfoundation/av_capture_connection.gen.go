@@ -30,6 +30,11 @@ type AVCaptureConnectionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureConnectionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureConnectionClass) Alloc() AVCaptureConnection {
 	rv := objc.Send[AVCaptureConnection](objc.ID(ac.class), objc.Sel("alloc"))
@@ -233,13 +238,13 @@ type IAVCaptureConnection interface {
 	// A Boolean value that indicates whether the connection supports a minimum frame duration.
 	SupportsVideoMinFrameDuration() bool
 	// The smallest time interval the connection can apply between consecutive video frames.
-	VideoMinFrameDuration() objectivec.IObject
-	SetVideoMinFrameDuration(value objectivec.IObject)
+	VideoMinFrameDuration() uintptr
+	SetVideoMinFrameDuration(value uintptr)
 	// A Boolean value that indicates whether the connection supports a maximum frame duration.
 	SupportsVideoMaxFrameDuration() bool
 	// The largest time interval the connection can apply between consecutive video frames.
-	VideoMaxFrameDuration() objectivec.IObject
-	SetVideoMaxFrameDuration(value objectivec.IObject)
+	VideoMaxFrameDuration() uintptr
+	SetVideoMaxFrameDuration(value uintptr)
 
 	// Topic: Interlacing video
 
@@ -665,11 +670,11 @@ func (c AVCaptureConnection) SupportsVideoMinFrameDuration() bool {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoMinFrameDuration
-func (c AVCaptureConnection) VideoMinFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("videoMinFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureConnection) VideoMinFrameDuration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("videoMinFrameDuration"))
+	return rv
 }
-func (c AVCaptureConnection) SetVideoMinFrameDuration(value objectivec.IObject) {
+func (c AVCaptureConnection) SetVideoMinFrameDuration(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVideoMinFrameDuration:"), value)
 }
 // A Boolean value that indicates whether the connection supports a maximum
@@ -703,11 +708,11 @@ func (c AVCaptureConnection) SupportsVideoMaxFrameDuration() bool {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureConnection/videoMaxFrameDuration
-func (c AVCaptureConnection) VideoMaxFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("videoMaxFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureConnection) VideoMaxFrameDuration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("videoMaxFrameDuration"))
+	return rv
 }
-func (c AVCaptureConnection) SetVideoMaxFrameDuration(value objectivec.IObject) {
+func (c AVCaptureConnection) SetVideoMaxFrameDuration(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setVideoMaxFrameDuration:"), value)
 }
 // A Boolean value that indicates whether the connection supports setting a

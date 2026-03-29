@@ -31,6 +31,11 @@ type AVPlayerItemOutputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerItemOutputClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerItemOutputClass) Alloc() AVPlayerItemOutput {
 	rv := objc.Send[AVPlayerItemOutput](objc.ID(ac.class), objc.Sel("alloc"))
@@ -92,11 +97,11 @@ type IAVPlayerItemOutput interface {
 	// Topic: Time conversion
 
 	// Converts a host time, specified in seconds, to the item’s timebase.
-	ItemTimeForHostTime(hostTimeInSeconds float64) objectivec.IObject
+	ItemTimeForHostTime(hostTimeInSeconds float64) uintptr
 	// Converts a Mach host time to the item’s timebase.
-	ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) objectivec.IObject
+	ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) uintptr
 	// Converts a Core Video timestamp to the item’s timebase.
-	ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeStamp) objectivec.IObject
+	ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeStamp) uintptr
 
 	// Topic: Configuring the playback options
 
@@ -148,9 +153,9 @@ func NewAVPlayerItemOutput() AVPlayerItemOutput {
 // [CADisplayLink]: https://developer.apple.com/documentation/QuartzCore/CADisplayLink
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(forHostTime:)
-func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds float64) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("itemTimeForHostTime:"), hostTimeInSeconds)
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds float64) uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("itemTimeForHostTime:"), hostTimeInSeconds)
+	return rv
 }
 // Converts a Mach host time to the item’s timebase.
 //
@@ -162,9 +167,9 @@ func (p AVPlayerItemOutput) ItemTimeForHostTime(hostTimeInSeconds float64) objec
 // The equivalent time in the item’s timebase.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(forMachAbsoluteTime:)
-func (p AVPlayerItemOutput) ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("itemTimeForMachAbsoluteTime:"), machAbsoluteTime)
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItemOutput) ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("itemTimeForMachAbsoluteTime:"), machAbsoluteTime)
+	return rv
 }
 // Converts a Core Video timestamp to the item’s timebase.
 //
@@ -175,9 +180,9 @@ func (p AVPlayerItemOutput) ItemTimeForMachAbsoluteTime(machAbsoluteTime int64) 
 // The equivalent time in the item’s timebase.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemOutput/itemTime(for:)
-func (p AVPlayerItemOutput) ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeStamp) objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("itemTimeForCVTimeStamp:"), timestamp)
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItemOutput) ItemTimeForCVTimeStamp(timestamp corevideo.CVTimeStamp) uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("itemTimeForCVTimeStamp:"), timestamp)
+	return rv
 }
 
 // A Boolean value that indicates whether the player object renders the

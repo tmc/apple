@@ -30,6 +30,11 @@ type HasEvaluatedReceiversClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (hc HasEvaluatedReceiversClass) Class() objc.Class {
+	return hc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (hc HasEvaluatedReceiversClass) Alloc() HasEvaluatedReceivers {
 	rv := objc.Send[HasEvaluatedReceivers](objc.ID(hc.class), objc.Sel("alloc"))

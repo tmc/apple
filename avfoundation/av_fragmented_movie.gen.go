@@ -30,6 +30,11 @@ type AVFragmentedMovieClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVFragmentedMovieClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVFragmentedMovieClass) Alloc() AVFragmentedMovie {
 	rv := objc.Send[AVFragmentedMovie](objc.ID(ac.class), objc.Sel("alloc"))
@@ -131,20 +136,6 @@ func NewFragmentedMovieWithURLOptions(URL foundation.INSURL, options foundation.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
 func (f AVFragmentedMovie) IsAssociatedWithFragmentMinder() bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("isAssociatedWithFragmentMinder"))
-	return rv
-}
-
-// A Boolean value that indicates whether an asset that supports fragment
-// minding is currently associated with a fragment minder.
-//
-// # Discussion
-// 
-// Only asset objects associated with a fragment minder post change
-// notifications.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
-func (f AVFragmentedMovie) AssociatedWithFragmentMinder() bool {
 	rv := objc.Send[bool](f.ID, objc.Sel("isAssociatedWithFragmentMinder"))
 	return rv
 }

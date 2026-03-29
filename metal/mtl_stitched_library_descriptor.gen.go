@@ -30,6 +30,11 @@ type MTLStitchedLibraryDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLStitchedLibraryDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLStitchedLibraryDescriptorClass) Alloc() MTLStitchedLibraryDescriptor {
 	rv := objc.Send[MTLStitchedLibraryDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

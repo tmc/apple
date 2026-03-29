@@ -31,6 +31,11 @@ type MLOptimizationHintsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLOptimizationHintsClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLOptimizationHintsClass) Alloc() MLOptimizationHints {
 	rv := objc.Send[MLOptimizationHints](objc.ID(mc.class), objc.Sel("alloc"))

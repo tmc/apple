@@ -29,6 +29,11 @@ type AVMetricPlayerItemSeekDidCompleteEventClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetricPlayerItemSeekDidCompleteEventClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetricPlayerItemSeekDidCompleteEventClass) Alloc() AVMetricPlayerItemSeekDidCompleteEvent {
 	rv := objc.Send[AVMetricPlayerItemSeekDidCompleteEvent](objc.ID(ac.class), objc.Sel("alloc"))

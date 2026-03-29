@@ -30,6 +30,11 @@ type MTLRenderPassColorAttachmentDescriptorArrayClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLRenderPassColorAttachmentDescriptorArrayClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLRenderPassColorAttachmentDescriptorArrayClass) Alloc() MTLRenderPassColorAttachmentDescriptorArray {
 	rv := objc.Send[MTLRenderPassColorAttachmentDescriptorArray](objc.ID(mc.class), objc.Sel("alloc"))

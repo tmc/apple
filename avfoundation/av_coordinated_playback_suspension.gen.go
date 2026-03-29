@@ -31,6 +31,11 @@ type AVCoordinatedPlaybackSuspensionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCoordinatedPlaybackSuspensionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCoordinatedPlaybackSuspensionClass) Alloc() AVCoordinatedPlaybackSuspension {
 	rv := objc.Send[AVCoordinatedPlaybackSuspension](objc.ID(ac.class), objc.Sel("alloc"))
@@ -96,7 +101,7 @@ type IAVCoordinatedPlaybackSuspension interface {
 	// Ends a suspension.
 	End()
 	// Ends a suspension and proposes a new playback time to the group.
-	EndProposingNewTime(time objectivec.IObject)
+	EndProposingNewTime(time uintptr)
 }
 
 // Init initializes the instance.
@@ -137,8 +142,6 @@ func (c AVCoordinatedPlaybackSuspension) End() {
 // time: The proposed playback time. Passing a nonnumeric time results in the same
 // behavior as calling the [End] method.
 //
-// time is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // If this is the last suspension, the coordinator proposes a new time to the
@@ -150,7 +153,7 @@ func (c AVCoordinatedPlaybackSuspension) End() {
 // suspension ends, override a pending proposal.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCoordinatedPlaybackSuspension/end(proposingNewTime:)
-func (c AVCoordinatedPlaybackSuspension) EndProposingNewTime(time objectivec.IObject) {
+func (c AVCoordinatedPlaybackSuspension) EndProposingNewTime(time uintptr) {
 	objc.Send[objc.ID](c.ID, objc.Sel("endProposingNewTime:"), time)
 }
 

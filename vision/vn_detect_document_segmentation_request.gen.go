@@ -29,6 +29,11 @@ type VNDetectDocumentSegmentationRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNDetectDocumentSegmentationRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNDetectDocumentSegmentationRequestClass) Alloc() VNDetectDocumentSegmentationRequest {
 	rv := objc.Send[VNDetectDocumentSegmentationRequest](objc.ID(vc.class), objc.Sel("alloc"))

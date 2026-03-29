@@ -31,6 +31,11 @@ type NSSharingCollaborationModeRestrictionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSharingCollaborationModeRestrictionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSharingCollaborationModeRestrictionClass) Alloc() NSSharingCollaborationModeRestriction {
 	rv := objc.Send[NSSharingCollaborationModeRestriction](objc.ID(nc.class), objc.Sel("alloc"))

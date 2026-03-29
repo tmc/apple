@@ -29,6 +29,11 @@ type NSInflectionRuleExplicitClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSInflectionRuleExplicitClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSInflectionRuleExplicitClass) Alloc() NSInflectionRuleExplicit {
 	rv := objc.Send[NSInflectionRuleExplicit](objc.ID(nc.class), objc.Sel("alloc"))

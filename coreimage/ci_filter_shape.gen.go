@@ -31,6 +31,11 @@ type CIFilterShapeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CIFilterShapeClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CIFilterShapeClass) Alloc() CIFilterShape {
 	rv := objc.Send[CIFilterShape](objc.ID(cc.class), objc.Sel("alloc"))

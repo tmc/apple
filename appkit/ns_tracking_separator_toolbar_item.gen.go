@@ -29,6 +29,11 @@ type NSTrackingSeparatorToolbarItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTrackingSeparatorToolbarItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTrackingSeparatorToolbarItemClass) Alloc() NSTrackingSeparatorToolbarItem {
 	rv := objc.Send[NSTrackingSeparatorToolbarItem](objc.ID(nc.class), objc.Sel("alloc"))

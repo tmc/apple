@@ -30,6 +30,11 @@ type NSLogicalTestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSLogicalTestClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSLogicalTestClass) Alloc() NSLogicalTest {
 	rv := objc.Send[NSLogicalTest](objc.ID(nc.class), objc.Sel("alloc"))

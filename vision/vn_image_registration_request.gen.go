@@ -34,6 +34,11 @@ type VNImageRegistrationRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNImageRegistrationRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNImageRegistrationRequestClass) Alloc() VNImageRegistrationRequest {
 	rv := objc.Send[VNImageRegistrationRequest](objc.ID(vc.class), objc.Sel("alloc"))

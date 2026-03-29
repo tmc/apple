@@ -32,6 +32,11 @@ type AVAssetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetClass) Alloc() AVAsset {
 	rv := objc.Send[AVAsset](objc.ID(ac.class), objc.Sel("alloc"))
@@ -180,8 +185,7 @@ func NewAssetWithURL(URL foundation.INSURL) AVAsset {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadTrack(withTrackID:completionHandler:)
 func (a AVAsset) LoadTrackWithTrackIDCompletionHandler(trackID int32, completionHandler AVAssetTrackErrorHandler) {
-_block1, _cleanup1 := NewAVAssetTrackErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewAVAssetTrackErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadTrackWithTrackID:completionHandler:"), trackID, _block1)
 }
 // Loads an identifier that no other track in the asset uses.
@@ -190,8 +194,7 @@ _block1, _cleanup1 := NewAVAssetTrackErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/findUnusedTrackID(completionHandler:)
 func (a AVAsset) FindUnusedTrackIDWithCompletionHandler(completionHandler CMPersistentTrackIDErrorHandler) {
-_block0, _cleanup0 := NewCMPersistentTrackIDErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewCMPersistentTrackIDErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("findUnusedTrackIDWithCompletionHandler:"), _block0)
 }
 // Loads a media selection group that contains one or more options with the
@@ -219,8 +222,7 @@ _block0, _cleanup0 := NewCMPersistentTrackIDErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAsset/loadMediaSelectionGroup(for:completionHandler:)
 func (a AVAsset) LoadMediaSelectionGroupForMediaCharacteristicCompletionHandler(mediaCharacteristic AVMediaCharacteristic, completionHandler AVMediaSelectionGroupErrorHandler) {
-_block1, _cleanup1 := NewAVMediaSelectionGroupErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewAVMediaSelectionGroupErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadMediaSelectionGroupForMediaCharacteristic:completionHandler:"), mediaCharacteristic, _block1)
 }
 // Cancels all pending requests to asynchronously load property values.

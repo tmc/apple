@@ -32,6 +32,11 @@ type VNRecognizeTextRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNRecognizeTextRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNRecognizeTextRequestClass) Alloc() VNRecognizeTextRequest {
 	rv := objc.Send[VNRecognizeTextRequest](objc.ID(vc.class), objc.Sel("alloc"))

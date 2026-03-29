@@ -31,6 +31,11 @@ type MTL4CommitOptionsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4CommitOptionsClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4CommitOptionsClass) Alloc() MTL4CommitOptions {
 	rv := objc.Send[MTL4CommitOptions](objc.ID(mc.class), objc.Sel("alloc"))

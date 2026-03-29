@@ -33,6 +33,11 @@ type NSArrayClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSArrayClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSArrayClass) Alloc() NSArray {
 	rv := objc.Send[NSArray](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1035,8 +1040,7 @@ func (a NSArray) IndexOfObjectIdenticalToInRange(anObject objectivec.IObject, ra
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(passingTest:)
 func (a NSArray) IndexOfObjectPassingTest(predicate ObjectTypeHandler) uint {
-_block0, _cleanup0 := NewObjectTypeBlock(predicate)
-	defer _cleanup0()
+_block0, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectPassingTest:"), _block0)
 	return rv
 }
@@ -1082,8 +1086,7 @@ _block0, _cleanup0 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(options:passingTest:)
 func (a NSArray) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) uint {
-_block1, _cleanup1 := NewObjectTypeBlock(predicate)
-	defer _cleanup1()
+_block1, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectWithOptions:passingTest:"), opts, _block1)
 	return rv
 }
@@ -1130,8 +1133,7 @@ _block1, _cleanup1 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexOfObject(at:options:passingTest:)
 func (a NSArray) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) uint {
-_block2, _cleanup2 := NewObjectTypeBlock(predicate)
-	defer _cleanup2()
+_block2, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[uint](a.ID, objc.Sel("indexOfObjectAtIndexes:options:passingTest:"), s, opts, _block2)
 	return rv
 }
@@ -1162,8 +1164,7 @@ _block2, _cleanup2 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(passingTest:)
 func (a NSArray) IndexesOfObjectsPassingTest(predicate ObjectTypeHandler) INSIndexSet {
-_block0, _cleanup0 := NewObjectTypeBlock(predicate)
-	defer _cleanup0()
+_block0, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsPassingTest:"), _block0)
 	return NSIndexSetFromID(rv)
 }
@@ -1207,8 +1208,7 @@ _block0, _cleanup0 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(options:passingTest:)
 func (a NSArray) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet {
-_block1, _cleanup1 := NewObjectTypeBlock(predicate)
-	defer _cleanup1()
+_block1, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsWithOptions:passingTest:"), opts, _block1)
 	return NSIndexSetFromID(rv)
 }
@@ -1254,8 +1254,7 @@ _block1, _cleanup1 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/indexesOfObjects(at:options:passingTest:)
 func (a NSArray) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate ObjectTypeHandler) INSIndexSet {
-_block2, _cleanup2 := NewObjectTypeBlock(predicate)
-	defer _cleanup2()
+_block2, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("indexesOfObjectsAtIndexes:options:passingTest:"), s, opts, _block2)
 	return NSIndexSetFromID(rv)
 }
@@ -1343,8 +1342,7 @@ func (a NSArray) IndexOfObjectInSortedRangeOptionsUsingComparator(obj objectivec
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(_:)
 func (a NSArray) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
-_block0, _cleanup0 := NewObjectTypeBlock(block)
-	defer _cleanup0()
+_block0, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
 // Executes a given closure or block using each object in the array with the
@@ -1376,8 +1374,7 @@ _block0, _cleanup0 := NewObjectTypeBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(options:using:)
 func (a NSArray) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler) {
-_block1, _cleanup1 := NewObjectTypeBlock(block)
-	defer _cleanup1()
+_block1, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 // Executes a given block using the objects in the array at the specified
@@ -1415,8 +1412,7 @@ _block1, _cleanup1 := NewObjectTypeBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/enumerateObjects(at:options:using:)
 func (a NSArray) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block ObjectTypeHandler) {
-_block2, _cleanup2 := NewObjectTypeBlock(block)
-	defer _cleanup2()
+_block2, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateObjectsAtIndexes:options:usingBlock:"), s, opts, _block2)
 }
 // Returns the first object contained in the receiving array that’s equal to
@@ -1949,6 +1945,7 @@ func (a NSArray) ShuffledArray() []objectivec.IObject {
 // [seed]: https://developer.apple.com/documentation/GameplayKit/GKARC4RandomSource/seed
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/shuffled(using:)
+// randomSource is a [gameplaykit.GKRandomSource].
 func (a NSArray) ShuffledArrayWithRandomSource(randomSource objectivec.IObject) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("shuffledArrayWithRandomSource:"), randomSource)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
@@ -2082,8 +2079,7 @@ func (a NSArray) DifferenceFromArrayWithOptions(other []objectivec.IObject, opti
 //
 // See: https://developer.apple.com/documentation/Foundation/NSArray/differenceFromArray:withOptions:usingEquivalenceTest:
 func (a NSArray) DifferenceFromArrayWithOptionsUsingEquivalenceTest(other []objectivec.IObject, options NSOrderedCollectionDifferenceCalculationOptions, block ObjectTypeHandler) INSOrderedCollectionDifference {
-_block2, _cleanup2 := NewObjectTypeBlock(block)
-	defer _cleanup2()
+_block2, _ := NewObjectTypeBlock(block)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("differenceFromArray:withOptions:usingEquivalenceTest:"), other, options, _block2)
 	return NSOrderedCollectionDifferenceFromID(rv)
 }

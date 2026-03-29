@@ -31,6 +31,11 @@ type AVVideoOutputSpecificationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVVideoOutputSpecificationClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVideoOutputSpecificationClass) Alloc() AVVideoOutputSpecification {
 	rv := objc.Send[AVVideoOutputSpecification](objc.ID(ac.class), objc.Sel("alloc"))
@@ -118,6 +123,7 @@ func (v AVVideoOutputSpecification) InitWithTagCollections(tagCollections founda
 // tagCollection is a [coremedia.CMTagCollectionRef].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoOutputSpecification/setOutputSettings:forTagCollection:
+// tagCollection is a [coremedia.CMTagCollectionRef].
 func (v AVVideoOutputSpecification) SetOutputSettingsForTagCollection(outputSettings foundation.INSDictionary, tagCollection objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("setOutputSettings:forTagCollection:"), outputSettings, tagCollection)
 }

@@ -30,6 +30,11 @@ type EnvironmentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EnvironmentClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EnvironmentClass) Alloc() Environment {
 	rv := objc.Send[Environment](objc.ID(ec.class), objc.Sel("alloc"))

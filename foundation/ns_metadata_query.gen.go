@@ -31,6 +31,11 @@ type NSMetadataQueryClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMetadataQueryClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMetadataQueryClass) Alloc() NSMetadataQuery {
 	rv := objc.Send[NSMetadataQuery](objc.ID(nc.class), objc.Sel("alloc"))
@@ -375,8 +380,7 @@ func (m NSMetadataQuery) IndexOfResult(result objectivec.IObject) uint {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/enumerateResults(_:)
 func (m NSMetadataQuery) EnumerateResultsUsingBlock(block ObjectHandler) {
-_block0, _cleanup0 := NewObjectBlock(block)
-	defer _cleanup0()
+_block0, _ := NewObjectBlock(block)
 	objc.Send[objc.ID](m.ID, objc.Sel("enumerateResultsUsingBlock:"), _block0)
 }
 // Enumerates the current set of results using the given options and block.
@@ -395,8 +399,7 @@ _block0, _cleanup0 := NewObjectBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/enumerateResults(options:using:)
 func (m NSMetadataQuery) EnumerateResultsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectHandler) {
-_block1, _cleanup1 := NewObjectBlock(block)
-	defer _cleanup1()
+_block1, _ := NewObjectBlock(block)
 	objc.Send[objc.ID](m.ID, objc.Sel("enumerateResultsWithOptions:usingBlock:"), opts, _block1)
 }
 // Returns the value for the attribute name `attrName` at the index in the

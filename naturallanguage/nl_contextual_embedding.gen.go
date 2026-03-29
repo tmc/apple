@@ -34,6 +34,11 @@ type NLContextualEmbeddingClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NLContextualEmbeddingClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NLContextualEmbeddingClass) Alloc() NLContextualEmbedding {
 	rv := objc.Send[NLContextualEmbedding](objc.ID(nc.class), objc.Sel("alloc"))
@@ -227,8 +232,7 @@ func NewContextualEmbeddingWithScript(script NLScript) NLContextualEmbedding {
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbedding/requestAssets(completionHandler:)
 func (c NLContextualEmbedding) RequestEmbeddingAssetsWithCompletionHandler(completionHandler NLContextualEmbeddingAssetsResultErrorHandler) {
-_block0, _cleanup0 := NewNLContextualEmbeddingAssetsResultErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewNLContextualEmbeddingAssetsResultErrorBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("requestEmbeddingAssetsWithCompletionHandler:"), _block0)
 }
 // Loads the embedding model.

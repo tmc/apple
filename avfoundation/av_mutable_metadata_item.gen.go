@@ -31,6 +31,11 @@ type AVMutableMetadataItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMutableMetadataItemClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMutableMetadataItemClass) Alloc() AVMutableMetadataItem {
 	rv := objc.Send[AVMutableMetadataItem](objc.ID(ac.class), objc.Sel("alloc"))

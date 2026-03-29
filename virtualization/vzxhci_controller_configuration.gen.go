@@ -29,6 +29,11 @@ type VZXHCIControllerConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZXHCIControllerConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZXHCIControllerConfigurationClass) Alloc() VZXHCIControllerConfiguration {
 	rv := objc.Send[VZXHCIControllerConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

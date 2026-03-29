@@ -278,7 +278,7 @@ const (
 	// NSXPCConnectionReplyInvalid: The XPC connection reply was invalid.
 	NSXPCConnectionReplyInvalid NS = 4101
 	// NS_BigEndian: The byte order is big endian.
-	NS_BigEndian NS = 0
+	NS_BigEndian NS = 2
 	// NS_LittleEndian: The byte order is little endian.
 	NS_LittleEndian NS = 1
 	// NS_UnknownByteOrder: The byte order is unknown.
@@ -1536,7 +1536,7 @@ type NSDateFormatterStyle uint
 
 const (
 	// NSDateFormatterFullStyle: # Discussion
-	NSDateFormatterFullStyle NSDateFormatterStyle = 0
+	NSDateFormatterFullStyle NSDateFormatterStyle = 4
 	// NSDateFormatterLongStyle: # Discussion
 	NSDateFormatterLongStyle NSDateFormatterStyle = 3
 	// NSDateFormatterMediumStyle: # Discussion
@@ -1555,6 +1555,8 @@ func (e NSDateFormatterStyle) String() string {
 		return "NSDateFormatterLongStyle"
 	case NSDateFormatterMediumStyle:
 		return "NSDateFormatterMediumStyle"
+	case NSDateFormatterNoStyle:
+		return "NSDateFormatterNoStyle"
 	case NSDateFormatterShortStyle:
 		return "NSDateFormatterShortStyle"
 	default:
@@ -2861,7 +2863,7 @@ type NSLocaleLanguageDirection uint
 
 const (
 	// NSLocaleLanguageDirectionBottomToTop: The language direction is from bottom to top.
-	NSLocaleLanguageDirectionBottomToTop NSLocaleLanguageDirection = 0
+	NSLocaleLanguageDirectionBottomToTop NSLocaleLanguageDirection = 4
 	// NSLocaleLanguageDirectionLeftToRight: The language direction is from left to right.
 	NSLocaleLanguageDirectionLeftToRight NSLocaleLanguageDirection = 1
 	// NSLocaleLanguageDirectionRightToLeft: The language direction is from right to left.
@@ -2882,6 +2884,8 @@ func (e NSLocaleLanguageDirection) String() string {
 		return "NSLocaleLanguageDirectionRightToLeft"
 	case NSLocaleLanguageDirectionTopToBottom:
 		return "NSLocaleLanguageDirectionTopToBottom"
+	case NSLocaleLanguageDirectionUnknown:
+		return "NSLocaleLanguageDirectionUnknown"
 	default:
 		return fmt.Sprintf("NSLocaleLanguageDirection(%d)", e)
 	}
@@ -3180,7 +3184,7 @@ const (
 	// NSNumberFormatterPadAfterPrefix: Specifies that the padding should occur after the prefix.
 	NSNumberFormatterPadAfterPrefix NSNumberFormatterPadPosition = 1
 	// NSNumberFormatterPadAfterSuffix: Specifies that the padding should occur after the suffix.
-	NSNumberFormatterPadAfterSuffix NSNumberFormatterPadPosition = 0
+	NSNumberFormatterPadAfterSuffix NSNumberFormatterPadPosition = 3
 	// NSNumberFormatterPadBeforePrefix: Specifies that the padding should occur before the prefix.
 	NSNumberFormatterPadBeforePrefix NSNumberFormatterPadPosition = 0
 	// NSNumberFormatterPadBeforeSuffix: Specifies that the padding should occur before the suffix.
@@ -3193,6 +3197,8 @@ func (e NSNumberFormatterPadPosition) String() string {
 		return "NSNumberFormatterPadAfterPrefix"
 	case NSNumberFormatterPadAfterSuffix:
 		return "NSNumberFormatterPadAfterSuffix"
+	case NSNumberFormatterPadBeforePrefix:
+		return "NSNumberFormatterPadBeforePrefix"
 	case NSNumberFormatterPadBeforeSuffix:
 		return "NSNumberFormatterPadBeforeSuffix"
 	default:
@@ -3215,7 +3221,7 @@ const (
 	// NSNumberFormatterRoundHalfEven: Round towards the nearest integer, or towards an even number if equidistant.
 	NSNumberFormatterRoundHalfEven NSNumberFormatterRoundingMode = 4
 	// NSNumberFormatterRoundHalfUp: Round towards the nearest integer, or away from zero if equidistant.
-	NSNumberFormatterRoundHalfUp NSNumberFormatterRoundingMode = 0
+	NSNumberFormatterRoundHalfUp NSNumberFormatterRoundingMode = 6
 	// NSNumberFormatterRoundUp: Round away from zero.
 	NSNumberFormatterRoundUp NSNumberFormatterRoundingMode = 3
 )
@@ -3232,6 +3238,8 @@ func (e NSNumberFormatterRoundingMode) String() string {
 		return "NSNumberFormatterRoundHalfDown"
 	case NSNumberFormatterRoundHalfEven:
 		return "NSNumberFormatterRoundHalfEven"
+	case NSNumberFormatterRoundHalfUp:
+		return "NSNumberFormatterRoundHalfUp"
 	case NSNumberFormatterRoundUp:
 		return "NSNumberFormatterRoundUp"
 	default:
@@ -3689,7 +3697,7 @@ type NSPropertyListFormat uint
 
 const (
 	// NSPropertyListBinaryFormat_v1_0: Specifies the binary property list format.
-	NSPropertyListBinaryFormat_v1_0 NSPropertyListFormat = 0
+	NSPropertyListBinaryFormat_v1_0 NSPropertyListFormat = 200
 	// NSPropertyListOpenStepFormat: Specifies the ASCII property list format inherited from the OpenStep APIs.
 	NSPropertyListOpenStepFormat NSPropertyListFormat = 1
 	// NSPropertyListXMLFormat_v1_0: Specifies the XML property list format.
@@ -3716,7 +3724,7 @@ const (
 	// NSPropertyListMutableContainers: Causes the returned property list to have mutable containers but immutable leaves.
 	NSPropertyListMutableContainers NSPropertyListMutabilityOptions = 1
 	// NSPropertyListMutableContainersAndLeaves: Causes the returned property list to have mutable containers and leaves.
-	NSPropertyListMutableContainersAndLeaves NSPropertyListMutabilityOptions = 0
+	NSPropertyListMutableContainersAndLeaves NSPropertyListMutabilityOptions = 2
 )
 
 func (e NSPropertyListMutabilityOptions) String() string {

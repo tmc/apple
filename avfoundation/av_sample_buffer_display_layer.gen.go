@@ -6,7 +6,6 @@ import (
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/quartzcore"
 )
 
@@ -30,6 +29,11 @@ func GetAVSampleBufferDisplayLayerClass() AVSampleBufferDisplayLayerClass {
 
 type AVSampleBufferDisplayLayerClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVSampleBufferDisplayLayerClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -127,8 +131,8 @@ type IAVSampleBufferDisplayLayer interface {
 	// A Boolean value that indicates whether the first video frame is ready for display.
 	ReadyForDisplay() bool
 	// A timebase that determines how the layer interprets timestamps.
-	ControlTimebase() objectivec.IObject
-	SetControlTimebase(value objectivec.IObject)
+	ControlTimebase() uintptr
+	SetControlTimebase(value uintptr)
 	// A value that indicates how the layer displays video within its bounds.
 	VideoGravity() AVLayerVideoGravity
 	SetVideoGravity(value AVLayerVideoGravity)
@@ -232,11 +236,11 @@ func (s AVSampleBufferDisplayLayer) ReadyForDisplay() bool {
 // [CMClock]: https://developer.apple.com/documentation/CoreMedia/CMClock
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer/controlTimebase
-func (s AVSampleBufferDisplayLayer) ControlTimebase() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("controlTimebase"))
-	return objectivec.Object{ID: rv}
+func (s AVSampleBufferDisplayLayer) ControlTimebase() uintptr {
+	rv := objc.Send[uintptr](s.ID, objc.Sel("controlTimebase"))
+	return rv
 }
-func (s AVSampleBufferDisplayLayer) SetControlTimebase(value objectivec.IObject) {
+func (s AVSampleBufferDisplayLayer) SetControlTimebase(value uintptr) {
 	objc.Send[struct{}](s.ID, objc.Sel("setControlTimebase:"), value)
 }
 // A value that indicates how the layer displays video within its bounds.
@@ -341,45 +345,6 @@ func (s AVSampleBufferDisplayLayer) HasSufficientMediaDataForReliablePlaybackSta
 	rv := objc.Send[bool](s.ID, objc.Sel("hasSufficientMediaDataForReliablePlaybackStart"))
 	return rv
 }
-// A Boolean value that indicates the readiness of the layer to accept more
-// sample buffers.
-//
-// # Discussion
-// 
-// Apple discourages the use of this symbol in iOS 17, tvOS 17, and macOS 14
-// and later. Use [IsReadyForMoreMediaData] on the [SampleBufferRenderer]
-// instead.
-// 
-// [AVSampleBufferDisplayLayer] keeps track of the occupancy levels of its
-// internal queues for the benefit of clients that enqueue sample buffers from
-// non-real-time sources — that is, clients that can supply sample buffers
-// faster than they are consumed and need to decide when to hold back buffers.
-// 
-// Clients enqueueing sample buffers from non-real-time sources may hold off
-// from generating or obtaining more sample buffers to enqueue when the value
-// of `readyForMoreMediaData` is [false].
-// 
-// It is safe to call [EnqueueSampleBuffer] when [ReadyForMoreMediaData] is
-// [false], but enqueing more sample buffers than are required for timely
-// rendering by the receiver is highly discouraged.
-// 
-// To help with control of the non-real-time supply of sample buffers, such
-// clients should use [RequestMediaDataWhenReadyOnQueueUsingBlock] in order to
-// specify a block that the layer should invoke whenever it’s ready for
-// sample buffers to be appended.
-// 
-// The value of `readyForMoreMediaData` will often change from [false] to
-// [true] asynchronously, as previously supplied sample buffers are decoded
-// and displayed.
-//
-// [false]: https://developer.apple.com/documentation/Swift/false
-// [true]: https://developer.apple.com/documentation/Swift/true
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer/isReadyForMoreMediaData
-func (s AVSampleBufferDisplayLayer) ReadyForMoreMediaData() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("isReadyForMoreMediaData"))
-	return rv
-}
 // A Boolean value that indicates whether the layer needs to flush its state
 // to continue decoding frames.
 //
@@ -445,9 +410,9 @@ func (s AVSampleBufferDisplayLayer) Status() AVQueuedSampleBufferRenderingStatus
 // and later. Use [Timebase] on the [SampleBufferRenderer] instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferDisplayLayer/timebase
-func (s AVSampleBufferDisplayLayer) Timebase() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("timebase"))
-	return objectivec.Object{ID: rv}
+func (s AVSampleBufferDisplayLayer) Timebase() uintptr {
+	rv := objc.Send[uintptr](s.ID, objc.Sel("timebase"))
+	return rv
 }
 
 			// Protocol methods for AVQueuedSampleBufferRendering

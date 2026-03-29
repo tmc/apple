@@ -31,6 +31,11 @@ type NSTableHeaderCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTableHeaderCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTableHeaderCellClass) Alloc() NSTableHeaderCell {
 	rv := objc.Send[NSTableHeaderCell](objc.ID(nc.class), objc.Sel("alloc"))

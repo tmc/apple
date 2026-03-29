@@ -30,6 +30,11 @@ type AVCaptureSystemZoomSliderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureSystemZoomSliderClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureSystemZoomSliderClass) Alloc() AVCaptureSystemZoomSlider {
 	rv := objc.Send[AVCaptureSystemZoomSlider](objc.ID(ac.class), objc.Sel("alloc"))
@@ -163,8 +168,7 @@ func (c AVCaptureSystemZoomSlider) InitWithDevice(device IAVCaptureDevice) AVCap
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemZoomSlider/init(device:action:)
 func (c AVCaptureSystemZoomSlider) InitWithDeviceAction(device IAVCaptureDevice, action Float64Handler) AVCaptureSystemZoomSlider {
-_block1, _cleanup1 := NewFloat64Block(action)
-	defer _cleanup1()
+_block1, _ := NewFloat64Block(action)
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithDevice:action:"), device, _block1)
 	return AVCaptureSystemZoomSliderFromID(rv)
 }

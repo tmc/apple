@@ -33,6 +33,11 @@ type AVPlayerItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerItemClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerItemClass) Alloc() AVPlayerItem {
 	rv := objc.Send[AVPlayerItem](objc.ID(ac.class), objc.Sel("alloc"))
@@ -474,11 +479,11 @@ type IAVPlayerItem interface {
 	// Topic: Setting playback boundaries
 
 	// The time at which forward playback ends.
-	ForwardPlaybackEndTime() objectivec.IObject
-	SetForwardPlaybackEndTime(value objectivec.IObject)
+	ForwardPlaybackEndTime() uintptr
+	SetForwardPlaybackEndTime(value uintptr)
 	// The time at which reverse playback ends.
-	ReversePlaybackEndTime() objectivec.IObject
-	SetReversePlaybackEndTime(value objectivec.IObject)
+	ReversePlaybackEndTime() uintptr
+	SetReversePlaybackEndTime(value uintptr)
 
 	// Topic: Stepping through media
 
@@ -492,9 +497,9 @@ type IAVPlayerItem interface {
 	// Topic: Seeking through media
 
 	// Sets the current playback time to the specified time.
-	SeekToTimeCompletionHandler(time objectivec.IObject, completionHandler BoolHandler)
+	SeekToTimeCompletionHandler(time uintptr, completionHandler BoolHandler)
 	// Sets the current playback time within a specified time bound and invokes the specified block when the seek operation completes or is interrupted.
-	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject, completionHandler BoolHandler)
+	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time uintptr, toleranceBefore uintptr, toleranceAfter uintptr, completionHandler BoolHandler)
 	// Sets the current playback time to the time specified by the date object.
 	SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) bool
 	// Cancels any pending seek requests and invokes the corresponding completion handlers if present.
@@ -544,13 +549,13 @@ type IAVPlayerItem interface {
 	// Topic: Accessing timing information
 
 	// Returns the current time of the item.
-	CurrentTime() objectivec.IObject
+	CurrentTime() uintptr
 	// Returns the current time of the item as a date.
 	CurrentDate() foundation.INSDate
 	// The duration of the item.
-	Duration() objectivec.IObject
+	Duration() uintptr
 	// The timebase information for the item.
-	Timebase() objectivec.IObject
+	Timebase() uintptr
 
 	// Topic: Determining available time ranges
 
@@ -596,10 +601,10 @@ type IAVPlayerItem interface {
 	AutomaticallyPreservesTimeOffsetFromLive() bool
 	SetAutomaticallyPreservesTimeOffsetFromLive(value bool)
 	// A recommended time offset from the live time based on observed network conditions.
-	RecommendedTimeOffsetFromLive() objectivec.IObject
+	RecommendedTimeOffsetFromLive() uintptr
 	// A time value that indicates the offset from the live time to start playback, or resume playback after a seek to positive infinity.
-	ConfiguredTimeOffsetFromLive() objectivec.IObject
-	SetConfiguredTimeOffsetFromLive(value objectivec.IObject)
+	ConfiguredTimeOffsetFromLive() uintptr
+	SetConfiguredTimeOffsetFromLive(value uintptr)
 
 	// Topic: Configuring presentation
 
@@ -881,8 +886,6 @@ func (p AVPlayerItem) StepByCount(stepCount int) {
 // 
 // finished: Indicates whether the seek operation completed.
 //
-// time is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // Use this method to seek to a specified time in the player item and be
@@ -899,9 +902,8 @@ func (p AVPlayerItem) StepByCount(stepCount int) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/seek(to:completionHandler:)-91gnw
-func (p AVPlayerItem) SeekToTimeCompletionHandler(time objectivec.IObject, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+func (p AVPlayerItem) SeekToTimeCompletionHandler(time uintptr, completionHandler BoolHandler) {
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:completionHandler:"), time, _block1)
 }
 // Sets the current playback time within a specified time bound and invokes
@@ -925,12 +927,6 @@ _block1, _cleanup1 := NewBoolBlock(completionHandler)
 //
 // completionHandler: The block to invoke when the seek operation has finished.
 //
-// time is a [coremedia.CMTime].
-//
-// toleranceBefore is a [coremedia.CMTime].
-//
-// toleranceAfter is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // Use this method to seek to a specified time for the item.
@@ -949,9 +945,8 @@ _block1, _cleanup1 := NewBoolBlock(completionHandler)
 // [positiveInfinity]: https://developer.apple.com/documentation/CoreMedia/CMTime/positiveInfinity
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/seek(to:toleranceBefore:toleranceAfter:completionHandler:)
-func (p AVPlayerItem) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject, completionHandler BoolHandler) {
-_block3, _cleanup3 := NewBoolBlock(completionHandler)
-	defer _cleanup3()
+func (p AVPlayerItem) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time uintptr, toleranceBefore uintptr, toleranceAfter uintptr, completionHandler BoolHandler) {
+_block3, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:toleranceBefore:toleranceAfter:completionHandler:"), time, toleranceBefore, toleranceAfter, _block3)
 }
 // Sets the current playback time to the time specified by the date object.
@@ -988,8 +983,7 @@ _block3, _cleanup3 := NewBoolBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/seek(to:completionHandler:)-1dibq
 func (p AVPlayerItem) SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) bool {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewBoolBlock(completionHandler)
 	rv := objc.Send[bool](p.ID, objc.Sel("seekToDate:completionHandler:"), date, _block1)
 	return rv
 }
@@ -1183,9 +1177,9 @@ func (p AVPlayerItem) SelectMediaOptionAutomaticallyInMediaSelectionGroup(mediaS
 // The current time of the item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/currentTime()
-func (p AVPlayerItem) CurrentTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentTime"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItem) CurrentTime() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("currentTime"))
+	return rv
 }
 // Returns the current time of the item as a date.
 //
@@ -1313,8 +1307,7 @@ func (p AVPlayerItem) RemoveMediaDataCollector(collector IAVPlayerItemMediaDataC
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/requestContentAuthorizationAsynchronously(withTimeoutInterval:completionHandler:)
 func (p AVPlayerItem) RequestContentAuthorizationAsynchronouslyWithTimeoutIntervalCompletionHandler(timeoutInterval float64, handler VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](p.ID, objc.Sel("requestContentAuthorizationAsynchronouslyWithTimeoutInterval:completionHandler:"), timeoutInterval, _block1)
 }
 // Cancels the currently outstanding content authorization request.
@@ -1514,11 +1507,11 @@ func (p AVPlayerItem) CanPlaySlowReverse() bool {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/forwardPlaybackEndTime
-func (p AVPlayerItem) ForwardPlaybackEndTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("forwardPlaybackEndTime"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItem) ForwardPlaybackEndTime() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("forwardPlaybackEndTime"))
+	return rv
 }
-func (p AVPlayerItem) SetForwardPlaybackEndTime(value objectivec.IObject) {
+func (p AVPlayerItem) SetForwardPlaybackEndTime(value uintptr) {
 	objc.Send[struct{}](p.ID, objc.Sel("setForwardPlaybackEndTime:"), value)
 }
 // The time at which reverse playback ends.
@@ -1539,11 +1532,11 @@ func (p AVPlayerItem) SetForwardPlaybackEndTime(value objectivec.IObject) {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/reversePlaybackEndTime
-func (p AVPlayerItem) ReversePlaybackEndTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("reversePlaybackEndTime"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItem) ReversePlaybackEndTime() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("reversePlaybackEndTime"))
+	return rv
 }
-func (p AVPlayerItem) SetReversePlaybackEndTime(value objectivec.IObject) {
+func (p AVPlayerItem) SetReversePlaybackEndTime(value uintptr) {
 	objc.Send[struct{}](p.ID, objc.Sel("setReversePlaybackEndTime:"), value)
 }
 // A Boolean value that indicates whether the item supports stepping forward.
@@ -1680,9 +1673,9 @@ func (p AVPlayerItem) TemplatePlayerItem() IAVPlayerItem {
 // [indefinite]: https://developer.apple.com/documentation/CoreMedia/CMTime/indefinite
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/duration
-func (p AVPlayerItem) Duration() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("duration"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItem) Duration() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("duration"))
+	return rv
 }
 // The timebase information for the item.
 //
@@ -1702,9 +1695,9 @@ func (p AVPlayerItem) Duration() objectivec.IObject {
 // [kCMTimebaseNotification_EffectiveRateChanged]: https://developer.apple.com/documentation/CoreMedia/kCMTimebaseNotification_EffectiveRateChanged
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/timebase
-func (p AVPlayerItem) Timebase() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("timebase"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItem) Timebase() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("timebase"))
+	return rv
 }
 // An array of time ranges indicating media data that is readily available.
 //
@@ -1866,9 +1859,9 @@ func (p AVPlayerItem) SetAutomaticallyPreservesTimeOffsetFromLive(value bool) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/recommendedTimeOffsetFromLive
-func (p AVPlayerItem) RecommendedTimeOffsetFromLive() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("recommendedTimeOffsetFromLive"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItem) RecommendedTimeOffsetFromLive() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("recommendedTimeOffsetFromLive"))
+	return rv
 }
 // A time value that indicates the offset from the live time to start
 // playback, or resume playback after a seek to positive infinity.
@@ -1880,11 +1873,11 @@ func (p AVPlayerItem) RecommendedTimeOffsetFromLive() objectivec.IObject {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/configuredTimeOffsetFromLive
-func (p AVPlayerItem) ConfiguredTimeOffsetFromLive() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("configuredTimeOffsetFromLive"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItem) ConfiguredTimeOffsetFromLive() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("configuredTimeOffsetFromLive"))
+	return rv
 }
-func (p AVPlayerItem) SetConfiguredTimeOffsetFromLive(value objectivec.IObject) {
+func (p AVPlayerItem) SetConfiguredTimeOffsetFromLive(value uintptr) {
 	objc.Send[struct{}](p.ID, objc.Sel("setConfiguredTimeOffsetFromLive:"), value)
 }
 // The size at which the visual portion of the item is presented by the
@@ -2284,7 +2277,7 @@ func (p AVPlayerItem) AutomaticallyLoadedAssetKeys() []string {
 
 // SeekToTime is a synchronous wrapper around [AVPlayerItem.SeekToTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayerItem) SeekToTime(ctx context.Context, time objectivec.IObject) (bool, error) {
+func (p AVPlayerItem) SeekToTime(ctx context.Context, time uintptr) (bool, error) {
 	done := make(chan bool, 1)
 	p.SeekToTimeCompletionHandler(time, func(val bool) {
 		done <- val
@@ -2299,7 +2292,7 @@ func (p AVPlayerItem) SeekToTime(ctx context.Context, time objectivec.IObject) (
 
 // SeekToTimeToleranceBeforeToleranceAfter is a synchronous wrapper around [AVPlayerItem.SeekToTimeToleranceBeforeToleranceAfterCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayerItem) SeekToTimeToleranceBeforeToleranceAfter(ctx context.Context, time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject) (bool, error) {
+func (p AVPlayerItem) SeekToTimeToleranceBeforeToleranceAfter(ctx context.Context, time uintptr, toleranceBefore uintptr, toleranceAfter uintptr) (bool, error) {
 	done := make(chan bool, 1)
 	p.SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time, toleranceBefore, toleranceAfter, func(val bool) {
 		done <- val

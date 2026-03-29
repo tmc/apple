@@ -273,8 +273,8 @@ return objectivec.Object{ID: rv}
 // affordance if the max processing time is uncomfortably long.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureResolvedPhotoSettings/photoProcessingTimeRange
-func (c AVCaptureResolvedPhotoSettings) PhotoProcessingTimeRange() objectivec.IObject {
-rv := objc.Send[objc.ID](c.ID, objc.Sel("photoProcessingTimeRange"))
-return objectivec.Object{ID: rv}
+func (c AVCaptureResolvedPhotoSettings) PhotoProcessingTimeRange() uintptr {
+rv := objc.Send[uintptr](c.ID, objc.Sel("photoProcessingTimeRange"))
+		return rv
 }
 

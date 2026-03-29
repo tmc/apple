@@ -33,6 +33,11 @@ type NSMenuClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMenuClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMenuClass) Alloc() NSMenu {
 	rv := objc.Send[NSMenu](objc.ID(nc.class), objc.Sel("alloc"))
@@ -318,8 +323,6 @@ func NSMenuFromID(id objc.ID) NSMenu {
 // See: https://developer.apple.com/documentation/AppKit/NSMenu
 type INSMenu interface {
 	objectivec.IObject
-	NSAccessibilityElementProtocol
-	NSAccessibilityProtocol
 	NSAppearanceCustomization
 	NSUserInterfaceItemIdentification
 

@@ -30,6 +30,11 @@ type LeftEyeClosedClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (lc LeftEyeClosedClass) Class() objc.Class {
+	return lc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (lc LeftEyeClosedClass) Alloc() LeftEyeClosed {
 	rv := objc.Send[LeftEyeClosed](objc.ID(lc.class), objc.Sel("alloc"))

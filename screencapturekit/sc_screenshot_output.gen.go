@@ -32,6 +32,11 @@ type SCScreenshotOutputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCScreenshotOutputClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCScreenshotOutputClass) Alloc() SCScreenshotOutput {
 	rv := objc.Send[SCScreenshotOutput](objc.ID(sc.class), objc.Sel("alloc"))

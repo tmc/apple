@@ -30,6 +30,11 @@ type HostNameClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (hc HostNameClass) Class() objc.Class {
+	return hc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (hc HostNameClass) Alloc() HostName {
 	rv := objc.Send[HostName](objc.ID(hc.class), objc.Sel("alloc"))

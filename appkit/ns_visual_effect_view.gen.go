@@ -31,6 +31,11 @@ type NSVisualEffectViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSVisualEffectViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 	rv := objc.Send[NSVisualEffectView](objc.ID(nc.class), objc.Sel("alloc"))

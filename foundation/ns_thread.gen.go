@@ -31,6 +31,11 @@ type ThreadClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc ThreadClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc ThreadClass) Alloc() Thread {
 	rv := objc.Send[Thread](objc.ID(tc.class), objc.Sel("alloc"))
@@ -378,8 +383,7 @@ func (t Thread) Cancel() {
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/init(block:)
 func (t Thread) InitWithBlock(block VoidHandler) Thread {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithBlock:"), _block0)
 	return NSThreadFromID(rv)
 }
@@ -526,8 +530,7 @@ func (_ThreadClass ThreadClass) SetThreadPriority(p float64) bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/Thread/detachNewThread(_:)
 func (_ThreadClass ThreadClass) DetachNewThreadWithBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_ThreadClass.class), objc.Sel("detachNewThreadWithBlock:"), _block0)
 }
 

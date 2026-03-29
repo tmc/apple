@@ -32,6 +32,11 @@ type NSTextBlockClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextBlockClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextBlockClass) Alloc() NSTextBlock {
 	rv := objc.Send[NSTextBlock](objc.ID(nc.class), objc.Sel("alloc"))

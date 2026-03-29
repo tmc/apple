@@ -7,6 +7,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAssetReaderTrackOutput] class.
@@ -29,6 +30,11 @@ func GetAVAssetReaderTrackOutputClass() AVAssetReaderTrackOutputClass {
 
 type AVAssetReaderTrackOutputClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetReaderTrackOutputClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -163,6 +169,9 @@ type IAVAssetReaderTrackOutput interface {
 	AVVideoPixelAspectRatioKey() string
 	// A key to retrieve the video scaling mode from a dictionary.
 	AVVideoScalingModeKey() string
+	// A key that specifies the linear PCM codec, and uses the standard flags.
+	KAudioFormatLinearPCM() objectivec.IObject
+	SetKAudioFormatLinearPCM(value objectivec.IObject)
 	KCMFormatDescriptionExtension_Depth() corefoundation.CFStringRef
 	// A key to the height of the pixel buffer.
 	KCVPixelBufferHeightKey() corefoundation.CFStringRef
@@ -357,6 +366,16 @@ func (a AVAssetReaderTrackOutput) AVVideoPixelAspectRatioKey() string {
 func (a AVAssetReaderTrackOutput) AVVideoScalingModeKey() string {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AVVideoScalingModeKey"))
 	return foundation.NSStringFromID(rv).String()
+}
+// A key that specifies the linear PCM codec, and uses the standard flags.
+//
+// See: https://developer.apple.com/documentation/CoreAudioTypes/kAudioFormatLinearPCM
+func (a AVAssetReaderTrackOutput) KAudioFormatLinearPCM() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("kAudioFormatLinearPCM"))
+	return objectivec.Object{ID: rv}
+}
+func (a AVAssetReaderTrackOutput) SetKAudioFormatLinearPCM(value objectivec.IObject) {
+	objc.Send[struct{}](a.ID, objc.Sel("setKAudioFormatLinearPCM:"), value)
 }
 // See: https://developer.apple.com/documentation/CoreMedia/kCMFormatDescriptionExtension_Depth
 func (a AVAssetReaderTrackOutput) KCMFormatDescriptionExtension_Depth() corefoundation.CFStringRef {

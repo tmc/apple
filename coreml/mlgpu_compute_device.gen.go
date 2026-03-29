@@ -5,6 +5,7 @@ package coreml
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -28,6 +29,11 @@ func GetMLGPUComputeDeviceClass() MLGPUComputeDeviceClass {
 
 type MLGPUComputeDeviceClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (mc MLGPUComputeDeviceClass) Class() objc.Class {
+	return mc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -70,7 +76,7 @@ type IMLGPUComputeDevice interface {
 	// Topic: Getting the metal device
 
 	// The device that represents the underlying metal device.
-	MetalDevice() objectivec.IObject
+	MetalDevice() metal.MTLDevice
 }
 
 // Init initializes the instance.
@@ -95,9 +101,9 @@ func NewMLGPUComputeDevice() MLGPUComputeDevice {
 // The device that represents the underlying metal device.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLGPUComputeDevice/metalDevice
-func (g MLGPUComputeDevice) MetalDevice() objectivec.IObject {
+func (g MLGPUComputeDevice) MetalDevice() metal.MTLDevice {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("metalDevice"))
-	return objectivec.Object{ID: rv}
+	return metal.MTLDeviceObjectFromID(rv)
 }
 
 			// Protocol methods for MLComputeDeviceProtocol

@@ -33,6 +33,11 @@ type NLGazetteerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NLGazetteerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NLGazetteerClass) Alloc() NLGazetteer {
 	rv := objc.Send[NLGazetteer](objc.ID(nc.class), objc.Sel("alloc"))

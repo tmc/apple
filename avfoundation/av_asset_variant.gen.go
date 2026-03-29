@@ -31,6 +31,11 @@ type AVAssetVariantClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetVariantClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetVariantClass) Alloc() AVAssetVariant {
 	rv := objc.Send[AVAssetVariant](objc.ID(ac.class), objc.Sel("alloc"))

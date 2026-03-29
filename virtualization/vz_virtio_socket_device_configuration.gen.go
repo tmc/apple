@@ -29,6 +29,11 @@ type VZVirtioSocketDeviceConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZVirtioSocketDeviceConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioSocketDeviceConfigurationClass) Alloc() VZVirtioSocketDeviceConfiguration {
 	rv := objc.Send[VZVirtioSocketDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

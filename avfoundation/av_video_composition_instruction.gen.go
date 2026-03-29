@@ -32,6 +32,11 @@ type AVVideoCompositionInstructionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVVideoCompositionInstructionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVideoCompositionInstructionClass) Alloc() AVVideoCompositionInstruction {
 	rv := objc.Send[AVVideoCompositionInstruction](objc.ID(ac.class), objc.Sel("alloc"))
@@ -74,7 +79,6 @@ func AVVideoCompositionInstructionFromID(id objc.ID) AVVideoCompositionInstructi
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class
 type IAVVideoCompositionInstruction interface {
 	objectivec.IObject
-	AVVideoCompositionInstructionProtocol
 
 	// Topic: Inspecting the instruction
 
@@ -166,9 +170,9 @@ func (v AVVideoCompositionInstruction) LayerInstructions() []AVVideoCompositionL
 // described in the [AVVideoComposition] class’s [Instructions] property.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/timeRange
-func (v AVVideoCompositionInstruction) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (v AVVideoCompositionInstruction) TimeRange() uintptr {
+	rv := objc.Send[uintptr](v.ID, objc.Sel("timeRange"))
+	return rv
 }
 // A Boolean value that indicates whether the instruction requires post
 // processing.

@@ -29,6 +29,11 @@ type AVFragmentedMovieTrackClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVFragmentedMovieTrackClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVFragmentedMovieTrackClass) Alloc() AVFragmentedMovieTrack {
 	rv := objc.Send[AVFragmentedMovieTrack](objc.ID(ac.class), objc.Sel("alloc"))

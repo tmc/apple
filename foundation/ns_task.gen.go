@@ -32,6 +32,11 @@ type NSTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTaskClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTaskClass) Alloc() NSTask {
 	rv := objc.Send[NSTask](objc.ID(nc.class), objc.Sel("alloc"))
@@ -413,8 +418,7 @@ func (t NSTask) WaitUntilExit() {
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/run(_:arguments:terminationHandler:)
 func (_NSTaskClass NSTaskClass) LaunchedTaskWithExecutableURLArgumentsErrorTerminationHandler(url INSURL, arguments []string, error_ INSError, terminationHandler TaskHandler) NSTask {
-_block3, _cleanup3 := NewTaskBlock(terminationHandler)
-	defer _cleanup3()
+_block3, _ := NewTaskBlock(terminationHandler)
 	rv := objc.Send[objc.ID](objc.ID(_NSTaskClass.class), objc.Sel("launchedTaskWithExecutableURL:arguments:error:terminationHandler:"), url, arguments, error_, _block3)
 	return NSTaskFromID(rv)
 }

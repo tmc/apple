@@ -31,6 +31,11 @@ type MTLCommandBufferDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLCommandBufferDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLCommandBufferDescriptorClass) Alloc() MTLCommandBufferDescriptor {
 	rv := objc.Send[MTLCommandBufferDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

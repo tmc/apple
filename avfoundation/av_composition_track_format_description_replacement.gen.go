@@ -31,6 +31,11 @@ type AVCompositionTrackFormatDescriptionReplacementClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCompositionTrackFormatDescriptionReplacementClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCompositionTrackFormatDescriptionReplacementClass) Alloc() AVCompositionTrackFormatDescriptionReplacement {
 	rv := objc.Send[AVCompositionTrackFormatDescriptionReplacement](objc.ID(ac.class), objc.Sel("alloc"))
@@ -72,9 +77,9 @@ type IAVCompositionTrackFormatDescriptionReplacement interface {
 	// Topic: Managing format descriptions
 
 	// The format description to replace.
-	OriginalFormatDescription() objectivec.IObject
+	OriginalFormatDescription() uintptr
 	// The replacement format description.
-	ReplacementFormatDescription() objectivec.IObject
+	ReplacementFormatDescription() uintptr
 
 	// The replacement format descriptions.
 	FormatDescriptionReplacements() IAVCompositionTrackFormatDescriptionReplacement
@@ -111,16 +116,16 @@ func (c AVCompositionTrackFormatDescriptionReplacement) EncodeWithCoder(coder fo
 // The format description to replace.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackFormatDescriptionReplacement/originalFormatDescription
-func (c AVCompositionTrackFormatDescriptionReplacement) OriginalFormatDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("originalFormatDescription"))
-	return objectivec.Object{ID: rv}
+func (c AVCompositionTrackFormatDescriptionReplacement) OriginalFormatDescription() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("originalFormatDescription"))
+	return rv
 }
 // The replacement format description.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrackFormatDescriptionReplacement/replacementFormatDescription
-func (c AVCompositionTrackFormatDescriptionReplacement) ReplacementFormatDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("replacementFormatDescription"))
-	return objectivec.Object{ID: rv}
+func (c AVCompositionTrackFormatDescriptionReplacement) ReplacementFormatDescription() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("replacementFormatDescription"))
+	return rv
 }
 // The replacement format descriptions.
 //

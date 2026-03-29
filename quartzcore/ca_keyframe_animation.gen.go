@@ -32,6 +32,11 @@ type CAKeyframeAnimationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAKeyframeAnimationClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAKeyframeAnimationClass) Alloc() CAKeyframeAnimation {
 	rv := objc.Send[CAKeyframeAnimation](objc.ID(cc.class), objc.Sel("alloc"))

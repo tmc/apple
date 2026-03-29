@@ -31,6 +31,11 @@ type NSSetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSetClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSetClass) Alloc() NSSet {
 	rv := objc.Send[NSSet](objc.ID(nc.class), objc.Sel("alloc"))
@@ -726,8 +731,7 @@ func (s NSSet) ObjectEnumerator() INSEnumerator {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(_:)
 func (s NSSet) EnumerateObjectsUsingBlock(block ObjectTypeHandler) {
-_block0, _cleanup0 := NewObjectTypeBlock(block)
-	defer _cleanup0()
+_block0, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
 // Executes a given block using each object in the set, using the specified
@@ -748,8 +752,7 @@ _block0, _cleanup0 := NewObjectTypeBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(options:using:)
 func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block ObjectTypeHandler) {
-_block1, _cleanup1 := NewObjectTypeBlock(block)
-	defer _cleanup1()
+_block1, _ := NewObjectTypeBlock(block)
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 // Returns a set of objects that pass a test in a given block.
@@ -774,8 +777,7 @@ _block1, _cleanup1 := NewObjectTypeBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(passingTest:)
 func (s NSSet) ObjectsPassingTest(predicate ObjectTypeHandler) INSSet {
-_block0, _cleanup0 := NewObjectTypeBlock(predicate)
-	defer _cleanup0()
+_block0, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
@@ -804,8 +806,7 @@ _block0, _cleanup0 := NewObjectTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(options:passingTest:)
 func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate ObjectTypeHandler) INSSet {
-_block1, _cleanup1 := NewObjectTypeBlock(predicate)
-	defer _cleanup1()
+_block1, _ := NewObjectTypeBlock(predicate)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }

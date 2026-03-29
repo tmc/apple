@@ -32,6 +32,11 @@ type VNBarcodeObservationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNBarcodeObservationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNBarcodeObservationClass) Alloc() VNBarcodeObservation {
 	rv := objc.Send[VNBarcodeObservation](objc.ID(vc.class), objc.Sel("alloc"))

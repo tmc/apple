@@ -32,6 +32,11 @@ type DateFormatterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (dc DateFormatterClass) Class() objc.Class {
+	return dc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (dc DateFormatterClass) Alloc() DateFormatter {
 	rv := objc.Send[DateFormatter](objc.ID(dc.class), objc.Sel("alloc"))

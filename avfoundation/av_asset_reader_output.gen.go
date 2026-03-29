@@ -31,6 +31,11 @@ type AVAssetReaderOutputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetReaderOutputClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetReaderOutputClass) Alloc() AVAssetReaderOutput {
 	rv := objc.Send[AVAssetReaderOutput](objc.ID(ac.class), objc.Sel("alloc"))

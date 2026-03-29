@@ -31,6 +31,11 @@ type NSPanelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPanelClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPanelClass) Alloc() NSPanel {
 	rv := objc.Send[NSPanel](objc.ID(nc.class), objc.Sel("alloc"))

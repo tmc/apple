@@ -29,6 +29,11 @@ type UnitTemperatureClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitTemperatureClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitTemperatureClass) Alloc() UnitTemperature {
 	rv := objc.Send[UnitTemperature](objc.ID(uc.class), objc.Sel("alloc"))

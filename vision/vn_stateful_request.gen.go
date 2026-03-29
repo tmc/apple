@@ -30,6 +30,11 @@ type VNStatefulRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNStatefulRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNStatefulRequestClass) Alloc() VNStatefulRequest {
 	rv := objc.Send[VNStatefulRequest](objc.ID(vc.class), objc.Sel("alloc"))
@@ -162,9 +167,9 @@ func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSp
 // frameAnalysisSpacing is a [coremedia.CMTime].
 //
 // See: https://developer.apple.com/documentation/Vision/VNStatefulRequest/init(frameAnalysisSpacing:completionHandler:)
+// frameAnalysisSpacing is a [coremedia.CMTime].
 func (s VNStatefulRequest) InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing objectivec.IObject, completionHandler ErrorHandler) VNStatefulRequest {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNStatefulRequestFromID(rv)
 }

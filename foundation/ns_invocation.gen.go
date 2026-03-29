@@ -31,6 +31,11 @@ type NSInvocationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSInvocationClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSInvocationClass) Alloc() NSInvocation {
 	rv := objc.Send[NSInvocation](objc.ID(nc.class), objc.Sel("alloc"))

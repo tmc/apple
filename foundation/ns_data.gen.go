@@ -32,6 +32,11 @@ type NSDataClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDataClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDataClass) Alloc() NSData {
 	rv := objc.Send[NSData](objc.ID(nc.class), objc.Sel("alloc"))

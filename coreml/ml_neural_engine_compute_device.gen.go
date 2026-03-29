@@ -30,6 +30,11 @@ type MLNeuralEngineComputeDeviceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLNeuralEngineComputeDeviceClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLNeuralEngineComputeDeviceClass) Alloc() MLNeuralEngineComputeDevice {
 	rv := objc.Send[MLNeuralEngineComputeDevice](objc.ID(mc.class), objc.Sel("alloc"))

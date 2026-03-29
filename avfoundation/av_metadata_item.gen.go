@@ -33,6 +33,11 @@ type AVMetadataItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetadataItemClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetadataItemClass) Alloc() AVMetadataItem {
 	rv := objc.Send[AVMetadataItem](objc.ID(ac.class), objc.Sel("alloc"))
@@ -173,11 +178,11 @@ type IAVMetadataItem interface {
 	// Topic: Accessing timing
 
 	// The timestamp of the metadata item.
-	Time() objectivec.IObject
+	Time() uintptr
 	// The start date of the timed metadata.
 	StartDate() foundation.INSDate
 	// The duration of the metadata item.
-	Duration() objectivec.IObject
+	Duration() uintptr
 
 	// Topic: Accessing language support
 
@@ -233,8 +238,7 @@ func NewAVMetadataItem() AVMetadataItem {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem/loadValuesAsynchronouslyForKeys:completionHandler:
 func (m AVMetadataItem) LoadValuesAsynchronouslyForKeysCompletionHandler(keys []string, handler VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](m.ID, objc.Sel("loadValuesAsynchronouslyForKeys:completionHandler:"), keys, _block1)
 }
 // Reports whether the value for a given key is immediately available without
@@ -298,8 +302,7 @@ func (m AVMetadataItem) StatusOfValueForKeyError(key string) (AVKeyValueStatus, 
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem/init(propertiesOfMetadataItem:valueLoadingHandler:)
 func (_AVMetadataItemClass AVMetadataItemClass) MetadataItemWithPropertiesOfMetadataItemValueLoadingHandler(metadataItem IAVMetadataItem, handler AVMetadataItemValueRequestHandler) AVMetadataItem {
-_block1, _cleanup1 := NewAVMetadataItemValueRequestBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewAVMetadataItemValueRequestBlock(handler)
 	rv := objc.Send[objc.ID](objc.ID(_AVMetadataItemClass.class), objc.Sel("metadataItemWithPropertiesOfMetadataItem:valueLoadingHandler:"), metadataItem, _block1)
 	return AVMetadataItemFromID(rv)
 }
@@ -509,9 +512,9 @@ func (m AVMetadataItem) KeySpace() AVMetadataKeySpace {
 // The timestamp of the metadata item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem/time
-func (m AVMetadataItem) Time() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("time"))
-	return objectivec.Object{ID: rv}
+func (m AVMetadataItem) Time() uintptr {
+	rv := objc.Send[uintptr](m.ID, objc.Sel("time"))
+	return rv
 }
 // The start date of the timed metadata.
 //
@@ -527,9 +530,9 @@ func (m AVMetadataItem) StartDate() foundation.INSDate {
 // The duration of the metadata item.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataItem/duration
-func (m AVMetadataItem) Duration() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("duration"))
-	return objectivec.Object{ID: rv}
+func (m AVMetadataItem) Duration() uintptr {
+	rv := objc.Send[uintptr](m.ID, objc.Sel("duration"))
+	return rv
 }
 // The locale of the metadata item.
 //

@@ -30,6 +30,11 @@ type NSURLSessionWebSocketMessageClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSURLSessionWebSocketMessageClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSURLSessionWebSocketMessageClass) Alloc() NSURLSessionWebSocketMessage {
 	rv := objc.Send[NSURLSessionWebSocketMessage](objc.ID(nc.class), objc.Sel("alloc"))

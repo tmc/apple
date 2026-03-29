@@ -31,6 +31,11 @@ type VNTrackingRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNTrackingRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNTrackingRequestClass) Alloc() VNTrackingRequest {
 	rv := objc.Send[VNTrackingRequest](objc.ID(vc.class), objc.Sel("alloc"))

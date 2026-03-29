@@ -30,6 +30,11 @@ type NSScriptCoercionHandlerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSScriptCoercionHandlerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSScriptCoercionHandlerClass) Alloc() NSScriptCoercionHandler {
 	rv := objc.Send[NSScriptCoercionHandler](objc.ID(nc.class), objc.Sel("alloc"))

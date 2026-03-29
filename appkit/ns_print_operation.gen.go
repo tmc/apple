@@ -32,6 +32,11 @@ type NSPrintOperationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPrintOperationClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPrintOperationClass) Alloc() NSPrintOperation {
 	rv := objc.Send[NSPrintOperation](objc.ID(nc.class), objc.Sel("alloc"))

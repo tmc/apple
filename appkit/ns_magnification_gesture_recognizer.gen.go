@@ -31,6 +31,11 @@ type NSMagnificationGestureRecognizerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMagnificationGestureRecognizerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMagnificationGestureRecognizerClass) Alloc() NSMagnificationGestureRecognizer {
 	rv := objc.Send[NSMagnificationGestureRecognizer](objc.ID(nc.class), objc.Sel("alloc"))

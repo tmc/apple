@@ -31,6 +31,11 @@ type AVMetadataMachineReadableCodeObjectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetadataMachineReadableCodeObjectClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetadataMachineReadableCodeObjectClass) Alloc() AVMetadataMachineReadableCodeObject {
 	rv := objc.Send[AVMetadataMachineReadableCodeObject](objc.ID(ac.class), objc.Sel("alloc"))

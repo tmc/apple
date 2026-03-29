@@ -31,6 +31,11 @@ type AVAssetWriterInputPassDescriptionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetWriterInputPassDescriptionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetWriterInputPassDescriptionClass) Alloc() AVAssetWriterInputPassDescription {
 	rv := objc.Send[AVAssetWriterInputPassDescription](objc.ID(ac.class), objc.Sel("alloc"))

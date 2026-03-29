@@ -32,6 +32,11 @@ type AVCompositionTrackClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCompositionTrackClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCompositionTrackClass) Alloc() AVCompositionTrack {
 	rv := objc.Send[AVCompositionTrack](objc.ID(ac.class), objc.Sel("alloc"))
@@ -260,8 +265,8 @@ type IAVCompositionTrack interface {
 	// Topic: Accessing temporal information
 
 	// The time range of the track within the overall timeline of the asset.
-	TimeRange() objectivec.IObject
-	SetTimeRange(value objectivec.IObject)
+	TimeRange() uintptr
+	SetTimeRange(value uintptr)
 	// The natural time scale of the media that a track references.
 	NaturalTimeScale() int32
 	SetNaturalTimeScale(value int32)
@@ -269,7 +274,7 @@ type IAVCompositionTrack interface {
 	EstimatedDataRate() float32
 	SetEstimatedDataRate(value float32)
 	// Maps the specified track time through the appropriate time mapping and returns the resulting sample presentation time.
-	SamplePresentationTimeForTrackTime(trackTime objectivec.IObject) objectivec.IObject
+	SamplePresentationTimeForTrackTime(trackTime uintptr) uintptr
 
 	// Topic: Accessing language support
 
@@ -312,8 +317,8 @@ type IAVCompositionTrack interface {
 	NominalFrameRate() float32
 	SetNominalFrameRate(value float32)
 	// The minimum duration of the track’s frames.
-	MinFrameDuration() objectivec.IObject
-	SetMinFrameDuration(value objectivec.IObject)
+	MinFrameDuration() uintptr
+	SetMinFrameDuration(value uintptr)
 	// A Boolean value that indicates whether samples in the track may have different presentation and decode timestamps.
 	RequiresFrameReordering() bool
 	SetRequiresFrameReordering(value bool)
@@ -337,7 +342,7 @@ type IAVCompositionTrack interface {
 	// The time mappings from the track’s media samples to its timeline.
 	Segments() []AVCompositionTrackSegment
 	// Returns a segment whose target time range contains, or is closest to, the specified track time.
-	SegmentForTrackTime(trackTime objectivec.IObject) IAVCompositionTrackSegment
+	SegmentForTrackTime(trackTime uintptr) IAVCompositionTrackSegment
 
 	// Topic: Accessing track associations
 
@@ -396,8 +401,6 @@ func (c AVCompositionTrack) HasMediaCharacteristic(mediaCharacteristic AVMediaCh
 //
 // trackTime: The track time for which to request the sample presentation time.
 //
-// trackTime is a [coremedia.CMTime].
-//
 // # Return Value
 // 
 // The sample presentation time corresponding to the specified time; otherwise
@@ -406,9 +409,9 @@ func (c AVCompositionTrack) HasMediaCharacteristic(mediaCharacteristic AVMediaCh
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/samplePresentationTime(forTrackTime:)
-func (c AVCompositionTrack) SamplePresentationTimeForTrackTime(trackTime objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("samplePresentationTimeForTrackTime:"), trackTime)
-	return objectivec.Object{ID: rv}
+func (c AVCompositionTrack) SamplePresentationTimeForTrackTime(trackTime uintptr) uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("samplePresentationTimeForTrackTime:"), trackTime)
+	return rv
 }
 // Returns metadata items that a track contains for the specified format.
 //
@@ -431,14 +434,12 @@ func (c AVCompositionTrack) MetadataForFormat(format AVMetadataFormat) []AVMetad
 //
 // trackTime: The track time of the segment to return.
 //
-// trackTime is a [coremedia.CMTime].
-//
 // # Return Value
 // 
 // The [AVCompositionTrackSegment] associated with the track time.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/segment(forTrackTime:)
-func (c AVCompositionTrack) SegmentForTrackTime(trackTime objectivec.IObject) IAVCompositionTrackSegment {
+func (c AVCompositionTrack) SegmentForTrackTime(trackTime uintptr) IAVCompositionTrackSegment {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("segmentForTrackTime:"), trackTime)
 	return AVCompositionTrackSegmentFromID(rv)
 }
@@ -553,11 +554,11 @@ func (c AVCompositionTrack) SetTotalSampleDataLength(value objectivec.IObject) {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/timeRange
-func (c AVCompositionTrack) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (c AVCompositionTrack) TimeRange() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("timeRange"))
+	return rv
 }
-func (c AVCompositionTrack) SetTimeRange(value objectivec.IObject) {
+func (c AVCompositionTrack) SetTimeRange(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimeRange:"), value)
 }
 // The natural time scale of the media that a track references.
@@ -755,11 +756,11 @@ func (c AVCompositionTrack) SetNominalFrameRate(value float32) {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCompositionTrack/minFrameDuration
-func (c AVCompositionTrack) MinFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("minFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (c AVCompositionTrack) MinFrameDuration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("minFrameDuration"))
+	return rv
 }
-func (c AVCompositionTrack) SetMinFrameDuration(value objectivec.IObject) {
+func (c AVCompositionTrack) SetMinFrameDuration(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setMinFrameDuration:"), value)
 }
 // A Boolean value that indicates whether samples in the track may have

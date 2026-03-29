@@ -31,6 +31,11 @@ type NSUserScriptTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSUserScriptTaskClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSUserScriptTaskClass) Alloc() NSUserScriptTask {
 	rv := objc.Send[NSUserScriptTask](objc.ID(nc.class), objc.Sel("alloc"))
@@ -192,8 +197,7 @@ func (u NSUserScriptTask) InitWithURLError(url INSURL) (NSUserScriptTask, error)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/execute(completionHandler:)
 func (u NSUserScriptTask) ExecuteWithCompletionHandler(handler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(handler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("executeWithCompletionHandler:"), _block0)
 }
 

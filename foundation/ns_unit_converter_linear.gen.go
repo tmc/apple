@@ -29,6 +29,11 @@ type UnitConverterLinearClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitConverterLinearClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitConverterLinearClass) Alloc() UnitConverterLinear {
 	rv := objc.Send[UnitConverterLinear](objc.ID(uc.class), objc.Sel("alloc"))

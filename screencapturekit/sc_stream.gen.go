@@ -35,6 +35,11 @@ type SCStreamClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCStreamClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCStreamClass) Alloc() SCStream {
 	rv := objc.Send[SCStream](objc.ID(sc.class), objc.Sel("alloc"))
@@ -220,8 +225,7 @@ func (s SCStream) InitWithFilterConfigurationDelegate(contentFilter ISCContentFi
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/updateConfiguration(_:completionHandler:)
 func (s SCStream) UpdateConfigurationCompletionHandler(streamConfig ISCStreamConfiguration, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("updateConfiguration:completionHandler:"), streamConfig, _block1)
 }
 // Updates the stream by applying a new content filter.
@@ -233,8 +237,7 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/updateContentFilter(_:completionHandler:)
 func (s SCStream) UpdateContentFilterCompletionHandler(contentFilter ISCContentFilter, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("updateContentFilter:completionHandler:"), contentFilter, _block1)
 }
 // Adds a destination that receives the stream output.
@@ -324,8 +327,7 @@ func (s SCStream) RemoveRecordingOutputError(recordingOutput ISCRecordingOutput)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/startCapture(completionHandler:)
 func (s SCStream) StartCaptureWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("startCaptureWithCompletionHandler:"), _block0)
 }
 // Stops the stream.
@@ -334,8 +336,7 @@ _block0, _cleanup0 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/ScreenCaptureKit/SCStream/stopCapture(completionHandler:)
 func (s SCStream) StopCaptureWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](s.ID, objc.Sel("stopCaptureWithCompletionHandler:"), _block0)
 }
 

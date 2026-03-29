@@ -30,6 +30,11 @@ type AVCaptureInputClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureInputClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureInputClass) Alloc() AVCaptureInput {
 	rv := objc.Send[AVCaptureInput](objc.ID(ac.class), objc.Sel("alloc"))

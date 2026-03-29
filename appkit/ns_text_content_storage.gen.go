@@ -31,6 +31,11 @@ type NSTextContentStorageClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextContentStorageClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextContentStorageClass) Alloc() NSTextContentStorage {
 	rv := objc.Send[NSTextContentStorage](objc.ID(nc.class), objc.Sel("alloc"))
@@ -213,8 +218,7 @@ func (t NSTextContentStorage) AttributedStringForTextElement(textElement INSText
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/performEditingTransaction(for:using:)
 func (t NSTextContentStorage) PerformEditingTransactionForTextStorageUsingBlock(textStorage NSTextStorage, transaction VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(transaction)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(transaction)
 	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, _block1)
 }
 //

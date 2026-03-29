@@ -31,6 +31,11 @@ type MLModelStructureProgramClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLModelStructureProgramClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLModelStructureProgramClass) Alloc() MLModelStructureProgram {
 	rv := objc.Send[MLModelStructureProgram](objc.ID(mc.class), objc.Sel("alloc"))

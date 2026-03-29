@@ -30,6 +30,11 @@ type NSSpellServerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSpellServerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSpellServerClass) Alloc() NSSpellServer {
 	rv := objc.Send[NSSpellServer](objc.ID(nc.class), objc.Sel("alloc"))

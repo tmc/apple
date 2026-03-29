@@ -30,6 +30,11 @@ type NSActionCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSActionCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSActionCellClass) Alloc() NSActionCell {
 	rv := objc.Send[NSActionCell](objc.ID(nc.class), objc.Sel("alloc"))

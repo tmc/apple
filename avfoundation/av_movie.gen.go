@@ -32,6 +32,11 @@ type AVMovieClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMovieClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMovieClass) Alloc() AVMovie {
 	rv := objc.Send[AVMovie](objc.ID(ac.class), objc.Sel("alloc"))

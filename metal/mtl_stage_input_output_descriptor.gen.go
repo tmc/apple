@@ -30,6 +30,11 @@ type MTLStageInputOutputDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLStageInputOutputDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLStageInputOutputDescriptorClass) Alloc() MTLStageInputOutputDescriptor {
 	rv := objc.Send[MTLStageInputOutputDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

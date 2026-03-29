@@ -30,6 +30,11 @@ type LayerCountClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (lc LayerCountClass) Class() objc.Class {
+	return lc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (lc LayerCountClass) Alloc() LayerCount {
 	rv := objc.Send[LayerCount](objc.ID(lc.class), objc.Sel("alloc"))

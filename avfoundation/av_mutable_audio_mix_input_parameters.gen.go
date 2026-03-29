@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVMutableAudioMixInputParameters] class.
@@ -28,6 +27,11 @@ func GetAVMutableAudioMixInputParametersClass() AVMutableAudioMixInputParameters
 
 type AVMutableAudioMixInputParametersClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMutableAudioMixInputParametersClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -71,9 +75,9 @@ type IAVMutableAudioMixInputParameters interface {
 	// Topic: Setting the volume
 
 	// Sets the value of the audio volume starting at the specified time.
-	SetVolumeAtTime(volume float32, time objectivec.IObject)
+	SetVolumeAtTime(volume float32, time uintptr)
 	// Sets a volume ramp to apply during a specified time range.
-	SetVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume float32, endVolume float32, timeRange objectivec.IObject)
+	SetVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume float32, endVolume float32, timeRange uintptr)
 }
 
 // Init initializes the instance.
@@ -116,8 +120,6 @@ func NewMutableAudioMixInputParametersWithTrack(track IAVAssetTrack) AVMutableAu
 //
 // time: The start time at which to set the volume.
 //
-// time is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // This method adds a volume ramp starting at `time`. This volume setting
@@ -125,7 +127,7 @@ func NewMutableAudioMixInputParametersWithTrack(track IAVAssetTrack) AVMutableAu
 // volume level to start at a later time.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableAudioMixInputParameters/setVolume(_:at:)
-func (m AVMutableAudioMixInputParameters) SetVolumeAtTime(volume float32, time objectivec.IObject) {
+func (m AVMutableAudioMixInputParameters) SetVolumeAtTime(volume float32, time uintptr) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setVolume:atTime:"), volume, time)
 }
 // Sets a volume ramp to apply during a specified time range.
@@ -136,10 +138,8 @@ func (m AVMutableAudioMixInputParameters) SetVolumeAtTime(volume float32, time o
 //
 // timeRange: The time range over which to apply the ramp.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableAudioMixInputParameters/setVolumeRamp(fromStartVolume:toEndVolume:timeRange:)
-func (m AVMutableAudioMixInputParameters) SetVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume float32, endVolume float32, timeRange objectivec.IObject) {
+func (m AVMutableAudioMixInputParameters) SetVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume float32, endVolume float32, timeRange uintptr) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setVolumeRampFromStartVolume:toEndVolume:timeRange:"), startVolume, endVolume, timeRange)
 }
 

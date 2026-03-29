@@ -34,6 +34,11 @@ type AVContentKeyRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVContentKeyRequestClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVContentKeyRequestClass) Alloc() AVContentKeyRequest {
 	rv := objc.Send[AVContentKeyRequest](objc.ID(ac.class), objc.Sel("alloc"))
@@ -227,8 +232,7 @@ func NewAVContentKeyRequest() AVContentKeyRequest {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVContentKeyRequest/makeStreamingContentKeyRequestData(forApp:contentIdentifier:options:completionHandler:)
 func (c AVContentKeyRequest) MakeStreamingContentKeyRequestDataForAppContentIdentifierOptionsCompletionHandler(appIdentifier foundation.INSData, contentIdentifier foundation.INSData, options foundation.INSDictionary, handler DataErrorHandler) {
-_block3, _cleanup3 := NewDataErrorBlock(handler)
-	defer _cleanup3()
+_block3, _ := NewDataErrorBlock(handler)
 	objc.Send[objc.ID](c.ID, objc.Sel("makeStreamingContentKeyRequestDataForApp:contentIdentifier:options:completionHandler:"), appIdentifier, contentIdentifier, options, _block3)
 }
 // Sends the specified content key response to the receiver for processing.

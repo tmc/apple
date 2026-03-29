@@ -30,6 +30,11 @@ type NSURLDownloadClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSURLDownloadClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSURLDownloadClass) Alloc() NSURLDownload {
 	rv := objc.Send[NSURLDownload](objc.ID(nc.class), objc.Sel("alloc"))

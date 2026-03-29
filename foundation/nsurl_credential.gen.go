@@ -30,6 +30,11 @@ type URLCredentialClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLCredentialClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLCredentialClass) Alloc() URLCredential {
 	rv := objc.Send[URLCredential](objc.ID(uc.class), objc.Sel("alloc"))
@@ -308,6 +313,7 @@ func NewURLCredentialWithUserPasswordPersistence(user string, password string, p
 // [NSURLAuthenticationMethodClientCertificate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodClientCertificate
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/init(identity:certificates:persistence:)
+// identity is a [security.SecIdentityRef].
 func (u URLCredential) InitWithIdentityCertificatesPersistence(identity objectivec.IObject, certArray INSArray, persistence NSURLCredentialPersistence) URLCredential {
 	rv := objc.Send[URLCredential](u.ID, objc.Sel("initWithIdentity:certificates:persistence:"), identity, certArray, persistence)
 	return rv
@@ -340,6 +346,7 @@ func (u URLCredential) InitWithIdentityCertificatesPersistence(identity objectiv
 // [SecTrust]: https://developer.apple.com/documentation/Security/SecTrust
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredential/init(trust:)
+// trust is a [security.SecTrustRef].
 func (u URLCredential) InitWithTrust(trust objectivec.IObject) URLCredential {
 	rv := objc.Send[URLCredential](u.ID, objc.Sel("initWithTrust:"), trust)
 	return rv
@@ -404,6 +411,7 @@ func (u URLCredential) InitWithCoder(coder INSCoder) URLCredential {
 // trusted.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLCredential/credentialForTrust:
+// trust is a [security.SecTrustRef].
 func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objectivec.IObject) URLCredential {
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialForTrust:"), trust)
 	return NSURLCredentialFromID(rv)
@@ -446,6 +454,7 @@ func (_URLCredentialClass URLCredentialClass) CredentialForTrust(trust objective
 // [NSURLAuthenticationMethodClientCertificate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodClientCertificate
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLCredential/credentialWithIdentity:certificates:persistence:
+// identity is a [security.SecIdentityRef].
 func (_URLCredentialClass URLCredentialClass) CredentialWithIdentityCertificatesPersistence(identity objectivec.IObject, certArray INSArray, persistence NSURLCredentialPersistence) URLCredential {
 	rv := objc.Send[objc.ID](objc.ID(_URLCredentialClass.class), objc.Sel("credentialWithIdentity:certificates:persistence:"), identity, certArray, persistence)
 	return NSURLCredentialFromID(rv)

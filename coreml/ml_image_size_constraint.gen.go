@@ -31,6 +31,11 @@ type MLImageSizeConstraintClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLImageSizeConstraintClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLImageSizeConstraintClass) Alloc() MLImageSizeConstraint {
 	rv := objc.Send[MLImageSizeConstraint](objc.ID(mc.class), objc.Sel("alloc"))

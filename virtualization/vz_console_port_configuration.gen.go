@@ -30,6 +30,11 @@ type VZConsolePortConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZConsolePortConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZConsolePortConfigurationClass) Alloc() VZConsolePortConfiguration {
 	rv := objc.Send[VZConsolePortConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

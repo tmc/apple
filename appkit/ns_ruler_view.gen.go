@@ -32,6 +32,11 @@ type NSRulerViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSRulerViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSRulerViewClass) Alloc() NSRulerView {
 	rv := objc.Send[NSRulerView](objc.ID(nc.class), objc.Sel("alloc"))

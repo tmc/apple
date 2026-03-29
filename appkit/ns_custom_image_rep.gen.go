@@ -33,6 +33,11 @@ type NSCustomImageRepClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCustomImageRepClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCustomImageRepClass) Alloc() NSCustomImageRep {
 	rv := objc.Send[NSCustomImageRep](objc.ID(nc.class), objc.Sel("alloc"))
@@ -242,10 +247,8 @@ func (c NSCustomImageRep) InitWithDrawSelectorDelegate(selector objc.SEL, delega
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCustomImageRep/init(size:flipped:drawingHandler:)
 func (c NSCustomImageRep) InitWithSizeFlippedDrawingHandler(size corefoundation.CGSize, drawingHandlerShouldBeCalledWithFlippedContext ErrorHandler, drawingHandler RectHandler) NSCustomImageRep {
-_block1, _cleanup1 := NewErrorBlock(drawingHandlerShouldBeCalledWithFlippedContext)
-	defer _cleanup1()
-	_block2, _cleanup2 := NewRectBlock(drawingHandler)
-	defer _cleanup2()
+_block1, _ := NewErrorBlock(drawingHandlerShouldBeCalledWithFlippedContext)
+	_block2, _ := NewRectBlock(drawingHandler)
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithSize:flipped:drawingHandler:"), size, _block1, _block2)
 	return NSCustomImageRepFromID(rv)
 }

@@ -31,6 +31,11 @@ type AVAssetPlaybackAssistantClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetPlaybackAssistantClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetPlaybackAssistantClass) Alloc() AVAssetPlaybackAssistant {
 	rv := objc.Send[AVAssetPlaybackAssistant](objc.ID(ac.class), objc.Sel("alloc"))
@@ -110,8 +115,7 @@ func NewAssetPlaybackAssistantWithAsset(asset IAVAsset) AVAssetPlaybackAssistant
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetPlaybackAssistant/loadPlaybackConfigurationOptions(completionHandler:)
 func (a AVAssetPlaybackAssistant) LoadPlaybackConfigurationOptionsWithCompletionHandler(completionHandler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadPlaybackConfigurationOptionsWithCompletionHandler:"), _block0)
 }
 

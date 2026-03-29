@@ -30,6 +30,11 @@ type VZMacGraphicsDeviceConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMacGraphicsDeviceConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacGraphicsDeviceConfigurationClass) Alloc() VZMacGraphicsDeviceConfiguration {
 	rv := objc.Send[VZMacGraphicsDeviceConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type AVVideoPerformanceMetricsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVVideoPerformanceMetricsClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVVideoPerformanceMetricsClass) Alloc() AVVideoPerformanceMetrics {
 	rv := objc.Send[AVVideoPerformanceMetrics](objc.ID(ac.class), objc.Sel("alloc"))

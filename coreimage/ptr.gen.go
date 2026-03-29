@@ -30,6 +30,11 @@ type PtrClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (pc PtrClass) Class() objc.Class {
+	return pc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (pc PtrClass) Alloc() Ptr {
 	rv := objc.Send[Ptr](objc.ID(pc.class), objc.Sel("alloc"))

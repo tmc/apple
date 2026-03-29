@@ -31,6 +31,11 @@ type URLCacheClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLCacheClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLCacheClass) Alloc() URLCache {
 	rv := objc.Send[URLCache](objc.ID(uc.class), objc.Sel("alloc"))
@@ -312,8 +317,7 @@ func (u URLCache) StoreCachedResponseForRequest(cachedResponse INSCachedURLRespo
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCache/getCachedResponse(for:completionHandler:)
 func (u URLCache) GetCachedResponseForDataTaskCompletionHandler(dataTask INSURLSessionDataTask, completionHandler CachedURLResponseHandler) {
-_block1, _cleanup1 := NewCachedURLResponseBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewCachedURLResponseBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("getCachedResponseForDataTask:completionHandler:"), dataTask, _block1)
 }
 // Stores a cached URL response for a specified data task.

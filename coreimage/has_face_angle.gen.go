@@ -30,6 +30,11 @@ type HasFaceAngleClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (hc HasFaceAngleClass) Class() objc.Class {
+	return hc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (hc HasFaceAngleClass) Alloc() HasFaceAngle {
 	rv := objc.Send[HasFaceAngle](objc.ID(hc.class), objc.Sel("alloc"))

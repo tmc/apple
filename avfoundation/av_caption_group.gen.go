@@ -30,6 +30,11 @@ type AVCaptionGroupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptionGroupClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptionGroupClass) Alloc() AVCaptionGroup {
 	rv := objc.Send[AVCaptionGroup](objc.ID(ac.class), objc.Sel("alloc"))
@@ -81,16 +86,16 @@ type IAVCaptionGroup interface {
 	// Topic: Creating a caption group
 
 	// Creates a caption group with a time range.
-	InitWithTimeRange(timeRange objectivec.IObject) AVCaptionGroup
+	InitWithTimeRange(timeRange uintptr) AVCaptionGroup
 	// Creates a caption group with captions and a time range.
-	InitWithCaptionsTimeRange(captions []AVCaption, timeRange objectivec.IObject) AVCaptionGroup
+	InitWithCaptionsTimeRange(captions []AVCaption, timeRange uintptr) AVCaptionGroup
 
 	// Topic: Inspecting the caption group
 
 	// The captions associated with the caption group.
 	Captions() []AVCaption
 	// The time range of the caption group.
-	TimeRange() objectivec.IObject
+	TimeRange() uintptr
 }
 
 // Init initializes the instance.
@@ -119,8 +124,7 @@ func NewAVCaptionGroup() AVCaptionGroup {
 // timeRange: The time range of the caption group.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionGroup/init(captions:timeRange:)
-// timeRange is a [coremedia.CMTimeRange].
-func NewCaptionGroupWithCaptionsTimeRange(captions []AVCaption, timeRange objectivec.IObject) AVCaptionGroup {
+func NewCaptionGroupWithCaptionsTimeRange(captions []AVCaption, timeRange uintptr) AVCaptionGroup {
 	instance := getAVCaptionGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCaptions:timeRange:"), objectivec.IObjectSliceToNSArray(captions), timeRange)
 	return AVCaptionGroupFromID(rv)
@@ -131,8 +135,7 @@ func NewCaptionGroupWithCaptionsTimeRange(captions []AVCaption, timeRange object
 // timeRange: The time range of the caption group.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionGroup/init(timeRange:)
-// timeRange is a [coremedia.CMTimeRange].
-func NewCaptionGroupWithTimeRange(timeRange objectivec.IObject) AVCaptionGroup {
+func NewCaptionGroupWithTimeRange(timeRange uintptr) AVCaptionGroup {
 	instance := getAVCaptionGroupClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTimeRange:"), timeRange)
 	return AVCaptionGroupFromID(rv)
@@ -142,10 +145,8 @@ func NewCaptionGroupWithTimeRange(timeRange objectivec.IObject) AVCaptionGroup {
 //
 // timeRange: The time range of the caption group.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionGroup/init(timeRange:)
-func (c AVCaptionGroup) InitWithTimeRange(timeRange objectivec.IObject) AVCaptionGroup {
+func (c AVCaptionGroup) InitWithTimeRange(timeRange uintptr) AVCaptionGroup {
 	rv := objc.Send[AVCaptionGroup](c.ID, objc.Sel("initWithTimeRange:"), timeRange)
 	return rv
 }
@@ -155,10 +156,8 @@ func (c AVCaptionGroup) InitWithTimeRange(timeRange objectivec.IObject) AVCaptio
 //
 // timeRange: The time range of the caption group.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionGroup/init(captions:timeRange:)
-func (c AVCaptionGroup) InitWithCaptionsTimeRange(captions []AVCaption, timeRange objectivec.IObject) AVCaptionGroup {
+func (c AVCaptionGroup) InitWithCaptionsTimeRange(captions []AVCaption, timeRange uintptr) AVCaptionGroup {
 	rv := objc.Send[AVCaptionGroup](c.ID, objc.Sel("initWithCaptions:timeRange:"), objectivec.IObjectSliceToNSArray(captions), timeRange)
 	return rv
 }
@@ -175,8 +174,8 @@ func (c AVCaptionGroup) Captions() []AVCaption {
 // The time range of the caption group.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionGroup/timeRange
-func (c AVCaptionGroup) TimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("timeRange"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptionGroup) TimeRange() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("timeRange"))
+	return rv
 }
 

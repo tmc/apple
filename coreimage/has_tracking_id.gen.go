@@ -30,6 +30,11 @@ type HasTrackingIDClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (hc HasTrackingIDClass) Class() objc.Class {
+	return hc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (hc HasTrackingIDClass) Alloc() HasTrackingID {
 	rv := objc.Send[HasTrackingID](objc.ID(hc.class), objc.Sel("alloc"))

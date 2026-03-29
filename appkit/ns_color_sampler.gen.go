@@ -31,6 +31,11 @@ type NSColorSamplerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSColorSamplerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSColorSamplerClass) Alloc() NSColorSampler {
 	rv := objc.Send[NSColorSampler](objc.ID(nc.class), objc.Sel("alloc"))
@@ -121,8 +126,7 @@ func NewNSColorSampler() NSColorSampler {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorSampler/show(selectionHandler:)
 func (c NSColorSampler) ShowSamplerWithSelectionHandler(selectionHandler ColorHandler) {
-_block0, _cleanup0 := NewColorBlock(selectionHandler)
-	defer _cleanup0()
+_block0, _ := NewColorBlock(selectionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("showSamplerWithSelectionHandler:"), _block0)
 }
 

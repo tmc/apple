@@ -83,14 +83,10 @@ func NewMTLFunctionErrorBlock(handler MTLFunctionErrorHandler) (objc.ID, func())
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result MTLFunction
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			result = MTLFunctionObjectFromID(resultID)
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }

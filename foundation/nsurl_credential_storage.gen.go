@@ -31,6 +31,11 @@ type URLCredentialStorageClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLCredentialStorageClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLCredentialStorageClass) Alloc() URLCredentialStorage {
 	rv := objc.Send[URLCredentialStorage](objc.ID(uc.class), objc.Sel("alloc"))
@@ -232,8 +237,7 @@ func (u URLCredentialStorage) DefaultCredentialForProtectionSpace(space INSURLPr
 //
 // See: https://developer.apple.com/documentation/Foundation/URLCredentialStorage/getDefaultCredential(for:task:completionHandler:)
 func (u URLCredentialStorage) GetDefaultCredentialForProtectionSpaceTaskCompletionHandler(space INSURLProtectionSpace, task INSURLSessionTask, completionHandler URLCredentialHandler) {
-_block2, _cleanup2 := NewURLCredentialBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewURLCredentialBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("getDefaultCredentialForProtectionSpace:task:completionHandler:"), space, task, _block2)
 }
 // Sets the default credential for a specified protection space.

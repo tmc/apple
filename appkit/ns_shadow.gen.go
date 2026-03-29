@@ -32,6 +32,11 @@ type NSShadowClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSShadowClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSShadowClass) Alloc() NSShadow {
 	rv := objc.Send[NSShadow](objc.ID(nc.class), objc.Sel("alloc"))

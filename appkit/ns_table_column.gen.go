@@ -31,6 +31,11 @@ type NSTableColumnClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTableColumnClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTableColumnClass) Alloc() NSTableColumn {
 	rv := objc.Send[NSTableColumn](objc.ID(nc.class), objc.Sel("alloc"))

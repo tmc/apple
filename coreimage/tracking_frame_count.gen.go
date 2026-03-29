@@ -30,6 +30,11 @@ type TrackingFrameCountClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TrackingFrameCountClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TrackingFrameCountClass) Alloc() TrackingFrameCount {
 	rv := objc.Send[TrackingFrameCount](objc.ID(tc.class), objc.Sel("alloc"))

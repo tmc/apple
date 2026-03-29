@@ -32,6 +32,11 @@ type NSPDFPanelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPDFPanelClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPDFPanelClass) Alloc() NSPDFPanel {
 	rv := objc.Send[NSPDFPanel](objc.ID(nc.class), objc.Sel("alloc"))
@@ -150,8 +155,7 @@ func NewNSPDFPanel() NSPDFPanel {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPDFPanel/beginSheet(with:modalFor:completionHandler:)
 func (p NSPDFPanel) BeginSheetWithPDFInfoModalForWindowCompletionHandler(pdfInfo INSPDFInfo, docWindow INSWindow, completionHandler IntHandler) {
-_block2, _cleanup2 := NewIntBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewIntBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("beginSheetWithPDFInfo:modalForWindow:completionHandler:"), pdfInfo, docWindow, _block2)
 }
 

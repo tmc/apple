@@ -30,6 +30,11 @@ type VZFileHandleSerialPortAttachmentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZFileHandleSerialPortAttachmentClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZFileHandleSerialPortAttachmentClass) Alloc() VZFileHandleSerialPortAttachment {
 	rv := objc.Send[VZFileHandleSerialPortAttachment](objc.ID(vc.class), objc.Sel("alloc"))

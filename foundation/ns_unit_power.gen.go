@@ -29,6 +29,11 @@ type UnitPowerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitPowerClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitPowerClass) Alloc() UnitPower {
 	rv := objc.Send[UnitPower](objc.ID(uc.class), objc.Sel("alloc"))

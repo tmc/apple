@@ -31,6 +31,11 @@ type NSGlyphGeneratorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSGlyphGeneratorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSGlyphGeneratorClass) Alloc() NSGlyphGenerator {
 	rv := objc.Send[NSGlyphGenerator](objc.ID(nc.class), objc.Sel("alloc"))

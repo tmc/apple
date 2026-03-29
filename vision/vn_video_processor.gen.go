@@ -33,6 +33,11 @@ type VNVideoProcessorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNVideoProcessorClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNVideoProcessorClass) Alloc() VNVideoProcessor {
 	rv := objc.Send[VNVideoProcessor](objc.ID(vc.class), objc.Sel("alloc"))
@@ -200,6 +205,7 @@ func (v VNVideoProcessor) RemoveRequestError(request IVNRequest) (bool, error) {
 // finishes analyzing the time range or if an error prevents processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/analyze(_:)
+// timeRange is a [coremedia.CMTimeRange].
 func (v VNVideoProcessor) AnalyzeTimeRangeError(timeRange objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("analyzeTimeRange:error:"), timeRange, unsafe.Pointer(&errorPtr))

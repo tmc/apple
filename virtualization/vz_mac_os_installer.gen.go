@@ -32,6 +32,11 @@ type VZMacOSInstallerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMacOSInstallerClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSInstallerClass) Alloc() VZMacOSInstaller {
 	rv := objc.Send[VZMacOSInstaller](objc.ID(vc.class), objc.Sel("alloc"))
@@ -173,8 +178,7 @@ func (m VZMacOSInstaller) InitWithVirtualMachineRestoreImageURL(virtualMachine I
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZMacOSInstaller/install()
 func (m VZMacOSInstaller) InstallWithCompletionHandler(completionHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](m.ID, objc.Sel("installWithCompletionHandler:"), _block0)
 }
 

@@ -30,6 +30,11 @@ type AVMetricHLSPlaylistRequestEventClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetricHLSPlaylistRequestEventClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetricHLSPlaylistRequestEventClass) Alloc() AVMetricHLSPlaylistRequestEvent {
 	rv := objc.Send[AVMetricHLSPlaylistRequestEvent](objc.ID(ac.class), objc.Sel("alloc"))

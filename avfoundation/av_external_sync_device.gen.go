@@ -31,6 +31,11 @@ type AVExternalSyncDeviceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVExternalSyncDeviceClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVExternalSyncDeviceClass) Alloc() AVExternalSyncDevice {
 	rv := objc.Send[AVExternalSyncDevice](objc.ID(ac.class), objc.Sel("alloc"))
@@ -92,12 +97,12 @@ type IAVExternalSyncDevice interface {
 	// Topic: Inspecting a device
 
 	// A clock representing the source of time from the external sync device.
-	Clock() objectivec.IObject
+	Clock() uintptr
 	// The USB product identifier associated with the external sync device.
 	ProductID() uint32
 	// Delay to wait before starting the frame capture.
-	SignalCompensationDelay() objectivec.IObject
-	SetSignalCompensationDelay(value objectivec.IObject)
+	SignalCompensationDelay() uintptr
+	SetSignalCompensationDelay(value uintptr)
 	// The status of the externally connected device.
 	Status() AVExternalSyncDeviceStatus
 	// A unique identifier for an external sync device.
@@ -133,9 +138,9 @@ func NewAVExternalSyncDevice() AVExternalSyncDevice {
 // [AVExternalSyncDeviceStatusActiveSync].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDevice/clock
-func (e AVExternalSyncDevice) Clock() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("clock"))
-	return objectivec.Object{ID: rv}
+func (e AVExternalSyncDevice) Clock() uintptr {
+	rv := objc.Send[uintptr](e.ID, objc.Sel("clock"))
+	return rv
 }
 // The USB product identifier associated with the external sync device.
 //
@@ -162,11 +167,11 @@ func (e AVExternalSyncDevice) ProductID() uint32 {
 // scale.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDevice/signalCompensationDelay
-func (e AVExternalSyncDevice) SignalCompensationDelay() objectivec.IObject {
-	rv := objc.Send[objc.ID](e.ID, objc.Sel("signalCompensationDelay"))
-	return objectivec.Object{ID: rv}
+func (e AVExternalSyncDevice) SignalCompensationDelay() uintptr {
+	rv := objc.Send[uintptr](e.ID, objc.Sel("signalCompensationDelay"))
+	return rv
 }
-func (e AVExternalSyncDevice) SetSignalCompensationDelay(value objectivec.IObject) {
+func (e AVExternalSyncDevice) SetSignalCompensationDelay(value uintptr) {
 	objc.Send[struct{}](e.ID, objc.Sel("setSignalCompensationDelay:"), value)
 }
 // The status of the externally connected device.

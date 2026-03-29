@@ -31,6 +31,11 @@ type NSPickerTouchBarItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPickerTouchBarItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPickerTouchBarItemClass) Alloc() NSPickerTouchBarItem {
 	rv := objc.Send[NSPickerTouchBarItem](objc.ID(nc.class), objc.Sel("alloc"))

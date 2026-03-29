@@ -31,6 +31,11 @@ type AVPlayerItemAccessLogEventClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerItemAccessLogEventClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerItemAccessLogEventClass) Alloc() AVPlayerItemAccessLogEvent {
 	rv := objc.Send[AVPlayerItemAccessLogEvent](objc.ID(ac.class), objc.Sel("alloc"))

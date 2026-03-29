@@ -30,6 +30,11 @@ type NSURLConnectionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSURLConnectionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSURLConnectionClass) Alloc() NSURLConnection {
 	rv := objc.Send[NSURLConnection](objc.ID(nc.class), objc.Sel("alloc"))

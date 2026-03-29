@@ -32,6 +32,11 @@ type NLTokenizerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NLTokenizerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NLTokenizerClass) Alloc() NLTokenizer {
 	rv := objc.Send[NLTokenizer](objc.ID(nc.class), objc.Sel("alloc"))

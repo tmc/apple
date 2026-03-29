@@ -26,6 +26,7 @@ func NewAnimationContextBlock(handler AnimationContextHandler) (objc.ID, func())
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSAnimationContext
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSAnimationContextFromID(resultID)
 			result = &v
 		}
@@ -49,6 +50,7 @@ func NewAppearanceBlock(handler AppearanceHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSAppearance
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSAppearanceFromID(resultID)
 			result = &v
 		}
@@ -95,6 +97,7 @@ func NewAttributedStringBlock(handler AttributedStringHandler) (objc.ID, func())
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *foundation.NSAttributedString
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := foundation.NSAttributedStringFromID(resultID)
 			result = &v
 		}
@@ -145,11 +148,13 @@ func NewCGRectTextContainerBlock(handler CGRectTextContainerHandler) (objc.ID, f
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
 		var result *NSTextRange
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTextRangeFromID(resultID)
 			result = &v
 		}
 		var extra0 *NSTextContainer
 		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
 			v := NSTextContainerFromID(extra0ID)
 			extra0 = &v
 		}
@@ -174,6 +179,7 @@ func NewColorBlock(handler ColorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSColor
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSColorFromID(resultID)
 			result = &v
 		}
@@ -209,15 +215,11 @@ func NewDocumentErrorBlock(handler DocumentErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSDocument
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSDocumentFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -239,6 +241,7 @@ func NewDraggingItemBlock(handler DraggingItemHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSDraggingItem
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSDraggingItemFromID(resultID)
 			result = &v
 		}
@@ -309,12 +312,7 @@ type ErrorHandler = func(error)
 //   - [NSWorkspace.SetDefaultApplicationAtURLToOpenURLsWithSchemeCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(foundation.NSErrorToError(nserr))
+		handler(foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -340,6 +338,7 @@ func NewEventBlock(handler EventHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSEvent
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSEventFromID(resultID)
 			result = &v
 		}
@@ -438,6 +437,7 @@ func NewNSTextLocationBlock(handler NSTextLocationHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result NSTextLocation
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			result = NSTextLocationObjectFromID(resultID)
 		}
 		handler(result)
@@ -454,6 +454,7 @@ func NewObjectBlock(handler ObjectHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, valID objc.ID) {
 		var val objectivec.IObject
 		if valID != 0 {
+			objc.Send[objc.ID](valID, objc.Sel("retain"))
 			obj := objectivec.ObjectFromID(valID)
 			val = &obj
 		}
@@ -564,15 +565,11 @@ func NewRunningApplicationErrorBlock(handler RunningApplicationErrorHandler) (ob
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSRunningApplication
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSRunningApplicationFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -592,6 +589,7 @@ func NewSliderAccessoryBlock(handler SliderAccessoryHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSSliderAccessory
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSSliderAccessoryFromID(resultID)
 			result = &v
 		}
@@ -631,6 +629,7 @@ func NewTableRowViewBlock(handler TableRowViewHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTableRowView
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTableRowViewFromID(resultID)
 			result = &v
 		}
@@ -656,6 +655,7 @@ func NewTableViewRowActionBlock(handler TableViewRowActionHandler) (objc.ID, fun
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTableViewRowAction
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTableViewRowActionFromID(resultID)
 			result = &v
 		}
@@ -684,6 +684,7 @@ func NewTextContainerBlock(handler TextContainerHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextContainer
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTextContainerFromID(resultID)
 			result = &v
 		}
@@ -711,6 +712,7 @@ func NewTextElementBlock(handler TextElementHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextElement
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTextElementFromID(resultID)
 			result = &v
 		}
@@ -734,6 +736,7 @@ func NewTextLayoutFragmentBlock(handler TextLayoutFragmentHandler) (objc.ID, fun
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextLayoutFragment
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTextLayoutFragmentFromID(resultID)
 			result = &v
 		}
@@ -751,11 +754,13 @@ func NewTextLayoutManagerTextLayoutFragmentBlock(handler TextLayoutManagerTextLa
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID) {
 		var result *NSTextLayoutManager
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTextLayoutManagerFromID(resultID)
 			result = &v
 		}
 		var extra0 *NSTextLayoutFragment
 		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
 			v := NSTextLayoutFragmentFromID(extra0ID)
 			extra0 = &v
 		}
@@ -779,6 +784,7 @@ func NewTextPreviewBlock(handler TextPreviewHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSTextPreview
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSTextPreviewFromID(resultID)
 			result = &v
 		}
@@ -803,15 +809,11 @@ func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *foundation.NSURL
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := foundation.NSURLFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -831,6 +833,7 @@ func NewUUIDBlock(handler UUIDHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *foundation.NSUUID
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := foundation.NSUUIDFromID(resultID)
 			result = &v
 		}
@@ -854,6 +857,7 @@ func NewViewBlock(handler ViewHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSView
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSViewFromID(resultID)
 			result = &v
 		}
@@ -952,15 +956,11 @@ func NewWindowErrorBlock(handler WindowErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSWindow
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSWindowFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -982,6 +982,7 @@ func NewWindowBlock(handler WindowHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
 		var result *NSWindow
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSWindowFromID(resultID)
 			result = &v
 		}
@@ -1008,15 +1009,11 @@ func NewWorkspaceAuthorizationErrorBlock(handler WorkspaceAuthorizationErrorHand
 	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
 		var result *NSWorkspaceAuthorization
 		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := NSWorkspaceAuthorizationFromID(resultID)
 			result = &v
 		}
-		var nserr *foundation.NSError
-		if errID != 0 {
-			e := foundation.NSErrorFromID(errID)
-			nserr = &e
-		}
-		handler(result, foundation.NSErrorToError(nserr))
+		handler(result, foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }

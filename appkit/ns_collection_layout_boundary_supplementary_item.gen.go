@@ -31,6 +31,11 @@ type NSCollectionLayoutBoundarySupplementaryItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCollectionLayoutBoundarySupplementaryItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCollectionLayoutBoundarySupplementaryItemClass) Alloc() NSCollectionLayoutBoundarySupplementaryItem {
 	rv := objc.Send[NSCollectionLayoutBoundarySupplementaryItem](objc.ID(nc.class), objc.Sel("alloc"))

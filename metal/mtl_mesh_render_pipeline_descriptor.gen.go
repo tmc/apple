@@ -31,6 +31,11 @@ type MTLMeshRenderPipelineDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLMeshRenderPipelineDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLMeshRenderPipelineDescriptorClass) Alloc() MTLMeshRenderPipelineDescriptor {
 	rv := objc.Send[MTLMeshRenderPipelineDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

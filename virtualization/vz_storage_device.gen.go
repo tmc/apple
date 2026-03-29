@@ -30,6 +30,11 @@ type VZStorageDeviceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZStorageDeviceClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZStorageDeviceClass) Alloc() VZStorageDevice {
 	rv := objc.Send[VZStorageDevice](objc.ID(vc.class), objc.Sel("alloc"))

@@ -35,6 +35,11 @@ type NSWorkspaceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSWorkspaceClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSWorkspaceClass) Alloc() NSWorkspace {
 	rv := objc.Send[NSWorkspace](objc.ID(nc.class), objc.Sel("alloc"))
@@ -437,8 +442,7 @@ func NewNSWorkspace() NSWorkspace {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/open(_:configuration:completionHandler:)
 func (w NSWorkspace) OpenURLConfigurationCompletionHandler(url foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
-_block2, _cleanup2 := NewRunningApplicationErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openURL:configuration:completionHandler:"), url, configuration, _block2)
 }
 // Opens one or more URLs asynchronously in the specified app using the
@@ -468,8 +472,7 @@ _block2, _cleanup2 := NewRunningApplicationErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/open(_:withApplicationAt:configuration:completionHandler:)
 func (w NSWorkspace) OpenURLsWithApplicationAtURLConfigurationCompletionHandler(urls []foundation.NSURL, applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
-_block3, _cleanup3 := NewRunningApplicationErrorBlock(completionHandler)
-	defer _cleanup3()
+_block3, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openURLs:withApplicationAtURL:configuration:completionHandler:"), urls, applicationURL, configuration, _block3)
 }
 // Opens the location at the specified URL.
@@ -514,8 +517,7 @@ func (w NSWorkspace) OpenURL(url foundation.INSURL) bool {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/openApplication(at:configuration:completionHandler:)
 func (w NSWorkspace) OpenApplicationAtURLConfigurationCompletionHandler(applicationURL foundation.INSURL, configuration INSWorkspaceOpenConfiguration, completionHandler RunningApplicationErrorHandler) {
-_block2, _cleanup2 := NewRunningApplicationErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewRunningApplicationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("openApplicationAtURL:configuration:completionHandler:"), applicationURL, configuration, _block2)
 }
 // Hides all applications other than the sender.
@@ -1148,8 +1150,7 @@ func (w NSWorkspace) ExtendPowerOffBy(requested int) int {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/requestAuthorization(to:completionHandler:)
 func (w NSWorkspace) RequestAuthorizationOfTypeCompletionHandler(type_ NSWorkspaceAuthorizationType, completionHandler WorkspaceAuthorizationErrorHandler) {
-_block1, _cleanup1 := NewWorkspaceAuthorizationErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewWorkspaceAuthorizationErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("requestAuthorizationOfType:completionHandler:"), type_, _block1)
 }
 

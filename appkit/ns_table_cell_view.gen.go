@@ -32,6 +32,11 @@ type NSTableCellViewClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTableCellViewClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTableCellViewClass) Alloc() NSTableCellView {
 	rv := objc.Send[NSTableCellView](objc.ID(nc.class), objc.Sel("alloc"))

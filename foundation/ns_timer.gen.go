@@ -31,6 +31,11 @@ type TimerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TimerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TimerClass) Alloc() Timer {
 	rv := objc.Send[Timer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -427,8 +432,7 @@ func NewTimerWithTimeIntervalTargetSelectorUserInfoRepeats(ti float64, aTarget o
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(fire:interval:repeats:block:)
 func (t Timer) InitWithFireDateIntervalRepeatsBlock(date INSDate, interval float64, repeats bool, block TimerHandler) Timer {
-_block3, _cleanup3 := NewTimerBlock(block)
-	defer _cleanup3()
+_block3, _ := NewTimerBlock(block)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithFireDate:interval:repeats:block:"), date, interval, repeats, _block3)
 	return NSTimerFromID(rv)
 }
@@ -539,8 +543,7 @@ func (t Timer) Invalidate() {
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/scheduledTimer(withTimeInterval:repeats:block:)
 func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalRepeatsBlock(interval float64, repeats bool, block TimerHandler) Timer {
-_block2, _cleanup2 := NewTimerBlock(block)
-	defer _cleanup2()
+_block2, _ := NewTimerBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("scheduledTimerWithTimeInterval:repeats:block:"), interval, repeats, _block2)
 	return NSTimerFromID(rv)
 }
@@ -638,8 +641,7 @@ func (_TimerClass TimerClass) ScheduledTimerWithTimeIntervalInvocationRepeats(ti
 //
 // See: https://developer.apple.com/documentation/Foundation/Timer/init(timeInterval:repeats:block:)
 func (_TimerClass TimerClass) TimerWithTimeIntervalRepeatsBlock(interval float64, repeats bool, block TimerHandler) Timer {
-_block2, _cleanup2 := NewTimerBlock(block)
-	defer _cleanup2()
+_block2, _ := NewTimerBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_TimerClass.class), objc.Sel("timerWithTimeInterval:repeats:block:"), interval, repeats, _block2)
 	return NSTimerFromID(rv)
 }

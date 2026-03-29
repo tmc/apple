@@ -34,6 +34,11 @@ type NSStringClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSStringClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSStringClass) Alloc() NSString {
 	rv := objc.Send[NSString](objc.ID(nc.class), objc.Sel("alloc"))
@@ -3518,6 +3523,7 @@ func (s NSString) DrawInRectWithAttributes(rect corefoundation.CGRect, attrs INS
 // [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/draw(with:options:attributes:context:)
+// context is a [appkit.NSStringDrawingContext].
 func (s NSString) DrawWithRectOptionsAttributesContext(rect corefoundation.CGRect, options NSStringDrawingOptions, attributes INSDictionary, context objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("drawWithRect:options:attributes:context:"), rect, options, attributes, context)
 }
@@ -3565,6 +3571,7 @@ func (s NSString) DrawWithRectOptionsAttributesContext(rect corefoundation.CGRec
 // [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/boundingRect(with:options:attributes:context:)
+// context is a [appkit.NSStringDrawingContext].
 func (s NSString) BoundingRectWithSizeOptionsAttributesContext(size corefoundation.CGSize, options NSStringDrawingOptions, attributes INSDictionary, context objectivec.IObject) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](s.ID, objc.Sel("boundingRectWithSize:options:attributes:context:"), size, options, attributes, context)
 	return corefoundation.CGRect(rv)
@@ -4219,8 +4226,7 @@ func (s NSString) ItemProviderVisibilityForRepresentationWithTypeIdentifier(type
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (s NSString) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }

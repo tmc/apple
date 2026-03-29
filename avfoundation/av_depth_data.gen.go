@@ -33,6 +33,11 @@ type AVDepthDataClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVDepthDataClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVDepthDataClass) Alloc() AVDepthData {
 	rv := objc.Send[AVDepthData](objc.ID(ac.class), objc.Sel("alloc"))
@@ -295,6 +300,7 @@ func (d AVDepthData) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType
 // [CGImagePropertyOrientation.up]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation/up
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/applyingExifOrientation(_:)
+// exifOrientation is a [imageio.CGImagePropertyOrientation].
 func (d AVDepthData) DepthDataByApplyingExifOrientation(exifOrientation objectivec.IObject) IAVDepthData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("depthDataByApplyingExifOrientation:"), exifOrientation)
 	return AVDepthDataFromID(rv)

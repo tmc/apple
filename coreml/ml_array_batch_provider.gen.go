@@ -32,6 +32,11 @@ type MLArrayBatchProviderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLArrayBatchProviderClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLArrayBatchProviderClass) Alloc() MLArrayBatchProvider {
 	rv := objc.Send[MLArrayBatchProvider](objc.ID(mc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type NSUniqueIDSpecifierClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSUniqueIDSpecifierClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSUniqueIDSpecifierClass) Alloc() NSUniqueIDSpecifier {
 	rv := objc.Send[NSUniqueIDSpecifier](objc.ID(nc.class), objc.Sel("alloc"))

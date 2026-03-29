@@ -31,6 +31,11 @@ type NSPreviewRepresentingActivityItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPreviewRepresentingActivityItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPreviewRepresentingActivityItemClass) Alloc() NSPreviewRepresentingActivityItem {
 	rv := objc.Send[NSPreviewRepresentingActivityItem](objc.ID(nc.class), objc.Sel("alloc"))

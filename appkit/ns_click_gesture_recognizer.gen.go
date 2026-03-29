@@ -31,6 +31,11 @@ type NSClickGestureRecognizerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSClickGestureRecognizerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSClickGestureRecognizerClass) Alloc() NSClickGestureRecognizer {
 	rv := objc.Send[NSClickGestureRecognizer](objc.ID(nc.class), objc.Sel("alloc"))

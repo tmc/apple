@@ -30,6 +30,11 @@ type MTLPipelineBufferDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLPipelineBufferDescriptorClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLPipelineBufferDescriptorClass) Alloc() MTLPipelineBufferDescriptor {
 	rv := objc.Send[MTLPipelineBufferDescriptor](objc.ID(mc.class), objc.Sel("alloc"))

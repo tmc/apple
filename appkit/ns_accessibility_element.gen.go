@@ -33,6 +33,11 @@ type NSAccessibilityElementClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAccessibilityElementClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAccessibilityElementClass) Alloc() NSAccessibilityElement {
 	rv := objc.Send[NSAccessibilityElement](objc.ID(nc.class), objc.Sel("alloc"))
@@ -104,7 +109,6 @@ func NSAccessibilityElementFromID(id objc.ID) NSAccessibilityElement {
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElement-swift.class
 type INSAccessibilityElement interface {
 	objectivec.IObject
-	NSAccessibilityProtocol
 
 	// Topic: Supporting the Accessibility Hierarchy
 

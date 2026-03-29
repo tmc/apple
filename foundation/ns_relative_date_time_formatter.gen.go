@@ -29,6 +29,11 @@ type RelativeDateTimeFormatterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (rc RelativeDateTimeFormatterClass) Class() objc.Class {
+	return rc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (rc RelativeDateTimeFormatterClass) Alloc() RelativeDateTimeFormatter {
 	rv := objc.Send[RelativeDateTimeFormatter](objc.ID(rc.class), objc.Sel("alloc"))

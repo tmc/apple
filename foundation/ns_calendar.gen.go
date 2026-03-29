@@ -31,6 +31,11 @@ type NSCalendarClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCalendarClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCalendarClass) Alloc() NSCalendar {
 	rv := objc.Send[NSCalendar](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1188,8 +1193,7 @@ func (c NSCalendar) StartOfDayForDate(date INSDate) INSDate {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar/enumerateDates(startingAfter:matching:options:using:)
 func (c NSCalendar) EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block DateHandler) {
-_block3, _cleanup3 := NewDateBlock(block)
-	defer _cleanup3()
+_block3, _ := NewDateBlock(block)
 	objc.Send[objc.ID](c.ID, objc.Sel("enumerateDatesStartingAfterDate:matchingComponents:options:usingBlock:"), start, comps, opts, _block3)
 }
 // Returns the next date after a given date matching the given components.

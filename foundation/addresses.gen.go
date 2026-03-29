@@ -30,6 +30,11 @@ type AddressesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AddressesClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AddressesClass) Alloc() Addresses {
 	rv := objc.Send[Addresses](objc.ID(ac.class), objc.Sel("alloc"))

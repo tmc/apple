@@ -31,6 +31,11 @@ type NSResponderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSResponderClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSResponderClass) Alloc() NSResponder {
 	rv := objc.Send[NSResponder](objc.ID(nc.class), objc.Sel("alloc"))

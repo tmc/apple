@@ -31,6 +31,11 @@ type AVAssetTrackGroupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetTrackGroupClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetTrackGroupClass) Alloc() AVAssetTrackGroup {
 	rv := objc.Send[AVAssetTrackGroup](objc.ID(ac.class), objc.Sel("alloc"))

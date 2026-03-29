@@ -30,6 +30,11 @@ type NSBackgroundActivitySchedulerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSBackgroundActivitySchedulerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivityScheduler {
 	rv := objc.Send[NSBackgroundActivityScheduler](objc.ID(nc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type URLSessionDownloadTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLSessionDownloadTaskClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLSessionDownloadTaskClass) Alloc() URLSessionDownloadTask {
 	rv := objc.Send[URLSessionDownloadTask](objc.ID(uc.class), objc.Sel("alloc"))
@@ -154,8 +159,7 @@ func NewURLSessionDownloadTask() URLSessionDownloadTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDownloadTask/cancel(byProducingResumeData:)
 func (u URLSessionDownloadTask) CancelByProducingResumeData(completionHandler DataHandler) {
-_block0, _cleanup0 := NewDataBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewDataBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("cancelByProducingResumeData:"), _block0)
 }
 

@@ -33,6 +33,11 @@ type NSAttributedStringClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAttributedStringClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 	rv := objc.Send[NSAttributedString](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1610,8 +1615,7 @@ func (a NSAttributedString) AttributeAtIndexLongestEffectiveRangeInRange(attrNam
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/enumerateAttribute(_:in:options:using:)
 func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block ObjectHandler) {
-_block3, _cleanup3 := NewObjectBlock(block)
-	defer _cleanup3()
+_block3, _ := NewObjectBlock(block)
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateAttribute:inRange:options:usingBlock:"), objc.String(string(attrName)), enumerationRange, opts, _block3)
 }
 // Returns a Boolean value that indicates whether the attributed string is
@@ -1802,6 +1806,7 @@ func (a NSAttributedString) AttributedStringByInflectingString() INSAttributedSt
 // Returns the index within the list.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/itemNumber(in:at:)
+// list is a [appkit.NSTextList].
 func (a NSAttributedString) ItemNumberInTextListAtIndex(list objectivec.IObject, location uint) int {
 	rv := objc.Send[int](a.ID, objc.Sel("itemNumberInTextList:atIndex:"), list, location)
 	return rv
@@ -1820,6 +1825,7 @@ func (a NSAttributedString) ItemNumberInTextListAtIndex(list objectivec.IObject,
 // The range of the text block containing the location.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-1wrcp
+// block is a [appkit.NSTextBlock].
 func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, location uint) NSRange {
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextBlock:atIndex:"), block, location)
 	return NSRange(rv)
@@ -1838,6 +1844,7 @@ func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, lo
 // The range of the given text list containing the location.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-6um0x
+// list is a [appkit.NSTextList].
 func (a NSAttributedString) RangeOfTextListAtIndex(list objectivec.IObject, location uint) NSRange {
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextList:atIndex:"), list, location)
 	return NSRange(rv)
@@ -1856,6 +1863,7 @@ func (a NSAttributedString) RangeOfTextListAtIndex(list objectivec.IObject, loca
 // Returns the range of `table` that contains `location`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/range(of:at:)-3fevu
+// table is a [appkit.NSTextTable].
 func (a NSAttributedString) RangeOfTextTableAtIndex(table objectivec.IObject, location uint) NSRange {
 	rv := objc.Send[NSRange](a.ID, objc.Sel("rangeOfTextTable:atIndex:"), table, location)
 	return NSRange(rv)
@@ -1965,6 +1973,7 @@ func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 // [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/draw(with:options:context:)
+// context is a [appkit.NSStringDrawingContext].
 func (a NSAttributedString) DrawWithRectOptionsContext(rect corefoundation.CGRect, options NSStringDrawingOptions, context objectivec.IObject) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawWithRect:options:context:"), rect, options, context)
 }
@@ -2036,6 +2045,7 @@ func (a NSAttributedString) Size() corefoundation.CGSize {
 // [usesLineFragmentOrigin]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions/usesLineFragmentOrigin
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/boundingRect(with:options:context:)
+// context is a [appkit.NSStringDrawingContext].
 func (a NSAttributedString) BoundingRectWithSizeOptionsContext(size corefoundation.CGSize, options NSStringDrawingOptions, context objectivec.IObject) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](a.ID, objc.Sel("boundingRectWithSize:options:context:"), size, options, context)
 	return corefoundation.CGRect(rv)
@@ -2687,8 +2697,7 @@ func (a NSAttributedString) ItemProviderVisibilityForRepresentationWithTypeIdent
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (a NSAttributedString) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-_block1, _cleanup1 := NewDataErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewDataErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
@@ -2705,10 +2714,12 @@ _block1, _cleanup1 := NewDataErrorBlock(completionHandler)
 //
 // completionHandler: A completion handler to execute with the results.
 //
+// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(data:options:completionHandler:)
+// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOptionsCompletionHandler(data INSData, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, _block2)
 }
 // Creates an attributed string by converting the content of a local HTML file
@@ -2723,10 +2734,12 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 //
 // completionHandler: A completion handler to execute with the results.
 //
+// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(fileURL:options:completionHandler:)
+// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLOptionsCompletionHandler(fileURL INSURL, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, _block2)
 }
 // Creates an attributed string by converting the contents of the specified
@@ -2741,10 +2754,12 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 //
 // completionHandler: A completion handler to execute with the results.
 //
+// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(request:options:completionHandler:)
+// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestOptionsCompletionHandler(request INSURLRequest, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, _block2)
 }
 // Creates an attributed string from the specified HTML string.
@@ -2758,10 +2773,12 @@ _block2, _cleanup2 := NewErrorBlock(completionHandler)
 //
 // completionHandler: A completion handler to execute with the results.
 //
+// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(string:options:completionHandler:)
+// completionHandler is a [foundation.NSAttributedStringCompletionHandler].
 func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithStringOptionsCompletionHandler(string_ string, options INSDictionary, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, _block2)
 }
 // Creates an attributed string by substituting arguments into a specially

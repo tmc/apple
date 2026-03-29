@@ -31,6 +31,11 @@ type AVCaptionRegionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptionRegionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptionRegionClass) Alloc() AVCaptionRegion {
 	rv := objc.Send[AVCaptionRegion](objc.ID(ac.class), objc.Sel("alloc"))

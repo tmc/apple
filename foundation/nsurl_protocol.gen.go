@@ -30,6 +30,11 @@ type URLProtocolClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLProtocolClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLProtocolClass) Alloc() URLProtocol {
 	rv := objc.Send[URLProtocol](objc.ID(uc.class), objc.Sel("alloc"))

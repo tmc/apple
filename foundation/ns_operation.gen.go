@@ -30,6 +30,11 @@ type OperationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (oc OperationClass) Class() objc.Class {
+	return oc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (oc OperationClass) Alloc() Operation {
 	rv := objc.Send[Operation](objc.ID(oc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type NSLayoutConstraintClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSLayoutConstraintClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSLayoutConstraintClass) Alloc() NSLayoutConstraint {
 	rv := objc.Send[NSLayoutConstraint](objc.ID(nc.class), objc.Sel("alloc"))

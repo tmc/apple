@@ -31,6 +31,11 @@ type NSAccessibilityCustomRotorItemResultClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAccessibilityCustomRotorItemResultClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAccessibilityCustomRotorItemResultClass) Alloc() NSAccessibilityCustomRotorItemResult {
 	rv := objc.Send[NSAccessibilityCustomRotorItemResult](objc.ID(nc.class), objc.Sel("alloc"))

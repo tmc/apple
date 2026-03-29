@@ -30,6 +30,11 @@ type VZMacOSConfigurationRequirementsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMacOSConfigurationRequirementsClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSConfigurationRequirementsClass) Alloc() VZMacOSConfigurationRequirements {
 	rv := objc.Send[VZMacOSConfigurationRequirements](objc.ID(vc.class), objc.Sel("alloc"))

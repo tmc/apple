@@ -31,6 +31,11 @@ type NSEPSImageRepClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSEPSImageRepClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSEPSImageRepClass) Alloc() NSEPSImageRep {
 	rv := objc.Send[NSEPSImageRep](objc.ID(nc.class), objc.Sel("alloc"))

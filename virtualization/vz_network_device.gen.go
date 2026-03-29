@@ -30,6 +30,11 @@ type VZNetworkDeviceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZNetworkDeviceClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZNetworkDeviceClass) Alloc() VZNetworkDevice {
 	rv := objc.Send[VZNetworkDevice](objc.ID(vc.class), objc.Sel("alloc"))

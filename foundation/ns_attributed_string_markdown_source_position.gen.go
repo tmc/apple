@@ -30,6 +30,11 @@ type NSAttributedStringMarkdownSourcePositionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAttributedStringMarkdownSourcePositionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAttributedStringMarkdownSourcePositionClass) Alloc() NSAttributedStringMarkdownSourcePosition {
 	rv := objc.Send[NSAttributedStringMarkdownSourcePosition](objc.ID(nc.class), objc.Sel("alloc"))

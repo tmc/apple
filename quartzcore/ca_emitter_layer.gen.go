@@ -32,6 +32,11 @@ type CAEmitterLayerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAEmitterLayerClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAEmitterLayerClass) Alloc() CAEmitterLayer {
 	rv := objc.Send[CAEmitterLayer](objc.ID(cc.class), objc.Sel("alloc"))

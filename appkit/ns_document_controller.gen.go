@@ -33,6 +33,11 @@ type NSDocumentControllerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDocumentControllerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDocumentControllerClass) Alloc() NSDocumentController {
 	rv := objc.Send[NSDocumentController](objc.ID(nc.class), objc.Sel("alloc"))
@@ -539,8 +544,7 @@ func (d NSDocumentController) DuplicateDocumentWithContentsOfURLCopyingDisplayNa
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/openDocument(withContentsOf:display:completionHandler:)
 func (d NSDocumentController) OpenDocumentWithContentsOfURLDisplayCompletionHandler(url foundation.INSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
-_block2, _cleanup2 := NewDocumentErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewDocumentErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("openDocumentWithContentsOfURL:display:completionHandler:"), url, displayDocument, _block2)
 }
 // Creates a new untitled document, presents its user interface if
@@ -731,8 +735,7 @@ func (d NSDocumentController) MakeUntitledDocumentOfTypeError(typeName string) (
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/reopenDocument(for:withContentsOf:display:completionHandler:)
 func (d NSDocumentController) ReopenDocumentForURLWithContentsOfURLDisplayCompletionHandler(urlOrNil foundation.INSURL, contentsURL foundation.INSURL, displayDocument bool, completionHandler DocumentErrorHandler) {
-_block3, _cleanup3 := NewDocumentErrorBlock(completionHandler)
-	defer _cleanup3()
+_block3, _ := NewDocumentErrorBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("reopenDocumentForURL:withContentsOfURL:display:completionHandler:"), urlOrNil, contentsURL, displayDocument, _block3)
 }
 // Adds the given document to the list of open documents.
@@ -976,8 +979,7 @@ func (d NSDocumentController) SaveAllDocuments(sender objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocumentController/beginOpenPanel(_:forTypes:completionHandler:)
 func (d NSDocumentController) BeginOpenPanelForTypesCompletionHandler(openPanel INSOpenPanel, inTypes []string, completionHandler IntHandler) {
-_block2, _cleanup2 := NewIntBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewIntBlock(completionHandler)
 	objc.Send[objc.ID](d.ID, objc.Sel("beginOpenPanel:forTypes:completionHandler:"), openPanel, inTypes, _block2)
 }
 // Presents a modal Open dialog and limits selection to specific file types.
@@ -1271,8 +1273,7 @@ func (d NSDocumentController) EncodeWithCoder(coder foundation.INSCoder) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowRestoration/restoreWindow(withIdentifier:state:completionHandler:)
 func (_NSDocumentControllerClass NSDocumentControllerClass) RestoreWindowWithIdentifierStateCompletionHandler(identifier NSUserInterfaceItemIdentifier, state foundation.INSCoder, completionHandler WindowErrorHandler) {
-_block2, _cleanup2 := NewWindowErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewWindowErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSDocumentControllerClass.class), objc.Sel("restoreWindowWithIdentifier:state:completionHandler:"), identifier, state, _block2)
 }
 

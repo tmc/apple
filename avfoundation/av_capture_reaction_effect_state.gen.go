@@ -31,6 +31,11 @@ type AVCaptureReactionEffectStateClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureReactionEffectStateClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureReactionEffectStateClass) Alloc() AVCaptureReactionEffectState {
 	rv := objc.Send[AVCaptureReactionEffectState](objc.ID(ac.class), objc.Sel("alloc"))
@@ -91,9 +96,9 @@ type IAVCaptureReactionEffectState interface {
 	// The type of reaction.
 	ReactionType() AVCaptureReactionType
 	// The presentation time of the first frame where the system renders the effect.
-	StartTime() objectivec.IObject
+	StartTime() uintptr
 	// The presentation time of the first frame following the end of a reaction effect.
-	EndTime() objectivec.IObject
+	EndTime() uintptr
 
 	// A set of reactions types that a device supports performing.
 	AvailableReactionTypes() AVCaptureReactionType
@@ -142,9 +147,9 @@ func (c AVCaptureReactionEffectState) ReactionType() AVCaptureReactionType {
 // effect.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureReactionEffectState/startTime
-func (c AVCaptureReactionEffectState) StartTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("startTime"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureReactionEffectState) StartTime() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("startTime"))
+	return rv
 }
 // The presentation time of the first frame following the end of a reaction
 // effect.
@@ -158,9 +163,9 @@ func (c AVCaptureReactionEffectState) StartTime() objectivec.IObject {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureReactionEffectState/endTime
-func (c AVCaptureReactionEffectState) EndTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("endTime"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureReactionEffectState) EndTime() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("endTime"))
+	return rv
 }
 // A set of reactions types that a device supports performing.
 //

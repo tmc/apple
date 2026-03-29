@@ -33,6 +33,11 @@ type NSCellClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCellClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCellClass) Alloc() NSCell {
 	rv := objc.Send[NSCell](objc.ID(nc.class), objc.Sel("alloc"))
@@ -513,8 +518,6 @@ func NSCellFromID(id objc.ID) NSCell {
 // See: https://developer.apple.com/documentation/AppKit/NSCell
 type INSCell interface {
 	objectivec.IObject
-	NSAccessibilityElementProtocol
-	NSAccessibilityProtocol
 	NSUserInterfaceItemIdentification
 
 	// Topic: Initializing a Cell

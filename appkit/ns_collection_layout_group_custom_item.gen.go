@@ -31,6 +31,11 @@ type NSCollectionLayoutGroupCustomItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSCollectionLayoutGroupCustomItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSCollectionLayoutGroupCustomItemClass) Alloc() NSCollectionLayoutGroupCustomItem {
 	rv := objc.Send[NSCollectionLayoutGroupCustomItem](objc.ID(nc.class), objc.Sel("alloc"))

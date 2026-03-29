@@ -33,6 +33,11 @@ type NSTextLayoutManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextLayoutManagerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextLayoutManagerClass) Alloc() NSTextLayoutManager {
 	rv := objc.Send[NSTextLayoutManager](objc.ID(nc.class), objc.Sel("alloc"))
@@ -355,8 +360,7 @@ func (t NSTextLayoutManager) InitWithCoder(coder foundation.INSCoder) NSTextLayo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/enumerateTextSegments(in:type:options:using:)
 func (t NSTextLayoutManager) EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block CGRectTextContainerHandler) {
-_block3, _cleanup3 := NewCGRectTextContainerBlock(block)
-	defer _cleanup3()
+_block3, _ := NewCGRectTextContainerBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextSegmentsInRange:type:options:usingBlock:"), textRange, type_, options, _block3)
 }
 // Replaces the current text content manager with a new one you provide.
@@ -431,8 +435,7 @@ func (t NSTextLayoutManager) AddRenderingAttributeValueForTextRange(renderingAtt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/enumerateRenderingAttributes(from:reverse:using:)
 func (t NSTextLayoutManager) EnumerateRenderingAttributesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block VoidHandler) {
-_block2, _cleanup2 := NewVoidBlock(block)
-	defer _cleanup2()
+_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateRenderingAttributesFromLocation:reverse:usingBlock:"), location, reverse, _block2)
 }
 // Returns a dictionary of rendering attributes for rendering a link.
@@ -579,8 +582,7 @@ func (t NSTextLayoutManager) EnsureLayoutForRange(range_ INSTextRange) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/enumerateTextLayoutFragments(from:options:using:)
 func (t NSTextLayoutManager) EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock(location NSTextLocation, options NSTextLayoutFragmentEnumerationOptions, block TextLayoutFragmentHandler) NSTextLocation {
-_block2, _cleanup2 := NewTextLayoutFragmentBlock(block)
-	defer _cleanup2()
+_block2, _ := NewTextLayoutFragmentBlock(block)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextLayoutFragmentsFromLocation:options:usingBlock:"), location, options, _block2)
 	return NSTextLocationObjectFromID(rv)
 }
@@ -617,8 +619,7 @@ func (t NSTextLayoutManager) BaseWritingDirectionAtLocation(location NSTextLocat
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
 func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block NSTextLocationHandler) {
-_block1, _cleanup1 := NewNSTextLocationBlock(block)
-	defer _cleanup1()
+_block1, _ := NewNSTextLocationBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateCaretOffsetsInLineFragmentAtLocation:usingBlock:"), location, _block1)
 }
 // Enumerates all the container boundaries starting from the location you
@@ -640,8 +641,7 @@ _block1, _cleanup1 := NewNSTextLocationBlock(block)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateContainerBoundaries(from:reverse:using:)
 func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block NSTextLocationHandler) {
-_block2, _cleanup2 := NewNSTextLocationBlock(block)
-	defer _cleanup2()
+_block2, _ := NewNSTextLocationBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, _block2)
 }
 // Returns the range of the line fragment that contains the point you specify.

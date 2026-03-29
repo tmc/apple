@@ -31,6 +31,11 @@ type AVMutableCompositionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMutableCompositionClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMutableCompositionClass) Alloc() AVMutableComposition {
 	rv := objc.Send[AVMutableComposition](objc.ID(ac.class), objc.Sel("alloc"))
@@ -101,11 +106,11 @@ type IAVMutableComposition interface {
 	// Topic: Managing time ranges
 
 	// Removes a specified time range from all tracks of the composition.
-	RemoveTimeRange(timeRange objectivec.IObject)
+	RemoveTimeRange(timeRange uintptr)
 	// Changes the duration of all tracks in a given time range.
-	ScaleTimeRangeToDuration(timeRange objectivec.IObject, duration objectivec.IObject)
+	ScaleTimeRangeToDuration(timeRange uintptr, duration uintptr)
 	// Adds or extends an empty time range within all tracks of the composition.
-	InsertEmptyTimeRange(timeRange objectivec.IObject)
+	InsertEmptyTimeRange(timeRange uintptr)
 
 	// Adds a group of empty tracks associated with a cinematic asset to a mutable composition.
 	AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo objectivec.IObject, preferredStartingTrackID int32) objectivec.IObject
@@ -218,8 +223,6 @@ func (m AVMutableComposition) RemoveTrack(track IAVCompositionTrack) {
 //
 // timeRange: The time range to remove.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
 // # Discussion
 // 
 // After removing, existing content after the time range moves forward in the
@@ -230,7 +233,7 @@ func (m AVMutableComposition) RemoveTrack(track IAVCompositionTrack) {
 // removes or truncates track segments that intersect with the time range.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/removeTimeRange(_:)
-func (m AVMutableComposition) RemoveTimeRange(timeRange objectivec.IObject) {
+func (m AVMutableComposition) RemoveTimeRange(timeRange uintptr) {
 	objc.Send[objc.ID](m.ID, objc.Sel("removeTimeRange:"), timeRange)
 }
 // Changes the duration of all tracks in a given time range.
@@ -239,10 +242,6 @@ func (m AVMutableComposition) RemoveTimeRange(timeRange objectivec.IObject) {
 //
 // duration: The new time range duration.
 //
-// timeRange is a [coremedia.CMTimeRange].
-//
-// duration is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // A composition presents each track segment affected by the scaling operation
@@ -250,14 +249,12 @@ func (m AVMutableComposition) RemoveTimeRange(timeRange objectivec.IObject) {
 // time mapping.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/scaleTimeRange(_:toDuration:)
-func (m AVMutableComposition) ScaleTimeRangeToDuration(timeRange objectivec.IObject, duration objectivec.IObject) {
+func (m AVMutableComposition) ScaleTimeRangeToDuration(timeRange uintptr, duration uintptr) {
 	objc.Send[objc.ID](m.ID, objc.Sel("scaleTimeRange:toDuration:"), timeRange, duration)
 }
 // Adds or extends an empty time range within all tracks of the composition.
 //
 // timeRange: The empty time range to insert.
-//
-// timeRange is a [coremedia.CMTimeRange].
 //
 // # Discussion
 // 
@@ -266,7 +263,7 @@ func (m AVMutableComposition) ScaleTimeRangeToDuration(timeRange objectivec.IObj
 // composition for a subsequently created track to present its media.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/insertEmptyTimeRange(_:)
-func (m AVMutableComposition) InsertEmptyTimeRange(timeRange objectivec.IObject) {
+func (m AVMutableComposition) InsertEmptyTimeRange(timeRange uintptr) {
 	objc.Send[objc.ID](m.ID, objc.Sel("insertEmptyTimeRange:"), timeRange)
 }
 // Adds a group of empty tracks associated with a cinematic asset to a mutable
@@ -281,6 +278,7 @@ func (m AVMutableComposition) InsertEmptyTimeRange(timeRange objectivec.IObject)
 // range of cinematic asset you’d like in the composition.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/addTracksForCinematicAssetInfo:preferredStartingTrackID:
+// assetInfo is a [cinematic.CNAssetInfo].
 func (m AVMutableComposition) AddTracksForCinematicAssetInfoPreferredStartingTrackID(assetInfo objectivec.IObject, preferredStartingTrackID int32) objectivec.IObject {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("addTracksForCinematicAssetInfo:preferredStartingTrackID:"), assetInfo, preferredStartingTrackID)
 	return objectivec.Object{ID: rv}

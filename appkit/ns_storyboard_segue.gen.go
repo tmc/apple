@@ -32,6 +32,11 @@ type NSStoryboardSegueClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSStoryboardSegueClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSStoryboardSegueClass) Alloc() NSStoryboardSegue {
 	rv := objc.Send[NSStoryboardSegue](objc.ID(nc.class), objc.Sel("alloc"))
@@ -244,8 +249,7 @@ func (s NSStoryboardSegue) Perform() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboardSegue/init(identifier:source:destination:performHandler:)
 func (_NSStoryboardSegueClass NSStoryboardSegueClass) SegueWithIdentifierSourceDestinationPerformHandler(identifier NSStoryboardSegueIdentifier, sourceController objectivec.IObject, destinationController objectivec.IObject, performHandler VoidHandler) NSStoryboardSegue {
-_block3, _cleanup3 := NewVoidBlock(performHandler)
-	defer _cleanup3()
+_block3, _ := NewVoidBlock(performHandler)
 	rv := objc.Send[objc.ID](objc.ID(_NSStoryboardSegueClass.class), objc.Sel("segueWithIdentifier:source:destination:performHandler:"), identifier, sourceController, destinationController, _block3)
 	return NSStoryboardSegueFromID(rv)
 }

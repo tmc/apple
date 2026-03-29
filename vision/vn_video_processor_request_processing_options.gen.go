@@ -30,6 +30,11 @@ type VNVideoProcessorRequestProcessingOptionsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNVideoProcessorRequestProcessingOptionsClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNVideoProcessorRequestProcessingOptionsClass) Alloc() VNVideoProcessorRequestProcessingOptions {
 	rv := objc.Send[VNVideoProcessorRequestProcessingOptions](objc.ID(vc.class), objc.Sel("alloc"))

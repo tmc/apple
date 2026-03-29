@@ -31,6 +31,11 @@ type URLSessionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLSessionClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLSessionClass) Alloc() URLSession {
 	rv := objc.Send[URLSession](objc.ID(uc.class), objc.Sel("alloc"))
@@ -537,8 +542,7 @@ func (u URLSession) DataTaskWithURL(url INSURL) INSURLSessionDataTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/dataTask(with:completionHandler:)-52wk8
 func (u URLSession) DataTaskWithURLCompletionHandler(url INSURL, completionHandler DataURLResponseErrorHandler) INSURLSessionDataTask {
-_block1, _cleanup1 := NewDataURLResponseErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataTaskWithURL:completionHandler:"), url, _block1)
 	return NSURLSessionDataTaskFromID(rv)
 }
@@ -616,8 +620,7 @@ func (u URLSession) DataTaskWithRequest(request INSURLRequest) INSURLSessionData
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/dataTask(with:completionHandler:)-e6xv
 func (u URLSession) DataTaskWithRequestCompletionHandler(request INSURLRequest, completionHandler DataURLResponseErrorHandler) INSURLSessionDataTask {
-_block1, _cleanup1 := NewDataURLResponseErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("dataTaskWithRequest:completionHandler:"), request, _block1)
 	return NSURLSessionDataTaskFromID(rv)
 }
@@ -694,8 +697,7 @@ func (u URLSession) DownloadTaskWithURL(url INSURL) INSURLSessionDownloadTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/downloadTask(with:completionHandler:)-7cuje
 func (u URLSession) DownloadTaskWithURLCompletionHandler(url INSURL, completionHandler URLURLResponseErrorHandler) INSURLSessionDownloadTask {
-_block1, _cleanup1 := NewURLURLResponseErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewURLURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithURL:completionHandler:"), url, _block1)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
@@ -779,8 +781,7 @@ func (u URLSession) DownloadTaskWithRequest(request INSURLRequest) INSURLSession
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/downloadTask(with:completionHandler:)-4a84s
 func (u URLSession) DownloadTaskWithRequestCompletionHandler(request INSURLRequest, completionHandler URLURLResponseErrorHandler) INSURLSessionDownloadTask {
-_block1, _cleanup1 := NewURLURLResponseErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewURLURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithRequest:completionHandler:"), request, _block1)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
@@ -868,8 +869,7 @@ func (u URLSession) DownloadTaskWithResumeData(resumeData INSData) INSURLSession
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/downloadTask(withResumeData:completionHandler:)
 func (u URLSession) DownloadTaskWithResumeDataCompletionHandler(resumeData INSData, completionHandler URLURLResponseErrorHandler) INSURLSessionDownloadTask {
-_block1, _cleanup1 := NewURLURLResponseErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewURLURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("downloadTaskWithResumeData:completionHandler:"), resumeData, _block1)
 	return NSURLSessionDownloadTaskFromID(rv)
 }
@@ -963,8 +963,7 @@ func (u URLSession) UploadTaskWithRequestFromData(request INSURLRequest, bodyDat
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/uploadTask(with:from:completionHandler:)
 func (u URLSession) UploadTaskWithRequestFromDataCompletionHandler(request INSURLRequest, bodyData INSData, completionHandler DataURLResponseErrorHandler) INSURLSessionUploadTask {
-_block2, _cleanup2 := NewDataURLResponseErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithRequest:fromData:completionHandler:"), request, bodyData, _block2)
 	return NSURLSessionUploadTaskFromID(rv)
 }
@@ -1058,8 +1057,7 @@ func (u URLSession) UploadTaskWithRequestFromFile(request INSURLRequest, fileURL
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/uploadTask(with:fromFile:completionHandler:)
 func (u URLSession) UploadTaskWithRequestFromFileCompletionHandler(request INSURLRequest, fileURL INSURL, completionHandler DataURLResponseErrorHandler) INSURLSessionUploadTask {
-_block2, _cleanup2 := NewDataURLResponseErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithRequest:fromFile:completionHandler:"), request, fileURL, _block2)
 	return NSURLSessionUploadTaskFromID(rv)
 }
@@ -1127,8 +1125,7 @@ func (u URLSession) UploadTaskWithResumeData(resumeData INSData) INSURLSessionUp
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/uploadTask(withResumeData:completionHandler:)
 func (u URLSession) UploadTaskWithResumeDataCompletionHandler(resumeData INSData, completionHandler DataURLResponseErrorHandler) INSURLSessionUploadTask {
-_block1, _cleanup1 := NewDataURLResponseErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewDataURLResponseErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("uploadTaskWithResumeData:completionHandler:"), resumeData, _block1)
 	return NSURLSessionUploadTaskFromID(rv)
 }
@@ -1227,8 +1224,7 @@ func (u URLSession) FinishTasksAndInvalidate() {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/flush(completionHandler:)
 func (u URLSession) FlushWithCompletionHandler(completionHandler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("flushWithCompletionHandler:"), _block0)
 }
 // Asynchronously calls a completion callback with all data, upload, and
@@ -1245,8 +1241,7 @@ _block0, _cleanup0 := NewVoidBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/getTasksWithCompletionHandler(_:)
 func (u URLSession) GetTasksWithCompletionHandler(completionHandler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("getTasksWithCompletionHandler:"), _block0)
 }
 // Cancels all outstanding tasks and then invalidates the session.
@@ -1272,8 +1267,7 @@ func (u URLSession) InvalidateAndCancel() {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/reset(completionHandler:)
 func (u URLSession) ResetWithCompletionHandler(completionHandler VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("resetWithCompletionHandler:"), _block0)
 }
 

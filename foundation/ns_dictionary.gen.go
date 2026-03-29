@@ -33,6 +33,11 @@ type NSDictionaryClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDictionaryClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDictionaryClass) Alloc() NSDictionary {
 	rv := objc.Send[NSDictionary](objc.ID(nc.class), objc.Sel("alloc"))
@@ -921,8 +926,7 @@ func (d NSDictionary) ObjectEnumerator() INSEnumerator {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/enumerateKeysAndObjects(_:)
 func (d NSDictionary) EnumerateKeysAndObjectsUsingBlock(block KeyTypeHandler) {
-_block0, _cleanup0 := NewKeyTypeBlock(block)
-	defer _cleanup0()
+_block0, _ := NewKeyTypeBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsUsingBlock:"), _block0)
 }
 // Applies a given block object to the entries of the dictionary, with options
@@ -940,8 +944,7 @@ _block0, _cleanup0 := NewKeyTypeBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/enumerateKeysAndObjects(options:using:)
 func (d NSDictionary) EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block KeyTypeHandler) {
-_block1, _cleanup1 := NewKeyTypeBlock(block)
-	defer _cleanup1()
+_block1, _ := NewKeyTypeBlock(block)
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 // Returns an array of the dictionary’s keys, in the order they would be in
@@ -1022,8 +1025,7 @@ func (d NSDictionary) KeysSortedByValueWithOptionsUsingComparator(opts NSSortOpt
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysOfEntries(passingTest:)
 func (d NSDictionary) KeysOfEntriesPassingTest(predicate KeyTypeHandler) INSSet {
-_block0, _cleanup0 := NewKeyTypeBlock(predicate)
-	defer _cleanup0()
+_block0, _ := NewKeyTypeBlock(predicate)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
@@ -1040,8 +1042,7 @@ _block0, _cleanup0 := NewKeyTypeBlock(predicate)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysOfEntries(options:passingTest:)
 func (d NSDictionary) KeysOfEntriesWithOptionsPassingTest(opts NSEnumerationOptions, predicate KeyTypeHandler) INSSet {
-_block1, _cleanup1 := NewKeyTypeBlock(predicate)
-	defer _cleanup1()
+_block1, _ := NewKeyTypeBlock(predicate)
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }

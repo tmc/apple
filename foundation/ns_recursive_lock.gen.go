@@ -30,6 +30,11 @@ type NSRecursiveLockClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSRecursiveLockClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSRecursiveLockClass) Alloc() NSRecursiveLock {
 	rv := objc.Send[NSRecursiveLock](objc.ID(nc.class), objc.Sel("alloc"))

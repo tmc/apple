@@ -30,6 +30,11 @@ type AVCaptureSystemExposureBiasSliderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureSystemExposureBiasSliderClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureSystemExposureBiasSliderClass) Alloc() AVCaptureSystemExposureBiasSlider {
 	rv := objc.Send[AVCaptureSystemExposureBiasSlider](objc.ID(ac.class), objc.Sel("alloc"))
@@ -165,8 +170,7 @@ func (c AVCaptureSystemExposureBiasSlider) InitWithDevice(device IAVCaptureDevic
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSystemExposureBiasSlider/init(device:action:)
 func (c AVCaptureSystemExposureBiasSlider) InitWithDeviceAction(device IAVCaptureDevice, action Float32Handler) AVCaptureSystemExposureBiasSlider {
-_block1, _cleanup1 := NewFloat32Block(action)
-	defer _cleanup1()
+_block1, _ := NewFloat32Block(action)
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("initWithDevice:action:"), device, _block1)
 	return AVCaptureSystemExposureBiasSliderFromID(rv)
 }

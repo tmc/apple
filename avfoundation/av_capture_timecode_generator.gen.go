@@ -31,6 +31,11 @@ type AVCaptureTimecodeGeneratorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptureTimecodeGeneratorClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptureTimecodeGeneratorClass) Alloc() AVCaptureTimecodeGenerator {
 	rv := objc.Send[AVCaptureTimecodeGenerator](objc.ID(ac.class), objc.Sel("alloc"))
@@ -144,8 +149,8 @@ type IAVCaptureTimecodeGenerator interface {
 	TimecodeAlignmentOffset() float64
 	SetTimecodeAlignmentOffset(value float64)
 	// The frame duration that the generator will use to generate timecodes.
-	TimecodeFrameDuration() objectivec.IObject
-	SetTimecodeFrameDuration(value objectivec.IObject)
+	TimecodeFrameDuration() uintptr
+	SetTimecodeFrameDuration(value uintptr)
 	// Assigns a delegate to receive real-time timecode updates and specifies a queue for callbacks.
 	SetDelegateQueue(delegate AVCaptureTimecodeGeneratorDelegate, callbackQueue dispatch.Queue)
 
@@ -302,11 +307,11 @@ func (c AVCaptureTimecodeGenerator) SetTimecodeAlignmentOffset(value float64) {
 // The frame duration that the generator will use to generate timecodes.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator/timecodeFrameDuration
-func (c AVCaptureTimecodeGenerator) TimecodeFrameDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("timecodeFrameDuration"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptureTimecodeGenerator) TimecodeFrameDuration() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("timecodeFrameDuration"))
+	return rv
 }
-func (c AVCaptureTimecodeGenerator) SetTimecodeFrameDuration(value objectivec.IObject) {
+func (c AVCaptureTimecodeGenerator) SetTimecodeFrameDuration(value uintptr) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimecodeFrameDuration:"), value)
 }
 // The delegate that receives timecode updates from the timecode generator.

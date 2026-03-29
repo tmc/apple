@@ -32,6 +32,11 @@ type NSMutableAttributedStringClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMutableAttributedStringClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMutableAttributedStringClass) Alloc() NSMutableAttributedString {
 	rv := objc.Send[NSMutableAttributedString](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1104,6 +1109,7 @@ func (m NSMutableAttributedString) RemoveAttributeRange(name NSAttributedStringK
 // [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/applyFontTraits(_:range:)
+// traitMask is a [appkit.NSFontTraitMask].
 func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("applyFontTraits:range:"), traitMask, range_)
 }
@@ -1125,6 +1131,7 @@ func (m NSMutableAttributedString) ApplyFontTraitsRange(traitMask objectivec.IOb
 // [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/setAlignment(_:range:)
+// alignment is a [appkit.NSTextAlignment].
 func (m NSMutableAttributedString) SetAlignmentRange(alignment objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setAlignment:range:"), alignment, range_)
 }
@@ -1138,6 +1145,7 @@ func (m NSMutableAttributedString) SetAlignmentRange(alignment objectivec.IObjec
 // writingDirection is a [uikit.NSWritingDirection].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/setBaseWritingDirection(_:range:)
+// writingDirection is a [uikit.NSWritingDirection].
 func (m NSMutableAttributedString) SetBaseWritingDirectionRange(writingDirection objectivec.IObject, range_ NSRange) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setBaseWritingDirection:range:"), writingDirection, range_)
 }

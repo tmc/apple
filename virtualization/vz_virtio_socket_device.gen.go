@@ -30,6 +30,11 @@ type VZVirtioSocketDeviceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZVirtioSocketDeviceClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioSocketDeviceClass) Alloc() VZVirtioSocketDevice {
 	rv := objc.Send[VZVirtioSocketDevice](objc.ID(vc.class), objc.Sel("alloc"))
@@ -167,8 +172,7 @@ func (v VZVirtioSocketDevice) RemoveSocketListenerForPort(port uint32) {
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketDevice/connect(toPort:)
 func (v VZVirtioSocketDevice) ConnectToPortCompletionHandler(port uint32, completionHandler VirtioSocketConnectionErrorHandler) {
-_block1, _cleanup1 := NewVirtioSocketConnectionErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewVirtioSocketConnectionErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("connectToPort:completionHandler:"), port, _block1)
 }
 

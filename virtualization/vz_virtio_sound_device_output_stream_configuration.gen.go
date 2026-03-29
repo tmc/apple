@@ -29,6 +29,11 @@ type VZVirtioSoundDeviceOutputStreamConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZVirtioSoundDeviceOutputStreamConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtioSoundDeviceOutputStreamConfigurationClass) Alloc() VZVirtioSoundDeviceOutputStreamConfiguration {
 	rv := objc.Send[VZVirtioSoundDeviceOutputStreamConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type ProcessInfoClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (pc ProcessInfoClass) Class() objc.Class {
+	return pc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (pc ProcessInfoClass) Alloc() ProcessInfo {
 	rv := objc.Send[ProcessInfo](objc.ID(pc.class), objc.Sel("alloc"))
@@ -636,8 +641,7 @@ func (p ProcessInfo) EndActivity(activity objectivec.Object) {
 //
 // See: https://developer.apple.com/documentation/Foundation/ProcessInfo/performActivity(options:reason:using:)
 func (p ProcessInfo) PerformActivityWithOptionsReasonUsingBlock(options NSActivityOptions, reason string, block VoidHandler) {
-_block2, _cleanup2 := NewVoidBlock(block)
-	defer _cleanup2()
+_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](p.ID, objc.Sel("performActivityWithOptions:reason:usingBlock:"), options, objc.String(reason), _block2)
 }
 

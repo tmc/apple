@@ -31,6 +31,11 @@ type VZSharedDirectoryClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZSharedDirectoryClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZSharedDirectoryClass) Alloc() VZSharedDirectory {
 	rv := objc.Send[VZSharedDirectory](objc.ID(vc.class), objc.Sel("alloc"))

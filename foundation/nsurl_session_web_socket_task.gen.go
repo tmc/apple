@@ -30,6 +30,11 @@ type URLSessionWebSocketTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc URLSessionWebSocketTaskClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc URLSessionWebSocketTaskClass) Alloc() URLSessionWebSocketTask {
 	rv := objc.Send[URLSessionWebSocketTask](objc.ID(uc.class), objc.Sel("alloc"))
@@ -184,8 +189,7 @@ func NewURLSessionWebSocketTask() URLSessionWebSocketTask {
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionWebSocketTask/sendPing(pongReceiveHandler:)
 func (u URLSessionWebSocketTask) SendPingWithPongReceiveHandler(pongReceiveHandler ErrorHandler) {
-_block0, _cleanup0 := NewErrorBlock(pongReceiveHandler)
-	defer _cleanup0()
+_block0, _ := NewErrorBlock(pongReceiveHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("sendPingWithPongReceiveHandler:"), _block0)
 }
 // Sends a close frame with the given close code and optional close reason.
@@ -220,8 +224,7 @@ func (u URLSessionWebSocketTask) CancelWithCloseCodeReason(closeCode NSURLSessio
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketTask/receiveMessageWithCompletionHandler:
 func (u URLSessionWebSocketTask) ReceiveMessageWithCompletionHandler(completionHandler URLSessionWebSocketMessageErrorHandler) {
-_block0, _cleanup0 := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
-	defer _cleanup0()
+_block0, _ := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("receiveMessageWithCompletionHandler:"), _block0)
 }
 // Sends a WebSocket message, receiving the result in a completion handler.
@@ -238,8 +241,7 @@ _block0, _cleanup0 := NewURLSessionWebSocketMessageErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLSessionWebSocketTask/sendMessage:completionHandler:
 func (u URLSessionWebSocketTask) SendMessageCompletionHandler(message INSURLSessionWebSocketMessage, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](u.ID, objc.Sel("sendMessage:completionHandler:"), message, _block1)
 }
 

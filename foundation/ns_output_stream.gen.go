@@ -30,6 +30,11 @@ type OutputStreamClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (oc OutputStreamClass) Class() objc.Class {
+	return oc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (oc OutputStreamClass) Alloc() OutputStream {
 	rv := objc.Send[OutputStream](objc.ID(oc.class), objc.Sel("alloc"))

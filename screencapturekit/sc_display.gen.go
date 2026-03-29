@@ -31,6 +31,11 @@ type SCDisplayClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCDisplayClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCDisplayClass) Alloc() SCDisplay {
 	rv := objc.Send[SCDisplay](objc.ID(sc.class), objc.Sel("alloc"))

@@ -32,6 +32,11 @@ type AVCaptionRendererClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptionRendererClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVCaptionRendererClass) Alloc() AVCaptionRenderer {
 	rv := objc.Send[AVCaptionRenderer](objc.ID(ac.class), objc.Sel("alloc"))
@@ -108,12 +113,12 @@ type IAVCaptionRenderer interface {
 	// Topic: Determining scene changes
 
 	// Determine render time ranges within an enclosing time range to account for visual changes among captions.
-	CaptionSceneChangesInRange(consideredTimeRange objectivec.IObject) []AVCaptionRendererScene
+	CaptionSceneChangesInRange(consideredTimeRange uintptr) []AVCaptionRendererScene
 
 	// Topic: Rendering a caption
 
 	// Draw the captions for the time you specify.
-	RenderInContextForTime(ctx coregraphics.CGContextRef, time objectivec.IObject)
+	RenderInContextForTime(ctx coregraphics.CGContextRef, time uintptr)
 }
 
 // Init initializes the instance.
@@ -140,15 +145,13 @@ func NewAVCaptionRenderer() AVCaptionRenderer {
 //
 // consideredTimeRange: The time range to consider for rendering.
 //
-// consideredTimeRange is a [coremedia.CMTimeRange].
-//
 // # Return Value
 // 
 // An array of render scenes for the time range, or an empty array if there
 // are none.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRenderer/captionSceneChanges(in:)
-func (c AVCaptionRenderer) CaptionSceneChangesInRange(consideredTimeRange objectivec.IObject) []AVCaptionRendererScene {
+func (c AVCaptionRenderer) CaptionSceneChangesInRange(consideredTimeRange uintptr) []AVCaptionRendererScene {
 	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("captionSceneChangesInRange:"), consideredTimeRange)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVCaptionRendererScene {
 		return AVCaptionRendererSceneFromID(id)
@@ -160,10 +163,8 @@ func (c AVCaptionRenderer) CaptionSceneChangesInRange(consideredTimeRange object
 //
 // time: The time value for which the system draws the captions.
 //
-// time is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionRenderer/render(in:for:)
-func (c AVCaptionRenderer) RenderInContextForTime(ctx coregraphics.CGContextRef, time objectivec.IObject) {
+func (c AVCaptionRenderer) RenderInContextForTime(ctx coregraphics.CGContextRef, time uintptr) {
 	objc.Send[objc.ID](c.ID, objc.Sel("renderInContext:forTime:"), ctx, time)
 }
 

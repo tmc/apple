@@ -35,6 +35,11 @@ type NSViewControllerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSViewControllerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSViewControllerClass) Alloc() NSViewController {
 	rv := objc.Send[NSViewController](objc.ID(nc.class), objc.Sel("alloc"))
@@ -854,8 +859,7 @@ func (v NSViewController) AddChildViewController(childViewController INSViewCont
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/transition(from:to:options:completionHandler:)
 func (v NSViewController) TransitionFromViewControllerToViewControllerOptionsCompletionHandler(fromViewController INSViewController, toViewController INSViewController, options NSViewControllerTransitionOptions, completion VoidHandler) {
-_block3, _cleanup3 := NewVoidBlock(completion)
-	defer _cleanup3()
+_block3, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](v.ID, objc.Sel("transitionFromViewController:toViewController:options:completionHandler:"), fromViewController, toViewController, options, _block3)
 }
 // Inserts a specified child view controller into the [ChildViewControllers]

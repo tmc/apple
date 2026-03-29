@@ -32,6 +32,11 @@ type SCWindowClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SCWindowClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SCWindowClass) Alloc() SCWindow {
 	rv := objc.Send[SCWindow](objc.ID(sc.class), objc.Sel("alloc"))

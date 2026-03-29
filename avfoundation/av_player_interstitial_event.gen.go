@@ -31,6 +31,11 @@ type AVPlayerInterstitialEventClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerInterstitialEventClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerInterstitialEventClass) Alloc() AVPlayerInterstitialEvent {
 	rv := objc.Send[AVPlayerInterstitialEvent](objc.ID(ac.class), objc.Sel("alloc"))
@@ -191,15 +196,15 @@ type IAVPlayerInterstitialEvent interface {
 	// Topic: Inspecting timing
 
 	// A time within the timeline of the primary content that playback of interstitial content begins.
-	Time() objectivec.IObject
+	Time() uintptr
 	// A date within the date range of the primary content that playback of interstitial content begins.
 	Date() foundation.INSDate
 	// A Boolean value that indicates whether to schedule this event one time only and suppress subsequent replay.
 	WillPlayOnce() bool
 	// A time offset at which playback of primary content resumes after interstitial content finishes.
-	ResumptionOffset() objectivec.IObject
+	ResumptionOffset() uintptr
 	// The time offset at which playback of the interstitial ends.
-	PlayoutLimit() objectivec.IObject
+	PlayoutLimit() uintptr
 	// A Boolean value that indicates whether the start time of interstitial playback should snap to a segment boundary of the primary asset.
 	AlignsStartWithPrimarySegmentBoundary() bool
 	// A Boolean value that indicates whether the resumption time of primary playback should snap to a segment boundary of the primary asset.
@@ -229,15 +234,15 @@ type IAVPlayerInterstitialEvent interface {
 	// A Boolean value that indicates whether an event’s content is dynamic and the server may respond with different interstitial assets for other participants in a coordinated playback session.
 	ContentMayVary() bool
 	// The planned duration of the event.
-	PlannedDuration() objectivec.IObject
-	SetPlannedDuration(value objectivec.IObject)
+	PlannedDuration() uintptr
+	SetPlannedDuration(value uintptr)
 
 	// Topic: Managing skipping behavior
 
 	// The key defined in the AVPlayerInterstitialEventController’s localizedStringsBundle that points to the localized label for the skip button.
 	SkipControlLocalizedLabelBundleKey() string
 	// The time range within the duration of the interstitial event for which a skip button should be displayed.
-	SkipControlTimeRange() objectivec.IObject
+	SkipControlTimeRange() uintptr
 }
 
 // Init initializes the instance.
@@ -286,8 +291,7 @@ func NewPlayerInterstitialEventWithPrimaryItemDate(primaryItem IAVPlayerItem, da
 // suspend playback of primary content, and play interstitial content instead.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/init(primaryItem:time:)
-// time is a [coremedia.CMTime].
-func NewPlayerInterstitialEventWithPrimaryItemTime(primaryItem IAVPlayerItem, time objectivec.IObject) AVPlayerInterstitialEvent {
+func NewPlayerInterstitialEventWithPrimaryItemTime(primaryItem IAVPlayerItem, time uintptr) AVPlayerInterstitialEvent {
 	rv := objc.Send[objc.ID](objc.ID(getAVPlayerInterstitialEventClass().class), objc.Sel("interstitialEventWithPrimaryItem:time:"), primaryItem, time)
 	return AVPlayerInterstitialEventFromID(rv)
 }
@@ -356,9 +360,9 @@ func (p AVPlayerInterstitialEvent) Cue() AVPlayerInterstitialEventCue {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/time
-func (p AVPlayerInterstitialEvent) Time() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("time"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerInterstitialEvent) Time() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("time"))
+	return rv
 }
 // A date within the date range of the primary content that playback of
 // interstitial content begins.
@@ -403,9 +407,9 @@ func (p AVPlayerInterstitialEvent) WillPlayOnce() bool {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/resumptionOffset
-func (p AVPlayerInterstitialEvent) ResumptionOffset() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("resumptionOffset"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerInterstitialEvent) ResumptionOffset() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("resumptionOffset"))
+	return rv
 }
 // The time offset at which playback of the interstitial ends.
 //
@@ -417,9 +421,9 @@ func (p AVPlayerInterstitialEvent) ResumptionOffset() objectivec.IObject {
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/playoutLimit
-func (p AVPlayerInterstitialEvent) PlayoutLimit() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("playoutLimit"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerInterstitialEvent) PlayoutLimit() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("playoutLimit"))
+	return rv
 }
 // A Boolean value that indicates whether the start time of interstitial
 // playback should snap to a segment boundary of the primary asset.
@@ -534,11 +538,11 @@ func (p AVPlayerInterstitialEvent) ContentMayVary() bool {
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/plannedDuration
-func (p AVPlayerInterstitialEvent) PlannedDuration() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("plannedDuration"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerInterstitialEvent) PlannedDuration() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("plannedDuration"))
+	return rv
 }
-func (p AVPlayerInterstitialEvent) SetPlannedDuration(value objectivec.IObject) {
+func (p AVPlayerInterstitialEvent) SetPlannedDuration(value uintptr) {
 	objc.Send[struct{}](p.ID, objc.Sel("setPlannedDuration:"), value)
 }
 // The key defined in the AVPlayerInterstitialEventController’s
@@ -572,8 +576,8 @@ func (p AVPlayerInterstitialEvent) SkipControlLocalizedLabelBundleKey() string {
 // interstitial will NOT be eligible to be skipped.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerInterstitialEvent/skipControlTimeRange
-func (p AVPlayerInterstitialEvent) SkipControlTimeRange() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("skipControlTimeRange"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerInterstitialEvent) SkipControlTimeRange() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("skipControlTimeRange"))
+	return rv
 }
 

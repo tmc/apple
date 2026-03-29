@@ -3,6 +3,7 @@
 package avfoundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -28,6 +29,11 @@ func GetAVPlayerVideoOutputClass() AVPlayerVideoOutputClass {
 
 type AVPlayerVideoOutputClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerVideoOutputClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -78,7 +84,7 @@ type IAVPlayerVideoOutput interface {
 	// Creates a video output from a specification.
 	InitWithSpecification(specification IAVVideoOutputSpecification) AVPlayerVideoOutput
 
-	CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime objectivec.IObject, presentationTimeStampOut objectivec.IObject, activeConfigurationOut *AVPlayerVideoOutputConfiguration) objectivec.IObject
+	CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime uintptr, presentationTimeStampOut unsafe.Pointer, activeConfigurationOut *AVPlayerVideoOutputConfiguration) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -117,12 +123,8 @@ func (p AVPlayerVideoOutput) InitWithSpecification(specification IAVVideoOutputS
 	return rv
 }
 //
-// hostTime is a [coremedia.CMTime].
-//
-// presentationTimeStampOut is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutput/copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:
-func (p AVPlayerVideoOutput) CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime objectivec.IObject, presentationTimeStampOut objectivec.IObject, activeConfigurationOut *AVPlayerVideoOutputConfiguration) objectivec.IObject {
+func (p AVPlayerVideoOutput) CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime uintptr, presentationTimeStampOut unsafe.Pointer, activeConfigurationOut *AVPlayerVideoOutputConfiguration) objectivec.IObject {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:"), hostTime, presentationTimeStampOut, activeConfigurationOut)
 	return objectivec.Object{ID: rv}
 }

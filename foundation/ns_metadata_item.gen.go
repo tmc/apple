@@ -30,6 +30,11 @@ type NSMetadataItemClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSMetadataItemClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSMetadataItemClass) Alloc() NSMetadataItem {
 	rv := objc.Send[NSMetadataItem](objc.ID(nc.class), objc.Sel("alloc"))

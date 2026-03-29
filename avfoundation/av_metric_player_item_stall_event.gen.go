@@ -29,6 +29,11 @@ type AVMetricPlayerItemStallEventClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMetricPlayerItemStallEventClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMetricPlayerItemStallEventClass) Alloc() AVMetricPlayerItemStallEvent {
 	rv := objc.Send[AVMetricPlayerItemStallEvent](objc.ID(ac.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type RESERVEDClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (rc RESERVEDClass) Class() objc.Class {
+	return rc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (rc RESERVEDClass) Alloc() RESERVED {
 	rv := objc.Send[RESERVED](objc.ID(rc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type NotificationCenterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NotificationCenterClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NotificationCenterClass) Alloc() NotificationCenter {
 	rv := objc.Send[NotificationCenter](objc.ID(nc.class), objc.Sel("alloc"))
@@ -231,8 +236,7 @@ func NewNotificationCenter() NotificationCenter {
 //
 // See: https://developer.apple.com/documentation/Foundation/NotificationCenter/addObserver(forName:object:queue:using:)
 func (n NotificationCenter) AddObserverForNameObjectQueueUsingBlock(name NSNotificationName, obj objectivec.IObject, queue INSOperationQueue, block NotificationHandler) objectivec.Object {
-_block3, _cleanup3 := NewNotificationBlock(block)
-	defer _cleanup3()
+_block3, _ := NewNotificationBlock(block)
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("addObserverForName:object:queue:usingBlock:"), objc.String(string(name)), obj, queue, _block3)
 	return objectivec.ObjectFromID(rv)
 }

@@ -5,7 +5,6 @@ package avfoundation
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVCaptionConversionTimeRangeAdjustment] class.
@@ -28,6 +27,11 @@ func GetAVCaptionConversionTimeRangeAdjustmentClass() AVCaptionConversionTimeRan
 
 type AVCaptionConversionTimeRangeAdjustmentClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVCaptionConversionTimeRangeAdjustmentClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -73,9 +77,9 @@ type IAVCaptionConversionTimeRangeAdjustment interface {
 	// Topic: Accessing time offsets
 
 	// The time value by which the system offsets the start times of captions to correct a problem.
-	StartTimeOffset() objectivec.IObject
+	StartTimeOffset() uintptr
 	// The time value by which the system offsets the durations of captions to correct a problem.
-	DurationOffset() objectivec.IObject
+	DurationOffset() uintptr
 }
 
 // Init initializes the instance.
@@ -105,9 +109,9 @@ func NewAVCaptionConversionTimeRangeAdjustment() AVCaptionConversionTimeRangeAdj
 // The value may any numeric value, positive, negative, or zero.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionTimeRangeAdjustment/startTimeOffset
-func (c AVCaptionConversionTimeRangeAdjustment) StartTimeOffset() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("startTimeOffset"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptionConversionTimeRangeAdjustment) StartTimeOffset() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("startTimeOffset"))
+	return rv
 }
 // The time value by which the system offsets the durations of captions to
 // correct a problem.
@@ -117,8 +121,8 @@ func (c AVCaptionConversionTimeRangeAdjustment) StartTimeOffset() objectivec.IOb
 // The value may any numeric value, positive, negative, or zero.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptionConversionTimeRangeAdjustment/durationOffset
-func (c AVCaptionConversionTimeRangeAdjustment) DurationOffset() objectivec.IObject {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("durationOffset"))
-	return objectivec.Object{ID: rv}
+func (c AVCaptionConversionTimeRangeAdjustment) DurationOffset() uintptr {
+	rv := objc.Send[uintptr](c.ID, objc.Sel("durationOffset"))
+	return rv
 }
 

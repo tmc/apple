@@ -31,6 +31,11 @@ type AVAssetResourceLoadingDataRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVAssetResourceLoadingDataRequestClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVAssetResourceLoadingDataRequestClass) Alloc() AVAssetResourceLoadingDataRequest {
 	rv := objc.Send[AVAssetResourceLoadingDataRequest](objc.ID(ac.class), objc.Sel("alloc"))

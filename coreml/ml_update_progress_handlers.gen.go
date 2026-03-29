@@ -31,6 +31,11 @@ type MLUpdateProgressHandlersClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLUpdateProgressHandlersClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLUpdateProgressHandlersClass) Alloc() MLUpdateProgressHandlers {
 	rv := objc.Send[MLUpdateProgressHandlers](objc.ID(mc.class), objc.Sel("alloc"))
@@ -107,10 +112,8 @@ func NewMLUpdateProgressHandlers() MLUpdateProgressHandlers {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLUpdateProgressHandlers/init(forEvents:progressHandler:completionHandler:)
 func (u MLUpdateProgressHandlers) InitForEventsProgressHandlerCompletionHandler(interestedEvents MLUpdateProgressEvent, progressHandler MLUpdateContextHandler, completionHandler MLUpdateContextHandler) MLUpdateProgressHandlers {
-_block1, _cleanup1 := NewMLUpdateContextBlock(progressHandler)
-	defer _cleanup1()
-	_block2, _cleanup2 := NewMLUpdateContextBlock(completionHandler)
-	defer _cleanup2()
+_block1, _ := NewMLUpdateContextBlock(progressHandler)
+	_block2, _ := NewMLUpdateContextBlock(completionHandler)
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("initForEvents:progressHandler:completionHandler:"), interestedEvents, _block1, _block2)
 	return MLUpdateProgressHandlersFromID(rv)
 }

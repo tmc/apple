@@ -30,6 +30,11 @@ type NSBindingSelectionMarkerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSBindingSelectionMarkerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSBindingSelectionMarkerClass) Alloc() NSBindingSelectionMarker {
 	rv := objc.Send[NSBindingSelectionMarker](objc.ID(nc.class), objc.Sel("alloc"))

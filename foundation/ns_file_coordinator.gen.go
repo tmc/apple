@@ -31,6 +31,11 @@ type NSFileCoordinatorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSFileCoordinatorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSFileCoordinatorClass) Alloc() NSFileCoordinator {
 	rv := objc.Send[NSFileCoordinator](objc.ID(nc.class), objc.Sel("alloc"))
@@ -481,8 +486,7 @@ func (f NSFileCoordinator) InitWithFilePresenter(filePresenterOrNil NSFilePresen
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(with:queue:byAccessor:)
 func (f NSFileCoordinator) CoordinateAccessWithIntentsQueueByAccessor(intents []NSFileAccessIntent, queue INSOperationQueue, accessor ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(accessor)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(accessor)
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateAccessWithIntents:queue:byAccessor:"), intents, queue, _block2)
 }
 // Initiates a read operation on a single file or directory using the
@@ -576,8 +580,7 @@ _block2, _cleanup2 := NewErrorBlock(accessor)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(readingItemAt:options:error:byAccessor:)
 func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsErrorByAccessor(url INSURL, options NSFileCoordinatorReadingOptions, outError INSError, reader URLHandler) {
-_block3, _cleanup3 := NewURLBlock(reader)
-	defer _cleanup3()
+_block3, _ := NewURLBlock(reader)
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
 }
 // Initiates a write operation on a single file or directory using the
@@ -662,8 +665,7 @@ _block3, _cleanup3 := NewURLBlock(reader)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(writingItemAt:options:error:byAccessor:)
 func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsErrorByAccessor(url INSURL, options NSFileCoordinatorWritingOptions, outError INSError, writer URLHandler) {
-_block3, _cleanup3 := NewURLBlock(writer)
-	defer _cleanup3()
+_block3, _ := NewURLBlock(writer)
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
 }
 // Initiates a read operation that contains a follow-up write operation.
@@ -728,8 +730,7 @@ _block3, _cleanup3 := NewURLBlock(writer)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(readingItemAt:options:writingItemAt:options:error:byAccessor:)
 func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor(readingURL INSURL, readingOptions NSFileCoordinatorReadingOptions, writingURL INSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, readerWriter URLURLHandler) {
-_block5, _cleanup5 := NewURLURLBlock(readerWriter)
-	defer _cleanup5()
+_block5, _ := NewURLURLBlock(readerWriter)
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), readingURL, readingOptions, writingURL, writingOptions, outError, _block5)
 }
 // Initiates a write operation that involves a secondary write operation.
@@ -789,8 +790,7 @@ _block5, _cleanup5 := NewURLURLBlock(readerWriter)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/coordinate(writingItemAt:options:writingItemAt:options:error:byAccessor:)
 func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor(url1 INSURL, options1 NSFileCoordinatorWritingOptions, url2 INSURL, options2 NSFileCoordinatorWritingOptions, outError INSError, writer URLURLHandler) {
-_block5, _cleanup5 := NewURLURLBlock(writer)
-	defer _cleanup5()
+_block5, _ := NewURLURLBlock(writer)
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), url1, options1, url2, options2, outError, _block5)
 }
 // Prepare to read or write from multiple files in a single batch operation.
@@ -863,8 +863,7 @@ _block5, _cleanup5 := NewURLURLBlock(writer)
 //
 // See: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/prepare(forReadingItemsAt:options:writingItemsAt:options:error:byAccessor:)
 func (f NSFileCoordinator) PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor(readingURLs []NSURL, readingOptions NSFileCoordinatorReadingOptions, writingURLs []NSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, batchAccessor VoidHandler) {
-_block5, _cleanup5 := NewVoidBlock(batchAccessor)
-	defer _cleanup5()
+_block5, _ := NewVoidBlock(batchAccessor)
 	objc.Send[objc.ID](f.ID, objc.Sel("prepareForReadingItemsAtURLs:options:writingItemsAtURLs:options:error:byAccessor:"), readingURLs, readingOptions, writingURLs, writingOptions, outError, _block5)
 }
 // Announces that your app is moving a file to a new URL.

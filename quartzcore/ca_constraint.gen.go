@@ -31,6 +31,11 @@ type CAConstraintClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CAConstraintClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CAConstraintClass) Alloc() CAConstraint {
 	rv := objc.Send[CAConstraint](objc.ID(cc.class), objc.Sel("alloc"))

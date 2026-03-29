@@ -29,6 +29,11 @@ type NSWhoseSpecifierClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSWhoseSpecifierClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSWhoseSpecifierClass) Alloc() NSWhoseSpecifier {
 	rv := objc.Send[NSWhoseSpecifier](objc.ID(nc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type VZBridgedNetworkInterfaceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZBridgedNetworkInterfaceClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZBridgedNetworkInterfaceClass) Alloc() VZBridgedNetworkInterface {
 	rv := objc.Send[VZBridgedNetworkInterface](objc.ID(vc.class), objc.Sel("alloc"))

@@ -31,6 +31,11 @@ type NSSpeechRecognizerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSpeechRecognizerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSpeechRecognizerClass) Alloc() NSSpeechRecognizer {
 	rv := objc.Send[NSSpeechRecognizer](objc.ID(nc.class), objc.Sel("alloc"))

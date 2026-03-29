@@ -31,6 +31,11 @@ type NSSecureTextFieldClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSecureTextFieldClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSecureTextFieldClass) Alloc() NSSecureTextField {
 	rv := objc.Send[NSSecureTextField](objc.ID(nc.class), objc.Sel("alloc"))

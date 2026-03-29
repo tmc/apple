@@ -29,6 +29,11 @@ type NSDirectoryEnumeratorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDirectoryEnumeratorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDirectoryEnumeratorClass) Alloc() NSDirectoryEnumerator {
 	rv := objc.Send[NSDirectoryEnumerator](objc.ID(nc.class), objc.Sel("alloc"))

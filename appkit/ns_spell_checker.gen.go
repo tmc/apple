@@ -33,6 +33,11 @@ type NSSpellCheckerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSSpellCheckerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSSpellCheckerClass) Alloc() NSSpellChecker {
 	rv := objc.Send[NSSpellChecker](objc.ID(nc.class), objc.Sel("alloc"))

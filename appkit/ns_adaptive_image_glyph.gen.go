@@ -32,6 +32,11 @@ type NSAdaptiveImageGlyphClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSAdaptiveImageGlyphClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSAdaptiveImageGlyphClass) Alloc() NSAdaptiveImageGlyph {
 	rv := objc.Send[NSAdaptiveImageGlyph](objc.ID(nc.class), objc.Sel("alloc"))

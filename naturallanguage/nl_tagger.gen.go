@@ -33,6 +33,11 @@ type NLTaggerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NLTaggerClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NLTaggerClass) Alloc() NLTagger {
 	rv := objc.Send[NLTagger](objc.ID(nc.class), objc.Sel("alloc"))
@@ -539,8 +544,7 @@ func (_NLTaggerClass NLTaggerClass) AvailableTagSchemesForUnitLanguage(unit NLTo
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/requestAssets(for:tagScheme:completionHandler:)
 func (_NLTaggerClass NLTaggerClass) RequestAssetsForLanguageTagSchemeCompletionHandler(language NLLanguage, tagScheme NLTagScheme, completionHandler NLTaggerAssetsResultErrorHandler) {
-_block2, _cleanup2 := NewNLTaggerAssetsResultErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewNLTaggerAssetsResultErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NLTaggerClass.class), objc.Sel("requestAssetsForLanguage:tagScheme:completionHandler:"), language, tagScheme, _block2)
 }
 

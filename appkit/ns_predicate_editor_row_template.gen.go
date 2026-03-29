@@ -31,6 +31,11 @@ type NSPredicateEditorRowTemplateClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSPredicateEditorRowTemplateClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSPredicateEditorRowTemplateClass) Alloc() NSPredicateEditorRowTemplate {
 	rv := objc.Send[NSPredicateEditorRowTemplate](objc.ID(nc.class), objc.Sel("alloc"))
@@ -441,6 +446,7 @@ func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionsMod
 // [NSAttributeType.stringAttributeType]: https://developer.apple.com/documentation/CoreData/NSAttributeType/stringAttributeType
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/init(leftExpressions:rightExpressionAttributeType:modifier:operators:options:)
+// attributeType is a [coredata.NSAttributeType].
 func (p NSPredicateEditorRowTemplate) InitWithLeftExpressionsRightExpressionAttributeTypeModifierOperatorsOptions(leftExpressions []foundation.NSExpression, attributeType objectivec.IObject, modifier foundation.NSComparisonPredicateModifier, operators []foundation.NSNumber, options uint) NSPredicateEditorRowTemplate {
 	rv := objc.Send[NSPredicateEditorRowTemplate](p.ID, objc.Sel("initWithLeftExpressions:rightExpressionAttributeType:modifier:operators:options:"), objectivec.IObjectSliceToNSArray(leftExpressions), attributeType, modifier, objectivec.IObjectSliceToNSArray(operators), options)
 	return rv
@@ -582,6 +588,7 @@ func (p NSPredicateEditorRowTemplate) EncodeWithCoder(coder foundation.INSCoder)
 // [InitWithLeftExpressionsRightExpressionsModifierOperatorsOptions].
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPredicateEditorRowTemplate/templates(withAttributeKeyPaths:in:)
+// entityDescription is a [coredata.NSEntityDescription].
 func (_NSPredicateEditorRowTemplateClass NSPredicateEditorRowTemplateClass) TemplatesWithAttributeKeyPathsInEntityDescription(keyPaths []string, entityDescription objectivec.IObject) []NSPredicateEditorRowTemplate {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSPredicateEditorRowTemplateClass.class), objc.Sel("templatesWithAttributeKeyPaths:inEntityDescription:"), objectivec.StringSliceToNSArray(keyPaths), entityDescription)
 	return objc.ConvertSlice(rv, func(id objc.ID) NSPredicateEditorRowTemplate {

@@ -30,6 +30,11 @@ type NetServiceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NetServiceClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NetServiceClass) Alloc() NetService {
 	rv := objc.Send[NetService](objc.ID(nc.class), objc.Sel("alloc"))

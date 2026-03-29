@@ -29,6 +29,11 @@ type VZMacOSBootLoaderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZMacOSBootLoaderClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZMacOSBootLoaderClass) Alloc() VZMacOSBootLoader {
 	rv := objc.Send[VZMacOSBootLoader](objc.ID(vc.class), objc.Sel("alloc"))

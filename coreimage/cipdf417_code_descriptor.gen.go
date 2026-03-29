@@ -30,6 +30,11 @@ type CIPDF417CodeDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CIPDF417CodeDescriptorClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CIPDF417CodeDescriptorClass) Alloc() CIPDF417CodeDescriptor {
 	rv := objc.Send[CIPDF417CodeDescriptor](objc.ID(cc.class), objc.Sel("alloc"))

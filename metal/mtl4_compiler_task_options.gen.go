@@ -30,6 +30,11 @@ type MTL4CompilerTaskOptionsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTL4CompilerTaskOptionsClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTL4CompilerTaskOptionsClass) Alloc() MTL4CompilerTaskOptions {
 	rv := objc.Send[MTL4CompilerTaskOptions](objc.ID(mc.class), objc.Sel("alloc"))

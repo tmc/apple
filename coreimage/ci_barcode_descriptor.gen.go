@@ -31,6 +31,11 @@ type CIBarcodeDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CIBarcodeDescriptorClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CIBarcodeDescriptorClass) Alloc() CIBarcodeDescriptor {
 	rv := objc.Send[CIBarcodeDescriptor](objc.ID(cc.class), objc.Sel("alloc"))

@@ -36,6 +36,11 @@ type VNSequenceRequestHandlerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNSequenceRequestHandlerClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNSequenceRequestHandlerClass) Alloc() VNSequenceRequestHandler {
 	rv := objc.Send[VNSequenceRequestHandler](objc.ID(vc.class), objc.Sel("alloc"))
@@ -186,6 +191,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCGImageError(requests []VNReq
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:orientation:)-3gcmv
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (s VNSequenceRequestHandler) PerformRequestsOnCGImageOrientationError(requests []VNRequest, image coregraphics.CGImageRef, orientation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCGImage:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), image, orientation, unsafe.Pointer(&errorPtr))
@@ -236,6 +242,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCIImageError(requests []VNReq
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:orientation:)-1bkm1
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (s VNSequenceRequestHandler) PerformRequestsOnCIImageOrientationError(requests []VNRequest, image coreimage.CIImage, orientation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCIImage:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), image, orientation, unsafe.Pointer(&errorPtr))
@@ -286,6 +293,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCVPixelBufferError(requests [
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:orientation:)-2wvt8
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (s VNSequenceRequestHandler) PerformRequestsOnCVPixelBufferOrientationError(requests []VNRequest, pixelBuffer corevideo.CVImageBufferRef, orientation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCVPixelBuffer:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), pixelBuffer, orientation, unsafe.Pointer(&errorPtr))
@@ -310,6 +318,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCVPixelBufferOrientationError
 // sampleBuffer is a [coremedia.CMSampleBufferRef].
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:)-45e73
+// sampleBuffer is a [coremedia.CMSampleBufferRef].
 func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferError(requests []VNRequest, sampleBuffer objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCMSampleBuffer:error:"), objectivec.IObjectSliceToNSArray(requests), sampleBuffer, unsafe.Pointer(&errorPtr))
@@ -339,6 +348,8 @@ func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferError(requests 
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:on:orientation:)-6b7rk
+// sampleBuffer is a [coremedia.CMSampleBufferRef].
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (s VNSequenceRequestHandler) PerformRequestsOnCMSampleBufferOrientationError(requests []VNRequest, sampleBuffer objectivec.IObject, orientation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onCMSampleBuffer:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), sampleBuffer, orientation, unsafe.Pointer(&errorPtr))
@@ -384,6 +395,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnImageDataError(requests []VNR
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:onImageData:orientation:)
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (s VNSequenceRequestHandler) PerformRequestsOnImageDataOrientationError(requests []VNRequest, imageData foundation.INSData, orientation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onImageData:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), imageData, orientation, unsafe.Pointer(&errorPtr))
@@ -429,6 +441,7 @@ func (s VNSequenceRequestHandler) PerformRequestsOnImageURLError(requests []VNRe
 // orientation is a [imageio.CGImagePropertyOrientation].
 //
 // See: https://developer.apple.com/documentation/Vision/VNSequenceRequestHandler/perform(_:onImageURL:orientation:)
+// orientation is a [imageio.CGImagePropertyOrientation].
 func (s VNSequenceRequestHandler) PerformRequestsOnImageURLOrientationError(requests []VNRequest, imageURL foundation.INSURL, orientation objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](s.ID, objc.Sel("performRequests:onImageURL:orientation:error:"), objectivec.IObjectSliceToNSArray(requests), imageURL, orientation, unsafe.Pointer(&errorPtr))

@@ -31,6 +31,11 @@ type AVMediaPresentationSelectorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVMediaPresentationSelectorClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVMediaPresentationSelectorClass) Alloc() AVMediaPresentationSelector {
 	rv := objc.Send[AVMediaPresentationSelector](objc.ID(ac.class), objc.Sel("alloc"))

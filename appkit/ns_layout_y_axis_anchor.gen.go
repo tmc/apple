@@ -29,6 +29,11 @@ type NSLayoutYAxisAnchorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSLayoutYAxisAnchorClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSLayoutYAxisAnchorClass) Alloc() NSLayoutYAxisAnchor {
 	rv := objc.Send[NSLayoutYAxisAnchor](objc.ID(nc.class), objc.Sel("alloc"))

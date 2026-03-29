@@ -29,6 +29,11 @@ type NSRelativeSpecifierClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSRelativeSpecifierClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSRelativeSpecifierClass) Alloc() NSRelativeSpecifier {
 	rv := objc.Send[NSRelativeSpecifier](objc.ID(nc.class), objc.Sel("alloc"))

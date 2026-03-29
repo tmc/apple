@@ -29,6 +29,11 @@ type MTLPointerTypeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLPointerTypeClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLPointerTypeClass) Alloc() MTLPointerType {
 	rv := objc.Send[MTLPointerType](objc.ID(mc.class), objc.Sel("alloc"))

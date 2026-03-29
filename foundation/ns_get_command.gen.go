@@ -29,6 +29,11 @@ type NSGetCommandClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSGetCommandClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSGetCommandClass) Alloc() NSGetCommand {
 	rv := objc.Send[NSGetCommand](objc.ID(nc.class), objc.Sel("alloc"))

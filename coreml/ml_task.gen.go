@@ -31,6 +31,11 @@ type MLTaskClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MLTaskClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MLTaskClass) Alloc() MLTask {
 	rv := objc.Send[MLTask](objc.ID(mc.class), objc.Sel("alloc"))

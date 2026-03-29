@@ -30,6 +30,11 @@ type NotificationQueueClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NotificationQueueClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NotificationQueueClass) Alloc() NotificationQueue {
 	rv := objc.Send[NotificationQueue](objc.ID(nc.class), objc.Sel("alloc"))

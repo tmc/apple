@@ -30,6 +30,11 @@ type IsCompactClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ic IsCompactClass) Class() objc.Class {
+	return ic.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ic IsCompactClass) Alloc() IsCompact {
 	rv := objc.Send[IsCompact](objc.ID(ic.class), objc.Sel("alloc"))

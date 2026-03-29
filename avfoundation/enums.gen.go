@@ -106,7 +106,7 @@ type AVAssetReferenceRestrictions uint
 
 const (
 	// AVAssetReferenceRestrictionDefaultPolicy: The asset should use the default reference restrictions policy.
-	AVAssetReferenceRestrictionDefaultPolicy AVAssetReferenceRestrictions = 0
+	AVAssetReferenceRestrictionDefaultPolicy AVAssetReferenceRestrictions = 2
 	// AVAssetReferenceRestrictionForbidAll: The asset can only reference media stored within its container file.
 	AVAssetReferenceRestrictionForbidAll AVAssetReferenceRestrictions = 65535
 	// AVAssetReferenceRestrictionForbidCrossSiteReference: A remote asset shouldn’t follow references to remote media data stored at a different host.
@@ -131,8 +131,8 @@ func (e AVAssetReferenceRestrictions) String() string {
 		return "AVAssetReferenceRestrictionForbidCrossSiteReference"
 	case AVAssetReferenceRestrictionForbidLocalReferenceToLocal:
 		return "AVAssetReferenceRestrictionForbidLocalReferenceToLocal"
-	case AVAssetReferenceRestrictionForbidLocalReferenceToRemote:
-		return "AVAssetReferenceRestrictionForbidLocalReferenceToRemote"
+	case AVAssetReferenceRestrictionForbidNone:
+		return "AVAssetReferenceRestrictionForbidNone"
 	case AVAssetReferenceRestrictionForbidRemoteReferenceToLocal:
 		return "AVAssetReferenceRestrictionForbidRemoteReferenceToLocal"
 	default:

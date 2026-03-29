@@ -31,6 +31,11 @@ type NSDataAssetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSDataAssetClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSDataAssetClass) Alloc() NSDataAsset {
 	rv := objc.Send[NSDataAsset](objc.ID(nc.class), objc.Sel("alloc"))

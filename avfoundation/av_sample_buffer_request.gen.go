@@ -30,6 +30,11 @@ type AVSampleBufferRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVSampleBufferRequestClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVSampleBufferRequestClass) Alloc() AVSampleBufferRequest {
 	rv := objc.Send[AVSampleBufferRequest](objc.ID(ac.class), objc.Sel("alloc"))
@@ -118,8 +123,8 @@ type IAVSampleBufferRequest interface {
 	Mode() AVSampleBufferRequestMode
 	SetMode(value AVSampleBufferRequestMode)
 	// The deadline for sample data and output PTS for the sample buffer.
-	OverrideTime() objectivec.IObject
-	SetOverrideTime(value objectivec.IObject)
+	OverrideTime() uintptr
+	SetOverrideTime(value uintptr)
 	// The preferred minimum number of samples to load.
 	PreferredMinSampleCount() int
 	SetPreferredMinSampleCount(value int)
@@ -237,11 +242,11 @@ func (s AVSampleBufferRequest) SetMode(value AVSampleBufferRequestMode) {
 // The deadline for sample data and output PTS for the sample buffer.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRequest/overrideTime
-func (s AVSampleBufferRequest) OverrideTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("overrideTime"))
-	return objectivec.Object{ID: rv}
+func (s AVSampleBufferRequest) OverrideTime() uintptr {
+	rv := objc.Send[uintptr](s.ID, objc.Sel("overrideTime"))
+	return rv
 }
-func (s AVSampleBufferRequest) SetOverrideTime(value objectivec.IObject) {
+func (s AVSampleBufferRequest) SetOverrideTime(value uintptr) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOverrideTime:"), value)
 }
 // The preferred minimum number of samples to load.

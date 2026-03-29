@@ -30,6 +30,11 @@ type BlockOperationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (bc BlockOperationClass) Class() objc.Class {
+	return bc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (bc BlockOperationClass) Alloc() BlockOperation {
 	rv := objc.Send[BlockOperation](objc.ID(bc.class), objc.Sel("alloc"))
@@ -130,8 +135,7 @@ func NewBlockOperation() BlockOperation {
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation/addExecutionBlock(_:)
 func (b BlockOperation) AddExecutionBlock(block VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](b.ID, objc.Sel("addExecutionBlock:"), _block0)
 }
 
@@ -147,8 +151,7 @@ _block0, _cleanup0 := NewVoidBlock(block)
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation/init(block:)
 func (_BlockOperationClass BlockOperationClass) BlockOperationWithBlock(block VoidHandler) BlockOperation {
-_block0, _cleanup0 := NewVoidBlock(block)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_BlockOperationClass.class), objc.Sel("blockOperationWithBlock:"), _block0)
 	return NSBlockOperationFromID(rv)
 }

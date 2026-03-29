@@ -31,6 +31,11 @@ type NSExpressionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSExpressionClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSExpressionClass) Alloc() NSExpression {
 	rv := objc.Send[NSExpression](objc.ID(nc.class), objc.Sel("alloc"))
@@ -728,8 +733,7 @@ func (_NSExpressionClass NSExpressionClass) ExpressionForAnyKey() NSExpression {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExpression/init(block:arguments:)
 func (_NSExpressionClass NSExpressionClass) ExpressionForBlockArguments(block ArrayHandler, arguments []NSExpression) NSExpression {
-_block0, _cleanup0 := NewArrayBlock(block)
-	defer _cleanup0()
+_block0, _ := NewArrayBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_NSExpressionClass.class), objc.Sel("expressionForBlock:arguments:"), _block0, arguments)
 	return NSExpressionFromID(rv)
 }

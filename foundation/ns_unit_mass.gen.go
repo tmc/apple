@@ -29,6 +29,11 @@ type UnitMassClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (uc UnitMassClass) Class() objc.Class {
+	return uc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (uc UnitMassClass) Alloc() UnitMass {
 	rv := objc.Send[UnitMass](objc.ID(uc.class), objc.Sel("alloc"))

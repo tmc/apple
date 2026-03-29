@@ -29,6 +29,11 @@ type VNDetectHorizonRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNDetectHorizonRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNDetectHorizonRequestClass) Alloc() VNDetectHorizonRequest {
 	rv := objc.Send[VNDetectHorizonRequest](objc.ID(vc.class), objc.Sel("alloc"))

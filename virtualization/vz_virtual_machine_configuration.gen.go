@@ -33,6 +33,11 @@ type VZVirtualMachineConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZVirtualMachineConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfiguration {
 	rv := objc.Send[VZVirtualMachineConfiguration](objc.ID(vc.class), objc.Sel("alloc"))
@@ -80,7 +85,7 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 //
 // # Setting the number of CPUs
 //
-//   - [VZVirtualMachineConfiguration.CPUCount]: The number of CPUs you make available to the guest operating system.
+//   - [VZVirtualMachineConfiguration.CPUCount]: The number of CPUs for the virtual machine. Must be between minimumAllowedCPUCount and maximumAllowedCPUCount.
 //   - [VZVirtualMachineConfiguration.SetCPUCount]
 //
 // # Sizing the memory partition
@@ -148,7 +153,7 @@ func VZVirtualMachineConfigurationFromID(id objc.ID) VZVirtualMachineConfigurati
 //
 // # Setting the number of CPUs
 //
-//   - [IVZVirtualMachineConfiguration.CPUCount]: The number of CPUs you make available to the guest operating system.
+//   - [IVZVirtualMachineConfiguration.CPUCount]: The number of CPUs for the virtual machine. Must be between minimumAllowedCPUCount and maximumAllowedCPUCount.
 //   - [IVZVirtualMachineConfiguration.SetCPUCount]
 //
 // # Sizing the memory partition
@@ -204,7 +209,7 @@ type IVZVirtualMachineConfiguration interface {
 
 	// Topic: Setting the number of CPUs
 
-	// The number of CPUs you make available to the guest operating system.
+	// The number of CPUs for the virtual machine. Must be between minimumAllowedCPUCount and maximumAllowedCPUCount.
 	CPUCount() uint
 	SetCPUCount(value uint)
 
@@ -265,10 +270,6 @@ type IVZVirtualMachineConfiguration interface {
 	ValidateWithError() (bool, error)
 	// Determines whether the framework can save or restore the VM’s current configuration.
 	ValidateSaveRestoreSupportWithError() (bool, error)
-
-	// The number of CPUs for the virtual machine. Must be between minimumAllowedCPUCount and maximumAllowedCPUCount.
-	CpuCount() uint
-	SetCpuCount(value uint)
 }
 
 // Init initializes the instance.
@@ -351,14 +352,8 @@ func (v VZVirtualMachineConfiguration) BootLoader() IVZBootLoader {
 func (v VZVirtualMachineConfiguration) SetBootLoader(value IVZBootLoader) {
 	objc.Send[struct{}](v.ID, objc.Sel("setBootLoader:"), value)
 }
-// The number of CPUs you make available to the guest operating system.
-//
-// # Discussion
-// 
-// The value of this property must be greater than or equal to the value in
-// [MinimumAllowedCPUCount], and less than or equal to the value in
-// [MaximumAllowedCPUCount]. The system uses the number of physical CPUs on
-// the current system to determine a default value.
+// The number of CPUs for the virtual machine. Must be between
+// minimumAllowedCPUCount and maximumAllowedCPUCount.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/cpuCount
 func (v VZVirtualMachineConfiguration) CPUCount() uint {
@@ -647,15 +642,6 @@ func (v VZVirtualMachineConfiguration) UsbControllers() []VZUSBControllerConfigu
 }
 func (v VZVirtualMachineConfiguration) SetUsbControllers(value []VZUSBControllerConfiguration) {
 	objc.Send[struct{}](v.ID, objc.Sel("setUsbControllers:"), objectivec.IObjectSliceToNSArray(value))
-}
-// The number of CPUs for the virtual machine. Must be between
-// minimumAllowedCPUCount and maximumAllowedCPUCount. [Full Topic]
-func (v VZVirtualMachineConfiguration) CpuCount() uint {
-	rv := objc.Send[uint](v.ID, objc.Sel("cpuCount"))
-	return rv
-}
-func (v VZVirtualMachineConfiguration) SetCpuCount(value uint) {
-	objc.Send[struct{}](v.ID, objc.Sel("setCpuCount:"), value)
 }
 
 // The minimum number of CPUs you may configure for the VM.

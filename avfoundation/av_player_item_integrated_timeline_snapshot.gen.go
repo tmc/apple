@@ -3,6 +3,7 @@
 package avfoundation
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
@@ -29,6 +30,11 @@ func GetAVPlayerItemIntegratedTimelineSnapshotClass() AVPlayerItemIntegratedTime
 
 type AVPlayerItemIntegratedTimelineSnapshotClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerItemIntegratedTimelineSnapshotClass) Class() objc.Class {
+	return ac.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -86,20 +92,20 @@ type IAVPlayerItemIntegratedTimelineSnapshot interface {
 	// Topic: Inspecting the snapshot
 
 	// The total duration of the primary item and scheduled interstitial events.
-	Duration() objectivec.IObject
+	Duration() uintptr
 	// The currently playing segment.
 	CurrentSegment() IAVPlayerItemSegment
 	// The segments for this snapshot.
 	Segments() []AVPlayerItemSegment
 	// The current time on the integrated timeline when the system created the snapshot.
-	CurrentTime() objectivec.IObject
+	CurrentTime() uintptr
 	// The current date on the integrated timeline when the system created the snapshot.
 	CurrentDate() foundation.INSDate
 
 	// An immutable representation of the timeline state at time of request.
 	CurrentSnapshot() IAVPlayerItemIntegratedTimelineSnapshot
 	SetCurrentSnapshot(value IAVPlayerItemIntegratedTimelineSnapshot)
-	MapTimeToSegmentAtSegmentOffset(time objectivec.IObject, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut objectivec.IObject)
+	MapTimeToSegmentAtSegmentOffset(time uintptr, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -122,12 +128,8 @@ func NewAVPlayerItemIntegratedTimelineSnapshot() AVPlayerItemIntegratedTimelineS
 }
 
 //
-// time is a [coremedia.CMTime].
-//
-// segmentOffsetOut is a [coremedia.CMTime].
-//
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/mapTime:toSegment:atSegmentOffset:
-func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time objectivec.IObject, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut objectivec.IObject) {
+func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time uintptr, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut unsafe.Pointer) {
 	objc.Send[objc.ID](p.ID, objc.Sel("mapTime:toSegment:atSegmentOffset:"), time, timeSegmentOut, segmentOffsetOut)
 }
 
@@ -145,9 +147,9 @@ func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/duration
-func (p AVPlayerItemIntegratedTimelineSnapshot) Duration() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("duration"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItemIntegratedTimelineSnapshot) Duration() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("duration"))
+	return rv
 }
 // The currently playing segment.
 //
@@ -178,9 +180,9 @@ func (p AVPlayerItemIntegratedTimelineSnapshot) Segments() []AVPlayerItemSegment
 // This value doesn’t change as time progresses.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/currentTime
-func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentTime"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayerItemIntegratedTimelineSnapshot) CurrentTime() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("currentTime"))
+	return rv
 }
 // The current date on the integrated timeline when the system created the
 // snapshot.

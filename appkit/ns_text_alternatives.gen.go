@@ -31,6 +31,11 @@ type NSTextAlternativesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSTextAlternativesClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSTextAlternativesClass) Alloc() NSTextAlternatives {
 	rv := objc.Send[NSTextAlternatives](objc.ID(nc.class), objc.Sel("alloc"))

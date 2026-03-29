@@ -33,6 +33,11 @@ type AVPlayerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac AVPlayerClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac AVPlayerClass) Alloc() AVPlayer {
 	rv := objc.Send[AVPlayer](objc.ID(ac.class), objc.Sel("alloc"))
@@ -409,9 +414,9 @@ type IAVPlayer interface {
 	// Topic: Observing playback time
 
 	// Returns the current time of the current player item.
-	CurrentTime() objectivec.IObject
+	CurrentTime() uintptr
 	// Requests the periodic invocation of a given block during playback to report changing time.
-	AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval objectivec.IObject, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject
+	AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval uintptr, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject
 	// Requests the invocation of a block when specified times are traversed during normal playback.
 	AddBoundaryTimeObserverForTimesQueueUsingBlock(times []foundation.NSValue, queue dispatch.Queue, block VoidHandler) objectivec.IObject
 	// Cancels a previously registered periodic or boundary time observer.
@@ -420,13 +425,13 @@ type IAVPlayer interface {
 	// Topic: Seeking through media
 
 	// Requests that the player seek to a specified time.
-	SeekToTime(time objectivec.IObject)
+	SeekToTime(time uintptr)
 	// Requests that the player seek to a specified time, and to notify you when the seek is complete.
-	SeekToTimeCompletionHandler(time objectivec.IObject, completionHandler BoolHandler)
+	SeekToTimeCompletionHandler(time uintptr, completionHandler BoolHandler)
 	// Requests that the player seek to a specified time with the amount of accuracy specified by the time tolerance values.
-	SeekToTimeToleranceBeforeToleranceAfter(time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject)
+	SeekToTimeToleranceBeforeToleranceAfter(time uintptr, toleranceBefore uintptr, toleranceAfter uintptr)
 	// Requests that the player seek to a specified time with the amount of accuracy specified by the time tolerance values, and to notify you when the seek is complete.
-	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject, completionHandler BoolHandler)
+	SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time uintptr, toleranceBefore uintptr, toleranceAfter uintptr, completionHandler BoolHandler)
 	// Requests that the player seek to a specified date.
 	SeekToDate(date foundation.INSDate)
 	// Requests that the player seek to a specified date, and to notify you when the seek is complete.
@@ -503,17 +508,17 @@ type IAVPlayer interface {
 	// Topic: Synchronizing multiple players
 
 	// Synchronizes the playback rate and time of the current item with an external source.
-	SetRateTimeAtHostTime(rate float32, itemTime objectivec.IObject, hostClockTime objectivec.IObject)
+	SetRateTimeAtHostTime(rate float32, itemTime uintptr, hostClockTime uintptr)
 	// Begins loading media data to prime the media pipelines for playback.
 	PrerollAtRateCompletionHandler(rate float32, completionHandler BoolHandler)
 	// Cancels any pending preroll requests and invokes the corresponding completion handlers, if present.
 	CancelPendingPrerolls()
 	// A clock the player uses for item time bases.
-	SourceClock() objectivec.IObject
-	SetSourceClock(value objectivec.IObject)
+	SourceClock() uintptr
+	SetSourceClock(value uintptr)
 	// The host clock for item time bases.
-	MasterClock() objectivec.IObject
-	SetMasterClock(value objectivec.IObject)
+	MasterClock() uintptr
+	SetMasterClock(value uintptr)
 
 	// Topic: Preventing sleep and backgrounding
 
@@ -678,9 +683,9 @@ func (p AVPlayer) Pause() {
 // [AddBoundaryTimeObserverForTimesQueueUsingBlock].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/currentTime()
-func (p AVPlayer) CurrentTime() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("currentTime"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayer) CurrentTime() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("currentTime"))
+	return rv
 }
 // Requests the periodic invocation of a given block during playback to report
 // changing time.
@@ -698,8 +703,6 @@ func (p AVPlayer) CurrentTime() objectivec.IObject {
 // The block takes a single parameter:
 // 
 // time: The time at which the system invokes the block.
-//
-// interval is a [coremedia.CMTime].
 //
 // # Return Value
 // 
@@ -726,9 +729,8 @@ func (p AVPlayer) CurrentTime() objectivec.IObject {
 // invokes every half second during normal playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/addPeriodicTimeObserver(forInterval:queue:using:)
-func (p AVPlayer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval objectivec.IObject, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject {
-_block2, _cleanup2 := NewCMTimeBlock(block)
-	defer _cleanup2()
+func (p AVPlayer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval uintptr, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject {
+_block2, _ := NewCMTimeBlock(block)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("addPeriodicTimeObserverForInterval:queue:usingBlock:"), interval, uintptr(queue.Handle()), _block2)
 	return objectivec.Object{ID: rv}
 }
@@ -777,8 +779,7 @@ _block2, _cleanup2 := NewCMTimeBlock(block)
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/addBoundaryTimeObserver(forTimes:queue:using:)
 func (p AVPlayer) AddBoundaryTimeObserverForTimesQueueUsingBlock(times []foundation.NSValue, queue dispatch.Queue, block VoidHandler) objectivec.IObject {
-_block2, _cleanup2 := NewVoidBlock(block)
-	defer _cleanup2()
+_block2, _ := NewVoidBlock(block)
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("addBoundaryTimeObserverForTimes:queue:usingBlock:"), times, uintptr(queue.Handle()), _block2)
 	return objectivec.Object{ID: rv}
 }
@@ -813,8 +814,6 @@ func (p AVPlayer) RemoveTimeObserver(observer objectivec.IObject) {
 //
 // time: The time to which to seek.
 //
-// time is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // The time to which the player seeks may differ from the specified requested
@@ -822,7 +821,7 @@ func (p AVPlayer) RemoveTimeObserver(observer objectivec.IObject) {
 // [SeekToTimeToleranceBeforeToleranceAfter].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:)-87h2r
-func (p AVPlayer) SeekToTime(time objectivec.IObject) {
+func (p AVPlayer) SeekToTime(time uintptr) {
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:"), time)
 }
 // Requests that the player seek to a specified time, and to notify you when
@@ -834,8 +833,6 @@ func (p AVPlayer) SeekToTime(time objectivec.IObject) {
 // been interrupted. The block takes one argument:
 // 
 // finished: Indicates whether the seek operation completed.
-//
-// time is a [coremedia.CMTime].
 //
 // # Discussion
 // 
@@ -853,9 +850,8 @@ func (p AVPlayer) SeekToTime(time objectivec.IObject) {
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:completionHandler:)-75bls
-func (p AVPlayer) SeekToTimeCompletionHandler(time objectivec.IObject, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+func (p AVPlayer) SeekToTimeCompletionHandler(time uintptr, completionHandler BoolHandler) {
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:completionHandler:"), time, _block1)
 }
 // Requests that the player seek to a specified time with the amount of
@@ -866,12 +862,6 @@ _block1, _cleanup1 := NewBoolBlock(completionHandler)
 // toleranceBefore: A tolerance before the target time to allow.
 //
 // toleranceAfter: A tolerance after the target time to allow.
-//
-// time is a [coremedia.CMTime].
-//
-// toleranceBefore is a [coremedia.CMTime].
-//
-// toleranceAfter is a [coremedia.CMTime].
 //
 // # Discussion
 // 
@@ -886,7 +876,7 @@ _block1, _cleanup1 := NewBoolBlock(completionHandler)
 // `toleranceAfter` is the same as messaging [SeekToTime] directly.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:toleranceBefore:toleranceAfter:)
-func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfter(time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject) {
+func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfter(time uintptr, toleranceBefore uintptr, toleranceAfter uintptr) {
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:toleranceBefore:toleranceAfter:"), time, toleranceBefore, toleranceAfter)
 }
 // Requests that the player seek to a specified time with the amount of
@@ -905,12 +895,6 @@ func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfter(time objectivec.IObjec
 // The block takes one argument:
 // 
 // finished: Indicated whether the seek operation completed.
-//
-// time is a [coremedia.CMTime].
-//
-// toleranceBefore is a [coremedia.CMTime].
-//
-// toleranceAfter is a [coremedia.CMTime].
 //
 // # Discussion
 // 
@@ -939,9 +923,8 @@ func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfter(time objectivec.IObjec
 // [true]: https://developer.apple.com/documentation/Swift/true
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:toleranceBefore:toleranceAfter:completionHandler:)
-func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject, completionHandler BoolHandler) {
-_block3, _cleanup3 := NewBoolBlock(completionHandler)
-	defer _cleanup3()
+func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time uintptr, toleranceBefore uintptr, toleranceAfter uintptr, completionHandler BoolHandler) {
+_block3, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToTime:toleranceBefore:toleranceAfter:completionHandler:"), time, toleranceBefore, toleranceAfter, _block3)
 }
 // Requests that the player seek to a specified date.
@@ -985,8 +968,7 @@ func (p AVPlayer) SeekToDate(date foundation.INSDate) {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/seek(to:completionHandler:)-wr1l
 func (p AVPlayer) SeekToDateCompletionHandler(date foundation.INSDate, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("seekToDate:completionHandler:"), date, _block1)
 }
 // Plays the available media data immediately, at the specified rate.
@@ -1078,10 +1060,6 @@ func (p AVPlayer) SetMediaSelectionCriteriaForMediaCharacteristic(criteria IAVPl
 // //
 // [invalid]: https://developer.apple.com/documentation/CoreMedia/CMTime/invalid
 //
-// itemTime is a [coremedia.CMTime].
-//
-// hostClockTime is a [coremedia.CMTime].
-//
 // # Discussion
 // 
 // This method adjusts the current item’s timebase so that the time in
@@ -1099,7 +1077,7 @@ func (p AVPlayer) SetMediaSelectionCriteriaForMediaCharacteristic(criteria IAVPl
 // would give you some time to load the media data and prepare for playback.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/setRate(_:time:atHostTime:)
-func (p AVPlayer) SetRateTimeAtHostTime(rate float32, itemTime objectivec.IObject, hostClockTime objectivec.IObject) {
+func (p AVPlayer) SetRateTimeAtHostTime(rate float32, itemTime uintptr, hostClockTime uintptr) {
 	objc.Send[objc.ID](p.ID, objc.Sel("setRate:time:atHostTime:"), rate, itemTime, hostClockTime)
 }
 // Begins loading media data to prime the media pipelines for playback.
@@ -1127,8 +1105,7 @@ func (p AVPlayer) SetRateTimeAtHostTime(rate float32, itemTime objectivec.IObjec
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/preroll(atRate:completionHandler:)
 func (p AVPlayer) PrerollAtRateCompletionHandler(rate float32, completionHandler BoolHandler) {
-_block1, _cleanup1 := NewBoolBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](p.ID, objc.Sel("prerollAtRate:completionHandler:"), rate, _block1)
 }
 // Cancels any pending preroll requests and invokes the corresponding
@@ -1494,11 +1471,11 @@ func (p AVPlayer) PlaybackCoordinator() IAVPlayerPlaybackCoordinator {
 // audio device.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/sourceClock
-func (p AVPlayer) SourceClock() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("sourceClock"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayer) SourceClock() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("sourceClock"))
+	return rv
 }
-func (p AVPlayer) SetSourceClock(value objectivec.IObject) {
+func (p AVPlayer) SetSourceClock(value uintptr) {
 	objc.Send[struct{}](p.ID, objc.Sel("setSourceClock:"), value)
 }
 // The host clock for item time bases.
@@ -1512,11 +1489,11 @@ func (p AVPlayer) SetSourceClock(value objectivec.IObject) {
 // source.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/masterClock
-func (p AVPlayer) MasterClock() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("masterClock"))
-	return objectivec.Object{ID: rv}
+func (p AVPlayer) MasterClock() uintptr {
+	rv := objc.Send[uintptr](p.ID, objc.Sel("masterClock"))
+	return rv
 }
-func (p AVPlayer) SetMasterClock(value objectivec.IObject) {
+func (p AVPlayer) SetMasterClock(value uintptr) {
 	objc.Send[struct{}](p.ID, objc.Sel("setMasterClock:"), value)
 }
 // A Boolean value that indicates whether video playback prevents display and
@@ -1669,22 +1646,22 @@ func (_AVPlayerClass AVPlayerClass) SetObservationEnabled(value bool) {
 
 // AddPeriodicTimeObserverForIntervalQueueUsingBlockSync is a synchronous wrapper around [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayer) AddPeriodicTimeObserverForIntervalQueueUsingBlockSync(ctx context.Context, interval objectivec.IObject, queue dispatch.Queue) (objectivec.IObject, error) {
-	done := make(chan objectivec.IObject, 1)
-	p.AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval, queue, func(val objectivec.IObject) {
+func (p AVPlayer) AddPeriodicTimeObserverForIntervalQueueUsingBlockSync(ctx context.Context, interval uintptr, queue dispatch.Queue) (uintptr, error) {
+	done := make(chan uintptr, 1)
+	p.AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval, queue, func(val uintptr) {
 		done <- val
 	})
 	select {
 	case r := <-done:
 		return r, nil
 	case <-ctx.Done():
-		return nil, ctx.Err()
+		return 0, ctx.Err()
 	}
 }
 
 // SeekToTimeSync is a synchronous wrapper around [AVPlayer.SeekToTimeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayer) SeekToTimeSync(ctx context.Context, time objectivec.IObject) (bool, error) {
+func (p AVPlayer) SeekToTimeSync(ctx context.Context, time uintptr) (bool, error) {
 	done := make(chan bool, 1)
 	p.SeekToTimeCompletionHandler(time, func(val bool) {
 		done <- val
@@ -1699,7 +1676,7 @@ func (p AVPlayer) SeekToTimeSync(ctx context.Context, time objectivec.IObject) (
 
 // SeekToTimeToleranceBeforeToleranceAfterSync is a synchronous wrapper around [AVPlayer.SeekToTimeToleranceBeforeToleranceAfterCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfterSync(ctx context.Context, time objectivec.IObject, toleranceBefore objectivec.IObject, toleranceAfter objectivec.IObject) (bool, error) {
+func (p AVPlayer) SeekToTimeToleranceBeforeToleranceAfterSync(ctx context.Context, time uintptr, toleranceBefore uintptr, toleranceAfter uintptr) (bool, error) {
 	done := make(chan bool, 1)
 	p.SeekToTimeToleranceBeforeToleranceAfterCompletionHandler(time, toleranceBefore, toleranceAfter, func(val bool) {
 		done <- val

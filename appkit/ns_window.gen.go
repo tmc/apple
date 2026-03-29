@@ -35,6 +35,11 @@ type NSWindowClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSWindowClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSWindowClass) Alloc() NSWindow {
 	rv := objc.Send[NSWindow](objc.ID(nc.class), objc.Sel("alloc"))
@@ -1004,8 +1009,6 @@ func NSWindowFromID(id objc.ID) NSWindow {
 // See: https://developer.apple.com/documentation/AppKit/NSWindow
 type INSWindow interface {
 	INSResponder
-	NSAccessibilityElementProtocol
-	NSAccessibilityProtocol
 	NSAppearanceCustomization
 	NSMenuItemValidation
 	NSUserInterfaceItemIdentification
@@ -2240,8 +2243,7 @@ func (w NSWindow) FrameRectForContentRect(contentRect corefoundation.CGRect) cor
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/beginSheet(_:completionHandler:)
 func (w NSWindow) BeginSheetCompletionHandler(sheetWindow INSWindow, handler ModalResponseHandler) {
-_block1, _cleanup1 := NewModalResponseBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewModalResponseBlock(handler)
 	objc.Send[objc.ID](w.ID, objc.Sel("beginSheet:completionHandler:"), sheetWindow, _block1)
 }
 // Starts a document-modal session and presents the specified critical sheet.
@@ -2266,8 +2268,7 @@ _block1, _cleanup1 := NewModalResponseBlock(handler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/beginCriticalSheet(_:completionHandler:)
 func (w NSWindow) BeginCriticalSheetCompletionHandler(sheetWindow INSWindow, handler ModalResponseHandler) {
-_block1, _cleanup1 := NewModalResponseBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewModalResponseBlock(handler)
 	objc.Send[objc.ID](w.ID, objc.Sel("beginCriticalSheet:completionHandler:"), sheetWindow, _block1)
 }
 // Ends a document-modal session and dismisses the specified sheet.
@@ -3375,8 +3376,7 @@ func (w NSWindow) RecalculateKeyViewLoop() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/transferWindowSharing(to:completionHandler:)
 func (w NSWindow) TransferWindowSharingToWindowCompletionHandler(window INSWindow, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("transferWindowSharingToWindow:completionHandler:"), window, _block1)
 }
 // Tracks events that match the specified mask using the specified tracking
@@ -3414,8 +3414,7 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/trackEvents(matching:timeout:mode:handler:)
 func (w NSWindow) TrackEventsMatchingMaskTimeoutModeHandler(mask NSEventMask, timeout float64, mode foundation.NSString, trackingHandler EventHandler) {
-_block3, _cleanup3 := NewEventBlock(trackingHandler)
-	defer _cleanup3()
+_block3, _ := NewEventBlock(trackingHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("trackEventsMatchingMask:timeout:mode:handler:"), mask, timeout, mode, _block3)
 }
 // Starts a window drag based on the specified mouse-down event.
@@ -4044,8 +4043,7 @@ func (w NSWindow) BeginDraggingSessionWithItemsEventSource(items []NSDraggingIte
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/requestSharingOfWindow(_:completionHandler:)
 func (w NSWindow) RequestSharingOfWindowCompletionHandler(window INSWindow, completionHandler ErrorHandler) {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("requestSharingOfWindow:completionHandler:"), window, _block1)
 }
 //
@@ -4069,8 +4067,7 @@ _block1, _cleanup1 := NewErrorBlock(completionHandler)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindow/requestSharingOfWindow(usingPreview:title:completionHandler:)
 func (w NSWindow) RequestSharingOfWindowUsingPreviewTitleCompletionHandler(image INSImage, title string, completionHandler ErrorHandler) {
-_block2, _cleanup2 := NewErrorBlock(completionHandler)
-	defer _cleanup2()
+_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](w.ID, objc.Sel("requestSharingOfWindowUsingPreview:title:completionHandler:"), image, objc.String(title), _block2)
 }
 // Returns the animation that should be performed for the specified key.

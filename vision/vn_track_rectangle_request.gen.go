@@ -29,6 +29,11 @@ type VNTrackRectangleRequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VNTrackRectangleRequestClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VNTrackRectangleRequestClass) Alloc() VNTrackRectangleRequest {
 	rv := objc.Send[VNTrackRectangleRequest](objc.ID(vc.class), objc.Sel("alloc"))
@@ -173,8 +178,7 @@ func (t VNTrackRectangleRequest) InitWithRectangleObservation(observation IVNRec
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackRectangleRequest/init(rectangleObservation:completionHandler:)
 func (t VNTrackRectangleRequest) InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler ErrorHandler) VNTrackRectangleRequest {
-_block1, _cleanup1 := NewErrorBlock(completionHandler)
-	defer _cleanup1()
+_block1, _ := NewErrorBlock(completionHandler)
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, _block1)
 	return VNTrackRectangleRequestFromID(rv)
 }

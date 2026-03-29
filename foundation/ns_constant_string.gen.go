@@ -31,6 +31,11 @@ type NSConstantStringClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (nc NSConstantStringClass) Class() objc.Class {
+	return nc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (nc NSConstantStringClass) Alloc() NSConstantString {
 	rv := objc.Send[NSConstantString](objc.ID(nc.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type VZKeyboardConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (vc VZKeyboardConfigurationClass) Class() objc.Class {
+	return vc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (vc VZKeyboardConfigurationClass) Alloc() VZKeyboardConfiguration {
 	rv := objc.Send[VZKeyboardConfiguration](objc.ID(vc.class), objc.Sel("alloc"))

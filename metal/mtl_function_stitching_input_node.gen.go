@@ -30,6 +30,11 @@ type MTLFunctionStitchingInputNodeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (mc MTLFunctionStitchingInputNodeClass) Class() objc.Class {
+	return mc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (mc MTLFunctionStitchingInputNodeClass) Alloc() MTLFunctionStitchingInputNode {
 	rv := objc.Send[MTLFunctionStitchingInputNode](objc.ID(mc.class), objc.Sel("alloc"))
