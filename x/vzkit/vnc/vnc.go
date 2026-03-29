@@ -49,7 +49,7 @@ func NewPasswordSecurityConfig(password string) (SecurityConfig, error) {
 	if password == "" {
 		return SecurityConfig{}, fmt.Errorf("password required")
 	}
-	pass := foundation.NewNSString().InitWithString(password)
+	pass := foundation.NewStringWithString(password)
 	cfg := pvz.NewVZVNCAuthenticationSecurityConfigurationWithPassword(pass)
 	if cfg.ID == 0 {
 		return SecurityConfig{}, fmt.Errorf("create vnc password security configuration")
@@ -102,10 +102,10 @@ func New(cfg Config) (*Server, error) {
 		switch {
 		case cfg.ServiceName != "" && sec.raw.GetID() != 0:
 			server = pvz.NewVZVNCServerWithBonjourServiceNameQueueSecurityConfiguration(
-				foundation.NewNSString().InitWithString(cfg.ServiceName), q, sec.Object())
+				foundation.NewStringWithString(cfg.ServiceName), q, sec.Object())
 		case cfg.ServiceName != "":
 			server = pvz.NewVZVNCServerWithBonjourServiceNameQueue(
-				foundation.NewNSString().InitWithString(cfg.ServiceName), q)
+				foundation.NewStringWithString(cfg.ServiceName), q)
 		case sec.raw.GetID() != 0:
 			server = pvz.NewVZVNCServerWithPortQueueSecurityConfiguration(cfg.Port, q, sec.Object())
 		default:
@@ -115,10 +115,10 @@ func New(cfg Config) (*Server, error) {
 		switch {
 		case cfg.ServiceName != "" && sec.raw.GetID() != 0:
 			server = pvz.NewVZVNCServerWithBonjourServiceNameQueueSecurityConfiguration(
-				foundation.NewNSString().InitWithString(cfg.ServiceName), objectivec.Object{}, sec.Object())
+				foundation.NewStringWithString(cfg.ServiceName), objectivec.Object{}, sec.Object())
 		case cfg.ServiceName != "":
 			server = pvz.NewVZVNCServerWithBonjourServiceName(
-				foundation.NewNSString().InitWithString(cfg.ServiceName))
+				foundation.NewStringWithString(cfg.ServiceName))
 		case sec.raw.GetID() != 0:
 			server = pvz.NewVZVNCServerWithPortQueueSecurityConfiguration(cfg.Port, objectivec.Object{}, sec.Object())
 		default:
