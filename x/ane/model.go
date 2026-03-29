@@ -18,6 +18,7 @@ import (
 type Model struct {
 	client    *Client
 	modelType ModelType
+	qos       uint32
 
 	// For MIL models.
 	inMemModel appleneuralengine.ANEInMemoryModel
@@ -111,6 +112,78 @@ func (m *Model) OutputLayout(i int) TensorLayout {
 		return m.outputLayouts[i]
 	}
 	return TensorLayout{}
+}
+
+func (m *Model) inputBindings() []SurfaceBinding {
+	out := make([]SurfaceBinding, len(m.inputs))
+	for i, ref := range m.inputs {
+		symbolIndex := i
+		if i < len(m.inputLayouts) && m.inputLayouts[i].SymbolIndex >= 0 {
+			symbolIndex = m.inputLayouts[i].SymbolIndex
+		}
+		out[i] = SurfaceBinding{Surface: ref, SymbolIndex: symbolIndex}
+	}
+	return out
+}
+
+func (m *Model) outputBindings() []SurfaceBinding {
+	out := make([]SurfaceBinding, len(m.outputs))
+	for i, ref := range m.outputs {
+		symbolIndex := i
+		if i < len(m.outputLayouts) && m.outputLayouts[i].SymbolIndex >= 0 {
+			symbolIndex = m.outputLayouts[i].SymbolIndex
+		}
+		out[i] = SurfaceBinding{Surface: ref, SymbolIndex: symbolIndex}
+	}
+	return out
+}
+
+// InputName returns the compiled input tensor name for the i-th input.
+func (m *Model) InputName(i int) string {
+	if i < len(m.inputLayouts) {
+		return m.inputLayouts[i].Name
+	}
+	return ""
+}
+
+// OutputName returns the compiled output tensor name for the i-th output.
+func (m *Model) OutputName(i int) string {
+	if i < len(m.outputLayouts) {
+		return m.outputLayouts[i].Name
+	}
+	return ""
+}
+
+// InputSymbol returns the compiled input tensor symbol for the i-th input.
+func (m *Model) InputSymbol(i int) string {
+	if i < len(m.inputLayouts) {
+		return m.inputLayouts[i].Symbol
+	}
+	return ""
+}
+
+// OutputSymbol returns the compiled output tensor symbol for the i-th output.
+func (m *Model) OutputSymbol(i int) string {
+	if i < len(m.outputLayouts) {
+		return m.outputLayouts[i].Symbol
+	}
+	return ""
+}
+
+// InputSymbolIndex returns the compiled symbol index for the i-th input.
+func (m *Model) InputSymbolIndex(i int) int {
+	if i < len(m.inputLayouts) {
+		return m.inputLayouts[i].SymbolIndex
+	}
+	return -1
+}
+
+// OutputSymbolIndex returns the compiled symbol index for the i-th output.
+func (m *Model) OutputSymbolIndex(i int) int {
+	if i < len(m.outputLayouts) {
+		return m.outputLayouts[i].SymbolIndex
+	}
+	return -1
 }
 
 // WriteInput copies raw bytes into the i-th input IOSurface.
@@ -256,29 +329,12 @@ func (m *Model) Eval() error {
 }
 
 func (m *Model) evalMIL() error {
-	const qos = 21
-
 	emptyOpts := foundation.NewNSMutableDictionary()
-	ok, err := m.inMemModel.EvaluateWithQoSOptionsRequestError(qos, emptyOpts, m.request)
-	if err == nil && ok {
-		return nil
-	}
-	return wrapErr("eval", err)
+	return m.evaluateRequestWithOptions(m.request, emptyOpts, true)
 }
 
 func (m *Model) evalPackage() error {
-	const qos = 21
-
-	ok, err := m.aneClient.DoEvaluateDirectWithModelOptionsRequestQosError(m.aneModel, nil, m.request, qos)
-	if err == nil && ok {
-		return nil
-	}
-
-	ok, err = m.aneClient.EvaluateWithModelOptionsRequestQosError(m.aneModel, nil, m.request, qos)
-	if err == nil && ok {
-		return nil
-	}
-	return wrapErr("eval", err)
+	return m.evaluateRequestWithOptions(m.request, nil, true)
 }
 
 // Close releases the model's resources.
@@ -291,13 +347,12 @@ func (m *Model) Close() error {
 	m.closed = true
 	runtime.SetFinalizer(m, nil)
 
-	const qos = 21
 	switch m.modelType {
 	case ModelTypeMIL:
 		if m.mapped {
 			m.inMemModel.UnmapIOSurfacesWithRequest(m.request)
 		}
-		m.inMemModel.UnloadWithQoSError(qos)
+		m.inMemModel.UnloadWithQoSError(m.qos)
 	case ModelTypePackage:
 		if m.mapped && !m.sharedEventUsed {
 			m.aneClient.UnmapIOSurfacesWithModelRequest(m.aneModel, m.request)
@@ -306,7 +361,7 @@ func (m *Model) Close() error {
 			// Package-model unload after a shared-event eval still crashes inside
 			// AppleNeuralEngine on this host. Skip unload but still release IOSurfaces below.
 		} else {
-			m.aneClient.UnloadModelOptionsQosError(m.aneModel, nil, qos)
+			m.aneClient.UnloadModelOptionsQosError(m.aneModel, nil, m.qos)
 		}
 	}
 

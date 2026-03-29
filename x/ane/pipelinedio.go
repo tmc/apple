@@ -36,9 +36,8 @@ func (p *PipelinedIO) NotifyInputsReady(procedureIdx int) error {
 	}
 	buffers := appleneuralengine.ANEInputBuffersReadyFromID(obj.GetID())
 
-	const qos = 21
 	ok, err := p.model.aneClient.BuffersReadyWithModelInputBuffersOptionsQosError(
-		p.model.aneModel, buffers, nil, qos,
+		p.model.aneModel, buffers, nil, p.model.qosValue(),
 	)
 	if err != nil || !ok {
 		return wrapErr("pipelined-io", err)
@@ -55,9 +54,8 @@ func (p *PipelinedIO) EnqueueOutputSet(procedureIdx, setIdx int, signalValue uin
 		return &ANEError{Op: "pipelined-io", Err: fmt.Errorf("failed to create output set enqueue")}
 	}
 
-	const qos = 21
 	ok, err := p.model.aneClient.EnqueueSetsWithModelOutputSetOptionsQosError(
-		p.model.aneModel, &set, nil, qos,
+		p.model.aneModel, &set, nil, p.model.qosValue(),
 	)
 	if err != nil || !ok {
 		return wrapErr("pipelined-io", err)

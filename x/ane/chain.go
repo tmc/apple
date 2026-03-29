@@ -77,9 +77,8 @@ func (m *Model) PrepareChain(links []ChainLink) error {
 			return &ANEError{Op: "chain", Err: fmt.Errorf("failed to create chaining request for procedure %d", link.ProcedureIndex)}
 		}
 
-		const qos = 21
 		ok, err := m.aneClient.PrepareChainingWithModelOptionsChainingReqQosError(
-			m.aneModel, emptyOpts, reqObj, qos,
+			m.aneModel, emptyOpts, reqObj, m.qosValue(),
 		)
 		if err != nil || !ok {
 			return &ANEError{Op: "chain", Err: fmt.Errorf("prepare chaining failed for procedure %d: %w", link.ProcedureIndex, err)}

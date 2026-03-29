@@ -151,6 +151,7 @@ func compileMIL(c *Client, opts CompileOptions) (*Model, error) {
 	m := &Model{
 		client:        c,
 		modelType:     ModelTypeMIL,
+		qos:           opts.QoS,
 		inMemModel:    model,
 		request:       request,
 		inputs:        inputs,
@@ -271,6 +272,7 @@ func compilePackage(c *Client, opts CompileOptions) (*Model, error) {
 	m := &Model{
 		client:        c,
 		modelType:     ModelTypePackage,
+		qos:           opts.QoS,
 		aneModel:      model,
 		aneClient:     aneClient,
 		request:       request,
@@ -306,6 +308,10 @@ func parseModelLayouts(attrs foundation.INSDictionary) ([]TensorLayout, []Tensor
 
 	// Use the first procedure's layout.
 	proc := netList.ObjectAtIndex(0)
+	inputSymbols, outputSymbols, err := parseProcedureSymbolMaps(attrs)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	// Parse LiveInputList.
 	inputListID := dictGet(proc, "LiveInputList")
@@ -316,7 +322,7 @@ func parseModelLayouts(attrs foundation.INSDictionary) ([]TensorLayout, []Tensor
 	inputLayouts := make([]TensorLayout, inputList.Count())
 	for i := uint(0); i < inputList.Count(); i++ {
 		entry := inputList.ObjectAtIndex(i)
-		l := parseTensorEntry(entry)
+		l := parseTensorEntry(entry, inputSymbols)
 		if err := validateLayout(l); err != nil {
 			return nil, nil, fmt.Errorf("%w: input[%d]: %v", ErrUnsupportedLayout, i, err)
 		}
@@ -332,7 +338,7 @@ func parseModelLayouts(attrs foundation.INSDictionary) ([]TensorLayout, []Tensor
 	outputLayouts := make([]TensorLayout, outputList.Count())
 	for i := uint(0); i < outputList.Count(); i++ {
 		entry := outputList.ObjectAtIndex(i)
-		l := parseTensorEntry(entry)
+		l := parseTensorEntry(entry, outputSymbols)
 		if err := validateLayout(l); err != nil {
 			return nil, nil, fmt.Errorf("%w: output[%d]: %v", ErrUnsupportedLayout, i, err)
 		}
@@ -343,17 +349,31 @@ func parseModelLayouts(attrs foundation.INSDictionary) ([]TensorLayout, []Tensor
 }
 
 // parseTensorEntry extracts a TensorLayout from a single LiveInputList/LiveOutputList entry.
-func parseTensorEntry(entry objectivec.IObject) TensorLayout {
+func parseTensorEntry(entry objectivec.IObject, symbolIndices map[string]int) TensorLayout {
 	channels := dictGetInt(entry, "Channels")
 	width := dictGetInt(entry, "Width")
 	height := dictGetInt(entry, "Height")
 	planeStride := dictGetInt(entry, "PlaneStride")
 	rowStride := dictGetInt(entry, "RowStride")
 	typeName := dictGetString(entry, "Type")
+	name := dictGetString(entry, "Name")
+	symbol := dictGetString(entry, "Symbol")
 
 	elemSize := 2 // fp16 default
 	if typeName == "Float32" {
 		elemSize = 4
+	}
+
+	symbolIndex := -1
+	switch {
+	case symbol != "":
+		if idx, ok := symbolIndices[symbol]; ok {
+			symbolIndex = idx
+		}
+	case name != "":
+		if idx, ok := symbolIndices[name]; ok {
+			symbolIndex = idx
+		}
 	}
 
 	return TensorLayout{
@@ -363,7 +383,42 @@ func parseTensorEntry(entry objectivec.IObject) TensorLayout {
 		ElemSize:    elemSize,
 		RowStride:   rowStride,
 		PlaneStride: planeStride,
+		Name:        name,
+		Symbol:      symbol,
+		SymbolIndex: symbolIndex,
 	}
+}
+
+func parseProcedureSymbolMaps(attrs foundation.INSDictionary) (map[string]int, map[string]int, error) {
+	descID := dictGet(attrs, "ANEFModelDescription")
+	if descID == 0 {
+		return nil, nil, nil
+	}
+	desc := objectivec.ObjectFromID(descID)
+	return symbolPositions(stringArrayForKey(desc, "kANEFModelInputSymbolsArrayKey")),
+		symbolPositions(stringArrayForKey(desc, "kANEFModelOutputSymbolsArrayKey")),
+		nil
+}
+
+func stringArrayForKey(dict objectivec.IObject, key string) []string {
+	id := dictGet(dict, key)
+	if id == 0 {
+		return nil
+	}
+	arr := foundation.NSArrayFromID(id)
+	out := make([]string, 0, arr.Count())
+	for i := uint(0); i < arr.Count(); i++ {
+		out = append(out, foundation.NSStringFromID(arr.ObjectAtIndex(i).GetID()).String())
+	}
+	return out
+}
+
+func symbolPositions(names []string) map[string]int {
+	out := make(map[string]int, len(names))
+	for i, name := range names {
+		out[name] = i
+	}
+	return out
 }
 
 // dictGet returns the objc.ID for a string key in a dictionary, or 0 if not found.
@@ -417,7 +472,11 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (apple
 		inputs[i] = ref
 		wrapped := ioClass.ObjectWithIOSurface(ref)
 		inputArr.AddObject(wrapped)
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(i))
+		symbolIndex := i
+		if layout.SymbolIndex >= 0 {
+			symbolIndex = layout.SymbolIndex
+		}
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(symbolIndex))
 	}
 
 	// Create output IOSurfaces.
@@ -432,7 +491,11 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (apple
 		outputs[i] = ref
 		wrapped := ioClass.ObjectWithIOSurface(ref)
 		outputArr.AddObject(wrapped)
-		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(i))
+		symbolIndex := i
+		if layout.SymbolIndex >= 0 {
+			symbolIndex = layout.SymbolIndex
+		}
+		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(symbolIndex))
 	}
 
 	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)
@@ -667,6 +730,7 @@ func compileMILWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Mod
 	m := &Model{
 		client:        c,
 		modelType:     ModelTypeMIL,
+		qos:           opts.QoS,
 		inMemModel:    model,
 		request:       request,
 		inputs:        inputs,
@@ -763,6 +827,7 @@ func compilePackageWithStats(c *Client, opts CompileOptions, cs *CompileStats) (
 	m := &Model{
 		client:        c,
 		modelType:     ModelTypePackage,
+		qos:           opts.QoS,
 		aneModel:      model,
 		aneClient:     aneClient,
 		request:       request,

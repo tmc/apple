@@ -26,6 +26,9 @@ type TensorLayout struct {
 	ElemSize    int // bytes per element (2 for fp16, 4 for fp32)
 	RowStride   int // byte stride between rows (64-byte aligned)
 	PlaneStride int // byte stride between channels (= Height * RowStride)
+	Name        string
+	Symbol      string
+	SymbolIndex int
 }
 
 // AllocSize returns the total IOSurface allocation size for this layout.

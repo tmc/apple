@@ -118,18 +118,19 @@ func (m *Model) EvalBidirectionalEvents(wait *SharedEvent, waitValue uint64, sig
 }
 
 func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal *SharedEvent, signalValue uint64, cfg SharedEventEvalOptions) error {
-	if m.modelType != ModelTypePackage {
-		return &ANEError{Op: "eval", Err: ErrSharedEventRequiresPackage}
-	}
 	m.mu.Lock()
 	m.sharedEventUsed = true
 	m.mu.Unlock()
 
 	signalArr := foundation.NewNSMutableArray()
 	if signal != nil {
+		symbolIndex := 0
+		if len(m.outputLayouts) > 0 && m.outputLayouts[0].SymbolIndex >= 0 {
+			symbolIndex = m.outputLayouts[0].SymbolIndex
+		}
 		sigEvtClass := appleneuralengine.GetANESharedSignalEventClass()
 		sigEvtObj := sigEvtClass.SignalEventWithValueSymbolIndexEventTypeSharedEvent(
-			signalValue, 0, eventTypeSignal, signal.ev,
+			signalValue, uint32(symbolIndex), eventTypeSignal, signal.ev,
 		)
 		if sigEvtObj == nil || sigEvtObj.GetID() == 0 {
 			return &ANEError{Op: "eval", Err: fmt.Errorf("failed to create ANESharedSignalEvent")}
@@ -154,7 +155,7 @@ func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal
 	if sharedEventsObj == nil || sharedEventsObj.GetID() == 0 {
 		return &ANEError{Op: "eval", Err: fmt.Errorf("failed to create ANESharedEvents")}
 	}
-	req, reqObjects, err := createRequestFromSurfacesWithSharedEvents(m.inputs, m.outputs, sharedEventsObj)
+	req, reqObjects, err := createRequestFromBindingsWithSharedEvents(m.inputBindings(), m.outputBindings(), 0, sharedEventsObj)
 	if err != nil {
 		return err
 	}
@@ -166,14 +167,6 @@ func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal
 	if wait != nil {
 		keepAlive = append(keepAlive, wait.ev)
 	}
-	ok, err := m.aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(m.aneModel, req, true)
-	if err != nil || !ok {
-		ok, err = m.aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(m.aneModel, req, false)
-		if err != nil || !ok {
-			return &ANEError{Op: "map", Err: fmt.Errorf("map shared-event request failed: %w", err)}
-		}
-	}
-	defer m.aneClient.UnmapIOSurfacesWithModelRequest(m.aneModel, req)
 	if wait != nil {
 		keepAlive = append(keepAlive, waitEvtObj, waitArr)
 	}
@@ -182,7 +175,6 @@ func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal
 		runtime.KeepAlive(req)
 	}()
 
-	// Build options dict for shared events.
 	opts := foundation.NewNSMutableDictionary()
 	if cfg.DisableIOFencesUseSharedEvents {
 		opts.SetObjectForKey(
@@ -202,18 +194,14 @@ func (m *Model) evalWithSharedEvents(wait *SharedEvent, waitValue uint64, signal
 		return &ANEError{Op: "eval", Err: fmt.Errorf("request validation failed")}
 	}
 
-	const qos = 21
-	ok, err = m.aneClient.EvaluateWithModelOptionsRequestQosError(m.aneModel, opts, req, qos)
-	if err == nil && ok {
-		return nil
+	unmap, err := m.mapRequestWithFallback(req)
+	if err != nil {
+		return wrapErr("map", err)
 	}
-	if os.Getenv("ANE_SHARED_USE_DIRECT") != "" {
-		ok, err = m.aneClient.DoEvaluateDirectWithModelOptionsRequestQosError(m.aneModel, opts, req, qos)
-		if err == nil && ok {
-			return nil
-		}
-	}
-	return wrapErr("eval", err)
+	defer unmap()
+
+	preferDirect := os.Getenv("ANE_SHARED_USE_DIRECT") != ""
+	return wrapErr("eval", m.evaluateRequestWithOptions(req, opts, preferDirect))
 }
 
 // TimeWait blocks until the event reaches the given value or timeout expires,

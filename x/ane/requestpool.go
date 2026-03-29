@@ -21,6 +21,7 @@ const maxPoolDepth = 127
 type RequestPool struct {
 	model    *Model
 	requests []appleneuralengine.ANERequest
+	unmaps   []func()
 	depth    int
 	next     atomic.Uint64
 }
@@ -39,41 +40,33 @@ func NewRequestPool(m *Model, depth int) (*RequestPool, error) {
 	}
 
 	requests := make([]appleneuralengine.ANERequest, depth)
+	unmaps := make([]func(), depth)
 
 	// First slot reuses the model's existing request.
 	requests[0] = m.request
 
 	// Create additional requests referencing the same IOSurfaces.
+	inputBindings := m.inputBindings()
+	outputBindings := m.outputBindings()
 	for i := 1; i < depth; i++ {
-		req, err := createRequestFromSurfaces(m.inputs, m.outputs)
+		req, _, err := createRequestFromBindingsWithSharedEvents(inputBindings, outputBindings, 0, nil)
 		if err != nil {
 			return nil, fmt.Errorf("ane: pool request[%d]: %w", i, err)
 		}
 
-		// Map the new request's surfaces.
-		var ok bool
-		switch m.modelType {
-		case ModelTypeMIL:
-			ok, err = m.inMemModel.MapIOSurfacesWithRequestCacheInferenceError(req, true)
-			if err != nil || !ok {
-				ok, err = m.inMemModel.MapIOSurfacesWithRequestCacheInferenceError(req, false)
-			}
-		case ModelTypePackage:
-			ok, err = m.aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(m.aneModel, req, true)
-			if err != nil || !ok {
-				ok, err = m.aneClient.MapIOSurfacesWithModelRequestCacheInferenceError(m.aneModel, req, false)
-			}
-		}
-		if err != nil || !ok {
+		unmap, err := m.mapRequestWithFallback(req)
+		if err != nil {
 			return nil, &ANEError{Op: "pool", Err: fmt.Errorf("map request[%d] failed: %w", i, err)}
 		}
 
 		requests[i] = req
+		unmaps[i] = unmap
 	}
 
 	return &RequestPool{
 		model:    m,
 		requests: requests,
+		unmaps:   unmaps,
 		depth:    depth,
 	}, nil
 }
@@ -85,25 +78,49 @@ func createRequestFromSurfaces(inputs, outputs []coregraphics.IOSurfaceRef) (app
 }
 
 func createRequestFromSurfacesWithSharedEvents(inputs, outputs []coregraphics.IOSurfaceRef, sharedEvents objectivec.IObject) (appleneuralengine.ANERequest, []objectivec.IObject, error) {
+	inputBindings := make([]SurfaceBinding, len(inputs))
+	for i, ref := range inputs {
+		inputBindings[i] = SurfaceBinding{Surface: ref, SymbolIndex: i}
+	}
+	outputBindings := make([]SurfaceBinding, len(outputs))
+	for i, ref := range outputs {
+		outputBindings[i] = SurfaceBinding{Surface: ref, SymbolIndex: i}
+	}
+	return createRequestFromBindingsWithSharedEvents(inputBindings, outputBindings, 0, sharedEvents)
+}
+
+func createRequestFromBindingsWithSharedEvents(inputs, outputs []SurfaceBinding, procedureIndex int, sharedEvents objectivec.IObject) (appleneuralengine.ANERequest, []objectivec.IObject, error) {
 	ioClass := appleneuralengine.GetANEIOSurfaceObjectClass()
 
 	inputArr := foundation.NewNSMutableArray()
 	inputIdxArr := foundation.NewNSMutableArray()
-	for i, ref := range inputs {
-		wrapped := ioClass.ObjectWithIOSurface(ref)
+	for i, binding := range inputs {
+		if binding.Surface == 0 {
+			return appleneuralengine.ANERequest{}, nil, &ANEError{Op: "pool", Err: fmt.Errorf("input[%d] has nil IOSurface", i)}
+		}
+		if binding.SymbolIndex < 0 {
+			return appleneuralengine.ANERequest{}, nil, &ANEError{Op: "pool", Err: fmt.Errorf("input[%d] has invalid symbol index %d", i, binding.SymbolIndex)}
+		}
+		wrapped := ioClass.ObjectWithIOSurface(binding.Surface)
 		inputArr.AddObject(wrapped)
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(i))
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(binding.SymbolIndex))
 	}
 
 	outputArr := foundation.NewNSMutableArray()
 	outputIdxArr := foundation.NewNSMutableArray()
-	for i, ref := range outputs {
-		wrapped := ioClass.ObjectWithIOSurface(ref)
+	for i, binding := range outputs {
+		if binding.Surface == 0 {
+			return appleneuralengine.ANERequest{}, nil, &ANEError{Op: "pool", Err: fmt.Errorf("output[%d] has nil IOSurface", i)}
+		}
+		if binding.SymbolIndex < 0 {
+			return appleneuralengine.ANERequest{}, nil, &ANEError{Op: "pool", Err: fmt.Errorf("output[%d] has invalid symbol index %d", i, binding.SymbolIndex)}
+		}
+		wrapped := ioClass.ObjectWithIOSurface(binding.Surface)
 		outputArr.AddObject(wrapped)
-		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(i))
+		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(binding.SymbolIndex))
 	}
 
-	procIdx := foundation.GetNSNumberClass().NumberWithInt(0)
+	procIdx := foundation.GetNSNumberClass().NumberWithInt(procedureIndex)
 	txnHandle := foundation.GetNSNumberClass().NumberWithUnsignedLongLong(1)
 
 	reqClass := appleneuralengine.GetANERequestClass()
@@ -126,6 +143,9 @@ func createRequestFromSurfacesWithSharedEvents(inputs, outputs []coregraphics.IO
 		req.SetTransactionHandle(txnHandle)
 	}
 	keepAlive := []objectivec.IObject{inputArr, inputIdxArr, outputArr, outputIdxArr}
+	if sharedEvents != nil {
+		keepAlive = append(keepAlive, sharedEvents)
+	}
 	return req, keepAlive, nil
 }
 
@@ -155,23 +175,9 @@ func (pr *PooledRequest) Eval() error {
 
 	switch mdl.modelType {
 	case ModelTypeMIL:
-		const qos = 21
-		ok, err := mdl.inMemModel.EvaluateWithQoSOptionsRequestError(qos, nil, pr.Request)
-		if err == nil && ok {
-			return nil
-		}
-		return wrapErr("eval", err)
+		return mdl.evaluateRequestWithOptions(pr.Request, nil, true)
 	case ModelTypePackage:
-		const qos = 21
-		ok, err := mdl.aneClient.DoEvaluateDirectWithModelOptionsRequestQosError(mdl.aneModel, nil, pr.Request, qos)
-		if err == nil && ok {
-			return nil
-		}
-		ok, err = mdl.aneClient.EvaluateWithModelOptionsRequestQosError(mdl.aneModel, nil, pr.Request, qos)
-		if err == nil && ok {
-			return nil
-		}
-		return wrapErr("eval", err)
+		return mdl.evaluateRequestWithOptions(pr.Request, nil, true)
 	default:
 		return &ANEError{Op: "eval", Err: fmt.Errorf("unknown model type %d", mdl.modelType)}
 	}
@@ -184,6 +190,11 @@ func (pr *PooledRequest) Release() {}
 func (p *RequestPool) Close() error {
 	mdl := p.model
 	for i := 1; i < p.depth; i++ {
+		if i < len(p.unmaps) && p.unmaps[i] != nil {
+			p.unmaps[i]()
+			p.unmaps[i] = nil
+			continue
+		}
 		switch mdl.modelType {
 		case ModelTypeMIL:
 			mdl.inMemModel.UnmapIOSurfacesWithRequest(p.requests[i])
