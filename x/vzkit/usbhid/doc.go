@@ -5,6 +5,6 @@
 // that return errors instead of crashing when the VM is not running or
 // not yet accepting HID reports.
 //
-// All methods dispatch on the caller-supplied [vzkit.Queue] so they are
+// All methods dispatch on the caller-supplied [vm.Queue] so they are
 // safe to call from any goroutine.
 package usbhid

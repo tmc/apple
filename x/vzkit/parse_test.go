@@ -3,6 +3,7 @@ package vzkit
 import (
 	"os"
 	"path/filepath"
+	"reflect"
 	"testing"
 )
 
@@ -32,6 +33,11 @@ func TestParseNetworkMode(t *testing.T) {
 			name:  "vmnet",
 			input: "vmnet",
 			want:  NetworkConfig{Mode: NetworkModeVMNet},
+		},
+		{
+			name:  "host-only",
+			input: "host-only",
+			want:  NetworkConfig{Mode: NetworkModeHostOnly},
 		},
 		{
 			name:  "bridged",
@@ -138,7 +144,7 @@ func TestParseVolumeSpec(t *testing.T) {
 			if tt.wantErr {
 				return
 			}
-			if got != tt.want {
+			if !reflect.DeepEqual(got, tt.want) {
 				t.Fatalf("ParseVolumeSpec(%q) = %+v, want %+v", tt.spec, got, tt.want)
 			}
 		})

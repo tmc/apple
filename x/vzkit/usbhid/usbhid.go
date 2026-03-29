@@ -8,7 +8,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	vz "github.com/tmc/apple/virtualization"
-	"github.com/tmc/apple/x/vzkit"
+	"github.com/tmc/apple/x/vzkit/vm"
 )
 
 var (
@@ -18,18 +18,18 @@ var (
 
 // Sender sends HID events to a virtual machine.
 type Sender struct {
-	queue *vzkit.Queue
+	queue *vm.Queue
 	vm    vz.VZVirtualMachine
 }
 
 // NewSender creates a new HID event sender for a running VM.
-func NewSender(queue *vzkit.Queue, vm vz.VZVirtualMachine) *Sender {
+func NewSender(queue *vm.Queue, vm vz.VZVirtualMachine) *Sender {
 	return &Sender{queue: queue, vm: vm}
 }
 
 // requireReady checks the VM is running and accepting HID reports.
 func (s *Sender) requireReady() error {
-	state := vzkit.VMState(s.queue, s.vm)
+	state := vm.State(s.queue, s.vm)
 	if state != vz.VZVirtualMachineStateRunning {
 		return fmt.Errorf("%w: state is %s", ErrVMNotRunning, state)
 	}
