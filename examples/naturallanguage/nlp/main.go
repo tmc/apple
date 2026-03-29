@@ -233,10 +233,10 @@ type tagResult struct {
 }
 
 // enumerateTags runs the NLTagger enumerateTagsInRange:unit:scheme:options:usingBlock:
-// method via raw objc.Send since the block-based enumeration isn't generated.
-//
-// The block callback receives (NLTag, NSRange, BOOL*) but purego can't pass
-// structs through blocks, so NSRange is flattened to (location, length) uintptrs.
+// method via raw objc.Send. The generated binding exists but its block signature
+// uses *string for NLTag and unsafe.Pointer for NSRange, which doesn't match the
+// ObjC ABI (NLTag is NSString*, NSRange is a struct flattened to two registers).
+// This manual version correctly flattens the block args.
 func enumerateTags(text string, scheme string, unit naturallanguage.NLTokenUnit, opts int) []tagResult {
 	tagger := naturallanguage.NewTaggerWithTagSchemes([]string{scheme})
 	tagger.SetString(text)

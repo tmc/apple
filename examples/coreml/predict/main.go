@@ -18,7 +18,7 @@ import (
 
 	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 func init() {
@@ -144,8 +144,7 @@ func extractMetadata(dict foundation.NSDictionary) map[string]string {
 	for _, k := range dict.AllKeys() {
 		key := foundation.NSStringFromID(k.GetID()).String()
 		val := dict.ObjectForKey(k)
-		desc := objc.Send[objc.ID](val.GetID(), objc.Sel("description"))
-		m[key] = foundation.NSStringFromID(desc).String()
+		m[key] = objectivec.ObjectFromID(val.GetID()).Description()
 	}
 	return m
 }

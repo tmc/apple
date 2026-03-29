@@ -7,7 +7,6 @@ import (
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/objc"
 	pavfaudio "github.com/tmc/apple/private/avfaudio"
 	"github.com/tmc/apple/private/texttospeech"
 )
@@ -165,34 +164,22 @@ func listCatalogVoices(siriOnly bool) {
 	obj := shim.ResourceVoicesWithOnlyInstalled(false)
 	arr := foundation.NSArrayFromID(obj.GetID())
 	for i := range arr.Count() {
-		item := arr.ObjectAtIndex(i).GetID()
-		idRv := objc.Send[objc.ID](item, objc.Sel("identifier"))
-		if idRv == 0 {
+		voice := texttospeech.TTSAXResourceFromID(arr.ObjectAtIndex(i).GetID())
+		identifier := voice.Identifier()
+		if identifier == "" {
 			continue
 		}
-		identifier := foundation.NSStringFromID(idRv).String()
 		if siriOnly {
 			lower := strings.ToLower(identifier)
 			if !strings.Contains(lower, "siri") && !strings.Contains(lower, "gryphon") {
 				continue
 			}
 		}
-		nameRv := objc.Send[objc.ID](item, objc.Sel("name"))
-		name := ""
-		if nameRv != 0 {
-			name = foundation.NSStringFromID(nameRv).String()
-		}
-		langRv := objc.Send[objc.ID](item, objc.Sel("language"))
-		lang := ""
-		if langRv != 0 {
-			lang = foundation.NSStringFromID(langRv).String()
-		}
-		installed := objc.Send[bool](item, objc.Sel("isInstalled"))
 		status := " "
-		if installed {
+		if voice.IsInstalled() {
 			status = "*"
 		}
-		fmt.Printf("%s %-8s %-30s %s\n", status, lang, name, identifier)
+		fmt.Printf("%s %-8s %-30s %s\n", status, voice.Language(), voice.Name(), identifier)
 	}
 }
 
