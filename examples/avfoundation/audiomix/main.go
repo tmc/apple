@@ -31,6 +31,7 @@ import (
 	"github.com/tmc/apple/avfoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // cmTime mirrors CoreMedia's CMTime struct layout.
@@ -173,8 +174,7 @@ func bake(inputPath, outputPath string, fadeIn, fadeOut float64) error {
 		[]avfoundation.AVAssetTrack{track}, nil)
 	readerOutput.SetAudioMix(mix)
 
-	// addOutput: is not in generated bindings.
-	objc.Send[objc.ID](reader.ID, objc.Sel("addOutput:"), readerOutput.ID)
+	reader.AddOutput(readerOutput)
 
 	writer, writerErr := avfoundation.NewAssetWriterWithURLFileTypeError(outputURL, avfoundation.AVFileTypes.QuickTimeMovie)
 	if writerErr != nil {
@@ -184,27 +184,26 @@ func bake(inputPath, outputPath string, fadeIn, fadeOut float64) error {
 	writerInput := avfoundation.NewAssetWriterInputWithMediaTypeOutputSettings(
 		avfoundation.AVMediaTypes.Audio, nil)
 
-	// addInput: is not in generated bindings.
-	objc.Send[objc.ID](writer.ID, objc.Sel("addInput:"), writerInput.ID)
+	writer.AddInput(writerInput)
 
-	objc.Send[bool](reader.ID, objc.Sel("startReading"))
-	objc.Send[bool](writer.ID, objc.Sel("startWriting"))
+	reader.StartReading()
+	writer.StartWriting()
 
-	// startSessionAtSourceTime: expects a raw CMTime struct.
+	// startSessionAtSourceTime: takes a CMTime struct. The generated binding
+	// uses uintptr which can't represent the full struct, so use objc.Send.
 	zero := cmTime{Value: 0, Timescale: 1, Flags: kCMTimeFlagsValid}
 	objc.Send[objc.ID](writer.ID, objc.Sel("startSessionAtSourceTime:"), zero)
 
 	samples := 0
 	for {
-		// Wait until the writer input is ready for more data.
-		for !objc.Send[bool](writerInput.ID, objc.Sel("isReadyForMoreMediaData")) {
+		for !writerInput.IsReadyForMoreMediaData() {
 			time.Sleep(10 * time.Millisecond)
 		}
-		buf := objc.Send[objc.ID](readerOutput.ID, objc.Sel("copyNextSampleBuffer"))
+		buf := readerOutput.CopyNextSampleBuffer()
 		if buf == 0 {
 			break
 		}
-		objc.Send[bool](writerInput.ID, objc.Sel("appendSampleBuffer:"), buf)
+		writerInput.AppendSampleBuffer(buf)
 		cfRelease(buf)
 		samples++
 	}
@@ -223,13 +222,11 @@ func bake(inputPath, outputPath string, fadeIn, fadeOut float64) error {
 
 // loadFirstAudioTrack loads the first audio track from the asset.
 func loadFirstAudioTrack(asset avfoundation.AVURLAsset) (avfoundation.AVAssetTrack, error) {
-	// tracksWithMediaType: is not in generated bindings.
-	tracks := objc.Send[[]objc.ID](asset.ID, objc.Sel("tracksWithMediaType:"),
-		objc.String(string(avfoundation.AVMediaTypes.Audio)))
+	tracks := asset.TracksWithMediaType(avfoundation.AVMediaTypes.Audio)
 	if len(tracks) == 0 {
 		return avfoundation.AVAssetTrack{}, fmt.Errorf("no audio tracks found")
 	}
-	return avfoundation.AVAssetTrackFromID(tracks[0]), nil
+	return tracks[0], nil
 }
 
 // loadTrackDuration returns the track duration in seconds.
@@ -246,15 +243,14 @@ func loadTrackDuration(track avfoundation.AVAssetTrack) float64 {
 func buildFadeMix(track avfoundation.AVAssetTrack, fadeIn, fadeOut, totalDuration float64) avfoundation.AVMutableAudioMix {
 	params := avfoundation.NewMutableAudioMixInputParametersWithTrack(track)
 	if params.ID == 0 {
-		// Fall back to creating params without a track and setting trackID manually.
 		params = avfoundation.GetAVMutableAudioMixInputParametersClass().AudioMixInputParameters()
-		objc.Send[objc.ID](params.ID, objc.Sel("setTrackID:"), track.TrackID())
+		params.SetTrackID(track.TrackID())
 	}
 
 	if fadeIn > 0 {
 		r := newCMTimeRange(0, fadeIn)
-		// Pass float32 values as float32 (not uintptr) so purego places
-		// them in ARM64 float registers via the reflect slow path.
+		// SetVolumeRamp... generated binding uses uintptr for CMTimeRange,
+		// which can't represent the 32-byte struct. Use objc.Send directly.
 		objc.Send[objc.ID](params.ID,
 			objc.Sel("setVolumeRampFromStartVolume:toEndVolume:timeRange:"),
 			float32(0.0), float32(1.0), r)
@@ -268,9 +264,7 @@ func buildFadeMix(track avfoundation.AVAssetTrack, fadeIn, fadeOut, totalDuratio
 	}
 
 	mix := avfoundation.GetAVMutableAudioMixClass().AudioMix()
-	// setInputParameters: is not in generated bindings.
-	objc.Send[objc.ID](mix.ID, objc.Sel("setInputParameters:"),
-		foundation.NewArrayWithObject(params))
+	mix.SetInputParameters(foundation.NewArrayWithObject(params))
 	return mix
 }
 
@@ -292,5 +286,5 @@ func newCMTimeRange(startSeconds, durationSeconds float64) cmTimeRange {
 
 // cfRelease calls CFRelease on a Core Foundation object.
 func cfRelease(id objc.ID) {
-	objc.Send[objc.ID](id, objc.Sel("release"))
+	objectivec.ObjectFromID(id).Release()
 }
