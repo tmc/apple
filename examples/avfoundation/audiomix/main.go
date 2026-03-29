@@ -189,8 +189,9 @@ func bake(inputPath, outputPath string, fadeIn, fadeOut float64) error {
 	reader.StartReading()
 	writer.StartWriting()
 
-	// startSessionAtSourceTime: takes a CMTime struct. The generated binding
-	// uses uintptr which can't represent the full struct, so use objc.Send.
+	// startSessionAtSourceTime: takes a CMTime struct. The generated
+	// coremedia.CMTime has extra fields from docs (Seconds, wrong size),
+	// so pass the correctly-sized local struct via objc.Send.
 	zero := cmTime{Value: 0, Timescale: 1, Flags: kCMTimeFlagsValid}
 	objc.Send[objc.ID](writer.ID, objc.Sel("startSessionAtSourceTime:"), zero)
 
@@ -249,8 +250,8 @@ func buildFadeMix(track avfoundation.AVAssetTrack, fadeIn, fadeOut, totalDuratio
 
 	if fadeIn > 0 {
 		r := newCMTimeRange(0, fadeIn)
-		// SetVolumeRamp... generated binding uses uintptr for CMTimeRange,
-		// which can't represent the 32-byte struct. Use objc.Send directly.
+		// SetVolumeRamp... generated binding uses coremedia.CMTimeRange which
+		// has wrong struct layout (extra fields from docs). Use objc.Send.
 		objc.Send[objc.ID](params.ID,
 			objc.Sel("setVolumeRampFromStartVolume:toEndVolume:timeRange:"),
 			float32(0.0), float32(1.0), r)
