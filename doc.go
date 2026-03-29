@@ -15,6 +15,7 @@
 //go:generate applegen-bootstrap -f "corefoundation"
 //go:generate applegen-bootstrap -f "coregraphics"
 //go:generate applegen-bootstrap -f "coreimage"
+//go:generate applegen-bootstrap -f "coremedia"
 //go:generate applegen-bootstrap -f "coreml"
 //go:generate applegen-bootstrap -f "corevideo"
 //go:generate applegen-bootstrap -f "dispatch"
