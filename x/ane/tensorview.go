@@ -109,6 +109,12 @@ func (v *TensorView) NumElements() int {
 
 // TensorViewFromMultiArray creates a TensorView from a CoreML MLMultiArray.
 //
+// This uses the deprecated DataPointer property, which returns a pointer
+// valid for the lifetime of the retained array. For scoped access without
+// lifetime concerns, use MLMultiArray.GetBytesWithHandler instead (macOS
+// 12.3+, iOS 15.4+). The TensorView path is preferred when the pointer
+// must outlive a callback scope (e.g. zero-copy handoff to Metal or MLX).
+//
 // The returned view borrows memory from arr. The caller must keep arr (and
 // its parent prediction result) retained for the lifetime of the view.
 // After the last access through the view's Ptr, call:
