@@ -210,8 +210,8 @@ type IScanner interface {
 
 	// Topic: Instance Properties
 
-	CurrentIndex() int
-	SetCurrentIndex(value int)
+	CurrentIndex() int32
+	SetCurrentIndex(value int32)
 
 	// A value indicating that a requested item couldn’t be found or doesn’t exist.
 	NSNotFound() int
@@ -585,11 +585,11 @@ func (s Scanner) AtEnd() bool {
 	return rv
 }
 // See: https://developer.apple.com/documentation/foundation/scanner/currentindex
-func (s Scanner) CurrentIndex() int {
-	rv := objc.Send[int](s.ID, objc.Sel("currentIndex"))
+func (s Scanner) CurrentIndex() int32 {
+	rv := objc.Send[int32](s.ID, objc.Sel("currentIndex"))
 	return rv
 }
-func (s Scanner) SetCurrentIndex(value int) {
+func (s Scanner) SetCurrentIndex(value int32) {
 	objc.Send[struct{}](s.ID, objc.Sel("setCurrentIndex:"), value)
 }
 // A value indicating that a requested item couldn’t be found or doesn’t

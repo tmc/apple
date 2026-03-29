@@ -130,14 +130,14 @@ type INSAppleEventManager interface {
 	// Topic: Working with event handlers
 
 	// If an Apple event handler has been registered for the event specified by `eventClass` and `eventID`, removes it.
-	RemoveEventHandlerForEventClassAndEventID(eventClass objectivec.IObject, eventID objectivec.IObject)
+	RemoveEventHandlerForEventClassAndEventID(eventClass uint32, eventID uint32)
 	// Registers the Apple event handler specified by `handler` for the event specified by `eventClass` and `eventID`.
-	SetEventHandlerAndSelectorForEventClassAndEventID(handler ErrorHandler, handleEventSelector objc.SEL, eventClass objectivec.IObject, eventID objectivec.IObject)
+	SetEventHandlerAndSelectorForEventClassAndEventID(handler ErrorHandler, handleEventSelector objc.SEL, eventClass uint32, eventID uint32)
 
 	// Topic: Working with events
 
 	// Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
-	DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent objectivec.IObject, theReply objectivec.IObject, handlerRefCon ErrorHandler) objectivec.IObject
+	DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent *objectivec.IObject, theReply *objectivec.IObject, handlerRefCon ErrorHandler) objectivec.IObject
 
 	// Topic: Suspending and resuming Apple events
 
@@ -179,26 +179,16 @@ func NewNSAppleEventManager() NSAppleEventManager {
 // If an Apple event handler has been registered for the event specified by
 // `eventClass` and `eventID`, removes it.
 //
-// eventClass is a [coreservices.AEEventClass].
-//
-// eventID is a [coreservices.AEEventID].
-//
 // # Discussion
 // 
 // Otherwise does nothing.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/removeEventHandler(forEventClass:andEventID:)
-// eventClass is a [coreservices.AEEventClass].
-// eventID is a [coreservices.AEEventID].
-func (a NSAppleEventManager) RemoveEventHandlerForEventClassAndEventID(eventClass objectivec.IObject, eventID objectivec.IObject) {
+func (a NSAppleEventManager) RemoveEventHandlerForEventClassAndEventID(eventClass uint32, eventID uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("removeEventHandlerForEventClass:andEventID:"), eventClass, eventID)
 }
 // Registers the Apple event handler specified by `handler` for the event
 // specified by `eventClass` and `eventID`.
-//
-// eventClass is a [coreservices.AEEventClass].
-//
-// eventID is a [coreservices.AEEventID].
 //
 // # Discussion
 // 
@@ -207,19 +197,13 @@ func (a NSAppleEventManager) RemoveEventHandlerForEventClassAndEventID(eventClas
 // following:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)
-// eventClass is a [coreservices.AEEventClass].
-// eventID is a [coreservices.AEEventID].
-func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler ErrorHandler, handleEventSelector objc.SEL, eventClass objectivec.IObject, eventID objectivec.IObject) {
+func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler ErrorHandler, handleEventSelector objc.SEL, eventClass uint32, eventID uint32) {
 _block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("setEventHandler:andSelector:forEventClass:andEventID:"), _block0, handleEventSelector, eventClass, eventID)
 }
 // Causes the Apple event specified by `theAppleEvent` to be dispatched to the
 // appropriate Apple event handler, if one has been registered by calling
 // [SetEventHandlerAndSelectorForEventClassAndEventID].
-//
-// theAppleEvent is a [coreservices.AppleEvent].
-//
-// theReply is a [coreservices.AppleEvent].
 //
 // # Discussion
 // 
@@ -236,9 +220,7 @@ _block0, _ := NewErrorBlock(handler)
 // application. You cannot use this method to an event to other applications.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/dispatchRawAppleEvent(_:withRawReply:handlerRefCon:)
-// theAppleEvent is a [coreservices.AppleEvent].
-// theReply is a [coreservices.AppleEvent].
-func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent objectivec.IObject, theReply objectivec.IObject, handlerRefCon ErrorHandler) objectivec.IObject {
+func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent *objectivec.IObject, theReply *objectivec.IObject, handlerRefCon ErrorHandler) objectivec.IObject {
 _block2, _ := NewErrorBlock(handlerRefCon)
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, _block2)
 	return objectivec.Object{ID: rv}
