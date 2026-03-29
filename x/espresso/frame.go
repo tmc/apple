@@ -88,6 +88,18 @@ func (f *Frame) SetInputIOSurface(name string, ref coregraphics.IOSurfaceRef) er
 	return nil
 }
 
+// SetInputANESurface attaches a named input from an Espresso ANE surface frame.
+func (f *Frame) SetInputANESurface(name string, surface *ANESurface, frame uint64) error {
+	if surface == nil {
+		return fmt.Errorf("espresso set input %q: ANESurface is nil", name)
+	}
+	ref, err := surface.IOSurfaceForFrame(frame)
+	if err != nil {
+		return err
+	}
+	return f.SetInputIOSurface(name, ref)
+}
+
 // SetInputCVPixelBuffer attaches a named input from a CVPixelBuffer.
 // Uses EspressoDataFrameTensorAttachment.CopyFromCVPixelBuffer.
 func (f *Frame) SetInputCVPixelBuffer(name string, buf corevideo.CVImageBufferRef) error {
@@ -133,6 +145,37 @@ func (f *Frame) SetGroundTruth(name string, data []float32, shape Shape) error {
 	dict.SetObjectForKey(att, foundation.NSStringFromID(objc.String(name)))
 	f.df.SetGroundTruthAttachments(dict)
 	return nil
+}
+
+// SetOutputIOSurface attaches a named output backed by an IOSurface.
+func (f *Frame) SetOutputIOSurface(name string, ref coregraphics.IOSurfaceRef) error {
+	surfRef := iosurface.IOSurfaceRef(ref)
+	base := iosurface.IOSurfaceGetBaseAddress(surfRef)
+	if base == nil {
+		return fmt.Errorf("espresso set output %q: IOSurface base address is nil", name)
+	}
+	size := iosurface.IOSurfaceGetAllocSize(surfRef)
+
+	att := espresso.NewEspressoDataFrameTensorAttachment()
+	att.SetRawPointer(base)
+	att.SetSize(uint64(size))
+
+	dict := f.outputDict()
+	dict.SetObjectForKey(att, foundation.NSStringFromID(objc.String(name)))
+	f.df.SetOutputAttachments(dict)
+	return nil
+}
+
+// SetOutputANESurface attaches a named output from an Espresso ANE surface frame.
+func (f *Frame) SetOutputANESurface(name string, surface *ANESurface, frame uint64) error {
+	if surface == nil {
+		return fmt.Errorf("espresso set output %q: ANESurface is nil", name)
+	}
+	ref, err := surface.IOSurfaceForFrame(frame)
+	if err != nil {
+		return err
+	}
+	return f.SetOutputIOSurface(name, ref)
 }
 
 // Output returns the named output tensor data after execution.
@@ -262,6 +305,14 @@ func (f *Frame) inputDict() foundation.NSMutableDictionary {
 
 func (f *Frame) groundTruthDict() foundation.NSMutableDictionary {
 	existing := f.df.GroundTruthAttachments()
+	if existing != nil && existing.GetID() != 0 {
+		return foundation.NewMutableDictionaryWithDictionary(existing)
+	}
+	return foundation.NewMutableDictionaryWithCapacity(4)
+}
+
+func (f *Frame) outputDict() foundation.NSMutableDictionary {
+	existing := f.df.OutputAttachments()
 	if existing != nil && existing.GetID() != 0 {
 		return foundation.NewMutableDictionaryWithDictionary(existing)
 	}
