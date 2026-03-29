@@ -30,6 +30,11 @@ type ANEDataReporterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEDataReporterClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEDataReporterClass) Alloc() ANEDataReporter {
 	rv := objc.Send[ANEDataReporter](objc.ID(ac.class), objc.Sel("alloc"))
@@ -100,5 +105,10 @@ func (_ANEDataReporterClass ANEDataReporterClass) ReportErrorMsgStatus(msg uint3
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter/reportTelemetryToPPS:playload:
 func (_ANEDataReporterClass ANEDataReporterClass) ReportTelemetryToPPSPlayload(pps objectivec.IObject, playload objectivec.IObject) {
 	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportTelemetryToPPS:playload:"), pps, playload)
+}
+//
+// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDataReporter/reportTelemetryToCoreAnalytics:payload:
+func (_ANEDataReporterClass ANEDataReporterClass) ReportTelemetryToCoreAnalyticsPayload(analytics objectivec.IObject, payload objectivec.IObject) {
+	objc.Send[objc.ID](objc.ID(_ANEDataReporterClass.class), objc.Sel("reportTelemetryToCoreAnalytics:payload:"), analytics, payload)
 }
 

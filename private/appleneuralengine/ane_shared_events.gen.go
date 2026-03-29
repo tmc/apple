@@ -31,6 +31,11 @@ type ANESharedEventsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANESharedEventsClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANESharedEventsClass) Alloc() ANESharedEvents {
 	rv := objc.Send[ANESharedEvents](objc.ID(ac.class), objc.Sel("alloc"))

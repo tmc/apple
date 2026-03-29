@@ -33,6 +33,11 @@ type TTSSpeechManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSSpeechManagerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechManagerClass) Alloc() TTSSpeechManager {
 	rv := objc.Send[TTSSpeechManager](objc.ID(tc.class), objc.Sel("alloc"))
@@ -335,7 +340,7 @@ type ITTSSpeechManager interface {
 	SetOriginalSpeechRateForJobOverride(value foundation.NSNumber)
 	OutputChannels() foundation.INSArray
 	SetOutputChannels(value foundation.INSArray)
-	PauseSpeakingWithBoundary(speaking int64)
+	PauseSpeaking(speaking int64)
 	RequestedActionDuringAudioInterruption() ITTSSpeechAction
 	SetRequestedActionDuringAudioInterruption(value ITTSSpeechAction)
 	SetActiveOptions() uint64
@@ -353,8 +358,9 @@ type ITTSSpeechManager interface {
 	SpeechSynthesizerDidFinishSpeakingRequestSuccessfullyWithError(synthesizer objectivec.IObject, request objectivec.IObject, successfully bool, error_ objectivec.IObject)
 	SpeechSynthesizerDidPauseSpeakingRequest(synthesizer objectivec.IObject, request objectivec.IObject)
 	SpeechSynthesizerDidStartSpeakingRequest(synthesizer objectivec.IObject, request objectivec.IObject)
-	StopSpeakingImmediate()
-	StopSpeakingWithBoundary(speaking int64)
+	StopSpeaking()
+	StopSpeakingWithSpeaking(speaking int64)
+	TearDown()
 	UsesAuxiliarySession() bool
 	SetUsesAuxiliarySession(value bool)
 	VoiceIdentifierUsedForLanguage(language objectivec.IObject) objectivec.IObject
@@ -399,19 +405,9 @@ func (t TTSSpeechManager) SpeechJobFinished(finished objectivec.IObject) {
 func (t TTSSpeechManager) _clearSpeechQueue() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_clearSpeechQueue"))
 }
-
-// ClearSpeechQueue is an exported wrapper for the private method _clearSpeechQueue.
-func (t TTSSpeechManager) ClearSpeechQueue() {
-	t._clearSpeechQueue()
-}
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_continueSpeaking
 func (t TTSSpeechManager) _continueSpeaking() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_continueSpeaking"))
-}
-
-// ContinueSpeaking is an exported wrapper for the private method _continueSpeaking.
-func (t TTSSpeechManager) ContinueSpeaking() {
-	t._continueSpeaking()
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_didBeginInterruption
 func (t TTSSpeechManager) _didBeginInterruption() {
@@ -436,11 +432,6 @@ func (t TTSSpeechManager) DidEndInterruption() {
 func (t TTSSpeechManager) _dispatchSpeechAction(action objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_dispatchSpeechAction:"), action)
 }
-
-// DispatchSpeechAction is an exported wrapper for the private method _dispatchSpeechAction.
-func (t TTSSpeechManager) DispatchSpeechAction(action objectivec.IObject) {
-	t._dispatchSpeechAction(action)
-}
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_enqueueSelectorOnSpeechThread:object:waitUntilDone:
 func (t TTSSpeechManager) _enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) bool {
@@ -457,30 +448,15 @@ func (t TTSSpeechManager) EnqueueSelectorOnSpeechThreadObjectWaitUntilDone(threa
 func (t TTSSpeechManager) _handleAudioInterruption(interruption objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_handleAudioInterruption:"), interruption)
 }
-
-// HandleAudioInterruption is an exported wrapper for the private method _handleAudioInterruption.
-func (t TTSSpeechManager) HandleAudioInterruption(interruption objectivec.IObject) {
-	t._handleAudioInterruption(interruption)
-}
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_handleMediaServicesWereLost:
 func (t TTSSpeechManager) _handleMediaServicesWereLost(lost objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_handleMediaServicesWereLost:"), lost)
 }
-
-// HandleMediaServicesWereLost is an exported wrapper for the private method _handleMediaServicesWereLost.
-func (t TTSSpeechManager) HandleMediaServicesWereLost(lost objectivec.IObject) {
-	t._handleMediaServicesWereLost(lost)
-}
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_handleMediaServicesWereReset:
 func (t TTSSpeechManager) _handleMediaServicesWereReset(reset objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_handleMediaServicesWereReset:"), reset)
-}
-
-// HandleMediaServicesWereReset is an exported wrapper for the private method _handleMediaServicesWereReset.
-func (t TTSSpeechManager) HandleMediaServicesWereReset(reset objectivec.IObject) {
-	t._handleMediaServicesWereReset(reset)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_initialize
 func (t TTSSpeechManager) _initialize() {
@@ -496,20 +472,10 @@ func (t TTSSpeechManager) Initialize() {
 func (t TTSSpeechManager) _isSpeaking(speaking objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_isSpeaking:"), speaking)
 }
-
-// IsSpeakingCallback is an exported wrapper for the private method _isSpeaking.
-func (t TTSSpeechManager) IsSpeakingCallback(speaking objectivec.IObject) {
-	t._isSpeaking(speaking)
-}
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_pauseSpeaking:
 func (t TTSSpeechManager) _pauseSpeaking(speaking objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_pauseSpeaking:"), speaking)
-}
-
-// PauseSpeaking is an exported wrapper for the private method _pauseSpeaking.
-func (t TTSSpeechManager) PauseSpeaking(speaking objectivec.IObject) {
-	t._pauseSpeaking(speaking)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_phonemeSubstitutionsForAction:
@@ -625,19 +591,9 @@ func (t TTSSpeechManager) StartNextSpeechJob() {
 func (t TTSSpeechManager) _stopSpeaking(speaking objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_stopSpeaking:"), speaking)
 }
-
-// StopSpeakingCallback is an exported wrapper for the private method _stopSpeaking.
-func (t TTSSpeechManager) StopSpeakingCallback(speaking objectivec.IObject) {
-	t._stopSpeaking(speaking)
-}
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_tearDown
 func (t TTSSpeechManager) _tearDown() {
 	objc.Send[objc.ID](t.ID, objc.Sel("_tearDown"))
-}
-
-// TearDown is an exported wrapper for the private method _tearDown.
-func (t TTSSpeechManager) TearDown() {
-	t._tearDown()
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/_updateAudioSessionProperties
 func (t TTSSpeechManager) _updateAudioSessionProperties() {
@@ -666,6 +622,19 @@ func (t TTSSpeechManager) _updateUserSubstitutions() {
 func (t TTSSpeechManager) UpdateUserSubstitutions() {
 	t._updateUserSubstitutions()
 }
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/clearSpeechQueue
+func (t TTSSpeechManager) ClearSpeechQueue() {
+	objc.Send[objc.ID](t.ID, objc.Sel("clearSpeechQueue"))
+}
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/continueSpeaking
+func (t TTSSpeechManager) ContinueSpeaking() {
+	objc.Send[objc.ID](t.ID, objc.Sel("continueSpeaking"))
+}
+//
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/dispatchSpeechAction:
+func (t TTSSpeechManager) DispatchSpeechAction(action objectivec.IObject) {
+	objc.Send[objc.ID](t.ID, objc.Sel("dispatchSpeechAction:"), action)
+}
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/externalVoiceIdentifierUsedForLanguage:
 func (t TTSSpeechManager) ExternalVoiceIdentifierUsedForLanguage(language objectivec.IObject) objectivec.IObject {
@@ -673,13 +642,28 @@ func (t TTSSpeechManager) ExternalVoiceIdentifierUsedForLanguage(language object
 	return objectivec.Object{ID: rv}
 }
 //
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/handleAudioInterruption:
+func (t TTSSpeechManager) HandleAudioInterruption(interruption objectivec.IObject) {
+	objc.Send[objc.ID](t.ID, objc.Sel("handleAudioInterruption:"), interruption)
+}
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/handleAudioSessionObservers:
 func (t TTSSpeechManager) HandleAudioSessionObservers(observers bool) {
 	objc.Send[objc.ID](t.ID, objc.Sel("handleAudioSessionObservers:"), observers)
 }
 //
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/handleMediaServicesWereLost:
+func (t TTSSpeechManager) HandleMediaServicesWereLost(lost objectivec.IObject) {
+	objc.Send[objc.ID](t.ID, objc.Sel("handleMediaServicesWereLost:"), lost)
+}
+//
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/handleMediaServicesWereReset:
+func (t TTSSpeechManager) HandleMediaServicesWereReset(reset objectivec.IObject) {
+	objc.Send[objc.ID](t.ID, objc.Sel("handleMediaServicesWereReset:"), reset)
+}
+//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/pauseSpeaking:
-func (t TTSSpeechManager) PauseSpeakingWithBoundary(speaking int64) {
+func (t TTSSpeechManager) PauseSpeaking(speaking int64) {
 	objc.Send[objc.ID](t.ID, objc.Sel("pauseSpeaking:"), speaking)
 }
 //
@@ -714,13 +698,17 @@ func (t TTSSpeechManager) SpeechSynthesizerDidStartSpeakingRequest(synthesizer o
 	objc.Send[objc.ID](t.ID, objc.Sel("speechSynthesizer:didStartSpeakingRequest:"), synthesizer, request)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/stopSpeaking
-func (t TTSSpeechManager) StopSpeakingImmediate() {
+func (t TTSSpeechManager) StopSpeaking() {
 	objc.Send[objc.ID](t.ID, objc.Sel("stopSpeaking"))
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/stopSpeaking:
-func (t TTSSpeechManager) StopSpeakingWithBoundary(speaking int64) {
+func (t TTSSpeechManager) StopSpeakingWithSpeaking(speaking int64) {
 	objc.Send[objc.ID](t.ID, objc.Sel("stopSpeaking:"), speaking)
+}
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/tearDown
+func (t TTSSpeechManager) TearDown() {
+	objc.Send[objc.ID](t.ID, objc.Sel("tearDown"))
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/voiceIdentifierUsedForLanguage:
@@ -855,8 +843,7 @@ func (_TTSSpeechManagerClass TTSSpeechManagerClass) SpellOutMarkupStringString(s
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechManager/test_actionStartTap:
 func (_TTSSpeechManagerClass TTSSpeechManagerClass) Test_actionStartTap(tap VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(tap)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(tap)
 	objc.Send[objc.ID](objc.ID(_TTSSpeechManagerClass.class), objc.Sel("test_actionStartTap:"), _block0)
 }
 //

@@ -30,6 +30,11 @@ type TextToSpeechStreamingTokenizerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechStreamingTokenizerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechStreamingTokenizerClass) Alloc() TextToSpeechStreamingTokenizer {
 	rv := objc.Send[TextToSpeechStreamingTokenizer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechStreamingTokenizer struct {
 func TextToSpeechStreamingTokenizerFromID(id objc.ID) TextToSpeechStreamingTokenizer {
 	return TextToSpeechStreamingTokenizer{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechStreamingTokenizer implements ITextToSpeechStreamingTokenizer.
-var _ ITextToSpeechStreamingTokenizer = TextToSpeechStreamingTokenizer{}
+// NOTE: TextToSpeechStreamingTokenizer struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechStreamingTokenizer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechStreamingTokenizer] class.
 //

@@ -31,6 +31,11 @@ type TTSAudioEffectConfigurationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSAudioEffectConfigurationClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAudioEffectConfigurationClass) Alloc() TTSAudioEffectConfiguration {
 	rv := objc.Send[TTSAudioEffectConfiguration](objc.ID(tc.class), objc.Sel("alloc"))

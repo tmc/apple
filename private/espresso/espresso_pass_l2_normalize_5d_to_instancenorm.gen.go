@@ -29,6 +29,11 @@ type EspressoPass_l2_normalize_5d_to_instancenormClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_l2_normalize_5d_to_instancenormClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_l2_normalize_5d_to_instancenormClass) Alloc() EspressoPass_l2_normalize_5d_to_instancenorm {
 	rv := objc.Send[EspressoPass_l2_normalize_5d_to_instancenorm](objc.ID(ec.class), objc.Sel("alloc"))

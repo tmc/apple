@@ -29,6 +29,11 @@ type EspressoPass_make_fully_convClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_make_fully_convClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_make_fully_convClass) Alloc() EspressoPass_make_fully_conv {
 	rv := objc.Send[EspressoPass_make_fully_conv](objc.ID(ec.class), objc.Sel("alloc"))

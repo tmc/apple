@@ -32,6 +32,11 @@ type EspressoDataFrameStorageExecutorMatchingBufferSetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoDataFrameStorageExecutorMatchingBufferSetClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameStorageExecutorMatchingBufferSetClass) Alloc() EspressoDataFrameStorageExecutorMatchingBufferSet {
 	rv := objc.Send[EspressoDataFrameStorageExecutorMatchingBufferSet](objc.ID(ec.class), objc.Sel("alloc"))

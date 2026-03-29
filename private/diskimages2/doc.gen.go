@@ -5,13 +5,16 @@
 //
 // # Key Types
 //
+//   - [DIConvertParams]
+//   - [DiskImageGraph]
 //   - [DIAttachParams]
-//   - [DIDeviceHandle]
-//   - [DIImageInfoParams]
-//   - [DIResizeParams]
-//   - [BlankDiskImageCreator]
-//   - [DICommonAttach]
-//   - [DICreateASIFParams]
+//   - [BaseDiskImageCreator]
+//   - [DIEncryptionFrontend]
+//   - [DiskImageParamsXPC]
+//   - [DICreateParams]
+//   - [DIBaseParams]
+//   - [DiskImageGraphNode]
+//   - [DIError]
 package diskimages2
 
 import (

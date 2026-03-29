@@ -31,6 +31,11 @@ type EspressoImage2ImageClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoImage2ImageClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoImage2ImageClass) Alloc() EspressoImage2Image {
 	rv := objc.Send[EspressoImage2Image](objc.ID(ec.class), objc.Sel("alloc"))
@@ -71,6 +76,10 @@ func (ec EspressoImage2ImageClass) Alloc() EspressoImage2Image {
 //   - [EspressoImage2Image.TweakValue]
 //   - [EspressoImage2Image.WasReshaped]
 //   - [EspressoImage2Image.Width]
+//   - [EspressoImage2Image._resetTemporalState]
+//   - [EspressoImage2Image._reshapeToResolutionPreset]
+//   - [EspressoImage2Image._reshapeToWidthAndHeight]
+//   - [EspressoImage2Image._tune]
 //   - [EspressoImage2Image.InitWithQueue]
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image
 type EspressoImage2Image struct {
@@ -119,6 +128,10 @@ var _ IEspressoImage2Image = EspressoImage2Image{}
 //   - [IEspressoImage2Image.TweakValue]
 //   - [IEspressoImage2Image.WasReshaped]
 //   - [IEspressoImage2Image.Width]
+//   - [IEspressoImage2Image._resetTemporalState]
+//   - [IEspressoImage2Image._reshapeToResolutionPreset]
+//   - [IEspressoImage2Image._reshapeToWidthAndHeight]
+//   - [IEspressoImage2Image._tune]
 //   - [IEspressoImage2Image.InitWithQueue]
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image
@@ -158,6 +171,10 @@ type IEspressoImage2Image interface {
 	TweakValue(tweak objectivec.IObject, value float32)
 	WasReshaped() int
 	Width() int
+	_resetTemporalState()
+	_reshapeToResolutionPreset(preset int64) int
+	_reshapeToWidthAndHeight(width int, height int) int
+	_tune()
 	InitWithQueue(queue objectivec.IObject) EspressoImage2Image
 }
 
@@ -331,6 +348,26 @@ func (e EspressoImage2Image) WasReshaped() int {
 func (e EspressoImage2Image) Width() int {
 	rv := objc.Send[int](e.ID, objc.Sel("width"))
 	return rv
+}
+// See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/_resetTemporalState
+func (e EspressoImage2Image) _resetTemporalState() {
+	objc.Send[objc.ID](e.ID, objc.Sel("_resetTemporalState"))
+}
+//
+// See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/_reshapeToResolutionPreset:
+func (e EspressoImage2Image) _reshapeToResolutionPreset(preset int64) int {
+	rv := objc.Send[int](e.ID, objc.Sel("_reshapeToResolutionPreset:"), preset)
+	return rv
+}
+//
+// See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/_reshapeToWidth:andHeight:
+func (e EspressoImage2Image) _reshapeToWidthAndHeight(width int, height int) int {
+	rv := objc.Send[int](e.ID, objc.Sel("_reshapeToWidth:andHeight:"), width, height)
+	return rv
+}
+// See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/_tune
+func (e EspressoImage2Image) _tune() {
+	objc.Send[objc.ID](e.ID, objc.Sel("_tune"))
 }
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoImage2Image/initWithQueue:

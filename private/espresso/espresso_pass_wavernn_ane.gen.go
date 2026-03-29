@@ -29,6 +29,11 @@ type EspressoPass_wavernn_aneClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_wavernn_aneClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_wavernn_aneClass) Alloc() EspressoPass_wavernn_ane {
 	rv := objc.Send[EspressoPass_wavernn_ane](objc.ID(ec.class), objc.Sel("alloc"))

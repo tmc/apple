@@ -31,6 +31,11 @@ type TTSAssetBaseClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSAssetBaseClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAssetBaseClass) Alloc() TTSAssetBase {
 	rv := objc.Send[TTSAssetBase](objc.ID(tc.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type EspressoPass_fuse_affine_scaleClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_fuse_affine_scaleClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_fuse_affine_scaleClass) Alloc() EspressoPass_fuse_affine_scale {
 	rv := objc.Send[EspressoPass_fuse_affine_scale](objc.ID(ec.class), objc.Sel("alloc"))

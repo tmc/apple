@@ -31,6 +31,11 @@ type ANEBufferClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEBufferClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEBufferClass) Alloc() ANEBuffer {
 	rv := objc.Send[ANEBuffer](objc.ID(ac.class), objc.Sel("alloc"))

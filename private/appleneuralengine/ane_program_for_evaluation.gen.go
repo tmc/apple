@@ -33,6 +33,11 @@ type ANEProgramForEvaluationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEProgramForEvaluationClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEProgramForEvaluationClass) Alloc() ANEProgramForEvaluation {
 	rv := objc.Send[ANEProgramForEvaluation](objc.ID(ac.class), objc.Sel("alloc"))

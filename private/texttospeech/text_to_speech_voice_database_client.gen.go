@@ -30,6 +30,11 @@ type TextToSpeechVoiceDatabaseClientClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechVoiceDatabaseClientClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechVoiceDatabaseClientClass) Alloc() TextToSpeechVoiceDatabaseClient {
 	rv := objc.Send[TextToSpeechVoiceDatabaseClient](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechVoiceDatabaseClient struct {
 func TextToSpeechVoiceDatabaseClientFromID(id objc.ID) TextToSpeechVoiceDatabaseClient {
 	return TextToSpeechVoiceDatabaseClient{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechVoiceDatabaseClient implements ITextToSpeechVoiceDatabaseClient.
-var _ ITextToSpeechVoiceDatabaseClient = TextToSpeechVoiceDatabaseClient{}
+// NOTE: TextToSpeechVoiceDatabaseClient struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechVoiceDatabaseClient embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechVoiceDatabaseClient] class.
 //

@@ -33,6 +33,11 @@ type DIDeviceHandleClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (dc DIDeviceHandleClass) Class() objc.Class {
+	return dc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (dc DIDeviceHandleClass) Alloc() DIDeviceHandle {
 	rv := objc.Send[DIDeviceHandle](objc.ID(dc.class), objc.Sel("alloc"))
@@ -53,8 +58,12 @@ func (dc DIDeviceHandleClass) Alloc() DIDeviceHandle {
 //   - [DIDeviceHandle.UpdateBSDNameWithBlockDeviceError]
 //   - [DIDeviceHandle.XpcEndpoint]
 //   - [DIDeviceHandle.SetXpcEndpoint]
+//   - [DIDeviceHandle.Client2IOhandler]
+//   - [DIDeviceHandle.SetClient2IOhandler]
+//   - [DIDeviceHandle.EncodeWithCoder]
 //   - [DIDeviceHandle.InitWithRegEntryID]
 //   - [DIDeviceHandle.InitWithRegEntryIDXpcEndpoint]
+//   - [DIDeviceHandle.InitWithCoder]
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle
 type DIDeviceHandle struct {
 	objectivec.Object
@@ -82,8 +91,12 @@ var _ IDIDeviceHandle = DIDeviceHandle{}
 //   - [IDIDeviceHandle.UpdateBSDNameWithBlockDeviceError]
 //   - [IDIDeviceHandle.XpcEndpoint]
 //   - [IDIDeviceHandle.SetXpcEndpoint]
+//   - [IDIDeviceHandle.Client2IOhandler]
+//   - [IDIDeviceHandle.SetClient2IOhandler]
+//   - [IDIDeviceHandle.EncodeWithCoder]
 //   - [IDIDeviceHandle.InitWithRegEntryID]
 //   - [IDIDeviceHandle.InitWithRegEntryIDXpcEndpoint]
+//   - [IDIDeviceHandle.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle
 type IDIDeviceHandle interface {
@@ -102,8 +115,12 @@ type IDIDeviceHandle interface {
 	UpdateBSDNameWithBlockDeviceError(blockDevice string) (bool, error)
 	XpcEndpoint() foundation.NSXPCListenerEndpoint
 	SetXpcEndpoint(value foundation.NSXPCListenerEndpoint)
+	Client2IOhandler() IDIClient2IODaemonXPCHandler
+	SetClient2IOhandler(value IDIClient2IODaemonXPCHandler)
+	EncodeWithCoder(coder foundation.INSCoder)
 	InitWithRegEntryID(regEntryID uint64) DIDeviceHandle
 	InitWithRegEntryIDXpcEndpoint(regEntryID uint64, xpcEndpoint foundation.NSXPCListenerEndpoint) DIDeviceHandle
+	InitWithCoder(coder foundation.INSCoder) DIDeviceHandle
 }
 
 // Init initializes the instance.
@@ -123,6 +140,14 @@ func NewDIDeviceHandle() DIDeviceHandle {
 	class := getDIDeviceHandleClass()
 	rv := objc.Send[DIDeviceHandle](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/initWithCoder:
+func NewDIDeviceHandleWithCoder(coder objectivec.IObject) DIDeviceHandle {
+	instance := getDIDeviceHandleClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return DIDeviceHandleFromID(rv)
 }
 
 //
@@ -202,6 +227,11 @@ func (d DIDeviceHandle) UpdateBSDNameWithBlockDeviceError(blockDevice string) (b
 
 }
 //
+// See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/encodeWithCoder:
+func (d DIDeviceHandle) EncodeWithCoder(coder foundation.INSCoder) {
+	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/initWithRegEntryID:
 func (d DIDeviceHandle) InitWithRegEntryID(regEntryID uint64) DIDeviceHandle {
 	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("initWithRegEntryID:"), regEntryID)
@@ -211,6 +241,12 @@ func (d DIDeviceHandle) InitWithRegEntryID(regEntryID uint64) DIDeviceHandle {
 // See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/initWithRegEntryID:xpcEndpoint:
 func (d DIDeviceHandle) InitWithRegEntryIDXpcEndpoint(regEntryID uint64, xpcEndpoint foundation.NSXPCListenerEndpoint) DIDeviceHandle {
 	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("initWithRegEntryID:xpcEndpoint:"), regEntryID, xpcEndpoint)
+	return rv
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/initWithCoder:
+func (d DIDeviceHandle) InitWithCoder(coder foundation.INSCoder) DIDeviceHandle {
+	rv := objc.Send[DIDeviceHandle](d.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 
@@ -248,5 +284,13 @@ func (d DIDeviceHandle) XpcEndpoint() foundation.NSXPCListenerEndpoint {
 }
 func (d DIDeviceHandle) SetXpcEndpoint(value foundation.NSXPCListenerEndpoint) {
 	objc.Send[struct{}](d.ID, objc.Sel("setXpcEndpoint:"), value)
+}
+// See: https://developer.apple.com/documentation/DiskImages2/DIDeviceHandle/client2IOhandler
+func (d DIDeviceHandle) Client2IOhandler() IDIClient2IODaemonXPCHandler {
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("client2IOhandler"))
+	return DIClient2IODaemonXPCHandlerFromID(objc.ID(rv))
+}
+func (d DIDeviceHandle) SetClient2IOhandler(value IDIClient2IODaemonXPCHandler) {
+	objc.Send[struct{}](d.ID, objc.Sel("setClient2IOhandler:"), value)
 }
 

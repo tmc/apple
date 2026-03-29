@@ -30,6 +30,11 @@ type TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandlerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandlerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandlerClass) Alloc() TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler {
 	rv := objc.Send[TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler struct {
 func TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandlerFromID(id objc.ID) TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler {
 	return TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler{objectivec.Object{ID: id}}
 }
-// Ensure TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler implements ITtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler.
-var _ ITtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler = TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler{}
+// NOTE: TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler struct embeds objectivec.Object (parent type unavailable) but
+// ITtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCCC12TextToSpeech16VoiceDatabaseXPC6Server14RequestHandler] class.
 //

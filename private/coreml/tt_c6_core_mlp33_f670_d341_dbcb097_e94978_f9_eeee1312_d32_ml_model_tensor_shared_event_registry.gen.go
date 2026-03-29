@@ -1,0 +1,81 @@
+// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+
+package coreml
+
+import (
+	"sync"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
+)
+
+// The class instance for the [TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry] class.
+var (
+	_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass     TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass
+	_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClassOnce sync.Once
+)
+
+func getTtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass() TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass {
+	_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClassOnce.Do(func() {
+		_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass = TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass{class: objc.GetClass("_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry")}
+	})
+	return _TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass
+}
+
+// GetTtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass returns the class object for _TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry.
+func GetTtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass() TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass {
+	return getTtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass()
+}
+
+type TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass struct {
+	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (tc TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass) Class() objc.Class {
+	return tc.class
+}
+
+// Alloc allocates memory for a new instance of the class.
+func (tc TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass) Alloc() TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry {
+	rv := objc.Send[TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry](objc.ID(tc.class), objc.Sel("alloc"))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry
+type TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry struct {
+	objectivec.Object
+}
+
+// TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryFromID constructs a [TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry] from an objc.ID.
+func TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryFromID(id objc.ID) TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry {
+	return TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry{objectivec.Object{ID: id}}
+}
+// NOTE: TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry struct embeds objectivec.Object (parent type unavailable) but
+// ITtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry embeds the parent interface; skip compile-time assertion.
+
+// An interface definition for the [TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry] class.
+//
+// See: https://developer.apple.com/documentation/CoreML/_TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry
+type ITtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry interface {
+	objectivec.IObject
+}
+
+// Init initializes the instance.
+func (t TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry) Init() TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry {
+	rv := objc.Send[TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry](t.ID, objc.Sel("init"))
+	return rv
+}
+
+// Autorelease adds the receiver to the current autorelease pool.
+func (t TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry) Autorelease() TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry {
+	rv := objc.Send[TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry](t.ID, objc.Sel("autorelease"))
+	return rv
+}
+
+// NewTtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry creates a new TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry instance.
+func NewTtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry() TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry {
+	class := getTtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistryClass()
+	rv := objc.Send[TtC6CoreMLP33_F670D341DBCB097E94978F9EEEE1312D32MLModelTensorSharedEventRegistry](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+

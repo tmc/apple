@@ -10,6 +10,9 @@ import (
 // ErrorHandler is the signature for a completion handler block.
 //
 // Used by:
+//   - [VZCustomVirtioDevice.UpdateDeviceSpecificConfigurationCompletionHandler]
+//   - [VZDiskImageFormat.CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler]
+//   - [VZDiskImageFormat.CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler]
 //   - [VZGraphicsDevice._attachDisplayCompletionHandler]
 //   - [VZGraphicsDevice._detachDisplayCompletionHandler]
 //   - [VZGraphicsDisplay._takeScreenshotWithCompletionHandler]
@@ -18,7 +21,9 @@ import (
 //   - [VZMacOSRestoreImage._loadCatalogWithOptionsCompletionHandler]
 //   - [VZMacOSRestoreImage._loadFileURLDeviceClassParserCompletionHandler]
 //   - [VZStorageDevice._setAttachmentCompletionHandler]
+//   - [VZTemporaryRAMStorageDeviceAttachment._getAttachmentWithQueueCompletionHandler]
 //   - [VZUSBController._capturePassthroughDevicesWithCompletionHandler]
+//   - [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler]
 //   - [VZVirtualMachine._createCoreWithCompletionHandler]
 //   - [VZVirtualMachine._createCoresWithCompletionHandler]
 //   - [VZVirtualMachine._enterRestrictedModeWithCompletionHandler]
@@ -34,6 +39,9 @@ type ErrorHandler = func(error)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
+//   - [VZCustomVirtioDevice.UpdateDeviceSpecificConfigurationCompletionHandler]
+//   - [VZDiskImageFormat.CreateDynamicDiskImageWithURLSuggestedSizeCompletionHandler]
+//   - [VZDiskImageFormat.CreateFixedDiskImageWithURLSuggestedSizeCompletionHandler]
 //   - [VZGraphicsDevice._attachDisplayCompletionHandler]
 //   - [VZGraphicsDevice._detachDisplayCompletionHandler]
 //   - [VZGraphicsDisplay._takeScreenshotWithCompletionHandler]
@@ -42,7 +50,9 @@ type ErrorHandler = func(error)
 //   - [VZMacOSRestoreImage._loadCatalogWithOptionsCompletionHandler]
 //   - [VZMacOSRestoreImage._loadFileURLDeviceClassParserCompletionHandler]
 //   - [VZStorageDevice._setAttachmentCompletionHandler]
+//   - [VZTemporaryRAMStorageDeviceAttachment._getAttachmentWithQueueCompletionHandler]
 //   - [VZUSBController._capturePassthroughDevicesWithCompletionHandler]
+//   - [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler]
 //   - [VZVirtualMachine._createCoreWithCompletionHandler]
 //   - [VZVirtualMachine._createCoresWithCompletionHandler]
 //   - [VZVirtualMachine._enterRestrictedModeWithCompletionHandler]
@@ -55,6 +65,24 @@ type ErrorHandler = func(error)
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
 		handler(foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// VoidHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock]
+type VoidHandler = func()
+
+// NewVoidBlock wraps a Go [VoidHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock]
+func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	block := objc.NewBlock(func(b objc.Block) {
+		handler()
 	})
 	return objc.ID(block), func() { block.Release() }
 }

@@ -29,6 +29,11 @@ type EspressoPass_rpn_tracker_merge_convsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_rpn_tracker_merge_convsClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_rpn_tracker_merge_convsClass) Alloc() EspressoPass_rpn_tracker_merge_convs {
 	rv := objc.Send[EspressoPass_rpn_tracker_merge_convs](objc.ID(ec.class), objc.Sel("alloc"))

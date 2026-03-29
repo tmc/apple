@@ -31,6 +31,11 @@ type TTSVoiceAssetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSVoiceAssetClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSVoiceAssetClass) Alloc() TTSVoiceAsset {
 	rv := objc.Send[TTSVoiceAsset](objc.ID(tc.class), objc.Sel("alloc"))

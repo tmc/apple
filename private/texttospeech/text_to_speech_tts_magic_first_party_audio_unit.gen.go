@@ -32,6 +32,11 @@ type TextToSpeechTTSMagicFirstPartyAudioUnitClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSMagicFirstPartyAudioUnitClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSMagicFirstPartyAudioUnitClass) Alloc() TextToSpeechTTSMagicFirstPartyAudioUnit {
 	rv := objc.Send[TextToSpeechTTSMagicFirstPartyAudioUnit](objc.ID(tc.class), objc.Sel("alloc"))
@@ -90,7 +95,6 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnit() TextToSpeechTTSMagicFirstParty
 
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit/initWithComponentDescription:options:error:
-// description is a [audiotoolbox.AudioComponentDescription].
 func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsError(description objectivec.IObject, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	instance := getTextToSpeechTTSMagicFirstPartyAudioUnitClass().Alloc()
@@ -103,10 +107,7 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsEr
 }
 
 //
-// description is a [audiotoolbox.AudioComponentDescription].
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSMagicFirstPartyAudioUnit/initWithComponentDescription:options:error:
-// description is a [audiotoolbox.AudioComponentDescription].
 func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description objectivec.IObject, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))

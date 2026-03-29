@@ -29,6 +29,11 @@ type EspressoPass_strength_reduction_gather_to_lookupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_strength_reduction_gather_to_lookupClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_strength_reduction_gather_to_lookupClass) Alloc() EspressoPass_strength_reduction_gather_to_lookup {
 	rv := objc.Send[EspressoPass_strength_reduction_gather_to_lookup](objc.ID(ec.class), objc.Sel("alloc"))

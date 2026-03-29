@@ -32,6 +32,11 @@ type TextToSpeechSSMLServicesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechSSMLServicesClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSSMLServicesClass) Alloc() TextToSpeechSSMLServices {
 	rv := objc.Send[TextToSpeechSSMLServices](objc.ID(tc.class), objc.Sel("alloc"))

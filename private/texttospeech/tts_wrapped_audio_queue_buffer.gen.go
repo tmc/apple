@@ -4,6 +4,7 @@ package texttospeech
 
 import (
 	"context"
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -29,6 +30,11 @@ func GetTTSWrappedAudioQueueBufferClass() TTSWrappedAudioQueueBufferClass {
 
 type TTSWrappedAudioQueueBufferClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSWrappedAudioQueueBufferClass) Class() objc.Class {
+	return tc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -75,12 +81,12 @@ type ITTSWrappedAudioQueueBuffer interface {
 
 	// Topic: Methods
 
-	AqBuffer() objectivec.IObject
-	SetAqBuffer(value objectivec.IObject)
+	AqBuffer() unsafe.Pointer
+	SetAqBuffer(value unsafe.Pointer)
 	ByteSize() uint64
 	QueuedTimeStamp() objectivec.IObject
 	SetQueuedTimeStamp(value objectivec.IObject)
-	SetCompletionHandler(handler BoolErrorHandler)
+	SetCompletionHandler(handler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -104,17 +110,17 @@ func NewTTSWrappedAudioQueueBuffer() TTSWrappedAudioQueueBuffer {
 
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer/setCompletionHandler:
-func (t TTSWrappedAudioQueueBuffer) SetCompletionHandler(handler BoolErrorHandler) {
-_block0, _ := NewBoolErrorBlock(handler)
+func (t TTSWrappedAudioQueueBuffer) SetCompletionHandler(handler ErrorHandler) {
+_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("setCompletionHandler:"), _block0)
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer/aqBuffer
-func (t TTSWrappedAudioQueueBuffer) AqBuffer() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("aqBuffer"))
-	return objectivec.Object{ID: rv}
+func (t TTSWrappedAudioQueueBuffer) AqBuffer() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("aqBuffer"))
+	return rv
 }
-func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value objectivec.IObject) {
+func (t TTSWrappedAudioQueueBuffer) SetAqBuffer(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAqBuffer:"), value)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueueBuffer/byteSize
@@ -133,20 +139,16 @@ func (t TTSWrappedAudioQueueBuffer) SetQueuedTimeStamp(value objectivec.IObject)
 
 // Set is a synchronous wrapper around [TTSWrappedAudioQueueBuffer.SetCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TTSWrappedAudioQueueBuffer) Set(ctx context.Context) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.SetCompletionHandler(func(val bool, err error) {
-		done <- result{val, err}
+func (t TTSWrappedAudioQueueBuffer) Set(ctx context.Context) error {
+	done := make(chan error, 1)
+	t.SetCompletionHandler(func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 

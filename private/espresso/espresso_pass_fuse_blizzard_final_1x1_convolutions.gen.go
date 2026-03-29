@@ -29,6 +29,11 @@ type EspressoPass_fuse_blizzard_final_1x1_convolutionsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_fuse_blizzard_final_1x1_convolutionsClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_fuse_blizzard_final_1x1_convolutionsClass) Alloc() EspressoPass_fuse_blizzard_final_1x1_convolutions {
 	rv := objc.Send[EspressoPass_fuse_blizzard_final_1x1_convolutions](objc.ID(ec.class), objc.Sel("alloc"))

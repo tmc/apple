@@ -6,7 +6,8 @@ import (
 	"context"
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/avfaudio"
+	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TextToSpeechTTSAURenderer] class.
@@ -31,6 +32,11 @@ type TextToSpeechTTSAURendererClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSAURendererClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSAURendererClass) Alloc() TextToSpeechTTSAURenderer {
 	rv := objc.Send[TextToSpeechTTSAURenderer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -39,15 +45,15 @@ func (tc TextToSpeechTTSAURendererClass) Alloc() TextToSpeechTTSAURenderer {
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSAURenderer
 type TextToSpeechTTSAURenderer struct {
-	SwiftNativeNSObject
+	objectivec.Object
 }
 
 // TextToSpeechTTSAURendererFromID constructs a [TextToSpeechTTSAURenderer] from an objc.ID.
 func TextToSpeechTTSAURendererFromID(id objc.ID) TextToSpeechTTSAURenderer {
-	return TextToSpeechTTSAURenderer{SwiftNativeNSObject: SwiftNativeNSObjectFromID(id)}
+	return TextToSpeechTTSAURenderer{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechTTSAURenderer implements ITextToSpeechTTSAURenderer.
-var _ ITextToSpeechTTSAURenderer = TextToSpeechTTSAURenderer{}
+// NOTE: TextToSpeechTTSAURenderer struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechTTSAURenderer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSAURenderer] class.
 //
@@ -77,28 +83,23 @@ func NewTextToSpeechTTSAURenderer() TextToSpeechTTSAURenderer {
 
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.TTSAURenderer/formatForVoice:completionHandler:
-func (_TextToSpeechTTSAURendererClass TextToSpeechTTSAURendererClass) FormatForVoiceCompletionHandler(voice avfaudio.AVSpeechSynthesisProviderVoice, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (_TextToSpeechTTSAURendererClass TextToSpeechTTSAURendererClass) FormatForVoiceCompletionHandler(voice avfaudio.AVSpeechSynthesisProviderVoice, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](objc.ID(_TextToSpeechTTSAURendererClass.class), objc.Sel("formatForVoice:completionHandler:"), voice, _block1)
 }
 
 // FormatForVoice is a synchronous wrapper around [TextToSpeechTTSAURenderer.FormatForVoiceCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (tc TextToSpeechTTSAURendererClass) FormatForVoice(ctx context.Context, voice avfaudio.AVSpeechSynthesisProviderVoice) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	tc.FormatForVoiceCompletionHandler(voice, func(val bool, err error) {
-		done <- result{val, err}
+func (tc TextToSpeechTTSAURendererClass) FormatForVoice(ctx context.Context, voice avfaudio.AVSpeechSynthesisProviderVoice) error {
+	done := make(chan error, 1)
+	tc.FormatForVoiceCompletionHandler(voice, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 

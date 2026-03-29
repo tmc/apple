@@ -29,6 +29,11 @@ type EspressoPass_quantize_gathersClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_quantize_gathersClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_quantize_gathersClass) Alloc() EspressoPass_quantize_gathers {
 	rv := objc.Send[EspressoPass_quantize_gathers](objc.ID(ec.class), objc.Sel("alloc"))

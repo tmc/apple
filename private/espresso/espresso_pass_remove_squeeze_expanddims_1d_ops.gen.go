@@ -29,6 +29,11 @@ type EspressoPass_remove_squeeze_expanddims_1d_opsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_remove_squeeze_expanddims_1d_opsClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_remove_squeeze_expanddims_1d_opsClass) Alloc() EspressoPass_remove_squeeze_expanddims_1d_ops {
 	rv := objc.Send[EspressoPass_remove_squeeze_expanddims_1d_ops](objc.ID(ec.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type EspressoPass_fuse_add_and_reluClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_fuse_add_and_reluClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_fuse_add_and_reluClass) Alloc() EspressoPass_fuse_add_and_relu {
 	rv := objc.Send[EspressoPass_fuse_add_and_relu](objc.ID(ec.class), objc.Sel("alloc"))

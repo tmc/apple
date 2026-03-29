@@ -29,6 +29,11 @@ type EspressoPass_style_transfer_parameterize_transplantClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_style_transfer_parameterize_transplantClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_style_transfer_parameterize_transplantClass) Alloc() EspressoPass_style_transfer_parameterize_transplant {
 	rv := objc.Send[EspressoPass_style_transfer_parameterize_transplant](objc.ID(ec.class), objc.Sel("alloc"))

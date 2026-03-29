@@ -29,6 +29,11 @@ type EspressoPass_fastspeechClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_fastspeechClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_fastspeechClass) Alloc() EspressoPass_fastspeech {
 	rv := objc.Send[EspressoPass_fastspeech](objc.ID(ec.class), objc.Sel("alloc"))

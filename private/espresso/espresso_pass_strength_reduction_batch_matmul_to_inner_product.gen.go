@@ -29,6 +29,11 @@ type EspressoPass_strength_reduction_batch_matmul_to_inner_productClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_strength_reduction_batch_matmul_to_inner_productClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_strength_reduction_batch_matmul_to_inner_productClass) Alloc() EspressoPass_strength_reduction_batch_matmul_to_inner_product {
 	rv := objc.Send[EspressoPass_strength_reduction_batch_matmul_to_inner_product](objc.ID(ec.class), objc.Sel("alloc"))

@@ -30,6 +30,11 @@ type TextToSpeechDebouncerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechDebouncerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechDebouncerClass) Alloc() TextToSpeechDebouncer {
 	rv := objc.Send[TextToSpeechDebouncer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechDebouncer struct {
 func TextToSpeechDebouncerFromID(id objc.ID) TextToSpeechDebouncer {
 	return TextToSpeechDebouncer{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechDebouncer implements ITextToSpeechDebouncer.
-var _ ITextToSpeechDebouncer = TextToSpeechDebouncer{}
+// NOTE: TextToSpeechDebouncer struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechDebouncer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechDebouncer] class.
 //

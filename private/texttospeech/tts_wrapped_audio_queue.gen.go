@@ -34,6 +34,11 @@ type TTSWrappedAudioQueueClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSWrappedAudioQueueClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSWrappedAudioQueueClass) Alloc() TTSWrappedAudioQueue {
 	rv := objc.Send[TTSWrappedAudioQueue](objc.ID(tc.class), objc.Sel("alloc"))
@@ -201,9 +206,9 @@ type ITTSWrappedAudioQueue interface {
 	AudioQueueActive() bool
 	AudioQueueFlags() uint32
 	SetAudioQueueFlags(value uint32)
-	BufferCallback(callback objectivec.IObject)
-	CachedAudioConverter() avfaudio.AVAudioConverter
-	SetCachedAudioConverter(value avfaudio.AVAudioConverter)
+	BufferCallback(callback unsafe.Pointer)
+	CachedAudioConverter() unsafe.Pointer
+	SetCachedAudioConverter(value unsafe.Pointer)
 	CallbackQueue() objectivec.Object
 	SetCallbackQueue(value objectivec.Object)
 	ConvertBufferIfNecessary(necessary objectivec.IObject) objectivec.IObject
@@ -227,14 +232,14 @@ type ITTSWrappedAudioQueue interface {
 	SetOutputFormat(value ITTSAudioFormat)
 	Pause()
 	Play() bool
-	PlayBufferCompletionHandler(buffer objectivec.IObject, handler BoolErrorHandler)
+	PlayBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler)
 	ProcNodeRef() unsafe.Pointer
 	SetProcNodeRef(value unsafe.Pointer)
 	QueueFormat() avfaudio.AVAudioFormat
 	SetQueueFormat(value avfaudio.AVAudioFormat)
 	QueueStreamDescription() objectivec.IObject
-	ScheduleBufferCompletionHandler(buffer objectivec.IObject, handler BoolErrorHandler)
-	ScheduleBufferCompletionHandlerLastBuffer(buffer objectivec.IObject, handler BoolErrorHandler, buffer2 bool)
+	ScheduleBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler)
+	ScheduleBufferCompletionHandlerLastBuffer(buffer objectivec.IObject, handler ErrorHandler, buffer2 bool)
 	ShouldRebuildAudioQueue() bool
 	SetShouldRebuildAudioQueue(value bool)
 	State() uint64
@@ -373,11 +378,8 @@ func (t TTSWrappedAudioQueue) TearDownDSPGraphAU() {
 	t._tearDownDSPGraphAU()
 }
 //
-// callback is a [audiotoolbox.AudioQueueBuffer].
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/bufferCallback:
-// callback is a [audiotoolbox.AudioQueueBuffer].
-func (t TTSWrappedAudioQueue) BufferCallback(callback objectivec.IObject) {
+func (t TTSWrappedAudioQueue) BufferCallback(callback unsafe.Pointer) {
 	objc.Send[objc.ID](t.ID, objc.Sel("bufferCallback:"), callback)
 }
 //
@@ -406,9 +408,8 @@ func (t TTSWrappedAudioQueue) Play() bool {
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/playBuffer:completionHandler:
-func (t TTSWrappedAudioQueue) PlayBufferCompletionHandler(buffer objectivec.IObject, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TTSWrappedAudioQueue) PlayBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("playBuffer:completionHandler:"), buffer, _block1)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/queueStreamDescription
@@ -418,16 +419,14 @@ func (t TTSWrappedAudioQueue) QueueStreamDescription() objectivec.IObject {
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/scheduleBuffer:completionHandler:
-func (t TTSWrappedAudioQueue) ScheduleBufferCompletionHandler(buffer objectivec.IObject, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TTSWrappedAudioQueue) ScheduleBufferCompletionHandler(buffer objectivec.IObject, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("scheduleBuffer:completionHandler:"), buffer, _block1)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/scheduleBuffer:completionHandler:lastBuffer:
-func (t TTSWrappedAudioQueue) ScheduleBufferCompletionHandlerLastBuffer(buffer objectivec.IObject, handler BoolErrorHandler, buffer2 bool) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TTSWrappedAudioQueue) ScheduleBufferCompletionHandlerLastBuffer(buffer objectivec.IObject, handler ErrorHandler, buffer2 bool) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("scheduleBuffer:completionHandler:lastBuffer:"), buffer, _block1, buffer2)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/stop
@@ -465,11 +464,11 @@ func (t TTSWrappedAudioQueue) SetAudioQueueFlags(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioQueueFlags:"), value)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/cachedAudioConverter
-func (t TTSWrappedAudioQueue) CachedAudioConverter() avfaudio.AVAudioConverter {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("cachedAudioConverter"))
-	return avfaudio.AVAudioConverterFromID(objc.ID(rv))
+func (t TTSWrappedAudioQueue) CachedAudioConverter() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("cachedAudioConverter"))
+	return rv
 }
-func (t TTSWrappedAudioQueue) SetCachedAudioConverter(value avfaudio.AVAudioConverter) {
+func (t TTSWrappedAudioQueue) SetCachedAudioConverter(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setCachedAudioConverter:"), value)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSWrappedAudioQueue/callbackQueue
@@ -579,39 +578,31 @@ func (t TTSWrappedAudioQueue) SetState(value uint64) {
 
 // PlayBuffer is a synchronous wrapper around [TTSWrappedAudioQueue.PlayBufferCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TTSWrappedAudioQueue) PlayBuffer(ctx context.Context, buffer objectivec.IObject) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.PlayBufferCompletionHandler(buffer, func(val bool, err error) {
-		done <- result{val, err}
+func (t TTSWrappedAudioQueue) PlayBuffer(ctx context.Context, buffer objectivec.IObject) error {
+	done := make(chan error, 1)
+	t.PlayBufferCompletionHandler(buffer, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // ScheduleBuffer is a synchronous wrapper around [TTSWrappedAudioQueue.ScheduleBufferCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TTSWrappedAudioQueue) ScheduleBuffer(ctx context.Context, buffer objectivec.IObject) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.ScheduleBufferCompletionHandler(buffer, func(val bool, err error) {
-		done <- result{val, err}
+func (t TTSWrappedAudioQueue) ScheduleBuffer(ctx context.Context, buffer objectivec.IObject) error {
+	done := make(chan error, 1)
+	t.ScheduleBufferCompletionHandler(buffer, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 

@@ -34,6 +34,11 @@ type ANEVirtualClientClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEVirtualClientClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEVirtualClientClass) Alloc() ANEVirtualClient {
 	rv := objc.Send[ANEVirtualClient](objc.ID(ac.class), objc.Sel("alloc"))
@@ -105,6 +110,7 @@ func (ac ANEVirtualClientClass) Alloc() ANEVirtualClient {
 //   - [ANEVirtualClient.ValidateEnvironmentForPrecompiledBinarySupport]
 //   - [ANEVirtualClient.ValidateNetworkCreateUuidFunctionDirectoryPathScratchPadPathMilTextData]
 //   - [ANEVirtualClient.ValidateNetworkCreateMLIRValidation_params]
+//   - [ANEVirtualClient.AneSubTypeAndVariant]
 //   - [ANEVirtualClient.InitWithSingletonAccess]
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient
 type ANEVirtualClient struct {
@@ -184,6 +190,7 @@ var _ IANEVirtualClient = ANEVirtualClient{}
 //   - [IANEVirtualClient.ValidateEnvironmentForPrecompiledBinarySupport]
 //   - [IANEVirtualClient.ValidateNetworkCreateUuidFunctionDirectoryPathScratchPadPathMilTextData]
 //   - [IANEVirtualClient.ValidateNetworkCreateMLIRValidation_params]
+//   - [IANEVirtualClient.AneSubTypeAndVariant]
 //   - [IANEVirtualClient.InitWithSingletonAccess]
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient
@@ -254,6 +261,7 @@ type IANEVirtualClient interface {
 	ValidateEnvironmentForPrecompiledBinarySupport() bool
 	ValidateNetworkCreateUuidFunctionDirectoryPathScratchPadPathMilTextData(create uint64, uuid objectivec.IObject, function objectivec.IObject, path objectivec.IObject, path2 objectivec.IObject, data objectivec.IObject) objectivec.IObject
 	ValidateNetworkCreateMLIRValidation_params(mlir uint64, validation_params objectivec.IObject) objectivec.IObject
+	AneSubTypeAndVariant() objectivec.IObject
 	InitWithSingletonAccess() ANEVirtualClient
 }
 
@@ -724,6 +732,11 @@ func (a ANEVirtualClient) ValidateNetworkCreateUuidFunctionDirectoryPathScratchP
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/validateNetworkCreateMLIR:validation_params:
 func (a ANEVirtualClient) ValidateNetworkCreateMLIRValidation_params(mlir uint64, validation_params objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("validateNetworkCreateMLIR:validation_params:"), mlir, validation_params)
+	return objectivec.Object{ID: rv}
+}
+// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/aneSubTypeAndVariant
+func (a ANEVirtualClient) AneSubTypeAndVariant() objectivec.IObject {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("aneSubTypeAndVariant"))
 	return objectivec.Object{ID: rv}
 }
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEVirtualClient/initWithSingletonAccess

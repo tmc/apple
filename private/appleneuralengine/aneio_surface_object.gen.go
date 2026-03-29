@@ -33,6 +33,11 @@ type ANEIOSurfaceObjectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEIOSurfaceObjectClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEIOSurfaceObjectClass) Alloc() ANEIOSurfaceObject {
 	rv := objc.Send[ANEIOSurfaceObject](objc.ID(ac.class), objc.Sel("alloc"))

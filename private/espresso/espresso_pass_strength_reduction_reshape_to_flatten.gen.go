@@ -29,6 +29,11 @@ type EspressoPass_strength_reduction_reshape_to_flattenClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_strength_reduction_reshape_to_flattenClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_strength_reduction_reshape_to_flattenClass) Alloc() EspressoPass_strength_reduction_reshape_to_flatten {
 	rv := objc.Send[EspressoPass_strength_reduction_reshape_to_flatten](objc.ID(ec.class), objc.Sel("alloc"))

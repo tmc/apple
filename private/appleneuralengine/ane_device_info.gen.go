@@ -30,6 +30,11 @@ type ANEDeviceInfoClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEDeviceInfoClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEDeviceInfoClass) Alloc() ANEDeviceInfo {
 	rv := objc.Send[ANEDeviceInfo](objc.ID(ac.class), objc.Sel("alloc"))
@@ -159,6 +164,11 @@ func (_ANEDeviceInfoClass ANEDeviceInfoClass) PrecompiledModelChecksDisabled() b
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/productName
 func (_ANEDeviceInfoClass ANEDeviceInfoClass) ProductName() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("productName"))
+	return objectivec.Object{ID: rv}
+}
+// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEDeviceInfo/aneSubTypeAndVariant
+func (_ANEDeviceInfoClass ANEDeviceInfoClass) AneSubTypeAndVariant() objectivec.IObject {
+	rv := objc.Send[objc.ID](objc.ID(_ANEDeviceInfoClass.class), objc.Sel("aneSubTypeAndVariant"))
 	return objectivec.Object{ID: rv}
 }
 

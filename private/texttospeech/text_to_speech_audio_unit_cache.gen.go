@@ -30,6 +30,11 @@ type TextToSpeechAudioUnitCacheClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechAudioUnitCacheClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAudioUnitCacheClass) Alloc() TextToSpeechAudioUnitCache {
 	rv := objc.Send[TextToSpeechAudioUnitCache](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechAudioUnitCache struct {
 func TextToSpeechAudioUnitCacheFromID(id objc.ID) TextToSpeechAudioUnitCache {
 	return TextToSpeechAudioUnitCache{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechAudioUnitCache implements ITextToSpeechAudioUnitCache.
-var _ ITextToSpeechAudioUnitCache = TextToSpeechAudioUnitCache{}
+// NOTE: TextToSpeechAudioUnitCache struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechAudioUnitCache embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAudioUnitCache] class.
 //

@@ -29,6 +29,11 @@ type EspressoPass_transform_static_quantize_kernelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_transform_static_quantize_kernelClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_transform_static_quantize_kernelClass) Alloc() EspressoPass_transform_static_quantize_kernel {
 	rv := objc.Send[EspressoPass_transform_static_quantize_kernel](objc.ID(ec.class), objc.Sel("alloc"))

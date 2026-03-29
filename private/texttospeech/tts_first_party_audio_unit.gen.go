@@ -5,7 +5,6 @@ package texttospeech
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -31,6 +30,11 @@ type TTSFirstPartyAudioUnitClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSFirstPartyAudioUnitClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSFirstPartyAudioUnitClass) Alloc() TTSFirstPartyAudioUnit {
 	rv := objc.Send[TTSFirstPartyAudioUnit](objc.ID(tc.class), objc.Sel("alloc"))
@@ -50,15 +54,15 @@ func (tc TTSFirstPartyAudioUnitClass) Alloc() TTSFirstPartyAudioUnit {
 //   - [TTSFirstPartyAudioUnit.VoicesExternallyManaged]
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit
 type TTSFirstPartyAudioUnit struct {
-	avfaudio.AVSpeechSynthesisProviderAudioUnit
+	objectivec.Object
 }
 
 // TTSFirstPartyAudioUnitFromID constructs a [TTSFirstPartyAudioUnit] from an objc.ID.
 func TTSFirstPartyAudioUnitFromID(id objc.ID) TTSFirstPartyAudioUnit {
-	return TTSFirstPartyAudioUnit{AVSpeechSynthesisProviderAudioUnit: avfaudio.AVSpeechSynthesisProviderAudioUnitFromID(id)}
+	return TTSFirstPartyAudioUnit{objectivec.Object{ID: id}}
 }
-// Ensure TTSFirstPartyAudioUnit implements ITTSFirstPartyAudioUnit.
-var _ ITTSFirstPartyAudioUnit = TTSFirstPartyAudioUnit{}
+// NOTE: TTSFirstPartyAudioUnit struct embeds objectivec.Object (parent type unavailable) but
+// ITTSFirstPartyAudioUnit embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TTSFirstPartyAudioUnit] class.
 //
@@ -75,7 +79,7 @@ var _ ITTSFirstPartyAudioUnit = TTSFirstPartyAudioUnit{}
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSFirstPartyAudioUnit
 type ITTSFirstPartyAudioUnit interface {
-	avfaudio.IAVSpeechSynthesisProviderAudioUnit
+	IAVSpeechSynthesisProviderAudioUnit
 
 	// Topic: Methods
 

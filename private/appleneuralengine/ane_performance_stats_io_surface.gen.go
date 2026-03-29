@@ -30,6 +30,11 @@ type ANEPerformanceStatsIOSurfaceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEPerformanceStatsIOSurfaceClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEPerformanceStatsIOSurfaceClass) Alloc() ANEPerformanceStatsIOSurface {
 	rv := objc.Send[ANEPerformanceStatsIOSurface](objc.ID(ac.class), objc.Sel("alloc"))

@@ -32,6 +32,11 @@ type EspressoDataFrameAttachmentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoDataFrameAttachmentClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameAttachmentClass) Alloc() EspressoDataFrameAttachment {
 	rv := objc.Send[EspressoDataFrameAttachment](objc.ID(ec.class), objc.Sel("alloc"))

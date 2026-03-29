@@ -30,6 +30,11 @@ type TextToSpeechTTSSpeechQueueClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSSpeechQueueClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSpeechQueueClass) Alloc() TextToSpeechTTSSpeechQueue {
 	rv := objc.Send[TextToSpeechTTSSpeechQueue](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechTTSSpeechQueue struct {
 func TextToSpeechTTSSpeechQueueFromID(id objc.ID) TextToSpeechTTSSpeechQueue {
 	return TextToSpeechTTSSpeechQueue{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechTTSSpeechQueue implements ITextToSpeechTTSSpeechQueue.
-var _ ITextToSpeechTTSSpeechQueue = TextToSpeechTTSSpeechQueue{}
+// NOTE: TextToSpeechTTSSpeechQueue struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechTTSSpeechQueue embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSSpeechQueue] class.
 //

@@ -31,6 +31,11 @@ type ANEDeviceControllerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEDeviceControllerClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEDeviceControllerClass) Alloc() ANEDeviceController {
 	rv := objc.Send[ANEDeviceController](objc.ID(ac.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type EspressoPass_fuse_gelu_with_erfClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_fuse_gelu_with_erfClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_fuse_gelu_with_erfClass) Alloc() EspressoPass_fuse_gelu_with_erf {
 	rv := objc.Send[EspressoPass_fuse_gelu_with_erf](objc.ID(ec.class), objc.Sel("alloc"))

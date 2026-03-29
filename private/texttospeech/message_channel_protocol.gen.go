@@ -16,12 +16,7 @@ type AUMessageChannel interface {
 	// CallHostBlock protocol.
 	//
 	// See: https://developer.apple.com/documentation/TextToSpeech/AUMessageChannel/callHostBlock
-	CallHostBlock()
-
-	// SetCallHostBlock protocol.
-	//
-	// See: https://developer.apple.com/documentation/TextToSpeech/AUMessageChannel/setCallHostBlock:
-	SetCallHostBlock(block VoidHandler)
+	CallHostBlock() objectivec.IObject
 }
 
 // AUMessageChannelObject wraps an existing Objective-C object that conforms to the AUMessageChannel protocol.
@@ -47,12 +42,8 @@ func (o AUMessageChannelObject) CallAudioUnit(unit objectivec.IObject) objective
 	return objectivec.Object{ID: rv}
 	}
 // See: https://developer.apple.com/documentation/TextToSpeech/AUMessageChannel/callHostBlock
-func (o AUMessageChannelObject) CallHostBlock() {
-	objc.Send[struct{}](o.ID, objc.Sel("callHostBlock"))
-	}
-//
-// See: https://developer.apple.com/documentation/TextToSpeech/AUMessageChannel/setCallHostBlock:
-func (o AUMessageChannelObject) SetCallHostBlock(block VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setCallHostBlock:"), block)
+func (o AUMessageChannelObject) CallHostBlock() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("callHostBlock"))
+	return objectivec.Object{ID: rv}
 	}
 

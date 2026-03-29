@@ -29,6 +29,11 @@ type EspressoPass_complete_fixpoint_optimizationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_complete_fixpoint_optimizationClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_complete_fixpoint_optimizationClass) Alloc() EspressoPass_complete_fixpoint_optimization {
 	rv := objc.Send[EspressoPass_complete_fixpoint_optimization](objc.ID(ec.class), objc.Sel("alloc"))

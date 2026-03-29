@@ -31,6 +31,11 @@ type TTSSiriAssetManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSSiriAssetManagerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSiriAssetManagerClass) Alloc() TTSSiriAssetManager {
 	rv := objc.Send[TTSSiriAssetManager](objc.ID(tc.class), objc.Sel("alloc"))
@@ -200,15 +205,13 @@ func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) DeprecatedVoicesMap() 
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/downloadAsset:progressHandler:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) DownloadAssetProgressHandler(asset objectivec.IObject, handler VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(handler)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(handler)
 	objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("downloadAsset:progressHandler:"), asset, _block1)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSiriAssetManager/downloadVoiceResourceForLanguage:completion:
 func (_TTSSiriAssetManagerClass TTSSiriAssetManagerClass) DownloadVoiceResourceForLanguageCompletion(language objectivec.IObject, completion VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(completion)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(completion)
 	objc.Send[objc.ID](objc.ID(_TTSSiriAssetManagerClass.class), objc.Sel("downloadVoiceResourceForLanguage:completion:"), language, _block1)
 }
 //

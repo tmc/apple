@@ -5,7 +5,15 @@
 //
 // # Key Types
 //
+//   - [MLNetworkHeaderEncoding]
+//   - [MLNetworking]
+//   - [MLRemoteConnection]
+//   - [MLServer]
+//   - [MLNetworkOptions]
+//   - [MLNetworkPacket]
 //   - [CoreMLModelSecurityServiceToClient]
+//   - [MLNetworkUtilities]
+//   - [MLLog]
 //   - [CoreMLVersion]
 package remotecoreml
 

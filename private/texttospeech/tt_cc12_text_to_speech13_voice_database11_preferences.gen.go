@@ -30,6 +30,11 @@ type TtCC12TextToSpeech13VoiceDatabase11PreferencesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TtCC12TextToSpeech13VoiceDatabase11PreferencesClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TtCC12TextToSpeech13VoiceDatabase11PreferencesClass) Alloc() TtCC12TextToSpeech13VoiceDatabase11Preferences {
 	rv := objc.Send[TtCC12TextToSpeech13VoiceDatabase11Preferences](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TtCC12TextToSpeech13VoiceDatabase11Preferences struct {
 func TtCC12TextToSpeech13VoiceDatabase11PreferencesFromID(id objc.ID) TtCC12TextToSpeech13VoiceDatabase11Preferences {
 	return TtCC12TextToSpeech13VoiceDatabase11Preferences{objectivec.Object{ID: id}}
 }
-// Ensure TtCC12TextToSpeech13VoiceDatabase11Preferences implements ITtCC12TextToSpeech13VoiceDatabase11Preferences.
-var _ ITtCC12TextToSpeech13VoiceDatabase11Preferences = TtCC12TextToSpeech13VoiceDatabase11Preferences{}
+// NOTE: TtCC12TextToSpeech13VoiceDatabase11Preferences struct embeds objectivec.Object (parent type unavailable) but
+// ITtCC12TextToSpeech13VoiceDatabase11Preferences embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech13VoiceDatabase11Preferences] class.
 //

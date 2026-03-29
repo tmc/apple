@@ -31,6 +31,11 @@ type EspressoDataFrameStorageExecutorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoDataFrameStorageExecutorClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoDataFrameStorageExecutorClass) Alloc() EspressoDataFrameStorageExecutor {
 	rv := objc.Send[EspressoDataFrameStorageExecutor](objc.ID(ec.class), objc.Sel("alloc"))
@@ -96,26 +101,21 @@ func NewEspressoDataFrameStorageExecutor() EspressoDataFrameStorageExecutor {
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlock(storage objectivec.IObject, network objectivec.IObject, block VoidHandler) {
-_block2, _cleanup2 := NewVoidBlock(block)
-	defer _cleanup2()
+_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:"), storage, network, _block2)
 }
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, block VoidHandler, index VoidHandler) {
-_block2, _cleanup2 := NewVoidBlock(block)
-	defer _cleanup2()
-	_block3, _cleanup3 := NewVoidBlock(index)
-	defer _cleanup3()
+_block2, _ := NewVoidBlock(block)
+	_block3, _ := NewVoidBlock(index)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:block:blockPrepareForIndex:"), storage, network, _block2, _block3)
 }
 //
 // See: https://developer.apple.com/documentation/Espresso/EspressoDataFrameStorageExecutor/executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:
 func (e EspressoDataFrameStorageExecutor) ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex(storage objectivec.IObject, network objectivec.IObject, network2 objectivec.IObject, block VoidHandler, index VoidHandler) {
-_block3, _cleanup3 := NewVoidBlock(block)
-	defer _cleanup3()
-	_block4, _cleanup4 := NewVoidBlock(index)
-	defer _cleanup4()
+_block3, _ := NewVoidBlock(block)
+	_block4, _ := NewVoidBlock(index)
 	objc.Send[objc.ID](e.ID, objc.Sel("executeDataFrameStorage:withNetwork:referenceNetwork:block:blockPrepareForIndex:"), storage, network, network2, _block3, _block4)
 }
 

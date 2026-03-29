@@ -31,6 +31,11 @@ type TextToSpeechCoreSynthesisVoiceShimClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechCoreSynthesisVoiceShimClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechCoreSynthesisVoiceShimClass) Alloc() TextToSpeechCoreSynthesisVoiceShim {
 	rv := objc.Send[TextToSpeechCoreSynthesisVoiceShim](objc.ID(tc.class), objc.Sel("alloc"))
@@ -98,22 +103,22 @@ type ITextToSpeechCoreSynthesisVoiceShim interface {
 	// Topic: Methods
 
 	InternalVoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject
-	InternalVoiceWithIdentifierCompletionHandler(identifier string, handler BoolErrorHandler)
+	InternalVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler)
 	InternalVoicesIncludingSiri(siri bool) objectivec.IObject
-	InternalVoicesIncludingSiriCompletionHandler(siri bool, handler BoolErrorHandler)
+	InternalVoicesIncludingSiriCompletionHandler(siri bool, handler ErrorHandler)
 	PublicVoices() objectivec.IObject
-	PublicVoicesWithCompletionHandler(handler BoolErrorHandler)
+	PublicVoicesWithCompletionHandler(handler ErrorHandler)
 	ReloadPublicResolver()
 	ResourceVoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject
-	ResourceVoiceWithIdentifierCompletionHandler(identifier string, handler BoolErrorHandler)
+	ResourceVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler)
 	ResourceVoicesWithOnlyInstalled(installed bool) objectivec.IObject
-	ResourceVoicesWithOnlyInstalledCompletionHandler(installed bool, handler BoolErrorHandler)
+	ResourceVoicesWithOnlyInstalledCompletionHandler(installed bool, handler ErrorHandler)
 	ResourcesWithLanguageCode(code objectivec.IObject) objectivec.IObject
-	ResourcesWithLanguageCodeCompletionHandler(code string, handler BoolErrorHandler)
+	ResourcesWithLanguageCodeCompletionHandler(code string, handler ErrorHandler)
 	VoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject
-	VoiceWithIdentifierCompletionHandler(identifier string, handler BoolErrorHandler)
+	VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler)
 	VoiceWithLanguageCode(code objectivec.IObject) objectivec.IObject
-	VoiceWithLanguageCodeCompletionHandler(code string, handler BoolErrorHandler)
+	VoiceWithLanguageCodeCompletionHandler(code string, handler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -143,9 +148,8 @@ func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifier(identifi
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/internalVoiceWithIdentifier:completionHandler:
-func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifierCompletionHandler(identifier string, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("internalVoiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 //
@@ -156,9 +160,8 @@ func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiri(siri boo
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/internalVoicesIncludingSiri:completionHandler:
-func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiriCompletionHandler(siri bool, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiriCompletionHandler(siri bool, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("internalVoicesIncludingSiri:completionHandler:"), siri, _block1)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/publicVoices
@@ -168,9 +171,8 @@ func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoices() objectivec.IObject {
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/publicVoicesWithCompletionHandler:
-func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoicesWithCompletionHandler(handler BoolErrorHandler) {
-_block0, _cleanup0 := NewBoolErrorBlock(handler)
-	defer _cleanup0()
+func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoicesWithCompletionHandler(handler ErrorHandler) {
+_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("publicVoicesWithCompletionHandler:"), _block0)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/reloadPublicResolver
@@ -185,9 +187,8 @@ func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifier(identifi
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourceVoiceWithIdentifier:completionHandler:
-func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifierCompletionHandler(identifier string, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("resourceVoiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 //
@@ -198,9 +199,8 @@ func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalled(inst
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourceVoicesWithOnlyInstalled:completionHandler:
-func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalledCompletionHandler(installed bool, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalledCompletionHandler(installed bool, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("resourceVoicesWithOnlyInstalled:completionHandler:"), installed, _block1)
 }
 //
@@ -211,9 +211,8 @@ func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCode(code objec
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/resourcesWithLanguageCode:completionHandler:
-func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCodeCompletionHandler(code string, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCodeCompletionHandler(code string, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("resourcesWithLanguageCode:completionHandler:"), objc.String(code), _block1)
 }
 //
@@ -224,9 +223,8 @@ func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifier(identifier objec
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/voiceWithIdentifier:completionHandler:
-func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifierCompletionHandler(identifier string, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 //
@@ -237,9 +235,8 @@ func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCode(code objective
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesisVoiceShim/voiceWithLanguageCode:completionHandler:
-func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCodeCompletionHandler(code string, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCodeCompletionHandler(code string, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithLanguageCode:completionHandler:"), objc.String(code), _block1)
 }
 
@@ -251,153 +248,121 @@ func (_TextToSpeechCoreSynthesisVoiceShimClass TextToSpeechCoreSynthesisVoiceShi
 
 // InternalVoiceWithIdentifierSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifierSync(ctx context.Context, identifier string) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.InternalVoiceWithIdentifierCompletionHandler(identifier, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifierSync(ctx context.Context, identifier string) error {
+	done := make(chan error, 1)
+	t.InternalVoiceWithIdentifierCompletionHandler(identifier, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // InternalVoicesIncludingSiriSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiriCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiriSync(ctx context.Context, siri bool) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.InternalVoicesIncludingSiriCompletionHandler(siri, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoicesIncludingSiriSync(ctx context.Context, siri bool) error {
+	done := make(chan error, 1)
+	t.InternalVoicesIncludingSiriCompletionHandler(siri, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // PublicVoicesSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.PublicVoicesWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoicesSync(ctx context.Context) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.PublicVoicesWithCompletionHandler(func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesisVoiceShim) PublicVoicesSync(ctx context.Context) error {
+	done := make(chan error, 1)
+	t.PublicVoicesWithCompletionHandler(func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // ResourceVoiceWithIdentifierSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.ResourceVoiceWithIdentifierCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifierSync(ctx context.Context, identifier string) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.ResourceVoiceWithIdentifierCompletionHandler(identifier, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoiceWithIdentifierSync(ctx context.Context, identifier string) error {
+	done := make(chan error, 1)
+	t.ResourceVoiceWithIdentifierCompletionHandler(identifier, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // ResourceVoicesWithOnlyInstalledSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.ResourceVoicesWithOnlyInstalledCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalledSync(ctx context.Context, installed bool) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.ResourceVoicesWithOnlyInstalledCompletionHandler(installed, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesisVoiceShim) ResourceVoicesWithOnlyInstalledSync(ctx context.Context, installed bool) error {
+	done := make(chan error, 1)
+	t.ResourceVoicesWithOnlyInstalledCompletionHandler(installed, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // ResourcesWithLanguageCodeSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.ResourcesWithLanguageCodeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCodeSync(ctx context.Context, code string) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.ResourcesWithLanguageCodeCompletionHandler(code, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesisVoiceShim) ResourcesWithLanguageCodeSync(ctx context.Context, code string) error {
+	done := make(chan error, 1)
+	t.ResourcesWithLanguageCodeCompletionHandler(code, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // VoiceWithIdentifierSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.VoiceWithIdentifierCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifierSync(ctx context.Context, identifier string) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.VoiceWithIdentifierCompletionHandler(identifier, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithIdentifierSync(ctx context.Context, identifier string) error {
+	done := make(chan error, 1)
+	t.VoiceWithIdentifierCompletionHandler(identifier, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // VoiceWithLanguageCodeSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCodeCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCodeSync(ctx context.Context, code string) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.VoiceWithLanguageCodeCompletionHandler(code, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCodeSync(ctx context.Context, code string) error {
+	done := make(chan error, 1)
+	t.VoiceWithLanguageCodeCompletionHandler(code, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 

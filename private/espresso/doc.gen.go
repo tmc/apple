@@ -7,14 +7,14 @@
 //
 //   - [EspressoFDOverfeatNetwork]
 //   - [EspressoImage2Image]
+//   - [ETTaskDefinition]
+//   - [ETImageDescriptorExtractor]
+//   - [ETDataTensor]
+//   - [ETTask]
+//   - [ETModelDef]
+//   - [ETVariable]
 //   - [EspressoANEIOSurface]
-//   - [EspressoDataFrame]
-//   - [Espresso_mxnetTools_ImageBinaryRecordReader]
-//   - [EspressoDCNEspressoOverfeatDetector]
-//   - [EspressoConvolutionWeightsForMPS]
-//   - [EspressoInnerProductWeightsForMPS]
-//   - [EspressoProfilingLayerInfo]
-//   - [EspressoProfilingLayerSupportInfo]
+//   - [ETDataSourceFromFolderData]
 package espresso
 
 import (

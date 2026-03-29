@@ -30,6 +30,11 @@ type TextToSpeechTTSSpeechEventObjcClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSSpeechEventObjcClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSpeechEventObjcClass) Alloc() TextToSpeechTTSSpeechEventObjc {
 	rv := objc.Send[TextToSpeechTTSSpeechEventObjc](objc.ID(tc.class), objc.Sel("alloc"))

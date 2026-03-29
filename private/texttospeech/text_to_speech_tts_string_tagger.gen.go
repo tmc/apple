@@ -30,6 +30,11 @@ type TextToSpeechTTSStringTaggerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSStringTaggerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSStringTaggerClass) Alloc() TextToSpeechTTSStringTagger {
 	rv := objc.Send[TextToSpeechTTSStringTagger](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechTTSStringTagger struct {
 func TextToSpeechTTSStringTaggerFromID(id objc.ID) TextToSpeechTTSStringTagger {
 	return TextToSpeechTTSStringTagger{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechTTSStringTagger implements ITextToSpeechTTSStringTagger.
-var _ ITextToSpeechTTSStringTagger = TextToSpeechTTSStringTagger{}
+// NOTE: TextToSpeechTTSStringTagger struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechTTSStringTagger embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSStringTagger] class.
 //

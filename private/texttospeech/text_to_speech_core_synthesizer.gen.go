@@ -34,6 +34,11 @@ type TextToSpeechCoreSynthesizerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechCoreSynthesizerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechCoreSynthesizerClass) Alloc() TextToSpeechCoreSynthesizer {
 	rv := objc.Send[TextToSpeechCoreSynthesizer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -161,19 +166,19 @@ type ITextToSpeechCoreSynthesizer interface {
 	IsSpeaking() bool
 	OfflineChain() foundation.INSArray
 	SetOfflineChain(value foundation.INSArray)
-	PauseSpeakingAtCompletionHandler(at int64, handler BoolErrorHandler)
+	PauseSpeakingAtCompletionHandler(at int64, handler ErrorHandler)
 	SetLegacySubstitutions(substitutions objectivec.IObject)
-	SpeakSynthCompletionHandler(speak avfaudio.AVSpeechUtterance, synth avfaudio.AVSpeechSynthesizer, handler BoolErrorHandler)
-	SpeakWithRequestLanguageSynthesizerCompletionHandler(request objectivec.IObject, language objectivec.IObject, synthesizer objectivec.IObject, handler BoolErrorHandler)
-	StopSpeakingAtCompletionHandler(at int64, handler BoolErrorHandler)
-	StopWithCompletionHandler(handler BoolErrorHandler)
+	SpeakSynthCompletionHandler(speak avfaudio.AVSpeechUtterance, synth avfaudio.AVSpeechSynthesizer, handler ErrorHandler)
+	SpeakWithRequestLanguageSynthesizerCompletionHandler(request objectivec.IObject, language objectivec.IObject, synthesizer objectivec.IObject, handler ErrorHandler)
+	StopSpeakingAtCompletionHandler(at int64, handler ErrorHandler)
+	StopWithCompletionHandler(handler ErrorHandler)
 	VoiceResolver() unsafe.Pointer
 	SetVoiceResolver(value unsafe.Pointer)
-	VoiceWithIdentifierCompletionHandler(identifier string, handler BoolErrorHandler)
-	VoiceWithLocaleCompletionHandler(locale foundation.NSLocale, handler BoolErrorHandler)
-	WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback BoolErrorHandler, synth objectivec.IObject, handler ErrorHandler)
-	WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback BoolErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject, handler BoolErrorHandler)
-	WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase string, file foundation.INSURL, settings foundation.INSDictionary, handler BoolErrorHandler)
+	VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler)
+	VoiceWithLocaleCompletionHandler(locale foundation.NSLocale, handler ErrorHandler)
+	WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, synth objectivec.IObject, handler ErrorHandler)
+	WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject, handler ErrorHandler)
+	WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase string, file foundation.INSURL, settings foundation.INSDictionary, handler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -202,9 +207,8 @@ func (t TextToSpeechCoreSynthesizer) ContinueSpeaking() bool {
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/pauseSpeakingAt:completionHandler:
-func (t TextToSpeechCoreSynthesizer) PauseSpeakingAtCompletionHandler(at int64, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesizer) PauseSpeakingAtCompletionHandler(at int64, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("pauseSpeakingAt:completionHandler:"), at, _block1)
 }
 //
@@ -214,69 +218,58 @@ func (t TextToSpeechCoreSynthesizer) SetLegacySubstitutions(substitutions object
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/speak:synth:completionHandler:
-func (t TextToSpeechCoreSynthesizer) SpeakSynthCompletionHandler(speak avfaudio.AVSpeechUtterance, synth avfaudio.AVSpeechSynthesizer, handler BoolErrorHandler) {
-_block2, _cleanup2 := NewBoolErrorBlock(handler)
-	defer _cleanup2()
+func (t TextToSpeechCoreSynthesizer) SpeakSynthCompletionHandler(speak avfaudio.AVSpeechUtterance, synth avfaudio.AVSpeechSynthesizer, handler ErrorHandler) {
+_block2, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("speak:synth:completionHandler:"), speak, synth, _block2)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/speakWithRequest:language:synthesizer:completionHandler:
-func (t TextToSpeechCoreSynthesizer) SpeakWithRequestLanguageSynthesizerCompletionHandler(request objectivec.IObject, language objectivec.IObject, synthesizer objectivec.IObject, handler BoolErrorHandler) {
-_block3, _cleanup3 := NewBoolErrorBlock(handler)
-	defer _cleanup3()
+func (t TextToSpeechCoreSynthesizer) SpeakWithRequestLanguageSynthesizerCompletionHandler(request objectivec.IObject, language objectivec.IObject, synthesizer objectivec.IObject, handler ErrorHandler) {
+_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("speakWithRequest:language:synthesizer:completionHandler:"), request, language, synthesizer, _block3)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/stopSpeakingAt:completionHandler:
-func (t TextToSpeechCoreSynthesizer) StopSpeakingAtCompletionHandler(at int64, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesizer) StopSpeakingAtCompletionHandler(at int64, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("stopSpeakingAt:completionHandler:"), at, _block1)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/stopWithCompletionHandler:
-func (t TextToSpeechCoreSynthesizer) StopWithCompletionHandler(handler BoolErrorHandler) {
-_block0, _cleanup0 := NewBoolErrorBlock(handler)
-	defer _cleanup0()
+func (t TextToSpeechCoreSynthesizer) StopWithCompletionHandler(handler ErrorHandler) {
+_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("stopWithCompletionHandler:"), _block0)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/voiceWithIdentifier:completionHandler:
-func (t TextToSpeechCoreSynthesizer) VoiceWithIdentifierCompletionHandler(identifier string, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesizer) VoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithIdentifier:completionHandler:"), objc.String(identifier), _block1)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/voiceWithLocale:completionHandler:
-func (t TextToSpeechCoreSynthesizer) VoiceWithLocaleCompletionHandler(locale foundation.NSLocale, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(handler)
-	defer _cleanup1()
+func (t TextToSpeechCoreSynthesizer) VoiceWithLocaleCompletionHandler(locale foundation.NSLocale, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("voiceWithLocale:completionHandler:"), locale, _block1)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/write:toBufferCallback:synth:completionHandler:
-func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback BoolErrorHandler, synth objectivec.IObject, handler ErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(callback)
-	defer _cleanup1()
-	_block3, _cleanup3 := NewErrorBlock(handler)
-	defer _cleanup3()
+func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, synth objectivec.IObject, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(callback)
+	_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("write:toBufferCallback:synth:completionHandler:"), write, _block1, synth, _block3)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/write:toBufferCallback:toMarkerCallback:synth:completionHandler:
-func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback BoolErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject, handler BoolErrorHandler) {
-_block1, _cleanup1 := NewBoolErrorBlock(callback)
-	defer _cleanup1()
-	_block4, _cleanup4 := NewBoolErrorBlock(handler)
-	defer _cleanup4()
+func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject, handler ErrorHandler) {
+_block1, _ := NewErrorBlock(callback)
+	_block4, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("write:toBufferCallback:toMarkerCallback:synth:completionHandler:"), write, _block1, callback2, synth, _block4)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.CoreSynthesizer/writeWithSpeechPhrase:toAudioFile:withAudioSettings:completionHandler:
-func (t TextToSpeechCoreSynthesizer) WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase string, file foundation.INSURL, settings foundation.INSDictionary, handler BoolErrorHandler) {
-_block3, _cleanup3 := NewBoolErrorBlock(handler)
-	defer _cleanup3()
+func (t TextToSpeechCoreSynthesizer) WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase string, file foundation.INSURL, settings foundation.INSDictionary, handler ErrorHandler) {
+_block3, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](t.ID, objc.Sel("writeWithSpeechPhrase:toAudioFile:withAudioSettings:completionHandler:"), objc.String(phrase), file, settings, _block3)
 }
 
@@ -381,172 +374,136 @@ func (t TextToSpeechCoreSynthesizer) SetVoiceResolver(value unsafe.Pointer) {
 
 // PauseSpeakingAt is a synchronous wrapper around [TextToSpeechCoreSynthesizer.PauseSpeakingAtCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) PauseSpeakingAt(ctx context.Context, at int64) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.PauseSpeakingAtCompletionHandler(at, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) PauseSpeakingAt(ctx context.Context, at int64) error {
+	done := make(chan error, 1)
+	t.PauseSpeakingAtCompletionHandler(at, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // SpeakSynth is a synchronous wrapper around [TextToSpeechCoreSynthesizer.SpeakSynthCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) SpeakSynth(ctx context.Context, speak avfaudio.AVSpeechUtterance, synth avfaudio.AVSpeechSynthesizer) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.SpeakSynthCompletionHandler(speak, synth, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) SpeakSynth(ctx context.Context, speak avfaudio.AVSpeechUtterance, synth avfaudio.AVSpeechSynthesizer) error {
+	done := make(chan error, 1)
+	t.SpeakSynthCompletionHandler(speak, synth, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // SpeakWithRequestLanguageSynthesizer is a synchronous wrapper around [TextToSpeechCoreSynthesizer.SpeakWithRequestLanguageSynthesizerCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) SpeakWithRequestLanguageSynthesizer(ctx context.Context, request objectivec.IObject, language objectivec.IObject, synthesizer objectivec.IObject) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.SpeakWithRequestLanguageSynthesizerCompletionHandler(request, language, synthesizer, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) SpeakWithRequestLanguageSynthesizer(ctx context.Context, request objectivec.IObject, language objectivec.IObject, synthesizer objectivec.IObject) error {
+	done := make(chan error, 1)
+	t.SpeakWithRequestLanguageSynthesizerCompletionHandler(request, language, synthesizer, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // StopSpeakingAt is a synchronous wrapper around [TextToSpeechCoreSynthesizer.StopSpeakingAtCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) StopSpeakingAt(ctx context.Context, at int64) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.StopSpeakingAtCompletionHandler(at, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) StopSpeakingAt(ctx context.Context, at int64) error {
+	done := make(chan error, 1)
+	t.StopSpeakingAtCompletionHandler(at, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // Stop is a synchronous wrapper around [TextToSpeechCoreSynthesizer.StopWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) Stop(ctx context.Context) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.StopWithCompletionHandler(func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) Stop(ctx context.Context) error {
+	done := make(chan error, 1)
+	t.StopWithCompletionHandler(func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // VoiceWithIdentifier is a synchronous wrapper around [TextToSpeechCoreSynthesizer.VoiceWithIdentifierCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) VoiceWithIdentifier(ctx context.Context, identifier string) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.VoiceWithIdentifierCompletionHandler(identifier, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) VoiceWithIdentifier(ctx context.Context, identifier string) error {
+	done := make(chan error, 1)
+	t.VoiceWithIdentifierCompletionHandler(identifier, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // VoiceWithLocale is a synchronous wrapper around [TextToSpeechCoreSynthesizer.VoiceWithLocaleCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) VoiceWithLocale(ctx context.Context, locale foundation.NSLocale) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.VoiceWithLocaleCompletionHandler(locale, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) VoiceWithLocale(ctx context.Context, locale foundation.NSLocale) error {
+	done := make(chan error, 1)
+	t.VoiceWithLocaleCompletionHandler(locale, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // WriteToBufferCallbackToMarkerCallbackSynth is a synchronous wrapper around [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynth(ctx context.Context, write avfaudio.AVSpeechUtterance, callback BoolErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write, callback, callback2, synth, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) WriteToBufferCallbackToMarkerCallbackSynth(ctx context.Context, write avfaudio.AVSpeechUtterance, callback ErrorHandler, callback2 objectivec.IObject, synth objectivec.IObject) error {
+	done := make(chan error, 1)
+	t.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler(write, callback, callback2, synth, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 
 // WriteWithSpeechPhraseToAudioFileWithAudioSettings is a synchronous wrapper around [TextToSpeechCoreSynthesizer.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (t TextToSpeechCoreSynthesizer) WriteWithSpeechPhraseToAudioFileWithAudioSettings(ctx context.Context, phrase string, file foundation.INSURL, settings foundation.INSDictionary) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	t.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase, file, settings, func(val bool, err error) {
-		done <- result{val, err}
+func (t TextToSpeechCoreSynthesizer) WriteWithSpeechPhraseToAudioFileWithAudioSettings(ctx context.Context, phrase string, file foundation.INSURL, settings foundation.INSDictionary) error {
+	done := make(chan error, 1)
+	t.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler(phrase, file, settings, func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 

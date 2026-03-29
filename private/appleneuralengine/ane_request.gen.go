@@ -33,6 +33,11 @@ type ANERequestClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANERequestClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANERequestClass) Alloc() ANERequest {
 	rv := objc.Send[ANERequest](objc.ID(ac.class), objc.Sel("alloc"))
@@ -110,7 +115,7 @@ type IANERequest interface {
 	SetPerfStats(value *ANEPerformanceStats)
 	PerfStatsArray() foundation.INSArray
 	ProcedureIndex() foundation.NSNumber
-	SetCompletionHandler(handler BoolErrorHandler)
+	SetCompletionHandler(handler ErrorHandler)
 	SharedEvents() *ANESharedEvents
 	SetSharedEvents(value *ANESharedEvents)
 	TransactionHandle() foundation.NSNumber
@@ -163,8 +168,8 @@ func (a ANERequest) IoSurfacesCount() uint64 {
 }
 //
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/setCompletionHandler:
-func (a ANERequest) SetCompletionHandler(handler BoolErrorHandler) {
-_block0, _ := NewBoolErrorBlock(handler)
+func (a ANERequest) SetCompletionHandler(handler ErrorHandler) {
+_block0, _ := NewErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("setCompletionHandler:"), _block0)
 }
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANERequest/validate
@@ -304,20 +309,16 @@ func (a ANERequest) WeightsBuffer() *ANEIOSurfaceObject {
 
 // Set is a synchronous wrapper around [ANERequest.SetCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a ANERequest) Set(ctx context.Context) (bool, error) {
-	type result struct {
-		val bool
-		err error
-	}
-	done := make(chan result, 1)
-	a.SetCompletionHandler(func(val bool, err error) {
-		done <- result{val, err}
+func (a ANERequest) Set(ctx context.Context) error {
+	done := make(chan error, 1)
+	a.SetCompletionHandler(func(err error) {
+		done <- err
 	})
 	select {
-	case r := <-done:
-		return r.val, r.err
+	case err := <-done:
+		return err
 	case <-ctx.Done():
-		return false, ctx.Err()
+		return ctx.Err()
 	}
 }
 

@@ -30,6 +30,11 @@ type EspressoProfilingLayerRuntimeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoProfilingLayerRuntimeClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoProfilingLayerRuntimeClass) Alloc() EspressoProfilingLayerRuntime {
 	rv := objc.Send[EspressoProfilingLayerRuntime](objc.ID(ec.class), objc.Sel("alloc"))

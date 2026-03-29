@@ -3,6 +3,7 @@
 package texttospeech
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/avfaudio"
@@ -29,6 +30,11 @@ func GetTTSAudioBufferClass() TTSAudioBufferClass {
 
 type TTSAudioBufferClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSAudioBufferClass) Class() objc.Class {
+	return tc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -84,7 +90,7 @@ type ITTSAudioBuffer interface {
 	FrameCapacity() uint32
 	FrameLength() uint32
 	SetFrameLength(value uint32)
-	MutableAudioBufferList() objectivec.IObject
+	MutableAudioBufferList() unsafe.Pointer
 	InitWithAVBuffer(aVBuffer objectivec.IObject) TTSAudioBuffer
 	InitWithFormatFrameCapacity(format objectivec.IObject, capacity uint32) TTSAudioBuffer
 }
@@ -161,8 +167,8 @@ func (t TTSAudioBuffer) SetFrameLength(value uint32) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFrameLength:"), value)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioBuffer/mutableAudioBufferList
-func (t TTSAudioBuffer) MutableAudioBufferList() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("mutableAudioBufferList"))
-	return objectivec.Object{ID: rv}
+func (t TTSAudioBuffer) MutableAudioBufferList() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("mutableAudioBufferList"))
+	return rv
 }
 

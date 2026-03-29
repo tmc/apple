@@ -30,6 +30,11 @@ type TextToSpeechPTParserClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechPTParserClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechPTParserClass) Alloc() TextToSpeechPTParser {
 	rv := objc.Send[TextToSpeechPTParser](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechPTParser struct {
 func TextToSpeechPTParserFromID(id objc.ID) TextToSpeechPTParser {
 	return TextToSpeechPTParser{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechPTParser implements ITextToSpeechPTParser.
-var _ ITextToSpeechPTParser = TextToSpeechPTParser{}
+// NOTE: TextToSpeechPTParser struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechPTParser embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechPTParser] class.
 //

@@ -32,6 +32,11 @@ type TTSWordMarkerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSWordMarkerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSWordMarkerClass) Alloc() TTSWordMarker {
 	rv := objc.Send[TTSWordMarker](objc.ID(tc.class), objc.Sel("alloc"))

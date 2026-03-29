@@ -30,6 +30,11 @@ type TextToSpeechTTSSegmentGeneratorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSSegmentGeneratorClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSegmentGeneratorClass) Alloc() TextToSpeechTTSSegmentGenerator {
 	rv := objc.Send[TextToSpeechTTSSegmentGenerator](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechTTSSegmentGenerator struct {
 func TextToSpeechTTSSegmentGeneratorFromID(id objc.ID) TextToSpeechTTSSegmentGenerator {
 	return TextToSpeechTTSSegmentGenerator{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechTTSSegmentGenerator implements ITextToSpeechTTSSegmentGenerator.
-var _ ITextToSpeechTTSSegmentGenerator = TextToSpeechTTSSegmentGenerator{}
+// NOTE: TextToSpeechTTSSegmentGenerator struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechTTSSegmentGenerator embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSSegmentGenerator] class.
 //

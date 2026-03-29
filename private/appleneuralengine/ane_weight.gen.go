@@ -31,6 +31,11 @@ type ANEWeightClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEWeightClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEWeightClass) Alloc() ANEWeight {
 	rv := objc.Send[ANEWeight](objc.ID(ac.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type EspressoPass_remove_reshape_chainClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_remove_reshape_chainClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_remove_reshape_chainClass) Alloc() EspressoPass_remove_reshape_chain {
 	rv := objc.Send[EspressoPass_remove_reshape_chain](objc.ID(ec.class), objc.Sel("alloc"))

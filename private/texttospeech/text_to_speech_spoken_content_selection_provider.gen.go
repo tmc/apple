@@ -30,6 +30,11 @@ type TextToSpeechSpokenContentSelectionProviderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechSpokenContentSelectionProviderClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSpokenContentSelectionProviderClass) Alloc() TextToSpeechSpokenContentSelectionProvider {
 	rv := objc.Send[TextToSpeechSpokenContentSelectionProvider](objc.ID(tc.class), objc.Sel("alloc"))
@@ -49,8 +54,8 @@ type TextToSpeechSpokenContentSelectionProvider struct {
 func TextToSpeechSpokenContentSelectionProviderFromID(id objc.ID) TextToSpeechSpokenContentSelectionProvider {
 	return TextToSpeechSpokenContentSelectionProvider{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechSpokenContentSelectionProvider implements ITextToSpeechSpokenContentSelectionProvider.
-var _ ITextToSpeechSpokenContentSelectionProvider = TextToSpeechSpokenContentSelectionProvider{}
+// NOTE: TextToSpeechSpokenContentSelectionProvider struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechSpokenContentSelectionProvider embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechSpokenContentSelectionProvider] class.
 //

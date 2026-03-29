@@ -2,6 +2,11 @@
 // Code generated from Apple documentation for hiservices. DO NOT EDIT.
 
 // Package hiservices provides Go bindings for the hiservices framework.
+//
+// # Key Types
+//
+//   - [HIRunLoopSemaphore]
+//   - [HIRunLoopUtilities]
 package hiservices
 
 import (

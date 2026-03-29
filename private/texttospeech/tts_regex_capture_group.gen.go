@@ -31,6 +31,11 @@ type TTSRegexCaptureGroupClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSRegexCaptureGroupClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRegexCaptureGroupClass) Alloc() TTSRegexCaptureGroup {
 	rv := objc.Send[TTSRegexCaptureGroup](objc.ID(tc.class), objc.Sel("alloc"))

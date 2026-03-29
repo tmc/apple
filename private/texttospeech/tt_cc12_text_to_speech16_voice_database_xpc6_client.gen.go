@@ -30,6 +30,11 @@ type TtCC12TextToSpeech16VoiceDatabaseXPC6ClientClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TtCC12TextToSpeech16VoiceDatabaseXPC6ClientClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TtCC12TextToSpeech16VoiceDatabaseXPC6ClientClass) Alloc() TtCC12TextToSpeech16VoiceDatabaseXPC6Client {
 	rv := objc.Send[TtCC12TextToSpeech16VoiceDatabaseXPC6Client](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TtCC12TextToSpeech16VoiceDatabaseXPC6Client struct {
 func TtCC12TextToSpeech16VoiceDatabaseXPC6ClientFromID(id objc.ID) TtCC12TextToSpeech16VoiceDatabaseXPC6Client {
 	return TtCC12TextToSpeech16VoiceDatabaseXPC6Client{objectivec.Object{ID: id}}
 }
-// Ensure TtCC12TextToSpeech16VoiceDatabaseXPC6Client implements ITtCC12TextToSpeech16VoiceDatabaseXPC6Client.
-var _ ITtCC12TextToSpeech16VoiceDatabaseXPC6Client = TtCC12TextToSpeech16VoiceDatabaseXPC6Client{}
+// NOTE: TtCC12TextToSpeech16VoiceDatabaseXPC6Client struct embeds objectivec.Object (parent type unavailable) but
+// ITtCC12TextToSpeech16VoiceDatabaseXPC6Client embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech16VoiceDatabaseXPC6Client] class.
 //

@@ -30,6 +30,11 @@ type TTSFormatArgumentClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSFormatArgumentClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSFormatArgumentClass) Alloc() TTSFormatArgument {
 	rv := objc.Send[TTSFormatArgument](objc.ID(tc.class), objc.Sel("alloc"))

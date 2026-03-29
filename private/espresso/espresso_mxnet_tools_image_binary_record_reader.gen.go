@@ -33,6 +33,11 @@ type Espresso_mxnetTools_ImageBinaryRecordReaderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec Espresso_mxnetTools_ImageBinaryRecordReaderClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec Espresso_mxnetTools_ImageBinaryRecordReaderClass) Alloc() Espresso_mxnetTools_ImageBinaryRecordReader {
 	rv := objc.Send[Espresso_mxnetTools_ImageBinaryRecordReader](objc.ID(ec.class), objc.Sel("alloc"))

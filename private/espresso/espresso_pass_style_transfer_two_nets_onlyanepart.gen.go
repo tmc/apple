@@ -29,6 +29,11 @@ type EspressoPass_style_transfer_two_nets_onlyanepartClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_style_transfer_two_nets_onlyanepartClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_style_transfer_two_nets_onlyanepartClass) Alloc() EspressoPass_style_transfer_two_nets_onlyanepart {
 	rv := objc.Send[EspressoPass_style_transfer_two_nets_onlyanepart](objc.ID(ec.class), objc.Sel("alloc"))

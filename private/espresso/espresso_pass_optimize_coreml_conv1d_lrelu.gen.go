@@ -29,6 +29,11 @@ type EspressoPass_optimize_coreml_conv1d_lreluClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_optimize_coreml_conv1d_lreluClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_optimize_coreml_conv1d_lreluClass) Alloc() EspressoPass_optimize_coreml_conv1d_lrelu {
 	rv := objc.Send[EspressoPass_optimize_coreml_conv1d_lrelu](objc.ID(ec.class), objc.Sel("alloc"))

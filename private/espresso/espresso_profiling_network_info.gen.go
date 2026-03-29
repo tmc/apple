@@ -31,6 +31,11 @@ type EspressoProfilingNetworkInfoClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoProfilingNetworkInfoClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoProfilingNetworkInfoClass) Alloc() EspressoProfilingNetworkInfo {
 	rv := objc.Send[EspressoProfilingNetworkInfo](objc.ID(ec.class), objc.Sel("alloc"))

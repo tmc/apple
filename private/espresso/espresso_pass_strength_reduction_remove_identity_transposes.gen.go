@@ -29,6 +29,11 @@ type EspressoPass_strength_reduction_remove_identity_transposesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_strength_reduction_remove_identity_transposesClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_strength_reduction_remove_identity_transposesClass) Alloc() EspressoPass_strength_reduction_remove_identity_transposes {
 	rv := objc.Send[EspressoPass_strength_reduction_remove_identity_transposes](objc.ID(ec.class), objc.Sel("alloc"))

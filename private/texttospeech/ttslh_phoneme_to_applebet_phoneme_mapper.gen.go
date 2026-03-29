@@ -30,6 +30,11 @@ type TTSLHPhonemeToApplebetPhonemeMapperClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSLHPhonemeToApplebetPhonemeMapperClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSLHPhonemeToApplebetPhonemeMapperClass) Alloc() TTSLHPhonemeToApplebetPhonemeMapper {
 	rv := objc.Send[TTSLHPhonemeToApplebetPhonemeMapper](objc.ID(tc.class), objc.Sel("alloc"))

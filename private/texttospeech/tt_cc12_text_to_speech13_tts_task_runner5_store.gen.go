@@ -30,6 +30,11 @@ type TtCC12TextToSpeech13TTSTaskRunner5StoreClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TtCC12TextToSpeech13TTSTaskRunner5StoreClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TtCC12TextToSpeech13TTSTaskRunner5StoreClass) Alloc() TtCC12TextToSpeech13TTSTaskRunner5Store {
 	rv := objc.Send[TtCC12TextToSpeech13TTSTaskRunner5Store](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TtCC12TextToSpeech13TTSTaskRunner5Store struct {
 func TtCC12TextToSpeech13TTSTaskRunner5StoreFromID(id objc.ID) TtCC12TextToSpeech13TTSTaskRunner5Store {
 	return TtCC12TextToSpeech13TTSTaskRunner5Store{objectivec.Object{ID: id}}
 }
-// Ensure TtCC12TextToSpeech13TTSTaskRunner5Store implements ITtCC12TextToSpeech13TTSTaskRunner5Store.
-var _ ITtCC12TextToSpeech13TTSTaskRunner5Store = TtCC12TextToSpeech13TTSTaskRunner5Store{}
+// NOTE: TtCC12TextToSpeech13TTSTaskRunner5Store struct embeds objectivec.Object (parent type unavailable) but
+// ITtCC12TextToSpeech13TTSTaskRunner5Store embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech13TTSTaskRunner5Store] class.
 //

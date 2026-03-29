@@ -30,6 +30,11 @@ type TTSAXResourceMigrationUtilitiesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSAXResourceMigrationUtilitiesClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAXResourceMigrationUtilitiesClass) Alloc() TTSAXResourceMigrationUtilities {
 	rv := objc.Send[TTSAXResourceMigrationUtilities](objc.ID(tc.class), objc.Sel("alloc"))
@@ -99,10 +104,7 @@ func NewTTSAXResourceMigrationUtilities() TTSAXResourceMigrationUtilities {
 }
 
 //
-// spec is a [applicationservices.VoiceSpec].
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/_ttsAssetForSpec:
-// spec is a [applicationservices.VoiceSpec].
 func (t TTSAXResourceMigrationUtilities) _ttsAssetForSpec(spec objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("_ttsAssetForSpec:"), spec)
 	return objectivec.Object{ID: rv}
@@ -113,19 +115,13 @@ func (t TTSAXResourceMigrationUtilities) TtsAssetForSpec(spec objectivec.IObject
 	return t._ttsAssetForSpec(spec)
 }
 //
-// spec is a [applicationservices.VoiceSpec].
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/attributesForLegacyVoiceSpec:
-// spec is a [applicationservices.VoiceSpec].
 func (t TTSAXResourceMigrationUtilities) AttributesForLegacyVoiceSpec(spec objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("attributesForLegacyVoiceSpec:"), spec)
 	return objectivec.Object{ID: rv}
 }
 //
-// spec is a [applicationservices.VoiceSpec].
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceMigrationUtilities/getIdentifierForLegacyVoiceSpec:
-// spec is a [applicationservices.VoiceSpec].
 func (t TTSAXResourceMigrationUtilities) GetIdentifierForLegacyVoiceSpec(spec objectivec.IObject) objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("getIdentifierForLegacyVoiceSpec:"), spec)
 	return objectivec.Object{ID: rv}

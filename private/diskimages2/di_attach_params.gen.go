@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"errors"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [DIAttachParams] class.
@@ -30,6 +31,11 @@ func GetDIAttachParamsClass() DIAttachParamsClass {
 
 type DIAttachParamsClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (dc DIAttachParamsClass) Class() objc.Class {
+	return dc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -70,10 +76,16 @@ func (dc DIAttachParamsClass) Alloc() DIAttachParams {
 //   - [DIAttachParams.SetPassphraseError]
 //   - [DIAttachParams.NewAttachWithError]
 //   - [DIAttachParams.SetupDefaults]
-//   - [DIAttachParams.InitWithURLError]
+//   - [DIAttachParams.InputStatFS]
+//   - [DIAttachParams.SetInputStatFS]
+//   - [DIAttachParams.IsDeviceHighThroughputWithRegistryEntryID]
+//   - [DIAttachParams.IsDeviceSolidStateWithRegistryEntryID]
+//   - [DIAttachParams.IsDeviceWithPropertyRegistryEntryIDPredicate]
+//   - [DIAttachParams.ReOpenIfWritableWithError]
+//   - [DIAttachParams.ToDI1ParamsWithError]
+//   - [DIAttachParams.UpdateStatFSWithError]
 //   - [DIAttachParams.InitWithURLShadowURLsError]
 //   - [DIAttachParams.InitWithExistingParamsError]
-//   - [DIAttachParams.BlockSize]
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams
 type DIAttachParams struct {
 	DIBaseParams
@@ -119,10 +131,16 @@ var _ IDIAttachParams = DIAttachParams{}
 //   - [IDIAttachParams.SetPassphraseError]
 //   - [IDIAttachParams.NewAttachWithError]
 //   - [IDIAttachParams.SetupDefaults]
-//   - [IDIAttachParams.InitWithURLError]
+//   - [IDIAttachParams.InputStatFS]
+//   - [IDIAttachParams.SetInputStatFS]
+//   - [IDIAttachParams.IsDeviceHighThroughputWithRegistryEntryID]
+//   - [IDIAttachParams.IsDeviceSolidStateWithRegistryEntryID]
+//   - [IDIAttachParams.IsDeviceWithPropertyRegistryEntryIDPredicate]
+//   - [IDIAttachParams.ReOpenIfWritableWithError]
+//   - [IDIAttachParams.ToDI1ParamsWithError]
+//   - [IDIAttachParams.UpdateStatFSWithError]
 //   - [IDIAttachParams.InitWithURLShadowURLsError]
 //   - [IDIAttachParams.InitWithExistingParamsError]
-//   - [IDIAttachParams.BlockSize]
 //
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams
 type IDIAttachParams interface {
@@ -159,10 +177,16 @@ type IDIAttachParams interface {
 	SetPassphraseError(passphrase string) (bool, error)
 	NewAttachWithError() (IDIDeviceHandle, error)
 	SetupDefaults()
-	InitWithURLError(url foundation.INSURL) (DIAttachParams, error)
+	InputStatFS() IDIStatFS
+	SetInputStatFS(value IDIStatFS)
+	IsDeviceHighThroughputWithRegistryEntryID(id uint64) bool
+	IsDeviceSolidStateWithRegistryEntryID(id uint64) bool
+	IsDeviceWithPropertyRegistryEntryIDPredicate(property string, id uint64, predicate objectivec.IObject) bool
+	ReOpenIfWritableWithError() (bool, error)
+	ToDI1ParamsWithError() (objectivec.IObject, error)
+	UpdateStatFSWithError() (bool, error)
 	InitWithURLShadowURLsError(url foundation.INSURL, shadowURLs foundation.INSArray) (DIAttachParams, error)
 	InitWithExistingParamsError(params IDIAttachParams) (DIAttachParams, error)
-	BlockSize() uint32
 }
 
 // Init initializes the instance.
@@ -182,6 +206,14 @@ func NewDIAttachParams() DIAttachParams {
 	class := getDIAttachParamsClass()
 	rv := objc.Send[DIAttachParams](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/initWithCoder:
+func NewDIAttachParamsWithCoder(coder objectivec.IObject) DIAttachParams {
+	instance := getDIAttachParamsClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return DIAttachParamsFromID(rv)
 }
 
 //
@@ -255,15 +287,63 @@ func (d DIAttachParams) SetupDefaults() {
 	objc.Send[objc.ID](d.ID, objc.Sel("setupDefaults"))
 }
 //
-// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/initWithURL:error:
-func (d DIAttachParams) InitWithURLError(url foundation.INSURL) (DIAttachParams, error) {
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/isDeviceHighThroughputWithRegistryEntryID:
+func (d DIAttachParams) IsDeviceHighThroughputWithRegistryEntryID(id uint64) bool {
+	rv := objc.Send[bool](d.ID, objc.Sel("isDeviceHighThroughputWithRegistryEntryID:"), id)
+	return rv
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/isDeviceSolidStateWithRegistryEntryID:
+func (d DIAttachParams) IsDeviceSolidStateWithRegistryEntryID(id uint64) bool {
+	rv := objc.Send[bool](d.ID, objc.Sel("isDeviceSolidStateWithRegistryEntryID:"), id)
+	return rv
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/isDeviceWithProperty:registryEntryID:predicate:
+func (d DIAttachParams) IsDeviceWithPropertyRegistryEntryIDPredicate(property string, id uint64, predicate objectivec.IObject) bool {
+	rv := objc.Send[bool](d.ID, objc.Sel("isDeviceWithProperty:registryEntryID:predicate:"), unsafe.Pointer(unsafe.StringData(property + "\x00")), id, predicate)
+	return rv
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/reOpenIfWritableWithError:
+func (d DIAttachParams) ReOpenIfWritableWithError() (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](d.ID, objc.Sel("reOpenIfWritableWithError:"), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return DIAttachParams{}, foundation.NSErrorFrom(errorPtr)
+		return false, foundation.NSErrorFrom(errorPtr)
 	}
-	return DIAttachParamsFromID(rv), nil
+	if !rv {
+		return false, errors.New("reOpenIfWritableWithError: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/toDI1ParamsWithError:
+func (d DIAttachParams) ToDI1ParamsWithError() (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("toDI1ParamsWithError:"), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/updateStatFSWithError:
+func (d DIAttachParams) UpdateStatFSWithError() (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](d.ID, objc.Sel("updateStatFSWithError:"), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("updateStatFSWithError: returned NO with nil NSError")
+	}
+	return rv, nil
 
 }
 //
@@ -291,10 +371,20 @@ func (d DIAttachParams) InitWithExistingParamsError(params IDIAttachParams) (DIA
 
 }
 
-// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/supportsSecureCoding
-func (_DIAttachParamsClass DIAttachParamsClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIAttachParamsClass.class), objc.Sel("supportsSecureCoding"))
-	return rv
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/copyWithURL:outURLStr:maxLen:error:
+func (_DIAttachParamsClass DIAttachParamsClass) CopyWithURLOutURLStrMaxLenError(url foundation.INSURL, uRLStr string, len_ uint64) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](objc.ID(_DIAttachParamsClass.class), objc.Sel("copyWithURL:outURLStr:maxLen:error:"), url, unsafe.Pointer(unsafe.StringData(uRLStr + "\x00")), len_, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("copyWithURL:outURLStr:maxLen:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/autoMount
@@ -304,11 +394,6 @@ func (d DIAttachParams) AutoMount() bool {
 }
 func (d DIAttachParams) SetAutoMount(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setAutoMount:"), value)
-}
-// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/blockSize
-func (d DIAttachParams) BlockSize() uint32 {
-	rv := objc.Send[uint32](d.ID, objc.Sel("blockSize"))
-	return rv
 }
 // See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/commandSize
 func (d DIAttachParams) CommandSize() uint64 {
@@ -405,5 +490,13 @@ func (d DIAttachParams) UniqueDevice() bool {
 }
 func (d DIAttachParams) SetUniqueDevice(value bool) {
 	objc.Send[struct{}](d.ID, objc.Sel("setUniqueDevice:"), value)
+}
+// See: https://developer.apple.com/documentation/DiskImages2/DIAttachParams/inputStatFS
+func (d DIAttachParams) InputStatFS() IDIStatFS {
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("inputStatFS"))
+	return DIStatFSFromID(objc.ID(rv))
+}
+func (d DIAttachParams) SetInputStatFS(value IDIStatFS) {
+	objc.Send[struct{}](d.ID, objc.Sel("setInputStatFS:"), value)
 }
 

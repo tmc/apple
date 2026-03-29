@@ -29,6 +29,11 @@ type EspressoPass_remove_squeezeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_remove_squeezeClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_remove_squeezeClass) Alloc() EspressoPass_remove_squeeze {
 	rv := objc.Send[EspressoPass_remove_squeeze](objc.ID(ec.class), objc.Sel("alloc"))

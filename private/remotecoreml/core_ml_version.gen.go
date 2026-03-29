@@ -31,6 +31,11 @@ type CoreMLVersionClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (cc CoreMLVersionClass) Class() objc.Class {
+	return cc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (cc CoreMLVersionClass) Alloc() CoreMLVersion {
 	rv := objc.Send[CoreMLVersion](objc.ID(cc.class), objc.Sel("alloc"))

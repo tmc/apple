@@ -29,6 +29,11 @@ type EspressoPass_multi_head_program_genClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_multi_head_program_genClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_multi_head_program_genClass) Alloc() EspressoPass_multi_head_program_gen {
 	rv := objc.Send[EspressoPass_multi_head_program_gen](objc.ID(ec.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type EspressoPass_concat_fuse_fixClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_concat_fuse_fixClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_concat_fuse_fixClass) Alloc() EspressoPass_concat_fuse_fix {
 	rv := objc.Send[EspressoPass_concat_fuse_fix](objc.ID(ec.class), objc.Sel("alloc"))

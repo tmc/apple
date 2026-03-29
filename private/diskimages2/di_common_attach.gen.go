@@ -33,6 +33,11 @@ type DICommonAttachClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (dc DICommonAttachClass) Class() objc.Class {
+	return dc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (dc DICommonAttachClass) Alloc() DICommonAttach {
 	rv := objc.Send[DICommonAttach](objc.ID(dc.class), objc.Sel("alloc"))
@@ -118,6 +123,51 @@ func (_DICommonAttachClass DICommonAttachClass) DefaultDiskImageAttachBSDNameErr
 	}
 	if !rv {
 		return false, errors.New("defaultDiskImageAttach:BSDName:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/DI1_attachWithDictionary:BSDName:error:
+func (_DICommonAttachClass DICommonAttachClass) DI1_attachWithDictionaryBSDNameError(dictionary objectivec.IObject, sDName []objectivec.IObject) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("DI1_attachWithDictionary:BSDName:error:"), dictionary, objectivec.IObjectSliceToNSArray(sDName), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("DI1_attachWithDictionary:BSDName:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/DI2_attachWithParams:BSDName:error:
+func (_DICommonAttachClass DICommonAttachClass) DI2_attachWithParamsBSDNameError(params objectivec.IObject, sDName []objectivec.IObject) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("DI2_attachWithParams:BSDName:error:"), params, objectivec.IObjectSliceToNSArray(sDName), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("DI2_attachWithParams:BSDName:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DICommonAttach/failWithDI1errorCode:error:
+func (_DICommonAttachClass DICommonAttachClass) FailWithDI1errorCodeError(code int) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](objc.ID(_DICommonAttachClass.class), objc.Sel("failWithDI1errorCode:error:"), code, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("failWithDI1errorCode:error: returned NO with nil NSError")
 	}
 	return rv, nil
 

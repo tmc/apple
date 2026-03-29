@@ -29,6 +29,11 @@ type EspressoPass_fold_constantsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_fold_constantsClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_fold_constantsClass) Alloc() EspressoPass_fold_constants {
 	rv := objc.Send[EspressoPass_fold_constants](objc.ID(ec.class), objc.Sel("alloc"))

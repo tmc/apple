@@ -3,7 +3,6 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
@@ -64,6 +63,8 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 //   - [VZVirtualMachineConfiguration.Set_debugStub]
 //   - [VZVirtualMachineConfiguration._fatalErrorAction]
 //   - [VZVirtualMachineConfiguration.Set_fatalErrorAction]
+//   - [VZVirtualMachineConfiguration._hidDevices]
+//   - [VZVirtualMachineConfiguration.Set_hidDevices]
 //   - [VZVirtualMachineConfiguration._isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex]
 //   - [VZVirtualMachineConfiguration._mailboxDevices]
 //   - [VZVirtualMachineConfiguration.Set_mailboxDevices]
@@ -90,6 +91,7 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 //   - [VZVirtualMachineConfiguration._setCustomVirtioDevices]
 //   - [VZVirtualMachineConfiguration._setDebugStub]
 //   - [VZVirtualMachineConfiguration._setFatalErrorAction]
+//   - [VZVirtualMachineConfiguration._setHIDDevices]
 //   - [VZVirtualMachineConfiguration._setMailboxDevices]
 //   - [VZVirtualMachineConfiguration._setMemoryOvercommitmentAllowed]
 //   - [VZVirtualMachineConfiguration._setMultiTouchDevices]
@@ -140,6 +142,8 @@ var _ IVZVirtualMachineConfiguration = VZVirtualMachineConfiguration{}
 //   - [IVZVirtualMachineConfiguration.Set_debugStub]
 //   - [IVZVirtualMachineConfiguration._fatalErrorAction]
 //   - [IVZVirtualMachineConfiguration.Set_fatalErrorAction]
+//   - [IVZVirtualMachineConfiguration._hidDevices]
+//   - [IVZVirtualMachineConfiguration.Set_hidDevices]
 //   - [IVZVirtualMachineConfiguration._isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex]
 //   - [IVZVirtualMachineConfiguration._mailboxDevices]
 //   - [IVZVirtualMachineConfiguration.Set_mailboxDevices]
@@ -166,6 +170,7 @@ var _ IVZVirtualMachineConfiguration = VZVirtualMachineConfiguration{}
 //   - [IVZVirtualMachineConfiguration._setCustomVirtioDevices]
 //   - [IVZVirtualMachineConfiguration._setDebugStub]
 //   - [IVZVirtualMachineConfiguration._setFatalErrorAction]
+//   - [IVZVirtualMachineConfiguration._setHIDDevices]
 //   - [IVZVirtualMachineConfiguration._setMailboxDevices]
 //   - [IVZVirtualMachineConfiguration._setMemoryOvercommitmentAllowed]
 //   - [IVZVirtualMachineConfiguration._setMultiTouchDevices]
@@ -197,16 +202,18 @@ type IVZVirtualMachineConfiguration interface {
 	Set_biometricDevices(value foundation.INSArray)
 	_coprocessors() foundation.INSArray
 	Set_coprocessors(value foundation.INSArray)
-	_cpuEmulator() unsafe.Pointer
-	Set_cpuEmulator(value unsafe.Pointer)
+	_cpuEmulator() *VZCPUEmulatorConfiguration
+	Set_cpuEmulator(value *VZCPUEmulatorConfiguration)
 	_customMMIODevices() foundation.INSArray
 	Set_customMMIODevices(value foundation.INSArray)
 	_customVirtioDevices() foundation.INSArray
 	Set_customVirtioDevices(value foundation.INSArray)
-	_debugStub() unsafe.Pointer
-	Set_debugStub(value unsafe.Pointer)
+	_debugStub() *VZDebugStubConfiguration
+	Set_debugStub(value *VZDebugStubConfiguration)
 	_fatalErrorAction() int64
 	Set_fatalErrorAction(value int64)
+	_hidDevices() foundation.INSArray
+	Set_hidDevices(value foundation.INSArray)
 	_isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at uint64, index uint64) bool
 	_mailboxDevices() foundation.INSArray
 	Set_mailboxDevices(value foundation.INSArray)
@@ -216,8 +223,8 @@ type IVZVirtualMachineConfiguration interface {
 	Set_multiTouchDevices(value foundation.INSArray)
 	_panicAction() int64
 	Set_panicAction(value int64)
-	_panicDevice() unsafe.Pointer
-	Set_panicDevice(value unsafe.Pointer)
+	_panicDevice() *VZPanicDeviceConfiguration
+	Set_panicDevice(value *VZPanicDeviceConfiguration)
 	_pciPassthroughDevices() foundation.INSArray
 	Set_pciPassthroughDevices(value foundation.INSArray)
 	_powerSourceDevices() foundation.INSArray
@@ -233,6 +240,7 @@ type IVZVirtualMachineConfiguration interface {
 	_setCustomVirtioDevices(devices objectivec.IObject)
 	_setDebugStub(stub objectivec.IObject)
 	_setFatalErrorAction(action int64)
+	_setHIDDevices(hIDDevices objectivec.IObject)
 	_setMailboxDevices(devices objectivec.IObject)
 	_setMemoryOvercommitmentAllowed(allowed bool)
 	_setMultiTouchDevices(devices objectivec.IObject)
@@ -379,6 +387,16 @@ func (v VZVirtualMachineConfiguration) SetFatalErrorAction(action int64) {
 	v._setFatalErrorAction(action)
 }
 //
+// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setHIDDevices:
+func (v VZVirtualMachineConfiguration) _setHIDDevices(hIDDevices objectivec.IObject) {
+	objc.Send[objc.ID](v.ID, objc.Sel("_setHIDDevices:"), hIDDevices)
+}
+
+// SetHIDDevices is an exported wrapper for the private method _setHIDDevices.
+func (v VZVirtualMachineConfiguration) SetHIDDevices(hIDDevices objectivec.IObject) {
+	v._setHIDDevices(hIDDevices)
+}
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_setMailboxDevices:
 func (v VZVirtualMachineConfiguration) _setMailboxDevices(devices objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("_setMailboxDevices:"), devices)
@@ -523,11 +541,19 @@ func (v VZVirtualMachineConfiguration) Set_coprocessors(value foundation.INSArra
 	objc.Send[struct{}](v.ID, objc.Sel("set_coprocessors:"), value)
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_cpuEmulator
-func (v VZVirtualMachineConfiguration) _cpuEmulator() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_cpuEmulator"))
-	return rv
+func (v VZVirtualMachineConfiguration) _cpuEmulator() *VZCPUEmulatorConfiguration {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_cpuEmulator"))
+	if rv == 0 {
+		return nil
+	}
+	val := VZCPUEmulatorConfigurationFromID(objc.ID(rv))
+	return &val
 }
-func (v VZVirtualMachineConfiguration) Set_cpuEmulator(value unsafe.Pointer) {
+func (v VZVirtualMachineConfiguration) Set_cpuEmulator(value *VZCPUEmulatorConfiguration) {
+	if value == nil {
+		objc.Send[struct{}](v.ID, objc.Sel("set_cpuEmulator:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](v.ID, objc.Sel("set_cpuEmulator:"), value)
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_customMMIODevices
@@ -547,11 +573,19 @@ func (v VZVirtualMachineConfiguration) Set_customVirtioDevices(value foundation.
 	objc.Send[struct{}](v.ID, objc.Sel("set_customVirtioDevices:"), value)
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_debugStub
-func (v VZVirtualMachineConfiguration) _debugStub() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_debugStub"))
-	return rv
+func (v VZVirtualMachineConfiguration) _debugStub() *VZDebugStubConfiguration {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
+	if rv == 0 {
+		return nil
+	}
+	val := VZDebugStubConfigurationFromID(objc.ID(rv))
+	return &val
 }
-func (v VZVirtualMachineConfiguration) Set_debugStub(value unsafe.Pointer) {
+func (v VZVirtualMachineConfiguration) Set_debugStub(value *VZDebugStubConfiguration) {
+	if value == nil {
+		objc.Send[struct{}](v.ID, objc.Sel("set_debugStub:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](v.ID, objc.Sel("set_debugStub:"), value)
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_fatalErrorAction
@@ -561,6 +595,14 @@ func (v VZVirtualMachineConfiguration) _fatalErrorAction() int64 {
 }
 func (v VZVirtualMachineConfiguration) Set_fatalErrorAction(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_fatalErrorAction:"), value)
+}
+// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_hidDevices
+func (v VZVirtualMachineConfiguration) _hidDevices() foundation.INSArray {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevices"))
+	return foundation.NSArrayFromID(objc.ID(rv))
+}
+func (v VZVirtualMachineConfiguration) Set_hidDevices(value foundation.INSArray) {
+	objc.Send[struct{}](v.ID, objc.Sel("set_hidDevices:"), value)
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_mailboxDevices
 func (v VZVirtualMachineConfiguration) _mailboxDevices() foundation.INSArray {
@@ -595,11 +637,19 @@ func (v VZVirtualMachineConfiguration) Set_panicAction(value int64) {
 	objc.Send[struct{}](v.ID, objc.Sel("set_panicAction:"), value)
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_panicDevice
-func (v VZVirtualMachineConfiguration) _panicDevice() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_panicDevice"))
-	return rv
+func (v VZVirtualMachineConfiguration) _panicDevice() *VZPanicDeviceConfiguration {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_panicDevice"))
+	if rv == 0 {
+		return nil
+	}
+	val := VZPanicDeviceConfigurationFromID(objc.ID(rv))
+	return &val
 }
-func (v VZVirtualMachineConfiguration) Set_panicDevice(value unsafe.Pointer) {
+func (v VZVirtualMachineConfiguration) Set_panicDevice(value *VZPanicDeviceConfiguration) {
+	if value == nil {
+		objc.Send[struct{}](v.ID, objc.Sel("set_panicDevice:"), objc.ID(0))
+		return
+	}
 	objc.Send[struct{}](v.ID, objc.Sel("set_panicDevice:"), value)
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineConfiguration/_pciPassthroughDevices

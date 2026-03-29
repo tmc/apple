@@ -29,6 +29,11 @@ type EspressoPass_debug_modeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_debug_modeClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_debug_modeClass) Alloc() EspressoPass_debug_mode {
 	rv := objc.Send[EspressoPass_debug_mode](objc.ID(ec.class), objc.Sel("alloc"))

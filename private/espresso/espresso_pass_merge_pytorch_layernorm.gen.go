@@ -29,6 +29,11 @@ type EspressoPass_merge_pytorch_layernormClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_merge_pytorch_layernormClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_merge_pytorch_layernormClass) Alloc() EspressoPass_merge_pytorch_layernorm {
 	rv := objc.Send[EspressoPass_merge_pytorch_layernorm](objc.ID(ec.class), objc.Sel("alloc"))

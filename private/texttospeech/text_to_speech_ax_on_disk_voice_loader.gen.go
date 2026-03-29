@@ -30,6 +30,11 @@ type TextToSpeechAXOnDiskVoiceLoaderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechAXOnDiskVoiceLoaderClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAXOnDiskVoiceLoaderClass) Alloc() TextToSpeechAXOnDiskVoiceLoader {
 	rv := objc.Send[TextToSpeechAXOnDiskVoiceLoader](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechAXOnDiskVoiceLoader struct {
 func TextToSpeechAXOnDiskVoiceLoaderFromID(id objc.ID) TextToSpeechAXOnDiskVoiceLoader {
 	return TextToSpeechAXOnDiskVoiceLoader{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechAXOnDiskVoiceLoader implements ITextToSpeechAXOnDiskVoiceLoader.
-var _ ITextToSpeechAXOnDiskVoiceLoader = TextToSpeechAXOnDiskVoiceLoader{}
+// NOTE: TextToSpeechAXOnDiskVoiceLoader struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechAXOnDiskVoiceLoader embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAXOnDiskVoiceLoader] class.
 //

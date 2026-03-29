@@ -31,6 +31,11 @@ type TTSRegexMatchClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSRegexMatchClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRegexMatchClass) Alloc() TTSRegexMatch {
 	rv := objc.Send[TTSRegexMatch](objc.ID(tc.class), objc.Sel("alloc"))

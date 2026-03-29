@@ -30,6 +30,11 @@ type TextToSpeechAttributeUtilitiesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechAttributeUtilitiesClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAttributeUtilitiesClass) Alloc() TextToSpeechAttributeUtilities {
 	rv := objc.Send[TextToSpeechAttributeUtilities](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechAttributeUtilities struct {
 func TextToSpeechAttributeUtilitiesFromID(id objc.ID) TextToSpeechAttributeUtilities {
 	return TextToSpeechAttributeUtilities{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechAttributeUtilities implements ITextToSpeechAttributeUtilities.
-var _ ITextToSpeechAttributeUtilities = TextToSpeechAttributeUtilities{}
+// NOTE: TextToSpeechAttributeUtilities struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechAttributeUtilities embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAttributeUtilities] class.
 //

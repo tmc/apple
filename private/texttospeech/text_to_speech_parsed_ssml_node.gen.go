@@ -31,6 +31,11 @@ type TextToSpeechParsedSSMLNodeClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechParsedSSMLNodeClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechParsedSSMLNodeClass) Alloc() TextToSpeechParsedSSMLNode {
 	rv := objc.Send[TextToSpeechParsedSSMLNode](objc.ID(tc.class), objc.Sel("alloc"))

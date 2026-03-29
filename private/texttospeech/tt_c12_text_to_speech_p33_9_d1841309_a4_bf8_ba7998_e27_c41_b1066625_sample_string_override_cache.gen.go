@@ -30,6 +30,11 @@ type TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverride
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheClass) Alloc() TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache {
 	rv := objc.Send[TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverride
 func TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCacheFromID(id objc.ID) TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache {
 	return TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache{objectivec.Object{ID: id}}
 }
-// Ensure TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache implements ITtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache.
-var _ ITtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache = TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache{}
+// NOTE: TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache struct embeds objectivec.Object (parent type unavailable) but
+// ITtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtC12TextToSpeechP33_9D1841309A4BF8BA7998E27C41B1066625SampleStringOverrideCache] class.
 //

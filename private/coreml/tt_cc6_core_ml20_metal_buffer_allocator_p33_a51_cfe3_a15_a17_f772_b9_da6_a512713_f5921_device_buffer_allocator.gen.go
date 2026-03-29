@@ -1,0 +1,81 @@
+// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+
+package coreml
+
+import (
+	"sync"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
+)
+
+// The class instance for the [TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator] class.
+var (
+	_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass     TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass
+	_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClassOnce sync.Once
+)
+
+func getTtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass() TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass {
+	_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClassOnce.Do(func() {
+		_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass = TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass{class: objc.GetClass("_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator")}
+	})
+	return _TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass
+}
+
+// GetTtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass returns the class object for _TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator.
+func GetTtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass() TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass {
+	return getTtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass()
+}
+
+type TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass struct {
+	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (tc TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass) Class() objc.Class {
+	return tc.class
+}
+
+// Alloc allocates memory for a new instance of the class.
+func (tc TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass) Alloc() TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator {
+	rv := objc.Send[TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator](objc.ID(tc.class), objc.Sel("alloc"))
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator
+type TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator struct {
+	objectivec.Object
+}
+
+// TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorFromID constructs a [TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator] from an objc.ID.
+func TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorFromID(id objc.ID) TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator {
+	return TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator{objectivec.Object{ID: id}}
+}
+// NOTE: TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator struct embeds objectivec.Object (parent type unavailable) but
+// ITtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator embeds the parent interface; skip compile-time assertion.
+
+// An interface definition for the [TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator] class.
+//
+// See: https://developer.apple.com/documentation/CoreML/_TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator
+type ITtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator interface {
+	objectivec.IObject
+}
+
+// Init initializes the instance.
+func (t TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator) Init() TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator {
+	rv := objc.Send[TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator](t.ID, objc.Sel("init"))
+	return rv
+}
+
+// Autorelease adds the receiver to the current autorelease pool.
+func (t TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator) Autorelease() TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator {
+	rv := objc.Send[TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator](t.ID, objc.Sel("autorelease"))
+	return rv
+}
+
+// NewTtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator creates a new TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator instance.
+func NewTtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator() TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator {
+	class := getTtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocatorClass()
+	rv := objc.Send[TtCC6CoreML20MetalBufferAllocatorP33_A51CFE3A15A17F772B9DA6A512713F5921DeviceBufferAllocator](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+

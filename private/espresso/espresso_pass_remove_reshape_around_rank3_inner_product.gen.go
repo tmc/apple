@@ -29,6 +29,11 @@ type EspressoPass_remove_reshape_around_rank3_inner_productClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_remove_reshape_around_rank3_inner_productClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_remove_reshape_around_rank3_inner_productClass) Alloc() EspressoPass_remove_reshape_around_rank3_inner_product {
 	rv := objc.Send[EspressoPass_remove_reshape_around_rank3_inner_product](objc.ID(ec.class), objc.Sel("alloc"))

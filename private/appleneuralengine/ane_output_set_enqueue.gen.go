@@ -30,6 +30,11 @@ type ANEOutputSetEnqueueClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEOutputSetEnqueueClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEOutputSetEnqueueClass) Alloc() ANEOutputSetEnqueue {
 	rv := objc.Send[ANEOutputSetEnqueue](objc.ID(ac.class), objc.Sel("alloc"))

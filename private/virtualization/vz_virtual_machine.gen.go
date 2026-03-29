@@ -60,6 +60,7 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 //   - [VZVirtualMachine._debugStub]
 //   - [VZVirtualMachine._enterRestrictedModeWithCompletionHandler]
 //   - [VZVirtualMachine._getUSBControllerLocationIDWithCompletionHandler]
+//   - [VZVirtualMachine._hidDevices]
 //   - [VZVirtualMachine._hidEventMonitor]
 //   - [VZVirtualMachine._keyboards]
 //   - [VZVirtualMachine._multiTouchDevices]
@@ -80,6 +81,7 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 //   - [VZVirtualMachine._storageDevices]
 //   - [VZVirtualMachine._validateRestrictedModeSupportWithError]
 //   - [VZVirtualMachine.SendDigitizerEventsPointingDeviceIndex]
+//   - [VZVirtualMachine.SendIOHIDEventsHidDeviceIndex]
 //   - [VZVirtualMachine.SendKeyboardEventsKeyboardID]
 //   - [VZVirtualMachine.SendMagnifyEventsPointingDeviceIndex]
 //   - [VZVirtualMachine.SendMouseEventsPointingDeviceIndex]
@@ -119,6 +121,7 @@ var _ IVZVirtualMachine = VZVirtualMachine{}
 //   - [IVZVirtualMachine._debugStub]
 //   - [IVZVirtualMachine._enterRestrictedModeWithCompletionHandler]
 //   - [IVZVirtualMachine._getUSBControllerLocationIDWithCompletionHandler]
+//   - [IVZVirtualMachine._hidDevices]
 //   - [IVZVirtualMachine._hidEventMonitor]
 //   - [IVZVirtualMachine._keyboards]
 //   - [IVZVirtualMachine._multiTouchDevices]
@@ -139,6 +142,7 @@ var _ IVZVirtualMachine = VZVirtualMachine{}
 //   - [IVZVirtualMachine._storageDevices]
 //   - [IVZVirtualMachine._validateRestrictedModeSupportWithError]
 //   - [IVZVirtualMachine.SendDigitizerEventsPointingDeviceIndex]
+//   - [IVZVirtualMachine.SendIOHIDEventsHidDeviceIndex]
 //   - [IVZVirtualMachine.SendKeyboardEventsKeyboardID]
 //   - [IVZVirtualMachine.SendMagnifyEventsPointingDeviceIndex]
 //   - [IVZVirtualMachine.SendMouseEventsPointingDeviceIndex]
@@ -166,10 +170,11 @@ type IVZVirtualMachine interface {
 	_createCoresWithCompletionHandler(handler ErrorHandler)
 	_createViewEndpointWithOptions(options uint64) objectivec.IObject
 	_currentConfiguration() IVZVirtualMachineConfiguration
-	_debugStub() unsafe.Pointer
+	_debugStub() *VZDebugStub
 	_enterRestrictedModeWithCompletionHandler(handler ErrorHandler)
 	_getUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler)
-	_hidEventMonitor() unsafe.Pointer
+	_hidDevices() foundation.INSArray
+	_hidEventMonitor() *VZHIDEventMonitor
 	_keyboards() foundation.INSArray
 	_multiTouchDevices() foundation.INSArray
 	_name() string
@@ -189,6 +194,7 @@ type IVZVirtualMachine interface {
 	_storageDevices() foundation.INSArray
 	_validateRestrictedModeSupportWithError() (bool, error)
 	SendDigitizerEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
+	SendIOHIDEventsHidDeviceIndex(iOHIDEvents unsafe.Pointer, index uint32)
 	SendKeyboardEventsKeyboardID(events unsafe.Pointer, id uint32)
 	SendMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
 	SendMouseEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
@@ -374,6 +380,11 @@ func (v VZVirtualMachine) SendDigitizerEventsPointingDeviceIndex(events unsafe.P
 	objc.Send[objc.ID](v.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, index)
 }
 //
+// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendIOHIDEvents:hidDeviceIndex:
+func (v VZVirtualMachine) SendIOHIDEventsHidDeviceIndex(iOHIDEvents unsafe.Pointer, index uint32) {
+	objc.Send[objc.ID](v.ID, objc.Sel("sendIOHIDEvents:hidDeviceIndex:"), iOHIDEvents, index)
+}
+//
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/sendKeyboardEvents:keyboardID:
 func (v VZVirtualMachine) SendKeyboardEventsKeyboardID(events unsafe.Pointer, id uint32) {
 	objc.Send[objc.ID](v.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events, id)
@@ -448,14 +459,27 @@ func (v VZVirtualMachine) _currentConfiguration() IVZVirtualMachineConfiguration
 	return VZVirtualMachineConfigurationFromID(objc.ID(rv))
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_debugStub
-func (v VZVirtualMachine) _debugStub() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_debugStub"))
-	return rv
+func (v VZVirtualMachine) _debugStub() *VZDebugStub {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_debugStub"))
+	if rv == 0 {
+		return nil
+	}
+	val := VZDebugStubFromID(objc.ID(rv))
+	return &val
+}
+// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_hidDevices
+func (v VZVirtualMachine) _hidDevices() foundation.INSArray {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidDevices"))
+	return foundation.NSArrayFromID(objc.ID(rv))
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_hidEventMonitor
-func (v VZVirtualMachine) _hidEventMonitor() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](v.ID, objc.Sel("_hidEventMonitor"))
-	return rv
+func (v VZVirtualMachine) _hidEventMonitor() *VZHIDEventMonitor {
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("_hidEventMonitor"))
+	if rv == 0 {
+		return nil
+	}
+	val := VZHIDEventMonitorFromID(objc.ID(rv))
+	return &val
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachine/_keyboards
 func (v VZVirtualMachine) _keyboards() foundation.INSArray {

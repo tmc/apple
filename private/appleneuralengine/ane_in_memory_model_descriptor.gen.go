@@ -31,6 +31,11 @@ type ANEInMemoryModelDescriptorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEInMemoryModelDescriptorClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEInMemoryModelDescriptorClass) Alloc() ANEInMemoryModelDescriptor {
 	rv := objc.Send[ANEInMemoryModelDescriptor](objc.ID(ac.class), objc.Sel("alloc"))

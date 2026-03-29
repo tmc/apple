@@ -8,13 +8,13 @@
 //   - [VZVirtualMachineView]
 //   - [VZVirtualMachineConfiguration]
 //   - [VZVirtualMachine]
+//   - [VZCustomVirtioDeviceConfiguration]
+//   - [VZVNCServer]
+//   - [VZFramebufferView]
 //   - [VZMacPlatformConfiguration]
+//   - [VZCustomMMIODeviceConfiguration]
+//   - [VZIOUSBHostPassthroughDevice]
 //   - [VZMacGraphicsDeviceConfiguration]
-//   - [VZUSBMassStorageDevice]
-//   - [VZMacMachineIdentifier]
-//   - [VZGraphicsDisplay]
-//   - [VZMacAuxiliaryStorage]
-//   - [VZMacGraphicsDisplay]
 package virtualization
 
 import (

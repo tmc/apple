@@ -31,6 +31,11 @@ type TTSSpeechStringClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSSpeechStringClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechStringClass) Alloc() TTSSpeechString {
 	rv := objc.Send[TTSSpeechString](objc.ID(tc.class), objc.Sel("alloc"))

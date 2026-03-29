@@ -31,6 +31,11 @@ type TTSStringTransformationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSStringTransformationClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSStringTransformationClass) Alloc() TTSStringTransformation {
 	rv := objc.Send[TTSStringTransformation](objc.ID(tc.class), objc.Sel("alloc"))

@@ -29,6 +29,11 @@ type EspressoPass_fuse_gru_activationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_fuse_gru_activationClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_fuse_gru_activationClass) Alloc() EspressoPass_fuse_gru_activation {
 	rv := objc.Send[EspressoPass_fuse_gru_activation](objc.ID(ec.class), objc.Sel("alloc"))

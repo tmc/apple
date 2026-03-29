@@ -30,6 +30,11 @@ type TextToSpeechAXCatalogUpdaterClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechAXCatalogUpdaterClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAXCatalogUpdaterClass) Alloc() TextToSpeechAXCatalogUpdater {
 	rv := objc.Send[TextToSpeechAXCatalogUpdater](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechAXCatalogUpdater struct {
 func TextToSpeechAXCatalogUpdaterFromID(id objc.ID) TextToSpeechAXCatalogUpdater {
 	return TextToSpeechAXCatalogUpdater{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechAXCatalogUpdater implements ITextToSpeechAXCatalogUpdater.
-var _ ITextToSpeechAXCatalogUpdater = TextToSpeechAXCatalogUpdater{}
+// NOTE: TextToSpeechAXCatalogUpdater struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechAXCatalogUpdater embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAXCatalogUpdater] class.
 //

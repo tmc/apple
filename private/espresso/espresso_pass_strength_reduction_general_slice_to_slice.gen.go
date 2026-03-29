@@ -29,6 +29,11 @@ type EspressoPass_strength_reduction_general_slice_to_sliceClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_strength_reduction_general_slice_to_sliceClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_strength_reduction_general_slice_to_sliceClass) Alloc() EspressoPass_strength_reduction_general_slice_to_slice {
 	rv := objc.Send[EspressoPass_strength_reduction_general_slice_to_slice](objc.ID(ec.class), objc.Sel("alloc"))

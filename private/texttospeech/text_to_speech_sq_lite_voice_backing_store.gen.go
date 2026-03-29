@@ -30,6 +30,11 @@ type TextToSpeechSQLiteVoiceBackingStoreClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechSQLiteVoiceBackingStoreClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSQLiteVoiceBackingStoreClass) Alloc() TextToSpeechSQLiteVoiceBackingStore {
 	rv := objc.Send[TextToSpeechSQLiteVoiceBackingStore](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechSQLiteVoiceBackingStore struct {
 func TextToSpeechSQLiteVoiceBackingStoreFromID(id objc.ID) TextToSpeechSQLiteVoiceBackingStore {
 	return TextToSpeechSQLiteVoiceBackingStore{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechSQLiteVoiceBackingStore implements ITextToSpeechSQLiteVoiceBackingStore.
-var _ ITextToSpeechSQLiteVoiceBackingStore = TextToSpeechSQLiteVoiceBackingStore{}
+// NOTE: TextToSpeechSQLiteVoiceBackingStore struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechSQLiteVoiceBackingStore embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechSQLiteVoiceBackingStore] class.
 //

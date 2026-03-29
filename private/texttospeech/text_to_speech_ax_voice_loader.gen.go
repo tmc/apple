@@ -30,6 +30,11 @@ type TextToSpeechAXVoiceLoaderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechAXVoiceLoaderClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAXVoiceLoaderClass) Alloc() TextToSpeechAXVoiceLoader {
 	rv := objc.Send[TextToSpeechAXVoiceLoader](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechAXVoiceLoader struct {
 func TextToSpeechAXVoiceLoaderFromID(id objc.ID) TextToSpeechAXVoiceLoader {
 	return TextToSpeechAXVoiceLoader{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechAXVoiceLoader implements ITextToSpeechAXVoiceLoader.
-var _ ITextToSpeechAXVoiceLoader = TextToSpeechAXVoiceLoader{}
+// NOTE: TextToSpeechAXVoiceLoader struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechAXVoiceLoader embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAXVoiceLoader] class.
 //

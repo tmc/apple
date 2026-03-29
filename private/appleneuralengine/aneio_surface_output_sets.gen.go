@@ -32,6 +32,11 @@ type ANEIOSurfaceOutputSetsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEIOSurfaceOutputSetsClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEIOSurfaceOutputSetsClass) Alloc() ANEIOSurfaceOutputSets {
 	rv := objc.Send[ANEIOSurfaceOutputSets](objc.ID(ac.class), objc.Sel("alloc"))

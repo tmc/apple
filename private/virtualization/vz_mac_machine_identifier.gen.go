@@ -3,7 +3,6 @@
 package virtualization
 
 import (
-	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/foundation"
@@ -85,7 +84,7 @@ type IVZMacMachineIdentifier interface {
 
 	_ECID() uint64
 	_ECIDChecksDisabled() bool
-	_serialNumber() unsafe.Pointer
+	_serialNumber() *VZMacSerialNumber
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -177,9 +176,13 @@ func (m VZMacMachineIdentifier) _ECIDChecksDisabled() bool {
 	return rv
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/_serialNumber
-func (m VZMacMachineIdentifier) _serialNumber() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("_serialNumber"))
-	return rv
+func (m VZMacMachineIdentifier) _serialNumber() *VZMacSerialNumber {
+	rv := objc.Send[objc.ID](m.ID, objc.Sel("_serialNumber"))
+	if rv == 0 {
+		return nil
+	}
+	val := VZMacSerialNumberFromID(objc.ID(rv))
+	return &val
 }
 // See: https://developer.apple.com/documentation/Virtualization/VZMacMachineIdentifier/debugDescription
 func (m VZMacMachineIdentifier) DebugDescription() string {

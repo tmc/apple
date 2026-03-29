@@ -31,6 +31,11 @@ type TTSMatchedRuleReplacementClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSMatchedRuleReplacementClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSMatchedRuleReplacementClass) Alloc() TTSMatchedRuleReplacement {
 	rv := objc.Send[TTSMatchedRuleReplacement](objc.ID(tc.class), objc.Sel("alloc"))

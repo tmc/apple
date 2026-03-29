@@ -30,6 +30,11 @@ type TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRend
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererClass) Alloc() TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer {
 	rv := objc.Send[TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRend
 func TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRendererFromID(id objc.ID) TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer {
 	return TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer{objectivec.Object{ID: id}}
 }
-// Ensure TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer implements ITtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer.
-var _ ITtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer = TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer{}
+// NOTE: TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer struct embeds objectivec.Object (parent type unavailable) but
+// ITtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtC12TextToSpeechP33_CFE865E2CA63263E0B31A28183D6B2F124BaseSystemSpeechRenderer] class.
 //

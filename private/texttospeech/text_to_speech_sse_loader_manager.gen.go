@@ -30,6 +30,11 @@ type TextToSpeechSSELoaderManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechSSELoaderManagerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSSELoaderManagerClass) Alloc() TextToSpeechSSELoaderManager {
 	rv := objc.Send[TextToSpeechSSELoaderManager](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechSSELoaderManager struct {
 func TextToSpeechSSELoaderManagerFromID(id objc.ID) TextToSpeechSSELoaderManager {
 	return TextToSpeechSSELoaderManager{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechSSELoaderManager implements ITextToSpeechSSELoaderManager.
-var _ ITextToSpeechSSELoaderManager = TextToSpeechSSELoaderManager{}
+// NOTE: TextToSpeechSSELoaderManager struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechSSELoaderManager embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechSSELoaderManager] class.
 //

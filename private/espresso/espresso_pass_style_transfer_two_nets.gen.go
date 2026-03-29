@@ -29,6 +29,11 @@ type EspressoPass_style_transfer_two_netsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_style_transfer_two_netsClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_style_transfer_two_netsClass) Alloc() EspressoPass_style_transfer_two_nets {
 	rv := objc.Send[EspressoPass_style_transfer_two_nets](objc.ID(ec.class), objc.Sel("alloc"))

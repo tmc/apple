@@ -30,6 +30,11 @@ type TextToSpeechAUParamWrapperClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechAUParamWrapperClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAUParamWrapperClass) Alloc() TextToSpeechAUParamWrapper {
 	rv := objc.Send[TextToSpeechAUParamWrapper](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechAUParamWrapper struct {
 func TextToSpeechAUParamWrapperFromID(id objc.ID) TextToSpeechAUParamWrapper {
 	return TextToSpeechAUParamWrapper{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechAUParamWrapper implements ITextToSpeechAUParamWrapper.
-var _ ITextToSpeechAUParamWrapper = TextToSpeechAUParamWrapper{}
+// NOTE: TextToSpeechAUParamWrapper struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechAUParamWrapper embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAUParamWrapper] class.
 //

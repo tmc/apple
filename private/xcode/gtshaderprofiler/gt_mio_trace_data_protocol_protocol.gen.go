@@ -104,25 +104,15 @@ type GTMioTraceDataProtocol interface {
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/encoders
 	Encoders() unsafe.Pointer
 
-	// EnumerateBinariesForDrawEnumerator protocol.
-	//
-	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinariesForDraw:enumerator:
-	EnumerateBinariesForDrawEnumerator(draw uint32, enumerator VoidHandler)
-
-	// EnumerateBinariesForEncoderEnumerator protocol.
-	//
-	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinariesForEncoder:enumerator:
-	EnumerateBinariesForEncoderEnumerator(encoder uint32, enumerator VoidHandler)
-
 	// EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinariesForForCliqueAtIndex:uscIndex:enumerator:
-	EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler)
+	EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator GTMioShaderBinaryDataHandler)
 
 	// EnumerateBinariesForPipelineStateEnumerator protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinariesForPipelineState:enumerator:
-	EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator VoidHandler)
+	EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator GTMioShaderBinaryDataHandler)
 
 	// EnumerateBinaryRangesForCliqueAtIndexUscIndexEnumerator protocol.
 	//
@@ -132,17 +122,17 @@ type GTMioTraceDataProtocol interface {
 	// EnumerateDrawsForEncoderEnumerator protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateDrawsForEncoder:enumerator:
-	EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator VoidHandler)
+	EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator UintHandler)
 
 	// EnumerateDrawsForPipelineStateEnumerator protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateDrawsForPipelineState:enumerator:
-	EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator VoidHandler)
+	EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator UintHandler)
 
 	// EnumerateEncoders protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateEncoders:
-	EnumerateEncoders(encoders VoidHandler)
+	EnumerateEncoders(encoders UintHandler)
 
 	// EnumerateInstructionsForCliqueAtIndexUscIndexEnumerator protocol.
 	//
@@ -157,12 +147,7 @@ type GTMioTraceDataProtocol interface {
 	// EnumeratePipelineStates protocol.
 	//
 	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumeratePipelineStates:
-	EnumeratePipelineStates(states VoidHandler)
-
-	// EnumerateUniqueTracesForBinaryEnumerator protocol.
-	//
-	// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateUniqueTracesForBinary:enumerator:
-	EnumerateUniqueTracesForBinaryEnumerator(binary uint32, enumerator VoidHandler)
+	EnumeratePipelineStates(states unsignedlongHandler)
 
 	// FailedUSCIndexCount protocol.
 	//
@@ -471,23 +456,13 @@ func (o GTMioTraceDataProtocolObject) Encoders() unsafe.Pointer {
 	return rv
 	}
 //
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinariesForDraw:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateBinariesForDrawEnumerator(draw uint32, enumerator VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("enumerateBinariesForDraw:enumerator:"), draw, enumerator)
-	}
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinariesForEncoder:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateBinariesForEncoderEnumerator(encoder uint32, enumerator VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("enumerateBinariesForEncoder:enumerator:"), encoder, enumerator)
-	}
-//
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinariesForForCliqueAtIndex:uscIndex:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator VoidHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateBinariesForForCliqueAtIndexUscIndexEnumerator(index uint32, index2 uint32, enumerator GTMioShaderBinaryDataHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateBinariesForForCliqueAtIndex:uscIndex:enumerator:"), index, index2, enumerator)
 	}
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateBinariesForPipelineState:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator VoidHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateBinariesForPipelineStateEnumerator(state uint64, enumerator GTMioShaderBinaryDataHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateBinariesForPipelineState:enumerator:"), state, enumerator)
 	}
 //
@@ -502,17 +477,17 @@ func (o GTMioTraceDataProtocolObject) EnumerateBinaryRangesForCliqueAtIndexUscIn
 	}
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateDrawsForEncoder:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator VoidHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateDrawsForEncoderEnumerator(encoder uint32, enumerator UintHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateDrawsForEncoder:enumerator:"), encoder, enumerator)
 	}
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateDrawsForPipelineState:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator VoidHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateDrawsForPipelineStateEnumerator(state uint64, enumerator UintHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateDrawsForPipelineState:enumerator:"), state, enumerator)
 	}
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateEncoders:
-func (o GTMioTraceDataProtocolObject) EnumerateEncoders(encoders VoidHandler) {
+func (o GTMioTraceDataProtocolObject) EnumerateEncoders(encoders UintHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumerateEncoders:"), encoders)
 	}
 //
@@ -532,13 +507,8 @@ func (o GTMioTraceDataProtocolObject) EnumerateKickAtFunctionIndexEnumerator(ind
 	}
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumeratePipelineStates:
-func (o GTMioTraceDataProtocolObject) EnumeratePipelineStates(states VoidHandler) {
+func (o GTMioTraceDataProtocolObject) EnumeratePipelineStates(states unsignedlongHandler) {
 	objc.Send[struct{}](o.ID, objc.Sel("enumeratePipelineStates:"), states)
-	}
-//
-// See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/enumerateUniqueTracesForBinary:enumerator:
-func (o GTMioTraceDataProtocolObject) EnumerateUniqueTracesForBinaryEnumerator(binary uint32, enumerator VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("enumerateUniqueTracesForBinary:enumerator:"), binary, enumerator)
 	}
 //
 // See: https://developer.apple.com/documentation/GTShaderProfiler/GTMioTraceDataProtocol/executionHistoryForClique:uscIndex:delegate:

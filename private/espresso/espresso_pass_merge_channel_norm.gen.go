@@ -29,6 +29,11 @@ type EspressoPass_merge_channel_normClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_merge_channel_normClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_merge_channel_normClass) Alloc() EspressoPass_merge_channel_norm {
 	rv := objc.Send[EspressoPass_merge_channel_norm](objc.ID(ec.class), objc.Sel("alloc"))

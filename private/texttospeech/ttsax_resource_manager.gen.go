@@ -32,6 +32,11 @@ type TTSAXResourceManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSAXResourceManagerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAXResourceManagerClass) Alloc() TTSAXResourceManager {
 	rv := objc.Send[TTSAXResourceManager](objc.ID(tc.class), objc.Sel("alloc"))
@@ -151,8 +156,7 @@ func NewTTSAXResourceManager() TTSAXResourceManager {
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAXResourceManager/_performBlockOnObservers:
 func (t TTSAXResourceManager) _performBlockOnObservers(observers VoidHandler) {
-_block0, _cleanup0 := NewVoidBlock(observers)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(observers)
 	objc.Send[objc.ID](t.ID, objc.Sel("_performBlockOnObservers:"), _block0)
 }
 

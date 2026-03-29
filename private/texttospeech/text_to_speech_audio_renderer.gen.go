@@ -30,6 +30,11 @@ type TextToSpeechAudioRendererClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechAudioRendererClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechAudioRendererClass) Alloc() TextToSpeechAudioRenderer {
 	rv := objc.Send[TextToSpeechAudioRenderer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechAudioRenderer struct {
 func TextToSpeechAudioRendererFromID(id objc.ID) TextToSpeechAudioRenderer {
 	return TextToSpeechAudioRenderer{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechAudioRenderer implements ITextToSpeechAudioRenderer.
-var _ ITextToSpeechAudioRenderer = TextToSpeechAudioRenderer{}
+// NOTE: TextToSpeechAudioRenderer struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechAudioRenderer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechAudioRenderer] class.
 //

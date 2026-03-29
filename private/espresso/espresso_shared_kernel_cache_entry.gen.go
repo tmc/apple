@@ -30,6 +30,11 @@ type EspressoSharedKernelCacheEntryClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoSharedKernelCacheEntryClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoSharedKernelCacheEntryClass) Alloc() EspressoSharedKernelCacheEntry {
 	rv := objc.Send[EspressoSharedKernelCacheEntry](objc.ID(ec.class), objc.Sel("alloc"))

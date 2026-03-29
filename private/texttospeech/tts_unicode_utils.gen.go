@@ -32,6 +32,11 @@ type TTSUnicodeUtilsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSUnicodeUtilsClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSUnicodeUtilsClass) Alloc() TTSUnicodeUtils {
 	rv := objc.Send[TTSUnicodeUtils](objc.ID(tc.class), objc.Sel("alloc"))

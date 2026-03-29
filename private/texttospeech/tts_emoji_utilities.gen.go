@@ -32,6 +32,11 @@ type TTSEmojiUtilitiesClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSEmojiUtilitiesClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSEmojiUtilitiesClass) Alloc() TTSEmojiUtilities {
 	rv := objc.Send[TTSEmojiUtilities](objc.ID(tc.class), objc.Sel("alloc"))
@@ -95,8 +100,7 @@ func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) EmojiRangeFromStringWithSe
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSEmojiUtilities/enumerateEmojiCharactersInString:languageCode:withBlock:
 func (_TTSEmojiUtilitiesClass TTSEmojiUtilitiesClass) EnumerateEmojiCharactersInStringLanguageCodeWithBlock(string_ objectivec.IObject, code objectivec.IObject, block VoidHandler) {
-_block2, _cleanup2 := NewVoidBlock(block)
-	defer _cleanup2()
+_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_TTSEmojiUtilitiesClass.class), objc.Sel("enumerateEmojiCharactersInString:languageCode:withBlock:"), string_, code, _block2)
 }
 //

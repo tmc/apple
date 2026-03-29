@@ -31,6 +31,11 @@ type ANEInputBuffersReadyClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEInputBuffersReadyClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEInputBuffersReadyClass) Alloc() ANEInputBuffersReady {
 	rv := objc.Send[ANEInputBuffersReady](objc.ID(ac.class), objc.Sel("alloc"))

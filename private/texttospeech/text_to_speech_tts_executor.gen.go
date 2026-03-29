@@ -30,6 +30,11 @@ type TextToSpeechTTSExecutorClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSExecutorClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSExecutorClass) Alloc() TextToSpeechTTSExecutor {
 	rv := objc.Send[TextToSpeechTTSExecutor](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechTTSExecutor struct {
 func TextToSpeechTTSExecutorFromID(id objc.ID) TextToSpeechTTSExecutor {
 	return TextToSpeechTTSExecutor{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechTTSExecutor implements ITextToSpeechTTSExecutor.
-var _ ITextToSpeechTTSExecutor = TextToSpeechTTSExecutor{}
+// NOTE: TextToSpeechTTSExecutor struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechTTSExecutor embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSExecutor] class.
 //

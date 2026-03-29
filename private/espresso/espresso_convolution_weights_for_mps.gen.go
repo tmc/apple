@@ -32,6 +32,11 @@ type EspressoConvolutionWeightsForMPSClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoConvolutionWeightsForMPSClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoConvolutionWeightsForMPSClass) Alloc() EspressoConvolutionWeightsForMPS {
 	rv := objc.Send[EspressoConvolutionWeightsForMPS](objc.ID(ec.class), objc.Sel("alloc"))

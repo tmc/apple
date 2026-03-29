@@ -30,6 +30,11 @@ type TextToSpeechSiriVoiceLoaderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechSiriVoiceLoaderClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechSiriVoiceLoaderClass) Alloc() TextToSpeechSiriVoiceLoader {
 	rv := objc.Send[TextToSpeechSiriVoiceLoader](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechSiriVoiceLoader struct {
 func TextToSpeechSiriVoiceLoaderFromID(id objc.ID) TextToSpeechSiriVoiceLoader {
 	return TextToSpeechSiriVoiceLoader{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechSiriVoiceLoader implements ITextToSpeechSiriVoiceLoader.
-var _ ITextToSpeechSiriVoiceLoader = TextToSpeechSiriVoiceLoader{}
+// NOTE: TextToSpeechSiriVoiceLoader struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechSiriVoiceLoader embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechSiriVoiceLoader] class.
 //

@@ -3,6 +3,7 @@
 package texttospeech
 
 import (
+	"unsafe"
 	"sync"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -28,6 +29,11 @@ func GetTTSAUSSEWrapperClass() TTSAUSSEWrapperClass {
 
 type TTSAUSSEWrapperClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSAUSSEWrapperClass) Class() objc.Class {
+	return tc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -72,8 +78,8 @@ type ITTSAUSSEWrapper interface {
 
 	// Topic: Methods
 
-	AudioUnit() objectivec.IObject
-	SetAudioUnit(value objectivec.IObject)
+	AudioUnit() unsafe.Pointer
+	SetAudioUnit(value unsafe.Pointer)
 	CancelSpeechRequest()
 	SynthesizeSpeechRequest(request objectivec.IObject)
 	InitWithAudioUnit(unit objectivec.IObject) TTSAUSSEWrapper
@@ -130,11 +136,11 @@ func (_TTSAUSSEWrapperClass TTSAUSSEWrapperClass) MakeAU(au objectivec.IObject) 
 }
 
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAUSSEWrapper/audioUnit
-func (t TTSAUSSEWrapper) AudioUnit() objectivec.IObject {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("audioUnit"))
-	return objectivec.Object{ID: rv}
+func (t TTSAUSSEWrapper) AudioUnit() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("audioUnit"))
+	return rv
 }
-func (t TTSAUSSEWrapper) SetAudioUnit(value objectivec.IObject) {
+func (t TTSAUSSEWrapper) SetAudioUnit(value unsafe.Pointer) {
 	objc.Send[struct{}](t.ID, objc.Sel("setAudioUnit:"), value)
 }
 

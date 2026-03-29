@@ -8,6 +8,7 @@ import (
 	"github.com/tmc/apple/objc"
 	"errors"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [DIResizeParams] class.
@@ -32,6 +33,11 @@ type DIResizeParamsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (dc DIResizeParamsClass) Class() objc.Class {
+	return dc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (dc DIResizeParamsClass) Alloc() DIResizeParams {
 	rv := objc.Send[DIResizeParams](objc.ID(dc.class), objc.Sel("alloc"))
@@ -44,7 +50,6 @@ func (dc DIResizeParamsClass) Alloc() DIResizeParams {
 //   - [DIResizeParams.Size]
 //   - [DIResizeParams.SetSize]
 //   - [DIResizeParams.ResizeWithError]
-//   - [DIResizeParams.OpenExistingImageWithError]
 //   - [DIResizeParams.InitWithURLSizeError]
 //   - [DIResizeParams.InitWithExistingParamsSizeError]
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams
@@ -66,7 +71,6 @@ var _ IDIResizeParams = DIResizeParams{}
 //   - [IDIResizeParams.Size]
 //   - [IDIResizeParams.SetSize]
 //   - [IDIResizeParams.ResizeWithError]
-//   - [IDIResizeParams.OpenExistingImageWithError]
 //   - [IDIResizeParams.InitWithURLSizeError]
 //   - [IDIResizeParams.InitWithExistingParamsSizeError]
 //
@@ -79,7 +83,6 @@ type IDIResizeParams interface {
 	Size() uint64
 	SetSize(value uint64)
 	ResizeWithError() (bool, error)
-	OpenExistingImageWithError() (bool, error)
 	InitWithURLSizeError(url foundation.INSURL, size uint64) (DIResizeParams, error)
 	InitWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error)
 }
@@ -104,11 +107,32 @@ func NewDIResizeParams() DIResizeParams {
 }
 
 //
+// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithCoder:
+func NewDIResizeParamsWithCoder(coder objectivec.IObject) DIResizeParams {
+	instance := getDIResizeParamsClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return DIResizeParamsFromID(rv)
+}
+
+//
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithExistingParams:size:error:
 func NewDIResizeParamsWithExistingParamsSizeError(params IDIResizeParams, size uint64) (DIResizeParams, error) {
 	var errorPtr objc.ID
 	instance := getDIResizeParamsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithExistingParams:size:error:"), params, size, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return DIResizeParams{}, foundation.NSErrorFrom(errorPtr)
+	}
+	return DIResizeParamsFromID(rv), nil
+}
+
+//
+// See: https://developer.apple.com/documentation/DiskImages2/DIBaseParams/initWithURL:error:
+func NewDIResizeParamsWithURLError(url foundation.INSURL) (DIResizeParams, error) {
+	var errorPtr objc.ID
+	instance := getDIResizeParamsClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return DIResizeParams{}, foundation.NSErrorFrom(errorPtr)
@@ -145,21 +169,6 @@ func (d DIResizeParams) ResizeWithError() (bool, error) {
 
 }
 //
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/openExistingImageWithError:
-func (d DIResizeParams) OpenExistingImageWithError() (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("openExistingImageWithError:"), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("openExistingImageWithError: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-//
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/initWithURL:size:error:
 func (d DIResizeParams) InitWithURLSizeError(url foundation.INSURL, size uint64) (DIResizeParams, error) {
 	var errorPtr objc.ID
@@ -182,12 +191,6 @@ func (d DIResizeParams) InitWithExistingParamsSizeError(params IDIResizeParams, 
 	}
 	return DIResizeParamsFromID(rv), nil
 
-}
-
-// See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/supportsSecureCoding
-func (_DIResizeParamsClass DIResizeParamsClass) SupportsSecureCoding() bool {
-	rv := objc.Send[bool](objc.ID(_DIResizeParamsClass.class), objc.Sel("supportsSecureCoding"))
-	return rv
 }
 
 // See: https://developer.apple.com/documentation/DiskImages2/DIResizeParams/size

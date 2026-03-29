@@ -30,6 +30,11 @@ type TtCO12TextToSpeech14TTSAudioEffect7ManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TtCO12TextToSpeech14TTSAudioEffect7ManagerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TtCO12TextToSpeech14TTSAudioEffect7ManagerClass) Alloc() TtCO12TextToSpeech14TTSAudioEffect7Manager {
 	rv := objc.Send[TtCO12TextToSpeech14TTSAudioEffect7Manager](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TtCO12TextToSpeech14TTSAudioEffect7Manager struct {
 func TtCO12TextToSpeech14TTSAudioEffect7ManagerFromID(id objc.ID) TtCO12TextToSpeech14TTSAudioEffect7Manager {
 	return TtCO12TextToSpeech14TTSAudioEffect7Manager{objectivec.Object{ID: id}}
 }
-// Ensure TtCO12TextToSpeech14TTSAudioEffect7Manager implements ITtCO12TextToSpeech14TTSAudioEffect7Manager.
-var _ ITtCO12TextToSpeech14TTSAudioEffect7Manager = TtCO12TextToSpeech14TTSAudioEffect7Manager{}
+// NOTE: TtCO12TextToSpeech14TTSAudioEffect7Manager struct embeds objectivec.Object (parent type unavailable) but
+// ITtCO12TextToSpeech14TTSAudioEffect7Manager embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCO12TextToSpeech14TTSAudioEffect7Manager] class.
 //

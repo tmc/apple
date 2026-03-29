@@ -31,6 +31,11 @@ type TTSVoiceResourceManagerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSVoiceResourceManagerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSVoiceResourceManagerClass) Alloc() TTSVoiceResourceManager {
 	rv := objc.Send[TTSVoiceResourceManager](objc.ID(tc.class), objc.Sel("alloc"))
@@ -84,8 +89,7 @@ func (_TTSVoiceResourceManagerClass TTSVoiceResourceManagerClass) EffectiveResou
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSVoiceResourceManager/enumerateLoadableResourcesInAsset:usingBlock:
 func (_TTSVoiceResourceManagerClass TTSVoiceResourceManagerClass) EnumerateLoadableResourcesInAssetUsingBlock(asset objectivec.IObject, block VoidHandler) {
-_block1, _cleanup1 := NewVoidBlock(block)
-	defer _cleanup1()
+_block1, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](objc.ID(_TTSVoiceResourceManagerClass.class), objc.Sel("enumerateLoadableResourcesInAsset:usingBlock:"), asset, _block1)
 }
 

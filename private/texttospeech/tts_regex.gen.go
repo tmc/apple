@@ -32,6 +32,11 @@ type TTSRegexClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSRegexClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRegexClass) Alloc() TTSRegex {
 	rv := objc.Send[TTSRegex](objc.ID(tc.class), objc.Sel("alloc"))
@@ -175,22 +180,19 @@ func (t TTSRegex) MatchFromOvectorMatchesStringLength(ovector unsafe.Pointer, ma
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/enumerateMatchesInCString:length:usingBlock:
 func (t TTSRegex) EnumerateMatchesInCStringLengthUsingBlock(cString string, length uint64, block VoidHandler) {
-_block2, _cleanup2 := NewVoidBlock(block)
-	defer _cleanup2()
+_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString + "\x00")), length, _block2)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/enumerateMatchesInCString:ranges:usingBlock:
 func (t TTSRegex) EnumerateMatchesInCStringRangesUsingBlock(cString string, ranges objectivec.IObject, block VoidHandler) {
-_block2, _cleanup2 := NewVoidBlock(block)
-	defer _cleanup2()
+_block2, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:ranges:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString + "\x00")), ranges, _block2)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSRegex/enumerateMatchesInCString:startOffset:length:usingBlock:
 func (t TTSRegex) EnumerateMatchesInCStringStartOffsetLengthUsingBlock(cString string, offset uint64, length uint64, block VoidHandler) {
-_block3, _cleanup3 := NewVoidBlock(block)
-	defer _cleanup3()
+_block3, _ := NewVoidBlock(block)
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:startOffset:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString + "\x00")), offset, length, _block3)
 }
 //

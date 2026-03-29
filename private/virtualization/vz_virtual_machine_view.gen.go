@@ -5,6 +5,7 @@ package virtualization
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 )
@@ -58,49 +59,20 @@ func (vc VZVirtualMachineViewClass) Alloc() VZVirtualMachineView {
 //   - [VZVirtualMachineView._setDelegate]
 //   - [VZVirtualMachineView._setGraphicsDisplay]
 //   - [VZVirtualMachineView._setScaleMode]
-//   - [VZVirtualMachineView.AcceptsFirstResponder]
-//   - [VZVirtualMachineView.BecomeFirstResponder]
 //   - [VZVirtualMachineView.DisplayDidBeginReconfiguration]
 //   - [VZVirtualMachineView.DisplayDidEndReconfiguration]
-//   - [VZVirtualMachineView.FlagsChanged]
-//   - [VZVirtualMachineView.KeyDown]
-//   - [VZVirtualMachineView.KeyUp]
-//   - [VZVirtualMachineView.Layout]
-//   - [VZVirtualMachineView.MagnifyWithEvent]
-//   - [VZVirtualMachineView.MouseDown]
-//   - [VZVirtualMachineView.MouseDragged]
-//   - [VZVirtualMachineView.MouseEntered]
-//   - [VZVirtualMachineView.MouseExited]
-//   - [VZVirtualMachineView.MouseMoved]
-//   - [VZVirtualMachineView.MouseUp]
-//   - [VZVirtualMachineView.OtherMouseDown]
-//   - [VZVirtualMachineView.OtherMouseDragged]
-//   - [VZVirtualMachineView.OtherMouseUp]
-//   - [VZVirtualMachineView.QuickLookWithEvent]
-//   - [VZVirtualMachineView.ResignFirstResponder]
-//   - [VZVirtualMachineView.RightMouseDown]
-//   - [VZVirtualMachineView.RightMouseDragged]
-//   - [VZVirtualMachineView.RightMouseUp]
-//   - [VZVirtualMachineView.RotateWithEvent]
-//   - [VZVirtualMachineView.ScrollWheel]
-//   - [VZVirtualMachineView.SmartMagnifyWithEvent]
-//   - [VZVirtualMachineView.UpdateTrackingAreas]
-//   - [VZVirtualMachineView.ViewDidEndLiveResize]
-//   - [VZVirtualMachineView.ViewDidMoveToWindow]
-//   - [VZVirtualMachineView.ViewWillMoveToWindow]
-//   - [VZVirtualMachineView.ViewWillStartLiveResize]
 //   - [VZVirtualMachineView.DebugDescription]
 //   - [VZVirtualMachineView.Description]
 //   - [VZVirtualMachineView.Hash]
 //   - [VZVirtualMachineView.Superclass]
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView
 type VZVirtualMachineView struct {
-	objectivec.Object
+	appkit.NSView
 }
 
 // VZVirtualMachineViewFromID constructs a [VZVirtualMachineView] from an objc.ID.
 func VZVirtualMachineViewFromID(id objc.ID) VZVirtualMachineView {
-	return VZVirtualMachineView{Object: objectivec.Object{ID: id}}
+	return VZVirtualMachineView{NSView: appkit.NSViewFromID(id)}
 }
 // Ensure VZVirtualMachineView implements IVZVirtualMachineView.
 var _ IVZVirtualMachineView = VZVirtualMachineView{}
@@ -122,37 +94,8 @@ var _ IVZVirtualMachineView = VZVirtualMachineView{}
 //   - [IVZVirtualMachineView._setDelegate]
 //   - [IVZVirtualMachineView._setGraphicsDisplay]
 //   - [IVZVirtualMachineView._setScaleMode]
-//   - [IVZVirtualMachineView.AcceptsFirstResponder]
-//   - [IVZVirtualMachineView.BecomeFirstResponder]
 //   - [IVZVirtualMachineView.DisplayDidBeginReconfiguration]
 //   - [IVZVirtualMachineView.DisplayDidEndReconfiguration]
-//   - [IVZVirtualMachineView.FlagsChanged]
-//   - [IVZVirtualMachineView.KeyDown]
-//   - [IVZVirtualMachineView.KeyUp]
-//   - [IVZVirtualMachineView.Layout]
-//   - [IVZVirtualMachineView.MagnifyWithEvent]
-//   - [IVZVirtualMachineView.MouseDown]
-//   - [IVZVirtualMachineView.MouseDragged]
-//   - [IVZVirtualMachineView.MouseEntered]
-//   - [IVZVirtualMachineView.MouseExited]
-//   - [IVZVirtualMachineView.MouseMoved]
-//   - [IVZVirtualMachineView.MouseUp]
-//   - [IVZVirtualMachineView.OtherMouseDown]
-//   - [IVZVirtualMachineView.OtherMouseDragged]
-//   - [IVZVirtualMachineView.OtherMouseUp]
-//   - [IVZVirtualMachineView.QuickLookWithEvent]
-//   - [IVZVirtualMachineView.ResignFirstResponder]
-//   - [IVZVirtualMachineView.RightMouseDown]
-//   - [IVZVirtualMachineView.RightMouseDragged]
-//   - [IVZVirtualMachineView.RightMouseUp]
-//   - [IVZVirtualMachineView.RotateWithEvent]
-//   - [IVZVirtualMachineView.ScrollWheel]
-//   - [IVZVirtualMachineView.SmartMagnifyWithEvent]
-//   - [IVZVirtualMachineView.UpdateTrackingAreas]
-//   - [IVZVirtualMachineView.ViewDidEndLiveResize]
-//   - [IVZVirtualMachineView.ViewDidMoveToWindow]
-//   - [IVZVirtualMachineView.ViewWillMoveToWindow]
-//   - [IVZVirtualMachineView.ViewWillStartLiveResize]
 //   - [IVZVirtualMachineView.DebugDescription]
 //   - [IVZVirtualMachineView.Description]
 //   - [IVZVirtualMachineView.Hash]
@@ -160,7 +103,7 @@ var _ IVZVirtualMachineView = VZVirtualMachineView{}
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView
 type IVZVirtualMachineView interface {
-	INSView
+	appkit.INSView
 
 	// Topic: Methods
 
@@ -177,37 +120,8 @@ type IVZVirtualMachineView interface {
 	_setDelegate(delegate objectivec.IObject)
 	_setGraphicsDisplay(display objectivec.IObject)
 	_setScaleMode(mode int64)
-	AcceptsFirstResponder() bool
-	BecomeFirstResponder() bool
 	DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject)
 	DisplayDidEndReconfiguration(reconfiguration objectivec.IObject)
-	FlagsChanged(changed objectivec.IObject)
-	KeyDown(down objectivec.IObject)
-	KeyUp(up objectivec.IObject)
-	Layout()
-	MagnifyWithEvent(event objectivec.IObject)
-	MouseDown(down objectivec.IObject)
-	MouseDragged(dragged objectivec.IObject)
-	MouseEntered(entered objectivec.IObject)
-	MouseExited(exited objectivec.IObject)
-	MouseMoved(moved objectivec.IObject)
-	MouseUp(up objectivec.IObject)
-	OtherMouseDown(down objectivec.IObject)
-	OtherMouseDragged(dragged objectivec.IObject)
-	OtherMouseUp(up objectivec.IObject)
-	QuickLookWithEvent(event objectivec.IObject)
-	ResignFirstResponder() bool
-	RightMouseDown(down objectivec.IObject)
-	RightMouseDragged(dragged objectivec.IObject)
-	RightMouseUp(up objectivec.IObject)
-	RotateWithEvent(event objectivec.IObject)
-	ScrollWheel(wheel objectivec.IObject)
-	SmartMagnifyWithEvent(event objectivec.IObject)
-	UpdateTrackingAreas()
-	ViewDidEndLiveResize()
-	ViewDidMoveToWindow()
-	ViewWillMoveToWindow(window objectivec.IObject)
-	ViewWillStartLiveResize()
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -291,16 +205,6 @@ func (v VZVirtualMachineView) _setScaleMode(mode int64) {
 func (v VZVirtualMachineView) SetScaleMode(mode int64) {
 	v._setScaleMode(mode)
 }
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/acceptsFirstResponder
-func (v VZVirtualMachineView) AcceptsFirstResponder() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("acceptsFirstResponder"))
-	return rv
-}
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/becomeFirstResponder
-func (v VZVirtualMachineView) BecomeFirstResponder() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("becomeFirstResponder"))
-	return rv
-}
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/displayDidBeginReconfiguration:
 func (v VZVirtualMachineView) DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject) {
@@ -310,136 +214,6 @@ func (v VZVirtualMachineView) DisplayDidBeginReconfiguration(reconfiguration obj
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/displayDidEndReconfiguration:
 func (v VZVirtualMachineView) DisplayDidEndReconfiguration(reconfiguration objectivec.IObject) {
 	objc.Send[objc.ID](v.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/flagsChanged:
-func (v VZVirtualMachineView) FlagsChanged(changed objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("flagsChanged:"), changed)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/keyDown:
-func (v VZVirtualMachineView) KeyDown(down objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("keyDown:"), down)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/keyUp:
-func (v VZVirtualMachineView) KeyUp(up objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("keyUp:"), up)
-}
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/layout
-func (v VZVirtualMachineView) Layout() {
-	objc.Send[objc.ID](v.ID, objc.Sel("layout"))
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/magnifyWithEvent:
-func (v VZVirtualMachineView) MagnifyWithEvent(event objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("magnifyWithEvent:"), event)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/mouseDown:
-func (v VZVirtualMachineView) MouseDown(down objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("mouseDown:"), down)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/mouseDragged:
-func (v VZVirtualMachineView) MouseDragged(dragged objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("mouseDragged:"), dragged)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/mouseEntered:
-func (v VZVirtualMachineView) MouseEntered(entered objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("mouseEntered:"), entered)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/mouseExited:
-func (v VZVirtualMachineView) MouseExited(exited objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("mouseExited:"), exited)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/mouseMoved:
-func (v VZVirtualMachineView) MouseMoved(moved objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("mouseMoved:"), moved)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/mouseUp:
-func (v VZVirtualMachineView) MouseUp(up objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("mouseUp:"), up)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/otherMouseDown:
-func (v VZVirtualMachineView) OtherMouseDown(down objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("otherMouseDown:"), down)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/otherMouseDragged:
-func (v VZVirtualMachineView) OtherMouseDragged(dragged objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("otherMouseDragged:"), dragged)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/otherMouseUp:
-func (v VZVirtualMachineView) OtherMouseUp(up objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("otherMouseUp:"), up)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/quickLookWithEvent:
-func (v VZVirtualMachineView) QuickLookWithEvent(event objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("quickLookWithEvent:"), event)
-}
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/resignFirstResponder
-func (v VZVirtualMachineView) ResignFirstResponder() bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("resignFirstResponder"))
-	return rv
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/rightMouseDown:
-func (v VZVirtualMachineView) RightMouseDown(down objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("rightMouseDown:"), down)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/rightMouseDragged:
-func (v VZVirtualMachineView) RightMouseDragged(dragged objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("rightMouseDragged:"), dragged)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/rightMouseUp:
-func (v VZVirtualMachineView) RightMouseUp(up objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("rightMouseUp:"), up)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/rotateWithEvent:
-func (v VZVirtualMachineView) RotateWithEvent(event objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("rotateWithEvent:"), event)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/scrollWheel:
-func (v VZVirtualMachineView) ScrollWheel(wheel objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("scrollWheel:"), wheel)
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/smartMagnifyWithEvent:
-func (v VZVirtualMachineView) SmartMagnifyWithEvent(event objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("smartMagnifyWithEvent:"), event)
-}
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/updateTrackingAreas
-func (v VZVirtualMachineView) UpdateTrackingAreas() {
-	objc.Send[objc.ID](v.ID, objc.Sel("updateTrackingAreas"))
-}
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/viewDidEndLiveResize
-func (v VZVirtualMachineView) ViewDidEndLiveResize() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewDidEndLiveResize"))
-}
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/viewDidMoveToWindow
-func (v VZVirtualMachineView) ViewDidMoveToWindow() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewDidMoveToWindow"))
-}
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/viewWillMoveToWindow:
-func (v VZVirtualMachineView) ViewWillMoveToWindow(window objectivec.IObject) {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewWillMoveToWindow:"), window)
-}
-// See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/viewWillStartLiveResize
-func (v VZVirtualMachineView) ViewWillStartLiveResize() {
-	objc.Send[objc.ID](v.ID, objc.Sel("viewWillStartLiveResize"))
 }
 
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtualMachineView/_canGrabMouseInput

@@ -30,6 +30,11 @@ type TextToSpeechTTSSQLiteReaderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSSQLiteReaderClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSSQLiteReaderClass) Alloc() TextToSpeechTTSSQLiteReader {
 	rv := objc.Send[TextToSpeechTTSSQLiteReader](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechTTSSQLiteReader struct {
 func TextToSpeechTTSSQLiteReaderFromID(id objc.ID) TextToSpeechTTSSQLiteReader {
 	return TextToSpeechTTSSQLiteReader{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechTTSSQLiteReader implements ITextToSpeechTTSSQLiteReader.
-var _ ITextToSpeechTTSSQLiteReader = TextToSpeechTTSSQLiteReader{}
+// NOTE: TextToSpeechTTSSQLiteReader struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechTTSSQLiteReader embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSSQLiteReader] class.
 //

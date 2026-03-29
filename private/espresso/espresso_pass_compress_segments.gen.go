@@ -29,6 +29,11 @@ type EspressoPass_compress_segmentsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_compress_segmentsClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_compress_segmentsClass) Alloc() EspressoPass_compress_segments {
 	rv := objc.Send[EspressoPass_compress_segments](objc.ID(ec.class), objc.Sel("alloc"))

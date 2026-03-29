@@ -31,6 +31,11 @@ type ANEModelInstanceParametersClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEModelInstanceParametersClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEModelInstanceParametersClass) Alloc() ANEModelInstanceParameters {
 	rv := objc.Send[ANEModelInstanceParameters](objc.ID(ac.class), objc.Sel("alloc"))

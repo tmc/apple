@@ -32,6 +32,11 @@ type EspressoMetalKernelsCacheClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoMetalKernelsCacheClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoMetalKernelsCacheClass) Alloc() EspressoMetalKernelsCache {
 	rv := objc.Send[EspressoMetalKernelsCache](objc.ID(ec.class), objc.Sel("alloc"))

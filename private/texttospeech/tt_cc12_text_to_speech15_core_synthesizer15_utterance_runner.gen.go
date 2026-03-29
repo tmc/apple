@@ -30,6 +30,11 @@ type TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunnerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunnerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunnerClass) Alloc() TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner {
 	rv := objc.Send[TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner struct {
 func TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunnerFromID(id objc.ID) TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner {
 	return TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner{objectivec.Object{ID: id}}
 }
-// Ensure TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner implements ITtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner.
-var _ ITtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner = TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner{}
+// NOTE: TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner struct embeds objectivec.Object (parent type unavailable) but
+// ITtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TtCC12TextToSpeech15CoreSynthesizer15UtteranceRunner] class.
 //

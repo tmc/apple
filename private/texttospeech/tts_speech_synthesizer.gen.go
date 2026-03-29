@@ -34,6 +34,11 @@ type TTSSpeechSynthesizerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSSpeechSynthesizerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSSpeechSynthesizerClass) Alloc() TTSSpeechSynthesizer {
 	rv := objc.Send[TTSSpeechSynthesizer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -393,11 +398,6 @@ func (t TTSSpeechSynthesizer) _continueSpeakingRequestWithError(request objectiv
 	return rv, nil
 
 }
-
-// ContinueSpeakingRequestWithError is an exported wrapper for the private method _continueSpeakingRequestWithError.
-func (t TTSSpeechSynthesizer) ContinueSpeakingRequestWithError(request objectivec.IObject) (bool, error) {
-	return t._continueSpeakingRequestWithError(request)
-}
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_makeRequestForVoice:andLanguageCode:
 func (t TTSSpeechSynthesizer) _makeRequestForVoiceAndLanguageCode(voice objectivec.IObject, code objectivec.IObject) objectivec.IObject {
@@ -432,11 +432,6 @@ func (t TTSSpeechSynthesizer) _pauseSpeakingRequestAtNextBoundarySynchronouslyEr
 	}
 	return rv, nil
 
-}
-
-// PauseSpeakingRequestAtNextBoundarySynchronouslyError is an exported wrapper for the private method _pauseSpeakingRequestAtNextBoundarySynchronouslyError.
-func (t TTSSpeechSynthesizer) PauseSpeakingRequestAtNextBoundarySynchronouslyError(request objectivec.IObject, boundary int64, synchronously bool) (bool, error) {
-	return t._pauseSpeakingRequestAtNextBoundarySynchronouslyError(request, boundary, synchronously)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_preprocessText:languageCode:
@@ -476,11 +471,6 @@ func (t TTSSpeechSynthesizer) ResolveVoiceForLanguage(language objectivec.IObjec
 func (t TTSSpeechSynthesizer) _setDelegate(delegate objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("_setDelegate:"), delegate)
 }
-
-// SetDelegate is an exported wrapper for the private method _setDelegate.
-func (t TTSSpeechSynthesizer) SetDelegate(delegate objectivec.IObject) {
-	t._setDelegate(delegate)
-}
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/_startSpeakingString:orSSMLString:withLanguageCode:jobId:request:error:
 func (t TTSSpeechSynthesizer) _startSpeakingStringOrSSMLStringWithLanguageCodeJobIdRequestError(string_ objectivec.IObject, sSMLString objectivec.IObject, code objectivec.IObject, id objectivec.IObject, request []objectivec.IObject) (bool, error) {
@@ -516,10 +506,20 @@ func (t TTSSpeechSynthesizer) _stopSpeakingRequestAtNextBoundarySynchronouslyErr
 	return rv, nil
 
 }
+//
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/continueSpeakingRequest:withError:
+func (t TTSSpeechSynthesizer) ContinueSpeakingRequestWithError(request objectivec.IObject) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](t.ID, objc.Sel("continueSpeakingRequest:withError:"), request, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("continueSpeakingRequest:withError: returned NO with nil NSError")
+	}
+	return rv, nil
 
-// StopSpeakingRequestAtNextBoundarySynchronouslyError is an exported wrapper for the private method _stopSpeakingRequestAtNextBoundarySynchronouslyError.
-func (t TTSSpeechSynthesizer) StopSpeakingRequestAtNextBoundarySynchronouslyError(request objectivec.IObject, boundary int64, synchronously bool) (bool, error) {
-	return t._stopSpeakingRequestAtNextBoundarySynchronouslyError(request, boundary, synchronously)
 }
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/continueSpeakingWithError:
@@ -602,6 +602,21 @@ func (t TTSSpeechSynthesizer) PauseSpeakingRequestAtNextBoundaryError(request ob
 	}
 	if !rv {
 		return false, errors.New("pauseSpeakingRequest:atNextBoundary:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+//
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/pauseSpeakingRequest:atNextBoundary:synchronously:error:
+func (t TTSSpeechSynthesizer) PauseSpeakingRequestAtNextBoundarySynchronouslyError(request objectivec.IObject, boundary int64, synchronously bool) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](t.ID, objc.Sel("pauseSpeakingRequest:atNextBoundary:synchronously:error:"), request, boundary, synchronously, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("pauseSpeakingRequest:atNextBoundary:synchronously:error: returned NO with nil NSError")
 	}
 	return rv, nil
 
@@ -833,6 +848,21 @@ func (t TTSSpeechSynthesizer) StopSpeakingRequestAtNextBoundaryError(request obj
 	return rv, nil
 
 }
+//
+// See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/stopSpeakingRequest:atNextBoundary:synchronously:error:
+func (t TTSSpeechSynthesizer) StopSpeakingRequestAtNextBoundarySynchronouslyError(request objectivec.IObject, boundary int64, synchronously bool) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](t.ID, objc.Sel("stopSpeakingRequest:atNextBoundary:synchronously:error:"), request, boundary, synchronously, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("stopSpeakingRequest:atNextBoundary:synchronously:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/testingLastRuleConversion
 func (t TTSSpeechSynthesizer) TestingLastRuleConversion() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("testingLastRuleConversion"))
@@ -977,6 +1007,9 @@ func (t TTSSpeechSynthesizer) SetCoreSynth(value unsafe.Pointer) {
 func (t TTSSpeechSynthesizer) Delegate() objectivec.IObject {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("delegate"))
 	return objectivec.Object{ID: rv}
+}
+func (t TTSSpeechSynthesizer) SetDelegate(value objectivec.IObject) {
+	objc.Send[struct{}](t.ID, objc.Sel("setDelegate:"), value)
 }
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSSpeechSynthesizer/delegateTargetQueue
 func (t TTSSpeechSynthesizer) DelegateTargetQueue() objectivec.Object {

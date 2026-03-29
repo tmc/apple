@@ -30,6 +30,11 @@ type TextToSpeechVoicePreviewerClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechVoicePreviewerClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechVoicePreviewerClass) Alloc() TextToSpeechVoicePreviewer {
 	rv := objc.Send[TextToSpeechVoicePreviewer](objc.ID(tc.class), objc.Sel("alloc"))
@@ -42,15 +47,15 @@ func (tc TextToSpeechVoicePreviewerClass) Alloc() TextToSpeechVoicePreviewer {
 //   - [TextToSpeechVoicePreviewer.AudioPlayerDidFinishPlayingSuccessfully]
 // See: https://developer.apple.com/documentation/TextToSpeech/TextToSpeech.VoicePreviewer
 type TextToSpeechVoicePreviewer struct {
-	SwiftNativeNSObject
+	objectivec.Object
 }
 
 // TextToSpeechVoicePreviewerFromID constructs a [TextToSpeechVoicePreviewer] from an objc.ID.
 func TextToSpeechVoicePreviewerFromID(id objc.ID) TextToSpeechVoicePreviewer {
-	return TextToSpeechVoicePreviewer{SwiftNativeNSObject: SwiftNativeNSObjectFromID(id)}
+	return TextToSpeechVoicePreviewer{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechVoicePreviewer implements ITextToSpeechVoicePreviewer.
-var _ ITextToSpeechVoicePreviewer = TextToSpeechVoicePreviewer{}
+// NOTE: TextToSpeechVoicePreviewer struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechVoicePreviewer embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechVoicePreviewer] class.
 //

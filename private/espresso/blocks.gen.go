@@ -9,6 +9,13 @@ import (
 // VoidHandler is the signature for a completion handler block.
 //
 // Used by:
+//   - [ETDataPoint.IterateBuffersByKey]
+//   - [ETTask.FitNumberOfBatchesOutputNamesBatchCallback]
+//   - [ETTask.FitNumberOfBatchesWithProgress]
+//   - [ETTask.FitNumberOfEpochsOutputNamesBatchCallback]
+//   - [ETTask.FitNumberOfEpochsWithProgress]
+//   - [ETTask.RunBatchesNumberOfBatchesOutputNamesBatchCallback]
+//   - [ETTask.RunInferenceOutputNamesBatchCallback]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex]
@@ -18,6 +25,13 @@ type VoidHandler = func()
 // The caller must defer the returned cleanup function.
 //
 // Used by:
+//   - [ETDataPoint.IterateBuffersByKey]
+//   - [ETTask.FitNumberOfBatchesOutputNamesBatchCallback]
+//   - [ETTask.FitNumberOfBatchesWithProgress]
+//   - [ETTask.FitNumberOfEpochsOutputNamesBatchCallback]
+//   - [ETTask.FitNumberOfEpochsWithProgress]
+//   - [ETTask.RunBatchesNumberOfBatchesOutputNamesBatchCallback]
+//   - [ETTask.RunInferenceOutputNamesBatchCallback]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlockBlockPrepareForIndex]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkBlock]
 //   - [EspressoDataFrameStorageExecutor.ExecuteDataFrameStorageWithNetworkReferenceNetworkBlockBlockPrepareForIndex]

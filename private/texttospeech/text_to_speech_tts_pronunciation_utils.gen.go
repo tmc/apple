@@ -30,6 +30,11 @@ type TextToSpeechTTSPronunciationUtilsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TextToSpeechTTSPronunciationUtilsClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TextToSpeechTTSPronunciationUtilsClass) Alloc() TextToSpeechTTSPronunciationUtils {
 	rv := objc.Send[TextToSpeechTTSPronunciationUtils](objc.ID(tc.class), objc.Sel("alloc"))
@@ -45,8 +50,8 @@ type TextToSpeechTTSPronunciationUtils struct {
 func TextToSpeechTTSPronunciationUtilsFromID(id objc.ID) TextToSpeechTTSPronunciationUtils {
 	return TextToSpeechTTSPronunciationUtils{objectivec.Object{ID: id}}
 }
-// Ensure TextToSpeechTTSPronunciationUtils implements ITextToSpeechTTSPronunciationUtils.
-var _ ITextToSpeechTTSPronunciationUtils = TextToSpeechTTSPronunciationUtils{}
+// NOTE: TextToSpeechTTSPronunciationUtils struct embeds objectivec.Object (parent type unavailable) but
+// ITextToSpeechTTSPronunciationUtils embeds the parent interface; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechTTSPronunciationUtils] class.
 //

@@ -7,98 +7,86 @@ import (
 	"github.com/tmc/apple/objc"
 )
 
-// BoolErrorHandler handles completion with primitive result and optional error.
+// DictionaryHandler is the signature for a completion handler block.
 //
 // Used by:
-//   - [TTSWrappedAudioQueue.PlayBufferCompletionHandler]
-//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandlerLastBuffer]
-//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandler]
-//   - [TTSWrappedAudioQueueBuffer.SetCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiriCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.PublicVoicesWithCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.ResourceVoiceWithIdentifierCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.ResourceVoicesWithOnlyInstalledCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.ResourcesWithLanguageCodeCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithIdentifierCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCodeCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.PauseSpeakingAtCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.SpeakSynthCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.SpeakWithRequestLanguageSynthesizerCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.StopSpeakingAtCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.StopWithCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.VoiceWithIdentifierCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.VoiceWithLocaleCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynthCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler]
-//   - [TextToSpeechTTSAURenderer.FormatForVoiceCompletionHandler]
-//   - [TextToSpeechVoiceResolver.CurrentLocaleIdentifiersWithCompletionHandler]
-//   - [TextToSpeechVoiceResolver.CurrentSystemLocaleIdentifierWithCompletionHandler]
-//   - [TextToSpeechVoiceResolver.CurrentSystemLocaleWithCompletionHandler]
-//   - [TextToSpeechVoiceResolver.FallbackForVoiceCompletionHandler]
-//   - [TextToSpeechVoiceResolver.VoiceForIdentifierCompletionHandler]
-//   - [TextToSpeechVoiceResolver.VoiceForIdentifierPreferringLanguageCompletionHandler]
-//   - [TextToSpeechVoiceResolver.VoiceForLocaleCompletionHandler]
-//   - [TextToSpeechVoiceResolver.VoiceForLocaleIdentifierCompletionHandler]
-type BoolErrorHandler = func(bool, error)
-
-// NewBoolErrorBlock wraps a Go [BoolErrorHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [TTSWrappedAudioQueue.PlayBufferCompletionHandler]
-//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandlerLastBuffer]
-//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandler]
-//   - [TTSWrappedAudioQueueBuffer.SetCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiriCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.PublicVoicesWithCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.ResourceVoiceWithIdentifierCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.ResourceVoicesWithOnlyInstalledCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.ResourcesWithLanguageCodeCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithIdentifierCompletionHandler]
-//   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCodeCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.PauseSpeakingAtCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.SpeakSynthCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.SpeakWithRequestLanguageSynthesizerCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.StopSpeakingAtCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.StopWithCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.VoiceWithIdentifierCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.VoiceWithLocaleCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynthCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler]
-//   - [TextToSpeechTTSAURenderer.FormatForVoiceCompletionHandler]
-//   - [TextToSpeechVoiceResolver.CurrentLocaleIdentifiersWithCompletionHandler]
-//   - [TextToSpeechVoiceResolver.CurrentSystemLocaleIdentifierWithCompletionHandler]
-//   - [TextToSpeechVoiceResolver.CurrentSystemLocaleWithCompletionHandler]
-//   - [TextToSpeechVoiceResolver.FallbackForVoiceCompletionHandler]
-//   - [TextToSpeechVoiceResolver.VoiceForIdentifierCompletionHandler]
-//   - [TextToSpeechVoiceResolver.VoiceForIdentifierPreferringLanguageCompletionHandler]
-//   - [TextToSpeechVoiceResolver.VoiceForLocaleCompletionHandler]
-//   - [TextToSpeechVoiceResolver.VoiceForLocaleIdentifierCompletionHandler]
-func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block, primitiveVal bool, errID objc.ID) {
-		handler(primitiveVal, foundation.SafeErrorFrom(errID))
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+//   - [AUMessageChannel.SetCallHostBlock]
+type DictionaryHandler = func(*foundation.INSDictionary)
 
 // ErrorHandler is the signature for a completion handler block.
 //
 // Used by:
+//   - [TTSWrappedAudioQueue.PlayBufferCompletionHandler]
+//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandlerLastBuffer]
+//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandler]
+//   - [TTSWrappedAudioQueueBuffer.SetCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiriCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.PublicVoicesWithCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.ResourceVoiceWithIdentifierCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.ResourceVoicesWithOnlyInstalledCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.ResourcesWithLanguageCodeCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithIdentifierCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCodeCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.PauseSpeakingAtCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.SpeakSynthCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.SpeakWithRequestLanguageSynthesizerCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.StopSpeakingAtCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.StopWithCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.VoiceWithIdentifierCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.VoiceWithLocaleCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynthCompletionHandler]
-type ErrorHandler = func()
+//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler]
+//   - [TextToSpeechTTSAURenderer.FormatForVoiceCompletionHandler]
+//   - [TextToSpeechVoiceResolver.CurrentLocaleIdentifiersWithCompletionHandler]
+//   - [TextToSpeechVoiceResolver.CurrentSystemLocaleIdentifierWithCompletionHandler]
+//   - [TextToSpeechVoiceResolver.CurrentSystemLocaleWithCompletionHandler]
+//   - [TextToSpeechVoiceResolver.FallbackForVoiceCompletionHandler]
+//   - [TextToSpeechVoiceResolver.VoiceForIdentifierCompletionHandler]
+//   - [TextToSpeechVoiceResolver.VoiceForIdentifierPreferringLanguageCompletionHandler]
+//   - [TextToSpeechVoiceResolver.VoiceForLocaleCompletionHandler]
+//   - [TextToSpeechVoiceResolver.VoiceForLocaleIdentifierCompletionHandler]
+type ErrorHandler = func(error)
 
 // NewErrorBlock wraps a Go [ErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
+//   - [TTSWrappedAudioQueue.PlayBufferCompletionHandler]
+//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandlerLastBuffer]
+//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandler]
+//   - [TTSWrappedAudioQueueBuffer.SetCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiriCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.PublicVoicesWithCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.ResourceVoiceWithIdentifierCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.ResourceVoicesWithOnlyInstalledCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.ResourcesWithLanguageCodeCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithIdentifierCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCodeCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.PauseSpeakingAtCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.SpeakSynthCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.SpeakWithRequestLanguageSynthesizerCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.StopSpeakingAtCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.StopWithCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.VoiceWithIdentifierCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.VoiceWithLocaleCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynthCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler]
+//   - [TextToSpeechCoreSynthesizer.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler]
+//   - [TextToSpeechTTSAURenderer.FormatForVoiceCompletionHandler]
+//   - [TextToSpeechVoiceResolver.CurrentLocaleIdentifiersWithCompletionHandler]
+//   - [TextToSpeechVoiceResolver.CurrentSystemLocaleIdentifierWithCompletionHandler]
+//   - [TextToSpeechVoiceResolver.CurrentSystemLocaleWithCompletionHandler]
+//   - [TextToSpeechVoiceResolver.FallbackForVoiceCompletionHandler]
+//   - [TextToSpeechVoiceResolver.VoiceForIdentifierCompletionHandler]
+//   - [TextToSpeechVoiceResolver.VoiceForIdentifierPreferringLanguageCompletionHandler]
+//   - [TextToSpeechVoiceResolver.VoiceForLocaleCompletionHandler]
+//   - [TextToSpeechVoiceResolver.VoiceForLocaleIdentifierCompletionHandler]
 func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
-	block := objc.NewBlock(func(b objc.Block) {
-		handler()
+	block := objc.NewBlock(func(b objc.Block, errID objc.ID) {
+		handler(foundation.SafeErrorFrom(errID))
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -106,7 +94,6 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 // VoidHandler is the signature for a completion handler block.
 //
 // Used by:
-//   - [AUMessageChannel.SetCallHostBlock]
 //   - [TTSAUMessagingAU.SetCallHostBlock]
 //   - [TTSAUMessagingAU.SetHostBlock]
 //   - [TTSAXResourceManager._performBlockOnObservers]
@@ -143,7 +130,6 @@ type VoidHandler = func()
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [AUMessageChannel.SetCallHostBlock]
 //   - [TTSAUMessagingAU.SetCallHostBlock]
 //   - [TTSAUMessagingAU.SetHostBlock]
 //   - [TTSAXResourceManager._performBlockOnObservers]

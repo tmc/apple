@@ -32,6 +32,11 @@ type TTSStreamingZipReaderClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSStreamingZipReaderClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSStreamingZipReaderClass) Alloc() TTSStreamingZipReader {
 	rv := objc.Send[TTSStreamingZipReader](objc.ID(tc.class), objc.Sel("alloc"))
@@ -114,8 +119,7 @@ func NewTTSStreamingZipReaderWithPathAndPassword(path objectivec.IObject, passwo
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSStreamingZipReader/enumerateFiles:
 func (t TTSStreamingZipReader) EnumerateFiles(files VoidHandler) bool {
-_block0, _cleanup0 := NewVoidBlock(files)
-	defer _cleanup0()
+_block0, _ := NewVoidBlock(files)
 	rv := objc.Send[bool](t.ID, objc.Sel("enumerateFiles:"), _block0)
 	return rv
 }

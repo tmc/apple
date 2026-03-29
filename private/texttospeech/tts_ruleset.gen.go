@@ -31,6 +31,11 @@ type TTSRulesetClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSRulesetClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSRulesetClass) Alloc() TTSRuleset {
 	rv := objc.Send[TTSRuleset](objc.ID(tc.class), objc.Sel("alloc"))

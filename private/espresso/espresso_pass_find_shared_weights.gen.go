@@ -29,6 +29,11 @@ type EspressoPass_find_shared_weightsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_find_shared_weightsClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_find_shared_weightsClass) Alloc() EspressoPass_find_shared_weights {
 	rv := objc.Send[EspressoPass_find_shared_weights](objc.ID(ec.class), objc.Sel("alloc"))

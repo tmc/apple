@@ -5,9 +5,9 @@ package texttospeech
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSPhonemeMarker] class.
@@ -30,6 +30,11 @@ func GetTTSPhonemeMarkerClass() TTSPhonemeMarkerClass {
 
 type TTSPhonemeMarkerClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSPhonemeMarkerClass) Class() objc.Class {
+	return tc.class
 }
 
 // Alloc allocates memory for a new instance of the class.

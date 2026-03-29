@@ -30,6 +30,11 @@ type ANEStringsClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ac ANEStringsClass) Class() objc.Class {
+	return ac.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ac ANEStringsClass) Alloc() ANEStrings {
 	rv := objc.Send[ANEStrings](objc.ID(ac.class), objc.Sel("alloc"))
@@ -512,6 +517,11 @@ func (_ANEStringsClass ANEStringsClass) Vm_forceValidationOnGuestBootArg() objec
 // See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStrings/vm_tmpBaseDirectory
 func (_ANEStringsClass ANEStringsClass) Vm_tmpBaseDirectory() objectivec.IObject {
 	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_tmpBaseDirectory"))
+	return objectivec.Object{ID: rv}
+}
+// See: https://developer.apple.com/documentation/AppleNeuralEngine/_ANEStrings/mlirExtension
+func (_ANEStringsClass ANEStringsClass) MlirExtension() objectivec.IObject {
+	rv := objc.Send[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("mlirExtension"))
 	return objectivec.Object{ID: rv}
 }
 

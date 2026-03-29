@@ -32,6 +32,11 @@ type TTSAudioSessionChannelClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSAudioSessionChannelClass) Class() objc.Class {
+	return tc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (tc TTSAudioSessionChannelClass) Alloc() TTSAudioSessionChannel {
 	rv := objc.Send[TTSAudioSessionChannel](objc.ID(tc.class), objc.Sel("alloc"))

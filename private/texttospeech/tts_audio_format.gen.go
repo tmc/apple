@@ -5,8 +5,8 @@ package texttospeech
 import (
 	"sync"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/avfaudio"
 )
 
 // The class instance for the [TTSAudioFormat] class.
@@ -29,6 +29,11 @@ func GetTTSAudioFormatClass() TTSAudioFormatClass {
 
 type TTSAudioFormatClass struct {
 	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (tc TTSAudioFormatClass) Class() objc.Class {
+	return tc.class
 }
 
 // Alloc allocates memory for a new instance of the class.
@@ -113,7 +118,6 @@ func NewTTSAudioFormat() TTSAudioFormat {
 
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/initWithStreamDescription:
-// description is a [coreaudiotypes.AudioStreamBasicDescription].
 func NewTTSAudioFormatWithStreamDescription(description objectivec.IObject) TTSAudioFormat {
 	instance := getTTSAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:"), description)
@@ -122,7 +126,6 @@ func NewTTSAudioFormatWithStreamDescription(description objectivec.IObject) TTSA
 
 //
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/initWithStreamDescription:channelLayoutTag:
-// description is a [coreaudiotypes.AudioStreamBasicDescription].
 func NewTTSAudioFormatWithStreamDescriptionChannelLayoutTag(description objectivec.IObject, tag uint32) TTSAudioFormat {
 	instance := getTTSAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:channelLayoutTag:"), description, tag)
@@ -130,19 +133,13 @@ func NewTTSAudioFormatWithStreamDescriptionChannelLayoutTag(description objectiv
 }
 
 //
-// description is a [coreaudiotypes.AudioStreamBasicDescription].
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/initWithStreamDescription:
-// description is a [coreaudiotypes.AudioStreamBasicDescription].
 func (t TTSAudioFormat) InitWithStreamDescription(description objectivec.IObject) TTSAudioFormat {
 	rv := objc.Send[TTSAudioFormat](t.ID, objc.Sel("initWithStreamDescription:"), description)
 	return rv
 }
 //
-// description is a [coreaudiotypes.AudioStreamBasicDescription].
-//
 // See: https://developer.apple.com/documentation/TextToSpeech/TTSAudioFormat/initWithStreamDescription:channelLayoutTag:
-// description is a [coreaudiotypes.AudioStreamBasicDescription].
 func (t TTSAudioFormat) InitWithStreamDescriptionChannelLayoutTag(description objectivec.IObject, tag uint32) TTSAudioFormat {
 	rv := objc.Send[TTSAudioFormat](t.ID, objc.Sel("initWithStreamDescription:channelLayoutTag:"), description, tag)
 	return rv

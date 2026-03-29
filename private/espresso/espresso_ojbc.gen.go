@@ -30,6 +30,11 @@ type EspressoOJBCClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoOJBCClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoOJBCClass) Alloc() EspressoOJBC {
 	rv := objc.Send[EspressoOJBC](objc.ID(ec.class), objc.Sel("alloc"))

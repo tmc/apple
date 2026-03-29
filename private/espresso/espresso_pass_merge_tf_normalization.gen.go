@@ -29,6 +29,11 @@ type EspressoPass_merge_tf_normalizationClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (ec EspressoPass_merge_tf_normalizationClass) Class() objc.Class {
+	return ec.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (ec EspressoPass_merge_tf_normalizationClass) Alloc() EspressoPass_merge_tf_normalization {
 	rv := objc.Send[EspressoPass_merge_tf_normalization](objc.ID(ec.class), objc.Sel("alloc"))

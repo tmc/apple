@@ -30,6 +30,11 @@ type SwiftNativeNSObjectClass struct {
 	class objc.Class
 }
 
+// Class returns the underlying Objective-C class pointer.
+func (sc SwiftNativeNSObjectClass) Class() objc.Class {
+	return sc.class
+}
+
 // Alloc allocates memory for a new instance of the class.
 func (sc SwiftNativeNSObjectClass) Alloc() SwiftNativeNSObject {
 	rv := objc.Send[SwiftNativeNSObject](objc.ID(sc.class), objc.Sel("alloc"))
