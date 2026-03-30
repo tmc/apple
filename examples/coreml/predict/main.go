@@ -33,19 +33,19 @@ type featureInfo struct {
 	Shape    []int  `json:"shape,omitempty"`
 	DataType string `json:"data_type,omitempty"`
 	// Image constraint details, if applicable.
-	PixelsWide int    `json:"pixels_wide,omitempty"`
-	PixelsHigh int    `json:"pixels_high,omitempty"`
+	PixelsWide  int    `json:"pixels_wide,omitempty"`
+	PixelsHigh  int    `json:"pixels_high,omitempty"`
 	PixelFormat string `json:"pixel_format,omitempty"`
 }
 
 type modelInfo struct {
-	Path                    string            `json:"path"`
-	Inputs                  []featureInfo     `json:"inputs"`
-	Outputs                 []featureInfo     `json:"outputs"`
-	PredictedFeatureName    string            `json:"predicted_feature_name,omitempty"`
-	PredictedProbabilities  string            `json:"predicted_probabilities_name,omitempty"`
-	IsUpdatable             bool              `json:"is_updatable"`
-	Metadata                map[string]string `json:"metadata,omitempty"`
+	Path                   string            `json:"path"`
+	Inputs                 []featureInfo     `json:"inputs"`
+	Outputs                []featureInfo     `json:"outputs"`
+	PredictedFeatureName   string            `json:"predicted_feature_name,omitempty"`
+	PredictedProbabilities string            `json:"predicted_probabilities_name,omitempty"`
+	IsUpdatable            bool              `json:"is_updatable"`
+	Metadata               map[string]string `json:"metadata,omitempty"`
 }
 
 func main() {

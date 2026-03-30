@@ -1,3 +1,4 @@
+// Command process-info prints basic details about the current process.
 package main
 
 import (

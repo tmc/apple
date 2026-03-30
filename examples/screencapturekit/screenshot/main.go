@@ -19,9 +19,9 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/screencapturekit"
 )

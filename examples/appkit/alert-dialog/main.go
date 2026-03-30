@@ -1,4 +1,4 @@
-// Alert-dialog shows a modal NSAlert with two buttons and prints which was clicked.
+// Command alert-dialog shows the smallest NSAlert example in this tree.
 package main
 
 import (

@@ -1,8 +1,7 @@
-// Todo-app is a multi-window todo list built entirely in Go.
+// Command todo-app builds a small multi-window todo list in AppKit.
 //
-// It demonstrates dynamic UI updates, text input, scroll views, and
-// multi-window management using the generated AppKit bindings. A
-// preferences window lets the user configure the maximum number of items.
+// It is intentionally larger than hello-window and counter. Read those first
+// if you want the smallest possible AppKit starting point.
 package main
 
 import (
@@ -36,11 +35,9 @@ var (
 
 // Layout constants following Apple HIG spacing guidelines.
 const (
-	windowWidth  = 480
-	windowHeight = 520
-	margin       = 20.0
-	rowHeight    = 36.0
-	rowSpacing   = 1.0
+	margin     = 20.0
+	rowHeight  = 36.0
+	rowSpacing = 1.0
 )
 
 func init() { runtime.LockOSThread() }
@@ -80,7 +77,7 @@ func buildMainWindow() {
 	mainWindow = appkit.NewWindowWithContentRectStyleMaskBackingDefer(
 		corefoundation.CGRect{
 			Origin: corefoundation.CGPoint{X: 0, Y: 0},
-			Size:   corefoundation.CGSize{Width: windowWidth, Height: windowHeight},
+			Size:   corefoundation.CGSize{Width: 480, Height: 520},
 		},
 		appkit.NSWindowStyleMaskTitled|
 			appkit.NSWindowStyleMaskClosable|
@@ -91,103 +88,78 @@ func buildMainWindow() {
 	mainWindow.SetTitle("Todo List")
 	mainWindow.SetMinSize(corefoundation.CGSize{Width: 360, Height: 300})
 	mainWindow.SetTitlebarSeparatorStyle(appkit.NSTitlebarSeparatorStyleLine)
-	mainWindow.SetFrameAutosaveName("TodoListMain")
 	mainWindow.Center()
 
 	contentView := mainWindow.ContentView().(appkit.NSView)
 	colors := appkit.GetNSColorClass()
 	font := appkit.GetNSFontClass()
-	contentWidth := windowWidth - 2*margin
 
-	// --- Input area (top) ---
-	inputAreaY := windowHeight - 80.0
-
+	// --- Input area (top): text field + Add button ---
 	todoInput = appkit.NewNSTextField()
-	todoInput.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: margin, Y: inputAreaY},
-		Size:   corefoundation.CGSize{Width: contentWidth - 80, Height: 28},
-	})
 	todoInput.SetPlaceholderString("What needs to be done?")
 	todoInput.SetFont(font.SystemFontOfSize(13))
 	todoInput.SetActionHandler(func() { addTodo() })
-	contentView.AddSubview(todoInput)
+	todoInput.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
 	addBtn = appkit.NewButtonWithTitleTargetAction("Add", nil, 0)
 	addBtn.SetBezelStyle(appkit.NSBezelStylePush)
-	addBtn.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: windowWidth - margin - 70, Y: inputAreaY - 1},
-		Size:   corefoundation.CGSize{Width: 70, Height: 30},
-	})
 	addBtn.SetToolTip("Add a new todo item")
 	addBtn.SetActionHandler(func() { addTodo() })
-	contentView.AddSubview(addBtn)
+	addBtn.SetTranslatesAutoresizingMaskIntoConstraints(false)
+	addBtn.WidthAnchor().ConstraintEqualToConstant(70).SetActive(true)
+
+	inputStack := appkit.GetNSStackViewClass().Alloc().Init()
+	inputStack.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
+	inputStack.SetSpacing(8)
+	inputStack.AddArrangedSubview(todoInput)
+	inputStack.AddArrangedSubview(addBtn)
+	inputStack.SetTranslatesAutoresizingMaskIntoConstraints(false)
+	// Let the text field stretch while the button stays fixed width.
+	todoInput.SetContentHuggingPriorityForOrientation(appkit.NSLayoutPriority(200), appkit.NSLayoutConstraintOrientationHorizontal)
 
 	// --- Separator below input ---
-	separator := appkit.NewBoxWithFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: margin, Y: inputAreaY - 12},
-		Size:   corefoundation.CGSize{Width: contentWidth, Height: 1},
-	})
+	separator := appkit.GetNSBoxClass().Alloc().Init()
 	separator.SetBoxType(appkit.NSBoxSeparator)
-	contentView.AddSubview(separator)
+	separator.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
-	// --- Scroll view for the list (main content area) ---
-	listTop := inputAreaY - 20.0
-	listBottom := 52.0
-	listHeight := listTop - listBottom
-
+	// --- Scroll view for the list ---
 	scrollView = appkit.GetNSScrollViewClass().Alloc().Init()
-	scrollView.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: margin, Y: listBottom},
-		Size:   corefoundation.CGSize{Width: contentWidth, Height: listHeight},
-	})
 	scrollView.SetHasVerticalScroller(true)
 	scrollView.SetBorderType(appkit.NSNoBorder)
 	scrollView.SetDrawsBackground(false)
+	scrollView.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
 	todoListView = appkit.GetNSViewClass().Alloc().Init()
 	todoListView.SetFrame(corefoundation.CGRect{
 		Origin: corefoundation.CGPoint{X: 0, Y: 0},
-		Size:   corefoundation.CGSize{Width: contentWidth, Height: listHeight},
+		Size:   corefoundation.CGSize{Width: 440, Height: 400},
 	})
 	scrollView.SetDocumentView(todoListView)
-	contentView.AddSubview(scrollView)
 
-	// Empty state label (shown when no todos).
+	// Empty state label (centered over scroll view).
 	emptyLabel = appkit.NewTextFieldLabelWithString("No items yet")
 	emptyLabel.SetFont(font.SystemFontOfSize(15))
 	emptyLabel.SetTextColor(colors.TertiaryLabelColor())
 	emptyLabel.SetAlignment(appkit.NSTextAlignmentCenter)
-	emptyLabel.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: margin, Y: listBottom + listHeight/2 - 12},
-		Size:   corefoundation.CGSize{Width: contentWidth, Height: 24},
-	})
-	contentView.AddSubview(emptyLabel)
+	emptyLabel.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
-	// --- Bottom bar: status + actions ---
-	bottomSep := appkit.NewBoxWithFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: margin, Y: listBottom - 4},
-		Size:   corefoundation.CGSize{Width: contentWidth, Height: 1},
-	})
+	// --- Bottom separator ---
+	bottomSep := appkit.GetNSBoxClass().Alloc().Init()
 	bottomSep.SetBoxType(appkit.NSBoxSeparator)
-	contentView.AddSubview(bottomSep)
+	bottomSep.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
+	// --- Bottom bar: status + Settings + Clear All ---
 	statusLabel = appkit.NewTextFieldLabelWithString(statusText())
 	statusLabel.SetFont(font.SystemFontOfSize(11))
 	statusLabel.SetTextColor(colors.SecondaryLabelColor())
-	statusLabel.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: margin, Y: 16},
-		Size:   corefoundation.CGSize{Width: 200, Height: 16},
-	})
-	contentView.AddSubview(statusLabel)
+	statusLabel.SetTranslatesAutoresizingMaskIntoConstraints(false)
+	statusLabel.SetContentHuggingPriorityForOrientation(appkit.NSLayoutPriority(200), appkit.NSLayoutConstraintOrientationHorizontal)
 
 	prefsBtn := appkit.NewButtonWithTitleTargetAction("Settings...", nil, 0)
 	prefsBtn.SetBezelStyle(appkit.NSBezelStyleAccessoryBarAction)
 	prefsBtn.SetFont(font.SystemFontOfSize(11))
 	prefsBtn.SetToolTip("Configure maximum number of items")
-	prefsBtn.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: windowWidth - margin - 152, Y: 12},
-		Size:   corefoundation.CGSize{Width: 76, Height: 24},
-	})
+	prefsBtn.SetTranslatesAutoresizingMaskIntoConstraints(false)
 	prefsBtn.SetActionHandler(func() {
 		if isPrefsOpen {
 			prefsWindow.MakeKeyAndOrderFront(nil)
@@ -195,18 +167,60 @@ func buildMainWindow() {
 		}
 		buildPreferencesWindow()
 	})
-	contentView.AddSubview(prefsBtn)
 
 	clearBtn = appkit.NewButtonWithTitleTargetAction("Clear All", nil, 0)
 	clearBtn.SetBezelStyle(appkit.NSBezelStyleAccessoryBarAction)
 	clearBtn.SetFont(font.SystemFontOfSize(11))
 	clearBtn.SetToolTip("Remove all items")
-	clearBtn.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: windowWidth - margin - 70, Y: 12},
-		Size:   corefoundation.CGSize{Width: 70, Height: 24},
-	})
+	clearBtn.SetTranslatesAutoresizingMaskIntoConstraints(false)
 	clearBtn.SetActionHandler(confirmClearAll)
-	contentView.AddSubview(clearBtn)
+
+	bottomStack := appkit.GetNSStackViewClass().Alloc().Init()
+	bottomStack.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
+	bottomStack.SetSpacing(8)
+	bottomStack.AddArrangedSubview(statusLabel)
+	bottomStack.AddArrangedSubview(prefsBtn)
+	bottomStack.AddArrangedSubview(clearBtn)
+	bottomStack.SetTranslatesAutoresizingMaskIntoConstraints(false)
+
+	// Add all subviews to content view.
+	contentView.AddSubview(inputStack)
+	contentView.AddSubview(separator)
+	contentView.AddSubview(scrollView)
+	contentView.AddSubview(emptyLabel)
+	contentView.AddSubview(bottomSep)
+	contentView.AddSubview(bottomStack)
+
+	// Layout constraints.
+	// Input area pinned to top.
+	inputStack.TopAnchor().ConstraintEqualToAnchorConstant(contentView.TopAnchor(), margin).SetActive(true)
+	inputStack.LeadingAnchor().ConstraintEqualToAnchorConstant(contentView.LeadingAnchor(), margin).SetActive(true)
+	inputStack.TrailingAnchor().ConstraintEqualToAnchorConstant(contentView.TrailingAnchor(), -margin).SetActive(true)
+
+	// Separator below input.
+	separator.TopAnchor().ConstraintEqualToAnchorConstant(inputStack.BottomAnchor(), 12).SetActive(true)
+	separator.LeadingAnchor().ConstraintEqualToAnchorConstant(contentView.LeadingAnchor(), margin).SetActive(true)
+	separator.TrailingAnchor().ConstraintEqualToAnchorConstant(contentView.TrailingAnchor(), -margin).SetActive(true)
+
+	// Scroll view fills middle area.
+	scrollView.TopAnchor().ConstraintEqualToAnchorConstant(separator.BottomAnchor(), 8).SetActive(true)
+	scrollView.LeadingAnchor().ConstraintEqualToAnchorConstant(contentView.LeadingAnchor(), margin).SetActive(true)
+	scrollView.TrailingAnchor().ConstraintEqualToAnchorConstant(contentView.TrailingAnchor(), -margin).SetActive(true)
+	scrollView.BottomAnchor().ConstraintEqualToAnchorConstant(bottomSep.TopAnchor(), -8).SetActive(true)
+
+	// Empty label centered over scroll view.
+	emptyLabel.CenterXAnchor().ConstraintEqualToAnchor(scrollView.CenterXAnchor()).SetActive(true)
+	emptyLabel.CenterYAnchor().ConstraintEqualToAnchor(scrollView.CenterYAnchor()).SetActive(true)
+
+	// Bottom separator.
+	bottomSep.LeadingAnchor().ConstraintEqualToAnchorConstant(contentView.LeadingAnchor(), margin).SetActive(true)
+	bottomSep.TrailingAnchor().ConstraintEqualToAnchorConstant(contentView.TrailingAnchor(), -margin).SetActive(true)
+	bottomSep.BottomAnchor().ConstraintEqualToAnchorConstant(bottomStack.TopAnchor(), -8).SetActive(true)
+
+	// Bottom bar pinned to bottom.
+	bottomStack.LeadingAnchor().ConstraintEqualToAnchorConstant(contentView.LeadingAnchor(), margin).SetActive(true)
+	bottomStack.TrailingAnchor().ConstraintEqualToAnchorConstant(contentView.TrailingAnchor(), -margin).SetActive(true)
+	bottomStack.BottomAnchor().ConstraintEqualToAnchorConstant(contentView.BottomAnchor(), -12).SetActive(true)
 
 	refreshTodoList()
 }
@@ -250,58 +264,42 @@ func buildPreferencesWindow() {
 	contentView := prefsWindow.ContentView().(appkit.NSView)
 	font := appkit.GetNSFontClass()
 
+	// Settings row: label + field + range hint.
 	maxLabel := appkit.NewTextFieldLabelWithString("Maximum todo items:")
 	maxLabel.SetFont(font.SystemFontOfSize(13))
-	maxLabel.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: 20, Y: 90},
-		Size:   corefoundation.CGSize{Width: 180, Height: 20},
-	})
-	contentView.AddSubview(maxLabel)
 
 	maxItemsField = appkit.NewNSTextField()
-	maxItemsField.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: 205, Y: 88},
-		Size:   corefoundation.CGSize{Width: 60, Height: 24},
-	})
 	maxItemsField.SetStringValue(fmt.Sprintf("%d", maxTodoItems))
-	contentView.AddSubview(maxItemsField)
+	maxItemsField.SetTranslatesAutoresizingMaskIntoConstraints(false)
+	maxItemsField.WidthAnchor().ConstraintEqualToConstant(60).SetActive(true)
 
 	rangeLabel := appkit.NewTextFieldLabelWithString("1 - 50")
 	rangeLabel.SetFont(font.SystemFontOfSize(11))
 	rangeLabel.SetTextColor(appkit.GetNSColorClass().SecondaryLabelColor())
-	rangeLabel.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: 270, Y: 91},
-		Size:   corefoundation.CGSize{Width: 50, Height: 16},
-	})
-	contentView.AddSubview(rangeLabel)
 
-	sep := appkit.NewBoxWithFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: 20, Y: 60},
-		Size:   corefoundation.CGSize{Width: 300, Height: 1},
-	})
+	settingsRow := appkit.GetNSStackViewClass().Alloc().Init()
+	settingsRow.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
+	settingsRow.SetSpacing(8)
+	settingsRow.AddArrangedSubview(maxLabel)
+	settingsRow.AddArrangedSubview(maxItemsField)
+	settingsRow.AddArrangedSubview(rangeLabel)
+
+	// Separator.
+	sep := appkit.GetNSBoxClass().Alloc().Init()
 	sep.SetBoxType(appkit.NSBoxSeparator)
-	contentView.AddSubview(sep)
 
+	// Button row: Cancel + Save.
 	cancelBtn := appkit.NewButtonWithTitleTargetAction("Cancel", nil, 0)
 	cancelBtn.SetBezelStyle(appkit.NSBezelStylePush)
-	cancelBtn.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: 160, Y: 16},
-		Size:   corefoundation.CGSize{Width: 80, Height: 28},
-	})
 	cancelBtn.SetKeyEquivalent("\033")
 	cancelBtn.SetActionHandler(func() {
 		prefsWindow.OrderOut(nil)
 		isPrefsOpen = false
 	})
-	contentView.AddSubview(cancelBtn)
 
 	saveBtn := appkit.NewButtonWithTitleTargetAction("Save", nil, 0)
 	saveBtn.SetBezelStyle(appkit.NSBezelStylePush)
 	saveBtn.SetKeyEquivalent("\r")
-	saveBtn.SetFrame(corefoundation.CGRect{
-		Origin: corefoundation.CGPoint{X: 246, Y: 16},
-		Size:   corefoundation.CGSize{Width: 80, Height: 28},
-	})
 	saveBtn.SetActionHandler(func() {
 		var n int
 		fmt.Sscanf(maxItemsField.StringValue(), "%d", &n)
@@ -312,7 +310,35 @@ func buildPreferencesWindow() {
 		prefsWindow.OrderOut(nil)
 		isPrefsOpen = false
 	})
-	contentView.AddSubview(saveBtn)
+
+	// Spacer pushes buttons to the right.
+	spacer := appkit.GetNSViewClass().Alloc().Init()
+	spacer.SetTranslatesAutoresizingMaskIntoConstraints(false)
+	spacer.SetContentHuggingPriorityForOrientation(appkit.NSLayoutPriority(1), appkit.NSLayoutConstraintOrientationHorizontal)
+
+	buttonRow := appkit.GetNSStackViewClass().Alloc().Init()
+	buttonRow.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
+	buttonRow.SetSpacing(8)
+	buttonRow.AddArrangedSubview(spacer)
+	buttonRow.AddArrangedSubview(cancelBtn)
+	buttonRow.AddArrangedSubview(saveBtn)
+
+	// Vertical stack: settings + separator + buttons.
+	outer := appkit.GetNSStackViewClass().Alloc().Init()
+	outer.SetOrientation(appkit.NSUserInterfaceLayoutOrientationVertical)
+	outer.SetSpacing(16)
+	outer.SetEdgeInsets(foundation.NSEdgeInsets{Top: 20, Left: 20, Bottom: 16, Right: 20})
+	outer.AddArrangedSubview(settingsRow)
+	outer.AddArrangedSubview(sep)
+	outer.AddArrangedSubview(buttonRow)
+	outer.SetTranslatesAutoresizingMaskIntoConstraints(false)
+
+	contentView.AddSubview(outer)
+
+	outer.LeadingAnchor().ConstraintEqualToAnchor(contentView.LeadingAnchor()).SetActive(true)
+	outer.TrailingAnchor().ConstraintEqualToAnchor(contentView.TrailingAnchor()).SetActive(true)
+	outer.TopAnchor().ConstraintEqualToAnchor(contentView.TopAnchor()).SetActive(true)
+	outer.BottomAnchor().ConstraintEqualToAnchor(contentView.BottomAnchor()).SetActive(true)
 
 	isPrefsOpen = true
 	prefsWindow.Center()
@@ -338,9 +364,13 @@ func refreshTodoList() {
 	addBtn.SetEnabled(len(todos) < maxTodoItems)
 	clearBtn.SetEnabled(len(todos) > 0)
 
-	contentWidth := windowWidth - 2*margin
-	y := 0.0
+	// Get the scroll view's visible width for row sizing.
+	contentWidth := scrollView.Frame().Size.Width
+	if contentWidth < 100 {
+		contentWidth = 440
+	}
 
+	y := 0.0
 	for i := len(todos) - 1; i >= 0; i-- {
 		idx := i
 		text := todos[i]
@@ -466,6 +496,15 @@ func buildMenuBar() appkit.NSMenu {
 	editMenu.AddItemWithTitleActionKeyEquivalent("Select All", objc.Sel("selectAll:"), "a")
 	editMenuItem.SetSubmenu(editMenu)
 	menuBar.AddItem(editMenuItem)
+
+	// Window menu (Cmd+W).
+	windowMenuItem := appkit.NewMenuItemWithTitleActionKeyEquivalent("Window", 0, "")
+	windowMenu := appkit.NewNSMenu()
+	windowMenu.SetTitle("Window")
+	windowMenu.AddItemWithTitleActionKeyEquivalent("Close", objc.Sel("performClose:"), "w")
+	windowMenu.AddItemWithTitleActionKeyEquivalent("Minimize", objc.Sel("performMiniaturize:"), "m")
+	windowMenuItem.SetSubmenu(windowMenu)
+	menuBar.AddItem(windowMenuItem)
 
 	return menuBar
 }

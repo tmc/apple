@@ -1,4 +1,4 @@
-// Menubar-clock shows the current time in the macOS menu bar, updating every second.
+// Command menubar-clock shows the current time in the macOS menu bar.
 package main
 
 import (
@@ -27,7 +27,6 @@ func main() {
 		quit.SetActionHandler(func() {
 			app.Terminate(objectivec.Object{})
 		})
-		menu.AddItem(appkit.GetNSMenuItemClass().SeparatorItem())
 		menu.AddItem(quit)
 		item.(appkit.NSStatusItem).SetMenu(menu)
 

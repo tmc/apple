@@ -1,3 +1,4 @@
+// Command uuid-date prints the current NSDate and a freshly generated NSUUID.
 package main
 
 import (

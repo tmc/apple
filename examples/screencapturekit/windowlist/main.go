@@ -21,18 +21,18 @@ import (
 )
 
 type windowEntry struct {
-	WindowID  uint32  `json:"window_id"`
-	Title     string  `json:"title"`
-	AppName   string  `json:"app_name"`
-	BundleID  string  `json:"bundle_id"`
-	PID       int32   `json:"pid"`
-	X         float64 `json:"x"`
-	Y         float64 `json:"y"`
-	Width     float64 `json:"width"`
-	Height    float64 `json:"height"`
-	OnScreen  bool    `json:"on_screen"`
-	Active    bool    `json:"active"`
-	Layer     int     `json:"layer"`
+	WindowID uint32  `json:"window_id"`
+	Title    string  `json:"title"`
+	AppName  string  `json:"app_name"`
+	BundleID string  `json:"bundle_id"`
+	PID      int32   `json:"pid"`
+	X        float64 `json:"x"`
+	Y        float64 `json:"y"`
+	Width    float64 `json:"width"`
+	Height   float64 `json:"height"`
+	OnScreen bool    `json:"on_screen"`
+	Active   bool    `json:"active"`
+	Layer    int     `json:"layer"`
 }
 
 type displayEntry struct {
@@ -123,4 +123,3 @@ func run(showDisplays, onScreenOnly bool) error {
 	enc.SetIndent("", "  ")
 	return enc.Encode(out)
 }
-

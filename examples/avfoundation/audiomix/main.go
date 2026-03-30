@@ -243,7 +243,7 @@ func buildFadeMix(track avfoundation.AVAssetTrack, fadeIn, fadeOut, totalDuratio
 		params.SetVolumeRampFromStartVolumeToEndVolumeTimeRange(1.0, 0.0, r)
 	}
 
-	mix := avfoundation.GetAVMutableAudioMixClass().AudioMix()
+	mix := avfoundation.NewAVMutableAudioMix()
 	mix.SetInputParameters(foundation.NewArrayWithObject(params))
 	return mix
 }

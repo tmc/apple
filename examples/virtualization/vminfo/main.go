@@ -25,13 +25,13 @@ func main() {
 	maxMem := cfgClass.MaximumAllowedMemorySize()
 
 	info := map[string]any{
-		"supported":       supported,
-		"min_cpu_count":   minCPU,
-		"max_cpu_count":   maxCPU,
+		"supported":        supported,
+		"min_cpu_count":    minCPU,
+		"max_cpu_count":    maxCPU,
 		"min_memory_bytes": minMem,
 		"max_memory_bytes": maxMem,
-		"min_memory_mb":   minMem / (1024 * 1024),
-		"max_memory_mb":   maxMem / (1024 * 1024),
+		"min_memory_mb":    minMem / (1024 * 1024),
+		"max_memory_mb":    maxMem / (1024 * 1024),
 	}
 
 	enc := json.NewEncoder(os.Stdout)

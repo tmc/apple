@@ -1,4 +1,4 @@
-// File-picker opens an NSOpenPanel and prints the selected file paths.
+// Command file-picker opens an NSOpenPanel and prints the selected paths.
 package main
 
 import (

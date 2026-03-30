@@ -1,7 +1,9 @@
+// Command queues demonstrates a serial queue, a group, and a semaphore.
 package main
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 
 	"github.com/tmc/apple/dispatch"
@@ -11,27 +13,27 @@ func main() {
 	// Create a serial queue and dispatch work.
 	queue := dispatch.QueueCreate("com.example.serial")
 	var mu sync.Mutex
-	var results []string
+	var order []string
 
 	group := dispatch.GroupCreate()
-	for i := range 3 {
+	for i := 0; i < 3; i++ {
 		i := i
 		group.Async(queue, func() {
 			mu.Lock()
-			results = append(results, fmt.Sprintf("task-%d", i))
+			order = append(order, fmt.Sprintf("task-%d", i))
 			mu.Unlock()
 		})
 	}
 	group.Wait(dispatch.TimeForever)
 
 	fmt.Printf("queue=%s\n", queue.Label())
-	fmt.Printf("tasks=%d\n", len(results))
+	fmt.Printf("order=%s\n", strings.Join(order, ", "))
 
 	// Use a semaphore as a signal.
-	sema := dispatch.SemaphoreCreate(0)
+	signal := dispatch.SemaphoreCreate(0)
 	queue.Async(func() {
-		sema.Signal()
+		signal.Signal()
 	})
-	ok := sema.Wait(dispatch.TimeForever)
-	fmt.Printf("signal=%t\n", ok)
+	ok := signal.Wait(dispatch.TimeForever)
+	fmt.Printf("signal-received=%t\n", ok)
 }

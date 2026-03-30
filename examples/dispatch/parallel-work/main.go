@@ -19,7 +19,7 @@ func main() {
 
 	// Dispatch several tasks that compute square roots in parallel.
 	const n = 8
-	for i := range n {
+	for i := 0; i < n; i++ {
 		i := i
 		group.Async(queue, func() {
 			val := math.Sqrt(float64((i + 1) * 1000))
@@ -31,7 +31,7 @@ func main() {
 	group.Wait(dispatch.TimeForever)
 
 	fmt.Printf("Computed %d results on concurrent queue %q:\n", len(results), queue.Label())
-	for i := range n {
+	for i := 0; i < n; i++ {
 		fmt.Printf("  sqrt(%d) = %.4f\n", (i+1)*1000, results[i])
 	}
 
@@ -40,7 +40,7 @@ func main() {
 	serial := dispatch.QueueCreate("com.example.serial")
 	done := make(chan struct{})
 
-	for i := range 4 {
+	for i := 0; i < 4; i++ {
 		i := i
 		group2.Async(queue, func() {
 			_ = i * i
@@ -57,7 +57,7 @@ func main() {
 	group3 := dispatch.GroupCreate()
 	var order []int
 
-	for i := range 6 {
+	for i := 0; i < 6; i++ {
 		i := i
 		group3.Async(queue, func() {
 			sema.Wait(dispatch.TimeForever)

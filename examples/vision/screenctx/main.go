@@ -223,15 +223,15 @@ func extractOCRResults(request vision.VNRecognizeTextRequest, imgW, imgH float64
 // --- Window enumeration ---
 
 type windowInfo struct {
-	Name      string
-	OwnerName string
-	OwnerPID  int
+	Name       string
+	OwnerName  string
+	OwnerPID   int
 	X, Y, W, H float64
 }
 
 const (
-	kCFNumberSInt32Type  = 3
-	kCFNumberFloat64Type = 12
+	kCFNumberSInt32Type   = 3
+	kCFNumberFloat64Type  = 12
 	kCFStringEncodingUTF8 = uint32(0x08000100)
 )
 
@@ -464,7 +464,7 @@ func formatBounds(x, y, w, h float64) string {
 }
 
 func writeXML(w io.Writer, s screenXML) error {
-	fmt.Fprintln(w, xml.Header)
+	fmt.Fprint(w, xml.Header)
 	enc := xml.NewEncoder(w)
 	enc.Indent("", "  ")
 	if err := enc.Encode(s); err != nil {

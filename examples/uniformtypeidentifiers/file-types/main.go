@@ -1,3 +1,4 @@
+// Command file-types shows a few common Uniform Type Identifier lookups.
 package main
 
 import (

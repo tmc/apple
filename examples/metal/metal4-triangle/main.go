@@ -63,6 +63,13 @@ fragment float4 fragmentShader(RasterizerData in [[stage_in]]) {
 }
 `
 
+const (
+	mtlLoadActionClear       = metal.MTLLoadAction(2)
+	mtlPixelFormatBGRA8Unorm = metal.MTLPixelFormat(80)
+	mtlVertexFormatFloat2    = metal.MTLVertexFormat(29)
+	mtlVertexFormatFloat4    = metal.MTLVertexFormat(31)
+)
+
 type vertexData struct {
 	Position [2]float32
 	_        [2]float32 // Pad to 16-byte alignment before float4 color.
@@ -295,7 +302,7 @@ func (r *triangleRenderer) drawFrame(view metalkit.MTKView) {
 		return
 	}
 	colorAttachment := renderPassDesc.ColorAttachments().ObjectAtIndexedSubscript(0)
-	colorAttachment.SetLoadAction(metal.MTLLoadActionClear)
+	colorAttachment.SetLoadAction(mtlLoadActionClear)
 	colorAttachment.SetStoreAction(metal.MTLStoreActionStore)
 	colorAttachment.SetClearColor(metal.MTLClearColor{Red: 0, Green: 0, Blue: 0, Alpha: 1})
 
@@ -349,7 +356,7 @@ func (r *triangleRenderer) setRenderPassArguments(encoder metal.MTL4RenderComman
 
 func (r *triangleRenderer) submitCommandBuffer(drawable metal.MTLDrawableObject) {
 	r.queue.WaitForDrawable(drawable)
-	r.queue.CommitCount([]metal.MTL4CommandBuffer{r.commandBuff}, 1)
+	objc.Send[struct{}](r.queue.GetID(), objc.Sel("commit:count:"), objc.CArray([]metal.MTL4CommandBuffer{r.commandBuff}), uint(1))
 	r.queue.SignalDrawable(drawable)
 	drawable.Present()
 }
@@ -407,7 +414,7 @@ func createWindowAndView(device metal.MTLDeviceObject) (appkit.NSWindow, metalki
 	window.SetTitle("Metal 4 Triangle")
 
 	view := metalkit.NewMTKView().InitWithFrameDevice(viewFrame, device)
-	view.SetColorPixelFormat(metal.MTLPixelFormatBGRA8Unorm)
+	view.SetColorPixelFormat(mtlPixelFormatBGRA8Unorm)
 	view.SetClearColor(metal.MTLClearColor{Red: 0, Green: 0, Blue: 0, Alpha: 1})
 	view.SetPreferredFramesPerSecond(60)
 	view.SetPaused(true)
@@ -442,12 +449,12 @@ func createVertexDescriptor() metal.MTLVertexDescriptor {
 
 	attrs := desc.Attributes()
 	attr0 := attrs.ObjectAtIndexedSubscript(0)
-	attr0.SetFormat(metal.MTLVertexFormatFloat2)
+	attr0.SetFormat(mtlVertexFormatFloat2)
 	attr0.SetOffset(0)
 	attr0.SetBufferIndex(0)
 
 	attr1 := attrs.ObjectAtIndexedSubscript(1)
-	attr1.SetFormat(metal.MTLVertexFormatFloat4)
+	attr1.SetFormat(mtlVertexFormatFloat4)
 	attr1.SetOffset(8)
 	attr1.SetBufferIndex(0)
 
@@ -476,7 +483,7 @@ func createPipelineState(
 	pipeDesc.SetVertexFunctionDescriptor(vertFuncDesc)
 	pipeDesc.SetFragmentFunctionDescriptor(fragFuncDesc)
 	pipeDesc.SetVertexDescriptor(vertexDesc)
-	pipeDesc.ColorAttachments().ObjectAtIndexedSubscript(0).SetPixelFormat(metal.MTLPixelFormatBGRA8Unorm)
+	pipeDesc.ColorAttachments().ObjectAtIndexedSubscript(0).SetPixelFormat(mtlPixelFormatBGRA8Unorm)
 
 	pso, err := compiler.NewRenderPipelineStateWithDescriptorCompilerTaskOptionsError(pipeDesc, nil)
 	if err != nil {
