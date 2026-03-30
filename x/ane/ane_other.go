@@ -121,9 +121,11 @@ func SharedEventFromPort(port uint32) (*SharedEvent, error)          { return ni
 func (e *SharedEvent) Port() uint32                                  { return 0 }
 func (e *SharedEvent) SignaledValue() uint64                         { return 0 }
 func (e *SharedEvent) Signal(value uint64)                           {}
-func (e *SharedEvent) Wait(value uint64, timeout time.Duration) bool             { return false }
-func (e *SharedEvent) TimeWait(value uint64, timeout time.Duration) (bool, time.Duration) { return false, 0 }
-func (e *SharedEvent) Close() error                                              { return nil }
+func (e *SharedEvent) Wait(value uint64, timeout time.Duration) bool { return false }
+func (e *SharedEvent) TimeWait(value uint64, timeout time.Duration) (bool, time.Duration) {
+	return false, 0
+}
+func (e *SharedEvent) Close() error { return nil }
 
 // Float32ToFP16 converts a float32 to IEEE 754 half-precision.
 func Float32ToFP16(f float32) uint16 { return 0 }
@@ -159,22 +161,22 @@ type RequestPool struct{}
 type PooledRequest struct{}
 
 func NewRequestPool(m *Model, depth int) (*RequestPool, error) { return nil, ErrNoANE }
-func (p *RequestPool) Acquire() *PooledRequest                  { return nil }
-func (p *RequestPool) Close() error                             { return nil }
-func (pr *PooledRequest) Eval() error                           { return ErrNoANE }
-func (pr *PooledRequest) Release()                              {}
+func (p *RequestPool) Acquire() *PooledRequest                 { return nil }
+func (p *RequestPool) Close() error                            { return nil }
+func (pr *PooledRequest) Eval() error                          { return ErrNoANE }
+func (pr *PooledRequest) Release()                             {}
 
 // StateHandle manages KV cache state for stateful MIL models.
 type StateHandle struct{}
 
 func NewStateHandle(_ *Model, _ int) *StateHandle { return &StateHandle{} }
 func (s *StateHandle) Model() *Model              { return nil }
-func (s *StateHandle) Position() int               { return 0 }
-func (s *StateHandle) MaxSeq() int                 { return 0 }
-func (s *StateHandle) Reset()                      {}
-func (s *StateHandle) Advance(_ int)               {}
-func (s *StateHandle) Remaining() int              { return 0 }
-func (s *StateHandle) Close() error                { return nil }
+func (s *StateHandle) Position() int              { return 0 }
+func (s *StateHandle) MaxSeq() int                { return 0 }
+func (s *StateHandle) Reset()                     {}
+func (s *StateHandle) Advance(_ int)              {}
+func (s *StateHandle) Remaining() int             { return 0 }
+func (s *StateHandle) Close() error               { return nil }
 
 // Pipeline manages SharedEvent synchronization between ANE and Metal.
 type Pipeline struct{}

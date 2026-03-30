@@ -25,7 +25,7 @@ func NewConn(vzConn vz.VZVirtioSocketConnection) (*Conn, error) {
 	if fd < 0 {
 		return nil, fmt.Errorf("vsock connection closed (fd=%d)", fd)
 	}
-	dupFd, err := syscall.Dup(int(fd))
+	dupFd, err := syscall.Dup(fd)
 	if err != nil {
 		return nil, fmt.Errorf("dup vsock fd: %w", err)
 	}

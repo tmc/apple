@@ -377,4 +377,3 @@ func encodePackedVarintBool(vals []bool) []byte {
 	}
 	return out
 }
-

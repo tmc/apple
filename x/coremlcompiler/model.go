@@ -59,8 +59,8 @@ const (
 // Program is an MIL Program.
 // Proto: MILSpec.Program
 type Program struct {
-	Version    int64                 // field 1
-	Functions  map[string]*Function  // field 2
+	Version    int64                // field 1
+	Functions  map[string]*Function // field 2
 	Attributes map[string]*Value    // field 4
 }
 

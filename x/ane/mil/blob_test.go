@@ -86,8 +86,8 @@ func TestBlobWriterMultiple(t *testing.T) {
 	}
 
 	// Verify stored offsets match computed offsets.
-	stored1 := binary.LittleEndian.Uint64(data[64+16:])   // first chunk meta
-	stored2 := binary.LittleEndian.Uint64(data[128+16:])   // second chunk meta
+	stored1 := binary.LittleEndian.Uint64(data[64+16:])  // first chunk meta
+	stored2 := binary.LittleEndian.Uint64(data[128+16:]) // second chunk meta
 	if stored1 != off1 {
 		t.Errorf("stored offset1 = %d, want %d", stored1, off1)
 	}

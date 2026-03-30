@@ -76,7 +76,7 @@ func (m *Model) NewState() coreml.MLState {
 	if m == nil {
 		return coreml.MLState{}
 	}
-	return coreml.MLStateFromID(m.priv().NewState().GetID())
+	return coreml.MLStateFromID(m.raw.NewState().GetID())
 }
 
 // NewStateWithClientBuffers allocates a new CoreML state handle backed by

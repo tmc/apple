@@ -32,12 +32,12 @@ func GenConv(inCh, outCh, spatial int) string {
     } -> (y);
 }
 `, buildInfo,
-		inCh, spatial,    // input shape
-		inCh, spatial,    // x16 shape
-		outCh, inCh,      // weight shape
-		outCh, inCh,      // weight shape (repeated in BLOBFILE ref)
-		outCh, spatial,   // y16 shape
-		outCh, spatial,   // y shape
+		inCh, spatial, // input shape
+		inCh, spatial, // x16 shape
+		outCh, inCh, // weight shape
+		outCh, inCh, // weight shape (repeated in BLOBFILE ref)
+		outCh, spatial, // y16 shape
+		outCh, spatial, // y shape
 	)
 }
 
@@ -61,12 +61,12 @@ func GenConvFP32(inCh, outCh, spatial int) string {
     } -> (y);
 }
 `, buildInfo,
-		inCh, spatial,    // input
-		outCh, inCh,      // weight shape
-		outCh, inCh,      // weight BLOBFILE ref
-		inCh, spatial,    // x16
-		outCh, spatial,   // y16
-		outCh, spatial,   // y
+		inCh, spatial, // input
+		outCh, inCh, // weight shape
+		outCh, inCh, // weight BLOBFILE ref
+		inCh, spatial, // x16
+		outCh, spatial, // y16
+		outCh, spatial, // y
 	)
 }
 
@@ -161,10 +161,10 @@ func BuildWeightBlob(weights []float32, outCh, inCh int) ([]byte, error) {
 
 	// Chunk header at offset 64.
 	off := fileHeaderSize
-	binary.LittleEndian.PutUint32(buf[off:], 0xDEADBEEF) // chunk magic
-	buf[off+4] = 0x01                                     // chunk version
-	binary.LittleEndian.PutUint32(buf[off+8:], uint32(len(fp16Data)))  // data size
-	binary.LittleEndian.PutUint32(buf[off+16:], uint32(dataOffset))    // absolute data offset
+	binary.LittleEndian.PutUint32(buf[off:], 0xDEADBEEF)              // chunk magic
+	buf[off+4] = 0x01                                                 // chunk version
+	binary.LittleEndian.PutUint32(buf[off+8:], uint32(len(fp16Data))) // data size
+	binary.LittleEndian.PutUint32(buf[off+16:], uint32(dataOffset))   // absolute data offset
 
 	// FP16 weight data at offset 128.
 	copy(buf[dataOffset:], fp16Data)
@@ -354,8 +354,8 @@ func GenGQAExpand(kvHeads, qHeads, headDim, seqLen int) string {
 }
 `, buildInfo,
 		kvHeads, seqLen, headDim, // input shape [1, kvHeads, seqLen, headDim]
-		repeatFactor,              // tile repeat factor on head dim
-		qHeads, seqLen, headDim,   // output shape [1, qHeads, seqLen, headDim]
+		repeatFactor,            // tile repeat factor on head dim
+		qHeads, seqLen, headDim, // output shape [1, qHeads, seqLen, headDim]
 	)
 }
 

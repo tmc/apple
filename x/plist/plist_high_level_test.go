@@ -155,10 +155,10 @@ func TestMarshalUnmarshalComplexStruct(t *testing.T) {
 		Order int    `plist:"order"`
 	}
 	type Browser struct {
-		Name      string     `plist:"name"`
-		Version   string     `plist:"version"`
-		Default   bool       `plist:"default"`
-		Bookmarks []Bookmark `plist:"bookmarks"`
+		Name      string            `plist:"name"`
+		Version   string            `plist:"version"`
+		Default   bool              `plist:"default"`
+		Bookmarks []Bookmark        `plist:"bookmarks"`
 		Settings  map[string]string `plist:"settings,omitempty"`
 	}
 

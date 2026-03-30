@@ -10,12 +10,12 @@ import (
 
 // Config describes a custom MMIO device configuration.
 type Config struct {
-	MMIORegions         foundation.INSArray
-	AdditionalProperties foundation.INSDictionary
+	MMIORegions             foundation.INSArray
+	AdditionalProperties    foundation.INSDictionary
 	AdditionalXPCProperties objectivec.IObject
-	IRQs                foundation.INSArray
-	Provider            objectivec.IObject
-	SupportsSaveRestore bool
+	IRQs                    foundation.INSArray
+	Provider                objectivec.IObject
+	SupportsSaveRestore     bool
 }
 
 // NewConfig creates a custom MMIO device configuration and applies cfg.

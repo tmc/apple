@@ -82,11 +82,11 @@ func NewANESurfaceWithProperties(properties, formats objectivec.IObject) *ANESur
 
 // SurfaceLayout describes the IOSurface dimensions required by a compiled model.
 type SurfaceLayout struct {
-	Width      int // spatial or sequence dimension
-	Height     int // channels * height (flattened for IOSurface)
+	Width       int // spatial or sequence dimension
+	Height      int // channels * height (flattened for IOSurface)
 	BytesPerRow int // row stride (must be 64-byte aligned)
-	AllocSize  int // total allocation size
-	ElemSize   int // bytes per element (2 for fp16, 4 for fp32)
+	AllocSize   int // total allocation size
+	ElemSize    int // bytes per element (2 for fp16, 4 for fp32)
 }
 
 // NewANESurfaceFromLayout creates an ANE IOSurface with explicit dimensions

@@ -270,7 +270,7 @@ func TestTensorLayoutMultiHeight(t *testing.T) {
 		Width:       32,
 		Height:      4,
 		ElemSize:    2,
-		RowStride:   64, // 32*2=64, already aligned
+		RowStride:   64,  // 32*2=64, already aligned
 		PlaneStride: 256, // 4 rows * 64 stride
 	}
 

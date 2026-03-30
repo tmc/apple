@@ -10,21 +10,21 @@ import (
 
 // Config describes a custom Virtio device configuration.
 type Config struct {
-	PCIClassID                 byte
-	PCISubclassID              byte
-	PCIDeviceID                uint16
-	PCISubsystemID             uint16
-	PCISubsystemVendorID       uint16
-	PCIVendorID                uint16
-	PluginName                 string
-	PluginPersonality          string
-	DeviceID                   uint16
+	PCIClassID                  byte
+	PCISubclassID               byte
+	PCIDeviceID                 uint16
+	PCISubsystemID              uint16
+	PCISubsystemVendorID        uint16
+	PCIVendorID                 uint16
+	PluginName                  string
+	PluginPersonality           string
+	DeviceID                    uint16
 	DeviceSpecificConfiguration objectivec.IObject
-	MandatoryFeatures          []uint32
-	OptionalFeatures           []uint32
-	Provider                   objectivec.IObject
-	VirtioQueueCount           uint16
-	SupportsSaveRestore        bool
+	MandatoryFeatures           []uint32
+	OptionalFeatures            []uint32
+	Provider                    objectivec.IObject
+	VirtioQueueCount            uint16
+	SupportsSaveRestore         bool
 }
 
 // NewConfig creates a custom Virtio device configuration and applies cfg.

@@ -117,10 +117,10 @@ func (w *BlobWriter) Build() ([]byte, error) {
 	for i, b := range w.blobs {
 		metaOff := blobFileHeader + blobChunkMeta*i
 
-		binary.LittleEndian.PutUint32(buf[metaOff:], blobMagic)              // sentinel
-		binary.LittleEndian.PutUint32(buf[metaOff+4:], uint32(b.dtype))      // dtype
-		binary.LittleEndian.PutUint64(buf[metaOff+8:], uint64(len(b.data)))  // size
-		binary.LittleEndian.PutUint64(buf[metaOff+16:], uint64(dataOffset))  // offset
+		binary.LittleEndian.PutUint32(buf[metaOff:], blobMagic)             // sentinel
+		binary.LittleEndian.PutUint32(buf[metaOff+4:], uint32(b.dtype))     // dtype
+		binary.LittleEndian.PutUint64(buf[metaOff+8:], uint64(len(b.data))) // size
+		binary.LittleEndian.PutUint64(buf[metaOff+16:], uint64(dataOffset)) // offset
 
 		copy(buf[dataOffset:], b.data)
 		dataOffset += alignUp(len(b.data), blobAlignment)

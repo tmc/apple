@@ -6,14 +6,14 @@ import (
 )
 
 var (
-	ErrNoANE                    = errors.New("ane: no ANE hardware available")
-	ErrCompileBudgetExhausted   = errors.New("ane: compile budget exhausted")
-	ErrMapFailed                = errors.New("ane: IOSurface mapping failed")
-	ErrUnsupportedSelector      = errors.New("ane: unsupported selector")
-	ErrVirtualClientUnavailable = errors.New("ane: virtual client unavailable")
-	ErrModelLoad                = errors.New("ane: model load failed")
-	ErrEval                     = errors.New("ane: evaluation failed")
-	ErrUnsupportedLayout        = errors.New("ane: unsupported tensor layout")
+	ErrNoANE                      = errors.New("ane: no ANE hardware available")
+	ErrCompileBudgetExhausted     = errors.New("ane: compile budget exhausted")
+	ErrMapFailed                  = errors.New("ane: IOSurface mapping failed")
+	ErrUnsupportedSelector        = errors.New("ane: unsupported selector")
+	ErrVirtualClientUnavailable   = errors.New("ane: virtual client unavailable")
+	ErrModelLoad                  = errors.New("ane: model load failed")
+	ErrEval                       = errors.New("ane: evaluation failed")
+	ErrUnsupportedLayout          = errors.New("ane: unsupported tensor layout")
 	ErrSharedEventRequiresPackage = errors.New("ane: shared events require package-backed models (ModelTypePackage)")
 )
 

@@ -326,8 +326,8 @@ func buildBinaryPlist(objectPayload []byte) []byte {
 
 	// Trailer (32 bytes).
 	var trailer [32]byte
-	trailer[6] = 1 // offset size
-	trailer[7] = 1 // object ref size
+	trailer[6] = 1                                                        // offset size
+	trailer[7] = 1                                                        // object ref size
 	binary.BigEndian.PutUint64(trailer[8:16], 1)                          // num objects
 	binary.BigEndian.PutUint64(trailer[16:24], 0)                         // top object
 	binary.BigEndian.PutUint64(trailer[24:32], uint64(offsetTableOffset)) // offset table offset

@@ -13,7 +13,7 @@ import (
 // MLModel.compileModelAtURL: expects.
 type mlpackageManifest struct {
 	FileFormatVersion   string                       `json:"fileFormatVersion"`
-	ItemInfoEntries     map[string]mlpackageItemInfo  `json:"itemInfoEntries"`
+	ItemInfoEntries     map[string]mlpackageItemInfo `json:"itemInfoEntries"`
 	RootModelIdentifier string                       `json:"rootModelIdentifier"`
 }
 

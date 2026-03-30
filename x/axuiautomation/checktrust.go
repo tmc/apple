@@ -265,11 +265,11 @@ func CheckScreenCapture() {
 				}
 
 				spinner.StopAnimation(nil)
-				spinner.SetIsHidden(true)
-				openBtn.SetIsHidden(true)
-				retryBtn.SetIsHidden(true)
-				resetBtn.SetIsHidden(true)
-				subtitleLabel.SetIsHidden(true)
+				spinner.SetHidden(true)
+				openBtn.SetHidden(true)
+				retryBtn.SetHidden(true)
+				resetBtn.SetHidden(true)
+				subtitleLabel.SetHidden(true)
 
 				const checkSz = 36.0
 				baseImg := appkit.NewImageWithSystemSymbolNameAccessibilityDescription(
@@ -277,7 +277,7 @@ func CheckScreenCapture() {
 				)
 				sizeCfg := appkit.NewImageSymbolConfigurationWithPointSizeWeight(checkSz, appkit.NSFontWeights.Medium)
 				colorCfg := appkit.NewImageSymbolConfigurationWithHierarchicalColor(
-					appkit.GetNSColorClass().SystemGreen(),
+					appkit.GetNSColorClass().SystemGreenColor(),
 				)
 				cfg := sizeCfg.ConfigurationByApplyingConfiguration(colorCfg)
 				checkImg := appkit.NSImageFromID(baseImg.ImageWithSymbolConfiguration(cfg).GetID())
@@ -409,11 +409,11 @@ func showWaitingForPermissionWindow() {
 			}
 			// Permission granted — transition to success state.
 			spinner.StopAnimation(nil)
-			spinner.SetIsHidden(true)
-			openBtn.SetIsHidden(true)
-			retryBtn.SetIsHidden(true)
-			resetBtn.SetIsHidden(true)
-			subtitleLabel.SetIsHidden(true)
+			spinner.SetHidden(true)
+			openBtn.SetHidden(true)
+			retryBtn.SetHidden(true)
+			resetBtn.SetHidden(true)
+			subtitleLabel.SetHidden(true)
 
 			const checkSz = 36.0
 			baseImg := appkit.NewImageWithSystemSymbolNameAccessibilityDescription(
@@ -421,7 +421,7 @@ func showWaitingForPermissionWindow() {
 			)
 			sizeCfg := appkit.NewImageSymbolConfigurationWithPointSizeWeight(checkSz, appkit.NSFontWeights.Medium)
 			colorCfg := appkit.NewImageSymbolConfigurationWithHierarchicalColor(
-				appkit.GetNSColorClass().SystemGreen(),
+				appkit.GetNSColorClass().SystemGreenColor(),
 			)
 			cfg := sizeCfg.ConfigurationByApplyingConfiguration(colorCfg)
 			checkImg := appkit.NSImageFromID(baseImg.ImageWithSymbolConfiguration(cfg).GetID())

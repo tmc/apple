@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	aneFrameworkPath     = "/System/Library/PrivateFrameworks/AppleNeuralEngine.framework/AppleNeuralEngine"
-	coreMLFrameworkPath  = "/System/Library/Frameworks/CoreML.framework/CoreML"
+	aneFrameworkPath      = "/System/Library/PrivateFrameworks/AppleNeuralEngine.framework/AppleNeuralEngine"
+	coreMLFrameworkPath   = "/System/Library/Frameworks/CoreML.framework/CoreML"
 	espressoFrameworkPath = "/System/Library/PrivateFrameworks/Espresso.framework/Espresso"
 )
 

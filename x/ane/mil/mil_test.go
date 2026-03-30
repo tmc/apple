@@ -9,9 +9,9 @@ import (
 
 func TestGenConv(t *testing.T) {
 	tests := []struct {
-		name             string
-		inCh, outCh, sp  int
-		wantContains     []string
+		name            string
+		inCh, outCh, sp int
+		wantContains    []string
 	}{
 		{
 			name: "4x8 spatial 1",

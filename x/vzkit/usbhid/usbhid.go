@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	pvz "github.com/tmc/apple/private/virtualization"
 	vz "github.com/tmc/apple/virtualization"
+	"github.com/tmc/apple/x/vzkit/privatevm"
 	"github.com/tmc/apple/x/vzkit/vm"
 )
 
@@ -27,16 +28,20 @@ func NewSender(queue *vm.Queue, vm vz.VZVirtualMachine) *Sender {
 	return &Sender{queue: queue, vm: vm}
 }
 
+func (s *Sender) privateVM() pvz.VZVirtualMachine {
+	return pvz.VZVirtualMachineFromID(s.vm.ID)
+}
+
 // requireReady checks the VM is running and accepting HID reports.
 func (s *Sender) requireReady() error {
 	state := vm.State(s.queue, s.vm)
 	if state != vz.VZVirtualMachineStateRunning {
 		return fmt.Errorf("%w: state is %s", ErrVMNotRunning, state)
 	}
-	var ok bool
-	s.queue.Sync(func() {
-		ok = objc.Send[bool](s.vm.ID, objc.Sel("_shouldSendHIDReports"))
-	})
+	ok, err := privatevm.ShouldSendHIDReports(s.queue, s.vm)
+	if err != nil {
+		return err
+	}
 	if !ok {
 		return ErrNotReady
 	}
@@ -56,7 +61,7 @@ func (s *Sender) SendKeyboardEvents(events unsafe.Pointer, keyboardID uint32) er
 		return err
 	}
 	s.queue.Sync(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events, keyboardID)
+		s.privateVM().SendKeyboardEventsKeyboardID(events, keyboardID)
 	})
 	return nil
 }
@@ -69,7 +74,7 @@ func (s *Sender) SendDigitizerEvents(events unsafe.Pointer, deviceIndex uint32) 
 		return err
 	}
 	s.queue.Sync(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendDigitizerEventsPointingDeviceIndex(events, deviceIndex)
 	})
 	return nil
 }
@@ -82,7 +87,7 @@ func (s *Sender) SendMouseEvents(events unsafe.Pointer, deviceIndex uint32) erro
 		return err
 	}
 	s.queue.Sync(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendMouseEventsPointingDeviceIndex(events, deviceIndex)
 	})
 	return nil
 }
@@ -95,7 +100,7 @@ func (s *Sender) SendScrollWheelEvents(events unsafe.Pointer, deviceIndex uint32
 		return err
 	}
 	s.queue.Sync(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendScrollWheelEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendScrollWheelEventsPointingDeviceIndex(events, deviceIndex)
 	})
 	return nil
 }
@@ -108,7 +113,7 @@ func (s *Sender) SendPointerNSEvent(event objectivec.IObject, deviceIndex uint32
 		return err
 	}
 	s.queue.Sync(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendPointerNSEvent:pointingDeviceIndex:"), event, deviceIndex)
+		s.privateVM().SendPointerNSEventPointingDeviceIndex(event, deviceIndex)
 	})
 	return nil
 }

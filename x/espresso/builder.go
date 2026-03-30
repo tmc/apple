@@ -13,18 +13,18 @@ type ElementwiseOp int
 
 // Espresso elementwise operation codes.
 const (
-	ElementwiseAdd  ElementwiseOp = 0
-	ElementwiseMul  ElementwiseOp = 1
-	ElementwiseMax  ElementwiseOp = 2
-	ElementwiseMin  ElementwiseOp = 3
-	ElementwiseSub  ElementwiseOp = 5
-	ElementwiseDiv  ElementwiseOp = 6
-	ElementwiseSqrt ElementwiseOp = 10
-	ElementwiseExp  ElementwiseOp = 11
+	ElementwiseAdd   ElementwiseOp = 0
+	ElementwiseMul   ElementwiseOp = 1
+	ElementwiseMax   ElementwiseOp = 2
+	ElementwiseMin   ElementwiseOp = 3
+	ElementwiseSub   ElementwiseOp = 5
+	ElementwiseDiv   ElementwiseOp = 6
+	ElementwiseSqrt  ElementwiseOp = 10
+	ElementwiseExp   ElementwiseOp = 11
 	ElementwiseRsqrt ElementwiseOp = 12
-	ElementwiseLog  ElementwiseOp = 13
-	ElementwisePow  ElementwiseOp = 14
-	ElementwiseAbs  ElementwiseOp = 15
+	ElementwiseLog   ElementwiseOp = 13
+	ElementwisePow   ElementwiseOp = 14
+	ElementwiseAbs   ElementwiseOp = 15
 )
 
 // Builder constructs Espresso IR JSON (model.espresso.net + model.espresso.shape)
@@ -37,13 +37,13 @@ type Builder struct {
 }
 
 type layerDef struct {
-	Name       string
-	Type       string
-	Bottom     []string
-	Top        []string
-	Attrs      map[string]any
-	WeightIdx  int // -1 if no weights
-	BiasIdx    int // -1 if no bias
+	Name      string
+	Type      string
+	Bottom    []string
+	Top       []string
+	Attrs     map[string]any
+	WeightIdx int // -1 if no weights
+	BiasIdx   int // -1 if no bias
 }
 
 // LayerOption configures a layer definition.

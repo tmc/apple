@@ -7,9 +7,10 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	pvz "github.com/tmc/apple/private/virtualization"
 	vz "github.com/tmc/apple/virtualization"
+	"github.com/tmc/apple/x/vzkit/privatevm"
 	"github.com/tmc/apple/x/vzkit/vm"
 )
 
@@ -39,6 +40,10 @@ func (s *Sender) sync(fn func()) {
 	s.queue.Sync(fn)
 }
 
+func (s *Sender) privateVM() pvz.VZVirtualMachine {
+	return pvz.VZVirtualMachineFromID(s.vm.ID)
+}
+
 // Ready reports whether the VM is running and ready for HID reports.
 func (s *Sender) Ready() bool {
 	return s.requireReady() == nil
@@ -52,10 +57,10 @@ func (s *Sender) requireReady() error {
 	if state != vz.VZVirtualMachineStateRunning {
 		return fmt.Errorf("%w: state is %s", ErrVMNotRunning, state)
 	}
-	var ok bool
-	s.sync(func() {
-		ok = objc.Send[bool](s.vm.ID, objc.Sel("_shouldSendHIDReports"))
-	})
+	ok, err := privatevm.ShouldSendHIDReports(s.queue, s.vm)
+	if err != nil {
+		return err
+	}
 	if !ok {
 		return ErrNotReady
 	}
@@ -73,70 +78,70 @@ func (s *Sender) send(fn func()) error {
 // SendKeyboardEvents sends keyboard event objects to the VM.
 func (s *Sender) SendKeyboardEvents(events unsafe.Pointer, keyboardID uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendKeyboardEvents:keyboardID:"), events, keyboardID)
+		s.privateVM().SendKeyboardEventsKeyboardID(events, keyboardID)
 	})
 }
 
 // SendMouseEvents sends mouse event objects to the VM.
 func (s *Sender) SendMouseEvents(events unsafe.Pointer, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendMouseEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendMouseEventsPointingDeviceIndex(events, deviceIndex)
 	})
 }
 
 // SendPointerNSEvent forwards a single NSEvent to the VM.
 func (s *Sender) SendPointerNSEvent(event objectivec.IObject, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendPointerNSEvent:pointingDeviceIndex:"), event, deviceIndex)
+		s.privateVM().SendPointerNSEventPointingDeviceIndex(event, deviceIndex)
 	})
 }
 
 // SendScrollWheelEvents sends scroll wheel events to the VM.
 func (s *Sender) SendScrollWheelEvents(events unsafe.Pointer, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendScrollWheelEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendScrollWheelEventsPointingDeviceIndex(events, deviceIndex)
 	})
 }
 
 // SendDigitizerEvents sends digitizer events to the VM.
 func (s *Sender) SendDigitizerEvents(events unsafe.Pointer, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendDigitizerEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendDigitizerEventsPointingDeviceIndex(events, deviceIndex)
 	})
 }
 
 // SendMagnifyEvents sends magnify events to the VM.
 func (s *Sender) SendMagnifyEvents(events unsafe.Pointer, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendMagnifyEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendMagnifyEventsPointingDeviceIndex(events, deviceIndex)
 	})
 }
 
 // SendRotationEvents sends rotation events to the VM.
 func (s *Sender) SendRotationEvents(events unsafe.Pointer, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendRotationEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendRotationEventsPointingDeviceIndex(events, deviceIndex)
 	})
 }
 
 // SendSmartMagnifyEvents sends smart magnify events to the VM.
 func (s *Sender) SendSmartMagnifyEvents(events unsafe.Pointer, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendSmartMagnifyEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendSmartMagnifyEventsPointingDeviceIndex(events, deviceIndex)
 	})
 }
 
 // SendQuickLookEvents sends Quick Look events to the VM.
 func (s *Sender) SendQuickLookEvents(events unsafe.Pointer, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendQuickLookEvents:pointingDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendQuickLookEventsPointingDeviceIndex(events, deviceIndex)
 	})
 }
 
 // SendMultiTouchEvents sends multitouch events to the VM.
 func (s *Sender) SendMultiTouchEvents(events unsafe.Pointer, deviceIndex uint32) error {
 	return s.send(func() {
-		objc.Send[objc.ID](s.vm.ID, objc.Sel("sendMultiTouchEvents:multiTouchDeviceIndex:"), events, deviceIndex)
+		s.privateVM().SendMultiTouchEventsMultiTouchDeviceIndex(events, deviceIndex)
 	})
 }
 
